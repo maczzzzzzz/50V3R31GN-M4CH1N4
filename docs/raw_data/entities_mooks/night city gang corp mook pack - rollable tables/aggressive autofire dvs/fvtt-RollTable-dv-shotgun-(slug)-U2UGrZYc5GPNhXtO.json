@@ -1,0 +1,148 @@
+{
+  "description": "<p>Core Rulebook Page 173</p>",
+  "displayRoll": false,
+  "formula": "",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg",
+  "name": "DV Shotgun (Slug)",
+  "replacement": false,
+  "results": [
+    {
+      "_id": "sUWQj3YR1UOtuWrb",
+      "documentCollection": "",
+      "documentId": null,
+      "drawn": false,
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg",
+      "range": [
+        0,
+        6
+      ],
+      "text": "13",
+      "type": "text",
+      "weight": 1,
+      "flags": {}
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        7,
+        12
+      ],
+      "drawn": false,
+      "_id": "PRA1dsM7IqoPTiMB",
+      "text": "15",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        13,
+        25
+      ],
+      "drawn": false,
+      "_id": "7gKT8H2qEAJdcSKO",
+      "text": "20",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        26,
+        50
+      ],
+      "drawn": false,
+      "_id": "XJjXluD5unU0o8wT",
+      "text": "25",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        51,
+        100
+      ],
+      "drawn": false,
+      "_id": "6fLZfozUh8iTHwlc",
+      "text": "30",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        101,
+        200
+      ],
+      "drawn": false,
+      "_id": "FtHLM4guDVc2G2yO",
+      "text": "35",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        201,
+        400
+      ],
+      "drawn": false,
+      "_id": "GK6Mw48BZfiYw0dZ",
+      "text": "N/A",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "",
+      "weight": 1,
+      "range": [
+        401,
+        800
+      ],
+      "drawn": false,
+      "_id": "wE41XJTJMAFvQIXY",
+      "text": "N/A",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_DV_Table.svg"
+    }
+  ],
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "AvBlpZJC7mNUWL88",
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

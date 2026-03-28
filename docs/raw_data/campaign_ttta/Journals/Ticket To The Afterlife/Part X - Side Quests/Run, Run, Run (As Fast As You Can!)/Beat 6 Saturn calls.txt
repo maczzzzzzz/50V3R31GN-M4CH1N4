@@ -1,0 +1,35 @@
+Use the Night City Bank scene from Mission 3 - Robbin The Hood.
+
+Place the player tokens on the street outside the bank.
+
+Place 6 RatSec Grunts at the entrance, keeping watch on the crowds.
+
+Place 3 RatSec Elite and 1/2 partycount RatSec Grunts in the southernmost portion of the admin area of the bank (where the couch is), keeping an eye on the security cameras.
+
+Place 3/4 partycount RatSec Execs around the scene at your discretion.
+
+For every other actor in the scene, place up to 3 civilians, representing bank staff and customers.
+
+Bank of Night City
+
+It is already late in the evening and so the PCs cannot visit the Bank of Night City in Little Europe until the next morning. The spare time can be used to relax or further research.
+
+The Bank of Night City branch is now heavily guarded. It might have something to do with a recent robbery (see: Mission 3 - Robbin The Hood). There are very thorough checks for weapons. These must be left within a locker in a transition area on the way to the main room. They are scanned for potentially dangerous cyberware and PCs who have it must wear a bracelet for the duration of their visit, which disables the cyberware in question.
+
+Due to the recent heist, before entering, let the PCs roll on their Personal Grooming skills in order to see how good their disguises are. If they fail, they might save the day by some decent Acting checks. This leads to two different outcomes. If they fail, continue with Option 1. If, however, they are successful in their deception, skip to Option 2.
+
+Option 1.) The PCs are screwed! An attentive bank employee or security guard recognises their amateurish attempt at deception. The bank's alarm is activated and, of course, the NCPD also receives a message about what appears to be the second robbery attempt within a very short time by the same perpetrators. How can anyone be so stupid and greedy? The bank employees slightly shake their heads in disbelief. Feel free to make the ensuing combat encounter as tough as nails.
+
+The PCs should now disappear as quickly as possible (Bombshell? Bombshell!) and have to obtain the contents of the safe deposit box via a trustworthy person or hired middleman.
+
+To do this, they must of course spend money, contact a fixer and hand over the mandate. Hopefully this goes well and the middleman doesn't disappear with the desired goods.
+
+Option 2.) Depending on the appearance of the PCs, the staff will treat them with anything from professional neutrality to arrogant disdain. It may take some Persuasion checks to convince the employees of the legitimacy of their mandate, but in the end they are led to the basement. There they are handed the suitcase from the safe deposit box and then kindly asked to leave.
+
+Devil inside
+
+The PCs can now find a quiet place to inspect the contents of the suitcase. Inside is the cryptocurrency hardware wallet mentioned in the screamsheat articles. Without the correct code, it is almost impossible to gain access to the device's contents, though.
+
+A short time later, Sprinter reports to one of the PCs from a disposable cell phone. Contrary to her otherwise professional demeanor, she appears extremely stressed, hectic and exhausted. She wants to meet with the PCs at the arcade on Moore Street as soon as possible. She gives no further information on the phone and hangs up. A professional check on Human Perception suggests that she is very worried about persecutors.
+
+The meeting is supposed to take place 90 minutes after the call. However, Sprinter does not show up. The PCs can wait at the meeting point for as long as they like.

@@ -1,0 +1,167 @@
+{
+  "folder": "kyGRdF4jJWnEO5tg",
+  "name": "2. Nationality",
+  "img": "icons/svg/d20-grey.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "XypjkcIWgN9rAS0z",
+      "text": "Night City Native - someone from the local street beats, living the dream in the big leagues. Makes heavy use of streetslang.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "_id": "Cvmyp1TkQuuuxfPN",
+      "text": "No flags - a drifter, likely from the Badlands or Thelas originally. Self-sufficient.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "_id": "yaYy8h3VS3xo9WwX",
+      "text": "PanAfrican - someone who's left (or, more likely, was banished) from PanAfrica, making their way in the world. Very well educated.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "_id": "nuB6ozBHOcocSlEY",
+      "text": "West Asian - Japanese or Korean, presumed an Arasaka agent (that's racist, btw).",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "_id": "uOmP9J6FqdGgrWN2",
+      "text": "East Asian - Chinese or Indian. Probably started as a skilled tradesman of some kind; if Chinese, probably older than most.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "_id": "KrVMGRu4KPLTYRrn",
+      "text": "Eastern European/Russian - likely a fan of Zhirafa, decked out in tech from brands nobody's ever heard of.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "_id": "awja84gaJq5DPEnO",
+      "text": "Western European - French, German, British, etc. The grass is always greener...",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "_id": "85rFGjcSsGh0AYoz",
+      "text": "NUSA/Free State Expat - The city of dreams called, and they answered. Carpe Diem, Manifest Destiny, whatever.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "_id": "PJIU9mbuxjEKbOPS",
+      "text": "South American - Has definitely grown up and lived in active warzones for most of their life.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "_id": "VlBa9uQgUCILK9HQ",
+      "text": "Canadian/Alaskan/Siberian - If from South Canada, sure, makes sense - if from elsewhere, a strange choice to leave the Garden of Eden.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224954365,
+    "modifiedTime": 1774375917758,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d10"
+}

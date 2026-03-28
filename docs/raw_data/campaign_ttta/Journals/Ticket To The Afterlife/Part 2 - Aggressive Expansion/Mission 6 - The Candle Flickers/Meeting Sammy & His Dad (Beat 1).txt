@@ -1,0 +1,73 @@
+This mission makes use of the @UUID[Scene.fqgvewCqt8z94mll]{7th Circle Bar & Casino} and @UUID[Scene.kCCmgpQ8ydS06ngn]{Shady Shallows Retirement Home} scenes, along with a few environments. To begin:
+
+Populate the Afterlife with guests at your preference - civilians, gangsters, corpos, whatever.
+
+Place @UUID[Actor.Y7NnvbMut6swzVaA]{Checkers} at one of the tables in the gambling pit.
+
+Place @UUID[Actor.ulLREe1e9ZU3s2bv]{Metrovsky Petrovitch} at the table Silvers is sitting at, as well as 1-3 other tokens of your choosing. Leave enough space at the table for 2 other people to join.
+
+A small crowd has also gathered around the table - it's the evening's high-roller game.
+
+Place @UUID[Actor.rQdrdTOYV13yilZD]{Sammy} behind the bar and @UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers} at the door.
+
+Place @UUID[Actor.8UOCtWf5IJ7wa8y7]{David Valdez} in front of the bar.
+
+Place the player tokens inside the scene.
+
+Ask players for entry payment - the Afterlife will comp anyone there on business, but any comped players won't get the benefits of the Afterlife's services.
+
+Change the scene to @UUID[Scene.VCbthP8Ez4uhtdkr]{Afterlife Exterior Environment.}
+
+Then read the following:
+
+Burning Wax
+
+Following your meeting with the Afterlife's Owner, Sammy is true to Vido's word, and reaches out to each of you personally soon afterwards - and for once, he's nice and up-front with the details.
+
+Evidently it's time for the Afterlife to put it's upper floors to use, and to do that, the club needs a head of house - someone to make sure the sheets stay clean and the hallways pristine.
+
+Sammy's got an idea, but it's not his own - his old man knew a guy who knew a guy who'd be perfect for the job, and Papa Chauvin just so happens to owe the mystery man a favor. The trouble is, nobody knows where the future master housekeeper actually is - somewhere in Night City for sure, but that's a wide net to cast.
+
+He's asked you all to the Afterlife this evening, to talk to his pops and see if you can track down where this other old fella might be. Somewhat of an odd job to be sure, but not the strangest you've seen.
+
+Inside the 7th Circle
+
+Inside the Afterlife, it's already business as usual, even though the club's only been open a few days. Clarisa is dancing wildly on the floor as if nothing had ever happened to her and, fortunately, doesn't notice you come in. The gambling pit is full, tonight, thanks to a local tournament, and it's the first time you've seen so many gangbangers of different stripes coexisting so peacefully in one place.
+
+At the bar, Sammy's busy slinging booze to anyone who asks. Sitting across from him is a silver fox that can only be his father, with a beautiful young woman on either side of him. Despite his age, he looks every bit as good as Sammy does, and without a trace of visible cyberware, either. Either he won the genetic lottery, or his cosmetic surgeon is a few cuts above what you'd otherwise expect.
+
+It's obvious one takes after the other, though it's unclear who's which. Sammy Sr. has the same waxed mustache, the same troublemaking smile, and the same inexplicable taste for banana-yellow suits.
+
+He's most remarkable for being one of the few old people you've run into in Night City thus far. The Time of the Red hasn't been kind to senior citizens, and most of those who've survived are execs up in their towers, or else in retirement pods squirreled away in basements and apartments.
+
+Sammy points and grins as you approach, and his father stands up off his barstool to offer his hand to the group. The two women stand up as well, and head off to a table nearby to wait for him. "David Valdez, otherwise known as Mr. Chauvin Senior around these parts. A pleasure to meet you."
+
+Sammy's father is cordial and impeccably polite, even if his conversation partners… aren't. See his character sheet for notes on how to roleplay him.
+
+He and Sammy have a good relationship built on mutual respect, forged atop a rocky history, uprooted by the death of Sammy's mother and sister in Guatemala and their differing responses to it; Sammy left and became an edgerunner in LA, while David pursued and ultimately found revenge for his family.
+
+Regardless of this storied history, though, David's in Night City for the long haul now, pursuing a well-earned retirement with the help of his son. When made aware of the Afterlife's staffing needs, he volunteered someone to fill the role, but needs help tracking him down. He shares the following information.
+
+In his storied history, Mr. Valdez has known many executives and their assistants - gentlemen of the highest sort, though neither afraid to get their hands dirty.
+
+The exemplar of this idea was one Mr. Rodger Stout, a British head of household whom David knew throughout Stout's work for several different execs.
+
+David and Rodger were good friends - though their life paths differed, they bonded over the other's commitment to excellence, virtue, and exceptionalism in their chosen paths.
+
+As far as David is aware, Rodger is living in Night City, having moved there around the same time David did (1 year ago).
+
+However, in the last 3 months or so, Rodger has seemingly disappeared, and that has Mr. Valdez worried.
+
+David has one lead - Rodger's former employer, a high level exec at SovOil and the man in charge of their few remaining operations in Night City.
+
+Lucky you - it so happens that the exec in question happens to be nearby. Quite nearby, in fact.
+
+With help from the Afterlife's network, Sammy and David have sequestered the exec in the gambling pit, where he's being kept occupied by Checkers as part of tonight's high-roller table.
+
+Mr. Valdez was considering joining the game himself, but at Sammy's recommendation, offers the chance to the players, instead.
+
+Up to 2 chairs at the table of 5 are still open, thanks to Checkers being in on the scheme.
+
+With all this said, David cautions the players - he doesn't know what happened to Rodger, and execs are dangerous. Given the circumstances, it's unlikely that Rodger's whereabouts are mere happenstance.
+
+Mr. Valdez will also provide the players with a general physical description of Mr. Stout, and point out the exec in question, before wishing them luck.

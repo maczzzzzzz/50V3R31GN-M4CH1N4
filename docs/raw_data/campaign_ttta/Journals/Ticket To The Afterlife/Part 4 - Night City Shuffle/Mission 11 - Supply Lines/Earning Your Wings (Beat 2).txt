@@ -1,0 +1,39 @@
+For this beat, change the scene to @UUID[Scene.6hT6obPZNLoSsbiD]{Afterlife Sublevel 2.} Place the player tokens and Mr. Connors around the marketplace, then read the following:
+
+You Read The Manual, Right?
+
+Once you're finished, Connors stands and makes to escort you downstairs into the yet-to-be-opened market area, astride the parking garage. "I've already prepared uniforms, tailored to fit your various sizes. They won't conceal much, but I've taken the liberty of ensuring that they at least fit over your usual armor."
+
+And true to his word, he's provided you what you need - a set of navy-blue flight jackets and corresponding vests and slacks along with, for those so inclined, a similarly-blue flight cap (no logo, though) and pair of aviator sunglasses.. Across each, the yellow Zhirafa logo has been proudly emblazoned - a small one on the chest and right shoulder, and a large one on the back. All of them have been fitted to work with your typical armor of choice.
+
+"And of course, you'll need your I.D.s," Connors adds. He nods towards a desk in the corner - on it, a collection of plastic tags are spread, as generically corporate as the outfits. "Short notice, low-security, Zhirafa provided. They won't have enough authorization to get you into anything that the captain or his first mate wants you out of, but they'll suffice for opening the ship's doors."
+
+"Ah, and the final touch," he adds. From below the same desk, he retrieves a set of backpacks, compressed into near-wafer thinness. An unmistakable ripcord dangles from the right front strap of each, along with a harness for attaching it at the chest, waist, and around the thighs. "In case you find yourself in a long fall, a parachute will ensure that there is no sudden stop at the end. Pull to deploy. Do note that while the pack is kevlar-reinforced, there is no backup chute. If you intend to enter a firefight, I recommend not being shot in the back; doing so would render it quite useless."
+
+All characters may add the following to their inventory:
+
+1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.8HiBXhTMq5r2EKlM]{Ez-Breeze Parachute}
+
+1 @UUID[Item.eFWQX1bHhPETeuaM]{Zhirafa Security Badge}
+
+1 Zhirafa flight security crew outfit, comprised of:
+
+A @UUID[Compendium.cyberpunk-red-core.core_clothing.Item.2mb53u4D65ddOlNx]{Businesswear Jacket} (rename to Zhirafa Flight Jacket)
+
+A set of @UUID[Compendium.cyberpunk-red-core.core_clothing.Item.7R9YRIcp19dPV3eV]{Businesswear Bottoms} (rename to Zhirafa Flight Slacks)
+
+A @UUID[Compendium.cyberpunk-red-core.core_clothing.Item.ZfvZg3yRrs9mHEqT]{Generic Chic Top}
+
+All of which will accommodate the character's usual armor plates, though it won't conceal them.
+
+Courtesy of Mr. Connors, at their discretion players may also add:
+
+1 pair of @UUID[Compendium.cyberpunk-red-core.core_clothing.Item.lNAutq2C1if6vjlT]{Urban Flash Glasses} (aviators)
+
+1 @UUID[Compendium.cyberpunk-red-core.core_clothing.Item.8wOCTUwRwIWMdbEH]{Leisurewear Hat}, (a sleek, warm, faux-leather aviator's cap).
+
+Once everyone's taken their possessions, Connors finishes up. "Now then, with that out of the way, I do have a small collection of goods here for your perusal, just for the occasion. Best of luck, edgerunners; the Dustwalkers will be here tomorrow morning for your pickup."
+
+Though not a Night Market, Connors will nonetheless procure cheap goods in exchange for Eagles, at a rate of 1 Eagle = 200eb of gear. For the moment, players may only purchase gear items worth 100eb or less each in this fashion.
+
+Once everyone's geared up and ready for the mission, advance time to the following morning, and move to the next beat.

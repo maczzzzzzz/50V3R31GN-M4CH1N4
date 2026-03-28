@@ -1,0 +1,60 @@
+{
+  "folder": "nw7GVCTc2LMEvDZe",
+  "name": "Trailer",
+  "type": "vehicle",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Trailers/Trailer%20-%20Empty.png",
+  "system": {
+    "description": {
+      "value": "<p><span style=\"font-family:Jost\">Nomad access 1.</span></p><p>Trailers can be found all over the place in the time of the RED, being one of the two primary methods for getting stuff around (the other is trains). They aren't actually vehicles, obviously - they just have some tires so they can be pulled around by a Hauler. They're fitted to carry a standard cargo crate, if you feel like putting your home on wheels, but will haul just about anything you can fit on them.</p><p><span style=\"font-family:Jost\">While built to be towed by a Hauler, any 4+ wheeled vehicle can tow a trailer so long as they've installed the Heavy Chassis upgrade.</span></p><p><em>Tokens and Art by reddragon8928 on Discord. Redistributed with permission.</em></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 7000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 50,
+    "seats": 0,
+    "speedCombat": 20,
+    "speedNarrative": ""
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

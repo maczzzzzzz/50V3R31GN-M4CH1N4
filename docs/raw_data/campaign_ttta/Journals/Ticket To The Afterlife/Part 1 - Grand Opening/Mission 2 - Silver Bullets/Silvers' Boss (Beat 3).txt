@@ -1,0 +1,91 @@
+In this beat, the party must squeeze the whereabouts of Silvers' child from the clutches of her boss, one way or another.
+
+This scene uses the @UUID[Scene.x34watvhLSZ6Fkp2]{Silvers' Office Environment} scene. To proceed:
+
+Familiarize yourself with the Layout & Occupants of 166 W. Max so as to explain to your players
+
+Describe it yourself, gonk, don't be lazy and dump the layout description on them.
+
+Figure out how you intend to represent Silvers' boss as a character - there are no strict rules, but they do have a few character traits listed under As The Boss.
+
+Then switch the scene to Silvers' Office Environment, and read the following:
+
+166 W. Max Street, New Westbrook
+
+The office that Silvers works in sticks out from New Westbrook's industrial sprawl like a sore thumb - a big, black, single-story cube of tinted windows and painted concrete. The Badlands dust which clings to the surroundings seems to ignore it, as though its very existence is aberrant to its surroundings.
+
+Once players have entered…
+
+Inside, a guard looks up at you from a reception desk, where they were reading from an electronic tablet and are clearly bored. "Can I help you?" They ask.
+
+Around you are a scattering of chairs and coffee tables; on the left is a door which has been left ajar, revealing more security staff clustered around a television - from the sounds of things, they're playing a splitscreen game of an old first person shooter on an out of date console.
+
+Next to the desk, an L shaped hallway branches, with one arm going left and disappearing behind the back of the security office, and the other going straight into the back of the building; there are what looks to be two other rooms connected to it, and the doors of both are closed.
+
+If players get into the security office…
+
+The room is small and packed with furniture, with a widescreen television against the wall which abuts the hallway. A few metal desks are scattered about, none of which have any personal effects on them, but most of which have various amusements - tablet computers, books, etc. Furniture is scattered about in front of the television, underneath which is a notoriously failure-prone game console from the early 2000s along with a collection of old games and controllers.
+
+If players enter the Boss's office…
+
+The office strikes you as kitschy, as though all the items in it were bought just because they were expensive rather than because they fit each other. A snow-white, furry rug covers the carpeted floor, atop which sits a desk that's made of redwood, with a computer atop that. There's no keyboard, though there is a monitor - evidently cyberware of some kind is used to operate it instead. Behind it, a tinted window looks out into a trash-strewn back alley and the wall of an industrial facility. In the corner is an L-shaped couch, and there's a trio of chairs in front of the desk, as well as a gaudy, throne-like leather computer chair sitting behind it.
+
+If players enter the Boss's rec room…
+
+The room is dominated by neon lighting, and the windows have been blacked out. It smells like sex. There's a large couch in the center of the room, sitting atop a leopard-print carpet which itself sits on a brightly patterned, extremely gaudy carpet that looks like it came straight out of an arcade in the 2020s. Around the room are scattered tables with various entertainment features, along with a small fridge and kitchenette.
+
+Layout
+
+The building has two entrances/exits: a pair of double sliding doors at its front, and a fire escape about halfway down the left side, at the end of a hallway.
+
+The building itself is only four rooms; entering through the front, a lobby is lined with chairs, with a small reception desk at its back. To the left is a door to the security office, which contains most of the staff along with some furniture, a few desks, and some entertainment.
+
+Heading down the hall that's behind and to the left of the receptionist desk, on the left is the office of Silvers' boss. On the right is the boss's rec room, which has a plush sofa, a fridge filled with prepak snacks, Smash, and liquor, and a scattering of tables holding braindance gear, gaming setups, and several hits of street drugs of your choice. How much all this junk is worth is up to you.
+
+Occupants
+
+The building is staffed by 1*Partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.91JT7Zncn3Sb60Ge]{RatSec Elites} - Silvers' team. There's one in the lobby, and the rest are either off-site or in the security office amusing themselves. They won't bother the player unless failing to do so would arouse the suspicion of Silvers' handler.
+
+Speaking of, Silvers' Boss is a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.nUF7oF2uBUTM4Ur4]{RatSec Exec}, named at your discretion. They occupy their office in the back left corner, along with Silvers, and a pair of vigilant @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.6rEW0UHcCQVMShPe]{Militech Suppressors} which are loyal to the boss and only the boss.
+
+As The Boss
+
+Silvers' boss is a stereotypical exec trust fund (wo)manchild, with a lot of money and no sense whatsoever. Their father has given them Silvers, which they use to run black ops against SovOil, but they don't do any fighting themselves - they let Silvers' team do it instead.
+
+The boss has a raging addiction to Synthcoke and Blue Glass
+
+They love status, but nobody likes them - you know the type, they have lots of "friends" that they party with but would never be invited if they weren't rich.
+
+They're very… dude-bro. They look down on everyone and think they're smart despite having never worked a real day in their life.
+
+Bobby is being held at a Petrochem fuel depot which is owned by the wing of the company which the exec reports to.
+
+The team of gangsters that are there, watching Bobby, are also siphoning off fuel from the facility and selling it to their friends, in exchange for giving the exec a 50/50 split of the profits.
+
+Though the exec themself doesn't care about this development, the corporation might if they heard of it.
+
+The info on where Bobby is being kept can be located in several places (see Thinking Outside the Box). Aside from the options kept there at GM discretion, it can be located in the scene:
+
+On the computer in the boss's office (Netrunning checks at GM discretion; otherwise, requires a DV17 Electronics/Security to locate, and access to an interface with which to use the computer
+
+Otherwise, the boss themself will likely spill the beans - the party needs only to find a way to coerce him into doing so without his realizing/caring what he's doing. This can be accomplished in 4 ways:
+
+The direct approach: A DV17 Interrogation Check is required, if the Militech guards are dealt with and the boss is put into a position to be "coerced."
+
+The persuasive approach: A DV24 Persuasion Check can be made to bribe the exec into releasing the information, which can be reduced to a DV15 if offered in conjunction with a bribe of 1000eb or more (this can be determined with a base roll of 11 or more in the Bribery skill after a couple of minutes of conversation, or by making a DV13 Bribery check after the same period).
+
+The boss has a party to go to, and they've used up their allowance for the month.
+
+The conversation approach: A DV17 Conversation Check can be made if the boss is comfortable with the presence of the person making it - E.G. drinking with them, doing drugs, they go to the same parties, etc. On success, they spill the beans.
+
+The deductive approach: A DV15 Deduction check can be made after speaking with the boss for more than 20 in-game minutes, to piece together a likely area of search and just find the location yourselves.
+
+If the boss is threatened, they can use their internal agent to call a predetermined number, with the call being the signal to kill Bobby.
+
+Doing so only takes 1 action or 5 seconds, and only requires a voice command.
+
+The signal will also automatically be sent if the boss dies, as extra incentive for Silvers' to keep them alive on the job.
+
+The gangsters won't actually kill Bobby - they like him too much - but 10 minutes after the call is made, they'll disappear into Night City, never to be heard from again.
+
+Once the players have located the info they're after, or successfully screwed the pooch on finding it, progress to Beat 4 or 5.

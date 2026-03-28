@@ -1,0 +1,26 @@
+This beat continues the scene from beat 3; no new enemies are placed, but be ready to bring in the scav reinforcements if appropriate - see Scav Reinforcements for more details.
+
+Who Goes There?
+
+Once awoken, Rodger is delirious, thanks to the spiked chipware in his head. Once the chipware is removed (any qualified doctor would spot it eventually), he'll recover naturally after a couple weeks, but this process can be expedited through inserting an anti-Alzheimer's chip. One can be found among the scrap in the chop shop.
+
+Scav Reinforcements
+
+Unless the party was especially stealthy, it's likely that the scavs will have notified reinforcements, either via the receptionist or from the guards hitting a panic button.
+
+These reinforcements will arrive in the parking lot on the north side of the map, and form a perimeter before entering. If no violence has occurred, the scavs will try to figure it if/who/how many people know about their operation before attacking.
+
+In either case, they won't usually allow the party to leave alive, and will do everything they can to return the sleeper(s) to their bed(s).
+
+If they are intimidated or persuaded to stand down, the entire operation will vanish within 12 hours, leaving nothing but an empty building.
+
+Awakening the Sleepers
+
+If/when the players realize what's going on, they might want to rescue the rest of the folks in the home. Doing so requires a DV17 Electronics/Security check at any terminal in the building with admin access, or a DV11 Netrunning check from any access point with admin access.
+
+Once awoken, the sleepers use the stats of Civllian mooks, except they have 10 current HP, their Physical skill has been reduced to 5, and their REF stat has been increased to 7, and their Martial skill has been increased to 4 (note: REF taken into consideration for Martial number, default civillians show 7: 2 in skill + 5 in REF).
+
+They might be delirious similar to Stout, at GM discretion. They've received combat training while in stasis thanks to the battle royale they were forced to fight in, and are semi-capable fighters.
+
+This beat can be skipped; once it's resolved, move onto beat 6.
+

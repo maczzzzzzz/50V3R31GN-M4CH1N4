@@ -1,0 +1,62 @@
+{
+  "folder": "GdupeWGrdrnYzRvR",
+  "name": "Afterlife Apartment (Rename Me With Apt # Or Player Owner)",
+  "type": "gear",
+  "img": "modules/ticket-to-the-afterlife/packs/ticket-to-the-afterlife/Afterlife%20Evergreen/Downtime%20Day.webp",
+  "system": {
+    "description": {
+      "value": "<p>An apartment worthy of the new-age kings of the executive zone. Can you believe that the ultra-wealthy would consider this stuff the basic standard?</p><p>See @UUID[JournalEntry.fq7plcECWYV0RK3Z]{7. (Optional) No Place Like Home DLC Integration} for details on usage.</p>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 100
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 2,
+      "slots": 4
+    }
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953275,
+    "modifiedTime": 1774375916124,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

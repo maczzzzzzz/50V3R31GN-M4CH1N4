@@ -1,0 +1,265 @@
+{
+  "folder": "wfo1b78X1ygRgdoN",
+  "name": "Outfit - Businesswear (G&C Ver)",
+  "type": "clothing",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Clothing.svg",
+  "system": {
+    "description": {
+      "value": "<p>A formal suit of some kind, but make no mistake - if you're looking for the tucked shirts and clip-on ties of a cube farm, look into Generic Chic. This stuff looks sharp - like it's worth every eddy spent on it. Like it could puncture the hull of a Militech Warlord-class assault carrier, leaving hundreds to drown at sea. Because it's so sharp.</p><p>While wearing the outfit:</p><ul><li><p>The wearer is unmistakably a corpo;</p></li><li><p>They gain <strong>+2 to Accounting, Bureaucracy, Business, Interrogation, and Trading</strong> rolls;</p></li><li><p>They gain <strong>+3 to Wardrobe &amp; Style </strong>rolls;</p></li><li><p>And they suffer <strong>-2 to Local Expert, Persuasion, Bribery, and Conversation</strong> rolls against anyone or anything not affiliated with the corporate elite. Fucking corp rats - stay in your hole!</p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "equipped",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 1000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "type": "top",
+    "style": "businesswear"
+  },
+  "effects": [
+    {
+      "name": "Outfit - Businesswear (Bonuses)",
+      "origin": "Item.raj6ISC9EFCvwflW",
+      "disabled": false,
+      "_id": "XFXNz1iCRws0X79L",
+      "changes": [
+        {
+          "key": "bonuses.accounting",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.bureaucracy",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.business",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.trading",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.wardrobeAndStyle",
+          "value": "3",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.interrogation",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "skill",
+              "1": "skill",
+              "2": "skill",
+              "3": "skill",
+              "4": "skill",
+              "5": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": false,
+                "onByDefault": true
+              },
+              "1": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "2": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "3": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "4": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "5": {
+                "isSituational": false,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "Outfit - Businesswear (Penalties)",
+      "origin": "Item.raj6ISC9EFCvwflW",
+      "disabled": false,
+      "_id": "p5Mjqm5p1zZkxk61",
+      "changes": [
+        {
+          "key": "bonuses.localExpert",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.persuasion",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.bribery",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.conversation",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "skill",
+              "1": "skill",
+              "2": "skill",
+              "3": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": true
+              },
+              "1": {
+                "isSituational": true,
+                "onByDefault": true
+              },
+              "2": {
+                "isSituational": true,
+                "onByDefault": true
+              },
+              "3": {
+                "isSituational": true,
+                "onByDefault": true
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

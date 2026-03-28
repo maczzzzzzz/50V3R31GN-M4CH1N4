@@ -1,0 +1,89 @@
+This beat, as usual, takes place in the 7th Circle. To begin:
+
+Place tokens for the club's staff (Sammy, Checkers, Silvers) around the bar and populate the bar at your discretion.
+
+Place Vido in his usual booth at the back.
+
+Place @Actor[cPKW14g48b5jpes3]{Ranger, Head Of The Dustwalkers} in the booth with Vido
+
+Place the player tokens at the bar's entrance.
+
+Then read the following:
+
+Blowing Hot Air
+
+"Howdy, cowboys!" Vido's text reads. "I am told my western accent is truly terrible - alas, I lack the Italian blood which made the old west shine. In any case, you are needed at the Afterlife this afternoon, at 14:00 hours, for the next job. You'll be operating out in the dust, so I recommend bringing some decent boots, and a water bottle. The jackets will be provided."
+
+Inside the Afterlife, the scene is as-usual, and thankfully clown-free. Silvers is standing watch over a high-stakes table in the gambling pit. Given that the table occupants are Tygers, it's a safe guess that more than just money is being gambled on.
+
+Over at the bar, Sammy gives you a cheery wave. Clarisa Bohr is laughing too loudly, very obviously high on something-or-other, and a 20-something himbo in a bright, asian pop jacket is sitting next to her and very clearly regretting his choices.
+
+In the back, the Frenchman is keeping someone company in his usual booth. You don't recognize the other man, but he's obviously a nomad. If the sun-beaten leather armorjack and full face mask weren't enough of a getaway, there's a thin trail of dust leading from the door to the booth.
+
+Vido says something, and the nomad stands as you're spotted, shedding more dust on the booth in the process. Through his breathing mask you hear a Mexican accent and a smile. "Hola, locos!" he calls. "I take it you're the specialist French Fries was telling me about?"
+
+Vido's smile seems decidedly fixed, and he mutters under his breath about French Fries being an American invention.
+
+Ranger is extroverted and friendly to pretty much anyone that he doesn't consider a threat, even if the feeling isn't mutual. The only exception to this are obvious borgs and psychos, which he considers a liability.
+
+He will assign each player a nickname, regardless of their real name or handle.
+
+He will freely share his background and personal details if asked - see his mook sheet for more details.
+
+He will decide if he trusts the party almost immediately, operating entirely on intuition and first impressions.
+
+Ranger is in the bar to represent his family, called the Dustwalkers - a small, talented group of smugglers that the Afterlife intends to hire.
+
+The Dustwalkers were once part of the Steel Vaqueros nomad family, which were themselves part of the Aldecaldo nation.
+
+Ranger split off from the Vaqueros when his subclan's motor pool began eclipsing the larger family's, and his disagreements with their leadership intensified.
+
+Ranger wanted more discretion in the jobs his clan took; the leadership of the Vaqueros disagreed.
+
+The two families aren't necessarily shoot-on-sight, but neither are they on especially good terms.
+
+The Dustwalkers specialize in smuggling of all kinds, and in discretion - a highly sought after and difficult-to-maintain trait.
+
+Their reputation precedes them in the higher circles of Night City - they're the best of the best.
+
+The Job
+
+Once Ranger's given the party some background on the Dustwalkers, Vido takes over to provide the job details, but notes that this one will be harder than most, and emphasizes that there's no shame in walking away - the target of the job is none other than Militech.
+
+A few days ago, some of Ranger's people were involved in a smuggling job that went wrong, resulting in both Ranger's personal ride, as well as the family's A/V-4, being "repossesd" by Militech.
+
+The group were hazed by a fixer that double-crossed them for Militech in exchange for a cut of the cargo - highly valuable military-spec weapon and vehicle parts.
+
+Said fixer is now rotting, thanks to Vido - a favor to show the Afterlife's good will towards Ranger's crew.
+
+Ranger and most of his people got out alive, and most of the vehicles were inconsequential and easily replaced. Two, however, were not - Ranger's personalized pickup, and an A/V-4.
+
+Like any good motorhead, Ranger will brag about his vehicle given the chance - it's a @UUID[Compendium.cyberpunk-red-core.black-chrome_vehicles.7CayuDCC2lrf4LkR]{Volkhov} that's been upgraded with a smuggling compartment, comms center, NOS, and a security upgrade - everything a nomad leader could ever need, and not easily replaced if lost.
+
+As part of Ranger's terms for signing on at the Afterlife, its management has agreed to recover his vehicles for him.
+
+Fortunately, nobody has to raid the NorCal Military Base - instead, the vehicles are being transported North, to a Militech base in Sacramento, to be retrofitted for service to the corp.
+
+The mission, then, will be a simple 3-part job.
+
+First, the party will meet the Dustwalkers, who are camped outside NC and waiting for word on the plan of action.
+
+The Dustwalkers intend to support the venture themselves, of course - providing transportation, some dynamite, and a few extra hands.
+
+Second, the party will scout the convoy and decide on their plan of attack - ambush, or a moving hijack.
+
+Third, the plan is executed.
+
+Simple and to the point - what could go wrong?
+
+If questioned about the Militech convoy, Vido provides what little else he knows:
+
+The convoy is only lightly defended, at least by Militech standards.
+
+The corp was hoping to be discrete in the shipment, but that evidently will not be the case.
+
+Expect the convoy commander to be a highly mobile specialist - the biggest threat of the operation.
+
+As far as enemy munitions go, they might employ turrets or grenade launchers, but Vido doesn't expect anything heavier than that.
+
+Once the party has agreed on the terms and payment, Vido wishes them luck, and Ranger offers them a ride out to the Badlands in a beat up pickup that he's been using in place of his stolen truck. Proceed to beat 2.

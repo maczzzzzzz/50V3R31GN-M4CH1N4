@@ -1,0 +1,61 @@
+{
+  "effects": [],
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Generic%20Trucks/Generic%20Truck%20-%20Blue.png",
+  "name": "Generic Truck",
+  "system": {
+    "description": {
+      "value": "<p>Generic trucks are an alternative to compacts, trading 2 seats and a smaller size for higher durability and the ability to haul cargo. Up to 4 people can sit in the truck bed while the truck moves, but must make a DV15 Endurance check for trips which are longer than 20 minutes/more than one district - upon failure, they become <strong>fatigued</strong> (-2 to all actions) until they can rest (amount of rest proportional to the length of the trip, obviously).</p><p>Otherwise, they use the stats of a normal compact.</p><p><em>Tokens and Art by reddragon8928 on Discord. Redistributed with permission.</em></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 30000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 60,
+    "seats": 2,
+    "speedCombat": 20,
+    "speedNarrative": "100 MPH / 161 KPH"
+  },
+  "type": "vehicle",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "nw7GVCTc2LMEvDZe",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

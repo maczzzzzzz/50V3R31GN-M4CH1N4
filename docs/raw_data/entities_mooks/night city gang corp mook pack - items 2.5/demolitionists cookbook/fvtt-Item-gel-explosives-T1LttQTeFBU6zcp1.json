@@ -1,0 +1,62 @@
+{
+  "folder": "dcqta7WL1ifLv2wZ",
+  "name": "Gel Explosives",
+  "type": "gear",
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/rocket_smart.png",
+  "system": {
+    "description": {
+      "value": "<p>A viscous, thin, gel-like explosive, which tends to cling to itself but not-so-much its surroundings. This allows it to be dumped down drains or other pipes, set into seams, run into crawlspaces, or used to give your cocktail a harsh but not altogether unpleasant acidic aftertaste.</p><p>Each instance of this item represents a 300ml vial, which can be further subdivided. Every 50ml deals 10 damage to objects, or 1d6 damage, when detonated, to a maximum of a 3m radius when all detonated at once. Ensuring it detonates properly requires a Demolitions check.</p><p>Detonating the explosive requires a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Hat1nKbqvilFyvJ5]{Demolitionist's Toolkit}.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    }
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

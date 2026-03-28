@@ -1,0 +1,58 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "06. Medical Bay",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Rub Some Dirt On It",
+      "type": "text",
+      "_id": "4PAs6mOF04kfTE66",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once <strong>Medical Matters</strong> has been completed. It takes place on the second sublevel of the Afterlife, and is maintained by Dr. Nightshade (or her replacement) and Sam Carter, her assistant.</p><h2>Cost</h2><p>The Afterlife's medicinal costs vary depending on the required DV, as follows:</p><ul><li><p>If the DV is <strong>13,</strong> the price is <strong>1 Eagle.</strong></p><ul><li><p>This is per check; stabilization costs an Eagle in addition to any critical injuries being healed.</p></li></ul></li><li><p>If the DV is <strong>15,</strong> the price is <strong>2 Eagles.</strong></p></li><li><p>If the DV is <strong>17,</strong> the price is <strong>3 Eagles.</strong></p></li><li><p>Nightshade also installs cyberware.</p><ul><li><p>This service is free if the cyberware was purchased in a Night Market at the Afterlife.</p></li><li><p>Mall installations can be installed <strong>2 for 1 Eagle.</strong></p><ul><li><p>If only 1 is installed, the 1/2 Eagle is not refunded.</p></li></ul></li><li><p>Clinic installations cost <strong>1 Eagle each.</strong></p></li><li><p>Hospital installations cost <strong>2 Eagles each.</strong></p></li><li><p>Borgware costs <strong>3 Eagles each.</strong></p></li></ul></li><li><p>Pharmaceuticals can be produced and administered on site for the price of <strong>1 Eagle per dose.</strong></p></li><li><p>Therapy can be provided as follows:</p><ul><li><p>Standard Humanity Loss therapy costs <strong>5 Eagles for a week.</strong></p></li><li><p>Extreme Humanity Loss therapy costs <strong>10 Eagles for a week.</strong></p></li><li><p>Addiction therapy costs <strong>7 Eagles</strong> <strong>for a week.</strong></p></li></ul></li><li><p>Cryotanks can be accessed, sourced via the Afterlife Hotel services (service 5). These cost <strong>1 Eagle per day of use + the cost of an Afterlife hotel room (effectively 2 Eagles)</strong> and replaces the benefits of <strong>Peace, Quiet And Comfort</strong> found in service 5.</p></li></ul><h2>Function</h2><p>The Afterlife's medical wing is a state-of-the-art facility that rivals the medbays you'd find at the top floors of Night City Hospital. The resident doctor can't fail their checks, and depending on the services needed, you may find that they're significantly easier to access than anywhere else in the city.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

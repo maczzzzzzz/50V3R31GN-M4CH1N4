@@ -1,0 +1,9 @@
+At this point, the players will have three major leads they can follow up on (depending on what clues that they find):
+
+Clarisa has someone named @UUID[Actor.F8eeHrvoA08QvPxL]{B00zeHound} on her agent, who is a known Piranha dealer. Maybe they know something? (Location: @UUID[Scene.Bzh48OjmFSyyn5SQ]{Yogurt Shoal)}
+
+Clarisa was taking a phone call before her episode. Looking up the number, it looks like it was from a Merril, Asukaga, and Finch accountant. (Location: @UUID[Scene.uhY2vLgFlM4dA8V3]{Merril, Asukaga, and Finch)}
+
+The song reminds you of the Totentanz. Perhaps it might be a good idea to chat up some Maelstromers. (Location: @UUID[Scene.3F46oncmINIuqf5l]{Totentanz)}
+
+Each of these leads will lead to a different scene (or scenes), so encourage your players to go off and investigate.

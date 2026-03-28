@@ -1,0 +1,597 @@
+{
+  "folder": "r6krvL01GR9Fnn5o",
+  "name": "3 Weapons From Black Chrome Worth 500eb Or More",
+  "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/arasaka-fire.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "text": "Micro Hydrogen Combustor",
+      "documentId": "uyBRdbvnCDcFdO82",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/micro-hydrogen-combustor.svg",
+      "_id": "vizbLxvf8ILFLVsj",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "text": "TR-4 Detonator Fluid",
+      "documentId": "my1ugVO4a5VjJSuH",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/tr-4-detonator-fluid.svg",
+      "_id": "qxpaQEXvhkhmViKU",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "Weeping Reaver Katana",
+      "documentId": "Ifp6KgNYeZ0wfKSN",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Sword_excellent.svg",
+      "_id": "gLr9wQkmfzAZ7E33",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "text": "Mono-Katana",
+      "documentId": "062x3IuaFgsjMV5X",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Sword.svg",
+      "_id": "WYUFwFqPpJTz9re8",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "Mono-Wakizashi",
+      "documentId": "2BgF22RoBRIYCQcz",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Machete.svg",
+      "_id": "me8EKC5gIPNEvfmr",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "text": "White Hornet Tanto",
+      "documentId": "MVZoOzbbPrkBkj53",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/CombatKnife.svg",
+      "_id": "jfPt4SQUYnGmqygg",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "text": "Rostović Kleaver",
+      "documentId": "N3O9kYdqirfIbhNw",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/rostovic-kleaver.svg",
+      "_id": "ZtX83MEo5lztn6dX",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "text": "Rhinocefist",
+      "documentId": "0otxxiItP76VGlGt",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/zhirafa-rhinocefist.svg",
+      "_id": "koQwg65XZ9jDV6nS",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "text": "Mono-Guard",
+      "documentId": "K97WPZL6SF5DnMoE",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/kenadachi-mono-guard.svg",
+      "_id": "ZEIhzR8jjRziEe9p",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "text": "Magna Knuckles",
+      "documentId": "6uCUKRntpkVSnRkw",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/faisals-magna-knuckles.svg",
+      "_id": "WK1BJEwfIidk9Ejk",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "drawn": false,
+      "text": "Pursuit Security Bouncer",
+      "documentId": "YLYKK3N4631dbRwt",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/pursuit-security-bouncer.svg",
+      "_id": "KQCysr0GavOic0kc",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "drawn": false,
+      "text": "FangFist",
+      "documentId": "xJbPj5c7LFu8b5eU",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/fangfist.svg",
+      "_id": "rDKBtETUJFDv3Czy",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "text": "Tasmanskiy Klô",
+      "documentId": "Aq3Fim1KykSIjtXU",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberweapons/wolvers.svg",
+      "_id": "TfGJaeikbqBrX1vZ",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "drawn": false,
+      "text": "Ranger Combat Boomerang",
+      "documentId": "sOsNx7YCfB7Z1c6D",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/ranger-combat-boomerang.svg",
+      "_id": "votBVa8RcCNl6SrL",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "drawn": false,
+      "text": "Mono-Star",
+      "documentId": "WanZL37uS6qD7acP",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/mono-star.svg",
+      "_id": "lFGKBOOxLNBuzKez",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        16,
+        16
+      ],
+      "drawn": false,
+      "text": "Arasaka Prototype Variable Assault Rifle",
+      "documentId": "kwurvxruvvm0VxRI",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/AssaultRifle_excellent.svg",
+      "_id": "Ibx8LgVtyTM87Ydr",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        17,
+        17
+      ],
+      "drawn": false,
+      "text": "Survivalist",
+      "documentId": "7q61PwpWp0KM6vYb",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Crossbow.svg",
+      "_id": "wGBIZBIyrClWamsf",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        18,
+        18
+      ],
+      "drawn": false,
+      "text": "Faisal's Dead or Alive",
+      "documentId": "Zp90Q36fQ769vmhp",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Shotgun_poor.svg",
+      "_id": "cghpBEjsi0uc4irC",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "text": "Pepper Shaker",
+      "documentId": "yPKIpu75TmOHSXWi",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/SMG.svg",
+      "_id": "j0qFSntqEDcJ282I",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "text": "Hades Multipurpose Assault Shotgun",
+      "documentId": "GVG933xxERHQztLs",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Shotgun.svg",
+      "_id": "hsDn0pvtDHP2SbII",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        21,
+        21
+      ],
+      "drawn": false,
+      "text": "TechHammer",
+      "documentId": "N2JO2RGnXWvrGjGf",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Shotgun.svg",
+      "_id": "i5i8UtneM6niONPV",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        22,
+        22
+      ],
+      "drawn": false,
+      "text": "Beast Shotgun",
+      "documentId": "nsK7GNeDIwpNiGu4",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Shotgun.svg",
+      "_id": "RuDtU08vds1OaLwU",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        23,
+        23
+      ],
+      "drawn": false,
+      "text": "Perseus",
+      "documentId": "rwfBQoEJu2uLnGeo",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol_excellent.svg",
+      "_id": "kh3Ck8wumru2WBbv",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        24,
+        24
+      ],
+      "drawn": false,
+      "text": "Fox Dual Ammo Pistol",
+      "documentId": "KDulu2DdWVzPwKuv",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/heavyPistol.svg",
+      "_id": "vgSsbBTtfB3UFdhj",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        25,
+        25
+      ],
+      "drawn": false,
+      "text": "Mastiff SMG",
+      "documentId": "zfpSCTCQTsEBBtVg",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/SMG.svg",
+      "_id": "Ov7eJNqLBHaLazYu",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        26,
+        26
+      ],
+      "drawn": false,
+      "text": "ModFire 10X (SMG)",
+      "documentId": "hRvni7utn2zcjSWH",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/heavyPistol.svg",
+      "_id": "V6GBSTr9tBZpBQJn",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        27,
+        27
+      ],
+      "drawn": false,
+      "text": "E-TACK Public Defender",
+      "documentId": "C1u6clpJPtn9DAWo",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/heavyPistol_poor.svg",
+      "_id": "4gr84B940nxJCj2G",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        28,
+        28
+      ],
+      "drawn": false,
+      "text": "Crowd Buster",
+      "documentId": "dnX1vhlKwmacyuNs",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/AssaultRifle.svg",
+      "_id": "iVGopoyqpb1Cy5kY",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        29,
+        29
+      ],
+      "drawn": false,
+      "text": "Ulični Uništitelj (Street Destroyer)",
+      "documentId": "s72mTsiZhAJHvLg5",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Shotgun_poor.svg",
+      "_id": "rs5SbPKbUarqrMvj",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        30,
+        30
+      ],
+      "drawn": false,
+      "text": "Hello Cutie Ultra-K8 Assault Pistol",
+      "documentId": "tthUaY2iqrpUlO44",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "BSw70NC8XVcDzDlC",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        31,
+        31
+      ],
+      "drawn": false,
+      "text": "M-04 Variable Assault",
+      "documentId": "LrmIgdYrPbDUw2mw",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/AssaultRifle_poor.svg",
+      "_id": "f6OzCDTD0klW32MF",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        32,
+        32
+      ],
+      "drawn": false,
+      "text": "Superchrome® Glam Rifle",
+      "documentId": "3WelrloimwsNI29P",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/AssaultRifle.svg",
+      "_id": "XudOlThOoGd9GzId",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        33,
+        33
+      ],
+      "drawn": false,
+      "text": "Superchrome® Javelin",
+      "documentId": "OHMbhkYy7we5ieIL",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/SniperRifle.svg",
+      "_id": "uYV1FhnGMvo9Bfop",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        34,
+        34
+      ],
+      "drawn": false,
+      "text": "Superchrome® Sidearm",
+      "documentId": "kQ8ZI0Fv1wDnZ5Ru",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "H47VoBKiCOEzR081",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        35,
+        35
+      ],
+      "drawn": false,
+      "text": "Westwood",
+      "documentId": "CW4Vmiv2Rqo4JZxR",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "ni42npiQBzbMTUVh",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        36,
+        36
+      ],
+      "drawn": false,
+      "text": "BMG-500",
+      "documentId": "GiU3T4aczKpAP91x",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/AssaultRifle.svg",
+      "_id": "w9sZfQv0gYef1lXe",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_weapons",
+      "weight": 1,
+      "range": [
+        37,
+        37
+      ],
+      "drawn": false,
+      "text": "Tommyknocker",
+      "documentId": "61MgW9KsLYKJVtbA",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "YLfIxcmlbt35fF2v",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_black-chrome-plus",
+      "weight": 1,
+      "range": [
+        38,
+        38
+      ],
+      "drawn": false,
+      "text": "Hello Cutie 1TruLuv",
+      "documentId": "okVi2Gn9qk8KH7sD",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/SniperRifle.svg",
+      "_id": "5NnmvHNsM5J6hDcD",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": ""
+}

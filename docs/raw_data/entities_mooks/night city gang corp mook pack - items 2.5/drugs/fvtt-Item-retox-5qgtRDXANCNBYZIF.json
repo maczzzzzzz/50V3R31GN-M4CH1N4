@@ -1,0 +1,166 @@
+{
+  "folder": "VCrXA9avaNRgVEgS",
+  "name": "ReTox",
+  "type": "drug",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/ReTox%20Image.webp",
+  "system": {
+    "description": {
+      "value": "<p>ReTox is produced by the Bozo Circus of Merriment. It takes the form of tablets that look similar to jelly beans or other candy, and overpowers the user’s mouth with flavor (usually fruit or cinnamon) when bit into. The drug is impossibly addictive, to the point that even partygangs will hesitate to take it despite its potent effects. ReTox becomes one of the only things that an addict is able to taste, after heavy usage.</p><p><strong>Primary Effect</strong></p><ul><li><p>Dose lasts 20 minutes.</p></li></ul><ul><li><p>For the duration of the primary effect, the user gains crit successes on 9s, and crit fails on 2s. </p></li><li><p>For the duration of the primary effect, you veer between an induced state of euphoria and heightened sensory input (rolls of 6+), and severe depression (rolls of 1-5), and struggle to register minor sensations. Do your best to roleplay accordingly.</p></li></ul><p><strong>Secondary Effect (DV17 - r</strong><span style=\"font-family:'Josefin Sans'\"><strong>aised to 18, the first time ReTox is ingested</strong></span><strong>)</strong></p><ul><li><p>If the user wasn’t already addicted to ReTox, they are now. While addicted, they crit fail on 2s and 3s, unless the user is currently experiencing the primary effect of ReTox (fails on 2s remain, fails on 3s are temporarily removed).</p></li><li><p>While addicted to ReTox, you will have trouble feeling any physical sensations but the most severe, your sense of taste, touch, and smell will be greatly diminished, and you’ll periodically experience severe depressive episodes unless under the effects of the drug. It isn’t the drug itself that you crave, but that feeling of sensation. Do your best to roleplay accordingly.</p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "snorted",
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 75
+    },
+    "consumed": "ReTox Primary"
+  },
+  "effects": [
+    {
+      "name": "ReTox Primary",
+      "origin": "Item.V7wcauG2mVokVVE4",
+      "disabled": true,
+      "_id": "vQETGXF461L3nHFZ",
+      "changes": [],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {},
+            "situational": {}
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "ReTox Addiction",
+      "origin": "Item.V7wcauG2mVokVVE4",
+      "disabled": true,
+      "_id": "JseACWQA10UZGkaz",
+      "changes": [],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {},
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "ReTox Addicted Primary",
+      "origin": "Item.V7wcauG2mVokVVE4",
+      "disabled": true,
+      "_id": "L0uH16CTeFlLUexB",
+      "changes": [],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {},
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

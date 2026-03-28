@@ -1,0 +1,180 @@
+{
+  "effects": [
+    {
+      "name": "Sword First Success Bonus",
+      "origin": "Item.SQiqqYJ2IAwH6HaO",
+      "disabled": false,
+      "_id": "makmF1fb6e4OzGOn",
+      "changes": [
+        {
+          "key": "bonuses.interface",
+          "value": "1",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "role"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "Sword Second Success Bonus",
+      "origin": "Item.SQiqqYJ2IAwH6HaO",
+      "disabled": false,
+      "_id": "d3ucExXk8StmTxlH",
+      "changes": [
+        {
+          "key": "bonuses.interface",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "role"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "img": "systems/cyberpunk-red-core/icons/compendium/programs/sword.svg",
+  "name": "Sword (G&C Ver)",
+  "system": {
+    "description": {
+      "value": "<p>A program for use with the simplified netrunning rules found in Night City Gangs &amp; Corps. When slotted, each time the user succeeds a check against a system, they make subsequent checks against the system with a +1 bonus until jacking out. This bonus stacks up to twice. Requires 2 slots.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "always",
+    "installLocation": "mall",
+    "size": 1,
+    "price": {
+      "market": 100
+    },
+    "class": "antipersonnelattacker",
+    "blackIceType": "antipersonnel",
+    "prototypeActor": "",
+    "interface": 0,
+    "isRezzed": false,
+    "damage": {
+      "standard": "0",
+      "blackIce": "3d6"
+    },
+    "per": 0,
+    "spd": 0,
+    "atk": 0,
+    "def": 0,
+    "rez": {
+      "value": 0,
+      "max": 0,
+      "transactions": []
+    }
+  },
+  "type": "program",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "jbJdPxC2WOthUryG",
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.cyberpunk-red-core.core_programs.Item.iHUrp2OkBZb3Ugf8"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

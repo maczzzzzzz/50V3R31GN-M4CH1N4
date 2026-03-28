@@ -1,0 +1,23 @@
+This beat takes place in the 7th Circle, which should be much as the party left it with a couple of exceptions:
+
+Most of the Bozos have cleared out, except for a couple which are strung out or hung over around the bar.
+
+There's a dead Bozo on the dance floor, courtesy of Silvers. Most are ignoring it, but some Afterlife staffers arrive to drag it off around the same time the party shows back up.
+
+Vido is still in his booth, and waits for the party with payment in hand.
+
+If nothing else, the 7th Circle is quieter, now. When you return, most of the Bozos are gone, except for a few that are strung out over the bar's tables. A clown corpse, male, is dead on the dance floor, with the Afterlife staff already on the scene to clean up the mess. The corpse is missing its arm and its head, which have already been collected.
+
+Silvers is cleaning one of her swords as she lets you in, leaving little guesswork in what happened to him.
+
+"Bonjour mis vouchers!" Vido calls from the back booth. "How was your time in clown town, eh? Don't mind the body - my understanding is that he got a little handsy, and then lost his head. Now, for the matter of your pay!"
+
+Assuming that Nightshade was delivered alive, Vido congratulates the players on a job well done, and pays the agreed amount. Beginning the following day, the players have access to the Afterlife's medical services - @UUID[JournalEntry.fSYrBTqTQ6GeKR0g]{see the associated journal entry for more details.}
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!

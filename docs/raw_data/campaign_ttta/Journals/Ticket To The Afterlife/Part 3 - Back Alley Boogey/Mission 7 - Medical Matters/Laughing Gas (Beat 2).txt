@@ -1,0 +1,75 @@
+This scene makes use of the @UUID[Scene.6hT6obPZNLoSsbiD]{Afterlife Sublevel 2} scene. To begin:
+
+Place a token for @UUID[Actor.sBheILpJQeMzC4eh]{Dr. Sam Carter} in the medical ward.
+
+Lock all of the doors in the scene except for those of the medical ward, between the the ramp, and the elevators.
+
+Turn off all the lights in the scene except for those on the ramp and in the medical ward.
+
+You can do this by going into the lighting tool in the tool ribbon, and right clicking each light in the scene.
+
+Place the player tokens at their means of entrance - either the elevators, or the ramp down.
+
+Then, read the following:
+
+Laughing Gas
+
+The second basement level of the Afterlife isn't much to look at - at least, not initially. The main area looks to be a marketplace that hasn't yet been staffed, and outside dark doors is the empty cavern of a parking garage. Only the medical ward is online, its sterile light acting as a beacon on the otherwise-dark floor.
+
+Inside is a slim, modern medical ward that's as nice as any hospital in the city, all of its equipment pristine and waiting to be used. Across from an unused office space, an extra desk, computer and chair have been set up on the tiled floor, as if added as an after thought. Sitting in the chair is a woman of middling height with short, messy blonde hair and a pristine nurse's smock. She turns to you as you enter, standing from the chair - on the computer screen behind her, you can see what looks like an NCPD website with pictures of more Bozos on it.
+
+She holds out her hand to the leader of the pack as you approach. "You must be the crew here to rescue my partner. I'm Doctor Carter, nice to meet you."
+
+Job Details
+
+Sam was hired into the Afterlife as 1/2 of a duo to run the medical ward. Her partner is Dr. Iris Nightshade, who served alongside Dr. Carter during CW4 and afterwards; for all of Carter's merits, she insists that Dr. Nightshade is considerably more talented, and considerably better equipped for work where violence is often an indispensable part of the job description.
+
+Until a week ago, Dr. Carter and Nightshade ran a roving ripperdoc clinic all over Night City, and were highly in demand for their services.
+
+They primarily served the gangs, as opposed to edgerunners - they did surgery for everyone from 6th Street to Maelstrom, boasting a much safer operating environment and much higher success rates than anyone in the gangs themselves.
+
+Last week, Carter and Nightshade received a lucrative offer from the Afterlife, and accepted - but they had one last contract to fulfill before joining up, for the Bozos.
+
+While filling the contract, a rival group of Bozos to the group they were working on ambushed the pair, killing their subject and attempting to abduct the doctors.
+
+Dr. Nightshade sacrificed herself to buy time for Carter to escape, and was abducted by the Bozos in the process.
+
+About the Bozos
+
+Carter isn't sure why the Bozos wanted to abduct them, but can guess.
+
+The Bozos are embroiled in a bloody civil war between two factions - "purist" partygangers, who she and Nightshade were operating on when ambushed, and a breakaway gang of psychos.
+
+Neither gang is especially talented at surgery, and Bozos need a lot of it - each one is practically a walking clown-themed full body conversion.
+
+Given that the upgrades Carter and Nightshade were installing on their clients were made explicitly to help them fight the other gang (armored headgear, jaw-implanted rippers, spring feet, and so on), Carter expects that Nightshade was taken to do the same thing to the other gang.
+
+Given that they need her in one piece to conduct her services, this leaves Carter optimistic that the Bozos haven't executed Nightshade… yet.
+
+About Dr. Nightshade
+
+Despite having worked together for years, Carter doesn't know much about Iris Nightshade - she's aloof, blunt, an astonishingly proficient surgeon, a skilled combatant when necessary (which is unfortunately often) and completely obstinate when it comes to revealing anything about herself. Carter's never seen her do so much as read a book, never mind mention a family, friends or talk about hobbies. She does know a few things, though.
+
+Carter knows that Iris served in Europe initially during CW4, before migrating over to American soil where they got to know one another while working together.
+
+Just before Carter went AWOL (after the war - see Carter's mook sheet for a bit more on her own backstory), Nightshade was recruited into a Militech black ops unit and disappeared without a trace or a goodbye.
+
+The two reconnected in Night City about 5 years ago - Nightshade providing just enough information that Carter could confirm who she was, and nothing else, which was followed by them starting a clinic together.
+
+Between the time that Carter went AWOL after CW4 and now, she's certain that Nightshade has gotten a new face, but has never seen it - the doctor wears her beaked mask and hood at all times, to the point that Carter suspects they're implants.
+
+Even before being recruited into black ops, Nightshade wasn't exactly the fuzziest person - in truth, Carter feels like the only thing that's really changed between then and now is the mask.
+
+The Mission's First Step
+
+With the help of the Owner, Carter has tracked down a lead for the party to follow up on.
+
+There's a contact that Carter worked on awhile back named Bozo, who, in true Bozo fashion, is operating as a triple agent - feeding both factions in the civil war information about one another.
+
+Bozo would like to meet the party - he's offering his help in exchange for Carter offering her services to him.
+
+Bozo is a ReTox addict, like many other members of his gang, and most of the cyberware Carter put into him was secondhand at best - Carter isn't sure what, exactly, he wants her help with, but she's willing to provide it if he can help the Afterlife get to Iris.
+
+Bozo has agreed to meet the party in a coffee shop in the University District - Carter expects that the district residents will be giving him space, but Bozos aren't a particularly rare sight, there.
+
+When players have finished asking questions and are ready to meet with Bozo, proceed to beat 3.

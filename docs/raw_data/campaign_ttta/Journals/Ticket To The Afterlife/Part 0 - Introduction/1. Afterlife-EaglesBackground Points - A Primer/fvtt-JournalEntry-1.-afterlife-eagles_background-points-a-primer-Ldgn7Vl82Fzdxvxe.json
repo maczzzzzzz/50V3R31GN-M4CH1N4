@@ -1,0 +1,96 @@
+{
+  "folder": "BtFPJ3dIN7u4xFj4",
+  "name": "1. Afterlife Eagles/Background Points - A Primer",
+  "pages": [
+    {
+      "sort": 300000,
+      "name": "Mode 2 - Inspiration, Refined",
+      "type": "text",
+      "_id": "Ckfbrb0GZdfPCUuR",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Note:</strong> if this mode is not being used and a module point calls for background points to be distributed in the world (I.E. \"not as a job reward, or from someone who knows the Afterlife\") distribute the alternative listed reward instead.</p><p>In addition to <strong>Mode 1,</strong> Eagles have an additional, optional functionality as <strong>background points.</strong></p><p>If you've ever played D&D 5e, you're familiar with the mechanic of <strong>Inspiration.</strong> If you've ever played Fantasy Flight Games' Star Wars ttrpg, you're familiar with the concept of <strong>light side/dark side points.</strong></p><p>This system is inspired by both.</p><h1>What Are Background Points?</h1><p>They've been described as your players' personal Deus Ex Machina, as the briefcase from Pulp Fiction, and as Hammerspace (if you're a Spiderverse fan). Exactly what you need, exactly when you need it - new, blue, Zinthos.</p><p>Background points offer roleplay & interaction incentives, and the ability for players to alter scenes based on their characters background (hence the name!). They do not have a definite form - rather, they're awarded and used in scenes <strong>without</strong> being defined until needed, allowing for greater loot opportunities and for players to advance stories according to <em>their</em> agenda.</p><h1>How Do They Work?</h1><p>In practice, the function of Background Points is very simple:</p><ul><li><p><strong>By spending 1 point,</strong> a player can gain a +3 bonus on a check before making the roll, by relying on their prior knowledge or ability in some way. For example, a gunslinger improves their ranged attack by focusing in on all the similar shots they'd made before then.</p></li><li><p><strong>By spending 2 points,</strong> a player can place (or replace) an asset or individual within a scene with one that they would have access to/know about. For example, if a player's made friends with one of the NPCs they encountered throughout the story, and needs a distraction to sneak by a guard, they can spend 2 points to summon that friend (assuming it'd be circumstantially possible to do so).</p></li><li><p><strong>By spending 3 points,</strong> a player can reimagine an aspect of a scene to suit their strengths - for example, a rockerboy has played at the club the party is currently casing many times before, and knows all its nooks, crannies, and staff like the back of their hand.</p></li></ul><p><strong>At GM discretion, the inverse actions/penalties can also be taken to spontaneously earn points in the same way.</strong></p><p>They can also be found within scenes at GM discretion or according to the module, though the points earned this way can't be resold and expire at the end of the session.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 200000,
+      "name": "Mode 1 - Basic Currency",
+      "type": "text",
+      "_id": "ZY0rgmnVizYR7yV6",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h3>World currencies are unreliable, and the Afterlife knows it.</h3><p>Instead of relying on the fluctuating value of the Eurodollar or, worse, the overinflated standard of the US dollar, the Afterlife's parent organization mints and distributes small, unique gold coins which only see their full value realized when used in association with the hotel's various services.</p><p>These coins are provided as rewards at the end of missions, and can also be distributed as bonuses for inspired play. Each coin is stamped with a picture of <strong>Libertas </strong>(reimagined in America as <strong>Columbia - </strong>in both cases, a godess of political liberty) on one side, and an eagle on the other.</p><p><strong>These coins can be used to purchase the Afterlife's various services, which are unlocked throughout the game, at a considerable discount compared to what they'd be worth in EB. They can also be sold for 100eb each.</strong></p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774228428450,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

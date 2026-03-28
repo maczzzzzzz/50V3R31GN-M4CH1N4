@@ -1,0 +1,109 @@
+This beat makes use of the @UUID[Scene.dYz47SZ9gtkOKbUR]{Martyr Motel} scene. To begin:
+
+Place 1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.zeG9k6liLkdHNrf4]{Booster Gangsters} around the hotel - at the table outside, standing guard at the front, in one of the rooms, etc.
+
+Prep reinforcements for these Boosters as normal, should a fight break out.
+
+Place 3 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.DmL6CWBr2gtqDvEu]{Reckoner Maryrs} around the hotel - 1 guarding the door, 1 in the back right room with the computer (watching the cameras), and 1 at your discretion.
+
+Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.eNrZqwNEB3cQaD3W]{Reckoner Chaplain} in the room with the cards table, alone.
+
+Place tokens for @UUID[Actor.Y7NnvbMut6swzVaA]{Checkers} and @UUID[Actor.jX6bbdNcZ8MNJqP0]{Jason} in the back left room of the motel.
+
+Note that both are wearing Reckoner-made bomb vests. They can be disarmed with a DV17 Demolitions check - reduced to a DV13 if the attempting character has 2 or more points in the skill.
+
+They'll remove them themselves after the gig, if not taken care of before then.
+
+If the check is failed by 5 or more, the vest being disarmed explodes, instead, killing its wearer instantly and inflicting 8d6 damage to its surroundings.
+
+They can be detonated by the Reckoner Chaplain at any time while the Chaplain remains within 1mi/1.6km of the vest.
+
+Place tokens for the party at your discretion.
+
+Swap the scene appropriately.
+
+Then read the following…
+
+Something Secret Steers Us…
+
+The motel isn't much to look at, but it's certainly Reckoner territory. All other tags have been covered by their logo and icons - hands clutching grenades, icons of burning buildings, and bloody, dismembered eyeballs.
+
+There's some light presence out in front of the building, but nobody raises a hand, if they see you at all.
+
+Meet Your Reckoning
+
+The Reckoners will not be outwardly hostile to the party, even if the party directly states that they've come to rescue Checkers and her son. Instead, they will direct the party to the Chaplain, noting that "they're expected.
+
+If questioned about how they were expected, the Chaplain notes that they didn't know the party's individual identities, but rather, that there was an "air of fate" around the two captives.
+
+The Chaplain will not allow the party to leave with Checkers and her son prior to any bargaining, and notes that the vests the two are wearing will automatically go off if they leave the premises, and also, that they won't want to leave until the Chaplain allows them to.
+
+The first point is a bluff - the Chaplain will simply detonate the vests.
+
+The second point is true - both Checkers and her son are, somehow, under the Chaplain's control, and will refuse to leave, even fighting to stay, until told otherwise.
+
+The Chaplain recognizes the value of the hostages, though, and instead offers to gamble for their lives - vs the party's.
+
+At this point, if the party agrees, the Chaplain has the two captives brought in. Their expressions are vacant and dreamy, and they don't respond to questions or stimulus except in ways explicitly allowed by the Chapplain.
+
+A DV21 first aid check (lowered to DV17 with 4 or more ranks) or DV15 Paramedic check reveals that the two seem to be in a trance.
+
+No success, however, is sufficient to determine the cause of the trance. Guesses might include drugs, hypnosis, or in Checkers' case, control via her chipware socket.
+
+Blood Money//Gamble Your Soul
+
+Table Difficulty: Moderate - 6 rounds.
+
+Ante: 100eb + Player humanity vs possession of Checkers and Jason.
+
+A maximum of 2 players may join the table; all others are escorted to elsewhere in the scene by the Reckoner forces.
+
+How Blood Money Works
+
+The game is Blood Money (note: uses gambling rules found in service journal 4, this is just for flavor).
+
+A stack of plastic playing cards (2 + 3 for each actor at the table) is placed on the table to represent the pot, along with a very sharp knife.
+
+Starting at a new place each time, each actor at the table takes turns stabbing the cards while they're placed atop the back of their hand, taking at least 2 cards each time.
+
+The exact number of cards each player takes is secret until the end of the round.
+
+Once one or no cards remain, the round ends.
+
+If an actor fails to take 2 cards, they lose the round.
+
+If an actor stabs their own hand while trying to take cards, they lose the round.
+
+Once the round finishes, the pot is awarded according to the proportion of cards that each player has (players who did not get to stab have their ante returned to them first), and the game resets.
+
+How The Game's Unusual Ante Is Awarded.
+
+As for how the unusual "ante" is distributed, it's as follows:
+
+If any player wins all 6 rounds, or wins back their ante + 100eb total across multiple games, they immediately take possession of Checkers and Jason, who follow their commands, including a command like "wake up" to restore them to their full faculties.
+
+They also win 200eb. Yay!
+
+If any player loses in the first 2 rounds, they immediately lose 10 humanity.
+
+If any player loses in the third or fourth round, they immediately lose 5 humanity instead.
+
+If any player loses in the fifth or sixth round, they have half their humanity lost in this way restored to them, in addition to winning back their ante + 50%.
+
+If any player wins all 6 rounds, they regain all their lost humanity in addition to winning possession of Checkers and Jason.
+
+Note that only the winning player(s) gets this effect.
+
+If a player drops below 1 humanity in this way, their character is effectively dead - completely under the control of the Chaplain, they become a loyal member of the Reckoners and part ways with the rest of the party. What happens to them after that is left to GM discretion.
+
+Important Note: For every 10 humanity lost to the Chaplain at the table, add 1 to subsequent round DVs for the game, reflecting the Chaplain's power growing as they gain control of more spiritual juju.
+
+Lost humanity can only be reclaimed through play or by the Chaplain voluntarily surrendering it. If the Chaplain is killed, etc., the humanity remains lost.
+
+Game Over?
+
+Players can continue playing any number of times, so long as they're willing to do so. The Chaplain is confident in their ability to eventually win out, and does not care if players drop in/out of the game.
+
+If the Chaplain does lose, their response is at GM discretion, but they will honor their bet - Checkers and Jason fall under the control of the player who won them, and the Reckoners will not harm or harass the party as they leave the scene.
+
+Once the party has secured the freedom of Checkers and Jason, proceed to the final beat.

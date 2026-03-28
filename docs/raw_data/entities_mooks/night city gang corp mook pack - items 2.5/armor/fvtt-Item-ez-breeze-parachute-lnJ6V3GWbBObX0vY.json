@@ -1,0 +1,78 @@
+{
+  "folder": "Jg7kWDZQZKQXBw44",
+  "name": "Ez-Breeze Parachute",
+  "type": "armor",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Armor.svg",
+  "system": {
+    "description": {
+      "value": "<p><em>A rigid, wafer-thin parachute backpack, kevlar-reinforced, with additional straps to attach around the chest, waist, and thighs. Pulling the ripcord (right shoulder strap) can be done with either hand, and requires an action. It deploys immediately, and the user's MOVE characteristic becomes 5, which can also be used to descend faster. While gliding, the user also descends at a reasonably comfortable average speed of around 4 m/s.</em></p><p><em>Putting the pack on or taking it off requires 3 actions.</em></p><p><em>SP is damaged prior to any other armor while worn, if the wearer is shot in the back.</em></p><p><em>If the wearer would take 3 or more damage to their HP as a result of a blow which ablates the parachute's SP, the parachute is rendered useless.</em></p>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "isHeadLocation": false,
+    "headLocation": {
+      "sp": 0,
+      "ablation": 0
+    },
+    "isBodyLocation": true,
+    "bodyLocation": {
+      "sp": 7,
+      "ablation": 0
+    },
+    "isShield": false,
+    "shieldHitPoints": {
+      "value": 0,
+      "max": 0
+    },
+    "penalty": 0
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

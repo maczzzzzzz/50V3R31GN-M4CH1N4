@@ -1,0 +1,47 @@
+This mission makes use of the scenes from the previous beats, and can be continued directly from Beat 4.
+
+The Final Fight
+
+The quiet is eerie, but incomplete - the buzz of the zepp's engines is accompanied by the creaking of a taxed endoskeleton, suffering from combat damage. Still, it's (presumably) not about to go down, leaving only fires to put out… and a crew to deal with.
+
+Once the ship has been saved, there's still the matter of its crew to attend to.
+
+The captain can be allied with to lock up Matthews in his quarters; the surviving crew will side with Matthews.
+
+Depending on their health after the fight, they might try to take down the captain.
+
+Matthews can be allied with against the captain.
+
+In either case, a DV21 (17 if seriously wounded - auto-pass if below 10 HP) check will be required to talk down whoever's being gunned against.
+
+If Matthews is allied with, he can be persuaded to join the Afterlife staff/hand over the ship in exchange for being allowed to keep his job, with a DV17 check.
+
+Players will gain 1 personal rep at the end of the mission for allying with Matthews.
+
+If the Captain is allied with, he can be persuaded via DV21 to step down from his role once it's clear that the players won't be finishing the delivery. If successful, he promises to forge papers making it look like the ship was lost to the scavs, and offers players 700eb apiece for his life.
+
+In either case, Ranger arrives shortly afterwards to take control of the vessel with the help of the Dustwalkers. Between the party and some fresh Nomad guns in an A/V-4, the fight will be short, if it happens at all - Ranger doesn't screw around when cargo's on the line.
+
+Back At The Afterlife…
+
+Fantasies of flying the AeroZepp straight back to the Afterlife are soon dashed - as it turns out, pirating vehicles necessitates certain protocols, meaning that the Dustwalkers escort the zepp into the deep desert and you hitch an A/V-4 back to NC instead. What a shame.
+
+Back at home, Connors and Vido are waiting on the roof, though they seem just as disappointed that you didn't pull up in a stolen multi-million-euro aircraft.
+
+Still, they're cheerful enough once you announce your success, and are invited inside - shortly after, Connors receives a manifest of the ship's cargo from Ranger's crew, promising a Night Market in the very near future…
+
+Assuming the zepp was recovered successfully, the party unlocks the Afterlife's weekly midnight markets - check @UUID[JournalEntry.XUOpfREiYQEErhe6]{10. Afterlife Night Market} for more details.
+
+Additionally, while the party is being paid, Ranger will insist on an extra reward for a job well done, and Connors agrees if the party managed to either talk down the captain/take his bribe for his life, or saved Matthews and the crew and convinced them to join the Dustwalkers.
+
+If either of these bonus criteria are met, each member of the party receives their choice of a 500eb item, said to be pulled directly from the cargo bay of the lady of commerce.
+
+Congratulations - mission complete! Only one left, and it's a doozy! See you there!
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!

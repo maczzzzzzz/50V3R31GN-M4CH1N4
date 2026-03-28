@@ -1,0 +1,177 @@
+{
+  "folder": "r6krvL01GR9Fnn5o",
+  "name": "2 Weapons From 12 Days Of Gunmas Worth 500eb Or More",
+  "img": "systems/cyberpunk-red-core/icons/compendium/the_12_days_of_cybermas/deathtrance.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "text": "WAA Bullpup Assault Weapon",
+      "documentId": "bU1k6gqkEs9Dn6T8",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/AssaultRifle.svg",
+      "_id": "ZWErdxVi7xM98O47",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "text": "Multiple Ammunition Pistol",
+      "documentId": "goHANswbJoTXBlpG",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "amTCSGEK9Io88ZAy",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "Chainknife",
+      "documentId": "2dYYGb00Ve96CBpS",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Chainsaw_excellent.svg",
+      "_id": "BTWU7KGbTWEZR18h",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "text": "Dragon Flamethrower",
+      "documentId": "kKWg7W7ySbQGl5eT",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/flamethrower.svg",
+      "_id": "gyVDZOD1aFpGumX7",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "Hellbringer",
+      "documentId": "YHhTX03AJFe0cS5N",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "Vuwb59NIe2IHNQxS",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "text": "Sub-Flechette Gun",
+      "documentId": "iKzJWiFQqBcDQ7Gm",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/heavySMG_excellent.svg",
+      "_id": "3tx4IU5sLcuHetFy",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "text": "Crusher",
+      "documentId": "cUgtpdroFgBBJGam",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/veryHeavyPistol.svg",
+      "_id": "g0fFsJ2n2Eiblnd5",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "text": "ARS-5 Submachine Gun",
+      "documentId": "yMgSyUvci14qO9WE",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/heavySMG.svg",
+      "_id": "ZE8C45OvmVqlOKyA",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "text": "Nomad Pneumatic Bolt Gun",
+      "documentId": "Mnf5BkWEt22EvAfK",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/SniperRifle.svg",
+      "_id": "4wh4IJD0IkIjnjtP",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.dlc_the-12-days-of-gunmas",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "text": "Nova Model 757 Cityhunter",
+      "documentId": "qL9B85FSo6cYhTBL",
+      "img": "systems/cyberpunk-red-core/icons/compendium/weapons/heavyPistol.svg",
+      "_id": "oRo87lo2nbzjNkIo",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d10"
+}

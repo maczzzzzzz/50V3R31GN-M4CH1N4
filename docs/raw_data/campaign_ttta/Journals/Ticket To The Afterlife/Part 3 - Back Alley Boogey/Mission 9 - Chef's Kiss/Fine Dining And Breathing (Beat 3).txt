@@ -1,0 +1,81 @@
+This beat takes place in the @Scene[dsfXkMEqBTzWpMtC]{Glen Basement} scene. To begin:
+
+Populate each table with between 1 and 3 @UUID[Actor.5OKBjbr1vwtm6XOd]{Gala Attendees}.
+
+For every third attendee in the scene, place up to 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.nUF7oF2uBUTM4Ur4]{RatSec Exec} and up to 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.91JT7Zncn3Sb60Ge]{RatSec Elite}, representing personal assistants and bodyguards.
+
+Place @Actor[ilk7m8ivVpB1CzyG]{Luna Bianchi} at one of the tables, accompanied by 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.91JT7Zncn3Sb60Ge]{RatSec Elites}.
+
+Place 3 @Actor[AojFb2KAvzInEfFV]{Waitstaff} around the dining area, and 4 more in the kitchen.
+
+Place @Actor[BcWFTMDxWmajFJ9M]{William Fenison} in the kitchen.
+
+Place 1 @Actor[6hKGk8kjE0CkPOEF]{Event Staff} at the control booth on the stage.
+
+Place 2+1/2 Partycount @Actor[6hKGk8kjE0CkPOEF]{Event Staff} backstage next to the enclosure, one of which guards the back door.
+
+Place @Actor[tyN6z0DRtNFXaoyO]{Nails} backstage, watching the merchandise - the "event staff" are her scav gang, dressed up the evening.
+
+Place 1 @Actor[Kt12XKNxbONp8ogu]{NightCorp Security} just inside the north entrance to the building, and 2 more in the security booth/weapons check just inside.
+
+Place @Actor[seOlHfl8MbTHdn4Y]{Trevor Green} in the security booth/weapons check, behind his staff, keeping an eye on the entrance.
+
+Place 3+partycount @Actor[Kt12XKNxbONp8ogu]{NightCorp Security} around the dining room, with 1 more in the kitchen.
+
+Finally, place as many @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.JCpR3fjW7E7Aggac]{Civilians} as you can fit in the enclosure/cage backstage - the "merchandise" being auctioned for the evening.
+
+Then read the following:
+
+Night On The Town
+
+The apartment block that the Owner sourced the address of is pretty nondescript from the outside - just one more upper-class apartment building among the many that dot the streets of the Glen. Polished, tinted glass watches the street, and down below, the basement entrance is nothing special - a short stairwell to a shut single door. If you weren't already clued in, you'd never know that a slave auction was taking place.
+
+Inside, a carpeted lobby greets you. On your right is a security checkpoint, the glass obviously bulletproof, manned by security guards with covered faces. Another such guard greets you at the door, his voice muffled slightly by his mask: "Invitations, please."
+
+Weapons Check
+
+Once players have shown their invitations, they'll be asked to check their weapons. No one will be hassled over 1-2 medium pistols, heavy pistols, a light or medium melee weapon, or a regular SMG - anything larger than that must be concealable to get through unnoticed, and requires a DV17 Conceal/Reveal Object check. Checks with a techscanner ensure that weapons concealed in cyberware are spotted - in such cases, cyberlimbs are fitted with restraining bolts (DV17 Electronics/Security or Pick Lock, or DV9 Interface to remove), stopping the weapons from being popped out.
+
+The one exception to this is anyone who can pass as a bodyguard. Such individuals may carry 1 weapon larger than those noted above after passing a DV17 Acting or DV19 Persuasion check, though security will raise eyebrows if the weapon changes hands.
+
+In The Ballroom
+
+The carpet of the room beyond the lobby matches the entryway - a rich, velvety red, lined with dim glowing LED strips, leads beneath and between tables and chairs. On your right, an elevated stage has been set up and is wreathed with lights. A curtain helps to conceal the operator booth. Waitstaff wind their way hurriedly between the tables and two sets of double doors at the back of the room, and on your left are the bathrooms. The security office exits out onto the main floor next ot the stage, and all the way at the back of the stage is another exit, presumably to some kind of green room.
+
+The room's occupants are shadowed, the lighting for the event having been kept deliberately low. Some are wearing masks, but most aren't. Executives make up most of the crowd, obviously high-ranking given their dress and willingness to be seen without a mask, though most are accompanied by at least 1 team member.
+
+More private security watches from the corners - if nothing else, it's obvious that this event has been very well secured.
+
+Given that nobody has approached you, it's evident that you'll be allowed to sit anywhere.
+
+From here on, the room is the players to play with. So long as they maintain their cover, most checks (stealth, persuasion, conversation, interrogation, etc.) will be at DV17 - this is raised to a DV19 if they're doing something outwardly suspicious, and DV21 if so suspicious that the activity threatens to blow their cover.
+
+The party's primary goal at this stage should be to contact chef Fenison, letting him know that he's being rescued and attempting to obtain his cooperation. How the party does this is up to them, but a Tactics or Deduction check (DV17) can reveal the following options:
+
+After ordering, demand that the chef be brought out to complain about the quality of the food, or to compliment it.
+
+Persuade a kitchen guard or waitstaff member to let a party member into the kitchen to communicate a "special order" to the chef.
+
+Ambush a waitstaff member during a bathroom break and steal their uniform.
+
+The evening's menu has been provided for by the scavs. It consists of 3 items:
+
+Chicken Nuggies (dinosaur shaped)
+
+Mac N Cheese (from a box)
+
+Chef's Surprise (the only actual option, the other two are for the scavs and executive team members)
+
+The Chef's Surprise is described as a meat patty, finely tenderized, served with gravy, broasted potatoes and asparagus, with a side salad. The type of meat is not specified.
+
+Although no waitstaff will answer the question directly, the implication is that the Chef's Surprise contains human meat. A DV15 Conceal/Reveal or DV17 Perception check upon receiving the dish immediately disproves this, revealing it merely to be well-processed synth-sirloin.
+
+Although the executives in attendance won't ask, the general assumption is that they're all cannibalistic, most of them being either current- or ex-NightCorp executives that are themselves a step removed from psychotic scavs, Patrick Bateman style.
+
+Chef Fenison would refuse to serve human meat, but fortunately, was never given the chance to begin with - the scavs running the show provided him the sirloin instead without telling anyone, viewing anything to the otherwise as a waste of good merchandise.
+
+The auction begins 5 minutes after the players arrive. The scavs in the back room run the show, bringing civilians up one at a time to be bid on, espousing their merits which could range from soft skills to physical qualities.
+
+Note: keep the auction contents light on the details, it's already pretty gross.
+
+Once the players have made contact with Chef Fenison and are ready to leave, or have had their cover compromised, proceed to beat 4.
