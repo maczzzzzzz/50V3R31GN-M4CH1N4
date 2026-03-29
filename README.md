@@ -1,5 +1,5 @@
 # ASP.GM-Agent: The Cyberpunk RED Local AI Orchestrator
-**Version:** 0.3.1 (Split-Node Local Architecture)
+**Version:** 0.3.2 (Split-Node Local Architecture)
 **Target:** Foundry VTT v12 | Cyberpunk RED v0.92.2+
 
 > "Build with Cloud, Play Local." 
