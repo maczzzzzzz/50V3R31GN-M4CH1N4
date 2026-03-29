@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-03-29
+
+### Added
+
+- `src/scripts/run-seed.ts` — CLI entry point that wires all dependencies and executes `SeedOrchestrator` to populate Node A's pgvector database. Includes schema initialisation (`CREATE TABLE IF NOT EXISTS pdf_chunks`), health check gate, `ThrottledEmbeddingService` (200ms inter-batch delay), and structured JSON logging.
+- `src/mcp/nitro-db/index.ts` — `nitro-db` MCP server (stdio transport). Exposes `rag_query` tool with namespace isolation; returns ANSI/Markdown-styled results for Crush CLI Glamour rendering.
+- `src/mcp/nitro-logic/index.ts` — `nitro-logic` MCP server (stdio transport, Phase 2 stub). Full tool schemas defined for `resolve_attack`, `calculate_dv`, and `oracle_roll`. Returns informative Phase 2 stub responses until `NitroLogicClient` is implemented.
+- `.crush.json` — Crush CLI project config wiring both MCP servers (`nitro-db`, `nitro-logic`) via stdio and declaring the Ollama Node B provider block.
+- `npm run seed` and `npm run health-check` scripts in `package.json`.
+
 ## [0.3.0] - 2026-03-29
 
 ### Added

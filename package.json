@@ -1,6 +1,6 @@
 {
   "name": "asp-gm-agent",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "AI-powered GM assistant for Cyberpunk RED on Foundry VTT v12",
   "type": "module",
   "contributors": [
@@ -15,7 +15,9 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "seed": "tsx src/scripts/run-seed.ts",
+    "health-check": "tsx src/scripts/health-check.ts"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

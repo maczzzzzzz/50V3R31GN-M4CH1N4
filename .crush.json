@@ -1,0 +1,42 @@
+{
+  "mcp": {
+    "nitro-db": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["dist/mcp/nitro-db/index.js"],
+      "timeout": 120,
+      "env": {
+        "NODE_A_HOST": "192.168.0.50",
+        "NODE_A_PORT": "5432",
+        "NODE_A_DB": "nitro_db",
+        "NODE_A_USER": "nitro_admin",
+        "OLLAMA_BASE_URL": "http://localhost:11434",
+        "EMBEDDING_MODEL": "nomic-embed-text"
+      }
+    },
+    "nitro-logic": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["dist/mcp/nitro-logic/index.js"],
+      "timeout": 120,
+      "env": {
+        "NODE_A_LLAMA_URL": "http://192.168.0.50:8080/v1"
+      }
+    }
+  },
+  "providers": {
+    "ollama": {
+      "name": "Ollama (Node B)",
+      "base_url": "http://localhost:11434/v1/",
+      "type": "openai-compat",
+      "models": [
+        {
+          "name": "Mistral-Nemo 12B",
+          "id": "mistral-nemo:latest",
+          "context_window": 128000,
+          "default_max_tokens": 4096
+        }
+      ]
+    }
+  }
+}
