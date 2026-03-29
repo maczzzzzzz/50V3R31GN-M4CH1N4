@@ -1,4 +1,5 @@
-﻿# ASP.GM-Agent: Master Implementation Execution Plan
+# ASP.GM-Agent: Master Implementation Execution Plan
+**Version:** 4.0 (Split-Node Local Architecture)
 **Target:** Phase 4 MVP (Strict "No Creep" Boundaries)
 **Architecture:** 100% Local Split-Node (Node A: Rules Authority | Node B: Local Orchestrator)
 **Hardware:** Node A (Nitro 5 | Llama-3.2-3B) | Node B (Main Rig | Mistral-Nemo 12B)
@@ -27,17 +28,23 @@ Before writing a single line of code, you MUST use your agentic tools to perform
 2. **Schema Definition:** Define Zod models in `src/shared/` for `RulesRequest`, `RulesResponse`, and `NarrativePayload`.
 3. **DI Container:** Setup dependency injection to manage local model endpoints.
 
+---
+
 ## 🧠 PHASE 1: Data & RAG (`nitro-db`)
 **Goal:** Connect to Node A's vector store for Cyberpunk RED lore and TttA content.
 1. **Local DB Client:** Scaffold the database client targeting `http://192.168.0.50:5432`.
 2. **Vector Service:** Build the tool allowing the local Orchestrator to query lore chunks from Node A via vector similarity search.
 3. **Namespace Isolation:** Ensure RAG queries distinguish between `core_rules` and `campaign_lore`.
 
+---
+
 ## 🧮 PHASE 2: Rules Authority Bridge (`nitro-logic`)
 **Goal:** Force all mechanical resolution to the Nitro 5.
 1. **Llama-Server Client:** Build a resilient HTTP client for `http://192.168.0.50:8080/v1`.
 2. **Chain of Thought (CoT):** Inject mandatory math suffixes to all Node A prompts to ensure deterministic rule resolution.
 3. **Logic Validation:** Use Zod to strip narrative "fluff" from Node A, returning only raw integers/booleans.
+
+---
 
 ## 🎭 PHASE 3: Foundry Bridge & Immersion UI
 **Goal:** Connect the Node B backend to the Foundry VTT frontend, enforce the Immersion Mandate via local WebSocket integration, and establish the backend endpoints for the Crush CLI testing harness.
@@ -47,11 +54,11 @@ Before writing a single line of code, you MUST use your agentic tools to perform
 2. **Chat Injection:** Create the specific methods required to format the generated prose and push it directly into the Foundry in-game chat log.
 3. **Fixer Call Integration:** Implement the payload structure required to trigger the `simple-phone` module for asynchronous TttA gig delivery.
 4. **Hybrid Routing Controller:** Build the core logic loop: 
-   * *Step A:* Receive game state/chat input from Foundry.
-   * *Step B:* Query `nitro-logic` (Node A) for mechanics and DVs.
-   * *Step C:* Mistral-Nemo 12B (Node B) generates prose based on Node A's mechanical result.
-   * *Step D:* Push prose and dice roll commands to FoundryAdapter.
-5. **Agent Harness (Crush CLI Integration):** DO NOT build a custom CLI or terminal interface (e.g., `src/cli/gm-console.ts`). The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the testing harness and GM console. Your only task here is ensuring the `nitro-db` and `nitro-logic` MCP servers are correctly formatted as standard `stdio` servers so Crush can seamlessly attach to them.
+   * *Step A:** Receive game state/chat input from Foundry.
+   * *Step B:** Query `nitro-logic` (Node A) for mechanics and DVs.
+   * *Step C:** Mistral-Nemo 12B (Node B) generates prose based on Node A's mechanical result.
+   * *Step D:** Push prose and dice roll commands to FoundryAdapter.
+5. **Agent Harness (Crush CLI Integration):** DO NOT build a custom CLI or terminal interface (e.g., `src/cli/gm-console.ts`). The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the testing harness and Game Master terminal client. Your only task here is ensuring the `nitro-db` and `nitro-logic` MCP servers are correctly formatted as standard `stdio` servers so Crush can seamlessly attach to them.
 6. **Phase Gate:** Trigger a test Fixer phone call, push a basic narrative string to the Foundry chat, and successfully verify the `stdio` MCP server connection is ready for Crush CLI. Ensure absolutely no meta-text or UI wrappers are visible in-game. Wait for User approval.
 
 ---

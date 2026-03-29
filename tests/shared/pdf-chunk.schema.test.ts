@@ -5,7 +5,10 @@ describe('PdfChunkSchema', () => {
   it('validates a well-formed core rules chunk', () => {
     const chunk = {
       sourceFile: 'RTG-CPR-CyberpunkRedCore.pdf',
+      sourceRef: 'CPRED-CRB-p169',
       namespace: 'core_rules',
+      contextType: 'mechanic',
+      capabilityReq: 'none',
       sectionHeading: 'Friday Night Firefight > Actions > Move Action',
       pageStart: 169,
       pageEnd: 170,
@@ -20,7 +23,10 @@ describe('PdfChunkSchema', () => {
   it('validates a Black Chrome chunk', () => {
     const chunk = {
       sourceFile: 'RTG-CPR-BlackChrome.pdf',
+      sourceRef: 'CPRED-BC-p85',
       namespace: 'core_rules',
+      contextType: 'mechanic',
+      capabilityReq: 'none',
       sectionHeading: 'Weapons > Assault Rifles',
       pageStart: 85,
       pageEnd: 87,

@@ -1,2 +1,12 @@
-// Phase 1: Prisma/pg vector database schemas and seed scripts
-export {};
+export { NitroDbClient } from './nitro-db-client.js';
+export { OllamaEmbeddingService } from './ollama-embedding-service.js';
+export type {
+  NitroDbConfig,
+  EmbeddingServiceConfig,
+  ILogger,
+  IEmbeddingService,
+  INitroDbClient,
+  RagSearchParams,
+  HealthCheckResult,
+  LogEntry,
+} from './interfaces.js';

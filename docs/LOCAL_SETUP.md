@@ -14,7 +14,8 @@ Create a `.env` file in the root directory:
 ```env
 # Node A (Rules Authority - Nitro 5)
 NODE_A_IP=192.168.0.50
-NODE_A_PORT=8080
+NODE_A_PORT=5432 # PostgreSQL
+NODE_A_LLAMA_PORT=8080 # llama-server
 
 # Node B (Narrative Orchestrator - Local)
 NODE_B_LOCAL=http://localhost:11434/v1
@@ -31,7 +32,10 @@ FOUNDRY_WS_URL=ws://localhost:30000/api/ws
 ## 4. Handshake Verification
 Execute API pings to verify the split-node bridge:
 ```powershell
-curl [http://192.168.0.50:8080/v1/models](http://192.168.0.50:8080/v1/models)
+# Verify Node A Llama Server
+curl http://192.168.0.50:8080/v1/models
+
+# Verify Node B Ollama
 curl http://localhost:11434/api/tags
 ```
 
@@ -41,6 +45,7 @@ curl http://localhost:11434/api/tags
 **Hardware:** GTX 1050 Ti (4GB VRAM) | **OS:** Ubuntu Server 24.04
 
 ## 1. Headless Hardening
+To prevent the laptop from suspending when the lid is closed:
 ```bash
 sudo sed -i 's/.*HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
 sudo systemctl restart systemd-logind
@@ -48,9 +53,10 @@ sudo systemctl restart systemd-logind
 
 ## 2. Networking (Static Ethernet)
 - **Static IP:** `192.168.0.50`
-- **Wi-Fi Radio:** Hard-blocked via `rfkill block wifi`.
+- **Wi-Fi Radio:** Hard-blocked via `rfkill block wifi` to maintain the bridge to Node B.
 
 ## 3. Inference Service (llama-server)
+The engine is orchestrated via PM2 to ensure 100% uptime.
 ```bash
 # start_brain.sh
 ./llama-server -m ./models/Llama-3.2-3B-Instruct-Q4_K_M.gguf \
@@ -58,4 +64,6 @@ sudo systemctl restart systemd-logind
 
 # Process Daemon
 pm2 start start_brain.sh --name "rules-brain"
+pm2 save
+pm2 startup
 ```

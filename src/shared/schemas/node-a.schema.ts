@@ -15,9 +15,12 @@ export const RollResultSchema = z.object({
 export const RagMatchSchema = z.object({
   content: z.string(),
   namespace: NamespaceEnum,
+  contextType: z.enum(['mechanic', 'lore']),
+  capabilityReq: z.string(),
   sourceFile: z.string(),
+  sourceRef: z.string(),
   sectionHeading: z.string(),
-  score: z.number(),
+  score: z.number().min(0).max(1),
   pageStart: z.number().int().nonnegative(),
   pageEnd: z.number().int().nonnegative(),
 });

@@ -8,7 +8,10 @@ export const NamespaceEnum = z.enum([
 
 export const PdfChunkSchema = z.object({
   sourceFile: z.string().min(1),
+  sourceRef: z.string().min(1),
   namespace: NamespaceEnum,
+  contextType: z.enum(['mechanic', 'lore']),
+  capabilityReq: z.string().min(1),
   sectionHeading: z.string().min(1),
   pageStart: z.number().int().nonnegative(),
   pageEnd: z.number().int().nonnegative(),

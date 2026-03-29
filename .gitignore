@@ -38,3 +38,9 @@ npm-debug.log*
 
 # Claude Code Session Data
 .claude/
+
+# Agent Audits
+/docs/audits/
+
+# Agent Research
+/docs/research/

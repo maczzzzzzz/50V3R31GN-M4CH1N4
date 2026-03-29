@@ -56,9 +56,50 @@ To maintain maximum stability across the Split-Node architecture, Node B must en
 
 **Node B (Orchestrator) References:**
 - **[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)**: The official Anthropic SDK specification for building the `nitro-logic` and `nitro-db` network bridges.
+- **[Catwalk](https://github.com/charmbracelet/catwalk)** *(Primary — Model Capability Registry)*: A community-maintained Go registry of AI model provider configurations consumed by Crush. It defines the canonical `Provider` and `Model` structs including `ContextWindow`, `DefaultMaxTokens`, `CanReason`, `SupportsImages`, and per-provider tool-calling capability flags. **Ollama is NOT a built-in Catwalk provider** — it must be declared manually in `crush.json`. **Mistral-Nemo is explicitly excluded from tool-use support** in Catwalk's io.net provider (`supportsTools("mistral-nemo") → false`). Use Catwalk's provider type system (`openai-compat`) as the reference pattern when declaring the Ollama provider block in `crush.json`.
+- **[Crush CLI](https://github.com/charmbracelet/crush)**: The official testing harness and Game Master terminal client. Reads config from `.crush.json` (project root) → `crush.json` → `$HOME/.config/crush/crush.json` (merged, project-root wins). Session memory persists to SQLite at `<data-dir>/crush.db` (default: `.crush/crush.db`; override via `--data-dir` or `CRUSH_GLOBAL_DATA`). Sessions are per-project but stored in a global DB.
+- **Crush stdio MCP Config Schema:** To attach `nitro-db` and `nitro-logic` as MCP servers, add the following block to `.crush.json` in the project root:
+  ```json
+  {
+    "mcp": {
+      "nitro-db": {
+        "type": "stdio",
+        "command": "node",
+        "args": ["dist/mcp/nitro-db/index.js"],
+        "timeout": 120,
+        "env": { "NODE_A_HOST": "192.168.0.50", "NODE_A_PORT": "5432" }
+      },
+      "nitro-logic": {
+        "type": "stdio",
+        "command": "node",
+        "args": ["dist/mcp/nitro-logic/index.js"],
+        "timeout": 120,
+        "env": { "NODE_A_LLAMA_URL": "http://192.168.0.50:8080/v1" }
+      }
+    },
+    "providers": {
+      "ollama": {
+        "name": "Ollama (Node B)",
+        "base_url": "http://localhost:11434/v1/",
+        "type": "openai-compat",
+        "models": [
+          { "name": "Mistral-Nemo 12B", "id": "mistral-nemo:latest", "context_window": 128000, "default_max_tokens": 4096 }
+        ]
+      }
+    }
+  }
+  ```
+- **Mistral-Nemo Tool Calling (Local Ollama):** Mistral-Nemo 12B **is** tool-capable locally when the Ollama model template includes `{{ .Tools }}`. Catwalk verifies this by calling Ollama's `/api/show` endpoint and inspecting the template. Requires strict handshake alignment and hyperparameter tuning (see below).
+- **Handshake Mandate (Mistral-Nemo):** Tool invocation must follow the JSON-RPC spec exactly:
+  - `id`: Exactly 9 alphanumeric characters.
+  - `type`: Must be `"function"`.
+  - `arguments`: Must be stringified JSON.
+  - `role`: Must be `"tool"` for responses; `tool_call_id` must echo the original 9-char id.
+- **Critical Orchestrator Hyperparameters (`src/core/`):**
+  - `temperature: 0.3` — higher values produce malformed tool call IDs.
+  - `parallel_tool_calls: false` — prevents infinite loops during multi-step reasoning.
 - **[foundry-vtt-mcp](https://github.com/adambdooley/foundry-vtt-mcp)**: Reference architecture for securely exposing Foundry tools to Claude.
-- **[Story Engine](https://github.com/kingbootoshi/story-engine)**: Reference for tracking Arc ? Beat ? Event narrative structures.
-- **[Crush CLI](https://github.com/charmbracelet/crush)**: The official testing harness and eventual Game Master terminal client. Native MCP support and persistent session memory per directory.
+- **[Story Engine](https://github.com/kingbootoshi/story-engine)**: Reference for tracking Arc → Beat → Event narrative structures.
 
 ---
 
