@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -170,14 +170,18 @@ describe('PdfFileParser', () => {
 
   describe('edge cases', () => {
     it('should return [] for a PDF that produces empty text', async () => {
-      // Write a zero-byte buffer then try to parse — pdf-parse will throw, but
-      // we can test the empty-text path by writing an empty string PDF placeholder.
-      // Actually, the simplest way: mock is unavailable here, so we test the
-      // real behavior: if text is empty after trim, return [].
-      // We will verify this through the implementation path by checking the guard.
-      // This is covered implicitly by testing the non-empty path above.
-      // For direct coverage, we rely on unit inspection in the implementation test below.
-      expect(true).toBe(true); // placeholder — logic is tested in implementation
+      // Mock the pdf-parse PDFParse class so getText() returns empty text,
+      // exercising the `if (trimmed.length === 0) return []` guard.
+      const { PDFParse } = await import('pdf-parse');
+      const spy = vi.spyOn(PDFParse.prototype, 'getText').mockResolvedValue({ text: '   ' } as never);
+
+      const tmpPath = createTmpPdf('whitespace-only');
+      try {
+        const chunks = await parser.parse(tmpPath, 'core_rules');
+        expect(chunks).toEqual([]);
+      } finally {
+        spy.mockRestore();
+      }
     });
   });
 
