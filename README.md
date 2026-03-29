@@ -38,10 +38,13 @@ The project follows a strict "Documentation as DNA" philosophy. Refer to these f
 *   **[LOCAL_SETUP.md](docs/LOCAL_SETUP.md)**: Configuration guide for Node B (Main Rig).
 *   **[SERVER_SETUP.md](docs/SERVER_SETUP.md)**: Hardening and service guide for Node A (Nitro 5).
 
-## 🛠️ Tech Stack
-- **Backend:** Node.js (TypeScript), ESM, Express/Fastify.
-- **Database:** PostgreSQL + `pgvector` (Vector Similarity Search).
-- **Inference:** Ollama (Node B) & llama.cpp (Node A).
+## 🛠️ Tech Stack & Ecosystem
+- **Core Engine:** Node.js (TypeScript), ESM, Express/Fastify.
+- **Rules Authority (Node A):** [llama.cpp](https://github.com/ggerganov/llama.cpp) (Vulkan) + PostgreSQL/`pgvector`.
+- **Narrative Orchestrator (Node B):** [Ollama](https://ollama.com/) (Mistral-Nemo).
+- **Agent Harness:** [Crush CLI](https://github.com/charmbracelet/crush) (Official GM Terminal).
+- **Capability Mapping:** [Catwalk](https://github.com/charmbracelet/catwalk) (Tool-use integration).
+- **Narrative Logic:** [Story Engine](https://github.com/kingbootoshi/story-engine) (State Machine).
 - **Validation:** Zod (Zero-Trust Data Integrity).
 - **Testing:** Vitest (100% TDD Mandate).
 
