@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] - 2026-03-29
+
+### Added
+
+- `src/core/interfaces.ts` — Full type contracts for Phase 2: `NitroLogicConfig`, `INitroLogicClient`, `AttackResult`, `DvResult`, `OracleResult`, and all input param types.
+- `src/core/nitro-logic-client.ts` — `NitroLogicClient` implementation: OpenAI-compatible HTTP bridge to Node A's llama.cpp. Enforces `temperature:0.0`, `top_k:1`, `seed:42`, `response_format:{type:"json_object"}`. Includes CoT system prompts with few-shot Cyberpunk RED exemplars for all three tools. Full Zod Zero-Trust response validation.
+- `tests/core/nitro-logic-client.test.ts` — 23 TDD tests covering config validation, all three tools (hit/miss/error paths), Zod failure propagation, network errors, and request body assertions.
+- `src/core/index.ts` — Public exports for all Phase 2 types and `NitroLogicClient`.
+
+### Changed
+
+- `src/mcp/nitro-logic/index.ts` — Replaced Phase 2 stubs with real `NitroLogicClient` calls. Added ANSI/Markdown result formatters (`formatAttackResult`, `formatDvResult`, `formatOracleResult`) for Crush CLI rendering. Added startup health check against Node A.
+
+### Fixed
+
+- Corrected `exactOptionalPropertyTypes` call-site errors for optional `rangeBand` and `context` parameters.
+
 ## [0.3.1] - 2026-03-29
 
 ### Added
