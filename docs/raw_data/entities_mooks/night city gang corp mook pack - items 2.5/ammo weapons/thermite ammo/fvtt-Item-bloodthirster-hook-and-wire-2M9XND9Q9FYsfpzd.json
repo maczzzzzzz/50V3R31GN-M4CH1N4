@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/pistolmedium_expansive.png",
+  "name": "Bloodthirster Hook & Wire",
+  "system": {
+    "description": {
+      "value": "<p><span data-sheets-formula-bar-text-style=\"font-size:16px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;\">Fired from the Bloodthirster borgware; effectively a grappling hook that's been retooled for offensive purposes.</span></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": true,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 50
+    },
+    "variety": "custom",
+    "type": "special",
+    "ablationValue": 1,
+    "overrides": {
+      "damage": {
+        "mode": "none",
+        "value": "3d6",
+        "minimum": "1d6"
+      },
+      "autofire": {
+        "mode": "none",
+        "value": -1,
+        "minimum": 3
+      }
+    },
+    "installLocation": "mall",
+    "size": 0
+  },
+  "type": "ammo",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "BCiVaCsbKywRpI1L"
+}

@@ -1,0 +1,102 @@
+{
+  "folder": "ti5x6LL0LcAG2zYh",
+  "name": "1 Piece Of Borgware",
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/implanted_linearframe_beta.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "text": "Artificial Shoulder Mount",
+      "documentId": "lqyjkgvm1kvILvuw",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/artificial_shoulder_mount.svg",
+      "_id": "GReKK3OU9G6Qib8s",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "text": "Implanted Linear Frame ∑ (Sigma)",
+      "documentId": "2XhNJ80rCSvxAenP",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/implanted_linearframe_sigma.svg",
+      "_id": "cOSgCa7tPydwHmvr",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "Implanted Linear Frame β (Beta)",
+      "documentId": "6JMYrnxIsTgSmbFi",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/implanted_linearframe_beta.svg",
+      "_id": "FGCwd1zx6Jq3VKPf",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "text": "MultiOptic Mount",
+      "documentId": "Iu2wDz9q6Ov0UAKo",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/multioptic_mount.svg",
+      "_id": "T5pQlqAHJjloJ1nx",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "Sensor Array",
+      "documentId": "eapyCpVJd8BdGPMU",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/sensor_array.svg",
+      "_id": "nHaShzMjwNyF8wfS",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": ""
+}

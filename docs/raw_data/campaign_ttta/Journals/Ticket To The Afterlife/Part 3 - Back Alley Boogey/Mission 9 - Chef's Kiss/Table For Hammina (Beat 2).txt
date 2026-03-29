@@ -1,0 +1,87 @@
+This scene takes place in Night City; it has no map. Instead, players will move about the city looking for information on one or more of the outlined areas below. All of these approaches can be provided to your players via tactics or deductions checks, with higher rolls providing more ideas.
+
+Before they get to that, however, each member of the party is given a set of items, as follows:
+
+1 Gala outfit, made up of a businesswear jacket, top, bottom, and shoes, all of which together comprise a set of @UUID[Compendium.cyberpunk-red-core.black-chrome_armor.7Ki9v2iwMH8AZp8B]{Executive Armor}
+
+1 @UUID[Item.VOFnxBgH9hPlezuT]{Underground Gala Invite}
+
+Who's Running The Show?
+
+There are 3 people of note involved in running the auction (+/- any that you, the GM, decide to involve as well).
+
+Finding the names of these individuals can be achieved through the checks outlined below. Further information, like weaknesses and things to watch out for, can be found via the statblock descriptions.
+
+The head of security: a mean mercenary by the name of Trevor Green, contracted via Militech.
+
+Trevor runs a tight ship, and the RatSec staffing the party are scared of him. He's a high-level Mlitech exec - high enough that he can moonlight as a solo with his company gear and nobody bats an eye.
+
+Uses the Militech Brute stat block.
+
+Green has made an impression on the world and hasn't been quiet about his involvement in a "special event" to help continue building his rep.
+
+Players can learn his name, his Militech affiliation, and that he's a Militech Brute, through a DV17 Streetwise or Business check, reduced to a DV15 with 3 or more points in the associated skill.
+
+The head of the auction: a cold, cruel Night Corp exec named Luna Bianchi.
+
+Luna isn't the CEO of Night Corp - with the corp needing a face, they're kept clean of secrets, including ones like this auction - but she still wields considerable power. Enough to put a human trafficking auction on in downtown NC and get away with it.
+
+Uses a variation of the RatSec Exec statblock.
+
+Luna is a sociopathic force of nature on the Night Corp board, and while there are several lower-level execs in attendance, she's the only one with the power and M.O. to throw the event.
+
+Players can learn her name and her Night Corp affiliation through a DV17 Business or Library Search check, reduced to a DV15 with 3 or more points in the associated skill.
+
+The scav leader: a brutal Scav butcher named Nails.
+
+Nails is the human trafficking scav supplying the event's merchandise, and competes with several other scav gangs in Downtown NC for corporate business. She's a tried-and-true monster - the type of person who sells other people for money, essentially.
+
+Players can learn her name and her relationship with the other scav gangs in the area (hostile) through a DV17 Local Expert (anywhere in Downtown NC) or Streetwise check.
+
+What's Keeping Chef Fenison Cooperative?
+
+It's not immediately obvious why Fenison is playing ball with the event to begin with - threats of violence only go so far, when talking about someone with the knowledge to poison your food without you ever knowing.
+
+As on-site insurance, Fenison has a bomb chip stuck in his chipslot which he will tell the party about after they make contact.
+
+Any of the 3 named enemies can set off this bomb as an action, should Fenison try to leave with the players prior to its removal or if, for example, the event's food is poisoned and its attendees start dropping like flies.
+
+Removing the bomb chip requires a DV15 Cybertech check, a DV17 Electronics/Security check, or a DV11 Interface check.
+
+For the Cybertech and E/S checks, a check result of 10 or lower sets off the bomb, killing Fenison instantly - this is a fail state. The same is true for Interface with a check result of 8 or lower.
+
+Fenison, however, has a daughter who kept her mother's name - Sarah Shales - who attends NCU. This fact can be learned by doing some background research on Fenison himself, as follows:
+
+A DV17 Deduction check is enough to figure out that the gun is to someone else's head besides the chef's.
+
+Alternately, searching Fenison's apartment reveals digital photoframes around his place - most of them feature himself and a young blonde woman, or himself and a little blonde girl through her life growing up in NC - the oldest of these show her at around high school age.
+
+The pictures are of his wife (divorced) and daughter.
+
+His daughter is now 22, but that's not immediately apparent - she's the spitting image of her mother, and Fenison got married young and divorced quickly, and hasn't noticeably aged through the photographs.
+
+A DV17 Deduction check, or DV15 Human Perception, is sufficient to notice that the daughter is not in high school but in college, and that it's easy to confuse her with his wife.
+
+Once that's known, it's a matter of narrowing down the scope:
+
+Sarah hasn't lived with her dad in a long time, but he funds her college tuition .
+
+A DV21 Library Search check reveals her as Fenison's daughter on the NCU student information roster - this check is lowered to DV17 if in the University District.
+
+Alternately, the party can ask around - a DV15 Local Expert (University District) check is sufficient to ascertain that someone with the same description is a regular in the district drunk tank.
+
+For her part, Sarah isn't aware that she's being watched for leverage over her father, only that dear ol' Dad's been more distant than usual over the last month. She's not too worried about it, preoccupied as she is with partying her way through college, except that she hasn't gotten her usual stipend for the month.
+
+If the party rescues her and assures her safety, they will be ambushed en route by a group of 1/3 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.SNKnBqS4lCZPd5yU]{Scav Savages}, 1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.UM3c8a92eSdEQmB8]{Scav Monsters}, and 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.pNTV62sWeONIvn7Z]{Scav Tech} all of which report to Nails. The ambush circumstances and map are at GM discretion.
+
+If the party secures Sarah's safety, Fenison approves their bonus, but he will not agree to work with the Afterlife or even leave the Gala until she is secure.
+
+Alternately, for an easier experience but no bonus payout, the Owner will send a different team of Afterlife mercs to secure Sarah from the NCU campus and deliver her to the Afterlife for safekeeping.
+
+How Does The Party Plan To Pursuade Chef Fenison To Work With Them?
+
+Fenison will not cooperate with any plans to help the party rescue him or in any way negatively impact the event he's catering until he learns that his daughter has been safely secured. He also needs the bomb in his head taken care of (see above post) before he will leave.
+
+He is, however, a noncombatant - while the event staff can threaten him to get him to cooperate, he won't be expected to draw a gun.
+
+Once the party has conducted all the research they plan to do and are ready to attend the event, proceed to Beat 3.

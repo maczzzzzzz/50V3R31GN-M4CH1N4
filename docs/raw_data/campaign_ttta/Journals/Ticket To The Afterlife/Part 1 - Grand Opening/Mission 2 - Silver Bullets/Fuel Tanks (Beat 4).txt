@@ -1,0 +1,71 @@
+In this beat, the players will rescue Silvers' boy from his surrogate family/gang caretakers.
+
+This beat takes place in the @UUID[Scene.GVfVYf3mAoPg0JO5]{Fuel Tanks} scene. To begin:
+
+In the Fuel Tanks scene, place 1*Partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.zeG9k6liLkdHNrf4]{Booster Gangsters}, 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.siXtBrzjkX0N0AIc]{Gangster Enforcers}, and 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.fut71IAOEpYyDksL]{Gangster Slumlord} around the scene, with the appropriate reinforcements waiting in the wings (recommended off the north side of the map, to be moved on later.)
+
+Name the Enforcers and Slumlord; Bobby is on a first-name basis with them, and they've come to care about each other.
+
+Gangster reinforcements arrive in groups of up to 1/2 partycount, and arrive on foot via the roadway.
+
+For every 4 gangsters (not including reinforcements), place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.NcmoLFKKy8hGryfN]{Generic Compact} or 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.FvEVg5aUhP5dLU0b]{Generic Truck} somewhere in the scene, each of which has 25 less max health and 5 less MOVE than they otherwise would. They're worth half (or less - GM discretion) their stated book value if they were bought, and probably even less than that if sold.
+
+They're ratty and damaged, and liable to break down, but still run and haven't been tagged by any gangs. The enforcers have the keys.
+
+Place a token for @UUID[Actor.BXWyuUclBeDdmf0b]{Bobby Silverson} in the booth next to the entrance.
+
+Bobby is being entertained by at least 1 Gangster Enforcer or the Slumlord, while the remainder roam the premises.
+
+Place the player tokens on the road, along with any vehicles they arrived in which didn't then depart.
+
+Familiarize yourself with As The Gangsters
+
+Then switch the scene to the Fuel Tanks, and read the following:
+
+Nondescript Northeastern New Westbrook - Industrial Sprawl
+
+From the office, it's not a long drive to get to where Bobby's being held. Funny, how just a few blocks is separating one of the most powerful edgerunnerrs in the city from her child. From the housing to factories and warehouses, eventually those give way as well, to an endless field of fuel infrastructure, power lines, derelict oil fields and pipelines connecting tanks - the fuel infrastructure capital of the area, and the reserves that keep the cars, trains and aeros running.
+
+The streets are largely deserted. Every so often you'll spot maintenance crews moving between the sights, going from dusty and decrepit portable buildings to banged-up work vans and trucks, but there's no civilians and no gangs - and little question as to why. Well-worn and weathered autoguns and drone systems watch the properties, keeping their weapons trained on you as you move by, ever vigilant for potential trespassers. The RatSec forces aren't worth battling when you can just rob the gas stations or hijack the tanker trucks instead, and the result is relative peace.
+
+Before long you've reached the location you found. Six fuel tanks are enclosed by a chainlink fence, abutting the side of the road. You don't spot any of the automated defenses you've seen on any of the other properties - perhaps because of this, the space is occupied. You see bodies moving around, with guns, guarding the joint. One is watching the road.
+
+As The Gangsters
+
+The gangsters are working for Silvers' boss, selling fuel to their friends at a discount in exchange for cutting the exec in on the profits. As a result, when the players arrive, the goons will think they're prospective customers rather than an immediate threat.
+
+When players arrive, so long as the gangsters don't know they're coming, the enforcer that's not watching Bobby will approach them, offering to sell them fuel "at a good price."
+
+A couple of the boosters will likewise be watching the party from inside the compound, to make sure they don't make trouble.
+
+Most of the gangsters will act with stereotypical swagger, but won't show outright hostility unless addressed poorly or the characters are somehow affiliated with another gang that they'd have reason to be opposed to.
+
+Bobby is being kept inside the guard post at the edge of the property, playing a game with the other enforcer. Although being paid to watch him, Bobby and the gangoons have bonded over the interim months, and come to care about each other.
+
+Bobby knows the gangsters by name, and will be miserable and terrified by the players if his friends are brought to harm.
+
+Likewise, the gangsters have groomed Bobby into one of them - he wears a 'do rag, walks with a swagger, wears a crew cut t-shirt, carries a paintball gun and talks like they do.
+
+If a gunfight breaks out or Bobby is otherwise terrified, he will run into the city and vanish.
+
+If a DV15 tracking check is made once he vanishes, he can be located less than a block away. Otherwise, this is a fail-state.
+
+How the players liberate Bobby is up to them, but here's some suggested paths:
+
+Use of Force: Although it isn't ideal for Bobby, he has technically been kidnapped - blowing away the gangsters guarding him and just taking the kid works fine, though it may affect how Silvers treats the players.
+
+Intimidation: If players succeed a facedown against the slumlord on the scene, they can attempt a DV15 Interrogation Check to try and intimidate him into releasing the kid without a fight.
+
+The slumlord will attempt to initiate a facedown when the players arrive once he's interacting with them - use REP+ 1/2 lowdown (rounded up) for the roll.
+
+Note that if the players pressure the gangsters too hard, a fight might break out.
+
+Persuasion: The players can attempt a DV21 Persuasion Check to appeal to the thugs' better nature, and reunite Bobby (whom they do care about) with his mother without bloodshed.
+
+This check is reduced to a DV17 if a bribe of 300eb is made while explaining that their employer isn't long for the world and that Bobby will be well taken care of. It can instead be reduced to this amount if the players promise that those so-inclined (in particular the enforcer that the kid is playing with on arrival) can see Bobby once he's back in his mother's custody.
+
+Acting: The players can attempt a DV17 Acting Check to lie to the gangsters, that their boss wants Bobby back at the office for one reason or another.
+
+This check can be skipped if the players use forgery to fake a notice from the boss in question.
+
+If one or more player characters find out that Bobby and his captors are, in fact, friends, and successfully remove Bobby by force without convincing him to the otherwise, those characters suffer 1d4 humanity loss on the way back to Silvers. You heartless bastard!

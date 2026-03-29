@@ -1,0 +1,61 @@
+{
+  "folder": "nw7GVCTc2LMEvDZe",
+  "name": "Generic Van",
+  "type": "vehicle",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Vans/Van%20-%20Brown.png",
+  "system": {
+    "description": {
+      "value": "<p>An alternative to the generic compact, vans offer slightly more durability and a sheltered cargo space in the rear, in exchange for being slightly slower and losing 2 seats. Up to 4 people can sit in the back of the van, but must make a DV15 Endurance check for trips which are longer than 20 minutes/more than one district - upon failure, they become <strong>fatigued</strong> (-2 to all actions) until they can rest (amount of rest proportional to the length of the trip, obviously).</p><p>Otherwise, they use the stats of a normal compact.</p><p><em>Tokens and Art by reddragon8928 on Discord. Redistributed with permission.</em></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 30000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 55,
+    "seats": 2,
+    "speedCombat": 18,
+    "speedNarrative": "90 MPH/145 KPH"
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

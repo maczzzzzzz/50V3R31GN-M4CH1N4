@@ -1,0 +1,27 @@
+This scene takes place either at the Dustwalker camp, at the Afterlife, or some combination thereof; no dedicated scene is required. To begin, switch to the @Scene[wanUwHXksurmCUGL]{Badlands Environment} and read the following:
+
+Success!
+
+The mood is celebratory as the Dustwalkers return to camp with the party in tow. They've recovered their two biggest assets, and are obviously excited to be entering the employ of the Afterlife.
+
+"You city kids sure know how to party!" Ranger keeps saying. "Taking on a Militech convoy - what a rush!"
+
+He's quick to phone the Afterlife once he can, but the sandstorm's still hovering and he insists the party stay at the camp until it passes. It isn't exactly comfortable, being stuck in a dark tent with half a dozen of your new best friends, especially since it's obvious none of them have seen any kind of running water for the last few days - but between the booze, the war stories and the dust storm raging outside, well, it could be worse.
+
+(Bonus check time: the following is only read if one or more of the bonus payout conditions were achieved)
+
+"Ladies and gents!" Even inside, Ranger keeps his helmet on - constant vigilance, he says, but it's a little odd that you still don't know what he actually looks like. A little, anyway. "Special announcement! We couldn't have pulled this off without a very special couple of folks. I want you all to keep those jackets - as far as I'm concerned, you're all honorary Dustwalkers. Just, eh, make sure you know how to drive before shooting for anything more than that, yeah?"
+
+The other nomads cheer and drinks are raised at the announcement. Congrats - you're now an honorary part of a group with a collective bounty in the hundreds of thousands.
+
+Back at the Afterlife, Vido is pleased - Ranger has signed on and is ready to get to work. He offers your payment without issue, ((plus any bonuses that Ranger mentions)) and puts you on your way - the next job will be along soon.
+
+Assuming that the gig was completed, beginning immediately the players have access to the Afterlife's garage & transportation services - @UUID[JournalEntry.mkFxfso1HXOrkEj6]{see the associated journal entry for more details.}
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!

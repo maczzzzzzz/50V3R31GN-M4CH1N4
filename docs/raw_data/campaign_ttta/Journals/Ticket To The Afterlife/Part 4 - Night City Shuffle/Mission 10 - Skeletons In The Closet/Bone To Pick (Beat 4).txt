@@ -1,0 +1,73 @@
+This beat is a continuation of Beat 3, but depending on your outcome, may necessitate further prep (outlined further in the scene). The beat begins when the Rattlers are about to leave the premises, or the NCPD attacks the party. There are a few disparate paths, here, so pick the pieces that suit your current situation the best.
+
+Note that none of these scenarios account for a stop off at the north bridge to string up the Mastermind - that'll have to be all you.
+
+Sound The Alarm!
+
+If the party is discovered, the NCPD will not immediately call in reinforcements. They will eventually (we'll get to that) but first and foremost the Mastermind is interested in who the party are, who sent them, and how they found out about the operation in the first place.
+
+When combat begins, the NCPD will seek to kill upwards of half the party - but corner and force surrender from the other half, by force if necessary.
+
+Once the party has surrendered, the Mastermind (probably with the help of Bones) will interrogate surviving members for information, requiring Resist Drugs/Torture checks against the Mastermind's Technical skill.
+
+Each check inflicts 1/3rd of the party member's health in damage, regardless of pass/fail (minimum 3 damage).
+
+If a party member confesses, they are killed and their body incinerated, leaving no trace.
+
+If a party member doesn't confess, they eventually die from the torture.
+
+Generally speaking, this is not a good position to be in and has no defined ways out. The Owner might put out feelers to find what happened to the party eventually, or send assistance if the party can somehow signal her, but both are longshots for rescue. Generally, this is a failstate - the party dies, the job goes uncompleted.
+
+It's The Heat!
+
+If the party gets into a fight with the NCPD operation, Bones and his crew will be forced to fight on pain of death (remember those bombs in Beat 3?) and cheerfully assist their captors, viewing the party as just a bunch of gonk edgerunners until proven otherwise.
+
+If the NCPD loses control of the situation (read: the Mastermind judges that they'll no longer be able to try and capture the party), they will call for reinforcements from the NCPD proper.
+
+Skip tier 2 - it's straight to tier 3.
+
+The NCPD force inside the morgue will try to hold out for reinforcements, and remember those bombs (maybe detonate one of Bones' gang to make an example and show that they exist) - getting Bones and his gang out without disarming them first isn't an option.
+
+If the NCPD arrives, they will demand the party's surrender.
+
+If the party complies, the NCPD will have to make use of its cleanup crew rather more intimately than normal - the party will be questioned by NCPD officials and then executed.
+
+Note, however, than the NCPD official version of this will take longer - the party will be arrested, booked, taken to a police station, questioned by a variety of officers, etc., and have ample time (likely a couple of days) to try to signal for help or plan an escape before top brass orders the situation "taken care of."
+
+Get Outta There!
+
+If Bones and his crew are de-bombed, they'll accompany the party without issue once they learn of the Owner's offer. The NCPD won't give up lightly, however - nestled inside each of the Rattlers' cyberware is a tracking device.
+
+While the Rattlers know the trackers exist, they don't know where they are, and they're full borgs - an extra electronic gizmo isn't exactly anomalous.
+
+They will, however, readily share the presence of the trackers themselves.
+
+Each tracker can be found with a DV17 conceal/reveal check, and each is hidden on a different location for each Rattler. The difficulty of this check can go up rapidly - don't be afraid to apply penalties if the search is conducted while the party is under fire or sneaking!
+
+Rather than take the Rattlers back to the Afterlife, the Owner orders the party to secure the gang in a safehouse in Old Japantown until the trackers can be removed. And that safehouse will be necessary, since you're about to go up against Night City's Apex Predators
+
+MaxTac Incoming
+
+If the party manages to get out of the Morgue with the Rattlers, but the NCPD knows they're leaving, the Mastermind will quickly concoct a cover story to ensure a MaxTac response to the threat.
+
+In such cases, the NCPD will pursue the party relentlessly through the streets of Night City as the party rushes to the safehouse - the chase can be run at GM discretion, or skipped for time. The safehouse itself is located in Old Japantown, but getting there necessitates some extra prep, as follows:
+
+Above the @Scene[xgqNYCRUpTKoFfIG]{Safe House}, the entrance is located in the @Scene[fhWZB3DRDSvN2Gue]{Old Japantown Marketplace} scene.
+
+See the ladder next to the elevator, outside the warehouse and next to the parking lot? It's there.
+
+Once they've made it down the ladder, the party is safe - a maze of tunnels greets them and the tracking devices lose effectiveness underground.
+
+Getting there, though, is a pain.
+
+As the party circles closer to the neighborhood, the NCPD sets up on the scene. Place a Tier 3 Perimeter Control squad in the parking lot next to the ladder, along with the troop transport for Tier 4.
+
+Place the troops accompanying the Tier 4 response around the scene - they've been directed to search for the party.
+
+Meanwhile, set up MaxTac and their A/V-4 offscreen - they're circling the scene, waiting for the borg squad to rear their heads for a strike, and will deploy in 1-2 rounds after combat is re-initiated.
+
+If the party is seen descending the ladder, they will be followed, though not by MaxTac - they're smart enough to know not to follow a borg to their den. Instead, SWAT teams will be sent into the sewers to try and flush the party out.
+
+Optionally, this can result in a final stand at the safehouse scene - but the NCPD's radios stop working once they're underground, so any fight will be isolated!
+
+Once Bones and his crew are safely sequestered in the Safehouse, proceed to beat 5.

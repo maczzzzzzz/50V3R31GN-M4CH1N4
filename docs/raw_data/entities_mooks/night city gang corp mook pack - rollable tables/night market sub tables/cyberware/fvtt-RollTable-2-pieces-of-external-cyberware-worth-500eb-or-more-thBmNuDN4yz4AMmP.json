@@ -1,0 +1,72 @@
+{
+  "folder": "ti5x6LL0LcAG2zYh",
+  "name": "2 Pieces of External Cyberware Worth 500eb Or More",
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hidden_holster.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "text": "Hidden Holster",
+      "documentId": "WDAHvqIooCSGWnCz",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hidden_holster.svg",
+      "_id": "A1jUhXgPQGqD2KW3",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "text": "Skin Weave",
+      "documentId": "micrAI9oicghVbcG",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/skin_weave.svg",
+      "_id": "yvAgOKnZ6fUpBHE1",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "Subdermal Armor",
+      "documentId": "O5GmxTYCrrs8uWAd",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/subdermal_armor.svg",
+      "_id": "EcC86pvBG967TmM4",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": ""
+}

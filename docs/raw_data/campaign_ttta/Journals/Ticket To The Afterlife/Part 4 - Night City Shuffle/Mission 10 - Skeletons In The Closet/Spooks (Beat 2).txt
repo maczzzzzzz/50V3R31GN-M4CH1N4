@@ -1,0 +1,103 @@
+This beat is primarily Theater Of The Mind, but also uses the @Scene[jbMDq28Zr7dI96Oj]{Glen Apartment High-Rise Environment}. To begin, switch to it, then read the following:
+
+Tracking The Trackers
+
+As you leave the Blue Room and the sounds of the 7th Circle return, you reflect on the Owner's plan. It isn't exactly a masterstroke of intelligence, but sometimes the conventional solutions are all that's needed.
+
+While you were talking, some Afterlife staff procured an NCPD radio, giving you the ability to tap into encrypted frequencies reserved for police deployments. Given how universally hated the NCPD is, this isn't something just anyone could get; the encryption is changed frequently, along with the codes used. Virtual intelligences on either end of the transmission are used to both decrypt and decode the reports. This way, the NCPD can't be ambushed or tracked… until today.
+
+Sorta.
+
+The radio's decryption program is still running, so that's the hard part done. The decoding program, though, is tied to officer agents - too risky to try and replicate, and everyone knows that the NCPD can't be paid off by anyone that makes less than 8 figures. Corruption is punished with prison time, and cops don't last long in jail.
+
+You'll have to figure that part out yourself. Hopefully you're good with cryptography.
+
+There are 3 ways to decode the transmissions of the NCPD radio:
+
+A DV17 Cryptography check (auto-passed if the user has 4 or more ranks)
+
+A DV21 Electronics/Security check (lowered to DV17 if the user has 6 or more ranks)
+
+Pay a cryptographer: there's all sorts of edgerunners in the Afterlife, nowadays - paying someone to do it for you will cost 400eb… or 2 Eagles.
+
+Once the transmission has been decoded, read on.
+
+The Owner's instructions were simple - follow the bodies. It never makes the news, but the NCPD shoots people that it isn't supposed to all the time. Sometimes it's gangers or no-name civillians, and those bodies are left where they land. But sometimes it's the people the NCPD is actually supposed to care about - execs, their team members, diplomats - and sometimes its the people NightCorp wants dead.
+
+In those cases, according to the Owner, Bones and the Rattlers will be on the scene in minutes, clean up, and then disappear without a trace. The NCPD keeps them pretty busy - the party just needs to wait for the right code, then follow Bones and his boys home.
+
+And sure enough, within the hour the call goes out, and you're on the move.
+
+The cover-up that the party intercepts is being held in the Glen. The patrol cars are already gone by the time Bones and his crew get there. Building description:
+
+The target building is a 15-story apartment block, all glossy windows and red brick, with a ritzy-looking penthouse on top. The call was for a break-in on the 13th story. If there were patrol cars, they're gone by the time you arrive. There's an underground parking garage which provides the primary building access - at this time of night, it's been secured by a grate. There's also the front lobby, though those doors are locked.
+
+The Owner instructs the party to tail the crew, not grab them on the job - at least a couple members are being kept "at home," wherever the crew returns to.
+
+Tracking the cleanup
+
+Bones and his crew have arrived via an unmarked black van, which is currently parked in a shadowy corner of the parking garage, close to the elevators. It takes them about 30 minutes to clean up the scene, and the party's arrival time is variable.
+
+If the party drove themselves, a DV15 drive land vehicle check is required - auto-passed if the driver has 4 or more ranks in the skill. On failure, the party arrives about 15 minutes after Bones did - on success, they arrive 2 minutes after Bones.
+
+If the party takes a combat cab, it always arrives 10 minutes after Bones.
+
+If the party takes the NCART or other public transit, they arrive 20 minutes after Bones.
+
+Getting into the building
+
+This be done via the parking garage or the lobby, both of which are professionally secure against intrusion. Defeating either requires one without being detected in the process requires one of the following:
+
+A DV23 Basic Tech check
+
+A DV19 Electronics/Security check
+
+A DV17 Pick Lock check
+
+A DV13 Interface check (if using @UUID[JournalEntry.Em8PtvZMfXHVHmr5]{1b. Netrunning: Rebooted} - otherwise, net infrastructure is at GM discretion.)
+
+If failed by 5 or more, the building security is tripped - Bones and his crew return to their van and the NCPD is called once again; when the all-clear is sounded, they resume their work.
+
+Bones and his crew are wearing fedoras and rubber masks to cover their skeletal borgware faces and heads, as well as long coats and gloves. They specialize in stealth - nobody sees or hears them coming or going - and the bodies from the apartment they're cleaning up are transported out in rolled rugs or carpet sections, which are being "taken for cleaning" - a plausible cover story.
+
+The crew of 4 is being escorted by a pair of @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.yK8PnIHBoxz5wfqg]{NCPD SWAT Officer}s, who are able to detonate bomb chips in the crew's heads at any time, killing them instantly.
+
+The Cleanup
+
+The cleanup is of an exec's apartment where a false break-in was reported. The NCPD was called when security was accidentally tripped, and automated defenses fired at the cops. The police responded by mistakenly assuming the exec and her small team were robbers; when two were killed by accident, they executed the exec herself to cover up the mistake.
+
+Once the cleanup is complete (30 minutes), the van leaves via the parking garage exit and heads for the NCPD Morgue, which is an unremarkable basement sublevel in New Westbrook.
+
+If players never identified Bones' vehicle, it leaves the garage at the appropriate time but they won't recognize it. In the time they stake out the building, two other vehicles also leave:
+
+One is a black SUV with tinted windows - it's carrying a NightCorp official, who's headed to the Badlands for a discrete meeting with a Militech executive.
+
+The other is a beat up 4-door sedan with armor plated everything. Its driver is a gig worker for ManyEats, a food delivery service, whose next delivery is in the Old Combat Zone. Someone had the munchies.
+
+Tracking the van without being seen can be done via Combat Cab or Tracking skill.
+
+If a combat cab is taken, roll a d10; on a result of 5 or less, the van realizes it's being tailed and vanishes into the Old City Center to lay low. See "if discovered" below.
+
+If the party is driving itself, someone in the party must make a DV19 Tracking skill check, gaining bonuses as follows:
+
++2 if the vehicle's driver has 4 or more points in Drive Land Vehicle
+
++2 if the vehicle's driver has 4 or more points in Stealth
+
+If the tracking check is failed by 4 or less, the party loses track of the van but it doesn't realize it's being tailed, and the party can start over. If failed by 5 or more, the van realizes it's being tracked and vanishes into the Old City Center to lay low. See "if discovered" below.
+
+If Discovered
+
+If Bones and the crew realize they're being tracked, they'll rabbit, disappearing into the Old City Center. Following them is a moot point - Bones knows the area and the party doesn't, plus, at least some of the crew is "at home" and the van won't be returning there anytime soon.
+
+If the van is lost, its next appearance is as follows:
+
+If the van didn't realize it was tailed, its next job is in 1 hour.
+
+The first time the van realizes it was being tracked, the next job is in 1 day - the party will have to redo the cryptography check.
+
+The second time the van realizes it was being tracked, the next job is in 5 days - the van is replaced by a groundcar of GM discretion, and the party will have to redo the cryptography check.
+
+After that point, the van reappears after 1 month - the party will have to source a new scanner (the decryption measures on the one the Owner acquired are out of date) the van is replaced by a groundcar of GM discretion,and the party will have to redo the cryptography check.
+
+Once the van has been successfully tracked to New Westbrook, proceed to beat 3.

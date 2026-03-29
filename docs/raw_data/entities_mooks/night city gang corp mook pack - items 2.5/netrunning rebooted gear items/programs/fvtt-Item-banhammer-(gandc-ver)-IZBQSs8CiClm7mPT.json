@@ -1,0 +1,124 @@
+{
+  "effects": [
+    {
+      "name": "Banhammer Contested Success Bonus",
+      "origin": "Item.lgqltzFMifa8A8RV",
+      "disabled": false,
+      "_id": "svJkfmwoougukUXR",
+      "changes": [
+        {
+          "key": "bonuses.interface",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "role"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "img": "systems/cyberpunk-red-core/icons/compendium/programs/banhammer.svg",
+  "name": "Banhammer (G&C Ver)",
+  "system": {
+    "description": {
+      "value": "<p>A program for use with the simplified netrunning rules found in Night City Gangs &amp; Corps. When slotted, when making a contested check against a system, such as against ICE, an AI, or another Netrunner, the first time the user succeeds the check, all subsequent checks against the system are made with a +2 bonus until jacking out.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "always",
+    "installLocation": "mall",
+    "size": 1,
+    "price": {
+      "market": 50
+    },
+    "class": "antipersonnelattacker",
+    "blackIceType": "antipersonnel",
+    "prototypeActor": "",
+    "interface": 0,
+    "isRezzed": false,
+    "damage": {
+      "standard": "0",
+      "blackIce": "2d6"
+    },
+    "per": 0,
+    "spd": 0,
+    "atk": 0,
+    "def": 0,
+    "rez": {
+      "value": 0,
+      "max": 0,
+      "transactions": []
+    }
+  },
+  "type": "program",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "jbJdPxC2WOthUryG",
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.cyberpunk-red-core.core_programs.Item.ccLHU1Ym4K4mnOds"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

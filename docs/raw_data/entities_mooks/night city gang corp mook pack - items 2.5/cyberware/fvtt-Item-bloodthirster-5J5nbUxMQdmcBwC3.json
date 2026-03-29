@@ -1,0 +1,97 @@
+{
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/popup_ranged_weapon.svg",
+  "name": "Bloodthirster",
+  "system": {
+    "weaponType": "medPistol",
+    "weaponSkill": "Handgun",
+    "fireModes": {
+      "autoFire": 0,
+      "suppressiveFire": false
+    },
+    "damage": "2d6",
+    "rof": 1,
+    "dvTable": "DV Pistol",
+    "isRanged": true,
+    "unarmedAutomaticCalculation": true,
+    "attackmod": 0,
+    "description": {
+      "value": "<p>A monowire with a serrated hook is fired from a wrist-mounted medium pistol, its feed reeling in automatically after a miss. 10m range. On a successful ranged attack the target is grappled. At the start of the user's turn, they can choose to pull the target 5m towards the brawler. Reloads automatically the turn after a miss, but cannot be put away until reloaded.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": true,
+    "providesHardening": false,
+    "installLocation": "mall",
+    "size": 2,
+    "usesType": "magazine",
+    "magazine": {
+      "value": 0,
+      "max": 1,
+      "ammoData": null
+    },
+    "ammoVariety": [
+      "custom"
+    ],
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade",
+        "ammo"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "type": "cyberArm",
+    "isWeapon": true,
+    "isFoundational": false,
+    "core": false,
+    "humanityLoss": {
+      "static": 9,
+      "roll": "-"
+    },
+    "critFailEffect": "jammed",
+    "canIgnoreArmor": false,
+    "ignoreArmorPercent": 0,
+    "ignoreBelowSP": 0
+  },
+  "type": "cyberware",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "ph7QR8AxHXgqhwTr"
+}

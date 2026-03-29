@@ -1,0 +1,85 @@
+This beat makes use of the @UUID[Scene.mKjcTgVHGEjAXlt5]{Repeating Highway} scene. To begin:
+
+Set up the convoy as you've determined it from Beat 3.
+
+The Hauler and its trailer(s) are always in the lead.
+
+Set up the player characters and their Dustwalker vehicles and reinforcements at your discretion around the map.
+
+These should've been determined in Beat 2.
+
+Then read the following:
+
+So You Decided To Hit The Convoy While It's Moving…
+
+You can hear the roar of the convoy's engines from a mile away. They're the only vehicles on the highway, and the hauler's massive motor is distinctive even without seeing it, masking most of the rest of the cars in a low rumble that vibrates your teeth.
+
+There's a simple GPS display, home-cooked by the nomads, on a laptop in every car. It ticks down the seconds - dots for you, one dot for the convoy. 3 miles. 2 miles. 1 mile.
+
+Ranger's voice crackles over the radio - even at such short range, the interference from the sandstorm is considerable. "Alright locos, convoy's in range, time to cut the dust. Yiipie ki yay!"
+
+A moment later you're surrounded by the roar of your own engines and the ambush party shoots up to speed. It's an insane velocity to be keeping with such low visibility from the storm, but the Dustwalkers take it in stride, best-of-the-best as they are. Around you, you hear the sound that all of North America has learned to fear whenever leaving the safety of its cities; one that Network 54 has spent the better part of 30 years dramatizing and one featured in half the video games, movies and TV shows since - the sound of a nomad ambush. Being on the side of the ambushers, though, is still proving to be a novel experience.
+
+As the Dustwalkers burst onto the scene, Militech immediately takes action. Their primary objective is to stop the ambush/protect the convoy, and if your players and the mooks are both smart, that will likely involved making aimed shots against the tires (see CORE p. 192, or alternately, tires have 10 SDP/20 if armored). As a result, the ambush will likely see a couple things happen:
+
+Anyone who's able will probably attempt to jump to an opponent's car as soon as possible so as to avoid being taken completely out of the fight if their own car
+
+Jumping to another vehicles requires a DV15 Athletics check; characters can only jump 1/3rd their move characteristic in spaces given the inability to have a running start.
+
+Alternately, the driver that's being jumped to can use their turn action to take evasive maneuvers; doing so requries all shots against the vehicle to beat the DV set by their Drive Land Vehicle check; this DV must also be beaten with Athletics to jump to the vehicle.
+
+On such checks, note the optional -4 for the severe desert conditions outlined in Beat 3.
+
+Once on a vehicle, the actor can make attacks against its occupants without making aimed shots (hitting specific vehicle parts still requires aimed shots, however).
+
+Vehicles will spray at each other: nobody smart is going to be aiming for particular actors unless they've already swapped vehicles.
+
+Bigger vehicles will ram smaller ones: Motorcycles and buggies are vulnerable to ramming from trucks and the hauler.
+
+People will hit the pavement: If a jump is missed or someone is thrown off a vehicle, they hit the pavement. For every 10 MPH/16 KPH that the vehicle was moving before they were thrown off, they take 1d6 damage, ablated by armor/generating critical injuries as normal.
+
+Note that the general top speed of most vehicles is 100MPH/160KPH; if a vehicle used NOS, that's doubled to 200MPH/320KPH for 1 turn.
+
+Otherwise, note the following:
+
+The Hauler will attempt to run anyone who gets too close off the road but keep on course until its apparent it no longer will be able to (has been boarded and escort has been defeated, trailer is decoupled, etc.)
+
+The Motorcycles will immediately attempt to dump their occupants, either reinforcing their own vehicles to fight boarding parties or attempting to board someone else's vehicle.
+
+Those aboard consider the motorcycles themselves to be disposable.
+
+All other Militech staff will work at their discretion, seizing targets of opportunity and focusing on enemy weak points or heavy weapons that are the biggest threat to their convoy.
+
+The Strike Commander is competent, ordering their officers to fire to best effect.
+
+The trailer can be freed from the Hauler by making an aimed shot against the hitch. The hitch has 10 SDP.
+
+Doing this damages both the A/V-4 and Ranger's Volkhov (not to the point of being inoperable, but the trailer still flips and that's extra work), so should only be attempted as a last resort.
+
+The vehicles can be freed from the trailer while the convoy is moving.
+
+Doing so requires 2 actions from someone that's outside the vehicle.
+
+Once this is done, the vehicle immediately comes free of the trailer.
+
+Keeping the Volkhov on the road requires a DV17 Drive Land Vehicle check (ignore the sandstorm modifier) from someone in the driver's seat, which is increased to a DV21 if the engine isn't running.
+
+Lifting the A/V-4 requires a DV15 Pilot Air Vehicle. This can't be attempted if the A/V-4 isn't running.
+
+If either check is failed, the vehicle topples off the trailer and onto the road, potentially being run into by the other vehicles. Treat it as a falling actor ("People will hit the pavement") and it may take additional damage from being rammed.
+
+Militech will surrender once it becomes clear that they can no longer win the fight.
+
+They will never surrender, however, while the Strike Commander/Convoy Commander is conscious and still capable of giving orders - and the commander will never surrender.
+
+In cases where they do surrender, Ranger's a good-natured sort about it, not wanting a reputation as Raffen.
+
+The Dustwalkers always conceal their faces, and have no insignias on their cars (they cover those on their jackets before negotiating).
+
+Additionally, killing the surrendering Militech officers gains them nothing, while letting them live increases the chances, however slight, of a more favorable interaction between the two organizations in the future.
+
+Because of this, Ranger will leave the vehicles that aren't already his, and insist the rest of the party do the same (they're filled with trackers and unmistakably Militech in origin, making them more trouble than they're worth).
+
+While he'll flatten their tires to prevent pursuit, he'll also leave Militech a functional radio and a small supply of water - when the sandstorm dies down, surrendering officers will be able to get home safely, corporate consequences notwithstanding.
+
+Once the convoy has been defeated and/or the vehicles recovered, proceed to beat 5.

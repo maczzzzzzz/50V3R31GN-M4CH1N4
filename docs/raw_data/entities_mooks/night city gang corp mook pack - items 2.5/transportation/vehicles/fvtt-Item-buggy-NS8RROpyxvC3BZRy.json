@@ -1,0 +1,60 @@
+{
+  "folder": "nw7GVCTc2LMEvDZe",
+  "name": "Buggy",
+  "type": "vehicle",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Buggies/Buggy%20-%20Tan.png",
+  "system": {
+    "description": {
+      "value": "<p>Nomad access 1.</p><p>Buggies are extremely common among nomad clans and raiders on the open roads, either starting their lives as luxury vehicles or being custom-built from scrap and spare parts. While their light weight doesn't offer much protection, it allows them to overtake a normal car easily, especially in the midwestern wastelands where upgraded suspension allows them to bounce over obstacles that would stop another vehicle cold.</p><p>Buggies have 2 seats, with a common upgrade being the addition of a third in the back for jumping into/out of, or for mounting a gun on. 25 MOVE / 125 MPH / 200 KPH top speed. 40 HP. 25,000eb (Super Luxury) item. Can mount terrain features of less than 24 IN/61 CM in height without needing to maneuver.</p><p><em>Tokens and Art by reddragon8928 on Discord. Redistributed with permission.</em></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 25000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 40,
+    "seats": 2,
+    "speedCombat": 25,
+    "speedNarrative": "125 MPH / 201 KPH"
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

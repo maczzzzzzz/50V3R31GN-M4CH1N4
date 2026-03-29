@@ -1,0 +1,559 @@
+{
+  "name": "Gang & Corp Random Encounters - Enemies",
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberweapons/vampyres.svg",
+  "description": "<p><strong>Rolling privately is recommended.</strong> Round up for partycount amounts. I.E. \"1/3 partycount\" with a party of 4 = 2 mooks.</p>",
+  "results": [
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        1,
+        3
+      ],
+      "drawn": false,
+      "_id": "ELoEFoJmxIhJjzlw",
+      "text": "Gang of Homeless Junkies: 1 Street Junkie for each party member, looking for easy prey.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        4,
+        6
+      ],
+      "drawn": false,
+      "_id": "r0ge0J4eQRR4SGSb",
+      "text": "Gang of Street Punks: 1 Street Bully for every 3 party memebers, 1 Street Punk for each party member, rumbling for a fight.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        7,
+        9
+      ],
+      "drawn": false,
+      "_id": "OEjyMtNo0TqvgoZj",
+      "text": "Gang Activity: 1 Booster Gangster for each party member, conducting criminal activity (robbery, shakedown, etc).",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        10,
+        12
+      ],
+      "drawn": false,
+      "_id": "9E1b2BaMWxvouyNz",
+      "text": "Gang Movement: 1/2 partycount Booster Gangsters, 1/3rd partycount Gangster Enforcers, setting up an operation on their turf.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        13,
+        15
+      ],
+      "drawn": false,
+      "_id": "2CjBLoPMAaq7dtSX",
+      "text": "Block Party From Hell: Partycount Booster Gangsters, 1/3 partycount Gangster Slumlords, who've taken over the local scene and pushed everyone else out.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        16,
+        18
+      ],
+      "drawn": false,
+      "_id": "QGV5OMbp7whyxLqP",
+      "text": "Corporate Security: Partycount RatSec Grunts, 1/2 partycount RatSec Elites, visiting the area and casting suspicious glances.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        19,
+        21
+      ],
+      "drawn": false,
+      "_id": "rGUdiQl3b2WNFiKa",
+      "text": "Corporate Outing: 1/3 partycount RatSec Execs, 1/2 partycount RatSec Elites, 1/2 partycount RatSec Grunts, who're in the area to meet a quota of some kind.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        22,
+        24
+      ],
+      "drawn": false,
+      "_id": "ITvpR8IYzG86F0oY",
+      "text": "Mechanized Patrol: 1/3 partycount RatSec Elites, 1/2 Partycount RatSec Grunts, 1/3 Partycount RatSec Ground Drones and/or Air Drones in any combination, who are securing the area.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        25,
+        28
+      ],
+      "drawn": false,
+      "_id": "Niu4DBnKByNhP3sE",
+      "text": "Friday Night Firefight: 1/2 partycount Booster Gangsters and 1/3rd partycount Gangster Enforcers are going to war against 1/2 Partycount RatSec Grunts and 1/3 Partycount RatSec Elites + 1/4 Partycount RatSec Ground and/or Air Drones. The NCPD will be called.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        29,
+        30
+      ],
+      "drawn": false,
+      "_id": "vYupJpic7AbemU1M",
+      "text": "Trauma Team Pickup: A Trauma AV swoops in with a roar of noise to secure the area, threatening to shoot anyone who does anything funny.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        31,
+        32
+      ],
+      "drawn": false,
+      "_id": "CK8k3drUzt6ogjvD",
+      "text": "NCPD Roadblock: A street has been blocked off by a Tier 3 NCPD response, waiting to resolve the situation (roll again to see why they're there, disregarding this result if it's rolled again)",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        33,
+        36
+      ],
+      "drawn": false,
+      "_id": "hPlH8ztv62VB3OFh",
+      "text": "NCPD Patrol: An NCPD Patrol Car is present to \"keep the peace\", along with 2 NCPD Patrol Officers.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 3,
+      "range": [
+        37,
+        39
+      ],
+      "drawn": false,
+      "_id": "szyhiHg0Ugv6ua5R",
+      "text": "Friday Night Firefight: An NCPD Armed Response (tier 2 response) is on the scene and actively battling a rival force (roll again to see who they're battling, disregard corporate and NCPD entries)",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        40,
+        40
+      ],
+      "drawn": false,
+      "_id": "yR1Fr7CdJT8jljjM",
+      "text": "Bozo's Night Out: Partycount Bozo Fools are present, being led by 1/3 Partycount Bozo Jesters, out for a night on the town - roll a d2. On a 1, they're \"innocent\" clowns that are part of the Circus of Joy, just looking for a fun time - on a 2, they're psychopaths that are part of the Circus of Merriment.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        41,
+        41
+      ],
+      "drawn": false,
+      "_id": "tsWX2BBV6Hq3KK5r",
+      "text": "Clown Town: 1/2 Partycount Bozo Fools are present, seemingly just to cause trouble.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        42,
+        42
+      ],
+      "drawn": false,
+      "_id": "9uq95mz0ahfawv5K",
+      "text": "Inquisitor's Sermon: A High Inquisitor has set up, guarded by a Servitor and 1/2 partycount Gangster Enforcers. They're preaching violence against the cybernetically augmented, and getting bad looks.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        43,
+        43
+      ],
+      "drawn": false,
+      "_id": "LxnbuCkbtmd49tmu",
+      "text": "Inquisitor Hit Job: An Inquisitor Auspex is set up somewhere nearby, supported by a Servitor and 1/2 partycount Gangster Enforcers, waiting to take the shot at a majorly chromed out target in the scene. Roll 1d3 - on a 1, the target is a RatSec Exec, guarded by a grunt and an elite. On a 2, the target is a Maelstrom Brawler. On a 3, it's the most heavily chromed member of the party.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        44,
+        44
+      ],
+      "drawn": false,
+      "_id": "RpXq4ig9H2MUpMs3",
+      "text": "Iron Sights Hitjob: An Iron Sights Fixer or Iron Sights Hitman has concealed themselves on the scene somewhere, waiting to take out a key target. Roll again to see which org the Iron Sights member has disgusied themselves as, and then a third time to see who their target is. If doubles are rolled (11, 22, 33, etc.) then the target is the most well known player character in the party.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        45,
+        45
+      ],
+      "drawn": false,
+      "_id": "M1OABQhcsIpo8kwj",
+      "text": "Vampyre Performance: 1/2 Partycount Vampyre Performers and 1/3 Partycount Vampyre Showstoppers are on the scene, enacting vigilantism in their own trademark style. Roll a d3 - on a 1 they're present as part of a robbery, on a 2 it's to intimidate a local presence, and on a 3 it's to rescue someone.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        46,
+        46
+      ],
+      "drawn": false,
+      "_id": "RsvM4iz0JBdMfEOo",
+      "text": "Prianha Swarm: Partycount Prianha Jackasses and 1/2 Partycount Piranha Sanchezes are present to start a party and probably do something stupid, causing a commotion and a distraction.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        47,
+        47
+      ],
+      "drawn": false,
+      "_id": "ISPmWO73bmuS1KQ3",
+      "text": "Prime-Time Presence: 1/3 Partycount Prime-Time Protagonists are present, each accompanied by 2 Sidekicks, enforcing their territory and causing problems.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        48,
+        48
+      ],
+      "drawn": false,
+      "_id": "AJ3pTzflPjS12M43",
+      "text": "Cartoonist Gone Crazy: 1 Prime-Time Cartoonist is present, their behavior erratic and unstable; they're likely to crack, soon.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        49,
+        49
+      ],
+      "drawn": false,
+      "_id": "VGMPBkvyAbyKuyex",
+      "text": "The Reckoning: Partycount Reckoner Martyrs are present. They don't negotiate or leave a manifesto, they simply begin destroying the place.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        50,
+        50
+      ],
+      "drawn": false,
+      "_id": "eqo6zlXHfn9WDsym",
+      "text": "Reckoner Recruitment: 1 Reckoner Chaplain is present, guarded by 1/2 partycount Reckoner Martyrs, giving a sermon and preaching about the end of times. Their voice has a strangely magnetic attraction...",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        51,
+        51
+      ],
+      "drawn": false,
+      "_id": "9g8Q5C1y1kElCp65",
+      "text": "Y'all Qaeda: Partycount Red Chrome Legionnaires are present and being a loud, drunken obstacle to everyone, but they all have guns and nobody's willing to tell them to hit the bricks for fear of getting shot.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        52,
+        52
+      ],
+      "drawn": false,
+      "_id": "P8PzoFeMGZRdFJVH",
+      "text": "In-Person Seminar - How CryptoPyram Will Earn You Sex And Topple The Worldwide Economy: 1 RCL Scammer is present, giving a lecture to partycount RCL Recruits and 1/2 partycount Red Chrome Legionnaires. They WILL try to sell to the players and the other members WILL get angry if the sale is refused.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        53,
+        54
+      ],
+      "drawn": false,
+      "_id": "WQ6oUSDoGWJtERLV",
+      "text": "SCOTT BROWN MOTHERFUCKER, GET THE FUCK OUT I'VE GOT A SHOWING: Evidently the local realitor isn't happy about the building's current inhabitants. 1/3 partycount Scott Brown Realitors (or, if facing stiff resistance, 1/3 partycount Eviction Specialists) appear in the scene during a lull in the action or at the height of the tension, and immediately begin clearing the building.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        55,
+        56
+      ],
+      "drawn": false,
+      "_id": "ppPrapOvayc6ZDsV",
+      "text": "Nobody Messes With The Family: 1/3 partycount Steel Vaquero Drivers are present, each accompanied by 2 Steel Riders. Roll a d3 - on a 1, they're in town for a good time, on a 2, they're picking up something to be smuggled, and on a 3 they're getting revenge on someone for hazing them or damaging a car.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        57,
+        58
+      ],
+      "drawn": false,
+      "_id": "LSwHnDuFZ3emMZ0X",
+      "text": "Whodoo Voodoo: A VDB Ghost, Mentalist and Spiritseer are present, seeking something to do with the scene's tech. They won't take well to being disturbed, which is problematic with how invasive they're being in the process.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        59,
+        62
+      ],
+      "drawn": false,
+      "_id": "Hfbq8ReOSmw9mRGJ",
+      "text": "6th Street Patrol: 1/3 partycount 6th Street Technicals are in the area, each manned by 2 Corporals and a Gangster Enforcer. Roll a d2 - on a 1, they're just securing the area. On a 2, they're looking to expand their slice of the local drug trade... by taking care of a rival.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        63,
+        64
+      ],
+      "drawn": false,
+      "_id": "m5iUPjRFEFB0hrC2",
+      "text": "6th Street Position: the area has been taken over by partycount 6th Street Privates, accompanied by 1/2 partycount 6th Street Corporals, 1/2 partycount Booster Gangsters and 1 6th Street Lieutenant. If the party wants to get by, they'll need to convince the Lt.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        65,
+        68
+      ],
+      "drawn": false,
+      "_id": "pQdnpoQgY082RQKL",
+      "text": "Biotechnica Showing: an animal sculpted team comprised of a Biotechnica-aligned RatSec Exec and 1/2 partycount RatSec Elites are present, accompanied by partycount Biotechnica Foragers and/or Phoenixes, or 1/2 partycount Biotechnica AugWolves/AugBears, in any combination. The handlers are only barely managing to keep control of their beasts.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        69,
+        70
+      ],
+      "drawn": false,
+      "_id": "banTW0afqqk61QTp",
+      "text": "Maelstrom Activity: A Maelstrom Brawler and Punisher are present, along with 1/2 partycount Booster Gangsters, shaking down a business or making a weapons deal, and don't like being watched.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        71,
+        72
+      ],
+      "drawn": false,
+      "_id": "E7JlojqGDKQgY9ay",
+      "text": "Maelstrom Strong Point: The area has been taken over by Maelstrom, with 1/3 partycount Maelstrom Rippers (either variety) accompanied by 1/2 partycount Maelstrom Brawlers/Punishers (in any combination) and 1/2 partycount Booster Gangsters. It's chrome turf for the moment, and you'd better scram!",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        73,
+        76
+      ],
+      "drawn": false,
+      "_id": "LNPceIXYXcndjEni",
+      "text": "Scav Abduction: 1/2 partycount Scav Savages are present, being led by 1/2 partycount Scav Monsters and accompanied by 1/2 partycount Booster Gangsters. They're prowling the streets, ready and willing to take the next person they see with adequate chrome home with them.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        77,
+        78
+      ],
+      "drawn": false,
+      "_id": "K7ZBBYp0IX961pBw",
+      "text": "Scav Strong Point: Partycount Scav Savages have taken over the area, accompanied by 1/2 partycount Scav Monsters, 1/3 partycount Scav Techs/Butchers (any combination) and supported by 1/2 partycount Booster Gangsters. The smell of blood is in the air.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        79,
+        82
+      ],
+      "drawn": false,
+      "_id": "x1DVHKiBlaKxXjVd",
+      "text": "Tyger's Strike - 1/2 partycount Tyger Claws Firebreathers/Kamis (in any combination) are racing around on Onis, each one accompanied by a Gangster Enforcer. Roll a d2 - on a 1, they're street racing. On a 2, they're engaged with a rival force (roll again to see who they're fighting).",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 4,
+      "range": [
+        83,
+        86
+      ],
+      "drawn": false,
+      "_id": "QfDXavE1nH73c5G8",
+      "text": "Tyger's Den - The area is now owned by the Tygers; a pair of Neurosyncs are present, accompanied by partycount Kamis/Firebreathers (any combination) and supported by Partycount Booster Gangsters and Gangster Enforcers. The Onis are either actively in use or just waiting to be mounted, somewhere nearby.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    }
+  ],
+  "replacement": true,
+  "displayRoll": false,
+  "folder": "L1cYIZpzY5A56qLT",
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d86"
+}

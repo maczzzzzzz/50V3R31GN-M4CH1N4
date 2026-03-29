@@ -1,0 +1,87 @@
+{
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "current": 33,
+        "previous": "24"
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "img": "systems/cyberpunk-red-core/icons/compendium/weapons/Shotgun_poor.svg",
+  "name": "Scav Shrapnel Cannon",
+  "system": {
+    "ammoVariety": [
+      "shotgunShell"
+    ],
+    "attackmod": 0,
+    "brand": "",
+    "canIgnoreArmor": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "critFailEffect": "destroyedBeyondRepair",
+    "damage": "4d6",
+    "description": {
+      "value": "<p>An absolutely insane scav concoction - its closest point of comparison is a blunderbuss, except the shrapnel cannon can only fire specially-made <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.0CDThubxOXNOmQtY]{shredder ammo}</strong>, and is the only gun capable of doing so.</p><p>It counts as a Very Heavy weapon for purposes of crits, critting on 5s as well as 6s if that homebrew adjustment is being used.</p><p>The Shrapenl Cannon is a poor quality weapon. When it jams, it explodes, becoming destroyed beyond repair and inflicting its damage exclusively to the holder.</p>"
+    },
+    "dvTable": "",
+    "equipped": "equipped",
+    "favorite": false,
+    "fireModes": {
+      "autoFire": 0,
+      "suppressiveFire": false
+    },
+    "handsReq": 2,
+    "ignoreArmorPercent": 0,
+    "ignoreBelowSP": 0,
+    "installedItems": {
+      "allowed": true,
+      "allowedTypes": [
+        "itemUpgrade",
+        "ammo"
+      ],
+      "list": [],
+      "slots": 3,
+      "usedSlots": 0
+    },
+    "isRanged": true,
+    "magazine": {
+      "ammoData": null,
+      "max": 2,
+      "value": 0
+    },
+    "price": {
+      "market": 500
+    },
+    "quality": "poor",
+    "revealed": true,
+    "rof": 1,
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "unarmedAutomaticCalculation": true,
+    "usage": "equipped",
+    "usesType": "magazine",
+    "weaponSkill": "Heavy Weapons",
+    "weaponType": "shotgun"
+  },
+  "type": "weapon",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "DCU1ROVWjCfT3KmM"
+}

@@ -1,0 +1,61 @@
+{
+  "effects": [],
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Haulers/Hauler%20-%20Blue.png",
+  "name": "Rat Trap",
+  "system": {
+    "description": {
+      "value": "<p>Nomad access 3. Can be provided to an exec as part of their role ability's recruitment of a driver, in place of a generic compact.</p><p>Not-so-affectionately earning their nickname the world over, Rat Traps are the economy sedan step up from a generic compact, without getting into supercar territory, reflected in their slightly higher speed and extra base seat. Rat Trap interiors are more comfortable than a generic compact, and are primarily found in the hands of execs, politicians, and crime bosses all over the world. For liability reasons, windows have been completely removed from the vehicle, despite the technical challenges this imposes - you can afford the maintenance on the screens and cameras, right?</p><p>50 HP. 5 seats. 25 MOVE / 125 MPH / 200 KPH top speed. 40,000eb (Super Luxury) item.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 40000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 50,
+    "seats": 5,
+    "speedCombat": 25,
+    "speedNarrative": "125 MPH / 201 KPH"
+  },
+  "type": "vehicle",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "nw7GVCTc2LMEvDZe",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

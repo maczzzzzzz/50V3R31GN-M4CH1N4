@@ -1,0 +1,64 @@
+{
+  "folder": "wfo1b78X1ygRgdoN",
+  "name": "Outfit - High Fashion (G&C Ver)",
+  "type": "clothing",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Clothing.svg",
+  "system": {
+    "description": {
+      "value": "<p>The latest and greatest of trendy… whatever this is. Maybe it's an ethereal, gravity defying dress, somehow always covering just the right places. Maybe it's a suit made entirely out of meat. The one thing these outfits all have in common is function alongside form - there's a <em>reason</em> people want to wear this stuff.</p><p>After being bought:</p><ul><li><p>The user declares one other type of outfit (in the case of Urban Flash, choose one of the options) and this outfit gains those effects, triggered as stipulated by the effect text.</p><ul><li><p>If the chosen outfit has downsides/side effects, those downsides/side effects can be ignored. This includes the time limitations.</p></li></ul></li><li><p>While wearing the outfit, the user gains +2 to the <strong>Wardrobe &amp; Style</strong> skill.</p></li><li><p>In addition to this, for every 5,000eb beyond the first which is spent to acquire this outfit, the user chooses 1 stat. The stat is increased by 1. The outfit also gains 1 base Upgrade Slot.</p><ul><li><p>The same stat cannot be increased this way twice, and this bonus cannot be used to increase a stat above 9.</p></li></ul></li><li style=\"box-sizing:border-box;user-select:text\"><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px\"><span style=\"font-family:Jost\">Characters can only benefit from one outfit's provided bonuses at a time.</span></p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "equipped",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 5000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "type": "top",
+    "style": "highFashion"
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

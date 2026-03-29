@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "img": "systems/cyberpunk-red-core/icons/compendium/gear/cyberdeck_poor.svg",
+  "name": "Cyberdeck (Poor - NC G&C Ver)",
+  "system": {
+    "description": {
+      "value": "<p>A vanilla netdeck for use with the simplified netrunning rules found in Night City Gangs &amp; Corps. 3 program slots. When the user rolls a 1 on an interface check while using this deck, the deck ceases functioning until an action is taken to restart it.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "isElectronic": true,
+    "providesHardening": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "equipped": "owned",
+    "installLocation": "mall",
+    "size": 1,
+    "price": {
+      "market": 100
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade",
+        "program"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "quality": "poor"
+  },
+  "type": "cyberdeck",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "R4NKxIqCAeI8nYfh",
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.cyberpunk-red-core.core_gear.Item.DsO5c0MS5tZ0bh1B"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+This beat takes place in the @UUID[Scene.aNH5f8HeCSS472Gr]{Afterlife, Sublevel 3.} Place the player tokens and Vido in the green room, switch to it, then read the following.
+
+Unexpected Results
+
+Back at the Afterlife, Vido looks at the device containing Nora Jackson's AI personality with a mixture of amusement and concern.
+
+"Well… certainly not what I was expecting by any means, but we can still make this work. With you consent, mon cheri?"
+
+After Nightlight indicates she'll allow the transfer, Vido walks to a holographic table in what was going to be the Afterlife's information center and broadcasting hub. Plugging Nightlight in, her head appears in the center of the table, floating and watching the party. She is, you suspect, recreating the face of Nora before her unfortunate accident, though her eyes are glowing and her hair has been braided with electrical cables.
+
+"Ah…" she sighs. "That's some good tech. Good evening Afterlife, this is Nightlight, reporting live and in person from the greatest club this side of paradise." She smiles down at you - it's meant to be endearing, you're sure, but the giant holographic AI head is definitely giving Overlord vibes, whether she intends to or not. "Thanks for the rescue, kiddos. And for the sponsor," she adds, looking at Vido. "Sorry I can't attend the party in person, but maybe that's for the best. You kids have fun."
+
+Her head vanishes as she retreats into the Afterlife's computer systems, presumably to do… whatever it is AIs do when they're not trying to take over the world or murder the meatbags.
+
+"Well then," Vido continues - his face is still a mix of concerned bemusement. "I suppose we should go inform the Owner that the Afterlife's new resident will not be requiring a hotel room, non? And then, there is a party to attend - come now, it's time to celebrate your achievements!"
+
+Mission complete - assuming Nightlight was rescued successfully, the party receives their pay. Additionally, the party Vido is referring to is being thrown at least in part as a celebration of the party's efforts - between the toasts and Nightlight's broadcast, each party member gains an additional personal rep.
+
+The conclusion of this mission also unlocks the final service of the Afterlife - see @UUID[JournalEntry.3Ke6zuK7DdKXvMp7]{11. Pirate Radio} for details.
+
+You Have Now Completed Ticket To The Afterlife - Congratulations!
+
+I hope you've enjoyed the campaign, but your journey in Night City doesn't have to be over! The intent of Ticket To The Afterlife has always been to provide a prospective new party with a foundation and starting point for their own adventures, whatever those might be, and to give new GMs some experience running games, to see what goes into making a mission work.
+
+And my own work isn't over, either!
+
+If you're interested in continuing to expand the Afterlife yourself, reach out! I can be found on the Foundry RED Discord server as Prometheus, or on Reddit at /u/TheInvaderZim. The module originally had considerable sidequest support planned, but the scope of the project got away from me and I intend to move on - but I'd love to help package your content and make it a part of the bigger whole!
+
+If you have thoughts or feedback on the campaign, as ever, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign down the line - just because its missions are complete, doesn't mean I won't be making revisions, down the road!
+
+Thank you so much for playing - I have more content in the pipeline, including a globe-trotting treasure-hunt, so stay tuned!
+
+Prometheus.

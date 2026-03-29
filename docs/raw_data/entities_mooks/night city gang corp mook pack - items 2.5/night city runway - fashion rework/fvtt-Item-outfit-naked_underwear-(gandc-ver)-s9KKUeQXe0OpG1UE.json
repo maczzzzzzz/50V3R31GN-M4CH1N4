@@ -1,0 +1,154 @@
+{
+  "folder": "wfo1b78X1ygRgdoN",
+  "name": "Outfit - Naked/Underwear (G&C Ver)",
+  "type": "clothing",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Clothing.svg",
+  "system": {
+    "description": {
+      "value": "<p>Feels like you're wearing nothin' at all!</p><p>Free. </p><p>While you're \"wearing\" this outfit:</p><ul><li><p>You automatically fail any <strong>Wardrobe &amp; Style</strong> checks;</p></li><li><p><strong>Personal Grooming</strong> checks are made at a -3. You'd better hope you look good <em>everywhere. </em></p></li><li><p><strong>Wilderness Survival</strong> checks are also made at a -4 - turns out it's pretty hot and/or cold out.</p></li><li><p>Additionally, people <em>will</em> stop and stare. If you're hot, they'll stop and stare for longer. </p></li><li><p>It's also distracting, but unfortunately not in a good way - you receive -2 to your <strong>COOL</strong> stat while not wearing clothes.</p></li><li><p>Technically speaking, public indecency is still a crime in Night City, but the NCPD usually doesn't have time to enforce that.</p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "equipped",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 0
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": false,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 0
+    },
+    "type": "top",
+    "style": "bagLadyChic"
+  },
+  "effects": [
+    {
+      "name": "Outfit - Naked",
+      "origin": "Item.sIf9UgAo2VOgMAEt",
+      "disabled": false,
+      "_id": "wKzSsB6BWVbkhEPZ",
+      "changes": [
+        {
+          "key": "system.stats.cool.value",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.personalGrooming",
+          "value": "-3",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.wardrobeAndStyle",
+          "value": "-30",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.wildernessSurvival",
+          "value": "-4",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "stat",
+              "1": "skill",
+              "2": "skill",
+              "3": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "1": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "2": {
+                "isSituational": false,
+                "onByDefault": false
+              },
+              "3": {
+                "isSituational": false,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

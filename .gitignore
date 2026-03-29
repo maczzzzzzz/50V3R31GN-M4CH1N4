@@ -12,8 +12,14 @@ coverage/
 !.env.example
 
 # --- Project Specific Data (Surgical) ---
-docs/raw_data/
+# Block all raw data by default to catch PDFs...
+docs/raw_data/*
+# ...but explicitly allow the lightweight JSON modules for disaster recovery
+!docs/raw_data/campaign_ttta/
+!docs/raw_data/entities_mooks/
+
 docs/rulebooks_raw/
+
 # Ignore everything in superpowers EXCEPT our blueprints
 docs/superpowers/*
 !docs/superpowers/plans/

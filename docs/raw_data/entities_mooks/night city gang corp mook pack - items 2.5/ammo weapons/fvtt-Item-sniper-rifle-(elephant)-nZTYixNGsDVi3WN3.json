@@ -1,0 +1,66 @@
+{
+  "folder": "BCiVaCsbKywRpI1L",
+  "name": "Sniper Rifle (Elephant)",
+  "type": "ammo",
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/rifle_armorpiercing.png",
+  "system": {
+    "description": {
+      "value": "<p><span data-sheets-formula-bar-text-style=\"font-size:16px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;\">Proprietary Militech ammunition that can only be loaded into a sniper rifle, designed to explode on impact. Function as armor-piercing rounds which deal an additional 3 damage.</span></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 10,
+    "price": {
+      "market": 100
+    },
+    "variety": "rifle",
+    "type": "armorPiercing",
+    "ablationValue": 2,
+    "overrides": {
+      "damage": {
+        "mode": "set",
+        "value": "5d6+3",
+        "minimum": ""
+      },
+      "autofire": {
+        "mode": "none",
+        "value": -1,
+        "minimum": 3
+      }
+    },
+    "installLocation": "mall",
+    "size": 0
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

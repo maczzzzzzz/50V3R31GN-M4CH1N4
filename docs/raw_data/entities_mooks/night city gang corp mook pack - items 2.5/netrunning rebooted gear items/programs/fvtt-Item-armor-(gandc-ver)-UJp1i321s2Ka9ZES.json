@@ -1,0 +1,67 @@
+{
+  "effects": [],
+  "img": "systems/cyberpunk-red-core/icons/compendium/programs/armor.svg",
+  "name": "Armor (G&C Ver)",
+  "system": {
+    "description": {
+      "value": "<p>A program for use with the simplified netrunning rules found in Night City Gangs &amp; Corps. When slotted, if the user takes more than 7 brain damage after failing a check, they take 7 brain damage instead. Requires 2 program slots.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "installLocation": "mall",
+    "size": 2,
+    "price": {
+      "market": 100
+    },
+    "class": "defender",
+    "blackIceType": "antipersonnel",
+    "prototypeActor": "",
+    "interface": 0,
+    "isRezzed": false,
+    "damage": {
+      "standard": "1d6",
+      "blackIce": "1d6"
+    },
+    "per": 0,
+    "spd": 0,
+    "atk": 0,
+    "def": 0,
+    "rez": {
+      "value": 0,
+      "max": 0,
+      "transactions": []
+    }
+  },
+  "type": "program",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "jbJdPxC2WOthUryG",
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.cyberpunk-red-core.core_programs.Item.yommG7jwlXzoyf8Z"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+School's Out! (Dance)
+
+Each room in the Bozo Lair is a "school classroom," designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.
+
+Each of the rooms is a "puzzle"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they do entertain the idea of someone being able to "outwit" them, and those who do are brought to the Principal for "disrupting the class."
+
+Each of the Bozos are dressed for the room they're occupying.
+
+ReTox
+
+When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.
+
+Psychological Conditioning
+
+While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.
+
+At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.
+
+Track the amount lost - 1/2 of it will be regained after 24 hours.
+
+Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).
+
+While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.
+
+Opt Out
+
+Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.
+
+Panic! At The Disco
+
+To begin:
+
+Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} at the chair on the DJ's Stand, and another at the door.
+
+Place 6 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.JCpR3fjW7E7Aggac]{Civilian (Male-presenting)} tokens on one side of the room, and 6 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.XqxwWAyfPzrob7Ex]{Civilian (Female-presenting)} tokens on the other.
+
+Place the abducted character in the grey chair.
+
+Then read the following:
+
+The tube carrying you twists and tumbles before you finally fall out of the ceiling - landing painfully, on your side, in your worst nightmare: the corner of a high school dance. Music is playing that's at least 40 years out of date, and the empty dance floor is rimmed by poorly choreographed lights. The room is filled with people, all of them wearing clown masks, but none of them dressed for the occasion. They stand silent, unmoving, all turned towards you, and segregated by gender. Worse, enormous eyes are displayed on screens around the edges of the room, all of them, watching. Menacingly.
+
+(The character immediately feels the effects of ReTox, making them more socially conscious and a bit awkward and gangly.)
+
+"Allllright everyone!" a woman's voice says; up at the DJ booth you can see a Bozo manning the table, her hair wild and frizzy even by Bozo standards. When she starts talking, the restraints on your chair are released. "Let's get this party started; make sure to leave room for a Bozo while you dance!"
+
+Truly a living nightmare, the character must navigate a school dance where nobody's allowed to dance. Social anxiety is always in the corner of the character's mind thanks to their ReTox dose, and the DJ isn't helping matters.
+
+The room's other occupants are fake - mannequins (and/or animatronics at GM discretion) that are only rendered lifelike attributes thanks to the lighting, the environment, some convincing paint, and the ReTox. Characters can determine this with a DV15 Human Perception check.
+
+The DJ is actively contributing to the character's social anxiety - the spotlight follows them as they move around, and the music constantly shifts and skips; the floor is greased, making it hard to move, and through a trick of the sound system, it seems like there's teenagers whispering and giggling behind them at all times.
+
+This challenge has 3 possible solutions:
+
+Cut Footloose: Screw all the people watching - live in the moment! The funk and fugue of the dance can be cut through by busting a move, either solo or by taking one of the mannequins for a spin, with a DV15 Play Instrument (if the character has something suitable to play), DV17 Dance, or DV22 Athletics check.
+
+Indecent Exposure: the character can attempt to ruin the dance by 'acting inappropriately,' I.E. stripping naked, getting rowdy around the room, attacking the crowd (but not the Bozos), telling lewd jokes, or whatever other ways that one would get themselves kicked out of a high school dance. This strategy can be determined via a DV17 Tactics or Deduction check.
+
+Fake Insanity: A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).

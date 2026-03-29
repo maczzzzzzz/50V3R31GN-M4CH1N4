@@ -1,0 +1,63 @@
+{
+  "folder": "vTuji1TiOfb0xCvs",
+  "name": "500eb of Tech Crafting Materials",
+  "type": "gear",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Cyberdeck.svg",
+  "system": {
+    "description": {
+      "value": "<p>Rare crafting components suitable for crafting general technology - things like smart glasses, cryotanks, or food processors. Can be used to craft item(s) of up to double the crafting material EB in value - for example, 250eb of materials can be used to craft up to 500eb of weapons. Disparate Materials can be consolidated.</p><p>Typically, crafting requires a Tech role ability with a level of fabrication expertise, as well as a check with the relevant skill. The exact rules for crafting (and the DVs/times required, etc.) can be found on CORE p. 148-149.</p>"
+    },
+    "source": {
+      "book": "Core",
+      "page": 148
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": false,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    }
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

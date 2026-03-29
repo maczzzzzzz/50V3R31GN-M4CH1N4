@@ -1,0 +1,97 @@
+{
+  "name": "TttA Bounties, 4 - Payout",
+  "img": "systems/cyberpunk-red-core/icons/compendium/gear/tech_bag.svg",
+  "description": "<p>To use this table, tally the ranks in role abilities at your table. Substitute this for the \"role amount\" figure.</p><p>Once the payout has been determined, see the difficulty tiers on the Bounty Board journal entry to fill out the encounter.</p>",
+  "results": [
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        1,
+        2
+      ],
+      "drawn": false,
+      "_id": "FzTZUz60g4yHcSJg",
+      "text": "Tier 5: Everyday work - 1/3rd role amount in Eagles",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        3,
+        4
+      ],
+      "drawn": false,
+      "_id": "a2vJayCfZKY2jfPC",
+      "text": "Tier 4: Edgerunning classic - 2/3rds role amount in Eagles",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        5,
+        6
+      ],
+      "drawn": false,
+      "_id": "zDy7CUo5AZIKCRXP",
+      "text": "Tier 3: There's a reason no one's taken it on - 1 role amount in Eagles",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 2,
+      "range": [
+        7,
+        8
+      ],
+      "drawn": false,
+      "_id": "cuUv7iQb0BDC949q",
+      "text": "Tier 2: Unusual reward - one player may roll on a night market table to determine the reward",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "_id": "KHqpsg9QpidxBJAP",
+      "text": "Tier 1: Major leagues - roll on this table again, then once more, discarding this result if it's rolled either time.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "folder": "Ad4jNi5p028hdDLl",
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224954365,
+    "modifiedTime": 1774375917758,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d9"
+}

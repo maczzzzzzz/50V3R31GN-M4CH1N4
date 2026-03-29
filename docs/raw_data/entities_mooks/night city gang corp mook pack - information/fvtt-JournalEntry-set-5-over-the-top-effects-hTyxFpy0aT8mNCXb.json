@@ -1,0 +1,58 @@
+{
+  "folder": "1nZJiDJzylGYXO2z",
+  "name": "Set 5 - Over The Top Effects",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "The Stage Is A Character, Too!",
+      "type": "text",
+      "_id": "wdJxtYnDqrQvKBIE",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This set utilizes a mix of animatronics, motors, wheels, and complex machines to create stagecraft that would be impossible in any other era - complex, intricate Rube Goldberg machines that somehow end up working out in the end.</p><p>Common targets for animation might include furniture, vehicles, plants, pipes, girders or other piles of construction material, industrial equipment like conveyors or assembly machines, or a giant waterwheel.</p><p>Mook Options:</p><ul><li><p><strong>1 Point, in place of an action during the Vampyre's turn:</strong> The Vampyre deploys and \"mounts\" a small, single-space object, and activates it as described below.</p></li><li><p><strong>1 Point, during movement on the Vampyre's turn:</strong> An object which the Vampyre is standing on briefly animates and begins to move. It can move spaces = the Vampyre's remaining MOVE, or 6, whichever is higher. Anyone standing on the object is carried with it; any non-Vampyre standing on the object must make a dexterity save (roll 1d10 - a result less or equal to the character's dexterity stat passes; use 1/2 physical for NPCs) and is knocked prone on failure.</p></li><li><p>Any actor in the way of the object's movement must also succeed a reflex or dexterity save - on success, they may move to the side, and on failure, they're thrown to the side, knocked prone, and take 2d6 damage.</p><ul><li><p>While the Vampyre who activated the object remains atop it, they can choose to continue moving it in place of their own MOVE on each of their turns. If they dismount, they must reactivate it again.</p></li><li><p>If any other actor is standing on the object after the Vampyre dismounts, they can take control of it to the same effect; they must still make the dexterity save, and the object stops moving/must be reactivated if they're knocked prone.</p></li></ul></li><li><p><strong>3 Points, as an action during a Vampyre's turn:</strong> A uniform surface which a Vampyre is standing on suddenly turns smooth and slippery. Any non-Vampyre standing on that surface must make a DV15 Dexterity Athletics check before attemping to move on that surface; on failure, they are knocked prone.</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774383591254,
+    "modifiedTime": 1774383591254,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

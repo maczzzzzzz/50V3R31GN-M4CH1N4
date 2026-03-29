@@ -1,0 +1,49 @@
+Setting up the MA&F Building: The players should be placed in the @UUID[Scene.uhY2vLgFlM4dA8V3]{MA&F Lobby} scene, right at the entrance. Pepper the lobby scene and the MA&F office scene with some @UUID[Actor.oXJZUUkyafqAzCdb]{MA&F Corpos} and put four @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.AIR0MIWchnbMvM5D]{Rat-Sec Grunts} in the lobby (two in the lobby proper, the other two in the back area behind the desk). Make sure there is one MA&F Corpo behind the reception desk.
+
+Balancing Budgets:
+
+You enter the Merill, Asukaga, and Finch offices, located at the center of the 'mostly' clean Glen district. Very close to city hall, the Office tower stands as a testament to the finance corps' strength. The lobby itself is very clean and open, and you all see corpos chatting with each other and various well-endowed clientele at the small raised glass tables and seats around the glass window edge of the lobby.
+
+This building can get very dangerous to edgerunners without good social sense. Anyone who is wearing gang colors, bag lady chic, or nomad leathers is assumed to not belong and is a check away from having security called on them. This also applies to characters with visible armor or weaponry.
+
+IMPORTANT: While the RatSec Grunts might not serve a challenge to the players any grunt or exec can use an action to alert the NCPD, who arrive in 1d6 rounds. RatSec grunts and execs will only do this once at least two RatSec grunts have dropped. The Glen serves as the location of the NCPD's Central Precinct, which means that 5 NCPD Patrol officers arrive with 2 NCPD Enforcer Groundcars. If NCPD units are dropped, they will continue to call backup so be wary.
+
+Talking to the receptionist, the players have a few ways to talk to Sasha:
+
+If they know which floor she works at (the 13th), they can schedule an account sign-up appointment with one of the accountants on that floor without needing to make any rolls. (This costs 200eb)
+
+They can ask for an appointment with Sasha, at which point that character will need to make a Luck Save (roll 1d10 and try to get the result under the total of their current Luck points) to see if she is available at this time of night.
+
+They can pretend to be Rat Sec Accountants or Executives themselves, which can only be attempted if one of the party members is wearing businesswear and they succeed on a DV: 13 personal grooming check. This will give the player(s) attempting to deceive the Receptionist the ability to make a DV: 17 acting check. If any of the players got higher than a 17 on their earlier personal grooming check, they gain a +2 to the acting roll.
+
+They can attempt to bribe the receptionist DV: 17 - (euro offered by players / 200) rounded up.
+
+They can have a netrunner hack into the building's system and set a fake appointment for them.
+
+They can forge a note from Clarisa saying that they are talking to Sasha in her place. DV: 17
+
+They can threaten the receptionist through a facedown (Note, this is VERY risky. RatSec escorts them out on failure, or if they are too loud with their intimidation).
+
+Water Cooler Talk:
+
+The players can ride the elevator up to the 13th floor, where they eventually find Sasha in one of the small office rooms, which has her name engraved on a door plaque.
+
+The moment you lay eyes on who you assume to be Sasha, you see a tired woman with a short pixie cut and a light blue cardigan on. She has a mug of Koff-pop mocha 3 at her side, and a small compression brace on her right hand. She is scrolling through her computer when you enter, clearly doing some complicated financial math. She looks up from her computer at all of you.
+
+If the players manage to schedule an appointment with her, she has a chipper facade and treats the group as new potential account holders. Otherwise, she will be curiously surprised and will proceed to ask who the players are. The moment Clarisa is brought up, Sasha will get extremely worried. A DV: 13 persuasion check is required to convince her that you are telling her the truth about Clarisa. This roll can be given additional +1 modifiers for each piece of evidence that the players can provide. Once the players succeed, Sasha will tell the players anything they want and she will help as much as she can. If the players fail, Sasha will call security and immediately try to contact Clarisa.
+
+Here is what Sasha knows:
+
+Clarisa was taking out regular sums of money for ‘personal use’. When asked by Sasha about it, Clarisa jokingly said “One for my dealer, one for my dancer, one for my landlady, and one for me.”
+
+Sasha knows about B00zeHound and has even met him once.
+
+She has never met Antonio Kelly, but she knows that he works at the Aaron Kelly Dance Studio.
+
+Sasha and Clarisa have been hooking up, and Sasha has even been at the Afterlife Hotel a couple of times. Of course, Sasha has never been in the club areas and all she knows is that it’s a hotel that Clarisa owned, sold, and is still living in.
+
+Clarisa has been talking a lot about Antonio, her instructor. Secretly Sasha feels a bit jealous, but not enough to feel any anger towards the guy. Sasha remembers Clarisa talking a bit about how much Antonio keeps trying to get her to go to the Totentanz. Antonio talks about it being, “the epicenter of REAL dance”.
+
+Clarisa's finances are a bit wild. She gets released roughly four thousand a week for regularly interacting with her parents, and she has about seven-hundred and thirty-five thousand stored in the bank. The problem is that, given Clarisa's current party-heavy lifestyle, she started a habit of losing roughly ten thousand a week in strange benders. This coupled with her regular rent payments meant that she has been draining her fortune at an exponentially increasing rate.
+
+Clarisa's parents are old, old money from Austria. Her last name, and the last names of her parents, is Bohm. Clarisa dislikes her parents quite a bit, and she seems to resent them for keeping her very sheltered from the world. She has, over her seven years in the city, been lying to them about her current life status and acting as if she has been a 'paragon of virtue' every time they call.

@@ -1,0 +1,58 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "03. Danger Room",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Lights Flash, Smoke Emitters Hiss...",
+      "type": "text",
+      "_id": "vpNivN3Ka9zL6a9q",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once the party meets the Afterlife's owner.</p><h3>Cost</h3><p>For combat encounters, the danger room costs <strong>1 Eagle per character who uses it, per combat encounter.</strong></p><p>For encyclopedic knowledge, the Danger Room costs <strong>1 Eagle per rep of the enemy requested, x2 if it's the first enemy within the organization the Afterlife has profiled.</strong></p><h3>Function A - Combat Simulator</h3><p>The Danger Room's primary function is as a semi-controlled combat environment for players to test new strategies, gear, and skills within.</p><p>When the combat simulator is paid for, players can request to fight enemies of a certain organization that they're aware of in Night City, at GM discretion. Upon doing so, a combat encounter is generated, the exact parameters of which are at GM discretion (ideally with player input).</p><p>The encounter strictly adheres to the following rules:</p><ol><li><p>Regardless of what ammunition is used, combat within the arena is non-lethal, as follows:</p><ul><li><p>Any character who would be reduced to/below 0 HP by an enemy within the chamber is reduced to 0 HP and paralyzed, instead of being mortally wounded. While paralyzed they are still conscious but cannot take actions, move, or speak.</p></li><li><p>This paralysis ends once the combat simulation ends, either via the players choosing to conclude it, or by all players being defeated.</p></li><li><p>This effect extends to unusual damage sources, such as fire, suffocation, or poison.</p></li><li><p>Any character can return to the HP they had before entering the Combat Simulator by spending 1 downtime day healing. Unless they received a critical injury while on the floor, they do not need to be stabilized first.</p></li></ul></li><li><p>Ammunition is still used as normal; armor is still ablated as normal.</p></li><li><p>Critical injuries can still be inflicted by floor enemies. If a flesh-and-blood character is reduced to 0 HP or below 0 HP by a critical injury or an attack which causes a critical injury, they are mortally wounded instead of paralyzed, and begin making death saves as normal.</p><ul><li><p>Fall damage can still be inflicted as normal, following the same rules as critical injuries if it reduces a character to the mortally wounded state.</p></li><li><p>Characters can still inflict real damage to one another while on the floor in a similar vein - tread cautiously.</p></li></ul></li></ol><h3>Function B - Afterlife Databases</h3><p>All players should have access to the Gang &amp; Corp Master Ability List by default, which contains the gang/corp-wide abilities of NC organizations, their hunting grounds, and their combat strategies, but they may want more.</p><p>For the associated price, the Afterlife will conduct research and provide composite information on any individual enemy type in the mook pack, giving players full visibility of that mook's sheet to learn its specific stats, gear, and skills.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

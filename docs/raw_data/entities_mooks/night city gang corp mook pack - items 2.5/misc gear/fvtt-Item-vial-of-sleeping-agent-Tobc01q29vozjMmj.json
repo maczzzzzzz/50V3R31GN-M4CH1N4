@@ -1,0 +1,62 @@
+{
+  "folder": "hZ2GxSJFPY0LYGCf",
+  "name": "Vial of Sleeping Agent",
+  "type": "gear",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Sleep%20Agent.webp",
+  "system": {
+    "description": {
+      "value": "<p>When taken into the body or bloodstream, inflicts the sleep status effect. The target must immediately atempt a DV13 Resist Torture/Drugs Check (use Physical for mooks) if they are susceptible to poison. On fail, they fall prone and unconscious for 1 minute. Lasts for 10 triggers/10 rounds/5 minutes, or until an antidote is administered. Each new application refreshes the timer. Once the target is asleep, they no longer attempt the checks and remain unconscious for 1 minute in combat, until damage is taken, or until they're woken up as an action. Once woken, if enough time hasn't passed, they may be at risk of falling back asleep!</p>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": false,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    }
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

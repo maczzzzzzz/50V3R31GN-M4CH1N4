@@ -1,0 +1,60 @@
+{
+  "folder": "9iEjPfV0izLN7sXx",
+  "name": "NCART Membership",
+  "type": "vehicle",
+  "img": "systems/cyberpunk-red-core/icons/compendium/vehicles/motorbike.svg",
+  "system": {
+    "description": {
+      "value": "<p><span data-sheets-formula-bar-text-style=\"font-size:16px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;\">Membership with NC's premiere (only) public transit solution. Trams are overcrowded, filthy, and barely functional. Primarily services the Rebuilding Urban Zones, with 2-3 stops in each. Does not extend to Pacifica. 1 stop in each Overpacked Suburb.</span></p><p>Can be purchased by-use for 10eb per trip - monthly membership is incurred alongside lifestyle expenses.</p><p><span data-sheets-formula-bar-text-style=\"font-size:16px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;\">User suffers a -2 penalty to initiative rolls for arrival times when beginning scenes, except for Overpacked Suburb stops, which suffer -4. Using it to arrive in an unserviced district results in an initiative roll of 1. Possability of random encounters and pickpockets.</span></p>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 100
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 0,
+    "seats": 0,
+    "speedCombat": 0,
+    "speedNarrative": ""
+  },
+  "effects": [],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

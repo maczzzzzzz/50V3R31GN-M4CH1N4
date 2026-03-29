@@ -1,0 +1,167 @@
+{
+  "folder": "kyGRdF4jJWnEO5tg",
+  "name": "1. Origin/Background",
+  "img": "icons/svg/d20-grey.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "p1zo1AQl8XLdeK7t",
+      "text": "Night City Nobody - an up-and-comer on the scene who's shining bright and living large.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "_id": "mdzvDke6xiOvTX1r",
+      "text": "Night City Legend - a well-established edgerunner with a free day kicking loose.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "_id": "cWVkXYOoy3sAkhR0",
+      "text": "Corporate Affiliate - an exec (or someone part of an exec's team) that's looking to build a rep as a reliable contractor.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "_id": "fMedwIDh07XTFnAz",
+      "text": "Gangoon - a badass from one Night City gang or another, looking to make a little cash on the side and build their rep.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "_id": "GZ7pvzdbLjMkNVhq",
+      "text": "International Agent - an edgerunner from across the pond, likely from either Europe, Korea, South America or Russia.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "_id": "Wl0VzW56n1z8hu6c",
+      "text": "Mysterious Nobody - the bartender has know idea who they are or where they're from, but they're known to be reliable.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "_id": "hACAejiGcRXv4fRa",
+      "text": "Tumbleweed - a road warrior from the Badlands, likely from one of the major families, making some extra money while they're in town.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "_id": "0VUHRBUtgY4wrIyE",
+      "text": "Minor Celebrity - somebody who's made news headlines, looking for their next shot at the limelight.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "_id": "y8XhQ6pdE0X2j7WN",
+      "text": "Playboy - a wealthy 1%er, looking to spice up their life.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "_id": "7LzMITXAoeH2C1fj",
+      "text": "Familiar Face - comes from the same place and similar lifepath as the player character interested in hiring them.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224954365,
+    "modifiedTime": 1774375917758,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d10"
+}

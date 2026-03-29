@@ -1,0 +1,27 @@
+This beat is triggered when some of the party fell asleep.
+
+Welcome To… Oops! You Aren't Supposed To Be Awake
+
+You can only hold your breath for so long - fortunately, after what doors finally open, revealing a dimly lit room, some chairs, and several demented looking clowns.
+
+"Alright boys!" one squeaks in a voice that's FAR too high for them. "Fresh recruits! A special batch! Let's get them - wait, WHAT?! Boss, they're awake!"
+
+After a moment, there's a low tone and a very worn-out intercom sounds over the room. "Darn it Bozo! HAHAHAH! I told you not to get the discount stuff! But no problem, our new recruits are always so rational! No need to fear, the Bozos are here for you! Just cooperate and you won't be harmed!"
+
+Until such a time that a party member decides to be uncooperative, the Bozos in the room will attempt to drag any unconscious members into the chairs in the center of the room, which are fastened with restraints at their arms and legs. Conscious players will also be encouraged to sit down.
+
+If characters don't cooperate, the Bozos will not hesitate to use force to get them to sit down, and don't care much about their own injuries when doing so.
+
+Once all players have been fastened in - or it becomes clear that the Bozos will no longer be able to sit any further players - the intercom sounds with a school bell and the lead Bozo screams over the mic, "CLASS IS IN SESSION!"
+
+Beneath any occupied chairs, pit traps open, sending the chairs and their occupants straight down into the floor.
+
+These in turn move about a complex series of chutes, pulleys and other mechanisms before eventually being coughed up in rooms around the complex.
+
+Assign players to unoccupied rooms around the perimeter of the lair at random and refer to their associated room instructions.
+
+From that point onward, any players which step adjacent to a space with a chair will trigger its trap and they must attempt a DEX save - on failure, they also fall into the pit (use the falling rules - they fall 20m total) and reappear 20 seconds later in a random unoccupied room.
+
+For those players that don't end up falling into a room, once the Bozos have been dealt with, climbing to the catwalk at the front of the room only requires a moment; the door beyond is sealed via a DV15 Electronics Security or Pick Lock check, and the door beyond that is not sealed.
+
+Once players enter the principal's office, proceed to beat 6.

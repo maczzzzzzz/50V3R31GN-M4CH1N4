@@ -1,0 +1,121 @@
+{
+  "folder": "wfo1b78X1ygRgdoN",
+  "name": "Outfit - Leisurewear (G&C Ver)",
+  "type": "clothing",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Clothing.svg",
+  "system": {
+    "description": {
+      "value": "<p>Expensive comfort clothing - bathrobes and slippers, snuggle blankets, rubber crocs, etc. You wouldn't think it'd be so in-demand, but some of this stuff is worth more than the people wearing it. Rule #32 of surviving Night City (and also Zombieland) - enjoy the little things.</p><ul><li><p>While this outfit is being worn, the wearer suffers a <strong>-2 penalty to Wardrobe &amp; Styl</strong>e checks.</p></li><li><p>If the wearer is taking downtime to naturally heal (E.G. without use of a cryotank or other such measures), the wearer <strong>heals for an additional point of HP per day</strong> spent.</p></li><li><p>Once a week when the user spends a full day wearing this outfit, they <strong>gain 1 point of humanity</strong>. This bonus cannot be conferred more than once/week (E.G. through multiple outfits).</p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "equipped",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 325
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "type": "top",
+    "style": "leisurewear"
+  },
+  "effects": [
+    {
+      "name": "Outfit - Leisurewear",
+      "origin": "Item.ir3j7PrDFg2dYEJG",
+      "disabled": false,
+      "_id": "2gtshcNTZrUdGHyK",
+      "changes": [
+        {
+          "key": "bonuses.wardrobeAndStyle",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": false,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}
