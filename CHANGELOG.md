@@ -9,6 +9,20 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `src/scripts/run-seed.ts` entry point with throttled embedding (200ms batch delay).
+- `nitro-db` MCP server with ANSI/Markdown formatting for Crush CLI.
+- `nitro-logic` MCP server scaffolding with Phase 2 tool schemas (Zod validated).
+- `.crush.json` official configuration for Charmbracelet Crush CLI.
+
+### Changed
+
+- Synchronized `run-seed.ts` schema initialisation with `schema.sql` (UUID keys, HNSW indexes).
+- Verified 100% pass rate for the complete Phase 1 test suite (151 tests).
+
+## [0.3.0] - 2026-03-29
+
+### Added
+
 - `src/scripts/run-seed.ts` — CLI entry point that wires all dependencies and executes `SeedOrchestrator` to populate Node A's pgvector database. Includes schema initialisation (`CREATE TABLE IF NOT EXISTS pdf_chunks`), health check gate, `ThrottledEmbeddingService` (200ms inter-batch delay), and structured JSON logging.
 - `src/mcp/nitro-db/index.ts` — `nitro-db` MCP server (stdio transport). Exposes `rag_query` tool with namespace isolation; returns ANSI/Markdown-styled results for Crush CLI Glamour rendering.
 - `src/mcp/nitro-logic/index.ts` — `nitro-logic` MCP server (stdio transport, Phase 2 stub). Full tool schemas defined for `resolve_attack`, `calculate_dv`, and `oracle_roll`. Returns informative Phase 2 stub responses until `NitroLogicClient` is implemented.

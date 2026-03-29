@@ -107,24 +107,43 @@ const EMBEDDING_DIMENSIONS = 768;
 
 const INIT_SCHEMA_SQL = `
 CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE IF NOT EXISTS pdf_chunks (
-  id              BIGSERIAL   PRIMARY KEY,
-  source_file     TEXT        NOT NULL,
-  source_ref      TEXT        NOT NULL,
-  namespace       TEXT        NOT NULL,
-  context_type    TEXT        NOT NULL,
-  capability_req  TEXT        NOT NULL,
-  section_heading TEXT        NOT NULL,
-  page_start      INTEGER     NOT NULL DEFAULT 0,
-  page_end        INTEGER     NOT NULL DEFAULT 0,
-  content         TEXT        NOT NULL,
-  chunk_index     INTEGER     NOT NULL,
-  token_estimate  INTEGER     NOT NULL,
-  embedding       vector(${EMBEDDING_DIMENSIONS}),
+  id             UUID        NOT NULL DEFAULT gen_random_uuid(),
+  source_file    TEXT        NOT NULL,
+  source_ref     TEXT        NOT NULL,
+  namespace      TEXT        NOT NULL,
+  context_type   TEXT        NOT NULL,
+  capability_req TEXT        NOT NULL DEFAULT 'none',
+  section_heading TEXT       NOT NULL,
+  page_start     INTEGER     NOT NULL DEFAULT 0,
+  page_end       INTEGER     NOT NULL DEFAULT 0,
+  content        TEXT        NOT NULL,
+  chunk_index    INTEGER     NOT NULL,
+  token_estimate INTEGER     NOT NULL,
+  embedding      vector(${EMBEDDING_DIMENSIONS}),
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+  CONSTRAINT pdf_chunks_pkey
+    PRIMARY KEY (id),
+
   CONSTRAINT pdf_chunks_source_file_chunk_index_key
-    UNIQUE (source_file, chunk_index)
+    UNIQUE (source_file, chunk_index),
+
+  CONSTRAINT pdf_chunks_namespace_check
+    CHECK (namespace IN ('core_rules', 'campaign_ttta', 'entities_mooks')),
+
+  CONSTRAINT pdf_chunks_context_type_check
+    CHECK (context_type IN ('mechanic', 'lore'))
 );
+
+CREATE INDEX IF NOT EXISTS pdf_chunks_namespace_idx ON pdf_chunks (namespace);
+
+CREATE INDEX IF NOT EXISTS pdf_chunks_embedding_hnsw_idx
+  ON pdf_chunks
+  USING hnsw (embedding vector_cosine_ops)
+  WITH (m = 16, ef_construction = 64);
 `.trim();
 
 async function initSchema(pool: pg.Pool, traceId: string): Promise<void> {
