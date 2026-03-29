@@ -78,7 +78,8 @@ Before writing a single line of code, you MUST use your agentic tools to perform
 ## 🛑 THE QUARANTINE ZONE (Scope Creep Enforcement)
 Under no circumstances are you to architect, scaffold, or write code for the following systems during this implementation run. If the user requests these, gently remind them of the "No Creep" contract.
 * **Red Trade (Phase 5):** Contraband, heat tracking, jail mechanics, braindance therapy.
-* **Living City (Phase 6):** Advanced Pulse engine, faction reputation tracking, dynamic turf wars.
+* **Character Creation (Phase 5):** Conversational "Fixer Interview" wizard, automated template mapping, and faction-voiced Lifepath generation.
+* **Living City (Phase 6):** Advanced Pulse engine, faction reputation tracking, dynamic turf wars, and Computer Vision map/wall generation.
 * **AR HUD Overlays:** Floating combat barks or augmented reality visual effects.
 * **Simulacrum Deep Memory:** Persistent cross-session NPC memory banks.
 * **Headquarters:** Base upgrades and Morale Boost logic.
