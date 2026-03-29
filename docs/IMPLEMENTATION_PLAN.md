@@ -40,7 +40,7 @@ Before writing a single line of code, you MUST use your agentic tools to perform
 3. **Logic Validation:** Use Zod to strip narrative "fluff" from Node A, returning only raw integers/booleans.
 
 ## 🎭 PHASE 3: Foundry Bridge & Immersion UI
-**Goal:** Connect the Node B backend to the Foundry VTT frontend, enforce the Immersion Mandate via local WebSocket integration, and establish the Local GM Console for direct MCP access.
+**Goal:** Connect the Node B backend to the Foundry VTT frontend, enforce the Immersion Mandate via local WebSocket integration, and establish the backend endpoints for the Crush CLI testing harness.
 
 **Execution Steps:**
 1. **FoundryAdapter Class:** Build the REST/WebSocket singleton in `src/api/` that talks to the `foundry-api-bridge-module`.
@@ -51,8 +51,9 @@ Before writing a single line of code, you MUST use your agentic tools to perform
    * *Step B:* Query `nitro-logic` (Node A) for mechanics and DVs.
    * *Step C:* Mistral-Nemo 12B (Node B) generates prose based on Node A's mechanical result.
    * *Step D:* Push prose and dice roll commands to FoundryAdapter.
-5. **Local GM Console (MCP Client):** Build `src/cli/gm-console.ts` using `inquirer` or `readline`. This interactive local terminal must act as an MCP Client allowing manual execution of `nitro-db` (RAG lore queries), `nitro-logic` triggers, and direct Foundry state overrides without using the Foundry UI.
-6. **Phase Gate:** Trigger a test Fixer phone call, push a basic narrative string to the Foundry chat, and successfully execute a manual lore query via the GM Console. Ensure absolutely no meta-text or UI wrappers are visible in-game. Wait for User approval.
+5. **Agent Harness (Crush CLI Integration):** DO NOT build a custom CLI or terminal interface (e.g., `src/cli/gm-console.ts`). The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the testing harness and GM console. Your only task here is ensuring the `nitro-db` and `nitro-logic` MCP servers are correctly formatted as standard `stdio` servers so Crush can seamlessly attach to them.
+6. **Phase Gate:** Trigger a test Fixer phone call, push a basic narrative string to the Foundry chat, and successfully verify the `stdio` MCP server connection is ready for Crush CLI. Ensure absolutely no meta-text or UI wrappers are visible in-game. Wait for User approval.
+
 ---
 
 ## 🌃 PHASE 4: MVP Assembly (Night Market & Story Engine)
