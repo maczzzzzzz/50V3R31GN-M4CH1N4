@@ -437,7 +437,7 @@ describe('SeedOrchestrator', () => {
       expect(report.chunksUpdated).toBe(7);
     });
 
-    it('accumulates totals across multiple upsertBatch calls', async () => {
+    it('reflects UpsertStats from the single upsertBatch call correctly', async () => {
       // Two files in different namespace dirs will produce separate or combined batches
       const fp1 = await writeTmpFile('core_rules', 'a.txt', 'content');
       const fp2 = await writeTmpFile('campaign_ttta', 'b.txt', 'content');
@@ -487,7 +487,27 @@ describe('SeedOrchestrator', () => {
     });
   });
 
-  // ── 11. Structured logging context and traceId ────────────────────────────
+  // ── 11. upsertBatch failure handling ─────────────────────────────────────
+
+  describe('upsertBatch failure', () => {
+    it('adds to errors and continues when upsertBatch throws', async () => {
+      const fp = await writeTmpFile('core_rules', 'upsert-fail.txt', 'some content');
+      const rawChunk = makeRawChunk({ sourceFile: fp });
+
+      const parser = createMockParser(true, [rawChunk]);
+      const failingInserter: IChunkInserter = {
+        upsertBatch: vi.fn(async () => { throw new Error('DB down'); }),
+      };
+
+      const orchestrator = new SeedOrchestrator(logger, embeddingService, failingInserter, [parser]);
+      const report = await orchestrator.run(tmpRoot);
+
+      expect(report.errors.length).toBeGreaterThan(0);
+      expect(report.errors.some(e => e.error.includes('DB down'))).toBe(true);
+    });
+  });
+
+  // ── 12. Structured logging context and traceId ────────────────────────────
 
   describe('structured logging', () => {
     it("logs with context='SeedOrchestrator' and a non-empty traceId", async () => {
@@ -512,7 +532,7 @@ describe('SeedOrchestrator', () => {
     });
   });
 
-  // ── 12. chunkIndex assigned 0-based per source file ──────────────────────
+  // ── 13. chunkIndex assigned 0-based per source file ──────────────────────
 
   describe('chunkIndex assignment', () => {
     it('assigns chunkIndex 0, 1, 2 to 3 chunks from the same source file', async () => {
@@ -538,7 +558,7 @@ describe('SeedOrchestrator', () => {
     });
   });
 
-  // ── 13. First matching parser wins (multiple parsers) ────────────────────
+  // ── 14. First matching parser wins (multiple parsers) ────────────────────
 
   describe('parser selection', () => {
     it('uses the first parser that canParse returns true', async () => {

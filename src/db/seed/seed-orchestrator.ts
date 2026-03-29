@@ -64,7 +64,6 @@ export class SeedOrchestrator implements ISeedOrchestrator {
 
     // Collect all raw chunks from all namespaces
     const allRawChunks: RawChunk[] = [];
-    const fileChunkMap = new Map<string, number>(); // filePath → count of chunks added
 
     for (const [namespace, dirName] of Object.entries(NAMESPACE_DIRS) as Array<[Namespace, string]>) {
       const nsDir = path.join(rawDataRoot, dirName);
@@ -122,7 +121,6 @@ export class SeedOrchestrator implements ISeedOrchestrator {
         }
 
         filesProcessed++;
-        fileChunkMap.set(filePath, rawChunks.length);
         allRawChunks.push(...rawChunks);
 
         this.logger.debug(CONTEXT, traceId, `Parsed file successfully`, {
@@ -238,6 +236,12 @@ export class SeedOrchestrator implements ISeedOrchestrator {
    * and tokenEstimate (ceil(content.length / 4)) to each chunk.
    */
   private assignIndices(rawChunks: RawChunk[]): IndexedChunk[] {
+    // Invariant: each IDocumentParser.parse() call yields all chunks for a single
+    // sourceFile in one synchronous return. This means chunks for any given file
+    // are already contiguous in rawChunks, so re-grouping here is order-preserving.
+    // If a future parser violates this (yields chunks for multiple files), the
+    // chunkIndex assignment will still be correct — but embedding order may differ
+    // from parse order.
     const byFile = new Map<string, RawChunk[]>();
 
     for (const chunk of rawChunks) {
