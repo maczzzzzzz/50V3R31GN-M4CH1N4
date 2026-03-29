@@ -286,7 +286,17 @@ describe('ChunkInserter', () => {
     });
   });
 
-  // ── 8. Embedding formatted as vector string '[n1,n2,...]' ──────────────────
+  // ── 8. pool.connect() failure propagates cleanly ──────────────────────────
+
+  describe('pool.connect() failure', () => {
+    it('propagates pool.connect() rejection without crashing', async () => {
+      const pool = { connect: vi.fn().mockRejectedValue(new Error('pool exhausted')) };
+      const inserter = new ChunkInserter(pool as unknown as import('pg').Pool, logger);
+      await expect(inserter.upsertBatch([makeChunk()])).rejects.toThrow('pool exhausted');
+    });
+  });
+
+  // ── 10. Embedding formatted as vector string '[n1,n2,...]' ─────────────────
 
   describe('embedding vector formatting', () => {
     it("passes embedding as '[n1,n2,n3]' string in query params", async () => {
@@ -308,7 +318,7 @@ describe('ChunkInserter', () => {
     });
   });
 
-  // ── 9. Logger called with traceId and 'ChunkInserter' context ─────────────
+  // ── 11. Logger called with traceId and 'ChunkInserter' context ────────────
 
   describe('structured logging', () => {
     it("logs with context='ChunkInserter' and a non-empty traceId on success", async () => {

@@ -75,9 +75,10 @@ export class ChunkInserter implements IChunkInserter {
     batch: PreparedChunk[],
     traceId: string,
   ): Promise<UpsertStats> {
-    const client = await this.pool.connect();
+    let client: pg.PoolClient | undefined;
 
     try {
+      client = await this.pool.connect();
       await client.query('BEGIN');
 
       let inserted = 0;
@@ -121,7 +122,11 @@ export class ChunkInserter implements IChunkInserter {
 
       return { inserted, updated };
     } catch (err) {
-      await client.query('ROLLBACK');
+      try {
+        await client?.query('ROLLBACK');
+      } catch {
+        // ignore: rollback failure must not mask the original error
+      }
 
       const message = err instanceof Error ? err.message : String(err);
       this.logger.error('ChunkInserter', traceId, `Batch upsert failed, rolled back: ${message}`, {
@@ -133,7 +138,7 @@ export class ChunkInserter implements IChunkInserter {
 
       throw err;
     } finally {
-      client.release();
+      client?.release();
     }
   }
 }
