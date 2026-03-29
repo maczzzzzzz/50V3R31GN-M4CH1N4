@@ -57,10 +57,10 @@ asp-gm-agent/
 └── tsconfig.json             # ES2022 / Node16 strict module resolution
 ```
 
-## 4. THE MCP INTERCONNECT PROTOCOL
+## 4. THE MCP INTERCONNECT PROTOCOL & AGENT HARNESS
 Node B communicates with Node A through custom-built Model Context Protocol (MCP) servers located in `src/mcp/`. 
 - **Development Context:** You (Claude) will use these MCP tools to test the database and logic engine during implementation.
-- **Runtime Context:** The local `src/cli/gm-console.ts` acts as the MCP client, allowing the human GM manual execution of these tools during gameplay.
+- **Runtime Context & Agent Harness (CRITICAL):** DO NOT attempt to build a custom Node.js CLI or terminal interface (e.g., `src/cli/gm-console.ts`). The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the official testing harness and Game Master terminal client. Crush natively handles local Ollama routing and MCP tool execution with persistent SQLite session memory. Focus 100% of Node B development on data parsing, pgvector insertion, and backend MCP tool execution.
 - **`nitro-logic` (The Math Bridge):** Hits `http://192.168.0.50:8080/v1/chat/completions`. You MUST inject a Chain of Thought prompt (e.g., *"Write out the exact equation step-by-step"*) into all payloads sent here to ensure accurate 3B model math.
 - **`nitro-db` (The Lore Bridge):** Hits `http://192.168.0.50:5432` to execute RAG queries against the seeded `pgvector` database.
 
