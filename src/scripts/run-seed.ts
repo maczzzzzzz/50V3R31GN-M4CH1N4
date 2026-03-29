@@ -117,8 +117,8 @@ CREATE TABLE IF NOT EXISTS pdf_chunks (
   context_type   TEXT        NOT NULL,
   capability_req TEXT        NOT NULL DEFAULT 'none',
   section_heading TEXT       NOT NULL,
-  page_start     INTEGER     NOT NULL DEFAULT 0,
-  page_end       INTEGER     NOT NULL DEFAULT 0,
+  page_start     INTEGER     NOT NULL,
+  page_end       INTEGER     NOT NULL,
   content        TEXT        NOT NULL,
   chunk_index    INTEGER     NOT NULL,
   token_estimate INTEGER     NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS pdf_chunks (
   CONSTRAINT pdf_chunks_pkey
     PRIMARY KEY (id),
 
-  CONSTRAINT pdf_chunks_source_file_chunk_index_key
+  CONSTRAINT pdf_chunks_source_chunk_uniq
     UNIQUE (source_file, chunk_index),
 
   CONSTRAINT pdf_chunks_namespace_check
