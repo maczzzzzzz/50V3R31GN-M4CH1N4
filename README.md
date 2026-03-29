@@ -35,8 +35,6 @@ The project follows a strict "Documentation as DNA" philosophy. Refer to these f
 *   **[IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)**: The phased roadmap for the Phase 4 MVP.
 *   **[LOCAL_SETUP.md](docs/LOCAL_SETUP.md)**: Configuration guide for Node B (Main Rig).
 *   **[SERVER_SETUP.md](docs/SERVER_SETUP.md)**: Hardening and service guide for Node A (Nitro 5).
-*   **[Research Log](docs/research/)**: Deep-dive technical findings for MCP handshakes and model tuning.
-*   **[Audit Log](docs/audits/)**: Historical records of architectural reviews and test passes.
 
 ## 🛠️ Tech Stack
 - **Backend:** Node.js (TypeScript), ESM, Express/Fastify.
