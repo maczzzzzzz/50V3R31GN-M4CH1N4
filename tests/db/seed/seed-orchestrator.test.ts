@@ -334,6 +334,7 @@ describe('SeedOrchestrator', () => {
       const report = await orchestrator.run(tmpRoot);
 
       expect(typeof report.durationMs).toBe('number');
+      // durationMs may be 0 on very fast test runs; contract is non-negative
       expect(report.durationMs).toBeGreaterThanOrEqual(0);
     });
   });
@@ -457,7 +458,7 @@ describe('SeedOrchestrator', () => {
       const orchestrator = new SeedOrchestrator(logger, embeddingService, multiCallInserter, [parser]);
       const report = await orchestrator.run(tmpRoot);
 
-      // totals should be summed across however many upsertBatch calls were made
+      // Single upsertBatch call returns combined stats; verify they are reported correctly
       expect(report.chunksInserted).toBe(2 * callCount);
       expect(report.chunksUpdated).toBe(1 * callCount);
     });
