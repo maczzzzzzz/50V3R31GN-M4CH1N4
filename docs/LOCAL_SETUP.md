@@ -1,57 +1,53 @@
-**Orchestrator Setup Guide**
-**File:** `LOCAL_SETUP.md`  
-**Location:** `/asp-gm-agent/docs/LOCAL_SETUP.md`
+# Node B: Orchestrator Setup (Main Rig)
+**Target:** 100% Local Narrative & State Control
+**Hardware:** 16GB VRAM Workstation
 
-```markdown
-# Node B: Orchestrator Setup Guide
-**Target:** Main Rig (Narrative & State Control)
+## 1. Local Inference Engine (Ollama)
+Node B relies on **Mistral-Nemo 12B** as the narrative synthesizer. Install Ollama and pull the model:
+```powershell
+ollama run mistral-nemo:12b-instruct-v1-q8_0
+Endpoint: http://localhost:11434/v1
 
-## 1. Repository Initialization
-1. **Install Core Dependencies:**
-   ```bash
-   npm install @modelcontextprotocol/sdk zod
-   npm install -D typescript @types/node tsx vitest
-Project Structure:
-Ensure src/mcp, src/core, and docs/raw_data directories exist as defined in the Architecture Spec.
+2. Environment Configuration
+Create a .env file in the root directory:
 
-2. Agent Skill Injection (MCP)
-Claude requires specific global tools to operate within the project architecture. Run these in your terminal:
+Code snippet
+# Node A (Rules Authority - Nitro 5)
+NODE_A_IP=192.168.0.50
+NODE_A_PORT=8080
 
-Bash
-# Cross-session memory
-claude mcp add memory npx -y @modelcontextprotocol/server-memory
+# Node B (Narrative Orchestrator - Local)
+NODE_B_LOCAL=http://localhost:11434/v1
+MODEL_B_NAME=mistral-nemo:12b-instruct-v1-q8_0
 
-# Logic & TDD planning
-claude mcp add sequential-thinking npx -y @modelcontextprotocol/server-sequential-thinking
+# Foundry API Bridge Module
+FOUNDRY_WS_URL=ws://localhost:30000/api/ws
+3. Development vs. Runtime Modes
+Build Mode: Use the Claude Code CLI (claude) to scaffold the backend.
 
-# Web/Docs fetching
-claude mcp add fetch npx -y @modelcontextprotocol/server-fetch
-3. The Handshake Protocol
-Open CLAUDE.md and update the NODE_A_IP variable to 192.168.0.50.
+Play Mode: Terminate Claude. Execute npm run start:gm to launch the local bridge.
 
-Launch claude.
+4. Handshake Verification
+Execute API pings to verify the split-node bridge:
 
-Paste the System Initialization Protocol (found in IMPLEMENTATION_PLAN.md) as your first prompt.
-
-4. Verification
-Run the API ping from Node B to ensure the bridge is open:
-
-Bash
+PowerShell
 curl [http://192.168.0.50:8080/v1/models](http://192.168.0.50:8080/v1/models)
+curl http://localhost:11434/api/tags
+Node A: Rules Authority Setup (Nitro 5)
+Hardware: GTX 1050 Ti (4GB VRAM) | OS: Ubuntu Server 24.04
 
----
+1. Headless Hardening
+Bash
+sudo sed -i 's/.*HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
+sudo systemctl restart systemd-logind
+2. Networking (Static Ethernet)
+Static IP: 192.168.0.50
 
-### **4. Troubleshooting Matrix**
-**File:** `TROUBLESHOOTING.md`  
-**Location:** `/asp-gm-agent/docs/TROUBLESHOOTING.md`
+Wi-Fi Radio: Hard-blocked via rfkill block wifi.
 
-```markdown
-# ASP.GM-Agent Troubleshooting Matrix
-
-| Issue | Potential Cause | Resolution |
-| :--- | :--- | :--- |
-| `Connection Reset` | Server suspended / Lid event | Re-verify `HandleLidSwitch` in `logind.conf`. |
-| `Connection Refused` | Engine not running | SSH into Node A and run `pm2 status`. |
-| Math Hallucinations | Missing "Chain of Thought" | Verify `nitro-logic` is appending the CoT suffix to prompts. |
-| VRAM Overflow | Context too large / Parallelism | Ensure `-np 1` is set in the Node A startup script. |
-| RAG contamination | Missing Namespace | Ensure `nitro-db` queries are filtered by the correct metadata namespace. |
+3. Inference Service (llama-server)
+Bash
+# start_brain.sh
+./llama-server -m ./models/Llama-3.2-3B-Instruct-Q4_K_M.gguf \
+    --host 0.0.0.0 --port 8080 -ngl 99 -c 8192 -np 1 --embedding
+Process: pm2 start start_brain.sh --name "rules-brain"

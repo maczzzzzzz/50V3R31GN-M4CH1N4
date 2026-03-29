@@ -20,9 +20,11 @@ To maintain maximum stability across the Split-Node architecture, Node B must en
 
 | Module / System | Required Version | Exact Manifest URL for Pinning | Role |
 | :--- | :--- | :--- | :--- |
-| **cyberpunk-red-core** | v0.92.2 | `https://gitlab.com/api/v4/projects/22820629/packages/generic/fvtt-cyberpunk-red-core/v0.92.2/system.json` | System data models. The absolute baseline for RulesRAG schemas. |
-| **foundry-api-bridge-module** | v12 Compatible | `https://github.com/alexivenkov/foundry-api-bridge-module/releases/latest/download/module.json` | Critical for MCP ↔ Foundry real-time REST/WebSocket sync. |
-| **phils-ai-assistant** | v12 Compatible | `https://github.com/PhilsModules/phils-ai-assistant/releases/latest/download/module.json` | The GM sidebar cockpit. Used strictly as the control surface. |
+| **cyberpunk-red-core** | v0.92.2 | `https://gitlab.com/api/v4/projects/22820629/packages/generic/fvtt-cyberpunk-red-core/0.92.2/system.json` | The foundational ruleset and actor data structure. |
+| **foundry-api-bridge-module** | Latest | *(Local Manifest)* | Handles the WebSocket connection and chat injection. |
+| **simple-phone** | Latest | *(Local Manifest)* | UI for asynchronous TttA Fixer gig delivery. |
+| **night-city-gang-and-corp-mook-pack** | Latest | `https://github.com/TheInvaderZim/night-city-gang-and-corp-mook-pack/releases/latest/download/module.json` | Sole source of truth for dynamic enemy/NPC stat blocks. |
+| **Ticket-To-The-Afterlife** | Latest | `https://github.com/TheInvaderZim/Ticket-To-The-Afterlife/releases/latest/download/module.json` | Core progression loop, Eagle economy mechanics, and Fixer gig generation framework. |
 
 ---
 

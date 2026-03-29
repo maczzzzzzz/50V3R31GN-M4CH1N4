@@ -1,12 +1,13 @@
 ﻿# ASP.GM-Agent: Master Implementation Execution Plan
 **Target:** Phase 4 MVP (Strict "No Creep" Boundaries)
-**Architecture:** Split-Node (Node A: Rules Authority | Node B: Orchestrator)
+**Architecture:** 100% Local Split-Node (Node A: Rules Authority | Node B: Local Orchestrator)
+**Hardware:** Node A (Nitro 5 | Llama-3.2-3B) | Node B (Main Rig | Mistral-Nemo 12B)
 **Platform:** Foundry VTT v12 | Cyberpunk RED v0.92.2
 
-## Executive Briefing for AI Agent (Claude)
+## Executive Briefing for AI Agent (Claude Code)
 You are tasked with implementing the Node B Orchestrator for the ASP.GM-Agent. You have ingested `CLAUDE.md` (System Directives), `KNOWLEDGE_BASE.md` (Dependency Registry), and the System Architecture Spec. 
 
-Your objective is to build a modular, decoupled TypeScript backend that routes narrative tasks to yourself, and delegates all mechanical TRPG math/rule lookups to the headless Node A server via the Model Context Protocol (MCP).
+Your objective is to build a modular, decoupled TypeScript backend that routes narrative tasks to the local Mistral-Nemo 12B model, and delegates all mechanical TRPG math/rule lookups to the headless Node A server.
 
 **The Golden Rule:** You will not advance to the next phase until the current phase has 100% test coverage and has been explicitly approved by the Lead Architect (the User).
 
@@ -15,61 +16,43 @@ Your objective is to build a modular, decoupled TypeScript backend that routes n
 ## 🗂️ PRE-FLIGHT: Mandatory Research & Context Bridging
 Before writing a single line of code, you MUST use your agentic tools to perform the following reconnaissance:
 1. **MCP Protocol Specs:** Use the `mcp-builder` skill or search the official Anthropic documentation to review the exact TypeScript schemas for building an MCP Server.
-2. **Foundry API Bridge:** Research the `foundry-api-bridge-module` payload structures. You must understand how to push a chat message from a Node.js backend into an active Foundry VTT v12 session.
-3. **Cyberpunk RED Schema:** Query `docs/KNOWLEDGE_BASE.md` to review the expected data structures for the `cyberpunk-red-core` v0.92.2 system.
+2. **Foundry API Bridge:** Research the `foundry-api-bridge-module` payload structures. You must understand how to push a chat message from a Node.js backend into an active Foundry VTT v12 session via WebSockets.
+3. **Cyberpunk RED Schema:** Query `docs/raw_data/system-schema.json` to memorize the exact nested paths for the Cyberpunk RED actor state.
 
 ---
 
-## 🚀 PHASE 0: Foundation & Core Scaffolding
-**Goal:** Establish the strict OOP TypeScript environment and build the foundational module architecture.
+## 🚀 PHASE 0: Local Foundation
+**Goal:** Establish the strict TypeScript environment for local-to-local orchestration.
+1. **ESM Scaffolding:** Initialize `package.json` with `"type": "module"` and ES2022 standards.
+2. **Schema Definition:** Define Zod models in `src/shared/` for `RulesRequest`, `RulesResponse`, and `NarrativePayload`.
+3. **DI Container:** Setup dependency injection to manage local model endpoints.
 
-**Execution Steps:**
-1. **Initialize Environment:** Configure `package.json` for strictly typed ES2022 ESM (`"type": "module"`).
-2. **Strict Configurations:** Generate a draconian `tsconfig.json` and `.eslintrc.json`. No implicit `any`.
-3. **Dependency Injection:** Implement a DI container (e.g., TSyringe or InversifyJS) in `src/core/` to handle class instantiation.
-4. **Zod Schemas:** Define the base Zod schemas in `src/shared/` for expected Foundry VTT actor states and roll results.
-5. **Phase Gate:** Write Vitest unit tests verifying the DI container resolves dependencies correctly. Wait for User approval.
+## 🧠 PHASE 1: Data & RAG (`nitro-db`)
+**Goal:** Connect to Node A's vector store for Cyberpunk RED lore and TttA content.
+1. **Local DB Client:** Scaffold the database client targeting `http://192.168.0.50:5432`.
+2. **Vector Service:** Build the tool allowing the local Orchestrator to query lore chunks from Node A via vector similarity search.
+3. **Namespace Isolation:** Ensure RAG queries distinguish between `core_rules` and `campaign_lore`.
 
----
-
-## 🧠 PHASE 1: The RAG & Data Layer (`nitro-db`)
-**Goal:** Build the ingestion pipeline and the MCP bridge to Node A's `pgvector` database.
-
-**Execution Steps:**
-1. **Database Client:** Scaffold the Prisma or `pg` client in `src/db/` configured to connect to `http://[NODE_A_IP]:5432`.
-2. **Schema Definition:** Create the SQL migrations for `rulebook_chunks`, `ttta_journals`, and `entities_mooks`. Ensure every table has a vector column and a `namespace` string column.
-3. **Ingestion Script (`seed-world.ts`):** Write the pipeline that reads the local JSONs in `docs/raw_data/`, chunks them, vectorizes them (using Node A's embedding endpoint), and stores them with strict namespace tags.
-4. **`nitro-db` MCP Server:** Build the MCP tool that allows you (Claude) to query these vectors by namespace. 
-5. **Phase Gate:** Execute `seed-world.ts`. Ensure the database populates. Write tests querying each namespace independently. Wait for User approval.
-
----
-
-## 🧮 PHASE 2: The Logic Engine Bridge (`nitro-logic`)
-**Goal:** Establish the strict math/rules execution pathway to the Llama-3.2-3B model on Node A.
-
-**Execution Steps:**
-1. **HTTP Client:** Build a resilient HTTP client in `src/core/` that targets `http://[NODE_A_IP]:8080/v1/chat/completions`. Include timeout and retry logic.
-2. **Prompt Injection Middleware:** Create a middleware class that intercepts all payloads bound for Node A and injects the mandatory Chain of Thought prompt (*"Write out the exact equation step-by-step, then provide the final total."*).
-3. **`nitro-logic` MCP Server:** Expose tools to yourself such as `calculate_combat_dv`, `roll_oracle`, and `validate_eagle_economy`. 
-4. **Data Validation:** Ensure all JSON returning from Node A is validated through Zod before passing into the Node B application state.
-5. **Phase Gate:** Send a complex combat math equation through `nitro-logic`. Verify the Zod parser correctly extracts the final integer from the CoT output. Wait for User approval.
-
----
+## 🧮 PHASE 2: Rules Authority Bridge (`nitro-logic`)
+**Goal:** Force all mechanical resolution to the Nitro 5.
+1. **Llama-Server Client:** Build a resilient HTTP client for `http://192.168.0.50:8080/v1`.
+2. **Chain of Thought (CoT):** Inject mandatory math suffixes to all Node A prompts to ensure deterministic rule resolution.
+3. **Logic Validation:** Use Zod to strip narrative "fluff" from Node A, returning only raw integers/booleans.
 
 ## 🎭 PHASE 3: Foundry Bridge & Immersion UI
-**Goal:** Connect the Node B backend to the Foundry VTT frontend, enforcing the Immersion Mandate.
+**Goal:** Connect the Node B backend to the Foundry VTT frontend, enforce the Immersion Mandate via local WebSocket integration, and establish the Local GM Console for direct MCP access.
 
 **Execution Steps:**
 1. **FoundryAdapter Class:** Build the REST/WebSocket singleton in `src/api/` that talks to the `foundry-api-bridge-module`.
-2. **Chat Injection:** Create the specific methods required to format your generated prose and push it directly into the Foundry in-game chat log.
+2. **Chat Injection:** Create the specific methods required to format the generated prose and push it directly into the Foundry in-game chat log.
 3. **Fixer Call Integration:** Implement the payload structure required to trigger the `simple-phone` module for asynchronous TttA gig delivery.
 4. **Hybrid Routing Controller:** Build the core logic loop: 
-   * *Step A:* Receive game state from Foundry.
-   * *Step B:* Query `nitro-logic` for mechanics.
-   * *Step C:* Claude generates prose based on mechanics.
-   * *Step D:* Push prose to FoundryAdapter.
-5. **Phase Gate:** Trigger a test Fixer phone call and push a basic narrative string to the Foundry chat. Ensure absolutely no meta-text or UI wrappers are visible. Wait for User approval.
-
+   * *Step A:* Receive game state/chat input from Foundry.
+   * *Step B:* Query `nitro-logic` (Node A) for mechanics and DVs.
+   * *Step C:* Mistral-Nemo 12B (Node B) generates prose based on Node A's mechanical result.
+   * *Step D:* Push prose and dice roll commands to FoundryAdapter.
+5. **Local GM Console (MCP Client):** Build `src/cli/gm-console.ts` using `inquirer` or `readline`. This interactive local terminal must act as an MCP Client allowing manual execution of `nitro-db` (RAG lore queries), `nitro-logic` triggers, and direct Foundry state overrides without using the Foundry UI.
+6. **Phase Gate:** Trigger a test Fixer phone call, push a basic narrative string to the Foundry chat, and successfully execute a manual lore query via the GM Console. Ensure absolutely no meta-text or UI wrappers are visible in-game. Wait for User approval.
 ---
 
 ## 🌃 PHASE 4: MVP Assembly (Night Market & Story Engine)

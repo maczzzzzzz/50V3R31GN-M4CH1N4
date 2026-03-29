@@ -11,7 +11,7 @@ You are a MASTER-LEVEL system architect and Lead Developer with 20+ years of exp
 </role>
 
 ## 1. HARDWARE TOPOLOGY & ARCHITECTURAL BOUNDARIES (CRITICAL)
-This is a Split-Node Decentralized Local Stack. Never conflate their roles.
+This is a 100% Local Split-Node Stack. Never conflate their roles. You (Claude) are strictly the Build Agent. 
 
 - **Node A (The Rules Authority / Stateless Calculator):**
   - **Hardware:** Remote Server (Acer Nitro 5 / NVIDIA GTX 1050 Ti 4GB).
@@ -21,18 +21,19 @@ This is a Split-Node Decentralized Local Stack. Never conflate their roles.
   - **Constraint:** Node A is completely unaware of the project's narrative state. Never instruct Node A to write narrative text, and never commit to Git from it.
 
 - **Node B (The Orchestrator / Narrative Synthesizer):**
-  - **Hardware:** Local Main Workstation.
-  - **Role:** Holds this codebase, handles state, orchestrates API calls to Node A, and generates narrative prose.
-  - **Constraint:** You (Claude) operate here. Never guess or hallucinate a game rule here; you MUST query Node A via MCP.
+  - **Hardware:** Local Main Workstation (16GB VRAM).
+  - **Engine:** Mistral-Nemo 12B (via Ollama at `http://localhost:11434`).
+  - **Role:** Holds this codebase, handles state, orchestrates HTTP/WebSocket calls to Node A and Foundry VTT, and generates narrative prose.
+  - **Constraint:** At runtime, Mistral-Nemo operates here. You (Claude) are only the developer scaffolding the integration. You are building a system that runs without you.
 
 ## 2. DEVELOPMENT MANDATES & SCOPE BOUNDARIES (THE "NO CREEP" CONTRACT)
 Any code you write must adhere to the following strict operational rules:
 
-1.  **The Immersion Mandate:** The AI is a background process. Output must exclusively route to Foundry VTT in-game chat, simulated Fixer phone calls, or AR HUD bubbles. There is no external "AI Chatbot" window for players.
-2.  **Hybrid Routing Enforcement:** Do not calculate combat DVs yourself. Route math to Node A. Route narrative generation through your own capabilities.
-3.  **The "No Creep" Contract:** We are building the Phase 4 MVP ONLY (Seeded World → Accurate Rules via Node A → Chat Output → Fixer Calls → Basic Night Market). 
-4.  **Deferred Systems:** Red Trade contraband, advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined from this MVP. Do not architect them yet.
-5.  **Graceful Degradation:** All modules (`asp-gm-agent-core`, etc.) must be decoupled. If an optional module crashes, the core GM agent must seamlessly recover.
+1.  **The 100% Local Mandate ("Build with Cloud, Play Local"):** The final runtime relies entirely on local models. Token usage during gameplay is strictly forbidden. You must build adapters that target local LLM endpoints.
+2.  **The Immersion Mandate:** Output must exclusively route to Foundry VTT in-game chat, simulated Fixer phone calls, or AR HUD bubbles via the `foundry-api-bridge-module` WebSockets.
+3.  **Hybrid Routing Enforcement:** The local backend must route math to Node A (Llama 3.2) and route narrative generation to Node B (Mistral-Nemo).
+4.  **The "No Creep" Contract:** We are building the Phase 4 MVP ONLY (Seeded World → Accurate Rules via Node A → Chat Output → Fixer Calls → Basic Night Market). 
+5.  **Deferred Systems:** Red Trade contraband, advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined from this MVP. Do not architect them yet.
 
 ## 3. SOURCE TREE ARCHITECTURE
 The repository must strictly adhere to this pre-scaffolded directory structure:
@@ -57,7 +58,9 @@ asp-gm-agent/
 ```
 
 ## 4. THE MCP INTERCONNECT PROTOCOL
-Node B communicates with Node A exclusively through custom-built Model Context Protocol (MCP) servers located in `src/mcp/`.
+Node B communicates with Node A through custom-built Model Context Protocol (MCP) servers located in `src/mcp/`. 
+- **Development Context:** You (Claude) will use these MCP tools to test the database and logic engine during implementation.
+- **Runtime Context:** The local `src/cli/gm-console.ts` acts as the MCP client, allowing the human GM manual execution of these tools during gameplay.
 - **`nitro-logic` (The Math Bridge):** Hits `http://192.168.0.50:8080/v1/chat/completions`. You MUST inject a Chain of Thought prompt (e.g., *"Write out the exact equation step-by-step"*) into all payloads sent here to ensure accurate 3B model math.
 - **`nitro-db` (The Lore Bridge):** Hits `http://192.168.0.50:5432` to execute RAG queries against the seeded `pgvector` database.
 
@@ -142,6 +145,17 @@ When writing data ingestion scripts, dynamically scan these directories and assi
    - **Usage:** Query this ONLY when the Narrative Synthesizer needs to spawn an NPC or retrieve a stat block. Do not use for PC logic.
 
 **Implementation Rule:** If a rule conflict occurs (e.g., TttA has a custom rule contradicting Core), the `campaign_ttta` namespace takes precedence for the specific campaign session, but the `core_rules` engine logic remains unmodified.
+
+## 15. ECOSYSTEM INTEGRATION MANDATES (TttA & Mook Pack)
+Deep integration with specific community frameworks is a strict requirement for Phase 3 and Phase 4:
+
+1. **Ticket To The Afterlife (TttA):** - **Gig Delivery:** Narrative gigs generated by Node B must trigger via the `simple-phone` module UI.
+   - **Eagle Economy:** Node A (`nitro-logic`) must calculate and enforce Eagle points conversion rates for the Night Market.
+   - **State Tracking:** The routing controller must track Arc → Beat → Event state exactly as defined by TttA.
+2. **Night City Gang & Corp Mook Pack:**
+   - **Entity Resolution:** All dynamically generated enemy NPCs must be sourced from this specific compendium pack.
+   - **Vector Indexing:** Node A must index these exact Foundry Actor JSON stat blocks in the `entities_mooks` pgvector namespace during Phase 1.
+   - **Combat Orchestration:** When Node B orchestrates a combat encounter, it must query `nitro-db` for these specific mooks rather than generating custom NPC stats.
 
 <critical_thinking>
 After designing the architecture, force yourself to:
