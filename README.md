@@ -45,5 +45,12 @@ The project follows a strict "Documentation as DNA" philosophy. Refer to these f
 - **Validation:** Zod (Zero-Trust Data Integrity).
 - **Testing:** Vitest (100% TDD Mandate).
 
+## 🤝 Collaborative Authorship
+This project is built through a high-signal partnership between a human lead architect and agentic AI co-authors.
+
+- **Lead Architect:** maczzzzzzz (Human)
+- **Co-Author (Architecture & Execution):** [Claude Sonnet 3.5](https://anthropic.com) (Agent)
+- **Co-Author (Research & Strategy):** [Gemini CLI](https://github.com/google-gemini/gemini-cli) (Agent)
+
 ---
 *This is a 100% Local Runtime. Token usage during gameplay is strictly forbidden.*

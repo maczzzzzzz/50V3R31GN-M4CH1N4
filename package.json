@@ -3,6 +3,11 @@
   "version": "0.2.0",
   "description": "AI-powered GM assistant for Cyberpunk RED on Foundry VTT v12",
   "type": "module",
+  "contributors": [
+    { "name": "maczzzzzzz", "url": "https://github.com/maczzzzzzz" },
+    { "name": "Claude Sonnet 3.5", "url": "https://anthropic.com" },
+    { "name": "Gemini CLI", "url": "https://github.com/google-gemini/gemini-cli" }
+  ],
   "engines": {
     "node": ">=22.0.0"
   },
