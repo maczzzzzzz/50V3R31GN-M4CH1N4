@@ -1,3 +1,0 @@
-Scene descriptions are included in-line with the scenes as they appear, the first time they're used in the game. Some of those are duplicated here; others (environments, mostly) have extra details for describing the scene, which gangs are usually present, etc.
-
-To access these descriptions in-game, right click the scene in the top ribbon or in the scenes menu, and select "scene notes" from the dropdown.
