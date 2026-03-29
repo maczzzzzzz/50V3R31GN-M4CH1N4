@@ -40,7 +40,7 @@ export class PdfFileParser implements IDocumentParser {
     const result = await pdfParser.getText();
     await pdfParser.destroy();
 
-    const trimmed = result.text.trim();
+    const trimmed = (result.text ?? '').trim();
     if (trimmed.length === 0) {
       return []; // Skip PDFs that produce no extractable text
     }

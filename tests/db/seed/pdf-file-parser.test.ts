@@ -173,7 +173,7 @@ describe('PdfFileParser', () => {
       // Mock the pdf-parse PDFParse class so getText() returns empty text,
       // exercising the `if (trimmed.length === 0) return []` guard.
       const { PDFParse } = await import('pdf-parse');
-      const spy = vi.spyOn(PDFParse.prototype, 'getText').mockResolvedValue({ text: '   ' } as never);
+      const spy = vi.spyOn(PDFParse.prototype, 'getText').mockImplementation(async () => ({ text: '   ' }));
 
       const tmpPath = createTmpPdf('whitespace-only');
       try {
