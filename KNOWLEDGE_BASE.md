@@ -2,7 +2,7 @@
 **Version:** 4.0 (Split-Node Local Architecture)
 **Target:** Foundry VTT v12 Stable | Cyberpunk RED v0.92.2
 
-## 📖 Overview
+## ?? Overview
 This document serves as the absolute source of truth for external integrations, documentation, and reference repositories for the ASP.GM-Agent. As a Master-Level Architect, you must refer to these specific implementations and exact manifest URLs to prevent hallucinating APIs, breaking the strict "No Creep" contract, or violating the Phase 4 MVP boundaries.
 
 ---
@@ -57,7 +57,8 @@ To maintain maximum stability across the Split-Node architecture, Node B must en
 **Node B (Orchestrator) References:**
 - **[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)**: The official Anthropic SDK specification for building the `nitro-logic` and `nitro-db` network bridges.
 - **[foundry-vtt-mcp](https://github.com/adambdooley/foundry-vtt-mcp)**: Reference architecture for securely exposing Foundry tools to Claude.
-- **[Story Engine](https://github.com/kingbootoshi/story-engine)**: Reference for tracking Arc → Beat → Event narrative structures.
+- **[Story Engine](https://github.com/kingbootoshi/story-engine)**: Reference for tracking Arc ? Beat ? Event narrative structures.
+- **[Crush CLI](https://github.com/charmbracelet/crush)**: The official testing harness and eventual Game Master terminal client. Native MCP support and persistent session memory per directory.
 
 ---
 
