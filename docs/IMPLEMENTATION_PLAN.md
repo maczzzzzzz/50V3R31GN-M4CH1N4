@@ -38,26 +38,30 @@ Before writing a single line of code, you MUST use your agentic tools to perform
 
 ---
 
-## 🧮 PHASE 2: Rules Authority Bridge (`nitro-logic`)
-**Goal:** Force all mechanical resolution to the Nitro 5.
-1. **Llama-Server Client:** Build a resilient HTTP client for `http://192.168.0.50:8080/v1`.
-2. **Chain of Thought (CoT):** Inject mandatory math suffixes to all Node A prompts to ensure deterministic rule resolution.
-3. **Logic Validation:** Use Zod to strip narrative "fluff" from Node A, returning only raw integers/booleans.
+## 🧮 PHASE 2: Rules Authority MCP Bridge (`nitro-logic`)
+**Goal:** Build a robust, tool-first bridge to the Nitro 5 that extracts maximum power from the MCP protocol.
+
+**Execution Steps:**
+1. **Tool-First Architecture:** Instead of a simple client, implement `src/mcp/nitro-logic-server.ts` using the official MCP SDK.
+2. **Deterministic Rules API:** Expose specific MCP tools for `resolve_attack`, `calculate_dv`, and `oracle_roll`.
+3. **Chain of Thought (CoT) Injection:** Every tool call must automatically inject mandatory math suffixes to Llama-3.2-3B to ensure deterministic rule resolution.
+4. **Zero-Trust Logic Validation:** Use Zod to strip narrative "fluff" from Node A, returning only raw integers/booleans to the caller.
+5. **Crush CLI Integration:** Verify the server as a `stdio` transport, allowing the GM to manually invoke rule checks directly from the terminal.
 
 ---
 
 ## 🎭 PHASE 3: Foundry Bridge & Immersion UI
-**Goal:** Connect the Node B backend to the Foundry VTT frontend, enforce the Immersion Mandate via local WebSocket integration, and establish the backend endpoints for the Crush CLI testing harness.
+**Goal:** Connect the Node B backend to the Foundry VTT frontend by mapping existing MCP tools to in-game UI triggers.
 
 **Execution Steps:**
-1. **FoundryAdapter Class:** Build the REST/WebSocket singleton in `src/api/` that talks to the `foundry-api-bridge-module`.
-2. **Chat Injection:** Create the specific methods required to format the generated prose and push it directly into the Foundry in-game chat log.
+1. **FoundryAdapter Class:** Build the REST/WebSocket singleton in `src/api/` that acts as an MCP transport layer.
+2. **Tool-to-UI Mapping:** Create the specific methods required to format MCP tool results (like `resolve_attack`) and push them directly into the Foundry in-game chat log.
 3. **Fixer Call Integration:** Implement the payload structure required to trigger the `simple-phone` module for asynchronous TttA gig delivery.
 4. **Hybrid Routing Controller:** Build the core logic loop: 
    * *Step A:** Receive game state/chat input from Foundry.
-   * *Step B:** Query `nitro-logic` (Node A) for mechanics and DVs.
-   * *Step C:** Mistral-Nemo 12B (Node B) generates prose based on Node A's mechanical result.
-   * *Step D:** Push prose and dice roll commands to FoundryAdapter.
+   * *Step B:** Dispatch specialized MCP Tools (`nitro-db`, `nitro-logic`) for mechanics.
+   * *Step C:** Mistral-Nemo 12B (Node B) synthesizes prose based on the MCP tool result.
+   * *Step D:** Push prose and dice roll results to FoundryAdapter.
 5. **Agent Harness (Crush CLI Integration):** DO NOT build a custom CLI or terminal interface (e.g., `src/cli/gm-console.ts`). The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the testing harness and Game Master terminal client. Your only task here is ensuring the `nitro-db` and `nitro-logic` MCP servers are correctly formatted as standard `stdio` servers so Crush can seamlessly attach to them.
 6. **Phase Gate:** Trigger a test Fixer phone call, push a basic narrative string to the Foundry chat, and successfully verify the `stdio` MCP server connection is ready for Crush CLI. Ensure absolutely no meta-text or UI wrappers are visible in-game. Wait for User approval.
 
