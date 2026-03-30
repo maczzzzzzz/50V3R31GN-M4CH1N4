@@ -85,7 +85,7 @@ To ensure absolute adherence to the "No Creep" contract and prevent hallucinated
 | **simple-phone** (Odd-Kaiju) | v2.2.0 | Min: v12, Verified: v13 | `https://github.com/Odd-Kaiju/simple-phone/releases/latest/download/module.json` |
 | **Ticket-To-The-Afterlife** (TheInvaderZim) | v2.2.0 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/Ticket-To-The-Afterlife/releases/latest/download/module.json` |
 | **night-city-gang-and-corp-mook-pack** | v2.8 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/night-city-gang-and-corp-mook-pack/releases/latest/download/module.json` |
-| **foundry-api-bridge-module** | v0.4.0 (Local) | Min: v12, Verified: v12 | *(Local Manifest - Node B WebSocket Bridge)* |
+| **foundry-api-bridge-module** | v0.5.0 (Local) | Min: v12, Verified: v12 | *(Local Manifest - Node B WebSocket Bridge)* |
 
 ### 6.3 Technical Implementation: Night Market Macro Raw Data
 The `cpr-night-market.js` macro is extended with the following raw logic to map to TTTA vendor structures:
