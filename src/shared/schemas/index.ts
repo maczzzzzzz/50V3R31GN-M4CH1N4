@@ -84,3 +84,13 @@ export type {
 } from './foundry-bridge.schema.js';
 
 export * from './story.schema.js';
+
+export {
+  ZerocrawlChunkSchema,
+  ZerocrawlExportSchema,
+} from './zeroclaw-export.schema.js';
+
+export type {
+  ZerocrawlChunk,
+  ZerocrawlExport,
+} from './zeroclaw-export.schema.js';

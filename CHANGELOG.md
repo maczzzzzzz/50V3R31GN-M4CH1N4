@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2026-03-30 — Project Black-Ice: Phase 1 ZeroClaw Core
+
+### Added
+- **ZeroClaw Rust Project** (`zeroclaw/`): Rust-native Rules Authority binary targeting Node A. Release profile: `opt-level="z"`, `lto=true`, `strip=true` for <5MB footprint.
+- **vec0 Schema** (`zeroclaw/src/db/schema.rs`): `chunks` metadata table + `chunks_embedding` vec0 virtual table (float[768]) + `chunks_fts` FTS5 index + namespace/chunk_index indexes. Idempotent `init()`.
+- **Import Pipeline** (`zeroclaw/src/db/import.rs`): `run(conn, path)` reads `.zeroclaw.json` exports, validates version/dimensions/chunk_count, upserts to both `chunks` and `chunks_embedding` via shared rowid. Idempotent ON CONFLICT UPDATE.
+- **Hybrid Search** (`zeroclaw/src/db/search.rs`): `hybrid_search(conn, query, namespace, top_k)` fuses FTS5 BM25 candidate recall (50 candidates) with vec0 cosine similarity. Score: `0.4×norm_bm25 + 0.6×cosine`. Zero-Trust namespace isolation at SQL level.
+- **Interlock Math Engine** (`zeroclaw/src/math/interlock.rs`): Pure deterministic Cyberpunk RED Interlock System — `resolve_roll` (d10 + crit chain), `resolve_attack` (roll+stat+skill vs. DV), `resolve_damage` (dice+bonus−SP), `ranged_dv` table. 15 `#[test]` functions.
+- **ZeroClaw Export Schema** (`src/shared/schemas/zeroclaw-export.schema.ts`): Zod contracts for the `.zeroclaw.json` format (`ZerocrawlChunkSchema`, `ZerocrawlExportSchema`). Exported from shared schema index.
+- **PostgresExporter** (`src/db/postgres-exporter.ts`): DI-injectable exporter. `serializeVector` (LE float32 → base64), `parseVectorString` (pgvector text format), `buildExport` (queries `pdf_chunks`, validates via Zod), `writeExport` (writes JSON). 13 Vitest tests.
+- **Migration Entry Point** (`src/scripts/port-to-zeroclaw.ts`): CLI script — reads `DATABASE_URL`, calls `PostgresExporter.writeExport()`, reports count. Idempotent re-run safe.
+- **TDD Rigor**: 250 passing TypeScript tests. Rust modules carry inline `#[test]` suites (schema: 4, import: 4, search: 6, interlock: 15).
+
 ## [0.6.0] - 2026-03-30
 
 ### Added

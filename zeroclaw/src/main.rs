@@ -15,6 +15,7 @@ use std::env;
 use std::path::PathBuf;
 
 mod db;
+#[allow(dead_code)]
 mod math;
 
 fn main() -> Result<()> {
