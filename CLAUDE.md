@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 0.5.0 (Infrastructure Stable)
+**Version:** 0.6.1 (Phase 4 MVP Assembly)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.2+)
 
 <deep_thinking_mode>

@@ -52,7 +52,7 @@ To maintain maximum stability across the Split-Node architecture, Node B must en
 
 **Node A (Rules Authority) References:**
 - **[Llama.cpp (Vulkan Backend)](https://github.com/ggerganov/llama.cpp/blob/master/docs/build.md#vulkan)**: The inference engine running on the Nitro 5. Node B must interact with it via OpenAI-compatible `/v1/chat/completions` endpoints.
-- **[pgvector](https://github.com/pgvector/pgvector)**: The vector database extension for PostgreSQL running on Node A. (v0.5.0 Legacy)
+- **[pgvector](https://github.com/pgvector/pgvector)**: The vector database extension for PostgreSQL running on Node A. (v0.6.0 Legacy)
 - **[ZeroClaw (Rust)](https://github.com/maczzzzzzz/zeroclaw)**: High-performance Rust-native rules engine replacement for Postgres/Docker. (v0.7.0 Slated)
 - **[sqlite-vec](https://github.com/asg017/sqlite-vec)**: Extremely small and fast vector search SQLite extension. (v0.7.0 Slated)
 

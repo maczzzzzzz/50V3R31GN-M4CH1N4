@@ -150,7 +150,7 @@ const logicClient = new NitroLogicClient({
 
 const server = new McpServer({
   name: 'nitro-logic',
-  version: '0.5.0',
+  version: '0.6.1',
 }, {
 
 

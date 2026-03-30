@@ -1,6 +1,6 @@
 # ASP.GM-Agent: Master Implementation Execution Plan
-**Version:** 0.5.0 (Infrastructure Stable)
-**Target:** v0.6.0 (Phase 4 MVP Completion)
+**Version:** 0.6.1 (Phase 4 MVP Assembly)
+**Target:** v0.7.0 (Project Black-Ice Migration)
 **Architecture:** 100% Local Split-Node (Node A: Rules Authority | Node B: Local Orchestrator)
 **Hardware:** Node A (Nitro 5 | Llama-3.2-3B) | Node B (Main Rig | Mistral-Nemo 12B)
 **Platform:** Foundry VTT v12 | Cyberpunk RED v0.92.2

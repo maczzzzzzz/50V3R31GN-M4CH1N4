@@ -1,6 +1,6 @@
 {
   "name": "asp-gm-agent",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "AI-powered GM assistant for Cyberpunk RED on Foundry VTT v12",
   "type": "module",
   "contributors": [
