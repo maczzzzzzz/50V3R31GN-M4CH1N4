@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 0.6.1 (Phase 4 MVP Assembly)
+**Version:** 0.7.0 (Project Black-Ice)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.2+)
 
 <deep_thinking_mode>
@@ -13,17 +13,18 @@ You are a MASTER-LEVEL system architect and Lead Developer with 20+ years of exp
 ## 1. HARDWARE TOPOLOGY & ARCHITECTURAL BOUNDARIES (CRITICAL)
 This is a 100% Local Split-Node Stack. Never conflate their roles. You (Claude) are strictly the Build Agent. 
 
-- **Node A (The Rules Authority / Stateless Calculator):**
+- **Node A (The Rules Authority / Zero-Tax Rules Engine):**
   - **Hardware:** Remote Server (Acer Nitro 5 / NVIDIA GTX 1050 Ti 4GB).
-  - **Engine:** Llama-3.2-3B-Instruct (via `llama.cpp` compiled with Vulkan backend).
-  - **Memory Limits:** Locked to `-ngl 99` (100% VRAM), `-c 8192` (Context), and `-np 1` (Single slot to prevent VRAM overflow). 
-  - **Role:** Handles strict rule processing, deterministic TRPG math, DVs, and PostgreSQL/`pgvector` operations.
+  - **Engine:** ZeroClaw (Rust-native binary) + Llama-3.2-3B-Instruct (via `llama.cpp` Vulkan).
+  - **Memory Limits:** Locked to `-ngl 99` (100% VRAM), `-c 8192` (Context), and `-np 1`. 
+  - **Role:** Handles strict rule processing, deterministic TRPG math, and Hybrid Vector Search (SQLite-Vec + FTS5).
   - **Constraint:** Node A is completely unaware of the project's narrative state. Never instruct Node A to write narrative text, and never commit to Git from it.
 
 - **Node B (The Orchestrator / Narrative Synthesizer):**
   - **Hardware:** Local Main Workstation (16GB VRAM).
   - **Engine:** Mistral-Nemo 12B (via Ollama at `http://localhost:11434`).
-  - **Role:** Holds this codebase, handles state, orchestrates HTTP/WebSocket calls to Node A and Foundry VTT, and generates narrative prose.
+  - **Storage:** Unified SQLite Data Plane (world.db + crush.db).
+  - **Role:** Holds this codebase, handles state (RKG), orchestrates persistent ClawLink calls to Node A, and generates narrative prose.
   - **Constraint:** At runtime, Mistral-Nemo operates here. You (Claude) are only the developer scaffolding the integration. You are building a system that runs without you.
 
 ## 2. DEVELOPMENT MANDATES & SCOPE BOUNDARIES (THE "NO CREEP" CONTRACT)
@@ -31,9 +32,9 @@ Any code you write must adhere to the following strict operational rules:
 
 1.  **The 100% Local Mandate ("Build with Cloud, Play Local"):** The final runtime relies entirely on local models. Token usage during gameplay is strictly forbidden. You must build adapters that target local LLM endpoints.
 2.  **The Immersion Mandate:** Output must exclusively route to Foundry VTT in-game chat, simulated Fixer phone calls, or AR HUD bubbles via the `foundry-api-bridge-module` WebSockets.
-3.  **Hybrid Routing Enforcement:** The local backend must route math to Node A (Llama 3.2) and route narrative generation to Node B (Mistral-Nemo).
-4.  **The "No Creep" Contract:** We are building the Phase 4 MVP ONLY (Seeded World → Accurate Rules via Node A → Chat Output → Fixer Calls → Basic Night Market). 
-5.  **Deferred Systems:** Phase 4.5 Edge-Compute Migration (v0.7.0), Red Trade contraband (v0.8.0), advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined from this MVP. Do not architect them yet.
+3.  **Hybrid Routing Enforcement:** The local backend must route math to Node A (ZeroClaw) and route narrative generation to Node B (Mistral-Nemo).
+4.  **The "No Creep" Contract:** We are building the Phase 4.5 Project Black-Ice migration ONLY (Rust Scaffolding → ClawLink Bridge → SQLite Consolidation → World RKG). 
+5.  **Deferred Systems:** Red Trade contraband (v0.8.0), advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined. Do not architect them yet.
 
 ## 3. SOURCE TREE ARCHITECTURE
 The repository must strictly adhere to this pre-scaffolded directory structure:

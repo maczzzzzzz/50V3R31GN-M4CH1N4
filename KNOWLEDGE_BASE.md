@@ -52,12 +52,13 @@ To maintain maximum stability across the Split-Node architecture, Node B must en
 
 **Node A (Rules Authority) References:**
 - **[Llama.cpp (Vulkan Backend)](https://github.com/ggerganov/llama.cpp/blob/master/docs/build.md#vulkan)**: The inference engine running on the Nitro 5. Node B must interact with it via OpenAI-compatible `/v1/chat/completions` endpoints.
-- **[pgvector](https://github.com/pgvector/pgvector)**: The vector database extension for PostgreSQL running on Node A. (v0.6.0 Legacy)
-- **[ZeroClaw (Rust)](https://github.com/maczzzzzzz/zeroclaw)**: High-performance Rust-native rules engine replacement for Postgres/Docker. (v0.7.0 Slated)
-- **[sqlite-vec](https://github.com/asg017/sqlite-vec)**: Extremely small and fast vector search SQLite extension. (v0.7.0 Slated)
+- **[pgvector](https://github.com/pgvector/pgvector)**: The vector database extension for PostgreSQL running on Node A. (v0.6.1 Legacy)
+- **[ZeroClaw (Rust)](https://github.com/zeroclaw-labs/zeroclaw)**: High-performance Rust-native rules engine replacement for Postgres/Docker. (v0.7.0 Active)
+- **[sqlite-vec](https://github.com/asg017/sqlite-vec)**: Extremely small and fast vector search SQLite extension. (v0.7.0 Active)
 
 **Node B (Orchestrator) References:**
-- **[ClawLink Protocol](https://github.com/maczzzzzzz/clawlink)**: Persistent Socket-over-SSH bridge targeting <10ms round-trip latency. (v0.7.0 Slated)
+- **[ClawLink Protocol](https://github.com/zeroclaw-labs/clawlink)**: Persistent Socket-over-SSH bridge targeting <10ms round-trip latency. (v0.7.0 Active)
+- **[rusqlite](https://github.com/rusqlite/rusqlite)**: Ergonomic bindings to SQLite for Rust. (v0.7.0 Active)
 - **[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)**: The official Anthropic SDK specification for building the `nitro-logic` and `nitro-db` network bridges.
 - **[Catwalk](https://github.com/charmbracelet/catwalk)** *(Primary — Model Capability Registry)*: A community-maintained Go registry of AI model provider configurations consumed by Crush. It defines the canonical `Provider` and `Model` structs including `ContextWindow`, `DefaultMaxTokens`, `CanReason`, `SupportsImages`, and per-provider tool-calling capability flags. **Ollama is NOT a built-in Catwalk provider** — it must be declared manually in `crush.json`. **Mistral-Nemo is explicitly excluded from tool-use support** in Catwalk's io.net provider (`supportsTools("mistral-nemo") → false`). Use Catwalk's provider type system (`openai-compat`) as the reference pattern when declaring the Ollama provider block in `crush.json`.
 - **[Crush CLI](https://github.com/charmbracelet/crush)**: The official testing harness and Game Master terminal client. Reads config from `.crush.json` (project root) → `crush.json` → `$HOME/.config/crush/crush.json` (merged, project-root wins). Session memory persists to SQLite at `<data-dir>/crush.db` (default: `.crush/crush.db`; override via `--data-dir` or `CRUSH_GLOBAL_DATA`). Sessions are per-project but stored in a global DB.

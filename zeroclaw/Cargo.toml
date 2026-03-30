@@ -1,0 +1,48 @@
+[package]
+name = "zeroclaw"
+version = "0.1.0"
+edition = "2021"
+description = "Rules Authority — Rust-native edge compute for ASP.GM-Agent (Project Black-Ice)"
+authors = ["ASP.GM-Agent Contributors"]
+
+[[bin]]
+name = "zeroclaw"
+path = "src/main.rs"
+
+[dependencies]
+# SQLite bindings with bundled libsqlite3 (no system dependency needed on Node A)
+rusqlite = { version = "0.31", features = ["bundled"] }
+
+# sqlite-vec: high-performance float32 vector search extension
+# Loaded at runtime via rusqlite's extension mechanism
+sqlite-vec = "0.1"
+
+# JSON serialisation/deserialisation for the ZeroClaw import format
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async runtime for the ClawLink SSH server (Phase 2)
+tokio = { version = "1", features = ["full"] }
+
+# Persistent Socket-over-SSH transport (Phase 2: ClawLink)
+ssh2 = "0.9"
+
+# Base64 decoding for vector_b64 fields in the import file
+base64 = "0.22"
+
+# Error handling ergonomics
+anyhow = "1.0"
+
+# Structured logging to stderr (mirrors Node B's JSON log pattern)
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt", "json"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+# Optimise for minimal binary size — target <5MB RAM footprint
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
