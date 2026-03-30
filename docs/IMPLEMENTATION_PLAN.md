@@ -55,13 +55,15 @@ Your objective is to build a modular, decoupled TypeScript backend that routes n
 
 ## ❄️ PHASE 4.5: The v0.7.0 "Edge-Compute" Migration (Project Black-Ice)
 **Goal:** Optimize the infrastructure for high-performance open-world simulation.
-**Status:** SLATED (Post-v0.6.0 completion)
+**Status:** IN PROGRESS (ACTIVE)
 
 **Objectives:**
 - **ZeroClaw Deployment:** Decommission Postgres/Docker on Node A; deploy Rust-native ZeroClaw.
 - **SQLite Consolidation:** Implement a "Triple-SQLite" stack (Rules, World, Crush).
 - **ClawLink Protocol:** Sub-10ms persistent transport over SSH.
 - **Unified Oracle:** Knowledge Graph (RKG) on Node B to eliminate narrative drift.
+- **Data Port:** Migrate 1,437 vector chunks from Postgres to SQLite-Vec binary format.
+
 
 ---
 
