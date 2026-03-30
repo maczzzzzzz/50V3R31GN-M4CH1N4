@@ -1,6 +1,6 @@
 {
   "name": "asp-gm-agent",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "AI-powered GM assistant for Cyberpunk RED on Foundry VTT v12",
   "type": "module",
   "contributors": [
@@ -23,6 +23,7 @@
     "@types/node": "^22.0.0",
     "@types/pdf-parse": "^1.1.5",
     "@types/pg": "^8.20.0",
+    "@types/ws": "^8.5.0",
     "tsx": "^4.0.0",
     "typescript": "~5.8.0",
     "vitest": "^3.0.0"
@@ -32,6 +33,7 @@
     "pdf-parse": "^2.4.5",
     "pg": "^8.20.0",
     "pgvector": "^0.2.1",
+    "ws": "^8.18.0",
     "zod": "^3.24.0"
   }
 }

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-03-29
+
+### Added
+
+- `src/shared/schemas/foundry-bridge.schema.ts` — Full Zod contract for the Phase 3 Foundry VTT bridge: 5 command schemas (`chat_message`, `read_actor`, `simple_phone`, `dice_roll`, `scene_activate`), `BridgeCommand` / `BridgeResponse` discriminated unions, and `FoundryEvent` schemas for inbound Foundry → Node B events.
+- `src/api/foundry-adapter.ts` — `FoundryAdapter` class: Node B WebSocket server (Palantiri-style reverse proxy). Accepts outbound connections from the Foundry bridge module, dispatches commands with `requestId` correlation, enforces `commandTimeoutMs`, Zod-validates all frames. `IFoundryAdapter` interface exported.
+- `src/core/ollama-client.ts` — `OllamaClient` class: OpenAI-compatible HTTP client targeting Mistral-Nemo 12B via Ollama (`http://localhost:11434/v1`). `generateNarrative(prompt, context)` injects a GM system prompt and optional rules context. Zod response validation, configurable timeout with AbortController. `IOllamaClient` / `OllamaConfig` interfaces added to `src/core/interfaces.ts`.
+- `src/core/hybrid-routing-controller.ts` — `HybridRoutingController` class: Phase 3 orchestration loop. Routes `resolve_attack` / `calculate_dv` / `oracle_roll` events to `NitroLogicClient` (Node A) then `OllamaClient` (Node B narrative), pushes result to Foundry chat via `FoundryAdapter`. Graceful Ollama fallback: if narrative synthesis fails, a plain-text math summary is pushed instead (Immersion Mandate).
+- `foundry-module/module.json` — Foundry VTT v12 module manifest for `foundry-api-bridge`.
+- `foundry-module/foundry-api-bridge.js` — ~170-line Foundry JS client: connects outbound to Node B, dispatches 5 MVP commands via `ChatMessage.create()`, `game.actors.get()`, `Roll.evaluate()`, `scene.activate()`. Includes exponential backoff reconnect logic and GM-only guard.
+- `ws@^8.18.0` added to dependencies; `@types/ws@^8.5.0` added to devDependencies.
+- TDD tests: `tests/api/foundry-adapter.test.ts` (lifecycle, 5 commands, requestId, timeout), `tests/core/ollama-client.test.ts` (config validation, isHealthy, generateNarrative — success/error/timeout/schema paths), `tests/core/hybrid-routing-controller.test.ts` (math routing, narrative routing, Ollama fallback, read_actor, unknown event).
+
 ## [0.3.2] - 2026-03-29
 
 ### Added
