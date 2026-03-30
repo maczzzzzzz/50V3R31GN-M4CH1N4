@@ -98,6 +98,30 @@ export const SceneActivatePayloadSchema = z.object({
   sceneId: z.string().min(1),
 });
 
+/**
+ * Update a Foundry Actor document.
+ */
+export const UpdateActorPayloadSchema = z.object({
+  /** The Foundry document id of the actor. */
+  actorId: z.string().min(1),
+  /** The updates to apply (e.g. { "system.wealth.eb": 100 }). */
+  updates: z.record(z.unknown()),
+});
+
+/**
+ * Queue a change for human (GM) approval.
+ */
+export const QueueApprovalPayloadSchema = z.object({
+  /** Unique ID for the proposal. */
+  proposalId: z.string().min(1),
+  /** Type of change (e.g. "item_addition", "state_transition"). */
+  type: z.string().min(1),
+  /** The proposed data. */
+  data: z.unknown(),
+  /** Optional Zod schema (as a string or object) to validate the edit. */
+  schema: z.string().optional(),
+});
+
 // ── Command discriminated union ───────────────────────────────────────────────
 
 export const ChatMessageCommandSchema = z.object({
@@ -130,6 +154,18 @@ export const SceneActivateCommandSchema = z.object({
   payload: SceneActivatePayloadSchema,
 });
 
+export const UpdateActorCommandSchema = z.object({
+  type: z.literal('update_actor'),
+  requestId: RequestIdSchema,
+  payload: UpdateActorPayloadSchema,
+});
+
+export const QueueApprovalCommandSchema = z.object({
+  type: z.literal('queue_approval'),
+  requestId: RequestIdSchema,
+  payload: QueueApprovalPayloadSchema,
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,
@@ -137,6 +173,8 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   SimplePhoneCommandSchema,
   DiceRollCommandSchema,
   SceneActivateCommandSchema,
+  UpdateActorCommandSchema,
+  QueueApprovalCommandSchema,
 ]);
 
 // ── Response schemas ──────────────────────────────────────────────────────────
@@ -207,12 +245,34 @@ export const ReadActorEventSchema = z.object({
   }),
 });
 
+export const BuyItemEventSchema = z.object({
+  type: z.literal('buy_item'),
+  payload: z.object({
+    itemId: z.string().min(1),
+    costEb: z.number().nonnegative(),
+    costEagles: z.number().nonnegative(),
+    vendor: z.string().min(1),
+    actorId: z.string().min(1),
+  }),
+});
+
+export const ApprovalResponseEventSchema = z.object({
+  type: z.literal('approval_response'),
+  payload: z.object({
+    proposalId: z.string().min(1),
+    status: z.enum(['approved', 'denied', 'edited']),
+    editedData: z.unknown().optional(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
   CalculateDvEventSchema,
   OracleRollEventSchema,
   ReadActorEventSchema,
+  BuyItemEventSchema,
+  ApprovalResponseEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -222,12 +282,16 @@ export type ReadActorPayload = z.infer<typeof ReadActorPayloadSchema>;
 export type SimplePhonePayload = z.infer<typeof SimplePhonePayloadSchema>;
 export type DiceRollPayload = z.infer<typeof DiceRollPayloadSchema>;
 export type SceneActivatePayload = z.infer<typeof SceneActivatePayloadSchema>;
+export type UpdateActorPayload = z.infer<typeof UpdateActorPayloadSchema>;
+export type QueueApprovalPayload = z.infer<typeof QueueApprovalPayloadSchema>;
 
 export type ChatMessageCommand = z.infer<typeof ChatMessageCommandSchema>;
 export type ReadActorCommand = z.infer<typeof ReadActorCommandSchema>;
 export type SimplePhoneCommand = z.infer<typeof SimplePhoneCommandSchema>;
 export type DiceRollCommand = z.infer<typeof DiceRollCommandSchema>;
 export type SceneActivateCommand = z.infer<typeof SceneActivateCommandSchema>;
+export type UpdateActorCommand = z.infer<typeof UpdateActorCommandSchema>;
+export type QueueApprovalCommand = z.infer<typeof QueueApprovalCommandSchema>;
 export type BridgeCommand = z.infer<typeof BridgeCommandSchema>;
 
 export type SuccessResponse = z.infer<typeof SuccessResponseSchema>;
@@ -235,3 +299,5 @@ export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
 export type BridgeResponse = z.infer<typeof BridgeResponseSchema>;
 
 export type FoundryEvent = z.infer<typeof FoundryEventSchema>;
+export type BuyItemEvent = z.infer<typeof BuyItemEventSchema>;
+export type ApprovalResponseEvent = z.infer<typeof ApprovalResponseEventSchema>;

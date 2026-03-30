@@ -82,3 +82,5 @@ export type {
   BridgeResponse,
   FoundryEvent,
 } from './foundry-bridge.schema.js';
+
+export * from './story.schema.js';

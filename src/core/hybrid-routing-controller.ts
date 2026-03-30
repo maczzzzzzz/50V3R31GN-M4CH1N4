@@ -31,7 +31,9 @@ import type {
   ResolveAttackParams, CalculateDvParams, OracleRollParams,
 } from './interfaces.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
-import type { FoundryEvent } from '../shared/schemas/foundry-bridge.schema.js';
+import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent } from '../shared/schemas/foundry-bridge.schema.js';
+import type { StoryEngine } from './story-engine.js';
+import type { GmApprovalQueue } from './gm-approval-queue.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -39,6 +41,8 @@ export interface HybridRoutingControllerOptions {
   readonly nitroLogicClient: INitroLogicClient;
   readonly ollamaClient: IOllamaClient;
   readonly foundryAdapter: IFoundryAdapter;
+  readonly storyEngine: StoryEngine;
+  readonly gmApprovalQueue: GmApprovalQueue;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -47,11 +51,15 @@ export class HybridRoutingController {
   private readonly nitroLogic: INitroLogicClient;
   private readonly ollama: IOllamaClient;
   private readonly foundry: IFoundryAdapter;
+  private readonly storyEngine: StoryEngine;
+  private readonly gmApprovalQueue: GmApprovalQueue;
 
-  constructor({ nitroLogicClient, ollamaClient, foundryAdapter }: HybridRoutingControllerOptions) {
+  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue }: HybridRoutingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
     this.ollama = ollamaClient;
     this.foundry = foundryAdapter;
+    this.storyEngine = storyEngine;
+    this.gmApprovalQueue = gmApprovalQueue;
   }
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
@@ -82,6 +90,14 @@ export class HybridRoutingController {
       }
       case 'read_actor':
         return this.foundry.readActor(event.payload.actorId);
+      case 'buy_item':
+        return this.handleBuyItem(event.payload);
+      case 'approval_response':
+        return this.gmApprovalQueue.handleResponse(
+          event.payload.proposalId,
+          event.payload.status,
+          event.payload.editedData,
+        );
       default: {
         // TypeScript exhaustiveness check
         const exhaustiveCheck: never = event;
@@ -103,6 +119,9 @@ export class HybridRoutingController {
       context,
       this.formatAttackFallback(result),
     );
+
+    // Evaluate Story Transitions
+    this.evaluateStoryEvent({ type: 'resolve_attack', result });
 
     return result;
   }
@@ -134,7 +153,48 @@ export class HybridRoutingController {
     const summary = `**Oracle Roll** — ${label}`;
     await this.foundry.sendChatMessage(summary, { alias: 'nitro-logic' });
 
+    // Evaluate Story Transitions
+    this.evaluateStoryEvent({ type: 'oracle_roll', result });
+
     return result;
+  }
+
+  // ── handle_buy_item ─────────────────────────────────────────────────────────
+
+  private async handleBuyItem(payload: BuyItemEvent['payload']): Promise<void> {
+    const { actorId, costEb, itemId, vendor } = payload;
+
+    // 1. Validate Funds
+    const actorData = await this.foundry.readActor(actorId) as any;
+    const currentEb = actorData?.system?.wealth?.eb ?? 0;
+
+    if (currentEb < costEb) {
+      await this.foundry.sendChatMessage(`❌ **Transaction Failed**: Insufficient funds (Current: ${currentEb}eb, Need: ${costEb}eb).`, { alias: vendor });
+      return;
+    }
+
+    // 2. Deduct Funds
+    const newEb = currentEb - costEb;
+    await this.foundry.updateActor(actorId, { 'system.wealth.eb': newEb });
+
+    // 3. Narrative Synthesis
+    const context = `vendor=${vendor}, item=${itemId}, costEb=${costEb}, newBalance=${newEb}`;
+    await this.pushNarrativeOrFallback(
+      'Narrate a short transaction in a Cyberpunk night market.',
+      context,
+      `You purchased an item from ${vendor} for ${costEb}eb. Remaining balance: ${newEb}eb.`,
+    );
+
+    // 4. Evaluate Story Transitions
+    this.evaluateStoryEvent({ type: 'buy_item', payload });
+  }
+
+  private evaluateStoryEvent(event: any): void {
+    const result = this.storyEngine.evaluateEvent(event);
+    if (result.transitioned) {
+      const narrative = `**Story Advance** — Transitioned from *${result.oldBeat}* to *${result.newBeat}*.`;
+      this.foundry.sendChatMessage(narrative, { alias: 'Story Engine' }).catch(() => {});
+    }
   }
 
   // ── Helpers ─────────────────────────────────────────────────────────────────

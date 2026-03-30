@@ -21,16 +21,18 @@ The `StoryEngine` is a deterministic state machine responsible for preventing na
   - **Event:** Micro-level atomic interactions.
   - **State:** Includes an `eagleBalance` (number) and a `worldState` record.
 - **Persistence:** Bound to the Crush CLI SQLite session memory.
-- **Workflow:** 
+- **Workflow & Wiring:** 
   1. Ingest event from Foundry Bridge.
-  2. Map Event to Beat Transition Guard.
-  3. Validate Math via `nitro-logic` (Node A).
-  4. Generate prose via Ollama (Node B).
-  5. Advance Beat and push prose to Foundry.
+  2. Validate Math via `nitro-logic` (Node A).
+  3. `HybridRoutingController` pushes the result to `StoryEngine.evaluateEvent()`.
+  4. StoryEngine evaluates "Transition Guards" to determine if the Beat should advance.
+  5. Generate prose via Ollama (Node B).
+  6. Advance Beat and push prose to Foundry.
 
 ### 2.2 The Afterlife Night Market UI (`foundry-module/foundry-api-bridge.js`)
 A Foundry-native HTML Dialog extending the `cpr-night-market.js` macro to support TTTA's "Eagle" economy.
 
+- **Data Source:** Vendor inventory (`marketItems`) is populated dynamically by querying Node A (`nitro-db`) for the TTTA items within the `campaign_ttta` namespace.
 - **UI Rendering:** A CSS Grid layout categorizing vendors (Mr. Connors, Miss Piercing, Madame Garcia).
 - **Dual Pricing Logic:**
   - `≤ 100eb` = 0.5 Eagles (2-for-1).
@@ -41,13 +43,17 @@ A Foundry-native HTML Dialog extending the `cpr-night-market.js` macro to suppor
 ### 2.3 The Bridge Protocol Extension (`src/shared/schemas/foundry-bridge.schema.ts`)
 The Zod contract representing Node B to Foundry communication is extended.
 - **Event:** `BuyItemEventSchema` containing `itemId`, `costEb`, `costEagles`, and `vendor`.
-- **Hybrid Routing (`src/core/hybrid-routing-controller.ts`):** Intercepts `buy_item`. Queries Node A to validate actor funds. Generates narrative prose upon successful transaction.
+- **Event:** `ApprovalResponseEventSchema` containing `proposalId`, `status`, and `editedData`.
+- **Command:** `update_actor` Node B -> Foundry command to mutate Actor records (e.g., deducting `system.wealth.eb`, modifying items).
+- **Command:** `queue_approval` Node B -> Foundry command to trigger a human-in-the-loop dialog for sensitive changes.
+- **Hybrid Routing (`src/core/hybrid-routing-controller.ts`):** Intercepts `buy_item`. Queries Node A to validate actor funds. Sends `update_actor` command upon successful transaction and generates narrative prose.
 
 ### 2.4 The GM Approval Queue (`src/core/gm-approval-queue.ts`)
 A queueing system ensuring AI does not unilaterally mutate the Foundry database for critical changes.
 - **Queue Intercept:** Major state changes (Arc transitions, cyberware additions) are queued rather than executed immediately.
 - **Status Enum:** `pending`, `approved`, `denied`, `edited`.
-- **UI Integration:** The Foundry client polls or is pushed these pending events, allowing the GM (human) to click "Approve" before Node B commits the state change.
+- **UI Integration:** Node B pushes a `queue_approval` command to Foundry. A custom Foundry UI dialog presents the payload to the GM. 
+- **Response Flow:** The GM's selection fires an `approval_response` WebSocket event back to Node B. The `GmApprovalQueue` then resolves the internal promise, allowing the `HybridRoutingController` to proceed with the `update_actor` command or narrative branch.
 
 ## 3. Strict Boundary Constraints (No Creep)
 - Do not implement Phase 5 features (Red Trade, Braindance therapy).

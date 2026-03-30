@@ -72,6 +72,8 @@ export interface IFoundryAdapter {
   triggerSimplePhone(senderNumber: string, body: string): Promise<void>;
   rollDice(formula: string): Promise<{ result: number }>;
   activateScene(sceneId: string): Promise<void>;
+  updateActor(actorId: string, updates: Record<string, unknown>): Promise<void>;
+  queueApproval(proposalId: string, type: string, data: unknown, schema?: string): Promise<void>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -198,6 +200,18 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   async activateScene(sceneId: string): Promise<void> {
     await this.sendCommand({ type: 'scene_activate', requestId: this.generateRequestId(), payload: { sceneId } });
+  }
+
+  async updateActor(actorId: string, updates: Record<string, unknown>): Promise<void> {
+    await this.sendCommand({ type: 'update_actor', requestId: this.generateRequestId(), payload: { actorId, updates } });
+  }
+
+  async queueApproval(proposalId: string, type: string, data: unknown, schema?: string): Promise<void> {
+    await this.sendCommand({
+      type: 'queue_approval',
+      requestId: this.generateRequestId(),
+      payload: { proposalId, type, data, ...(schema ? { schema } : {}) },
+    });
   }
 
   // ── Internal helpers ────────────────────────────────────────────────────────

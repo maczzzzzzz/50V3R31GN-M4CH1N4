@@ -15,60 +15,33 @@ Your objective is to build a modular, decoupled TypeScript backend that routes n
 ---
 
 ## 🗂️ PRE-FLIGHT: Mandatory Research & Context Bridging
-Before writing a single line of code, you MUST use your agentic tools to perform the following reconnaissance:
-1. **MCP Protocol Specs:** Use the `mcp-builder` skill or search the official Anthropic documentation to review the exact TypeScript schemas for building an MCP Server.
-2. **Foundry API Bridge:** Research the `foundry-api-bridge-module` payload structures. You must understand how to push a chat message from a Node.js backend into an active Foundry VTT v12 session via WebSockets.
-3. **Cyberpunk RED Schema:** Query `docs/raw_data/system-schema.json` to memorize the exact nested paths for the Cyberpunk RED actor state.
+**Status:** COMPLETE ✅
 
 ---
 
 ## 🚀 PHASE 0: Local Foundation
-**Goal:** Establish the strict TypeScript environment for local-to-local orchestration.
-1. **ESM Scaffolding:** Initialize `package.json` with `"type": "module"` and ES2022 standards.
-2. **Schema Definition:** Define Zod models in `src/shared/` for `RulesRequest`, `RulesResponse`, and `NarrativePayload`.
-3. **DI Container:** Setup dependency injection to manage local model endpoints.
+**Status:** COMPLETE ✅
 
 ---
 
 ## 🧠 PHASE 1: Data & RAG (`nitro-db`)
-**Goal:** Connect to Node A's vector store for Cyberpunk RED lore and TttA content.
-1. **Local DB Client:** Scaffold the database client targeting `http://192.168.0.50:5432`.
-2. **Vector Service:** Build the tool allowing the local Orchestrator to query lore chunks from Node A via vector similarity search.
-3. **Namespace Isolation:** Ensure RAG queries distinguish between `core_rules` and `campaign_lore`.
+**Status:** COMPLETE ✅
 
 ---
 
 ## 🧮 PHASE 2: Rules Authority MCP Bridge (`nitro-logic`)
-**Goal:** Build a robust, tool-first bridge to the Nitro 5 that extracts maximum power from the MCP protocol.
-
-**Execution Steps:**
-1. **Tool-First Architecture:** Instead of a simple client, implement `src/mcp/nitro-logic-server.ts` using the official MCP SDK.
-2. **Deterministic Rules API:** Expose specific MCP tools for `resolve_attack`, `calculate_dv`, and `oracle_roll`.
-3. **Chain of Thought (CoT) Injection:** Every tool call must automatically inject mandatory math suffixes to Llama-3.2-3B to ensure deterministic rule resolution.
-4. **Zero-Trust Logic Validation:** Use Zod to strip narrative "fluff" from Node A, returning only raw integers/booleans to the caller.
-5. **Crush CLI Integration:** Verify the server as a `stdio` transport, allowing the GM to manually invoke rule checks directly from the terminal.
+**Status:** COMPLETE ✅
 
 ---
 
 ## 🎭 PHASE 3: Foundry Bridge & Immersion UI
-**Goal:** Connect the Node B backend to the Foundry VTT frontend by mapping existing MCP tools to in-game UI triggers.
-
-**Execution Steps:**
-1. **FoundryAdapter Class:** Build the REST/WebSocket singleton in `src/api/` that acts as an MCP transport layer.
-2. **Tool-to-UI Mapping:** Create the specific methods required to format MCP tool results (like `resolve_attack`) and push them directly into the Foundry in-game chat log.
-3. **Fixer Call Integration:** Implement the payload structure required to trigger the `simple-phone` module for asynchronous TttA gig delivery.
-4. **Hybrid Routing Controller:** Build the core logic loop: 
-   * *Step A:** Receive game state/chat input from Foundry.
-   * *Step B:** Dispatch specialized MCP Tools (`nitro-db`, `nitro-logic`) for mechanics.
-   * *Step C:** Mistral-Nemo 12B (Node B) synthesizes prose based on the MCP tool result.
-   * *Step D:** Push prose and dice roll results to FoundryAdapter.
-5. **Agent Harness (Crush CLI Integration):** DO NOT build a custom CLI or terminal interface (e.g., `src/cli/gm-console.ts`). The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the testing harness and Game Master terminal client. Your only task here is ensuring the `nitro-db` and `nitro-logic` MCP servers are correctly formatted as standard `stdio` servers so Crush can seamlessly attach to them.
-6. **Phase Gate:** Trigger a test Fixer phone call, push a basic narrative string to the Foundry chat, and successfully verify the `stdio` MCP server connection is ready for Crush CLI. Ensure absolutely no meta-text or UI wrappers are visible in-game. Wait for User approval.
+**Status:** COMPLETE ✅
 
 ---
 
 ## 🌃 PHASE 4: MVP Assembly (Night Market & Story Engine)
 **Goal:** Wire the completed infrastructure into a playable solo loop.
+**Status:** IN PROGRESS (ACTIVE)
 
 **Execution Steps:**
 1. **Story Engine Core:** Implement the basic Arc → Beat → Event tracking in `src/core/`.
@@ -76,6 +49,12 @@ Before writing a single line of code, you MUST use your agentic tools to perform
 3. **GM Approval Queue:** Scaffold the endpoint allowing the Phils AI Assistant sidebar to intercept and approve major state changes before they are committed to Foundry.
 4. **Phase Gate:** Run a full end-to-end simulated cycle: Generate Gig -> Roll Oracle -> Buy Item -> Update Beat. 
 5. **FINAL SIGN OFF:** The MVP is complete.
+
+---
+
+## 🚀 PHASE 5: Advanced Mechanics (Red Trade & Braindance)
+**Goal:** Expand the world with illegal trade, heat tracking, and therapy.
+*(NEXT TARGET)*
 
 ---
 

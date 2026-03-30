@@ -22,7 +22,7 @@ NODE_B_LOCAL=http://localhost:11434/v1
 MODEL_B_NAME=mistral-nemo:12b-instruct-v1-q8_0
 
 # Foundry API Bridge Module
-FOUNDRY_WS_URL=ws://localhost:30000/api/ws
+FOUNDRY_WS_URL=ws://localhost:3010
 ```
 
 ## 3. Development vs. Runtime Modes

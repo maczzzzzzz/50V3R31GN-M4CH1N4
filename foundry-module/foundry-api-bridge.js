@@ -130,6 +130,10 @@ class FoundryApiBridge {
         return this._handleDiceRoll(command);
       case 'scene_activate':
         return this._handleSceneActivate(command);
+      case 'update_actor':
+        return this._handleUpdateActor(command);
+      case 'queue_approval':
+        return this._handleQueueApproval(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
@@ -212,6 +216,53 @@ class FoundryApiBridge {
     }
   }
 
+  async _handleUpdateActor({ requestId, payload }) {
+    try {
+      const actor = game.actors?.get(payload.actorId);
+      if (!actor) {
+        this._sendError(requestId, `Actor not found: ${payload.actorId}`);
+        return;
+      }
+      await actor.update(payload.updates);
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handleQueueApproval({ requestId, payload }) {
+    try {
+      // Create a Foundry Dialog for GM Approval
+      const content = `
+        <p><strong>Type:</strong> ${payload.type}</p>
+        <pre>${JSON.stringify(payload.data, null, 2)}</pre>
+        ${payload.schema ? `<p><small>Schema: ${payload.schema}</small></p>` : ''}
+      `;
+
+      new Dialog({
+        title: `GM Approval Required: ${payload.proposalId}`,
+        content,
+        buttons: {
+          approve: {
+            icon: '<i class="fas fa-check"></i>',
+            label: 'Approve',
+            callback: () => this._sendEvent('approval_response', { proposalId: payload.proposalId, status: 'approved' }),
+          },
+          deny: {
+            icon: '<i class="fas fa-times"></i>',
+            label: 'Deny',
+            callback: () => this._sendEvent('approval_response', { proposalId: payload.proposalId, status: 'denied' }),
+          },
+        },
+        default: 'approve',
+      }).render(true);
+
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
   // ── Response helpers ────────────────────────────────────────────────────────
 
   _sendSuccess(requestId, data) {
@@ -220,6 +271,10 @@ class FoundryApiBridge {
 
   _sendError(requestId, message) {
     this._send({ type: 'error', requestId, message });
+  }
+
+  _sendEvent(type, payload) {
+    this._send({ type, payload });
   }
 
   _send(payload) {

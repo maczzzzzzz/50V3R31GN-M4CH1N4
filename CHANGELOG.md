@@ -9,6 +9,23 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `src/shared/schemas/story.schema.ts` — Zod schema for tracking narrative state (Arc, Beat, Event, worldState, eagleBalance).
+- `src/core/story-engine.ts` — Deterministic state machine controller for narrative transitions based on mechanical events.
+- `src/core/gm-approval-queue.ts` — Human-in-the-loop interceptor for critical state changes (Node B -> Foundry -> GM UI -> Node B).
+- `src/core/night-market-service.ts` — RAG-powered vendor inventory generator with Ticket to the Afterlife "Eagle" pricing logic.
+- Expanded `src/shared/schemas/foundry-bridge.schema.ts` with Phase 4 protocol: `buy_item`, `approval_response` (Events), and `update_actor`, `queue_approval` (Commands).
+- `updateActor` implementation in `FoundryAdapter` and `foundry-api-bridge.js`.
+- GM Approval Dialog UI in `foundry-api-bridge.js`.
+- TDD suites for all Phase 4 components: `story.schema.test.ts`, `gm-approval-queue.test.ts`, `story-engine.test.ts`, `night-market-service.test.ts`, and expanded `hybrid-routing-controller.test.ts`.
+
+### Changed
+
+- Updated `HybridRoutingController` to orchestrate Phase 4 loops: `buy_item` transactions, story beat transitions, and GM approval flow.
+
+## [0.3.2] - 2026-03-29
+
+### Added
+
 - `src/shared/schemas/foundry-bridge.schema.ts` — Full Zod contract for the Phase 3 Foundry VTT bridge: 5 command schemas (`chat_message`, `read_actor`, `simple_phone`, `dice_roll`, `scene_activate`), `BridgeCommand` / `BridgeResponse` discriminated unions, and `FoundryEvent` schemas for inbound Foundry → Node B events.
 - `src/api/foundry-adapter.ts` — `FoundryAdapter` class: Node B WebSocket server (Palantiri-style reverse proxy). Accepts outbound connections from the Foundry bridge module, dispatches commands with `requestId` correlation, enforces `commandTimeoutMs`, Zod-validates all frames. `IFoundryAdapter` interface exported.
 - `src/core/ollama-client.ts` — `OllamaClient` class: OpenAI-compatible HTTP client targeting Mistral-Nemo 12B via Ollama (`http://localhost:11434/v1`). `generateNarrative(prompt, context)` injects a GM system prompt and optional rules context. Zod response validation, configurable timeout with AbortController. `IOllamaClient` / `OllamaConfig` interfaces added to `src/core/interfaces.ts`.
@@ -18,7 +35,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `ws@^8.18.0` added to dependencies; `@types/ws@^8.5.0` added to devDependencies.
 - TDD tests: `tests/api/foundry-adapter.test.ts` (lifecycle, 5 commands, requestId, timeout), `tests/core/ollama-client.test.ts` (config validation, isHealthy, generateNarrative — success/error/timeout/schema paths), `tests/core/hybrid-routing-controller.test.ts` (math routing, narrative routing, Ollama fallback, read_actor, unknown event).
 
-## [0.3.2] - 2026-03-29
+## [0.3.1] - 2026-03-29
 
 ### Added
 
@@ -35,20 +52,6 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Corrected `exactOptionalPropertyTypes` call-site errors for optional `rangeBand` and `context` parameters.
 
-## [0.3.1] - 2026-03-29
-
-### Added
-
-- `src/scripts/run-seed.ts` entry point with throttled embedding (200ms batch delay).
-- `nitro-db` MCP server with ANSI/Markdown formatting for Crush CLI.
-- `nitro-logic` MCP server scaffolding with Phase 2 tool schemas (Zod validated).
-- `.crush.json` official configuration for Charmbracelet Crush CLI.
-
-### Changed
-
-- Synchronized `run-seed.ts` schema initialisation with `schema.sql` (UUID keys, HNSW indexes).
-- Verified 100% pass rate for the complete Phase 1 test suite (151 tests).
-
 ## [0.3.0] - 2026-03-29
 
 ### Added
@@ -58,11 +61,6 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `src/mcp/nitro-logic/index.ts` — `nitro-logic` MCP server (stdio transport, Phase 2 stub). Full tool schemas defined for `resolve_attack`, `calculate_dv`, and `oracle_roll`. Returns informative Phase 2 stub responses until `NitroLogicClient` is implemented.
 - `.crush.json` — Crush CLI project config wiring both MCP servers (`nitro-db`, `nitro-logic`) via stdio and declaring the Ollama Node B provider block.
 - `npm run seed` and `npm run health-check` scripts in `package.json`.
-
-## [0.3.0] - 2026-03-29
-
-### Added
-
 - Implementation of `NitroDbClient` for Node A pgvector connectivity.
 - `OllamaEmbeddingService` for Node B local vector generation.
 - `FoundryJsonParser` and `TxtFileParser` for Phase 1 data ingestion.

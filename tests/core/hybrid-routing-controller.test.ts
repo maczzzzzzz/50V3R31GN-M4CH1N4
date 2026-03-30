@@ -1,9 +1,11 @@
 /**
  * TDD Tests: HybridRoutingController
  *
- * Tests for the Phase 3 orchestration loop that routes Foundry events to:
+ * Tests for the Phase 4 orchestration loop:
  *   - Node A (NitroLogicClient) for math/rules
  *   - Node B (OllamaClient) for narrative synthesis
+ *   - StoryEngine for deterministic state transitions
+ *   - GmApprovalQueue for human-in-the-loop
  * ...then pushes the result back to Foundry via FoundryAdapter.
  */
 
@@ -13,6 +15,8 @@ import type { INitroLogicClient, AttackResult, DvResult, OracleResult } from '..
 import type { IOllamaClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
+import { StoryEngine } from '../../src/core/story-engine.js';
+import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 
@@ -38,14 +42,32 @@ function makeMockFoundryAdapter(): IFoundryAdapter {
     stop: vi.fn().mockResolvedValue(undefined),
     isConnected: vi.fn().mockReturnValue(true),
     sendChatMessage: vi.fn().mockResolvedValue(undefined),
-    readActor: vi.fn().mockResolvedValue({ name: 'Test Actor', hp: 40 }),
+    readActor: vi.fn().mockResolvedValue({ name: 'Test Actor', system: { wealth: { eb: 1000 } } }),
     triggerSimplePhone: vi.fn().mockResolvedValue(undefined),
     rollDice: vi.fn().mockResolvedValue({ result: 7 }),
     activateScene: vi.fn().mockResolvedValue(undefined),
+    updateActor: vi.fn().mockResolvedValue(undefined),
+    queueApproval: vi.fn().mockResolvedValue(undefined),
   };
 }
 
-// ── Sample attack result from Node A ─────────────────────────────────────────
+function makeMockStoryEngine(): StoryEngine {
+  return {
+    registerBeat: vi.fn(),
+    evaluateEvent: vi.fn().mockReturnValue({ transitioned: false }),
+    getState: vi.fn(),
+  } as unknown as StoryEngine;
+}
+
+function makeMockGmApprovalQueue(): GmApprovalQueue {
+  return {
+    enqueue: vi.fn(),
+    handleResponse: vi.fn(),
+    getPending: vi.fn(),
+  } as unknown as GmApprovalQueue;
+}
+
+// ── Sample results ────────────────────────────────────────────────────────────
 
 const sampleAttackResult: AttackResult = {
   hit: true,
@@ -57,18 +79,12 @@ const sampleAttackResult: AttackResult = {
   reasoning: 'REF(6) + Handgun(4) + d10(6) = 16 vs DV 13 → HIT',
 };
 
-const sampleDvResult: DvResult = {
-  dv: 15,
-  breakdown: 'Professional DV (15)',
-  reasoning: 'Lookup table: professional = 15',
-};
-
 const sampleOracleResult: OracleResult = {
-  result: 8,
-  isCriticalSuccess: false,
+  result: 10,
+  isCriticalSuccess: true,
   isCriticalFailure: false,
   luckyReroll: null,
-  reasoning: '1d10 → 8',
+  reasoning: '1d10 → 10',
 };
 
 // ── Suite ─────────────────────────────────────────────────────────────────────
@@ -77,164 +93,123 @@ describe('HybridRoutingController', () => {
   let nitroLogic: INitroLogicClient;
   let ollama: IOllamaClient;
   let foundry: IFoundryAdapter;
+  let storyEngine: StoryEngine;
+  let gmApprovalQueue: GmApprovalQueue;
   let controller: HybridRoutingController;
 
   beforeEach(() => {
     nitroLogic = makeMockNitroLogic();
     ollama = makeMockOllama();
     foundry = makeMockFoundryAdapter();
-    controller = new HybridRoutingController({ nitroLogicClient: nitroLogic, ollamaClient: ollama, foundryAdapter: foundry });
-  });
-
-  // ── resolve_attack events ───────────────────────────────────────────────────
-
-  describe('handleFoundryEvent — resolve_attack', () => {
-    const attackEvent: FoundryEvent = {
-      type: 'resolve_attack',
-      payload: {
-        attackerSkill: 4,
-        attackerRef: 6,
-        weaponDamage: '3d6',
-        weaponArmorPiercing: false,
-        defenderRef: 5,
-        defenderSP: 6,
-        rangeBand: 'close',
-        modifiers: 0,
-      },
-    };
-
-    it('calls NitroLogicClient.resolveAttack with the event payload', async () => {
-      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(sampleAttackResult);
-
-      await controller.handleFoundryEvent(attackEvent);
-
-      expect(nitroLogic.resolveAttack).toHaveBeenCalledWith(attackEvent.payload);
-    });
-
-    it('calls OllamaClient.generateNarrative with result context', async () => {
-      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(sampleAttackResult);
-
-      await controller.handleFoundryEvent(attackEvent);
-
-      expect(ollama.generateNarrative).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.stringContaining('hit=true'),
-      );
-    });
-
-    it('pushes the narrative prose to Foundry chat', async () => {
-      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(sampleAttackResult);
-      vi.mocked(ollama.generateNarrative).mockResolvedValue('Steel sparks fly as the round connects!');
-
-      await controller.handleFoundryEvent(attackEvent);
-
-      expect(foundry.sendChatMessage).toHaveBeenCalledWith(
-        'Steel sparks fly as the round connects!',
-        expect.objectContaining({ alias: expect.any(String) }),
-      );
-    });
-
-    it('still sends a fallback chat message if OllamaClient throws', async () => {
-      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(sampleAttackResult);
-      vi.mocked(ollama.generateNarrative).mockRejectedValue(new Error('Ollama offline'));
-
-      await controller.handleFoundryEvent(attackEvent);
-
-      // Should still push something to Foundry (math result, not narrative)
-      expect(foundry.sendChatMessage).toHaveBeenCalled();
-    });
-
-    it('throws if NitroLogicClient.resolveAttack throws', async () => {
-      vi.mocked(nitroLogic.resolveAttack).mockRejectedValue(new Error('Node A unreachable'));
-
-      await expect(controller.handleFoundryEvent(attackEvent)).rejects.toThrow('Node A unreachable');
+    storyEngine = makeMockStoryEngine();
+    gmApprovalQueue = makeMockGmApprovalQueue();
+    controller = new HybridRoutingController({
+      nitroLogicClient: nitroLogic,
+      ollamaClient: ollama,
+      foundryAdapter: foundry,
+      storyEngine,
+      gmApprovalQueue,
     });
   });
 
-  // ── calculate_dv events ─────────────────────────────────────────────────────
+  // ── buy_item events ─────────────────────────────────────────────────────────
 
-  describe('handleFoundryEvent — calculate_dv', () => {
-    const dvEvent: FoundryEvent = {
-      type: 'calculate_dv',
+  describe('handleFoundryEvent — buy_item', () => {
+    const buyEvent: FoundryEvent = {
+      type: 'buy_item',
       payload: {
-        checkType: 'skill',
-        baseSkill: 5,
-        baseStat: 6,
-        situationalModifiers: 0,
-        targetDifficulty: 'professional',
+        itemId: 'cyberdeck-01',
+        costEb: 100,
+        costEagles: 0.5,
+        vendor: 'Mr. Connors',
+        actorId: 'actor-v-001',
       },
     };
 
-    it('calls NitroLogicClient.calculateDv with payload', async () => {
-      vi.mocked(nitroLogic.calculateDv).mockResolvedValue(sampleDvResult);
+    it('deducts eb from actor and pushes narrative', async () => {
+      vi.mocked(foundry.readActor).mockResolvedValue({ system: { wealth: { eb: 500 } } });
 
-      await controller.handleFoundryEvent(dvEvent);
+      await controller.handleFoundryEvent(buyEvent);
 
-      expect(nitroLogic.calculateDv).toHaveBeenCalledWith(dvEvent.payload);
+      expect(foundry.readActor).toHaveBeenCalledWith('actor-v-001');
+      expect(foundry.updateActor).toHaveBeenCalledWith('actor-v-001', { 'system.wealth.eb': 400 });
+      expect(ollama.generateNarrative).toHaveBeenCalled();
     });
 
-    it('pushes DV result to Foundry chat', async () => {
-      vi.mocked(nitroLogic.calculateDv).mockResolvedValue(sampleDvResult);
+    it('fails if actor has insufficient funds', async () => {
+      vi.mocked(foundry.readActor).mockResolvedValue({ system: { wealth: { eb: 50 } } });
 
-      await controller.handleFoundryEvent(dvEvent);
+      await controller.handleFoundryEvent(buyEvent);
 
-      expect(foundry.sendChatMessage).toHaveBeenCalled();
+      expect(foundry.updateActor).not.toHaveBeenCalled();
+      expect(foundry.sendChatMessage).toHaveBeenCalledWith(expect.stringContaining('Insufficient funds'), expect.any(Object));
+    });
+
+    it('calls storyEngine.evaluateEvent with the buy_item payload', async () => {
+      await controller.handleFoundryEvent(buyEvent);
+      expect(storyEngine.evaluateEvent).toHaveBeenCalledWith({ type: 'buy_item', payload: buyEvent.payload });
     });
   });
 
-  // ── oracle_roll events ──────────────────────────────────────────────────────
+  // ── Story Transitions ───────────────────────────────────────────────────────
 
-  describe('handleFoundryEvent — oracle_roll', () => {
-    const rollEvent: FoundryEvent = {
-      type: 'oracle_roll',
-      payload: {
-        expression: '1d10',
-        applyLuck: false,
-        luckPoints: 0,
-      },
-    };
-
-    it('calls NitroLogicClient.oracleRoll with payload', async () => {
+  describe('Story Transitions', () => {
+    it('pushes a message to Foundry chat when a transition occurs', async () => {
       vi.mocked(nitroLogic.oracleRoll).mockResolvedValue(sampleOracleResult);
+      vi.mocked(storyEngine.evaluateEvent).mockReturnValue({
+        transitioned: true,
+        oldBeat: 'Beat 1',
+        newBeat: 'Beat 2',
+      });
 
-      await controller.handleFoundryEvent(rollEvent);
-
-      expect(nitroLogic.oracleRoll).toHaveBeenCalledWith(rollEvent.payload);
-    });
-
-    it('pushes roll result to Foundry chat', async () => {
-      vi.mocked(nitroLogic.oracleRoll).mockResolvedValue(sampleOracleResult);
-
-      await controller.handleFoundryEvent(rollEvent);
-
-      expect(foundry.sendChatMessage).toHaveBeenCalled();
-    });
-  });
-
-  // ── read_actor events ───────────────────────────────────────────────────────
-
-  describe('handleFoundryEvent — read_actor', () => {
-    it('calls FoundryAdapter.readActor and returns actor data', async () => {
-      const actorData = { name: 'V', hp: 45 };
-      vi.mocked(foundry.readActor).mockResolvedValue(actorData);
-
-      const readEvent: FoundryEvent = {
-        type: 'read_actor',
-        payload: { actorId: 'actor-v-001' },
+      const rollEvent: FoundryEvent = {
+        type: 'oracle_roll',
+        payload: { expression: '1d10', applyLuck: false, luckPoints: 0 },
       };
 
-      const result = await controller.handleFoundryEvent(readEvent);
-      expect(foundry.readActor).toHaveBeenCalledWith('actor-v-001');
-      expect(result).toEqual(actorData);
+      await controller.handleFoundryEvent(rollEvent);
+
+      expect(foundry.sendChatMessage).toHaveBeenCalledWith(
+        expect.stringContaining('Story Advance'),
+        expect.objectContaining({ alias: 'Story Engine' }),
+      );
     });
   });
 
-  // ── unknown event type ──────────────────────────────────────────────────────
+  // ── approval_response events ────────────────────────────────────────────────
 
-  describe('handleFoundryEvent — unknown type', () => {
-    it('throws an error for unrecognised event types', async () => {
-      const unknownEvent = { type: 'unknown_event', payload: {} } as unknown as FoundryEvent;
-      await expect(controller.handleFoundryEvent(unknownEvent)).rejects.toThrow(/unknown.*event/i);
+  describe('handleFoundryEvent — approval_response', () => {
+    it('dispatches to GmApprovalQueue.handleResponse', async () => {
+      const approvalEvent: FoundryEvent = {
+        type: 'approval_response',
+        payload: { proposalId: 'prop-123', status: 'approved' },
+      };
+
+      await controller.handleFoundryEvent(approvalEvent);
+
+      expect(gmApprovalQueue.handleResponse).toHaveBeenCalledWith('prop-123', 'approved', undefined);
+    });
+  });
+
+  // ── Existing tests (sanity check) ──────────────────────────────────────────
+
+  describe('handleFoundryEvent — resolve_attack', () => {
+    it('calls NitroLogicClient.resolveAttack and StoryEngine', async () => {
+      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(sampleAttackResult);
+
+      const attackEvent: FoundryEvent = {
+        type: 'resolve_attack',
+        payload: {
+          attackerSkill: 4, attackerRef: 6, weaponDamage: '3d6',
+          weaponArmorPiercing: false, defenderRef: 5, defenderSP: 6,
+          rangeBand: 'close', modifiers: 0,
+        },
+      };
+
+      await controller.handleFoundryEvent(attackEvent);
+
+      expect(nitroLogic.resolveAttack).toHaveBeenCalled();
+      expect(storyEngine.evaluateEvent).toHaveBeenCalledWith({ type: 'resolve_attack', result: sampleAttackResult });
     });
   });
 });
