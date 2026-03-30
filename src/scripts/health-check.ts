@@ -19,25 +19,15 @@ async function runHealthCheck() {
   console.log('------------------------------------------');
 
   // Node B -> Node A Configuration
-  const dbConfig = {
-    host: '192.168.0.50',
-    port: 5432,
-    database: 'nitro_db',
-    user: 'nitro_admin',
-    password: 'password_placeholder', // Should be in .env but for script we use a placeholder or read from env
+  const config = {
+    host: process.env.NODE_A_HOST || '192.168.0.50',
+    port: parseInt(process.env.NODE_A_PORT || '5432', 10),
+    database: process.env.NODE_A_DB || 'nitro_db',
+    user: process.env.NODE_A_USER || 'nitro_admin',
+    password: process.env.NODE_A_PASSWORD || '',
     connectionTimeoutMs: 5000,
     queryTimeoutMs: 10000,
     maxPoolSize: 5,
-  };
-
-  // Override with environment variables if available
-  const config = {
-    ...dbConfig,
-    host: process.env.NODE_A_HOST || dbConfig.host,
-    port: parseInt(process.env.NODE_A_PORT || String(dbConfig.port), 10),
-    database: process.env.NODE_A_DB || dbConfig.database,
-    user: process.env.NODE_A_USER || dbConfig.user,
-    password: process.env.NODE_A_PASSWORD || dbConfig.password,
   };
 
   const embeddingConfig = {
