@@ -127,6 +127,30 @@ export interface OracleResult {
   readonly reasoning: string;
 }
 
+// ── Ollama (Node B narrative) types ───────────────────────────────────────────
+
+/**
+ * Connection parameters for Node B's Ollama endpoint (Mistral-Nemo 12B).
+ */
+export interface OllamaConfig {
+  /** Base URL of Node B's Ollama OpenAI-compatible server. e.g. http://localhost:11434/v1 */
+  readonly baseUrl: string;
+  /** Model identifier (e.g. "mistral-nemo:latest"). */
+  readonly model: string;
+  /** HTTP request timeout in milliseconds. */
+  readonly timeoutMs: number;
+}
+
+export interface IOllamaClient {
+  /**
+   * Generate narrative prose from a directive prompt and an optional
+   * math/rules context string (e.g. serialised AttackResult).
+   */
+  generateNarrative(prompt: string, context: string): Promise<string>;
+  /** Checks whether Ollama is reachable. Does not validate model accuracy. */
+  isHealthy(): Promise<boolean>;
+}
+
 // ── Client interface ──────────────────────────────────────────────────────────
 
 export interface INitroLogicClient {
