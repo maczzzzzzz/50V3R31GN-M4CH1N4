@@ -33,6 +33,8 @@ The project follows a strict "Documentation as DNA" philosophy. Refer to these f
 *   **[CLAUDE.md](CLAUDE.md)**: The Master Directives and Architectural DNA.
 *   **[KNOWLEDGE_BASE.md](KNOWLEDGE_BASE.md)**: Dependency registry, API specs, and model capability mappings.
 *   **[GEMINI.md](GEMINI.md)**: Master directives and hardware mapping for Gemini-based workflows.
+*   **[docs/plans/](docs/plans/)**: Phase-specific implementation plans (approved roadmaps).
+*   **[docs/specs/](docs/specs/)**: Finalized design specifications and bridge protocol contracts.
 *   **[.gemini/](.gemini/)**: Project-specific Gemini CLI configuration and custom command registry.
 *   **[IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md)**: The phased roadmap for the Phase 4 MVP.
 *   **[LOCAL_SETUP.md](docs/LOCAL_SETUP.md)**: Configuration guide for Node B (Main Rig).

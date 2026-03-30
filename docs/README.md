@@ -15,16 +15,18 @@ ASP.GM-Agent is a 100% locally hosted, production-grade AI Game Master. It utili
 
 ### Node B: The Orchestrator (Main Rig)
 * **Hardware:** Production Workstation.
-* **Stack:** Node.js, TypeScript (ESM), Claude Code CLI.
+* **Stack:** Node.js, TypeScript (ESM), Gemini CLI.
 * **Role:** State management, narrative synthesis, and Foundry VTT integration.
 
 ## 📜 Core Directives
 1. **The Immersion Mandate:** AI output must only appear in-game (Chat, Fixer Calls). No meta-windows.
 2. **The No-Creep Contract:** Development is strictly limited to Phase 4 MVP features.
 3. **Hybrid Routing:** Mechanics -> Node A; Narrative -> Node B.
+4. **Handoff Mandate:** ALWAYS consult `docs/plans/` and `docs/specs/` at the start of every session.
 
 ## 📂 Quick Start
 1. Provision Node A following [docs/SERVER_SETUP.md](docs/SERVER_SETUP.md).
 2. Configure Node B following [docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md).
 3. Update `CLAUDE.md` with Node A's Static IP.
-4. Launch: `claude`.
+4. Review latest implementation roadmap in `docs/plans/`.
+5. Launch: `gemini`.
