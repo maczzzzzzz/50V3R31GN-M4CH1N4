@@ -115,13 +115,11 @@ pub fn run(conn: &Connection, path: &Path) -> Result<usize> {
             ],
         )?;
 
-        // Get the rowid just assigned to this chunk
-        let rowid: i64 = conn
-            .query_row(
-                "SELECT rowid FROM chunks WHERE id = ?1",
-                rusqlite::params![chunk.id],
-                |r| r.get(0),
-            )?;
+        // Get the rowid just assigned (or updated) for this chunk.
+        // On INSERT: last_insert_rowid() returns the new rowid.
+        // On UPDATE (conflict): last_insert_rowid() returns the existing rowid
+        // because SQLite updates last_insert_rowid on DO UPDATE SET as well.
+        let rowid: i64 = conn.last_insert_rowid();
 
         // Upsert into the vec0 virtual table using the same rowid
         conn.execute(

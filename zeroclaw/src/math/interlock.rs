@@ -53,7 +53,7 @@ pub fn resolve_roll(dice: &[i32]) -> InterlockRoll {
 
     let total = if is_crit_success {
         // Add extension chain starting at dice[1]
-        let extension = resolve_extension(&dice[1..], true);
+        let extension = resolve_extension(&dice[1..]);
         first + extension
     } else if is_crit_failure {
         assert!(dice.len() > 1, "critical failure requires a second die");
@@ -71,11 +71,11 @@ pub fn resolve_roll(dice: &[i32]) -> InterlockRoll {
 }
 
 /// Recursively resolve a critical success extension chain.
-fn resolve_extension(dice: &[i32], _first_call: bool) -> i32 {
+fn resolve_extension(dice: &[i32]) -> i32 {
     assert!(!dice.is_empty(), "critical success requires an extension die");
     let d = dice[0];
     if d == 10 && dice.len() > 1 {
-        d + resolve_extension(&dice[1..], false)
+        d + resolve_extension(&dice[1..])
     } else {
         d
     }
