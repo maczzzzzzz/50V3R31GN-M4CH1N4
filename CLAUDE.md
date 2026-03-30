@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 4.0 (Split-Node Local Architecture)
+**Version:** 0.5.0 (Infrastructure Stable)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.2+)
 
 <deep_thinking_mode>
@@ -33,7 +33,7 @@ Any code you write must adhere to the following strict operational rules:
 2.  **The Immersion Mandate:** Output must exclusively route to Foundry VTT in-game chat, simulated Fixer phone calls, or AR HUD bubbles via the `foundry-api-bridge-module` WebSockets.
 3.  **Hybrid Routing Enforcement:** The local backend must route math to Node A (Llama 3.2) and route narrative generation to Node B (Mistral-Nemo).
 4.  **The "No Creep" Contract:** We are building the Phase 4 MVP ONLY (Seeded World → Accurate Rules via Node A → Chat Output → Fixer Calls → Basic Night Market). 
-5.  **Deferred Systems:** Red Trade contraband, advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined from this MVP. Do not architect them yet.
+5.  **Deferred Systems:** Phase 4.5 Edge-Compute Migration (v0.7.0), Red Trade contraband (v0.8.0), advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined from this MVP. Do not architect them yet.
 
 ## 3. SOURCE TREE ARCHITECTURE
 The repository must strictly adhere to this pre-scaffolded directory structure:
