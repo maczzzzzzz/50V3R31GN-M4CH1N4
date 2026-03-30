@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.2] - 2026-03-30 — Project Black-Ice: Phase A Legacy Purge
+
+### Removed
+- **`src/db/schema.sql`** — Postgres DDL artifact. Replaced by `zeroclaw/src/db/schema.rs`.
+- **`src/db/seed/`** — Entire Postgres ingestion pipeline (7 files: ChunkInserter, ChunkTextSplitter, PdfFileParser, TxtFileParser, FoundryJsonParser, SeedOrchestrator, interfaces). Superseded by `zeroclaw import`.
+- **`tests/db/seed/`** — 5 corresponding test files (92 tests removed).
+- **`src/scripts/run-seed.ts`** — Postgres seed entry point. Migration path is now `port-to-zeroclaw.ts`.
+- **`src/scripts/health-check.ts`** — Postgres health-check script. Replaced by `ClawLinkClient.isHealthy()`.
+- **Test count:** 274 → 182 (delta = deleted seed tests only, zero regressions).
+
+### Note
+Phase B gate pending: `port-to-zeroclaw.ts` execution + `zeroclaw import` on Node A confirmation before removing `pg`/`pgvector`/`NitroDbClient`.
+
 ## [0.7.1] - 2026-03-30 — Project Black-Ice: Phase 2 ClawLink SSH Bridge
 
 ### Added
