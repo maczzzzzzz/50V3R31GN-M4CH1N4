@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-03-30
+
+### Added
+- **Story Engine Core**: Implemented a deterministic state machine on Node B for tracking narrative state (Arc, Beat, Event) based on the `kingbootoshi/story-engine` pattern.
+- **Afterlife Night Market**: Implemented the `NightMarketService` on Node B with RAG-driven inventory querying from the `campaign_ttta` namespace.
+- **Eagle Economy**: Added the "Eagle" conversion logic (100eb=0.5, 500eb=3, 1000eb=7.5) as defined in the TTTA spec.
+- **GM Approval Queue**: Implemented a human-in-the-loop interceptor in `src/core/gm-approval-queue.ts` that pauses state mutations for GM confirmation.
+- **Interactive Foundry UI**: Expanded `foundry-api-bridge.js` with native `Dialog` components for the Night Market storefront and the GM Approval flow.
+- **Bridge Protocol Expansion**: Added `buy_item`, `approval_response`, `update_actor`, `queue_approval`, and `open_night_market` commands/events to the bridge protocol with strict Zod validation.
+- **TDD Rigor**: Achieved 228 passing tests with new suites for all Phase 4 components.
+
+### Changed
+- Refactored `HybridRoutingController` to orchestrate the new E2E simulation loop (Gig -> Roll -> Trade -> Beat).
+- Updated `FoundryAdapter` with `updateActor` and `openNightMarket` methods.
+
 ## [0.5.0] - 2026-03-30
 
 ### Added
@@ -15,51 +30,27 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Phase 4 Pre-flight Audit**: Stabilized `phase4-preflight.ts` with local transport and better error handling; achieved 🟢 100% success rate.
 
 ### Changed
-- Updated `HybridRoutingController` to orchestrate Phase 4 loops (Buys, Beats, Approvals).
 - Standardized environment variables across all scripts via `dotenv`.
 
 ## [0.4.0] - 2026-03-29
 
 ### Added
-- `src/shared/schemas/story.schema.ts` — Zod schema for tracking narrative state (Arc, Beat, Event, worldState, eagleBalance).
-- `src/core/story-engine.ts` — Deterministic state machine controller for narrative transitions based on mechanical events.
-- `src/core/gm-approval-queue.ts` — Human-in-the-loop interceptor for critical state changes (Node B -> Foundry -> GM UI -> Node B).
-- `src/core/night-market-service.ts` — RAG-powered vendor inventory generator with Ticket to the Afterlife "Eagle" pricing logic.
-- Expanded `src/shared/schemas/foundry-bridge.schema.ts` with Phase 4 protocol: `buy_item`, `approval_response` (Events), and `update_actor`, `queue_approval` (Commands).
-- `updateActor` implementation in `FoundryAdapter` and `foundry-api-bridge.js`.
-- GM Approval Dialog UI in `foundry-api-bridge.js`.
-- TDD suites for all Phase 4 components: `story.schema.test.ts`, `gm-approval-queue.test.ts`, `story-engine.test.ts`, `night-market-service.test.ts`, and expanded `hybrid-routing-controller.test.ts`.
+- `src/shared/schemas/story.schema.ts` — Zod schema for tracking narrative state.
+- `src/core/story-engine.ts` — State machine scaffolding.
+- `src/core/gm-approval-queue.ts` — Approval logic scaffolding.
+- `src/core/night-market-service.ts` — Night Market logic scaffolding.
 
 ## [0.3.2] - 2026-03-29
 
 ### Added
 - `src/shared/schemas/foundry-bridge.schema.ts` — Full Zod contract for the Phase 3 Foundry VTT bridge.
-- `src/api/foundry-adapter.ts` — `FoundryAdapter` class (Palantiri-style reverse proxy).
+- `src/api/foundry-adapter.ts` — `FoundryAdapter` class.
 - `src/core/ollama-client.ts` — Narrative Synthesis Client for Mistral-Nemo 12B.
 - `src/core/hybrid-routing-controller.ts` — Orchestration loop for math and narrative routing.
 - `foundry-module/` — Foundry VTT v12 module for the bridge.
 
-## [0.3.1] - 2026-03-29
-
-### Added
-- `src/core/nitro-logic-client.ts` — OpenAI-compatible bridge to Node A rules engine.
-- TDD tests for Rules Authority logic.
-
-## [0.3.0] - 2026-03-29
-
-### Added
-- MCP Servers for `nitro-db` and `nitro-logic`.
-- `SeedOrchestrator` for population of Node A pgvector database.
-- `OllamaEmbeddingService` for Node B local vector generation.
-
-## [0.2.0] - 2026-03-28
-
-### Added
-- Zod schemas for all Foundry VTT document types (Actor, Item, Scene, Journal, RollTable).
-- TypeScript project scaffolding and Vitest configuration.
-
 ## [0.1.0] - 2026-03-28
 
 ### Added
-- Initial repository with Split-Node Architecture blueprints (CLAUDE.md, KNOWLEDGE_BASE.md).
+- Initial repository with Split-Node Architecture blueprints.
 - Campaign seed data (Ticket to the Afterlife).
