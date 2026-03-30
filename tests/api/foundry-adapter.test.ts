@@ -280,6 +280,32 @@ describe('FoundryAdapter', () => {
     });
   });
 
+  // ── openNightMarket ─────────────────────────────────────────────────────────
+
+  describe('openNightMarket', () => {
+    it('sends an open_night_market command with items payload', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const items = [
+        { id: 'item-1', name: 'Cyberdeck', description: 'A hacking rig', costEb: 500, costEagles: 3, vendor: 'Mr. Connors' },
+      ];
+      const promise = adapter.openNightMarket('actor-v-001', 'Mr. Connors', items);
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+      expect(cmd.type).toBe('open_night_market');
+      const payload = cmd.payload as { actorId: string; vendorName: string; items: unknown[] };
+      expect(payload.actorId).toBe('actor-v-001');
+      expect(payload.vendorName).toBe('Mr. Connors');
+      expect(payload.items).toHaveLength(1);
+
+      sendResponse(cmd.requestId as string);
+      await expect(promise).resolves.toBeUndefined();
+    });
+  });
+
   // ── requestId ───────────────────────────────────────────────────────────────
 
   describe('requestId generation', () => {

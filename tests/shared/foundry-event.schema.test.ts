@@ -22,8 +22,8 @@ describe('Phase 4 Bridge Schemas', () => {
     it('validates an approval_response event', () => {
       const valid = {
         type: 'approval_response',
-        payload: { 
-          proposalId: 'PROP789', 
+        payload: {
+          proposalId: 'PROP789',
           status: 'approved',
           editedData: { foo: 'bar' }
         }
@@ -31,9 +31,34 @@ describe('Phase 4 Bridge Schemas', () => {
       const result = FoundryEventSchema.safeParse(valid);
       expect(result.success).toBe(true);
     });
+
+    it('validates an open_night_market inbound event', () => {
+      const valid = {
+        type: 'open_night_market',
+        payload: { actorId: 'ACTOR001', vendorName: 'Mr. Connors' },
+      };
+      const result = FoundryEventSchema.safeParse(valid);
+      expect(result.success).toBe(true);
+    });
   });
 
   describe('Outbound Commands (Node B -> Foundry)', () => {
+    it('validates an open_night_market outbound command', () => {
+      const valid = {
+        type: 'open_night_market',
+        requestId: 'abcdefghi',
+        payload: {
+          actorId: 'ACTOR001',
+          vendorName: 'Mr. Connors',
+          items: [
+            { id: 'item-1', name: 'Cyberdeck', description: 'A hacking rig', costEb: 500, costEagles: 3, vendor: 'Mr. Connors' },
+          ],
+        },
+      };
+      const result = BridgeCommandSchema.safeParse(valid);
+      expect(result.success).toBe(true);
+    });
+
     it('validates an update_actor command', () => {
       const valid = {
         type: 'update_actor',

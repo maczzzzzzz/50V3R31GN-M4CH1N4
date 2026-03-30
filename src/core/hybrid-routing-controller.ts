@@ -34,6 +34,7 @@ import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent } from '../shared/schemas/foundry-bridge.schema.js';
 import type { StoryEngine } from './story-engine.js';
 import type { GmApprovalQueue } from './gm-approval-queue.js';
+import type { NightMarketService } from './night-market-service.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -43,6 +44,7 @@ export interface HybridRoutingControllerOptions {
   readonly foundryAdapter: IFoundryAdapter;
   readonly storyEngine: StoryEngine;
   readonly gmApprovalQueue: GmApprovalQueue;
+  readonly nightMarketService: NightMarketService;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -53,13 +55,15 @@ export class HybridRoutingController {
   private readonly foundry: IFoundryAdapter;
   private readonly storyEngine: StoryEngine;
   private readonly gmApprovalQueue: GmApprovalQueue;
+  private readonly nightMarketService: NightMarketService;
 
-  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue }: HybridRoutingControllerOptions) {
+  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService }: HybridRoutingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
     this.ollama = ollamaClient;
     this.foundry = foundryAdapter;
     this.storyEngine = storyEngine;
     this.gmApprovalQueue = gmApprovalQueue;
+    this.nightMarketService = nightMarketService;
   }
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
@@ -98,6 +102,8 @@ export class HybridRoutingController {
           event.payload.status,
           event.payload.editedData,
         );
+      case 'open_night_market':
+        return this.handleOpenNightMarket(event.payload.actorId, event.payload.vendorName);
       default: {
         // TypeScript exhaustiveness check
         const exhaustiveCheck: never = event;
@@ -187,6 +193,13 @@ export class HybridRoutingController {
 
     // 4. Evaluate Story Transitions
     this.evaluateStoryEvent({ type: 'buy_item', payload });
+  }
+
+  // ── open_night_market ───────────────────────────────────────────────────────
+
+  private async handleOpenNightMarket(actorId: string, vendorName: string): Promise<void> {
+    const items = await this.nightMarketService.getVendorInventory(vendorName);
+    await this.foundry.openNightMarket(actorId, vendorName, items);
   }
 
   private evaluateStoryEvent(event: any): void {

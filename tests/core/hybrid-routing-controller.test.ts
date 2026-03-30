@@ -17,6 +17,7 @@ import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
 import { StoryEngine } from '../../src/core/story-engine.js';
 import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
+import { NightMarketService } from '../../src/core/night-market-service.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 
@@ -48,7 +49,15 @@ function makeMockFoundryAdapter(): IFoundryAdapter {
     activateScene: vi.fn().mockResolvedValue(undefined),
     updateActor: vi.fn().mockResolvedValue(undefined),
     queueApproval: vi.fn().mockResolvedValue(undefined),
+    openNightMarket: vi.fn().mockResolvedValue(undefined),
   };
+}
+
+function makeMockNightMarketService(): NightMarketService {
+  return {
+    getVendorInventory: vi.fn().mockResolvedValue([]),
+    calculateEaglePrice: vi.fn().mockReturnValue(0.5),
+  } as unknown as NightMarketService;
 }
 
 function makeMockStoryEngine(): StoryEngine {
@@ -95,6 +104,7 @@ describe('HybridRoutingController', () => {
   let foundry: IFoundryAdapter;
   let storyEngine: StoryEngine;
   let gmApprovalQueue: GmApprovalQueue;
+  let nightMarketService: NightMarketService;
   let controller: HybridRoutingController;
 
   beforeEach(() => {
@@ -103,12 +113,35 @@ describe('HybridRoutingController', () => {
     foundry = makeMockFoundryAdapter();
     storyEngine = makeMockStoryEngine();
     gmApprovalQueue = makeMockGmApprovalQueue();
+    nightMarketService = makeMockNightMarketService();
     controller = new HybridRoutingController({
       nitroLogicClient: nitroLogic,
       ollamaClient: ollama,
       foundryAdapter: foundry,
       storyEngine,
       gmApprovalQueue,
+      nightMarketService,
+    });
+  });
+
+  // ── open_night_market events ────────────────────────────────────────────────
+
+  describe('handleFoundryEvent — open_night_market', () => {
+    it('fetches vendor inventory then calls foundry.openNightMarket', async () => {
+      const mockItems = [
+        { id: 'item-1', name: 'Cyberdeck', description: 'A hacking rig', costEb: 500, costEagles: 3, vendor: 'Mr. Connors' },
+      ];
+      vi.mocked(nightMarketService.getVendorInventory).mockResolvedValue(mockItems);
+
+      const event: FoundryEvent = {
+        type: 'open_night_market',
+        payload: { actorId: 'actor-v-001', vendorName: 'Mr. Connors' },
+      };
+
+      await controller.handleFoundryEvent(event);
+
+      expect(nightMarketService.getVendorInventory).toHaveBeenCalledWith('Mr. Connors');
+      expect(foundry.openNightMarket).toHaveBeenCalledWith('actor-v-001', 'Mr. Connors', mockItems);
     });
   });
 

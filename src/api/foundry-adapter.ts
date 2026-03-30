@@ -25,6 +25,7 @@ import {
   type BridgeCommand,
   type BridgeResponse,
   type ChatMessagePayload,
+  type MarketItemPayload,
 } from '../shared/schemas/foundry-bridge.schema.js';
 
 // ── Logger (stderr-only, JSON structured) ────────────────────────────────────
@@ -74,6 +75,7 @@ export interface IFoundryAdapter {
   activateScene(sceneId: string): Promise<void>;
   updateActor(actorId: string, updates: Record<string, unknown>): Promise<void>;
   queueApproval(proposalId: string, type: string, data: unknown, schema?: string): Promise<void>;
+  openNightMarket(actorId: string, vendorName: string, items: MarketItemPayload[]): Promise<void>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -211,6 +213,14 @@ export class FoundryAdapter implements IFoundryAdapter {
       type: 'queue_approval',
       requestId: this.generateRequestId(),
       payload: { proposalId, type, data, ...(schema ? { schema } : {}) },
+    });
+  }
+
+  async openNightMarket(actorId: string, vendorName: string, items: MarketItemPayload[]): Promise<void> {
+    await this.sendCommand({
+      type: 'open_night_market',
+      requestId: this.generateRequestId(),
+      payload: { actorId, vendorName, items },
     });
   }
 

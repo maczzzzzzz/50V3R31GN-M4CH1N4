@@ -134,6 +134,8 @@ class FoundryApiBridge {
         return this._handleUpdateActor(command);
       case 'queue_approval':
         return this._handleQueueApproval(command);
+      case 'open_night_market':
+        return this._handleOpenNightMarket(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
@@ -255,6 +257,90 @@ class FoundryApiBridge {
           },
         },
         default: 'approve',
+      }).render(true);
+
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handleOpenNightMarket({ requestId, payload }) {
+    try {
+      const { actorId, vendorName, items } = payload;
+
+      // Build item grid HTML — close over `items` array to avoid data-attribute encoding
+      let itemsHtml = '';
+      items.forEach((item, index) => {
+        const eagleLabel = item.costEb <= 100
+          ? `${item.costEagles} Eagle (2-for-1)`
+          : item.costEb <= 500
+            ? `${item.costEagles} Eagles`
+            : `${item.costEagles} Eagles`;
+
+        itemsHtml += `
+          <div class="market-item" style="border:1px solid #3a3a3a; padding:8px; background:#222; display:flex; flex-direction:column; gap:4px;">
+            <strong style="color:#e64539; font-size:0.9em;">${item.name}</strong>
+            <small style="color:#999; font-size:0.75em; line-height:1.3;">${item.description.substring(0, 120)}</small>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <span style="font-size:0.8em; color:#ccc;">
+                ${item.costEb}eb &nbsp;/&nbsp;
+                <span style="color:#ffd700;">${eagleLabel}</span>
+              </span>
+              <button
+                class="night-market-buy"
+                data-index="${index}"
+                style="background:#e64539; color:#fff; border:none; padding:3px 10px; cursor:pointer; font-size:0.8em; font-weight:bold; letter-spacing:0.05em;">
+                BUY
+              </button>
+            </div>
+          </div>`;
+      });
+
+      const content = `
+        <div class="afterlife-ui" style="background:#1a1a1a; color:#e0d8cc; padding:12px; font-family:monospace;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+            <span style="color:#e64539; font-size:1.4em;">◈</span>
+            <h3 style="margin:0; color:#e64539; font-size:1em; text-transform:uppercase; letter-spacing:0.1em;">
+              ${vendorName}'s Stall
+            </h3>
+          </div>
+          <div class="market-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            ${itemsHtml || '<p style="color:#666; grid-column:1/-1; text-align:center; font-size:0.85em;">No items in stock, choom.</p>'}
+          </div>
+          <p style="margin-top:10px; margin-bottom:0; font-size:0.7em; color:#555; text-align:right;">
+            Eagles = Afterlife currency. See Rogue for exchange rates.
+          </p>
+        </div>`;
+
+      new Dialog({
+        title: `Afterlife Night Market — ${vendorName}`,
+        content,
+        buttons: {
+          close: {
+            icon: '<i class="fas fa-door-open"></i>',
+            label: 'Leave Market',
+          },
+        },
+        default: 'close',
+        render: (html) => {
+          html.find('.night-market-buy').on('click', (evt) => {
+            const index = parseInt($(evt.currentTarget).data('index'), 10);
+            const item = items[index];
+            if (!item) return;
+
+            this._sendEvent('buy_item', {
+              itemId: item.id,
+              costEb: item.costEb,
+              costEagles: item.costEagles,
+              vendor: vendorName,
+              actorId,
+            });
+
+            // Optimistic UI feedback — disable the button after click
+            $(evt.currentTarget).prop('disabled', true).text('...');
+          });
+        },
       }).render(true);
 
       this._sendSuccess(requestId, null);

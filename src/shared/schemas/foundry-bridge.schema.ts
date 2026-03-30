@@ -99,6 +99,32 @@ export const SceneActivatePayloadSchema = z.object({
 });
 
 /**
+ * A single item in the Afterlife Night Market storefront.
+ * Mirrors MarketItem from NightMarketService, serialised for bridge transport.
+ */
+export const MarketItemPayloadSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  description: z.string(),
+  costEb: z.number().nonnegative(),
+  costEagles: z.number().nonnegative(),
+  vendor: z.string().min(1),
+});
+
+/**
+ * Open the Afterlife Night Market storefront Dialog in Foundry.
+ * Node B fetches inventory from NightMarketService and pushes the rendered list.
+ */
+export const OpenNightMarketPayloadSchema = z.object({
+  /** The Foundry actor id for the purchasing player. */
+  actorId: z.string().min(1),
+  /** The vendor stall to open (e.g. "Mr. Connors"). */
+  vendorName: z.string().min(1),
+  /** Pre-fetched item list from NightMarketService. */
+  items: z.array(MarketItemPayloadSchema),
+});
+
+/**
  * Update a Foundry Actor document.
  */
 export const UpdateActorPayloadSchema = z.object({
@@ -166,6 +192,12 @@ export const QueueApprovalCommandSchema = z.object({
   payload: QueueApprovalPayloadSchema,
 });
 
+export const OpenNightMarketCommandSchema = z.object({
+  type: z.literal('open_night_market'),
+  requestId: RequestIdSchema,
+  payload: OpenNightMarketPayloadSchema,
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,
@@ -175,6 +207,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   SceneActivateCommandSchema,
   UpdateActorCommandSchema,
   QueueApprovalCommandSchema,
+  OpenNightMarketCommandSchema,
 ]);
 
 // ── Response schemas ──────────────────────────────────────────────────────────
@@ -265,6 +298,18 @@ export const ApprovalResponseEventSchema = z.object({
   }),
 });
 
+/**
+ * Request from Foundry to open the Night Market UI for a specific vendor.
+ * Node B will fetch inventory and push an open_night_market command back.
+ */
+export const OpenNightMarketEventSchema = z.object({
+  type: z.literal('open_night_market'),
+  payload: z.object({
+    actorId: z.string().min(1),
+    vendorName: z.string().min(1),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -273,6 +318,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   ReadActorEventSchema,
   BuyItemEventSchema,
   ApprovalResponseEventSchema,
+  OpenNightMarketEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -301,3 +347,7 @@ export type BridgeResponse = z.infer<typeof BridgeResponseSchema>;
 export type FoundryEvent = z.infer<typeof FoundryEventSchema>;
 export type BuyItemEvent = z.infer<typeof BuyItemEventSchema>;
 export type ApprovalResponseEvent = z.infer<typeof ApprovalResponseEventSchema>;
+export type OpenNightMarketEvent = z.infer<typeof OpenNightMarketEventSchema>;
+export type MarketItemPayload = z.infer<typeof MarketItemPayloadSchema>;
+export type OpenNightMarketPayload = z.infer<typeof OpenNightMarketPayloadSchema>;
+export type OpenNightMarketCommand = z.infer<typeof OpenNightMarketCommandSchema>;
