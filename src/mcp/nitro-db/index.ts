@@ -10,6 +10,7 @@
  *             NODE_A_PASSWORD, OLLAMA_BASE_URL, EMBEDDING_MODEL
  */
 
+import 'dotenv/config';
 import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -169,8 +170,32 @@ server.tool(
       .default(0.7)
       .describe('Minimum cosine similarity score (0.0–1.0). Higher = stricter relevance'),
   },
-  async ({ query, namespace, topK, similarityThreshold }) => {
+  async (args) => {
     const traceId = randomUUID();
+    
+    // Explicit manual validation because the SDK's server.tool might only use the schema for documentation
+    const schema = z.object({
+      query: z.string().min(1),
+      namespace: z.enum(['core_rules', 'campaign_ttta', 'entities_mooks']),
+      topK: z.number().int().min(1).max(20).default(5),
+      similarityThreshold: z.number().min(0).max(1).default(0.7),
+    });
+
+    const parsed = schema.safeParse(args);
+    if (!parsed.success) {
+      const message = parsed.error.issues.map(i => `${i.path.join('.')}: ${i.message}`).join(', ');
+      logger.error('nitro-db:rag_query', traceId, `Validation failed: ${message}`);
+      return {
+        content: [{
+          type: 'text' as const,
+          text: `\x1b[31m❌ nitro-db: Invalid arguments\x1b[0m\n\n**Error:** ${message}`,
+        }],
+        isError: true,
+      };
+    }
+
+    const { query, namespace, topK, similarityThreshold } = parsed.data;
+
     logger.info('nitro-db:rag_query', traceId, `Tool called`, {
       namespace,
       topK,
