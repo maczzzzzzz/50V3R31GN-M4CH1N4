@@ -59,3 +59,26 @@ export {
   RagQueryResultSchema,
   NodeAErrorSchema,
 } from './node-a.schema.js';
+
+export {
+  RequestIdSchema,
+  ChatMessagePayloadSchema,
+  ReadActorPayloadSchema,
+  SimplePhonePayloadSchema,
+  DiceRollPayloadSchema,
+  SceneActivatePayloadSchema,
+  BridgeCommandSchema,
+  BridgeResponseSchema,
+  FoundryEventSchema,
+} from './foundry-bridge.schema.js';
+
+export type {
+  ChatMessagePayload,
+  ReadActorPayload,
+  SimplePhonePayload,
+  DiceRollPayload,
+  SceneActivatePayload,
+  BridgeCommand,
+  BridgeResponse,
+  FoundryEvent,
+} from './foundry-bridge.schema.js';
