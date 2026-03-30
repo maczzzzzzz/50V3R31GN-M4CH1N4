@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Split-Node AI Game Master
-**Version:** 0.6.1 (Phase 4 MVP Assembly)  
+**Version:** 0.7.1 (ClawLink Bridge Stable)  
 **Target Platform:** Foundry VTT v12  
 **System:** Cyberpunk RED (v0.92.2+)
 

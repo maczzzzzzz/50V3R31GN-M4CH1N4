@@ -143,9 +143,8 @@ function formatRagResults(
 
 const server = new McpServer({
   name: 'nitro-db',
-  version: '0.6.1',
+  version: '0.7.1',
   }, {
-
 // ── Tool: rag_query ───────────────────────────────────────────────────────────
 
 server.tool(
