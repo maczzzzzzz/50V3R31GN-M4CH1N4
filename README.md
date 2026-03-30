@@ -8,6 +8,27 @@ ASP.GM-Agent v0.7.0 moves away from traditional container overhead (Docker/Postg
 
 ## 🏗️ System Architecture: The Split-Node Stack
 
+```mermaid
+graph TD
+    subgraph Node_B [Node B: Orchestrator - Main Rig]
+        A[Mistral-Nemo 12B] <--> B[Narrative Brain]
+        B <--> C[(Unified SQLite Data Plane)]
+        C --- D[world.db - RKG]
+        C --- E[crush.db - Memory]
+        B <--> F[Foundry VTT v12]
+    end
+
+    subgraph Node_A [Node A: Rules Oracle - Nitro 5]
+        G[ZeroClaw Rust] <--> H[Llama-3.2-3B]
+        G <--> I[(SQLite-Vec - Rules DB)]
+    end
+
+    F -- Events --> B
+    B -- Persistent Socket --> J{ClawLink Bridge}
+    J -- JSON-RPC <10ms --> G
+    G -- Mechanics/RAG --> B
+```
+
 ### Node A: The Rules Oracle (The Physics Engine)
 * **Hardware:** Acer Nitro 5 (GTX 1050 Ti 4GB | Headless Ubuntu Server).
 * **Engine:** **ZeroClaw** (Rust-native) running Llama-3.2-3B via Vulkan.
