@@ -72,5 +72,78 @@ To clear Phase 4 and declare the MVP complete, we must successfully run this exa
 4.  **Buy Item:** The player opens the Afterlife Night Market UI and purchases an item. Node B validates the Eagle cost and updates the character sheet.
 5.  **GM Approval:** A major arc transition is proposed, intercepted by the Queue, and manually approved by the human GM.
 
-## 6. Conclusion
-Phase 4 is strictly an orchestration phase. It requires no new machine learning models or vector databases. The success of this phase relies entirely on the robustness of the TypeScript logic in `src/core/story-engine.ts`, `src/api/foundry-adapter.ts`, and the strict enforcement of Zod schemas crossing the Node A/B boundary.
+## 6. Phase 4 Exhaustive Dependency & Version Pinning (Raw Data)
+To ensure absolute adherence to the "No Creep" contract and prevent hallucinated APIs, the following raw data represents the **exact** pinned versions and compatibility constraints for Phase 4.
+
+### 6.1 Core Foundry VTT Environment
+- **Foundry VTT Version:** v12 Stable (Do not architect for v13)
+- **Cyberpunk RED Core System:** v0.92.2 (Pinned per `KNOWLEDGE_BASE.md`)
+
+### 6.2 Mandatory Phase 4 Modules
+| Module | Version | Compatibility | Source / Manifest URL |
+| :--- | :--- | :--- | :--- |
+| **simple-phone** (Odd-Kaiju) | v2.2.0 | Min: v12, Verified: v13 | `https://github.com/Odd-Kaiju/simple-phone/releases/latest/download/module.json` |
+| **Ticket-To-The-Afterlife** (TheInvaderZim) | v2.2.0 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/Ticket-To-The-Afterlife/releases/latest/download/module.json` |
+| **night-city-gang-and-corp-mook-pack** | v2.8 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/night-city-gang-and-corp-mook-pack/releases/latest/download/module.json` |
+| **foundry-api-bridge-module** | v0.4.0 (Local) | Min: v12, Verified: v12 | *(Local Manifest - Node B WebSocket Bridge)* |
+
+### 6.3 Technical Implementation: Night Market Macro Raw Data
+The `cpr-night-market.js` macro is extended with the following raw logic to map to TTTA vendor structures:
+
+```javascript
+/**
+ * TTTA Eagle Conversion Logic
+ * Based on Afterlife Night Market Journal:
+ * 100eb or less = 1 Eagle for 200eb credit (2-for-1)
+ * 500eb = 2-4 Eagles
+ * 1000eb = 6-9 Eagles
+ */
+function getEagleCost(eurobucks) {
+    if (eurobucks <= 100) return "0.5 Eagles (2-for-1)";
+    if (eurobucks <= 500) return "2-4 Eagles";
+    if (eurobucks <= 1000) return "6-9 Eagles";
+    return "GM Discretion (High Value)";
+}
+
+// Dialog HTML Storefront Injection Pattern
+function renderAfterlifeStorefront(marketItems, vendorName) {
+    let content = `<div class="afterlife-ui-container" style="background: #1a1a1a; color: #e64539; padding: 10px; border: 2px solid #e64539;">
+        <h2 style="border-bottom: 1px solid #e64539;">${vendorName}'s Stall</h2>
+        <div class="inventory-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">`;
+    
+    marketItems.forEach(item => {
+        content += `
+            <div class="shop-item" style="border: 1px solid #333; padding: 5px; background: #222;">
+                <strong>${item.name}</strong><br>
+                <small>${item.cost}eb / ${getEagleCost(item.cost)}</small><br>
+                <button class="buy-button" onclick="handlePurchase('${item.name}', ${item.cost})">Buy</button>
+            </div>`;
+    });
+    
+    content += `</div></div>`;
+    
+    new Dialog({
+        title: `Afterlife Night Market: ${vendorName}`,
+        content: content,
+        buttons: { close: { label: "Leave Market" } }
+    }).render(true);
+}
+```
+
+### 6.4 Technical Implementation: Story Engine State Schema Raw Data
+The Node B SQLite session must validate the `kingbootoshi/story-engine` progression through the following Zod contract (`src/shared/schemas/story.schema.ts`):
+
+```typescript
+import { z } from 'zod';
+
+export const StoryStateSchema = z.object({
+  currentArc: z.string(),
+  currentBeat: z.string(),
+  completedBeats: z.array(z.string()),
+  worldState: z.record(z.any()), // Tracks specifics e.g., { sprinters_gaff_searched: true }
+  eagleBalance: z.number().nonnegative(),
+});
+```
+
+## 7. Conclusion
+Phase 4 is strictly an orchestration phase. It requires no new machine learning models or vector databases. The success of this phase relies entirely on the robustness of the TypeScript logic in `src/core/story-engine.ts`, `src/api/foundry-adapter.ts`, and the strict enforcement of Zod schemas crossing the Node A/B boundary, integrating the precise modules listed above.
