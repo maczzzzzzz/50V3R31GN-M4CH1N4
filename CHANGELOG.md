@@ -14,7 +14,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **GM Approval Queue**: Implemented a human-in-the-loop interceptor in `src/core/gm-approval-queue.ts` that pauses state mutations for GM confirmation.
 - **Interactive Foundry UI**: Expanded `foundry-api-bridge.js` with native `Dialog` components for the Night Market storefront and the GM Approval flow.
 - **Bridge Protocol Expansion**: Added `buy_item`, `approval_response`, `update_actor`, `queue_approval`, and `open_night_market` commands/events to the bridge protocol with strict Zod validation.
-- **TDD Rigor**: Achieved 228 passing tests with new suites for all Phase 4 components.
+- **Campaign Registry**: `src/core/campaign-registry.ts` — `bootstrapTttaPart1()` registers the TttA Part 1 narrative beats (The Afterlife Meeting → The First Gig → The Job) and their deterministic Transition Guards into the StoryEngine.
+- **E2E Session Loop Verification**: `tests/core/world-test-simulation.test.ts` — Full Phase Gate simulation covering Fixer gig dispatch, attack resolution (Beat 1→2 transition), Night Market purchase (Beat 2→3 transition), and all state assertions.
+- **TDD Rigor**: Achieved 237 passing tests with new suites for all Phase 4 components.
 
 ### Changed
 - Refactored `HybridRoutingController` to orchestrate the new E2E simulation loop (Gig -> Roll -> Trade -> Beat).
