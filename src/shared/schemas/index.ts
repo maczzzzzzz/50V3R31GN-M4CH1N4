@@ -94,3 +94,22 @@ export type {
   ZerocrawlChunk,
   ZerocrawlExport,
 } from './zeroclaw-export.schema.js';
+
+export {
+  ClawLinkConfigSchema,
+  ClawLinkRpcRequestSchema,
+  ClawLinkRpcResponseSchema,
+  ClawLinkSearchResultSchema,
+  ClawLinkSearchResultsSchema,
+  ClawLinkInterlockRollSchema,
+  ClawLinkAttackResultSchema,
+  ClawLinkDamageResultSchema,
+} from './clawlink.schema.js';
+
+export type {
+  ClawLinkConfig,
+  ClawLinkRpcResponse,
+  ClawLinkSearchResult,
+  ClawLinkAttackResult,
+  ClawLinkDamageResult,
+} from './clawlink.schema.js';

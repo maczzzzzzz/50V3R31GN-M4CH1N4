@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.1] - 2026-03-30 — Project Black-Ice: Phase 2 ClawLink SSH Bridge
+
+### Added
+- **ClawLink TCP Server** (`zeroclaw/src/server/`): Rust tokio TCP server binding to `127.0.0.1:{port}` (default 7878). Accessible only via SSH tunnel. Handles one client (Node B) with a persistent connection.
+  - `rpc.rs`: `RpcRequest` / `RpcResponse` newline-delimited JSON types. `RpcResponse::ok` / `::err` constructors that use `skip_serializing_if` to omit absent fields. 6 `#[test]` functions.
+  - `handler.rs`: Routes `ping`, `hybrid_search`, `resolve_attack`, `resolve_damage` to ZeroClaw subsystems. Guard-validates empty inputs. 8 `#[test]` functions.
+  - `mod.rs`: TCP accept loop, per-connection thread, `dispatch()` with structured error logging. 4 `#[test]` functions.
+- **`zeroclaw serve` subcommand**: `--db` + `--port` flags. Opens rules.db, wraps Connection in `Arc<Mutex>`, starts ClawLink server.
+- **`ClawLinkClient`** (`src/api/clawlink-client.ts`): SSH tunnel + JSON-RPC client. Ed25519 key auth, `directTcpip` channel forwarding, pending-request correlation by UUID, chunked data reassembly, per-request timeout, `SshClientFactory` injection for testability.
+- **`IClawLinkClient` interface**: `connect`, `disconnect`, `isHealthy`, `hybridSearch`, `resolveAttack`, `resolveDamage`.
+- **Zero-Trust schemas** (`src/shared/schemas/clawlink.schema.ts`): `ClawLinkConfigSchema`, `ClawLinkRpcResponseSchema`, `ClawLinkSearchResultSchema`, `ClawLinkAttackResultSchema`, `ClawLinkDamageResultSchema` — all Node A responses validated before use.
+- **`ssh2` dependency**: `ssh2@^1.0.0` + `@types/ssh2` added for persistent SSH tunneling.
+- **TDD**: 274 passing TypeScript tests (+24 ClawLink). Rust server carries 18 inline `#[test]` assertions.
+
 ## [0.7.0] - 2026-03-30 — Project Black-Ice: Phase 1 ZeroClaw Core
 
 ### Added

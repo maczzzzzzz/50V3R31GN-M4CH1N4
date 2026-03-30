@@ -17,6 +17,7 @@ use std::path::PathBuf;
 mod db;
 #[allow(dead_code)]
 mod math;
+mod server;
 
 fn main() -> Result<()> {
     // Structured JSON logging to stderr (never stdout — ClawLink uses stdout)
@@ -63,6 +64,21 @@ fn main() -> Result<()> {
             println!("{}", serde_json::to_string_pretty(&results)?);
         }
 
+        "serve" => {
+            let db_path = parse_flag(&args, "--db").unwrap_or_else(|| "rules.db".to_string());
+            let port: u16 = parse_flag(&args, "--port")
+                .unwrap_or_else(|| "7878".to_string())
+                .parse()
+                .map_err(|_| anyhow::anyhow!("--port must be a valid port number (1-65535)"))?;
+
+            tracing::info!(db = %db_path, port, "Starting ClawLink TCP server");
+            let conn = db::open(&PathBuf::from(&db_path))?;
+            db::schema::init(&conn)?;
+
+            let conn = std::sync::Arc::new(std::sync::Mutex::new(conn));
+            server::serve(conn, port)?;
+        }
+
         "help" | "--help" | "-h" => {
             eprintln!("ZeroClaw — Rules Authority (Project Black-Ice v0.7.0)");
             eprintln!();
@@ -70,7 +86,7 @@ fn main() -> Result<()> {
             eprintln!("  zeroclaw init   --db <path>");
             eprintln!("  zeroclaw import --db <path> --file <export.zeroclaw.json>");
             eprintln!("  zeroclaw search --db <path> --query <text> [--namespace <ns>]");
-            eprintln!("  zeroclaw serve  --db <path> [--port <n>]  (Phase 2)");
+            eprintln!("  zeroclaw serve  --db <path> [--port <n>]  (ClawLink SSH bridge)");
         }
 
         other => {
