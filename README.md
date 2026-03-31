@@ -65,7 +65,8 @@ The system is seeded with 1,437+ vector chunks covering:
 * **Entity Knowledge**: Extensive libraries of actor stat blocks and faction data.
 
 ## 🚀 Project Status
-* **Current Version:** v0.8.1 (Living City Simulation).
-* **Active Milestone:** Phase 5 (Advanced Mechanics & Red Trade).
+* **Current Version:** v0.8.3 (Phase 5 Complete).
+* **Active Milestone:** Phase 6 (The Living City).
 * **Environment:** Strictly Local / Air-Gapped / Zero-Telemetry.
 * **Interface:** Integrated via Gemini CLI and Crush CLI.
+nd Crush CLI.
