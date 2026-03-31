@@ -5,25 +5,28 @@
 **Hardware:** Node A (Nitro 5 | Rules) | Node B (Main Rig | Orchestrator)
 
 ## 🗂️ PHASE 0-4: Foundation & Infrastructure
-**Status:** COMPLETE ✅ (Finalized in v0.7.2)
-- ZeroClaw (Rust) deployed to Node A.
-- ClawLink (Persistent SSH Bridge) established.
-- Unified Oracle (SQLite RKG) implemented on Node B.
-- Data Migration (1,437 vectors) verified.
-- Legacy Postgres/Docker stack purged.
+**Status:** COMPLETE ✅ (Finalized in v0.8.0)
+- **ZeroClaw (Rust)**: Native Rules Authority deployed to Node A. FTS5 indexing fixed and verified.
+- **ClawLink**: Persistent SSH Socket Bridge established (<10ms latency).
+- **Unified Oracle**: Triple-SQLite data plane (`world.db`, `crush.db`, `rules.db`) designed and scaffolded.
+- **Technical Purge**: Legacy Postgres stack and Docker container deleted.
+- **VRAM Insurance**: FP8 KV Caching active and verified on Node B.
 
 ---
 
 ## 🚀 PHASE 5: Advanced Mechanics (Red Trade & Pulse)
 **Goal:** Expand the world with dynamic simulation, contraband economy, and automated character onboarding.
-**Version:** v0.8.0
 **Status:** IN PROGRESS (ACTIVE)
 
+**Detailed Roadmap:** [docs/plans/2026-03-31-red-trade-economy-implementation.md](docs/plans/2026-03-31-red-trade-economy-implementation.md)
+**Design Spec:** [docs/specs/2026-03-31-red-trade-economy-spec.md](docs/specs/2026-03-31-red-trade-economy-spec.md)
+
 **Execution Steps:**
-1. **Red Trade Economy:** Implement the "Street Economy" engine. Track contraband inventory, heat levels, and fixers across the RKG.
-2. **Pulse Engine:** Implement the background simulation loop that advances world state (faction turf shifts, NPC movements) while the player is idle.
-3. **Conversational Onboarding:** Build the "Fixer Interview" wizard for automated Character Creation and Lifepath mapping.
-4. **Braindance Therapy:** Implement the humanity/empathy recovery loop and trauma tracking.
+1. **RKG Schema Expansion (Task 1):** Add `factions` and `player_friends_enemies` tables to `world.db`. (Ready for implementation).
+2. **Red Trade Economy:** Implement the `RedTradeService` for cargo generation and smuggling loops.
+3. **Pulse Engine:** Implement the background simulation for faction turf shifts and world advancement.
+4. **Conversational Onboarding:** Build the "Fixer Interview" character creation wizard.
+5. **Braindance Therapy:** Implement the humanity/addiction recovery mechanics.
 
 ---
 

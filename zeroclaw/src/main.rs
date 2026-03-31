@@ -80,7 +80,7 @@ fn main() -> Result<()> {
         }
 
         "help" | "--help" | "-h" => {
-            eprintln!("ZeroClaw — Rules Authority (Project Black-Ice v0.7.0)");
+            eprintln!("ZeroClaw — Rules Authority (Project Black-Ice v0.8.0)");
             eprintln!();
             eprintln!("USAGE:");
             eprintln!("  zeroclaw init   --db <path>");

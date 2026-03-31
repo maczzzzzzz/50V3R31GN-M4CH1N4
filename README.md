@@ -4,7 +4,7 @@
 
 An industrial-grade, local-first Game Master orchestration suite for Cyberpunk RED. 
 
-ASP.GM-Agent v0.7.0 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
+ASP.GM-Agent v0.8.0 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
 
 ## 🏗️ System Architecture: The Split-Node Stack
 

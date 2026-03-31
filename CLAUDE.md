@@ -38,6 +38,7 @@ This is a 100% Local Split-Node Stack. Never conflate their roles. You (Claude) 
 - **Zero-Trust AI Bridge:** All AI state updates must be validated via Zod schemas before SQL execution.
 - **World Pulse Grounding:** Prompt context must be prepended with grounded truth from RKG + history.
 - **Sub-10ms Latency:** Persistent ClawLink transport is the mandatory standard for Node A communication.
+- **VRAM Insurance:** Ollama on Node B is optimized with **FP8 KV Cache** to maximize context window stability for 12B+ models.
 
 ## 4. SOURCE TREE ARCHITECTURE
 ```text
