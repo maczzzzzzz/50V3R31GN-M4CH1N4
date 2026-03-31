@@ -1,5 +1,5 @@
 # ASP.GM-Agent (Project Black-Ice)
-**Version:** 0.7.0 (Rust-Native Edge Migration)
+**Version:** 0.8.0 (Living City Simulation)
 **Target:** Cyberpunk RED | Foundry VTT v12 | local-only
 
 An industrial-grade, local-first Game Master orchestration suite for Cyberpunk RED. 
@@ -65,7 +65,7 @@ The system is seeded with 1,437+ vector chunks from:
 * **Mook Packs**: Night City Gang & Corp stat blocks indexed for RAG.
 
 ## 🚀 Project Status
-* **Current Version:** v0.6.1 (Stable MVP Assembly).
-* **Active Milestone:** v0.7.0 (ZeroClaw & ClawLink Migration).
+* **Current Version:** v0.8.0 (Living City Simulation).
+* **Active Milestone:** Phase 5 (Advanced Mechanics & Red Trade).
 * **Environment:** Strictly Local / Air-Gapped / Zero-Telemetry.
 * **Interface:** Integrated via Gemini CLI and Crush CLI.

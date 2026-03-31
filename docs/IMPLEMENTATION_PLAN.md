@@ -1,91 +1,41 @@
 # ASP.GM-Agent: Master Implementation Execution Plan
-**Version:** 0.7.1 (ClawLink Bridge Stable)
-**Target:** v0.7.0 (Project Black-Ice Migration)
-**Architecture:** 100% Local Split-Node (Node A: Rules Authority | Node B: Local Orchestrator)
-**Hardware:** Node A (Nitro 5 | Llama-3.2-3B) | Node B (Main Rig | Mistral-Nemo 12B)
-**Platform:** Foundry VTT v12 | Cyberpunk RED v0.92.2
+**Version:** 0.8.0 (Living City Simulation)
+**Target:** Phase 5 (Advanced Mechanics & Red Trade)
+**Architecture:** 100% Local Split-Node (Rust/ZeroClaw + Node.js/Mistral-Nemo)
+**Hardware:** Node A (Nitro 5 | Rules) | Node B (Main Rig | Orchestrator)
 
-## Executive Briefing for AI Agent (Claude Code)
-You are tasked with implementing the Node B Orchestrator for the ASP.GM-Agent. You have ingested `CLAUDE.md` (System Directives), `KNOWLEDGE_BASE.md` (Dependency Registry), and the System Architecture Spec. 
-
-Your objective is to build a modular, decoupled TypeScript backend that routes narrative tasks to the local Mistral-Nemo 12B model, and delegates all mechanical TRPG math/rule lookups to the headless Node A server.
-
-**The Golden Rule:** You will not advance to the next phase until the current phase has 100% test coverage and has been explicitly approved by the Lead Architect (the User).
-
----
-
-## 🗂️ PRE-FLIGHT: Mandatory Research & Context Bridging
-**Status:** COMPLETE ✅ (Finalized in v0.4.0)
+## 🗂️ PHASE 0-4: Foundation & Infrastructure
+**Status:** COMPLETE ✅ (Finalized in v0.7.2)
+- ZeroClaw (Rust) deployed to Node A.
+- ClawLink (Persistent SSH Bridge) established.
+- Unified Oracle (SQLite RKG) implemented on Node B.
+- Data Migration (1,437 vectors) verified.
+- Legacy Postgres/Docker stack purged.
 
 ---
 
-## 🚀 PHASE 0: Local Foundation
-**Status:** COMPLETE ✅ (Finalized in v0.4.0)
-
----
-
-## 🧠 PHASE 1: Data & RAG (`nitro-db`)
-**Status:** COMPLETE ✅ (Finalized in v0.4.0)
-
----
-
-## 🧮 PHASE 2: Rules Authority MCP Bridge (`nitro-logic`)
-**Status:** COMPLETE ✅ (Finalized in v0.4.0)
-
----
-
-## 🎭 PHASE 3: Foundry Bridge & Immersion UI
-**Status:** COMPLETE ✅ (Finalized in v0.4.0)
-
----
-
-## 🌃 PHASE 4: MVP Assembly (Night Market & Story Engine)
-**Goal:** Wire the infrastructure into a playable solo loop.
-**Version:** v0.6.0
-**Status:** IN PROGRESS (ACTIVE)
-
-**Execution Steps:**
-1. **Story Engine Core:** Implement the basic Arc → Beat → Event tracking in `src/core/`.
-2. **Afterlife Night Market:** Build the basic Eagle economy transaction loop (`execute_ttta_trade`). Ensure purchases decrement the player's Foundry inventory/eb and correctly calculate Eagle conversion rates via `nitro-logic`.
-3. **GM Approval Queue:** Scaffold the endpoint allowing the Phils AI Assistant sidebar to intercept and approve major state changes before they are committed to Foundry.
-4. **Phase Gate:** Run a full end-to-end simulated cycle: Generate Gig -> Roll Oracle -> Buy Item -> Update Beat. 
-5. **FINAL SIGN OFF:** v0.6.0 MVP Complete.
-
----
-
-## ❄️ PHASE 4.5: The v0.7.0 "Edge-Compute" Migration (Project Black-Ice)
-**Goal:** Optimize the infrastructure for high-performance open-world simulation.
-**Status:** COMPLETE ✅ (Finalized in v0.7.1)
-
----
-
-## 🔮 PHASE 3: Unified Oracle (Relational Knowledge Graph)
-**Goal:** Consolidate narrative truth and history onto Node B.
-**Version:** v0.7.2
-**Status:** IN PROGRESS (ACTIVE)
-
-**Execution Steps:**
-1. **UnifiedOracleClient:** Implement the SQLite-based client with `ATTACH DATABASE` for `world.db` and `crush.db`.
-2. **Hybrid RKG Schema:** Dual-layer storage for structured stats and dynamic triplets.
-3. **Validated Command Pattern:** Zod-gated world state updates from AI.
-4. **World Pulse Grounding:** Automatic pre-response context injection to eliminate narrative drift.
-5. **Legacy Purge (Phase B):** Final removal of `NitroDbClient` and `pg` dependencies.
-
----
-
-## 🚀 PHASE 5: Advanced Mechanics (Red Trade & Braindance)
-
-**Goal:** Expand the world with illegal trade, heat tracking, and therapy.
+## 🚀 PHASE 5: Advanced Mechanics (Red Trade & Pulse)
+**Goal:** Expand the world with dynamic simulation, contraband economy, and automated character onboarding.
 **Version:** v0.8.0
-*(NEXT TARGET)*
+**Status:** IN PROGRESS (ACTIVE)
+
+**Execution Steps:**
+1. **Red Trade Economy:** Implement the "Street Economy" engine. Track contraband inventory, heat levels, and fixers across the RKG.
+2. **Pulse Engine:** Implement the background simulation loop that advances world state (faction turf shifts, NPC movements) while the player is idle.
+3. **Conversational Onboarding:** Build the "Fixer Interview" wizard for automated Character Creation and Lifepath mapping.
+4. **Braindance Therapy:** Implement the humanity/empathy recovery loop and trauma tracking.
+
+---
+
+## 🏙️ PHASE 6: The Living City
+**Goal:** Final immersion layer with dynamic turf wars and computer vision.
+**Version:** v0.9.0
+**Status:** SLATED
 
 ---
 
 ## 🛑 THE QUARANTINE ZONE (Scope Creep Enforcement)
-Under no circumstances are you to architect, scaffold, or write code for the following systems during this implementation run. If the user requests these, gently remind them of the "No Creep" contract.
-* **Red Trade (Phase 5):** Contraband, heat tracking, jail mechanics, braindance therapy.
-* **Character Creation (Phase 5):** Conversational "Fixer Interview" wizard, automated template mapping, and faction-voiced Lifepath generation.
-* **Living City (Phase 6):** Advanced Pulse engine, faction reputation tracking, dynamic turf wars, and Computer Vision map/wall generation.
-* **AR HUD Overlays:** Floating combat barks or augmented reality visual effects.
-* **Simulacrum Deep Memory:** Persistent cross-session NPC memory banks.
-* **Headquarters:** Base upgrades and Morale Boost logic.
+- **Computer Vision:** Map/wall generation from images (Phase 6).
+- **AR HUD Overlays:** Floating combat barks (Phase 6).
+- **Simulacrum Deep Memory:** Long-term cross-session NPC growth (v1.0.0).
+- **Headquarters:** Base upgrades and Morale Boost logic (v1.0.0).

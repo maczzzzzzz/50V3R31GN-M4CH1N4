@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Split-Node AI Game Master
-**Version:** 0.7.1 (ClawLink Bridge Stable)  
+**Version:** 0.8.0 (Unified Oracle Stable)  
 **Target Platform:** Foundry VTT v12  
 **System:** Cyberpunk RED (v0.92.2+)
 
@@ -10,7 +10,7 @@ ASP.GM-Agent is a 100% locally hosted, production-grade AI Game Master. It utili
 
 ### Node A: The Rules Authority (Headless)
 * **Hardware:** Acer Nitro 5 (GTX 1050 Ti 4GB).
-* **Stack:** Llama.cpp (Vulkan), PostgreSQL + pgvector (Docker).
+* **Stack:** ZeroClaw (Rust), SQLite-Vec, Llama.cpp (Vulkan).
 * **Role:** Stateless deterministic TRPG math and Rulebook RAG.
 
 ### Node B: The Orchestrator (Main Rig)

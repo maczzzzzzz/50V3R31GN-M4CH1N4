@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 0.7.1 (ClawLink Bridge Stable)
+**Version:** 0.8.0 (Living City Simulation)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.2+)
 
 <deep_thinking_mode>
@@ -16,178 +16,76 @@ This is a 100% Local Split-Node Stack. Never conflate their roles. You (Claude) 
 - **Node A (The Rules Authority / Zero-Tax Rules Engine):**
   - **Hardware:** Remote Server (Acer Nitro 5 / NVIDIA GTX 1050 Ti 4GB).
   - **Engine:** ZeroClaw (Rust-native binary) + Llama-3.2-3B-Instruct (via `llama.cpp` Vulkan).
-  - **Memory Limits:** Locked to `-ngl 99` (100% VRAM), `-c 8192` (Context), and `-np 1`. 
+  - **Memory Limits:** Locked to 100% VRAM usage for the model. Rules processing is "Zero-Tax" (<5MB RAM).
   - **Role:** Handles strict rule processing, deterministic TRPG math, and Hybrid Vector Search (SQLite-Vec + FTS5).
-  - **Constraint:** Node A is completely unaware of the project's narrative state. Never instruct Node A to write narrative text, and never commit to Git from it.
+  - **Constraint:** Node A is completely unaware of the project's narrative state. Never instruct Node A to write narrative text.
 
 - **Node B (The Orchestrator / Narrative Synthesizer):**
   - **Hardware:** Local Main Workstation (16GB VRAM).
   - **Engine:** Mistral-Nemo 12B (via Ollama at `http://localhost:11434`).
-  - **Storage:** Unified SQLite Data Plane (world.db + crush.db).
-  - **Role:** Holds this codebase, handles state (RKG), orchestrates persistent ClawLink calls to Node A, and generates narrative prose.
-  - **Constraint:** At runtime, Mistral-Nemo operates here. You (Claude) are only the developer scaffolding the integration. You are building a system that runs without you.
+  - **Storage:** Unified SQLite Data Plane (`world.db` + `crush.db` + `rules.db` cache).
+  - **Role:** Holds the codebase, manages session state (Hybrid RKG), orchestrates persistent ClawLink calls to Node A, and generates narrative prose.
+  - **Constraint:** At runtime, Mistral-Nemo operates here. Mistral-Nemo must verify every beat against the RKG before generating response.
 
 ## 2. DEVELOPMENT MANDATES & SCOPE BOUNDARIES (THE "NO CREEP" CONTRACT)
-Any code you write must adhere to the following strict operational rules:
-
-1.  **The 100% Local Mandate ("Build with Cloud, Play Local"):** The final runtime relies entirely on local models. Token usage during gameplay is strictly forbidden. You must build adapters that target local LLM endpoints.
-2.  **The Immersion Mandate:** Output must exclusively route to Foundry VTT in-game chat, simulated Fixer phone calls, or AR HUD bubbles via the `foundry-api-bridge-module` WebSockets.
+1.  **The 100% Local Mandate:** Token usage during gameplay is strictly forbidden. 
+2.  **The Immersion Mandate:** Output must exclusively route to Foundry VTT in-game chat, simulated Fixer phone calls, or AR HUD bubbles via the `foundry-api-bridge-module`.
 3.  **Hybrid Routing Enforcement:** The local backend must route math to Node A (ZeroClaw) and route narrative generation to Node B (Mistral-Nemo).
-4.  **The "No Creep" Contract:** We are building the Phase 4.5 Project Black-Ice migration ONLY (Rust Scaffolding → ClawLink Bridge → SQLite Consolidation → World RKG). 
-5.  **Deferred Systems:** Red Trade contraband (v0.8.0), advanced Pulse Engine, deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined. Do not architect them yet.
+4.  **The "No Creep" Contract:** We are building Phase 5 Advanced Mechanics ONLY (Red Trade, Character Creation, Pulse Engine). 
+5.  **Deferred Systems:** Deep Simulacrum NPC memory, Headquarters upgrades, and complex Netrunning are physically quarantined.
 
-## 3. SOURCE TREE ARCHITECTURE
-The repository must strictly adhere to this pre-scaffolded directory structure:
+## 3. CORE LOGIC CONTRACTS
+- **Zero-Trust AI Bridge:** All AI state updates must be validated via Zod schemas before SQL execution.
+- **World Pulse Grounding:** Prompt context must be prepended with grounded truth from RKG + history.
+- **Sub-10ms Latency:** Persistent ClawLink transport is the mandatory standard for Node A communication.
+
+## 4. SOURCE TREE ARCHITECTURE
 ```text
 asp-gm-agent/
 ├── CLAUDE.md                 # Master Agent Directives (System Prompt)
 ├── docs/
 │   ├── audits/               # Verified session audits and hardening reports
-│   ├── plans/                # Phase-specific implementation plans (MANDATORY REVIEW)
-│   ├── research/             # Verified technical blueprints and research reports
-│   ├── specs/                # Finalized design specifications (MANDATORY REVIEW)
+│   ├── plans/                # Phase-specific implementation plans
+│   ├── research/             # Verified technical blueprints
+│   ├── specs/                # Finalized design specifications
 │   ├── KNOWLEDGE_BASE.md     # Dependency registry and core system rules
-│   └── raw_data/             # JSON and PDF seeds
-│       ├── core_rules/
-│       ├── campaign_ttta/
-│       └── entities_mooks/
+│   └── raw_data/             # Lore and rule seeds
 ├── src/
-│   ├── api/                  # Express/Fastify routes interfacing with Foundry VTT
-│   ├── core/                 # Business logic, state management, hybrid routing
-│   ├── db/                   # Prisma/pg vector database schemas and seed scripts
+│   ├── api/                  # Foundry VTT adapters and ClawLink client
+│   ├── core/                 # State management, Story Engine, Night Market
+│   ├── db/                   # Unified Oracle (SQLite) and RKG schemas
 │   ├── mcp/                  # MCP server implementations (nitro-logic, nitro-db)
-│   └── shared/               # TypeScript interfaces, Zod schemas, constants
-├── tests/                    # Vitest/Jest suites for math and RAG validation
+│   └── shared/               # Zod schemas, types, and constants
+├── tests/                    # Vitest suites for E2E and unit validation
+├── zeroclaw/                 # Node A Rules Engine source (Rust)
 ├── package.json
 └── tsconfig.json             # ES2022 / Node16 strict module resolution
 ```
 
-## 4. THE MCP INTERCONNECT PROTOCOL & AGENT HARNESS (HEAVY MCP STRATEGY)
-The project utilizes a **Heavy MCP Strategy**, treating MCP servers not just as connectors, but as the primary logic and tool registry for the entire system.
-- **Tool-First Development:** Core mechanical logic (rolls, math, RAG) must be implemented as specific, discrete MCP tools using the official SDK.
-- **High-Fidelity Output:** All MCP tools MUST return results formatted in **Markdown** with **ANSI styling** (Lip Gloss compatible) to leverage Crush CLI's native Glamour rendering.
-- **Development Context:** You (Claude) will use these MCP tools to test the database and logic engine during implementation.
-- **Runtime Context & Agent Harness:** The project strictly utilizes **Crush CLI (`charmbracelet/crush`)** as the official testing harness and GM terminal.
-- **`nitro-logic` (The Rules Toolset):** Implemented as an MCP server. You MUST expose tools like `resolve_attack` and `calculate_dv` that inject CoT prompts into Node A payloads.
-- **`nitro-db` (The Knowledge Toolset):** Implemented as an MCP server. Every RAG query tool MUST include a namespace filter to prevent data contamination.
+## 5. THE MCP INTERCONNECT PROTOCOL (HEAVY MCP STRATEGY)
+- **Tool-First Development:** Core mechanical logic must be implemented as discrete MCP tools.
+- **High-Fidelity Output:** All MCP tools MUST return results formatted in Markdown with ANSI styling.
+- **`nitro-logic`:** Exposes tools for rules resolution (attacks, DVs) via ClawLink.
+- **`nitro-db`:** Exposes tools for RAG query and RKG manipulation.
 
-## 5. FOUNDRY VTT v12 BRIDGE (REVERSE PROXY PATTERN)
-To ensure bulletproof connectivity between the terminal and the VTT:
-- **Transport:** Utilize a **JSON-RPC Reverse Proxy** pattern (inspired by Palantiri).
-- **Handshake:** The Foundry module must connect *outbound* to Node B to bypass session cookie and authentication barriers.
-- **Zod Validation:** All WebSocket payloads must be validated via Zod before being emitted to or from Foundry.
+## 6. FOUNDRY VTT v12 BRIDGE (REVERSE PROXY PATTERN)
+- **Transport:** JSON-RPC Reverse Proxy pattern.
+- **Handshake:** Foundry module connects outbound to Node B.
+- **Zod Validation:** All WebSocket payloads must be validated via Zod.
 
-## 6. STRICT OOP PARADIGM & SOLID PRINCIPLES
-The codebase must adhere strictly to Object-Oriented Programming methodologies. Do not write loose functional scripts.
-- **Encapsulation:** Class properties must be `private` or `protected`. Expose state mutation only through strictly typed public methods.
-- **Dependency Injection (DI):** Depend on abstractions, not concretions. Pass instances (like the MCP client or Database connections) into classes via constructors to ensure testability.
-- **SOLID Principles Mandatory:**
-  - *Single Responsibility:* Every class has one specific job.
-  - *Open/Closed:* Architect classes to be open for extension but closed for modification.
-  - *Liskov Substitution:* Subclasses must be perfectly substitutable for their base classes.
-  - *Interface Segregation:* Define specific TypeScript interfaces for all data structures and service contracts.
-  - *Dependency Inversion:* High-level narrative modules must not depend directly on low-level database drivers.
-- **Design Patterns:** Utilize industry-standard patterns (Singleton, Factory, Strategy).
+## 7. METHODOLOGY (MANDATORY)
+1. **DISCOVERY:** Extract and document every requirement.
+2. **DESIGN:** Generate system architecture using the finalized `<output_structure>`.
+3. **TEST-DRIVEN DEVELOPMENT:** Write Vitest tests first. Red-Green-Refactor loop.
+4. **ATOMIC COMMITS:** Every commit must do one thing. Include Co-Authored-By trailers.
 
-## 6. METHODOLOGY (MANDATORY - NEVER SKIP)
-1. **DISCOVERY PHASE:** Extract and document EVERY requirement. Ask clarifying questions regarding core functionality, data persistence, performance, and edge cases. DO NOT PROCEED to code until you have concrete answers.
-2. **RESEARCH PHASE:** Use MCP tools extensively to search for 2026 production best practices and compare options.
-3. **DESIGN PHASE:** Generate the system architecture using the exact `<output_structure>` defined below before writing implementation code.
+## 8. OBSERVABILITY & ERROR HANDLING
+- **Structured Logging:** All logs in structured JSON with trace IDs.
+- **Graceful Degradation:** Clean timeouts if Node A is unreachable; return fallback narrative.
 
-## 7. REQUIRED OUTPUT STRUCTURE
-When designing a feature, output this exact structure:
-- **Executive Summary:** What we're building and key decisions.
-- **1. Technology Stack:** Frontend/Backend/DB choices with specific justifications.
-- **2. Project Structure:** Exact file tree mapping.
-- **3. Data Models:** EXACT TypeScript Interfaces/Classes with field types and relationships.
-- **4. API / MCP Design:** Document EVERY endpoint or tool contract.
-- **5. Security Architecture:** Authentication, Validation, Secrets, Rate Limiting.
-- **6. Core OOP Implementations:** Skeleton code for critical classes.
-- **7. Error Handling & 8. Testing Strategy:** Strict plans for both.
-
-## 8. ACTIVE SKILL & MCP TOOLCHAIN ORCHESTRATION (MANDATORY)
-You are equipped with advanced agentic skills. You MUST utilize these tools actively to maintain peak efficiency, context, and workflow standards:
-- **`mcp-builder` (Official Anthropic Skill):** Invoke this skill whenever tasked with designing, scaffolding, or evaluating a new MCP server. You must follow its 4-phase methodology.
-- **`claude-mem` (Cross-Session Persistence):** Always query memory at the start of a session. Always save critical new data models, schema decisions, and session summaries to memory before exiting.
-- **`context7` (Advanced Context Bridging):** Use this extensively during the RESEARCH PHASE to pull in relevant external documentation or local lore. Never guess the contents of a file; retrieve it automatically.
-- **`superpowers` (Brainstorm -> Plan -> TDD Loop):** Engage this skill pipeline for all implementation tasks. Enforce strict TDD.
-
-## 9. AGENTIC IMPLEMENTATION & MCP PROTOCOLS (2026 STANDARDS)
-- **Zero-Trust AI Bridging:** Treat all JSON payloads returning from the Nitro 5 MCP tools as untrusted user input. You MUST validate all Node A outputs using strict schema validation (e.g., Zod) before injecting them into the Node B state.
-- **Idempotency:** All database write operations sent to the pgvector instance must be idempotent. Implement retry logic for network drops between Node B and Node A.
-- **Strict ESM:** The Node.js stack must utilize modern ECMAScript Modules (`"type": "module"`). Use `"moduleResolution": "Node16"` in TypeScript. No CommonJS.
-
-## 10. OBSERVABILITY & ERROR HANDLING (THE 20-YEAR STANDARD)
-- **Structured Logging:** All logs must be output in structured JSON format including timestamp, severity, context class, and trace IDs. No generic `console.log()`.
-- **Verbose Catching:** Every `try/catch` must log the exact parameters that caused the failure, the stack trace, and explicitly define where the error originated.
-- **Graceful Degradation:** If the Nitro 5 is unreachable, catch the timeout cleanly and return a standardized fallback response without crashing Node B.
-
-## 11. DOCUMENTATION & VERSION CONTROL (GIT PROTOCOL)
-- **The Master README:** Maintain a central `README.md` acting as the primary index.
-- **SemVer & Changelog:** Adhere to Semantic Versioning 2.0.0. Every push MUST update `CHANGELOG.md` following the "Keep a Changelog" format.
-- **Atomic Commits:** Commits must do one thing. Never bundle a feature and an unrelated bug fix.
-- **Dependency Registry:** Before implementing any Foundry VTT integration, you MUST use the `context7` skill to read `docs/KNOWLEDGE_BASE.md` to ensure alignment.
-- **Architectural Audits:** ALWAYS check `docs/audits/` at the start of a session to understand the latest verified state and architectural hardening decisions.
-- **Implementation Planning:** ALWAYS review the latest phase-specific plan in `docs/plans/` to ensure task-by-task alignment with the approved roadmap.
-- **Research Ingestion:** ALWAYS read all finalized research reports in `docs/research/` before proposing new system designs. These files contain the pre-verified technical blueprints for Phases 1-6.
-- **Design Specifications:** ALWAYS consult the finalized specs in `docs/specs/` before implementing core system features or bridge protocols.
-- **Collaborative Authorship (MANDATORY):** Every commit generated by an AI agent MUST include the following trailers at the end of the commit message to ensure GitHub contribution recognition:
-  ```text
-  Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
-  Co-Authored-By: Gemini CLI <gemini-cli@google.com>
-  ```
-
-## 12. TEST-DRIVEN DEVELOPMENT (AGENTIC RED-GREEN-REFACTOR)
-- **Write Tests First:** You must write failing Vitest tests against your class interfaces *before* writing the implementation.
-- **Micro-Steps:** Do not attempt monolithic 500-line code generations. Write the test, watch it fail, implement the fix, verify it passes, and commit.
-
-## 13. ANTI-HALLUCINATION & FACT-CHECKING PROTOCOL
-- **Ask Before Acting:** If a requirement or network interaction is ambiguous, STOP. Ask clarifying questions. Professionals do not guess.
-- **Fact-Check:** Pull from at least 3 credible sources before passing architectural decisions.
-- **Zero Legacy:** This is a greenfield rebuild. Do not reference deprecated codebase patterns from previous iterations.
-- **The Rulebook Pipeline (CRITICAL):** - **DO NOT** read the raw PDFs in `docs/raw_data/core_rules/` directly into context to check a rule during feature implementation. This causes context-window degradation.
-  - **DO** use the `nitro-db` MCP tool to query the `pgvector` database for specific rules, roll tables, and DVs. 
-
-## 14. VECTOR DATABASE NAMESPACE ISOLATION (CRITICAL)
-All data ingested into Node A's `pgvector` database MUST be tagged with a specific `namespace` metadata field. Every `nitro-db` MCP tool call MUST include a namespace filter to prevent data contamination.
-
-**Authorized Namespaces & Directory Mapping:**
-When writing data ingestion scripts, dynamically scan these directories and assign the corresponding namespace. Do not hardcode filenames.
-
-1. `namespace: "core_rules"`
-   - **Ingestion Target:** Scan all files in `docs/raw_data/core_rules/`
-   - **Usage:** Query this ONLY when implementing foundational mechanics (combat math, skills). Absolute source of truth.
-
-2. `namespace: "campaign_ttta"`
-   - **Ingestion Target:** Scan all files in `docs/raw_data/campaign_ttta/`
-   - **Usage:** Query this when generating narrative campaign beats, TttA house rules, or location lore.
-
-3. `namespace: "entities_mooks"`
-   - **Ingestion Target:** Scan all files in `docs/raw_data/entities_mooks/`
-   - **Usage:** Query this ONLY when the Narrative Synthesizer needs to spawn an NPC or retrieve a stat block. Do not use for PC logic.
-
-**Implementation Rule:** If a rule conflict occurs (e.g., TttA has a custom rule contradicting Core), the `campaign_ttta` namespace takes precedence for the specific campaign session, but the `core_rules` engine logic remains unmodified.
-
-## 15. ECOSYSTEM INTEGRATION MANDATES (TttA & Mook Pack)
-Deep integration with specific community frameworks is a strict requirement for Phase 3 and Phase 4:
-
-1. **Ticket To The Afterlife (TttA):** - **Gig Delivery:** Narrative gigs generated by Node B must trigger via the `simple-phone` module UI.
-   - **Eagle Economy:** Node A (`nitro-logic`) must calculate and enforce Eagle points conversion rates for the Night Market.
-   - **State Tracking:** The routing controller must track Arc → Beat → Event state exactly as defined by TttA.
-2. **Night City Gang & Corp Mook Pack:**
-   - **Entity Resolution:** All dynamically generated enemy NPCs must be sourced from this specific compendium pack.
-   - **Vector Indexing:** Node A must index these exact Foundry Actor JSON stat blocks in the `entities_mooks` pgvector namespace during Phase 1.
-   - **Combat Orchestration:** When Node B orchestrates a combat encounter, it must query `nitro-db` for these specific mooks rather than generating custom NPC stats.
-
-<critical_thinking>
-After designing the architecture, force yourself to:
-1. Identify 3 ways this system could fail in production.
-2. Explain how the architecture prevents each failure.
-3. List 2 alternative approaches and why you rejected them.
-4. Verify every technical decision against modern best practices.
-5. Ensure zero ambiguity - could a junior dev implement this?
-</critical_thinking>
-
-<final_instruction>
-Be extremely specific about structure, naming, error handling, and security measures. Your architecture document should be so complete that implementation is just typing, not thinking.
-</final_instruction>
+## 9. COLLABORATIVE AUTHORSHIP
+Every commit MUST include:
+```text
+Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
+Co-Authored-By: Gemini CLI <gemini-cli@google.com>
+```
