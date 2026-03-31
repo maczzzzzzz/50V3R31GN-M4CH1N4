@@ -58,7 +58,7 @@ To maintain maximum stability across the Split-Node architecture, Node B must en
 
 **Node B (Orchestrator) References:**
 - **[ClawLink Protocol](https://github.com/zeroclaw-labs/clawlink)**: Persistent Socket-over-SSH bridge targeting <10ms round-trip latency. (v0.8.0 Active)
-- **[rusqlite](https://github.com/rusqlite/rusqlite)**: Ergonomic bindings to SQLite for Rust. (v0.8.0 Active)
+- **[rusqlite](https://github.com/rusqlite/rusqlite)**: Ergonomic bindings to SQLite for Rust. (v0.8.1 Active)
 
 - **[Model Context Protocol (MCP)](https://modelcontextprotocol.io/)**: The official Anthropic SDK specification for building the `nitro-logic` and `nitro-db` network bridges.
 - **[Catwalk](https://github.com/charmbracelet/catwalk)** *(Primary — Model Capability Registry)*: A community-maintained Go registry of AI model provider configurations consumed by Crush. It defines the canonical `Provider` and `Model` structs including `ContextWindow`, `DefaultMaxTokens`, `CanReason`, `SupportsImages`, and per-provider tool-calling capability flags. **Ollama is NOT a built-in Catwalk provider** — it must be declared manually in `crush.json`. **Mistral-Nemo is explicitly excluded from tool-use support** in Catwalk's io.net provider (`supportsTools("mistral-nemo") → false`). Use Catwalk's provider type system (`openai-compat`) as the reference pattern when declaring the Ollama provider block in `crush.json`.

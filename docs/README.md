@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Split-Node AI Game Master
-**Version:** 0.8.0 (Unified Oracle Stable)  
+**Version:** 0.8.1 (Unified Oracle Stable)  
 **Target Platform:** Foundry VTT v12  
 **System:** Cyberpunk RED (v0.92.2+)
 

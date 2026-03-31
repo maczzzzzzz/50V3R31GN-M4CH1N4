@@ -13,16 +13,24 @@
 - **VRAM Insurance**: FP8 KV Caching active and verified on Node B.
 
 ---
-
 ## 🚀 PHASE 5: Advanced Mechanics (Red Trade & Pulse)
 **Goal:** Expand the world with dynamic simulation, contraband economy, and automated character onboarding.
+**Version:** v0.8.1
 **Status:** IN PROGRESS (ACTIVE)
 
-**Detailed Roadmap:** [docs/plans/2026-03-31-red-trade-economy-implementation.md](docs/plans/2026-03-31-red-trade-economy-implementation.md)
-**Design Spec:** [docs/specs/2026-03-31-red-trade-economy-spec.md](docs/specs/2026-03-31-red-trade-economy-spec.md)
+**Detailed Roadmaps:** 
+- [Red Trade & Faction Matrix](docs/plans/2026-03-31-red-trade-economy-implementation.md)
+- [Immersive Terminal (Discord & Vision)](docs/plans/2026-03-31-immersive-terminal-implementation.md)
+- [Conversational Onboarding (Fixer Interview)](docs/plans/2026-03-31-conversational-onboarding-implementation.md)
+
+**Design Specs:** 
+- [Red Trade Spec](docs/specs/2026-03-31-red-trade-economy-spec.md)
+- [Immersive Terminal Spec](docs/specs/2026-03-31-immersive-terminal-spec.md)
+- [Conversational Onboarding Spec](docs/specs/2026-03-31-conversational-onboarding-spec.md)
 
 **Execution Steps:**
-1. **RKG Schema Expansion (Task 1):** Add `factions` and `player_friends_enemies` tables to `world.db`. (Ready for implementation).
+1. **RKG Schema Expansion (Task 1):** Add `factions` and `player_friends_enemies` tables to `world.db`.
+
 2. **Red Trade Economy:** Implement the `RedTradeService` for cargo generation and smuggling loops.
 3. **Pulse Engine:** Implement the background simulation for faction turf shifts and world advancement.
 4. **Conversational Onboarding:** Build the "Fixer Interview" character creation wizard.
