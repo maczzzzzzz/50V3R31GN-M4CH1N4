@@ -59,10 +59,10 @@ To prevent "Narrative Drift," the system implements a **Relational Knowledge Gra
 Node B utilizes native acceleration and FP8 quantization for the Key-Value (KV) cache, reducing the memory footprint by ~1.2GB. This ensures a stable 60 FPS in Foundry VTT while the 12B model maintains a 128k context window.
 
 ## 🛠️ Data Injection Layers
-The system is seeded with 1,437+ vector chunks from:
-* **Cyberpunk RED Core**: Items, Actors, Gear, and deterministic math.
-* **Ticket To The Afterlife (TTTA)**: Mission beats, NPC modules, and Eagle economy.
-* **Mook Packs**: Night City Gang & Corp stat blocks indexed for RAG.
+The system is seeded with 1,437+ vector chunks covering:
+* **Core Mechanics**: Deterministic math, difficulty values, and foundational rulebooks.
+* **Campaign Narrative**: Mission structures, narrative beats, and world lore.
+* **Entity Knowledge**: Extensive libraries of actor stat blocks and faction data.
 
 ## 🚀 Project Status
 * **Current Version:** v0.8.0 (Living City Simulation).
