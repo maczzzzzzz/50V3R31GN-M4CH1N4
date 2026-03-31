@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import path from 'node:path';
 import { RedTradeService } from '../../src/core/red-trade-service.js';
-import { RedTradeCargoSchema } from '../../src/shared/schemas/red-trade.schema.js';
+import { RedTradeCargoSchema, FrictionRollResultSchema } from '../../src/shared/schemas/red-trade.schema.js';
 
 const ITEMS_DIR = path.resolve('docs/raw_data');
 
@@ -48,6 +48,41 @@ describe('RedTradeService', () => {
     expect(cargo.category).toBe('military_gear');
     expect(cargo.buyerFaction).toBe('Maelstrom');
     expect(cargo.rivalFaction).toBe('MAX-TAC');
+  });
+
+  describe('rollFriction', () => {
+    it('should return a valid FrictionRollResult', () => {
+      const result = service.rollFriction(0);
+      expect(() => FrictionRollResultSchema.parse(result)).not.toThrow();
+    });
+
+    it('should produce bark when total is 7 or less', () => {
+      // inject die roll of 1, friction 0 → total 1
+      const result = service.rollFriction(0, 1);
+      expect(result.outcome).toBe('bark');
+      expect(result.total).toBe(1);
+    });
+
+    it('should produce gate when total is between 8 and 14', () => {
+      // inject die roll of 8, friction 0 → total 8
+      const result = service.rollFriction(0, 8);
+      expect(result.outcome).toBe('gate');
+      expect(result.total).toBe(8);
+    });
+
+    it('should produce ambush when total is 15 or more', () => {
+      // inject die roll of 10, friction 5 → total 15
+      const result = service.rollFriction(5, 10);
+      expect(result.outcome).toBe('ambush');
+      expect(result.total).toBe(15);
+    });
+
+    it('should correctly add currentFriction to the die roll', () => {
+      const result = service.rollFriction(3, 6);
+      expect(result.roll).toBe(6);
+      expect(result.friction).toBe(3);
+      expect(result.total).toBe(9);
+    });
   });
 
   it('should return different cargo on repeated calls (probabilistic)', () => {

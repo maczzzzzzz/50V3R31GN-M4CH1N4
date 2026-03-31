@@ -31,11 +31,13 @@ import type {
   ResolveAttackParams, CalculateDvParams, OracleRollParams,
 } from './interfaces.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
-import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent } from '../shared/schemas/foundry-bridge.schema.js';
+import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent, RedTradeTransitEvent } from '../shared/schemas/foundry-bridge.schema.js';
 import type { StoryEngine } from './story-engine.js';
 import type { GmApprovalQueue } from './gm-approval-queue.js';
 import type { NightMarketService } from './night-market-service.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
+import type { RedTradeService } from './red-trade-service.js';
+import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -47,6 +49,7 @@ export interface HybridRoutingControllerOptions {
   readonly gmApprovalQueue: GmApprovalQueue;
   readonly nightMarketService: NightMarketService;
   readonly unifiedOracle: UnifiedOracleClient;
+  readonly redTradeService: RedTradeService;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -59,8 +62,9 @@ export class HybridRoutingController {
   private readonly gmApprovalQueue: GmApprovalQueue;
   private readonly nightMarketService: NightMarketService;
   private readonly unifiedOracle: UnifiedOracleClient;
+  private readonly redTradeService: RedTradeService;
 
-  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle }: HybridRoutingControllerOptions) {
+  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle, redTradeService }: HybridRoutingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
     this.ollama = ollamaClient;
     this.foundry = foundryAdapter;
@@ -68,6 +72,7 @@ export class HybridRoutingController {
     this.gmApprovalQueue = gmApprovalQueue;
     this.nightMarketService = nightMarketService;
     this.unifiedOracle = unifiedOracle;
+    this.redTradeService = redTradeService;
   }
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
@@ -108,6 +113,8 @@ export class HybridRoutingController {
         );
       case 'open_night_market':
         return this.handleOpenNightMarket(event.payload.actorId, event.payload.vendorName);
+      case 'red_trade_transit':
+        return this.handleRedTradeTransit(event.payload);
       default: {
         // TypeScript exhaustiveness check
         const exhaustiveCheck: never = event;
@@ -197,6 +204,21 @@ export class HybridRoutingController {
 
     // 4. Evaluate Story Transitions
     this.evaluateStoryEvent({ type: 'buy_item', payload });
+  }
+
+  // ── red_trade_transit ───────────────────────────────────────────────────────
+
+  private async handleRedTradeTransit(payload: RedTradeTransitEvent['payload']): Promise<FrictionRollResult> {
+    const result = this.redTradeService.rollFriction(payload.currentFriction);
+
+    const messages: Record<string, string> = {
+      bark:   `🌆 *The streets feel tense...* Heat: ${result.total} (${result.roll} + ${result.friction})`,
+      gate:   `⚠️ **Decision Gate** — Heat rising. Roll: ${result.total} (${result.roll} + ${result.friction})`,
+      ambush: `🔴 **RIVAL INTERVENTION** — Ambush! Roll: ${result.total} (${result.roll} + ${result.friction})`,
+    };
+
+    await this.foundry.sendChatMessage(messages[result.outcome], { alias: 'Friction Engine' });
+    return result;
   }
 
   // ── open_night_market ───────────────────────────────────────────────────────

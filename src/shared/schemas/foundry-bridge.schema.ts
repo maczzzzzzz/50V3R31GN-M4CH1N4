@@ -310,6 +310,20 @@ export const OpenNightMarketEventSchema = z.object({
   }),
 });
 
+/**
+ * Trigger a Friction Engine tick during a Red Trade transit.
+ * Node B rolls 1d10 + currentFriction and pushes the outcome to Foundry chat.
+ */
+export const RedTradeTransitEventSchema = z.object({
+  type: z.literal('red_trade_transit'),
+  payload: z.object({
+    /** The faction being transited through (used for world-state lookup). */
+    factionId: z.string().min(1),
+    /** Current friction_pool value for this faction (0–10). */
+    currentFriction: z.number().int().min(0).max(10),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -319,6 +333,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   BuyItemEventSchema,
   ApprovalResponseEventSchema,
   OpenNightMarketEventSchema,
+  RedTradeTransitEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -351,3 +366,4 @@ export type OpenNightMarketEvent = z.infer<typeof OpenNightMarketEventSchema>;
 export type MarketItemPayload = z.infer<typeof MarketItemPayloadSchema>;
 export type OpenNightMarketPayload = z.infer<typeof OpenNightMarketPayloadSchema>;
 export type OpenNightMarketCommand = z.infer<typeof OpenNightMarketCommandSchema>;
+export type RedTradeTransitEvent = z.infer<typeof RedTradeTransitEventSchema>;

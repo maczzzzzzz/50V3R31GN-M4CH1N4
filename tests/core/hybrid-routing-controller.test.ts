@@ -19,6 +19,7 @@ import { StoryEngine } from '../../src/core/story-engine.js';
 import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
 import { NightMarketService } from '../../src/core/night-market-service.js';
 import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import type { RedTradeService } from '../../src/core/red-trade-service.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 
@@ -85,6 +86,15 @@ function makeMockUnifiedOracle(): UnifiedOracleClient {
   } as unknown as UnifiedOracleClient;
 }
 
+function makeMockRedTradeService(): RedTradeService {
+  return {
+    generateCargo: vi.fn(),
+    rollFriction: vi.fn().mockReturnValue({
+      roll: 5, friction: 2, total: 7, outcome: 'bark',
+    }),
+  } as unknown as RedTradeService;
+}
+
 // ── Sample results ────────────────────────────────────────────────────────────
 
 const sampleAttackResult: AttackResult = {
@@ -115,6 +125,7 @@ describe('HybridRoutingController', () => {
   let gmApprovalQueue: GmApprovalQueue;
   let nightMarketService: NightMarketService;
   let unifiedOracle: UnifiedOracleClient;
+  let redTradeService: RedTradeService;
   let controller: HybridRoutingController;
 
   beforeEach(() => {
@@ -125,6 +136,7 @@ describe('HybridRoutingController', () => {
     gmApprovalQueue = makeMockGmApprovalQueue();
     nightMarketService = makeMockNightMarketService();
     unifiedOracle = makeMockUnifiedOracle();
+    redTradeService = makeMockRedTradeService();
     controller = new HybridRoutingController({
       nitroLogicClient: nitroLogic,
       ollamaClient: ollama,
@@ -133,6 +145,7 @@ describe('HybridRoutingController', () => {
       gmApprovalQueue,
       nightMarketService,
       unifiedOracle,
+      redTradeService,
     });
   });
 
@@ -290,6 +303,78 @@ describe('HybridRoutingController', () => {
       await controller.handleFoundryEvent(approvalEvent);
 
       expect(gmApprovalQueue.handleResponse).toHaveBeenCalledWith('prop-123', 'approved', undefined);
+    });
+  });
+
+  // ── Red Trade Transit ───────────────────────────────────────────────────────
+
+  describe('handleFoundryEvent — red_trade_transit', () => {
+    it('calls rollFriction and pushes a bark message to Foundry chat', async () => {
+      vi.mocked(redTradeService.rollFriction).mockReturnValue({
+        roll: 5, friction: 2, total: 7, outcome: 'bark',
+      });
+
+      const event: FoundryEvent = {
+        type: 'red_trade_transit',
+        payload: { factionId: 'tyger-claws', currentFriction: 2 },
+      };
+
+      await controller.handleFoundryEvent(event);
+
+      expect(redTradeService.rollFriction).toHaveBeenCalledWith(2);
+      expect(foundry.sendChatMessage).toHaveBeenCalledWith(
+        expect.stringMatching(/tense|street|heat|bark/i),
+        expect.objectContaining({ alias: 'Friction Engine' }),
+      );
+    });
+
+    it('calls rollFriction and pushes a gate message for medium heat', async () => {
+      vi.mocked(redTradeService.rollFriction).mockReturnValue({
+        roll: 8, friction: 3, total: 11, outcome: 'gate',
+      });
+
+      const event: FoundryEvent = {
+        type: 'red_trade_transit',
+        payload: { factionId: 'maelstrom', currentFriction: 3 },
+      };
+
+      await controller.handleFoundryEvent(event);
+
+      expect(foundry.sendChatMessage).toHaveBeenCalledWith(
+        expect.stringMatching(/gate|decision|heat/i),
+        expect.objectContaining({ alias: 'Friction Engine' }),
+      );
+    });
+
+    it('calls rollFriction and pushes an ambush message for high heat', async () => {
+      vi.mocked(redTradeService.rollFriction).mockReturnValue({
+        roll: 10, friction: 8, total: 18, outcome: 'ambush',
+      });
+
+      const event: FoundryEvent = {
+        type: 'red_trade_transit',
+        payload: { factionId: 'maelstrom', currentFriction: 8 },
+      };
+
+      await controller.handleFoundryEvent(event);
+
+      expect(foundry.sendChatMessage).toHaveBeenCalledWith(
+        expect.stringMatching(/ambush|rival|intervention/i),
+        expect.objectContaining({ alias: 'Friction Engine' }),
+      );
+    });
+
+    it('returns the FrictionRollResult', async () => {
+      const mockResult = { roll: 3, friction: 0, total: 3, outcome: 'bark' as const };
+      vi.mocked(redTradeService.rollFriction).mockReturnValue(mockResult);
+
+      const event: FoundryEvent = {
+        type: 'red_trade_transit',
+        payload: { factionId: 'nomads', currentFriction: 0 },
+      };
+
+      const result = await controller.handleFoundryEvent(event);
+      expect(result).toEqual(mockResult);
     });
   });
 

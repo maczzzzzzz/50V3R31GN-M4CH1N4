@@ -100,6 +100,8 @@ export {
   CargoCategorySchema,
   CargoBulkSchema,
   CargoRaritySchema,
+  FrictionOutcomeSchema,
+  FrictionRollResultSchema,
 } from './red-trade.schema.js';
 
 export type {
@@ -107,6 +109,8 @@ export type {
   CargoCategory,
   CargoBulk,
   CargoRarity,
+  FrictionOutcome,
+  FrictionRollResult,
 } from './red-trade.schema.js';
 
 export {

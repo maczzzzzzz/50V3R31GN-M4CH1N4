@@ -3,8 +3,10 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import {
   RedTradeCargoSchema,
+  FrictionRollResultSchema,
   type CargoCategory,
   type RedTradeCargo,
+  type FrictionRollResult,
 } from '../shared/schemas/red-trade.schema.js';
 
 /** Buyer/rival factions per spec section 2.2 */
@@ -27,6 +29,23 @@ export class RedTradeService {
 
   constructor(dataDir = 'docs/raw_data') {
     this.dataDir = dataDir;
+  }
+
+  /**
+   * Rolls 1d10 + currentFriction and returns a FrictionRollResult.
+   * @param currentFriction  The faction's current friction_pool (0–10).
+   * @param dieRoll          Optional injected roll for testing (1–10).
+   */
+  rollFriction(currentFriction: number, dieRoll?: number): FrictionRollResult {
+    const roll = dieRoll ?? Math.ceil(Math.random() * 10);
+    const total = roll + currentFriction;
+
+    const outcome =
+      total >= 15 ? 'ambush' :
+      total >= 8  ? 'gate'   :
+                    'bark';
+
+    return FrictionRollResultSchema.parse({ roll, friction: currentFriction, total, outcome });
   }
 
   generateCargo(category?: CargoCategory): RedTradeCargo {
