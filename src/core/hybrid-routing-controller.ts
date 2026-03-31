@@ -39,6 +39,7 @@ import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { RedTradeService } from './red-trade-service.js';
 import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
 import type { SpatialVisionService } from './spatial-vision-service.js';
+import { OnboardingController, type BuildType } from './onboarding-controller.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -53,6 +54,8 @@ export interface HybridRoutingControllerOptions {
   readonly redTradeService: RedTradeService;
   readonly chronicler?: IDiscordChroniclerClient;
   readonly spatialVision?: SpatialVisionService;
+  /** Optional — if omitted, /onboard will report the service as offline. */
+  readonly onboardingEnabled?: boolean;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -68,8 +71,9 @@ export class HybridRoutingController {
   private readonly redTradeService: RedTradeService;
   private readonly chronicler?: IDiscordChroniclerClient;
   private readonly spatialVision?: SpatialVisionService;
+  private readonly onboardingEnabled: boolean;
 
-  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle, redTradeService, chronicler, spatialVision }: HybridRoutingControllerOptions) {
+  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle, redTradeService, chronicler, spatialVision, onboardingEnabled }: HybridRoutingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
     this.ollama = ollamaClient;
     this.foundry = foundryAdapter;
@@ -80,6 +84,7 @@ export class HybridRoutingController {
     this.redTradeService = redTradeService;
     this.chronicler = chronicler;
     this.spatialVision = spatialVision;
+    this.onboardingEnabled = onboardingEnabled ?? false;
   }
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
@@ -307,6 +312,97 @@ export class HybridRoutingController {
 
     // Step 4: Push to Foundry chat
     await this.foundry.sendChatMessage(narrative, { alias: 'Optical Bridge' });
+  }
+
+  // ── /onboard command ────────────────────────────────────────────────────────
+
+  /**
+   * Run the full Fixer Interview pipeline and materialize a new Foundry Actor.
+   *
+   * Called by the `/onboard` Z-Command in Crush CLI.
+   *
+   * Flow:
+   *   OnboardingController (state machine)
+   *     → nitro-logic (Lifepath 1d10 rolls)
+   *     → Mistral-Nemo (interview dialogue)
+   *     → UnifiedOracleClient (NPC persistence)
+   *     → FoundryAdapter.createActor()
+   *     → Discord Chronicler (Street Rumor broadcast)
+   */
+  async handleOnboard(
+    playerName: string,
+    role: string,
+    buildType: BuildType = 'Standard',
+  ): Promise<void> {
+    if (!this.onboardingEnabled) {
+      await this.foundry.sendChatMessage(
+        '⚠️ **Onboarding offline.** Enable via `onboardingEnabled: true` in HRC options.',
+        { alias: 'Fixer Interview' },
+      );
+      return;
+    }
+
+    // Step 1: Create a fresh session for this player
+    const controller = new OnboardingController({
+      nitroLogicClient: this.nitroLogic,
+      ollamaClient:     this.ollama,
+      unifiedOracle:    this.unifiedOracle,
+    });
+
+    await this.foundry.sendChatMessage(
+      `📋 **Fixer Interview started for ${playerName}** — Role: ${role}, Build: ${buildType}`,
+      { alias: 'Fixer Interview' },
+    );
+
+    // Step 2: INITIAL → VIBE_CHECK → LIFEPATH
+    await controller.startInterview();
+    await controller.advanceToLifepath();
+
+    // Step 3: Roll all Lifepath tables + generate dialogue
+    const lifepath = await controller.rollLifepath();
+
+    await this.foundry.sendChatMessage(
+      [
+        `**Lifepath Report — ${playerName}**`,
+        `> Background: ${lifepath.familyBackground}`,
+        `> Tragedy: ${lifepath.familyTragedy}`,
+        `> Ally: ${lifepath.friend} | Enemy: ${lifepath.enemy}`,
+        `> *"${lifepath.dialogue}"*`,
+      ].join('\n'),
+      { alias: lifepath.interviewNPC },
+    );
+
+    // Step 4: LIFEPATH → STATS → REVIEW → FINALIZED
+    const statsResult = await controller.setStats(buildType);
+    const session     = await controller.finalizeCharacter();
+
+    // Step 5: Build the actor bio from the lifepath narrative
+    const bio =
+      `Background: ${lifepath.familyBackground}. ${lifepath.familyTragedy}. ` +
+      `Known allies: ${lifepath.friend}. Known enemies: ${lifepath.enemy}. ` +
+      `Interview: ${lifepath.dialogue}`;
+
+    // Step 6: Materialize in Foundry VTT
+    const { actorId } = await this.foundry.createActor({
+      name:  playerName,
+      role,
+      stats: statsResult.stats as unknown as Record<string, number>,
+      bio,
+      seedItems: [],   // Gear seeding deferred to GM approval flow post-creation
+    });
+
+    await this.foundry.sendChatMessage(
+      `✅ **${playerName}** created in Foundry (${role}, ${buildType}). Actor ID: \`${actorId}\``,
+      { alias: 'Fixer Interview' },
+    );
+
+    // Step 7: Chronicle the new edgerunner
+    this.postScreamsheet(
+      `📡 **Street Wire** — New face in Night City. ${playerName}, ${role}. Background: ${lifepath.familyBackground}. Watch this one.`,
+      'Street Rumor',
+    );
+
+    void session; // session data available for caller inspection if needed
   }
 
   // ── Helpers ─────────────────────────────────────────────────────────────────

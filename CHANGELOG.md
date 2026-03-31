@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.3] - 2026-03-31
+
+### Added
+- **Conversational Onboarding (Phase 5.3)**: Fixer Interview system for character creation.
+  - `OnboardingController`: 6-state machine (INITIAL→VIBE_CHECK→LIFEPATH→STATS→REVIEW→FINALIZED). Lifepath tables rolled via nitro-logic `oracleRoll("1d10")` on Node A; Mistral-Nemo generates in-character interview dialogue on Node B.
+  - RKG persistence: Lifepath-discovered NPCs (friend + enemy) written to `world.db` (`npcs` → `player_friends_enemies`) with FK ordering guaranteed.
+  - `create_actor` Foundry bridge command: `CreateActorPayload` (name, role, stats, bio, seedItems); Foundry-side `Actor.create()` with Cyberpunk RED stat mapping, bio journal entry, and world-item seeding.
+  - `HybridRoutingController.handleOnboard()`: Full pipeline dispatcher — interview → Lifepath rolls → stat distribution → `createActor` → Discord Screamsheet bark.
+  - Character builds: Standard (62-point) and Major League (80-point) stat distributions.
+
 ## [0.8.2] - 2026-03-31
 
 ### Added
