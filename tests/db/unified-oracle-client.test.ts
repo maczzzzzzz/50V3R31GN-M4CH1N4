@@ -41,9 +41,25 @@ describe('UnifiedOracleClient', () => {
     try {
       await client.connect();
       await client.initSchema();
-      
+
       const tables = client.query("SELECT name FROM sqlite_master WHERE type='table' AND name IN (?, ?)", ['npcs', 'triplets']);
       expect(tables).toHaveLength(2);
+    } finally {
+      await client.disconnect();
+    }
+  });
+
+  it('should support faction relationship tracking', async () => {
+    const client = new UnifiedOracleClient({ worldDbPath, crushDbPath });
+    try {
+      await client.connect();
+      await client.initSchema();
+
+      const factionTable = client.query("SELECT name FROM sqlite_master WHERE type='table' AND name = 'factions'");
+      expect(factionTable).toHaveLength(1);
+
+      const friendsEnemiesTable = client.query("SELECT name FROM sqlite_master WHERE type='table' AND name = 'player_friends_enemies'");
+      expect(friendsEnemiesTable).toHaveLength(1);
     } finally {
       await client.disconnect();
     }

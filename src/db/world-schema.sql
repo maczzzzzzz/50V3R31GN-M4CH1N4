@@ -32,3 +32,18 @@ CREATE VIRTUAL TABLE IF NOT EXISTS triplets_fts USING fts5(
     object_literal,
     content=triplets
 );
+
+-- Faction Relationship Matrix (Phase 5 Red Trade)
+CREATE TABLE IF NOT EXISTS factions (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    relationship_score INTEGER DEFAULT 0 CHECK (relationship_score BETWEEN -10 AND 10),
+    friction_pool INTEGER DEFAULT 0 CHECK (friction_pool BETWEEN 0 AND 10)
+);
+
+-- Player Friends/Enemies tracking (3 friends, 4 enemies per TTTA rules)
+CREATE TABLE IF NOT EXISTS player_friends_enemies (
+    entity_id TEXT PRIMARY KEY,
+    type TEXT CHECK (type IN ('friend', 'enemy')),
+    FOREIGN KEY(entity_id) REFERENCES npcs(id)
+);
