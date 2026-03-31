@@ -48,4 +48,73 @@ describe('UnifiedOracleClient', () => {
       await client.disconnect();
     }
   });
+
+  describe('executeCommand', () => {
+    let client: UnifiedOracleClient;
+
+    beforeEach(async () => {
+      client = new UnifiedOracleClient({ worldDbPath, crushDbPath });
+      await client.connect();
+      await client.initSchema();
+      
+      // Seed an NPC for testing updates
+      client.execute("INSERT INTO npcs (id, name, hp, sp, faction, disposition) VALUES (?, ?, ?, ?, ?, ?)",
+        ['morgan-black', 'Morgan Black', 100, 50, 'The Network', 'neutral']);
+    });
+
+    afterEach(async () => {
+      await client.disconnect();
+    });
+
+    it('should successfully execute UPDATE_NPC', async () => {
+      await client.executeCommand({
+        action: 'UPDATE_NPC',
+        target: 'morgan-black',
+        data: {
+          hp: 85,
+          disposition: 'hostile'
+        }
+      });
+
+      const [npc] = client.query('SELECT hp, disposition FROM npcs WHERE id = ?', ['morgan-black']);
+      expect(npc.hp).toBe(85);
+      expect(npc.disposition).toBe('hostile');
+    });
+
+    it('should successfully execute ADD_LORE', async () => {
+      await client.executeCommand({
+        action: 'ADD_LORE',
+        subject: 'morgan-black',
+        predicate: 'knows',
+        object: 'the secret password'
+      });
+
+      const [triplet] = client.query('SELECT * FROM triplets WHERE subject_id = ?', ['morgan-black']);
+      expect(triplet.predicate).toBe('knows');
+      expect(triplet.object_literal).toBe('the secret password');
+    });
+
+    it('should throw error for invalid action', async () => {
+      const invalidCommand = {
+        action: 'DELETE_WORLD',
+        target: 'all'
+      };
+
+      // @ts-ignore
+      await expect(client.executeCommand(invalidCommand)).rejects.toThrow();
+    });
+
+    it('should throw error for invalid data in UPDATE_NPC', async () => {
+      const invalidCommand = {
+        action: 'UPDATE_NPC',
+        target: 'morgan-black',
+        data: {
+          hp: 'nearly dead' // Should be number
+        }
+      };
+
+      // @ts-ignore
+      await expect(client.executeCommand(invalidCommand)).rejects.toThrow();
+    });
+  });
 });
