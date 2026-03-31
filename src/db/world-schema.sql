@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS npcs (
     name TEXT NOT NULL,
     hp INTEGER DEFAULT 0,
     sp INTEGER DEFAULT 0,
+    emp INTEGER DEFAULT 0,
+    humanity INTEGER DEFAULT 0,
     faction TEXT,
     disposition TEXT CHECK (disposition IN ('friendly', 'neutral', 'hostile')),
     is_alive BOOLEAN DEFAULT 1
@@ -32,6 +34,24 @@ CREATE VIRTUAL TABLE IF NOT EXISTS triplets_fts USING fts5(
     object_literal,
     content=triplets
 );
+
+-- Triggers to keep FTS5 index in sync
+CREATE TRIGGER IF NOT EXISTS triplets_ai AFTER INSERT ON triplets BEGIN
+  INSERT INTO triplets_fts(rowid, subject_id, predicate, object_literal)
+  VALUES (new.rowid, new.subject_id, new.predicate, new.object_literal);
+END;
+
+CREATE TRIGGER IF NOT EXISTS triplets_ad AFTER DELETE ON triplets BEGIN
+  INSERT INTO triplets_fts(triplets_fts, rowid, subject_id, predicate, object_literal)
+  VALUES ('delete', old.rowid, old.subject_id, old.predicate, old.object_literal);
+END;
+
+CREATE TRIGGER IF NOT EXISTS triplets_au AFTER UPDATE ON triplets BEGIN
+  INSERT INTO triplets_fts(triplets_fts, rowid, subject_id, predicate, object_literal)
+  VALUES ('delete', old.rowid, old.subject_id, old.predicate, old.object_literal);
+  INSERT INTO triplets_fts(rowid, subject_id, predicate, object_literal)
+  VALUES (new.rowid, new.subject_id, new.predicate, new.object_literal);
+END;
 
 -- Player Housing & Rent Tracking (Phase 5 Pulse Engine)
 CREATE TABLE IF NOT EXISTS player_housing (

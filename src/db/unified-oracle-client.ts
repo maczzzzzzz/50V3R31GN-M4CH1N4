@@ -158,6 +158,20 @@ export class UnifiedOracleClient {
     this.db.prepare(`UPDATE player_housing SET ${setClause} WHERE actor_id = ?`).run(...params);
   }
 
+  /**
+   * Enforces Cyberpunk RED coupling rules (e.g. EMP = floor(Humanity/10)).
+   * Automatically called after NPC state mutations.
+   */
+  private recalculateDerivedStats(actorId: string): void {
+    if (!this.db) return;
+
+    const npc = this.db.prepare('SELECT humanity FROM npcs WHERE id = ?').get(actorId) as { humanity: number } | undefined;
+    if (!npc) return;
+
+    const newEmp = Math.floor(npc.humanity / 10);
+    this.db.prepare('UPDATE npcs SET emp = ? WHERE id = ?').run(newEmp, actorId);
+  }
+
   async executeCommand(command: WorldCommand): Promise<void> {
     if (!this.db) throw new Error('Database not connected');
 
@@ -177,6 +191,11 @@ export class UnifiedOracleClient {
 
         const sql = `UPDATE npcs SET ${setClause} WHERE id = ?`;
         this.db.prepare(sql).run(...params);
+
+        // 3. Post-Update Hook: Recalculate Empathy if Humanity was updated
+        if ('humanity' in data) {
+          this.recalculateDerivedStats(target);
+        }
         break;
       }
 

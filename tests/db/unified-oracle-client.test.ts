@@ -74,8 +74,8 @@ describe('UnifiedOracleClient', () => {
       await client.initSchema();
       
       // Seed an NPC for testing updates
-      client.execute("INSERT INTO npcs (id, name, hp, sp, faction, disposition) VALUES (?, ?, ?, ?, ?, ?)",
-        ['morgan-black', 'Morgan Black', 100, 50, 'The Network', 'neutral']);
+      client.execute("INSERT INTO npcs (id, name, hp, sp, emp, humanity, faction, disposition) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        ['morgan-black', 'Morgan Black', 100, 50, 10, 100, 'The Network', 'neutral']);
     });
 
     afterEach(async () => {
@@ -95,6 +95,25 @@ describe('UnifiedOracleClient', () => {
       const [npc] = client.query('SELECT hp, disposition FROM npcs WHERE id = ?', ['morgan-black']);
       expect(npc.hp).toBe(85);
       expect(npc.disposition).toBe('hostile');
+    });
+
+    it('should automatically recalculate EMP when Humanity is updated', async () => {
+      // Seed a mook with EMP 6 (Humanity 60)
+      client.execute("INSERT INTO npcs (id, name, hp, sp, emp, humanity, faction, disposition) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        ['cyber-vido', 'Vido', 50, 11, 6, 60, 'Maelstrom', 'neutral']);
+
+      // Take 25 Humanity Loss -> Humanity 35 -> EMP 3
+      await client.executeCommand({
+        action: 'UPDATE_NPC',
+        target: 'cyber-vido',
+        data: {
+          humanity: 35
+        }
+      });
+
+      const [result] = client.query('SELECT humanity, emp FROM npcs WHERE id = ?', ['cyber-vido']);
+      expect(result.humanity).toBe(35);
+      expect(result.emp).toBe(3); // floor(35 / 10)
     });
 
     it('should successfully execute ADD_LORE', async () => {

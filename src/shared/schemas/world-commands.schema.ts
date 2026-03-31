@@ -11,6 +11,8 @@ export const WorldCommandSchema = z.discriminatedUnion('action', [
     data: z.object({
       hp: z.number().optional(),
       sp: z.number().optional(),
+      emp: z.number().optional(),
+      humanity: z.number().optional(),
       disposition: z.enum(['friendly', 'neutral', 'hostile']).optional(),
       is_alive: z.boolean().optional(),
     }),

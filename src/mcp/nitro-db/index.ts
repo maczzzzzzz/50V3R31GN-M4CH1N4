@@ -48,8 +48,8 @@ const logger: ILogger = {
 // ── Configuration ─────────────────────────────────────────────────────────────
 
 const oracleConfig = {
-  worldDbPath: process.env.WORLD_DB_PATH ?? './world.db',
-  crushDbPath: process.env.CRUSH_DB_PATH ?? './.crush/crush.db',
+  worldDbPath: process.env.WORLD_DB_PATH ?? './data/world.db',
+  crushDbPath: process.env.CRUSH_DB_PATH ?? './data/crush.db',
 };
 
 // ── Dependency setup ──────────────────────────────────────────────────────────
