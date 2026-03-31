@@ -306,6 +306,94 @@ describe('FoundryAdapter', () => {
     });
   });
 
+  // ── createActor ─────────────────────────────────────────────────────────────
+
+  describe('createActor', () => {
+    it('sends a create_actor command and returns the new actorId', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const createPayload = {
+        name: 'V',
+        role: 'Solo',
+        stats: { INT: 7, REF: 8, DEX: 7, TECH: 5, COOL: 6, WILL: 6, LUCK: 5, MOVE: 6, BODY: 7, EMP: 6 },
+        bio: 'A mercenary working out of Night City.',
+        seedItems: ['Assault Rifle', 'Light Armorjack'],
+      };
+
+      const promise = adapter.createActor(createPayload);
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+
+      expect(cmd.type).toBe('create_actor');
+      const payload = cmd.payload as typeof createPayload;
+      expect(payload.name).toBe('V');
+      expect(payload.role).toBe('Solo');
+      expect(payload.stats['INT']).toBe(7);
+      expect(payload.stats['REF']).toBe(8);
+      expect(payload.bio).toBe('A mercenary working out of Night City.');
+      expect(payload.seedItems).toEqual(['Assault Rifle', 'Light Armorjack']);
+      expect(typeof cmd.requestId).toBe('string');
+      expect((cmd.requestId as string).length).toBe(9);
+
+      sendResponse(cmd.requestId as string, { actorId: 'actor-new-001' });
+      await expect(promise).resolves.toEqual({ actorId: 'actor-new-001' });
+    });
+
+    it('sends a create_actor command with empty seedItems and no bio', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.createActor({
+        name: 'Ghost NPC',
+        role: 'Fixer',
+        stats: { INT: 6, REF: 5, DEX: 5, TECH: 4, COOL: 8, WILL: 7, LUCK: 4, MOVE: 5, BODY: 4, EMP: 7 },
+        bio: '',
+        seedItems: [],
+      });
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+      expect(cmd.type).toBe('create_actor');
+
+      sendResponse(cmd.requestId as string, { actorId: 'actor-npc-002' });
+      await expect(promise).resolves.toEqual({ actorId: 'actor-npc-002' });
+    });
+
+    it('rejects if Foundry returns an error for createActor', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.createActor({
+        name: 'Bad Actor',
+        role: 'Solo',
+        stats: { INT: 5, REF: 5, DEX: 5, TECH: 5, COOL: 5, WILL: 5, LUCK: 5, MOVE: 5, BODY: 5, EMP: 5 },
+        bio: 'Will fail',
+        seedItems: [],
+      });
+
+      await waitForMessages(receivedMessages, 1);
+      sendResponse(receivedMessages[0].requestId as string, undefined, 'Actor.create() returned null');
+
+      await expect(promise).rejects.toThrow('Actor.create() returned null');
+    });
+
+    it('rejects if no Foundry client is connected', async () => {
+      await adapter.start(TEST_PORT);
+      await expect(adapter.createActor({
+        name: 'Disconnected',
+        role: 'Netrunner',
+        stats: { INT: 9, REF: 6, DEX: 6, TECH: 8, COOL: 5, WILL: 5, LUCK: 4, MOVE: 5, BODY: 4, EMP: 5 },
+        bio: 'Never lands',
+        seedItems: [],
+      })).rejects.toThrow('not connected');
+    });
+  });
+
   // ── requestId ───────────────────────────────────────────────────────────────
 
   describe('requestId generation', () => {

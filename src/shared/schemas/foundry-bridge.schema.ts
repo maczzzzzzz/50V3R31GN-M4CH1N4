@@ -125,6 +125,23 @@ export const OpenNightMarketPayloadSchema = z.object({
 });
 
 /**
+ * Create a new Foundry Actor document with Cyberpunk RED character data.
+ * Used by the AI GM to materialise NPCs and player characters into the world.
+ */
+export const CreateActorPayloadSchema = z.object({
+  /** Display name for the actor. */
+  name: z.string().min(1),
+  /** Cyberpunk RED role (e.g. "Solo", "Netrunner", "Rockerboy"). */
+  role: z.string().min(1),
+  /** Base stats — keys are uppercase abbreviations (INT, REF, DEX, TECH, COOL, WILL, LUCK, MOVE, BODY, EMP). */
+  stats: z.record(z.number().int().min(1).max(10)),
+  /** AI-generated backstory written to the Actor's journal. */
+  bio: z.string(),
+  /** Item names to seed from the world's items compendium on creation. */
+  seedItems: z.array(z.string()),
+});
+
+/**
  * Update a Foundry Actor document.
  */
 export const UpdateActorPayloadSchema = z.object({
@@ -198,6 +215,12 @@ export const OpenNightMarketCommandSchema = z.object({
   payload: OpenNightMarketPayloadSchema,
 });
 
+export const CreateActorCommandSchema = z.object({
+  type: z.literal('create_actor'),
+  requestId: RequestIdSchema,
+  payload: CreateActorPayloadSchema,
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,
@@ -208,6 +231,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   UpdateActorCommandSchema,
   QueueApprovalCommandSchema,
   OpenNightMarketCommandSchema,
+  CreateActorCommandSchema,
 ]);
 
 // ── Response schemas ──────────────────────────────────────────────────────────
@@ -339,6 +363,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
 
 export type ChatMessagePayload = z.infer<typeof ChatMessagePayloadSchema>;
+export type CreateActorPayload = z.infer<typeof CreateActorPayloadSchema>;
 export type ReadActorPayload = z.infer<typeof ReadActorPayloadSchema>;
 export type SimplePhonePayload = z.infer<typeof SimplePhonePayloadSchema>;
 export type DiceRollPayload = z.infer<typeof DiceRollPayloadSchema>;
@@ -353,6 +378,7 @@ export type DiceRollCommand = z.infer<typeof DiceRollCommandSchema>;
 export type SceneActivateCommand = z.infer<typeof SceneActivateCommandSchema>;
 export type UpdateActorCommand = z.infer<typeof UpdateActorCommandSchema>;
 export type QueueApprovalCommand = z.infer<typeof QueueApprovalCommandSchema>;
+export type CreateActorCommand = z.infer<typeof CreateActorCommandSchema>;
 export type BridgeCommand = z.infer<typeof BridgeCommandSchema>;
 
 export type SuccessResponse = z.infer<typeof SuccessResponseSchema>;

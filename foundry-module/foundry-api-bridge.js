@@ -10,12 +10,13 @@
  *   - Node B PUSHES BridgeCommand frames down this established channel.
  *   - This module executes each command and sends back a BridgeResponse frame.
  *
- * Supported Commands (Phase 3 MVP):
+ * Supported Commands (Phase 3 MVP + Phase 5.3):
  *   - chat_message    → ChatMessage.create()
  *   - read_actor      → game.actors.get(id).toObject()
  *   - simple_phone    → ChatMessage with smartphone-widget flags
  *   - dice_roll       → Roll.evaluate()
  *   - scene_activate  → game.scenes.get(id).activate()
+ *   - create_actor    → Actor.create() with stat seeding, bio journal, and item attachment
  *
  * Config: module settings → Node B WS URL (default ws://localhost:3010)
  */
@@ -136,6 +137,8 @@ class FoundryApiBridge {
         return this._handleQueueApproval(command);
       case 'open_night_market':
         return this._handleOpenNightMarket(command);
+      case 'create_actor':
+        return this._handleCreateActor(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
@@ -344,6 +347,65 @@ class FoundryApiBridge {
       }).render(true);
 
       this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handleCreateActor({ requestId, payload }) {
+    try {
+      const { name, role, stats, bio, seedItems } = payload;
+
+      // ── Step 1: Create the Actor with Cyberpunk RED system stats ─────────────
+      const actor = await Actor.create({
+        name,
+        type: 'character',
+        system: {
+          role: { value: role },
+          stats: {
+            int:  { value: stats['INT']  ?? 5 },
+            ref:  { value: stats['REF']  ?? 5 },
+            dex:  { value: stats['DEX']  ?? 5 },
+            tech: { value: stats['TECH'] ?? 5 },
+            cool: { value: stats['COOL'] ?? 5 },
+            will: { value: stats['WILL'] ?? 5 },
+            luck: { value: stats['LUCK'] ?? 5 },
+            move: { value: stats['MOVE'] ?? 5 },
+            body: { value: stats['BODY'] ?? 5 },
+            emp:  { value: stats['EMP']  ?? 5 },
+          },
+        },
+        prototypeToken: { name },
+      });
+
+      if (!actor) {
+        this._sendError(requestId, 'Actor.create() returned null — Foundry rejected the document.');
+        return;
+      }
+
+      // ── Step 2: Write AI-generated bio to an embedded Journal Entry Page ─────
+      if (bio && bio.trim().length > 0) {
+        await actor.createEmbeddedDocuments('JournalEntryPage', [
+          {
+            name: 'Backstory',
+            text: { content: bio },
+          },
+        ]);
+      }
+
+      // ── Step 3: Seed items from world items by name ───────────────────────────
+      if (seedItems && seedItems.length > 0) {
+        const matchedItems = (game.items ?? []).filter((i) => seedItems.includes(i.name));
+        if (matchedItems.length > 0) {
+          await actor.createEmbeddedDocuments('Item', matchedItems.map((i) => i.toObject()));
+        }
+        const missing = seedItems.filter((n) => !matchedItems.some((i) => i.name === n));
+        if (missing.length > 0) {
+          console.warn(`[${MODULE_ID}] create_actor: could not find items in world: ${missing.join(', ')}`);
+        }
+      }
+
+      this._sendSuccess(requestId, { actorId: actor.id });
     } catch (err) {
       this._sendError(requestId, err.message ?? String(err));
     }
