@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 0.8.0 (Living City Simulation)
+**Version:** 0.8.1 (Living City Simulation — Red Trade Economy)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.2+)
 
 <deep_thinking_mode>

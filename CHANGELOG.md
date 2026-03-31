@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.1] - 2026-03-31
+
+### Added
+- **Faction Relationship Matrix** (`world.db`): `factions` table (relationship_score −10…+10, friction_pool 0…10) and `player_friends_enemies` table.
+- **Cargo Manifest Generator** (`RedTradeService`): Reads raw TTTA/Mooks JSON data, classifies items into `data_runner`, `scarcity_goods`, `military_gear` categories with lore-accurate buyer/rival factions.
+- **Friction Engine & Heat Clock** (`rollFriction`): 1d10 + friction → `bark` / `gate` / `ambush` outcome tiers; `red_trade_transit` inbound event wired into `HybridRoutingController`.
+- **Red Trade One-Shot Arc** (`campaign-registry.ts`): `bootstrapRedTrade` / `createRedTradeInitialState` — 3-beat arc (Fixer Call → Transit → Handoff) with faction-gated delivery guard.
+- **Pulse Engine & Cryotank Skip** (`PulseEngine`): `timeSkip(actorId, months)` — rent debt calculation, eviction to "street" tier, Punitive BD rolls (Humanity + Addiction) dispatched to Node A.
+- **Player Housing Schema** (`world.db`): `player_housing` table (`housing_tier`, `monthly_rent_eb`, `eb_balance`) with full CRUD helpers on `UnifiedOracleClient`.
+
+### Fixed
+- `HybridRoutingController.applyWorldPulseGrounding`: replaced dead `!this.unifiedOracle` null-check with live `!this.unifiedOracle?.isConnected()` guard to prevent TypeError when Oracle is disconnected at prompt time.
+
 ## [0.8.0] - 2026-03-31
 
 ### Added
