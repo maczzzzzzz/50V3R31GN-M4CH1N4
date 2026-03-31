@@ -1,4 +1,5 @@
 import Database from 'better-sqlite3';
+import fs from 'node:fs';
 
 export interface UnifiedOracleConfig {
   worldDbPath: string;
@@ -19,6 +20,12 @@ export class UnifiedOracleClient {
     
     // Attach crush db
     this.db.prepare('ATTACH DATABASE ? AS session_memory').run(this.config.crushDbPath);
+  }
+
+  async initSchema(): Promise<void> {
+    if (!this.db) throw new Error('Database not connected');
+    const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
+    this.db.exec(schema);
   }
 
   query(sql: string, params: any[] = []): any[] {
