@@ -90,3 +90,13 @@ Every commit MUST include:
 Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
 Co-Authored-By: Gemini CLI <gemini-cli@google.com>
 ```
+
+## 10. THE BUILD-AUDIT LOOP (AGENTIC WORKFLOW)
+This project utilizes a synchronized, dual-agent development cycle to ensure 100% architectural integrity.
+
+1.  **Phase Start (Discovery & Planning):** Gemini CLI (Strategist) researches requirements and generates the implementation plan in `docs/plans/`.
+2.  **Implementation (Build):** You (Claude Sonnet 3.5) execute the approved plan. You are responsible for all code modifications and TDD verification.
+3.  **Handoff (Verification):** Once a project phase or major task is complete, you MUST halt and hand off the workspace to Gemini CLI.
+4.  **Audit (Hardening):** Gemini CLI performs an exhaustive code and architectural audit of your work.
+5.  **Reporting:** Gemini CLI physicalizes the audit results into a formal report in `docs/audits/`.
+6.  **Cycle Resume:** You MUST read the latest Gemini audit report at the start of your next session, apply any recommended fixes, and proceed to the next task.
