@@ -55,19 +55,26 @@ Your objective is to build a modular, decoupled TypeScript backend that routes n
 
 ## ❄️ PHASE 4.5: The v0.7.0 "Edge-Compute" Migration (Project Black-Ice)
 **Goal:** Optimize the infrastructure for high-performance open-world simulation.
+**Status:** COMPLETE ✅ (Finalized in v0.7.1)
+
+---
+
+## 🔮 PHASE 3: Unified Oracle (Relational Knowledge Graph)
+**Goal:** Consolidate narrative truth and history onto Node B.
+**Version:** v0.7.2
 **Status:** IN PROGRESS (ACTIVE)
 
-**Objectives:**
-- **ZeroClaw Deployment:** Decommission Postgres/Docker on Node A; deploy Rust-native ZeroClaw.
-- **SQLite Consolidation:** Implement a "Triple-SQLite" stack (Rules, World, Crush).
-- **ClawLink Protocol:** Sub-10ms persistent transport over SSH.
-- **Unified Oracle:** Knowledge Graph (RKG) on Node B to eliminate narrative drift.
-- **Data Port:** Migrate 1,437 vector chunks from Postgres to SQLite-Vec binary format.
-
+**Execution Steps:**
+1. **UnifiedOracleClient:** Implement the SQLite-based client with `ATTACH DATABASE` for `world.db` and `crush.db`.
+2. **Hybrid RKG Schema:** Dual-layer storage for structured stats and dynamic triplets.
+3. **Validated Command Pattern:** Zod-gated world state updates from AI.
+4. **World Pulse Grounding:** Automatic pre-response context injection to eliminate narrative drift.
+5. **Legacy Purge (Phase B):** Final removal of `NitroDbClient` and `pg` dependencies.
 
 ---
 
 ## 🚀 PHASE 5: Advanced Mechanics (Red Trade & Braindance)
+
 **Goal:** Expand the world with illegal trade, heat tracking, and therapy.
 **Version:** v0.8.0
 *(NEXT TARGET)*

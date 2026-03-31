@@ -146,7 +146,7 @@ export interface IOllamaClient {
    * Generate narrative prose from a directive prompt and an optional
    * math/rules context string (e.g. serialised AttackResult).
    */
-  generateNarrative(prompt: string, context: string): Promise<string>;
+  generateNarrative(prompt: string, context: string, systemContext?: string): Promise<string>;
   /** Checks whether Ollama is reachable. Does not validate model accuracy. */
   isHealthy(): Promise<boolean>;
 }

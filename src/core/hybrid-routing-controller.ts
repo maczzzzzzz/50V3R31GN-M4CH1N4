@@ -35,6 +35,7 @@ import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent } from '../share
 import type { StoryEngine } from './story-engine.js';
 import type { GmApprovalQueue } from './gm-approval-queue.js';
 import type { NightMarketService } from './night-market-service.js';
+import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -45,6 +46,7 @@ export interface HybridRoutingControllerOptions {
   readonly storyEngine: StoryEngine;
   readonly gmApprovalQueue: GmApprovalQueue;
   readonly nightMarketService: NightMarketService;
+  readonly unifiedOracle: UnifiedOracleClient;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -56,14 +58,16 @@ export class HybridRoutingController {
   private readonly storyEngine: StoryEngine;
   private readonly gmApprovalQueue: GmApprovalQueue;
   private readonly nightMarketService: NightMarketService;
+  private readonly unifiedOracle: UnifiedOracleClient;
 
-  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService }: HybridRoutingControllerOptions) {
+  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle }: HybridRoutingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
     this.ollama = ollamaClient;
     this.foundry = foundryAdapter;
     this.storyEngine = storyEngine;
     this.gmApprovalQueue = gmApprovalQueue;
     this.nightMarketService = nightMarketService;
+    this.unifiedOracle = unifiedOracle;
   }
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
@@ -220,11 +224,48 @@ export class HybridRoutingController {
   private async pushNarrativeOrFallback(prompt: string, context: string, fallback: string): Promise<void> {
     let narrative: string;
     try {
-      narrative = await this.ollama.generateNarrative(prompt, context);
+      // ── Step 1: World Pulse Grounding ──────────────────────────────────────
+      const systemContext = await this.applyWorldPulseGrounding(prompt + ' ' + context);
+
+      narrative = await this.ollama.generateNarrative(prompt, context, systemContext);
     } catch {
       narrative = fallback;
     }
     await this.foundry.sendChatMessage(narrative, { alias: 'GM Assistant' });
+  }
+
+  /**
+   * Scours the prompt for NPC/Location mentions and fetches their current
+   * state from the Unified Oracle (RKG) + recent history from Crush.
+   */
+  private async applyWorldPulseGrounding(input: string): Promise<string | undefined> {
+    try {
+      // 1. Fetch all NPCs to check for mentions
+      const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
+      const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
+
+      if (mentions.length === 0) return undefined;
+
+      // 2. Format World Pulse block
+      let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
+      for (const npc of mentions) {
+        pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
+        
+        // 3. Fetch recent history from attached crush.db
+        const history = this.unifiedOracle.query(
+          'SELECT content FROM session_memory.messages WHERE content LIKE ? ORDER BY id DESC LIMIT 2',
+          [`%${npc.name}%`]
+        );
+        if (history.length > 0) {
+          pulse += `  Last seen: "${history[0].content.substring(0, 100)}..."\n`;
+        }
+      }
+
+      return pulse;
+    } catch (err) {
+      console.warn('World Pulse grounding failed:', err);
+      return undefined;
+    }
   }
 
   private formatAttackFallback(result: AttackResult): string {

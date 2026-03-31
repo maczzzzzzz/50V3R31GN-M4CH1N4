@@ -18,6 +18,7 @@ import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schem
 import { StoryEngine } from '../../src/core/story-engine.js';
 import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
 import { NightMarketService } from '../../src/core/night-market-service.js';
+import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 
@@ -76,6 +77,14 @@ function makeMockGmApprovalQueue(): GmApprovalQueue {
   } as unknown as GmApprovalQueue;
 }
 
+function makeMockUnifiedOracle(): UnifiedOracleClient {
+  return {
+    query: vi.fn().mockReturnValue([]),
+    connect: vi.fn().mockResolvedValue(undefined),
+    disconnect: vi.fn().mockResolvedValue(undefined),
+  } as unknown as UnifiedOracleClient;
+}
+
 // ── Sample results ────────────────────────────────────────────────────────────
 
 const sampleAttackResult: AttackResult = {
@@ -105,6 +114,7 @@ describe('HybridRoutingController', () => {
   let storyEngine: StoryEngine;
   let gmApprovalQueue: GmApprovalQueue;
   let nightMarketService: NightMarketService;
+  let unifiedOracle: UnifiedOracleClient;
   let controller: HybridRoutingController;
 
   beforeEach(() => {
@@ -114,6 +124,7 @@ describe('HybridRoutingController', () => {
     storyEngine = makeMockStoryEngine();
     gmApprovalQueue = makeMockGmApprovalQueue();
     nightMarketService = makeMockNightMarketService();
+    unifiedOracle = makeMockUnifiedOracle();
     controller = new HybridRoutingController({
       nitroLogicClient: nitroLogic,
       ollamaClient: ollama,
@@ -121,6 +132,64 @@ describe('HybridRoutingController', () => {
       storyEngine,
       gmApprovalQueue,
       nightMarketService,
+      unifiedOracle,
+    });
+  });
+
+  // ── World Pulse Grounding ───────────────────────────────────────────────────
+
+  describe('World Pulse Grounding', () => {
+    it('prepends grounded NPC facts when they are mentioned in the prompt', async () => {
+      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(sampleAttackResult);
+      
+      // Mock Oracle to return Vido's stats
+      vi.mocked(unifiedOracle.query).mockImplementation((sql: string) => {
+        if (sql.includes('FROM npcs')) {
+          return [{ name: 'Vido', hp: 40, faction: 'Maelstrom', disposition: 'neutral' }];
+        }
+        if (sql.includes('session_memory.messages')) {
+          return [{ content: 'Vido says hello.' }];
+        }
+        return [];
+      });
+
+      const attackEvent: FoundryEvent = {
+        type: 'resolve_attack',
+        payload: {
+          attackerSkill: 4, attackerRef: 6, weaponDamage: '3d6',
+          weaponArmorPiercing: false, defenderRef: 5, defenderSP: 6,
+          rangeBand: 'close', modifiers: 0,
+        },
+      };
+
+      // Prompt should mention "Vido" to trigger grounding
+      vi.mocked(ollama.generateNarrative).mockImplementation((prompt) => {
+        return Promise.resolve(`Narrative about Vido`);
+      });
+
+      // We need to trigger a foundry event that results in a narrative call
+      // and the context or prompt MUST contain "Vido".
+      // Let's mock resolveAttack to return a result that we then use in a 
+      // direct handleBuyItem call where we can control the vendor name.
+      const buyEvent: FoundryEvent = {
+        type: 'buy_item',
+        payload: {
+          itemId: 'cyberdeck-01',
+          costEb: 100,
+          costEagles: 0.5,
+          vendor: 'Vido', // Mentions Vido
+          actorId: 'actor-v-001',
+        },
+      };
+      vi.mocked(foundry.readActor).mockResolvedValue({ system: { wealth: { eb: 500 } } });
+
+      await controller.handleFoundryEvent(buyEvent);
+
+      expect(ollama.generateNarrative).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.stringContaining('vendor=Vido'),
+        expect.stringContaining('WORLD PULSE (GROUNDED TRUTH):\n- Vido: HP=40, Faction=Maelstrom, Stance=neutral\n  Last seen: "Vido says hello...."')
+      );
     });
   });
 

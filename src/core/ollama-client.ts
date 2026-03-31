@@ -83,7 +83,7 @@ export class OllamaClient implements IOllamaClient {
 
   // ── generateNarrative ───────────────────────────────────────────────────────
 
-  async generateNarrative(prompt: string, context: string): Promise<string> {
+  async generateNarrative(prompt: string, context: string, systemContext?: string): Promise<string> {
     const controller = new AbortController();
     const timeoutHandle = setTimeout(() => controller.abort(), this.config.timeoutMs);
 
@@ -91,11 +91,15 @@ export class OllamaClient implements IOllamaClient {
       ? `${prompt}\n\nGame State:\n${context}`
       : prompt;
 
+    const systemContent = systemContext
+      ? `${systemContext}\n\n${SYSTEM_PROMPT}`
+      : SYSTEM_PROMPT;
+
     const requestBody = {
       model: this.config.model,
       stream: false,
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'system', content: systemContent },
         { role: 'user', content: userContent },
       ],
     };

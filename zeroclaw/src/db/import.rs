@@ -127,6 +127,12 @@ pub fn run(conn: &Connection, path: &Path) -> Result<usize> {
             rusqlite::params![rowid, vector_bytes],
         )?;
 
+        // Manually sync the FTS5 index (required for contentless tables)
+        conn.execute(
+            "INSERT OR REPLACE INTO chunks_fts (rowid, content, source_ref, section_heading) VALUES (?1, ?2, ?3, ?4)",
+            rusqlite::params![rowid, chunk.content, chunk.source_ref, chunk.section_heading],
+        )?;
+
         imported += 1;
     }
 
