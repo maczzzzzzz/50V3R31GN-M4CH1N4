@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.2] - 2026-03-31
+
+### Added
+- **Discord Chronicler (Phase 5.2)**: New `discord-chronicler` MCP server exposing `screamsheet_post` tool. Broadcasts state-mutation events (purchases, friction escalations, story transitions) to Discord via webhook with persona routing (NCPD Scanner / Street Rumor / Netwatch Alerts).
+- **Optical Bridge (Phase 5.2)**: `SpatialVisionService` connects to Chrome via Playwright CDP, captures the Foundry VTT `#canvas`, and pipes the screenshot to Node B's Llava 7B model for tactical map analysis. Returns a structured `VisualTacticalContext`.
+- **`/scan` Command (Phase 5.2)**: `HybridRoutingController.handleScan()` orchestrates the full Playwright → Llava → RKG Grounding → Foundry chat pipeline for real-time spatial awareness.
+- **`playwright-core` dependency**: Added to support the Optical Bridge CDP browser connection.
+
 ## [0.8.1] - 2026-03-31
 
 ### Added
@@ -15,8 +23,11 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Cryotank Skip**: Narrative and mechanical "jail" consequence using Punitive BD checks on Node A.
 
 ### Fixed
-- **FTS5 Index Sync**: Resolved critical issue where ZeroClaw search returned empty results by manually syncing the FTS5 index during import.
+- **FTS5 Index Sync (Node A)**: Resolved critical issue where ZeroClaw search returned empty results by manually syncing the FTS5 index during import.
+- **FTS5 Sync Triggers (Node B)**: Added automatic synchronization triggers to `world-schema.sql` to ensure lore triplets are immediately searchable via FTS5.
+- **Persistence Architecture**: Established canonical `./data/` directory for SQLite databases and updated `nitro-db` defaults.
 - **Grounding Safety**: Hardened `HybridRoutingController` to prevent crashes when the Unified Oracle is uninitialized.
+- **Version Synchronization**: Unified all manifests and documentation to v0.8.1 (Red Trade Stable).
 
 ## [0.8.0] - 2026-03-31
 

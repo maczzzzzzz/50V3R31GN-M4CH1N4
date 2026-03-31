@@ -26,7 +26,7 @@
  */
 
 import type {
-  INitroLogicClient, IOllamaClient,
+  INitroLogicClient, IOllamaClient, IDiscordChroniclerClient, ScreamsheetPersona,
   AttackResult, DvResult, OracleResult,
   ResolveAttackParams, CalculateDvParams, OracleRollParams,
 } from './interfaces.js';
@@ -38,6 +38,7 @@ import type { NightMarketService } from './night-market-service.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { RedTradeService } from './red-trade-service.js';
 import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
+import type { SpatialVisionService } from './spatial-vision-service.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -50,6 +51,8 @@ export interface HybridRoutingControllerOptions {
   readonly nightMarketService: NightMarketService;
   readonly unifiedOracle: UnifiedOracleClient;
   readonly redTradeService: RedTradeService;
+  readonly chronicler?: IDiscordChroniclerClient;
+  readonly spatialVision?: SpatialVisionService;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -63,8 +66,10 @@ export class HybridRoutingController {
   private readonly nightMarketService: NightMarketService;
   private readonly unifiedOracle: UnifiedOracleClient;
   private readonly redTradeService: RedTradeService;
+  private readonly chronicler?: IDiscordChroniclerClient;
+  private readonly spatialVision?: SpatialVisionService;
 
-  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle, redTradeService }: HybridRoutingControllerOptions) {
+  constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle, redTradeService, chronicler, spatialVision }: HybridRoutingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
     this.ollama = ollamaClient;
     this.foundry = foundryAdapter;
@@ -73,6 +78,8 @@ export class HybridRoutingController {
     this.nightMarketService = nightMarketService;
     this.unifiedOracle = unifiedOracle;
     this.redTradeService = redTradeService;
+    this.chronicler = chronicler;
+    this.spatialVision = spatialVision;
   }
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
@@ -202,7 +209,13 @@ export class HybridRoutingController {
       `You purchased an item from ${vendor} for ${costEb}eb. Remaining balance: ${newEb}eb.`,
     );
 
-    // 4. Evaluate Story Transitions
+    // 4. Chronicle the transaction
+    this.postScreamsheet(
+      `🛒 **Night Market Transaction** — ${itemId} acquired from ${vendor} for ${costEb}eb. New balance: ${newEb}eb.`,
+      'NCPD Scanner',
+    );
+
+    // 5. Evaluate Story Transitions
     this.evaluateStoryEvent({ type: 'buy_item', payload });
   }
 
@@ -218,6 +231,14 @@ export class HybridRoutingController {
     };
 
     await this.foundry.sendChatMessage(messages[result.outcome], { alias: 'Friction Engine' });
+
+    // Chronicle high-tension outcomes
+    if (result.outcome === 'ambush' || result.outcome === 'gate') {
+      this.postScreamsheet(
+        `⚠️ **Red Trade Alert** — ${result.outcome === 'ambush' ? 'Rival crew spotted on transit route!' : 'Checkpoint decision gate triggered.'} Heat: ${result.total}`,
+        'NCPD Scanner',
+      );
+    }
 
     // Evaluate Story Transitions — first transit tick advances Beat 1 → Beat 2
     this.evaluateStoryEvent({ type: 'red_trade_transit', payload });
@@ -237,7 +258,55 @@ export class HybridRoutingController {
     if (result.transitioned) {
       const narrative = `**Story Advance** — Transitioned from *${result.oldBeat}* to *${result.newBeat}*.`;
       this.foundry.sendChatMessage(narrative, { alias: 'Story Engine' }).catch(() => {});
+      this.postScreamsheet(
+        `📡 **Street Wire** — Sources confirm a shift in Night City's balance of power. The arc moves forward.`,
+        'Street Rumor',
+      );
     }
+  }
+
+  // ── /scan command ───────────────────────────────────────────────────────────
+
+  /**
+   * Orchestrate the Optical Bridge pipeline:
+   *   Playwright capture → Llava analysis → RKG grounding → Foundry chat output.
+   *
+   * Called by the `/scan` Z-Command in Crush CLI or directly by the player.
+   * Non-fatal if SpatialVisionService is not configured.
+   */
+  async handleScan(): Promise<void> {
+    if (!this.spatialVision) {
+      await this.foundry.sendChatMessage(
+        '⚠️ **Optical Bridge offline.** No SpatialVisionService configured.',
+        { alias: 'Optical Bridge' },
+      );
+      return;
+    }
+
+    // Step 1: Playwright → Llava
+    const visual = await this.spatialVision.captureAndAnalyze();
+
+    // Step 2: RKG grounding — inject faction/NPC context from the Oracle
+    const visualSummary =
+      `Tokens: ${visual.tokenClusters.join(', ') || 'none detected'}. ` +
+      `Environment: ${visual.environmentalFeatures.join(', ') || 'none detected'}.`;
+
+    const groundedContext = await this.applyWorldPulseGrounding(visualSummary);
+
+    // Step 3: Mistral-Nemo narrates the tactical beat
+    const prompt =
+      'You are a Cyberpunk RED GM. Describe the tactical situation on the battle map ' +
+      'in 2–3 vivid sentences using the visual data and grounded world context below.';
+
+    let narrative: string;
+    try {
+      narrative = await this.ollama.generateNarrative(prompt, visualSummary, groundedContext);
+    } catch {
+      narrative = `**Tactical Scan** — ${visual.rawDescription || visualSummary}`;
+    }
+
+    // Step 4: Push to Foundry chat
+    await this.foundry.sendChatMessage(narrative, { alias: 'Optical Bridge' });
   }
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
@@ -294,6 +363,17 @@ export class HybridRoutingController {
       console.warn('World Pulse grounding failed:', err);
       return undefined;
     }
+  }
+
+  /**
+   * Fire-and-forget Screamsheet broadcast. Never throws — the Chronicler is
+   * a non-critical subsystem that must not interrupt the main loop.
+   */
+  private postScreamsheet(content: string, persona: ScreamsheetPersona): void {
+    if (!this.chronicler) return;
+    this.chronicler.screamsheetPost(content, persona).catch((err: unknown) => {
+      console.warn('[HRC] Chronicler post failed:', err);
+    });
   }
 
   private formatAttackFallback(result: AttackResult): string {

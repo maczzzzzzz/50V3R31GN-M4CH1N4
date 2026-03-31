@@ -151,6 +151,16 @@ export interface IOllamaClient {
   isHealthy(): Promise<boolean>;
 }
 
+// ── Discord Chronicler ────────────────────────────────────────────────────────
+
+/** Narrative voice persona for Screamsheet broadcasts. */
+export type ScreamsheetPersona = 'Netwatch Alerts' | 'NCPD Scanner' | 'Street Rumor';
+
+export interface IDiscordChroniclerClient {
+  /** Post a screamsheet bark to the configured Discord channel. Non-fatal. */
+  screamsheetPost(content: string, persona: ScreamsheetPersona): Promise<void>;
+}
+
 // ── Client interface ──────────────────────────────────────────────────────────
 
 export interface INitroLogicClient {
