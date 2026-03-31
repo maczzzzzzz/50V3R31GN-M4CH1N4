@@ -102,6 +102,8 @@ export {
   CargoRaritySchema,
   FrictionOutcomeSchema,
   FrictionRollResultSchema,
+  HousingTierSchema,
+  TimeSkipResultSchema,
 } from './red-trade.schema.js';
 
 export type {
@@ -111,6 +113,8 @@ export type {
   CargoRarity,
   FrictionOutcome,
   FrictionRollResult,
+  HousingTier,
+  TimeSkipResult,
 } from './red-trade.schema.js';
 
 export {

@@ -33,6 +33,14 @@ CREATE VIRTUAL TABLE IF NOT EXISTS triplets_fts USING fts5(
     content=triplets
 );
 
+-- Player Housing & Rent Tracking (Phase 5 Pulse Engine)
+CREATE TABLE IF NOT EXISTS player_housing (
+    actor_id TEXT PRIMARY KEY,
+    housing_tier TEXT DEFAULT 'street' CHECK (housing_tier IN ('street', 'coffin', 'apartment', 'luxury')),
+    monthly_rent_eb INTEGER DEFAULT 0,
+    eb_balance INTEGER DEFAULT 0
+);
+
 -- Faction Relationship Matrix (Phase 5 Red Trade)
 CREATE TABLE IF NOT EXISTS factions (
     id TEXT PRIMARY KEY,

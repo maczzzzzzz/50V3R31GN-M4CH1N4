@@ -20,6 +20,20 @@ export const FrictionRollResultSchema = z.object({
 });
 export type FrictionRollResult = z.infer<typeof FrictionRollResultSchema>;
 
+export const HousingTierSchema = z.enum(['street', 'coffin', 'apartment', 'luxury']);
+export type HousingTier = z.infer<typeof HousingTierSchema>;
+
+export const TimeSkipResultSchema = z.object({
+  actorId: z.string().min(1),
+  monthsSkipped: z.number().int().min(1),
+  evicted: z.boolean(),
+  previousHousingTier: HousingTierSchema,
+  rentDebt: z.number().int().nonnegative(),
+  bdHumanityRoll: z.number().int().min(1).max(10),
+  bdAddictionRoll: z.number().int().min(1).max(10),
+});
+export type TimeSkipResult = z.infer<typeof TimeSkipResultSchema>;
+
 export const RedTradeCargoSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),

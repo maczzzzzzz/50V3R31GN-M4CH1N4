@@ -6,6 +6,19 @@ import type { RagSearchParams, HealthCheckResult } from './interfaces.js';
 import { RagQueryResultSchema } from '../shared/schemas/index.js';
 import { z } from 'zod';
 
+export interface PlayerHousing {
+  actor_id: string;
+  housing_tier: 'street' | 'coffin' | 'apartment' | 'luxury';
+  monthly_rent_eb: number;
+  eb_balance: number;
+}
+
+export interface PlayerHousingUpdate {
+  housing_tier?: PlayerHousing['housing_tier'];
+  monthly_rent_eb?: number;
+  eb_balance?: number;
+}
+
 export interface UnifiedOracleConfig {
   worldDbPath: string;
   crushDbPath: string;
@@ -113,6 +126,36 @@ export class UnifiedOracleClient {
   execute(sql: string, params: any[] = []): Database.RunResult {
     if (!this.db) throw new Error('Database not connected');
     return this.db.prepare(sql).run(...params);
+  }
+
+  getPlayerHousing(actorId: string): PlayerHousing | null {
+    if (!this.db) throw new Error('Database not connected');
+    const row = this.db.prepare(
+      'SELECT actor_id, housing_tier, monthly_rent_eb, eb_balance FROM player_housing WHERE actor_id = ?'
+    ).get(actorId) as PlayerHousing | undefined;
+    return row ?? null;
+  }
+
+  setPlayerHousing(actorId: string, data: PlayerHousingUpdate & { housing_tier: PlayerHousing['housing_tier']; monthly_rent_eb: number; eb_balance: number }): void {
+    if (!this.db) throw new Error('Database not connected');
+    this.db.prepare(
+      `INSERT INTO player_housing (actor_id, housing_tier, monthly_rent_eb, eb_balance)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT(actor_id) DO UPDATE SET
+         housing_tier = excluded.housing_tier,
+         monthly_rent_eb = excluded.monthly_rent_eb,
+         eb_balance = excluded.eb_balance`
+    ).run(actorId, data.housing_tier, data.monthly_rent_eb, data.eb_balance);
+  }
+
+  updatePlayerHousing(actorId: string, data: PlayerHousingUpdate): void {
+    if (!this.db) throw new Error('Database not connected');
+    const entries = Object.entries(data).filter(([, v]) => v !== undefined);
+    if (entries.length === 0) return;
+    const setClause = entries.map(([k]) => `${k} = ?`).join(', ');
+    const params = entries.map(([, v]) => v);
+    params.push(actorId);
+    this.db.prepare(`UPDATE player_housing SET ${setClause} WHERE actor_id = ?`).run(...params);
   }
 
   async executeCommand(command: WorldCommand): Promise<void> {
