@@ -14,6 +14,7 @@ use anyhow::Result;
 use std::env;
 use std::path::PathBuf;
 
+mod cv;
 mod db;
 #[allow(dead_code)]
 mod math;
@@ -79,14 +80,31 @@ fn main() -> Result<()> {
             server::serve(conn, port)?;
         }
 
+        // Phase 6: Project Eyes-On — Geometric Wall Engine
+        "cv" => {
+            let input_path = parse_flag(&args, "--input")
+                .ok_or_else(|| anyhow::anyhow!("--input <path> is required for cv"))?;
+            let padding: f64 = parse_flag(&args, "--padding")
+                .unwrap_or_else(|| "0.05".to_string())
+                .parse()
+                .map_err(|_| anyhow::anyhow!("--padding must be a valid float (e.g. 0.05)"))?;
+
+            tracing::info!(input = %input_path, padding, "Starting Eyes-On wall detection");
+            let image_bytes = std::fs::read(&input_path)?;
+            let walls = cv::detect_walls(&image_bytes, padding)?;
+            let json = cv::walls_to_foundry_json(&walls);
+            println!("{}", serde_json::to_string_pretty(&json)?);
+        }
+
         "help" | "--help" | "-h" => {
-            eprintln!("ZeroClaw — Rules Authority (Project Black-Ice v0.8.3)");
+            eprintln!("ZeroClaw — Rules Authority (Project Black-Ice v0.9.0)");
             eprintln!();
             eprintln!("USAGE:");
             eprintln!("  zeroclaw init   --db <path>");
             eprintln!("  zeroclaw import --db <path> --file <export.zeroclaw.json>");
             eprintln!("  zeroclaw search --db <path> --query <text> [--namespace <ns>]");
             eprintln!("  zeroclaw serve  --db <path> [--port <n>]  (ClawLink SSH bridge)");
+            eprintln!("  zeroclaw cv     --input <map.png> [--padding <f64>]  (Phase 6: Eyes-On)");
         }
 
         other => {

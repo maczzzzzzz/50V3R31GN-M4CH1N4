@@ -30,6 +30,10 @@ ssh2 = "0.9"
 # Base64 decoding for vector_b64 fields in the import file
 base64 = "0.22"
 
+# Computer Vision (Phase 6: Project Eyes-On)
+image = "0.25"
+imageproc = "0.26"
+
 # Error handling ergonomics
 anyhow = "1.0"
 
