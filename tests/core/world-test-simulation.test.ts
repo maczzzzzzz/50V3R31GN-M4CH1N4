@@ -26,6 +26,7 @@ import type { IOllamaClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
 import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import type { RedTradeService } from '../../src/core/red-trade-service.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 
@@ -84,6 +85,13 @@ function makeMockUnifiedOracle(): UnifiedOracleClient {
   } as unknown as UnifiedOracleClient;
 }
 
+function makeMockRedTradeService(): RedTradeService {
+  return {
+    generateCargo: vi.fn(),
+    rollFriction: vi.fn().mockReturnValue({ roll: 3, friction: 0, total: 3, outcome: 'bark' }),
+  } as unknown as RedTradeService;
+}
+
 // ── Sample data ───────────────────────────────────────────────────────────────
 
 const hitAttackResult: AttackResult = {
@@ -131,6 +139,7 @@ describe('Full World Test: TttA Part 1 E2E Session Loop', () => {
   let gmApprovalQueue: GmApprovalQueue;
   let nightMarketService: NightMarketService;
   let unifiedOracle: UnifiedOracleClient;
+  let redTradeService: RedTradeService;
   let controller: HybridRoutingController;
 
   beforeEach(() => {
@@ -144,6 +153,7 @@ describe('Full World Test: TttA Part 1 E2E Session Loop', () => {
     gmApprovalQueue = makeMockGmApprovalQueue();
     nightMarketService = makeMockNightMarketService();
     unifiedOracle = makeMockUnifiedOracle();
+    redTradeService = makeMockRedTradeService();
 
     controller = new HybridRoutingController({
       nitroLogicClient: nitroLogic,
@@ -153,6 +163,7 @@ describe('Full World Test: TttA Part 1 E2E Session Loop', () => {
       gmApprovalQueue,
       nightMarketService,
       unifiedOracle,
+      redTradeService,
     });
   });
 

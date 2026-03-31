@@ -90,3 +90,77 @@ export function createTttaPart1InitialState(): StoryState {
     eagleBalance: 0,
   };
 }
+
+// ── Red Trade "One-Shot" Beat Definitions ─────────────────────────────────────
+
+/**
+ * Beat 1: Fixer Call
+ * The Fixer delivers the smuggling job via `simple_phone`.
+ * Transition Guard: first `red_trade_transit` event (player starts moving cargo).
+ */
+const redTradeBeat1FixerCall: BeatConfig = {
+  id: 'red-trade-beat-1-fixer-call',
+  transitions: [
+    {
+      to: 'red-trade-beat-2-transit',
+      condition: (_state: StoryState, event: any): boolean =>
+        event.type === 'red_trade_transit',
+    },
+  ],
+};
+
+/**
+ * Beat 2: Transit
+ * Player is moving the cargo through hostile territory (friction ticks).
+ * Transition Guard: `buy_item` event where the vendor matches `worldState.buyerFaction`
+ * (delivery to the correct buyer). If no faction is set, any buy_item triggers handoff.
+ */
+const redTradeBeat2Transit: BeatConfig = {
+  id: 'red-trade-beat-2-transit',
+  transitions: [
+    {
+      to: 'red-trade-beat-3-handoff',
+      condition: (state: StoryState, event: any): boolean => {
+        if (event.type !== 'buy_item') return false;
+        const expectedFaction = state.worldState.buyerFaction as string | undefined;
+        if (!expectedFaction) return true;
+        return event.payload?.vendor === expectedFaction;
+      },
+    },
+  ],
+};
+
+/**
+ * Beat 3: Handoff
+ * Cargo delivered. Terminal beat — standing updates are handled externally.
+ */
+const redTradeBeat3Handoff: BeatConfig = {
+  id: 'red-trade-beat-3-handoff',
+  transitions: [],
+};
+
+// ── Public API ────────────────────────────────────────────────────────────────
+
+/**
+ * Register all Red Trade One-Shot beats into the provided StoryEngine.
+ * Must be called after constructing the engine with `createRedTradeInitialState()`.
+ */
+export function bootstrapRedTrade(engine: StoryEngine): void {
+  engine.registerBeat(redTradeBeat1FixerCall);
+  engine.registerBeat(redTradeBeat2Transit);
+  engine.registerBeat(redTradeBeat3Handoff);
+}
+
+/**
+ * Create the initial StoryState for a Red Trade One-Shot run.
+ * @param buyerFaction  The faction receiving the cargo (used to gate handoff delivery).
+ */
+export function createRedTradeInitialState(buyerFaction?: string): StoryState {
+  return {
+    currentArc: 'Red Trade — One-Shot Run',
+    currentBeat: 'red-trade-beat-1-fixer-call',
+    completedBeats: [],
+    worldState: buyerFaction ? { buyerFaction } : {},
+    eagleBalance: 0,
+  };
+}

@@ -218,6 +218,10 @@ export class HybridRoutingController {
     };
 
     await this.foundry.sendChatMessage(messages[result.outcome], { alias: 'Friction Engine' });
+
+    // Evaluate Story Transitions — first transit tick advances Beat 1 → Beat 2
+    this.evaluateStoryEvent({ type: 'red_trade_transit', payload });
+
     return result;
   }
 
