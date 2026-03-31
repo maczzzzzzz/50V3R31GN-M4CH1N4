@@ -96,6 +96,20 @@ export type {
 } from './zeroclaw-export.schema.js';
 
 export {
+  RedTradeCargoSchema,
+  CargoCategorySchema,
+  CargoBulkSchema,
+  CargoRaritySchema,
+} from './red-trade.schema.js';
+
+export type {
+  RedTradeCargo,
+  CargoCategory,
+  CargoBulk,
+  CargoRarity,
+} from './red-trade.schema.js';
+
+export {
   ClawLinkConfigSchema,
   ClawLinkRpcRequestSchema,
   ClawLinkRpcResponseSchema,
