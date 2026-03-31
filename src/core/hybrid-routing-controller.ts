@@ -239,6 +239,8 @@ export class HybridRoutingController {
    * state from the Unified Oracle (RKG) + recent history from Crush.
    */
   private async applyWorldPulseGrounding(input: string): Promise<string | undefined> {
+    if (!this.unifiedOracle) return undefined;
+
     try {
       // 1. Fetch all NPCs to check for mentions
       const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
