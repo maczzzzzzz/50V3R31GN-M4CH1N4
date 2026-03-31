@@ -60,7 +60,7 @@ Node B utilizes native acceleration and FP8 quantization for the Key-Value (KV) 
 
 ## 🛠️ Data Injection Layers
 The system is seeded with 1,437+ vector chunks covering:
-* **Core Mechanics**: Deterministic math, difficulty values, and foundational rulebooks.
+* **Core Mechanics**: Deterministic math, difficulty values, and foundational rules.
 * **Campaign Narrative**: Mission structures, narrative beats, and world lore.
 * **Entity Knowledge**: Extensive libraries of actor stat blocks and faction data.
 
