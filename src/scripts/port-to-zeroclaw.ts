@@ -30,7 +30,18 @@ async function main(): Promise<void> {
 
   console.log(`[port-to-zeroclaw] Connecting to Postgres...`);
 
-  const exporter = new PostgresExporter({ databaseUrl });
+  // Parse connection string to individual config fields
+  const url = new URL(databaseUrl);
+  const config = {
+    host: url.hostname,
+    port: parseInt(url.port || '5432', 10),
+    database: url.pathname.slice(1),
+    user: url.username,
+    password: url.password,
+  };
+
+  const exporter = new PostgresExporter(config);
+
 
   try {
     console.log(`[port-to-zeroclaw] Fetching chunks from pdf_chunks table...`);

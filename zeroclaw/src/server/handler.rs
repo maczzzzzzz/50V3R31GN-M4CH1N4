@@ -99,8 +99,12 @@ mod tests {
     use rusqlite::Connection;
 
     fn in_memory_conn() -> Connection {
+        unsafe {
+            rusqlite::ffi::sqlite3_auto_extension(Some(std::mem::transmute(
+                sqlite_vec::sqlite3_vec_init as *const (),
+            )));
+        }
         let conn = Connection::open_in_memory().expect("in-memory db");
-        unsafe { sqlite_vec::load(&conn).expect("sqlite-vec"); }
         schema::init(&conn).expect("schema init");
         conn
     }
