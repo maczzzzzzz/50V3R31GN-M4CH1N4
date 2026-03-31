@@ -1,4 +1,4 @@
-export { NitroDbClient } from './nitro-db-client.js';
+export { UnifiedOracleClient } from './unified-oracle-client.js';
 export { OllamaEmbeddingService } from './ollama-embedding-service.js';
 export type {
   NitroDbConfig,

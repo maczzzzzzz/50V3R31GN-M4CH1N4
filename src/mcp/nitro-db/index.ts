@@ -16,8 +16,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
-import { NitroDbClient } from '../../db/nitro-db-client.js';
-import { OllamaEmbeddingService } from '../../db/ollama-embedding-service.js';
+import { UnifiedOracleClient } from '../../db/unified-oracle-client.js';
 import type { ILogger } from '../../db/interfaces.js';
 
 // ── MCP-safe structured logger ────────────────────────────────────────────────
@@ -48,27 +47,14 @@ const logger: ILogger = {
 
 // ── Configuration ─────────────────────────────────────────────────────────────
 
-const dbConfig = {
-  host: process.env.NODE_A_HOST ?? '192.168.0.50',
-  port: parseInt(process.env.NODE_A_PORT ?? '5432', 10),
-  database: process.env.NODE_A_DB ?? 'nitro_db',
-  user: process.env.NODE_A_USER ?? 'nitro_admin',
-  password: process.env.NODE_A_PASSWORD ?? '',
-  connectionTimeoutMs: 10_000,
-  queryTimeoutMs: 30_000,
-  maxPoolSize: 5,
-};
-
-const embeddingConfig = {
-  baseUrl: process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434',
-  model: process.env.EMBEDDING_MODEL ?? 'nomic-embed-text',
-  timeoutMs: 30_000,
+const oracleConfig = {
+  worldDbPath: process.env.WORLD_DB_PATH ?? './world.db',
+  crushDbPath: process.env.CRUSH_DB_PATH ?? './.crush/crush.db',
 };
 
 // ── Dependency setup ──────────────────────────────────────────────────────────
 
-const embeddingService = new OllamaEmbeddingService(embeddingConfig, logger);
-const dbClient = new NitroDbClient(dbConfig, logger, embeddingService);
+const dbClient = new UnifiedOracleClient(oracleConfig);
 
 // ── Markdown / ANSI result formatters ────────────────────────────────────────
 
@@ -205,15 +191,15 @@ server.tool(
     // Ensure connected (lazy-connect on first call after startup failure)
     if (!dbClient.isConnected()) {
       try {
-        logger.info('nitro-db:rag_query', traceId, 'Lazy-connecting to Node A');
+        logger.info('nitro-db:rag_query', traceId, 'Lazy-connecting to Unified Oracle');
         await dbClient.connect();
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        logger.error('nitro-db:rag_query', traceId, `Connection to Node A failed: ${message}`);
+        logger.error('nitro-db:rag_query', traceId, `Connection to Unified Oracle failed: ${message}`);
         return {
           content: [{
             type: 'text' as const,
-            text: `\x1b[31m❌ nitro-db: Cannot reach Node A (${dbConfig.host}:${dbConfig.port})\x1b[0m\n\n**Error:** ${message}`,
+            text: `\x1b[31m❌ nitro-db: Cannot reach Unified Oracle\x1b[0m\n\n**Error:** ${message}`,
           }],
           isError: true,
         };
@@ -266,18 +252,17 @@ server.tool(
 async function main(): Promise<void> {
   const traceId = randomUUID();
   logger.info('nitro-db', traceId, 'nitro-db MCP server starting', {
-    nodeAHost: dbConfig.host,
-    nodeAPort: dbConfig.port,
-    ollamaBaseUrl: embeddingConfig.baseUrl,
+    worldDbPath: oracleConfig.worldDbPath,
+    crushDbPath: oracleConfig.crushDbPath,
   });
 
   // Eager connect — failures are non-fatal; rag_query will lazy-reconnect
   try {
     await dbClient.connect();
-    logger.info('nitro-db', traceId, 'Connected to Node A successfully');
+    logger.info('nitro-db', traceId, 'Connected to Unified Oracle successfully');
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    logger.warn('nitro-db', traceId, `Initial Node A connection failed — will retry on first tool call: ${message}`);
+    logger.warn('nitro-db', traceId, `Initial Unified Oracle connection failed — will retry on first tool call: ${message}`);
   }
 
   // Graceful shutdown

@@ -1,6 +1,5 @@
 // src/core/night-market-service.ts
-import type { INitroDbClient } from '../db/interfaces.js';
-import { NamespaceEnum } from '../shared/schemas/index.js';
+import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 export interface MarketItem {
   id: string;
@@ -12,13 +11,13 @@ export interface MarketItem {
 }
 
 export class NightMarketService {
-  constructor(private nitroDb: INitroDbClient) {}
+  constructor(private oracle: UnifiedOracleClient) {}
 
   /**
-   * Fetch inventory for a specific vendor using RAG.
+   * Fetch inventory for a specific vendor using the Unified Oracle.
    */
   async getVendorInventory(vendorName: string): Promise<MarketItem[]> {
-    const searchResult = await this.nitroDb.ragSearch({
+    const searchResult = await this.oracle.ragSearch({
       query: `items and gear sold by vendor ${vendorName} in Ticket to the Afterlife`,
       namespace: 'campaign_ttta', // Matches NamespaceEnum.CAMPAIGN_TTTA
       topK: 10,
