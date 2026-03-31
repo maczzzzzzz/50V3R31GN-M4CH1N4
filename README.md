@@ -1,10 +1,10 @@
 # ASP.GM-Agent (Project Black-Ice)
-**Version:** 0.8.1 (Living City Simulation)
+**Version:** 0.8.3 (Phase 5 Complete)
 **Target:** Cyberpunk RED | Foundry VTT v12 | local-only
 
 An industrial-grade, local-first Game Master orchestration suite for Cyberpunk RED. 
 
-ASP.GM-Agent v0.8.1 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
+ASP.GM-Agent v0.8.3 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
 
 ## 🏗️ System Architecture: The Split-Node Stack
 
@@ -29,7 +29,7 @@ graph TD
     G -- Mechanics/RAG --> B
 ```
 
-### Node A: The Rules Oracle (The Physics Engine)
+### Node A: The Rules Authority (The Physics Engine)
 * **Hardware:** Acer Nitro 5 (GTX 1050 Ti 4GB | Headless Ubuntu Server).
 * **Engine:** **ZeroClaw** (Rust-native) running Llama-3.2-3B via Vulkan.
 * **Storage:** **SQLite-Vec** (Rules-RAG & Mechanics Knowledge Base).
@@ -44,8 +44,8 @@ graph TD
 
 ## ⚡ Core Pillars
 
-### 1. Full-Stack SQLite Migration
-The entire state—from 100+ hours of *Ticket To The Afterlife* mission data to individual PC/NPC inventory—is stored in project-local SQLite files. This eliminates "Network Tax" and ensures the narrative engine performs a **Verification Lookup** before every generated response.
+### 1. Full-Stack SQLite Migration (Unified Oracle)
+The entire state—from mission data to individual PC/NPC inventory—is stored in project-local SQLite files. This eliminates "Network Tax" and ensures the narrative engine performs a **Verification Lookup** (RKG) before every generated response.
 
 ### 2. The ClawLink Protocol
 Communication between nodes utilizes **ClawLink**, a persistent, authenticated socket-over-SSH bridge. This replaces standard Stdio-over-SSH pipes, dropping tool-call latency from ~300ms to **<10ms**.
@@ -53,10 +53,12 @@ Communication between nodes utilizes **ClawLink**, a persistent, authenticated s
 ### 3. The Anti-Drift Engine (RKG)
 To prevent "Narrative Drift," the system implements a **Relational Knowledge Graph** using a Triplet Schema (Subject-Predicate-Object) within `world.db`.
 * **Deterministic Grounding:** The AI must query the SQLite state for NPC factions, locations, and health before narrating.
-* **Global Inventory:** Real-time tracking of every item, mook, and contraband unit in the upcoming "Red Trade" economy.
+* **Global Inventory:** Real-time tracking of every item via **Atomic Ownership Transfers**, preventing "Ghost Gear" or item duplication.
 
-### 4. VRAM Insurance
-Node B utilizes native acceleration and FP8 quantization for the Key-Value (KV) cache, reducing the memory footprint by ~1.2GB. This ensures a stable 60 FPS in Foundry VTT while the 12B model maintains a 128k context window.
+### 4. Immersion-First Interface
+* **Conversational Onboarding:** Character creation is handled via an in-world **Fixer Interview** in the terminal, automatically materializing the actor in Foundry.
+* **Optical Bridge:** The AI has "Eyes" on the battle map via **LLaVa 7B**, providing real-time tactical analysis of token positions and cover.
+* **Discord Chronicler:** Significant world events are automatically broadcast to a private Discord newsfeed as "Screamsheets."
 
 ## 🛠️ Data Injection Layers
 The system is seeded with 1,437+ vector chunks covering:
@@ -69,4 +71,3 @@ The system is seeded with 1,437+ vector chunks covering:
 * **Active Milestone:** Phase 6 (The Living City).
 * **Environment:** Strictly Local / Air-Gapped / Zero-Telemetry.
 * **Interface:** Integrated via Gemini CLI and Crush CLI.
-nd Crush CLI.
