@@ -75,3 +75,15 @@ CREATE TABLE IF NOT EXISTS player_friends_enemies (
     type TEXT CHECK (type IN ('friend', 'enemy')),
     FOREIGN KEY(entity_id) REFERENCES npcs(id)
 );
+
+-- Phase 6: Tactical Scene Regions (Project Eyes-On / TacticalVisionService)
+-- Stores LLava-identified cover/hazard/security zones for Spatial Grounding.
+CREATE TABLE IF NOT EXISTS scene_regions (
+    id TEXT PRIMARY KEY,
+    scene_id TEXT NOT NULL,
+    category TEXT NOT NULL CHECK (category IN ('cover_high', 'cover_partial', 'hazard', 'security')),
+    label TEXT NOT NULL,
+    bounds_json TEXT NOT NULL,          -- JSON [ymin, xmin, ymax, xmax] normalized 0-1000
+    foundry_region_json TEXT NOT NULL,  -- JSON FoundryRegionData for bridge materialisation
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
