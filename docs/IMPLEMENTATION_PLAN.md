@@ -21,7 +21,8 @@
 **Detailed Roadmaps:** 
 - [Red Trade & Faction Matrix](docs/plans/2026-03-31-red-trade-economy-implementation.md) [COMPLETE ✅]
 - [Immersive Terminal (Discord & Vision)](docs/plans/2026-03-31-immersive-terminal-implementation.md) [ACTIVE ⏳]
-- [Conversational Onboarding (Fixer Interview)](docs/plans/2026-03-31-conversational-onboarding-implementation.md) [SLATED 📅]
+- [Conversational Onboarding (Fixer Interview)](docs/plans/2026-03-31-conversational-onboarding-implementation.md) [ACTIVE ⏳]
+- [Inventory Atomic Transfer](docs/plans/2026-03-31-inventory-atomic-transfer.md) [SLATED 📅]
 
 **Design Specs:** 
 - [Red Trade Spec](docs/specs/2026-03-31-red-trade-economy-spec.md)
