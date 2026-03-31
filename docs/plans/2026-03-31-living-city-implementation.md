@@ -1,12 +1,12 @@
-# Living City & Project "Eyes-On" Implementation Plan
+# Living City & Project "Eyes-On" Implementation Plan (v0.9.0)
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Implement Phase 6 (v0.9.0), including the dual-node CV pipeline and the Pulse Engine world simulation.
+**Goal:** Implement Phase 6, giving the AI spatial eyes via a dual-node CV pipeline and a deterministic world heartbeat via recursive SQLite triggers.
 
-**Architecture:** Node A (Rust) performs geometric edge detection for walls. Node B (TypeScript + LLava) performs tactical region identification. The Pulse Engine (Node B) advances the RKG state based on simulated time.
+**Architecture:** Node A (Rust) performs geometric wall detection. Node B (TS + LLava) performs tactical region parsing. The Pulse Engine advances the RKG state using cellular-automata logic in SQLite.
 
-**Tech Stack:** Rust (imageproc), TypeScript, Ollama (LLava 7B), better-sqlite3, Foundry v12 API.
+**Tech Stack:** Rust (imageproc), TypeScript, Ollama (LLava 1.6), better-sqlite3, Foundry v12 API.
 
 ---
 
@@ -15,71 +15,74 @@
 **Files:**
 - Create: `zeroclaw/src/cv/mod.rs`
 - Create: `zeroclaw/src/cv/edge_detector.rs`
-- Modify: `zeroclaw/src/main.rs`
+- Modify: `zeroclaw/Cargo.toml` (Add `image = "0.25"`, `imageproc = "0.26"`)
 
-**Step 1: Write failing Rust test for Canny edge detection**
+**Step 1: Implement Canny Edge Detection**
+- Convert input image to grayscale.
+- Run `imageproc::edges::canny`.
+- Return binary edge map.
 
-**Step 2: Implement Canny + Hough transform in Rust**
-- Load image.
-- Perform edge detection.
-- Return `Vec<WallSegment>`.
+**Step 2: Implement Hough Line Transform & Coordinate Conversion**
+- Run `imageproc::hough::detect_lines`.
+- Apply Formula: `SceneX = PixelX + (ImageWidth * Padding)`.
+- Format as Foundry `walls` JSON.
 
-**Step 3: Add grid-snapping post-processor**
-
-**Step 4: Commit**
+**Step 3: Verification**
+- Run standalone test: `cargo test cv::edge_detector`.
+- Verify JSON output matches Foundry schema.
 
 ---
 
-### Task 2: Tactical Region Intelligence (Node B)
+### Task 2: Tactical Vision Service (Node B)
 
 **Files:**
 - Create: `src/core/tactical-vision-service.ts`
 - Create: `tests/core/tactical-vision-service.test.ts`
 
-**Step 1: Implement LLava 7B prompt wrapper**
-- Pass image buffer to Ollama `/api/generate`.
-- Request tactical regions in relative JSON coordinates.
+**Step 1: Implement Structured LLava Wrapper**
+- Call Ollama `/api/chat` with `format` parameter using a Zod-generated schema.
+- Prompt for `[ymin, xmin, ymax, xmax]` coordinates normalized to 1000.
 
-**Step 2: Implement Scene Region mapper**
-- Convert relative coordinates to pixel coordinates based on map size.
-- Map categories to Foundry v12 `Region` document schemas.
+**Step 2: Implement Region Mapper**
+- Map categories (`cover_high`, `hazard`) to Foundry v12 `RegionDocument` arrays.
+- Persist identified regions to `world.db`.
 
-**Step 3: Commit**
+**Step 3: Verification**
+- Mock Ollama response and verify coordinates translate correctly to pixel space.
 
 ---
 
-### Task 3: The Pulse Engine (World Simulation)
+### Task 3: The Pulse Engine (Deterministic World Heartbeat)
 
 **Files:**
-- Create: `src/core/pulse-engine.ts`
-- Create: `tests/core/pulse-engine.test.ts`
+- Create: `src/db/pulse-triggers.sql`
+- Modify: `src/db/unified-oracle-client.ts`
 
-**Step 1: Implement faction turf war logic**
-- Fetch faction stats from `world.db`.
-- Roll friction conflicts.
-- Update RKG ownership.
+**Step 1: Implement Recursive Influence Triggers**
+- Enable `PRAGMA recursive_triggers = ON`.
+- Implement Chebyshev decay logic in SQL triggers.
+- Ensure strength propagates automatically when a source base is updated.
 
-**Step 2: Implement "World Bark" generator**
-- AI generates narrative prose for significant world shifts.
-- Push to Foundry chat as background lore.
+**Step 2: Implement NPC Agenda Logic**
+- Advance NPC locations and goals based on 24-hour cycles.
+- Integrate with `discord-chronicler` for "Street News" updates.
 
-**Step 3: Commit**
+**Step 3: Verification**
+- Update one faction base strength; verify neighboring cell updates in SQLite.
 
 ---
 
-### Task 4: Spatial Intelligence Grounding
+### Task 4: Spatial Context Fusion
 
 **Files:**
 - Modify: `src/core/hybrid-routing-controller.ts`
 
-**Step 1: Update 'World Pulse' to include Scene Regions**
-- Fetch regions near active token.
-- Inject tactical data into the prompt.
+**Step 1: Implement Spatial Join Grounding**
+- Update `applyWorldPulseGrounding` to fetch `Scene Regions` within a 10m radius of the active token.
+- Inject tactical data into the Mistral-Nemo prompt.
 
-**Step 2: Full E2E verification**
-- Import raw map.
-- Verify walls exist.
+**Step 2: Full E2E Verification**
+- Import battle map.
+- Run `/scan`.
 - Start combat.
-- Verify AI uses regions in barks.
-
-**Step 3: Commit**
+- Verify AI narrates using grounded tactical regions (e.g. "The gangers hide behind the concrete barrier").
