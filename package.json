@@ -29,6 +29,7 @@
     "health-check": "tsx src/scripts/health-check.ts"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.0.0",
     "@types/pdf-parse": "^1.1.5",
     "@types/ssh2": "^1.15.5",
@@ -39,6 +40,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
+    "better-sqlite3": "^12.8.0",
     "dotenv": "^17.3.1",
     "pdf-parse": "^2.4.5",
     "ssh2": "^1.17.0",
