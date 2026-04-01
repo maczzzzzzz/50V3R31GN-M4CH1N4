@@ -262,6 +262,8 @@ export const BridgeResponseSchema = z.discriminatedUnion('type', [
 export const ResolveAttackEventSchema = z.object({
   type: z.literal('resolve_attack'),
   payload: z.object({
+    /** Unique ID of the target actor (required for Oracle synchronization). */
+    targetId: z.string().min(1).optional(),
     attackerSkill: z.number().int().min(0).max(10),
     attackerRef: z.number().int().min(1).max(10),
     weaponDamage: z.string(),

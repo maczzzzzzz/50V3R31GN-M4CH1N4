@@ -83,6 +83,7 @@ function makeMockUnifiedOracle(): UnifiedOracleClient {
     connect: vi.fn().mockResolvedValue(undefined),
     disconnect: vi.fn().mockResolvedValue(undefined),
     isConnected: vi.fn().mockReturnValue(true),
+    executeCommand: vi.fn().mockResolvedValue(undefined),
   } as unknown as UnifiedOracleClient;
 }
 

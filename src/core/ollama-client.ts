@@ -25,6 +25,7 @@ const OllamaConfigSchema = z.object({
   baseUrl: z.string().min(1, 'baseUrl must not be empty'),
   model: z.string().min(1, 'model must not be empty'),
   timeoutMs: z.number().int().positive('timeoutMs must be a positive integer'),
+  num_gpu: z.number().int().optional(),
 });
 
 // ── Zod response schema ───────────────────────────────────────────────────────
@@ -81,6 +82,26 @@ export class OllamaClient implements IOllamaClient {
     }
   }
 
+  // ── stop ───────────────────────────────────────────────────────────────────
+
+  async stop(): Promise<void> {
+    try {
+      // To unload a model from VRAM, call the chat endpoint with keep_alive: 0
+      // We use the native Ollama /api/chat endpoint for this.
+      await fetch(`${this.config.baseUrl}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: this.config.model,
+          keep_alive: 0,
+        }),
+      });
+      console.log(`[OllamaClient] Unloaded model: ${this.config.model}`);
+    } catch {
+      // Silently fail during shutdown
+    }
+  }
+
   // ── generateNarrative ───────────────────────────────────────────────────────
 
   async generateNarrative(prompt: string, context: string, systemContext?: string): Promise<string> {
@@ -102,6 +123,8 @@ export class OllamaClient implements IOllamaClient {
         { role: 'system', content: systemContent },
         { role: 'user', content: userContent },
       ],
+      // Pass num_gpu if explicitly configured
+      options: this.config.num_gpu !== undefined ? { num_gpu: this.config.num_gpu } : undefined,
     };
 
     let response: Response;

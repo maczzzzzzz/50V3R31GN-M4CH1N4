@@ -1,10 +1,10 @@
 # ASP.GM-Agent (Project Black-Ice)
-**Version:** 0.8.3 (Phase 5 Complete)
+**Version:** 0.9.0 (Phase 6 In-Progress)
 **Target:** Cyberpunk RED | Foundry VTT v12 | local-only
 
 An industrial-grade, local-first Game Master orchestration suite for Cyberpunk RED. 
 
-ASP.GM-Agent v0.8.3 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
+ASP.GM-Agent v0.9.0 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
 
 ## 🏗️ System Architecture: The Split-Node Stack
 

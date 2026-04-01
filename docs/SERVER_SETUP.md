@@ -1,85 +1,76 @@
-# Node A: Rules Authority Setup & Hardening
-**Target:** Acer Nitro 5 (Headless Inference Appliance)
-**OS:** Ubuntu Server 24.04 LTS
-**Architecture:** Project Black-Ice (Rust-Native Edge Compute)
+# SERVER_SETUP (v0.9.0) - Node A (Nitro 5)
+**Date:** Wednesday, April 1, 2026
 
-## 1. Hardware & OS Hardening
-To ensure the appliance remains active and stable as a headless server:
+This guide covers the setup for the **Node A Rules Authority** running on Ubuntu Server 24.04.
 
-### Lid Management
-Prevent suspension when the laptop lid is closed:
+## 1. Hardware Architecture
+- **CPU:** Intel i5-9300H
+- **GPU:** NVIDIA GTX 1050 Ti (4GB VRAM)
+- **OS:** Headless Ubuntu 24.04 LTS
+
+## 2. Global Dependencies
+Install the standard build tools:
 ```bash
-sudo sed -i 's/.*HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
-sudo sed -i 's/.*HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/' /etc/systemd/logind.conf
-sudo systemctl restart systemd-logind
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential pkg-config libssl-dev git curl
 ```
 
-### Static Networking
-Maintain a persistent ethernet connection at `192.168.0.50`:
-1. **Disable Wi-Fi:** `sudo rfkill block wifi`
-2. **Configure Netplan:** Ensure `/etc/netplan/` defines a static IP for the ethernet interface.
+### 2.1 Rust (v1.80+)
+Install the Rust toolchain:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+```
+
+### 2.2 CUDA & Vulkan
+Install the NVIDIA drivers and Vulkan runtime for `llama.cpp` offloading:
+```bash
+sudo apt install -y nvidia-driver-535 libvulkan1 vulkan-tools
+```
 
 ---
 
-## 2. Inference Engine (llama-server)
-Node A runs **Llama-3.2-3B-Instruct** via the Vulkan-optimised `llama-server`.
+## 3. ZeroClaw Installation
 
-1. **Deployment:** Ensure `llama-server` binary and the GGUF model are present in `~/asp-gm-agent/models/`.
-2. **Persistence:** Orchestrate via PM2:
+### 3.1 Build from Source
+1. Clone the project and navigate to `zeroclaw/`.
+2. Build the high-performance release binary:
    ```bash
-   # start_brain.sh
-   ./llama-server \
-       -m ./models/Llama-3.2-3B-Instruct-Q4_K_M.gguf \
-       --host 127.0.0.1 --port 8080 \
-       -ngl 99 -c 8192 -np 1 --embedding
-   
-   pm2 start start_brain.sh --name "rules-brain"
-   pm2 save
+   cargo build --release
    ```
-   *Note: Binding to `127.0.0.1` ensures inference is only accessible via the ZeroClaw bridge.*
+
+### 3.2 Rules Seeding
+Initialize the SQLite rules database:
+```bash
+./target/release/zeroclaw --seed ../docs/raw_data/core_rules/
+```
 
 ---
 
-## 3. Rules Engine (ZeroClaw)
-ZeroClaw is the Rust-native "Physics Engine" that handles mechanical math and lore RAG.
+## 4. Execution & Bridge
+The Rules Authority runs as a native service listening for **ClawLink** requests from Node B.
 
-### Building the Binary
-Since Node A is a production appliance, we build the binary inside a Docker container to avoid polluting the host:
+### 4.1 Manual Boot
 ```bash
-# Run from Node B root:
-scp -r ./zeroclaw/ maczz@192.168.0.50:~/asp-gm-agent/
-ssh maczz@192.168.0.50 "cd ~/asp-gm-agent/zeroclaw && sudo docker run --rm -v \$(pwd):/usr/src/zeroclaw -w /usr/src/zeroclaw rust:1.80 cargo build --release"
-ssh maczz@192.168.0.50 "cp ~/asp-gm-agent/zeroclaw/target/release/zeroclaw ~/asp-gm-agent/zeroclaw-bin"
+./target/release/zeroclaw --host 0.0.0.0 --port 7878
 ```
 
-### Initialising the Database
-Import the 1,437 vector chunks from the JSON export:
-```bash
-./zeroclaw-bin import --db rules.db --file export.zeroclaw.json
-```
-
-### Persistence (ClawLink Server)
-Create a systemd service to keep the bridge listener active:
-```bash
-# /etc/systemd/system/zeroclaw.service
+### 4.2 Systemd Persistence (Recommended)
+Create `/etc/systemd/system/zeroclaw.service`:
+```ini
 [Unit]
-Description=ZeroClaw Rules Authority Bridge
+Description=ZeroClaw Rules Authority
 After=network.target
 
 [Service]
-ExecStart=/home/maczz/asp-gm-agent/zeroclaw-bin serve --db /home/maczz/asp-gm-agent/rules.db --port 7878
-Restart=always
+Type=simple
 User=maczz
+WorkingDirectory=/home/maczz/asp-gm-agent/zeroclaw
+ExecStart=/home/maczz/asp-gm-agent/zeroclaw/target/release/zeroclaw --host 0.0.0.0 --port 7878
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
 ```
-```bash
-sudo systemctl enable --now zeroclaw
-```
 
----
-
-## 4. Security
-- **Access:** Node B connects via SSH direct-tcpip tunneling. 
-- **Firewall:** Ensure port 22 is open only to Node B's IP. All other ports (8080, 7878) are bound to `localhost`.
+**Status:** HARDENED. 🟢

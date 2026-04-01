@@ -52,10 +52,10 @@ export interface HybridRoutingControllerOptions {
   readonly nightMarketService: NightMarketService;
   readonly unifiedOracle: UnifiedOracleClient;
   readonly redTradeService: RedTradeService;
-  readonly chronicler?: IDiscordChroniclerClient;
-  readonly spatialVision?: SpatialVisionService;
+  readonly chronicler?: IDiscordChroniclerClient | undefined;
+  readonly spatialVision?: SpatialVisionService | undefined;
   /** Optional — if omitted, /onboard will report the service as offline. */
-  readonly onboardingEnabled?: boolean;
+  readonly onboardingEnabled?: boolean | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -69,8 +69,8 @@ export class HybridRoutingController {
   private readonly nightMarketService: NightMarketService;
   private readonly unifiedOracle: UnifiedOracleClient;
   private readonly redTradeService: RedTradeService;
-  private readonly chronicler?: IDiscordChroniclerClient;
-  private readonly spatialVision?: SpatialVisionService;
+  private readonly chronicler: IDiscordChroniclerClient | undefined;
+  private readonly spatialVision: SpatialVisionService | undefined;
   private readonly onboardingEnabled: boolean;
 
   constructor({ nitroLogicClient, ollamaClient, foundryAdapter, storyEngine, gmApprovalQueue, nightMarketService, unifiedOracle, redTradeService, chronicler, spatialVision, onboardingEnabled }: HybridRoutingControllerOptions) {
@@ -149,6 +149,24 @@ export class HybridRoutingController {
       this.formatAttackFallback(result),
     );
 
+    // ── State Reconciliation Hook ────────────────────────────────────────────
+    // If we have a targetId and it was a hit, update the Oracle RKG
+    if (payload.targetId && result.hit && result.netDamage > 0) {
+      try {
+        const [current] = this.unifiedOracle.query('SELECT hp FROM npcs WHERE id = ?', [payload.targetId]);
+        if (current) {
+          const newHp = Math.max(0, current.hp - result.netDamage);
+          await this.unifiedOracle.executeCommand({
+            action: 'UPDATE_NPC',
+            target: payload.targetId,
+            data: { hp: newHp }
+          });
+        }
+      } catch (err) {
+        console.warn(`[HRC] Failed to reconcile damage for target ${payload.targetId}:`, err);
+      }
+    }
+
     // Evaluate Story Transitions
     this.evaluateStoryEvent({ type: 'resolve_attack', result });
 
@@ -206,7 +224,30 @@ export class HybridRoutingController {
     const newEb = currentEb - costEb;
     await this.foundry.updateActor(actorId, { 'system.wealth.eb': newEb });
 
-    // 3. Narrative Synthesis
+    // 3. ── State Reconciliation Hook ──────────────────────────────────────────
+    // Synchronize ownership to the SQLite Oracle RKG
+    try {
+      await this.unifiedOracle.executeCommand({
+        action: 'TRANSFER_ITEM',
+        itemId: itemId,
+        fromId: vendor,
+        toId: actorId
+      });
+    } catch (err) {
+      // Fallback if item wasn't in structured inventory: use ADD_LORE
+      try {
+        await this.unifiedOracle.executeCommand({
+          action: 'ADD_LORE',
+          subject: itemId,
+          predicate: 'owned_by',
+          object: actorId
+        });
+      } catch (innerErr) {
+        console.warn(`[HRC] Failed to reconcile item ownership for ${itemId}:`, innerErr);
+      }
+    }
+
+    // 4. Narrative Synthesis
     const context = `vendor=${vendor}, item=${itemId}, costEb=${costEb}, newBalance=${newEb}`;
     await this.pushNarrativeOrFallback(
       'Narrate a short transaction in a Cyberpunk night market.',
@@ -235,7 +276,7 @@ export class HybridRoutingController {
       ambush: `🔴 **RIVAL INTERVENTION** — Ambush! Roll: ${result.total} (${result.roll} + ${result.friction})`,
     };
 
-    await this.foundry.sendChatMessage(messages[result.outcome], { alias: 'Friction Engine' });
+    await this.foundry.sendChatMessage(messages[result.outcome] || `🌆 *Streets of Night City:* ${result.outcome}`, { alias: 'Friction Engine' });
 
     // Chronicle high-tension outcomes
     if (result.outcome === 'ambush' || result.outcome === 'gate') {

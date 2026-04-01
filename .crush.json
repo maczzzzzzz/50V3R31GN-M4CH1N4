@@ -1,9 +1,27 @@
 {
+  "options": {
+    "debug": true,
+    "debug_lsp": true,
+    "context_paths": ["CLAUDE.md", "GEMINI.md", "KNOWLEDGE_BASE.md"]
+  },
+  "permissions": {
+    "allowed_tools": [
+      "rag_query",
+      "resolve_attack",
+      "calculate_dv",
+      "oracle_roll",
+      "mcp_nitro-db_rag_query",
+      "mcp_nitro-logic_resolve_attack",
+      "mcp_nitro-logic_calculate_dv",
+      "mcp_nitro-logic_oracle_roll",
+      "*"
+    ]
+  },
   "mcp": {
     "nitro-db": {
       "type": "stdio",
       "command": "node",
-      "args": ["dist/mcp/nitro-db/index.js"],
+      "args": ["dist/src/mcp/nitro-db/index.js"],
       "timeout": 120,
       "env": {
         "NODE_A_HOST": "192.168.0.50",
@@ -17,7 +35,7 @@
     "nitro-logic": {
       "type": "stdio",
       "command": "node",
-      "args": ["dist/mcp/nitro-logic/index.js"],
+      "args": ["dist/src/mcp/nitro-logic/index.js"],
       "timeout": 120,
       "env": {
         "NODE_A_LLAMA_URL": "http://192.168.0.50:8080/v1"
@@ -29,6 +47,10 @@
       "name": "Ollama (Node B)",
       "base_url": "http://localhost:11434/v1/",
       "type": "openai-compat",
+      "provider_options": {
+        "temperature": 0.3,
+        "parallel_tool_calls": false
+      },
       "models": [
         {
           "name": "Mistral-Nemo 12B",

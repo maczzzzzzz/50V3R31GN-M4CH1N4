@@ -57,12 +57,12 @@ export class RedTradeService {
       throw new Error(`No items available for cargo category: ${selectedCategory}`);
     }
 
-    const item = filtered[Math.floor(Math.random() * filtered.length)];
-    const factions = FACTION_MAP[selectedCategory];
+    const item = filtered[Math.floor(Math.random() * filtered.length)]!;
+    const factions = FACTION_MAP[selectedCategory as keyof typeof FACTION_MAP];
 
     return RedTradeCargoSchema.parse({
       id: randomUUID(),
-      name: this.canonicalName(item.name, selectedCategory),
+      name: this.canonicalName(item.name, selectedCategory as any),
       category: selectedCategory,
       bulk: this.deriveBulk(item),
       rarity: this.deriveRarity(item),

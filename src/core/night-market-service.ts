@@ -32,7 +32,7 @@ export class NightMarketService {
       // Mock extraction logic: assume the content is "ItemName (100eb): Description"
       const matchText = match.content;
       const ebMatch = matchText.match(/(\d+)eb/);
-      const costEb = ebMatch ? parseInt(ebMatch[1], 10) : 100;
+      const costEb = ebMatch && ebMatch[1] ? parseInt(ebMatch[1], 10) : 100;
       const name = matchText.split(/[():\n]/)[0]?.trim() || `Item ${index + 1}`;
       
       return {

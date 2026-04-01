@@ -34,6 +34,8 @@ export interface NitroLogicConfig {
 // ── Input parameter types ─────────────────────────────────────────────────────
 
 export interface ResolveAttackParams {
+  /** Unique ID of the target actor (optional, for Oracle state reconciliation). */
+  readonly targetId?: string | undefined;
   readonly attackerSkill: number;
   readonly attackerRef: number;
   readonly weaponDamage: string;        // e.g. "3d6", "2d6+1"
@@ -139,6 +141,11 @@ export interface OllamaConfig {
   readonly model: string;
   /** HTTP request timeout in milliseconds. */
   readonly timeoutMs: number;
+  /** 
+   * Optional: Number of layers to offload to GPU. 
+   * If omitted, Ollama defaults to auto-detection (-1).
+   */
+  readonly num_gpu?: number | undefined;
 }
 
 export interface IOllamaClient {
@@ -149,6 +156,11 @@ export interface IOllamaClient {
   generateNarrative(prompt: string, context: string, systemContext?: string): Promise<string>;
   /** Checks whether Ollama is reachable. Does not validate model accuracy. */
   isHealthy(): Promise<boolean>;
+  /** 
+   * Perform graceful cleanup. 
+   * For Ollama, this unloads the model from VRAM.
+   */
+  stop(): Promise<void>;
 }
 
 // ── Discord Chronicler ────────────────────────────────────────────────────────
@@ -175,4 +187,6 @@ export interface INitroLogicClient {
    * Does NOT validate model accuracy — only connectivity.
    */
   isHealthy(): Promise<boolean>;
+  /** Perform graceful cleanup of connections. */
+  stop(): Promise<void>;
 }

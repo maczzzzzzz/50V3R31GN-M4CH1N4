@@ -186,7 +186,7 @@ export class UnifiedOracleClient {
         if (entries.length === 0) return;
 
         const setClause = entries.map(([k, _]) => `${k} = ?`).join(', ');
-        const params = entries.map(([_, v]) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));
+        const params: any[] = entries.map(([_, v]) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));
         params.push(target);
 
         const sql = `UPDATE npcs SET ${setClause} WHERE id = ?`;
@@ -204,6 +204,21 @@ export class UnifiedOracleClient {
         this.db.prepare(
           'INSERT INTO triplets (subject_id, predicate, object_literal) VALUES (?, ?, ?)'
         ).run(subject, predicate, object);
+        break;
+      }
+
+      case 'TRANSFER_ITEM': {
+        const { itemId, fromId, toId } = validated;
+        this.db.transaction(() => {
+          // 1. Verify existence and current ownership
+          const item = this.db!.prepare('SELECT owner_id FROM inventory WHERE item_id = ?').get(itemId) as { owner_id: string } | undefined;
+          if (!item || item.owner_id !== fromId) {
+            throw new Error(`Ownership mismatch: Item ${itemId} belongs to ${item?.owner_id ?? 'nobody'}, not ${fromId}.`);
+          }
+          // 2. Atomic transfer
+          this.db!.prepare('UPDATE inventory SET owner_id = ?, is_equipped = 0 WHERE item_id = ?')
+            .run(toId, itemId);
+        })();
         break;
       }
     }

@@ -33,6 +33,8 @@ docs/superpowers/*
 Thumbs.db
 
 # logs
+logs/
+!logs/**/.gitkeep
 *.log
 npm-debug.log*
 

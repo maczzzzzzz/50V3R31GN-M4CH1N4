@@ -22,6 +22,7 @@ import type { IncomingMessage } from 'node:http';
 import {
   BridgeCommandSchema,
   BridgeResponseSchema,
+  FoundryEventSchema,
   type BridgeCommand,
   type BridgeResponse,
   type ChatMessagePayload,
@@ -69,6 +70,7 @@ export interface IFoundryAdapter {
   start(port: number): Promise<void>;
   stop(): Promise<void>;
   isConnected(): boolean;
+  onEvent(callback: (event: any) => Promise<void>): void;
   sendChatMessage(content: string, speaker?: { alias: string }): Promise<void>;
   readActor(actorId: string): Promise<unknown>;
   triggerSimplePhone(senderNumber: string, body: string): Promise<void>;
@@ -87,6 +89,7 @@ export class FoundryAdapter implements IFoundryAdapter {
   private wss: WebSocketServer | null = null;
   private clientSocket: WebSocket | null = null;
   private readonly pending = new Map<string, PendingRequest>();
+  private eventCallback: ((event: any) => Promise<void>) | null = null;
 
   constructor(options: FoundryAdapterOptions = {}) {
     this.commandTimeoutMs = options.commandTimeoutMs ?? 10_000;
@@ -119,6 +122,9 @@ export class FoundryAdapter implements IFoundryAdapter {
         }
 
         this.clientSocket = ws;
+
+        // Notify Foundry UI that the bridge is connected
+        this.sendChatMessage('🟢 **Link Established** — ASP.GM-Agent Orchestrator (v0.8.3) is now online.', { alias: 'System' }).catch(() => {});
 
         ws.on('message', (raw) => {
           this.handleIncomingMessage(raw.toString());
@@ -172,6 +178,10 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   isConnected(): boolean {
     return this.clientSocket !== null && this.clientSocket.readyState === WebSocket.OPEN;
+  }
+
+  onEvent(callback: (event: any) => Promise<void>): void {
+    this.eventCallback = callback;
   }
 
   // ── Command methods ─────────────────────────────────────────────────────────
@@ -268,7 +278,8 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   /**
    * Handle an incoming raw WebSocket message from the Foundry bridge module.
-   * Parses the frame, validates with Zod, and resolves/rejects the pending request.
+   * Parses the frame, validates with Zod, and resolves/rejects the pending request
+   * OR dispatches to the event callback.
    */
   private handleIncomingMessage(raw: string): void {
     let parsed: unknown;
@@ -280,31 +291,42 @@ export class FoundryAdapter implements IFoundryAdapter {
       return;
     }
 
-    const result = BridgeResponseSchema.safeParse(parsed);
-    if (!result.success) {
-      logger.warn('FoundryAdapter', 'Received invalid BridgeResponse from Foundry module', {
-        error: result.error.message,
-        raw: raw.slice(0, 200),
-      });
+    // 1. Try correlation with pending request (BridgeResponse)
+    const responseResult = BridgeResponseSchema.safeParse(parsed);
+    if (responseResult.success) {
+      const response = responseResult.data;
+      const pending = this.pending.get(response.requestId);
+
+      if (pending) {
+        clearTimeout(pending.timeoutHandle);
+        this.pending.delete(response.requestId);
+
+        if (response.type === 'error') {
+          pending.reject(new Error(response.message));
+        } else {
+          pending.resolve(response.data);
+        }
+        return;
+      }
+    }
+
+    // 2. Try unsolicited event (FoundryEvent)
+    const eventResult = FoundryEventSchema.safeParse(parsed);
+    if (eventResult.success) {
+      if (this.eventCallback) {
+        this.eventCallback(eventResult.data).catch((err) => {
+          logger.error('FoundryAdapter', 'Event callback failed', { error: err.message });
+        });
+      } else {
+        logger.warn('FoundryAdapter', 'Received event but no callback registered', { type: eventResult.data.type });
+      }
       return;
     }
 
-    const response: BridgeResponse = result.data;
-    const pending = this.pending.get(response.requestId);
-
-    if (!pending) {
-      logger.warn('FoundryAdapter', 'Received response for unknown requestId', { requestId: response.requestId });
-      return;
-    }
-
-    clearTimeout(pending.timeoutHandle);
-    this.pending.delete(response.requestId);
-
-    if (response.type === 'error') {
-      pending.reject(new Error(response.message));
-    } else {
-      pending.resolve(response.data);
-    }
+    // 3. Fallback for unknown messages
+    logger.warn('FoundryAdapter', 'Received unknown or invalid message from Foundry module', {
+      raw: raw.slice(0, 200),
+    });
   }
 
   /**

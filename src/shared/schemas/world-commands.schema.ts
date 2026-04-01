@@ -23,6 +23,12 @@ export const WorldCommandSchema = z.discriminatedUnion('action', [
     predicate: z.string(),
     object: z.string(),
   }),
+  z.object({
+    action: z.literal('TRANSFER_ITEM'),
+    itemId: z.string(),
+    fromId: z.string(),
+    toId: z.string(),
+  }),
 ]);
 
 export type WorldCommand = z.infer<typeof WorldCommandSchema>;

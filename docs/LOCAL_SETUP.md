@@ -1,72 +1,77 @@
-# Node B: Orchestrator Setup (Main Rig)
-**Target:** 100% Local Narrative Synthesis & World State Control
-**Architecture:** Unified Oracle (Triple-SQLite) + Mistral-Nemo 12B
+# LOCAL_SETUP (v0.9.0) - Node B (Main Rig)
+**Date:** Wednesday, April 1, 2026
 
-## 1. Local Prerequisites
-- **Node.js:** v22.0.0 or higher.
-- **Ollama:** Installed and running on Node B.
-- **Model:** Pull Mistral-Nemo (12B):
-  ```powershell
-  ollama pull mistral-nemo:12b-instruct-v1-q4_K_M
-  ```
+This guide covers the specialized setup for the **Node B Orchestrator** running on Windows 11 with AMD hardware.
 
----
+## 1. Environment Overrides (AMD/Vulkan)
+Because of ROCm discovery timeouts on RDNA 4 cards (RX 7000/8000/9000), we force the **Vulkan** path.
 
-## 2. Repository & Dependencies
-1. **Clone the project:** `git clone <repo_url>`
-2. **Install core packages:** `npm install`
-3. **Verify build:** `npm run build`
-
----
-
-## 3. Environment Configuration
-Create a `.env` file in the project root with the following variables:
-
-### Node A Connectivity (ClawLink)
-```env
-CLAWLINK_HOST=192.168.0.50
-CLAWLINK_USER=maczz
-CLAWLINK_KEY_PATH=C:/Users/your_user/.ssh/id_ed25519
-CLAWLINK_REMOTE_PORT=7878
-```
-
-### Local State (Unified Oracle)
-```env
-WORLD_DB_PATH=./world.db
-CRUSH_DB_PATH=./.crush/crush.db
-RULES_CACHE_PATH=./rules_cache.db
-```
-
-### Inference (Ollama)
-```env
-OLLAMA_BASE_URL=http://localhost:11434
-NARRATIVE_MODEL=mistral-nemo:12b-instruct-v1-q4_K_M
-EMBEDDING_MODEL=nomic-embed-text
-```
-
----
-
-## 4. World State Initialisation
-Before running the orchestrator, you must initialise the Relational Knowledge Graph (RKG):
+### 1.1 Persistent Setup
+Run these in a **PowerShell (Admin)** window:
 ```powershell
-# This creates world.db and sets up NPC/Location tables
-npx tsx src/scripts/init-oracle.ts
+[System.Environment]::SetEnvironmentVariable("OLLAMA_VULKAN", "1", "User")
+[System.Environment]::SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", "vulkan", "User")
+[System.Environment]::SetEnvironmentVariable("OLLAMA_FLASH_ATTENTION", "1", "User")
+[System.Environment]::SetEnvironmentVariable("OLLAMA_KV_CACHE_TYPE", "fp8", "User")
+[System.Environment]::SetEnvironmentVariable("GGML_VK_VISIBLE_DEVICES", "0", "User")
 ```
 
----
-
-## 5. Connection Verification
-Verify that Node B can communicate with Node A's Rules Authority via the persistent bridge:
+### 1.2 Unset Legacy Overrides
+If you previously used `HSA_OVERRIDE_GFX_VERSION` for RDNA 3, unset it to avoid driver hangs:
 ```powershell
-# Run the bridge health check
-npx tsx src/scripts/bridge-ping.ts
+[System.Environment]::SetEnvironmentVariable("HSA_OVERRIDE_GFX_VERSION", $null, "User")
+[System.Environment]::SetEnvironmentVariable("HIP_VISIBLE_DEVICES", $null, "User")
 ```
-**Expected Output:** `[ClawLink] Connection established. Node A (Rules Authority) is ONLINE.`
 
 ---
 
-## 6. Launching the GM Assistant
-The project is designed to be interacted with via **Crush CLI**:
-1. Start the backend: `npm run start`
-2. Launch Crush: `crush --data-dir ./.crush`
-3. All AI responses will be grounded in the Unified Oracle truth.
+## 2. Global Tooling
+Ensure you have the following installed globally:
+
+### 2.1 Node.js (v22+)
+Download from `nodejs.org`. Verify with:
+```bash
+node -v  # Should be v22.12.0 or higher
+```
+
+### 2.2 Go (v1.22+)
+Required for **Charmbracelet Crush**. Download from `go.dev`. Verify with:
+```bash
+go version
+```
+
+### 2.3 Crush CLI
+```bash
+go install github.com/charmbracelet/crush@latest
+```
+
+---
+
+## 3. Ollama Configuration
+1. Install Ollama from `ollama.com`.
+2. Ensure the tray app is **QUIT** before starting the server from the terminal to ensure environment variables are picked up.
+3. Start the server:
+   ```powershell
+   ollama serve
+   ```
+4. Verify GPU discovery:
+   ```bash
+   ollama ps
+   ```
+   *Look for `100% GPU` and `library=Vulkan`.*
+
+---
+
+## 4. Local Repository Initialization
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Initialize the `.env` file (see `.env.example`).
+4. Boot the system:
+   ```bash
+   npm start
+   ```
+
+**Status:** READY. 🟢

@@ -151,7 +151,7 @@ const logicClient = new NitroLogicClient({
 const server = new McpServer({
   name: 'nitro-logic',
   version: '0.8.3',
-}, {
+});
 
 
 // ── Tool: resolve_attack ──────────────────────────────────────────────────────

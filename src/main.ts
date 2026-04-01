@@ -1,0 +1,149 @@
+/**
+ * src/main.ts
+ *
+ * ASP.GM-Agent — Production Orchestrator Entry Point
+ *
+ * This script wires the Split-Node architecture:
+ *   - Connects to ZeroClaw (Node A) via ClawLink SSH Bridge.
+ *   - Initialises the Unified Oracle (SQLite RKG).
+ *   - Boots the Foundry VTT WebSocket Server (Port 3010).
+ *   - Configures Mistral-Nemo (Node B) for narrative synthesis.
+ */
+
+import 'dotenv/config';
+import fs from 'node:fs';
+import { FoundryAdapter } from './api/foundry-adapter.js';
+import { ClawLinkClient } from './api/clawlink-client.js';
+import { NitroLogicClient } from './core/nitro-logic-client.js';
+import { OllamaClient } from './core/ollama-client.js';
+import { HybridRoutingController } from './core/hybrid-routing-controller.js';
+import { StoryEngine } from './core/story-engine.js';
+import { GmApprovalQueue } from './core/gm-approval-queue.js';
+import { NightMarketService } from './core/night-market-service.js';
+import { RedTradeService } from './core/red-trade-service.js';
+import { UnifiedOracleClient } from './db/unified-oracle-client.js';
+import { bootstrapTttaPart1, createTttaPart1InitialState } from './core/campaign-registry.js';
+import { DiscordChroniclerClient } from './core/discord-chronicler-client.js';
+import { SpatialVisionService } from './core/spatial-vision-service.js';
+
+async function main() {
+  console.log('🌃 ASP.GM-Agent: Booting Orchestrator (v0.8.3)...');
+
+  // 1. Initialise Oracle (RKG)
+  const oracle = new UnifiedOracleClient({
+    worldDbPath: process.env.WORLD_DB_PATH ?? './data/world.db',
+    crushDbPath: process.env.CRUSH_DB_PATH ?? './data/crush.db',
+  });
+  await oracle.connect();
+  console.log('✅ Unified Oracle ONLINE.');
+
+  // 2. Initialise Bridge (ClawLink)
+  const defaultKeyPath = `${process.env.USERPROFILE || process.env.HOME}/.ssh/id_ed25519`;
+  const keyPath = process.env.CLAWLINK_KEY_PATH || defaultKeyPath;
+  
+  if (!fs.existsSync(keyPath)) {
+    console.warn(`[Main] Warning: SSH key not found at ${keyPath}. Direct connections to Node A may fail.`);
+  }
+  
+  const privateKey = fs.existsSync(keyPath) ? fs.readFileSync(keyPath, 'utf8') : '';
+
+  const clawlink = new ClawLinkClient({
+    host: process.env.CLAWLINK_HOST || '192.168.0.50',
+    sshPort: parseInt(process.env.CLAWLINK_SSH_PORT || '22', 10),
+    username: process.env.CLAWLINK_USER || 'maczz',
+    privateKey: privateKey,
+    zeroPort: 7878,
+  });
+  // Note: Lazy connect handled by NitroLogicClient if needed
+
+  // 3. Initialise Hardware Clients
+  const nitroLogic = new NitroLogicClient({
+    baseUrl: process.env.NODE_A_LLAMA_URL || 'http://192.168.0.50:8080/v1',
+    model: process.env.NODE_A_LLAMA_MODEL || 'local-llama',
+    timeoutMs: 30000,
+    seed: 42,
+  });
+
+  const ollama = new OllamaClient({
+    baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:11434',
+    model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
+    timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
+    num_gpu: process.env.OLLAMA_NUM_GPU ? parseInt(process.env.OLLAMA_NUM_GPU, 10) : undefined,
+  });
+
+  const chronicler = process.env.DISCORD_SCREAMSHEET_WEBHOOK 
+    ? new DiscordChroniclerClient(process.env.DISCORD_SCREAMSHEET_WEBHOOK)
+    : undefined;
+
+  // 4. Initialise State Engine
+  // For the "Live-Fire" test, we use the TttA Part 1 starting state
+  const storyEngine = new StoryEngine(createTttaPart1InitialState());
+  bootstrapTttaPart1(storyEngine);
+
+  // 5. Build Foundry Adapter
+  const foundry = new FoundryAdapter();
+
+  // 6. Assemble Orchestration Loop
+  const controller = new HybridRoutingController({
+    nitroLogicClient: nitroLogic,
+    ollamaClient: ollama,
+    foundryAdapter: foundry,
+    storyEngine,
+    gmApprovalQueue: new GmApprovalQueue(foundry),
+    nightMarketService: new NightMarketService(oracle),
+    redTradeService: new RedTradeService(),
+    unifiedOracle: oracle,
+    chronicler,
+    onboardingEnabled: true,
+  });
+
+  // 7. Wire Orchestrator to Bridge Events
+  foundry.onEvent(async (event) => {
+    try {
+      await controller.handleFoundryEvent(event);
+    } catch (err) {
+      console.error('[Main] Orchestrator error:', err);
+    }
+  });
+
+  // 8. Start the WS Server
+  await foundry.start(3010);
+
+  console.log('🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
+
+  // 9. Graceful Shutdown
+  const shutdown = async (signal: string) => {
+    console.log(`\n[Main] Received ${signal}. Shutting down gracefully...`);
+    
+    try {
+      // Stop Foundry first to stop incoming events
+      await foundry.stop();
+      console.log('✅ Foundry Adapter STOPPED.');
+
+      // Stop AI clients (Ollama will unload model)
+      await ollama.stop();
+      console.log('✅ Ollama Client STOPPED.');
+      
+      await nitroLogic.stop();
+      console.log('✅ NitroLogic Client STOPPED.');
+
+      // Disconnect Oracle
+      await oracle.disconnect();
+      console.log('✅ Unified Oracle DISCONNECTED.');
+
+      console.log('👋 ASP.GM-Agent shutdown complete.');
+      process.exit(0);
+    } catch (err) {
+      console.error('[Main] Error during shutdown:', err);
+      process.exit(1);
+    }
+  };
+
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+}
+
+main().catch(err => {
+  console.error('❌ FATAL BOOT ERROR:', err);
+  process.exit(1);
+});

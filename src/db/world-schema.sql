@@ -76,6 +76,16 @@ CREATE TABLE IF NOT EXISTS player_friends_enemies (
     FOREIGN KEY(entity_id) REFERENCES npcs(id)
 );
 
+-- Unified Inventory Table (Structured Tracking)
+CREATE TABLE IF NOT EXISTS inventory (
+    item_id TEXT PRIMARY KEY,
+    owner_id TEXT NOT NULL,
+    item_name TEXT NOT NULL,
+    item_type TEXT,
+    is_equipped INTEGER DEFAULT 0 CHECK (is_equipped IN (0, 1)),
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Phase 6: Tactical Scene Regions (Project Eyes-On / TacticalVisionService)
 -- Stores LLava-identified cover/hazard/security zones for Spatial Grounding.
 CREATE TABLE IF NOT EXISTS scene_regions (
