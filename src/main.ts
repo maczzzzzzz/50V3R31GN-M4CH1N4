@@ -38,23 +38,11 @@ async function main() {
   console.log('✅ Unified Oracle ONLINE.');
 
   // 2. Initialise Bridge (ClawLink)
-  const defaultKeyPath = `${process.env.USERPROFILE || process.env.HOME}/.ssh/id_ed25519`;
-  const keyPath = process.env.CLAWLINK_KEY_PATH || defaultKeyPath;
-  
-  if (!fs.existsSync(keyPath)) {
-    console.warn(`[Main] Warning: SSH key not found at ${keyPath}. Direct connections to Node A may fail.`);
-  }
-  
-  const privateKey = fs.existsSync(keyPath) ? fs.readFileSync(keyPath, 'utf8') : '';
-
   const clawlink = new ClawLinkClient({
     host: process.env.CLAWLINK_HOST || '192.168.0.50',
-    sshPort: parseInt(process.env.CLAWLINK_SSH_PORT || '22', 10),
-    username: process.env.CLAWLINK_USER || 'maczz',
-    privateKey: privateKey,
-    zeroPort: 7878,
+    port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
   });
-  // Note: Lazy connect handled by NitroLogicClient if needed
+  // Note: Connection handled as needed by consumers
 
   // 3. Initialise Hardware Clients
   const nitroLogic = new NitroLogicClient({

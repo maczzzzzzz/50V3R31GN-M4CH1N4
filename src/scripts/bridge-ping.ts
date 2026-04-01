@@ -11,20 +11,9 @@ import fs from 'node:fs';
 async function main() {
   console.log('📡 [Bridge Check] Pinging Node A (Rules Authority)...');
 
-  const keyPath = process.env.CLAWLINK_KEY_PATH || `${process.env.USERPROFILE}/.ssh/id_ed25519`;
-  if (!fs.existsSync(keyPath)) {
-    console.error(`❌ SSH Key not found at ${keyPath}`);
-    process.exit(1);
-  }
-
-  const privateKey = fs.readFileSync(keyPath, 'utf8');
-
   const client = new ClawLinkClient({
     host: process.env.CLAWLINK_HOST || '192.168.0.50',
-    sshPort: parseInt(process.env.CLAWLINK_SSH_PORT || '22', 10),
-    username: process.env.CLAWLINK_USER || 'maczz',
-    privateKey: privateKey,
-    zeroPort: 7878,
+    port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
   });
 
   try {
