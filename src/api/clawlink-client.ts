@@ -1,25 +1,20 @@
 /**
  * src/api/clawlink-client.ts
  *
- * ClawLinkClient — Persistent SSH tunnel + JSON-RPC bridge to ZeroClaw on Node A.
+ * ClawLinkClient — Persistent binary socket bridge to ZeroClaw on Node A.
  *
  * Transport layer:
  *   Node B (this class)
- *     → ssh2 Client  (Ed25519 key auth to Node A SSH daemon)
- *     → directTcpip channel  (forwards to zeroclaw TCP server on Node A localhost)
- *     → newline-delimited JSON-RPC frames
- *     → ZeroClaw (Rust TCP server, 127.0.0.1:7878 on Node A)
- *
- * Security: Ed25519 public-key authentication at the SSH layer means all
- * traffic on the channel is implicitly authenticated — no additional
- * application-layer token needed.
+ *     → node:net Socket (direct TCP to Node A)
+ *     → newline-delimited JSON ClawLinkPackets
+ *     → ZeroClaw (Rust TCP server, port 7878 on Node A)
  *
  * Zero-Trust: All responses from Node A are validated against Zod schemas
  * before being returned to callers, per CLAUDE.md §9.
  */
 
 import { randomUUID } from 'node:crypto';
-import { Client, type Channel } from 'ssh2';
+import net from 'node:net';
 import { z } from 'zod';
 import {
   ClawLinkConfigSchema,
@@ -47,10 +42,13 @@ export interface IClawLinkClient {
   resolveDamage(dice: number[], bonus: number, armourSp: number): Promise<ClawLinkDamageResult>;
 }
 
-/** Factory function injected into ClawLinkClient for testability. */
-export type SshClientFactory = () => InstanceType<typeof Client>;
-
 // ── Internal types ────────────────────────────────────────────────────────────
+
+interface ClawLinkPacket {
+  trace_id: string;
+  payload: string;
+  checksum: number;
+}
 
 interface PendingRequest {
   resolve: (value: unknown) => void;
@@ -61,26 +59,18 @@ interface PendingRequest {
 // ── Implementation ────────────────────────────────────────────────────────────
 
 /**
- * ClawLinkClient establishes and maintains a persistent SSH tunnel to Node A,
- * then dispatches JSON-RPC calls to the ZeroClaw TCP server through it.
- *
- * Usage:
- *   const client = new ClawLinkClient({ host: '192.168.0.50', ... });
- *   await client.connect();
- *   const results = await client.hybridSearch('ranged attack', 'core_rules', 5);
- *   await client.disconnect();
+ * ClawLinkClient establishes and maintains a persistent TCP connection to Node A,
+ * then dispatches JSON-RPC calls wrapped in ClawLinkPackets to the ZeroClaw server.
  */
 export class ClawLinkClient implements IClawLinkClient {
   private readonly config: ClawLinkConfig;
   private readonly timeoutMs: number;
-  private readonly createSshClient: SshClientFactory;
 
-  private sshClient: InstanceType<typeof Client> | null = null;
-  private channel: Channel | null = null;
+  private socket: net.Socket | null = null;
   private buffer: string = '';
   private readonly pending = new Map<string, PendingRequest>();
 
-  constructor(config: ClawLinkConfig, createSshClient: SshClientFactory = () => new Client()) {
+  constructor(config: ClawLinkConfig) {
     const parsed = ClawLinkConfigSchema.safeParse(config);
     if (!parsed.success) {
       const issue = parsed.error.issues[0];
@@ -88,64 +78,45 @@ export class ClawLinkClient implements IClawLinkClient {
     }
     this.config = Object.freeze({ ...parsed.data }) as ClawLinkConfig;
     this.timeoutMs = this.config.timeoutMs ?? DEFAULT_TIMEOUT_MS;
-    this.createSshClient = createSshClient;
   }
 
   // ── Public API ──────────────────────────────────────────────────────────────
 
   /**
-   * Establish the SSH session and open the directTcpip channel to zeroclaw.
+   * Establish the TCP connection to zeroclaw.
    * Must be called before any RPC methods.
    */
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const client = this.createSshClient();
-      this.sshClient = client;
+      const socket = net.connect(this.config.port, this.config.host);
+      this.socket = socket;
 
-      client.once('ready', () => {
-        client.forwardOut(
-          '127.0.0.1', 0,
-          '127.0.0.1', this.config.zeroPort,
-          (err, stream) => {
-            if (err) {
-              reject(new Error(`${CONTEXT} directTcpip failed: ${err.message}`));
-              return;
-            }
-
-            this.channel = stream;
-            this.buffer = '';
-
-            stream.on('data', (data: Buffer) => this.handleData(data));
-            stream.once('close', () => this.handleChannelClose());
-            stream.on('error', (streamErr: Error) => {
-              // Reject pending requests on channel error
-              for (const [id, pending] of this.pending) {
-                clearTimeout(pending.timer);
-                pending.reject(new Error(`${CONTEXT} channel error [id=${id}]: ${streamErr.message}`));
-              }
-              this.pending.clear();
-            });
-
-            resolve();
-          },
-        );
+      socket.on('connect', () => {
+        this.buffer = '';
+        resolve();
       });
 
-      client.once('error', (err) => {
-        reject(new Error(`${CONTEXT} SSH connection error: ${err.message}`));
+      socket.on('data', (data: Buffer) => this.handleData(data));
+
+      socket.on('error', (err: Error) => {
+        if (this.socket === socket) {
+          // Only reject connection if we're not already connected
+          reject(new Error(`${CONTEXT} TCP connection error: ${err.message}`));
+          
+          // Also reject pending requests on error
+          for (const [id, pending] of this.pending) {
+            clearTimeout(pending.timer);
+            pending.reject(new Error(`${CONTEXT} socket error [id=${id}]: ${err.message}`));
+          }
+          this.pending.clear();
+        }
       });
 
-      client.connect({
-        host: this.config.host,
-        port: this.config.sshPort,
-        username: this.config.username,
-        privateKey: this.config.privateKey,
-        algorithms: { serverHostKey: ['ssh-ed25519'] },
-      });
+      socket.on('close', () => this.handleSocketClose());
     });
   }
 
-  /** Close the SSH channel and underlying SSH session. */
+  /** Close the TCP connection. */
   async disconnect(): Promise<void> {
     // Reject all pending requests
     for (const [id, pending] of this.pending) {
@@ -154,17 +125,17 @@ export class ClawLinkClient implements IClawLinkClient {
     }
     this.pending.clear();
 
-    this.channel?.close();
-    this.channel = null;
-    this.sshClient?.end();
-    this.sshClient = null;
+    if (this.socket) {
+      this.socket.destroy();
+      this.socket = null;
+    }
     this.buffer = '';
   }
 
   /** Send a ping and return true if zeroclaw responds within timeoutMs. */
   async isHealthy(): Promise<boolean> {
     try {
-      const result = await this.sendRpc<{ pong: boolean }>('ping', {});
+      const result = await this.send<{ pong: boolean }>('ping', {});
       return result.pong === true;
     } catch {
       return false;
@@ -180,7 +151,7 @@ export class ClawLinkClient implements IClawLinkClient {
     namespace: string,
     topK: number,
   ): Promise<ClawLinkSearchResult[]> {
-    const raw = await this.sendRpc<unknown>('hybrid_search', { query, namespace, top_k: topK });
+    const raw = await this.send<unknown>('hybrid_search', { query, namespace, top_k: topK });
     return this.validate(raw, ClawLinkSearchResultsSchema, 'hybridSearch');
   }
 
@@ -194,7 +165,7 @@ export class ClawLinkClient implements IClawLinkClient {
     skill: number,
     dv: number,
   ): Promise<ClawLinkAttackResult> {
-    const raw = await this.sendRpc<unknown>('resolve_attack', { dice, stat, skill, dv });
+    const raw = await this.send<unknown>('resolve_attack', { dice, stat, skill, dv });
     return this.validate(raw, ClawLinkAttackResultSchema, 'resolveAttack');
   }
 
@@ -207,7 +178,7 @@ export class ClawLinkClient implements IClawLinkClient {
     bonus: number,
     armourSp: number,
   ): Promise<ClawLinkDamageResult> {
-    const raw = await this.sendRpc<unknown>('resolve_damage', {
+    const raw = await this.send<unknown>('resolve_damage', {
       dice,
       bonus,
       armour_sp: armourSp,
@@ -218,17 +189,30 @@ export class ClawLinkClient implements IClawLinkClient {
   // ── Private helpers ─────────────────────────────────────────────────────────
 
   /**
-   * Write a JSON-RPC request frame to the SSH channel and await the response.
-   * The correlation ID ensures responses are matched to the correct caller
-   * even if multiple requests are in-flight.
+   * Write a ClawLinkPacket containing a JSON-RPC request to the socket and await the response.
+   * The correlation ID ensures responses are matched to the correct caller.
    */
-  private async sendRpc<T>(method: string, params: Record<string, unknown>): Promise<T> {
-    if (!this.channel) {
+  private async send<T>(method: string, params: Record<string, unknown>): Promise<T> {
+    if (!this.socket || this.socket.destroyed) {
       throw new Error(`${CONTEXT} not connected — call connect() first`);
     }
 
     const id = randomUUID();
-    const frame = JSON.stringify({ id, method, params }) + '\n';
+    const rpcPayload = JSON.stringify({ id, method, params });
+    
+    // Calculate simple checksum (sum of char codes) for the payload
+    let checksum = 0;
+    for (let i = 0; i < rpcPayload.length; i++) {
+      checksum = (checksum + rpcPayload.charCodeAt(i)) >>> 0;
+    }
+
+    const packet: ClawLinkPacket = {
+      trace_id: id,
+      payload: rpcPayload,
+      checksum,
+    };
+
+    const frame = JSON.stringify(packet) + '\n';
 
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
@@ -242,7 +226,7 @@ export class ClawLinkClient implements IClawLinkClient {
         timer,
       });
 
-      this.channel!.write(Buffer.from(frame), (writeErr) => {
+      this.socket!.write(frame, 'utf8', (writeErr) => {
         if (writeErr) {
           clearTimeout(timer);
           this.pending.delete(id);
@@ -253,9 +237,7 @@ export class ClawLinkClient implements IClawLinkClient {
   }
 
   /**
-   * Handle incoming data from the SSH channel.
-   * Data may arrive in partial chunks — buffered until a complete '\n'-terminated
-   * line is received, then parsed as an RpcResponse and dispatched.
+   * Handle incoming data from the socket.
    */
   private handleData(data: Buffer): void {
     this.buffer += data.toString('utf8');
@@ -273,9 +255,9 @@ export class ClawLinkClient implements IClawLinkClient {
 
   /** Parse a response line and resolve/reject the matching pending request. */
   private dispatchResponse(line: string): void {
-    let parsed: unknown;
+    let packet: unknown;
     try {
-      parsed = JSON.parse(line);
+      packet = JSON.parse(line);
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
       console.error(JSON.stringify({
@@ -288,7 +270,34 @@ export class ClawLinkClient implements IClawLinkClient {
       return;
     }
 
-    const envelope = ClawLinkRpcResponseSchema.safeParse(parsed);
+    // Node A also returns ClawLinkPacket
+    const packetData = packet as ClawLinkPacket;
+    if (!packetData.trace_id || packetData.payload === undefined) {
+      console.error(JSON.stringify({
+        timestamp: new Date().toISOString(),
+        severity: 'ERROR',
+        context: CONTEXT,
+        message: 'Received malformed ClawLinkPacket from Node A',
+        data: { packet: packetData },
+      }));
+      return;
+    }
+
+    let parsedRpc: unknown;
+    try {
+      parsedRpc = JSON.parse(packetData.payload);
+    } catch (e) {
+      console.error(JSON.stringify({
+        timestamp: new Date().toISOString(),
+        severity: 'ERROR',
+        context: CONTEXT,
+        message: 'ClawLinkPacket payload is not valid JSON',
+        data: { trace_id: packetData.trace_id },
+      }));
+      return;
+    }
+
+    const envelope = ClawLinkRpcResponseSchema.safeParse(parsedRpc);
     if (!envelope.success) {
       console.error(JSON.stringify({
         timestamp: new Date().toISOString(),
@@ -316,7 +325,6 @@ export class ClawLinkClient implements IClawLinkClient {
 
   /**
    * Zero-Trust schema validation on a Node A result.
-   * Throws a descriptive error if the payload doesn't match the expected shape.
    */
   private validate<T>(raw: unknown, schema: z.ZodType<T>, methodName: string): T {
     const result = schema.safeParse(raw);
@@ -330,13 +338,13 @@ export class ClawLinkClient implements IClawLinkClient {
     return result.data;
   }
 
-  /** Handle unexpected SSH channel closure — reject all pending requests. */
-  private handleChannelClose(): void {
+  /** Handle unexpected socket closure — reject all pending requests. */
+  private handleSocketClose(): void {
     for (const [id, pending] of this.pending) {
       clearTimeout(pending.timer);
-      pending.reject(new Error(`${CONTEXT} channel closed with pending request [id=${id}]`));
+      pending.reject(new Error(`${CONTEXT} socket closed with pending request [id=${id}]`));
     }
     this.pending.clear();
-    this.channel = null;
+    this.socket = null;
   }
 }

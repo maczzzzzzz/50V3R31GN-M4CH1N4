@@ -103,14 +103,8 @@ export type ClawLinkDamageResult = z.infer<typeof ClawLinkDamageResultSchema>;
 export const ClawLinkConfigSchema = z.object({
   /** Node A IP address. */
   host: z.string().min(1),
-  /** SSH daemon port on Node A (typically 22). */
-  sshPort: z.number().int().min(1).max(65535),
-  /** SSH username for Node A authentication. */
-  username: z.string().min(1),
-  /** Ed25519 private key contents (PEM format). */
-  privateKey: z.string().min(1),
   /** zeroclaw TCP server port on Node A (default: 7878). */
-  zeroPort: z.number().int().min(1).max(65535),
+  port: z.number().int().min(1).max(65535),
   /** Per-request RPC timeout in milliseconds (default: 5000). */
   timeoutMs: z.number().int().min(1).optional(),
 });

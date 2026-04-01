@@ -22,14 +22,9 @@ async function runLiveAudit() {
   console.log('✅ Oracle Attached.');
 
   // 2. Initialise Bridge
-  const keyPath = process.env.CLAWLINK_KEY_PATH || `${process.env.USERPROFILE}/.ssh/id_ed25519`;
-  const privateKey = fs.readFileSync(keyPath, 'utf8');
   const clawlink = new ClawLinkClient({
     host: process.env.CLAWLINK_HOST || '192.168.0.50',
-    sshPort: 22,
-    username: 'maczz',
-    privateKey,
-    zeroPort: 7878,
+    port: 7878,
   });
   await clawlink.connect();
   console.log('✅ Node A Bridge Active.');
