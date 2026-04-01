@@ -97,3 +97,15 @@ CREATE TABLE IF NOT EXISTS scene_regions (
     foundry_region_json TEXT NOT NULL,  -- JSON FoundryRegionData for bridge materialisation
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Pulse Engine Triggers (Phase 6 Task 3 Hardening)
+-- Automatically decrement faction relationship when a member is killed.
+CREATE TRIGGER IF NOT EXISTS npc_death_faction_shift
+AFTER UPDATE OF is_alive ON npcs
+FOR EACH ROW
+WHEN NEW.is_alive = 0 AND OLD.is_alive = 1 AND NEW.faction IS NOT NULL
+BEGIN
+    UPDATE factions 
+    SET relationship_score = MAX(-10, relationship_score - 1)
+    WHERE name = NEW.faction;
+END;

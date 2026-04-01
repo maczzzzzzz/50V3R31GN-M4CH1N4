@@ -37,6 +37,8 @@ export class UnifiedOracleClient {
     if (this.connected) return;
     this.db = new Database(this.config.worldDbPath);
     this.db.pragma('journal_mode = WAL');
+    this.db.pragma('synchronous = NORMAL');
+    this.db.pragma('foreign_keys = ON');
     
     // Attach crush db if it exists
     if (fs.existsSync(this.config.crushDbPath)) {

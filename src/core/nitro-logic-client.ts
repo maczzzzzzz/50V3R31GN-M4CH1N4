@@ -225,7 +225,7 @@ export class NitroLogicClient implements INitroLogicClient {
     // For now, no persistent connections to close for HTTP bridge.
     // If ClawLink added a persistent SSH tunnel that needed manual close,
     // we would handle it here.
-    console.log('[NitroLogicClient] Stopping...');
+    console.log(`[NitroLogicClient] Graceful shutdown complete for ${this.config.model}`);
   }
 
   // ── Private helpers ─────────────────────────────────────────────────────────
