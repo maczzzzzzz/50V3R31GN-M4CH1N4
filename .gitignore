@@ -49,3 +49,6 @@ data/
 
 # Example Proposals
 night market ttta proposal/
+
+# Git Worktrees
+.worktrees/
