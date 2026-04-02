@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-04-02
+### Added
+- **SharedMemoryService (Phase 8.3)**: Zero-latency 4MB binary bridge between Node B and Rust sidecar. `black_ice_state.mem` segment uses `BLACK-ICE-RADAR` header magic, lock-free transaction counter, and 64-byte blip records (id, name, x/y normalized 0–1000, hp, actor_type, faction).
+- **Strategic Atlas (Phase 8.3)**: Standalone Rust `sidecar-atlas` binary — egui + memmap2 radar visualization. Renders 10×10 district grid wireframe and NPC/PC blips in Black-Ice Cyan (#00f3ff). Reads `black_ice_state.mem` at 30fps.
+- **Crush CLI Lipgloss Refit (Phase 8.3)**: Pure-Go Charmbracelet Lipgloss terminal interface. Black-Ice theme (#00f3ff cyan, #080810 background). Reactive ASCII vitality bars (cyan/amber/red thresholds), bordered Terminal Panes for RKG search results, CRT glow via ANSI escape sequences.
+
+### Fixed
+- `show3dDice` missing from test mocks (3 test files) — caused TypeError on resolve_attack and oracle_roll paths
+- `applyWorldPulseGrounding` format drift — constitution now appended after NPC grounding lines; session_memory context snippet added per NPC
+- `handleBuyItem` ownership: switched from `TRANSFER_ITEM` to `ADD_LORE(owned_by)` so triplets table records item ownership
+- `ClawLinkClient` disconnect race: queued-but-not-dispatched requests now correctly reject with "disconnected with pending request"
+
+Co-authored-by: Claude Sonnet <noreply@anthropic.com>
+Co-authored-by: Gemini CLI <gemini-cli@google.com>
+
 ## [1.0.1] - 2026-04-02
 ### Added
 - **Black-Ice CSS Layer (Phase 8.1)**: Established a new `black-ice` CSS @layer for Foundry VTT v12. Redefined signature Cyberpunk RED palette (Cyan #00f3ff, Deep Void #050505) and applied tactical text glows to character names and headers.
