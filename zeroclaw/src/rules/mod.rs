@@ -1,1 +1,1 @@
-pub mod bonsai_oracle;
+pub mod rules_oracle;

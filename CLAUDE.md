@@ -15,8 +15,8 @@ This is a 100% Local Split-Node Stack. Never conflate their roles. You (Claude) 
 
 - **Node A (The Rules Authority / Zero-Tax Rules Engine):**
   - **Hardware:** Remote Server (Acer Nitro 5 / NVIDIA GTX 1050 Ti 4GB).
-  - **Engine:** ZeroClaw (Rust-native binary) + Llama-3.2-3B-Instruct (via `llama.cpp` Vulkan).
-  - **Memory Limits:** Locked to 100% VRAM usage for the model. Rules processing is "Zero-Tax" (<5MB RAM).
+  - **Engine:** ZeroClaw (Rust-native binary) + Llama-3.2-3B-Instruct (via Ollama).
+  - **Memory Limits:** Balanced for 4GB VRAM. Rules processing is "Zero-Tax" (<5MB RAM).
   - **Role:** Handles strict rule processing, deterministic TRPG math, and Hybrid Vector Search (SQLite-Vec + FTS5).
   - **Constraint:** Node A is completely unaware of the project's narrative state. Never instruct Node A to write narrative text.
 

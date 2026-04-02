@@ -26,11 +26,11 @@ This document details the configuration for **Node A**, the secondary Linux-base
    ```
 
 ## 🧠 Step 2: Model Provisioning
-Install the 1-bit optimized rules authority model:
+Install the rules authority model:
 ```bash
-ollama pull hf.co/prism-ml/Bonsai-8B-gguf
+ollama pull llama3.2:3b
 ```
-*Note: This model is specifically quantized for high-speed rules logic on 4GB VRAM hardware.*
+*Note: This model provides the optimal balance of intelligence and performance for the 4GB 1050 Ti.*
 
 ## 🏗️ Step 3: Deploy ZeroClaw (Rust)
 1. **Clone & Navigate:**

@@ -29,8 +29,8 @@ export const ClawLinkRpcRequestSchema = z.object({
 
 export const ClawLinkRpcResponseSchema = z.object({
   id: z.string().min(1),
-  result: z.unknown().optional(),
-  error: z.string().optional(),
+  result: z.unknown().nullish(),
+  error: z.string().nullish(),
 });
 
 export type ClawLinkRpcResponse = z.infer<typeof ClawLinkRpcResponseSchema>;

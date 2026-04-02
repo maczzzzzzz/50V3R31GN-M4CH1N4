@@ -70,6 +70,7 @@ export class ClawLinkClient implements IClawLinkClient {
   private socket: net.Socket | null = null;
   private buffer: string = '';
   private readonly pending = new Map<string, PendingRequest>();
+  private requestQueue: Promise<void> = Promise.resolve();
 
   constructor(config: ClawLinkConfig) {
     const parsed = ClawLinkConfigSchema.safeParse(config);
@@ -94,6 +95,7 @@ export class ClawLinkClient implements IClawLinkClient {
 
       socket.on('connect', () => {
         this.buffer = '';
+        this.requestQueue = Promise.resolve(); // Reset queue on connect
         resolve();
       });
 
@@ -131,6 +133,7 @@ export class ClawLinkClient implements IClawLinkClient {
       this.socket = null;
     }
     this.buffer = '';
+    this.requestQueue = Promise.resolve();
   }
 
   /** Send a ping and return true if zeroclaw responds within timeoutMs. */
@@ -200,16 +203,31 @@ export class ClawLinkClient implements IClawLinkClient {
   /**
    * Write a ClawLinkPacket containing a JSON-RPC request to the socket and await the response.
    * The correlation ID ensures responses are matched to the correct caller.
+   * "The Throttling Queue": Serializes requests to prevent Node A VRAM bandwidth exhaustion.
    */
   private async send<T>(method: string, params: Record<string, unknown>): Promise<T> {
     if (!this.socket || this.socket.destroyed) {
       throw new Error(`${CONTEXT} not connected — call connect() first`);
     }
 
+    // Add this request to the queue
+    return new Promise((resolve, reject) => {
+      this.requestQueue = this.requestQueue.then(async () => {
+        try {
+          const result = await this.dispatchSingleRequest<T>(method, params);
+          resolve(result);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  /** Dispatches a single request frame and waits for the specific ID response. */
+  private async dispatchSingleRequest<T>(method: string, params: Record<string, unknown>): Promise<T> {
     const id = randomUUID();
     const rpcPayload = JSON.stringify({ id, method, params });
     
-    // Calculate simple checksum (sum of char codes) for the payload
     let checksum = 0;
     for (let i = 0; i < rpcPayload.length; i++) {
       checksum = (checksum + rpcPayload.charCodeAt(i)) >>> 0;
@@ -325,7 +343,8 @@ export class ClawLinkClient implements IClawLinkClient {
     clearTimeout(pending.timer);
     this.pending.delete(id);
 
-    if (error !== undefined) {
+    // Only reject if there is a non-null, non-undefined error
+    if (error !== null && error !== undefined) {
       pending.reject(new Error(`${CONTEXT} Node A error [id=${id}]: ${error}`));
     } else {
       pending.resolve(result);

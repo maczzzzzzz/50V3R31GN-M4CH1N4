@@ -200,7 +200,7 @@ export class UnifiedOracleClient {
     const npc = this.db.prepare('SELECT humanity FROM npcs WHERE id = ?').get(actorId) as { humanity: number } | undefined;
     if (!npc) return;
 
-    const newEmp = Math.floor(npc.humanity / 10);
+    const newEmp = Math.max(0, Math.floor(npc.humanity / 10));
     this.db.prepare('UPDATE npcs SET emp = ? WHERE id = ?').run(newEmp, actorId);
   }
 
@@ -249,6 +249,11 @@ export class UnifiedOracleClient {
         const { target, data } = validated;
         const entries = Object.entries(data).filter(([_, v]) => v !== undefined);
         if (entries.length === 0) return;
+
+        // Force lowercase disposition to match CHECK constraint ('friendly', 'neutral', 'hostile')
+        if ('disposition' in data && typeof data.disposition === 'string') {
+          data.disposition = data.disposition.toLowerCase();
+        }
 
         const setClause = entries.map(([k, _]) => `${k} = ?`).join(', ');
         const params: any[] = entries.map(([_, v]) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));

@@ -48,7 +48,7 @@ A dual-pass CV pipeline that grants the AI spatial awareness of the battle map.
 
 ## 🏗️ Technical Architecture
 - **ClawLink (Binary Transport):** Persistent TCP binary sockets with <10ms latency.
-- **Rules Authority (Rust):** High-performance co-processor grounding 1-bit **Bonsai 8B** logic in the Physics Constitution.
+- **Rules Authority (Rust):** High-performance co-processor grounding **Llama 3.2 3B** logic in the Physics Constitution.
 - **Narrative Orchestrator (TypeScript):** Primary controller managing high-speed narrative synthesis (**Mistral-Nemo 12B**) and world heartbeat.
 
 ## ⚡ The Crush CLI
