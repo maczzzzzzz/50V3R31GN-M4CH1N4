@@ -1,7 +1,7 @@
-# ASP.GM-Agent (v0.9.2)
-### High-Fidelity Split-Node TRPG Orchestration
+# ASP.GM-Agent (v1.0.0)
+### The High-Fidelity Split-Node World Engine
 
-ASP.GM-Agent is a high-performance, air-gapped platform designed for the deterministic orchestration of complex tabletop systems. Utilizing a dual-node hardware stack and a Rust-native rules authority, it provides sub-500ms narrative synthesis grounded in real-time map geometry and world-state cellular automata.
+ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. While originally developed for **Cyberpunk RED**, v1.0.0 has evolved into a robust, multi-threaded "World Engine" capable of simulating complex faction dynamics, spatial tactical awareness, and atomic world-state persistence.
 
 ```mermaid
 graph TD
@@ -9,39 +9,53 @@ graph TD
         A[Mistral-Nemo 12B] -->|Narrative| B[Foundry VTT Bridge]
         C[LLava 1.6] -->|Tactical Vision| D[Spatial Fusion Engine]
         E[Crush CLI] -->|Control Plane| A
-        E -->|Scan Command| C
+        E -->|Rules Grep| J[RulesGrepService]
     end
 
     subgraph "Node A: Rules Authority (Ubuntu/Nitro 5)"
-        F[ZeroClaw Rust] -->|Binary RPC| G[Bonsai 8B 1-bit]
-        F -->|CV Pass| H[Geometric Wall Engine]
+        F[ZeroClaw Rust] -->|Swarm RPC| G[Bonsai 8B 1-bit]
+        F -->|Geometric Pass| H[Geometric Wall Engine]
+        F -->|Constitution| K[RED_RULES.md]
     end
 
     B <-->|ClawLink Binary Socket| F
-    D <-->|RKG Queries| I[(SQLite WAL)]
+    D <-->|Atomic Flush| I[(SQLite WAL)]
+    J -->|Context Extract| L[Markdown Rulebooks]
 ```
 
-## ⚡ The Crush CLI: First-Class Control Plane
-The **Crush CLI** is the primary interface for the AI GM. It bypasses traditional UI latency to provide direct, low-level access to the world engine:
-- **`/scan`**: Triggers the Optical Bridge (Playwright + LLava) to ground the AI in map topology.
-- **`/onboard`**: Orchestrates the Fixer Interview pipeline for real-time actor materialization.
-- **`/pulse`**: Manually advances the deterministic world state (faction influence shifts).
+## 🧠 v1.0.0: The High-Fidelity Features
 
-## 🏗️ Hardware Architecture
-- **Node A (Rules Authority):** Dedicated Linux co-processor running **ZeroClaw (Rust)**. It manages mathematical grounding using the 1-bit **Bonsai 8B** model, ensuring 100% adherence to the rules constitution.
-- **Node B (Orchestrator):** Primary rig optimized for **RDNA 4 (Vulkan)**. Manages high-speed narrative synthesis and multi-modal tactical vision.
+### 1. The Swarm Oracle (Task-Isolated Reasoning)
+Refactoring the Rules Oracle from a singular responder into a **Swarm Architecture**. Node A now utilizes `tokio::spawn` to spin up ephemeral "Faction Threads" for concurrent math resolution. 
+- **Faction Isolation:** Prevents "stat-drift" or cross-talk between different combat parties (e.g., Maelstrom vs. NCPD).
+- **Hard Grounding:** Every thread is anchored by the `RED_RULES.md` Physics Constitution before a single token is generated.
 
-## 👁️ Project "Eyes-On"
-The system utilizes a dual-node computer vision pipeline:
-1. **Geometric Pass:** Node A extracts walls and portals via Rust-native Canny/Hough transforms.
-2. **Semantic Pass:** Node B identifies cover, hazards, and security zones using multimodal LLM analysis.
-3. **Spatial Fusion:** Real-time proximity lookups ground the AI's narrative in the map's physical topology.
+### 2. Context Compaction (Search-and-Extract)
+Replaces broad, expensive vector RAG with precision **Streaming Extraction**.
+- **RulesGrepService:** Instead of stuffing entire rulebooks into the LLM context, the `crush` CLI performs a high-speed grep over local Markdown files.
+- **Precision Grounding:** Only the exact table row or rule definition (e.g., "Heavy Pistol DV Chart") is piped into the prompt, ensuring 100% mechanical accuracy with zero context bloat.
 
-## 📁 Repository Structure
-- `/src`: TypeScript Orchestrator & Command Logic.
-- `/zeroclaw`: Rust Rules Authority & Geometric CV.
-- `/foundry-module`: Visual immersion bridge (supports Dice So Nice).
-- `RED_RULES.md`: The Physics Constitution (Rules Invariants).
+### 3. The Flush Gate (Atomic Persistence)
+Implements a transactional barrier in the **Unified Oracle** to ensure world-state integrity under high load.
+- **IMMEDIATE Transactions:** Pulse Engine heartbeats (faction strength shifts, NPC agenda updates) are executed as atomic units.
+- **Crash-Safe Simulation:** The "Flush Gate" ensures the city's state never drifts into an inconsistent or corrupted data-plane.
+
+### 4. Project "Eyes-On" (Multi-Modal Vision)
+A dual-pass CV pipeline that grants the AI spatial awareness of the battle map.
+- **Geometric Pass (Node A):** Rust-native Canny/Hough transforms identify physical walls and portals.
+- **Semantic Pass (Node B):** LLava 1.6 identifies cover types, hazards, and security zones.
+- **Spatial Fusion:** Real-time proximity lookups ground the AI's narrative in the map's topology.
+
+## 🏗️ Technical Architecture
+- **ClawLink (Binary Transport):** Persistent TCP binary sockets with <10ms latency.
+- **Rules Authority (Rust):** High-performance co-processor grounding 1-bit **Bonsai 8B** logic in the Physics Constitution.
+- **Narrative Orchestrator (TypeScript):** Primary controller managing high-speed narrative synthesis (**Mistral-Nemo 12B**) and world heartbeat.
+
+## ⚡ The Crush CLI
+The **Crush CLI** is the system's low-level control plane, providing direct access to the world engine:
+- **`/scan`**: Initialize the dual-pass vision pipeline.
+- **`/pulse`**: Advance the deterministic world state.
+- **`/onboard`**: Orchestrate characterized actor materialization.
 
 ---
-*Cyberpunk RED is a trademark of R. Talsorian Games. This project is a third-party architectural tool.*
+*Cyberpunk RED is a trademark of R. Talsorian Games. This project is an independent architectural toolset.*
