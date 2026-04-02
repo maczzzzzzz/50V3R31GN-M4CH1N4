@@ -18,6 +18,7 @@ import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { RedTradeService } from './red-trade-service.js';
 import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
 import type { SpatialVisionService } from './spatial-vision-service.js';
+import type { SharedMemoryService } from './shared-memory-service.js';
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
 import fs from 'node:fs';
@@ -36,6 +37,7 @@ export interface HybridRoutingControllerOptions {
   readonly chronicler?: IDiscordChroniclerClient | undefined;
   readonly spatialVision?: SpatialVisionService | undefined;
   readonly onboardingEnabled?: boolean | undefined;
+  readonly sharedMemoryService?: SharedMemoryService | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -52,6 +54,7 @@ export class HybridRoutingController {
   private readonly chronicler: IDiscordChroniclerClient | undefined;
   private readonly spatialVision: SpatialVisionService | undefined;
   private readonly onboardingEnabled: boolean;
+  private readonly sharedMemory: SharedMemoryService | undefined;
   
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
@@ -68,6 +71,7 @@ export class HybridRoutingController {
     this.chronicler = options.chronicler;
     this.spatialVision = options.spatialVision;
     this.onboardingEnabled = options.onboardingEnabled ?? false;
+    this.sharedMemory = options.sharedMemoryService;
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -325,6 +329,20 @@ export class HybridRoutingController {
           authRequired: this.unifiedOracle.onAuthorize !== undefined,
         }
       });
+
+      // 5. Write world-state blips to shared memory segment
+      if (this.sharedMemory) {
+        const blips = npcs.map((n: any) => ({
+          id: String(n.id ?? ''),
+          name: String(n.name ?? ''),
+          x: 500,
+          y: 500,
+          hp: Number(n.hp ?? 0),
+          actorType: 0 as const,
+          faction: String(n.faction ?? ''),
+        }));
+        this.sharedMemory.writeWorldState(blips);
+      }
     } catch (err) {
       console.warn('[HRC] Dashboard sync failed:', err);
     }
