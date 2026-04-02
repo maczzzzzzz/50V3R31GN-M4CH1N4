@@ -1,0 +1,16 @@
+[Unit]
+Description=ZeroClaw Rules Oracle (ASP.GM-Agent Node A)
+After=network.target
+
+[Service]
+Type=simple
+User=maczz
+WorkingDirectory=/home/maczz/asp-gm-agent-v0.9.1/zeroclaw
+ExecStart=/home/maczz/asp-gm-agent-v0.9.1/zeroclaw/target/release/zeroclaw
+Restart=always
+RestartSec=5
+StandardOutput=append:/home/maczz/asp-gm-agent-v0.9.1/zeroclaw/zeroclaw.log
+StandardError=append:/home/maczz/asp-gm-agent-v0.9.1/zeroclaw/zeroclaw.log
+
+[Install]
+WantedBy=multi-user.target

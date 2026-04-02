@@ -81,6 +81,7 @@ export interface IFoundryAdapter {
   openNightMarket(actorId: string, vendorName: string, items: MarketItemPayload[]): Promise<void>;
   createActor(payload: CreateActorPayload): Promise<{ actorId: string }>;
   show3dDice(formula: string, result: number, speaker?: { alias: string }): Promise<void>;
+  queryScenes(filter?: string): Promise<{ id: string, name: string, active: boolean }[]>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -252,6 +253,15 @@ export class FoundryAdapter implements IFoundryAdapter {
       requestId: this.generateRequestId(),
       payload: { formula, result, ...(speaker ? { speaker } : {}) },
     });
+  }
+
+  async queryScenes(filter?: string): Promise<{ id: string, name: string, active: boolean }[]> {
+    const data = await this.sendCommand({
+      type: 'query_scenes',
+      requestId: this.generateRequestId(),
+      payload: { filter },
+    });
+    return data as { id: string, name: string, active: boolean }[];
   }
 
   // ── Internal helpers ────────────────────────────────────────────────────────

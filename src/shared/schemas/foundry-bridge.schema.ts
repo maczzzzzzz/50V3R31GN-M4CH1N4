@@ -239,6 +239,12 @@ export const Show3dDiceCommandSchema = z.object({
   payload: Show3dDicePayloadSchema,
 });
 
+/** Query the list of available scenes in the world. */
+export const QueryScenesPayloadSchema = z.object({
+  /** Optional filter by name. */
+  filter: z.string().optional(),
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,
@@ -251,6 +257,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   OpenNightMarketCommandSchema,
   CreateActorCommandSchema,
   Show3dDiceCommandSchema,
+  z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: QueryScenesPayloadSchema }),
 ]);
 
 // ── Response schemas ──────────────────────────────────────────────────────────

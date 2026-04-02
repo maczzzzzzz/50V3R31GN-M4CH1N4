@@ -40,6 +40,7 @@ export interface IClawLinkClient {
   hybridSearch(query: string, namespace: string, topK: number): Promise<ClawLinkSearchResult[]>;
   resolveAttack(dice: number[], stat: number, skill: number, dv: number): Promise<ClawLinkAttackResult>;
   resolveDamage(dice: number[], bonus: number, armourSp: number): Promise<ClawLinkDamageResult>;
+  executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T>;
 }
 
 // ── Internal types ────────────────────────────────────────────────────────────
@@ -184,6 +185,14 @@ export class ClawLinkClient implements IClawLinkClient {
       armour_sp: armourSp,
     });
     return this.validate(raw, ClawLinkDamageResultSchema, 'resolveDamage');
+  }
+
+  /**
+   * Execute a generic RPC call to Node A.
+   * Useful for the Swarm Oracle and specialized rules checks.
+   */
+  async executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T> {
+    return this.send<T>(method, params);
   }
 
   // ── Private helpers ─────────────────────────────────────────────────────────

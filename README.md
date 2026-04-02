@@ -1,4 +1,4 @@
-# ASP.GM-Agent (v1.0.0)
+# ASP.GM-Agent (v1.0.1)
 ### The High-Fidelity Split-Node World Engine
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. While originally developed for **Cyberpunk RED**, v1.0.0 has evolved into a robust, multi-threaded "World Engine" capable of simulating complex faction dynamics, spatial tactical awareness, and atomic world-state persistence.

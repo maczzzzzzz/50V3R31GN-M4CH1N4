@@ -10,13 +10,15 @@
  *   - Node B PUSHES BridgeCommand frames down this established channel.
  *   - This module executes each command and sends back a BridgeResponse frame.
  *
- * Supported Commands (Phase 3 MVP + Phase 5.3):
+ * Supported Commands (Phase 3 MVP + Phase 5.3 + Phase 6):
  *   - chat_message    → ChatMessage.create()
  *   - read_actor      → game.actors.get(id).toObject()
  *   - simple_phone    → ChatMessage with smartphone-widget flags
  *   - dice_roll       → Roll.evaluate()
  *   - scene_activate  → game.scenes.get(id).activate()
- *   - create_actor    → Actor.create() with stat seeding, bio journal, and item attachment
+ *   - create_actor    → Actor.create() with stat seeding and bio notes
+ *   - show_3d_dice    → Visual-only 3D dice trigger (Dice So Nice)
+ *   - query_scenes    → game.scenes.contents discovery
  *
  * Config: module settings → Node B WS URL (default ws://localhost:3010)
  */
@@ -58,8 +60,6 @@ class FoundryApiBridge {
 
     console.log(`[${MODULE_ID}] Connecting to Node B at ${wsUrl} (attempt ${this.reconnectAttempts + 1})`);
 
-    // Foundry v12 server-side context has access to native ws via the global
-    // WebSocket provided by the Node.js runtime (Node 22+ has native WebSocket).
     const ws = new WebSocket(wsUrl);
 
     ws.addEventListener('open', () => {
@@ -111,10 +111,8 @@ class FoundryApiBridge {
       return;
     }
 
-    // Dispatch to the appropriate handler
     this._dispatch(command).catch((err) => {
       console.error(`[${MODULE_ID}] Command '${command.type}' threw uncaught error:`, err);
-      // Ensure we always send a response even on unhandled errors
       this._sendError(command.requestId, err.message ?? String(err));
     });
   }
@@ -141,6 +139,8 @@ class FoundryApiBridge {
         return this._handleCreateActor(command);
       case 'show_3d_dice':
         return this._handleShow3dDice(command);
+      case 'query_scenes':
+        return this._handleQueryScenes(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
@@ -148,20 +148,25 @@ class FoundryApiBridge {
 
   // ── Command handlers ────────────────────────────────────────────────────────
 
+  async _handleQueryScenes({ requestId, payload }) {
+    try {
+      const scenes = game.scenes.contents
+        .filter(s => !payload.filter || s.name.toLowerCase().includes(payload.filter.toLowerCase()))
+        .map(s => ({ id: s.id, name: s.name, active: s.active }));
+      
+      this._sendSuccess(requestId, scenes);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
   async _handleShow3dDice({ requestId, payload }) {
     try {
-      // 1. Create a Roll object but don't evaluate it (we have the result)
       const roll = new Roll(payload.formula);
-      
-      // 2. Set the fixed result from Node A
-      // Note: In Foundry v12, we can inject the total into the roll object
-      // so DsN displays the correct faces.
       roll._total = payload.result;
       roll._evaluated = true;
 
-      // 3. Trigger Dice So Nice (DsN)
       if (game.dice3d) {
-        // showForRoll(roll, user, synchronize, whisper, blind)
         await game.dice3d.showForRoll(roll, game.user, true, null, false);
       } else {
         console.warn(`[${MODULE_ID}] show_3d_dice: Dice So Nice module not found.`);
@@ -205,7 +210,6 @@ class FoundryApiBridge {
 
   async _handleSimplePhone({ requestId, payload }) {
     try {
-      // simple-phone / smartphone-widget flag contract (TttA integration)
       await ChatMessage.create({
         content: payload.body,
         type: CONST.CHAT_MESSAGE_TYPES?.OOC ?? 1,
@@ -264,7 +268,6 @@ class FoundryApiBridge {
 
   async _handleQueueApproval({ requestId, payload }) {
     try {
-      // Create a Foundry Dialog for GM Approval
       const content = `
         <p><strong>Type:</strong> ${payload.type}</p>
         <pre>${JSON.stringify(payload.data, null, 2)}</pre>
@@ -298,8 +301,6 @@ class FoundryApiBridge {
   async _handleOpenNightMarket({ requestId, payload }) {
     try {
       const { actorId, vendorName, items } = payload;
-
-      // Build item grid HTML — close over `items` array to avoid data-attribute encoding
       let itemsHtml = '';
       items.forEach((item, index) => {
         const eagleLabel = item.costEb <= 100
@@ -338,9 +339,6 @@ class FoundryApiBridge {
           <div class="market-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
             ${itemsHtml || '<p style="color:#666; grid-column:1/-1; text-align:center; font-size:0.85em;">No items in stock, choom.</p>'}
           </div>
-          <p style="margin-top:10px; margin-bottom:0; font-size:0.7em; color:#555; text-align:right;">
-            Eagles = Afterlife currency. See Rogue for exchange rates.
-          </p>
         </div>`;
 
       new Dialog({
@@ -366,8 +364,6 @@ class FoundryApiBridge {
               vendor: vendorName,
               actorId,
             });
-
-            // Optimistic UI feedback — disable the button after click
             $(evt.currentTarget).prop('disabled', true).text('...');
           });
         },
@@ -383,11 +379,11 @@ class FoundryApiBridge {
     try {
       const { name, role, stats, bio, seedItems } = payload;
 
-      // ── Step 1: Create the Actor with Cyberpunk RED system stats ─────────────
       const actor = await Actor.create({
         name,
         type: 'character',
         system: {
+          notes: bio || '', 
           role: { value: role },
           stats: {
             int:  { value: stats['INT']  ?? 5 },
@@ -410,25 +406,10 @@ class FoundryApiBridge {
         return;
       }
 
-      // ── Step 2: Write AI-generated bio to an embedded Journal Entry Page ─────
-      if (bio && bio.trim().length > 0) {
-        await actor.createEmbeddedDocuments('JournalEntryPage', [
-          {
-            name: 'Backstory',
-            text: { content: bio },
-          },
-        ]);
-      }
-
-      // ── Step 3: Seed items from world items by name ───────────────────────────
       if (seedItems && seedItems.length > 0) {
         const matchedItems = (game.items ?? []).filter((i) => seedItems.includes(i.name));
         if (matchedItems.length > 0) {
           await actor.createEmbeddedDocuments('Item', matchedItems.map((i) => i.toObject()));
-        }
-        const missing = seedItems.filter((n) => !matchedItems.some((i) => i.name === n));
-        if (missing.length > 0) {
-          console.warn(`[${MODULE_ID}] create_actor: could not find items in world: ${missing.join(', ')}`);
         }
       }
 
@@ -461,12 +442,9 @@ class FoundryApiBridge {
   }
 }
 
-// ── Foundry v12 Module Hooks ──────────────────────────────────────────────────
-
 let bridge = null;
 
 Hooks.once('init', () => {
-  // Register the Node B URL as a world setting (changeable without code edits)
   game.settings.register(MODULE_ID, 'nodeBWsUrl', {
     name: 'Node B WebSocket URL',
     hint: 'WebSocket address of the ASP.GM-Agent Node B FoundryAdapter server.',
@@ -478,19 +456,11 @@ Hooks.once('init', () => {
 });
 
 Hooks.once('ready', () => {
-  // Only the GM client needs to run the bridge
-  if (!game.user?.isGM) {
-    console.log(`[${MODULE_ID}] Non-GM client — bridge not started.`);
-    return;
-  }
-
+  if (!game.user?.isGM) return;
   bridge = new FoundryApiBridge();
   bridge.init();
-
-  console.log(`[${MODULE_ID}] GM bridge initialised.`);
 });
 
-// Clean up on Foundry teardown
 Hooks.once('closeApplication', () => {
   if (bridge) {
     bridge.destroy();
