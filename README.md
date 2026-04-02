@@ -1,33 +1,47 @@
 # ASP.GM-Agent (v0.9.2)
-### The Split-Node TRPG Orchestrator & Living City Engine
+### High-Fidelity Split-Node TRPG Orchestration
 
-ASP.GM-Agent is a next-generation, local-first AI Game Master platform designed for ultra-immersive tabletop orchestration. While originally conceived for **Cyberpunk RED**, it has evolved into a robust, air-gapped tech stack for any d10-based rules system requiring high-fidelity spatial awareness and deterministic world simulation.
+ASP.GM-Agent is a high-performance, air-gapped platform designed for the deterministic orchestration of complex tabletop systems. Utilizing a dual-node hardware stack and a Rust-native rules authority, it provides sub-500ms narrative synthesis grounded in real-time map geometry and world-state cellular automata.
 
-## 🏗️ The Split-Node Architecture
-The system operates across two dedicated hardware nodes to balance cognitive load:
+```mermaid
+graph TD
+    subgraph "Node B: Narrative Orchestrator (Windows/AMD RDNA 4)"
+        A[Mistral-Nemo 12B] -->|Narrative| B[Foundry VTT Bridge]
+        C[LLava 1.6] -->|Tactical Vision| D[Spatial Fusion Engine]
+        E[Crush CLI] -->|Control Plane| A
+        E -->|Scan Command| C
+    end
 
-- **Node A (Rules Authority):** A high-performance Rust-native rules engine (**ZeroClaw**) running on Ubuntu (Nitro 5). Uses **Bonsai 8B (1-bit)** for zero-lag mathematical grounding and geometric map parsing.
-- **Node B (Narrative Orchestrator):** The primary Windows rig (RDNA 4) running **Mistral-Nemo 12B (FP8)** for high-speed storytelling and **LLava 1.6** for semantic tactical vision.
+    subgraph "Node A: Rules Authority (Ubuntu/Nitro 5)"
+        F[ZeroClaw Rust] -->|Binary RPC| G[Bonsai 8B 1-bit]
+        F -->|CV Pass| H[Geometric Wall Engine]
+    end
 
-## ⚡ Key Technologies
-- **ClawLink (Binary Transport):** Persistent TCP binary sockets with <10ms transport latency between nodes.
-- **Project "Eyes-On" (Computer Vision):** A dual-node pipeline combining Rust-native edge detection (Node A) with semantic region identification (Node B LLava) to give the AI "Eyes" on the battle map.
-- **Pulse Engine (Deterministic Simulation):** A world heartbeat powered by recursive SQLite triggers (Chebyshev decay) for faction influence and NPC agenda automation.
-- **Dice So Nice (Immersion):** Visual 3D rolls in Foundry VTT synchronized with Node A's deterministic results.
+    B <-->|ClawLink Binary Socket| F
+    D <-->|RKG Queries| I[(SQLite WAL)]
+```
+
+## ⚡ The Crush CLI: First-Class Control Plane
+The **Crush CLI** is the primary interface for the AI GM. It bypasses traditional UI latency to provide direct, low-level access to the world engine:
+- **`/scan`**: Triggers the Optical Bridge (Playwright + LLava) to ground the AI in map topology.
+- **`/onboard`**: Orchestrates the Fixer Interview pipeline for real-time actor materialization.
+- **`/pulse`**: Manually advances the deterministic world state (faction influence shifts).
+
+## 🏗️ Hardware Architecture
+- **Node A (Rules Authority):** Dedicated Linux co-processor running **ZeroClaw (Rust)**. It manages mathematical grounding using the 1-bit **Bonsai 8B** model, ensuring 100% adherence to the rules constitution.
+- **Node B (Orchestrator):** Primary rig optimized for **RDNA 4 (Vulkan)**. Manages high-speed narrative synthesis and multi-modal tactical vision.
+
+## 👁️ Project "Eyes-On"
+The system utilizes a dual-node computer vision pipeline:
+1. **Geometric Pass:** Node A extracts walls and portals via Rust-native Canny/Hough transforms.
+2. **Semantic Pass:** Node B identifies cover, hazards, and security zones using multimodal LLM analysis.
+3. **Spatial Fusion:** Real-time proximity lookups ground the AI's narrative in the map's physical topology.
 
 ## 📁 Repository Structure
-- `/src`: Node B TypeScript Orchestrator (Ollama, SQLite, Foundry Bridge).
-- `/zeroclaw`: Node A Rust Rules Engine & CV Pipeline.
-- `/foundry-module`: Foundry VTT v12 WebSocket bridge.
-- `/docs`: Technical audits, specs, and setup guides.
-- `/tests`: 237+ TDD-verified test cases (100% baseline stability).
+- `/src`: TypeScript Orchestrator & Command Logic.
+- `/zeroclaw`: Rust Rules Authority & Geometric CV.
+- `/foundry-module`: Visual immersion bridge (supports Dice So Nice).
+- `RED_RULES.md`: The Physics Constitution (Rules Invariants).
 
-## 🚀 Quick Start
-1. **Provision Node A:** Install Rust 1.94+ and Ollama (Bonsai 8B). Build `/zeroclaw`.
-2. **Provision Node B:** Install Node.js 22+, Ollama (Mistral-Nemo & LLava), and SQLite.
-3. **Bridge Foundry:** Install the module in `/foundry-module` and configure the Node B URL.
-4. **Ignite:** Run `npm start` on Node B and `./target/release/zeroclaw` on Node A.
-
-## ⚖️ License
-AIR-GAPPED. LOCAL-FIRST. IMMERSIVE.
+---
 *Cyberpunk RED is a trademark of R. Talsorian Games. This project is a third-party architectural tool.*

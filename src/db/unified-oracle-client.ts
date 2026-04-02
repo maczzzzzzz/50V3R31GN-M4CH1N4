@@ -204,13 +204,46 @@ export class UnifiedOracleClient {
     this.db.prepare('UPDATE npcs SET emp = ? WHERE id = ?').run(newEmp, actorId);
   }
 
-  async executeCommand(command: WorldCommand): Promise<void> {
+  /**
+   * Execute multiple commands within an atomic IMMEDIATE transaction.
+   * "The Flush Gate" pattern: Ensures world state consistency under load.
+   */
+  async executeTransaction(commands: WorldCommand[]): Promise<void> {
     if (!this.db) throw new Error('Database not connected');
 
-    // 1. Validate
+    const start = Date.now();
+    
+    // Using BEGIN IMMEDIATE to prevent deadlocks during high-load Pulse updates
+    const transaction = this.db.transaction((cmds: WorldCommand[]) => {
+      for (const cmd of cmds) {
+        this.applyCommandSync(cmd);
+      }
+    });
+
+    try {
+      transaction(commands);
+      const duration = Date.now() - start;
+      if (duration > 100) {
+        process.stderr.write(`[Oracle] Flush Gate slowdown: ${duration}ms for ${commands.length} commands\n`);
+      }
+    } catch (err) {
+      process.stderr.write(`[Oracle] Transaction failed, rolling back: ${err}\n`);
+      throw err;
+    }
+  }
+
+  async executeCommand(command: WorldCommand): Promise<void> {
+    if (!this.db) throw new Error('Database not connected');
+    this.applyCommandSync(command);
+  }
+
+  /**
+   * Synchronous version of applyCommand for use within transactions.
+   * Enforces Cyberpunk RED coupling rules and reconciliation.
+   */
+  private applyCommandSync(command: WorldCommand): void {
     const validated = WorldCommandSchema.parse(command);
 
-    // 2. Execute
     switch (validated.action) {
       case 'UPDATE_NPC': {
         const { target, data } = validated;
@@ -221,10 +254,8 @@ export class UnifiedOracleClient {
         const params: any[] = entries.map(([_, v]) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));
         params.push(target);
 
-        const sql = `UPDATE npcs SET ${setClause} WHERE id = ?`;
-        this.db.prepare(sql).run(...params);
+        this.db!.prepare(`UPDATE npcs SET ${setClause} WHERE id = ?`).run(...params);
 
-        // 3. Post-Update Hook: Recalculate Empathy if Humanity was updated
         if ('humanity' in data) {
           this.recalculateDerivedStats(target);
         }
@@ -233,24 +264,19 @@ export class UnifiedOracleClient {
 
       case 'ADD_LORE': {
         const { subject, predicate, object } = validated;
-        this.db.prepare(
-          'INSERT INTO triplets (subject_id, predicate, object_literal) VALUES (?, ?, ?)'
-        ).run(subject, predicate, object);
+        this.db!.prepare('INSERT INTO triplets (subject_id, predicate, object_literal) VALUES (?, ?, ?)')
+          .run(subject, predicate, object);
         break;
       }
 
       case 'TRANSFER_ITEM': {
         const { itemId, fromId, toId } = validated;
-        this.db.transaction(() => {
-          // 1. Verify existence and current ownership
-          const item = this.db!.prepare('SELECT owner_id FROM inventory WHERE item_id = ?').get(itemId) as { owner_id: string } | undefined;
-          if (!item || item.owner_id !== fromId) {
-            throw new Error(`Ownership mismatch: Item ${itemId} belongs to ${item?.owner_id ?? 'nobody'}, not ${fromId}.`);
-          }
-          // 2. Atomic transfer
-          this.db!.prepare('UPDATE inventory SET owner_id = ?, is_equipped = 0 WHERE item_id = ?')
-            .run(toId, itemId);
-        })();
+        const item = this.db!.prepare('SELECT owner_id FROM inventory WHERE item_id = ?').get(itemId) as { owner_id: string } | undefined;
+        if (!item || item.owner_id !== fromId) {
+          throw new Error(`Ownership mismatch: Item ${itemId} belongs to ${item?.owner_id ?? 'nobody'}, not ${fromId}.`);
+        }
+        this.db!.prepare('UPDATE inventory SET owner_id = ?, is_equipped = 0 WHERE item_id = ?')
+          .run(toId, itemId);
         break;
       }
     }

@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-04-02
+### Added
+- **The Swarm Oracle**: Refactored Node A (Rust) to handle concurrent, isolated math resolution tasks using `tokio::spawn`.
+- **Rules Constitution**: Implemented `RED_RULES.md` as a global physics invariant injected into the Rules Oracle prompt.
+- **Search-and-Extract Context**: New `RulesGrepService` for precision rulebook lookups, replacing broad vector RAG for mechanical grounding.
+- **The Flush Gate**: Implemented atomic `IMMEDIATE` transactions in the Unified Oracle for crash-safe world-state persistence.
+- **Dice So Nice Sync**: Fully synchronized 3D dice visuals in Foundry VTT for all AI GM rolls.
+
+## [0.9.2] - 2026-04-01
+### Added
+- **Project "Eyes-On" (Phase 6)**: Dual-node computer vision pipeline (Rust geometric pass + TS semantic pass).
+- **Pulse Engine (Deterministic Simulation)**: Recursive SQLite triggers for faction influence propagation.
+- **VRAM Hardening**: Optimized Node B for 32k context window on 16GB hardware.
+- **Binary Transport**: Persistent TCP sockets (ClawLink) replacing legacy HTTP/SSH transport.
+
 ## [0.8.3] - 2026-03-31
 
 ### Added

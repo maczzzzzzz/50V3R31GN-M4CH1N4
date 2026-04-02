@@ -152,4 +152,45 @@ describe('UnifiedOracleClient', () => {
       await expect(client.executeCommand(invalidCommand)).rejects.toThrow();
     });
   });
+
+  describe('executeTransaction', () => {
+    let client: UnifiedOracleClient;
+
+    beforeEach(async () => {
+      client = new UnifiedOracleClient({ worldDbPath, crushDbPath });
+      await client.connect();
+      await client.initSchema();
+      client.execute("INSERT INTO npcs (id, name, hp) VALUES (?, ?, ?)", ['t1', 'NPC 1', 100]);
+    });
+
+    afterEach(async () => {
+      await client.disconnect();
+    });
+
+    it('should successfully execute multiple commands in a transaction', async () => {
+      await client.executeTransaction([
+        { action: 'UPDATE_NPC', target: 't1', data: { hp: 50 } },
+        { action: 'ADD_LORE', subject: 't1', predicate: 'is', object: 'wounded' }
+      ]);
+
+      const [npc] = client.query('SELECT hp FROM npcs WHERE id = ?', ['t1']);
+      const [triplet] = client.query('SELECT object_literal FROM triplets WHERE subject_id = ?', ['t1']);
+      
+      expect(npc.hp).toBe(50);
+      expect(triplet.object_literal).toBe('wounded');
+    });
+
+    it('should rollback all changes if one command fails', async () => {
+      const commands: any[] = [
+        { action: 'UPDATE_NPC', target: 't1', data: { hp: 10 } },
+        { action: 'INVALID_ACTION', data: {} } // This will fail
+      ];
+
+      await expect(client.executeTransaction(commands)).rejects.toThrow();
+
+      // NPC HP should still be 100
+      const [npc] = client.query('SELECT hp FROM npcs WHERE id = ?', ['t1']);
+      expect(npc.hp).toBe(100);
+    });
+  });
 });
