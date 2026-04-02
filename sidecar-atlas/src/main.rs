@@ -145,7 +145,7 @@ impl eframe::App for AtlasApp {
                     painter.rect_stroke(
                         cell_rect,
                         0.0,
-                        Stroke::new(1.0, CYAN_DIM),
+                        Stroke::new(1.0, CYAN),
                         egui::StrokeKind::Middle,
                     );
                 }
