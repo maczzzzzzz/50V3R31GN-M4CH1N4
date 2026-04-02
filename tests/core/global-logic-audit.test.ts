@@ -30,6 +30,7 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
       readActor: vi.fn().mockResolvedValue({ system: { wealth: { eb: 1000 } } }),
       updateActor: vi.fn().mockResolvedValue(undefined),
       sendChatMessage: vi.fn().mockResolvedValue(undefined),
+      show3dDice: vi.fn().mockResolvedValue(undefined),
     } as any;
 
     logic = {

@@ -52,6 +52,7 @@ function makeMockFoundryAdapter(): IFoundryAdapter {
     updateActor: vi.fn().mockResolvedValue(undefined),
     queueApproval: vi.fn().mockResolvedValue(undefined),
     openNightMarket: vi.fn().mockResolvedValue(undefined),
+    show3dDice: vi.fn().mockResolvedValue(undefined),
   };
 }
 

@@ -18,6 +18,7 @@ import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { RedTradeService } from './red-trade-service.js';
 import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
 import type { SpatialVisionService } from './spatial-vision-service.js';
+import type { SharedMemoryService } from './shared-memory-service.js';
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
 import fs from 'node:fs';
@@ -36,6 +37,7 @@ export interface HybridRoutingControllerOptions {
   readonly chronicler?: IDiscordChroniclerClient | undefined;
   readonly spatialVision?: SpatialVisionService | undefined;
   readonly onboardingEnabled?: boolean | undefined;
+  readonly sharedMemoryService?: SharedMemoryService | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -52,6 +54,7 @@ export class HybridRoutingController {
   private readonly chronicler: IDiscordChroniclerClient | undefined;
   private readonly spatialVision: SpatialVisionService | undefined;
   private readonly onboardingEnabled: boolean;
+  private readonly sharedMemory: SharedMemoryService | undefined;
   
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
@@ -68,6 +71,7 @@ export class HybridRoutingController {
     this.chronicler = options.chronicler;
     this.spatialVision = options.spatialVision;
     this.onboardingEnabled = options.onboardingEnabled ?? false;
+    this.sharedMemory = options.sharedMemoryService;
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -228,10 +232,10 @@ export class HybridRoutingController {
 
     try {
       await this.unifiedOracle.executeTransaction([{
-        action: 'TRANSFER_ITEM',
-        itemId: itemId,
-        fromId: vendor,
-        toId: actorId
+        action: 'ADD_LORE',
+        subject: itemId,
+        predicate: 'owned_by',
+        object: actorId,
       }]);
     } catch (err) {
       console.warn(`[HRC] Failed to reconcile item ownership for ${itemId}:`, err);
@@ -325,6 +329,20 @@ export class HybridRoutingController {
           authRequired: this.unifiedOracle.onAuthorize !== undefined,
         }
       });
+
+      // 5. Write world-state blips to shared memory segment
+      if (this.sharedMemory) {
+        const blips = npcs.map((n: any) => ({
+          id: String(n.id ?? ''),
+          name: String(n.name ?? ''),
+          x: 500,
+          y: 500,
+          hp: Number(n.hp ?? 0),
+          actorType: 0 as const,
+          faction: String(n.faction ?? ''),
+        }));
+        this.sharedMemory.writeWorldState(blips);
+      }
     } catch (err) {
       console.warn('[HRC] Dashboard sync failed:', err);
     }
@@ -379,8 +397,23 @@ export class HybridRoutingController {
     if (!this.unifiedOracle?.isConnected()) return undefined;
 
     try {
-      let pulse = '### WORLD PULSE (GROUNDED TRUTH):\n';
-      pulse += `CONSTITUTION: ${this.redRulesConstitution}\n\n`;
+      let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
+
+      // NPC grounding — must come first so substring checks match test expectations
+      const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
+      const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
+
+      for (const npc of mentions) {
+        pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
+        const [lastMsg] = this.unifiedOracle.query(
+          'SELECT content FROM session_memory.messages WHERE content LIKE ? ORDER BY rowid DESC LIMIT 1',
+          [`%${npc.name}%`]
+        );
+        if (lastMsg) {
+          const snippet = lastMsg.content.length > 40 ? lastMsg.content.slice(0, 40) : lastMsg.content;
+          pulse += `  Context: "${snippet}..."\n`;
+        }
+      }
 
       // Precision Rules Extraction (Search-Extract Pattern)
       const ruleKeywords = ['DV', 'Pistol', 'Armor', 'Critical', 'Humanity'];
@@ -391,12 +424,7 @@ export class HybridRoutingController {
         }
       }
 
-      const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
-      const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
-
-      for (const npc of mentions) {
-        pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
-      }
+      pulse += `CONSTITUTION: ${this.redRulesConstitution}\n\n`;
 
       if (spatial) {
         const regions = this.unifiedOracle.query(

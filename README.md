@@ -1,5 +1,5 @@
-# ASP.GM-Agent (v1.0.4)
-### The High-Fidelity Split-Node World Engine
+# ASP.GM-Agent (v1.1.0)
+### The Unified World Engine — Hardware Sovereignty
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a task-isolated Rules Oracle, it provides sub-500ms narrative synthesis grounded in hard-coded physics and real-time map topology.
 
@@ -22,6 +22,25 @@ graph TD
     D <-->|Atomic Flush| I[(SQLite WAL)]
     J -->|Context Extract| L[Markdown Rulebooks]
 ```
+
+## ⚡ v1.1.0: Hardware Sovereignty (Phase 8.3)
+
+### 1. SharedMemoryService — Zero-Latency Data Bridge
+- 4MB `black_ice_state.mem` binary segment bridges Node B world-state to the Rust sidecar
+- `BLACK-ICE-RADAR` header magic + lock-free transaction counter + 64-byte blip records
+- Integrated into `HybridRoutingController.syncDashboard()` — updates on every world event
+
+### 2. Strategic Atlas — Rust egui Radar
+- Standalone `sidecar-atlas` Rust binary reads `black_ice_state.mem` via `memmap2`
+- 10×10 district grid wireframe + NPC/PC blips in Black-Ice Cyan (#00f3ff)
+- 30fps render loop; graceful degradation when Node B is offline
+
+### 3. Crush CLI Lipgloss Refit
+- Pure-Go Charmbracelet Lipgloss terminal interface
+- Reactive ASCII vitality bars with color thresholds (cyan/amber/red)
+- Bordered Terminal Panes for RKG search results; CRT glow via ANSI escapes
+
+---
 
 ## 🧠 v1.0.4: Infrastructure Sovereignty Baseline
 
