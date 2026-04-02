@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-04-02
+### Added
+- **Black-Ice CSS Layer (Phase 8.1)**: Established a new `black-ice` CSS @layer for Foundry VTT v12. Redefined signature Cyberpunk RED palette (Cyan #00f3ff, Deep Void #050505) and applied tactical text glows to character names and headers.
+
+Co-authored-by: Gemini CLI <gemini-cli@google.com>
+Co-authored-by: maczzzzzzz <https://github.com/maczzzzzzz>
+
 ## [1.0.0] - 2026-04-02
 ### Added
 - **The Swarm Oracle**: Refactored Node A (Rust) to handle concurrent, isolated math resolution tasks using `tokio::spawn`.

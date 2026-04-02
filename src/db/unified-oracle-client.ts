@@ -29,6 +29,12 @@ export class UnifiedOracleClient {
   private readonly config: UnifiedOracleConfig;
   private connected = false;
 
+  /**
+   * Authorization Gate Callback.
+   * If provided, executeTransaction will pause and wait for this to resolve.
+   */
+  public onAuthorize?: (commands: WorldCommand[]) => Promise<boolean>;
+
   constructor(config: UnifiedOracleConfig) {
     this.config = config;
   }
@@ -210,6 +216,15 @@ export class UnifiedOracleClient {
    */
   async executeTransaction(commands: WorldCommand[]): Promise<void> {
     if (!this.db) throw new Error('Database not connected');
+
+    // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
+    if (this.onAuthorize) {
+      const authorized = await this.onAuthorize(commands);
+      if (!authorized) {
+        process.stderr.write('[Oracle] Transaction REJECTED by human supervisor.\n');
+        return;
+      }
+    }
 
     const start = Date.now();
     

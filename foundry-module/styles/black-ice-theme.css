@@ -1,0 +1,26 @@
+/*
+ * Black-Ice Theme for Cyberpunk RED Core v0.9.3
+ * Established during Phase 8.1 (Tactical Hardening)
+ * 
+ * Co-authored-by: Gemini CLI <gemini-cli@google.com>
+ * Co-authored-by: maczzzzzzz <https://github.com/maczzzzzzz>
+ */
+
+@layer cpr-theme, black-ice;
+
+@layer black-ice {
+    :root {
+        --cpr-red: #00f3ff;
+        --cpr-red-dark: #00666b;
+        --cpr-bg-black: #050505;
+        --cpr-bg-dark-grey: #0a0a0f;
+    }
+
+    /* Apply Black-Ice Cyan glow to character names and headers */
+    .charname,
+    h1, h2, h3, h4, h5, h6,
+    .header,
+    .header-label {
+        text-shadow: 0 0 5px #00f3ff;
+    }
+}

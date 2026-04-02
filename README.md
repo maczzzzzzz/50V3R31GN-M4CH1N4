@@ -1,5 +1,6 @@
-# ASP.GM-Agent (v1.0.2)
+# ASP.GM-Agent (v1.0.3)
 ### The High-Fidelity Split-Node World Engine
+
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a task-isolated Rules Oracle, it provides sub-500ms narrative synthesis grounded in hard-coded physics and real-time map topology.
 

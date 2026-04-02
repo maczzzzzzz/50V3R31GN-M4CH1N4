@@ -2,7 +2,7 @@
   "id": "foundry-api-bridge",
   "title": "ASP.GM-Agent: Foundry API Bridge",
   "description": "WebSocket bridge module for ASP.GM-Agent. Connects outbound to the Node B orchestrator, enabling bidirectional communication between Foundry VTT v12 and the local AI GM stack.",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -13,6 +13,7 @@
       "url": "https://github.com/maczzzzzzz"
     }
   ],
+  "styles": ["styles/black-ice-theme.css"],
   "esmodules": ["foundry-api-bridge.js"],
   "flags": {
     "foundry-api-bridge": {
