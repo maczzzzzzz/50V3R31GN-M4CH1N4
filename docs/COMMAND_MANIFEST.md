@@ -1,4 +1,4 @@
-# ASP.GM-Agent: User & Developer Command Manifest (v1.0.0)
+# ASP.GM-Agent: User & Developer Command Manifest (v1.0.4)
 
 This document provides a comprehensive list of all control plane commands available via the **Crush CLI**, **MCP Tools**, and the **Foundry VTT Bridge**.
 

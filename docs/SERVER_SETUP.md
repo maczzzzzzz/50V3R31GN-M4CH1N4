@@ -1,5 +1,5 @@
 # Server Setup: Node A (Rules Authority)
-### ASP.GM-Agent v0.9.2 | Node A (Linux) Setup Guide
+### ASP.GM-Agent v1.0.4 | Node A (Linux) Setup Guide
 
 This document details the configuration for **Node A**, the secondary Linux-based rules and geometry authority.
 
@@ -46,14 +46,14 @@ ollama pull llama3.2:3b
 
 ## 🎲 Step 4: Ignition
 ```bash
-nohup ./target/release/zeroclaw > zeroclaw.log 2>&1 &
+sudo systemctl start zeroclaw
 ```
 Verify the server is active:
 ```bash
-tail -f zeroclaw.log
+sudo systemctl status zeroclaw
 ```
-Expected output: `Listening on 0.0.0.0:7878`.
+Expected output: `Active: active (running)`.
 
 ## ⚠️ Stability & Performance
 - **Transport:** ClawLink uses newline-delimited JSON framing over raw TCP. Use `ufw allow 7878/tcp` if the connection from Node B is refused.
-- **Inference:** If math checks are slow, verify Ollama is not offloading to CPU. The 1-bit Bonsai model should fit entirely in the 4GB 1050 Ti buffer.
+- **Inference:** If math checks are slow, verify Ollama is not offloading to CPU. The 3B model fits comfortably in the 4GB 1050 Ti buffer.

@@ -1,6 +1,5 @@
-# ASP.GM-Agent (v1.0.3)
+# ASP.GM-Agent (v1.0.4)
 ### The High-Fidelity Split-Node World Engine
-
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a task-isolated Rules Oracle, it provides sub-500ms narrative synthesis grounded in hard-coded physics and real-time map topology.
 
@@ -19,41 +18,41 @@ graph TD
         F -->|Constitution| K[RED_RULES.md]
     end
 
-    B <|--| ClawLink Binary Socket + Throttling Queue |--> F
+    B <-->|ClawLink Binary Socket + Throttling Queue| F
     D <-->|Atomic Flush| I[(SQLite WAL)]
     J -->|Context Extract| L[Markdown Rulebooks]
 ```
 
-## 🧠 v1.0.2: Production Hardened Baseline
+## 🧠 v1.0.4: Infrastructure Sovereignty Baseline
 
-### 1. Hardware-Optimized Dual-Path
-The system utilizes native hardware languages to maximize performance across tiered nodes:
-- **Node A (CUDA):** NVIDIA-native path for the Rules Authority, ensuring zero-lag mathematical grounding on 4GB hardware.
-- **Node B (Vulkan):** Forced Vulkan path for AMD RDNA 4 (RX 9060 XT) to bypass ROCm discovery hangs and provide rock-solid narrative stability.
+### 1. The 2nd Signature (Human-in-the-Loop)
+Implements Vitalik’s **2-of-2 Authorization Model** for world-state writes. 
+- **The Flush Gate:** Every database commit (NPC updates, faction shifts) now physically pauses and waits for an `ACK` or `ENTER` signature in the **Crush CLI**.
+- **Drift Prevention:** Ensures the AI cannot autonomously mutate the RKG without human sign-off.
 
-### 2. The Swarm Oracle (Task-Isolated Reasoning)
-Refactoring the Rules Oracle into a **Swarm Architecture**. Node A utilizes `tokio::spawn` to spin up ephemeral "Faction Threads" for concurrent math resolution.
-- **Throttling Queue:** Node B serializes requests to Node A to prevent VRAM bandwidth exhaustion, ensuring 100% reliability on consumer hardware.
-- **Hard Grounding:** Every thread is anchored by the `RED_RULES.md` Physics Constitution.
+### 2. The Rules Vault (Nix Hardware Sandbox)
+Node A is now a reproducible hardware vault defined by a **Nix Flake**.
+- **VRAM Recovery:** Headless Nix derivation reclaims **~500MB VRAM** by stripping the OS GUI.
+- **Bubblewrap Jailing:** The Rules Oracle is jailed with `--unshare-net`, physically isolating the AI from the internet while allowing local LAN handshakes.
 
 ### 3. Context Compaction (Search-and-Extract)
 Replaces broad, expensive vector RAG with precision **Streaming Extraction**.
 - **RulesGrepService:** The `crush` CLI performs a high-speed grep over local Markdown files to pull exact table rows (e.g., "Autofire DV Chart").
 - **Zero-Bloat Prompts:** Only the necessary rule snippets are piped into the context, maintaining a pristine 32k context window.
 
-### 4. The Flush Gate (Atomic Persistence)
-Implements a transactional barrier in the **Unified Oracle** to ensure world-state integrity.
-- **IMMEDIATE Transactions:** Faction shifts and NPC updates are executed as atomic units, preventing data drift.
-- **Coupling Rules:** Enforces Cyberpunk RED invariants (e.g., Empathy floors and humanity-derived stat recalculation).
+### 4. Hardware-Optimized Dual-Path
+The system utilizes native hardware languages to maximize performance:
+- **Node A (CUDA):** NVIDIA-native path ensuring zero-lag mathematical grounding on 4GB hardware.
+- **Node B (Vulkan):** Forced Vulkan path for AMD RDNA 4 (RX 9060 XT) to bypass ROCm discovery hangs.
 
 ## 🏗️ Technical Architecture
-- **ClawLink:** Persistent TCP binary sockets with <10ms latency.
+- **ClawLink:** Persistent TCP binary sockets with <10ms latency and serializing **Throttling Queue**.
 - **Rules Engine:** Rust-native ZeroClaw grounding rules in 100% mathematical truth.
-- **Narrative Brain:** Mistral-Nemo 12B optimized with 4-bit KV caching for long-term campaign consistency.
+- **Data Plane:** SQLite WAL-mode with recursive triggers for deterministic world heartbeat.
 
 ## ⚡ The Crush CLI
 The **Crush CLI** is the primary control plane:
-- **`/scan`**: Initialize the dual-pass vision pipeline.
+- **`/scan`**: Initialize the dual-pass vision pipeline (Geometric + Semantic).
 - **`/pulse`**: Advance the deterministic world state.
 - **`/onboard`**: Orchestrate characterized actor materialization.
 

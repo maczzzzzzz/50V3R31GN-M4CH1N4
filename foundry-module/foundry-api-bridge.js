@@ -3,6 +3,8 @@
  *
  * ASP.GM-Agent: Foundry VTT v12 WebSocket Bridge Module
  *
+ * Co-Authored-By: ASP.GM-Agent <gm-agent@black-ice.net>
+ *
  * Architecture (Palantiri-style Reverse Proxy):
  *   - This module runs INSIDE Foundry VTT's server-side Node.js process.
  *   - On init it connects OUTBOUND to the Node B FoundryAdapter WebSocket server.
@@ -34,6 +36,7 @@ class FoundryApiBridge {
     this.reconnectAttempts = 0;
     this.reconnectTimeout = null;
     this.destroyed = false;
+    this.dashboard = null;
   }
 
   // ── Lifecycle ───────────────────────────────────────────────────────────────
@@ -141,12 +144,25 @@ class FoundryApiBridge {
         return this._handleShow3dDice(command);
       case 'query_scenes':
         return this._handleQueryScenes(command);
+      case 'dashboard_sync':
+        return this._handleDashboardSync(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
   }
 
   // ── Command handlers ────────────────────────────────────────────────────────
+
+  async _handleDashboardSync({ requestId, payload }) {
+    try {
+      if (this.dashboard) {
+        this.dashboard.update(payload);
+      }
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
 
   async _handleQueryScenes({ requestId, payload }) {
     try {
@@ -442,6 +458,78 @@ class FoundryApiBridge {
   }
 }
 
+/**
+ * DashboardTab Application
+ * Custom SidebarTab implementation for the Night City Dashboard
+ */
+class DashboardTab extends Application {
+  constructor(options = {}) {
+    super(options);
+    this.data = {
+      hp: 40,
+      maxHp: 40,
+      hum: 60,
+      maxHum: 60,
+      hpBar: '##########',
+      humBar: '##########',
+      cells: Array.from({ length: 100 }, () => ({ color: 'rgba(0, 243, 255, 0.05)' })),
+      actions: [
+        { id: 'scan', label: 'Network Scan' },
+        { id: 'ping', label: 'Bridge Ping' },
+        { id: 'purge', label: 'Trace Purge' }
+      ]
+    };
+  }
+
+  static get defaultOptions() {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      id: "asp-gm-dashboard",
+      template: "modules/foundry-api-bridge/templates/dashboard.hbs",
+      title: "Night City Dashboard",
+      width: 320,
+      height: 600,
+      resizable: true,
+      classes: ["asp-gm-dashboard-app"]
+    });
+  }
+
+  getData() {
+    return this.data;
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    html.find('.terminal-btn').on('click', (evt) => {
+      const action = evt.currentTarget.dataset.action;
+      console.log(`[${MODULE_ID}] Dashboard action triggered: ${action}`);
+      if (bridge) {
+        bridge._sendEvent('dashboard_action', { action });
+      }
+    });
+  }
+
+  update(liveData) {
+    this.data = foundry.utils.mergeObject(this.data, liveData, { inplace: false });
+    
+    // Auto-generate ASCII bars if hp/hum updated but bars not provided
+    if (liveData.hp !== undefined || liveData.maxHp !== undefined) {
+      this.data.hpBar = this._generateAsciiBar(this.data.hp, this.data.maxHp);
+    }
+    if (liveData.hum !== undefined || liveData.maxHum !== undefined) {
+      this.data.humBar = this._generateAsciiBar(this.data.hum, this.data.maxHum);
+    }
+
+    this.render(false);
+  }
+
+  _generateAsciiBar(val, max) {
+    if (!max || max <= 0) return '----------';
+    const percent = Math.max(0, Math.min(1, val / max));
+    const bars = Math.floor(percent * 10);
+    return '#'.repeat(bars) + '-'.repeat(10 - bars);
+  }
+}
+
 let bridge = null;
 
 Hooks.once('init', () => {
@@ -453,12 +541,20 @@ Hooks.once('init', () => {
     type: String,
     default: DEFAULT_WS_URL,
   });
+
+  // Register the DashboardTab class
+  if (CONFIG.ui.sidebarTabs) {
+    CONFIG.ui.sidebarTabs["asp-gm-dashboard"] = DashboardTab;
+  }
 });
 
 Hooks.once('ready', () => {
   if (!game.user?.isGM) return;
   bridge = new FoundryApiBridge();
   bridge.init();
+
+  // Instantiate Dashboard for GM
+  bridge.dashboard = new DashboardTab();
 });
 
 Hooks.once('closeApplication', () => {

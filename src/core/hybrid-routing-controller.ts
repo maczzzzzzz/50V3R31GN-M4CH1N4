@@ -183,8 +183,10 @@ export class HybridRoutingController {
     }
 
     this.evaluateStoryEvent({ type: 'resolve_attack', result });
+    await this.syncDashboard();
     return result;
-  }
+    }
+
 
   private async handleCalculateDv(payload: CalculateDvParams, spatial?: { sceneId: string, x: number, y: number }): Promise<DvResult> {
     const result = await this.nitroLogic.calculateDv(payload);
@@ -242,6 +244,7 @@ export class HybridRoutingController {
       `You purchased an item from ${vendor} for ${costEb}eb.`,
     );
     this.evaluateStoryEvent({ type: 'buy_item', payload });
+    await this.syncDashboard();
   }
 
   private async handleRedTradeTransit(payload: RedTradeTransitEvent['payload']): Promise<FrictionRollResult> {
@@ -253,6 +256,7 @@ export class HybridRoutingController {
     };
     await this.foundry.sendChatMessage(messages[result.outcome] || `🌆 *Streets of Night City:* ${result.outcome}`, { alias: 'Friction Engine' });
     this.evaluateStoryEvent({ type: 'red_trade_transit', payload });
+    await this.syncDashboard();
     return result;
   }
 
@@ -265,6 +269,64 @@ export class HybridRoutingController {
     const result = this.storyEngine.evaluateEvent(event);
     if (result.transitioned) {
       this.foundry.sendChatMessage(`**Story Advance** — Transitioned from *${result.oldBeat}* to *${result.newBeat}*.`, { alias: 'Story Engine' }).catch(() => {});
+    }
+  }
+
+  // ── Dashboard Sync Engine ───────────────────────────────────────────────────
+
+  /**
+   * Aggregates the latest world-state from the Oracle and pushes it
+   * to the Night City Dashboard sidebar in Foundry.
+   */
+  private async syncDashboard(): Promise<void> {
+    try {
+      // 1. Fetch NPC stats for the Bio-Monitor
+      const npcs = this.unifiedOracle.query(
+        'SELECT id, name, hp, sp, humanity, disposition FROM npcs LIMIT 10', 
+        []
+      );
+
+      // 2. Fetch Faction influence for the Pulse Grid
+      const factionData = this.unifiedOracle.query(
+        'SELECT name, relationship_score FROM factions',
+        []
+      );
+      const gridData = this.unifiedOracle.query(
+        'SELECT SUM(strength) as total_strength, faction_name FROM district_grid GROUP BY faction_name',
+        []
+      );
+
+      const factions = factionData.map(f => {
+        const grid = gridData.find(g => g.faction_name === f.name);
+        return {
+          name: f.name,
+          relationship: f.relationship_score,
+          strength: grid?.total_strength ?? 0
+        };
+      });
+
+      // 3. Check System Status
+      const nodeAHealthy = await this.nitroLogic.isHealthy().catch(() => false);
+
+      // 4. Push to Foundry
+      await this.foundry.pushDashboardUpdate({
+        actors: npcs.map((n: any) => ({
+          id: n.id,
+          name: n.name,
+          hp: n.hp,
+          sp: n.sp,
+          humanity: n.humanity,
+          disposition: n.disposition as 'friendly' | 'neutral' | 'hostile',
+        })),
+        factions,
+        systemStatus: {
+          nodeA: nodeAHealthy,
+          pulseActive: true,
+          authRequired: this.unifiedOracle.onAuthorize !== undefined,
+        }
+      });
+    } catch (err) {
+      console.warn('[HRC] Dashboard sync failed:', err);
     }
   }
 

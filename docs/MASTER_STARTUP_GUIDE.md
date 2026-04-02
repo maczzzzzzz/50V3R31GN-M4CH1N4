@@ -1,7 +1,7 @@
-# Master Startup Guide: ASP.GM-Agent (v0.9.2)
+# Master Startup Guide: ASP.GM-Agent (v1.0.4)
 ### Hardened Split-Node Initialization
 
-This document provides the high-fidelity operational sequence for igniting the **Split-Node v0.9.2** TRPG infrastructure.
+This document provides the high-fidelity operational sequence for igniting the **Split-Node v1.0.4** TRPG infrastructure.
 
 ---
 
@@ -12,10 +12,10 @@ This document provides the high-fidelity operational sequence for igniting the *
 ## 🚀 Step 1: Initialize Node A (ZeroClaw)
 1. **Connect via SSH:** `ssh <user>@192.168.0.50`
 2. **Environment:** Ensure Rust 1.94+ and Ollama 0.19.0 are installed.
-3. **Model:** `ollama pull hf.co/prism-ml/Bonsai-8B-gguf` (1-bit optimization).
+3. **Model:** `ollama pull llama3.2:3b` (Optimized for 4GB VRAM).
 4. **Build:** `cd zeroclaw && cargo build --release`.
-5. **Ignite:** `nohup ./target/release/zeroclaw > zeroclaw.log 2>&1 &`.
-   - *Verify: ZeroClaw should be listening on 0.0.0.0:7878.*
+5. **Ignite:** `sudo systemctl start zeroclaw`.
+   - *Verify: `systemctl status zeroclaw` should be active (running).*
 
 ## 🚀 Step 2: Initialize Node B (The Orchestrator)
 1. **Environment:** Ensure Node.js 22.0+ is installed.
@@ -29,7 +29,7 @@ This document provides the high-fidelity operational sequence for igniting the *
 ## 🚀 Step 3: Bridge Foundry VTT (Project Eyes-On)
 1. **Install Module:** Copy `/foundry-module` to your Foundry data directory.
 2. **Configure Settings:** Navigate to Module Settings → Node B WebSocket URL (Default: `ws://localhost:3010`).
-3. **Verify Link:** Check Foundry chat for: `🟢 Link Established — ASP.GM-Agent Orchestrator (v0.9.2) is now online.`
+3. **Verify Link:** Check Foundry chat for: `🟢 Link Established — ASP.GM-Agent Orchestrator (v1.0.4) is now online.`
 
 ## 🎲 Step 4: Quality of Life (Dice So Nice)
 1. **Enable DsN:** Ensure the **Dice So Nice** module is active in Foundry.

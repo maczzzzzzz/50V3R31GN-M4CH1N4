@@ -82,6 +82,7 @@ export interface IFoundryAdapter {
   createActor(payload: CreateActorPayload): Promise<{ actorId: string }>;
   show3dDice(formula: string, result: number, speaker?: { alias: string }): Promise<void>;
   queryScenes(filter?: string): Promise<{ id: string, name: string, active: boolean }[]>;
+  pushDashboardUpdate(payload: z.infer<typeof import('../shared/schemas/foundry-bridge.schema.js').DashboardSyncPayloadSchema>): Promise<void>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -262,6 +263,14 @@ export class FoundryAdapter implements IFoundryAdapter {
       payload: { filter },
     });
     return data as { id: string, name: string, active: boolean }[];
+  }
+
+  async pushDashboardUpdate(payload: z.infer<typeof import('../shared/schemas/foundry-bridge.schema.js').DashboardSyncPayloadSchema>): Promise<void> {
+    await this.sendCommand({
+      type: 'dashboard_sync',
+      requestId: this.generateRequestId(),
+      payload,
+    });
   }
 
   // ── Internal helpers ────────────────────────────────────────────────────────

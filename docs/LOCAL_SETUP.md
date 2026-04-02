@@ -1,5 +1,5 @@
 # Local Setup: Node B (Windows Orchestrator)
-### ASP.GM-Agent v0.9.2 | Node B Setup Guide
+### ASP.GM-Agent v1.0.4 | Node B Setup Guide
 
 This document details the configuration for **Node B**, the primary Windows-based narrative and vision orchestrator.
 
