@@ -48,6 +48,15 @@ export class RedTradeService {
     return FrictionRollResultSchema.parse({ roll, friction: currentFriction, total, outcome });
   }
 
+  /**
+   * Orchestrates a full friction roll by looking up faction state from the oracle.
+   * This is the entry point for the Pulse Engine.
+   */
+  async calculateFrictionRoll(factionName: string, oracle: { getFactionFriction(name: string): Promise<number> }): Promise<FrictionRollResult> {
+    const friction = await oracle.getFactionFriction(factionName);
+    return this.rollFriction(friction);
+  }
+
   generateCargo(category?: CargoCategory): RedTradeCargo {
     const items = this.loadItems();
     const selectedCategory = category ?? ALL_CATEGORIES[Math.floor(Math.random() * ALL_CATEGORIES.length)];

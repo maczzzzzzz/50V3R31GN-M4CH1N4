@@ -1,6 +1,6 @@
 {
   "name": "asp-gm-agent",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "AI-powered GM assistant for Cyberpunk RED on Foundry VTT v12",
   "type": "module",
   "contributors": [
@@ -28,23 +28,21 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^22.0.0",
-    "@types/pdf-parse": "^1.1.5",
-    "@types/ssh2": "^1.15.5",
-    "@types/ws": "^8.5.0",
-    "tsx": "^4.0.0",
-    "typescript": "~5.8.0",
-    "vitest": "^3.0.0"
+    "@types/better-sqlite3": "7.6.13",
+    "@types/node": "22.19.15",
+    "@types/pdf-parse": "1.1.5",
+    "@types/ws": "8.18.1",
+    "tsx": "4.21.0",
+    "typescript": "5.8.3",
+    "vitest": "3.2.4"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "better-sqlite3": "^12.8.0",
-    "dotenv": "^17.3.1",
-    "pdf-parse": "^2.4.5",
-    "playwright-core": "^1.50.0",
-    "ssh2": "^1.17.0",
-    "ws": "^8.18.0",
-    "zod": "^3.24.0"
+    "@modelcontextprotocol/sdk": "1.28.0",
+    "better-sqlite3": "12.8.0",
+    "dotenv": "17.3.1",
+    "pdf-parse": "2.4.5",
+    "playwright-core": "1.58.2",
+    "ws": "8.20.0",
+    "zod": "3.25.76"
   }
 }

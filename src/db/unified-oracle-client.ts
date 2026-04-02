@@ -161,6 +161,16 @@ export class UnifiedOracleClient {
   }
 
   /**
+   * Retrieves the current friction pool for a specific faction.
+   * Defaults to 0 if the faction is not tracked or has no data.
+   */
+  async getFactionFriction(factionName: string): Promise<number> {
+    if (!this.db) throw new Error('Database not connected');
+    const row = this.db.prepare('SELECT friction_pool FROM factions WHERE name = ?').get(factionName) as { friction_pool: number } | undefined;
+    return row?.friction_pool ?? 0;
+  }
+
+  /**
    * Enforces Cyberpunk RED coupling rules (e.g. EMP = floor(Humanity/10)).
    * Automatically called after NPC state mutations.
    */

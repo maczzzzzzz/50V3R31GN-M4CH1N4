@@ -1,0 +1,1 @@
+D:\asp-gm-agent\zeroclaw\target\debug\zeroclaw.exe: D:\asp-gm-agent\zeroclaw\src\lib.rs D:\asp-gm-agent\zeroclaw\src\main.rs D:\asp-gm-agent\zeroclaw\src\rules\bonsai_oracle.rs D:\asp-gm-agent\zeroclaw\src\rules\mod.rs D:\asp-gm-agent\zeroclaw\src\server\clawlink.rs D:\asp-gm-agent\zeroclaw\src\server\mod.rs
