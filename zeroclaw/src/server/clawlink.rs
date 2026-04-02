@@ -105,12 +105,12 @@ pub async fn handle_connection(socket: TcpStream) {
 
                     let response = match rpc_result {
                         Ok(val) => RpcResponse {
-                            id: request.id,
+                            id: request.id.clone(),
                             result: Some(val),
                             error: None,
                         },
                         Err(e) => RpcResponse {
-                            id: request.id,
+                            id: request.id.clone(),
                             result: None,
                             error: Some(e.to_string()),
                         },

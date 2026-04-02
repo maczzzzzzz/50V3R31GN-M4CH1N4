@@ -43,6 +43,7 @@ async function runAudit() {
   const clawlink = new ClawLinkClient({
     host: process.env.NODE_A_HOST || '192.168.0.50',
     port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
+    timeoutMs: 30000,
   });
   
   console.log('🧪 Testing Binary Bridge & Swarm Oracle...');
