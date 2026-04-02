@@ -213,6 +213,10 @@ export class ClawLinkClient implements IClawLinkClient {
     // Add this request to the queue
     return new Promise((resolve, reject) => {
       this.requestQueue = this.requestQueue.then(async () => {
+        if (!this.socket || this.socket.destroyed) {
+          reject(new Error(`${CONTEXT} disconnected with pending request`));
+          return;
+        }
         try {
           const result = await this.dispatchSingleRequest<T>(method, params);
           resolve(result);

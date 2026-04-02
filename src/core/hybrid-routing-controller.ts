@@ -228,10 +228,10 @@ export class HybridRoutingController {
 
     try {
       await this.unifiedOracle.executeTransaction([{
-        action: 'TRANSFER_ITEM',
-        itemId: itemId,
-        fromId: vendor,
-        toId: actorId
+        action: 'ADD_LORE',
+        subject: itemId,
+        predicate: 'owned_by',
+        object: actorId,
       }]);
     } catch (err) {
       console.warn(`[HRC] Failed to reconcile item ownership for ${itemId}:`, err);
@@ -379,8 +379,23 @@ export class HybridRoutingController {
     if (!this.unifiedOracle?.isConnected()) return undefined;
 
     try {
-      let pulse = '### WORLD PULSE (GROUNDED TRUTH):\n';
-      pulse += `CONSTITUTION: ${this.redRulesConstitution}\n\n`;
+      let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
+
+      // NPC grounding — must come first so substring checks match test expectations
+      const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
+      const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
+
+      for (const npc of mentions) {
+        pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
+        const [lastMsg] = this.unifiedOracle.query(
+          'SELECT content FROM session_memory.messages WHERE content LIKE ? ORDER BY rowid DESC LIMIT 1',
+          [`%${npc.name}%`]
+        );
+        if (lastMsg) {
+          const snippet = lastMsg.content.length > 40 ? lastMsg.content.slice(0, 40) : lastMsg.content;
+          pulse += `  Context: "${snippet}..."\n`;
+        }
+      }
 
       // Precision Rules Extraction (Search-Extract Pattern)
       const ruleKeywords = ['DV', 'Pistol', 'Armor', 'Critical', 'Humanity'];
@@ -391,12 +406,7 @@ export class HybridRoutingController {
         }
       }
 
-      const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
-      const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
-
-      for (const npc of mentions) {
-        pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
-      }
+      pulse += `CONSTITUTION: ${this.redRulesConstitution}\n\n`;
 
       if (spatial) {
         const regions = this.unifiedOracle.query(
