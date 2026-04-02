@@ -150,7 +150,7 @@ async fn process_rpc(client: &Client, method: String, params: serde_json::Value)
             let rules = get_red_rules();
             let prompt = build_math_prompt(rules, &params);
             let ollama_req = OllamaGenerateRequest {
-                model: "hf.co/prism-ml/Bonsai-8B-gguf".to_string(),
+                model: "hf.co/prism-ml/Bonsai-8B-gguf:latest".to_string(),
                 prompt,
                 stream: false,
             };
