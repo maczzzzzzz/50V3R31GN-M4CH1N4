@@ -91,6 +91,18 @@ export const DiceRollPayloadSchema = z.object({
 });
 
 /**
+ * Visual-only 3D dice trigger for immersion.
+ * Uses Dice So Nice API to show a roll matching Node A's result.
+ */
+export const Show3dDicePayloadSchema = z.object({
+  formula: z.string().min(1),
+  /** The pre-calculated result from Node A to display visually. */
+  result: z.number().int(),
+  /** Optional speaker for the roll sound/effects. */
+  speaker: z.object({ alias: z.string() }).optional(),
+});
+
+/**
  * Activate a Foundry scene (equivalent to game.scenes.get(id).activate()).
  */
 export const SceneActivatePayloadSchema = z.object({
@@ -221,6 +233,12 @@ export const CreateActorCommandSchema = z.object({
   payload: CreateActorPayloadSchema,
 });
 
+export const Show3dDiceCommandSchema = z.object({
+  type: z.literal('show_3d_dice'),
+  requestId: RequestIdSchema,
+  payload: Show3dDicePayloadSchema,
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,
@@ -232,6 +250,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   QueueApprovalCommandSchema,
   OpenNightMarketCommandSchema,
   CreateActorCommandSchema,
+  Show3dDiceCommandSchema,
 ]);
 
 // ── Response schemas ──────────────────────────────────────────────────────────
@@ -259,6 +278,14 @@ export const BridgeResponseSchema = z.discriminatedUnion('type', [
 // These are events that the Foundry client pushes UP to Node B (e.g. player
 // action triggers). Node B's HybridRoutingController handles these.
 
+export const SpatialContextSchema = z.object({
+  sceneId: z.string().min(1),
+  /** Normalized X coordinate (0-1000). */
+  x: z.number().min(0).max(1000),
+  /** Normalized Y coordinate (0-1000). */
+  y: z.number().min(0).max(1000),
+});
+
 export const ResolveAttackEventSchema = z.object({
   type: z.literal('resolve_attack'),
   payload: z.object({
@@ -272,6 +299,8 @@ export const ResolveAttackEventSchema = z.object({
     defenderSP: z.number().int().min(0),
     rangeBand: z.enum(['melee', 'close', 'medium', 'long', 'extreme']),
     modifiers: z.number().int().default(0),
+    /** Optional spatial context for narrative grounding. */
+    spatial: SpatialContextSchema.optional(),
   }),
 });
 
@@ -284,6 +313,7 @@ export const CalculateDvEventSchema = z.object({
     rangeBand: z.enum(['melee', 'close', 'medium', 'long', 'extreme']).optional(),
     situationalModifiers: z.number().int().default(0),
     targetDifficulty: z.enum(['everyday', 'difficult', 'professional', 'heroic', 'superheroic', 'legendary']).default('professional'),
+    spatial: SpatialContextSchema.optional(),
   }),
 });
 
@@ -294,6 +324,7 @@ export const OracleRollEventSchema = z.object({
     context: z.string().optional(),
     applyLuck: z.boolean().default(false),
     luckPoints: z.number().int().min(0).max(10).default(0),
+    spatial: SpatialContextSchema.optional(),
   }),
 });
 

@@ -139,12 +139,39 @@ class FoundryApiBridge {
         return this._handleOpenNightMarket(command);
       case 'create_actor':
         return this._handleCreateActor(command);
+      case 'show_3d_dice':
+        return this._handleShow3dDice(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
   }
 
   // ── Command handlers ────────────────────────────────────────────────────────
+
+  async _handleShow3dDice({ requestId, payload }) {
+    try {
+      // 1. Create a Roll object but don't evaluate it (we have the result)
+      const roll = new Roll(payload.formula);
+      
+      // 2. Set the fixed result from Node A
+      // Note: In Foundry v12, we can inject the total into the roll object
+      // so DsN displays the correct faces.
+      roll._total = payload.result;
+      roll._evaluated = true;
+
+      // 3. Trigger Dice So Nice (DsN)
+      if (game.dice3d) {
+        // showForRoll(roll, user, synchronize, whisper, blind)
+        await game.dice3d.showForRoll(roll, game.user, true, null, false);
+      } else {
+        console.warn(`[${MODULE_ID}] show_3d_dice: Dice So Nice module not found.`);
+      }
+
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
 
   async _handleChatMessage({ requestId, payload }) {
     try {

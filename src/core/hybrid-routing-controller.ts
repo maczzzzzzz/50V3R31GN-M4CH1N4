@@ -92,7 +92,7 @@ export class HybridRoutingController {
   async handleFoundryEvent(event: FoundryEvent): Promise<unknown> {
     switch (event.type) {
       case 'resolve_attack':
-        return this.handleResolveAttack(event.payload);
+        return this.handleResolveAttack(event.payload, event.payload.spatial);
       case 'calculate_dv': {
         const p = event.payload;
         return this.handleCalculateDv({
@@ -102,7 +102,7 @@ export class HybridRoutingController {
           ...(p.rangeBand !== undefined ? { rangeBand: p.rangeBand } : {}),
           situationalModifiers: p.situationalModifiers,
           targetDifficulty: p.targetDifficulty,
-        });
+        }, p.spatial);
       }
       case 'oracle_roll': {
         const p = event.payload;
@@ -111,7 +111,7 @@ export class HybridRoutingController {
           ...(p.context !== undefined ? { context: p.context } : {}),
           applyLuck: p.applyLuck,
           luckPoints: p.luckPoints,
-        });
+        }, p.spatial);
       }
       case 'read_actor':
         return this.foundry.readActor(event.payload.actorId);
@@ -137,9 +137,13 @@ export class HybridRoutingController {
 
   // ── resolve_attack ──────────────────────────────────────────────────────────
 
-  private async handleResolveAttack(payload: ResolveAttackParams): Promise<AttackResult> {
+  private async handleResolveAttack(payload: ResolveAttackParams, spatial?: { sceneId: string, x: number, y: number }): Promise<AttackResult> {
     // Node A: deterministic math
     const result = await this.nitroLogic.resolveAttack(payload);
+
+    // ── Immersion: Show 3D Dice (Foundry UI) ─────────────────────────────────
+    // We show a 1d10 for the attack roll result
+    await this.foundry.show3dDice('1d10', result.rollTotal);
 
     // Node B: narrative synthesis (non-fatal if Ollama is down)
     const context = `hit=${result.hit}, rollTotal=${result.rollTotal}, dvTarget=${result.dvTarget}, rawDamage=${result.rawDamage}, netDamage=${result.netDamage}, criticalInjury=${result.criticalInjury}`;
@@ -147,6 +151,7 @@ export class HybridRoutingController {
       'Narrate the outcome of this Cyberpunk RED attack roll in 2-3 sentences.',
       context,
       this.formatAttackFallback(result),
+      spatial,
     );
 
     // ── State Reconciliation Hook ────────────────────────────────────────────
@@ -175,7 +180,7 @@ export class HybridRoutingController {
 
   // ── calculate_dv ────────────────────────────────────────────────────────────
 
-  private async handleCalculateDv(payload: CalculateDvParams): Promise<DvResult> {
+  private async handleCalculateDv(payload: CalculateDvParams, spatial?: { sceneId: string, x: number, y: number }): Promise<DvResult> {
     const result = await this.nitroLogic.calculateDv(payload);
 
     const summary = `**DV Calculation** — Target DV: **${result.dv}**\n${result.breakdown}`;
@@ -186,8 +191,12 @@ export class HybridRoutingController {
 
   // ── oracle_roll ─────────────────────────────────────────────────────────────
 
-  private async handleOracleRoll(payload: OracleRollParams): Promise<OracleResult> {
+  private async handleOracleRoll(payload: OracleRollParams, spatial?: { sceneId: string, x: number, y: number }): Promise<OracleResult> {
     const result = await this.nitroLogic.oracleRoll(payload);
+
+    // ── Immersion: Show 3D Dice (Foundry UI) ─────────────────────────────────
+    // We show a 1d10 for the oracle roll result
+    await this.foundry.show3dDice('1d10', result.result);
 
     const label = result.isCriticalSuccess
       ? '🎲 **CRITICAL SUCCESS**'
@@ -453,11 +462,11 @@ export class HybridRoutingController {
    * Falls back to a plain-text summary on OllamaClient failure.
    * Never throws — Immersion Mandate: Foundry chat must always receive something.
    */
-  private async pushNarrativeOrFallback(prompt: string, context: string, fallback: string): Promise<void> {
+  private async pushNarrativeOrFallback(prompt: string, context: string, fallback: string, spatial?: { sceneId: string, x: number, y: number }): Promise<void> {
     let narrative: string;
     try {
       // ── Step 1: World Pulse Grounding ──────────────────────────────────────
-      const systemContext = await this.applyWorldPulseGrounding(prompt + ' ' + context);
+      const systemContext = await this.applyWorldPulseGrounding(prompt + ' ' + context, spatial);
 
       narrative = await this.ollama.generateNarrative(prompt, context, systemContext);
     } catch {
@@ -469,33 +478,56 @@ export class HybridRoutingController {
   /**
    * Scours the prompt for NPC/Location mentions and fetches their current
    * state from the Unified Oracle (RKG) + recent history from Crush.
+   * Also fetches tactical regions within proximity if spatial context is provided.
    */
-  private async applyWorldPulseGrounding(input: string): Promise<string | undefined> {
+  private async applyWorldPulseGrounding(input: string, spatial?: { sceneId: string, x: number, y: number }): Promise<string | undefined> {
     if (!this.unifiedOracle?.isConnected()) return undefined;
 
     try {
-      // 1. Fetch all NPCs to check for mentions
+      let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
+      let hasGrounding = false;
+
+      // 1. NPC Mentions Grounding
       const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
       const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
 
-      if (mentions.length === 0) return undefined;
-
-      // 2. Format World Pulse block
-      let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
-      for (const npc of mentions) {
-        pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
-        
-        // 3. Fetch recent history from attached crush.db
-        const history = this.unifiedOracle.query(
-          'SELECT content FROM session_memory.messages WHERE content LIKE ? ORDER BY id DESC LIMIT 2',
-          [`%${npc.name}%`]
-        );
-        if (history.length > 0) {
-          pulse += `  Last seen: "${history[0].content.substring(0, 100)}..."\n`;
+      if (mentions.length > 0) {
+        hasGrounding = true;
+        for (const npc of mentions) {
+          pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
+          
+          const history = this.unifiedOracle.query(
+            'SELECT content FROM session_memory.messages WHERE content LIKE ? ORDER BY id DESC LIMIT 1',
+            [`%${npc.name}%`]
+          );
+          if (history.length > 0) {
+            pulse += `  Context: "${history[0].content.substring(0, 100)}..."\n`;
+          }
         }
       }
 
-      return pulse;
+      // 2. Spatial Tactical Grounding (Phase 6)
+      if (spatial) {
+        // Query regions in the current scene. 
+        // Note: Distance check uses normalized 0-1000 coordinates. 10% radius = 100 units.
+        const regions = this.unifiedOracle.query(
+          `SELECT category, label FROM scene_regions 
+           WHERE scene_id = ? 
+           AND (ABS(json_extract(bounds_json, '$[1]') + json_extract(bounds_json, '$[3]'))/2 - ?) < 100
+           AND (ABS(json_extract(bounds_json, '$[0]') + json_extract(bounds_json, '$[2]'))/2 - ?) < 100`,
+          [spatial.sceneId, spatial.x, spatial.y]
+        );
+
+        if (regions.length > 0) {
+          hasGrounding = true;
+          pulse += 'TACTICAL REGIONS IN PROXIMITY:\n';
+          for (const reg of regions) {
+            pulse += `- ${reg.label} (${reg.category.replace('_', ' ')})\n`;
+          }
+        }
+      }
+
+      return hasGrounding ? pulse : undefined;
     } catch (err) {
       console.warn('World Pulse grounding failed:', err);
       return undefined;

@@ -1,73 +1,33 @@
-# ASP.GM-Agent (Project Black-Ice)
-**Version:** 0.9.0 (Phase 6 In-Progress)
-**Target:** Cyberpunk RED | Foundry VTT v12 | local-only
+# ASP.GM-Agent (v0.9.2)
+### The Split-Node TRPG Orchestrator & Living City Engine
 
-An industrial-grade, local-first Game Master orchestration suite for Cyberpunk RED. 
+ASP.GM-Agent is a next-generation, local-first AI Game Master platform designed for ultra-immersive tabletop orchestration. While originally conceived for **Cyberpunk RED**, it has evolved into a robust, air-gapped tech stack for any d10-based rules system requiring high-fidelity spatial awareness and deterministic world simulation.
 
-ASP.GM-Agent v0.9.0 moves away from traditional container overhead (Docker/PostgreSQL) in favor of a **Distributed Edge-Compute** architecture. It leverages a dual-node hardware cluster to maintain sub-10ms response times, total narrative grounding, and 100% air-gapped integrity.
+## 🏗️ The Split-Node Architecture
+The system operates across two dedicated hardware nodes to balance cognitive load:
 
-## 🏗️ System Architecture: The Split-Node Stack
+- **Node A (Rules Authority):** A high-performance Rust-native rules engine (**ZeroClaw**) running on Ubuntu (Nitro 5). Uses **Bonsai 8B (1-bit)** for zero-lag mathematical grounding and geometric map parsing.
+- **Node B (Narrative Orchestrator):** The primary Windows rig (RDNA 4) running **Mistral-Nemo 12B (FP8)** for high-speed storytelling and **LLava 1.6** for semantic tactical vision.
 
-```mermaid
-graph TD
-    subgraph Node_B [Node B: Orchestrator - Main Rig]
-        A[Mistral-Nemo 12B] <--> B[Narrative Brain]
-        B <--> C[(Unified SQLite Data Plane)]
-        C --- D[world.db - RKG]
-        C --- E[crush.db - Memory]
-        B <--> F[Foundry VTT v12]
-    end
+## ⚡ Key Technologies
+- **ClawLink (Binary Transport):** Persistent TCP binary sockets with <10ms transport latency between nodes.
+- **Project "Eyes-On" (Computer Vision):** A dual-node pipeline combining Rust-native edge detection (Node A) with semantic region identification (Node B LLava) to give the AI "Eyes" on the battle map.
+- **Pulse Engine (Deterministic Simulation):** A world heartbeat powered by recursive SQLite triggers (Chebyshev decay) for faction influence and NPC agenda automation.
+- **Dice So Nice (Immersion):** Visual 3D rolls in Foundry VTT synchronized with Node A's deterministic results.
 
-    subgraph Node_A [Node A: Rules Oracle - Nitro 5]
-        G[ZeroClaw Rust] <--> H[Llama-3.2-3B]
-        G <--> I[(SQLite-Vec - Rules DB)]
-    end
+## 📁 Repository Structure
+- `/src`: Node B TypeScript Orchestrator (Ollama, SQLite, Foundry Bridge).
+- `/zeroclaw`: Node A Rust Rules Engine & CV Pipeline.
+- `/foundry-module`: Foundry VTT v12 WebSocket bridge.
+- `/docs`: Technical audits, specs, and setup guides.
+- `/tests`: 237+ TDD-verified test cases (100% baseline stability).
 
-    F -- Events --> B
-    B -- Persistent Socket --> J{ClawLink Bridge}
-    J -- JSON-RPC <10ms --> G
-    G -- Mechanics/RAG --> B
-```
+## 🚀 Quick Start
+1. **Provision Node A:** Install Rust 1.94+ and Ollama (Bonsai 8B). Build `/zeroclaw`.
+2. **Provision Node B:** Install Node.js 22+, Ollama (Mistral-Nemo & LLava), and SQLite.
+3. **Bridge Foundry:** Install the module in `/foundry-module` and configure the Node B URL.
+4. **Ignite:** Run `npm start` on Node B and `./target/release/zeroclaw` on Node A.
 
-### Node A: The Rules Authority (The Physics Engine)
-* **Hardware:** Acer Nitro 5 (GTX 1050 Ti 4GB | Headless Ubuntu Server).
-* **Engine:** **ZeroClaw** (Rust-native) running Llama-3.2-3B via Vulkan.
-* **Storage:** **SQLite-Vec** (Rules-RAG & Mechanics Knowledge Base).
-* **Role:** Acts as the deterministic judge for combat math, DV checks, and canon rule retrieval.
-
-### Node B: The Narrative Brain (The Orchestrator)
-* **Hardware:** Main Rig (Radeon 9060 XT 16GB | Windows/WSL2).
-* **Engine:** **Mistral-Nemo 12B** (Q4_K_M) with **FP8 KV Cache** optimization.
-* **Hosting:** Foundry VTT v12 + Crush CLI.
-* **Storage:** **Unified Oracle MCP** (SQLite-backed Relational Knowledge Graph).
-* **Role:** Handles high-fidelity prose generation, NPC dialogue, and global session state.
-
-## ⚡ Core Pillars
-
-### 1. Full-Stack SQLite Migration (Unified Oracle)
-The entire state—from mission data to individual PC/NPC inventory—is stored in project-local SQLite files. This eliminates "Network Tax" and ensures the narrative engine performs a **Verification Lookup** (RKG) before every generated response.
-
-### 2. The ClawLink Protocol
-Communication between nodes utilizes **ClawLink**, a persistent, authenticated socket-over-SSH bridge. This replaces standard Stdio-over-SSH pipes, dropping tool-call latency from ~300ms to **<10ms**.
-
-### 3. The Anti-Drift Engine (RKG)
-To prevent "Narrative Drift," the system implements a **Relational Knowledge Graph** using a Triplet Schema (Subject-Predicate-Object) within `world.db`.
-* **Deterministic Grounding:** The AI must query the SQLite state for NPC factions, locations, and health before narrating.
-* **Global Inventory:** Real-time tracking of every item via **Atomic Ownership Transfers**, preventing "Ghost Gear" or item duplication.
-
-### 4. Immersion-First Interface
-* **Conversational Onboarding:** Character creation is handled via an in-world **Fixer Interview** in the terminal, automatically materializing the actor in Foundry.
-* **Optical Bridge:** The AI has "Eyes" on the battle map via **LLaVa 7B**, providing real-time tactical analysis of token positions and cover.
-* **Discord Chronicler:** Significant world events are automatically broadcast to a private Discord newsfeed as "Screamsheets."
-
-## 🛠️ Data Injection Layers
-The system is seeded with 1,437+ vector chunks covering:
-* **Core Mechanics**: Deterministic math, difficulty values, and foundational rules.
-* **Campaign Narrative**: Mission structures, narrative beats, and world lore.
-* **Entity Knowledge**: Extensive libraries of actor stat blocks and faction data.
-
-## 🚀 Project Status
-* **Current Version:** v0.8.3 (Phase 5 Complete).
-* **Active Milestone:** Phase 6 (The Living City).
-* **Environment:** Strictly Local / Air-Gapped / Zero-Telemetry.
-* **Interface:** Integrated via Gemini CLI and Crush CLI.
+## ⚖️ License
+AIR-GAPPED. LOCAL-FIRST. IMMERSIVE.
+*Cyberpunk RED is a trademark of R. Talsorian Games. This project is a third-party architectural tool.*

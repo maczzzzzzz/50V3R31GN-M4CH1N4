@@ -163,6 +163,25 @@ export interface IOllamaClient {
   stop(): Promise<void>;
 }
 
+// ── Vision (Node B LLava) types ──────────────────────────────────────────────
+
+export type TacticalCategory = 'cover_high' | 'cover_partial' | 'hazard' | 'security';
+
+export interface TacticalRegion {
+  readonly category: TacticalCategory;
+  /** Normalized coordinates [ymin, xmin, ymax, xmax] (0-1000). */
+  readonly box2d: [number, number, number, number];
+  readonly label: string;
+}
+
+export interface IVisionClient {
+  /**
+   * Perform semantic analysis on a map image to identify tactical regions.
+   * Uses LLava 1.6 with structured JSON output.
+   */
+  scanMap(imagePath: string): Promise<TacticalRegion[]>;
+}
+
 // ── Discord Chronicler ────────────────────────────────────────────────────────
 
 /** Narrative voice persona for Screamsheet broadcasts. */

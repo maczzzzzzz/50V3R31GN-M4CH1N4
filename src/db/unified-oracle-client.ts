@@ -39,6 +39,7 @@ export class UnifiedOracleClient {
     this.db.pragma('journal_mode = WAL');
     this.db.pragma('synchronous = NORMAL');
     this.db.pragma('foreign_keys = ON');
+    this.db.pragma('recursive_triggers = ON');
     
     // Attach crush db if it exists
     if (fs.existsSync(this.config.crushDbPath)) {
@@ -46,6 +47,25 @@ export class UnifiedOracleClient {
     }
     
     this.connected = true;
+  }
+
+  /**
+   * Initializes a 10x10 grid for a faction to enable influence propagation.
+   * Required for the Phase 6 Pulse Engine.
+   */
+  async seedDistrictGrid(factionName: string): Promise<void> {
+    if (!this.db) throw new Error('Database not connected');
+    const stmt = this.db.prepare(
+      'INSERT OR IGNORE INTO district_grid (x, y, faction_name, strength) VALUES (?, ?, ?, 0)'
+    );
+    const transaction = this.db.transaction(() => {
+      for (let x = 0; x < 10; x++) {
+        for (let y = 0; y < 10; y++) {
+          stmt.run(x, y, factionName);
+        }
+      }
+    });
+    transaction();
   }
 
   async disconnect(): Promise<void> {

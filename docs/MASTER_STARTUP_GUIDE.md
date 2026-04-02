@@ -1,138 +1,41 @@
-# MASTER_STARTUP_GUIDE (v0.9.0)
-**Date:** Wednesday, April 1, 2026
-**Target:** 100% Local Multi-Node TRPG Orchestration
+# Master Startup Guide: ASP.GM-Agent (v0.9.2)
+### Hardened Split-Node Initialization
 
-This guide provides the authoritative sequence to initialize the ASP.GM-Agent from a "Cold Start" to full operational readiness. Adhere to these steps to ensure sub-10ms latency and 100% narrative grounding.
-
-## 1. Prerequisites (Global Dependencies)
-
-### 1.1 Development Environment
-- **Node.js:** v22.12.0+ (LTS)
-- **Go:** v1.22.0+ (Required for Charmbracelet Crush)
-- **Rust:** 1.80.0+ (Required for Node A ZeroClaw)
-- **Git:** Latest
-
-### 1.2 Hardware & Infrastructure
-- **Node A (Acer Nitro 5):** Headless Ubuntu Server 24.04 (IP: `192.168.0.50`).
-- **Node B (Main Rig):** Windows 11 with AMD Radeon RX 9060 XT (16GB VRAM).
-- **Network:** Gig-E LAN (Wi-Fi 6 fallback) for sub-1ms internal ping.
+This document provides the high-fidelity operational sequence for igniting the **Split-Node v0.9.2** TRPG infrastructure.
 
 ---
 
-## 2. Infrastructure Setup (Node B - Orchestrator)
+## 🏗️ Hardware Check
+- **Node A (Rules Authority):** Ubuntu 24.04 (Nitro 5 / 1050 Ti). Dedicated Rules & Geometry.
+- **Node B (Orchestrator):** Windows (AMD RX 9060 XT 16GB). Dedicated Narrative & Vision.
 
-### 2.1 GPU Acceleration (AMD/Vulkan)
-On Windows, Ollama requires explicit environment overrides to bypass driver timeouts on newer AMD cards.
+## 🚀 Step 1: Initialize Node A (ZeroClaw)
+1. **Connect via SSH:** `ssh <user>@192.168.0.50`
+2. **Environment:** Ensure Rust 1.94+ and Ollama 0.19.0 are installed.
+3. **Model:** `ollama pull hf.co/prism-ml/Bonsai-8B-gguf` (1-bit optimization).
+4. **Build:** `cd zeroclaw && cargo build --release`.
+5. **Ignite:** `nohup ./target/release/zeroclaw > zeroclaw.log 2>&1 &`.
+   - *Verify: ZeroClaw should be listening on 0.0.0.0:7878.*
 
-**PowerShell (Admin):**
-```powershell
-# Set persistent GPU overrides for AMD RDNA 4
-[System.Environment]::SetEnvironmentVariable("OLLAMA_VULKAN", "1", "User")
-[System.Environment]::SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", "vulkan", "User")
-[System.Environment]::SetEnvironmentVariable("OLLAMA_FLASH_ATTENTION", "1", "User")
-[System.Environment]::SetEnvironmentVariable("OLLAMA_KV_CACHE_TYPE", "fp8", "User")
-[System.Environment]::SetEnvironmentVariable("GGML_VK_VISIBLE_DEVICES", "0", "User")
+## 🚀 Step 2: Initialize Node B (The Orchestrator)
+1. **Environment:** Ensure Node.js 22.0+ is installed.
+2. **Models:**
+   - `ollama pull mistral-nemo:12b-instruct-fp16` (Narrative).
+   - `ollama pull llava:7b` (Tactical Vision).
+3. **Optimization:** Verify `.env` contains `OLLAMA_KV_CACHE_TYPE=q4_0` and `OLLAMA_NUM_CTX=32768`.
+4. **Ignite:** `npm start`.
+   - *Verify: Node B connects to Node A via the binary ClawLink socket.*
 
-# Unset legacy variables that cause hangs
-[System.Environment]::SetEnvironmentVariable("HSA_OVERRIDE_GFX_VERSION", $null, "User")
-[System.Environment]::SetEnvironmentVariable("HIP_VISIBLE_DEVICES", $null, "User")
-```
+## 🚀 Step 3: Bridge Foundry VTT (Project Eyes-On)
+1. **Install Module:** Copy `/foundry-module` to your Foundry data directory.
+2. **Configure Settings:** Navigate to Module Settings → Node B WebSocket URL (Default: `ws://localhost:3010`).
+3. **Verify Link:** Check Foundry chat for: `🟢 Link Established — ASP.GM-Agent Orchestrator (v0.9.2) is now online.`
 
-### 2.2 Ollama Installation
-1. Download Ollama for Windows from `ollama.com`.
-2. Quit the Ollama tray app after installation.
-3. Start the server with the new environment variables:
-   ```powershell
-   ollama serve
-   ```
-4. Pull the mandatory models:
-   ```bash
-   ollama pull mistral-nemo:12b-instruct-v1-q4_K_M
-   ollama pull llava:7b
-   ollama pull nomic-embed-text
-   ```
+## 🎲 Step 4: Quality of Life (Dice So Nice)
+1. **Enable DsN:** Ensure the **Dice So Nice** module is active in Foundry.
+2. **Synchronize:** All AI-driven rolls from Node B will now trigger visual 3D dice that match Node A's deterministic results.
 
-### 2.3 Discord Chronicler (Screamsheets)
-1. Create a Discord server for your campaign.
-2. Go to `Server Settings > Integrations > Webhooks`.
-3. Create a new webhook and copy the URL.
-4. Add this to your `.env` as `DISCORD_SCREAMSHEET_WEBHOOK`.
-
----
-
-## 3. Terminal Interface (Crush CLI)
-
-ASP.GM-Agent utilizes **Charmbracelet Crush** for the immersive terminal experience (Fixer Interviews, AR HUD).
-
-### 3.1 Installation
-```bash
-go install github.com/charmbracelet/crush@latest
-```
-
-### 3.2 System Integration
-1. The project includes a `.crush.json` configuration file in the root.
-2. Verify the configuration points to the correct Node B local endpoints.
-3. To start the immersive session:
-   ```bash
-   crush run .
-   ```
-
----
-
-## 4. Node A Setup (Rules Authority)
-
-### 4.1 ZeroClaw Installation
-1. SSH into Node A: `ssh maczz@192.168.0.50`.
-2. Clone the repository and navigate to `zeroclaw/`.
-3. Build the native binary:
-   ```bash
-   cargo build --release
-   ```
-4. Start the ZeroClaw service (Port 7878):
-   ```bash
-   ./target/release/zeroclaw --host 0.0.0.0 --port 7878
-   ```
-
----
-
-## 5. Orchestrator Initialization
-
-### 5.1 Environment Configuration
-Copy `.env.example` to `.env` and ensure the following are set:
-- `OLLAMA_BASE_URL=http://localhost:11434`
-- `NODE_A_HOST=192.168.0.50`
-- `DISCORD_SCREAMSHEET_WEBHOOK=your_webhook_url`
-
-### 5.2 Boot Sequence
-1. Install Node dependencies:
-   ```bash
-   npm install
-   ```
-2. Run the full test suite to verify hardware handshakes:
-   ```bash
-   npm test
-   ```
-3. Start the orchestrator:
-   ```bash
-   npm start
-   ```
-
----
-
-## 6. Foundry VTT Bridge
-
-1. Open Foundry VTT v12.
-2. Install the `foundry-api-bridge-module` (located in `foundry-module/`).
-3. Enable the module in your Cyberpunk RED world.
-4. The module will automatically handshake with Node B on Port 3010.
-5. Check the console for: `✅ Foundry Linked.`
-
----
-
-## 7. Troubleshooting
-
-- **Ollama Timeout:** Ensure `OLLAMA_LLM_LIBRARY=vulkan` is set. RDNA 4 cards hang during ROCm discovery.
-- **Node A Offline:** Verify the SSH key path in `.env`.
-- **Ghost Data:** If Foundry edits aren't saving, check the `UnifiedOracleClient` logs in `data/logs/`.
-
-**Status:** ALL SYSTEMS GO. 🟢
+## ⚠️ Troubleshooting
+- **Connection Refused:** Check firewall rules on Node A (Port 7878) and Node B (Port 3010).
+- **VRAM OOM:** Reduce `OLLAMA_NUM_CTX` on Node B if loading both Mistral-Nemo and LLava exceeds 16GB.
+- **Vulkan Discovery Hang:** Ensure `OLLAMA_LLM_LIBRARY=vulkan` is set in Node B's environment for AMD RDNA 4.

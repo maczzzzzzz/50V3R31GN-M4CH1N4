@@ -4,6 +4,9 @@ use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::TcpStream;
 use reqwest::Client;
 
+use crate::cv::edge_detector;
+use image::open;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ClawLinkPacket {
     pub trace_id: String,
@@ -121,6 +124,13 @@ async fn process_rpc(client: &Client, method: String, params: serde_json::Value)
                 .await?;
 
             Ok(serde_json::json!({ "result": res.response }))
+        },
+        "detect_walls" => {
+            let image_path = params.as_str().ok_or("image_path parameter must be a string")?;
+            let img = open(image_path)?;
+            let edges = edge_detector::detect_edges(&img);
+            let walls = edge_detector::detect_lines(&edges);
+            Ok(serde_json::to_value(walls)?)
         },
         _ => Err(format!("Unknown method: {}", method).into()),
     }

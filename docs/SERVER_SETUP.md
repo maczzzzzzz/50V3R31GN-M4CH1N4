@@ -1,76 +1,59 @@
-# SERVER_SETUP (v0.9.0) - Node A (Nitro 5)
-**Date:** Wednesday, April 1, 2026
+# Server Setup: Node A (Rules Authority)
+### ASP.GM-Agent v0.9.2 | Node A (Linux) Setup Guide
 
-This guide covers the setup for the **Node A Rules Authority** running on Ubuntu Server 24.04.
-
-## 1. Hardware Architecture
-- **CPU:** Intel i5-9300H
-- **GPU:** NVIDIA GTX 1050 Ti (4GB VRAM)
-- **OS:** Headless Ubuntu 24.04 LTS
-
-## 2. Global Dependencies
-Install the standard build tools:
-```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y build-essential pkg-config libssl-dev git curl
-```
-
-### 2.1 Rust (v1.80+)
-Install the Rust toolchain:
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-```
-
-### 2.2 CUDA & Vulkan
-Install the NVIDIA drivers and Vulkan runtime for `llama.cpp` offloading:
-```bash
-sudo apt install -y nvidia-driver-535 libvulkan1 vulkan-tools
-```
+This document details the configuration for **Node A**, the secondary Linux-based rules and geometry authority.
 
 ---
 
-## 3. ZeroClaw Installation
+## 💻 Hardware Prerequisites
+- **Machine:** Nitro 5 / 1050 Ti (Target hardware).
+- **OS:** Ubuntu 24.04 LTS (recommended).
+- **VRAM:** 4GB+ (GDDR5+).
+- **Storage:** 20GB+ for model weights.
 
-### 3.1 Build from Source
-1. Clone the project and navigate to `zeroclaw/`.
-2. Build the high-performance release binary:
+## 🛠️ Step 1: Software Prerequisites
+1. **Rust (v1.94+):**
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+2. **Ollama (v0.19.0+):**
+   ```bash
+   curl -fsSL https://ollama.com/install.sh | sh
+   ```
+3. **Build Tools:**
+   ```bash
+   sudo apt update && sudo apt install build-essential libssl-dev pkg-config -y
+   ```
+
+## 🧠 Step 2: Model Provisioning
+Install the 1-bit optimized rules authority model:
+```bash
+ollama pull hf.co/prism-ml/Bonsai-8B-gguf
+```
+*Note: This model is specifically quantized for high-speed rules logic on 4GB VRAM hardware.*
+
+## 🏗️ Step 3: Deploy ZeroClaw (Rust)
+1. **Clone & Navigate:**
+   ```bash
+   git clone https://github.com/maczzzzzzz/-asp-gm-agent.git
+   cd -asp-gm-agent/zeroclaw
+   ```
+2. **Configure Host:** Ensure `src/main.rs` is listening on `0.0.0.0:7878` for cross-node binary communication.
+3. **Build (Optimized):**
    ```bash
    cargo build --release
    ```
 
-### 3.2 Rules Seeding
-Initialize the SQLite rules database:
+## 🎲 Step 4: Ignition
 ```bash
-./target/release/zeroclaw --seed ../docs/raw_data/core_rules/
+nohup ./target/release/zeroclaw > zeroclaw.log 2>&1 &
 ```
-
----
-
-## 4. Execution & Bridge
-The Rules Authority runs as a native service listening for **ClawLink** requests from Node B.
-
-### 4.1 Manual Boot
+Verify the server is active:
 ```bash
-./target/release/zeroclaw --host 0.0.0.0 --port 7878
+tail -f zeroclaw.log
 ```
+Expected output: `Listening on 0.0.0.0:7878`.
 
-### 4.2 Systemd Persistence (Recommended)
-Create `/etc/systemd/system/zeroclaw.service`:
-```ini
-[Unit]
-Description=ZeroClaw Rules Authority
-After=network.target
-
-[Service]
-Type=simple
-User=maczz
-WorkingDirectory=/home/maczz/asp-gm-agent/zeroclaw
-ExecStart=/home/maczz/asp-gm-agent/zeroclaw/target/release/zeroclaw --host 0.0.0.0 --port 7878
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-**Status:** HARDENED. 🟢
+## ⚠️ Stability & Performance
+- **Transport:** ClawLink uses newline-delimited JSON framing over raw TCP. Use `ufw allow 7878/tcp` if the connection from Node B is refused.
+- **Inference:** If math checks are slow, verify Ollama is not offloading to CPU. The 1-bit Bonsai model should fit entirely in the 4GB 1050 Ti buffer.

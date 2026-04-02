@@ -1,77 +1,66 @@
-# LOCAL_SETUP (v0.9.0) - Node B (Main Rig)
-**Date:** Wednesday, April 1, 2026
+# Local Setup: Node B (Windows Orchestrator)
+### ASP.GM-Agent v0.9.2 | Node B Setup Guide
 
-This guide covers the specialized setup for the **Node B Orchestrator** running on Windows 11 with AMD hardware.
-
-## 1. Environment Overrides (AMD/Vulkan)
-Because of ROCm discovery timeouts on RDNA 4 cards (RX 7000/8000/9000), we force the **Vulkan** path.
-
-### 1.1 Persistent Setup
-Run these in a **PowerShell (Admin)** window:
-```powershell
-[System.Environment]::SetEnvironmentVariable("OLLAMA_VULKAN", "1", "User")
-[System.Environment]::SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", "vulkan", "User")
-[System.Environment]::SetEnvironmentVariable("OLLAMA_FLASH_ATTENTION", "1", "User")
-[System.Environment]::SetEnvironmentVariable("OLLAMA_KV_CACHE_TYPE", "fp8", "User")
-[System.Environment]::SetEnvironmentVariable("GGML_VK_VISIBLE_DEVICES", "0", "User")
-```
-
-### 1.2 Unset Legacy Overrides
-If you previously used `HSA_OVERRIDE_GFX_VERSION` for RDNA 3, unset it to avoid driver hangs:
-```powershell
-[System.Environment]::SetEnvironmentVariable("HSA_OVERRIDE_GFX_VERSION", $null, "User")
-[System.Environment]::SetEnvironmentVariable("HIP_VISIBLE_DEVICES", $null, "User")
-```
+This document details the configuration for **Node B**, the primary Windows-based narrative and vision orchestrator.
 
 ---
 
-## 2. Global Tooling
-Ensure you have the following installed globally:
+## 💻 Hardware Prerequisites
+- **OS:** Windows 10/11 Pro (64-bit).
+- **CPU:** High-performance multicore (AMD Ryzen 7+ or Intel i7+ recommended).
+- **GPU:** NVIDIA (RTX 3080+) or AMD (RX 6800+) with **12GB+ VRAM**.
+- **Memory:** 32GB+ System RAM.
+- **Storage:** NVMe SSD for fast RKG/Crush database I/O.
 
-### 2.1 Node.js (v22+)
-Download from `nodejs.org`. Verify with:
-```bash
-node -v  # Should be v22.12.0 or higher
+## 🛠️ Step 1: Software Prerequisites
+1. **Node.js (v22.0+):** [Download](https://nodejs.org/)
+2. **Git:** [Download](https://git-scm.com/)
+3. **Ollama:** [Download](https://ollama.com/)
+4. **Build Tools:** Install `npm install --global windows-build-tools` (for `better-sqlite3` native bindings).
+
+## 🚀 Step 2: Environment Configuration
+Create a `.env` file in the root directory and synchronize it with the following high-performance parameters:
+
+```env
+# Node B (Orchestrator - This Rig)
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_KV_CACHE_TYPE=q4_0
+OLLAMA_FLASH_ATTENTION=true
+OLLAMA_NUM_CTX=32768
+
+# AMD RDNA 4 (RX 9060 XT) Optimizations
+OLLAMA_VULKAN=1
+OLLAMA_LLM_LIBRARY=vulkan
+GGML_VK_VISIBLE_DEVICES=0
+
+# Database Persistence (WAL Mode)
+WORLD_DB_PATH=./world.db
+CRUSH_DB_PATH=./.crush/crush.db
 ```
 
-### 2.2 Go (v1.22+)
-Required for **Charmbracelet Crush**. Download from `go.dev`. Verify with:
+## 🧠 Step 3: Model Provisioning
+Run the following commands to provision the narrative and vision models:
+
 ```bash
-go version
+ollama pull mistral-nemo:12b-instruct-fp16  # High-fidelity narrative
+ollama pull llava:7b                       # Tactical Vision (Project Eyes-On)
+ollama pull nomic-embed-text               # RKG Vector Embeddings
 ```
 
-### 2.3 Crush CLI
+## 🏗️ Step 4: Installation & Build
 ```bash
-go install github.com/charmbracelet/crush@latest
+git clone https://github.com/maczzzzzzz/-asp-gm-agent.git
+cd -asp-gm-agent
+npm install
+npm run build
 ```
 
----
+## 🎲 Step 5: Start Orchestrator
+```bash
+npm start
+```
+Node B will now attempt to connect to the **Node A Rules Authority** (ZeroClaw) and the **Foundry VTT Bridge**. Verify the console output for **"Link Established"** logs.
 
-## 3. Ollama Configuration
-1. Install Ollama from `ollama.com`.
-2. Ensure the tray app is **QUIT** before starting the server from the terminal to ensure environment variables are picked up.
-3. Start the server:
-   ```powershell
-   ollama serve
-   ```
-4. Verify GPU discovery:
-   ```bash
-   ollama ps
-   ```
-   *Look for `100% GPU` and `library=Vulkan`.*
-
----
-
-## 4. Local Repository Initialization
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Initialize the `.env` file (see `.env.example`).
-4. Boot the system:
-   ```bash
-   npm start
-   ```
-
-**Status:** READY. 🟢
+## ⚠️ Performance Tuning
+- **Latency Check:** Ensure sub-500ms narrative generation. If slow, verify Vulkan acceleration is active via `ollama ps`.
+- **VRAM Monitor:** If OOM occurs, reduce `OLLAMA_NUM_CTX` to `16384`.

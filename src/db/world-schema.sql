@@ -98,6 +98,16 @@ CREATE TABLE IF NOT EXISTS scene_regions (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Phase 6: District Grid (Faction Influence Map)
+-- 10x10 grid for Chebyshev distance propagation.
+CREATE TABLE IF NOT EXISTS district_grid (
+    x INTEGER NOT NULL CHECK (x BETWEEN 0 AND 9),
+    y INTEGER NOT NULL CHECK (y BETWEEN 0 AND 9),
+    faction_name TEXT NOT NULL,
+    strength INTEGER DEFAULT 0 CHECK (strength BETWEEN 0 AND 10),
+    PRIMARY KEY (x, y, faction_name)
+);
+
 -- Pulse Engine Triggers (Phase 6 Task 3 Hardening)
 -- Automatically decrement faction relationship when a member is killed.
 CREATE TRIGGER IF NOT EXISTS npc_death_faction_shift
@@ -108,4 +118,21 @@ BEGIN
     UPDATE factions 
     SET relationship_score = MAX(-10, relationship_score - 1)
     WHERE name = NEW.faction;
+END;
+
+-- Pulse Engine: Influence Propagation (Recursive Chebyshev Decay)
+-- When a cell strength increases, propagate to 8 neighbors at Strength-1.
+CREATE TRIGGER IF NOT EXISTS influence_spread_trigger
+AFTER UPDATE OF strength ON district_grid
+FOR EACH ROW
+WHEN NEW.strength > 1
+BEGIN
+    -- Update 8 neighbors (Recursive step)
+    UPDATE district_grid 
+    SET strength = NEW.strength - 1
+    WHERE faction_name = NEW.faction_name
+      AND x BETWEEN NEW.x - 1 AND NEW.x + 1
+      AND y BETWEEN NEW.y - 1 AND NEW.y + 1
+      AND (x != NEW.x OR y != NEW.y) -- Don't update self
+      AND strength < NEW.strength - 1;
 END;
