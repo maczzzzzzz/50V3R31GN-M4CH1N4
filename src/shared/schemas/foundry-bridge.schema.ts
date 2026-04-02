@@ -245,6 +245,28 @@ export const QueryScenesPayloadSchema = z.object({
   filter: z.string().optional(),
 });
 
+/** Dashboard synchronization payload for the Night City Sidebar. */
+export const DashboardSyncPayloadSchema = z.object({
+  actors: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    hp: z.number().int(),
+    sp: z.number().int(),
+    humanity: z.number().int(),
+    disposition: z.enum(['friendly', 'neutral', 'hostile']),
+  })),
+  factions: z.array(z.object({
+    name: z.string(),
+    strength: z.number().int(),
+    relationship: z.number().int(),
+  })),
+  systemStatus: z.object({
+    nodeA: z.boolean(),
+    pulseActive: z.boolean(),
+    authRequired: z.boolean(),
+  }),
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,
@@ -257,8 +279,10 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   OpenNightMarketCommandSchema,
   CreateActorCommandSchema,
   Show3dDiceCommandSchema,
-  z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: QueryScenesPayloadSchema }),
+  z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
+  z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
 ]);
+
 
 // ── Response schemas ──────────────────────────────────────────────────────────
 

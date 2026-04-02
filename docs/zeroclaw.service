@@ -1,12 +1,22 @@
 [Unit]
-Description=ZeroClaw Rules Oracle (ASP.GM-Agent Node A)
+Description=ZeroClaw Rules Oracle (ASP.GM-Agent Node A) — Sandboxed v1.0.3
 After=network.target
 
 [Service]
 Type=simple
 User=maczz
 WorkingDirectory=/home/maczz/asp-gm-agent-v0.9.1/zeroclaw
-ExecStart=/home/maczz/asp-gm-agent-v0.9.1/zeroclaw/target/release/zeroclaw
+
+# ── The Rules Vault Jail (Bubblewrap) ──────────────────────────────────
+# --unshare-net: 100% Blind to Internet (Local LAN Only)
+# --ro-bind: Read-only access to Rulebooks and Constitution
+# --bind: Write access to specific log and data paths
+ExecStart=/usr/bin/bwrap \
+    --dev-bind / / \
+    --unshare-net \
+    --ro-bind /home/maczz/asp-gm-agent-v0.9.1/zeroclaw/RED_RULES.md /RED_RULES.md \
+    /home/maczz/asp-gm-agent-v0.9.1/zeroclaw/target/release/zeroclaw
+
 Restart=always
 RestartSec=5
 StandardOutput=append:/home/maczz/asp-gm-agent-v0.9.1/zeroclaw/zeroclaw.log
