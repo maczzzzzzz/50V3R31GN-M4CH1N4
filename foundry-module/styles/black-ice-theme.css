@@ -75,7 +75,7 @@
     body.vtt header#ui-top,
     body.vtt header.window-header {
         color: var(--cpr-cyan) !important;
-        background-color: #000000 !important;
+        background-color: var(--cpr-bg-header) !important;
         background-image: none !important;
         border-bottom: 1px solid var(--cpr-cyan) !important;
         text-shadow: var(--black-ice-glow) !important;
