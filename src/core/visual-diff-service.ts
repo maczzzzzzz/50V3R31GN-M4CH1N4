@@ -84,12 +84,13 @@ export class VisualDiffService {
     const diffPixels: { x: number; y: number }[] = [];
     const totalPixels = width * height;
 
-    // Walk pixels (assume raw RGBA buffer after PNG header — simplified for testing)
-    // In real use, PNG must be decoded first. We operate on raw buffer bytes here.
+    // Walk pixels with a STRIDE of 4 (skip pixels to save CPU cycles)
+    // Atmosphere First: Performance over pixel-perfect accuracy for transient detection.
     const byteCount = Math.min(baseBuffer.length, liveBuffer.length);
+    const stride = 4; // Skip every 4th pixel (RGBA chunk)
     const pixelCount = Math.floor(byteCount / 4);
 
-    for (let i = 0; i < pixelCount; i++) {
+    for (let i = 0; i < pixelCount; i += stride) {
       const offset = i * 4;
       const rDiff = Math.abs(baseBuffer[offset] - liveBuffer[offset]);
       const gDiff = Math.abs(baseBuffer[offset + 1] - liveBuffer[offset + 1]);
@@ -100,11 +101,13 @@ export class VisualDiffService {
       }
     }
 
+    // Multiply pixelDelta back to estimate total change across full image
+    const estimatedDelta = pixelDelta * stride;
     const transientRegions = this.extractBoundingBoxes(diffPixels, width, height);
     return {
-      pixelDelta,
+      pixelDelta: estimatedDelta,
       totalPixels,
-      diffPercent: totalPixels > 0 ? (pixelDelta / totalPixels) * 100 : 0,
+      diffPercent: totalPixels > 0 ? (estimatedDelta / totalPixels) * 100 : 0,
       transientRegions,
     };
   }

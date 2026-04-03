@@ -137,6 +137,10 @@ export class VisualMonitorService {
    * Capture a raw PNG screenshot from the Foundry Electron renderer.
    * If an oracle was provided at construction, persists metadata to
    * the vision_history table in Akashik.db.
+   * 
+   * Efficiency Hack (v1.3.2): Deduplication.
+   * Only stores the screenshot if the hash differs from the last entry
+   * for this scene, preventing redundant DB bloat.
    */
   async captureScreenshot(sceneId?: string): Promise<ScreenshotRecord> {
     const client = this.getClient();
@@ -150,10 +154,18 @@ export class VisualMonitorService {
     const timestamp = new Date().toISOString();
 
     if (this.oracle?.isConnected()) {
-      this.oracle.execute(
-        'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
-        [sceneId ?? null, hash, timestamp]
+      // Check for deduplication
+      const last = this.oracle.query<{ screenshot_hash: string }>(
+        'SELECT screenshot_hash FROM vision_history WHERE scene_id = ? ORDER BY captured_at DESC LIMIT 1',
+        [sceneId ?? null]
       );
+
+      if (last.length === 0 || last[0].screenshot_hash !== hash) {
+        this.oracle.execute(
+          'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
+          [sceneId ?? null, hash, timestamp]
+        );
+      }
     }
 
     return { hash, timestamp, sceneId: sceneId ?? null, data };
