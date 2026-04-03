@@ -495,6 +495,20 @@ export class HybridRoutingController {
 
       pulse += `CONSTITUTION: ${this.redRulesConstitution}\n\n`;
 
+      // Unified Cohesion (v1.4.1): Inject Live Radar Telemetry
+      if (this.sharedMemory) {
+        try {
+          const radar = this.sharedMemory.readWorldState();
+          if (radar && radar.length > 0) {
+            pulse += 'LIVE RADAR (SHARED MEMORY):\n';
+            radar.forEach(blip => {
+              pulse += `- BLIP: ${blip.name} | POS: {${Math.round(blip.x)}, ${Math.round(blip.y)}} | HP: ${blip.hp}\n`;
+            });
+            pulse += '\n';
+          }
+        } catch { /* ignore shmem read failures */ }
+      }
+
       if (spatial) {
         const regions = this.unifiedOracle.query(
           `SELECT category, label FROM scene_regions 

@@ -170,3 +170,15 @@ CREATE TABLE IF NOT EXISTS scene_atmosphere (
     darkness_level  REAL DEFAULT 0.0 CHECK (darkness_level BETWEEN 0.0 AND 1.0),
     captured_at     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Phase 15: Mission Memory (Unified Cohesion)
+-- Stores generated mission blueprints for future narrative grounding and RAG lookup.
+CREATE TABLE IF NOT EXISTS missions (
+    id TEXT PRIMARY KEY,
+    district TEXT NOT NULL,
+    objective TEXT,
+    rules_intel_json TEXT,
+    tactical_analysis TEXT,
+    lore_anchors_json TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

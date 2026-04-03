@@ -50,12 +50,33 @@ export class MissionSwarmOrchestrator {
 
     const loreAnchors = await this.getLoreAnchors(district);
 
-    return {
+    const blueprint: MissionBlueprint = {
       district,
       rulesIntel,
       tacticalAnalysis,
       loreAnchors,
     };
+
+    // Unified Cohesion (v1.4.1): Persist to Akashik for permanent memory
+    try {
+      if (this.config.oracle.isConnected()) {
+        this.config.oracle.execute(
+          `INSERT INTO missions (id, district, rules_intel_json, tactical_analysis, lore_anchors_json)
+           VALUES (?, ?, ?, ?, ?)`,
+          [
+            `msn_${Date.now()}`,
+            district,
+            JSON.stringify(rulesIntel),
+            tacticalAnalysis,
+            JSON.stringify(loreAnchors)
+          ]
+        );
+      }
+    } catch (err) {
+      process.stderr.write(`[MissionSwarm] Memory commit failed: ${err}\n`);
+    }
+
+    return blueprint;
   }
 
   /** Fetch tactical analysis from Ollama, returns fallback string on failure. */
