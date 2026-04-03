@@ -392,6 +392,31 @@ describe('HybridRoutingController', () => {
     });
   });
 
+  // ── Intent Swarm ────────────────────────────────────────────────────────────
+
+  describe('Intent Swarm', () => {
+    it('dispatches concurrent requests to determine Tone and Intensity', async () => {
+      // Mock ollama and nitrologic, spy on them.
+      const generateSpy = vi.spyOn(ollama, 'generateNarrative').mockResolvedValue('Tense');
+      const calcDvSpy = vi.spyOn(nitroLogic, 'calculateDv').mockResolvedValue({
+        dv: 16,
+        breakdown: 'Mock',
+        checkType: 'skill',
+        baseStat: 8,
+        baseSkill: 6,
+        targetDifficulty: 'professional'
+      });
+
+      // Assert both were called concurrently (Promise.all).
+      // Since it's a concurrent call via Promise.all, we just await the result.
+      const result = await controller.evaluateIntentSwarm('A fierce gunfight in the rain.');
+
+      expect(generateSpy).toHaveBeenCalledWith('Determine emotional tone (1 word) of:', 'A fierce gunfight in the rain.');
+      expect(calcDvSpy).toHaveBeenCalledWith({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional' });
+      expect(result).toEqual({ tone: 'Tense', intensity: 0.8 });
+    });
+  });
+
   // ── Existing tests (sanity check) ──────────────────────────────────────────
 
   describe('handleFoundryEvent — resolve_attack', () => {

@@ -20,6 +20,7 @@ import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
 import { SpatialVisionService } from './spatial-vision-service.js';
 import { VisualMonitorService } from './visual-monitor-service.js';
 import { SharedMemoryService } from './shared-memory-service.js';
+import { TaskRouterProxy } from './task-router-proxy.js';
 
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
@@ -92,6 +93,7 @@ export class HybridRoutingController {
     this.sharedMemory = options.sharedMemoryService;
     this.missionSwarm = options.missionSwarm;
     this.steganographyService = new SteganographyService();
+    this.taskRouter = new TaskRouterProxy();
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -134,6 +136,21 @@ export class HybridRoutingController {
     });
   }
 
+  async evaluateIntentSwarm(context: string): Promise<{ tone: string, intensity: number }> {
+    // Use TaskRouterProxy to dispatch concurrently
+    const [toneTask, intensityTask] = await Promise.all([
+      this.taskRouter.dispatch({ destination: 'NodeB', cost: 'HEAVY' }, async () => {
+        return this.ollama.generateNarrative('Determine emotional tone (1 word) of:', context);
+      }),
+      this.taskRouter.dispatch({ destination: 'NodeA', cost: 'LIGHT' }, async () => {
+        const response = await this.nitroLogic.calculateDv({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional' });
+        return response.dv > 15 ? 0.8 : 0.2; // Derived scalar
+      })
+    ]);
+    
+    return { tone: toneTask as string, intensity: intensityTask as number };
+  }
+
   /** 
    * Reads system_state from Akashik.db and dispatches restoration commands.
    */
@@ -141,8 +158,9 @@ export class HybridRoutingController {
     if (!this.unifiedOracle?.isConnected()) return;
     
     const rows = this.unifiedOracle.query('SELECT value FROM system_state WHERE key = ?', ['last_active_scene']) as Array<{ value: string }>;
-    if (rows.length > 0 && rows[0].value !== 'null') {
-      const sceneId = rows[0].value;
+    if (rows.length > 0 && rows[0]?.value !== 'null') {
+      const sceneId = rows[0]?.value;
+      if (!sceneId) return;
       process.stdout.write(`[v1.4.3 Restore] Found last active scene: ${sceneId}. Restoring...\n`);
       
       // We wrap in a short timeout to ensure all WebSocket/CDP links are primed
@@ -484,7 +502,7 @@ export class HybridRoutingController {
     if (this.visualMonitor) {
       try {
         const record = await this.visualMonitor.captureScreenshot();
-        visualBuffer = record.data;
+        visualBuffer = Buffer.from(record.data, 'base64');
         console.log('📡 Neural Uplink: Captured GPU screenshot via CDP.');
       } catch (err) {
         console.warn('⚠️  Neural Uplink capture failed, falling back to legacy CV:', (err as Error).message);
