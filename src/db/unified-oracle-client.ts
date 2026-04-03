@@ -146,9 +146,9 @@ export class UnifiedOracleClient {
     this.db.exec(schema);
   }
 
-  query(sql: string, params: any[] = []): any[] {
+  query<T = any>(sql: string, params: any[] = []): T[] {
     if (!this.db) throw new Error('Database not connected');
-    return this.db.prepare(sql).all(...params);
+    return this.db.prepare(sql).all(...params) as T[];
   }
 
   execute(sql: string, params: any[] = []): Database.RunResult {

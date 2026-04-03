@@ -9,7 +9,7 @@
 
 import fs from 'node:fs/promises';
 import { z } from 'zod';
-import type { IVisionClient, TacticalRegion, OllamaConfig } from './interfaces.js';
+import type { TacticalRegion, OllamaConfig } from './interfaces.js';
 
 // ── Zod response schema ───────────────────────────────────────────────────────
 
@@ -25,7 +25,7 @@ const TacticalVisionResponseSchema = z.object({
 
 // ── Implementation ────────────────────────────────────────────────────────────
 
-export class TacticalVisionService implements IVisionClient {
+export class TacticalVisionService {
   private readonly config: OllamaConfig;
 
   constructor(config: OllamaConfig) {

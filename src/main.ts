@@ -67,7 +67,7 @@ async function main() {
 
   // 4. Initialise State Engine
   // For the "Live-Fire" test, we use the TttA Part 1 starting state
-  const storyEngine = new StoryEngine(createTttaPart1InitialState());
+  const storyEngine = new StoryEngine(createTttaPart1InitialState(), ollama);
   bootstrapTttaPart1(storyEngine);
 
   // 5. Build Foundry Adapter

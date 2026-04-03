@@ -80,6 +80,36 @@ export class SharedMemoryService {
     fs.writeSync(this.fd, this.buf, 0, FILE_SIZE, 0);
   }
 
+  readWorldState(): RadarBlip[] {
+    if (this.fd === null) throw new Error('SharedMemoryService: call open() first');
+
+    const headerBuf = Buffer.alloc(HEADER_SIZE);
+    fs.readSync(this.fd, headerBuf, 0, HEADER_SIZE, 0);
+    
+    const magic = headerBuf.subarray(0, 16);
+    if (!magic.equals(MAGIC)) return [];
+
+    const count = headerBuf.readUInt32LE(20);
+    const blips: RadarBlip[] = [];
+
+    const fullBuf = Buffer.alloc(count * BLIP_SIZE);
+    fs.readSync(this.fd, fullBuf, 0, count * BLIP_SIZE, HEADER_SIZE);
+
+    for (let i = 0; i < count; i++) {
+      const base = i * BLIP_SIZE;
+      blips.push({
+        id: fullBuf.toString('utf8', base, base + 16).replace(/\0/g, ''),
+        name: fullBuf.toString('utf8', base + 16, base + 32).replace(/\0/g, ''),
+        x: fullBuf.readFloatLE(base + 32),
+        y: fullBuf.readFloatLE(base + 36),
+        hp: fullBuf.readInt32LE(base + 40),
+        actorType: fullBuf.readUInt8(base + 44) as 0 | 1,
+        faction: fullBuf.toString('utf8', base + 48, base + 64).replace(/\0/g, ''),
+      });
+    }
+    return blips;
+  }
+
   close(): void {
     if (this.fd !== null) {
       fs.closeSync(this.fd);

@@ -15,6 +15,7 @@ import type { INitroLogicClient, AttackResult, DvResult, OracleResult } from '..
 import type { IOllamaClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
+import { PretextOverlayPayloadSchema } from '../../src/shared/schemas/foundry-bridge.schema.js';
 import { StoryEngine } from '../../src/core/story-engine.js';
 import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
 import { NightMarketService } from '../../src/core/night-market-service.js';
@@ -57,6 +58,9 @@ function makeMockFoundryAdapter(): IFoundryAdapter {
     show3dDice: vi.fn().mockResolvedValue(undefined),
     queryScenes: vi.fn().mockResolvedValue([]),
     pushDashboardUpdate: vi.fn().mockResolvedValue(undefined),
+    triggerFxGlitch: vi.fn().mockResolvedValue(undefined),
+    runSequence: vi.fn().mockResolvedValue(undefined),
+    triggerPretextOverlay: vi.fn().mockResolvedValue(undefined),
   };
 }
 
@@ -72,6 +76,7 @@ function makeMockStoryEngine(): StoryEngine {
     registerBeat: vi.fn(),
     evaluateEvent: vi.fn().mockReturnValue({ transitioned: false }),
     getState: vi.fn(),
+    generateOverlayParams: vi.fn().mockResolvedValue({ text: 'MOCK OVERLAY' }),
   } as unknown as StoryEngine;
 }
 
@@ -387,6 +392,31 @@ describe('HybridRoutingController', () => {
     });
   });
 
+  // ── Intent Swarm ────────────────────────────────────────────────────────────
+
+  describe('Intent Swarm', () => {
+    it('dispatches concurrent requests to determine Tone and Intensity', async () => {
+      // Mock ollama and nitrologic, spy on them.
+      const generateSpy = vi.spyOn(ollama, 'generateNarrative').mockResolvedValue('Tense');
+      const calcDvSpy = vi.spyOn(nitroLogic, 'calculateDv').mockResolvedValue({
+        dv: 16,
+        breakdown: 'Mock',
+        checkType: 'skill',
+        baseStat: 8,
+        baseSkill: 6,
+        targetDifficulty: 'professional'
+      });
+
+      // Assert both were called concurrently (Promise.all).
+      // Since it's a concurrent call via Promise.all, we just await the result.
+      const result = await controller.evaluateIntentSwarm('A fierce gunfight in the rain.');
+
+      expect(generateSpy).toHaveBeenCalledWith('Determine emotional tone (1 word) of:', 'A fierce gunfight in the rain.');
+      expect(calcDvSpy).toHaveBeenCalledWith({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional' });
+      expect(result).toEqual({ tone: 'Tense', intensity: 0.8 });
+    });
+  });
+
   // ── Existing tests (sanity check) ──────────────────────────────────────────
 
   describe('handleFoundryEvent — resolve_attack', () => {
@@ -406,6 +436,99 @@ describe('HybridRoutingController', () => {
 
       expect(nitroLogic.resolveAttack).toHaveBeenCalled();
       expect(storyEngine.evaluateEvent).toHaveBeenCalledWith({ type: 'resolve_attack', result: sampleAttackResult });
+    });
+  });
+
+  describe('PretextOverlayPayloadSchema', () => {
+    it('validates a correct pretext overlay payload', async () => {
+      // Dynamic import to avoid messing with top-level imports in this large file
+      const { PretextOverlayPayloadSchema } = await import('../../src/shared/schemas/foundry-bridge.schema.js');
+      const validPayload = {
+        targetId: 'actor_123',
+        overlayType: 'critical_damage',
+        text: 'CRITICAL WARNING',
+        color: '#ff0000',
+        duration: 3000,
+        fxParams: {
+          shader: 'chromatic_aberration',
+          intensity: 2.5,
+          rgbSplit: 0.8
+        }
+      };
+      expect(() => PretextOverlayPayloadSchema.parse(validPayload)).not.toThrow();
+    });
+  });
+
+  describe('HybridRoutingController - Damage Thresholds', () => {
+    it('triggers a pretext overlay for netDamage >= 15', async () => {
+      const result: AttackResult = {
+        hit: true,
+        rollTotal: 16,
+        dvTarget: 13,
+        rawDamage: 20,
+        netDamage: 15,
+        criticalInjury: false,
+        reasoning: 'CRITICAL HIT'
+      };
+      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue(result);
+      vi.mocked(unifiedOracle.query).mockReturnValue([{ hp: 40 }]);
+
+      const attackEvent: FoundryEvent = {
+        type: 'resolve_attack',
+        payload: {
+          targetId: 'actor_123',
+          attackerSkill: 4, attackerRef: 6, weaponDamage: '3d6',
+          weaponArmorPiercing: false, defenderRef: 5, defenderSP: 6,
+          rangeBand: 'close', modifiers: 0,
+        },
+      };
+
+      await controller.handleFoundryEvent(attackEvent);
+
+      expect(foundry.triggerPretextOverlay).toHaveBeenCalledWith(
+        expect.objectContaining({
+          targetId: 'actor_123',
+          overlayType: 'critical_damage'
+        })
+      );
+    });
+  });
+
+  describe('Overlay Generation via Mistral-Nemo', () => {
+    it('generates flavor text using the story engine', async () => {
+      const mockOverlay = {
+        text: 'BIO-MONITOR: MASSIVE TRAUMA',
+        color: '#ff003c',
+        duration: 3000,
+        fxParams: { shader: 'chromatic_aberration', intensity: 2.5 }
+      };
+      // Use as unknown as any to bypass private method restrictions if needed, 
+      // but here we are mocking the storyEngine which is public in controller options
+      vi.spyOn(storyEngine, 'generateOverlayParams').mockResolvedValue(mockOverlay);
+      vi.mocked(unifiedOracle.query).mockReturnValue([{ hp: 40 }]);
+      vi.mocked(nitroLogic.resolveAttack).mockResolvedValue({
+        hit: true, netDamage: 20, rollTotal: 10, dvTarget: 10, rawDamage: 20, criticalInjury: false, reasoning: ''
+      });
+
+      const attackEvent: FoundryEvent = {
+        type: 'resolve_attack',
+        payload: {
+          targetId: 'actor_123',
+          attackerSkill: 0, attackerRef: 0, weaponDamage: '', weaponArmorPiercing: false,
+          defenderRef: 0, defenderSP: 0, rangeBand: 'close', modifiers: 0
+        }
+      };
+
+      await controller.handleFoundryEvent(attackEvent);
+
+      expect(storyEngine.generateOverlayParams).toHaveBeenCalledWith(
+        expect.stringContaining('Target sustained 20 damage')
+      );
+      expect(foundry.triggerPretextOverlay).toHaveBeenCalledWith(
+        expect.objectContaining({
+          text: 'BIO-MONITOR: MASSIVE TRAUMA'
+        })
+      );
     });
   });
 });

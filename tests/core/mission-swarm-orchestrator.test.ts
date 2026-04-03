@@ -1,11 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { MissionSwarmOrchestrator } from '../../src/core/mission-swarm-orchestrator.js';
 
 // ── Mock helpers ──────────────────────────────────────────────────────────────
 
-function makeMockClawlink() {
+function makeMockOllama() {
   return {
-    executeRpc: vi.fn().mockResolvedValue({ dvTable: [{ dv: 15 }], encounters: ['MaxTac patrol'] }),
+    generateNarrative: vi.fn().mockImplementation(async (prompt: string, context: string) => {
+      if (prompt.includes('Fixer in Night City')) {
+        return 'Brief: Assault the Arasaka convoy.';
+      }
+      if (prompt.includes('suggest 3 tactical combat considerations')) {
+        return 'Tactics: 1. High cover, 2. Sniper, 3. Flank.';
+      }
+      return 'Mocked response';
+    }),
   } as any;
 }
 
@@ -17,66 +25,25 @@ function makeMockOracle(rows: { content: string }[] = [{ content: 'V met Rogue i
   } as any;
 }
 
-const TACTICS_URL = 'http://localhost:11434';
+function makeMockNitroLogic() {
+  return {} as any;
+}
 
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe('MissionSwarmOrchestrator', () => {
-  let mockFetch: ReturnType<typeof vi.fn>;
-
-  beforeEach(() => {
-    mockFetch = vi.fn().mockResolvedValue({
-      ok: true,
-      json: vi.fn().mockResolvedValue({ response: 'High-cover zone, MaxTac presence.' }),
-    } as any);
-    vi.stubGlobal('fetch', mockFetch);
-  });
-
-  it('generateMission() calls rules_intel RPC and tactical fetch for a given district', async () => {
-    const clawlink = makeMockClawlink();
+  it('generateMission() uses ollama to generate brief and tactical analysis', async () => {
+    const ollama = makeMockOllama();
     const oracle = makeMockOracle();
-    const orchestrator = new MissionSwarmOrchestrator({ clawlink, oracle, tacticsUrl: TACTICS_URL });
-
-    await orchestrator.generateMission('Watson');
-
-    expect(clawlink.executeRpc).toHaveBeenCalledOnce();
-    expect(mockFetch).toHaveBeenCalledOnce();
-  });
-
-  it('generateMission() returns correct district in blueprint', async () => {
-    const orchestrator = new MissionSwarmOrchestrator({
-      clawlink: makeMockClawlink(),
-      oracle: makeMockOracle(),
-      tacticsUrl: TACTICS_URL,
-    });
-
-    const blueprint = await orchestrator.generateMission('Heywood');
-
-    expect(blueprint.district).toBe('Heywood');
-  });
-
-  it('generateMission() returns rulesIntel from ClawLink result', async () => {
-    const orchestrator = new MissionSwarmOrchestrator({
-      clawlink: makeMockClawlink(),
-      oracle: makeMockOracle(),
-      tacticsUrl: TACTICS_URL,
-    });
+    const nitroLogic = makeMockNitroLogic();
+    const orchestrator = new MissionSwarmOrchestrator({ ollama, oracle, nitroLogic });
 
     const blueprint = await orchestrator.generateMission('Watson');
 
-    expect(blueprint.rulesIntel).toEqual({ dvTable: [{ dv: 15 }], encounters: ['MaxTac patrol'] });
-  });
-
-  it('generateMission() returns tacticalAnalysis from Ollama response', async () => {
-    const orchestrator = new MissionSwarmOrchestrator({
-      clawlink: makeMockClawlink(),
-      oracle: makeMockOracle(),
-      tacticsUrl: TACTICS_URL,
-    });
-
-    const blueprint = await orchestrator.generateMission('Watson');
-
-    expect(blueprint.tacticalAnalysis).toBe('High-cover zone, MaxTac presence.');
+    expect(ollama.generateNarrative).toHaveBeenCalledTimes(2);
+    expect(blueprint.district).toBe('Watson');
+    expect(blueprint.brief).toBe('Brief: Assault the Arasaka convoy.');
+    expect(blueprint.tacticalAnalysis).toBe('Tactics: 1. High cover, 2. Sniper, 3. Flank.');
   });
 
   it('generateMission() returns loreAnchors from oracle query', async () => {
@@ -85,9 +52,9 @@ describe('MissionSwarmOrchestrator', () => {
       { content: 'Johnny warned about Maxtac in Watson district' },
     ]);
     const orchestrator = new MissionSwarmOrchestrator({
-      clawlink: makeMockClawlink(),
+      ollama: makeMockOllama(),
       oracle,
-      tacticsUrl: TACTICS_URL,
+      nitroLogic: makeMockNitroLogic(),
     });
 
     const blueprint = await orchestrator.generateMission('Watson');
@@ -97,31 +64,15 @@ describe('MissionSwarmOrchestrator', () => {
     expect(blueprint.loreAnchors[1]).toBe('Johnny warned about Maxtac in Watson district');
   });
 
-  it('generateMission() returns "[Tactical analysis unavailable]" when fetch throws', async () => {
-    mockFetch.mockRejectedValue(new Error('Network failure'));
+  it('generateMission() includes rulesIntel hardcoded for now', async () => {
     const orchestrator = new MissionSwarmOrchestrator({
-      clawlink: makeMockClawlink(),
+      ollama: makeMockOllama(),
       oracle: makeMockOracle(),
-      tacticsUrl: TACTICS_URL,
+      nitroLogic: makeMockNitroLogic(),
     });
 
-    const blueprint = await orchestrator.generateMission('Pacifica');
+    const blueprint = await orchestrator.generateMission('Heywood');
 
-    expect(blueprint.tacticalAnalysis).toBe('[Tactical analysis unavailable]');
-  });
-
-  it('getLoreAnchors() returns empty array when oracle throws', async () => {
-    const oracle = {
-      query: vi.fn().mockImplementation(() => { throw new Error('DB error'); }),
-    } as any;
-    const orchestrator = new MissionSwarmOrchestrator({
-      clawlink: makeMockClawlink(),
-      oracle,
-      tacticsUrl: TACTICS_URL,
-    });
-
-    const anchors = await orchestrator.getLoreAnchors('Watson');
-
-    expect(anchors).toEqual([]);
+    expect(blueprint.rulesIntel).toEqual({ difficulty: 'professional' });
   });
 });

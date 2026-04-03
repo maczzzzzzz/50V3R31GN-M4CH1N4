@@ -30,7 +30,7 @@
       { "id": "vtt-colorsettings", "reason": "Native UI for AI Configuration" }
     ]
   },
-  "scripts": [
+  "esmodules": [
     "foundry-api-bridge.js"
   ],
   "styles": [

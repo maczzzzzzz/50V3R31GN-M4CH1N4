@@ -30,6 +30,7 @@ import {
   type MarketItemPayload,
   type CreateActorPayload,
   type SequenceAction,
+  type PretextOverlayPayload,
 } from '../shared/schemas/foundry-bridge.schema.js';
 
 // ── Logger (stderr-only, JSON structured) ────────────────────────────────────
@@ -87,6 +88,7 @@ export interface IFoundryAdapter {
   pushDashboardUpdate(payload: z.infer<typeof import('../shared/schemas/foundry-bridge.schema.js').DashboardSyncPayloadSchema>): Promise<void>;
   triggerFxGlitch(intensity?: number): Promise<void>;
   runSequence(actions: SequenceAction[]): Promise<void>;
+  triggerPretextOverlay(payload: PretextOverlayPayload): Promise<void>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -290,6 +292,14 @@ export class FoundryAdapter implements IFoundryAdapter {
       type: 'run_sequence',
       requestId: this.generateRequestId(),
       payload: { actions },
+    });
+  }
+
+  async triggerPretextOverlay(payload: PretextOverlayPayload): Promise<void> {
+    await this.sendCommand({
+      type: 'pretext_overlay',
+      requestId: this.generateRequestId(),
+      payload,
     });
   }
 
