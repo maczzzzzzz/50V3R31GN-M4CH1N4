@@ -1,4 +1,4 @@
-# ASP.GM-Agent: User & Developer Command Manifest (v1.1.2)
+# ASP.GM-Agent: User & Developer Command Manifest (v1.6.0)
 
 This document provides a comprehensive list of all control plane commands available via the **Crush CLI**, **MCP Tools**, and the **Foundry VTT Bridge**.
 
@@ -9,10 +9,10 @@ The Crush CLI is the low-level management interface for the AI GM.
 
 | Command | Arguments | Description |
 | :--- | :--- | :--- |
-| `/scan` | None | Triggers the dual-node CV pipeline (Geometric + Semantic) to ground the AI in the current map topology. |
+| `/scan` | None | Triggers the dual-node CV pipeline (Geometric + Semantic) and SensoryFilter LOS audit to ground the AI in the current map topology. |
 | `/onboard` | `<PlayerName> <Role> <BuildType>` | Orchestrates the Fixer Interview and character creation pipeline. |
 | `/pulse` | None | Manually advances the deterministic world state (faction influence shifts and NPC coordinate updates). |
-| `/audit` | None | Performs a high-signal health check across Node A, Node B, and the binary bridge. |
+| `/audit` | None | Performs a high-signal health check across Node A, Node B, the binary bridge, and the TaskRouterProxy queue. |
 
 ---
 
@@ -21,6 +21,7 @@ These events are triggered by player actions in Foundry and routed to the Split-
 
 | Event Type | Payload Data | Response |
 | :--- | :--- | :--- |
+| `evaluate_intent` | Trigger actor, scene context, event data. | **Intent Swarm**: Concurrent Tone (Node B) + Intensity (Node A) fusion for reactive environmental FX. |
 | `resolve_attack` | Attacker/Defender stats, range, mods. | Node A Math + Node B Narrative + 3D Dice. |
 | `calculate_dv` | Check type, skill, stat, difficulty. | DV Target + Breakdown pushed to chat. |
 | `oracle_roll` | Formula (e.g. 1d10), luck points. | Deterministic result + 3D Dice. |

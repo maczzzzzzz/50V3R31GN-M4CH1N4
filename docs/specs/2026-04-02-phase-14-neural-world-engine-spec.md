@@ -30,4 +30,4 @@ Ensures sensory consistency across sessions.
 ## 4. Tooling: The World Engine Hub
 - `diff_scene_state()`: Identifies physical changes on the map.
 - `apply_neural_decal(type, x, y)`: Physically stamps damage onto the canvas.
-- `restore_latent_atmosphere()`: Re-aligns the sensory environment with the Akashic Record.
+- `restore_latent_atmosphere()`: Re-aligns the sensory environment with the Akashik Record.

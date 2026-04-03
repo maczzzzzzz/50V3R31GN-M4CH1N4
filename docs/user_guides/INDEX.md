@@ -13,6 +13,7 @@
 | [Neural Uplink](./NEURAL_UPLINK_PAINTER_GUIDE.md) | Native CDP hardware perception and materialization. |
 | [Mission Swarm](./MISSION_SWARM_GUIDE.md) | Procedural job generation and tactical analysis. |
 | [Asset Ingestion](./ASSET_INGESTION_GUIDE.md) | Custom map management and geometric CV extraction. |
+| [Omni Orchestrator](./OMNI_ORCHESTRATOR_GUIDE.md) | Reactive logic, VRAM Proxy, and Sensory LOS filtering. |
 | [Pulse Engine & Trade](./RED_TRADE_ECONOMY_GUIDE.md) | Faction influence and dynamic market pricing. |
 | [Onboarding System](./ONBOARDING_SYSTEM_GUIDE.md) | Conversational actor creation and deployment. |
 | [Unified Oracle](./UNIFIED_ORACLE_AKASHIK_GUIDE.md) | Universal memory and world-state persistence. |

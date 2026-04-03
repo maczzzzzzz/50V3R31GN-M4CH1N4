@@ -1,17 +1,17 @@
-# Master Startup Guide: ASP.GM-Agent (v1.1.2)
-### Hardened Split-Node & Neural Uplink Initialization
+# Master Startup Guide: ASP.GM-Agent (v1.6.0)
+### Hardened Split-Node & Neural Hive Initialization
 
-This document provides the high-fidelity operational sequence for igniting the **Split-Node v1.1.2** world engine and its hardware perception loop.
+This document provides the high-fidelity operational sequence for igniting the **Split-Node v1.6.0** world engine and its hardware perception loop.
 
 ---
 
 ## 🏗️ Hardware Check
-- **Node A (Rules Vault):** Ubuntu 24.04 (NVIDIA 1050 Ti). Sandboxed via Nix/Bubblewrap.
-- **Node B (Director):** Windows (AMD RX 9060 XT 16GB). Managing Neural Uplink & Akashic Record.
+- **Node A (Rules Vault):** Ubuntu 24.04 (NVIDIA 1050 Ti). Managing **TaskRouterProxy** for VRAM swapping.
+- **Node B (Director):** Windows (AMD RX RDNA 4). Managing Neural Uplink, **SensoryFilter (LOS)**, and Akashik Record.
 
 ## 🚀 Step 1: Initialize Node A (The Rules Vault)
 1. **Ignite:** `ssh maczz@192.168.0.50 'sudo systemctl start zeroclaw'`.
-2. **Jail:** The service automatically enters the **Bubblewrap sandbox** upon ignition.
+2. **Proxy:** Verify `TaskRouterProxy` is active to manage concurrent Vision/Math tasks.
 3. **Verify:** Check logs for `📡 ZeroClaw ACTIVE and listening on: 0.0.0.0:7878`.
 
 ## 🚀 Step 2: Initialize Node B (The Director)
@@ -21,7 +21,8 @@ This document provides the high-fidelity operational sequence for igniting the *
    & "C:\Program Files\Foundry VTT\Foundry VTT.exe" --remote-debugging-port=9222
    ```
 3. **Ignite Orchestrator:** `npm start`.
-   - *Verify: `✅ Neural Uplink: Native CDP Engine Active.` in stdout.*
+   - *Verify: `✅ Neural Hive: Omni Orchestrator Active.` in stdout.*
+   - *Verify: `✅ SensoryFilter: LOS Engine Connected.`*
 
 ## 🚀 Step 3: Initialize Sidecars
 1. **Strategic Atlas:** `cd sidecar-atlas && cargo run --release`.
@@ -29,9 +30,10 @@ This document provides the high-fidelity operational sequence for igniting the *
 
 ## 🚀 Step 4: Final Handshake
 1. **Connect:** Verify the binary bridge establishment in both terminals.
-2. **Grounding:** Run `/scan` in the Crush CLI to verify GPU-level vision capture.
+2. **Grounding:** Run `/scan` in the Crush CLI to verify GPU-level vision capture and LOS-filtered world state.
 
 ## ⚠️ Troubleshooting
+- **VRAM Bottleneck:** If TaskRouterProxy reports high wait times, reduce concurrent vision requests.
 - **Uplink Failure:** Ensure no other browser tab is using Port 9222.
-- **Akashic Error:** Check `data/logs/db.log` if `Akashik.db` fails to flush.
-- **Timeout:** The Throttling Queue handles 1050 Ti latency; do not spam commands during concurrent Swarm tasks.
+- **Akashik Error:** Check `data/logs/db.log` if `Akashik.db` fails to flush.
+- **LOS Drift:** Run `/scan` to re-sync the SensoryFilter if the AI reacts to hidden actors.

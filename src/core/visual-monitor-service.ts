@@ -8,7 +8,7 @@
  *   --remote-debugging-port=9222
  *
  * Capabilities:
- *   Page    — screenshot capture (Akashic Vision), Ghost-Refresh
+ *   Page    — screenshot capture (Akashik Vision), Ghost-Refresh
  *   Runtime — arbitrary JS evaluation in the Foundry context
  *   CSS     — live style injection (Black-Ice Inversion Engine)
  */
@@ -144,7 +144,7 @@ export class VisualMonitorService {
     return this.client;
   }
 
-  // ── Task 2: Akashic Vision ──────────────────────────────────────────────────
+  // ── Task 2: Akashik Vision ──────────────────────────────────────────────────
 
   /**
    * Capture a raw PNG screenshot from the Foundry Electron renderer.
