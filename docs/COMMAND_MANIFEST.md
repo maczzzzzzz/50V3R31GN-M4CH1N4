@@ -1,4 +1,4 @@
-# ASP.GM-Agent: User & Developer Command Manifest (v1.0.4)
+# ASP.GM-Agent: User & Developer Command Manifest (v1.1.2)
 
 This document provides a comprehensive list of all control plane commands available via the **Crush CLI**, **MCP Tools**, and the **Foundry VTT Bridge**.
 
@@ -36,6 +36,12 @@ These tools are available to the AI GM (Mistral-Nemo) to interact with the world
 ### `nitro-logic` (Rules Authority)
 - `resolve_math`: Ground rules checks in the Physics Constitution.
 - `detect_walls`: Access the geometric CV pass on Node A.
+
+### `chrome-devtools` (Neural Uplink)
+- `capture_screenshot`: Capture the raw GPU rendering buffer of the Electron window.
+- `inject_css`: Inject real-time style overrides (Inversion Engine).
+- `evaluate_javascript`: Execute arbitrary code in the Foundry context.
+- `reload_foundry`: programmatically refresh the Electron application.
 
 ### `nitro-db` (RKG Persistence)
 - `rag_search`: Precision search over lore triplets.
