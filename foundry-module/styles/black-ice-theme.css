@@ -60,7 +60,7 @@
     body.vtt th {
         color: var(--cpr-cyan) !important;
         text-shadow: var(--black-ice-glow) !important;
-        background: #000000 !important;
+        background: var(--cpr-bg-header) !important;
         border-bottom: 1px solid var(--cpr-cyan) !important;
         text-transform: uppercase !important;
         padding: 4px 8px !important;
