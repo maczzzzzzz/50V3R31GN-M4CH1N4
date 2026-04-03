@@ -25,6 +25,8 @@
  * Config: module settings → Node B WS URL (default ws://localhost:3010)
  */
 
+import { PretextOverlayManager } from './scripts/pretext-overlay-manager.js';
+
 const MODULE_ID = 'foundry-api-bridge';
 const DEFAULT_WS_URL = 'ws://localhost:3010';
 const RECONNECT_DELAY_MS = 5000;
@@ -38,9 +40,10 @@ class FoundryApiBridge {
     this.destroyed = false;
     this.dashboard = null;
     this.socket = null; // Socketlib handle
+    this.pendingRequests = new Map();
   }
 
-  // â”€â”€ Lifecycle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Lifecycle ─────────────────────────────────────────────────────────────
 
   init() {
     const wsUrl = game.settings.get(MODULE_ID, 'nodeBWsUrl') ?? DEFAULT_WS_URL;
@@ -55,6 +58,7 @@ class FoundryApiBridge {
     }
 
     this._connect(wsUrl);
+    window.ASP_BRIDGE = this;
   }
 
   destroy() {
@@ -89,12 +93,36 @@ class FoundryApiBridge {
 
     ws.addEventListener('close', () => {
       console.warn(`[${MODULE_ID}] Connection to Node B closed.`);
+      this.ws = ws; // Maintain for reconnect check
       this.ws = null;
       this._scheduleReconnect(wsUrl);
     });
 
     ws.addEventListener('error', (event) => {
       console.error(`[${MODULE_ID}] WebSocket error:`, event);
+    });
+  }
+
+  /**
+   * Send an RPC request to Node B and wait for a success/error response.
+   */
+  async sendRequest(type, payload) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      throw new Error("Bridge not connected to Node B");
+    }
+
+    const requestId = Math.random().toString(36).substring(2, 11);
+    return new Promise((resolve, reject) => {
+      this.pendingRequests.set(requestId, { resolve, reject });
+      this._send({ type, requestId, payload });
+      
+      // Timeout after 10s
+      setTimeout(() => {
+        if (this.pendingRequests.has(requestId)) {
+          this.pendingRequests.get(requestId).reject(new Error("Request timed out"));
+          this.pendingRequests.delete(requestId);
+        }
+      }, 10000);
     });
   }
 
@@ -130,22 +158,33 @@ class FoundryApiBridge {
   // ── Message handling ────────────────────────────────────────────────────────
 
   _handleMessage(raw) {
-    let command;
+    let msg;
     try {
-      command = JSON.parse(raw);
+      msg = JSON.parse(raw);
     } catch (err) {
-      console.error(`[${MODULE_ID}] Failed to parse command JSON:`, err);
+      console.error(`[${MODULE_ID}] Failed to parse message JSON:`, err);
       return;
     }
 
-    if (!command || typeof command.type !== 'string' || typeof command.requestId !== 'string') {
-      console.warn(`[${MODULE_ID}] Received malformed command (missing type or requestId):`, command);
+    // Handle responses to our own requests
+    if (msg.type === 'success' || msg.type === 'error') {
+      const pending = this.pendingRequests.get(msg.requestId);
+      if (pending) {
+        if (msg.type === 'success') pending.resolve(msg.data);
+        else pending.reject(new Error(msg.message));
+        this.pendingRequests.delete(msg.requestId);
+        return;
+      }
+    }
+
+    if (!msg || typeof msg.type !== 'string' || typeof msg.requestId !== 'string') {
+      console.warn(`[${MODULE_ID}] Received malformed command (missing type or requestId):`, msg);
       return;
     }
 
-    this._dispatch(command).catch((err) => {
-      console.error(`[${MODULE_ID}] Command '${command.type}' threw uncaught error:`, err);
-      this._sendError(command.requestId, err.message ?? String(err));
+    this._dispatch(msg).catch((err) => {
+      console.error(`[${MODULE_ID}] Command '${msg.type}' threw uncaught error:`, err);
+      this._sendError(msg.requestId, err.message ?? String(err));
     });
   }
 
@@ -179,6 +218,8 @@ class FoundryApiBridge {
         return this._handleFxGlitch(command);
       case 'run_sequence':
         return this._handleRunSequence(command);
+      case 'pretext_overlay':
+        return this._handlePretextOverlay(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
@@ -245,6 +286,16 @@ class FoundryApiBridge {
       }
       this._sendSuccess(requestId, null);
     } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handlePretextOverlay({ requestId, payload }) {
+    try {
+      await PretextOverlayManager.drawOverlay(payload);
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      console.error(`[${MODULE_ID}] Pretext overlay failed:`, err);
       this._sendError(requestId, err.message ?? String(err));
     }
   }
