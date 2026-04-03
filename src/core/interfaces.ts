@@ -182,6 +182,22 @@ export interface IVisionClient {
   scanMap(imagePath: string): Promise<TacticalRegion[]>;
 }
 
+// ── Architect (Phase 12) types ───────────────────────────────────────────────
+
+export interface IArchitectService {
+  /**
+   * Spawns a token on the specified scene (or active scene if null)
+   * at the given coordinates.
+   */
+  spawnToken(sceneId: string | null, x: number, y: number, actorId?: string): Promise<void>;
+
+  /**
+   * Batch creates walls on the specified scene (or active scene if null).
+   * Accepts an array of [x0, y0, x1, y1] coordinates.
+   */
+  materializeWalls(sceneId: string | null, wallCoords: [number, number, number, number][]): Promise<void>;
+}
+
 // ── Discord Chronicler ────────────────────────────────────────────────────────
 
 /** Narrative voice persona for Screamsheet broadcasts. */
