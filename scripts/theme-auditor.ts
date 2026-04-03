@@ -34,6 +34,7 @@ const TARGETS: SheetTarget[] = targetArg
   : ['character', 'item', 'journal'];
 
 // Serializable data returned from page.evaluate()
+// borderColor is borderTopColor (single value, not shorthand) and is '' when no visible border.
 type RawElement = {
   classes: string[];
   backgroundColor: string;
@@ -82,11 +83,14 @@ async function scanPage(page: Page): Promise<RawElement[]> {
       const style = window.getComputedStyle(el);
       if (style.display === 'none' || style.visibility === 'hidden') continue;
 
+      // Use borderTopColor (single value) instead of borderColor (multi-value shorthand).
+      // Only include it when the element has a visible border (borderTopWidth > 0).
+      const hasBorder = style.borderTopWidth !== '0px' && style.borderTopWidth !== '';
       results.push({
         classes: Array.from(el.classList),
         backgroundColor: style.backgroundColor,
         color: style.color,
-        borderColor: style.borderColor,
+        borderColor: hasBorder ? style.borderTopColor : '',
       });
     }
 
@@ -153,7 +157,15 @@ async function main(): Promise<void> {
     })
     .filter((x): x is NonNullable<typeof x> => x !== null);
 
-  const violations = detectViolations(inputs);
+  const rawViolations = detectViolations(inputs);
+
+  // Exclude selectors for user-defined/dynamic UI elements that must not be overridden.
+  // Player color indicators and names are set per-user, not by CPR system defaults.
+  const EXCLUDED_PATTERNS = ['player-active', 'player-name', 'player-color'];
+  const violations = rawViolations.filter(
+    (v) => !EXCLUDED_PATTERNS.some((p) => v.selector.includes(p))
+  );
+
   console.log(`[theme-auditor] ${violations.length} unique selector violations found.`);
 
   if (violations.length === 0) {
