@@ -1,12 +1,13 @@
 # ASP.GM-Agent: External Knowledge Base & Dependency Registry
-**Version:** 5.1 (Omni-Orchestration Hardened)
-**Target:** v1.4.0 Phase 15 Baseline
+**Version:** 5.2 (Layout Sovereignty Hardened)
+**Target:** v1.4.5 Phase 15 Baseline
 
 ## 🧠 Architectural Patterns (Phase 15+)
 These patterns define the "Central Nervous System" of the ASP-GM-Agent.
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
+| **Layout Sovereignty**| TS + Pretext | Side-stepping DOM reflows for 60fps flowing narrative overlays. |
 | **Intent Swarm** | TS + Promise.all | Concurrent classification via Node A (Intensity) and Node B (Tone). |
 | **Sequential Grounding**| Model Swap Protocol | Unloading Llama to run Falcon Perception Sidecar on 4GB VRAM. |
 | **Resilient Bridge** | Module Detection | Feature-aware dispatching with native CDP/CSS fallbacks. |
@@ -16,7 +17,10 @@ These patterns define the "Central Nervous System" of the ASP-GM-Agent.
 | **The Rules Vault** | Nix + Bubblewrap | Immutable, air-gapped hardware sandbox for Node A. |
 | **Strategic Atlas** | Rust + egui + ShMem | Zero-latency Sidecar radar window. |
 
-## 📦 Dependency Registry (Pinned v1.4.0)
+## 📦 Dependency Registry (Pinned v1.4.5)
+
+### UI & Layout (Atmosphere First)
+- **Pretext**: Pure JS text layout engine (Reflow elimination).
 
 ### Core Rules System (Foundry VTT)
 - **Cyberpunk RED Core**: `v0.92.3` (**PINNED** for CSS Layer and Foundry v12 support)
@@ -54,4 +58,4 @@ These patterns define the "Central Nervous System" of the ASP-GM-Agent.
 - **Precision Data:** `docs/raw_data/core_rules/` (Markdown Rulebooks).
 
 ---
-*Verified by Gemini CLI v1.4.0.*
+*Verified by Gemini CLI v1.4.5.*

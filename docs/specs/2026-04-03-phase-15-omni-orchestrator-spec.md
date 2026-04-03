@@ -1,49 +1,40 @@
-# Design Spec: Phase 15 — Omni Orchestrator (v1.4.0)
+# Design Spec: Phase 15 — Omni Orchestrator (v1.4.5)
 
-**Status:** ✅ FINALIZED  
-**Architecture:** Distributed Swarm Intelligence  
-**Focus:** High-Fidelity Reactive World-State
+**Status:** ✅ HARDENED  
+**Architecture:** Distributed Swarm Intelligence + Layout Sovereignty  
+**Focus:** Ultra-High-Fidelity Narrative Overlays
 
 ---
 
 ## 1. Overview
-The **Omni Orchestrator** is the "Central Nervous System" of the ASP-GM-Agent. it fuses the narrative director (Node B), the rules authority (Node A), and the physical materializer (Foundry Bridge) into a single, reactive loop. It translates player actions and rules resolutions into high-fidelity atmospheric and physical events.
+The **Omni Orchestrator** now incorporates **Pretext** for "Layout Sovereignty." This allows the system to bypass standard DOM constraints, achieving 60fps fluid UI transitions and non-rectangular narrative flows (Netrunning Matrix, Screamsheets).
 
-## 2. Core Components
+## 2. Core Components (Expanded)
 
-### 2.1 The Intent Swarm (Reasoning)
-Instead of linear reasoning, the Orchestrator dispatches a **Parallel Classification Task**:
-- **Task A (Rules):** "Given this Damage/Roll, what is the mechanical intensity (1-10)?"
-- **Task B (Narrative):** "Given this conversation history, what is the current tone (Noir, Combat, Stealth)?"
-- **Reconciliation:** Fuses results into a **Response Profile** (e.g., `HEAVY_COMBAT_NOIR`).
+### 2.1 The Pretext Layout Engine (Node B)
+- **Role:** Calculates mathematical text coordinates without DOM reflows.
+- **Implementation:** `PretextLayoutService` in `src/core/`.
+- **Latency:** ~0.09ms per 500 blocks.
+- **Use Case:** Flowing text around map geometry or node icons.
 
-### 2.2 The Profile Engine (Execution)
-Profiles map narrative/mechanical states to atomic Bridge commands:
-- **`LIGHT_GLITCH`**: Triggers CSS `neural-glitch` at intensity 0.5.
-- **`CRITICAL_STRIKE`**: Triggers **Sequencer** SFX + **FXMaster** Aberration + **Splatter** blood decal.
-- **`SYSTEM_PURGE`**: Triggers full-screen blackout + **Falcon** Force-Scan.
+### 2.2 The Narrative Overlay Engine (Bridge)
+- **Role:** Receives Pretext coordinates via WebSocket and draws directly to a single High-Priority Canvas layer.
+- **Synergy:** Uses **Sequencer** to animate the transitions between layout states.
 
-### 2.3 Sequential Grounding (Perception)
-- **Fast Mode:** Uses Pixel-Diff Stride comparison for movement detection.
-- **Semantic Mode (Falcon):** Triggered on "Force Scan" or Scene Start. 
-- **The "Model Swap" Protocol:** 
-  1. Trigger "Net Connection Lag" UI glitch.
-  2. Unload Llama 3.2.
-  3. Load Falcon Perception.
-  4. Perform Scan → Update Akashik.db.
-  5. Reload Llama 3.2 → Resume Narrative.
+## 3. Use Case Physicalization
 
-## 3. Data Flow
-1. **Event Trigger:** (e.g., Attack Roll result via HybridController).
-2. **Swarm Dispatch:** `Promise.all([NodeA_Scalar, NodeB_Tone])`.
-3. **Profile Selection:** Match `(Intensity, Tone)` to `bridge-layers.css` target.
-4. **Physicalization:** Send command to `asp-gm-bridge`.
-5. **Memory Commit:** Log event to `Akashik.db` for future RAG grounding.
+### 3.1 Netrunning (The Matrix)
+- **Fluidity:** Programs and ICE data wrap around nodes in real-time.
+- **Aesthetic:** "Flowing Code" that reflows instantly during Matrix depth-switches.
 
-## 4. Hardware Efficiency
-- **Atmosphere First:** Prioritize CSS/Shaders over high-poly geometry.
-- **Sequential VRAM:** Model swapping on Node A prevents OOM errors on the 1050 Ti.
-- **Stride Diffing:** Continuous monitoring uses 25% CPU overhead.
+### 3.2 Night Market Screamsheets
+- **Dynamic Type-Setting:** Mission briefs and market prices are "set" like a physical newspaper.
+- **Physicalization:** Interactive "clipped" paper look that responds to GM hover events.
+
+## 4. Hardware Sovereignty
+- **CPU:** Bypasses browser layout engine; pure arithmetic-bound performance.
+- **VRAM:** Reduces transparency-compositing overhead.
+- **Persistence:** Layout states are hashed and stored in `Akashik.db` for 1:1 restoration.
 
 ---
-*Omni Orchestrator: The World Engine is Awake.*
+*Omni Orchestrator: The Living City is Physically Defined.*

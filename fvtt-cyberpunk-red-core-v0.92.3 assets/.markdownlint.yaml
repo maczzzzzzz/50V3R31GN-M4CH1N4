@@ -1,6 +1,0 @@
-default: true
-line-length: false
-# Ignore `Link text should be descriptive`
-MD059: false
-MD026:
-  punctuation: ".,;:。，；：！"
