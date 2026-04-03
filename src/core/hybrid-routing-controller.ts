@@ -96,15 +96,15 @@ export class HybridRoutingController {
       this.redRulesConstitution = 'Rules Constitution Missing.';
     }
 
-    // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
+    // â”€â”€ Vitalik's 2-of-2 Authorization Model (v1.0.3) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     if (this.unifiedOracle) {
       this.unifiedOracle.onAuthorize = async (commands) => {
-        console.log('\n⚠️  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed.');
-        console.log('──────────────────────────────────────────────────────────');
+        console.log('\nâš ï¸  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed.');
+        console.log('â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
         commands.forEach((cmd, i) => {
           console.log(`[${i+1}] ${cmd.action}: ${JSON.stringify(cmd)}`);
         });
-        console.log('──────────────────────────────────────────────────────────');
+        console.log('â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
         
         // Dynamic import to prevent TTY issues in non-interactive sessions
         const rl = await import('node:readline/promises');
@@ -122,6 +122,36 @@ export class HybridRoutingController {
           reader.close();
         }
       };
+    }
+
+    // Unified Restore (v1.4.3): Automatically restore world-state on boot
+    this.restoreSystemState().catch(err => {
+      console.warn('[HRC] System state auto-restore failed:', err.message);
+    });
+  }
+
+  /** 
+   * Reads system_state from Akashik.db and dispatches restoration commands.
+   */
+  private async restoreSystemState(): Promise<void> {
+    if (!this.unifiedOracle?.isConnected()) return;
+    
+    const rows = this.unifiedOracle.query<{ value: string }>('SELECT value FROM system_state WHERE key = ?', ['last_active_scene']);
+    if (rows.length > 0 && rows[0].value !== 'null') {
+      const sceneId = rows[0].value;
+      process.stdout.write(`[v1.4.3 Restore] Found last active scene: ${sceneId}. Restoring...\n`);
+      
+      // We wrap in a short timeout to ensure all WebSocket/CDP links are primed
+      setTimeout(async () => {
+        try {
+          await this.foundry.activateScene(sceneId);
+          if (this.neuralUplink?.isConnected()) {
+            await this.neuralUplink.restoreAtmosphere(sceneId);
+          }
+        } catch (err) {
+          console.warn(`[v1.4.3 Restore] Scene ${sceneId} restoration failed:`, (err as Error).message);
+        }
+      }, 3000);
     }
   }
 

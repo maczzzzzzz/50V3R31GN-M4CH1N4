@@ -182,3 +182,14 @@ CREATE TABLE IF NOT EXISTS missions (
     lore_anchors_json TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Phase 15: System State Persistence (Iron Reboot Protocol)
+-- Stores the last known state of the world engine for automatic restoration on boot.
+CREATE TABLE IF NOT EXISTS system_state (
+    key TEXT PRIMARY KEY,
+    value TEXT,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Initialize with default active scene if not exists
+INSERT OR IGNORE INTO system_state (key, value) VALUES ('last_active_scene', 'null');
