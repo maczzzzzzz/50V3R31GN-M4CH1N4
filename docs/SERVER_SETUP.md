@@ -1,59 +1,39 @@
-# Server Setup: Node A (Rules Authority)
-### ASP.GM-Agent v1.0.4 | Node A (Linux) Setup Guide
+# Server Setup: Node A (Rules Vault)
+### ASP.GM-Agent v1.1.2 | Node A (Linux) Setup Guide
 
-This document details the configuration for **Node A**, the secondary Linux-based rules and geometry authority.
+This document details the configuration for **Node A**, the secondary rules and geometry vault.
 
 ---
 
 ## 💻 Hardware Prerequisites
-- **Machine:** Nitro 5 / 1050 Ti (Target hardware).
-- **OS:** Ubuntu 24.04 LTS (recommended).
-- **VRAM:** 4GB+ (GDDR5+).
-- **Storage:** 20GB+ for model weights.
+- **Machine:** Nitro 5 / 1050 Ti (NVIDIA 4GB).
+- **Isolation:** Must be on the same local LAN as Node B.
 
-## 🛠️ Step 1: Software Prerequisites
-1. **Rust (v1.94+):**
+## 🛠️ Step 1: Immutable Environment (Nix)
+1. **Install Nix:** `curl -L https://nixos.org/nix/install | sh`.
+2. **Enable Flakes:** Add `experimental-features = nix-command flakes` to `nix.conf`.
+3. **Ignite Vault:**
    ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   ```
-2. **Ollama (v0.19.0+):**
-   ```bash
-   curl -fsSL https://ollama.com/install.sh | sh
-   ```
-3. **Build Tools:**
-   ```bash
-   sudo apt update && sudo apt install build-essential libssl-dev pkg-config -y
+   cd zeroclaw
+   nix develop
    ```
 
 ## 🧠 Step 2: Model Provisioning
-Install the rules authority model:
 ```bash
 ollama pull llama3.2:3b
 ```
-*Note: This model provides the optimal balance of intelligence and performance for the 4GB 1050 Ti.*
 
-## 🏗️ Step 3: Deploy ZeroClaw (Rust)
-1. **Clone & Navigate:**
-   ```bash
-   git clone https://github.com/maczzzzzzz/-asp-gm-agent.git
-   cd -asp-gm-agent/zeroclaw
-   ```
-2. **Configure Host:** Ensure `src/main.rs` is listening on `0.0.0.0:7878` for cross-node binary communication.
-3. **Build (Optimized):**
-   ```bash
-   cargo build --release
-   ```
+## 🏗️ Step 3: Build & Sandbox
+1. **Build:** `cargo build --release`.
+2. **Sandbox Setup:** Install `bubblewrap` (`sudo apt install bubblewrap`).
+3. **Deploy Service:** Copy `docs/zeroclaw.service` to `/etc/systemd/system/`.
+   - *This service automatically jails the process via `--unshare-net`.*
 
 ## 🎲 Step 4: Ignition
 ```bash
-sudo systemctl start zeroclaw
+sudo systemctl enable --now zeroclaw
 ```
-Verify the server is active:
-```bash
-sudo systemctl status zeroclaw
-```
-Expected output: `Active: active (running)`.
 
-## ⚠️ Stability & Performance
-- **Transport:** ClawLink uses newline-delimited JSON framing over raw TCP. Use `ufw allow 7878/tcp` if the connection from Node B is refused.
-- **Inference:** If math checks are slow, verify Ollama is not offloading to CPU. The 3B model fits comfortably in the 4GB 1050 Ti buffer.
+## ⚠️ Stability
+- **Physics Constitution:** Ensure `RED_RULES.md` is present in the `zeroclaw/` directory.
+- **Port:** ZeroClaw listens on `0.0.0.0:7878` for binary RPC calls.

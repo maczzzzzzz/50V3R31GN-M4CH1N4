@@ -1,7 +1,7 @@
-# ASP.GM-Agent (v1.1.0)
+# ASP.GM-Agent (v1.1.2)
 ### The High-Fidelity Split-Node World Engine
 
-ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a task-isolated Rules Oracle, it provides sub-500ms narrative synthesis grounded in hard-coded physics and real-time map topology.
+ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a native Neural Uplink, it provides sub-500ms narrative synthesis grounded in hard-coded physics, raw pixel perception, and the immutable Akashic Record.
 
 ```mermaid
 graph TD
@@ -11,6 +11,7 @@ graph TD
         E[Crush CLI] -->|Control Plane| A
         J[RulesGrepService] -->|Precision Grounding| A
         M[Strategic Atlas] -->|Shared Memory| D
+        N[Neural Uplink CDP] -->|Hardware Eyes| B
     end
 
     subgraph "Node A: Rules Authority (Ubuntu/NVIDIA 1050 Ti)"
@@ -20,37 +21,36 @@ graph TD
     end
 
     B <-->|ClawLink Binary Socket| F
-    D <-->|Atomic Flush| I[(SQLite WAL)]
+    D <-->|Atomic Flush| I[(Akashik.db WAL)]
     J -->|Context Extract| L[Markdown Rulebooks]
+    N -->|GPU Buffers| D
 ```
 
-## 🧠 v1.1.0: The Unified Cyberdeck Release
+## 🧠 v1.1.2: The Neural Uplink Release
 
-### 1. Strategic Atlas (Zero-Latency Sidecar)
-A standalone Rust binary (`sidecar-atlas`) that provides a real-time tactical radar of Night City.
-- **Option C Transport:** Utilizes a **4MB Shared Memory segment** for sub-microsecond state synchronization between Node B and the UI.
-- **Hardware Sovereignty:** Consumes <1% CPU and <50MB RAM, preserving the VRAM buffer for narrative inference.
+### 1. Neural Uplink (Hardware Perception)
+Bypasses the standard API sandbox to grant the AI physical eyes on the game engine via the **Chrome DevTools Protocol (CDP)**.
+- **Visual Grounding:** Captures raw GPU rendering buffers for 1:1 pixel parity with the GM's screen.
+- **Inversion Engine:** Injects real-time CSS overrides and narrative glitch FX directly into the Electron renderer.
+- **Ghost-Refresh:** programmatically reloads the Foundry window to activate module updates without manual intervention.
 
-### 2. The Night City Dashboard (Foundry Sidebar)
-A persistent, high-density terminal integrated directly into the Foundry VTT sidebar.
-- **Visual Identity:** Total unification with the **Black-Ice Cyan/Black** aesthetic.
-- **Live Sync:** Real-time ASCII bars for PC/NPC vitality and a 10x10 heat-map of faction influence.
+### 2. The Akashic Record (Universal Truth)
+Transitioned the primary data plane from a local file to the **Akashik.db** universal library.
+- **Deterministic Governance:** Locks SQLite derivations (R*Tree, FTS5) via **Nix** to prevent index drift.
+- **Vision History:** Stores visual hashes of every tactical state for persistent spatial grounding.
 
-### 3. Crush CLI: Lipgloss Refit
-The low-level control plane has been overhauled using the **Charmbracelet Lipgloss** ecosystem. 
-- **Reactive UI:** Bordered terminal panes and CRT-glow emulation provide a seamless visual link between the CLI and the virtual tabletop.
+### 3. Strategic Atlas & Swarm Oracle
+- **Zero-Latency Radar:** A Rust-native sidecar window using **Shared Memory (Option C)** for sub-microsecond state sync.
+- **Task-Isolated Math:** Node A spawns concurrent "Faction Threads" to prevent stat-drift in multi-party combat.
 
-### 4. Swarm Oracle & Flush Gate (Hardened)
-- **Task Isolation:** Node A spawns isolated "Faction Threads" for concurrent rules reasoning.
-- **2-of-2 Authorization:** Every world-state write (NPC death, faction shift) physically pauses for a human `ACK` signature in the terminal.
-
-## 🏗️ Hardware Architecture
-- **Node A (Rules Authority):** NVIDIA-native **CUDA** path ensuring zero-lag mathematical grounding on 4GB hardware.
-- **Node B (Director):** Optimized for **AMD RDNA 4 (Vulkan)** with a **32k context window** via `q4_0` KV-caching.
+## 🏗️ Technical Architecture
+- **ClawLink:** Persistent TCP binary sockets with <10ms latency and serializing **Throttling Queue**.
+- **Rules Vault:** Rust-native ZeroClaw sandboxed via **Nix + Bubblewrap** (100% air-gapped).
+- **Control Plane:** Lipgloss-refit **Crush CLI** with 2-of-2 human authorization mandates.
 
 ## ⚡ Key Commands
 - **`/scan`**: Initialize the dual-pass vision pipeline (Geometric + Semantic).
-- **`/pulse`**: Advance the deterministic world state.
+- **`/pulse`**: Advance the deterministic world state in Akashik.db.
 - **`/onboard`**: Orchestrate characterized actor materialization.
 
 ---

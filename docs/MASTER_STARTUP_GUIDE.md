@@ -1,36 +1,37 @@
-# Master Startup Guide: ASP.GM-Agent (v1.1.0)
-### Hardened Split-Node & Unified UI Initialization
+# Master Startup Guide: ASP.GM-Agent (v1.1.2)
+### Hardened Split-Node & Neural Uplink Initialization
 
-This document provides the high-fidelity operational sequence for igniting the **Split-Node v1.1.0** world engine and its integrated UI suite.
+This document provides the high-fidelity operational sequence for igniting the **Split-Node v1.1.2** world engine and its hardware perception loop.
 
 ---
 
 ## 🏗️ Hardware Check
-- **Node A (Rules Authority):** Ubuntu 24.04 (NVIDIA 1050 Ti). Dedicated Rules & Geometry.
-- **Node B (Orchestrator):** Windows (AMD RX 9060 XT 16GB). Dedicated Narrative & UI.
+- **Node A (Rules Vault):** Ubuntu 24.04 (NVIDIA 1050 Ti). Sandboxed via Nix/Bubblewrap.
+- **Node B (Director):** Windows (AMD RX 9060 XT 16GB). Managing Neural Uplink & Akashic Record.
 
 ## 🚀 Step 1: Initialize Node A (The Rules Vault)
 1. **Ignite:** `ssh maczz@192.168.0.50 'sudo systemctl start zeroclaw'`.
-2. **Verify:** `systemctl status zeroclaw` should show `active (running)`.
-3. **Sandbox:** Ensure **Nix DevShell** is active if running manual math checks.
+2. **Jail:** The service automatically enters the **Bubblewrap sandbox** upon ignition.
+3. **Verify:** Check logs for `📡 ZeroClaw ACTIVE and listening on: 0.0.0.0:7878`.
 
 ## 🚀 Step 2: Initialize Node B (The Director)
-1. **Environment:** Ensure Node.js 22.0+ and Go 1.22+ are installed.
-2. **Ignite Orchestrator:** `npm start`.
-   - *This creates the `black_ice_state.mem` shared memory segment.*
-3. **Ignite Strategic Atlas:** `cd sidecar-atlas && cargo run --release`.
-   - *The "Night City Radar" window will materialize.*
+1. **CDP Port:** Ensure Foundry VTT is CLOSED.
+2. **Ignite Foundry:** Launch the Foundry Electron app with the debugging flag:
+   ```powershell
+   & "C:\Program Files\Foundry VTT\Foundry VTT.exe" --remote-debugging-port=9222
+   ```
+3. **Ignite Orchestrator:** `npm start`.
+   - *Verify: `✅ Neural Uplink: Native CDP Engine Active.` in stdout.*
 
-## 🚀 Step 3: Initialize Crush CLI (Control Plane)
-1. **Build:** `cd crush && go build -o crush.exe`.
-2. **Ignite:** `./crush.exe run`.
-   - *The Lipgloss-refit terminal will establish the hardware handshake.*
+## 🚀 Step 3: Initialize Sidecars
+1. **Strategic Atlas:** `cd sidecar-atlas && cargo run --release`.
+2. **Crush CLI:** `cd crush && ./crush.exe run`.
 
-## 🚀 Step 4: Bridge Foundry VTT (Project Eyes-On)
-1. **Verify Link:** check Foundry chat for the v1.1.0 established message.
-2. **Sidebar:** Switch to the `Night City Dashboard` tab (Terminal Icon) to see live faction/actor stats.
+## 🚀 Step 4: Final Handshake
+1. **Connect:** Verify the binary bridge establishment in both terminals.
+2. **Grounding:** Run `/scan` in the Crush CLI to verify GPU-level vision capture.
 
 ## ⚠️ Troubleshooting
-- **Atlas Static:** Ensure Node B Orchestrator is running FIRST to initialize the shared memory segment.
-- **Lipgloss Glitch:** If ASCII bars are mangled, ensure your terminal supports UTF-8 and TrueColor.
-- **Auth Pause:** If the system "Hangs," check the Crush CLI for an `AUTHORIZATION REQUIRED` prompt.
+- **Uplink Failure:** Ensure no other browser tab is using Port 9222.
+- **Akashic Error:** Check `data/logs/db.log` if `Akashik.db` fails to flush.
+- **Timeout:** The Throttling Queue handles 1050 Ti latency; do not spam commands during concurrent Swarm tasks.
