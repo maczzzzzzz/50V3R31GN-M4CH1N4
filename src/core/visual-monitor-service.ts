@@ -19,6 +19,37 @@ import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
+export interface WallSegment {
+  x1: number; y1: number;
+  x2: number; y2: number;
+}
+
+export interface LightPlacement {
+  x: number; y: number;
+  radius: number;
+  color?: string;   // hex color string e.g. '#ff0000'
+}
+
+export interface TokenPlacement {
+  actorId: string;
+  x: number; y: number;
+  name?: string;
+}
+
+export interface SceneBlueprint {
+  sceneId: string;
+  walls?: WallSegment[];
+  lights?: LightPlacement[];
+  tokens?: TokenPlacement[];
+}
+
+export interface MaterializationResult {
+  wallsCreated: number;
+  lightsCreated: number;
+  tokensCreated: number;
+  executionMs: number;
+}
+
 export interface VisualMonitorConfig {
   /** CDP debug port. Must be bound to 127.0.0.1. Default: 9222 */
   readonly debugPort?: number;
@@ -141,5 +172,54 @@ export class VisualMonitorService {
     const { styleSheetId } = await client.CSS.createStyleSheet({ frameId });
     await client.CSS.setStyleSheetText({ styleSheetId, text: cssText });
     return styleSheetId;
+  }
+
+  /**
+   * Batch-materialize walls, lights, and tokens into a Foundry scene via
+   * a single CDP Runtime.evaluate call (Neural Painter).
+   * Throws if not connected or if the CDP evaluation fails.
+   */
+  async batchCreateDocuments(blueprint: SceneBlueprint): Promise<MaterializationResult> {
+    const client = this.getClient();
+    const start = Date.now();
+
+    const walls = blueprint.walls ?? [];
+    const lights = blueprint.lights ?? [];
+    const tokens = blueprint.tokens ?? [];
+
+    // Build a single JS script to execute in the Foundry renderer context
+    const script = `(async () => {
+    const scene = game.scenes.get(${JSON.stringify(blueprint.sceneId)});
+    if (!scene) throw new Error('Scene not found: ' + ${JSON.stringify(blueprint.sceneId)});
+    const wallData = ${JSON.stringify(walls)}.map(w => ({ c: [w.x1, w.y1, w.x2, w.y2] }));
+    const lightData = ${JSON.stringify(lights)}.map(l => ({ x: l.x, y: l.y, config: { dim: l.radius, bright: l.radius / 2, color: l.color ?? '#ffffff' } }));
+    const tokenData = ${JSON.stringify(tokens)}.map(t => ({ actorId: t.actorId, x: t.x, y: t.y, name: t.name ?? '' }));
+    const results = await Promise.all([
+      wallData.length  ? scene.createEmbeddedDocuments('Wall',        wallData)  : [],
+      lightData.length ? scene.createEmbeddedDocuments('AmbientLight', lightData) : [],
+      tokenData.length ? TokenDocument.createDocuments(tokenData, { parent: scene }) : [],
+    ]);
+    return { wallsCreated: results[0].length, lightsCreated: results[1].length, tokensCreated: results[2].length };
+  })()`;
+
+    const { result, exceptionDetails } = await client.Runtime.evaluate({
+      expression: script,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    if (exceptionDetails) {
+      throw new Error(
+        `[VisualMonitorService] Neural Painter CDP error: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
+      );
+    }
+
+    const value = result.value as { wallsCreated: number; lightsCreated: number; tokensCreated: number };
+    return {
+      wallsCreated: value.wallsCreated,
+      lightsCreated: value.lightsCreated,
+      tokensCreated: value.tokensCreated,
+      executionMs: Date.now() - start,
+    };
   }
 }

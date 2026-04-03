@@ -23,6 +23,7 @@ import { SharedMemoryService } from './shared-memory-service.js';
 
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
+import { MissionSwarmOrchestrator } from './mission-swarm-orchestrator.js';
 import fs from 'node:fs';
 
 // ── Constructor options ───────────────────────────────────────────────────────
@@ -43,6 +44,7 @@ export interface HybridRoutingControllerOptions {
   readonly onboardingEnabled?: boolean | undefined;
 
   readonly sharedMemoryService?: SharedMemoryService | undefined;
+  readonly missionSwarm?: MissionSwarmOrchestrator | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -62,7 +64,8 @@ export class HybridRoutingController {
   private readonly architect: IArchitectService | undefined;
   private readonly onboardingEnabled: boolean;
   private readonly sharedMemory: SharedMemoryService | undefined;
-  
+  private readonly missionSwarm: MissionSwarmOrchestrator | undefined;
+
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
 
@@ -81,6 +84,7 @@ export class HybridRoutingController {
     this.architect = options.architect;
     this.onboardingEnabled = options.onboardingEnabled ?? false;
     this.sharedMemory = options.sharedMemoryService;
+    this.missionSwarm = options.missionSwarm;
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -158,6 +162,19 @@ export class HybridRoutingController {
         return this.handleOpenNightMarket(event.payload.actorId, event.payload.vendorName);
       case 'red_trade_transit':
         return this.handleRedTradeTransit(event.payload);
+      case 'generate_mission': {
+        if (this.missionSwarm) {
+          const district = (event.payload as { district?: string }).district ?? 'Watson';
+          const blueprint = await this.missionSwarm.generateMission(district);
+          await this.foundry.sendChatMessage(
+            `🎯 **Mission Brief — ${blueprint.district}**\n` +
+            `**Intel:** ${JSON.stringify(blueprint.rulesIntel)}\n` +
+            `**Tactics:** ${blueprint.tacticalAnalysis}\n` +
+            `**Lore Anchors:** ${blueprint.loreAnchors.join(', ') || 'None'}`,
+          );
+        }
+        return;
+      }
       default: {
         const exhaustiveCheck: never = event;
         throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as FoundryEvent).type}'`);

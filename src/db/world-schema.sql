@@ -139,7 +139,7 @@ FOR EACH ROW
 WHEN NEW.strength > 1
 BEGIN
     -- Update 8 neighbors (Recursive step)
-    UPDATE district_grid 
+    UPDATE district_grid
     SET strength = NEW.strength - 1
     WHERE faction_name = NEW.faction_name
       AND x BETWEEN NEW.x - 1 AND NEW.x + 1
@@ -147,3 +147,15 @@ BEGIN
       AND (x != NEW.x OR y != NEW.y) -- Don't update self
       AND strength < NEW.strength - 1;
 END;
+
+-- Phase 13: Map Asset Index (Infinite Night — Custom Map Ingestion Engine)
+-- Stores metadata for ingested map assets, populated by AssetIndexService.
+CREATE TABLE IF NOT EXISTS map_assets (
+    id          TEXT PRIMARY KEY,
+    file_name   TEXT NOT NULL,
+    file_path   TEXT NOT NULL,
+    biome       TEXT,
+    status      TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'indexed', 'failed')),
+    wall_data   TEXT,         -- JSON array of wall segments from Node A CV pass
+    indexed_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+);

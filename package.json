@@ -1,6 +1,6 @@
 {
   "name": "asp-gm-agent",
-  "version": "1.1.1",
+  "version": "1.2.0",
 
 
   "description": "AI-powered GM assistant for Cyberpunk RED on Foundry VTT v12",
@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.28.0",
+    "chokidar": "^3.6.0",
     "chrome-remote-interface": "0.33.3",
     "better-sqlite3": "12.8.0",
     "dotenv": "17.3.1",
