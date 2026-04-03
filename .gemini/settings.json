@@ -1,5 +1,7 @@
 {
-  "model": "gemini-3-pro",
+  "model": {
+    "name": "gemini-3-pro"
+  },
   "systemInstruction": "You are the Senior Systems Architect for 'asp-gm-agent'. Adhere to the 'No Creep' contract. Node A (.50) is Authority. Node B (.51) is Orchestrator.",
   "coreTools": ["google_web_search", "shell_execute", "file_read_write"],
   "mcpServers": {
