@@ -546,7 +546,7 @@ export class HybridRoutingController {
 
       // NPC grounding — must come first so substring checks match test expectations
       const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
-      const mentions = npcs.filter((n: any) => input.toLowerCase().includes(n.name.toLowerCase()));
+      const mentions = npcs.filter((n: any) => n.name && input.toLowerCase().includes(n.name.toLowerCase()));
 
       for (const npc of mentions) {
         pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
