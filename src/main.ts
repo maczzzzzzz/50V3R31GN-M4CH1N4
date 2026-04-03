@@ -22,6 +22,7 @@ import { GmApprovalQueue } from './core/gm-approval-queue.js';
 import { NightMarketService } from './core/night-market-service.js';
 import { RedTradeService } from './core/red-trade-service.js';
 import { UnifiedOracleClient } from './db/unified-oracle-client.js';
+import { ArchitectPassService } from './core/architect-pass-service.js';
 import { bootstrapTttaPart1, createTttaPart1InitialState } from './core/campaign-registry.js';
 import { DiscordChroniclerClient } from './core/discord-chronicler-client.js';
 import { SpatialVisionService } from './core/spatial-vision-service.js';
@@ -72,7 +73,20 @@ async function main() {
   // 5. Build Foundry Adapter
   const foundry = new FoundryAdapter();
 
-  // 6. Assemble Orchestration Loop
+  // 6. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
+  const neuralUplink = new VisualMonitorService({
+    debugPort: parseInt(process.env.CDP_DEBUG_PORT || '9222', 10),
+    oracle,
+  });
+  try {
+    await neuralUplink.connect();
+  } catch (err) {
+    console.warn(`⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
+  }
+
+  const architect = new ArchitectPassService(neuralUplink);
+
+  // 7. Assemble Orchestration Loop
   const controller = new HybridRoutingController({
     nitroLogicClient: nitroLogic,
     ollamaClient: ollama,
@@ -83,10 +97,12 @@ async function main() {
     redTradeService: new RedTradeService(),
     unifiedOracle: oracle,
     chronicler,
+    visualMonitor: neuralUplink,
+    architect,
     onboardingEnabled: true,
   });
 
-  // 7. Wire Orchestrator to Bridge Events
+  // 8. Wire Orchestrator to Bridge Events
   foundry.onEvent(async (event) => {
     try {
       await controller.handleFoundryEvent(event);
@@ -94,17 +110,6 @@ async function main() {
       console.error('[Main] Orchestrator error:', err);
     }
   });
-
-  // 8. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
-  const neuralUplink = new VisualMonitorService({
-    debugPort: parseInt(process.env.CDP_DEBUG_PORT || '9222', 10),
-    oracle,
-  });
-  try {
-    await neuralUplink.connect();
-  } catch (err) {
-    console.warn(`⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
-  }
 
   // 9. Start the WS Server
   await foundry.start(3010);

@@ -74,6 +74,59 @@ export class ArchitectPassService implements IArchitectService {
   }
 
   /**
+   * Batch creates tokens on the specified scene (or active scene if null).
+   * Accepts an array of token data { x, y, actorId? }.
+   */
+  async materializeTokens(sceneId: string | null, tokens: { x: number, y: number, actorId?: string }[]): Promise<void> {
+    const client = this.visualMonitor.getClient();
+    if (!client) {
+      throw new Error('ArchitectPassService: Neural Uplink (CDP) client not connected.');
+    }
+
+    const { Runtime } = client;
+
+    // In Foundry v12, we use TokenDocument.createDocuments for batch creation.
+    const expression = `
+      (async function() {
+        try {
+          const scene = ${sceneId ? `game.scenes.get("${sceneId}")` : 'canvas.scene'};
+          if (!scene) return { success: false, error: "Target scene not found." };
+
+          const defaultActorId = game.actors.find(a => a.type === "npc")?.id;
+          
+          const data = ${JSON.stringify(tokens)}.map(t => ({
+            actorId: t.actorId || defaultActorId,
+            x: t.x,
+            y: t.y,
+            hidden: false,
+            texture: { src: "icons/svg/mystery-man.svg" }
+          }));
+
+          const createdTokens = await TokenDocument.createDocuments(data, { parent: scene });
+          return { success: true, count: createdTokens.length };
+        } catch (err) {
+          return { success: false, error: err.message };
+        }
+      })()
+    `;
+
+    console.log('📡 Architect: Materializing', tokens.length, 'tokens.');
+
+    const response = await Runtime.evaluate({
+      expression,
+      awaitPromise: true,
+      returnByValue: true
+    });
+
+    const result = response.result.value;
+    if (!result || result.success === false) {
+      throw new Error(`Foundry Architect Token Materialization Failed: ${result?.error ?? 'Unknown renderer error'}`);
+    }
+
+    console.log(`✅ Architect: ${result.count} tokens materialized successfully.`);
+  }
+
+  /**
    * Batch creates walls on the specified scene (or active scene if null).
    * Accepts an array of [x0, y0, x1, y1] coordinates and injects
    * canvas.scene.createEmbeddedDocuments("Wall", ...).

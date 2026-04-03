@@ -192,6 +192,12 @@ export interface IArchitectService {
   spawnToken(sceneId: string | null, x: number, y: number, actorId?: string): Promise<void>;
 
   /**
+   * Batch creates tokens on the specified scene (or active scene if null).
+   * Accepts an array of token data { x, y, actorId? }.
+   */
+  materializeTokens(sceneId: string | null, tokens: { x: number, y: number, actorId?: string }[]): Promise<void>;
+
+  /**
    * Batch creates walls on the specified scene (or active scene if null).
    * Accepts an array of [x0, y0, x1, y1] coordinates.
    */

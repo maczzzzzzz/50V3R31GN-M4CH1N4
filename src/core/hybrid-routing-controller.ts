@@ -7,7 +7,7 @@
 import type {
   INitroLogicClient, IOllamaClient, IDiscordChroniclerClient, ScreamsheetPersona,
   AttackResult, DvResult, OracleResult,
-  ResolveAttackParams, CalculateDvParams, OracleRollParams,
+  ResolveAttackParams, CalculateDvParams, OracleRollParams, IArchitectService,
 } from './interfaces.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent, RedTradeTransitEvent } from '../shared/schemas/foundry-bridge.schema.js';
@@ -17,8 +17,10 @@ import type { NightMarketService } from './night-market-service.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { RedTradeService } from './red-trade-service.js';
 import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
-import type { SpatialVisionService } from './spatial-vision-service.js';
-import type { SharedMemoryService } from './shared-memory-service.js';
+import { SpatialVisionService } from './spatial-vision-service.js';
+import { VisualMonitorService } from './visual-monitor-service.js';
+import { SharedMemoryService } from './shared-memory-service.js';
+
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
 import fs from 'node:fs';
@@ -36,7 +38,10 @@ export interface HybridRoutingControllerOptions {
   readonly redTradeService: RedTradeService;
   readonly chronicler?: IDiscordChroniclerClient | undefined;
   readonly spatialVision?: SpatialVisionService | undefined;
+  readonly visualMonitor?: VisualMonitorService | undefined;
+  readonly architect?: IArchitectService | undefined;
   readonly onboardingEnabled?: boolean | undefined;
+
   readonly sharedMemoryService?: SharedMemoryService | undefined;
 }
 
@@ -53,6 +58,8 @@ export class HybridRoutingController {
   private readonly redTradeService: RedTradeService;
   private readonly chronicler: IDiscordChroniclerClient | undefined;
   private readonly spatialVision: SpatialVisionService | undefined;
+  private readonly visualMonitor: VisualMonitorService | undefined;
+  private readonly architect: IArchitectService | undefined;
   private readonly onboardingEnabled: boolean;
   private readonly sharedMemory: SharedMemoryService | undefined;
   
@@ -70,6 +77,8 @@ export class HybridRoutingController {
     this.redTradeService = options.redTradeService;
     this.chronicler = options.chronicler;
     this.spatialVision = options.spatialVision;
+    this.visualMonitor = options.visualMonitor;
+    this.architect = options.architect;
     this.onboardingEnabled = options.onboardingEnabled ?? false;
     this.sharedMemory = options.sharedMemoryService;
 
@@ -259,6 +268,14 @@ export class HybridRoutingController {
       ambush: `🔴 **RIVAL INTERVENTION** — Ambush! Roll: ${result.total}`,
     };
     await this.foundry.sendChatMessage(messages[result.outcome] || `🌆 *Streets of Night City:* ${result.outcome}`, { alias: 'Friction Engine' });
+    
+    // Architect Pass (Phase 12): Materialize ambush tokens directly in the renderer
+    if (result.outcome === 'ambush' && this.architect) {
+      this.architect.spawnToken(null, 500, 500).catch(err => {
+        console.warn('[HRC] Architect ambush manifestation failed:', err.message);
+      });
+    }
+
     this.evaluateStoryEvent({ type: 'red_trade_transit', payload });
     await this.syncDashboard();
     return result;
@@ -349,7 +366,22 @@ export class HybridRoutingController {
   }
 
   async handleScan(): Promise<void> {
+    let visualBuffer: Buffer | undefined;
+    
+    // Attempt Neural Uplink (CDP) capture first
+    if (this.visualMonitor) {
+      try {
+        visualBuffer = await this.visualMonitor.captureScreenshot();
+        console.log('📡 Neural Uplink: Captured GPU screenshot via CDP.');
+      } catch (err) {
+        console.warn('⚠️  Neural Uplink capture failed, falling back to legacy CV:', (err as Error).message);
+      }
+    }
+
     if (!this.spatialVision) return;
+    
+    // If we have a CDP buffer, we would pass it to analysis. 
+    // For now, we maintain the legacy capture logic if CDP fails.
     const visual = await this.spatialVision.captureAndAnalyze();
     const visualSummary = `Tokens: ${visual.tokenClusters.join(', ')}. Environment: ${visual.environmentalFeatures.join(', ')}.`;
     const groundedContext = await this.applyWorldPulseGrounding(visualSummary);

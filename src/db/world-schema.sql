@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS inventory (
     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Phase 11: Akashic Vision History (Neural Uplink GPU-Level Grounding)
+-- Phase 11: Akashik Vision History (Neural Uplink GPU-Level Grounding)
 -- Stores metadata for each raw screenshot captured via CDP Page.captureScreenshot.
 CREATE TABLE IF NOT EXISTS vision_history (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
