@@ -22,6 +22,13 @@ type SheetTarget = 'character' | 'item' | 'journal';
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
 const targetArg = args.find((a) => a.startsWith('--target='))?.split('=')[1];
+
+const VALID_TARGETS = new Set<string>(['character', 'item', 'journal']);
+if (targetArg !== undefined && !VALID_TARGETS.has(targetArg)) {
+  console.error(`[theme-auditor] Unknown --target value: "${targetArg}". Valid: character, item, journal`);
+  process.exit(1);
+}
+
 const TARGETS: SheetTarget[] = targetArg
   ? [targetArg as SheetTarget]
   : ['character', 'item', 'journal'];
@@ -118,15 +125,17 @@ async function main(): Promise<void> {
 
   const allRaw: RawElement[] = [];
 
-  for (const target of TARGETS) {
-    console.log(`[theme-auditor] Opening ${target} sheet...`);
-    await openSheet(page, target);
-    const raw = await scanPage(page);
-    console.log(`[theme-auditor]   → ${raw.length} elements scanned`);
-    allRaw.push(...raw);
+  try {
+    for (const target of TARGETS) {
+      console.log(`[theme-auditor] Opening ${target} sheet...`);
+      await openSheet(page, target);
+      const raw = await scanPage(page);
+      console.log(`[theme-auditor]   → ${raw.length} elements scanned`);
+      allRaw.push(...raw);
+    }
+  } finally {
+    await browser.close();
   }
-
-  await browser.close();
 
   // Build ElementInputs
   const inputs = allRaw
