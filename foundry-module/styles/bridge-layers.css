@@ -1,0 +1,17 @@
+﻿@layer agent-base, agent-glitch, agent-overlay;
+
+/**
+ * ASP Bridge - Layer Sovereignty
+ * Ensures agent visual effects possess definitive priority.
+ */
+
+@layer agent-glitch {
+  body.neural-glitch-active::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: hard-light;
+  }
+}

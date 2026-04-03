@@ -1,30 +1,40 @@
 {
-  "id": "foundry-api-bridge",
-  "title": "ASP.GM-Agent: Foundry API Bridge",
-  "description": "WebSocket bridge module for ASP.GM-Agent. Connects outbound to the Node B orchestrator, enabling bidirectional communication between Foundry VTT v12 and the local AI GM stack.",
-  "version": "1.1.2",
-  "compatibility": {
-    "minimum": "12",
-    "verified": "12"
-  },
+  "id": "asp-gm-bridge",
+  "title": "ASP GM Agent: High-Fidelity Bridge",
+  "description": "Physicalized interface between Node B and the Foundry VTT renderer. Provides high-performance orchestration via Sequencer, FXMaster, and Socketlib.",
+  "version": "1.3.8",
+  "library": false,
+  "manifest": "",
+  "download": "",
   "authors": [
     {
-      "name": "maczzzzzzz",
-      "url": "https://github.com/maczzzzzzz"
+      "name": "The Orchestrator",
+      "email": "",
+      "url": ""
     }
   ],
-  "styles": ["styles/black-ice-theme.css"],
-  "esmodules": ["foundry-api-bridge.js"],
-  "sidebars": [
-    {
-      "id": "asp-gm-dashboard",
-      "label": "Night City Dashboard",
-      "icon": "fas fa-terminal"
-    }
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "12"
+  },
+  "relationships": {
+    "requires": [
+      { "id": "socketlib", "reason": "Administrative Sovereignty and Permission Elevation" },
+      { "id": "fxmaster", "reason": "Atmosphere-First Screen Filters and Weather" },
+      { "id": "sequencer", "reason": "Atomic Orchestration of Visual/Audio Sequences" },
+      { "id": "splatter", "reason": "Native Persistent Damage and Blood Effects" },
+      { "id": "lib-wrapper", "reason": "Advanced Event Hijacking and Interception" },
+      { "id": "simple-calendar", "reason": "Temporal Grounding and World Time Integration" },
+      { "id": "df-active-lights", "reason": "Mathematical Lighting Patterns" },
+      { "id": "vtt-colorsettings", "reason": "Native UI for AI Configuration" }
+    ]
+  },
+  "scripts": [
+    "foundry-api-bridge.js"
   ],
-  "flags": {
-    "foundry-api-bridge": {
-      "nodeBWsUrl": "ws://localhost:3010"
-    }
-  }
+  "styles": [
+    "styles/bridge-layers.css"
+  ],
+  "packs": []
 }

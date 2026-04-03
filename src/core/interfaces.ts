@@ -163,7 +163,7 @@ export interface IOllamaClient {
   stop(): Promise<void>;
 }
 
-// ── Vision (Node B LLava) types ──────────────────────────────────────────────
+// â”€â”€ Vision (Sidecar) types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type TacticalCategory = 'cover_high' | 'cover_partial' | 'hazard' | 'security';
 
@@ -174,38 +174,37 @@ export interface TacticalRegion {
   readonly label: string;
 }
 
-export interface IVisionClient {
+export interface ISemanticPerceptionClient {
   /**
    * Perform semantic analysis on a map image to identify tactical regions.
-   * Uses LLava 1.6 with structured JSON output.
+   * Supports Falcon Perception or LLava Sidecars.
    */
   scanMap(imagePath: string): Promise<TacticalRegion[]>;
 }
 
-// ── Architect (Phase 12) types ───────────────────────────────────────────────
+// â”€â”€ Architect (Phase 12+) types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+export interface MaterializationResult {
+  wallsCreated: number;
+  lightsCreated: number;
+  tokensCreated: number;
+  executionMs: number;
+}
 
 export interface IArchitectService {
   /**
-   * Spawns a token on the specified scene (or active scene if null)
-   * at the given coordinates.
+   * Batch-materialize world geometry and actors via Neural Painter (CDP).
    */
-  spawnToken(sceneId: string | null, x: number, y: number, actorId?: string): Promise<void>;
+  batchCreateDocuments(sceneId: string, blueprint: any): Promise<MaterializationResult>;
 
   /**
-   * Batch creates tokens on the specified scene (or active scene if null).
-   * Accepts an array of token data { x, y, actorId? }.
+   * Trigger a temporary visual glitch on the renderer for damage feedback.
+   * Atmosphere First: Screen-space FX instead of decals.
    */
-  materializeTokens(sceneId: string | null, tokens: { x: number, y: number, actorId?: string }[]): Promise<void>;
+  triggerNeuralGlitch(intensity: number): Promise<void>;
 
   /**
-   * Batch creates walls on the specified scene (or active scene if null).
-   * Accepts an array of [x0, y0, x1, y1] coordinates.
-   */
-  materializeWalls(sceneId: string | null, wallCoords: [number, number, number, number][]): Promise<void>;
-
-  /**
-   * Updates the lighting levels (darkness and global illumination)
-   * on the specified scene (or active scene if null).
+   * Updates the lighting levels (darkness and global illumination).
    */
   setLighting(sceneId: string | null, darkness: number, globalLight: boolean): Promise<void>;
 }
