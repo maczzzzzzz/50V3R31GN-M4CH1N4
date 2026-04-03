@@ -16,6 +16,7 @@
 import CDP from 'chrome-remote-interface';
 import crypto from 'node:crypto';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
+import type { VisualDiffService, DiffResult } from './visual-diff-service.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -221,5 +222,19 @@ export class VisualMonitorService {
       tokensCreated: value.tokensCreated,
       executionMs: Date.now() - start,
     };
+  }
+
+  /**
+   * Capture a live screenshot and diff it against the stored base map for the scene.
+   * Returns the DiffResult with transient entity locations.
+   * Requires a VisualDiffService instance to be provided.
+   */
+  async diffScene(sceneId: string, diffService: VisualDiffService): Promise<DiffResult> {
+    const live = await this.captureScreenshot(sceneId);
+    const base = diffService.getBaseScreenshot(sceneId);
+    if (!base) {
+      throw new Error(`[VisualMonitorService] No base screenshot stored for scene: ${sceneId}`);
+    }
+    return diffService.diffImages(base.data, live.data, base.width, base.height);
   }
 }
