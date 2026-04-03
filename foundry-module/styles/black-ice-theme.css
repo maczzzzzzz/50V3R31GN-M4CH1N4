@@ -1,26 +1,198 @@
 /*
- * Black-Ice Theme for Cyberpunk RED Core v0.9.3
- * Established during Phase 8.1 (Tactical Hardening)
- * 
- * Co-authored-by: Gemini CLI <gemini-cli@google.com>
- * Co-authored-by: maczzzzzzz <https://github.com/maczzzzzzz>
+ * Black-Ice Theme for Cyberpunk RED Core v0.9.3+
+ * THE "ROLL TABLE" GOLD STANDARD - GLOBAL UNIFORMITY
+ * Pattern: Solid Black BG, Glowing Cyan Headers, Boxed Cyan Borders.
  */
 
 @layer cpr-theme, black-ice;
 
 @layer black-ice {
     :root {
-        --cpr-red: #00f3ff;
-        --cpr-red-dark: #00666b;
-        --cpr-bg-black: #050505;
-        --cpr-bg-dark-grey: #0a0a0f;
+        --cpr-bg-black: #000000;
+        --cpr-bg-dark-grey: #050505;
+        --cpr-cyan: #00f3ff;
+        --cpr-white: #ffffff;
+        --cpr-text-main: #eeeeee;
+        --black-ice-glow: 0 0 10px rgba(0, 243, 255, 0.8);
+        
+        /* Neutralize system variables */
+        --cpr-red: #000000 !important;
+        --cpr-red-dark: #000000 !important;
     }
 
-    /* Apply Black-Ice Cyan glow to character names and headers */
-    .charname,
-    h1, h2, h3, h4, h5, h6,
-    .header,
-    .header-label {
-        text-shadow: 0 0 5px #00f3ff;
+    /* 1. UNIVERSAL SOVEREIGNTY - THE ROLL TABLE PATTERN */
+    /* Target all Foundry interface sections and windows */
+    body.vtt,
+    body.vtt .window-app,
+    body.vtt .window-content,
+    body.vtt .app,
+    body.vtt .application,
+    body.vtt .sheet,
+    body.vtt .journal-entry,
+    body.vtt .journal-entry-pages,
+    body.vtt .journal-page-content,
+    body.vtt .roll-table-config,
+    body.vtt .directory-item,
+    body.vtt #sidebar,
+    body.vtt #navigation,
+    body.vtt #controls,
+    body.vtt .sidebar-tab {
+        background-color: #000000 !important;
+        background-image: none !important;
+        color: var(--cpr-text-main) !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+
+    /* 2. HEADER SUPREMACY (Glowing Cyan Top-Line) */
+    body.vtt h1, body.vtt h2, body.vtt h3, body.vtt h4, body.vtt h5, body.vtt h6,
+    body.vtt .window-title,
+    body.vtt .header,
+    body.vtt .header-label,
+    body.vtt .attribute-label,
+    body.vtt .resource-label,
+    body.vtt .charname,
+    body.vtt .folder-header,
+    body.vtt .section-header,
+    body.vtt .tab-label,
+    body.vtt .cpr-header,
+    body.vtt .title,
+    body.vtt th {
+        color: var(--cpr-cyan) !important;
+        text-shadow: var(--black-ice-glow) !important;
+        background: #000000 !important;
+        border-bottom: 1px solid var(--cpr-cyan) !important;
+        text-transform: uppercase !important;
+        padding: 4px 8px !important;
+    }
+
+    /* 3. COMPONENT BOXING (The Roll-Table Row Pattern) */
+    body.vtt .actor-details,
+    body.vtt .actor-stats,
+    body.vtt .skills-container,
+    body.vtt .stat-box,
+    body.vtt .cpr-stat-box,
+    body.vtt .stat-grid div,
+    body.vtt .item-top-pane,
+    body.vtt .item-bottom-pane,
+    body.vtt .table-result,
+    body.vtt .journal-page-content table tr,
+    body.vtt .journal-page-content div {
+        background-color: #000000 !important;
+        border: 1px solid var(--cpr-cyan) !important;
+        margin: 2px 0 !important;
+        color: #ffffff !important;
+    }
+
+    /* 3b. CPR ACTOR SHEET INNER WRAPPERS (Live Audit v1.5.0)
+       The CPR system sets rgb(234,234,234) grey on .actor-sheet.character
+       and rgb(185,2,2) red on .bottom-content-section. Both confirmed via CDP. */
+    body.vtt .actor-sheet,
+    body.vtt .actor-sheet.character,
+    body.vtt .bottom-content-section {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+
+    /* 3c. CPR FIGHT TAB — Zero-Red Protocol (Live Audit v1.5.0)
+       CPR v0.9.3 hardcodes rgb(185,2,2) on .fight-tab and .tab.fight-tab.active.
+       Requires explicit both-class overrides with !important to beat specificity. */
+    body.vtt .fight-tab,
+    body.vtt .tab.fight-tab,
+    body.vtt .tab.fight-tab.active {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+
+    /* 4. TEXT READABILITY (Pure White inside boxes) */
+    body.vtt .journal-page-content p,
+    body.vtt .journal-page-content li,
+    body.vtt .journal-page-content span,
+    body.vtt .stat-value,
+    body.vtt .skill-name,
+    body.vtt .attribute-value,
+    body.vtt input,
+    body.vtt select,
+    body.vtt textarea {
+        color: #ffffff !important;
+        background-color: #000 !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+
+    /* 4b. EDITOR CONTENT — ProseMirror / Foundry notepad (Live Audit v1.5.0)
+       .editor-content inherits near-black rgb(13,11,12) from the system.
+       Target the content div and all descendants to ensure white text. */
+    body.vtt .editor-content,
+    body.vtt .editor-content * {
+        color: #ffffff !important;
+    }
+
+    /* 5. TAB & INTERACTIVE SUPREMACY */
+    body.vtt .tabs .item,
+    body.vtt .sheet-tabs .item,
+    body.vtt #sidebar-tabs .item,
+    body.vtt .nav-item,
+    body.vtt button {
+        background: #050505 !important;
+        color: #888 !important;
+        border: 1px solid #222 !important;
+        text-transform: uppercase !important;
+    }
+
+    body.vtt .tabs .item.active,
+    body.vtt .sheet-tabs .item.active,
+    body.vtt #sidebar-tabs .item.active,
+    body.vtt .nav-item.active,
+    body.vtt button:hover {
+        background: #000 !important;
+        color: var(--cpr-cyan) !important;
+        border: 1px solid var(--cpr-cyan) !important;
+        box-shadow: inset 0 0 8px var(--cpr-cyan) !important;
+    }
+
+    /* 6. THIRD-PARTY MODULE HARDENING (Simple Calendar, etc.) */
+    body.vtt [class*="fsc-"],
+    body.vtt .simple-calendar {
+        background-color: #000 !important;
+        color: #fff !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+
+    /* 7. SYSTEM COLOR PURGE (The Scythe) */
+    /* Target any inline style that is not theme-compliant.
+       Covers both `background:` and `background-color:` shorthand forms,
+       as the Night Market buy button uses `background:#e64539` (shorthand). */
+    body.vtt [style*="background-color: red"],
+    body.vtt [style*="background-color: #ff0000"],
+    body.vtt [style*="background-color: #e64539"],
+    body.vtt [style*="background: #e64539"],
+    body.vtt [style*="background-color: rgb(185, 2, 2)"],
+    body.vtt [style*="background-color: rgb(219, 52, 17)"],
+    body.vtt [style*="background-color: white"],
+    body.vtt [style*="background-color: #ffffff"],
+    body.vtt [style*="background-color: rgb(234, 234, 234)"],
+    body.vtt [style*="background-color: rgb(238, 238, 238)"],
+    body.vtt [style*="border-color: red"],
+    body.vtt [style*="border-color: rgb(185, 2, 2)"],
+    body.vtt [style*="color: red"],
+    body.vtt [style*="color: rgb(185, 2, 2)"],
+    body.vtt .dice-tray__flag,
+    body.vtt .scene-player {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border-color: var(--cpr-cyan) !important;
+        color: #ffffff !important;
+    }
+
+    /* Normalize icons to cyan */
+    body.vtt i.fas, body.vtt i.far, body.vtt i.fa-solid, body.vtt i.fa-regular {
+        color: var(--cpr-cyan) !important;
+    }
+
+    /* 8. SCROLLBARS */
+    body.vtt ::-webkit-scrollbar-thumb {
+        background: var(--cpr-cyan) !important;
+        box-shadow: var(--black-ice-glow);
     }
 }

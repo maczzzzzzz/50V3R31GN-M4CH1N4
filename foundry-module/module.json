@@ -34,7 +34,8 @@
     "foundry-api-bridge.js"
   ],
   "styles": [
-    "styles/bridge-layers.css"
+    "styles/bridge-layers.css",
+    "styles/black-ice-theme.css"
   ],
   "packs": []
 }

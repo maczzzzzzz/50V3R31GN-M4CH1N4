@@ -17,5 +17,5 @@ image = "0.25"
 imageproc = "0.26"
 # Phase 16: Falcon Sidecar — sequential VRAM management and ONNX OCR inference
 base64 = "0.22"
-ndarray = "0.15"
-ort = { version = "1.16", features = ["cuda"] }
+ndarray = "0.17"
+ort = { version = "2.0.0-rc.12", features = ["cuda"] }
