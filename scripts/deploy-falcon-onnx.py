@@ -5,12 +5,12 @@ scripts/deploy-falcon-onnx.py
 Phase 16 Falcon ONNX Model Deployment
 --------------------------------------
 Downloads the TrOCR-Small encoder from HuggingFace and exports the Vision
-Transformer (ViT) encoder component to ONNX format with a 1x3x224x224 input,
+Transformer (ViT) encoder component to ONNX format with a 1x3x384x384 input,
 matching the preprocessing performed by zeroclaw/src/perception/mod.rs.
 
 The Rust inference code (PerceptionController::preprocess_image) resizes the
-input image to 224x224 RGB, normalises to [0,1], and passes it as a
-1×3×224×224 float32 tensor — identical to the input shape exported here.
+input image to 384x384 RGB, normalises to [0,1], and passes it as a
+1×3×384×384 float32 tensor — identical to the input shape exported here.
 
 Usage:
     python scripts/deploy-falcon-onnx.py
@@ -45,11 +45,11 @@ except ImportError as e:
 
 print("[deploy-falcon-onnx] Loading TrOCR-Small from HuggingFace...")
 model = VisionEncoderDecoderModel.from_pretrained(MODEL_NAME)
-encoder = model.encoder  # ViT encoder: 1×3×224×224 → 577×384 feature map
+encoder = model.encoder  # ViT encoder: 1×3×384×384 → 577×384 feature map
 encoder.eval()
 
-# Dummy input matching zeroclaw preprocess_image output: 1×3×224×224 float32
-dummy_input = torch.randn(1, 3, 224, 224)
+# Dummy input matching zeroclaw preprocess_image output: 1×3×384×384 float32
+dummy_input = torch.randn(1, 3, 384, 384)
 
 print("[deploy-falcon-onnx] Exporting encoder to ONNX...")
 OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -76,7 +76,7 @@ onnx.checker.check_model(onnx_model)
 # Quick ORT inference check
 session = ort.InferenceSession(str(OUTPUT_PATH), providers=["CPUExecutionProvider"])
 import numpy as np
-test_input = np.random.randn(1, 3, 224, 224).astype(np.float32)
+test_input = np.random.randn(1, 3, 384, 384).astype(np.float32)
 outputs = session.run(None, {"pixel_values": test_input})
 
 size_mb = OUTPUT_PATH.stat().st_size / (1024 * 1024)

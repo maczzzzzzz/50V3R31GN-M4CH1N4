@@ -196,9 +196,9 @@ impl PerceptionController {
     ) -> Result<Array4<f32>, Box<dyn std::error::Error + Send + Sync>> {
         let bytes = B64.decode(base64_image)?;
         let img = image::load_from_memory(&bytes)?;
-        let rgb = img.resize_exact(224, 224, FilterType::Lanczos3).to_rgb8();
+        let rgb = img.resize_exact(384, 384, FilterType::Lanczos3).to_rgb8();
 
-        let mut tensor = Array4::<f32>::zeros((1, 3, 224, 224));
+        let mut tensor = Array4::<f32>::zeros((1, 3, 384, 384));
         for (px, py, pixel) in rgb.enumerate_pixels() {
             tensor[[0, 0, py as usize, px as usize]] = pixel[0] as f32 / 255.0;
             tensor[[0, 1, py as usize, px as usize]] = pixel[1] as f32 / 255.0;
@@ -314,7 +314,7 @@ mod tests {
     fn test_preprocess_image_output_shape() {
         let b64 = make_red_4x4_base64();
         let tensor = PerceptionController::preprocess_image(&b64).unwrap();
-        assert_eq!(tensor.shape(), &[1, 3, 224, 224]);
+        assert_eq!(tensor.shape(), &[1, 3, 384, 384]);
     }
 
     #[test]
@@ -342,10 +342,10 @@ mod tests {
     }
 
     #[test]
-    fn test_preprocess_image_resizes_to_224() {
+    fn test_preprocess_image_resizes_to_384() {
         let b64 = make_red_4x4_base64();
         let tensor = PerceptionController::preprocess_image(&b64).unwrap();
-        assert_eq!(tensor.dim(), (1, 3, 224, 224));
+        assert_eq!(tensor.dim(), (1, 3, 384, 384));
     }
 
     #[test]
