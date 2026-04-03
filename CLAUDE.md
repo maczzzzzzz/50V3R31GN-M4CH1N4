@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 1.0.4 (Production Baseline Hardened)
+**Version:** 1.3.3 (Neural Engine Hardened)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.2+)
 
 <role>

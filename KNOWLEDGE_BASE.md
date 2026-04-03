@@ -13,7 +13,10 @@ These patterns are the "Bleeding Edge" standards for v1.0.0+.
 | **The Rules Vault** | Nix + Bubblewrap | Immutable, air-gapped hardware sandbox for Node A. |
 | **Strategic Atlas** | Rust + egui + ShMem | Zero-latency Sidecar radar window. |
 
-## 📦 Dependency Registry (Pinned v1.0.4)
+## 📦 Dependency Registry (Pinned v1.3.3)
+
+### Core Rules System (Foundry VTT)
+- **Cyberpunk RED Core**: `v0.92.2+` (**PINNED** for CSS Layer support)
 
 ### Node B (TypeScript Orchestrator)
 - `@modelcontextprotocol/sdk`: `1.28.0`
