@@ -424,6 +424,21 @@ export const GenerateMissionEventSchema = z.object({
   }),
 });
 
+/**
+ * Stamp a damage decal onto the Foundry canvas via CDP DrawingDocument.create.
+ * Neural Decal Injector (Phase 14, Task 2).
+ */
+export const ApplyDecalEventSchema = z.object({
+  type: z.literal('apply_decal'),
+  payload: z.object({
+    sceneId: z.string().optional(),
+    type: z.string().optional(),
+    x: z.number().optional(),
+    y: z.number().optional(),
+    scale: z.number().optional(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -435,6 +450,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   OpenNightMarketEventSchema,
   RedTradeTransitEventSchema,
   GenerateMissionEventSchema,
+  ApplyDecalEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -471,3 +487,4 @@ export type OpenNightMarketPayload = z.infer<typeof OpenNightMarketPayloadSchema
 export type OpenNightMarketCommand = z.infer<typeof OpenNightMarketCommandSchema>;
 export type RedTradeTransitEvent = z.infer<typeof RedTradeTransitEventSchema>;
 export type GenerateMissionEvent = z.infer<typeof GenerateMissionEventSchema>;
+export type ApplyDecalEvent = z.infer<typeof ApplyDecalEventSchema>;

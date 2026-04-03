@@ -51,6 +51,16 @@ export interface MaterializationResult {
   executionMs: number;
 }
 
+export type DecalType = 'bullet_hole' | 'scorch_mark';
+
+export interface DecalPlacement {
+  type: DecalType;
+  x: number;
+  y: number;
+  /** Scale factor. Default 1.0 */
+  scale?: number;
+}
+
 export interface VisualMonitorConfig {
   /** CDP debug port. Must be bound to 127.0.0.1. Default: 9222 */
   readonly debugPort?: number;
@@ -222,6 +232,51 @@ export class VisualMonitorService {
       tokensCreated: value.tokensCreated,
       executionMs: Date.now() - start,
     };
+  }
+
+  /**
+   * Stamp a damage decal onto the Foundry canvas at the given coordinates
+   * via CDP Runtime.evaluate → DrawingDocument.create (Neural Decal Injector).
+   */
+  async applyNeuralDecal(sceneId: string, placement: DecalPlacement): Promise<void> {
+    const client = this.getClient();
+
+    // Map DecalType to a simple shape description for DrawingDocument
+    const DECAL_CONFIGS: Record<DecalType, { fillColor: string; strokeColor: string; width: number; height: number }> = {
+      bullet_hole: { fillColor: '#1a1a1a', strokeColor: '#333333', width: 20, height: 20 },
+      scorch_mark: { fillColor: '#2a1a0a', strokeColor: '#4a2a0a', width: 40, height: 28 },
+    };
+    const cfg = DECAL_CONFIGS[placement.type];
+    const scale = placement.scale ?? 1.0;
+    const w = Math.round(cfg.width * scale);
+    const h = Math.round(cfg.height * scale);
+
+    const script = `(async () => {
+    const scene = game.scenes.get(${JSON.stringify(sceneId)});
+    if (!scene) throw new Error('Scene not found: ' + ${JSON.stringify(sceneId)});
+    await DrawingDocument.create({
+      type: 'e',
+      x: ${JSON.stringify(placement.x)},
+      y: ${JSON.stringify(placement.y)},
+      shape: { width: ${JSON.stringify(w)}, height: ${JSON.stringify(h)} },
+      fillColor: ${JSON.stringify(cfg.fillColor)},
+      strokeColor: ${JSON.stringify(cfg.strokeColor)},
+      strokeWidth: 1,
+      fillAlpha: 0.85,
+    }, { parent: scene });
+  })()`;
+
+    const { exceptionDetails } = await client.Runtime.evaluate({
+      expression: script,
+      awaitPromise: true,
+      returnByValue: false,
+    });
+
+    if (exceptionDetails) {
+      throw new Error(
+        `[VisualMonitorService] applyNeuralDecal failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
+      );
+    }
   }
 
   /**
