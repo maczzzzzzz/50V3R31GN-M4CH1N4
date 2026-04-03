@@ -612,8 +612,15 @@ export type SceneActivateEvent = z.infer<typeof SceneActivateEventSchema>;
 export type SystemHeartbeatEvent = z.infer<typeof SystemHeartbeatEventSchema>;
 export type FileExtractionEvent = z.infer<typeof FileExtractionEventSchema>;
 export type DecryptSt3ggEvent = z.infer<typeof DecryptSt3ggEventSchema>;
+export type EvaluateIntentEvent = z.infer<typeof EvaluateIntentEventSchema>;
 export type SequenceAction = z.infer<typeof SequenceActionSchema>;
 export type FxGlitchPayload = z.infer<typeof FxGlitchPayloadSchema>;
 export type RunSequencePayload = z.infer<typeof RunSequencePayloadSchema>;
 export type PretextOverlayPayload = z.infer<typeof PretextOverlayPayloadSchema>;
 export type PretextOverlayCommand = z.infer<typeof PretextOverlayCommandSchema>;
+
+export const IntentSwarmResultSchema = z.object({
+  tone: z.string(),
+  intensity: z.number(),
+});
+export type IntentSwarmResult = z.infer<typeof IntentSwarmResultSchema>;

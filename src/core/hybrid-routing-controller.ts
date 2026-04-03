@@ -71,6 +71,7 @@ export class HybridRoutingController {
   private readonly sharedMemory: SharedMemoryService | undefined;
   private readonly missionSwarm: MissionSwarmOrchestrator | undefined;
   private readonly steganographyService: SteganographyService;
+  private readonly taskRouter: TaskRouterProxy;
 
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
