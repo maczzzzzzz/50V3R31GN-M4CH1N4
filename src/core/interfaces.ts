@@ -196,6 +196,12 @@ export interface IArchitectService {
    * Accepts an array of [x0, y0, x1, y1] coordinates.
    */
   materializeWalls(sceneId: string | null, wallCoords: [number, number, number, number][]): Promise<void>;
+
+  /**
+   * Updates the lighting levels (darkness and global illumination)
+   * on the specified scene (or active scene if null).
+   */
+  setLighting(sceneId: string | null, darkness: number, globalLight: boolean): Promise<void>;
 }
 
 // ── Discord Chronicler ────────────────────────────────────────────────────────

@@ -120,4 +120,50 @@ export class ArchitectPassService implements IArchitectService {
 
     console.log(`✅ Architect: ${result.count} walls materialized successfully.`);
   }
+
+  /**
+   * Updates the lighting levels (darkness and global illumination)
+   * on the specified scene (or active scene if null).
+   */
+  async setLighting(sceneId: string | null, darkness: number, globalLight: boolean): Promise<void> {
+    const client = this.visualMonitor.getClient();
+    if (!client) {
+      throw new Error('ArchitectPassService: Neural Uplink (CDP) client not connected.');
+    }
+
+    const { Runtime } = client;
+
+    // In Foundry v12, scene.update is the primary method for scene data modification.
+    const expression = `
+      (async function() {
+        try {
+          const scene = ${sceneId ? `game.scenes.get("${sceneId}")` : 'canvas.scene'};
+          if (!scene) return { success: false, error: "Target scene not found." };
+
+          await scene.update({
+            "darkness": ${darkness},
+            "globalLight": ${globalLight}
+          });
+          return { success: true };
+        } catch (err) {
+          return { success: false, error: err.message };
+        }
+      })()
+    `;
+
+    console.log('📡 Architect: Setting lighting - darkness:', darkness, 'globalLight:', globalLight);
+
+    const response = await Runtime.evaluate({
+      expression,
+      awaitPromise: true,
+      returnByValue: true
+    });
+
+    const result = response.result.value;
+    if (!result || result.success === false) {
+      throw new Error(`Foundry Architect Lighting Update Failed: ${result?.error ?? 'Unknown renderer error'}`);
+    }
+
+    console.log(`✅ Architect: Lighting updated successfully.`);
+  }
 }

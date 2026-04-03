@@ -123,4 +123,53 @@ describe('ArchitectPassService', () => {
         .rejects.toThrow('Foundry Architect Wall Materialization Failed: Scene not found');
     });
   });
+
+  describe('setLighting', () => {
+    it('should call Runtime.evaluate with correct lighting update script', async () => {
+      mockRuntime.evaluate.mockResolvedValue({
+        result: { value: { success: true } }
+      });
+
+      await architect.setLighting('scene123', 0.5, true);
+
+      expect(mockRuntime.evaluate).toHaveBeenCalledWith(expect.objectContaining({
+        expression: expect.stringContaining('game.scenes.get("scene123")'),
+        awaitPromise: true,
+        returnByValue: true
+      }));
+
+      expect(mockRuntime.evaluate).toHaveBeenCalledWith(expect.objectContaining({
+        expression: expect.stringContaining('await scene.update({')
+      }));
+
+      expect(mockRuntime.evaluate).toHaveBeenCalledWith(expect.objectContaining({
+        expression: expect.stringContaining('"darkness": 0.5')
+      }));
+
+      expect(mockRuntime.evaluate).toHaveBeenCalledWith(expect.objectContaining({
+        expression: expect.stringContaining('"globalLight": true')
+      }));
+    });
+
+    it('should use canvas.scene if sceneId is null', async () => {
+      mockRuntime.evaluate.mockResolvedValue({
+        result: { value: { success: true } }
+      });
+
+      await architect.setLighting(null, 0.8, false);
+
+      expect(mockRuntime.evaluate).toHaveBeenCalledWith(expect.objectContaining({
+        expression: expect.stringContaining('scene = canvas.scene')
+      }));
+    });
+
+    it('should throw error if lighting update fails in renderer', async () => {
+      mockRuntime.evaluate.mockResolvedValue({
+        result: { value: { success: false, error: 'Update failed' } }
+      });
+
+      await expect(architect.setLighting(null, 0.5, true))
+        .rejects.toThrow('Foundry Architect Lighting Update Failed: Update failed');
+    });
+  });
 });
