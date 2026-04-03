@@ -34,13 +34,13 @@ Bypasses the standard API sandbox to grant the AI physical eyes on the game engi
 - **Inversion Engine:** Injects real-time CSS overrides and narrative glitch FX directly into the Electron renderer.
 - **Ghost-Refresh:** programmatically reloads the Foundry window to activate module updates without manual intervention.
 
-### 2. The Akashic Record (Universal Truth)
+### 2. The Akashik Record (Universal Truth)
 Transitioned the primary data plane from a local file to the **Akashik.db** universal library.
 - **Deterministic Governance:** Locks SQLite derivations (R*Tree, FTS5) via **Nix** to prevent index drift.
 - **Vision History:** Stores visual hashes of every tactical state for persistent spatial grounding.
 
 ### 3. Strategic Atlas & Swarm Oracle
-- **Zero-Latency Radar:** A Rust-native sidecar window using **Shared Memory (Option C)** for sub-microsecond state sync.
+- **Zero-Latency Radar:** A Rust-native sidecar window using a **Direct Shared Memory Interconnect** for sub-microsecond state sync.
 - **Task-Isolated Math:** Node A spawns concurrent "Faction Threads" to prevent stat-drift in multi-party combat.
 
 ## 🏗️ Technical Architecture
