@@ -412,6 +412,18 @@ export const RedTradeTransitEventSchema = z.object({
   }),
 });
 
+/**
+ * Request a full Mission Blueprint for a given Night City district.
+ * Triggers the MissionSwarmOrchestrator (Phase 13).
+ */
+export const GenerateMissionEventSchema = z.object({
+  type: z.literal('generate_mission'),
+  payload: z.object({
+    /** Night City district name (e.g. "Watson", "Heywood", "Pacifica"). */
+    district: z.string().optional(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -422,6 +434,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   ApprovalResponseEventSchema,
   OpenNightMarketEventSchema,
   RedTradeTransitEventSchema,
+  GenerateMissionEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -457,3 +470,4 @@ export type MarketItemPayload = z.infer<typeof MarketItemPayloadSchema>;
 export type OpenNightMarketPayload = z.infer<typeof OpenNightMarketPayloadSchema>;
 export type OpenNightMarketCommand = z.infer<typeof OpenNightMarketCommandSchema>;
 export type RedTradeTransitEvent = z.infer<typeof RedTradeTransitEventSchema>;
+export type GenerateMissionEvent = z.infer<typeof GenerateMissionEventSchema>;
