@@ -29,12 +29,17 @@ export function applyPatch(css: string, patchBlock: string): string {
   if (startMatch) {
     const startIdx = startMatch.index;
     const endIdx = css.indexOf(PATCH_END, startIdx);
-    if (endIdx !== -1) {
-      css = css.slice(0, startIdx) + css.slice(endIdx + PATCH_END.length).replace(/^\n/, '');
+    if (endIdx === -1) {
+      throw new Error(
+        'Found AUTO-PATCH start marker but no END AUTO-PATCH marker. ' +
+        'The CSS file may be corrupted. Remove the orphaned AUTO-PATCH comment manually and re-run.'
+      );
     }
+    css = css.slice(0, startIdx) + css.slice(endIdx + PATCH_END.length).replace(/^\n/, '');
   }
 
-  // Find closing brace of @layer black-ice block
+  // NOTE: Assumes @layer black-ice is the last block in the file (no rules follow it).
+  // This invariant holds for the current black-ice-theme.css structure.
   const layerMatch = css.lastIndexOf('}');
   if (layerMatch === -1) throw new Error('Could not find closing } in CSS file');
 

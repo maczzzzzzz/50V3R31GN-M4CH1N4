@@ -68,4 +68,10 @@ describe('applyPatch', () => {
     expect(result).not.toContain('body.vtt .old');
     expect(result).toContain('body.vtt .new');
   });
+
+  it('throws when START marker is present but END marker is missing', () => {
+    const corrupted = `@layer black-ice {\n    /* AUTO-PATCH: 2026-04-01 — theme-auditor */\n    body.vtt .x { color: red; }\n}`;
+    const patch = '/* AUTO-PATCH: 2026-04-03 — theme-auditor */\n/* END AUTO-PATCH */\n';
+    expect(() => applyPatch(corrupted, patch)).toThrow('Found AUTO-PATCH start marker but no END AUTO-PATCH marker');
+  });
 });
