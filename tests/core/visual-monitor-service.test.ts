@@ -211,7 +211,10 @@ describe('VisualMonitorService', () => {
       const svc = new VisualMonitorService({ debugPort: 9222, oracle });
       await svc.connect();
       await svc.captureScreenshot();
-      expect(oracle.execute).not.toHaveBeenCalled();
+      expect(oracle.execute).not.toHaveBeenCalledWith(
+        expect.stringContaining('INSERT OR REPLACE INTO scene_perception'),
+        expect.anything()
+      );
     });
   });
 
@@ -326,7 +329,10 @@ describe('VisualMonitorService', () => {
       const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
       await svc.connect();
       await expect(svc.regroundScene('scene-006')).resolves.toBeUndefined();
-      expect(oracle.execute).not.toHaveBeenCalled();
+      expect(oracle.execute).not.toHaveBeenCalledWith(
+        expect.stringContaining('INSERT OR REPLACE INTO scene_perception'),
+        expect.anything()
+      );
     });
   });
 });

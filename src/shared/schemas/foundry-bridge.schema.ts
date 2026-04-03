@@ -519,6 +519,28 @@ export const SceneActivateEventSchema = z.object({
 });
 
 /**
+ * Triggered when a player extracts a file (Phase 17).
+ * Node B will generate a steganographic image drop.
+ */
+export const FileExtractionEventSchema = z.object({
+  type: z.literal('file_extraction'),
+  payload: z.object({
+    targetActorId: z.string(),
+    context: z.string(),
+  }),
+});
+
+/**
+ * Request to decrypt an ST3GG image (Phase 17).
+ */
+export const DecryptSt3ggEventSchema = z.object({
+  type: z.literal('decrypt_st3gg'),
+  payload: z.object({
+    imagePath: z.string(),
+  }),
+});
+
+/**
  * System heartbeat from the Foundry bridge module to Node B (Phase 15).
  * Reports which optional modules are currently active so Node B can
  * select the correct resiliency tier (Elite / Baseline / Degraded).
@@ -546,6 +568,8 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   GenerateMissionEventSchema,
   ApplyDecalEventSchema,
   SceneActivateEventSchema,
+  FileExtractionEventSchema,
+  DecryptSt3ggEventSchema,
   SystemHeartbeatEventSchema,
 ]);
 
@@ -586,6 +610,8 @@ export type GenerateMissionEvent = z.infer<typeof GenerateMissionEventSchema>;
 export type ApplyDecalEvent = z.infer<typeof ApplyDecalEventSchema>;
 export type SceneActivateEvent = z.infer<typeof SceneActivateEventSchema>;
 export type SystemHeartbeatEvent = z.infer<typeof SystemHeartbeatEventSchema>;
+export type FileExtractionEvent = z.infer<typeof FileExtractionEventSchema>;
+export type DecryptSt3ggEvent = z.infer<typeof DecryptSt3ggEventSchema>;
 export type SequenceAction = z.infer<typeof SequenceActionSchema>;
 export type FxGlitchPayload = z.infer<typeof FxGlitchPayloadSchema>;
 export type RunSequencePayload = z.infer<typeof RunSequencePayloadSchema>;

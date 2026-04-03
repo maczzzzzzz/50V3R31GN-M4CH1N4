@@ -214,6 +214,11 @@ export interface IArchitectService {
    * Updates the lighting levels (darkness and global illumination).
    */
   setLighting(sceneId: string | null, darkness: number, globalLight: boolean): Promise<void>;
+
+  /**
+   * Manifest a single token on the canvas.
+   */
+  spawnToken(actorId: string | null, x: number, y: number): Promise<void>;
 }
 
 // ── Discord Chronicler ────────────────────────────────────────────────────────

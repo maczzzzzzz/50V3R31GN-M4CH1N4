@@ -24,7 +24,9 @@ import { SharedMemoryService } from './shared-memory-service.js';
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
 import { MissionSwarmOrchestrator } from './mission-swarm-orchestrator.js';
+import { SteganographyService } from './steganography-service.js';
 import fs from 'node:fs';
+import path from 'node:path';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -67,6 +69,7 @@ export class HybridRoutingController {
   private readonly onboardingEnabled: boolean;
   private readonly sharedMemory: SharedMemoryService | undefined;
   private readonly missionSwarm: MissionSwarmOrchestrator | undefined;
+  private readonly steganographyService: SteganographyService;
 
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
@@ -88,6 +91,7 @@ export class HybridRoutingController {
     this.onboardingEnabled = options.onboardingEnabled ?? false;
     this.sharedMemory = options.sharedMemoryService;
     this.missionSwarm = options.missionSwarm;
+    this.steganographyService = new SteganographyService();
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -96,15 +100,15 @@ export class HybridRoutingController {
       this.redRulesConstitution = 'Rules Constitution Missing.';
     }
 
-    // â”€â”€ Vitalik's 2-of-2 Authorization Model (v1.0.3) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
     if (this.unifiedOracle) {
       this.unifiedOracle.onAuthorize = async (commands) => {
-        console.log('\nâš ï¸  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed.');
-        console.log('â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
+        console.log('\n⚠️  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed.');
+        console.log('────────────────────────────────────────────────────────────');
         commands.forEach((cmd, i) => {
           console.log(`[${i+1}] ${cmd.action}: ${JSON.stringify(cmd)}`);
         });
-        console.log('â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
+        console.log('────────────────────────────────────────────────────────────');
         
         // Dynamic import to prevent TTY issues in non-interactive sessions
         const rl = await import('node:readline/promises');
@@ -136,7 +140,7 @@ export class HybridRoutingController {
   private async restoreSystemState(): Promise<void> {
     if (!this.unifiedOracle?.isConnected()) return;
     
-    const rows = this.unifiedOracle.query<{ value: string }>('SELECT value FROM system_state WHERE key = ?', ['last_active_scene']);
+    const rows = this.unifiedOracle.query('SELECT value FROM system_state WHERE key = ?', ['last_active_scene']) as Array<{ value: string }>;
     if (rows.length > 0 && rows[0].value !== 'null') {
       const sceneId = rows[0].value;
       process.stdout.write(`[v1.4.3 Restore] Found last active scene: ${sceneId}. Restoring...\n`);
@@ -200,7 +204,7 @@ export class HybridRoutingController {
           const district = (event.payload as { district?: string }).district ?? 'Watson';
           const blueprint = await this.missionSwarm.generateMission(district);
           await this.foundry.sendChatMessage(
-            `ðŸŽ¯ **Mission Brief â€” ${blueprint.district}**\n` +
+            `🎯 **Mission Brief — ${blueprint.district}**\n` +
             `**Intel:** ${JSON.stringify(blueprint.rulesIntel)}\n` +
             `**Tactics:** ${blueprint.tacticalAnalysis}\n` +
             `**Lore Anchors:** ${blueprint.loreAnchors.join(', ') || 'None'}`,
@@ -227,6 +231,12 @@ export class HybridRoutingController {
         }
         return;
       }
+      case 'apply_decal':
+        // Decals are handled via the architect service
+        if (this.architect) {
+          await this.architect.triggerNeuralGlitch(event.payload.intensity);
+        }
+        return;
       case 'system_heartbeat': {
         const p = event.payload;
         process.stdout.write(
@@ -234,9 +244,13 @@ export class HybridRoutingController {
         );
         return;
       }
+      case 'file_extraction':
+        return this.handleFileExtraction(event.payload);
+      case 'decrypt_st3gg':
+        return this.handleDecryptRequest(event.payload);
       default: {
         const exhaustiveCheck: never = event;
-        throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as FoundryEvent).type}'`);
+        throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as any).type}'`);
       }
     }
   }
@@ -296,7 +310,7 @@ export class HybridRoutingController {
     this.evaluateStoryEvent({ type: 'resolve_attack', result });
     await this.syncDashboard();
     return result;
-    }
+  }
 
 
   private async handleCalculateDv(payload: CalculateDvParams, spatial?: { sceneId: string, x: number, y: number }): Promise<DvResult> {
@@ -469,7 +483,8 @@ export class HybridRoutingController {
     // Attempt Neural Uplink (CDP) capture first
     if (this.visualMonitor) {
       try {
-        visualBuffer = await this.visualMonitor.captureScreenshot();
+        const record = await this.visualMonitor.captureScreenshot();
+        visualBuffer = record.data;
         console.log('📡 Neural Uplink: Captured GPU screenshot via CDP.');
       } catch (err) {
         console.warn('⚠️  Neural Uplink capture failed, falling back to legacy CV:', (err as Error).message);
@@ -562,7 +577,7 @@ export class HybridRoutingController {
           const radar = this.sharedMemory.readWorldState();
           if (radar && radar.length > 0) {
             pulse += 'LIVE RADAR (SHARED MEMORY):\n';
-            radar.forEach(blip => {
+            radar.forEach((blip: any) => {
               pulse += `- BLIP: ${blip.name} | POS: {${Math.round(blip.x)}, ${Math.round(blip.y)}} | HP: ${blip.hp}\n`;
             });
             pulse += '\n';
@@ -581,10 +596,7 @@ export class HybridRoutingController {
         for (const reg of regions) pulse += `- ${reg.label} (${reg.category.replace('_', ' ')})\n`;
 
         // Phase 16: Narrative Fusion — inject Falcon OCR map labels
-        const perceptionRows = this.unifiedOracle.query<{ detected_entities_json: string }>(
-          'SELECT detected_entities_json FROM scene_perception WHERE scene_id = ?',
-          [spatial.sceneId]
-        );
+        const perceptionRows = this.unifiedOracle.query('SELECT detected_entities_json FROM scene_perception WHERE scene_id = ?', [spatial.sceneId]) as Array<{ detected_entities_json: string }>;
         if (perceptionRows.length > 0) {
           try {
             const entities = JSON.parse(perceptionRows[0]!.detected_entities_json) as Array<{ text: string }>;
@@ -607,5 +619,66 @@ export class HybridRoutingController {
     const hitLabel = result.hit ? '✅ HIT' : '❌ MISS';
     const critSuffix = result.criticalInjury ? ' ⚠️ CRITICAL INJURY' : '';
     return `**Attack Roll** — ${hitLabel}${critSuffix} | Roll: ${result.rollTotal} vs DV ${result.dvTarget} | Damage: ${result.netDamage} net`;
+  }
+
+  private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {
+    // 1. Generate Contextual Secret (Node B GPU)
+    const prompt = `Generate a short (max 15 words) secret password, data fragment, or lore clue found in a file related to: ${payload.context}`;
+    const secret = await this.ollama.generateNarrative(prompt, payload.context, 'Generate a short Cyberpunk secret.');
+
+    // 2. Select Template & Encode (Node B CPU)
+    // We assume templates exist in data/assets/st3gg_templates/
+    const templatesDir = path.join(process.cwd(), 'data/assets/st3gg_templates');
+    const dropsDir = path.join(process.cwd(), 'data/assets/st3gg_drops');
+    
+    // Ensure dirs exist
+    if (!fs.existsSync(templatesDir)) fs.mkdirSync(templatesDir, { recursive: true });
+    if (!fs.existsSync(dropsDir)) fs.mkdirSync(dropsDir, { recursive: true });
+
+    // For now, if no templates exist, we can't encode.
+    const templates = fs.readdirSync(templatesDir).filter(f => f.endsWith('.png'));
+    if (templates.length === 0) {
+      console.warn('[HRC] No st3gg templates found in data/assets/st3gg_templates/. Skipping drop.');
+      return;
+    }
+
+    const templateName = templates[Math.floor(Math.random() * templates.length)]!;
+    const templatePath = path.join(templatesDir, templateName);
+    const outputFileName = `drop_${Date.now()}.png`;
+    const outputPath = path.join(dropsDir, outputFileName);
+    
+    try {
+      await this.steganographyService.encodeSecret(templatePath, outputPath, secret);
+
+      // 3. Send Drop to Foundry
+      // The path must be relative to the Foundry data root for the client to load it.
+      // We assume data/assets is mapped correctly.
+      const publicUrl = `assets/st3gg_drops/${outputFileName}`;
+      await this.foundry.sendChatMessage(
+        `<strong>[ST3GG] Data Fragment Extracted</strong><br/>` +
+        `<img src="${publicUrl}" style="border:none; border-radius:4px; margin-top:8px;"/><br/>` +
+        `<small>Encrypted data detected. Run Decryption Daemon to view.</small>`,
+        { alias: 'System' }
+      );
+    } catch (err) {
+      console.error('[HRC] Steganography encoding failed:', err);
+    }
+  }
+
+  private async handleDecryptRequest(payload: { imagePath: string }): Promise<{ secret: string }> {
+    // The imagePath from Foundry is likely relative, e.g. "assets/st3gg_drops/drop_123.png"
+    // We need to map it back to the local filesystem.
+    const localPath = path.join(process.cwd(), 'data', payload.imagePath);
+    
+    try {
+      if (!fs.existsSync(localPath)) {
+        return { secret: "ERROR: File not found on server." };
+      }
+      const secret = await this.steganographyService.decodeSecret(localPath);
+      return { secret };
+    } catch (err) {
+      console.error('[HRC] Steganography decoding failed:', err);
+      return { secret: "ERROR: Data corruption. Decryption failed." };
+    }
   }
 }
