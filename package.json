@@ -25,7 +25,9 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "audit:theme": "tsx scripts/theme-auditor.ts",
+    "audit:theme:dry": "tsx scripts/theme-auditor.ts --dry-run"
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",
