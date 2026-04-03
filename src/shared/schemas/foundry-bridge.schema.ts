@@ -187,6 +187,22 @@ export const RunSequencePayloadSchema = z.object({
 });
 
 /**
+ * Render a reactive, zero-reflow dynamic status overlay via Pretext (Phase 17).
+ */
+export const PretextOverlayPayloadSchema = z.object({
+  targetId: z.string(),
+  overlayType: z.enum(['critical_damage', 'death_state', 'drug_ingestion']),
+  text: z.string(),
+  color: z.string(),
+  duration: z.number(),
+  fxParams: z.object({
+    shader: z.string(),
+    intensity: z.number(),
+    rgbSplit: z.number().optional()
+  }).optional()
+});
+
+/**
  * Update a Foundry Actor document.
  */
 export const UpdateActorPayloadSchema = z.object({
@@ -252,6 +268,12 @@ export const RunSequenceCommandSchema = z.object({
   type: z.literal('run_sequence'),
   requestId: RequestIdSchema,
   payload: RunSequencePayloadSchema,
+});
+
+export const PretextOverlayCommandSchema = z.object({
+  type: z.literal('pretext_overlay'),
+  requestId: RequestIdSchema,
+  payload: PretextOverlayPayloadSchema,
 });
 
 export const UpdateActorCommandSchema = z.object({
@@ -326,6 +348,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   Show3dDiceCommandSchema,
   FxGlitchCommandSchema,
   RunSequenceCommandSchema,
+  PretextOverlayCommandSchema,
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
 ]);
@@ -566,3 +589,5 @@ export type SystemHeartbeatEvent = z.infer<typeof SystemHeartbeatEventSchema>;
 export type SequenceAction = z.infer<typeof SequenceActionSchema>;
 export type FxGlitchPayload = z.infer<typeof FxGlitchPayloadSchema>;
 export type RunSequencePayload = z.infer<typeof RunSequencePayloadSchema>;
+export type PretextOverlayPayload = z.infer<typeof PretextOverlayPayloadSchema>;
+export type PretextOverlayCommand = z.infer<typeof PretextOverlayCommandSchema>;

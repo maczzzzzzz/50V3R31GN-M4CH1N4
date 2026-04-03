@@ -271,6 +271,22 @@ export class HybridRoutingController {
             target: payload.targetId,
             data: { hp: newHp }
           }]);
+
+          // Task 3: Integrate LLM generation for pretext overlay text and FX
+          if (result.netDamage >= 15 || newHp <= 1) {
+            const overlayType = newHp <= 1 ? 'death_state' : 'critical_damage';
+            const promptContext = `Target sustained ${result.netDamage} damage. Current HP: ${newHp}. Severity: ${overlayType}.`;
+            const generatedOverlay = await this.storyEngine.generateOverlayParams(promptContext);
+
+            await this.foundry.triggerPretextOverlay({
+              targetId: payload.targetId,
+              overlayType,
+              text: generatedOverlay.text,
+              color: generatedOverlay.color || '#ff003c',
+              duration: generatedOverlay.duration || 3000,
+              fxParams: generatedOverlay.fxParams || { shader: 'chromatic_aberration', intensity: 2.5 }
+            });
+          }
         }
       } catch (err) {
         console.warn(`[HRC] Failed to reconcile damage for target ${payload.targetId}:`, err);
@@ -508,7 +524,7 @@ export class HybridRoutingController {
   }
 
   private async applyWorldPulseGrounding(input: string, spatial?: { sceneId: string, x: number, y: number }): Promise<string | undefined> {
-    if (!this.unifiedOracle?.isConnected()) return undefined;
+    if (!this.unifiedOracle?.isConnected() || !input) return undefined;
 
     try {
       let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
