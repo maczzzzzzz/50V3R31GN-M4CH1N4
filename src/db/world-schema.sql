@@ -159,3 +159,14 @@ CREATE TABLE IF NOT EXISTS map_assets (
     wall_data   TEXT,         -- JSON array of wall segments from Node A CV pass
     indexed_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Phase 14: Latent Atmosphere Persistence (Neural World Engine)
+-- Stores the "soul" of each scene — lighting/audio settings that auto-restore on activation.
+CREATE TABLE IF NOT EXISTS scene_atmosphere (
+    scene_id        TEXT PRIMARY KEY,
+    lighting_color  TEXT NOT NULL DEFAULT '#ffffff',
+    animation_type  TEXT,
+    intensity       REAL DEFAULT 1.0,
+    darkness_level  REAL DEFAULT 0.0 CHECK (darkness_level BETWEEN 0.0 AND 1.0),
+    captured_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+);

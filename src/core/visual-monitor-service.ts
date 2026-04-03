@@ -61,6 +61,14 @@ export interface DecalPlacement {
   scale?: number;
 }
 
+export interface AtmosphereState {
+  sceneId: string;
+  lightingColor: string;
+  animationType: string | null;
+  intensity: number;
+  darknessLevel: number;
+}
+
 export interface VisualMonitorConfig {
   /** CDP debug port. Must be bound to 127.0.0.1. Default: 9222 */
   readonly debugPort?: number;
@@ -291,5 +299,103 @@ export class VisualMonitorService {
       throw new Error(`[VisualMonitorService] No base screenshot stored for scene: ${sceneId}`);
     }
     return diffService.diffImages(base.data, live.data, base.width, base.height);
+  }
+
+  /**
+   * Capture the current scene atmosphere (lighting/darkness) from Foundry
+   * via CDP Runtime.evaluate and persist to scene_atmosphere in Akashik.db.
+   * oracle must be provided in config.
+   */
+  async captureAtmosphere(sceneId: string): Promise<AtmosphereState> {
+    const client = this.getClient();
+
+    const script = `(async () => {
+    const scene = game.scenes.get(${JSON.stringify(sceneId)});
+    if (!scene) throw new Error('Scene not found: ' + ${JSON.stringify(sceneId)});
+    return {
+      lightingColor: scene.environment?.globalLight?.color ?? '#ffffff',
+      animationType: scene.environment?.globalLight?.animationType ?? null,
+      intensity: scene.environment?.globalLight?.animationIntensity ?? 1.0,
+      darknessLevel: scene.environment?.darknessLevel ?? 0.0,
+    };
+  })()`;
+
+    const { result, exceptionDetails } = await client.Runtime.evaluate({
+      expression: script,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    if (exceptionDetails) {
+      throw new Error(
+        `[VisualMonitorService] captureAtmosphere failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
+      );
+    }
+
+    const val = result.value as { lightingColor: string; animationType: string | null; intensity: number; darknessLevel: number };
+    const state: AtmosphereState = {
+      sceneId,
+      lightingColor: val.lightingColor,
+      animationType: val.animationType,
+      intensity: val.intensity,
+      darknessLevel: val.darknessLevel,
+    };
+
+    if (this.oracle?.isConnected()) {
+      this.oracle.execute(
+        `INSERT OR REPLACE INTO scene_atmosphere (scene_id, lighting_color, animation_type, intensity, darkness_level, captured_at)
+         VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+        [sceneId, state.lightingColor, state.animationType, state.intensity, state.darknessLevel]
+      );
+    }
+
+    return state;
+  }
+
+  /**
+   * Retrieve stored atmosphere for a scene from Akashik.db and re-inject
+   * it into the Foundry renderer via CDP Runtime.evaluate (Pulse Restore).
+   * No-op if no atmosphere is stored for the scene.
+   */
+  async restoreAtmosphere(sceneId: string): Promise<void> {
+    if (!this.oracle?.isConnected()) return;
+
+    const rows = this.oracle.query<{
+      lighting_color: string;
+      animation_type: string | null;
+      intensity: number;
+      darkness_level: number;
+    }>(
+      `SELECT lighting_color, animation_type, intensity, darkness_level
+       FROM scene_atmosphere WHERE scene_id = ?`,
+      [sceneId]
+    );
+
+    if (rows.length === 0) return;
+    const atm = rows[0];
+
+    const client = this.getClient();
+    const script = `(async () => {
+    const scene = game.scenes.get(${JSON.stringify(sceneId)});
+    if (!scene) throw new Error('Scene not found: ' + ${JSON.stringify(sceneId)});
+    await scene.update({
+      'environment.globalLight.color': ${JSON.stringify(atm.lighting_color)},
+      'environment.globalLight.animationType': ${JSON.stringify(atm.animation_type)},
+      'environment.globalLight.animationIntensity': ${JSON.stringify(atm.intensity)},
+      'environment.darknessLevel': ${JSON.stringify(atm.darkness_level)},
+    });
+  })()`;
+
+    const { exceptionDetails } = await client.Runtime.evaluate({
+      expression: script,
+      awaitPromise: true,
+      returnByValue: false,
+    });
+
+    if (exceptionDetails) {
+      throw new Error(
+        `[VisualMonitorService] restoreAtmosphere failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
+      );
+    }
   }
 }

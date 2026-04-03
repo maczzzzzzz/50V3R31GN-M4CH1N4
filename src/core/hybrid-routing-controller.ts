@@ -200,6 +200,17 @@ export class HybridRoutingController {
         }
         return;
       }
+      case 'scene_activate': {
+        if (this.neuralUplink?.isConnected()) {
+          const sceneId = (event.payload as { sceneId?: string }).sceneId;
+          if (sceneId) {
+            await this.neuralUplink.restoreAtmosphere(sceneId).catch((err: Error) => {
+              console.warn(`[HybridRoutingController] Atmosphere restore failed for ${sceneId}: ${err.message}`);
+            });
+          }
+        }
+        return;
+      }
       default: {
         const exhaustiveCheck: never = event;
         throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as FoundryEvent).type}'`);

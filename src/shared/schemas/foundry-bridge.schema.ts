@@ -439,6 +439,15 @@ export const ApplyDecalEventSchema = z.object({
   }),
 });
 
+/**
+ * Notify Node B that a scene has been activated in Foundry.
+ * Triggers Latent Atmosphere Persistence auto-restore (Phase 14, Task 3).
+ */
+export const SceneActivateEventSchema = z.object({
+  type: z.literal('scene_activate'),
+  payload: z.object({ sceneId: z.string().optional() }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -451,6 +460,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   RedTradeTransitEventSchema,
   GenerateMissionEventSchema,
   ApplyDecalEventSchema,
+  SceneActivateEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -488,3 +498,4 @@ export type OpenNightMarketCommand = z.infer<typeof OpenNightMarketCommandSchema
 export type RedTradeTransitEvent = z.infer<typeof RedTradeTransitEventSchema>;
 export type GenerateMissionEvent = z.infer<typeof GenerateMissionEventSchema>;
 export type ApplyDecalEvent = z.infer<typeof ApplyDecalEventSchema>;
+export type SceneActivateEvent = z.infer<typeof SceneActivateEventSchema>;
