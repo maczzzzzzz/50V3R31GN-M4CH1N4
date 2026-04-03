@@ -29,6 +29,7 @@ const ALLOWED_BG_SET = new Set([
   'rgb(5, 5, 5)',       // #050505 — --cpr-bg-dark-grey (inactive tab/button bg)
   'rgb(13, 11, 12)',    // near-black — CPR system header bg (acceptable dark)
   'rgb(68, 68, 68)',    // #444 — window resize handle
+  'rgb(26, 26, 26)',    // #1a1a1a — --cpr-bg-header (intentional header contrast)
 ]);
 
 // Allow any semi-transparent black (rgba(0, 0, 0, *)) — scene controls etc.
