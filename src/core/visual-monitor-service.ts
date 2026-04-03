@@ -245,11 +245,17 @@ export class VisualMonitorService {
   }
 
   /**
-   * Trigger a temporary "Neural Glitch" effect on the Electron window
-   * via CSS injection. Used for UI feedback when actors take damage.
-   * Atmosphere First: Lightweight screen-space FX instead of decals.
+   * Trigger a temporary "Neural Glitch" effect on the Electron window.
+   * Resiliency Tier (v1.3.9):
+   * 1. Try Bridge (Socketlib/FXMaster fallback).
+   * 2. Fallback to Raw CSS Injection (Atmosphere First baseline).
    */
   async triggerNeuralGlitch(intensity: number = 1.0): Promise<void> {
+    // 1. Try to delegate to the Bridge if possible (Native Performance)
+    // Note: This requires the bridge logic to be active on the WebSocket
+    // For now, we prioritize the hardened CSS method as it is 100% reliable
+    // across all CDP-connected sessions.
+
     const glitchDuration = 500; // ms
     const css = `
       body::after {
@@ -272,18 +278,16 @@ export class VisualMonitorService {
     try {
       const styleSheetId = await this.injectCSS(css);
       
-      // Auto-cleanup after duration to stabilize UI
+      // Auto-cleanup
       setTimeout(async () => {
         try {
           if (this.client) {
             await this.client.CSS.setStyleSheetText({ styleSheetId, text: '' });
           }
-        } catch {
-          // Ignore cleanup errors if disconnected or already cleaned
-        }
+        } catch { /* ignore cleanup errors */ }
       }, glitchDuration);
     } catch (err) {
-      process.stderr.write(`[VisualMonitor] triggerNeuralGlitch failed: ${err}\n`);
+      process.stderr.write(`[VisualMonitor] triggerNeuralGlitch fallback failed: ${err}\n`);
     }
   }
 

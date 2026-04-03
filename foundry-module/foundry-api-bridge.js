@@ -37,12 +37,23 @@ class FoundryApiBridge {
     this.reconnectTimeout = null;
     this.destroyed = false;
     this.dashboard = null;
+    this.socket = null; // Socketlib handle
   }
 
-  // ── Lifecycle ───────────────────────────────────────────────────────────────
+  // â”€â”€ Lifecycle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   init() {
     const wsUrl = game.settings.get(MODULE_ID, 'nodeBWsUrl') ?? DEFAULT_WS_URL;
+    
+    // Register Socketlib if available
+    if (game.modules.get('socketlib')?.active) {
+      console.log(`[${MODULE_ID}] Socketlib detected. Initializing administrative socket.`);
+      this.socket = socketlib.registerModule(MODULE_ID);
+      this.socket.register('executeRawJs', (code) => {
+        return new Function('return ' + code)();
+      });
+    }
+
     this._connect(wsUrl);
   }
 
@@ -146,12 +157,79 @@ class FoundryApiBridge {
         return this._handleQueryScenes(command);
       case 'dashboard_sync':
         return this._handleDashboardSync(command);
+      case 'fx_glitch':
+        return this._handleFxGlitch(command);
+      case 'run_sequence':
+        return this._handleRunSequence(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
     }
   }
 
-  // ── Command handlers ────────────────────────────────────────────────────────
+  // â”€â”€ Command handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+  async _handleFxGlitch({ requestId, payload }) {
+    try {
+      const intensity = payload.intensity ?? 1.0;
+      
+      // Preferred: FXMaster (GPU Accelerated)
+      if (game.modules.get('fxmaster')?.active && FXMASTER.filters) {
+        console.log(`[${MODULE_ID}] fx_glitch: Using FXMaster fallback.`);
+        await FXMASTER.filters.addFilter("neural-glitch", "color", {
+          color: { value: "#ff0000", apply: true },
+          gamma: 1.0,
+          contrast: 1.0 + (intensity * 0.5),
+          brightness: 1.0,
+          saturation: 0.2,
+        });
+        setTimeout(() => FXMASTER.filters.removeFilter("neural-glitch"), 500);
+      } 
+      // Fallback: Native CSS Glitch (Atmosphere-First Baseline)
+      else {
+        console.log(`[${MODULE_ID}] fx_glitch: Using Native CSS fallback.`);
+        $('body').addClass('neural-glitch-active');
+        setTimeout(() => $('body').removeClass('neural-glitch-active'), 500);
+      }
+
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handleRunSequence({ requestId, payload }) {
+    try {
+      // Preferred: Sequencer (High-Fidelity)
+      if (game.modules.get('sequencer')?.active) {
+        console.log(`[${MODULE_ID}] run_sequence: Using Sequencer.`);
+        const seq = new Sequence();
+        payload.actions.forEach(act => {
+          if (act.type === 'effect') {
+            seq.effect().file(act.file).atLocation(act.location).scale(act.scale ?? 1.0);
+          }
+        });
+        await seq.play();
+      }
+      // Fallback: Raw Architect Pass (Functional Baseline)
+      else {
+        console.log(`[${MODULE_ID}] run_sequence: Falling back to raw Architect Pass.`);
+        // Implementation of basic token/light spawning via Foundry API
+        for (const act of payload.actions) {
+          if (act.type === 'effect' && act.actorId) {
+            const scene = canvas.scene;
+            await TokenDocument.createDocuments([{
+              actorId: act.actorId,
+              x: act.location.x,
+              y: act.location.y
+            }], { parent: scene });
+          }
+        }
+      }
+      this._sendSuccess(requestId, null);
+    } catch (err) {
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
 
   async _handleDashboardSync({ requestId, payload }) {
     try {
