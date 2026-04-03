@@ -5,7 +5,7 @@
  * Directly manipulates the Foundry VTT renderer state via CDP (Neural Uplink).
  */
 
-import type { IArchitectService } from './interfaces.js';
+import type { IArchitectService, MaterializationResult } from './interfaces.js';
 import type { VisualMonitorService } from './visual-monitor-service.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 
@@ -16,6 +16,14 @@ export class ArchitectPassService implements IArchitectService {
   constructor(visualMonitor: VisualMonitorService, foundryAdapter?: IFoundryAdapter) {
     this.visualMonitor = visualMonitor;
     this.foundryAdapter = foundryAdapter;
+  }
+
+  async batchCreateDocuments(sceneId: string, blueprint: any): Promise<MaterializationResult> {
+    return { success: false, error: 'Not implemented in ArchitectPassService' };
+  }
+
+  async triggerNeuralGlitch(intensity: number): Promise<void> {
+    // Not implemented
   }
 
   /**

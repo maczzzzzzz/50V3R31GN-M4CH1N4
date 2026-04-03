@@ -28,10 +28,14 @@ export class SteganographyService {
       if (bitIndex < secretBuffer.length * 8) {
         const byteIndex = Math.floor(bitIndex / 8);
         const bitOffset = 7 - (bitIndex % 8); // Start with most significant bit of the byte
-        const bit = (secretBuffer[byteIndex] >> bitOffset) & 1;
+        const byteVal = secretBuffer[byteIndex];
+        const bit = byteVal !== undefined ? ((byteVal >> bitOffset) & 1) : 0;
         
         // Clear LSB and set to our bit
-        png.data[i] = (png.data[i] & 0xFE) | bit;
+        const pngDataVal = png.data[i];
+        if (pngDataVal !== undefined) {
+          png.data[i] = (pngDataVal & 0xFE) | bit;
+        }
         bitIndex++;
       } else {
         break;
@@ -58,7 +62,9 @@ export class SteganographyService {
     let bitCount = 0;
 
     for (let i = 0; i < png.data.length; i++) {
-      const bit = png.data[i] & 1;
+      const val = png.data[i];
+      if (val === undefined) break;
+      const bit = val & 1;
       currentByte = (currentByte << 1) | bit;
       bitCount++;
 

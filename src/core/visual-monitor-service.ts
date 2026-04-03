@@ -173,7 +173,8 @@ export class VisualMonitorService {
         [sceneId ?? null]
       );
 
-      if (last.length === 0 || last[0].screenshot_hash !== hash) {
+      const lastRow = last[0];
+      if (last.length === 0 || (lastRow && lastRow.screenshot_hash !== hash)) {
         this.oracle.execute(
           'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
           [sceneId ?? null, hash, timestamp]
@@ -447,6 +448,7 @@ export class VisualMonitorService {
 
     if (rows.length === 0) return;
     const atm = rows[0];
+    if (!atm) return;
 
     const client = this.getClient();
     const script = `(async () => {

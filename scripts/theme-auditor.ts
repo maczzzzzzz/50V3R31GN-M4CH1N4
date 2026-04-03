@@ -17,21 +17,21 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const CSS_PATH = resolve(__dirname, '../foundry-module/styles/black-ice-theme.css');
 const CDP_ENDPOINT = 'http://localhost:9222';
 
-type SheetTarget = 'character' | 'item' | 'journal';
+type SheetTarget = 'character' | 'item' | 'journal' | 'blackIce';
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
 const targetArg = args.find((a) => a.startsWith('--target='))?.split('=')[1];
 
-const VALID_TARGETS = new Set<string>(['character', 'item', 'journal']);
+const VALID_TARGETS = new Set<string>(['character', 'item', 'journal', 'blackIce']);
 if (targetArg !== undefined && !VALID_TARGETS.has(targetArg)) {
-  console.error(`[theme-auditor] Unknown --target value: "${targetArg}". Valid: character, item, journal`);
+  console.error(`[theme-auditor] Unknown --target value: "${targetArg}". Valid: character, item, journal, blackIce`);
   process.exit(1);
 }
 
 const TARGETS: SheetTarget[] = targetArg
   ? [targetArg as SheetTarget]
-  : ['character', 'item', 'journal'];
+  : ['character', 'item', 'journal', 'blackIce'];
 
 // Serializable data returned from page.evaluate()
 // borderColor is borderTopColor (single value, not shorthand) and is '' when no visible border.
@@ -58,6 +58,11 @@ async function openSheet(page: Page, target: SheetTarget): Promise<void> {
       const journal = game.journal.contents[0];
       if (journal) { journal.sheet.render(true); }
       else { ui.notifications.warn('No journal entries found for theme audit.'); }
+    `,
+    blackIce: `
+      const actor = game.actors.find(a => a.type === 'blackIce');
+      if (actor) { actor.sheet.render(true); }
+      else { ui.notifications.warn('No blackIce actor found for theme audit.'); }
     `,
   };
   await page.evaluate(script[target]);

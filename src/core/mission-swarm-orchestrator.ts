@@ -1,4 +1,4 @@
-import type { MissionBlueprint } from '../shared/schemas/mission.schema.js';
+import type { MissionBlueprint } from '../shared/mission.schema.js';
 import type { IOllamaClient, INitroLogicClient } from './interfaces.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 

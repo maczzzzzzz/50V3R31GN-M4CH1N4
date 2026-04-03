@@ -92,9 +92,14 @@ export class VisualDiffService {
 
     for (let i = 0; i < pixelCount; i += stride) {
       const offset = i * 4;
-      const rDiff = Math.abs(baseBuffer[offset] - liveBuffer[offset]);
-      const gDiff = Math.abs(baseBuffer[offset + 1] - liveBuffer[offset + 1]);
-      const bDiff = Math.abs(baseBuffer[offset + 2] - liveBuffer[offset + 2]);
+      const bR = baseBuffer[offset], lR = liveBuffer[offset];
+      const bG = baseBuffer[offset + 1], lG = liveBuffer[offset + 1];
+      const bB = baseBuffer[offset + 2], lB = liveBuffer[offset + 2];
+      if (bR === undefined || lR === undefined || bG === undefined || lG === undefined || bB === undefined || lB === undefined) continue;
+      
+      const rDiff = Math.abs(bR - lR);
+      const gDiff = Math.abs(bG - lG);
+      const bDiff = Math.abs(bB - lB);
       if (rDiff > thresholdValue || gDiff > thresholdValue || bDiff > thresholdValue) {
         pixelDelta++;
         diffPixels.push({ x: i % width, y: Math.floor(i / width) });
@@ -124,8 +129,9 @@ export class VisualDiffService {
        ORDER BY captured_at DESC LIMIT 1`,
       [sceneId]
     );
-    if (rows.length === 0) return null;
-    return { data: rows[0].data, width: rows[0].width ?? 1920, height: rows[0].height ?? 1080 };
+    const firstRow = rows[0];
+    if (!firstRow) return null;
+    return { data: firstRow.data, width: firstRow.width ?? 1920, height: firstRow.height ?? 1080 };
   }
 
   /**
