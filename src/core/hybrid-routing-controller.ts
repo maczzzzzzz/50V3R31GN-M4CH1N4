@@ -19,7 +19,6 @@ import type { RedTradeService } from './red-trade-service.js';
 import type { FrictionRollResult } from '../shared/schemas/red-trade.schema.js';
 import { SpatialVisionService } from './spatial-vision-service.js';
 import { VisualMonitorService } from './visual-monitor-service.js';
-import type { DecalType } from './visual-monitor-service.js';
 import { SharedMemoryService } from './shared-memory-service.js';
 
 import { OnboardingController, type BuildType } from './onboarding-controller.js';
@@ -171,31 +170,10 @@ export class HybridRoutingController {
           const district = (event.payload as { district?: string }).district ?? 'Watson';
           const blueprint = await this.missionSwarm.generateMission(district);
           await this.foundry.sendChatMessage(
-            `🎯 **Mission Brief — ${blueprint.district}**\n` +
+            `ðŸŽ¯ **Mission Brief â€” ${blueprint.district}**\n` +
             `**Intel:** ${JSON.stringify(blueprint.rulesIntel)}\n` +
             `**Tactics:** ${blueprint.tacticalAnalysis}\n` +
             `**Lore Anchors:** ${blueprint.loreAnchors.join(', ') || 'None'}`,
-          );
-        }
-        return;
-      }
-      case 'apply_decal': {
-        if (this.neuralUplink?.isConnected()) {
-          const payload = event.payload as { sceneId?: string; type?: string; x?: number; y?: number; scale?: number };
-          if (!payload.sceneId) {
-            console.warn('[HybridRoutingController] apply_decal: missing sceneId, skipping decal.');
-            return;
-          }
-          const validDecalTypes: DecalType[] = ['bullet_hole', 'scorch_mark'];
-          const decalType: DecalType = validDecalTypes.includes(payload.type as DecalType)
-            ? (payload.type as DecalType)
-            : 'bullet_hole';
-          if (!validDecalTypes.includes(payload.type as DecalType)) {
-            console.warn(`[HybridRoutingController] apply_decal: unknown type '${payload.type}', defaulting to bullet_hole.`);
-          }
-          await this.neuralUplink.applyNeuralDecal(
-            payload.sceneId,
-            { type: decalType, x: payload.x ?? 0, y: payload.y ?? 0, scale: payload.scale }
           );
         }
         return;
@@ -233,6 +211,12 @@ export class HybridRoutingController {
     );
 
     if (payload.targetId && result.hit && result.netDamage > 0) {
+      // Atmosphere First (Phase 14): Trigger neural screen glitch on damage
+      if (this.neuralUplink?.isConnected()) {
+        const intensity = result.criticalInjury ? 2.0 : Math.min(1.5, 0.5 + (result.netDamage / 10));
+        this.neuralUplink.triggerNeuralGlitch(intensity).catch(() => {});
+      }
+
       try {
         const [current] = this.unifiedOracle.query('SELECT hp FROM npcs WHERE id = ?', [payload.targetId]);
         if (current) {

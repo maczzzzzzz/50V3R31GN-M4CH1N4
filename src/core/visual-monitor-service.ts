@@ -51,16 +51,6 @@ export interface MaterializationResult {
   executionMs: number;
 }
 
-export type DecalType = 'bullet_hole' | 'scorch_mark';
-
-export interface DecalPlacement {
-  type: DecalType;
-  x: number;
-  y: number;
-  /** Scale factor. Default 1.0 */
-  scale?: number;
-}
-
 export interface AtmosphereState {
   sceneId: string;
   lightingColor: string;
@@ -243,47 +233,45 @@ export class VisualMonitorService {
   }
 
   /**
-   * Stamp a damage decal onto the Foundry canvas at the given coordinates
-   * via CDP Runtime.evaluate → DrawingDocument.create (Neural Decal Injector).
+   * Trigger a temporary "Neural Glitch" effect on the Electron window
+   * via CSS injection. Used for UI feedback when actors take damage.
+   * Atmosphere First: Lightweight screen-space FX instead of decals.
    */
-  async applyNeuralDecal(sceneId: string, placement: DecalPlacement): Promise<void> {
-    const client = this.getClient();
+  async triggerNeuralGlitch(intensity: number = 1.0): Promise<void> {
+    const glitchDuration = 500; // ms
+    const css = `
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(255, 0, 0, ${0.1 * intensity});
+        mix-blend-mode: color-burn;
+        pointer-events: none;
+        z-index: 10000;
+        animation: neural-flicker ${glitchDuration}ms steps(2) infinite;
+      }
+      @keyframes neural-flicker {
+        0% { opacity: 0.5; filter: hue-rotate(90deg) blur(2px); }
+        50% { opacity: 0.8; filter: hue-rotate(0deg) blur(0px); transform: translate(2px, 2px); }
+        100% { opacity: 0.5; filter: hue-rotate(270deg) blur(1px); }
+      }
+    `;
 
-    // Map DecalType to a simple shape description for DrawingDocument
-    const DECAL_CONFIGS: Record<DecalType, { fillColor: string; strokeColor: string; width: number; height: number }> = {
-      bullet_hole: { fillColor: '#1a1a1a', strokeColor: '#333333', width: 20, height: 20 },
-      scorch_mark: { fillColor: '#2a1a0a', strokeColor: '#4a2a0a', width: 40, height: 28 },
-    };
-    const cfg = DECAL_CONFIGS[placement.type];
-    const scale = placement.scale ?? 1.0;
-    const w = Math.round(cfg.width * scale);
-    const h = Math.round(cfg.height * scale);
-
-    const script = `(async () => {
-    const scene = game.scenes.get(${JSON.stringify(sceneId)});
-    if (!scene) throw new Error('Scene not found: ' + ${JSON.stringify(sceneId)});
-    await DrawingDocument.create({
-      type: 'e',
-      x: ${JSON.stringify(placement.x)},
-      y: ${JSON.stringify(placement.y)},
-      shape: { width: ${JSON.stringify(w)}, height: ${JSON.stringify(h)} },
-      fillColor: ${JSON.stringify(cfg.fillColor)},
-      strokeColor: ${JSON.stringify(cfg.strokeColor)},
-      strokeWidth: 1,
-      fillAlpha: 0.85,
-    }, { parent: scene });
-  })()`;
-
-    const { exceptionDetails } = await client.Runtime.evaluate({
-      expression: script,
-      awaitPromise: true,
-      returnByValue: false,
-    });
-
-    if (exceptionDetails) {
-      throw new Error(
-        `[VisualMonitorService] applyNeuralDecal failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
-      );
+    try {
+      const styleSheetId = await this.injectCSS(css);
+      
+      // Auto-cleanup after duration to stabilize UI
+      setTimeout(async () => {
+        try {
+          if (this.client) {
+            await this.client.CSS.setStyleSheetText({ styleSheetId, text: '' });
+          }
+        } catch {
+          // Ignore cleanup errors if disconnected or already cleaned
+        }
+      }, glitchDuration);
+    } catch (err) {
+      process.stderr.write(`[VisualMonitor] triggerNeuralGlitch failed: ${err}\n`);
     }
   }
 
