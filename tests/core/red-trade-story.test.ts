@@ -55,6 +55,9 @@ function makeMockFoundryAdapter(): IFoundryAdapter {
     updateActor: vi.fn().mockResolvedValue(undefined),
     queueApproval: vi.fn().mockResolvedValue(undefined),
     openNightMarket: vi.fn().mockResolvedValue(undefined),
+    show3dDice: vi.fn().mockResolvedValue(undefined),
+    queryScenes: vi.fn().mockResolvedValue([]),
+    pushDashboardUpdate: vi.fn().mockResolvedValue(undefined),
   };
 }
 
@@ -73,7 +76,7 @@ function makeController(storyEngine: StoryEngine, foundry: IFoundryAdapter, redT
     storyEngine,
     gmApprovalQueue: { enqueue: vi.fn(), handleResponse: vi.fn(), getPending: vi.fn() } as unknown as GmApprovalQueue,
     nightMarketService: { getVendorInventory: vi.fn().mockResolvedValue([]), calculateEaglePrice: vi.fn() } as unknown as NightMarketService,
-    unifiedOracle: { query: vi.fn().mockReturnValue([]), connect: vi.fn(), disconnect: vi.fn(), executeCommand: vi.fn().mockResolvedValue(undefined) } as unknown as UnifiedOracleClient,
+    unifiedOracle: { query: vi.fn().mockReturnValue([]), connect: vi.fn(), disconnect: vi.fn(), executeCommand: vi.fn().mockResolvedValue(undefined), executeTransaction: vi.fn().mockResolvedValue(undefined) } as unknown as UnifiedOracleClient,
     redTradeService,
   });
 }

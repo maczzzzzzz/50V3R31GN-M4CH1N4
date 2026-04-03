@@ -267,7 +267,7 @@ export class UnifiedOracleClient {
 
         // Force lowercase disposition to match CHECK constraint ('friendly', 'neutral', 'hostile')
         if ('disposition' in data && typeof data.disposition === 'string') {
-          data.disposition = data.disposition.toLowerCase();
+          data.disposition = data.disposition.toLowerCase() as 'friendly' | 'neutral' | 'hostile';
         }
 
         const setClause = entries.map(([k, _]) => `${k} = ?`).join(', ');

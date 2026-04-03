@@ -17,6 +17,7 @@
  */
 
 import { randomBytes } from 'node:crypto';
+import { z } from 'zod';
 import { WebSocketServer, WebSocket } from 'ws';
 import type { IncomingMessage } from 'node:http';
 import {

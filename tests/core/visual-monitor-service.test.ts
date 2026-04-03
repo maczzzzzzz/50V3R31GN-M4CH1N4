@@ -2,32 +2,32 @@
  * tests/core/visual-monitor-service.test.ts
  *
  * Unit tests for VisualMonitorService (Phase 11 Neural Uplink).
- * chrome-remote-interface is mocked — no live Foundry/Electron required.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // ── Mock chrome-remote-interface ──────────────────────────────────────────────
 
-const mockEnable = vi.fn().mockResolvedValue(undefined);
-const mockClose  = vi.fn().mockResolvedValue(undefined);
-
-const mockClient = {
-  Page:    { enable: mockEnable },
-  Runtime: { enable: mockEnable },
-  CSS:     { enable: mockEnable },
-  close:   mockClose,
-};
-
-const mockCDP = vi.fn().mockResolvedValue(mockClient) as any;
-mockCDP.List = vi.fn().mockResolvedValue([
-  {
-    type: 'page',
-    title: 'Foundry Virtual Tabletop',
-    url: 'http://localhost:30000/',
-    webSocketDebuggerUrl: 'ws://127.0.0.1:9222/devtools/page/test-id',
-  },
-]);
+const { mockEnable, mockClose, mockCDP, mockClient } = vi.hoisted(() => {
+  const enable = vi.fn().mockResolvedValue(undefined);
+  const close = vi.fn().mockResolvedValue(undefined);
+  const client = {
+    Page:    { enable },
+    Runtime: { enable },
+    CSS:     { enable },
+    close,
+  };
+  const cdp = vi.fn().mockResolvedValue(client) as any;
+  cdp.List = vi.fn().mockResolvedValue([
+    {
+      type: 'page',
+      title: 'Foundry Virtual Tabletop',
+      url: 'http://localhost:30000/',
+      webSocketDebuggerUrl: 'ws://127.0.0.1:9222/devtools/page/test-id',
+    },
+  ]);
+  return { mockEnable: enable, mockClose: close, mockCDP: cdp, mockClient: client };
+});
 
 vi.mock('chrome-remote-interface', () => ({ default: mockCDP }));
 

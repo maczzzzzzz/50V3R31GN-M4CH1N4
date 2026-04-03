@@ -60,6 +60,8 @@ function makeMockFoundryAdapter(): IFoundryAdapter {
     queueApproval: vi.fn().mockResolvedValue(undefined),
     openNightMarket: vi.fn().mockResolvedValue(undefined),
     show3dDice: vi.fn().mockResolvedValue(undefined),
+    queryScenes: vi.fn().mockResolvedValue([]),
+    pushDashboardUpdate: vi.fn().mockResolvedValue(undefined),
   };
 }
 
@@ -85,6 +87,7 @@ function makeMockUnifiedOracle(): UnifiedOracleClient {
     disconnect: vi.fn().mockResolvedValue(undefined),
     isConnected: vi.fn().mockReturnValue(true),
     executeCommand: vi.fn().mockResolvedValue(undefined),
+    executeTransaction: vi.fn().mockResolvedValue(undefined),
   } as unknown as UnifiedOracleClient;
 }
 

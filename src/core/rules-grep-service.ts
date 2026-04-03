@@ -79,7 +79,7 @@ export class RulesGrepService {
 
       for (let i = start; i <= end; i++) {
         if (!processedIndices.has(i)) {
-          output.push(lines[i]);
+          output.push(lines[i]!);
           processedIndices.add(i);
         }
       }

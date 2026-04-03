@@ -31,6 +31,7 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
       updateActor: vi.fn().mockResolvedValue(undefined),
       sendChatMessage: vi.fn().mockResolvedValue(undefined),
       show3dDice: vi.fn().mockResolvedValue(undefined),
+      pushDashboardUpdate: vi.fn().mockResolvedValue(undefined),
     } as any;
 
     logic = {
@@ -43,6 +44,7 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
         criticalInjury: false,
         reasoning: 'Calculated correctly.'
       }),
+      isHealthy: vi.fn().mockResolvedValue(true),
     } as any;
 
     controller = new HybridRoutingController({
