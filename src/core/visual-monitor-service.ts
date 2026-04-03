@@ -7,29 +7,43 @@
  * Electron renderer. Requires Foundry launched with:
  *   --remote-debugging-port=9222
  *
- * Capabilities enabled at connect time:
- *   Page    — screenshot capture, window reload (Ghost-Refresh)
+ * Capabilities:
+ *   Page    — screenshot capture (Akashic Vision), Ghost-Refresh
  *   Runtime — arbitrary JS evaluation in the Foundry context
  *   CSS     — live style injection (Black-Ice Inversion Engine)
  */
 
 import CDP from 'chrome-remote-interface';
+import crypto from 'node:crypto';
+import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface VisualMonitorConfig {
   /** CDP debug port. Must be bound to 127.0.0.1. Default: 9222 */
   readonly debugPort?: number;
+  /** Oracle for persisting vision records to Akashik.db. Optional. */
+  readonly oracle?: UnifiedOracleClient;
+}
+
+export interface ScreenshotRecord {
+  hash: string;
+  timestamp: string;
+  sceneId: string | null;
+  /** Base64-encoded PNG from CDP Page.captureScreenshot */
+  data: string;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
 
 export class VisualMonitorService {
   private readonly debugPort: number;
+  private readonly oracle: UnifiedOracleClient | undefined;
   private client: CDP.Client | null = null;
 
   constructor(config: VisualMonitorConfig = {}) {
     this.debugPort = config.debugPort ?? 9222;
+    this.oracle = config.oracle;
   }
 
   /**
@@ -37,7 +51,6 @@ export class VisualMonitorService {
    * establish the WebSocket handshake, and enable Page/Runtime/CSS domains.
    */
   async connect(): Promise<void> {
-    // 1. Autonomous target discovery
     const targets = await CDP.List({ port: this.debugPort });
     const pageTarget = targets.find((t: CDP.Target) => t.type === 'page');
 
@@ -48,13 +61,11 @@ export class VisualMonitorService {
       );
     }
 
-    // 2. Establish CDP WebSocket connection
     this.client = await CDP({
       target: pageTarget.webSocketDebuggerUrl,
       port: this.debugPort,
     });
 
-    // 3. Enable required domains
     await Promise.all([
       this.client.Page.enable(),
       this.client.Runtime.enable(),
@@ -75,9 +86,60 @@ export class VisualMonitorService {
     return this.client !== null;
   }
 
-  /** Exposed for Phase 11 Task 2 (Akashic Vision) — screenshot capture. */
   getClient(): CDP.Client {
     if (!this.client) throw new Error('[VisualMonitorService] Not connected — call connect() first.');
     return this.client;
+  }
+
+  // ── Task 2: Akashic Vision ──────────────────────────────────────────────────
+
+  /**
+   * Capture a raw PNG screenshot from the Foundry Electron renderer.
+   * If an oracle was provided at construction, persists metadata to
+   * the vision_history table in Akashik.db.
+   */
+  async captureScreenshot(sceneId?: string): Promise<ScreenshotRecord> {
+    const client = this.getClient();
+    const { data } = await client.Page.captureScreenshot({ format: 'png' });
+
+    const hash = crypto
+      .createHash('sha256')
+      .update(Buffer.from(data, 'base64'))
+      .digest('hex');
+
+    const timestamp = new Date().toISOString();
+
+    if (this.oracle?.isConnected()) {
+      this.oracle.execute(
+        'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
+        [sceneId ?? null, hash, timestamp]
+      );
+    }
+
+    return { hash, timestamp, sceneId: sceneId ?? null, data };
+  }
+
+  // ── Task 3: Ghost-Refresh & Live Inversion ──────────────────────────────────
+
+  /**
+   * Physically reload the Foundry Electron window (Ghost-Refresh).
+   * Activates any pending module updates without manual intervention.
+   */
+  async reloadWindow(): Promise<void> {
+    await this.getClient().Page.reload({ ignoreCache: false });
+  }
+
+  /**
+   * Inject a CSS stylesheet into the live Foundry renderer via the CDP CSS domain.
+   * Returns the styleSheetId for later mutation or removal.
+   * No page reload required.
+   */
+  async injectCSS(cssText: string): Promise<string> {
+    const client = this.getClient();
+    const { frameTree } = await client.Page.getFrameTree();
+    const frameId: string = frameTree.frame.id;
+    const { styleSheetId } = await client.CSS.createStyleSheet({ frameId });
+    await client.CSS.setStyleSheetText({ styleSheetId, text: cssText });
+    return styleSheetId;
   }
 }

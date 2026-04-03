@@ -2,6 +2,7 @@
  * tests/core/visual-monitor-service.test.ts
  *
  * Unit tests for VisualMonitorService (Phase 11 Neural Uplink).
+ * chrome-remote-interface is mocked — no live Foundry/Electron required.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -10,11 +11,22 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 const { mockEnable, mockClose, mockCDP, mockClient } = vi.hoisted(() => {
   const enable = vi.fn().mockResolvedValue(undefined);
-  const close = vi.fn().mockResolvedValue(undefined);
+  const close  = vi.fn().mockResolvedValue(undefined);
   const client = {
-    Page:    { enable },
-    Runtime: { enable },
-    CSS:     { enable },
+    Page: {
+      enable: vi.fn().mockResolvedValue(undefined),
+      captureScreenshot: vi.fn().mockResolvedValue({ data: 'aGVsbG8=' }), // base64 "hello"
+      reload: vi.fn().mockResolvedValue(undefined),
+      getFrameTree: vi.fn().mockResolvedValue({
+        frameTree: { frame: { id: 'frame-001' } },
+      }),
+    },
+    Runtime: { enable: vi.fn().mockResolvedValue(undefined) },
+    CSS: {
+      enable: vi.fn().mockResolvedValue(undefined),
+      createStyleSheet: vi.fn().mockResolvedValue({ styleSheetId: 'ss-001' }),
+      setStyleSheetText: vi.fn().mockResolvedValue(undefined),
+    },
     close,
   };
   const cdp = vi.fn().mockResolvedValue(client) as any;
@@ -35,6 +47,15 @@ vi.mock('chrome-remote-interface', () => ({ default: mockCDP }));
 
 import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
 
+// ── Mock oracle ───────────────────────────────────────────────────────────────
+
+function makeMockOracle() {
+  return {
+    isConnected: vi.fn().mockReturnValue(true),
+    execute: vi.fn().mockReturnValue({ changes: 1 }),
+  } as any;
+}
+
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe('VisualMonitorService', () => {
@@ -42,7 +63,6 @@ describe('VisualMonitorService', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Restore default mock behavior after each test
     mockCDP.mockResolvedValue(mockClient);
     mockCDP.List.mockResolvedValue([
       {
@@ -52,8 +72,17 @@ describe('VisualMonitorService', () => {
         webSocketDebuggerUrl: 'ws://127.0.0.1:9222/devtools/page/test-id',
       },
     ]);
+    // Restore per-method mocks
+    mockClient.Page.captureScreenshot.mockResolvedValue({ data: 'aGVsbG8=' });
+    mockClient.Page.reload.mockResolvedValue(undefined);
+    mockClient.Page.getFrameTree.mockResolvedValue({ frameTree: { frame: { id: 'frame-001' } } });
+    mockClient.CSS.createStyleSheet.mockResolvedValue({ styleSheetId: 'ss-001' });
+    mockClient.CSS.setStyleSheetText.mockResolvedValue(undefined);
+
     service = new VisualMonitorService({ debugPort: 9222 });
   });
+
+  // ── connect() ───────────────────────────────────────────────────────────────
 
   describe('connect()', () => {
     it('discovers the page target via CDP.List', async () => {
@@ -71,8 +100,9 @@ describe('VisualMonitorService', () => {
 
     it('enables Page, Runtime, and CSS domains', async () => {
       await service.connect();
-      // Each domain's enable() must be called exactly once
-      expect(mockEnable).toHaveBeenCalledTimes(3);
+      expect(mockClient.Page.enable).toHaveBeenCalledOnce();
+      expect(mockClient.Runtime.enable).toHaveBeenCalledOnce();
+      expect(mockClient.CSS.enable).toHaveBeenCalledOnce();
     });
 
     it('logs the Neural Uplink activation message', async () => {
@@ -82,7 +112,7 @@ describe('VisualMonitorService', () => {
       consoleSpy.mockRestore();
     });
 
-    it('marks isConnected() as true after successful connect', async () => {
+    it('marks isConnected() true after successful connect', async () => {
       expect(service.isConnected()).toBe(false);
       await service.connect();
       expect(service.isConnected()).toBe(true);
@@ -94,7 +124,7 @@ describe('VisualMonitorService', () => {
     });
 
     it('throws when page target has no webSocketDebuggerUrl', async () => {
-      mockCDP.List.mockResolvedValue([{ type: 'page' }]); // no wsUrl
+      mockCDP.List.mockResolvedValue([{ type: 'page' }]);
       await expect(service.connect()).rejects.toThrow('No page target found');
     });
 
@@ -105,20 +135,23 @@ describe('VisualMonitorService', () => {
     });
   });
 
+  // ── disconnect() ─────────────────────────────────────────────────────────────
+
   describe('disconnect()', () => {
     it('calls client.close() and marks isConnected() false', async () => {
       await service.connect();
-      expect(service.isConnected()).toBe(true);
       await service.disconnect();
-      expect(mockClose).toHaveBeenCalledOnce();
+      expect(mockClient.close).toHaveBeenCalledOnce();
       expect(service.isConnected()).toBe(false);
     });
 
     it('is a no-op if already disconnected', async () => {
-      await service.disconnect(); // no connect() called
-      expect(mockClose).not.toHaveBeenCalled();
+      await service.disconnect();
+      expect(mockClient.close).not.toHaveBeenCalled();
     });
   });
+
+  // ── getClient() ──────────────────────────────────────────────────────────────
 
   describe('getClient()', () => {
     it('returns the CDP client when connected', async () => {
@@ -128,6 +161,106 @@ describe('VisualMonitorService', () => {
 
     it('throws when not connected', () => {
       expect(() => service.getClient()).toThrow('Not connected');
+    });
+  });
+
+  // ── captureScreenshot() ──────────────────────────────────────────────────────
+
+  describe('captureScreenshot()', () => {
+    beforeEach(async () => { await service.connect(); });
+
+    it('calls Page.captureScreenshot with png format', async () => {
+      await service.captureScreenshot();
+      expect(mockClient.Page.captureScreenshot).toHaveBeenCalledWith({ format: 'png' });
+    });
+
+    it('returns a record with hash, timestamp, data, and null sceneId by default', async () => {
+      const record = await service.captureScreenshot();
+      expect(record.data).toBe('aGVsbG8=');
+      expect(record.hash).toMatch(/^[a-f0-9]{64}$/); // SHA-256 hex
+      expect(record.timestamp).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+      expect(record.sceneId).toBeNull();
+    });
+
+    it('sets sceneId when provided', async () => {
+      const record = await service.captureScreenshot('scene-001');
+      expect(record.sceneId).toBe('scene-001');
+    });
+
+    it('persists metadata to Akashik.db via oracle.execute when oracle is connected', async () => {
+      const oracle = makeMockOracle();
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle });
+      await svc.connect();
+      const record = await svc.captureScreenshot('scene-42');
+      expect(oracle.execute).toHaveBeenCalledWith(
+        'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
+        ['scene-42', record.hash, record.timestamp]
+      );
+    });
+
+    it('does not write to oracle when oracle is not provided', async () => {
+      const oracle = makeMockOracle();
+      // service has no oracle — just confirm no error thrown
+      await expect(service.captureScreenshot()).resolves.toBeDefined();
+    });
+
+    it('does not write to oracle when oracle.isConnected() is false', async () => {
+      const oracle = makeMockOracle();
+      oracle.isConnected.mockReturnValue(false);
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle });
+      await svc.connect();
+      await svc.captureScreenshot();
+      expect(oracle.execute).not.toHaveBeenCalled();
+    });
+  });
+
+  // ── reloadWindow() ───────────────────────────────────────────────────────────
+
+  describe('reloadWindow()', () => {
+    beforeEach(async () => { await service.connect(); });
+
+    it('calls Page.reload', async () => {
+      await service.reloadWindow();
+      expect(mockClient.Page.reload).toHaveBeenCalledWith({ ignoreCache: false });
+    });
+
+    it('throws when not connected', async () => {
+      const disconnected = new VisualMonitorService();
+      await expect(disconnected.reloadWindow()).rejects.toThrow('Not connected');
+    });
+  });
+
+  // ── injectCSS() ──────────────────────────────────────────────────────────────
+
+  describe('injectCSS()', () => {
+    beforeEach(async () => { await service.connect(); });
+
+    it('gets the frame tree to obtain frameId', async () => {
+      await service.injectCSS('body { color: #00f3ff; }');
+      expect(mockClient.Page.getFrameTree).toHaveBeenCalled();
+    });
+
+    it('creates a stylesheet in the correct frame', async () => {
+      await service.injectCSS('body { color: #00f3ff; }');
+      expect(mockClient.CSS.createStyleSheet).toHaveBeenCalledWith({ frameId: 'frame-001' });
+    });
+
+    it('sets the stylesheet text to the provided CSS', async () => {
+      await service.injectCSS('body { color: #00f3ff; }');
+      expect(mockClient.CSS.setStyleSheetText).toHaveBeenCalledWith({
+        styleSheetId: 'ss-001',
+        text: 'body { color: #00f3ff; }',
+      });
+    });
+
+    it('returns the styleSheetId', async () => {
+      const id = await service.injectCSS('body {}');
+      expect(id).toBe('ss-001');
+    });
+
+    it('throws when not connected', async () => {
+      const disconnected = new VisualMonitorService();
+      await expect(disconnected.injectCSS('body {}')).rejects.toThrow('Not connected');
     });
   });
 });

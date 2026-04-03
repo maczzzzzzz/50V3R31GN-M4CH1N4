@@ -86,6 +86,17 @@ CREATE TABLE IF NOT EXISTS inventory (
     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Phase 11: Akashic Vision History (Neural Uplink GPU-Level Grounding)
+-- Stores metadata for each raw screenshot captured via CDP Page.captureScreenshot.
+CREATE TABLE IF NOT EXISTS vision_history (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    scene_id        TEXT,
+    screenshot_hash TEXT NOT NULL,
+    pixel_width     INTEGER,
+    pixel_height    INTEGER,
+    captured_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Phase 6: Tactical Scene Regions (Project Eyes-On / TacticalVisionService)
 -- Stores LLava-identified cover/hazard/security zones for Spatial Grounding.
 CREATE TABLE IF NOT EXISTS scene_regions (

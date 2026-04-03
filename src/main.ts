@@ -32,7 +32,7 @@ async function main() {
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({
-    worldDbPath: process.env.WORLD_DB_PATH ?? './data/world.db',
+    worldDbPath: process.env.AKASHIK_DB_PATH ?? './data/Akashik.db',
     crushDbPath: process.env.CRUSH_DB_PATH ?? './data/crush.db',
   });
   await oracle.connect();
@@ -98,6 +98,7 @@ async function main() {
   // 8. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
   const neuralUplink = new VisualMonitorService({
     debugPort: parseInt(process.env.CDP_DEBUG_PORT || '9222', 10),
+    oracle,
   });
   try {
     await neuralUplink.connect();
