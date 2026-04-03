@@ -29,6 +29,8 @@ function makeMockNitroLogic(): INitroLogicClient {
     calculateDv: vi.fn(),
     oracleRoll: vi.fn(),
     isHealthy: vi.fn().mockResolvedValue(true),
+    stop: vi.fn().mockResolvedValue(undefined),
+    ocrAnalyze: vi.fn().mockResolvedValue([]),
   };
 }
 

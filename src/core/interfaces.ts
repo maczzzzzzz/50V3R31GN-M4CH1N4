@@ -29,6 +29,13 @@ export interface NitroLogicConfig {
    * Default: 42. Override per-tool call is not supported at the interface level.
    */
   readonly seed: number;
+  /**
+   * Optional ClawLink client for ZeroClaw RPC calls (e.g. ocr_analyze).
+   * Required when ocrAnalyze() will be called.
+   */
+  readonly clawlinkClient?: {
+    executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T>;
+  } | undefined;
 }
 
 // ── Input parameter types ─────────────────────────────────────────────────────
@@ -221,6 +228,18 @@ export interface IDiscordChroniclerClient {
 
 // ── Client interface ──────────────────────────────────────────────────────────
 
+/** A single entity detected by the Falcon OCR pass on a scene image. */
+export interface DetectedEntity {
+  /** OCR-extracted text label (e.g. room name, zone identifier). */
+  text: string;
+  /** Normalised X coordinate [0.0–1.0] relative to the source image width. */
+  x: number;
+  /** Normalised Y coordinate [0.0–1.0] relative to the source image height. */
+  y: number;
+  /** Confidence score from the Falcon model [0.0–1.0]. */
+  confidence: number;
+}
+
 export interface INitroLogicClient {
   /** Resolve a complete Cyberpunk RED attack roll against a defender. */
   resolveAttack(params: ResolveAttackParams): Promise<AttackResult>;
@@ -235,4 +254,10 @@ export interface INitroLogicClient {
   isHealthy(): Promise<boolean>;
   /** Perform graceful cleanup of connections. */
   stop(): Promise<void>;
+  /**
+   * Run OCR analysis on a base64-encoded PNG image via the Falcon Sidecar on Node A.
+   * Implements the Model Swap Protocol: Llama-3 is evicted, Falcon runs, Llama-3 is
+   * preemptively restored. Requires clawlinkClient in NitroLogicConfig.
+   */
+  ocrAnalyze(base64Image: string): Promise<DetectedEntity[]>;
 }

@@ -209,13 +209,21 @@ export class HybridRoutingController {
         return;
       }
       case 'scene_activate': {
-        if (this.neuralUplink?.isConnected()) {
-          const sceneId = (event.payload as { sceneId?: string }).sceneId;
-          if (sceneId) {
-            await this.neuralUplink.restoreAtmosphere(sceneId).catch((err: Error) => {
-              console.warn(`[HybridRoutingController] Atmosphere restore failed for ${sceneId}: ${err.message}`);
-            });
+        const sceneId = (event.payload as { sceneId?: string }).sceneId;
+        if (this.neuralUplink?.isConnected() && sceneId) {
+          await this.neuralUplink.restoreAtmosphere(sceneId).catch((err: Error) => {
+            console.warn(`[HybridRoutingController] Atmosphere restore failed for ${sceneId}: ${err.message}`);
+          });
+          // Phase 16: Clear stale perception data and trigger Falcon reground
+          if (this.unifiedOracle?.isConnected()) {
+            this.unifiedOracle.execute(
+              'DELETE FROM scene_perception WHERE scene_id = ?',
+              [sceneId]
+            );
           }
+          await this.neuralUplink.regroundScene(sceneId).catch((err: Error) => {
+            console.warn(`[HybridRoutingController] regroundScene failed for ${sceneId}: ${err.message}`);
+          });
         }
         return;
       }
@@ -548,13 +556,28 @@ export class HybridRoutingController {
 
       if (spatial) {
         const regions = this.unifiedOracle.query(
-          `SELECT category, label FROM scene_regions 
-           WHERE scene_id = ? 
+          `SELECT category, label FROM scene_regions
+           WHERE scene_id = ?
            AND (ABS(json_extract(bounds_json, '$[1]') + json_extract(bounds_json, '$[3]'))/2 - ?) < 100
            AND (ABS(json_extract(bounds_json, '$[0]') + json_extract(bounds_json, '$[2]'))/2 - ?) < 100`,
           [spatial.sceneId, spatial.x, spatial.y]
         );
         for (const reg of regions) pulse += `- ${reg.label} (${reg.category.replace('_', ' ')})\n`;
+
+        // Phase 16: Narrative Fusion — inject Falcon OCR map labels
+        const perceptionRows = this.unifiedOracle.query<{ detected_entities_json: string }>(
+          'SELECT detected_entities_json FROM scene_perception WHERE scene_id = ?',
+          [spatial.sceneId]
+        );
+        if (perceptionRows.length > 0) {
+          try {
+            const entities = JSON.parse(perceptionRows[0]!.detected_entities_json) as Array<{ text: string }>;
+            if (entities.length > 0) {
+              const labels = entities.map((e) => e.text).join(', ');
+              pulse += `MAP LABELS (Falcon OCR): ${labels}\n`;
+            }
+          } catch { /* ignore malformed perception JSON */ }
+        }
       }
 
       return pulse;

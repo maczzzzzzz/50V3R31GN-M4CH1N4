@@ -9,6 +9,7 @@ import type {
   AttackResult,
   DvResult,
   OracleResult,
+  DetectedEntity,
 } from './interfaces.js';
 
 // ── Config validation schema ──────────────────────────────────────────────────
@@ -58,6 +59,14 @@ const OracleResultSchema = z.object({
   luckyReroll: z.number().nullable(),
   reasoning: z.string().min(1),
 });
+
+const DetectedEntitySchema = z.object({
+  text: z.string(),
+  x: z.number(),
+  y: z.number(),
+  confidence: z.number(),
+});
+const DetectedEntitiesSchema = z.array(DetectedEntitySchema);
 
 // ── System prompts with few-shot CoT exemplars ────────────────────────────────
 // Research mandate: "Think step-by-step. List all variables first, then calculate."
@@ -151,9 +160,13 @@ const CONTEXT = 'NitroLogicClient';
  */
 export class NitroLogicClient implements INitroLogicClient {
   private readonly config: NitroLogicConfig;
+  private readonly clawlinkClient: NitroLogicConfig['clawlinkClient'];
 
   constructor(config: NitroLogicConfig) {
-    const parsed = NitroLogicConfigSchema.safeParse(config);
+    // Extract clawlinkClient before Zod validation (it's a runtime object, not a primitive)
+    this.clawlinkClient = config.clawlinkClient;
+    const { clawlinkClient: _stripped, ...httpConfig } = config;
+    const parsed = NitroLogicConfigSchema.safeParse(httpConfig);
     if (!parsed.success) {
       const issue = parsed.error.issues[0];
       throw new Error(`NitroLogicClient config validation failed: ${issue?.message ?? 'unknown error'}`);
@@ -219,6 +232,24 @@ export class NitroLogicClient implements INitroLogicClient {
     } catch {
       return false;
     }
+  }
+
+  async ocrAnalyze(base64Image: string): Promise<DetectedEntity[]> {
+    if (!this.clawlinkClient) {
+      throw new Error(
+        `${CONTEXT} ocrAnalyze requires clawlinkClient in NitroLogicConfig — not provided.`,
+      );
+    }
+    const raw = await this.clawlinkClient.executeRpc<unknown>('ocr_analyze', { image: base64Image });
+    const result = DetectedEntitiesSchema.safeParse(raw);
+    if (!result.success) {
+      const issue = result.error.issues[0];
+      throw new Error(
+        `${CONTEXT} ocrAnalyze response failed Zero-Trust validation: ` +
+        `${issue?.message ?? 'unknown'} (path: ${issue?.path.join('.') ?? 'root'})`,
+      );
+    }
+    return result.data;
   }
 
   async stop(): Promise<void> {

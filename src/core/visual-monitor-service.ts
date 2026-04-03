@@ -18,6 +18,7 @@ import crypto from 'node:crypto';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { VisualDiffService, DiffResult } from './visual-diff-service.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
+import type { INitroLogicClient, DetectedEntity } from './interfaces.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -67,6 +68,11 @@ export interface VisualMonitorConfig {
   readonly oracle?: UnifiedOracleClient;
   /** FoundryAdapter for bridge-first dispatch (Phase 15). Optional. */
   readonly foundryAdapter?: IFoundryAdapter;
+  /**
+   * NitroLogicClient with ocrAnalyze support (Phase 16 Falcon Sidecar).
+   * Required for regroundScene() to perform OCR analysis.
+   */
+  readonly nitroLogic?: INitroLogicClient | undefined;
 }
 
 export interface ScreenshotRecord {
@@ -83,12 +89,14 @@ export class VisualMonitorService {
   private readonly debugPort: number;
   private readonly oracle: UnifiedOracleClient | undefined;
   private readonly foundryAdapter: IFoundryAdapter | undefined;
+  private readonly nitroLogic: INitroLogicClient | undefined;
   private client: CDP.Client | null = null;
 
   constructor(config: VisualMonitorConfig = {}) {
     this.debugPort = config.debugPort ?? 9222;
     this.oracle = config.oracle;
     this.foundryAdapter = config.foundryAdapter;
+    this.nitroLogic = config.nitroLogic;
   }
 
   /**
@@ -300,6 +308,57 @@ export class VisualMonitorService {
     } catch (err) {
       process.stderr.write(`[VisualMonitor] triggerNeuralGlitch fallback failed: ${err}\n`);
     }
+  }
+
+  /**
+   * Phase 16: Semantic Perception — Reground the current scene via Falcon OCR.
+   *
+   * If the oracle has no perception data for this sceneId:
+   *   1. Fire Neural Shroud (glitch) to mask the 3–5s model swap
+   *   2. Capture a CDP screenshot
+   *   3. Call ocrAnalyze via NitroLogicClient → ZeroClaw ClawLink
+   *   4. Persist detected entity labels to scene_perception
+   *
+   * Requires both oracle and nitroLogic to be configured. Logs a warning and
+   * returns early if either is absent (never throws on missing config).
+   */
+  async regroundScene(sceneId: string): Promise<void> {
+    if (!this.oracle?.isConnected() || !this.nitroLogic) {
+      process.stderr.write(
+        `[VisualMonitorService] regroundScene: oracle or nitroLogic not configured — skip.\n`
+      );
+      return;
+    }
+
+    // Skip if perception data already exists for this scene
+    const existing = this.oracle.query<{ scene_id: string }>(
+      'SELECT scene_id FROM scene_perception WHERE scene_id = ?',
+      [sceneId]
+    );
+    if (existing.length > 0) {
+      return;
+    }
+
+    // Neural Shroud — mask the model-swap latency with a glitch overlay
+    await this.triggerNeuralGlitch(2.5);
+
+    let entities: DetectedEntity[];
+    try {
+      const screenshot = await this.captureScreenshot(sceneId);
+      entities = await this.nitroLogic.ocrAnalyze(screenshot.data);
+    } catch (err) {
+      process.stderr.write(`[VisualMonitorService] regroundScene OCR failed for ${sceneId}: ${err}\n`);
+      return;
+    }
+
+    this.oracle.execute(
+      'INSERT OR REPLACE INTO scene_perception (scene_id, detected_entities_json, captured_at) VALUES (?, ?, ?)',
+      [sceneId, JSON.stringify(entities), new Date().toISOString()]
+    );
+
+    console.log(
+      `[VisualMonitorService] regroundScene: ${entities.length} entities persisted for scene ${sceneId}`
+    );
   }
 
   /**

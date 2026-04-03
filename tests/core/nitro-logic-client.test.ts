@@ -304,3 +304,73 @@ describe('NitroLogicClient — oracleRoll()', () => {
     expect(body.response_format).toEqual({ type: 'json_object' });
   });
 });
+
+// ── ocrAnalyze ────────────────────────────────────────────────────────────────
+
+describe('NitroLogicClient — ocrAnalyze()', () => {
+  it('throws when clawlinkClient is not provided', async () => {
+    const client = new NitroLogicClient(VALID_CONFIG);
+    await expect(client.ocrAnalyze('base64data')).rejects.toThrow(/clawlinkClient/);
+  });
+
+  it('calls executeRpc with ocr_analyze and the base64 image', async () => {
+    const mockRpc = vi.fn().mockResolvedValue([
+      { text: 'Room 101', x: 0.1, y: 0.2, confidence: 0.95 },
+    ]);
+    const client = new NitroLogicClient({
+      ...VALID_CONFIG,
+      clawlinkClient: { executeRpc: mockRpc },
+    });
+    const result = await client.ocrAnalyze('base64abc');
+    expect(mockRpc).toHaveBeenCalledWith('ocr_analyze', { image: 'base64abc' });
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({ text: 'Room 101', confidence: 0.95 });
+  });
+
+  it('returns all detected entities from the RPC response', async () => {
+    const entities = [
+      { text: 'Heist Zone', x: 0.5, y: 0.5, confidence: 0.9 },
+      { text: 'Exit', x: 0.9, y: 0.1, confidence: 0.75 },
+    ];
+    const client = new NitroLogicClient({
+      ...VALID_CONFIG,
+      clawlinkClient: { executeRpc: vi.fn().mockResolvedValue(entities) },
+    });
+    const result = await client.ocrAnalyze('img123');
+    expect(result).toHaveLength(2);
+    expect(result[1]).toMatchObject({ text: 'Exit' });
+  });
+
+  it('throws on Zero-Trust validation failure when response is not an array', async () => {
+    const client = new NitroLogicClient({
+      ...VALID_CONFIG,
+      clawlinkClient: { executeRpc: vi.fn().mockResolvedValue({ text: 'not an array' }) },
+    });
+    await expect(client.ocrAnalyze('img')).rejects.toThrow(/Zero-Trust validation/);
+  });
+
+  it('throws on Zero-Trust validation failure when entity is missing required fields', async () => {
+    const client = new NitroLogicClient({
+      ...VALID_CONFIG,
+      clawlinkClient: { executeRpc: vi.fn().mockResolvedValue([{ text: 'No coords' }]) },
+    });
+    await expect(client.ocrAnalyze('img')).rejects.toThrow(/Zero-Trust validation/);
+  });
+
+  it('accepts an empty entity array', async () => {
+    const client = new NitroLogicClient({
+      ...VALID_CONFIG,
+      clawlinkClient: { executeRpc: vi.fn().mockResolvedValue([]) },
+    });
+    const result = await client.ocrAnalyze('empty');
+    expect(result).toEqual([]);
+  });
+
+  it('propagates ClawLink executeRpc errors', async () => {
+    const client = new NitroLogicClient({
+      ...VALID_CONFIG,
+      clawlinkClient: { executeRpc: vi.fn().mockRejectedValue(new Error('TCP timeout')) },
+    });
+    await expect(client.ocrAnalyze('img')).rejects.toThrow('TCP timeout');
+  });
+});

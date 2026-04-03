@@ -193,3 +193,12 @@ CREATE TABLE IF NOT EXISTS system_state (
 
 -- Initialize with default active scene if not exists
 INSERT OR IGNORE INTO system_state (key, value) VALUES ('last_active_scene', 'null');
+
+-- Phase 16: Scene Perception Buffer (Falcon OCR / Semantic Perception)
+-- Stores OCR-detected map entity labels from the Falcon Sidecar, keyed by scene_id.
+-- Cleared on each scene_activate event and repopulated by regroundScene().
+CREATE TABLE IF NOT EXISTS scene_perception (
+    scene_id TEXT PRIMARY KEY,
+    detected_entities_json TEXT NOT NULL,
+    captured_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

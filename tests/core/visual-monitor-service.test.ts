@@ -264,4 +264,69 @@ describe('VisualMonitorService', () => {
       await expect(disconnected.injectCSS('body {}')).rejects.toThrow('Not connected');
     });
   });
+
+  // ── regroundScene() ──────────────────────────────────────────────────────────
+
+  describe('regroundScene()', () => {
+    function makeMockNitroLogic(entities = [{ text: 'Room 101', x: 0.1, y: 0.2, confidence: 0.95 }]) {
+      return { ocrAnalyze: vi.fn().mockResolvedValue(entities) } as any;
+    }
+
+    it('skips when oracle is not configured', async () => {
+      const svc = new VisualMonitorService({ debugPort: 9222 });
+      await svc.connect();
+      // Should not throw
+      await expect(svc.regroundScene('scene-001')).resolves.toBeUndefined();
+    });
+
+    it('skips when nitroLogic is not configured', async () => {
+      const oracle = makeMockOracle();
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle });
+      await svc.connect();
+      await expect(svc.regroundScene('scene-002')).resolves.toBeUndefined();
+    });
+
+    it('skips when perception data already exists for the scene', async () => {
+      const oracle = makeMockOracle();
+      oracle.query.mockReturnValue([{ scene_id: 'scene-003' }]);
+      const nitroLogic = makeMockNitroLogic();
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
+      await svc.connect();
+      await svc.regroundScene('scene-003');
+      expect(nitroLogic.ocrAnalyze).not.toHaveBeenCalled();
+    });
+
+    it('calls ocrAnalyze with the captured screenshot data', async () => {
+      const oracle = makeMockOracle();
+      oracle.query.mockReturnValue([]); // No existing perception
+      const nitroLogic = makeMockNitroLogic();
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
+      await svc.connect();
+      await svc.regroundScene('scene-004');
+      expect(nitroLogic.ocrAnalyze).toHaveBeenCalledWith('aGVsbG8=');
+    });
+
+    it('persists detected entities to scene_perception via oracle.execute', async () => {
+      const oracle = makeMockOracle();
+      oracle.query.mockReturnValue([]);
+      const nitroLogic = makeMockNitroLogic([{ text: 'Heist Zone', x: 0.5, y: 0.5, confidence: 0.9 }]);
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
+      await svc.connect();
+      await svc.regroundScene('scene-005');
+      expect(oracle.execute).toHaveBeenCalledWith(
+        expect.stringContaining('INSERT OR REPLACE INTO scene_perception'),
+        expect.arrayContaining(['scene-005'])
+      );
+    });
+
+    it('does not throw when ocrAnalyze fails — logs error and returns', async () => {
+      const oracle = makeMockOracle();
+      oracle.query.mockReturnValue([]);
+      const nitroLogic = { ocrAnalyze: vi.fn().mockRejectedValue(new Error('TCP timeout')) } as any;
+      const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
+      await svc.connect();
+      await expect(svc.regroundScene('scene-006')).resolves.toBeUndefined();
+      expect(oracle.execute).not.toHaveBeenCalled();
+    });
+  });
 });
