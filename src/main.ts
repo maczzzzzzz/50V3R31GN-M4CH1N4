@@ -25,6 +25,7 @@ import { UnifiedOracleClient } from './db/unified-oracle-client.js';
 import { bootstrapTttaPart1, createTttaPart1InitialState } from './core/campaign-registry.js';
 import { DiscordChroniclerClient } from './core/discord-chronicler-client.js';
 import { SpatialVisionService } from './core/spatial-vision-service.js';
+import { VisualMonitorService } from './core/visual-monitor-service.js';
 
 async function main() {
   console.log('🌃 ASP.GM-Agent: Booting Orchestrator (v0.8.3)...');
@@ -94,7 +95,17 @@ async function main() {
     }
   });
 
-  // 8. Start the WS Server
+  // 8. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
+  const neuralUplink = new VisualMonitorService({
+    debugPort: parseInt(process.env.CDP_DEBUG_PORT || '9222', 10),
+  });
+  try {
+    await neuralUplink.connect();
+  } catch (err) {
+    console.warn(`⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
+  }
+
+  // 9. Start the WS Server
   await foundry.start(3010);
 
   console.log('🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
@@ -104,6 +115,9 @@ async function main() {
     console.log(`\n[Main] Received ${signal}. Shutting down gracefully...`);
     
     try {
+      // Disconnect Neural Uplink
+      await neuralUplink.disconnect().catch(() => {});
+
       // Stop Foundry first to stop incoming events
       await foundry.stop();
       console.log('✅ Foundry Adapter STOPPED.');
