@@ -52,3 +52,26 @@ night market ttta proposal/
 
 # Git Worktrees
 .worktrees/
+
+# --- Languages & Build Tools ---
+**/target/
+**/*.exe
+**/*.bin
+**/*.o
+**/*.a
+**/*.so
+**/*.dll
+**/*.dylib
+.direnv/
+.envrc
+flake.lock.bak
+
+# --- System & Sidecars ---
+sidecar-atlas/target/
+zeroclaw/target/
+crush/crush.exe
+dist/
+
+# --- Development Artifacts ---
+Modelfile.test
+docs/audits/temp_*
