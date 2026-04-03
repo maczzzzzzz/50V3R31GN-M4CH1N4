@@ -219,6 +219,13 @@ export class HybridRoutingController {
         }
         return;
       }
+      case 'system_heartbeat': {
+        const p = event.payload;
+        process.stdout.write(
+          `[v1.5.0 Bridge] Heartbeat: socketlib=${p.socketlib}, fxmaster=${p.fxmaster}, sequencer=${p.sequencer}, splatter=${p.splatter}\n`
+        );
+        return;
+      }
       default: {
         const exhaustiveCheck: never = event;
         throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as FoundryEvent).type}'`);

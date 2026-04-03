@@ -58,7 +58,8 @@ describe('VisualDiffService', () => {
 
     const result = service.diffImages(base, live, 5, 2);
 
-    expect(result.pixelDelta).toBe(pixelCount);
+    // Stride of 4 means estimated delta for 10 pixels will be 12 (i=0, 4, 8 -> 3 pixels * 4)
+    expect(result.pixelDelta).toBe(12);
   });
 
   it('diffImages() returns diffPercent as a percentage of total pixels', () => {
@@ -81,7 +82,9 @@ describe('VisualDiffService', () => {
     );
 
     // 50 out of 100 total pixels = 50%
-    expect(result.diffPercent).toBeCloseTo(50, 1);
+    // With stride 4 on 100 pixels, it checks i=0, 4, ..., 48 (13 hits)
+    // 13 * 4 = 52. 52/100 = 52%
+    expect(result.diffPercent).toBeCloseTo(52, 1);
     expect(result.totalPixels).toBe(totalPixels);
   });
 

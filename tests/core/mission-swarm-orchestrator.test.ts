@@ -11,7 +11,9 @@ function makeMockClawlink() {
 
 function makeMockOracle(rows: { content: string }[] = [{ content: 'V met Rogue in Watson' }]) {
   return {
+    isConnected: vi.fn().mockReturnValue(true),
     query: vi.fn().mockReturnValue(rows),
+    execute: vi.fn().mockReturnValue({ changes: 1 }),
   } as any;
 }
 

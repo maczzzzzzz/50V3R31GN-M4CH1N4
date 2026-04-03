@@ -3,10 +3,11 @@ use tracing::{info, error};
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::TcpStream;
 use reqwest::Client;
-use std::sync::OnceLock;
+use std::sync::{Arc, OnceLock};
 use std::fs;
 
 use crate::cv::edge_detector;
+use crate::perception::PerceptionController;
 use image::open;
 
 static RED_RULES: OnceLock<String> = OnceLock::new();
@@ -55,7 +56,7 @@ struct OllamaGenerateResponse {
     response: String,
 }
 
-pub async fn handle_connection(socket: TcpStream) {
+pub async fn handle_connection(socket: TcpStream, perception: Arc<PerceptionController>) {
     let client = Client::new();
     let (reader, mut writer) = socket.into_split();
     let mut reader = BufReader::new(reader);
@@ -98,10 +99,11 @@ pub async fn handle_connection(socket: TcpStream) {
 
                 let client_clone = client.clone();
                 let tx_clone = tx.clone();
-                
+                let perception_clone = Arc::clone(&perception);
+
                 // Swarm Oracle: Each request is processed in its own isolated task.
                 tokio::spawn(async move {
-                    let rpc_result = process_rpc(&client_clone, request.method, request.params).await;
+                    let rpc_result = process_rpc(&client_clone, &perception_clone, request.method, request.params).await;
 
                     let response = match rpc_result {
                         Ok(val) => RpcResponse {
@@ -143,9 +145,15 @@ fn build_math_prompt(rules: &str, params: &serde_json::Value) -> String {
     )
 }
 
-async fn process_rpc(client: &Client, method: String, params: serde_json::Value) -> Result<serde_json::Value, Box<dyn std::error::Error + Send + Sync>> {
+async fn process_rpc(
+    client: &Client,
+    perception: &PerceptionController,
+    method: String,
+    params: serde_json::Value,
+) -> Result<serde_json::Value, Box<dyn std::error::Error + Send + Sync>> {
     match method.as_str() {
         "ping" => Ok(serde_json::json!({ "pong": true })),
+
         "resolve_math" => {
             let rules = get_red_rules();
             let prompt = build_math_prompt(rules, &params);
@@ -155,7 +163,8 @@ async fn process_rpc(client: &Client, method: String, params: serde_json::Value)
                 stream: false,
             };
 
-            let res = client.post("http://localhost:11434/api/generate")
+            let res = client
+                .post("http://localhost:11434/api/generate")
                 .json(&ollama_req)
                 .send()
                 .await?
@@ -163,14 +172,34 @@ async fn process_rpc(client: &Client, method: String, params: serde_json::Value)
                 .await?;
 
             Ok(serde_json::json!({ "result": res.response }))
-        },
+        }
+
         "detect_walls" => {
             let image_path = params.as_str().ok_or("image_path parameter must be a string")?;
             let img = open(image_path)?;
             let edges = edge_detector::detect_edges(&img);
             let walls = edge_detector::detect_lines(&edges);
             Ok(serde_json::to_value(walls)?)
-        },
+        }
+
+        // ── Phase 16: Falcon Sidecar — OCR Scene Analysis ───────────────────
+        //
+        // Params: { "image": "<base64-encoded PNG/JPEG>" }
+        // Returns: [ { "text": "...", "x": 0.0, "y": 0.0, "confidence": 0.0 }, ... ]
+        //
+        // Activates the Model Swap Protocol:
+        //   Unloads Llama-3 → Falcon inference → Reloads Llama-3
+        "ocr_analyze" => {
+            let base64_image = params
+                .get("image")
+                .and_then(|v| v.as_str())
+                .ok_or("ocr_analyze requires params.image (base64 string)")?;
+
+            info!("[RPC] ocr_analyze: initiating Model Swap Protocol...");
+            let entities = perception.ocr_analyze(base64_image).await?;
+            Ok(serde_json::to_value(entities)?)
+        }
+
         _ => Err(format!("Unknown method: {}", method).into()),
     }
 }

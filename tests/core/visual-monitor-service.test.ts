@@ -53,6 +53,7 @@ function makeMockOracle() {
   return {
     isConnected: vi.fn().mockReturnValue(true),
     execute: vi.fn().mockReturnValue({ changes: 1 }),
+    query: vi.fn().mockReturnValue([]),
   } as any;
 }
 
