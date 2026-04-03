@@ -80,6 +80,7 @@ class FoundryApiBridge {
       console.log(`[${MODULE_ID}] Connected to Node B FoundryAdapter.`);
       this.ws = ws;
       this.reconnectAttempts = 0;
+      this._sendHeartbeat();
     });
 
     ws.addEventListener('message', (event) => {
@@ -107,6 +108,23 @@ class FoundryApiBridge {
     const delay = RECONNECT_DELAY_MS * Math.min(this.reconnectAttempts, 3);
     console.log(`[${MODULE_ID}] Reconnecting in ${delay}ms...`);
     this.reconnectTimeout = setTimeout(() => this._connect(wsUrl), delay);
+  }
+
+  // ── Heartbeat ───────────────────────────────────────────────────────────────
+
+  /**
+   * Emit a system_heartbeat event to Node B immediately after connection.
+   * Reports which optional modules are active so Node B can select the correct
+   * resiliency tier (Elite → Baseline → Degraded) per the Phase 15 spec.
+   */
+  _sendHeartbeat() {
+    this._sendEvent('system_heartbeat', {
+      socketlib: !!game.modules.get('socketlib')?.active,
+      fxmaster:  !!game.modules.get('fxmaster')?.active,
+      sequencer: !!game.modules.get('sequencer')?.active,
+      splatter:  !!game.modules.get('splatter')?.active,
+    });
+    console.log(`[${MODULE_ID}] Heartbeat dispatched to Node B.`);
   }
 
   // ── Message handling ────────────────────────────────────────────────────────

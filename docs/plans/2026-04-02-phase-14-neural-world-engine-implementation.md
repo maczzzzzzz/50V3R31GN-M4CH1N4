@@ -27,20 +27,7 @@ Verify that the AI correctly identifies tokens as "temporary entities" rather th
 
 ---
 
-### Task 2: Action-Conditioned Decals
 
-**Files:**
-- Create: `data/assets/decals/`
-- Modify: `src/core/hybrid-routing-controller.ts`
-
-**Step 1: Bootstrap Decal Library**
-Populate the decal directory with initial damage textures (Bullet holes, Scorch marks).
-
-**Step 2: Implement Decal Injector**
-Create a method `applyNeuralDecal` that uses CDP `Runtime.evaluate` to call `DrawingDocument.create` in Foundry.
-
-**Step 3: Verification**
-Trigger an attack and verify that a "Bullet Scorch" decal appears on the battle map at the token's position.
 
 ---
 

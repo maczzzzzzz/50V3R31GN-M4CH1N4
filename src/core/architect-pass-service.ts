@@ -7,19 +7,41 @@
 
 import type { IArchitectService } from './interfaces.js';
 import type { VisualMonitorService } from './visual-monitor-service.js';
+import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 
 export class ArchitectPassService implements IArchitectService {
   private readonly visualMonitor: VisualMonitorService;
+  private readonly foundryAdapter: IFoundryAdapter | undefined;
 
-  constructor(visualMonitor: VisualMonitorService) {
+  constructor(visualMonitor: VisualMonitorService, foundryAdapter?: IFoundryAdapter) {
     this.visualMonitor = visualMonitor;
+    this.foundryAdapter = foundryAdapter;
   }
 
   /**
-   * Spawns a token in the Foundry renderer using TokenDocument.createDocuments.
-   * This bypasses the bridge's standard message-passing and executes directly in the Electron/V8 context.
+   * Spawns a token in the Foundry renderer.
+   * Resiliency Tier (v1.5.0):
+   * 1. Try Bridge run_sequence command (Sequencer high-fidelity, Phase 15).
+   * 2. Fallback to direct CDP TokenDocument.createDocuments (Neural Uplink baseline).
    */
   async spawnToken(sceneId: string | null, x: number, y: number, actorId?: string): Promise<void> {
+    // 1. Tier 1 (Elite): Delegate to Bridge for Sequencer orchestration
+    if (this.foundryAdapter?.isConnected() && actorId) {
+      try {
+        await this.foundryAdapter.runSequence([{
+          type: 'effect',
+          file: 'icons/svg/mystery-man.svg',
+          location: { x, y },
+          actorId,
+        }]);
+        console.log('✅ Architect: Token spawned via Bridge Sequencer.');
+        return;
+      } catch (err) {
+        console.warn('Architect: Bridge runSequence failed, falling back to CDP:', err);
+      }
+    }
+
+    // 2. Tier 2 (Baseline): Direct CDP execution
     const client = this.visualMonitor.getClient();
     if (!client) {
       throw new Error('ArchitectPassService: Neural Uplink (CDP) client not connected.');
@@ -75,9 +97,33 @@ export class ArchitectPassService implements IArchitectService {
 
   /**
    * Batch creates tokens on the specified scene (or active scene if null).
-   * Accepts an array of token data { x, y, actorId? }.
+   * Resiliency Tier (v1.5.0):
+   * 1. Try Bridge run_sequence (Sequencer high-fidelity, Phase 15).
+   * 2. Fallback to direct CDP TokenDocument.createDocuments batch.
    */
   async materializeTokens(sceneId: string | null, tokens: { x: number, y: number, actorId?: string }[]): Promise<void> {
+    // 1. Tier 1 (Elite): Delegate to Bridge for Sequencer orchestration
+    if (this.foundryAdapter?.isConnected()) {
+      const actionsWithActors = tokens.filter(t => t.actorId);
+      if (actionsWithActors.length > 0) {
+        try {
+          await this.foundryAdapter.runSequence(
+            actionsWithActors.map(t => ({
+              type: 'effect' as const,
+              file: 'icons/svg/mystery-man.svg',
+              location: { x: t.x, y: t.y },
+              actorId: t.actorId!,
+            }))
+          );
+          console.log(`✅ Architect: ${actionsWithActors.length} tokens materialized via Bridge Sequencer.`);
+          return;
+        } catch (err) {
+          console.warn('Architect: Bridge runSequence failed, falling back to CDP:', err);
+        }
+      }
+    }
+
+    // 2. Tier 2 (Baseline): Direct CDP batch execution
     const client = this.visualMonitor.getClient();
     if (!client) {
       throw new Error('ArchitectPassService: Neural Uplink (CDP) client not connected.');

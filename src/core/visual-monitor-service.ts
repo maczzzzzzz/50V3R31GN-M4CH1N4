@@ -17,6 +17,7 @@ import CDP from 'chrome-remote-interface';
 import crypto from 'node:crypto';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { VisualDiffService, DiffResult } from './visual-diff-service.js';
+import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -64,6 +65,8 @@ export interface VisualMonitorConfig {
   readonly debugPort?: number;
   /** Oracle for persisting vision records to Akashik.db. Optional. */
   readonly oracle?: UnifiedOracleClient;
+  /** FoundryAdapter for bridge-first dispatch (Phase 15). Optional. */
+  readonly foundryAdapter?: IFoundryAdapter;
 }
 
 export interface ScreenshotRecord {
@@ -79,11 +82,13 @@ export interface ScreenshotRecord {
 export class VisualMonitorService {
   private readonly debugPort: number;
   private readonly oracle: UnifiedOracleClient | undefined;
+  private readonly foundryAdapter: IFoundryAdapter | undefined;
   private client: CDP.Client | null = null;
 
   constructor(config: VisualMonitorConfig = {}) {
     this.debugPort = config.debugPort ?? 9222;
     this.oracle = config.oracle;
+    this.foundryAdapter = config.foundryAdapter;
   }
 
   /**
@@ -246,16 +251,22 @@ export class VisualMonitorService {
 
   /**
    * Trigger a temporary "Neural Glitch" effect on the Electron window.
-   * Resiliency Tier (v1.3.9):
-   * 1. Try Bridge (Socketlib/FXMaster fallback).
-   * 2. Fallback to Raw CSS Injection (Atmosphere First baseline).
+   * Resiliency Tier (v1.5.0):
+   * 1. Try Bridge fx_glitch command (FXMaster GPU-accelerated, Phase 15).
+   * 2. Fallback to Raw CSS Injection via CDP (Atmosphere First baseline).
    */
   async triggerNeuralGlitch(intensity: number = 1.0): Promise<void> {
-    // 1. Try to delegate to the Bridge if possible (Native Performance)
-    // Note: This requires the bridge logic to be active on the WebSocket
-    // For now, we prioritize the hardened CSS method as it is 100% reliable
-    // across all CDP-connected sessions.
+    // 1. Tier 1 (Elite): Delegate to Bridge for FXMaster GPU acceleration
+    if (this.foundryAdapter?.isConnected()) {
+      try {
+        await this.foundryAdapter.triggerFxGlitch(intensity);
+        return;
+      } catch (err) {
+        process.stderr.write(`[VisualMonitor] Bridge fx_glitch failed, falling back to CSS: ${err}\n`);
+      }
+    }
 
+    // 2. Tier 2 (Baseline): Raw CSS Injection via CDP
     const glitchDuration = 500; // ms
     const css = `
       body::after {

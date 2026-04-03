@@ -29,6 +29,7 @@ import {
   type ChatMessagePayload,
   type MarketItemPayload,
   type CreateActorPayload,
+  type SequenceAction,
 } from '../shared/schemas/foundry-bridge.schema.js';
 
 // ── Logger (stderr-only, JSON structured) ────────────────────────────────────
@@ -84,6 +85,8 @@ export interface IFoundryAdapter {
   show3dDice(formula: string, result: number, speaker?: { alias: string }): Promise<void>;
   queryScenes(filter?: string): Promise<{ id: string, name: string, active: boolean }[]>;
   pushDashboardUpdate(payload: z.infer<typeof import('../shared/schemas/foundry-bridge.schema.js').DashboardSyncPayloadSchema>): Promise<void>;
+  triggerFxGlitch(intensity?: number): Promise<void>;
+  runSequence(actions: SequenceAction[]): Promise<void>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -271,6 +274,22 @@ export class FoundryAdapter implements IFoundryAdapter {
       type: 'dashboard_sync',
       requestId: this.generateRequestId(),
       payload,
+    });
+  }
+
+  async triggerFxGlitch(intensity: number = 1.0): Promise<void> {
+    await this.sendCommand({
+      type: 'fx_glitch',
+      requestId: this.generateRequestId(),
+      payload: { intensity },
+    });
+  }
+
+  async runSequence(actions: SequenceAction[]): Promise<void> {
+    await this.sendCommand({
+      type: 'run_sequence',
+      requestId: this.generateRequestId(),
+      payload: { actions },
     });
   }
 

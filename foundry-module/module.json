@@ -2,7 +2,7 @@
   "id": "asp-gm-bridge",
   "title": "ASP GM Agent: High-Fidelity Bridge",
   "description": "Physicalized interface between Node B and the Foundry VTT renderer. Provides high-performance orchestration via Sequencer, FXMaster, and Socketlib.",
-  "version": "1.3.8",
+  "version": "1.5.0",
   "library": false,
   "manifest": "",
   "download": "",

@@ -154,6 +154,39 @@ export const CreateActorPayloadSchema = z.object({
 });
 
 /**
+ * Trigger a GPU-accelerated screen glitch effect via FXMaster (Phase 15).
+ * Falls back to CSS body class injection if FXMaster is unavailable.
+ */
+export const FxGlitchPayloadSchema = z.object({
+  /** Glitch intensity scalar (0.0–3.0). Default 1.0. */
+  intensity: z.number().min(0).max(3).default(1.0),
+});
+
+/**
+ * A single action within a Sequencer sequence (Phase 15).
+ * Only 'effect' type is currently supported.
+ */
+export const SequenceActionSchema = z.object({
+  type: z.literal('effect'),
+  /** Path to the effect file (relative to Foundry data root or URL). */
+  file: z.string().min(1),
+  /** Canvas coordinates for the effect anchor point. */
+  location: z.object({ x: z.number(), y: z.number() }),
+  /** Scale factor for the effect. Default 1.0. */
+  scale: z.number().positive().optional(),
+  /** Optional actor ID — used by the raw CDP fallback for token spawning. */
+  actorId: z.string().optional(),
+});
+
+/**
+ * Run an atomic Sequencer sequence (Phase 15).
+ * Falls back to raw Architect Pass (CDP token/light spawn) if Sequencer is absent.
+ */
+export const RunSequencePayloadSchema = z.object({
+  actions: z.array(SequenceActionSchema).min(1),
+});
+
+/**
  * Update a Foundry Actor document.
  */
 export const UpdateActorPayloadSchema = z.object({
@@ -207,6 +240,18 @@ export const SceneActivateCommandSchema = z.object({
   type: z.literal('scene_activate'),
   requestId: RequestIdSchema,
   payload: SceneActivatePayloadSchema,
+});
+
+export const FxGlitchCommandSchema = z.object({
+  type: z.literal('fx_glitch'),
+  requestId: RequestIdSchema,
+  payload: FxGlitchPayloadSchema,
+});
+
+export const RunSequenceCommandSchema = z.object({
+  type: z.literal('run_sequence'),
+  requestId: RequestIdSchema,
+  payload: RunSequencePayloadSchema,
 });
 
 export const UpdateActorCommandSchema = z.object({
@@ -279,6 +324,8 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   OpenNightMarketCommandSchema,
   CreateActorCommandSchema,
   Show3dDiceCommandSchema,
+  FxGlitchCommandSchema,
+  RunSequenceCommandSchema,
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
 ]);
@@ -448,6 +495,21 @@ export const SceneActivateEventSchema = z.object({
   payload: z.object({ sceneId: z.string().optional() }),
 });
 
+/**
+ * System heartbeat from the Foundry bridge module to Node B (Phase 15).
+ * Reports which optional modules are currently active so Node B can
+ * select the correct resiliency tier (Elite / Baseline / Degraded).
+ */
+export const SystemHeartbeatEventSchema = z.object({
+  type: z.literal('system_heartbeat'),
+  payload: z.object({
+    socketlib: z.boolean(),
+    fxmaster: z.boolean(),
+    sequencer: z.boolean(),
+    splatter: z.boolean(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -461,6 +523,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   GenerateMissionEventSchema,
   ApplyDecalEventSchema,
   SceneActivateEventSchema,
+  SystemHeartbeatEventSchema,
 ]);
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
@@ -499,3 +562,7 @@ export type RedTradeTransitEvent = z.infer<typeof RedTradeTransitEventSchema>;
 export type GenerateMissionEvent = z.infer<typeof GenerateMissionEventSchema>;
 export type ApplyDecalEvent = z.infer<typeof ApplyDecalEventSchema>;
 export type SceneActivateEvent = z.infer<typeof SceneActivateEventSchema>;
+export type SystemHeartbeatEvent = z.infer<typeof SystemHeartbeatEventSchema>;
+export type SequenceAction = z.infer<typeof SequenceActionSchema>;
+export type FxGlitchPayload = z.infer<typeof FxGlitchPayloadSchema>;
+export type RunSequencePayload = z.infer<typeof RunSequencePayloadSchema>;
