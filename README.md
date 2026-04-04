@@ -3,23 +3,26 @@
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a native Neural Uplink, it provides sub-500ms narrative synthesis grounded in hard-coded physics, raw pixel perception, and the immutable Akashik Record.
 
-```text
-  __________________________________________________________________________
- /                                                                          \
-|  [ NODE B: THE DIRECTOR ]                  [ NODE A: THE RULES VAULT ]     |
-|  AMD RX 9060 XT (16GB)                     NVIDIA GTX 1050 Ti (4GB)        |
-|  Orchestrator | Node.js                    Rules Authority | Rust          |
- \____________________________.              .______________________________/
-                              |              |
-                              |  [ CLAWLINK ]|
-                              '--[  TCP/IP  ]--'
-                                     ||
-   .---------------------------------''----------------------------------.
-   | [ PERCEPTION ]          [ PERSISTENCE ]          [ EXECUTION ]      |
-   | Llava 1.6 / Falcon      Akashik.db (WAL)         TaskRouterProxy    |
-   | SensoryFilter (LOS)     Shared Memory            Intent Swarm       |
-   '---------------------------------------------------------------------'
-```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                                                                          │
+│  [ NODE B: THE DIRECTOR ]                      [ NODE A: THE VAULT ]     │
+│  AMD RDNA 4 (16GB VRAM)                        NVIDIA PASCAL (4GB VRAM)  │
+│  Node.js Orchestrator                          Rust Rules Authority      │
+│  ────────────────────────                      ────────────────────      │
+│            │                                               │             │
+│            └────────[ CLAWLINK BINARY INTERCONNECT ]───────┘             │
+│                                    │                                     │
+│            ┌───────────────────────┴───────────────────────┐             │
+│            │                                               │             │
+│      [ PERCEPTION ]              [ PERSISTENCE ]         [ EXECUTION ]   │
+│      Llava / Falcon              Akashik.db (WAL)        TaskRouterProxy │
+│      SensoryFilter               Shared Memory           Intent Swarm    │
+│            │                             │                 │             │
+│            └─────────────────────────────┴─────────────────┘             │
+│                                    │                                     │
+│                        >> [ THE NEURAL HIVE ] <<                         │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
 
 ## 🛠️ Technical Stack
 
