@@ -27,7 +27,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "audit:theme": "tsx scripts/theme-auditor.ts",
-    "audit:theme:dry": "tsx scripts/theme-auditor.ts --dry-run"
+    "audit:theme:dry": "tsx scripts/theme-auditor.ts --dry-run",
+    "crush": "crush"
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",
