@@ -198,6 +198,46 @@ impl ResultPacket {
     }
 }
 
+// ─── Ghost Object Protocol ────────────────────────────────────────────────────
+
+/// A hidden tactical marker extracted from scene pixel data via ST3GG.
+/// Encoded as a packed 9-byte payload within an IntentPacket.
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct GhostBlip {
+    /// Normalised X coordinate [0.0–1.0] relative to scene width
+    pub x: f32,
+    /// Normalised Y coordinate [0.0–1.0] relative to scene height
+    pub y: f32,
+    /// Blip type: 0x01=cover, 0x02=hazard, 0x03=objective
+    pub blip_type: u8,
+}
+
+impl GhostBlip {
+    pub fn new(x: f32, y: f32, blip_type: u8) -> Self {
+        Self { x, y, blip_type }
+    }
+
+    /// Encode into 9 bytes for embedding in IntentPacket payload.
+    pub fn encode(&self) -> [u8; 9] {
+        let mut buf = [0u8; 9];
+        let x = self.x;  // copy from packed field
+        let y = self.y;
+        buf[0..4].copy_from_slice(&x.to_le_bytes());
+        buf[4..8].copy_from_slice(&y.to_le_bytes());
+        buf[8] = self.blip_type;
+        buf
+    }
+
+    /// Decode from 9-byte slice.
+    pub fn decode(buf: &[u8; 9]) -> Self {
+        let x = f32::from_le_bytes(buf[0..4].try_into().unwrap());
+        let y = f32::from_le_bytes(buf[4..8].try_into().unwrap());
+        let blip_type = buf[8];
+        Self { x, y, blip_type }
+    }
+}
+
 // ─── Zero-Copy Byte Helpers ──────────────────────────────────────────────────
 
 /// Cast a packed VSB struct to a byte slice. Zero allocation, zero copy.
@@ -408,6 +448,32 @@ mod tests {
         // result_code: u32 LE at [30..34]
         let rc = u32::from_le_bytes([bytes[30], bytes[31], bytes[32], bytes[33]]);
         assert_eq!(rc, 0x0A0B0C0D);
+    }
+
+    // ── GhostBlip ────────────────────────────────────────────────────────────
+
+    #[test]
+    fn test_ghost_blip_encode_decode_round_trip() {
+        let blip = GhostBlip::new(0.25, 0.75, 0x02);
+        let encoded = blip.encode();
+        let decoded = GhostBlip::decode(&encoded);
+        let x = decoded.x;
+        let y = decoded.y;
+        let bt = decoded.blip_type;
+        assert!((x - 0.25f32).abs() < 1e-6);
+        assert!((y - 0.75f32).abs() < 1e-6);
+        assert_eq!(bt, 0x02);
+    }
+
+    #[test]
+    fn test_ghost_blip_boundary_values() {
+        let blip = GhostBlip::new(0.0, 1.0, 0x03);
+        let encoded = blip.encode();
+        let decoded = GhostBlip::decode(&encoded);
+        let x = decoded.x;
+        let y = decoded.y;
+        assert!((x - 0.0f32).abs() < 1e-6);
+        assert!((y - 1.0f32).abs() < 1e-6);
     }
 
     // ── Cross-packet isolation ────────────────────────────────────────────────
