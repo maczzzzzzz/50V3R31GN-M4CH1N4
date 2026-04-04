@@ -1,5 +1,5 @@
 use eframe::egui;
-use egui::{CentralPanel, Color32, FontId, Pos2, Stroke};
+use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Stroke};
 use memmap2::Mmap;
 use std::fs::File;
 use std::path::PathBuf;
@@ -104,7 +104,46 @@ impl eframe::App for AtlasApp {
         self.parse_state();
 
         let mut visuals = ctx.style().visuals.clone();
-        visuals.panel_fill = Color32::from_rgb(0x05, 0x05, 0x05);
+
+        // Backgrounds
+        visuals.panel_fill           = Color32::from_rgb(5, 5, 5);
+        visuals.window_fill          = Color32::BLACK;
+        visuals.extreme_bg_color     = Color32::BLACK;
+        visuals.faint_bg_color       = Color32::from_rgb(5, 5, 5);
+        visuals.code_bg_color        = Color32::from_rgb(5, 5, 5);
+
+        // Window chrome
+        visuals.window_stroke        = Stroke::new(1.0, CYAN);
+        visuals.window_shadow        = epaint::Shadow::NONE;
+        visuals.popup_shadow         = epaint::Shadow::NONE;
+
+        // Text
+        visuals.override_text_color  = Some(Color32::from_rgb(238, 238, 238));
+
+        // Widgets — noninteractive (labels, separators, frames)
+        visuals.widgets.noninteractive.bg_fill      = Color32::from_rgb(5, 5, 5);
+        visuals.widgets.noninteractive.weak_bg_fill = Color32::BLACK;
+        visuals.widgets.noninteractive.bg_stroke    = Stroke::new(1.0, Color32::from_rgb(34, 34, 34));
+        visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, CYAN);
+
+        // Widgets — inactive (unhovered buttons etc.)
+        visuals.widgets.inactive.bg_fill            = Color32::from_rgb(5, 5, 5);
+        visuals.widgets.inactive.weak_bg_fill       = Color32::BLACK;
+        visuals.widgets.inactive.fg_stroke          = Stroke::new(1.0, Color32::from_rgb(136, 136, 136));
+
+        // Widgets — hovered
+        visuals.widgets.hovered.bg_fill             = Color32::from_rgb(26, 26, 26);
+        visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, CYAN);
+        visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, CYAN);
+
+        // Widgets — active (clicked)
+        visuals.widgets.active.bg_fill              = Color32::BLACK;
+        visuals.widgets.active.fg_stroke            = Stroke::new(2.0, CYAN);
+
+        // Selection highlight
+        visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(0, 243, 255, 40);
+        visuals.selection.stroke     = Stroke::new(1.0, CYAN);
+
         ctx.set_visuals(visuals);
 
         ctx.request_repaint_after(Duration::from_millis(33));
