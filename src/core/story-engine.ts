@@ -1,6 +1,9 @@
 // src/core/story-engine.ts
 import type { StoryState } from '../shared/schemas/story.schema.js';
 import type { IOllamaClient } from './interfaces.js';
+import type { SkillstoneService } from './skillstone-service.js';
+import { ParseltongueCodec } from '../shared/parseltongue-codec.js';
+import type { WorldCommand } from '../shared/schemas/world-commands.schema.js';
 
 export interface BeatConfig {
   id: string;
@@ -30,7 +33,11 @@ export interface OverlayParams {
 export class StoryEngine {
   private beats: Map<string, BeatConfig> = new Map();
 
-  constructor(private state: StoryState, private ollama?: IOllamaClient) {}
+  constructor(
+    private state: StoryState,
+    private ollama?: IOllamaClient,
+    private skillstoneService?: SkillstoneService,
+  ) {}
 
   /**
    * Register a narrative beat with its transition guards.
@@ -71,8 +78,10 @@ export class StoryEngine {
    * @param context Situation description for the overlay.
    * @param seedBias Optional latent seed bias string from SeedController.getPromptBias().
    *                 Injected into the system prompt to shift NPC atmospheric tone.
+   * @param factionId Optional faction ID whose Skillstone is prepended to the prompt,
+   *                  enabling the LLM to produce dialect-inflected overlay text.
    */
-  async generateOverlayParams(context: string, seedBias?: string): Promise<OverlayParams> {
+  async generateOverlayParams(context: string, seedBias?: string, factionId?: string): Promise<OverlayParams> {
     if (!this.ollama) {
       return { text: context };
     }
@@ -81,7 +90,11 @@ export class StoryEngine {
       ? `\nATMOSPHERIC BIAS (apply to tone): ${seedBias}`
       : '';
 
-    const prompt = `You are a Cyberpunk RED Biomonitor system.${biasClause}
+    const skillstoneClause = factionId && this.skillstoneService
+      ? this.buildSkillstoneClause(factionId)
+      : '';
+
+    const prompt = `${skillstoneClause}You are a Cyberpunk RED Biomonitor system.${biasClause}
 Generate a lore-accurate, short (max 5 words), high-impact warning message for a status overlay.
 Context: ${context}
 
@@ -107,7 +120,39 @@ Return ONLY a JSON object in this format:
     }
   }
 
+  /**
+   * Attach or replace the SkillstoneService at runtime (e.g. after lazy-loading
+   * faction data from the database).
+   */
+  setSkillstoneService(svc: SkillstoneService): void {
+    this.skillstoneService = svc;
+  }
+
   getState(): StoryState {
     return this.state;
+  }
+
+  /**
+   * Embed a WorldCommand mutation invisibly into a visible NPC bark.
+   *
+   * Uses ParseltongueCodec.cloakCommand() to append the mutation as invisible
+   * Unicode Tag Block characters (U+E0000) after the visible bark text.
+   * The returned string is safe to pass to Foundry as an atmospheric NPC dialogue
+   * line — it looks identical to `bark` in all chat UIs but carries the covert
+   * world-state instruction for ClawLink to extract and execute.
+   *
+   * @param bark     The visible narrative text produced by the LLM.
+   * @param mutation A validated WorldCommand that should ride the bark.
+   */
+  embedMutation(bark: string, mutation: WorldCommand): string {
+    return ParseltongueCodec.cloakCommand(bark, mutation);
+  }
+
+  // ── Private helpers ──────────────────────────────────────────────────────────
+
+  private buildSkillstoneClause(factionId: string): string {
+    const stone = this.skillstoneService?.getSkillstone(factionId);
+    if (!stone) return '';
+    return `--- SKILLSTONE (NPC DIALECT SPEC) ---\n${stone}\n--- END SKILLSTONE ---\n\n`;
   }
 }

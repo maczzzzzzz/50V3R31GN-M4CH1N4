@@ -1,7 +1,9 @@
 // tests/core/story-engine.test.ts
 import { describe, it, expect, vi } from 'vitest';
 import { StoryEngine } from '../../src/core/story-engine.js';
+import { ParseltongueCodec } from '../../src/shared/parseltongue-codec.js';
 import type { StoryState } from '../../src/shared/schemas/story.schema.js';
+import type { WorldCommand } from '../../src/shared/schemas/world-commands.schema.js';
 
 describe('StoryEngine', () => {
   it('transitions to a new beat when a condition is met', () => {
@@ -126,5 +128,51 @@ describe('StoryEngine', () => {
     const result = engine.evaluateEvent({ val: 'B' });
     expect(result.transitioned).toBe(true);
     expect(result.newBeat).toBe('Beat B');
+  });
+
+  // ── Phase 20: embedMutation (Parseltongue) ────────────────────────────────
+
+  describe('embedMutation', () => {
+    const baseState: StoryState = {
+      currentArc: 'Night City',
+      currentBeat: 'Intro',
+      completedBeats: [],
+      worldState: {},
+      eagleBalance: 0,
+    };
+
+    it('returns a string that starts with the visible bark', () => {
+      const engine = new StoryEngine(baseState);
+      const bark = 'Koru-da vekh!';
+      const cmd: WorldCommand = { action: 'UPDATE_NPC', target: 'npc_01', data: { hp: 10 } };
+      const result = engine.embedMutation(bark, cmd);
+      expect(result.startsWith(bark)).toBe(true);
+    });
+
+    it('embedded mutation is recoverable via ParseltongueCodec.scanForCommand', () => {
+      const engine = new StoryEngine(baseState);
+      const cmd: WorldCommand = {
+        action: 'ADD_LORE',
+        subject: 'V',
+        predicate: 'arrived_at',
+        object: 'Totentanz',
+      };
+      const cloaked = engine.embedMutation('Ghrut-da ra!', cmd);
+      const recovered = ParseltongueCodec.scanForCommand(cloaked);
+      expect(recovered).toEqual(cmd);
+    });
+
+    it('strip removes the mutation leaving only the bark', () => {
+      const engine = new StoryEngine(baseState);
+      const bark = 'Zheva tse.';
+      const cmd: WorldCommand = {
+        action: 'TRANSFER_ITEM',
+        itemId: 'thermal_katana',
+        fromId: 'npc_boss',
+        toId: 'player_v',
+      };
+      const cloaked = engine.embedMutation(bark, cmd);
+      expect(ParseltongueCodec.strip(cloaked)).toBe(bark);
+    });
   });
 });

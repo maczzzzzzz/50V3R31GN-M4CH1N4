@@ -1,33 +1,32 @@
-# Design: Phase 20 — Linguistic Sovereignty & Secret Channels
+# Design: Phase 20 — Linguistic Sovereignty & Parseltongue Integration
 **Date:** 2026-04-03
-**Version:** 1.6.0
-**Target:** NPC Identity & Hive Coordination
+**Version:** 1.7.0
+**Target:** NPC Identity & Invisible Command Infrastructure
 
 ## 1. Overview
-Phase 20 integrates the **GLOSSOPETRAE** pattern to give NPCs unique linguistic identities and establish secure coordination sidechannels within the Hive.
+Phase 20 integrates the **GLOSSOPETRAE** and **P4RS3LT0NGV3** patterns to establish a "Sovereign Linguistic Layer." This phase gives NPCs unique dialects and creates a "Neural Tunnel" for invisible system commands embedded within narrative text.
 
 ## 2. Architecture & Components
 
-### 2.1 Skillstone Registry (Node B)
-- **Format:** A compact (~8k token) Markdown specification defining a conlang's phonology, grammar, and core lexicon.
-- **Registry:** Node B maintains a mapping of `factionId` -> `conlangSeed`.
-- **Injection:** When an NPC from a specific faction speaks, Node B prepends the relevant **Skillstone** to the LLM context, enabling the model to "speak" the generated language fluently.
+### 2.1 The Skillstone Engine (Node B)
+- **Registry:** Maps `faction_id` to a deterministic `conlang_seed`.
+- **Generation:** Uses the seed to generate an 8k-token **Skillstone** (Markdown spec).
+- **ICL Injection:** System prompts for NPCs are prepended with the Skillstone, enabling fluent conlang output.
 
-### 2.2 Linguistic Steganography (Node A Engine)
-ZeroClaw-Rust implements the 9 covert channels of GLOSSOPETRAE:
-- **Synonym Selection:** Choosing between alternate roots based on the data bit.
-- **Word Order Permutation:** Reordering clauses in the conlang to encode information.
-- **Implementation:** Node A receives a `cleartext_conlang` and a `binary_payload` from Node B, and returns the `encoded_conlang`.
+### 2.2 Parseltongue Cloaking (Node A/Node B)
+- **Invisible Tags (Node B):** Uses the Unicode Tags block (U+E0000) to encode raw system commands (JSON) into narrative strings.
+- **Linguistic Steganography (Node A):** ZeroClaw-Rust implements the 9 covert channels (Synonyms, Word Order, Register) for higher-entropy data smuggling.
+- **Adversarial Mutation:** Uses P4RS3LT0NGV3 patterns to "cloak" NPC reasoning from external observation by mutating prompt signatures.
 
-### 2.3 Rules Sidechannel (The Vault's Voice)
-- **Mechanism:** Utilizing ST3GG (Node A), sensitive rules data (e.g., "This NPC is actually a spy with 20HP") is encoded into the alpha channel of debug screenshots sent to Node B.
-- **Benefit:** Prevents "Mechanical Leakage" in the narrative logs. The AI GM (Node B) can decode these secrets to inform its logic without the data ever appearing in human-readable logs.
+### 2.3 The Rules Sidechannel (The Vault's Voice)
+- **ST3GG Integration:** Encodes sensitive mechanical state (True HP, Vulnerabilities) into the alpha channel of perception screenshots.
+- **Decoding:** Node B automatically strips and decodes these "Parseltongue" payloads to update its internal logic without exposing them to logs.
 
 ## 3. Data Flow
-1. **Linguistic:** `LLM` -> `Raw Conlang` -> `Node A (Linguistic Steganography)` -> `Encoded Conlang` -> `Foundry Chat`.
-2. **Sidechannel:** `Node A (Rules State)` -> `ST3GG Encode` -> `Image Buffer` -> `Node B (Orchestrator)`.
+1. **Narration:** `LLM` -> `Skillstone Dialect` -> `Unicode Tag Inserter` -> `Glossopetrae Stego (Node A)` -> `Final Bark`.
+2. **Command Recovery:** `Foundry Client` -> `ClawLink` -> `Unicode Tag Decoder` -> `World State Mutation`.
 
 ## 4. Success Criteria
-- [ ] LLM can successfully translate English to the generated Conlang using the Skillstone.
-- [ ] Data can be hidden and recovered from conlang text with zero change to semantic meaning.
-- [ ] NPC tactical coordination (e.g., "Flank left") is successfully transmitted via steganography.
+- [ ] NPCs consistently use their faction-assigned dialects.
+- [ ] Invisible commands (U+E0000) are successfully transmitted and executed via narrative text.
+- [ ] High-entropy linguistic steganography achieved with zero semantic drift.

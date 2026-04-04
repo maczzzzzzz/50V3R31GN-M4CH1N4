@@ -27,6 +27,8 @@ import {
   type ClawLinkAttackResult,
   type ClawLinkDamageResult,
 } from '../shared/schemas/clawlink.schema.js';
+import { ParseltongueCodec } from '../shared/parseltongue-codec.js';
+import type { WorldCommand } from '../shared/schemas/world-commands.schema.js';
 
 const CONTEXT = 'ClawLinkClient';
 const DEFAULT_TIMEOUT_MS = 5000;
@@ -45,6 +47,15 @@ export interface IClawLinkClient {
   st3ggEncode(imageB64: string, payload: string): Promise<string>;
   /** ST3GG: Decode a payload previously embedded by st3ggEncode. Returns the raw payload string. */
   st3ggDecode(imageB64: string): Promise<string>;
+  /**
+   * Parseltongue: scan `text` for an embedded WorldCommand payload (U+E0000 tag block).
+   * If a valid payload is found, calls `execute` with the decoded command.
+   * Returns true if a mutation was dispatched, false if the text was clean.
+   */
+  processParseltongueNarrative(
+    text: string,
+    execute: (cmd: WorldCommand) => Promise<void>,
+  ): Promise<boolean>;
 }
 
 // ── Internal types ────────────────────────────────────────────────────────────
@@ -229,6 +240,40 @@ export class ClawLinkClient implements IClawLinkClient {
       throw new Error(`${CONTEXT} st3ggDecode: unexpected response shape`);
     }
     return raw.payload;
+  }
+
+  /**
+   * Parseltongue bridge: scan an incoming narrative string for invisible WorldCommand
+   * payloads encoded in the Unicode Tags block (U+E0000).
+   *
+   * If a valid, Zod-validated WorldCommand is found, `execute` is awaited with it.
+   * The method returns true when a mutation is dispatched, false when the text is clean
+   * or contains a payload that fails schema validation (invalid payloads are silently
+   * dropped — they may originate from untrusted Foundry clients).
+   *
+   * This implements the "Command Recovery" leg of the Parseltongue data flow:
+   *   Foundry Client → ClawLink → Unicode Tag Decoder → World State Mutation
+   */
+  async processParseltongueNarrative(
+    text: string,
+    execute: (cmd: WorldCommand) => Promise<void>,
+  ): Promise<boolean> {
+    const command = ParseltongueCodec.scanForCommand(text);
+    if (command === null) return false;
+    try {
+      await execute(command);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(JSON.stringify({
+        timestamp: new Date().toISOString(),
+        severity: 'ERROR',
+        context: CONTEXT,
+        message: 'Parseltongue execute callback threw',
+        data: { action: command.action, error: message },
+      }));
+      throw err;
+    }
+    return true;
   }
 
   // ── Private helpers ─────────────────────────────────────────────────────────

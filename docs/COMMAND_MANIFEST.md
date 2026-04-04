@@ -33,6 +33,7 @@ The Crush CLI is the primary human-in-the-loop management interface for the AI G
 | :--- | :--- | :--- |
 | `/scan` | None | Triggers the dual-node CV pipeline (Geometric + Semantic) and SensoryFilter LOS audit to ground the AI in the current map topology. |
 | `/onboard` | `<PlayerName> <Role> <BuildType>` | Orchestrates the Fixer Interview and character creation pipeline. |
+| `/conlang` | `<seed> [payload]` | Generates a faction Skillstone and optionally encodes a hidden payload. |
 | `/pulse` | None | Manually advances the deterministic world state (faction influence shifts and NPC coordinate updates). |
 | `/audit` | None | Performs a high-signal health check across Node A, Node B, the binary bridge, and the TaskRouterProxy queue. |
 
