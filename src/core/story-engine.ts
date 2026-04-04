@@ -68,13 +68,20 @@ export class StoryEngine {
 
   /**
    * Generate lore-accurate status overlay parameters using the LLM.
+   * @param context Situation description for the overlay.
+   * @param seedBias Optional latent seed bias string from SeedController.getPromptBias().
+   *                 Injected into the system prompt to shift NPC atmospheric tone.
    */
-  async generateOverlayParams(context: string): Promise<OverlayParams> {
+  async generateOverlayParams(context: string, seedBias?: string): Promise<OverlayParams> {
     if (!this.ollama) {
       return { text: context };
     }
 
-    const prompt = `You are a Cyberpunk RED Biomonitor system. 
+    const biasClause = seedBias && seedBias.length > 0
+      ? `\nATMOSPHERIC BIAS (apply to tone): ${seedBias}`
+      : '';
+
+    const prompt = `You are a Cyberpunk RED Biomonitor system.${biasClause}
 Generate a lore-accurate, short (max 5 words), high-impact warning message for a status overlay.
 Context: ${context}
 

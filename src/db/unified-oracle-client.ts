@@ -210,6 +210,70 @@ export class UnifiedOracleClient {
     this.db.prepare('UPDATE npcs SET emp = ? WHERE id = ?').run(newEmp, actorId);
   }
 
+  // ── Phase 19: Latent Seeding (R00TS) ─────────────────────────────────────
+
+  /**
+   * Upsert a conceptual seed for a district.
+   * Inserts or replaces by id; updates updated_at on conflict.
+   */
+  upsertSeed(seed: {
+    id: string;
+    word: string;
+    weight: number;
+    category: 'mood' | 'faction' | 'event';
+    district: string | null;
+    vectorJson?: string;
+  }): void {
+    if (!this.db) throw new Error('Database not connected');
+    this.db.prepare(`
+      INSERT INTO conceptual_seeds (id, word, weight, category, district, vector_json, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+      ON CONFLICT(id) DO UPDATE SET
+        word        = excluded.word,
+        weight      = excluded.weight,
+        category    = excluded.category,
+        district    = excluded.district,
+        vector_json = excluded.vector_json,
+        updated_at  = CURRENT_TIMESTAMP
+    `).run(
+      seed.id,
+      seed.word,
+      seed.weight,
+      seed.category,
+      seed.district ?? null,
+      seed.vectorJson ?? null,
+    );
+  }
+
+  /**
+   * Return seeds for a district, sorted by weight descending.
+   * Includes global seeds (district IS NULL) regardless of filter.
+   * @param district Night City district name, or null for global only.
+   * @param limit Max number of seeds to return. Defaults to 10.
+   */
+  getSeedsForDistrict(
+    district: string | null,
+    limit = 10,
+  ): Array<{ id: string; word: string; weight: number; category: string }> {
+    if (!this.db) throw new Error('Database not connected');
+    if (district === null) {
+      return this.db.prepare(`
+        SELECT id, word, weight, category
+        FROM conceptual_seeds
+        WHERE district IS NULL
+        ORDER BY weight DESC
+        LIMIT ?
+      `).all(limit) as Array<{ id: string; word: string; weight: number; category: string }>;
+    }
+    return this.db.prepare(`
+      SELECT id, word, weight, category
+      FROM conceptual_seeds
+      WHERE district = ? OR district IS NULL
+      ORDER BY weight DESC
+      LIMIT ?
+    `).all(district, limit) as Array<{ id: string; word: string; weight: number; category: string }>;
+  }
+
   /**
    * Execute multiple commands within an atomic IMMEDIATE transaction.
    * "The Flush Gate" pattern: Ensures world state consistency under load.

@@ -202,3 +202,21 @@ CREATE TABLE IF NOT EXISTS scene_perception (
     detected_entities_json TEXT NOT NULL,
     captured_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Phase 19: Conceptual Seeds (Latent Seeding / R00TS Pattern)
+-- Stores weighted mood/atmosphere vectors that bias NPC narrative generation.
+-- "word" is the seed concept (e.g. "Despair", "Paranoia", "Greed").
+-- "weight" is 0.0–1.0, where 1.0 = dominant atmospheric influence.
+-- "category" groups seeds by type ("mood", "faction", "event").
+-- "district" scopes the seed to a Night City district (NULL = global).
+-- "vector_json" stores a float[] as JSON for future pgvector migration.
+CREATE TABLE IF NOT EXISTS conceptual_seeds (
+    id          TEXT PRIMARY KEY,
+    word        TEXT NOT NULL,
+    weight      REAL NOT NULL DEFAULT 0.5 CHECK (weight BETWEEN 0.0 AND 1.0),
+    category    TEXT NOT NULL DEFAULT 'mood' CHECK (category IN ('mood', 'faction', 'event')),
+    district    TEXT,
+    vector_json TEXT,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+);

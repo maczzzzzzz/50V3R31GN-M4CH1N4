@@ -2,6 +2,7 @@
  * tests/core/asset-index-service.test.ts
  *
  * Vitest unit tests for AssetIndexService (Phase 13 — Custom Map Ingestion Engine).
+ * Phase 19 additions: ST3GG embed-on-scan and recoverWalls tests.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -9,16 +10,28 @@ import { AssetIndexService } from '../../src/core/asset-index-service.js';
 
 // ── Chokidar mock (vi.hoisted so it runs before module evaluation) ────────────
 
-const { mockWatch, mockWatcher } = vi.hoisted(() => {
+const { mockWatch, mockWatcher, mockFsReadFileSync, mockFsWriteFileSync } = vi.hoisted(() => {
   const watcher = {
     on: vi.fn().mockReturnThis(),
     close: vi.fn().mockResolvedValue(undefined),
   };
   const watch = vi.fn().mockReturnValue(watcher);
-  return { mockWatch: watch, mockWatcher: watcher };
+  const readFileSync = vi.fn().mockReturnValue(Buffer.from('FAKEPNG'));
+  const writeFileSync = vi.fn();
+  return {
+    mockWatch: watch,
+    mockWatcher: watcher,
+    mockFsReadFileSync: readFileSync,
+    mockFsWriteFileSync: writeFileSync,
+  };
 });
 
 vi.mock('chokidar', () => ({ default: { watch: mockWatch } }));
+vi.mock('node:fs', () => ({
+  default: { readFileSync: mockFsReadFileSync, writeFileSync: mockFsWriteFileSync },
+  readFileSync: mockFsReadFileSync,
+  writeFileSync: mockFsWriteFileSync,
+}));
 
 // ── Helper factories ──────────────────────────────────────────────────────────
 
@@ -33,6 +46,8 @@ function makeMockClawlink(healthy = true) {
   return {
     isHealthy: vi.fn().mockResolvedValue(healthy),
     executeRpc: vi.fn().mockResolvedValue({ walls: [{ x1: 0, y1: 0, x2: 100, y2: 0 }] }),
+    st3ggEncode: vi.fn().mockResolvedValue('ENCODEDB64=='),
+    st3ggDecode: vi.fn().mockResolvedValue(JSON.stringify([{ x1: 0, y1: 0, x2: 100, y2: 0 }])),
   } as any;
 }
 
@@ -192,6 +207,81 @@ describe('AssetIndexService', () => {
     expect(oracle.execute).toHaveBeenCalledWith(
       expect.stringContaining('INSERT OR REPLACE INTO map_assets'),
       expect.arrayContaining(['test-map.png', '/maps/unprocessed/test-map.png', 'processing']),
+    );
+  });
+
+  // ── Phase 19: ST3GG Physical Grounding tests ─────────────────────────────
+
+  // 9. handleNewFile() calls st3ggEncode after successful detect_walls
+  it('handleNewFile() calls st3ggEncode to embed walls in asset after detect_walls succeeds', async () => {
+    const oracle = makeMockOracle();
+    const clawlink = makeMockClawlink(true);
+    mockFsReadFileSync.mockReturnValue(Buffer.from('FAKEPNG'));
+
+    const service = new AssetIndexService({ watchPath: '/maps', oracle, clawlink });
+    await service.handleNewFile('/maps/sector7.png');
+
+    expect(clawlink.st3ggEncode).toHaveBeenCalledOnce();
+    const [imageB64Arg, payloadArg] = clawlink.st3ggEncode.mock.calls[0];
+    expect(typeof imageB64Arg).toBe('string');
+    // payload should be the stringified wall array
+    const parsedPayload = JSON.parse(payloadArg as string);
+    expect(parsedPayload).toEqual([{ x1: 0, y1: 0, x2: 100, y2: 0 }]);
+  });
+
+  // 10. handleNewFile() writes the encoded image back to disk
+  it('handleNewFile() writes the ST3GG-encoded image back to the asset file', async () => {
+    const oracle = makeMockOracle();
+    const clawlink = makeMockClawlink(true);
+    mockFsReadFileSync.mockReturnValue(Buffer.from('FAKEPNG'));
+
+    const service = new AssetIndexService({ watchPath: '/maps', oracle, clawlink });
+    await service.handleNewFile('/maps/sector7.png');
+
+    expect(mockFsWriteFileSync).toHaveBeenCalledOnce();
+    const [writePath, writeData] = mockFsWriteFileSync.mock.calls[0];
+    expect(writePath).toBe('/maps/sector7.png');
+    // Data should be the base64-decoded version of the mock encode return value
+    expect(Buffer.isBuffer(writeData)).toBe(true);
+  });
+
+  // 11. handleNewFile() is non-fatal when st3ggEncode fails
+  it('handleNewFile() continues to indexed status even when st3ggEncode fails', async () => {
+    const oracle = makeMockOracle();
+    const clawlink = makeMockClawlink(true);
+    clawlink.st3ggEncode.mockRejectedValue(new Error('Pixel buffer overflow'));
+    mockFsReadFileSync.mockReturnValue(Buffer.from('FAKEPNG'));
+
+    const service = new AssetIndexService({ watchPath: '/maps', oracle, clawlink });
+    await service.handleNewFile('/maps/sector7.png');
+
+    // Despite the ST3GG failure, the asset should still be indexed
+    const updateCall = oracle.execute.mock.calls.find(
+      (call: unknown[]) => typeof call[0] === 'string' && (call[0] as string).includes('UPDATE') && (call[1] as string[])[0] === 'indexed',
+    );
+    expect(updateCall).toBeDefined();
+  });
+
+  // 12. recoverWalls() calls st3ggDecode and returns parsed wall array
+  it('recoverWalls() decodes walls from image LSBs via Node A', async () => {
+    const oracle = makeMockOracle();
+    const clawlink = makeMockClawlink(true);
+    mockFsReadFileSync.mockReturnValue(Buffer.from('SOMEPNG'));
+
+    const service = new AssetIndexService({ watchPath: '/maps', oracle, clawlink });
+    const walls = await service.recoverWalls('/maps/sector7.png');
+
+    expect(clawlink.st3ggDecode).toHaveBeenCalledOnce();
+    expect(walls).toEqual([{ x1: 0, y1: 0, x2: 100, y2: 0 }]);
+  });
+
+  // 13. recoverWalls() throws when no clawlink configured
+  it('recoverWalls() throws when no ClawLink client is configured', async () => {
+    const oracle = makeMockOracle();
+    const service = new AssetIndexService({ watchPath: '/maps', oracle });
+
+    await expect(service.recoverWalls('/maps/sector7.png')).rejects.toThrow(
+      'no ClawLink client configured',
     );
   });
 });

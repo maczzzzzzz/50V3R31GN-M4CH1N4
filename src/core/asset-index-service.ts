@@ -96,6 +96,18 @@ export class AssetIndexService {
           return;
         }
 
+        // ST3GG Physical Grounding: embed wall JSON into the asset's own pixels.
+        // Failure is non-fatal — the wall_data DB column remains the source of truth.
+        try {
+          const imgBuffer = fs.readFileSync(filePath);
+          const imageB64 = imgBuffer.toString('base64');
+          const payload = JSON.stringify(result.walls);
+          const encodedB64 = await clawlink.st3ggEncode(imageB64, payload);
+          fs.writeFileSync(filePath, Buffer.from(encodedB64, 'base64'));
+        } catch (stegErr) {
+          console.warn('[AssetIndexService] ST3GG embed failed (non-fatal):', stegErr);
+        }
+
         // Success path — outside the try block so DB errors are not misattributed
         try {
           oracle.execute(
@@ -119,5 +131,26 @@ export class AssetIndexService {
     } catch (dbErr) {
       console.error('[AssetIndexService] Failed to update asset status to indexed:', dbErr);
     }
+  }
+
+  /**
+   * Self-Describing Map Recovery: decode wall data directly from an image file's LSBs
+   * using Node A ST3GG decode — bypasses the DB for disaster recovery.
+   *
+   * @param filePath Absolute path to the PNG map asset.
+   * @returns Parsed array of wall segments, or throws if the image is not ST3GG-encoded.
+   */
+  async recoverWalls(filePath: string): Promise<unknown[]> {
+    const { clawlink } = this.config;
+    if (!clawlink) {
+      throw new Error('[AssetIndexService] recoverWalls: no ClawLink client configured');
+    }
+    const healthy = await clawlink.isHealthy();
+    if (!healthy) {
+      throw new Error('[AssetIndexService] recoverWalls: Node A is not reachable');
+    }
+    const imageB64 = fs.readFileSync(filePath).toString('base64');
+    const payloadStr = await clawlink.st3ggDecode(imageB64);
+    return JSON.parse(payloadStr) as unknown[];
   }
 }
