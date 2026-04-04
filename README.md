@@ -49,7 +49,7 @@ The system integrates the **Glossopetrae** and **Parseltongue** patterns by **El
 
 ### 📼 Immersive Caching (ST3GG & Roots)
 The system adapts **ST3GG** (LSB Steganography) and **Roots** (Local-first grounding) patterns from **Elder Plinius**. 
-- **ST3GG:** Encodes dynamically generated lore and secrets into standard PNG assets ("Self-Describing Maps") for players to decrypt in-character.
+- **ST3GG & Self-Describing Maps:** Encodes physical wall coordinates, collision JSON, and scene metadata directly into the Least Significant Bits (LSB) of standard PNG map assets. This ensures map assets are "Self-Describing" and mathematically bound to their mechanical rules, independent of the database.
 - **Roots:** Provides a resilient, local-first knowledge graph that ensures NPC memories and district lore remain grounded and accessible during air-gapped operations.
 
 ### 🗺️ Tactical-MMU (Spatial Acceleration)
