@@ -506,6 +506,7 @@ export const ApplyDecalEventSchema = z.object({
     x: z.number().optional(),
     y: z.number().optional(),
     scale: z.number().optional(),
+    intensity: z.number().optional(),
   }),
 });
 
@@ -572,6 +573,17 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   DecryptSt3ggEventSchema,
   SystemHeartbeatEventSchema,
 ]);
+
+/**
+ * Evaluate the narrative intent of an incoming context string.
+ * Triggers the Intent Swarm (tone + intensity) on Node B.
+ */
+export const EvaluateIntentEventSchema = z.object({
+  type: z.literal('evaluate_intent'),
+  payload: z.object({
+    context: z.string(),
+  }),
+});
 
 // ── Inferred TypeScript types ─────────────────────────────────────────────────
 

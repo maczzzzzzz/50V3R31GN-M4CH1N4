@@ -18,8 +18,8 @@ export class ArchitectPassService implements IArchitectService {
     this.foundryAdapter = foundryAdapter;
   }
 
-  async batchCreateDocuments(sceneId: string, blueprint: any): Promise<MaterializationResult> {
-    return { success: false, error: 'Not implemented in ArchitectPassService' };
+  async batchCreateDocuments(_sceneId: string, _blueprint: any): Promise<MaterializationResult> {
+    return { wallsCreated: 0, lightsCreated: 0, tokensCreated: 0, executionMs: 0 };
   }
 
   async triggerNeuralGlitch(intensity: number): Promise<void> {

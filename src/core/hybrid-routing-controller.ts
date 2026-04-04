@@ -144,7 +144,7 @@ export class HybridRoutingController {
         return this.ollama.generateNarrative('Determine emotional tone (1 word) of:', context);
       }),
       this.taskRouter.dispatch({ destination: 'NodeA', cost: 'LIGHT' }, async () => {
-        const response = await this.nitroLogic.calculateDv({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional' });
+        const response = await this.nitroLogic.calculateDv({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional', situationalModifiers: 0 });
         return response.dv > 15 ? 0.8 : 0.2; // Derived scalar
       })
     ]);
@@ -253,7 +253,7 @@ export class HybridRoutingController {
       case 'apply_decal':
         // Decals are handled via the architect service
         if (this.architect) {
-          await this.architect.triggerNeuralGlitch(event.payload.intensity);
+          await this.architect.triggerNeuralGlitch(event.payload.intensity ?? 1.0);
         }
         return;
       case 'system_heartbeat': {
