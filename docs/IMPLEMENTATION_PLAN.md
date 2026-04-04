@@ -81,6 +81,7 @@
 - [ ] **Ghost Object Protocol:** Expand VSB schema for HiddenState and GhostBlips.
 - [ ] **Crush Sidecar Registry:** Implement Go-based process manager for Rust sidecars.
 - [ ] **Authorization Pane:** Implement Lipgloss-based Physical ACK loop in Crush.
+- [ ] **Netrunning Sidecar:** Implement Isometric Tower HUD and ST3GG Port Handshake.
 - [ ] **Mission Weaver:** Implement Node B plugin for physically anchored generation.
 
 ---
