@@ -1,5 +1,5 @@
 # ASP.GM-Agent: External Knowledge Base & Dependency Registry
-**Version:** 11.0 (Sovereign Highway)
+**Version:** 1.8.0 (The Sovereign Highway Milestone)
 **Target:** v1.8.0+ The Sovereign Highway Milestone
 
 ## 🧠 Architectural Patterns (Phase 22+)
