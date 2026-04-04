@@ -8,6 +8,7 @@
 import type { IArchitectService, MaterializationResult } from './interfaces.js';
 import type { VisualMonitorService } from './visual-monitor-service.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
+import type { GhostBlip } from '../shared/vsb_protocol.js';
 
 export class ArchitectPassService implements IArchitectService {
   private readonly visualMonitor: VisualMonitorService;
@@ -226,6 +227,87 @@ export class ArchitectPassService implements IArchitectService {
     }
 
     console.log(`✅ Architect: ${result.count} walls materialized successfully.`);
+  }
+
+  /**
+   * Seed SceneRegions in Foundry from Ghost Object Protocol blips extracted via ST3GG.
+   * Resiliency Tier:
+   * 1. Try Bridge runSequence (Sequencer high-fidelity).
+   * 2. Fallback to direct CDP SceneRegion creation.
+   */
+  async seedGhostBlips(
+    sceneId: string | null,
+    blips: GhostBlip[],
+    sceneDimensions: { width: number; height: number },
+  ): Promise<void> {
+    if (blips.length === 0) return;
+
+    const { width, height } = sceneDimensions;
+
+    // Build SceneRegion creation data for each blip
+    const regionData = blips.map((blip, i) => {
+      const px = Math.round(blip.x * width);
+      const py = Math.round(blip.y * height);
+      const size = 100; // 100px region square
+      const label = blip.label ?? `Ghost-${i + 1}`;
+      const color = blip.blipType === 0x01 ? '#00ff88'  // cover
+                  : blip.blipType === 0x02 ? '#ff4400'  // hazard
+                  : '#00aaff';                            // objective
+      return { px, py, size, label, color };
+    });
+
+    // Use FoundryAdapter bridge if connected (Tier 1)
+    if (this.foundryAdapter?.isConnected()) {
+      try {
+        await this.foundryAdapter.runSequence(
+          regionData.map(r => ({
+            type: 'effect' as const,
+            file: 'icons/svg/circle.svg',
+            location: { x: r.px, y: r.py },
+          }))
+        );
+        console.log(`✅ Architect: ${blips.length} Ghost Blips seeded via Bridge.`);
+        return;
+      } catch (err) {
+        console.warn('Architect: Bridge ghost seeding failed, falling back to CDP:', err);
+      }
+    }
+
+    // Tier 2: Direct CDP SceneRegion creation
+    const client = this.visualMonitor.getClient();
+    if (!client) {
+      throw new Error('ArchitectPassService.seedGhostBlips: Neural Uplink not connected.');
+    }
+
+    const { Runtime } = client;
+    const expression = `
+      (async function() {
+        try {
+          const scene = ${sceneId ? `game.scenes.get("${sceneId}")` : 'canvas.scene'};
+          if (!scene) return { success: false, error: 'Scene not found' };
+          const data = ${JSON.stringify(regionData)}.map(r => ({
+            name: r.label,
+            color: r.color,
+            shapes: [{ type: 'rectangle', x: r.px - r.size/2, y: r.py - r.size/2, width: r.size, height: r.size, rotation: 0 }],
+            visibility: 0,
+            movementRestriction: 0,
+            legacyEnvironments: false,
+          }));
+          const regions = await scene.createEmbeddedDocuments('Region', data);
+          return { success: true, count: regions.length };
+        } catch (err) {
+          return { success: false, error: err.message };
+        }
+      })()
+    `;
+
+    console.log(`📡 Architect: Seeding ${blips.length} Ghost Blips as SceneRegions...`);
+    const response = await Runtime.evaluate({ expression, awaitPromise: true, returnByValue: true });
+    const result = response.result.value;
+    if (!result?.success) {
+      throw new Error(`Ghost Blip seeding failed: ${result?.error ?? 'unknown'}`);
+    }
+    console.log(`✅ Architect: ${result.count} Ghost Blip regions seeded.`);
   }
 
   /**

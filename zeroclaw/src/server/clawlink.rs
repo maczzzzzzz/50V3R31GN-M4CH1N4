@@ -321,7 +321,7 @@ mod tests {
     #[test]
     fn test_decode_hex_valid() {
         assert_eq!(decode_hex("deadbeef").unwrap(), vec![0xde, 0xad, 0xbe, 0xef]);
-        assert_eq!(decode_hex("").unwrap(), vec![]);
+        assert_eq!(decode_hex("").unwrap(), Vec::<u8>::new());
         assert_eq!(decode_hex("41").unwrap(), vec![0x41]); // 'A'
         assert_eq!(decode_hex("00ff").unwrap(), vec![0x00, 0xff]);
     }

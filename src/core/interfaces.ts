@@ -2,6 +2,7 @@
  * src/core/interfaces.ts
  *
  * Contracts for Phase 2: Rules Authority Bridge (nitro-logic).
+ * Phase 23: Ghost Object Protocol types imported from vsb_protocol.
  *
  * NitroLogicClient wraps Node A's Llama-3.2-3B-Instruct inference engine,
  * exposed via the OpenAI-compatible /v1/chat/completions endpoint from llama.cpp.
@@ -9,6 +10,9 @@
  * All response types require a `reasoning` field — this is the Chain-of-Thought
  * scratchpad emitted by Llama-3.2-3B per the research mandate (Phase-2-3-Orchestration-Research §1.2).
  */
+
+import type { GhostBlip } from '../shared/vsb_protocol.js';
+export type { GhostBlip };
 
 // ── Configuration ─────────────────────────────────────────────────────────────
 
@@ -219,6 +223,12 @@ export interface IArchitectService {
    * Manifest a single token on the canvas.
    */
   spawnToken(actorId: string | null, x: number, y: number): Promise<void>;
+
+  /**
+   * Seed SceneRegions in Foundry from Ghost Object Protocol blips.
+   * Each blip becomes a SceneRegion at the corresponding normalised coordinates.
+   */
+  seedGhostBlips(sceneId: string | null, blips: GhostBlip[], sceneDimensions: { width: number; height: number }): Promise<void>;
 }
 
 // ── Discord Chronicler ────────────────────────────────────────────────────────
@@ -245,6 +255,30 @@ export interface DetectedEntity {
   confidence: number;
 }
 
+export interface NpcStatBlock {
+  /** Reflexes stat (REF) — governs initiative and ranged combat */
+  readonly ref: number;
+  /** Dexterity stat (DEX) — governs melee and evasion */
+  readonly dex: number;
+  /** Body stat (BOD) — governs HP and melee damage bonus */
+  readonly body: number;
+  /** Combat skill level */
+  readonly combatSkill: number;
+  /** Hit points */
+  readonly hp: number;
+  /** Stopping Power of NPC armor */
+  readonly sp: number;
+  /** LLM reasoning for the stat choices */
+  readonly reasoning: string;
+}
+
+export interface SoloSafeParams {
+  /** Base64-encoded PNG/JPEG of the player's character sheet */
+  readonly playerSheetBase64: string;
+  /** Maximum allowed hit probability for NPC attacks (0–1). Default: 0.60 */
+  readonly targetHitProbabilityCap?: number;
+}
+
 export interface INitroLogicClient {
   /** Resolve a complete Cyberpunk RED attack roll against a defender. */
   resolveAttack(params: ResolveAttackParams): Promise<AttackResult>;
@@ -261,8 +295,13 @@ export interface INitroLogicClient {
   stop(): Promise<void>;
   /**
    * Run OCR analysis on a base64-encoded PNG image via the Falcon Sidecar on Node A.
-   * Implements the Model Swap Protocol: Llama-3 is evicted, Falcon runs, Llama-3 is
-   * preemptively restored. Requires clawlinkClient in NitroLogicConfig.
+   * Requires clawlinkClient in NitroLogicConfig.
    */
   ocrAnalyze(base64Image: string): Promise<DetectedEntity[]>;
+  /**
+   * Generate Solo-Safe NPC stats balanced against the player's sheet.
+   * Uses ocrAnalyze to extract player stats then generates NPC stats
+   * where hit probability is capped at targetHitProbabilityCap (default 0.60).
+   */
+  balanceNpcForSoloPlay(params: SoloSafeParams): Promise<NpcStatBlock>;
 }

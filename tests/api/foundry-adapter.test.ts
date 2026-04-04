@@ -437,4 +437,66 @@ describe('FoundryAdapter', () => {
       }
     });
   });
+
+  // ── advancePhase ────────────────────────────────────────────────────────────
+
+  describe('advancePhase()', () => {
+    it('sends an advance_phase command with correct sceneId and phaseIndex payload', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.advancePhase('scene-downtown-001', 3);
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+
+      expect(cmd.type).toBe('advance_phase');
+      const payload = cmd.payload as { sceneId: string | null; phaseIndex: number };
+      expect(payload.sceneId).toBe('scene-downtown-001');
+      expect(payload.phaseIndex).toBe(3);
+      expect(typeof cmd.requestId).toBe('string');
+      expect((cmd.requestId as string).length).toBe(9);
+
+      sendResponse(cmd.requestId as string);
+      await expect(promise).resolves.toBeUndefined();
+    });
+
+    it('sends advance_phase with null sceneId (active scene)', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.advancePhase(null, 0);
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+
+      expect(cmd.type).toBe('advance_phase');
+      const payload = cmd.payload as { sceneId: string | null; phaseIndex: number };
+      expect(payload.sceneId).toBeNull();
+      expect(payload.phaseIndex).toBe(0);
+
+      sendResponse(cmd.requestId as string);
+      await expect(promise).resolves.toBeUndefined();
+    });
+
+    it('resolves when Foundry responds with success', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.advancePhase(null, 2);
+
+      await waitForMessages(receivedMessages, 1);
+      sendResponse(receivedMessages[0].requestId as string);
+
+      await expect(promise).resolves.toBeUndefined();
+    });
+
+    it('rejects when Foundry is not connected (throws "not connected")', async () => {
+      await adapter.start(TEST_PORT);
+      await expect(adapter.advancePhase(null, 1)).rejects.toThrow('not connected');
+    });
+  });
 });

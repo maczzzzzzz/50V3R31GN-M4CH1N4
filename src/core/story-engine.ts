@@ -4,6 +4,7 @@ import type { IOllamaClient } from './interfaces.js';
 import type { SkillstoneService } from './skillstone-service.js';
 import { ParseltongueCodec } from '../shared/parseltongue-codec.js';
 import type { WorldCommand } from '../shared/schemas/world-commands.schema.js';
+import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 
 export interface BeatConfig {
   id: string;
@@ -37,6 +38,7 @@ export class StoryEngine {
     private state: StoryState,
     private ollama?: IOllamaClient,
     private skillstoneService?: SkillstoneService,
+    private foundryAdapter?: IFoundryAdapter,
   ) {}
 
   /**
@@ -59,14 +61,25 @@ export class StoryEngine {
 
     for (const transition of currentConfig.transitions) {
       if (transition.condition(this.state, event)) {
+        // Capture completed beat count before push (= index of the new phase)
+        const phaseIndex = this.state.completedBeats.length;
         this.state.currentBeat = transition.to;
         this.state.completedBeats.push(currentId);
-        
-        return {
+
+        const result: TransitionResult = {
           transitioned: true,
           oldBeat: currentId,
           newBeat: transition.to,
         };
+
+        // Trigger physical phase shift when a beat transitions
+        if (this.foundryAdapter?.isConnected()) {
+          this.foundryAdapter.advancePhase(null, phaseIndex).catch((err) => {
+            console.warn('[StoryEngine] Phase shift failed:', err);
+          });
+        }
+
+        return result;
       }
     }
 
@@ -126,6 +139,13 @@ Return ONLY a JSON object in this format:
    */
   setSkillstoneService(svc: SkillstoneService): void {
     this.skillstoneService = svc;
+  }
+
+  /**
+   * Attach or replace the IFoundryAdapter at runtime for phase shift triggering.
+   */
+  setFoundryAdapter(adapter: IFoundryAdapter): void {
+    this.foundryAdapter = adapter;
   }
 
   getState(): StoryState {
