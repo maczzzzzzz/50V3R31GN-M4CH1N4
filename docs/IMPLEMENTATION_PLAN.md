@@ -75,5 +75,12 @@
 - [ ] **Sovereign Loop:** Implement Abstract Intent -> Mechanical Rules -> Result pipeline.
 - [ ] **Neural Compositor:** Hardware-accelerated visual feedback for state commits.
 
+## 🚀 PHASE 23: NEURAL WORLD ENGINE (DRAFT)
+**Goal:** Atlas Radar Evolution with ST3GG Grounding and Interactive Mission Weaver.
+- [ ] **ST3GG Scanner HUD:** Implement Egui/Rust pass to visualize hidden LSB data.
+- [ ] **Ghost Object Protocol:** Expand VSB schema for HiddenState and GhostBlips.
+- [ ] **Command Interceptor:** Implement Egui input listener for Radar-Intents.
+- [ ] **Mission Weaver:** Implement Node B plugin for physically anchored generation.
+
 ---
 *Roadmap Managed by Gemini CLI (Strategist).*
