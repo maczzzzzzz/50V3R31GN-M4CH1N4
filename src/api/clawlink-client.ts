@@ -41,6 +41,10 @@ export interface IClawLinkClient {
   resolveAttack(dice: number[], stat: number, skill: number, dv: number): Promise<ClawLinkAttackResult>;
   resolveDamage(dice: number[], bonus: number, armourSp: number): Promise<ClawLinkDamageResult>;
   executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T>;
+  /** ST3GG: Encode a string payload into a PNG's LSBs. Returns the modified PNG as base64. */
+  st3ggEncode(imageB64: string, payload: string): Promise<string>;
+  /** ST3GG: Decode a payload previously embedded by st3ggEncode. Returns the raw payload string. */
+  st3ggDecode(imageB64: string): Promise<string>;
 }
 
 // ── Internal types ────────────────────────────────────────────────────────────
@@ -196,6 +200,35 @@ export class ClawLinkClient implements IClawLinkClient {
    */
   async executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T> {
     return this.send<T>(method, params);
+  }
+
+  /**
+   * ST3GG encode: embed `payload` into `imageB64` PNG's LSBs via Node A.
+   * Returns the modified image as base64.
+   */
+  async st3ggEncode(imageB64: string, payload: string): Promise<string> {
+    const raw = await this.send<{ image_b64: string }>('st3gg_encode', {
+      image_b64: imageB64,
+      payload,
+    });
+    if (typeof raw.image_b64 !== 'string') {
+      throw new Error(`${CONTEXT} st3ggEncode: unexpected response shape`);
+    }
+    return raw.image_b64;
+  }
+
+  /**
+   * ST3GG decode: extract the payload embedded in `imageB64` PNG's LSBs via Node A.
+   * Returns the raw payload string.
+   */
+  async st3ggDecode(imageB64: string): Promise<string> {
+    const raw = await this.send<{ payload: string }>('st3gg_decode', {
+      image_b64: imageB64,
+    });
+    if (typeof raw.payload !== 'string') {
+      throw new Error(`${CONTEXT} st3ggDecode: unexpected response shape`);
+    }
+    return raw.payload;
   }
 
   // ── Private helpers ─────────────────────────────────────────────────────────

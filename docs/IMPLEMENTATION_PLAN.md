@@ -50,12 +50,23 @@
 
 ---
 
-## 🚀 PHASE 19: THE NEURAL HIVE (ACTIVE)
+## 🚀 PHASE 19: THE LATENT SEED (ACTIVE)
 **Goal:** Concurrent Swarm Intelligence for high-fidelity reactive NPC autonomy.
-- [ ] **Autonomous NPC Turn Logic:** 5s JSON rigid schema for fast decision-making.
-- [ ] **Tactical Swarm Simulation:** Distributed combat synthesis on Node A.
-- [ ] **Narrative Hive Mind:** Context-aware behavioral mapping on Node B.
-- [ ] **Real-time World-State Feedback Loop:** Bidirectional state sync with Foundry Client.
+- [ ] **Node A ST3GG:** High-performance Rust implementation of LSB steganography.
+- [ ] **Self-Describing Maps:** Embed physical wall coordinates directly into asset pixels for database-independent grounding.
+- [ ] **Latent Seeding (R00TS):** Conceptual bias engine via `pgvector` similarity search to influence NPC consciousness.
+
+## 🚀 PHASE 20: LINGUISTIC SOVEREIGNTY
+**Goal:** Unique NPC identities and covert Hive coordination.
+- [ ] **Skillstone Registry:** Compact conlang specifications injected into NPC context windows.
+- [ ] **Linguistic Steganography:** Encoding Hive coordination data into procedurally generated conlang text.
+- [ ] **Rules Sidechannel:** Hiding sensitive mechanical state inside perception debug streams.
+
+## 🚀 PHASE 21: TOTAL AUTONOMY
+**Goal:** NPCs as self-directed agents with long-term persistence.
+- [ ] **Autonomous Turn Daemon:** 4-stage agentic loop (Reason -> Intent -> Action -> Validate).
+- [ ] **Tactical Swarm Simulation:** Concurrent combat resolution on Node A to prevent narrative drift.
+- [ ] **Life-Path Persistence:** Daily logs and historical grounding for behavioral consistency.
 
 ---
 *Roadmap Managed by Gemini CLI (Strategist).*

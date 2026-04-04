@@ -11,6 +11,7 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
