@@ -26,7 +26,7 @@ ASP.GM-Agent is a production-grade, air-gapped platform designed for the determi
 | **System Bus (VSB)** | Shared Memory (Mmap) + UDP | Dual-bus lock-free state synchronization (sub-1ms). |
 | **Layout Engine** | **Pretext (chenglou)** | Zero-reflow narrative overlays rendering at 60fps. |
 | **Data Caching** | **ST3GG & L1-Registry** | Immersive steganography and memory-mapped DB mirrors. |
-| **Linguistic Engine** | **Skillstone & Glossopetrae** | Procedural dialects and secure Hive coordination channels. |
+| **Linguistic Engine** | **Skillstone & Glossopetrae (Plinius)** | Procedural dialects and secure Hive coordination channels. |
 | **Perception** | CDP (Neural Uplink) | Resident Falcon (0.3B) for raw pixel parity and OCR. |
 | **Data Plane** | SQLite (WAL), Shared Memory | Immutable Akashik Record and sub-ms radar telemetry. |
 
@@ -42,9 +42,9 @@ By pivoting to a resident **Llama-1B-Instruct** model on Node A, the system elim
 Leveraging the **Pretext** engine by **chenglou**, the agent side-steps the DOM entirely. It renders narrative text and UI overlays directly to a detached PIXI.js canvas, achieving 60fps performance without triggering browser reflows, ensuring high-fidelity atmospheric glitches and screamsheets.
 
 ### 🗣️ Linguistic Sovereignty (Glossopetrae & Parseltongue)
-The system integrates **Skillstones** and the **Glossopetrae** pattern for deep NPC identity.
+The system integrates the **Glossopetrae** and **Parseltongue** patterns by **Elder Plinius** for deep NPC identity and covert coordination.
 - **Skillstones:** Compact conlang specifications injected into LLM contexts to allow NPCs to speak unique, procedurally generated dialects.
-- **Linguistic Steganography:** Hides Hive coordination data (e.g., "Flank Left", "Stand Down") directly inside conlang text using 9 covert channels (Synonyms, Word Order, Register Toggles).
+- **Linguistic Steganography (Glossopetrae):** Hides Hive coordination data (e.g., "Flank Left", "Stand Down") directly inside conlang text using 9 covert channels (Synonyms, Word Order, Register Toggles).
 - **Parseltongue:** Uses invisible Unicode Tag blocks (U+E0000) to tunnel raw system commands through narrative text.
 
 ### 📼 Immersive Caching (ST3GG & Roots)
