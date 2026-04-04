@@ -38,6 +38,20 @@ Phase 22 introduces a hardware-level **Sovereign Highway**. By utilizing dual-bu
 ### ⚖️ The Mini-Vault (Resident 1B Judge)
 By pivoting to a resident **Llama-1B-Instruct** model on Node A, the system eliminates the 8s model-swapping delay. The 1B model acts as a deterministic "Mechanical Judge," air-gapped from the narrative engine to prevent contextual drift and ensure 100% rules adherence.
 
+### 🎨 Pretext Integration (Layout Sovereignty)
+Leveraging the **Pretext** engine by **chenglou**, the agent side-steps the DOM entirely. It renders narrative text and UI overlays directly to a detached PIXI.js canvas, achieving 60fps performance without triggering browser reflows, ensuring high-fidelity atmospheric glitches and screamsheets.
+
+### 🗣️ Linguistic Sovereignty (Glossopetrae & Parseltongue)
+The system integrates **Skillstones** and the **Glossopetrae** pattern for deep NPC identity.
+- **Skillstones:** Compact conlang specifications injected into LLM contexts to allow NPCs to speak unique, procedurally generated dialects.
+- **Linguistic Steganography:** Hides Hive coordination data (e.g., "Flank Left", "Stand Down") directly inside conlang text using 9 covert channels (Synonyms, Word Order, Register Toggles).
+- **Parseltongue:** Uses invisible Unicode Tag blocks (U+E0000) to tunnel raw system commands through narrative text.
+
+### 📼 Immersive Caching (ST3GG & Roots)
+The system adapts **ST3GG** (LSB Steganography) and **Roots** (Local-first grounding) patterns from **Elder Plinius**. 
+- **ST3GG:** Encodes dynamically generated lore and secrets into standard PNG assets ("Self-Describing Maps") for players to decrypt in-character.
+- **Roots:** Provides a resilient, local-first knowledge graph that ensures NPC memories and district lore remain grounded and accessible during air-gapped operations.
+
 ### 🗺️ Tactical-MMU (Spatial Acceleration)
 A specialized Rust sidecar on Node A that pre-calculates tactical heat-maps (cover, LOS, movement) directly from the visual buffer. It offloads all spatial "math" from the LLMs, allowing the AI to make O(1) complexity tactical decisions.
 
