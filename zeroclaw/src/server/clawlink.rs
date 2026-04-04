@@ -8,6 +8,7 @@ use std::fs;
 
 use crate::cv::edge_detector;
 use crate::perception::PerceptionController;
+use crate::steganography;
 use image::open;
 
 static RED_RULES: OnceLock<String> = OnceLock::new();
@@ -198,6 +199,49 @@ async fn process_rpc(
             info!("[RPC] ocr_analyze: initiating Model Swap Protocol...");
             let entities = perception.ocr_analyze(base64_image).await?;
             Ok(serde_json::to_value(entities)?)
+        }
+
+        // ── Phase 19: ST3GG Rust — LSB Steganography ────────────────────────
+        //
+        // st3gg_encode
+        //   Params: { "image_b64": "<base64 PNG>", "payload": "<string>" }
+        //   Returns: { "image_b64": "<base64-encoded modified PNG>" }
+        //
+        // st3gg_decode
+        //   Params: { "image_b64": "<base64 PNG>" }
+        //   Returns: { "payload": "<string>" }
+        "st3gg_encode" => {
+            let image_b64 = params
+                .get("image_b64")
+                .and_then(|v| v.as_str())
+                .ok_or("st3gg_encode requires params.image_b64 (base64 PNG string)")?;
+            let payload_str = params
+                .get("payload")
+                .and_then(|v| v.as_str())
+                .ok_or("st3gg_encode requires params.payload (string)")?;
+
+            use base64::Engine as _;
+            let img_bytes = base64::engine::general_purpose::STANDARD.decode(image_b64)?;
+            let encoded_bytes = steganography::encode(&img_bytes, payload_str.as_bytes())?;
+            let out_b64 = base64::engine::general_purpose::STANDARD.encode(&encoded_bytes);
+
+            info!("[ST3GG] Encoded {} bytes into image ({} bytes → {} bytes PNG)", payload_str.len(), img_bytes.len(), encoded_bytes.len());
+            Ok(serde_json::json!({ "image_b64": out_b64 }))
+        }
+
+        "st3gg_decode" => {
+            let image_b64 = params
+                .get("image_b64")
+                .and_then(|v| v.as_str())
+                .ok_or("st3gg_decode requires params.image_b64 (base64 PNG string)")?;
+
+            use base64::Engine as _;
+            let img_bytes = base64::engine::general_purpose::STANDARD.decode(image_b64)?;
+            let payload_bytes = steganography::decode(&img_bytes)?;
+            let payload_str = String::from_utf8(payload_bytes)?;
+
+            info!("[ST3GG] Decoded {} bytes from image", payload_str.len());
+            Ok(serde_json::json!({ "payload": payload_str }))
         }
 
         _ => Err(format!("Unknown method: {}", method).into()),
