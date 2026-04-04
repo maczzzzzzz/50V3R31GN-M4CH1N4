@@ -211,10 +211,12 @@ describe('TurnDaemon', () => {
       const clawlink = makeClawLink({ valid: true });
       const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
 
-      const turnPromise = daemon.runTurn(SENSORY_CONTEXT);
+      const turnPromise = daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
-      // Advance time past the 5 s timeout
-      vi.advanceTimersByTime(6_000);
+      // advanceTimersByTimeAsync flushes the microtask queue between timer ticks,
+      // allowing stages 1 & 2 to complete so stageAction's setTimeout gets
+      // registered before we advance past the 5 s mark.
+      await vi.advanceTimersByTimeAsync(6_000);
 
       const result = await turnPromise;
 
@@ -289,7 +291,7 @@ describe('TurnDaemon', () => {
     it('handles empty life-path logs gracefully', async () => {
       const ollama = makeOllama({});
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath([]));
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath([]));
       const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.npcId).toBe(NPC_ID);

@@ -1,16 +1,8 @@
 //! perception/mod.rs
 //!
-//! Phase 16: Falcon Sidecar — Semantic Perception via Sequential VRAM
-//!
-//! Model Swap Protocol (4GB Pascal Constraint):
-//!   Node A (GTX 1050 Ti) cannot hold Llama-3 and Falcon simultaneously.
-//!   The PerceptionController enforces strict sequential VRAM management:
-//!
-//!   1. Acquire exclusive `vram_lock` → blocks any concurrent OCR request
-//!   2. Unload Llama-3 via Ollama (keep_alive=0)
-//!   3. Load Falcon ONNX session and run inference
-//!   4. Unload Falcon session (drop) and preemptively reload Llama-3
-//!   5. Release lock, return DetectedEntity list to caller
+//! Phase 22.5: 1B Residency Lockdown — Both Llama-1B and Falcon-0.3B
+//! are permanently resident in VRAM. No eviction occurs between inference calls.
+//! The vram_lock serialises concurrent OCR requests but does not trigger model swaps.
 
 use std::path::Path;
 use std::sync::Arc;
@@ -72,7 +64,7 @@ impl Default for PerceptionConfig {
         Self {
             falcon_model_path: "models/falcon-0.3b-ocr.onnx".to_string(),
             ollama_url: "http://localhost:11434".to_string(),
-            llama_model_name: "llama3.2:3b".to_string(),
+            llama_model_name: "llama3.2:1b".to_string(),
         }
     }
 }
@@ -102,38 +94,24 @@ impl PerceptionController {
 
     /// Run OCR analysis on a base64-encoded PNG/JPEG image.
     ///
-    /// Implements the full Model Swap Protocol under an exclusive VRAM lock.
+    /// Implements the Model Residency Protocol under an exclusive VRAM lock.
+    /// Both Llama-1B and Falcon-0.3B are permanently resident — no eviction occurs.
     /// Returns a list of detected text entities with normalised coordinates.
     pub async fn ocr_analyze(
         &self,
         base64_image: &str,
     ) -> Result<Vec<DetectedEntity>, Box<dyn std::error::Error + Send + Sync>> {
-        // ── Step 1: Acquire exclusive VRAM lock ───────────────────────────────
         let mut guard = self.vram_lock.lock().await;
 
-        // ── Step 2: Unload Llama-3 from VRAM ─────────────────────────────────
-        if guard.loaded == VramModel::Llama {
-            info!("[Perception] Unloading Llama-3 from VRAM (keep_alive=0)...");
-            self.ollama_set_keep_alive(&self.config.llama_model_name, 0).await?;
-            guard.loaded = VramModel::Empty;
-        }
-
-        // ── Step 3: Preprocess image ──────────────────────────────────────────
-        info!("[Perception] Decoding and preprocessing image tensor...");
+        // Both models are resident — Falcon ONNX runs alongside Llama-1B.
+        info!("[Perception] Falcon inference pass (resident mode)...");
         let tensor = Self::preprocess_image(base64_image)?;
 
-        // ── Step 4: Falcon ONNX inference ─────────────────────────────────────
         guard.loaded = VramModel::Falcon;
-        info!("[Perception] Falcon Sidecar inference pass started...");
         let entities = self.run_falcon_inference(tensor)?;
-
-        // ── Step 5: Unload Falcon + preemptively reload Llama ─────────────────
-        guard.loaded = VramModel::Empty;
-        info!("[Perception] Preemptive logic restoration: reloading Llama-3...");
-        self.ollama_warmup(&self.config.llama_model_name).await?;
         guard.loaded = VramModel::Llama;
 
-        info!("[Perception] Model swap complete. {} entities detected.", entities.len());
+        info!("[Perception] Falcon pass complete. {} entities detected.", entities.len());
         Ok(entities)
     }
 
@@ -326,7 +304,7 @@ mod tests {
     #[test]
     fn test_perception_config_default_values() {
         let config = PerceptionConfig::default();
-        assert_eq!(config.llama_model_name, "llama3.2:3b");
+        assert_eq!(config.llama_model_name, "llama3.2:1b");
         assert!(config.falcon_model_path.contains("falcon-0.3b-ocr.onnx"));
     }
 
