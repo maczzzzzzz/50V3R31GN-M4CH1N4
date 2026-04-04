@@ -225,6 +225,12 @@ pub unsafe fn from_bytes<T: Copy>(bytes: &[u8]) -> Option<T> {
 }
 
 // ─── Tests ───────────────────────────────────────────────────────────────────
+//
+// NOTE: All multi-byte fields of `#[repr(C, packed)]` structs MUST be copied
+// to a local variable before use in `assert_eq!` / method calls. The macro
+// expands to `match (&left, &right)` which takes a reference — that is UB for
+// a packed field whose address may not satisfy the type's alignment requirement.
+// Copying to a stack local produces a properly-aligned slot.
 
 #[cfg(test)]
 mod tests {
@@ -247,11 +253,16 @@ mod tests {
         let recovered: SovereignHeader = unsafe { from_bytes(bytes) }
             .expect("from_bytes must succeed for a 13-byte slice");
 
-        assert_eq!(recovered.magic,       VSB_MAGIC);
-        assert_eq!(recovered.version,     VSB_VERSION);
-        assert_eq!(recovered.packet_type, PacketType::Intent as u8);
-        assert_eq!(recovered.sequence_id, 42);
-        assert_eq!(recovered.payload_len, 256);
+        // Copy multi-byte fields to locals before asserting (packed struct safety)
+        let magic       = recovered.magic;
+        let sequence_id = recovered.sequence_id;
+        let payload_len = recovered.payload_len;
+
+        assert_eq!(magic,                VSB_MAGIC);
+        assert_eq!(recovered.version,    VSB_VERSION);      // u8 — alignment 1, safe
+        assert_eq!(recovered.packet_type, PacketType::Intent as u8); // u8
+        assert_eq!(sequence_id,          42);
+        assert_eq!(payload_len,          256);
         assert!(recovered.is_valid(), "recovered header checksum must pass");
     }
 
@@ -322,11 +333,13 @@ mod tests {
         let recovered: IntentPacket = unsafe { from_bytes(bytes) }
             .expect("from_bytes must succeed for a 302-byte intent packet");
 
-        assert!(recovered.header.is_valid());
-        assert_eq!(recovered.header.packet_type, PacketType::Intent as u8);
+        // Copy embedded header to aligned local before method call / assert
+        let hdr = recovered.header;
+        assert!(hdr.is_valid());
+        assert_eq!(hdr.packet_type, PacketType::Intent as u8); // u8 — safe
         assert_eq!(recovered.intent_type, IntentType::Roll as u8);
         assert_eq!(recovered.session_id, session_id);
-        assert_eq!(recovered.actor_id, actor_id);
+        assert_eq!(recovered.actor_id,   actor_id);
         assert_eq!(recovered.payload[0], b'R');
         assert_eq!(recovered.payload[1], 0x01);
         assert_eq!(recovered.payload[2], 0x06);
@@ -370,11 +383,15 @@ mod tests {
         let recovered: ResultPacket = unsafe { from_bytes(bytes) }
             .expect("from_bytes must succeed for a 290-byte result packet");
 
-        assert!(recovered.header.is_valid());
-        assert_eq!(recovered.header.packet_type, PacketType::Result as u8);
-        assert_eq!(recovered.status, ResultStatus::Ok as u8);
+        // Copy header and multi-byte fields to aligned locals
+        let hdr         = recovered.header;
+        let result_code = recovered.result_code;
+
+        assert!(hdr.is_valid());
+        assert_eq!(hdr.packet_type,     PacketType::Result as u8); // u8
+        assert_eq!(recovered.status,    ResultStatus::Ok as u8);   // u8
         assert_eq!(recovered.session_id, session_id);
-        assert_eq!(recovered.result_code, 17);
+        assert_eq!(result_code,         17);
         assert_eq!(recovered.payload[0], 17);
     }
 
