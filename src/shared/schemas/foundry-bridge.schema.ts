@@ -542,6 +542,24 @@ export const DecryptSt3ggEventSchema = z.object({
 });
 
 /**
+ * Trigger an autonomous NPC turn (Phase 21).
+ * Foundry pushes this when it is an NPC's turn in combat.
+ * Node B runs the TurnDaemon 4-stage state machine and returns a TurnResult.
+ */
+export const NpcTurnEventSchema = z.object({
+  type: z.literal('npc_turn'),
+  payload: z.object({
+    /** The NPC's Foundry actor id. */
+    npcId: z.string().min(1),
+    /**
+     * A natural-language summary of what the NPC can currently perceive
+     * (visible tokens, zone names, recent events, etc.).
+     */
+    sensoryContext: z.string().min(1),
+  }),
+});
+
+/**
  * System heartbeat from the Foundry bridge module to Node B (Phase 15).
  * Reports which optional modules are currently active so Node B can
  * select the correct resiliency tier (Elite / Baseline / Degraded).
@@ -572,6 +590,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   FileExtractionEventSchema,
   DecryptSt3ggEventSchema,
   SystemHeartbeatEventSchema,
+  NpcTurnEventSchema,
 ]);
 
 /**
@@ -624,6 +643,7 @@ export type SceneActivateEvent = z.infer<typeof SceneActivateEventSchema>;
 export type SystemHeartbeatEvent = z.infer<typeof SystemHeartbeatEventSchema>;
 export type FileExtractionEvent = z.infer<typeof FileExtractionEventSchema>;
 export type DecryptSt3ggEvent = z.infer<typeof DecryptSt3ggEventSchema>;
+export type NpcTurnEvent = z.infer<typeof NpcTurnEventSchema>;
 export type EvaluateIntentEvent = z.infer<typeof EvaluateIntentEventSchema>;
 export type SequenceAction = z.infer<typeof SequenceActionSchema>;
 export type FxGlitchPayload = z.infer<typeof FxGlitchPayloadSchema>;

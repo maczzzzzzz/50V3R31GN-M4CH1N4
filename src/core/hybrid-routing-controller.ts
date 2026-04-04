@@ -10,7 +10,8 @@ import type {
   ResolveAttackParams, CalculateDvParams, OracleRollParams, IArchitectService,
 } from './interfaces.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
-import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent, RedTradeTransitEvent } from '../shared/schemas/foundry-bridge.schema.js';
+import type { FoundryEvent, BuyItemEvent, ApprovalResponseEvent, RedTradeTransitEvent, NpcTurnEvent } from '../shared/schemas/foundry-bridge.schema.js';
+import type { TurnDaemon, TurnResult } from './turn-daemon.js';
 import type { StoryEngine } from './story-engine.js';
 import type { GmApprovalQueue } from './gm-approval-queue.js';
 import type { NightMarketService } from './night-market-service.js';
@@ -49,6 +50,7 @@ export interface HybridRoutingControllerOptions {
 
   readonly sharedMemoryService?: SharedMemoryService | undefined;
   readonly missionSwarm?: MissionSwarmOrchestrator | undefined;
+  readonly turnDaemon?: TurnDaemon | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -70,6 +72,7 @@ export class HybridRoutingController {
   private readonly onboardingEnabled: boolean;
   private readonly sharedMemory: SharedMemoryService | undefined;
   private readonly missionSwarm: MissionSwarmOrchestrator | undefined;
+  private readonly turnDaemon: TurnDaemon | undefined;
   private readonly steganographyService: SteganographyService;
   private readonly taskRouter: TaskRouterProxy;
 
@@ -93,6 +96,7 @@ export class HybridRoutingController {
     this.onboardingEnabled = options.onboardingEnabled ?? false;
     this.sharedMemory = options.sharedMemoryService;
     this.missionSwarm = options.missionSwarm;
+    this.turnDaemon = options.turnDaemon;
     this.steganographyService = new SteganographyService();
     this.taskRouter = new TaskRouterProxy();
 
@@ -267,6 +271,8 @@ export class HybridRoutingController {
         return this.handleFileExtraction(event.payload);
       case 'decrypt_st3gg':
         return this.handleDecryptRequest(event.payload);
+      case 'npc_turn':
+        return this.handleNpcTurn(event.payload);
       default: {
         const exhaustiveCheck: never = event;
         throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as any).type}'`);
@@ -638,6 +644,13 @@ export class HybridRoutingController {
     const hitLabel = result.hit ? '✅ HIT' : '❌ MISS';
     const critSuffix = result.criticalInjury ? ' ⚠️ CRITICAL INJURY' : '';
     return `**Attack Roll** — ${hitLabel}${critSuffix} | Roll: ${result.rollTotal} vs DV ${result.dvTarget} | Damage: ${result.netDamage} net`;
+  }
+
+  private async handleNpcTurn(payload: NpcTurnEvent['payload']): Promise<TurnResult> {
+    if (!this.turnDaemon) {
+      throw new Error('HybridRoutingController: npc_turn event received but no TurnDaemon is configured');
+    }
+    return this.turnDaemon.runTurn(payload.sensoryContext);
   }
 
   private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {

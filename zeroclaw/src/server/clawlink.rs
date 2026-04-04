@@ -200,6 +200,40 @@ async fn process_rpc(
             Ok(serde_json::to_value(entities)?)
         }
 
+        // ── Phase 21 Task 2: Tactical Swarm Simulation ──────────────────────
+        //
+        // Params: JSON array of action objects.
+        // Each object must have a "type" field of "attack" or "damage".
+        //
+        // Attack fields: attacker_id, dice (array of u8), stat, skill, dv
+        // Damage fields: attacker_id, dice (array of u8), bonus, armour_sp
+        //
+        // Returns: array of SwarmResult objects. Actions that fail to parse
+        // are silently skipped; an unparseable batch returns [].
+        "resolve_swarm" => {
+            use crate::rules::swarm_resolver::{SwarmAction, resolve_swarm};
+
+            let raw_actions = params
+                .as_array()
+                .ok_or("resolve_swarm: params must be a JSON array")?;
+
+            let actions: Vec<SwarmAction> = raw_actions
+                .iter()
+                .filter_map(|v| {
+                    match serde_json::from_value::<SwarmAction>(v.clone()) {
+                        Ok(a) => Some(a),
+                        Err(e) => {
+                            error!("[resolve_swarm] skipping unparseable action: {} — {:?}", e, v);
+                            None
+                        }
+                    }
+                })
+                .collect();
+
+            let results = resolve_swarm(actions);
+            Ok(serde_json::to_value(results)?)
+        }
+
         _ => Err(format!("Unknown method: {}", method).into()),
     }
 }

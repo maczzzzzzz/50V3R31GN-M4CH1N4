@@ -144,6 +144,20 @@ export class UnifiedOracleClient {
     if (!this.db) throw new Error('Database not connected');
     const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
     this.db.exec(schema);
+
+    // ── Phase 21 Migration: NPC Life-Path Logs ────────────────────────────────
+    // Idempotent — safe to run against any existing DB (pre-Phase 21 or fresh).
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS npc_logs (
+          id          INTEGER PRIMARY KEY AUTOINCREMENT,
+          npc_id      TEXT NOT NULL,
+          summary     TEXT NOT NULL,
+          log_type    TEXT NOT NULL DEFAULT 'action' CHECK (log_type IN ('action', 'interaction', 'observation')),
+          created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_npc_logs_npc_id ON npc_logs (npc_id, created_at DESC);
+    `);
   }
 
   query<T = any>(sql: string, params: any[] = []): T[] {
