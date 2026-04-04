@@ -71,9 +71,10 @@
 ## 🚀 PHASE 22: THE SOVEREIGN HIGHWAY (ACTIVE)
 **Goal:** Distributed Claw-Code Rust Harness for sub-1ms state synchronization.
 - [ ] **Dual-Harness Scaffold:** Fork and specialize `claw-code` Rust crates for Node A/B.
-- [ ] **VSB Integration:** Implement Binary UDP + Mmap "Sovereign Highway" protocol.
+- [ ] **WSL Pivot:** Migrate `director-rs` and `crush` to WSL (Nix-hardened).
+- [ ] **VSB Integration:** Implement Binary UDP "Sovereign Highway" protocol (Cross-Subsystem).
+- [ ] **Foundry UDP-Relay:** Implement Windows-side proxy for browser-to-VSB link.
 - [ ] **Sovereign Loop:** Implement Abstract Intent -> Mechanical Rules -> Result pipeline.
-- [ ] **Neural Compositor:** Hardware-accelerated visual feedback for state commits.
 
 ## 🚀 PHASE 23: NEURAL WORLD ENGINE (DRAFT)
 **Goal:** Atlas Radar Evolution and Crush Sidecar Bridge (Modular HUDs).
