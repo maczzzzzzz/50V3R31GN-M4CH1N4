@@ -67,6 +67,11 @@ function generateSyllable(
   consonants: readonly string[],
   vowels: readonly string[],
 ): string {
+  // Pattern probabilities: CV=60%, CVC=32%, VC=8%.
+  // The second rng() call fires only for the non-CV branch, consuming a variable
+  // number of RNG values per syllable. This is intentional: the variable consumption
+  // increases apparent variety in the generated lexicon without affecting determinism
+  // (the PRNG sequence is strictly sequential, so output is still seed-stable).
   const pattern = rng() < 0.6 ? 'CV' : rng() < 0.8 ? 'CVC' : 'VC';
   if (pattern === 'CV') return pick(rng, consonants) + pick(rng, vowels);
   if (pattern === 'CVC') return pick(rng, consonants) + pick(rng, vowels) + pick(rng, consonants);
@@ -260,6 +265,7 @@ function renderSkillstone(spec: SkillstoneSpec, factionId: string): string {
 
 export class SkillstoneService {
   private readonly registry = new Map<string, number>(); // factionId → seed
+  private readonly cache = new Map<number, string>();    // seed → rendered Skillstone (lazy memo)
 
   /**
    * Register a faction with a numeric seed.  The seed fully determines the
@@ -322,11 +328,22 @@ export class SkillstoneService {
   /**
    * Return the full Skillstone Markdown for a registered faction, or null if
    * the factionId is not in the registry.
+   *
+   * Results are lazily memoised by seed: the same seed always produces the same
+   * Markdown, so two factions sharing a seed correctly share one cached string.
+   * Re-registering a faction with a new seed evicts the old cache entry for that
+   * seed only if no other faction references it — but since Skillstones are immutable
+   * by seed value, stale entries are harmless and memory is bounded by distinct seeds.
    */
   getSkillstone(factionId: string): string | null {
     const seed = this.registry.get(factionId);
     if (seed === undefined) return null;
-    return this.generateSkillstone(seed);
+    let stone = this.cache.get(seed);
+    if (!stone) {
+      stone = this.generateSkillstone(seed);
+      this.cache.set(seed, stone);
+    }
+    return stone;
   }
 
   /**

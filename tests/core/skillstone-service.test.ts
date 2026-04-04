@@ -91,6 +91,19 @@ describe('SkillstoneService', () => {
     const second = svc.getSkillstone('bozos');
     expect(first).not.toBe(second);
   });
+
+  it('handles seed value of 0 without treating it as falsy', () => {
+    svc.register('zero-faction', 0);
+    expect(svc.getSeed('zero-faction')).toBe(0);
+    expect(svc.getSkillstone('zero-faction')).not.toBeNull();
+  });
+
+  it('getSkillstone returns same reference for repeated calls (memoisation)', () => {
+    svc.register('cache-test', 555);
+    const first = svc.getSkillstone('cache-test');
+    const second = svc.getSkillstone('cache-test');
+    expect(first).toBe(second); // same string reference from cache
+  });
 });
 
 // ── StoryEngine + SkillstoneService integration tests ────────────────────────
@@ -117,7 +130,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
 
   it('injects SKILLSTONE block into prompt when factionId is provided', async () => {
     const engine = new StoryEngine(
-      { currentBeat: 'start', completedBeats: [] },
+      { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
       mockOllama,
       skillstoneSvc,
     );
@@ -131,7 +144,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
 
   it('does NOT inject SKILLSTONE when factionId is omitted', async () => {
     const engine = new StoryEngine(
-      { currentBeat: 'start', completedBeats: [] },
+      { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
       mockOllama,
       skillstoneSvc,
     );
@@ -143,7 +156,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
 
   it('does NOT inject SKILLSTONE for unknown faction (returns empty clause)', async () => {
     const engine = new StoryEngine(
-      { currentBeat: 'start', completedBeats: [] },
+      { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
       mockOllama,
       skillstoneSvc,
     );
@@ -155,7 +168,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
 
   it('injects SKILLSTONE and seedBias together', async () => {
     const engine = new StoryEngine(
-      { currentBeat: 'start', completedBeats: [] },
+      { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
       mockOllama,
       skillstoneSvc,
     );
@@ -172,7 +185,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
 
   it('setSkillstoneService attaches service after construction', async () => {
     const engine = new StoryEngine(
-      { currentBeat: 'start', completedBeats: [] },
+      { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
       mockOllama,
     );
 
@@ -190,7 +203,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
 
   it('prompt still contains biomonitor system instruction after Skillstone block', async () => {
     const engine = new StoryEngine(
-      { currentBeat: 'start', completedBeats: [] },
+      { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
       mockOllama,
       skillstoneSvc,
     );

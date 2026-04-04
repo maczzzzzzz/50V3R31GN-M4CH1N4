@@ -2,6 +2,8 @@
 import type { StoryState } from '../shared/schemas/story.schema.js';
 import type { IOllamaClient } from './interfaces.js';
 import type { SkillstoneService } from './skillstone-service.js';
+import { ParseltongueCodec } from '../shared/parseltongue-codec.js';
+import type { WorldCommand } from '../shared/schemas/world-commands.schema.js';
 
 export interface BeatConfig {
   id: string;
@@ -128,6 +130,22 @@ Return ONLY a JSON object in this format:
 
   getState(): StoryState {
     return this.state;
+  }
+
+  /**
+   * Embed a WorldCommand mutation invisibly into a visible NPC bark.
+   *
+   * Uses ParseltongueCodec.cloakCommand() to append the mutation as invisible
+   * Unicode Tag Block characters (U+E0000) after the visible bark text.
+   * The returned string is safe to pass to Foundry as an atmospheric NPC dialogue
+   * line — it looks identical to `bark` in all chat UIs but carries the covert
+   * world-state instruction for ClawLink to extract and execute.
+   *
+   * @param bark     The visible narrative text produced by the LLM.
+   * @param mutation A validated WorldCommand that should ride the bark.
+   */
+  embedMutation(bark: string, mutation: WorldCommand): string {
+    return ParseltongueCodec.cloakCommand(bark, mutation);
   }
 
   // ── Private helpers ──────────────────────────────────────────────────────────
