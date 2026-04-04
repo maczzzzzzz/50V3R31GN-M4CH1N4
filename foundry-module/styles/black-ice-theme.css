@@ -295,6 +295,7 @@
         box-shadow: inset 0 0 8px var(--cpr-cyan) !important;
     }
 
+
 /* AUTO-PATCH: 2026-04-04 — theme-auditor */
     body.vtt .blackice-sheet {
         background-color: #000000 !important;
@@ -333,6 +334,501 @@
         background-color: #000000 !important;
     }
     body.vtt .blackice-notes {
+        background-color: #000000 !important;
+    }
+    body.vtt .scene-control.active {
+        color: #ffffff !important;
+    }
+    body.vtt .scene-control {
+        color: #ffffff !important;
+    }
+    body.vtt .control-tool.active {
+        color: #ffffff !important;
+    }
+    body.vtt .control-tool {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+    body.vtt .control-tool.toggle.active {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .control-tool.toggle {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+    body.vtt .fa-duotone.fa-object-subtract {
+        color: #ffffff !important;
+    }
+    body.vtt .collapse {
+        color: #ffffff !important;
+    }
+    body.vtt .dice {
+        background-color: #000000 !important;
+    }
+    body.vtt .combat-button.combat-create {
+        color: #ffffff !important;
+    }
+    body.vtt .combat-button.combat-settings {
+        color: #ffffff !important;
+    }
+    body.vtt .collapse.fa.fa-angle-down {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-plus {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fas.fa-compress-arrows-alt {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-play {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-sync {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fas.fa-play {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.far.fa-arrow-alt-circle-right {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fas.fa-random {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-sync.inactive {
+        color: #ffffff !important;
+    }
+    body.vtt .popout-module-button {
+        color: #ffffff !important;
+    }
+    body.vtt .fa.fa-chevron-left {
+        color: #ffffff !important;
+    }
+    body.vtt .fa.fa-chevron-right {
+        color: #ffffff !important;
+    }
+    body.vtt .fa.fa-seedling {
+        color: #ffffff !important;
+    }
+    body.vtt .actor-details-image {
+        background-color: #000000 !important;
+    }
+    body.vtt .profile-img {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-handle.text-hero.text-large.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-role.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .calculate-hp {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-current.text-right.text-padding-left-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-of {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-max.text-left.text-padding-left-smaller {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .calculate-humanity {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-current.text-right.text-padding-left-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-of {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-max.text-left.text-padding-left-smaller {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save-title.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .rollable {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .actor-details-death-save-reset {
+        background-color: #000000 !important;
+    }
+    body.vtt .reset-deathsave-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .fa-solid.fa-arrow-rotate-left {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save-actions {
+        background-color: #000000 !important;
+    }
+    body.vtt .increase-deathsave-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .far.fa-circle-up {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points-actions {
+        background-color: #000000 !important;
+    }
+    body.vtt .improvement-points-open-ledger {
+        background-color: #000000 !important;
+    }
+    body.vtt .fas.fa-note-sticky {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state-blank {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-facedown.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .rollable.text-padding-left-smaller {
+        background-color: #000000 !important;
+    }
+    body.vtt .far.fa-face-angry {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-actions {
+        background-color: #000000 !important;
+    }
+    body.vtt .reputation-open-ledger {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .actor-details-reputation-blank {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks-ledger {
+        background-color: #000000 !important;
+    }
+    body.vtt .eurobucks-open-ledger {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-filter {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-filter-box.text-left {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-filter-actions {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .fas.fa-xmark.reset-content-filter {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-stat.text-normal.text-center {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-title.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of.flexrow {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of-min.text-right {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of-sep {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of-max.text-left {
+        background-color: #000000 !important;
+    }
+    body.vtt .tab-pink-underlay {
+        background-color: #000000 !important;
+    }
+    body.vtt .right-content-section {
+        background-color: #000000 !important;
+        border-color: var(--cpr-cyan) !important;
+    }
+    body.vtt .tab.skills-tab.active {
+        background-color: #000000 !important;
+    }
+    body.vtt .skills-tab {
+        background-color: #000000 !important;
+    }
+    body.vtt .left-pane-skills.items-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .items-header.flexrow.collapsible {
+        color: #ffffff !important;
+    }
+    body.vtt .item-name.text-padding-left-smallest.expand-button {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-mod-value.text-center {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-level.text-center {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-base.text-center {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-favorite.text-nowrap.text-center.toggle-section-visibility {
+        color: #ffffff !important;
+    }
+    body.vtt .right-pane-skills.items-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .item-name.gear-name.gear-section-header.text-nowrap.expand-button {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-amount.gear-section-header.text-nowrap {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-data.gear-section-header.text-nowrap {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-actions.gear-section-header.text-nowrap {
+        color: #ffffff !important;
+    }
+    body.vtt .items-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .item-name.gear-name.expand-button {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-data {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-actions {
+        color: #ffffff !important;
+    }
+    body.vtt .effects-category.flexrow.item-header {
+        color: #ffffff !important;
+    }
+    body.vtt .effect-name {
+        color: #ffffff !important;
+    }
+    body.vtt .effect-source.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .effect-actions.text-semi.text-padding-right-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .injuries-section {
+        background-color: #000000 !important;
+    }
+    body.vtt .item-name.section-name.text-nowrap.text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-actions.text-nowrap.text-float-right.text-padding-right-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .roll-critical-injury {
+        color: #ffffff !important;
+    }
+    body.vtt .armor-section {
+        background-color: #000000 !important;
+    }
+    body.vtt .weapon-section {
+        background-color: #000000 !important;
+    }
+    body.vtt .text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .notes-label.section-name.text-nowrap.text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .lifepath-label.section-name.text-nowrap.text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .text-float-right {
+        color: #ffffff !important;
+    }
+    body.vtt .set-lifepath {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-sheet {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-name.text-hero.side-banner {
+        color: #ffffff !important;
+    }
+    body.vtt .text-largest {
+        color: #ffffff !important;
+    }
+    body.vtt .change-mook-name {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-stats.pad-thin.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-int-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .block-data.text-normal {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-ref-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-dex-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-tech-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-cool-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-will-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-luck-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-move-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-body-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-emp-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-derived-stats.pad-thin {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-hp {
+        color: #ffffff !important;
+    }
+    body.vtt .text-padding-left-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .min-of-max-container.text-normal.block-data {
+        color: #ffffff !important;
+    }
+    body.vtt .of.text-normal.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-wounded {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-wounded-stat.text-center.text-normal {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-deathsave {
+        color: #ffffff !important;
+    }
+    body.vtt .text-padding-right-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-deathsave-value.width-full.text-center.text-normal.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-weapon-header.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .weapon-content {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-armor-header.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .armor-content {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-skills-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .text-nowrap.text-padding-left-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mod-mook-skill {
+        color: #ffffff !important;
+    }
+    body.vtt .text-right.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-skills-content.text-padding-left-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-special-header.items-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .item-name.section-name.text-nowrap.text-padding-left-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-special-content.text-padding-left-smallest.mook-special-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-crit-header.items-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-crit-content.text-padding-left-smallest.mook-crit-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-notes-header.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-notes-content {
         background-color: #000000 !important;
     }
 /* END AUTO-PATCH */

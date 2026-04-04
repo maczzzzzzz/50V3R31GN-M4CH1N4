@@ -23,6 +23,52 @@ export function buildPatchBlock(violations: ElementViolation[], date: string): s
   return lines.join('\n') + '\n';
 }
 
+/**
+ * Parse the existing AUTO-PATCH block out of `css` and return its entries
+ * as ElementViolation objects.  Returns [] when no block exists.
+ */
+export function extractExistingViolations(css: string): ElementViolation[] {
+  const startMatch = PATCH_START_RE.exec(css);
+  if (!startMatch) return [];
+
+  const contentStart = startMatch.index + startMatch[0].length;
+  const endIdx = css.indexOf(PATCH_END, contentStart);
+  if (endIdx === -1) return [];
+
+  const patchContent = css.slice(contentStart, endIdx);
+  const violations: ElementViolation[] = [];
+
+  // Match each `selector { rules }` block inside the patch
+  const ruleRe = /\s*(body\.vtt\s+[^{]+?)\s*\{([^}]+)\}/g;
+  let m: RegExpExecArray | null;
+  while ((m = ruleRe.exec(patchContent)) !== null) {
+    const selector = m[1].trim();
+    const ruleLines = m[2].split('\n').map((l) => l.trim());
+    const v: ElementViolation = { selector };
+    if (ruleLines.some((l) => l.startsWith('background-color'))) v.backgroundColor = '#000000';
+    if (ruleLines.some((l) => l.startsWith('color:')))           v.color = '#ffffff';
+    if (ruleLines.some((l) => l.startsWith('border-color')))     v.borderColor = 'cyan';
+    violations.push(v);
+  }
+
+  return violations;
+}
+
+/**
+ * Merge two violation lists.  `incoming` (fresh live-DOM scan) wins on
+ * selector conflicts; `existing` (prior AUTO-PATCH entries) fills in
+ * selectors not present in `incoming`.
+ */
+export function mergeViolations(
+  existing: ElementViolation[],
+  incoming: ElementViolation[],
+): ElementViolation[] {
+  const map = new Map<string, ElementViolation>();
+  for (const v of existing) map.set(v.selector, v);
+  for (const v of incoming) map.set(v.selector, v);   // incoming overrides
+  return Array.from(map.values());
+}
+
 export function applyPatch(css: string, patchBlock: string): string {
   // Remove existing AUTO-PATCH block if present
   const startMatch = PATCH_START_RE.exec(css);
@@ -39,7 +85,6 @@ export function applyPatch(css: string, patchBlock: string): string {
   }
 
   // NOTE: Assumes @layer black-ice is the last block in the file (no rules follow it).
-  // This invariant holds for the current black-ice-theme.css structure.
   const layerMatch = css.lastIndexOf('}');
   if (layerMatch === -1) throw new Error('Could not find closing } in CSS file');
 
@@ -49,7 +94,12 @@ export function applyPatch(css: string, patchBlock: string): string {
 export function patchFile(filePath: string, violations: ElementViolation[]): void {
   const date = new Date().toISOString().slice(0, 10);
   const css = readFileSync(filePath, 'utf-8');
-  const patchBlock = buildPatchBlock(violations, date);
+
+  // Merge: preserve all previously patched selectors; incoming scan overrides on conflict.
+  const existing = extractExistingViolations(css);
+  const merged = mergeViolations(existing, violations);
+
+  const patchBlock = buildPatchBlock(merged, date);
   const patched = applyPatch(css, patchBlock);
   writeFileSync(filePath, patched, 'utf-8');
 }

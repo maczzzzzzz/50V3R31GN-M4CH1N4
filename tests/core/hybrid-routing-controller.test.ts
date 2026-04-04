@@ -412,7 +412,7 @@ describe('HybridRoutingController', () => {
       const result = await controller.evaluateIntentSwarm('A fierce gunfight in the rain.');
 
       expect(generateSpy).toHaveBeenCalledWith('Determine emotional tone (1 word) of:', 'A fierce gunfight in the rain.');
-      expect(calcDvSpy).toHaveBeenCalledWith({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional' });
+      expect(calcDvSpy).toHaveBeenCalledWith({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional', situationalModifiers: 0 });
       expect(result).toEqual({ tone: 'Tense', intensity: 0.8 });
     });
   });
