@@ -3,26 +3,19 @@
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a native Neural Uplink, it provides sub-500ms narrative synthesis grounded in hard-coded physics, raw pixel perception, and the immutable Akashik Record.
 
-┌──────────────────────────────────────────────────────────────────────────┐
-│                                                                          │
-│  [ NODE B: THE DIRECTOR ]                      [ NODE A: THE VAULT ]     │
-│  AMD RDNA 4 (16GB VRAM)                        NVIDIA PASCAL (4GB VRAM)  │
-│  Node.js Orchestrator                          Rust Rules Authority      │
-│  ────────────────────────                      ────────────────────      │
-│            │                                               │             │
-│            └────────[ CLAWLINK BINARY INTERCONNECT ]───────┘             │
-│                                    │                                     │
-│            ┌───────────────────────┴───────────────────────┐             │
-│            │                                               │             │
-│      [ PERCEPTION ]              [ PERSISTENCE ]         [ EXECUTION ]   │
-│      Llava / Falcon              Akashik.db (WAL)        TaskRouterProxy │
-│      SensoryFilter               Shared Memory           Intent Swarm    │
-│            │                             │                 │             │
-│            └─────────────────────────────┴─────────────────┘             │
-│                                    │                                     │
-│                        >> [ THE NEURAL HIVE ] <<                         │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
+```text
+   ▄▀█ █▀ █▀█   █▀▀ █▀▄▀█   ▄▀█ █▀▀ █▀▀ █▄ █ ▀█▀
+   █▀█ ▄█ █▀▀   █▄█ █ ▀ █   █▀█ █▄█ ██▄ █ ▀█  █ 
+   ────────────────── v1.6.0 // THE NEURAL HIVE ──────────────────
+
+   [ DIRECTOR: NODE B ] ═══════ [ CLAWLINK ] ═══════ [ VAULT: NODE A ]
+    AMD RDNA 4 (16GB)            BINARY BUS           NVIDIA (4GB)
+    Node.js Orchestrator         TCP/IP SYNC          Rust Rules Vault
+
+   > SENSORY : Visual Perception, OCR, and LOS Filtering
+   > LORE    : Immutable Akashik Record & Local-First RAG
+   > ACTION  : Reactive Swarm Intelligence & Turn Daemon
+```
 
 ## 🛠️ Technical Stack
 

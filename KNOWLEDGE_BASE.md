@@ -1,21 +1,25 @@
 # ASP.GM-Agent: External Knowledge Base & Dependency Registry
-**Version:** 6.0 (Omni-Orchestrator Hardened)
-**Target:** v1.6.0 Neural Hive Baseline
+**Version:** 7.0 (Neural Hive Baseline)
+**Target:** v1.6.0+ The Neural Hive Milestone
 
-## 🧠 Architectural Patterns (Phase 18+)
-These patterns define the "Central Nervous System" of the ASP-GM-Agent.
+## 🧠 Architectural Patterns (Phase 19+)
+These patterns define the "Neural Hive" — the next evolution of autonomous NPC intelligence.
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
+| **Skillstone (GLOSSOPETRAE)**| Markdown Spec | Compact (~8k token) conlang specification for LLM in-context learning. |
+| **Linguistic Stego (GLOSSOPETRAE)**| Rust / Node A | Hiding data in conlang text via 9 channels (Synonyms, Word Order, Register). |
+| **Latent Seeding (R00TS)**| pgvector / Node A | Using conceptual "Seeds" (Greed, Despair) to bias NPC consciousness. |
+| **Turn Daemon (AutoStoryGen)**| XState / Node B | 4-stage agentic loop: Reason -> Intent -> Action -> Validate. |
+| **Self-Describing Map (ST3GG)**| Rust / Node A | Embedding wall coordinates (JSON) directly into asset pixels (LSB). |
+| **Rules Sidechannel (ST3GG)**| Rust / Node A | Hiding mechanical secrets in the alpha channel of perception debug images. |
 | **TaskRouterProxy** | Rust/Node Swarm | Hardware-aware task queuing; manages VRAM swapping on Node A. |
 | **SensoryFilter** | Foundry LOS Engine | Filters world-state data based on token LOS to prevent AI hallucination. |
 | **Intent Swarm** | TS + Promise.all | Concurrent classification via Node A (Intensity) and Node B (Tone). |
 | **Layout Sovereignty**| TS + Pretext | Side-stepping DOM reflows for 60fps flowing narrative overlays. |
 | **Sequential Grounding**| Model Swap Protocol | Unloading Llama to run Vision/VLM Perception Sidecars on 4GB VRAM. |
-| **Resilient Bridge** | Module Detection | Feature-aware dispatching with native CDP/CSS fallbacks. |
 | **Swarm Oracle** | Rust + Tokio Spawn | Concurrent, isolated rules reasoning per faction. |
 | **Flush Gate** | SQLite + IMMEDIATE Tx | Atomic world-state writes with 2nd-signature ACK. |
-| **Search-Extract** | TS + Streaming Grep | Precision rulebook grounding (replaces broad RAG). |
 | **The Rules Vault** | Nix + Bubblewrap | Immutable, air-gapped hardware sandbox for Node A. |
 | **Strategic Atlas** | Rust + egui + ShMem | Zero-latency Sidecar radar window. |
 
