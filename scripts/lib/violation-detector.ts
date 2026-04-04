@@ -29,6 +29,8 @@ const ALLOWED_BG_SET = new Set([
   'rgb(5, 5, 5)',       // #050505 — --cpr-bg-dark-grey (inactive tab/button bg)
   'rgb(13, 11, 12)',    // near-black — CPR system header bg (acceptable dark)
   'rgb(68, 68, 68)',    // #444 — window resize handle
+  'rgb(34, 34, 34)',    // #222222 — intentional inactive border / text-pill bg
+  'rgb(26, 26, 26)',    // #1a1a1a — hover surface
 ]);
 
 // Allow any semi-transparent black (rgba(0, 0, 0, *)) — scene controls etc.
@@ -45,6 +47,7 @@ const ALLOWED_TEXT_SET = new Set([
   'transparent',
   '',
   'rgb(136, 136, 136)', // #888 — intentional inactive tab/button text
+  'rgb(13, 11, 12)',    // near-black — CPR journal text on dark bg (already dark, readable)
 ]);
 
 function isAllowedText(value: string): boolean {
