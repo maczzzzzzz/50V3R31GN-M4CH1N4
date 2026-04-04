@@ -255,6 +255,28 @@ export class ResultPacketCodec {
   }
 }
 
+// ─── Ghost Object Protocol ────────────────────────────────────────────────────
+
+/** A hidden tactical marker extracted from scene pixel data via ST3GG. */
+export interface GhostBlip {
+  /** Normalised X coordinate [0.0–1.0] relative to scene width */
+  readonly x: number;
+  /** Normalised Y coordinate [0.0–1.0] relative to scene height */
+  readonly y: number;
+  /** Blip type encoded as a 1-byte integer: 0x01=cover, 0x02=hazard, 0x03=objective */
+  readonly blipType: number;
+  /** Optional label extracted from steganographic payload */
+  readonly label?: string;
+}
+
+/** Decode a GhostBlip from a 9-byte VSB payload slice. */
+export function decodeGhostBlip(buf: DataView, offset: number): GhostBlip {
+  const x = buf.getFloat32(offset, true);
+  const y = buf.getFloat32(offset + 4, true);
+  const blipType = buf.getUint8(offset + 8);
+  return { x, y, blipType };
+}
+
 // ─── Vitest Tests ─────────────────────────────────────────────────────────────
 // Run via: vitest src/shared/vsb_protocol.ts
 
