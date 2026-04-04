@@ -203,6 +203,17 @@ export const PretextOverlayPayloadSchema = z.object({
 });
 
 /**
+ * Advance the active scene's easy-phasey phase to the given index.
+ * Triggers a visual/ambient phase transition in Foundry via the bridge module.
+ */
+export const AdvancePhasePayloadSchema = z.object({
+  /** The Foundry scene document id, or null to use the active scene. */
+  sceneId: z.string().nullable(),
+  /** The easy-phasey phase index to advance to (0-based). */
+  phaseIndex: z.number().int().min(0),
+});
+
+/**
  * Spawn a Solo-Safe balanced NPC actor into the specified scene with
  * the generated stat block pre-applied as token overrides.
  */
@@ -305,6 +316,12 @@ export const SpawnSoloSafeNpcCommandSchema = z.object({
   payload: SpawnSoloSafeNpcPayloadSchema,
 });
 
+export const AdvancePhaseCommandSchema = z.object({
+  type: z.literal('advance_phase'),
+  requestId: RequestIdSchema,
+  payload: AdvancePhasePayloadSchema,
+});
+
 export const UpdateActorCommandSchema = z.object({
   type: z.literal('update_actor'),
   requestId: RequestIdSchema,
@@ -381,6 +398,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
   SpawnSoloSafeNpcCommandSchema,
+  AdvancePhaseCommandSchema,
 ]);
 
 
@@ -688,3 +706,5 @@ export const IntentSwarmResultSchema = z.object({
 export type IntentSwarmResult = z.infer<typeof IntentSwarmResultSchema>;
 export type SpawnSoloSafeNpcPayload = z.infer<typeof SpawnSoloSafeNpcPayloadSchema>;
 export type SpawnSoloSafeNpcCommand = z.infer<typeof SpawnSoloSafeNpcCommandSchema>;
+export type AdvancePhasePayload = z.infer<typeof AdvancePhasePayloadSchema>;
+export type AdvancePhaseCommand = z.infer<typeof AdvancePhaseCommandSchema>;

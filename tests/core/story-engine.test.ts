@@ -4,6 +4,7 @@ import { StoryEngine } from '../../src/core/story-engine.js';
 import { ParseltongueCodec } from '../../src/shared/parseltongue-codec.js';
 import type { StoryState } from '../../src/shared/schemas/story.schema.js';
 import type { WorldCommand } from '../../src/shared/schemas/world-commands.schema.js';
+import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 
 describe('StoryEngine', () => {
   it('transitions to a new beat when a condition is met', () => {
@@ -128,6 +129,147 @@ describe('StoryEngine', () => {
     const result = engine.evaluateEvent({ val: 'B' });
     expect(result.transitioned).toBe(true);
     expect(result.newBeat).toBe('Beat B');
+  });
+
+  // ── Phase 23: evaluateEvent triggers advancePhase ────────────────────────
+
+  describe('evaluateEvent() phase shift integration', () => {
+    function makeState(completedBeats: string[] = []): StoryState {
+      return {
+        currentArc: 'Night City',
+        currentBeat: 'Beat A',
+        completedBeats: [...completedBeats],
+        worldState: {},
+        eagleBalance: 0,
+      };
+    }
+
+    function makeMockAdapter(connected = true): IFoundryAdapter {
+      return {
+        isConnected: vi.fn().mockReturnValue(connected),
+        advancePhase: vi.fn().mockResolvedValue(undefined),
+        start: vi.fn(),
+        stop: vi.fn(),
+        onEvent: vi.fn(),
+        sendChatMessage: vi.fn(),
+        readActor: vi.fn(),
+        triggerSimplePhone: vi.fn(),
+        rollDice: vi.fn(),
+        activateScene: vi.fn(),
+        updateActor: vi.fn(),
+        queueApproval: vi.fn(),
+        openNightMarket: vi.fn(),
+        createActor: vi.fn(),
+        show3dDice: vi.fn(),
+        queryScenes: vi.fn(),
+        pushDashboardUpdate: vi.fn(),
+        triggerFxGlitch: vi.fn(),
+        runSequence: vi.fn(),
+        triggerPretextOverlay: vi.fn(),
+        spawnSoloSafeNpc: vi.fn(),
+      } as unknown as IFoundryAdapter;
+    }
+
+    it('calls foundryAdapter.advancePhase() with phaseIndex = completedBeats.length when a transition succeeds', async () => {
+      const state = makeState(['Beat 0', 'Beat Z']); // 2 completed beats
+      const mockAdapter = makeMockAdapter();
+      const engine = new StoryEngine(state, undefined, undefined, mockAdapter);
+
+      engine.registerBeat({
+        id: 'Beat A',
+        transitions: [{ to: 'Beat B', condition: (_s, e) => e.type === 'go' }],
+      });
+
+      const result = engine.evaluateEvent({ type: 'go' });
+      expect(result.transitioned).toBe(true);
+
+      // Fire-and-forget: allow the microtask to settle
+      await new Promise(r => setTimeout(r, 10));
+      expect(mockAdapter.advancePhase).toHaveBeenCalledOnce();
+      expect(mockAdapter.advancePhase).toHaveBeenCalledWith(null, 2);
+    });
+
+    it('does NOT call advancePhase when transition does not occur', async () => {
+      const state = makeState();
+      const mockAdapter = makeMockAdapter();
+      const engine = new StoryEngine(state, undefined, undefined, mockAdapter);
+
+      engine.registerBeat({
+        id: 'Beat A',
+        transitions: [{ to: 'Beat B', condition: () => false }],
+      });
+
+      const result = engine.evaluateEvent({ type: 'nothing' });
+      expect(result.transitioned).toBe(false);
+
+      await new Promise(r => setTimeout(r, 10));
+      expect(mockAdapter.advancePhase).not.toHaveBeenCalled();
+    });
+
+    it('does NOT call advancePhase when no foundryAdapter is set', async () => {
+      const state = makeState();
+      const engine = new StoryEngine(state);
+
+      engine.registerBeat({
+        id: 'Beat A',
+        transitions: [{ to: 'Beat B', condition: () => true }],
+      });
+
+      // Should not throw even with no adapter
+      expect(() => engine.evaluateEvent({ type: 'go' })).not.toThrow();
+    });
+
+    it('does NOT call advancePhase when adapter is not connected', async () => {
+      const state = makeState();
+      const mockAdapter = makeMockAdapter(false); // disconnected
+      const engine = new StoryEngine(state, undefined, undefined, mockAdapter);
+
+      engine.registerBeat({
+        id: 'Beat A',
+        transitions: [{ to: 'Beat B', condition: () => true }],
+      });
+
+      engine.evaluateEvent({ type: 'go' });
+
+      await new Promise(r => setTimeout(r, 10));
+      expect(mockAdapter.advancePhase).not.toHaveBeenCalled();
+    });
+
+    it('swallows advancePhase failure — evaluateEvent does not throw', async () => {
+      const state = makeState();
+      const mockAdapter = makeMockAdapter();
+      (mockAdapter.advancePhase as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('bridge down'));
+      const engine = new StoryEngine(state, undefined, undefined, mockAdapter);
+
+      engine.registerBeat({
+        id: 'Beat A',
+        transitions: [{ to: 'Beat B', condition: () => true }],
+      });
+
+      // Must not throw synchronously
+      expect(() => engine.evaluateEvent({ type: 'go' })).not.toThrow();
+
+      // Must not surface as unhandled rejection after settling
+      await new Promise(r => setTimeout(r, 20));
+    });
+
+    it('setFoundryAdapter() sets the adapter and subsequent transitions trigger it', async () => {
+      const state = makeState();
+      const engine = new StoryEngine(state); // no adapter initially
+
+      engine.registerBeat({
+        id: 'Beat A',
+        transitions: [{ to: 'Beat B', condition: () => true }],
+      });
+
+      const mockAdapter = makeMockAdapter();
+      engine.setFoundryAdapter(mockAdapter);
+
+      engine.evaluateEvent({ type: 'go' });
+
+      await new Promise(r => setTimeout(r, 10));
+      expect(mockAdapter.advancePhase).toHaveBeenCalledOnce();
+    });
   });
 
   // ── Phase 20: embedMutation (Parseltongue) ────────────────────────────────

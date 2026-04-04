@@ -100,6 +100,11 @@ export interface IFoundryAdapter {
     y: number;
     statBlock: NpcStatBlock;
   }): Promise<{ tokenId: string }>;
+  /**
+   * Advance the active scene's easy-phasey phase to the given index.
+   * Triggers a visual/ambient phase transition in Foundry via the bridge module.
+   */
+  advancePhase(sceneId: string | null, phaseIndex: number): Promise<void>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -333,6 +338,15 @@ export class FoundryAdapter implements IFoundryAdapter {
       requestId: this.generateRequestId(),
       payload,
     });
+  }
+
+  async advancePhase(sceneId: string | null, phaseIndex: number): Promise<void> {
+    const requestId = this.generateRequestId();
+    await this.sendCommand({
+      type: 'advance_phase',
+      requestId,
+      payload: { sceneId, phaseIndex },
+    } as BridgeCommand);
   }
 
   // ── Internal helpers ────────────────────────────────────────────────────────
