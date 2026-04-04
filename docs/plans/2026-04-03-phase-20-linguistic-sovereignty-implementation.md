@@ -1,54 +1,51 @@
-# Phase 20: Linguistic Sovereignty & Secret Channels Implementation Plan
+# Phase 20: Linguistic Sovereignty & Parseltongue Implementation Plan
 
-> **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this task-by-task.
 
-**Goal:** Implement unique NPC dialects via Skillstones and establish covert Hive coordination via linguistic steganography.
+**Goal:** Establish the "Sovereign Linguistic Layer" by integrating GLOSSOPETRAE and P4RS3LT0NGV3 patterns.
 
-**Architecture:** Node B manages the language specs (Skillstones). Node A handles the complex linguistic permutation logic for data encoding.
+**Architecture:** Node B (TypeScript) manages conlang specs and invisible command embedding. Node A (Rust) handles high-speed linguistic permutation for steganography.
 
-**Tech Stack:** TypeScript, Rust, LLM In-Context Learning (ICL).
+**Tech Stack:** TypeScript (String manipulation), Rust (Linguistic logic), LLM (In-Context Learning).
 
 ---
 
-### Task 1: Skillstone Registry & ICL Injection
+### Task 1: Skillstone Registry & NPC Dialect Integration
 
 **Files:**
 - Create: `src/core/skillstone-service.ts`
-- Create: `data/skillstones/default.md`
+- Modify: `src/core/story-engine.ts`
 
-**Step 1: Implement Skillstone Generator**
-Create a service that generates an 8k-token Markdown spec from a numeric seed.
+**Step 1: Implement the Skillstone Service**
+Develop a generator that creates deterministic conlang specifications (Skillstones) from a numeric seed.
 
 **Step 2: NPC Context Hook**
-Modify `StoryEngine` to inject the Skillstone based on the NPC's `faction_id`.
+Update the `StoryEngine` to fetch the faction's conlang seed from `Akashik.db` and prepend the Skillstone to the LLM system prompt.
 
 ---
 
-### Task 2: Node A — Linguistic Steganography
+### Task 2: Parseltongue — Invisible Command Protocol
+
+**Files:**
+- Create: `src/shared/parseltongue-codec.ts`
+- Modify: `src/api/clawlink-client.ts`
+
+**Step 1: Implement the Unicode Tag Block (U+E0000) Codec**
+Create an encoder/decoder that hides/reveals JSON strings as invisible Unicode tags within benign text.
+
+**Step 2: Narrative Bridge Integration**
+Update the `ClawLink` client to scan incoming narrative strings for these invisible tags and automatically execute the world-state mutations they contain.
+
+---
+
+### Task 3: Node A — Linguistic Steganography Engine
 
 **Files:**
 - Create: `zeroclaw/src/linguistics/mod.rs`
 - Modify: `zeroclaw/src/server/mod.rs`
 
-**Step 1: Implement Synonym Mapping**
-Create a Rust dictionary that maps conlang roots to alternate synonyms for bit-encoding.
+**Step 1: Implement Synonym & Word Order Mutation**
+Create a Rust module that takes a "Cleartext Conlang" and a "Binary Payload" and returns the "Encoded Conlang" using P4RS3LT0NGV3-inspired transforms.
 
-**Step 2: Implementation of Word Order Permutation**
-Implement a rule-based swapper for SVO/SOV structures in the conlang.
-
-**Step 3: RPC Integration**
-Expose `linguistic_encode` and `linguistic_decode` to the ClawLink client.
-
----
-
-### Task 3: The Rules Sidechannel
-
-**Files:**
-- Modify: `src/core/visual-monitor-service.ts`
-- Modify: `zeroclaw/src/perception/mod.rs`
-
-**Step 1: Encode Rules in Screenshots**
-In Node A's `ocr_analyze`, encode current tactical state into the image alpha channel before returning.
-
-**Step 2: Decode in Node B**
-Update `VisualMonitorService` to automatically check for hidden rules data in incoming perception buffers.
+**Step 2: RPC Exposition**
+Expose `linguistic_encode` and `linguistic_decode` variants to the ClawLink protocol for high-performance data smuggling.
