@@ -374,3 +374,122 @@ describe('NitroLogicClient — ocrAnalyze()', () => {
     await expect(client.ocrAnalyze('img')).rejects.toThrow('TCP timeout');
   });
 });
+
+// ── balanceNpcForSoloPlay ─────────────────────────────────────────────────────
+
+describe('NitroLogicClient — balanceNpcForSoloPlay()', () => {
+  const MOCK_RPC = vi.fn().mockResolvedValue([
+    { text: 'REF:6 SP:11 HP:35', x: 0, y: 0, confidence: 1.0 },
+  ]);
+
+  const CLIENT_WITH_CLAW = {
+    ...VALID_CONFIG,
+    clawlinkClient: { executeRpc: MOCK_RPC },
+  };
+
+  const VALID_NPC_STAT_BLOCK = {
+    ref: 4,
+    dex: 4,
+    body: 5,
+    combatSkill: 4,
+    hp: 35,
+    sp: 9,
+    reasoning: 'Player DV≈15. NPC attack=REF(4)+Skill(4)+5.5=13.5 vs DV15, hit prob=0% — below 60% cap.',
+  };
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    MOCK_RPC.mockClear();
+  });
+
+  it('happy path: returns a valid NpcStatBlock when ocrAnalyze succeeds and LLM returns valid JSON', async () => {
+    MOCK_RPC.mockResolvedValue([{ text: 'REF:6 SP:11 HP:35', x: 0, y: 0, confidence: 1.0 }]);
+    vi.stubGlobal('fetch', mockFetchSuccess(wrapChatResponse(VALID_NPC_STAT_BLOCK)));
+
+    const client = new NitroLogicClient(CLIENT_WITH_CLAW);
+    const result = await client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' });
+
+    expect(result.ref).toBe(4);
+    expect(result.dex).toBe(4);
+    expect(result.body).toBe(5);
+    expect(result.combatSkill).toBe(4);
+    expect(result.hp).toBe(35);
+    expect(result.sp).toBe(9);
+    expect(typeof result.reasoning).toBe('string');
+    expect(result.reasoning.length).toBeGreaterThan(0);
+  });
+
+  it('uses the default cap of 0.60 when targetHitProbabilityCap is not specified', async () => {
+    MOCK_RPC.mockResolvedValue([{ text: 'REF:6 SP:11 HP:35', x: 0, y: 0, confidence: 1.0 }]);
+    const spy = mockFetchSuccess(wrapChatResponse(VALID_NPC_STAT_BLOCK));
+    vi.stubGlobal('fetch', spy);
+
+    const client = new NitroLogicClient(CLIENT_WITH_CLAW);
+    await client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' });
+
+    const body = JSON.parse((spy.mock.calls[0] as [string, RequestInit])[1].body as string);
+    const userMsg: string = body.messages.find((m: { role: string }) => m.role === 'user').content;
+    const parsed = JSON.parse(userMsg);
+    expect(parsed.hitCap).toBe(0.60);
+  });
+
+  it('uses the provided targetHitProbabilityCap when specified', async () => {
+    MOCK_RPC.mockResolvedValue([{ text: 'REF:5 SP:9 HP:30', x: 0, y: 0, confidence: 0.9 }]);
+    const spy = mockFetchSuccess(wrapChatResponse(VALID_NPC_STAT_BLOCK));
+    vi.stubGlobal('fetch', spy);
+
+    const client = new NitroLogicClient(CLIENT_WITH_CLAW);
+    await client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img', targetHitProbabilityCap: 0.45 });
+
+    const body = JSON.parse((spy.mock.calls[0] as [string, RequestInit])[1].body as string);
+    const userMsg: string = body.messages.find((m: { role: string }) => m.role === 'user').content;
+    const parsed = JSON.parse(userMsg);
+    expect(parsed.hitCap).toBe(0.45);
+  });
+
+  it('throws when clawlinkClient is not provided (ocrAnalyze fails)', async () => {
+    const client = new NitroLogicClient(VALID_CONFIG);
+    await expect(
+      client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' }),
+    ).rejects.toThrow(/clawlinkClient/);
+  });
+
+  it('throws Zero-Trust validation error when LLM returns invalid JSON shape (missing ref)', async () => {
+    MOCK_RPC.mockResolvedValue([{ text: 'REF:6 SP:11 HP:35', x: 0, y: 0, confidence: 1.0 }]);
+    const malformed = { dex: 4, body: 5, combatSkill: 4, hp: 35, sp: 9, reasoning: 'ok' }; // missing ref
+    vi.stubGlobal('fetch', mockFetchSuccess(wrapChatResponse(malformed)));
+
+    const client = new NitroLogicClient(CLIENT_WITH_CLAW);
+    await expect(
+      client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' }),
+    ).rejects.toThrow(/schema validation/);
+  });
+
+  it('propagates network error from LLM as a descriptive error', async () => {
+    MOCK_RPC.mockResolvedValue([{ text: 'REF:6 SP:11 HP:35', x: 0, y: 0, confidence: 1.0 }]);
+    vi.stubGlobal('fetch', mockFetchNetworkError('ECONNREFUSED'));
+
+    const client = new NitroLogicClient(CLIENT_WITH_CLAW);
+    await expect(
+      client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' }),
+    ).rejects.toThrow(/network error/i);
+  });
+
+  it('passes detected OCR entities as detectedPlayerStats in the LLM user message', async () => {
+    MOCK_RPC.mockResolvedValue([
+      { text: 'REF:6', x: 0, y: 0, confidence: 1.0 },
+      { text: 'SP:11', x: 0.1, y: 0, confidence: 0.9 },
+    ]);
+    const spy = mockFetchSuccess(wrapChatResponse(VALID_NPC_STAT_BLOCK));
+    vi.stubGlobal('fetch', spy);
+
+    const client = new NitroLogicClient(CLIENT_WITH_CLAW);
+    await client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' });
+
+    const body = JSON.parse((spy.mock.calls[0] as [string, RequestInit])[1].body as string);
+    const userMsg: string = body.messages.find((m: { role: string }) => m.role === 'user').content;
+    const parsed = JSON.parse(userMsg);
+    expect(parsed.detectedPlayerStats).toContain('REF:6');
+    expect(parsed.detectedPlayerStats).toContain('SP:11');
+  });
+});

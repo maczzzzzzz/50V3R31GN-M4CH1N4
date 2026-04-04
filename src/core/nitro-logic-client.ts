@@ -10,6 +10,8 @@ import type {
   DvResult,
   OracleResult,
   DetectedEntity,
+  NpcStatBlock,
+  SoloSafeParams,
 } from './interfaces.js';
 
 // ── Config validation schema ──────────────────────────────────────────────────
@@ -67,6 +69,16 @@ const DetectedEntitySchema = z.object({
   confidence: z.number(),
 });
 const DetectedEntitiesSchema = z.array(DetectedEntitySchema);
+
+const NpcStatBlockSchema = z.object({
+  ref: z.number().int().min(1).max(10),
+  dex: z.number().int().min(1).max(10),
+  body: z.number().int().min(1).max(10),
+  combatSkill: z.number().int().min(0).max(10),
+  hp: z.number().int().min(1),
+  sp: z.number().int().min(0),
+  reasoning: z.string().min(1),
+});
 
 // ── System prompts with few-shot CoT exemplars ────────────────────────────────
 // Research mandate: "Think step-by-step. List all variables first, then calculate."
@@ -138,6 +150,23 @@ Output: {"result":7,"isCriticalSuccess":false,"isCriticalFailure":false,"luckyRe
 EXAMPLE 2:
 Input: expression="1d10", applyLuck=true, luckPoints=3
 Output: {"result":8,"isCriticalSuccess":false,"isCriticalFailure":false,"luckyReroll":8,"reasoning":"Initial roll=1 (Critical Failure). Applied Luck (3 remaining). Rerolled: 8. Final result: 8."}`;
+
+const SYSTEM_PROMPT_SOLO_SAFE = `You are a Cyberpunk RED Game Master's assistant. Balance an NPC for solo play.
+
+RULES:
+- Hit Probability = (AttackRoll - DefenderDV) / 10 clamped to [0, 1]
+- AttackRoll = d10 + REF + CombatSkill (expected d10 = 5.5)
+- Target hit probability must NOT exceed the given cap
+- NPC HP = 10 + (5 × BOD)
+- SP (armor): street-level NPC uses 7–11
+
+Given the player's extracted stats, generate NPC stats that create a balanced but challenging encounter.
+Output ONLY valid JSON with exactly these fields:
+{"ref":number,"dex":number,"body":number,"combatSkill":number,"hp":number,"sp":number,"reasoning":string}
+
+EXAMPLE:
+Input: playerRef=6, playerSP=11, playerHP=35, hitCap=0.60
+Output: {"ref":4,"dex":4,"body":5,"combatSkill":4,"hp":35,"sp":9,"reasoning":"Player DV≈15. NPC attack=REF(4)+Skill(4)+5.5=13.5 vs DV15, hit prob=(13.5-15)/10=-0.15→0% — safely below 60% cap. HP=10+5*5=35 matches player. SP=9 for street-level challenge."}`;
 
 // ── NitroLogicClient ──────────────────────────────────────────────────────────
 
@@ -250,6 +279,26 @@ export class NitroLogicClient implements INitroLogicClient {
       );
     }
     return result.data;
+  }
+
+  async balanceNpcForSoloPlay(params: SoloSafeParams): Promise<NpcStatBlock> {
+    const cap = params.targetHitProbabilityCap ?? 0.60;
+    const traceId = randomUUID();
+
+    // Step 1: OCR scan the player sheet
+    const entities = await this.ocrAnalyze(params.playerSheetBase64);
+
+    // Step 2: Summarize detected entities as player context
+    const playerContext = entities.map(e => e.text).join(', ');
+
+    // Step 3: Ask Node A to generate balanced NPC stats
+    const userMessage = JSON.stringify({
+      detectedPlayerStats: playerContext,
+      hitCap: cap,
+    });
+
+    const raw = await this.callChatCompletions(SYSTEM_PROMPT_SOLO_SAFE, userMessage, traceId);
+    return this.parseResponse(raw, NpcStatBlockSchema, 'balanceNpcForSoloPlay', traceId) as NpcStatBlock;
   }
 
   async stop(): Promise<void> {

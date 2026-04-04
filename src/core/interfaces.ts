@@ -245,6 +245,30 @@ export interface DetectedEntity {
   confidence: number;
 }
 
+export interface NpcStatBlock {
+  /** Reflexes stat (REF) — governs initiative and ranged combat */
+  ref: number;
+  /** Dexterity stat (DEX) — governs melee and evasion */
+  dex: number;
+  /** Body stat (BOD) — governs HP and melee damage bonus */
+  body: number;
+  /** Combat skill level */
+  combatSkill: number;
+  /** Hit points */
+  hp: number;
+  /** Stopping Power of NPC armor */
+  sp: number;
+  /** LLM reasoning for the stat choices */
+  reasoning: string;
+}
+
+export interface SoloSafeParams {
+  /** Base64-encoded PNG/JPEG of the player's character sheet */
+  playerSheetBase64: string;
+  /** Maximum allowed hit probability for NPC attacks (0–1). Default: 0.60 */
+  targetHitProbabilityCap?: number;
+}
+
 export interface INitroLogicClient {
   /** Resolve a complete Cyberpunk RED attack roll against a defender. */
   resolveAttack(params: ResolveAttackParams): Promise<AttackResult>;
@@ -261,8 +285,13 @@ export interface INitroLogicClient {
   stop(): Promise<void>;
   /**
    * Run OCR analysis on a base64-encoded PNG image via the Falcon Sidecar on Node A.
-   * Implements the Model Swap Protocol: Llama-3 is evicted, Falcon runs, Llama-3 is
-   * preemptively restored. Requires clawlinkClient in NitroLogicConfig.
+   * Requires clawlinkClient in NitroLogicConfig.
    */
   ocrAnalyze(base64Image: string): Promise<DetectedEntity[]>;
+  /**
+   * Generate Solo-Safe NPC stats balanced against the player's sheet.
+   * Uses ocrAnalyze to extract player stats then generates NPC stats
+   * where hit probability is capped at targetHitProbabilityCap (default 0.60).
+   */
+  balanceNpcForSoloPlay(params: SoloSafeParams): Promise<NpcStatBlock>;
 }
