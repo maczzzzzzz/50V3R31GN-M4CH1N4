@@ -77,3 +77,4 @@ dist/
 # --- Development Artifacts ---
 Modelfile.test
 docs/audits/temp_*
+.worktrees/
