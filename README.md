@@ -21,8 +21,8 @@ ASP.GM-Agent is a production-grade, air-gapped platform designed for the determi
 
 | Layer | Technology | Role |
 | :--- | :--- | :--- |
-| **Orchestrator (Node B)** | Node.js v22, Mistral-Nemo (12B) | Narrative synthesis and 16-core task orchestration. |
-| **Rules Engine (Node A)** | Rust (ZeroClaw), Llama 3.2 (1B) | Mathematical authority and resident 1B Rules Judge. |
+| **Orchestrator (Node B)** | **director-rs** (Claw-Code fork) + Node.js | Narrative Engine & 16-core task orchestration. |
+| **Rules Engine (Node A)** | **zeroclaw** (Claw-Code fork) | Mechanical Engine & resident 1B Rules Judge. |
 | **System Bus (VSB)** | Shared Memory (Mmap) + UDP | Dual-bus lock-free state synchronization (sub-1ms). |
 | **Layout Engine** | **Pretext (chenglou)** | Zero-reflow narrative overlays rendering at 60fps. |
 | **Data Caching** | **ST3GG & L1-Registry** | Immersive steganography and memory-mapped DB mirrors. |
