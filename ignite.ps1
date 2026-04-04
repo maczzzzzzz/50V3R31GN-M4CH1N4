@@ -26,7 +26,7 @@ Write-Host "📡 Igniting Strategic Atlas..."
 Start-Process "powershell" -ArgumentList "-NoExit", "-Command", "cd sidecar-atlas; cargo run --release" -WindowStyle Normal
 
 # 5. Launch Crush CLI
-Write-Host "⌨️ Igniting Crush CLI..."
-Start-Process "powershell" -ArgumentList "-NoExit", "-Command", "cd crush; ./crush.exe run" -WindowStyle Normal
+Write-Host "⌨️ Igniting Crush CLI (Cyberdeck Control Plane)..." -ForegroundColor Cyan
+Start-Process "powershell" -ArgumentList "-NoExit", "-Command", "Set-Location 'D:\asp-gm-agent'; crush" -WindowStyle Normal
 
 Write-Host "🏁 STACK ACTIVE. System State Auto-Restore in progress..." -ForegroundColor Green
