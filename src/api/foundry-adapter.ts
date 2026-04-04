@@ -20,6 +20,7 @@ import { randomBytes } from 'node:crypto';
 import { z } from 'zod';
 import { WebSocketServer, WebSocket } from 'ws';
 import type { IncomingMessage } from 'node:http';
+import type { NpcStatBlock } from '../core/interfaces.js';
 import {
   BridgeCommandSchema,
   BridgeResponseSchema,
@@ -89,6 +90,16 @@ export interface IFoundryAdapter {
   triggerFxGlitch(intensity?: number): Promise<void>;
   runSequence(actions: SequenceAction[]): Promise<void>;
   triggerPretextOverlay(payload: PretextOverlayPayload): Promise<void>;
+  /**
+   * Spawn a Solo-Safe balanced NPC actor into the specified scene with
+   * the generated stat block pre-applied as token overrides.
+   */
+  spawnSoloSafeNpc(params: {
+    sceneId: string | null;
+    x: number;
+    y: number;
+    statBlock: NpcStatBlock;
+  }): Promise<{ tokenId: string }>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -252,6 +263,27 @@ export class FoundryAdapter implements IFoundryAdapter {
       payload,
     });
     return data as { actorId: string };
+  }
+
+  async spawnSoloSafeNpc(params: {
+    sceneId: string | null;
+    x: number;
+    y: number;
+    statBlock: NpcStatBlock;
+  }): Promise<{ tokenId: string }> {
+    const { sceneId, x, y, statBlock } = params;
+    const requestId = this.generateRequestId();
+    const result = await this.sendCommand({
+      type: 'spawn_solo_safe_npc',
+      requestId,
+      payload: { sceneId, x, y, statBlock },
+    });
+    // Validate response shape
+    const parsed = z.object({ tokenId: z.string().min(1) }).safeParse(result);
+    if (!parsed.success) {
+      throw new Error(`FoundryAdapter spawnSoloSafeNpc: invalid response — ${parsed.error.message}`);
+    }
+    return parsed.data;
   }
 
   async show3dDice(formula: string, result: number, speaker?: { alias: string }): Promise<void> {

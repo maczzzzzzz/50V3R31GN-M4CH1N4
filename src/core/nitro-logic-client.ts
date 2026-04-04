@@ -75,7 +75,7 @@ const NpcStatBlockSchema = z.object({
   dex: z.number().int().min(1).max(10),
   body: z.number().int().min(1).max(10),
   combatSkill: z.number().int().min(0).max(10),
-  hp: z.number().int().min(1),
+  hp: z.number().int().min(15),
   sp: z.number().int().min(0),
   reasoning: z.string().min(1),
 });

@@ -247,26 +247,26 @@ export interface DetectedEntity {
 
 export interface NpcStatBlock {
   /** Reflexes stat (REF) — governs initiative and ranged combat */
-  ref: number;
+  readonly ref: number;
   /** Dexterity stat (DEX) — governs melee and evasion */
-  dex: number;
+  readonly dex: number;
   /** Body stat (BOD) — governs HP and melee damage bonus */
-  body: number;
+  readonly body: number;
   /** Combat skill level */
-  combatSkill: number;
+  readonly combatSkill: number;
   /** Hit points */
-  hp: number;
+  readonly hp: number;
   /** Stopping Power of NPC armor */
-  sp: number;
+  readonly sp: number;
   /** LLM reasoning for the stat choices */
-  reasoning: string;
+  readonly reasoning: string;
 }
 
 export interface SoloSafeParams {
   /** Base64-encoded PNG/JPEG of the player's character sheet */
-  playerSheetBase64: string;
+  readonly playerSheetBase64: string;
   /** Maximum allowed hit probability for NPC attacks (0–1). Default: 0.60 */
-  targetHitProbabilityCap?: number;
+  readonly targetHitProbabilityCap?: number;
 }
 
 export interface INitroLogicClient {
