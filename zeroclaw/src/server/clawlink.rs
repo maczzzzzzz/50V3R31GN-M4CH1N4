@@ -234,8 +234,70 @@ async fn process_rpc(
             Ok(serde_json::to_value(results)?)
         }
 
+        // ── Phase 20 Task 3: P4RS3LT0NGV3 Linguistic Steganography ────────────
+        //
+        // linguistic_encode
+        //   Params: { "text": "<conlang text>", "payload_hex": "<hex-encoded bytes>" }
+        //   Returns: { "encoded": "<text with morpheme variants substituted>" }
+        //
+        // linguistic_decode
+        //   Params: { "text": "<encoded conlang text>" }
+        //   Returns: { "payload_hex": "<hex-encoded recovered bytes>" }
+        //
+        // Both operations are pure CPU — no VRAM usage, no LLM inference.
+        "linguistic_encode" => {
+            let text = params
+                .get("text")
+                .and_then(|v| v.as_str())
+                .ok_or("linguistic_encode requires params.text (string)")?;
+
+            let payload_hex = params
+                .get("payload_hex")
+                .and_then(|v| v.as_str())
+                .ok_or("linguistic_encode requires params.payload_hex (hex string)")?;
+
+            let payload = decode_hex(payload_hex)
+                .map_err(|e| format!("linguistic_encode: invalid hex payload: {}", e))?;
+
+            let encoded = crate::linguistics::encode(text, &payload)
+                .map_err(|e| format!("linguistic_encode failed: {}", e))?;
+
+            Ok(serde_json::json!({ "encoded": encoded }))
+        }
+
+        "linguistic_decode" => {
+            let text = params
+                .get("text")
+                .and_then(|v| v.as_str())
+                .ok_or("linguistic_decode requires params.text (string)")?;
+
+            let payload = crate::linguistics::decode(text)
+                .map_err(|e| format!("linguistic_decode failed: {}", e))?;
+
+            Ok(serde_json::json!({ "payload_hex": encode_hex(&payload) }))
+        }
+
         _ => Err(format!("Unknown method: {}", method).into()),
     }
+}
+
+// ── Hex helpers ───────────────────────────────────────────────────────────────
+
+fn decode_hex(s: &str) -> Result<Vec<u8>, String> {
+    if s.len() % 2 != 0 {
+        return Err("hex string has odd length".to_string());
+    }
+    (0..s.len())
+        .step_by(2)
+        .map(|i| {
+            u8::from_str_radix(&s[i..i + 2], 16)
+                .map_err(|e| format!("invalid hex byte at position {}: {}", i, e))
+        })
+        .collect()
+}
+
+fn encode_hex(bytes: &[u8]) -> String {
+    bytes.iter().map(|b| format!("{:02x}", b)).collect()
 }
 
 #[cfg(test)]
