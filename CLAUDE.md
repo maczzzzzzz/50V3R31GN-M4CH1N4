@@ -24,12 +24,12 @@ You are the **Lead Build Agent (Claude)**. Your role is strictly **Implementatio
 
 ## 🚀 ROADMAP (v1.7.0+)
 1.  **PHASE 19: THE LATENT SEED** (COMPLETED - World Soul & Physical Grounding)
-2.  **PHASE 20: LINGUISTIC SOVEREIGNTY** (COMPLETED - Dialects & Secret Channels)
-3.  **PHASE 21: TOTAL AUTONOMY** (ACTIVE - Agentic Loops & Swarm Intelligence)
+2.  **PHASE 20: LINGUISTIC SOVEREIGNTY** (ACTIVE - Task 1: Skillstone Registry [DONE])
+3.  **PHASE 21: TOTAL AUTONOMY** (DRAFT - Agentic Loops & Swarm Intelligence)
 
 ## ⚡ CORE CONTRACTS (v1.7.0)
 1.  **Linguistic Sovereignty:** Every faction speaks its own dialect via **Skillstones**.
-2.  **Covert Coordination:** Use **Glossopetrae** steganography for secret Hive comms.
+2.  **Covert Coordination:** Use **Glossopetrae** and **Parseltongue** (Unicode Tags) for secret Hive comms.
 3.  **Physical Grounding:** Assets are the source of truth. Embed data in pixels via **ST3GG**.
 4.  **Layout Sovereignty:** Side-step DOM reflows via **Pretext (chenglou)** for 60fps UI.
 5.  **State Sovereignty:** Implement **OpenCrawl** "Strict State Loops" via **SensoryFilter (LOS)**.

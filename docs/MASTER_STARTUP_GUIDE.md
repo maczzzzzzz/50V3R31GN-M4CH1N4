@@ -1,39 +1,39 @@
-# Master Startup Guide: ASP.GM-Agent (v1.6.0)
-### Hardened Split-Node & Neural Hive Initialization
+# Master Startup Guide: ASP.GM-Agent (v1.8.0)
+### Sovereign Highway & Procedural OS Initialization
 
-This document provides the high-fidelity operational sequence for igniting the **Split-Node v1.6.0** world engine and its hardware perception loop.
+This document provides the operational sequence for igniting the **Split-Node v1.8.0** "Sovereign Highway."
 
 ---
 
 ## 🏗️ Hardware Check
-- **Node A (Rules Vault):** Ubuntu 24.04 (NVIDIA 1050 Ti). Managing **TaskRouterProxy** for VRAM swapping.
-- **Node B (Director):** Windows (AMD RX RDNA 4). Managing Neural Uplink, **SensoryFilter (LOS)**, and Akashik Record.
+- **Node A (The Physical Kernel):** Ubuntu 24.04 (NVIDIA 1050 Ti). Resident **Falcon (0.3B)** + **Llama-1B-Instruct**.
+- **Node B (The Director):** Windows (AMD 5950X / RX 9060 XT). Resident **Mistral-Nemo (12B)**.
+- **Bus:** Verify low-latency LAN connectivity for the UDP binary state-mirror.
 
-## 🚀 Step 1: Initialize Node A (The Rules Vault)
-1. **Ignite:** `ssh maczz@192.168.0.50 'sudo systemctl start zeroclaw'`.
-2. **Proxy:** Verify `TaskRouterProxy` is active to manage concurrent Vision/Math tasks.
-3. **Verify:** Check logs for `📡 ZeroClaw ACTIVE and listening on: 0.0.0.0:7878`.
+## 🚀 Step 1: Initialize Node A (The Kernel)
+1. **Ignite Kernel:** `ssh maczz@192.168.0.50 'sudo systemctl start zeroclaw'`.
+2. **Verify Residence:** Ensure the 4GB card holds the 1B Judge and Falcon concurrently.
+3. **Verify VSB:** Check Node A logs for `📡 VSB UDP Stream ACTIVE on: 192.168.0.51:7878`.
 
 ## 🚀 Step 2: Initialize Node B (The Director)
-1. **CDP Port:** Ensure Foundry VTT is CLOSED.
-2. **Ignite Foundry:** Launch the Foundry Electron app with the debugging flag:
-   ```powershell
-   & "C:\Program Files\Foundry VTT\Foundry VTT.exe" --remote-debugging-port=9222
-   ```
-3. **Ignite Orchestrator:** `npm start`.
-   - *Verify: `✅ Neural Hive: Omni Orchestrator Active.` in stdout.*
-   - *Verify: `✅ SensoryFilter: LOS Engine Connected.`*
+1. **Ignite Foundry:** Launch Foundry Electron app with Port 9222.
+2. **Ignite Orchestrator:** `npm start`.
+   - *Verify: `✅ VSB Heartbeat: Synchronized with Node A.`*
+   - *Verify: `✅ L1-Registry: SQLite Mirror Mapped to Bus.`*
 
 ## 🚀 Step 3: Initialize Sidecars
 1. **Strategic Atlas:** `cd sidecar-atlas && cargo run --release`.
 2. **Crush CLI:** `cd crush && ./crush.exe run`.
+3. **Neural Compositor:** Auto-launches with Orchestrator (Node B).
 
 ## 🚀 Step 4: Final Handshake
-1. **Connect:** Verify the binary bridge establishment in both terminals.
-2. **Grounding:** Run `/scan` in the Crush CLI to verify GPU-level vision capture and LOS-filtered world state.
+1. **Calibration:** Run `/audit` in the Crush CLI to verify sub-1ms VSB transaction times.
+2. **Grounding:** Run `/scan` to verify resident Falcon perception speed.
 
 ## ⚠️ Troubleshooting
-- **VRAM Bottleneck:** If TaskRouterProxy reports high wait times, reduce concurrent vision requests.
-- **Uplink Failure:** Ensure no other browser tab is using Port 9222.
-- **Akashik Error:** Check `data/logs/db.log` if `Akashik.db` fails to flush.
-- **LOS Drift:** Run `/scan` to re-sync the SensoryFilter if the AI reacts to hidden actors.
+- **Bus Lag:** Check LAN jitter if `/audit` reports >5ms transaction latency.
+- **Judge Drift:** If Node A reports VRAM thrashing, verify Llama-1B-Instruct is the active model.
+- **Compositor Lag:** Check Node B CPU usage; ensure "High-Priority" threads are available for VSB.
+
+---
+*Verified by Gemini CLI v1.8.0 Strategist.*

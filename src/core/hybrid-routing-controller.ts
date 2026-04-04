@@ -650,7 +650,7 @@ export class HybridRoutingController {
     if (!this.turnDaemon) {
       throw new Error('HybridRoutingController: npc_turn event received but no TurnDaemon is configured');
     }
-    return this.turnDaemon.runTurn(payload.sensoryContext);
+    return this.turnDaemon.runTurn(payload.npcId, payload.sensoryContext);
   }
 
   private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {

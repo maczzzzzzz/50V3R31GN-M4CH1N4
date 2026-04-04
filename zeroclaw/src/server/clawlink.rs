@@ -313,4 +313,64 @@ mod tests {
         assert!(prompt.contains("Rule 1: Be cool."));
         assert!(prompt.contains("D10 + 5"));
     }
+
+    // ── decode_hex / encode_hex helpers ──────────────────────────────────────
+    // These are the new functions introduced by the linguistic_encode/decode RPC
+    // arms. The encode/decode logic itself is covered by linguistics/mod.rs tests.
+
+    #[test]
+    fn test_decode_hex_valid() {
+        assert_eq!(decode_hex("deadbeef").unwrap(), vec![0xde, 0xad, 0xbe, 0xef]);
+        assert_eq!(decode_hex("").unwrap(), vec![]);
+        assert_eq!(decode_hex("41").unwrap(), vec![0x41]); // 'A'
+        assert_eq!(decode_hex("00ff").unwrap(), vec![0x00, 0xff]);
+    }
+
+    #[test]
+    fn test_decode_hex_odd_length_returns_err() {
+        let err = decode_hex("abc").unwrap_err();
+        assert!(err.contains("odd length"), "got: {}", err);
+    }
+
+    #[test]
+    fn test_decode_hex_invalid_char_returns_err() {
+        let err = decode_hex("zz").unwrap_err();
+        assert!(err.contains("invalid hex byte"), "got: {}", err);
+    }
+
+    #[test]
+    fn test_decode_hex_uppercase_accepted() {
+        assert_eq!(decode_hex("DEADBEEF").unwrap(), vec![0xde, 0xad, 0xbe, 0xef]);
+    }
+
+    #[test]
+    fn test_encode_hex_round_trips_decode() {
+        let bytes = vec![0x00u8, 0x7f, 0x80, 0xff];
+        let hex = encode_hex(&bytes);
+        assert_eq!(decode_hex(&hex).unwrap(), bytes);
+    }
+
+    #[test]
+    fn test_encode_hex_empty() {
+        assert_eq!(encode_hex(&[]), "");
+    }
+
+    // ── linguistic encode/decode via module API (covers RPC wire logic) ───────
+    // process_rpc requires a live PerceptionController (ONNX model load),
+    // so we test the encode/decode logic through crate::linguistics directly.
+    // The hex param parsing path is covered above via decode_hex/encode_hex tests.
+
+    #[test]
+    fn test_linguistic_rpc_encode_decode_round_trip_via_module() {
+        // 16 carrier words → 16 bits → 8-bit length prefix + 8-bit payload
+        let text = "ra va ku shi ke mo da no ak ri ek ok zha me sha ve";
+        let payload = b"X"; // 0x58
+        let encoded = crate::linguistics::encode(text, payload).expect("encode failed");
+        let decoded = crate::linguistics::decode(&encoded).expect("decode failed");
+        assert_eq!(decoded.as_slice(), payload.as_ref());
+        // Verify the hex round-trip that the RPC arms perform
+        let hex = encode_hex(&decoded);
+        assert_eq!(hex, "58");
+        assert_eq!(decode_hex(&hex).unwrap(), payload.to_vec());
+    }
 }

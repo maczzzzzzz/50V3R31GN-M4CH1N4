@@ -1,61 +1,54 @@
-# ASP.GM-Agent (v1.7.0)
-### The Neural Hive
+# ASP.GM-Agent (v1.8.0)
+### The Sovereign Highway
 
 ASP.GM-Agent is a production-grade, air-gapped platform designed for the deterministic orchestration of living tabletop environments. Utilizing a dual-node hardware stack and a native Neural Uplink, it provides sub-500ms narrative synthesis grounded in hard-coded physics, raw pixel perception, and the immutable Akashik Record.
 
 ```text
    ▄▀█ █▀ █▀█   █▀▀ █▀▄▀█   ▄▀█ █▀▀ █▀▀ █▄ █ ▀█▀
    █▀█ ▄█ █▀▀   █▄█ █ ▀ █   █▀█ █▄█ ██▄ █ ▀█  █ 
-   ────────────────── v1.7.0 // THE NEURAL HIVE ──────────────────
+   ──────────────── v1.8.0 // THE SOVEREIGN HIGHWAY ───────────────
 
-   [ DIRECTOR: NODE B ] ═══════ [ CLAWLINK ] ═══════ [ VAULT: NODE A ]
-    AMD RDNA 4 (16GB)            BINARY BUS           NVIDIA (4GB)
-    Node.js Orchestrator         TCP/IP SYNC          Rust Rules Vault
+   [ DIRECTOR: NODE B ] ═══════ [ VSB BUS ] ═══════ [ VAULT: NODE A ]
+    AMD R9 5950X (16C)           BINARY MMAP          NVIDIA (4GB)
+    16GB RX 9060 XT              UDP MIRROR           Rust + 1B Judge
 
-   > SENSORY : Visual Perception, OCR, and LOS Filtering
-   > LORE    : Immutable Akashik Record & Local-First RAG
-   > ACTION  : Reactive Swarm Intelligence & Turn Daemon
+   > SENSORY : Resident Falcon Perception & Tactical Heat-Maps
+   > LORE    : Immutable Akashik Record & L1-Registry Mmap Cache
+   > ACTION  : Autonomous Turn Daemon & Neural-Compositor Sync
 ```
 
 ## 🛠️ Technical Stack
 
 | Layer | Technology | Role |
 | :--- | :--- | :--- |
-| **Orchestrator (Node B)** | Node.js v22, Mistral-Nemo | Narrative synthesis and multi-node task routing. |
-| **Rules Engine (Node A)** | Rust (ZeroClaw), Llama 3.2 | Mathematical authority and geometric CV pass. |
+| **Orchestrator (Node B)** | Node.js v22, Mistral-Nemo (12B) | Narrative synthesis and 16-core task orchestration. |
+| **Rules Engine (Node A)** | Rust (ZeroClaw), Llama 3.2 (1B) | Mathematical authority and resident 1B Rules Judge. |
+| **System Bus (VSB)** | Shared Memory (Mmap) + UDP | Dual-bus lock-free state synchronization (sub-1ms). |
 | **Layout Engine** | **Pretext (chenglou)** | Zero-reflow narrative overlays rendering at 60fps. |
-| **Data Caching** | **ST3GG & Roots (Elder Plinius)** | Immersive steganography and local-first lore grounding. |
+| **Data Caching** | **ST3GG & L1-Registry** | Immersive steganography and memory-mapped DB mirrors. |
 | **Linguistic Engine** | **Skillstone & Glossopetrae** | Procedural dialects and secure Hive coordination channels. |
-| **Perception** | CDP (Neural Uplink) | Raw GPU rendering buffer capture and CSS injection. |
+| **Perception** | CDP (Neural Uplink) | Resident Falcon (0.3B) for raw pixel parity and OCR. |
 | **Data Plane** | SQLite (WAL), Shared Memory | Immutable Akashik Record and sub-ms radar telemetry. |
-| **Bridge** | ClawLink (TCP Binary) | High-speed state synchronization between Node A and B. |
 
 ## 🧠 Standout Features
 
-### 🎨 Pretext Integration (Layout Sovereignty)
-Leveraging the **Pretext** engine by **chenglou**, the agent side-steps the DOM entirely. It renders narrative text and UI overlays directly to a detached PIXI.js canvas, achieving 60fps performance without triggering browser reflows, ensuring high-fidelity atmospheric glitches and screamsheets.
+### 🚦 Virtual System Bus (VSB)
+Phase 22 introduces a hardware-level **Sovereign Highway**. By utilizing dual-bus memory mapping and binary UDP mirroring, Node A and Node B achieve sub-1ms state synchronization. Node B's 16-core CPU dedicates physical threads to "watch" the memory bus, ensuring zero-latency access to the world state.
 
-### 🗣️ Linguistic Sovereignty (Dialects & Secret Channels)
-The system integrates **Skillstones** and the **Glossopetrae** pattern for deep NPC identity.
-- **Skillstones:** Compact conlang specifications injected into LLM contexts to allow NPCs to speak unique, procedurally generated dialects fluent to their faction or district.
-- **Linguistic Steganography:** Hides Hive coordination data (e.g., "Flank Left", "Stand Down") directly inside conlang text using 9 covert channels (Synonyms, Word Order, Register Toggles).
+### ⚖️ The Mini-Vault (Resident 1B Judge)
+By pivoting to a resident **Llama-1B-Instruct** model on Node A, the system eliminates the 8s model-swapping delay. The 1B model acts as a deterministic "Mechanical Judge," air-gapped from the narrative engine to prevent contextual drift and ensure 100% rules adherence.
 
-### 📼 Immersive Caching (ST3GG & Roots)
-The system adapts **ST3GG** (LSB Steganography) and **Roots** (Local-first grounding) patterns from **Elder Plinius**. 
-- **ST3GG:** Encodes dynamically generated lore and secrets into standard PNG assets ("Self-Describing Maps") for players to decrypt in-character.
-- **Roots:** Provides a resilient, local-first knowledge graph that ensures NPC memories and district lore remain grounded and accessible during air-gapped operations.
+### 🗺️ Tactical-MMU (Spatial Acceleration)
+A specialized Rust sidecar on Node A that pre-calculates tactical heat-maps (cover, LOS, movement) directly from the visual buffer. It offloads all spatial "math" from the LLMs, allowing the AI to make O(1) complexity tactical decisions.
 
-### 👁️ Neural Uplink (Hardware Perception)
-Bypasses the Foundry VTT API sandbox via the **Chrome DevTools Protocol (CDP)**. The agent has "physical eyes" on the game, capturing raw GPU buffers for 1:1 pixel parity with the GM's screen and injecting narrative glitches via real-time CSS patchers.
+### 🎨 Neural-Compositor (Aesthetic Sync)
+Leverages Node B's 16-core parallelism to monitor system heartbeat. It automatically injects narrative-aligned visual glitches into the Foundry renderer during hardware latency spikes, masking the "seams" of the distributed system with immersive atmosphere.
 
-### 🚦 TaskRouterProxy (CLIProxyAPI Pattern)
-Intelligent hardware management for strict VRAM constraints. It intercepts and queues "Light" tasks (Math, OCR, Stego) when Node A is busy swapping high-parameter vision models.
-
-## 🚀 Upcoming: Phase 21 (Total Autonomy)
-Phase 21 finalizes the Neural Hive with self-directed NPC agents:
-- **Autonomous Turn Daemon:** 4-stage agentic loop (Reason -> Intent -> Action -> Validate).
-- **Tactical Swarm Simulation:** Concurrent combat resolution on Node A to prevent narrative drift.
-- **Life-Path Persistence:** Long-term memory and historical grounding for behavioral consistency.
+## 🚀 Upcoming: Phase 22 (The Sovereign Highway)
+Phase 22 finalizes the Procedural OS architecture:
+- **VSB Handshake:** Dual-bus binary schema for Node A/B lock-free sync.
+- **Sidecar Implementation:** Deployment of Tactical-MMU and L1-Registry drivers.
+- **Latency Masking:** 16-core aesthetic synchronization for 100% continuity.
 
 ---
 *Cyberpunk RED is a trademark of R. Talsorian Games. This project is an independent architectural toolset.*

@@ -1,11 +1,12 @@
 # PROJECT_DNA: ASP-GM-AGENT
 Mirroring directives from CLAUDE.md and KNOWLEDGE_BASE.md.
 
-## 🏗️ HARDWARE MAP
-- **Node A (192.168.0.50)**: Nitro 5 (PostgreSQL + pgvector).
-- **Node B (192.168.0.51)**: This Rig (Orchestrator).
+## 🏗️ HARDWARE MAP (v1.8.0)
+- **Node A (192.168.0.50)**: The Kernel (GTX 1050 Ti 4GB). Resident **1B Judge** + **Falcon**.
+- **Node B (192.168.0.51)**: The Director (5950X 16-core / 16GB VRAM). Resident **12B Brain**.
+- **Bus:** Virtual System Bus (VSB) via Binary UDP + Mmap.
 
 ## ⚡ AGENTIC RULES
-- **Superpowers**: Use `/plan` to verify the "Split-Node" logic before `/execute`.
-- **Context7**: Use `search_documentation` for all 2026 library specs.
-- **TDD**: Every execution must satisfy 'docs/IMPLEMENTATION_PLAN.md'.
+- **Sovereignty**: VSB is the primary "Sovereign Highway" for sub-1ms state sync.
+- **Integrity**: 1B Judge on Node A is the final authority to prevent context drift.
+- **TDD**: Every execution must satisfy 'docs/plans/2026-04-03-phase-22-sovereign-highway-design.md'.

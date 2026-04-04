@@ -1,27 +1,27 @@
 # ASP.GM-Agent: External Knowledge Base & Dependency Registry
-**Version:** 10.0 (Neural Hive Sovereign)
-**Target:** v1.7.0+ The Neural Hive Milestone
+**Version:** 11.0 (Sovereign Highway)
+**Target:** v1.8.0+ The Sovereign Highway Milestone
 
-## 🧠 Architectural Patterns (Phase 19+)
-These patterns define the "Neural Hive" — the next evolution of autonomous NPC intelligence.
+## 🧠 Architectural Patterns (Phase 22+)
+These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.
 
 | Pattern | Implementation | Source | Role |
 | :--- | :--- | :--- | :--- |
+| **Virtual System Bus** | Mmap + UDP | Internal | Lock-free, dual-bus binary state synchronization. |
+| **Mini-Vault Judge** | Llama-1B (Node A) | Internal | Resident, deterministic rules authority; zero-latency. |
+| **Tactical-MMU** | Rust (Node A) | Internal | Hardware-accelerated spatial heat-maps (O(1) tactics). |
+| **Neural-Compositor**| Rust (Node B) | Internal | 16-core latency masking via procedural visual glitches. |
+| **L1-Registry** | Rust (Node B) | Internal | Memory-mapped SQLite mirror for zero-latency NPC data. |
+| **Turn Daemon** | XState / Node B | [AutoStoryGen](https://github.com/elder-plinius/AutoStoryGen) | 4-stage agentic loop (Reason -> Intent -> Action -> Validate). |
 | **Skillstone** | Markdown Spec | [GLOSSOPETRAE](https://github.com/elder-plinius/GLOSSOPETRAE) | Compact conlang specification for LLM in-context learning. |
 | **Linguistic Stego** | Rust / Node A | [GLOSSOPETRAE](https://github.com/elder-plinius/GLOSSOPETRAE) | Hiding data in conlang text via 9 covert channels. |
 | **Invisible Command**| Unicode Tags | [P4RS3LT0NGV3](https://github.com/elder-plinius/P4RS3LT0NGV3) | Hiding raw system instructions (U+E0000) in conlang barks. |
 | **Latent Seeding** | pgvector / Node A | [R00TS](https://github.com/elder-plinius/R00TS) | Using conceptual "Seeds" to bias NPC consciousness. |
-| **Turn Daemon** | XState / Node B | [AutoStoryGen](https://github.com/elder-plinius/AutoStoryGen) | 4-stage agentic loop (Reason -> Intent -> Action -> Validate). |
 | **Self-Describing Map** | Rust / Node A | [ST3GG](https://github.com/elder-plinius/ST3GG) | Embedding wall JSON directly into asset pixels (LSB). |
-| **Rules Sidechannel** | Rust / Node A | [ST3GG](https://github.com/elder-plinius/ST3GG) | Hiding mechanical secrets in perception debug image alpha. |
-| **TaskRouterProxy** | Rust/Node Swarm | Internal (Plinian Inspired) | Hardware-aware task queuing; manages VRAM swapping. |
-| **SensoryFilter** | LOS Engine | Internal (Plinian Inspired) | Filters world-state data via LOS to prevent hallucination. |
 | **Layout Sovereignty**| TS + Pretext | [Pretext](https://github.com/chenglou/pretext) | Zero-reflow narrative overlays rendering at 60fps. |
 | **Intent Swarm** | TS + Promise.all | Internal | Concurrent classification (Node A Intensity + Node B Tone). |
-| **Sequential Grounding**| Model Swap | Internal | Unloading Llama to run Vision/VLM Perception on 4GB VRAM. |
-| **Swarm Oracle** | Rust + Tokio | Internal | Concurrent, isolated rules reasoning per faction. |
-| **Flush Gate** | SQLite Tx | Internal | Atomic world-state writes with 2nd-signature ACK. |
 | **The Rules Vault** | Nix / Bubblewrap | Internal | Immutable, air-gapped hardware sandbox for Node A. |
+| **Flush Gate** | SQLite Tx | Internal | Atomic world-state writes with 2nd-signature ACK. |
 
 ## 📂 Source Registry
 Absolute list of external repositories and technical inspirations.

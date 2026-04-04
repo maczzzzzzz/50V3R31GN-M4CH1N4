@@ -84,6 +84,11 @@ export class LifePathService {
    * Special case: daysOld = 0 deletes ALL rows regardless of age.
    */
   pruneOldLogs(daysOld: number): number {
+    // Special case: daysOld = 0 must delete everything. Using datetime('now', '-0 days')
+    // is unreliable because rows inserted in the same tick may not satisfy <=.
+    if (daysOld === 0) {
+      return this.db.execute('DELETE FROM npc_logs', []).changes;
+    }
     const result = this.db.execute(
       `DELETE FROM npc_logs
        WHERE created_at <= datetime('now', ? || ' days')`,

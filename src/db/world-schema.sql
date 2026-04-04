@@ -221,15 +221,6 @@ CREATE TABLE IF NOT EXISTS conceptual_seeds (
     updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Phase 21: NPC Life-Path Logs (Autonomous Turn Memory)
--- Stores a rolling log of NPC actions and player interactions for life-path continuity.
--- The Turn Daemon fetches the last 5 entries during each NPC's Reasoning stage.
-CREATE TABLE IF NOT EXISTS npc_logs (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    npc_id      TEXT NOT NULL,
-    summary     TEXT NOT NULL,
-    log_type    TEXT NOT NULL DEFAULT 'action' CHECK (log_type IN ('action', 'interaction', 'observation')),
-    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX IF NOT EXISTS idx_npc_logs_npc_id ON npc_logs (npc_id, created_at DESC);
+-- Phase 21: npc_logs is managed via the initSchema() migration path in
+-- unified-oracle-client.ts to support brownfield Akashik.db upgrades.
+-- See: src/db/unified-oracle-client.ts initSchema()

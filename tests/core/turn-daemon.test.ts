@@ -98,8 +98,8 @@ describe('TurnDaemon', () => {
         { id: 1, npcId: NPC_ID, createdAt: '2026-04-03T00:00:00Z', summary: 'Patrolled sector A.', logType: 'action' },
       ]);
 
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, lifePath);
-      const result: TurnResult = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, lifePath);
+      const result: TurnResult = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.npcId).toBe(NPC_ID);
       expect(result.reasoning).toBe('Enemies are close, I need to move.');
@@ -115,8 +115,8 @@ describe('TurnDaemon', () => {
       const clawlink = makeClawLink({ valid: true });
       const lifePath = makeLifePath();
 
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, lifePath);
-      await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, lifePath);
+      await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(lifePath.getRecentLogs).toHaveBeenCalledWith(NPC_ID, 5);
     });
@@ -124,8 +124,8 @@ describe('TurnDaemon', () => {
     it('calls ollama.generateNarrative 3 times (reason + intent + action)', async () => {
       const ollama = makeOllama({});
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(ollama.generateNarrative).toHaveBeenCalledTimes(3);
     });
@@ -142,8 +142,8 @@ describe('TurnDaemon', () => {
       for (const action of actions) {
         const ollama = makeOllama({ action: validActionJson(action) });
         const clawlink = makeClawLink({ valid: true });
-        const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-        const result = await daemon.runTurn(SENSORY_CONTEXT);
+        const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+        const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
         expect(result.action).toEqual(action);
       }
     });
@@ -153,8 +153,8 @@ describe('TurnDaemon', () => {
     it('falls back to idle when LLM returns no JSON object', async () => {
       const ollama = makeOllama({ action: 'I think I should move north and flank them.' });
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.action.type).toBe('idle');
       expect((result.action as { type: 'idle'; reason: string }).reason).toBe('parse_failure');
@@ -163,8 +163,8 @@ describe('TurnDaemon', () => {
     it('falls back to idle when JSON does not match any NpcAction shape', async () => {
       const ollama = makeOllama({ action: JSON.stringify({ type: 'fly', destination: 'moon' }) });
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.action.type).toBe('idle');
     });
@@ -172,8 +172,8 @@ describe('TurnDaemon', () => {
     it('falls back to idle when JSON.parse throws (malformed JSON)', async () => {
       const ollama = makeOllama({ action: '{ "type": "move", "targetX": }' });
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.action.type).toBe('idle');
       expect((result.action as { type: 'idle'; reason: string }).reason).toBe('parse_failure');
@@ -183,8 +183,8 @@ describe('TurnDaemon', () => {
       const fenced = '```json\n' + validActionJson({ type: 'idle', reason: 'low_ammo' }) + '\n```';
       const ollama = makeOllama({ action: fenced });
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.action).toEqual({ type: 'idle', reason: 'low_ammo' });
     });
@@ -209,7 +209,7 @@ describe('TurnDaemon', () => {
       };
 
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
 
       const turnPromise = daemon.runTurn(SENSORY_CONTEXT);
 
@@ -229,8 +229,8 @@ describe('TurnDaemon', () => {
     it('sets validated=false and replaces action with idle when Node A rejects it', async () => {
       const ollama = makeOllama({ action: validActionJson({ type: 'attack', targetId: 'npc-002' }) });
       const clawlink = makeClawLink({ valid: false, reason: 'out_of_range' });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.validated).toBe(false);
       expect(result.action.type).toBe('idle');
@@ -243,8 +243,8 @@ describe('TurnDaemon', () => {
         executeRpc: vi.fn(async () => ({ valid: false })),
       };
       const ollama = makeOllama({ action: validActionJson() });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.action.type).toBe('idle');
       expect((result.action as { type: 'idle'; reason: string }).reason).toBe('rejected_by_rules_vault');
@@ -256,8 +256,8 @@ describe('TurnDaemon', () => {
       const clawlink = makeClawLink({ throws: new Error('ECONNREFUSED') });
       const expectedAction: NpcAction = { type: 'move', targetX: 7, targetY: 8 };
       const ollama = makeOllama({ action: validActionJson(expectedAction) });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       // Action passes through unchanged
       expect(result.action).toEqual(expectedAction);
@@ -275,8 +275,8 @@ describe('TurnDaemon', () => {
       const attackAction: NpcAction = { type: 'attack', targetId: 'enemy-X', weaponId: 'smg' };
       const ollama = makeOllama({ action: validActionJson(attackAction) });
       const clawlink = makeClawLink({ valid: true });
-      const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath());
-      await daemon.runTurn(SENSORY_CONTEXT);
+      const daemon = new TurnDaemon(ollama, clawlink, makeLifePath());
+      await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(clawlink.executeRpc).toHaveBeenCalledWith('validate_npc_action', {
         npcId: NPC_ID,
@@ -290,29 +290,31 @@ describe('TurnDaemon', () => {
       const ollama = makeOllama({});
       const clawlink = makeClawLink({ valid: true });
       const daemon = new TurnDaemon(NPC_ID, ollama, clawlink, makeLifePath([]));
-      const result = await daemon.runTurn(SENSORY_CONTEXT);
+      const result = await daemon.runTurn(NPC_ID, SENSORY_CONTEXT);
 
       expect(result.npcId).toBe(NPC_ID);
     });
 
-    it('uses npcId correctly when multiple daemons exist in the same process', async () => {
+    it('single daemon correctly attributes results to different npcIds per call', async () => {
+      // TurnDaemon is stateless — one instance can drive any NPC.
       const npcA = 'npc-A';
       const npcB = 'npc-B';
-      const ollamaA = makeOllama({});
-      const ollamaB = makeOllama({});
+      const ollama = makeOllama({});
       const clawlink = makeClawLink({ valid: true });
       const lifePath = makeLifePath();
 
-      const daemonA = new TurnDaemon(npcA, ollamaA, clawlink, lifePath);
-      const daemonB = new TurnDaemon(npcB, ollamaB, clawlink, lifePath);
+      const daemon = new TurnDaemon(ollama, clawlink, lifePath);
 
       const [resultA, resultB] = await Promise.all([
-        daemonA.runTurn(SENSORY_CONTEXT),
-        daemonB.runTurn(SENSORY_CONTEXT),
+        daemon.runTurn(npcA, SENSORY_CONTEXT),
+        daemon.runTurn(npcB, SENSORY_CONTEXT),
       ]);
 
       expect(resultA.npcId).toBe(npcA);
       expect(resultB.npcId).toBe(npcB);
+      // Each call must have fetched logs for the correct npcId
+      expect(lifePath.getRecentLogs).toHaveBeenCalledWith(npcA, 5);
+      expect(lifePath.getRecentLogs).toHaveBeenCalledWith(npcB, 5);
     });
   });
 });

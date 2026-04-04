@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-04-03
+### Added
+- **Phase 22 Design (Sovereign Highway)**: Established the architectural blueprint for the Virtual System Bus (VSB).
+- **Dual-Bus Memory (VSB)**: Specified lock-free binary segments (`bus_node_a.mem` and `bus_node_b.mem`) for sub-1ms state synchronization.
+- **Resident 1B Mini-Vault**: Shifted Node A authority to a resident Llama-3.2-1B-Instruct + Falcon (0.3B) split to eliminate 8s model-swap latency.
+- **Sidecar Framework**: Introduced specifications for `TACTICAL-MMU` (Spatial Heat-maps), `NEURAL-COMPOSITOR` (Latency Masking), and `L1-REGISTRY` (Mmap Cache).
+
+## [1.7.0] - 2026-04-03
+### Added
+- **Phase 21: Total Autonomy (Completed)**: NPC agents now operate via a 4-stage autonomous loop (Reason -> Intent -> Action -> Validate).
+- **Autonomous Turn Daemon**: Implemented a state machine on Node B for self-directed NPC behavior with strict 5s JSON-gated timeouts.
+- **Life-Path Persistence**: Integrated `npc_logs` into Akashik.db for long-term behavioral consistency and historical grounding.
+- **Phase 20: Linguistic Sovereignty (Completed)**:
+  - **Skillstone Registry**: Compact conlang specifications injected into NPC contexts.
+  - **Linguistic Steganography**: Encoding Hive coordination data into procedurally generated conlang text.
+  - **Rules Sidechannel**: Hiding sensitive mechanical state inside perception debug streams via ST3GG.
+- **Phase 19: The Latent Seed (Completed)**:
+  - **ST3GG Rust**: High-performance Rust implementation of LSB steganography for self-describing maps.
+  - **Latent Seeding (R00TS)**: Conceptual bias engine via `pgvector` similarity search to influence NPC consciousness.
+- **Phase 18: Omni Orchestrator (Completed)**:
+  - **Intent Swarm**: Concurrent event classification (Scalar + Tone) for reactive world-states.
+  - **Profile Mapping**: Automated mapping of narrative events to Bridge visual sequences.
+- **Phase 17: Layout Sovereignty (Completed)**:
+  - **Pretext Engine**: 60fps narrative UI side-stepping DOM reflows for fluid transitions.
+  - **Matrix Flow**: Isometric text wrapping for Netrunning and news tickers.
+- **Phase 16: Semantic Perception (Completed)**:
+  - **Falcon Sidecar**: 0.3B Multimodal Transformer for map label and text OCR.
+  - **Model Swap Protocol**: Sequential VRAM management for 4GB Pascal hardware.
+- **Phase 15: Bridge Evolution (Completed)**:
+  - **Socketlib Integration**: Administrative sovereignty via GM-socket delegation.
+  - **Visual/Physical Synergy**: Atomic effects via FXMaster and Sequencer modules.
+
+Co-authored-by: Claude Sonnet <noreply@anthropic.com>
+Co-authored-by: Gemini CLI <gemini-cli@google.com>
+
 ## [1.1.0] - 2026-04-02
 ### Added
 - **SharedMemoryService (Phase 8.3)**: Zero-latency 4MB binary bridge between Node B and Rust sidecar. `black_ice_state.mem` segment uses `BLACK-ICE-RADAR` header magic, lock-free transaction counter, and 64-byte blip records (id, name, x/y normalized 0–1000, hp, actor_type, faction).
