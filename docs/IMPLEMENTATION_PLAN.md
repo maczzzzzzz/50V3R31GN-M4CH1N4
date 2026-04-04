@@ -76,10 +76,11 @@
 - [ ] **Neural Compositor:** Hardware-accelerated visual feedback for state commits.
 
 ## 🚀 PHASE 23: NEURAL WORLD ENGINE (DRAFT)
-**Goal:** Atlas Radar Evolution with ST3GG Grounding and Interactive Mission Weaver.
+**Goal:** Atlas Radar Evolution and Crush Sidecar Bridge (Modular HUDs).
 - [ ] **ST3GG Scanner HUD:** Implement Egui/Rust pass to visualize hidden LSB data.
 - [ ] **Ghost Object Protocol:** Expand VSB schema for HiddenState and GhostBlips.
-- [ ] **Command Interceptor:** Implement Egui input listener for Radar-Intents.
+- [ ] **Crush Sidecar Registry:** Implement Go-based process manager for Rust sidecars.
+- [ ] **Authorization Pane:** Implement Lipgloss-based Physical ACK loop in Crush.
 - [ ] **Mission Weaver:** Implement Node B plugin for physically anchored generation.
 
 ---
