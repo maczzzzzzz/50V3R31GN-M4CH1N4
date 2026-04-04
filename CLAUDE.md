@@ -14,20 +14,26 @@ You are the **Lead Build Agent (Claude)**. Your role is strictly **Implementatio
 
 ## 🏗️ HARDWARE TOPOLOGY (v1.8.0)
 - **Node A (The Rules Vault):** NVIDIA GTX 1050 Ti (4GB). 
-  - **Logic:** Rust `zeroclaw` (Claw-Code fork) + Llama-3.2-3B + **Falcon Perception**.
+  - **Logic:** Rust `zeroclaw` (Claw-Code fork) + Llama-3.2-1B + **Falcon CV**.
   - **New Authority:** **Mechanical Engine** (VSB Server) + **Tactical-MMU**.
-  - **Constraint:** Sandboxed via Nix/Bubblewrap. Sequential VRAM management.
+  - **Constraint:** Sandboxed via Nix/Bubblewrap. Models 100% Resident.
 - **Node B (The Director):** AMD RX 9060 XT (16GB). 
-  - **Logic:** Mistral-Nemo 12B + Rust `director-rs` (Claw-Code fork). 
+  - **Logic:** Mistral-Nemo 12B + Rust `director-rs` (Claw-Code fork). **OS: NixOS/WSL 2**.
   - **New Authority:** **Narrative Engine** (VSB Bridge) + **Skillstone Registry**.
-  - **Constraint:** Manages **Neural Uplink (Port 9222)** and **Sovereign Highway (UDP/Mmap)**.
+  - **Constraint:** Manages **Neural Uplink (Port 9222)** and **Sovereign Highway (Binary UDP/Mmap)**.
 
 ## 🚀 ROADMAP (v1.8.0+)
-1.  **PHASE 21: TOTAL AUTONOMY** (COMPLETED - Agentic Loops & Swarm Intelligence)
-2.  **PHASE 22: THE SOVEREIGN HIGHWAY** (ACTIVE - Claw-Code Rust Distributed Harness)
-3.  **PHASE 23: NEURAL WORLD ENGINE** (DRAFT - Full Agentic Physicality)
+1.  **PHASE 21: TOTAL AUTONOMY** (COMPLETED)
+2.  **PHASE 22: THE SOVEREIGN HIGHWAY** (COMPLETED - Rust Harness & NixOS)
+3.  **PHASE 22.5: CROSS-NODE STABILIZATION** (ACTIVE - Binary UDP Heartbeat)
+4.  **PHASE 23: NEURAL WORLD ENGINE** (UPCOMING - Agentic Physicality)
 
 ## ⚡ CORE CONTRACTS (v1.8.0)
+- **Sovereignty**: VSB Binary UDP is the primary authority for rules validation. 
+- **Nix-Native**: Node B execution MUST happen within the Nix devShell.
+- **TDD**: No implementation without a failing test first.
+- **Physicality**: Agent must manipulate Foundry via `easy-phasey` and `Sequencer`.
+
 1.  **Sovereign Highway:** Sub-1ms state sync via Binary UDP + Mmap.
 2.  **Dual-Harness:** Distributed `claw-code` Rust runtime for Soul/Body split.
 3.  **Linguistic Sovereignty:** Every faction speaks its own dialect via **Skillstones**.

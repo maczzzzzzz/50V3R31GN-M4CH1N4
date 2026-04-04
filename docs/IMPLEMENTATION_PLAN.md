@@ -42,11 +42,29 @@
 - [x] **Matrix Flow:** Isometric text wrapping for Netrunning and news tickers.
 - [x] **Canvas Direct:** High-priority text rendering directly to bridge canvas.
 
-## ✅ PHASE 18: OMNI ORCHESTRATOR (COMPLETED)
-**Goal:** The reactive "Central Nervous System" of the living city.
-- [x] **Intent Swarm:** Concurrent event classification (Scalar + Tone).
-- [x] **Profile Mapping:** Automated mapping of narrative events to Bridge sequences.
-- [x] **Total Autonomy:** High-fidelity narrative-physical fusion loop.
+## ✅ PHASE 22: THE SOVEREIGN HIGHWAY (COMPLETED)
+- [x] **Rust Harness:** Forge `zeroclaw` and `director-rs` from `claw-code`.
+- [x] **Nix Unification:** Complete migration of Node B to NixOS (WSL).
+- [x] **Local VSB:** Shared memory (Mmap) implementation for local sidecars.
+
+---
+
+## 🛠️ PHASE 22.5: CROSS-NODE STABILIZATION (ACTIVE)
+**Goal:** Establish sub-1ms state sync between physical nodes via Binary UDP.
+- [ ] **Binary Schema:** Define `SovereignHeader` and `IntentPacket` structs.
+- [ ] **UDP Server:** Implement Port 7878 high-priority listener on Node A.
+- [ ] **Residency:** Lock Llama-1B and Falcon models into 1050 Ti VRAM.
+
+## 🏗️ PHASE 23: NEURAL WORLD ENGINE (UPCOMING)
+**Goal:** Full Agentic Physicality within the Foundry canvas.
+- [ ] **Solo-Safe Balancing:** Adaptive NPC generation relative to player power.
+- [ ] **Ghost Protocol:** ST3GG perception mapping from pixels to VSB `GhostBlips`.
+- [ ] **Scene Evolution:** Link narrative beats to `easy-phasey` scene shifts.
+
+## 🎒 PHASE 24: SOVEREIGN UTILITY BELT
+- [ ] **Crush Registry:** Sidecar process manager in Crush CLI (Go).
+- [ ] **Physical ACK:** Authorization Pane (`ENTER` to sign mutations).
+- [ ] **HUD Deployment:** Atlas Radar, Netrunning Isometric HUD, Cyberdeck.
 
 ---
 
