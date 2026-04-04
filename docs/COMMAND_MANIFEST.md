@@ -1,11 +1,33 @@
 # ASP.GM-Agent: User & Developer Command Manifest (v1.6.0)
 
-This document provides a comprehensive list of all control plane commands available via the **Crush CLI**, **MCP Tools**, and the **Foundry VTT Bridge**.
+This document provides an exhaustive list of all control plane commands, startup scripts, developer tools, and API events available across the **Split-Node** architecture.
+
+---
+
+## 🚀 Master Ignition & Orchestration
+These commands are used to launch, build, and maintain the ASP.GM-Agent ecosystem.
+
+### Ignition Scripts
+| Command | Shell | Description |
+| :--- | :--- | :--- |
+| `.\ignite.ps1` | PowerShell | **Master Launcher**: Bootstraps Foundry (CDP), Orchestrator, Sidecar Atlas, and Crush CLI in a single sequence. |
+
+### NPM Scripts (Node B Orchestrator)
+| Command | Description |
+| :--- | :--- |
+| `npm start` | Launches the Node.js Orchestrator (Mistral-Nemo Director). |
+| `npm run build` | Compiles the TypeScript source code into the `dist/` directory. |
+| `npm run typecheck` | Runs `tsc --noEmit` to verify strict-mode type safety. |
+| `npm run test` | Executes the full Vitest suite (Standard and Integration). |
+| `npm run test:watch` | Launches Vitest in interactive watch mode. |
+| `npm run audit:theme` | Runs the **Custom Theme Auditor** to verify CSS/UI consistency. |
+| `npm run audit:theme:dry` | Performs a dry-run of the Theme Auditor (Report only). |
+| `npm run crush` | Launches the Crush CLI control plane. |
 
 ---
 
 ## ⚡ Crush CLI: System Control
-The Crush CLI is the low-level management interface for the AI GM.
+The Crush CLI is the primary human-in-the-loop management interface for the AI GM.
 
 | Command | Arguments | Description |
 | :--- | :--- | :--- |
@@ -60,3 +82,13 @@ These tools are available to the AI GM (Mistral-Nemo) to interact with the world
 ### `discord-chronicler` (World Barks)
 - `screamsheet_post`: Broadcast events to Discord via personas (NCPD, Street Rumor).
 
+---
+
+## 🦀 Node A: Rules Vault (Rust)
+Commands for managing the ZeroClaw rules authority.
+
+| Command | Directory | Description |
+| :--- | :--- | :--- |
+| `cargo run` | `zeroclaw/` | Launches the ZeroClaw Rust server (Local Debug). |
+| `cargo test` | `zeroclaw/` | Executes the Rust unit test suite. |
+| `cargo build --release` | `zeroclaw/` | Compiles the production binary for Node A. |
