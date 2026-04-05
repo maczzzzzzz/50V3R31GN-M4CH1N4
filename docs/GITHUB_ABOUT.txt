@@ -1,1 +1,12 @@
-Distributed agentic orchestration platform for Cyberpunk RED. Implements a dual-node LLM runtime architecture (Node A: ZeroClaw Mechanical Engine; Node B: Director Narrative Engine) powered by a distributed Rust-native harness (forked from claw-code). Synchronized via a sub-1ms Virtual System Bus (Binary UDP + Mmap). Features resident 1B/12B model isolation, hardware-accelerated spatial perception (Falcon), and deterministic state grounding via the Akashik Record. Integrated with Pretext (60fps UI), Glossopetrae (Conlangs), and ST3GG (LSB-embedded maps).
+╔══════════════════════════════════════════════════════════════╗
+║  🌐 ASP.GM-AGENT // THE SOVEREIGN HIGHWAY [v1.9.0]           ║
+╠══════════════════════════════════════════════════════════════╣
+║ Distributed neural orchestrator for Cyberpunk RED.           ║
+║ Dual-node LLM runtime (Node A: Rules; Node B: Director).     ║
+║ Powered by sub-1ms VSB Binary UDP + Mmap.                    ║
+║                                                              ║
+║ > INFRA: Nix-Native // CUDA (Node A) // Vulkan (Node B)      ║
+║ > BRAIN: llama-server // Open-Reasoner-Zero-1.5B (CoT)       ║
+║ > SIGHT: Falcon CV // ST3GG LSB-embedded map perception      ║
+║ > FLOW:  Pretext 60fps UI // 16-core latency masking         ║
+╚══════════════════════════════════════════════════════════════╝
