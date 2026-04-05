@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] - 2026-04-05
+### Added
+- **Phase 26: Hybrid V2 Refactor (Initiated)**: Commenced massive architectural shift to Go-based orchestration and Rust-based state authority.
+- **Sovereign Proxy (Go)**: Refactored `ClawLinkClient` into a high-performance Go sidecar, eliminating Node.js GC jitter for cross-node TCP/SSH traffic.
+- **Unified Cyberdeck (Rust)**: Consolidated `sidecar-atlas` and `sidecar-netrunning` into a monolithic Rust/Egui HUD with tabbed navigation and shared memory state.
+- **World State Authority (WSA)**: Implemented raw world-manipulation commands (`unlock`, `dim-lights`, `shut-down`) in `crush` CLI and AI services.
+- **Zero-Trust Script Auditing**: Integrated a mandatory Node A reasoning audit for all AI-driven JavaScript injections, flagging exfiltration (`fetch`, `pull`) and system escape (`fs`, `rm`) attempts.
+- **Glitch Engine (HUD)**: Implemented full-window Egui visual noise and jitter shaders in the sidecar, tied to real-time `intrusion_level` MMAP data.
+- **Phase 28 Roadmap**: Codified **Total Environment Dominance** in the implementation plan, targeting Ghost Protocol (synthetic input) and Chaos Monkey testing.
+
+### Changed
+- **System Orchestration**: Shifted primary process and network management from TypeScript to Go.
+- **Mechanical Authority**: Consolidated all tactical/visual data into a single `black_ice_state.mem` MMAP for sub-1ms HUD updates.
+- **Security Gate**: Moved mechanical rules validation from Node B (TypeScript) to Node A (Go Proxy/Reasoner Handshake).
+
+### Fixed
+- **Lock-Copy Debt**: Resolved `sync.Mutex` copy warnings in `crush/registry.go` via manual field snapshotting.
+- **Bridge Protocol**: Synchronized VSB packet sizes (302 bytes) across Go, Rust, and TypeScript implementations.
+
 ## [1.9.0] - 2026-04-05
 ### Added
 - **Deck Igniter (TUI Orchestration)**: New Go-based unified terminal interface for system-wide boot synchronization, CDP probing, and Node A SSH handshakes.

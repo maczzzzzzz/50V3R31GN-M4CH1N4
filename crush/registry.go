@@ -124,10 +124,17 @@ func (r *SidecarRegistry) List() []*Sidecar {
 	list := make([]*Sidecar, 0, len(r.sidecars))
 	for _, s := range r.sidecars {
 		s.mu.Lock()
-		// Create a copy to avoid race conditions when reading from the list elsewhere
-		scopy := *s
+		// Create a snapshot to avoid race conditions when reading from the list elsewhere.
+		// We manually copy fields to avoid copying the sync.Mutex (lock-copy).
+		scopy := &Sidecar{
+			Name:       s.Name,
+			BinaryPath: s.BinaryPath,
+			Args:       s.Args,
+			VramWeight: s.VramWeight,
+			State:      s.State,
+		}
 		s.mu.Unlock()
-		list = append(list, &scopy)
+		list = append(list, scopy)
 	}
 	return list
 }

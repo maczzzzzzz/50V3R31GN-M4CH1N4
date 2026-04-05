@@ -1,6 +1,6 @@
 # ASP.GM-Agent: Master Implementation Execution Plan
-**Version:** 1.9.0 (The Sovereign Highway Stabilization)
-**Architecture:** Distributed Split-Node (Rust/ZeroClaw + Node.js/Orchestrator)
+**Version:** 1.10.0 (Hybrid V2 Native Refactor)
+**Architecture:** Distributed Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS)
 
 ## ✅ PHASE 11: THE NEURAL UPLINK (COMPLETED)
 - [x] **CDP Handshake:** Direct Node B connection to Foundry Electron (Port 9222).
@@ -115,5 +115,12 @@
 - [ ] **Pixtral Provisioning:** Acquire Pixtral-12B Q5_K_M GGUF and `mmproj` encoder.
 - [ ] **VLM Pipeline:** Pipe Foundry map canvas crops to `llama-server` via base64 for semantic context.
 - [ ] **Thought Stream:** Render Node A's `<think>` tokens in real-time within the Crush CLI.
+
+## 🕹️ PHASE 28: TOTAL ENVIRONMENT DOMINANCE (UPCOMING)
+**Goal:** Maximize environmental control via CDP synthetic input and sidecar manipulation for exhaustive testing and feature forcing.
+- [ ] **Ghost Protocol:** Enable CDP `Input` domain for synthetic mouse/keyboard orchestration (Physical token dragging, UI clicking).
+- [ ] **Scenario Engine (Go):** Implement `crush devdom` for scripted scenario playback and "Chaos Monkey" network/memory stress-testing.
+- [ ] **Visual Regression (AI):** Real-time UI auditing using Chrome DevTools MCP to detect and "force-fix" broken visual states.
+- [ ] **Hardware Dominance:** Expand sidecars to manipulate the OS/Nix shell (Remote power-cycling, Flake rebuilds via HUD).
 
 *Roadmap Managed by Gemini CLI (Strategist).*
