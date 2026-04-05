@@ -1,8 +1,8 @@
 /**
  * src/core/spatial-vision-service.ts
  *
- * Optical Bridge — Playwright CDP capture + Llava tactical analysis.
- * (Migrated to llama-server native inference)
+ * Optical Bridge — Playwright CDP capture + Pixtral tactical analysis.
+ * (Migrated to llama-server native inference with env-configured VLM endpoint)
  */
 
 import { chromium, type Browser } from 'playwright-core';
@@ -19,10 +19,12 @@ export interface VisualTacticalContext {
 export interface SpatialVisionConfig {
   /** CDP endpoint of the running Chrome session, e.g. http://localhost:9222 */
   chromeCdpUrl: string;
-  /** Base URL of the llama-server, e.g. http://localhost:8080/v1 */
+  /** Base URL of the llama-server, e.g. http://localhost:8080/v1 (kept for backwards compatibility) */
   ollamaBaseUrl?: string;
-  /** Vision model tag, e.g. "llava-v1.5-7b" */
+  /** Vision model tag, e.g. "llava-v1.5-7b" (kept for backwards compatibility) */
   visionModel?: string;
+  /** Full chat completions endpoint URL; overrides ollamaBaseUrl when set */
+  vlmEndpoint?: string;
 }
 
 interface OpenAICompletionResponse {
@@ -41,12 +43,17 @@ const ANALYSIS_PROMPT =
   '{"tokenClusters": string[], "environmentalFeatures": string[], "rawDescription": string}';
 
 export class SpatialVisionService {
-  private readonly llamaBaseUrl: string;
+  private readonly vlmEndpoint: string;
   private readonly visionModel: string;
 
   constructor(private readonly config: SpatialVisionConfig) {
-    this.llamaBaseUrl = config.ollamaBaseUrl ?? 'http://localhost:8080/v1';
-    this.visionModel = config.visionModel ?? 'llava-v1.5-7b';
+    this.vlmEndpoint =
+      config.vlmEndpoint ??
+      process.env['VLM_ENDPOINT'] ??
+      `${config.ollamaBaseUrl ?? 'http://localhost:8080/v1'}/chat/completions`;
+
+    this.visionModel =
+      config.visionModel ?? process.env['VLM_MODEL'] ?? 'llava-v1.5-7b';
   }
 
   async captureAndAnalyze(): Promise<VisualTacticalContext> {
@@ -70,10 +77,8 @@ export class SpatialVisionService {
     }
   }
 
-  async analyzeWithLlava(base64Image: string): Promise<VisualTacticalContext> {
-    // llama-server OpenAI-compatible chat endpoint with vision support
-    // uses the same format as GPT-4V
-    const response = await fetch(`${this.llamaBaseUrl}/chat/completions`, {
+  private async callVlm(prompt: string, imageB64: string): Promise<OpenAICompletionResponse> {
+    const response = await fetch(this.vlmEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -82,11 +87,11 @@ export class SpatialVisionService {
           {
             role: 'user',
             content: [
-              { type: 'text', text: ANALYSIS_PROMPT },
+              { type: 'text', text: prompt },
               {
                 type: 'image_url',
                 image_url: {
-                  url: `data:image/png;base64,${base64Image}`,
+                  url: `data:image/png;base64,${imageB64}`,
                 },
               },
             ],
@@ -101,7 +106,11 @@ export class SpatialVisionService {
       throw new Error(`llama-server vision request failed: ${response.status} ${response.statusText}`);
     }
 
-    const data = (await response.json()) as OpenAICompletionResponse;
+    return (await response.json()) as OpenAICompletionResponse;
+  }
+
+  async analyzeWithLlava(base64Image: string): Promise<VisualTacticalContext> {
+    const data = await this.callVlm(ANALYSIS_PROMPT, base64Image);
     const content = data.choices[0]?.message.content ?? '';
 
     try {
