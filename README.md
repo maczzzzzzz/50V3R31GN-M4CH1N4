@@ -20,13 +20,13 @@ A hardware-native, vision-integrated, and physically sovereign entity.
 ## :://70P0L06Y //
 
 ### :/N0D3-B : 7H3-D1R3C70R //
-- **C0R3:** NixOS / WSL2 (Native) // Radeon 7900 XT (16GB VRAM)
+- **C0R3:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
 - **BR41N:** Pixtral-12B (VLM + Reasoner)
 - **PR0XY:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
 - **R0L3:** Narrative Sovereignty & High-Concurrency Orchestration.
 
 ### :/N0D3-A : 7H3-K3RN3L //
-- **C0R3:** Linux / Nix Native // GTX 1050 Ti (4GB VRAM)
+- **C0R3:** Linux / Nix Native // Nvidia GTX 1050 Ti (4GB CUDA)
 - **BR41N:** Open-Reasoner-1.5B (Rules Oracle)
 - **516H7:** Falcon-0.3B (Physical Perception)
 - **R0L3:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
