@@ -1,6 +1,6 @@
 # User Guide: Mission Swarm Orchestration
 
-**Version:** 1.2.0
+**Version:** 1.9.0
 **Role:** Procedural Mission Generation & Tactical Analysis
 
 ---
@@ -9,7 +9,7 @@
 The **Mission Swarm** is a concurrent reasoning engine designed to generate high-fidelity, rules-correct Cyberpunk RED missions on the fly. It fuses hard rules data, tactical analysis, and deep lore into a single "Mission Blueprint."
 
 ### 🌌 The Synthesis Process:
-1.  **Rules Intel (Node A)**: ZeroClaw dispatches a swarm task to calculate the appropriate DVs and encounter tables for a specific district.
+1.  **Rules Intel (Node A)**: ZeroClaw utilizes the **Open-Reasoner-Zero-1.5B** judge to calculate the appropriate DVs and encounter tables for a specific district.
 2.  **Tactical Analysis (Node B)**: Mistral-Nemo performs a semantic analysis of the mission objective and provides a narrative tactical overview.
 3.  **Lore Anchor Fusion**: The engine queries **`crush.db`** for recent NPC messages and events, ensuring the mission feels grounded in your session history.
 
@@ -18,9 +18,9 @@ The **Mission Swarm** is a concurrent reasoning engine designed to generate high
 ## ⚡ How to Trigger
 Use the Crush CLI command:
 ```bash
-/generate mission [District]
+/mission [District]
 ```
-*Example:* `/generate mission Watson`
+*Example:* `/mission Watson`
 
 ---
 

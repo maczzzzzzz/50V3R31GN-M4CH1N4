@@ -1,5 +1,5 @@
 # Local Setup: Node B (NixOS/WSL Orchestrator)
-### ASP.GM-Agent v1.8.0 | The Sovereign Highway
+### ASP.GM-Agent v1.9.0 | The Sovereign Highway Stabilization
 
 This document details the configuration for **Node B**, the primary narrative and vision orchestrator, now unified on **NixOS (WSL 2)**.
 

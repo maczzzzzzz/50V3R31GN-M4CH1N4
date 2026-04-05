@@ -1,5 +1,5 @@
 # Server Setup: Node A (Rules Vault)
-### ASP.GM-Agent v1.1.2 | Node A (Linux) Setup Guide
+### ASP.GM-Agent v1.9.0 | Node A (Linux) Setup Guide
 
 This document details the configuration for **Node A**, the secondary rules and geometry vault.
 
@@ -10,12 +10,11 @@ This document details the configuration for **Node A**, the secondary rules and 
 - **Isolation:** Must be on the same local LAN as Node B.
 
 ## 🛠️ Step 1: Immutable Environment (Nix)
-1. **Install Nix:** `curl -L https://nixos.org/nix/install | sh`.
+1. **Install Nix:** `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh`.
 2. **Enable Flakes:** Add `experimental-features = nix-command flakes` to `nix.conf`.
 3. **Ignite Vault:**
    ```bash
-   cd zeroclaw
-   nix develop
+   nix develop .#cuda
    ```
 
 ## 🧠 Step 2: Model Provisioning

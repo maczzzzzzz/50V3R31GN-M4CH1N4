@@ -1,16 +1,16 @@
-# User Guide: Omni Orchestrator (Phase 18)
-**Version:** 1.6.0
+# User Guide: Omni Orchestrator (Phase 25)
+**Version:** 1.9.0
 **Role:** Reactive Hardware Control Plane
 
 ## 🧠 Overview
-The **Omni Orchestrator** is the central nervous system of the ASP-GM-Agent v1.6.0. It coordinates complex, multi-node tasks while ensuring hardware limits (VRAM, CPU) are respected and the AI's perception is grounded in physical reality.
+The **Omni Orchestrator** is the central nervous system of the ASP-GM-Agent v1.9.0. It coordinates complex, multi-node tasks while ensuring hardware limits (VRAM, CPU) are respected and the AI's perception is grounded in physical reality via the Sovereign Highway.
 
 ## 🚀 Key Components
 
 ### 1. TaskRouterProxy (VRAM Authority)
-The Proxy lives on Node A and manages the heavy-lifting of model swapping. 
-- **The Problem:** Swapping between a 12B Llama (Rules) and a 13B Llava (Vision) on an NVIDIA 1050 Ti takes ~20-30 seconds, during which the system is unresponsive.
-- **The Solution:** The Proxy intercepts "Light" requests (DV calculations, OCR, simple stat lookups) and queues them. If the GPU is currently swapping for a Vision pass, these tasks wait in a high-priority queue and execute the micro-second the GPU is ready, preventing RPC timeout cascades.
+The Proxy manages hardware state and model residency. In v1.9.0, residency is enforced at the process level via native `llama-server` and `--mlock`.
+- **Residency:** Both **Open-Reasoner-Zero-1.5B** (Rules) and **Falcon-0.3B** (OCR) are permanently resident on Node A's GPU.
+- **Optimization:** Native inference eliminates the Go/Ollama runtime overhead, providing sub-ms response times for mechanical validation.
 
 ### 2. SensoryFilter (LOS Grounding)
 The SensoryFilter ensures the AI GM doesn't "cheat" by seeing through walls or floor levels.
@@ -21,13 +21,13 @@ The SensoryFilter ensures the AI GM doesn't "cheat" by seeing through walls or f
 ### 3. Intent Swarm (Reactive Fusion)
 The Intent Swarm is a concurrent classification pipeline that triggers when players perform "high-impact" actions.
 - **Concurrent Dispatch:** 
-    - **Node B (Tone):** Analyzes the narrative intent (e.g., "aggressive," "desperate," "sneaky").
-    - **Node A (Intensity):** Calculates the mechanical severity (e.g., a critical hit vs. a minor scrape).
-- **Materialization:** These two vectors are fused into a single `OmniEvent` which triggers reactive CSS/CDP effects, such as flickering lights, "Glitch" overlays, or procedural blood decals.
+    - **Node B (Tone):** Analyzes the narrative intent (e.g., "aggressive," "desperate," "sneaky") via Mistral-Nemo-12B.
+    - **Node A (Intensity):** Calculates the mechanical severity via the **Open-Reasoner-Zero-1.5B** judge.
+- **Materialization:** These two vectors are fused into a single `OmniEvent` which triggers reactive effects, such as flickering lights, "Glitch" overlays, or procedural blood decals via Sequencer.
 
 ## ⚡ Operational Commands
 - `/scan`: Resyncs the SensoryFilter and performs a dual-node CV audit.
-- `/audit`: Displays the current `TaskRouterProxy` queue depth and hardware health.
+- `/audit`: High-signal health check of the VSB Bus and hardware-optimized inference nodes.
 
 ---
 *Omni Orchestrator: Deterministic Reactivity for the Neural Hive.*

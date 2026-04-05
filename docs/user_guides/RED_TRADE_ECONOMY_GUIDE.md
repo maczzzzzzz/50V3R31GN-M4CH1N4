@@ -1,6 +1,6 @@
 # User Guide: Red Trade & The Pulse Engine
 
-**Version:** 1.2.0
+**Version:** 1.9.0
 **Role:** Faction Influence and Economic Real-Time Management
 
 ---

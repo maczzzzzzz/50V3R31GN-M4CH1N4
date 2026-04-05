@@ -1,4 +1,4 @@
-# User Guide: Linguistic Sovereignty & Procedural Dialects (v1.7.0)
+# User Guide: Linguistic Sovereignty & Procedural Dialects (v1.9.0)
 
 ## 1. Overview
 Linguistic Sovereignty is a core feature of the Neural Hive that gives every faction and district in Night City its own unique, procedurally generated dialect (conlang). This guide explains how to manage Skillstones, understand conlang speech, and utilize secret coordination channels.
@@ -39,4 +39,4 @@ Players cannot "see" these payloads without advanced Netrunning or Cryptography 
 ## 5. Implementation Notes
 - **Node A (Rust):** Handles the high-performance linguistic permutation and stego encoding.
 - **Node B (Node.js):** Manages the Skillstone Registry and LLM orchestration.
-- **Model Swap Protocol:** Large conlang dictionaries are swapped into VRAM on Node A only when encoding/decoding is required.
+- **Resident Memory:** Large conlang dictionaries and the **Open-Reasoner-Zero-1.5B** model are permanently resident on Node A, ensuring zero-latency linguistic processing.

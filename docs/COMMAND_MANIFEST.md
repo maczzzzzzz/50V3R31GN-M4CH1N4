@@ -1,30 +1,30 @@
-# ASP.GM-Agent: Command & Bridge Manifest (v1.8.0)
-**Protocol:** Binary RPC over ClawLink + VSB Memory Highway
+# ASP.GM-Agent: Command & Bridge Manifest (v1.9.0)
+**Protocol:** Binary RPC over ClawLink + VSB Sovereign Highway
 
 This document provides an exhaustive list of all control plane commands, startup scripts, developer tools, and API events available across the **Sovereign Highway** architecture.
 
 ---
 
-## 🚀 Master Ignition & Orchestration
-These commands are used to launch, build, and maintain the ASP.GM-Agent ecosystem.
+## Master Ignition & Orchestration
+These commands are used to launch, build, and maintain the ASP.GM-Agent ecosystem using the Nix-native workflow.
 
-### Ignition Scripts
-| Command | Shell | Description |
+### Nix Environment Commands
+| Command | Node | Description |
 | :--- | :--- | :--- |
-| `.\ignite.ps1` | PowerShell | **Master Launcher**: Bootstraps Foundry (CDP), Orchestrator, Sidecar Atlas, and Crush CLI in a single sequence. |
+| `nix develop` | Node B | **Primary Shell**: Activates the Vulkan-optimized environment for the Orchestrator. |
+| `nix develop .#cuda` | Node A | **Kernel Shell**: Activates the CUDA-optimized environment for the Rules Vault. |
 
 ### NPM Scripts (Node B Orchestrator)
 | Command | Description |
 | :--- | :--- |
 | `npm start` | Launches the Node.js Orchestrator (Mistral-Nemo 12B Director). |
 | `npm run build` | Compiles the TypeScript source code into the `dist/` directory. |
-| `npm run typecheck` | Runs `tsc --noEmit` to verify strict-mode type safety. |
 | `npm run test` | Executes the full Vitest suite (Standard and Integration). |
 | `npm run crush` | Launches the Crush CLI control plane. |
 
 ---
 
-## ⚡ Crush CLI: System Control
+## Crush CLI: System Control
 The Crush CLI is the primary human-in-the-loop management interface for the AI GM.
 
 | Command | Arguments | Description |
@@ -37,19 +37,19 @@ The Crush CLI is the primary human-in-the-loop management interface for the AI G
 
 ---
 
-## 🧠 Neural Hive Commands (NPC Autonomy)
+## Neural Hive Commands (NPC Autonomy)
 Commands utilized by the **Turn Daemon** during agentic loops.
 
 | Command | Logic | Authority |
 | :--- | :--- | :--- |
 | `npc_turn` | Reason -> Intent -> Action | Node B (12B Brain) |
-| `validate_npc_action` | VSB Rules Check | Node A (1B Judge) |
+| `validate_npc_action` | VSB Rules Check | Node A (Open-Reasoner-Zero-1.5B) |
 | `mutate_skillstone` | Linguistic Mutation | Node B (Mistral-Nemo) |
 | `embed_mutation` | P4RS3LT0NGV3 Encode | Node B (Parseltongue) |
 
 ---
 
-## 🎨 Layout & Atmosphere (Bridge)
+## Layout & Atmosphere (Bridge)
 Commands targeting the **Pretext** engine and Foundry VTT.
 
 | Command | Effect | Engine |
@@ -61,7 +61,7 @@ Commands targeting the **Pretext** engine and Foundry VTT.
 
 ---
 
-## 👁️ Perception (Sovereign Sensor)
+## Perception (Sovereign Sensor)
 Commands for physical world grounding.
 
 | Command | Effect | Authority |
@@ -72,8 +72,8 @@ Commands for physical world grounding.
 
 ---
 
-## 🛠️ Specialized Sidecars (v1.8.0 Drivers)
-New OS-level services for the Sovereign Highway.
+## Specialized Sidecars (v1.9.0 Drivers)
+OS-level services for the Sovereign Highway.
 
 | Sidecar | Role | Node |
 | :--- | :--- | :--- |
@@ -82,4 +82,4 @@ New OS-level services for the Sovereign Highway.
 | `L1-REGISTRY` | Memory-mapped SQLite mirror | Node B (Rust) |
 
 ---
-*Verified by Gemini CLI v1.8.0 Strategist.*
+*Verified by Gemini CLI v1.9.0 Strategist.*

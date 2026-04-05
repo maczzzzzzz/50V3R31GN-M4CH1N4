@@ -1,6 +1,6 @@
 # User Guide: Neural Uplink & The Neural Painter
 
-**Version:** 1.2.0
+**Version:** 1.9.0
 **Role:** Hardware-Level Perception and Physical Materialization
 
 ---

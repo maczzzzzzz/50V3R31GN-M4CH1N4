@@ -1,6 +1,6 @@
 # User Guide: The Unified Oracle (Akashik Record)
 
-**Version:** 1.2.0
+**Version:** 1.9.0
 **Role:** Universal Memory and Atomic Persistence
 
 ---

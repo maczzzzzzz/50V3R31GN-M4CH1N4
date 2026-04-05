@@ -1,7 +1,7 @@
 # Design Spec: Phase 16 — Semantic Perception
 
 **Date:** 2026-04-03  
-**Version:** 1.5.0 Baseline  
+**Version:** 1.9.0 (Sovereign Highway Stabilization)  
 **Target:** Node A (GTX 1050 Ti) & Node B (AMD 9060 XT)
 
 ## 1. Overview
@@ -13,19 +13,14 @@ Due to the 4GB VRAM limit on Node A, this phase introduces the **Model Swap Prot
 
 ## 2. Architectural Patterns
 
-### 2.1 Model Swap Protocol (Sequential VRAM)
-Node A cannot run Llama-3 and Falcon simultaneously.
-- **Trigger:** Node B requests `ocr_analyze`.
-- **Handoff:** 
-  1. ZeroClaw (Rust) receives RPC.
-  2. ZeroClaw unloads Llama-3 from VRAM.
-  3. ZeroClaw loads Falcon Sidecar.
-  4. Inference performed on provided image buffer.
-  5. Falcon results returned.
-  6. ZeroClaw unloads Falcon and reloads Llama-3 (pre-emptive logic restoration).
+### 2.1 Resident VRAM Model (Phase 25 Upgrade)
+Node A now runs **Open-Reasoner-Zero-1.5B** and **Falcon-0.3B** simultaneously.
+- **Enforcement:** Native `llama-server` residency via `--mlock`.
+- **Concurrency:** The VSB Sovereign Highway enables zero-swap mechanical validation and perception.
+- **Latency:** Sub-1ms for rules checks; ~1s for vision inference.
 
-### 2.2 Neural Shroud (Distraction Protocol)
-To mask the 3-5s swap latency, Node B orchestrates a high-fidelity "Netrunning" effect.
+### 2.2 Neural Shroud (Aesthetic Layer)
+The shroud remains as an immersive visual feedback layer during heavy vision passes.
 - **Tier 1 (GPU Glitch):** FXMaster filter (Intensity 2.5).
 - **Tier 2 (CSS Mask):** Injected "Netrunning Overlay" with scrolling hex-data via Pretext.
 - **Tier 3 (Audio):** Sequencer plays `static_hum.mp3`.

@@ -1,10 +1,10 @@
 ASP.GM-AGENT // THE SOVEREIGN HIGHWAY [v1.9.0]
-----------------------------------------------
+
 Distributed neural orchestrator for Cyberpunk RED. 
 Dual-node LLM runtime (Node A: Rules; Node B: Director).
 Powered by sub-1ms VSB Binary UDP + Mmap.
 
-> INFRA: Nix-Native // CUDA (Node A) // Vulkan (Node B)
-> BRAIN: llama-server // Open-Reasoner-Zero-1.5B (CoT)
-> SIGHT: Falcon CV // ST3GG LSB-embedded map perception
-> FLOW:  Pretext 60fps UI // 16-core latency masking
+INFRA: Nix-Native // CUDA (Node A) // Vulkan (Node B)
+BRAIN: llama-server // Open-Reasoner-Zero-1.5B (CoT)
+SIGHT: Falcon CV // ST3GG LSB-embedded map perception
+FLOW:  Pretext 60fps UI // 16-core latency masking

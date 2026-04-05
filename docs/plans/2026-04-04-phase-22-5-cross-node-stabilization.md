@@ -57,7 +57,7 @@ git commit -m "feat(node-a): implement high-priority VSB UDP server"
 - Modify: `zeroclaw/src/main.rs`
 
 **Step 1: Implement Residency Logic** [DONE]
-Ensure both Open-Reasoner-Zero-1.5B (via Ollama keep-alive) and Falcon (via persistent ONNX session) are locked into VRAM.
+Ensure both Open-Reasoner-Zero-1.5B (via --mlock) and Falcon (via persistent ONNX session) are locked into VRAM.
 
 **Step 2: Commit** [DONE]
 ```bash

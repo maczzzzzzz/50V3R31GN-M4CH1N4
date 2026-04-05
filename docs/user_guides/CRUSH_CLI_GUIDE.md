@@ -1,6 +1,6 @@
 # User Guide: Crush CLI (The Control Plane)
 
-**Version:** 1.2.0
+**Version:** 1.9.0
 **Role:** Primary Human Interface for ASP-GM-Agent
 
 ---
@@ -12,7 +12,7 @@ The **Crush CLI** is your physical cockpit. It provides direct, low-latency cont
 
 ### 1. General Control
 - **`help`**: Displays the available command set.
-- **`status`**: Checks the health of Node A (Rules Vault) and Node B (Director).
+- **`/audit`**: Checks the health of Node A (Rules Vault) and Node B (Director) via the Sovereign Highway.
 - **`clear`**: Clears the current session buffer.
 
 ### 2. Physical Materialization (The Architect Pass)
@@ -20,7 +20,7 @@ The **Crush CLI** is your physical cockpit. It provides direct, low-latency cont
 - **`/pulse`**: Advances the world clock by one "beat," triggering economic shifts and faction influence propagation.
 
 ### 3. Procedural Mission Engine (The Infinite Night)
-- **`/generate mission [district_name]`**: Dispatches the **Mission Swarm** to synthesize a rules-correct mission blueprint, complete with tactical DVs and lore-anchored NPCs.
+- **`/mission [district_name]`**: Dispatches the **Mission Swarm** to synthesize a rules-correct mission blueprint, complete with tactical DVs and lore-anchored NPCs.
 
 ## 🛡️ The 2-of-2 Authorization Gate (Flush Gate)
 No world-state change occurs without your physical `ACK`. When the system attempts to flush a transaction to **`Akashik.db`**, you will be presented with a summary.
@@ -28,4 +28,4 @@ No world-state change occurs without your physical `ACK`. When the system attemp
 - **`n`**: Reject and rollback the transaction.
 
 ---
-*Command and Control: ASP-GM-Agent v1.2.0 Hardened.*
+*Command and Control: ASP-GM-Agent v1.9.0 Hardened.*
