@@ -132,8 +132,9 @@
 - [x] **Akashik Seeder:** Populate `Akashik.db` with high-fidelity narrative seeds (Barks, Scenes).
 - [x] **Covert Protocol Sync:** Synchronize Go and Rust ST3GG implementations with CRC32 integrity checks.
 
-## 🕸️ PHASE 30: SOVEREIGN INTERCEPTOR (UPCOMING)
+## 🕸️ PHASE 30: SOVEREIGN INTERCEPTOR (IN PROGRESS)
 **Goal:** Transition from reactive listening to active intent interception via "Cursed" hook wrapping.
+- [ ] **Task 1: Protocol SDK Unification:** Implement a unified `Sovereign-SDK` in Rust with C-FFI exports. Migrate `crush` (Go) to use these shared headers for Mmap/VSB structures to eliminate logic drift.
 - [ ] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
 - [ ] **Hook Interception:** Wrap Foundry `game.socket.emit` to enable Node A rules-veto before state commits.
 - [ ] **Action Registry:** Port `Token Action HUD` logic to harvest available actor capabilities into Mmap.
