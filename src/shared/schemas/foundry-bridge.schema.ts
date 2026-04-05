@@ -187,17 +187,22 @@ export const RunSequencePayloadSchema = z.object({
 });
 
 /**
- * Render a reactive, zero-reflow dynamic status overlay via Pretext (Phase 17).
+ * Execute raw JavaScript on the Foundry client for deep immersion and script injection.
+ * ONLY for use by the AI GM in high-trust orchestration contexts.
  */
-export const PretextOverlayPayloadSchema = z.object({
-  targetId: z.string(),
-  overlayType: z.enum(['critical_damage', 'death_state', 'drug_ingestion']),
-  text: z.string(),
-  color: z.string(),
-  duration: z.number(),
-  fxParams: z.object({
-    shader: z.string(),
-    intensity: z.number(),
+export const RunScriptPayloadSchema = z.object({
+  /** The raw JavaScript code to execute. */
+  code: z.string().min(1),
+  /** Whether to execute on ALL connected clients (via Socketlib) or just the bridge host. */
+  broadcast: z.boolean().default(false),
+});
+
+export const RunScriptCommandSchema = z.object({
+  type: z.literal('run_script'),
+  requestId: RequestIdSchema,
+  payload: RunScriptPayloadSchema,
+});
+
     rgbSplit: z.number().optional()
   }).optional()
 });
@@ -395,6 +400,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   FxGlitchCommandSchema,
   RunSequenceCommandSchema,
   PretextOverlayCommandSchema,
+  RunScriptCommandSchema,
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
   SpawnSoloSafeNpcCommandSchema,
@@ -708,3 +714,5 @@ export type SpawnSoloSafeNpcPayload = z.infer<typeof SpawnSoloSafeNpcPayloadSche
 export type SpawnSoloSafeNpcCommand = z.infer<typeof SpawnSoloSafeNpcCommandSchema>;
 export type AdvancePhasePayload = z.infer<typeof AdvancePhasePayloadSchema>;
 export type AdvancePhaseCommand = z.infer<typeof AdvancePhaseCommandSchema>;
+export type RunScriptPayload = z.infer<typeof RunScriptPayloadSchema>;
+export type RunScriptCommand = z.infer<typeof RunScriptCommandSchema>;

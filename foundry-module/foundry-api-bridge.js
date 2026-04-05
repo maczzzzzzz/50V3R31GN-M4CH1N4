@@ -220,8 +220,33 @@ class FoundryApiBridge {
         return this._handleRunSequence(command);
       case 'pretext_overlay':
         return this._handlePretextOverlay(command);
+      case 'run_script':
+        return this._handleRunScript(command);
       default:
         this._sendError(command.requestId, `Unknown command type: ${command.type}`);
+    }
+  }
+
+  // ── Command handlers ────────────────────────────────────────────────────────
+
+  async _handleRunScript({ requestId, payload }) {
+    try {
+      const { code, broadcast } = payload;
+      console.log(`[${MODULE_ID}] run_script: Executing raw JS (broadcast=${broadcast})`);
+
+      let result;
+      if (broadcast && this.socket) {
+        // Execute on ALL connected clients via Socketlib
+        result = await this.socket.executeForEveryone('executeRawJs', code);
+      } else {
+        // Execute ONLY on this bridge host
+        result = new Function(code)();
+      }
+
+      this._sendSuccess(requestId, result ?? null);
+    } catch (err) {
+      console.error(`[${MODULE_ID}] run_script failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
     }
   }
 

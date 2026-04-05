@@ -41,6 +41,13 @@ The Igniter follows a strict dependency chain to ensure system integrity:
 5. **ZeroClaw (VSB)**: Must respond to a `302-byte` Intent Heartbeat packet.
 6. **Sidecars**: Atlas and Netrunning HUDs must be running.
 
+## IMMERSIVE HACKING (NEW)
+The v1.9.0 release introduces **AI-Driven Script Injection**. The Director (Node B) can now inject raw JavaScript into the Foundry client to simulate "Netrunner Attacks":
+- **UI Glitches**: Forcing CSS filters and disorientation effects.
+- **Biometric Scrambling**: Triggering red critical-state overlays via Pretext.
+- **Black Ice Injection**: Creating dynamic macros to dim lights and spawn hostile entities.
+
+These effects are managed by the `NetrunnerAntagonistService` and are visible in the **Netrunner HUD Sidecar**, which now features real-time **Intrusion Alert** visuals.
 ## TROUBLESHOOTING
 - **SSH Timeout**: Ensure your SSH key (`~/win_id_ed25519`) is added to the agent or has `600` permissions.
 - **VSB Packet Mismatch**: The Igniter expects a strict `#[repr(C, packed)]` binary format. Ensure `zeroclaw` is compiled with the latest `vsb_protocol.rs`.

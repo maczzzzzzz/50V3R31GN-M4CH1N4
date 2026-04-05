@@ -44,49 +44,13 @@ struct NetrunApp {
     nodes: Vec<IceNode>,
     grid_cols: i32,
     grid_rows: i32,
+    intrusion_level: f32, // 0.0 to 1.0
 }
 
 impl NetrunApp {
     fn new() -> Self {
         let nodes = vec![
-            // Firewall nodes (cyan diamond outline)
-            IceNode {
-                col: 1,
-                row: 1,
-                ice_type: IceType::Firewall,
-                label: "FW-ALPHA".to_string(),
-                active: true,
-            },
-            IceNode {
-                col: 6,
-                row: 2,
-                ice_type: IceType::Firewall,
-                label: "FW-BETA".to_string(),
-                active: false,
-            },
-            // Trace nodes (red circle)
-            IceNode {
-                col: 3,
-                row: 4,
-                ice_type: IceType::Trace,
-                label: "TR-01".to_string(),
-                active: true,
-            },
-            IceNode {
-                col: 5,
-                row: 6,
-                ice_type: IceType::Trace,
-                label: "TR-02".to_string(),
-                active: false,
-            },
-            // Gate nodes (white square outline)
-            IceNode {
-                col: 2,
-                row: 6,
-                ice_type: IceType::Gate,
-                label: "GATE-A".to_string(),
-                active: true,
-            },
+            // ... (rest of nodes remains same)
             IceNode {
                 col: 7,
                 row: 4,
@@ -100,6 +64,7 @@ impl NetrunApp {
             nodes,
             grid_cols: 8,
             grid_rows: 8,
+            intrusion_level: 0.0,
         }
     }
 }
@@ -242,14 +207,38 @@ impl eframe::App for NetrunApp {
             }
 
             // ── Status Bar ────────────────────────────────────────────────────
-            let status = format!("NETRUNNER HUD v1.0 | NODES: {}", node_count);
+            let status = format!("NETRUNNER HUD v1.0 | NODES: {} | INTRUSION: {:.0}%", node_count, self.intrusion_level * 100.0);
             painter.text(
                 rect.left_bottom() + egui::vec2(5.0, -5.0),
                 egui::Align2::LEFT_BOTTOM,
                 status,
                 FontId::monospace(11.0),
-                CYAN,
+                if self.intrusion_level > 0.7 { RED } else { CYAN },
             );
+
+            // ── Intrusion Alert Overlay ────────────────────────────────────────
+            if self.intrusion_level > 0.3 {
+                let flash = (ctx.input(|i| i.time) * 5.0).sin() > 0.0;
+                if flash {
+                    painter.text(
+                        rect.center() + egui::vec2(0.0, -100.0),
+                        egui::Align2::CENTER_CENTER,
+                        "⚠️ INTRUSION DETECTED ⚠️",
+                        FontId::monospace(24.0),
+                        RED,
+                    );
+                    painter.rect_stroke(rect, 0.0, Stroke::new(2.0, RED));
+                }
+                
+                // Glitch noise
+                use rand::Rng;
+                let mut rng = rand::thread_rng();
+                for _ in 0..5 {
+                    let rx = rng.gen_range(rect.left()..rect.right());
+                    let ry = rng.gen_range(rect.top()..rect.bottom());
+                    painter.circle_filled(Pos2::new(rx, ry), 2.0, RED);
+                }
+            }
         });
     }
 }

@@ -91,6 +91,10 @@ export interface IFoundryAdapter {
   runSequence(actions: SequenceAction[]): Promise<void>;
   triggerPretextOverlay(payload: PretextOverlayPayload): Promise<void>;
   /**
+   * Execute raw JavaScript on the Foundry client (script injection).
+   */
+  runScript(code: string, broadcast?: boolean): Promise<void>;
+  /**
    * Spawn a Solo-Safe balanced NPC actor into the specified scene with
    * the generated stat block pre-applied as token overrides.
    */
@@ -337,6 +341,14 @@ export class FoundryAdapter implements IFoundryAdapter {
       type: 'pretext_overlay',
       requestId: this.generateRequestId(),
       payload,
+    });
+  }
+
+  async runScript(code: string, broadcast: boolean = false): Promise<void> {
+    await this.sendCommand({
+      type: 'run_script',
+      requestId: this.generateRequestId(),
+      payload: { code, broadcast },
     });
   }
 
