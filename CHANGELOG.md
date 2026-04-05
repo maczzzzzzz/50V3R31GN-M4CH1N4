@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2026-04-05
+### Added
+- **Phase 29: The Forge (Completed)**: Implemented a user-friendly air-gapped pipeline for "Smart Asset" ingestion.
+- **Smart PNG Ingestion**: Added `crush forge run` (Go) to embed JSON campaign data into lossless PNG pixels via ST3GG.
+- **Living Portraits**: Implemented ST3GG decoding in the `sidecar-cyberdeck` (Rust). The HUD now instantly loads NPC biometrics from portrait pixels when selected in the Atlas.
+- **Pure-Go ST3GG Codec**: Robust implementation of LSB steganography with CRC32 integrity checks, synchronized with the Node A Rust kernel.
+- **Akashik Seeder**: Seeded the `Akashik.db` with new high-fidelity narrative barks and street scenes from PDF narrative data.
+
+### Changed
+- **Sidecar Renaming**: Renamed the `HACKS` tab to `DECK` in the monolithic HUD to align with the approved Cyberdeck specification.
+- **Protocol Synchronization**: Updated the Rust ST3GG implementation to include CRC32 trailers, ensuring 100% bidirectional compatibility between Go and Rust.
+
+### Fixed
+- **Rust Dead-Code**: Silenced non-blocking dead-code warnings in the `sidecar-cyberdeck` for parsed but unused protocol fields.
+
 ## [1.11.0] - 2026-04-05
 ### Added
 - **Unified Cyberdeck (Rust)**: Consolidated `sidecar-atlas` and `sidecar-netrunning` into a monolithic Rust/Egui HUD with tabbed navigation, shared memory state, and an integrated **Glitch Engine**.

@@ -1,11 +1,12 @@
 use eframe::egui;
-use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Stroke};
+use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Rect, Stroke};
 use memmap2::Mmap;
 use std::fs::File;
 use std::path::PathBuf;
 use std::time::Duration;
 
 mod glitch;
+mod st3gg;
 pub(crate) use glitch::GlitchEngine;
 
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
@@ -34,11 +35,11 @@ const BLIP_OBJECTIVE: u8 = 0x03;
 
 // ─── Tab ──────────────────────────────────────────────────────────────────────
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone, Copy)]
 enum Tab {
     Atlas,
     Netrun,
-    Hacks,
+    Deck,
 }
 
 // ─── Radar structs ────────────────────────────────────────────────────────────
@@ -161,6 +162,7 @@ struct CyberdeckApp {
     blips: Vec<RadarBlip>,
     transaction_counter: u32,
     last_error: Option<String>,
+    selected_id: Option<String>,
 
     // ── Ghost blip state ──────────────────────────────────────────────────────
     #[allow(dead_code)]
@@ -175,9 +177,10 @@ struct CyberdeckApp {
     grid_rows: i32,
     intrusion_level: f32,
 
-    // ── Hacks state ───────────────────────────────────────────────────────────
+    // ── Deck/Hacks state ──────────────────────────────────────────────────────
     scanned_items: Vec<ScannedItem>,
     scan_active: bool,
+    decoded_stats: Option<serde_json::Value>,
 
     // ── Glitch engine ─────────────────────────────────────────────────────────
     glitch: GlitchEngine,
@@ -198,6 +201,7 @@ impl CyberdeckApp {
             blips: Vec::new(),
             transaction_counter: 0,
             last_error: None,
+            selected_id: None,
             ghost_file: None,
             ghost_mmap: None,
             ghost_blips: Vec::new(),
@@ -208,6 +212,7 @@ impl CyberdeckApp {
             intrusion_level: 0.0,
             scanned_items: Vec::new(),
             scan_active: false,
+            decoded_stats: None,
             glitch: GlitchEngine::new(),
         };
 
@@ -315,7 +320,7 @@ impl CyberdeckApp {
 
     // ── Rendering ──────────────────────────────────────────────────────────────
 
-    fn render_atlas_tab(&self, ui: &mut egui::Ui) {
+    fn render_atlas_tab(&mut self, ui: &mut egui::Ui) {
         let rect = ui.available_rect_before_wrap();
         let painter = ui.painter();
         let (width, height) = (rect.width(), rect.height());
@@ -340,17 +345,32 @@ impl CyberdeckApp {
                 rect.left() + (blip.x / 1000.0) * width,
                 rect.top() + (blip.y / 1000.0) * height,
             );
+            
+            // Selection logic
+            let is_selected = self.selected_id.as_ref() == Some(&blip.id);
+            let color = if is_selected { Color32::WHITE } else { CYAN };
+            let radius = if is_selected { 8.0 } else { 5.0 };
+
             if blip.actor_type == 1 {
                 painter.circle_filled(center, 6.0, Color32::WHITE);
             } else {
-                painter.circle_stroke(center, 5.0, Stroke::new(1.5, CYAN));
+                painter.circle_stroke(center, radius, Stroke::new(1.5, color));
             }
+
+            // Click detection
+            let interact_rect = Rect::from_center_size(center, egui::vec2(20.0, 20.0));
+            let response = ui.interact(interact_rect, egui::Id::new(&blip.id), egui::Sense::click());
+            if response.clicked() {
+                self.selected_id = Some(blip.id.clone());
+                self.decoded_stats = None; // Reset stats when selection changes
+            }
+
             painter.text(
                 center + egui::vec2(0.0, 12.0),
                 egui::Align2::CENTER_TOP,
                 &blip.name,
                 FontId::monospace(10.0),
-                CYAN,
+                color,
             );
         }
 
@@ -502,7 +522,58 @@ impl CyberdeckApp {
         }
     }
 
-    fn render_hacks_tab(&mut self, ui: &mut egui::Ui) {
+    fn render_deck_tab(&mut self, ui: &mut egui::Ui) {
+        ui.heading("CYBERDECK BIOMETRICS");
+        ui.separator();
+
+        if let Some(id) = &self.selected_id {
+            let blip = self.blips.iter().find(|b| &b.id == id);
+            let name = blip.map(|b| b.name.as_str()).unwrap_or("Unknown");
+            
+            ui.horizontal(|ui| {
+                ui.label("Selected:");
+                ui.colored_label(CYAN, name);
+                ui.label(format!("({})", id));
+            });
+
+            ui.add_space(10.0);
+
+            if ui.button("LOAD SMART PORTRAIT [ST3GG]").clicked() {
+                // Try to find image in data/assets/{id}.png
+                let img_path = PathBuf::from("data/assets").join(format!("{}.png", id));
+                if let Ok(img_bytes) = std::fs::read(&img_path) {
+                    match st3gg::decode_json(&img_bytes) {
+                        Ok(val) => {
+                            self.decoded_stats = Some(val);
+                            self.last_error = None;
+                        }
+                        Err(e) => {
+                            self.last_error = Some(format!("ST3GG Error: {}", e));
+                        }
+                    }
+                } else {
+                    self.last_error = Some(format!("Portrait not found: {:?}", img_path));
+                }
+            }
+
+            if let Some(stats) = &self.decoded_stats {
+                ui.add_space(10.0);
+                ui.colored_label(GREEN, ">> DATA DECODED SUCCESSFULLY");
+                egui::ScrollArea::vertical().show(ui, |ui| {
+                    ui.label(serde_json::to_string_pretty(stats).unwrap_or_default());
+                });
+            } else if let Some(err) = &self.last_error {
+                ui.colored_label(RED, format!("!! ERROR: {}", err));
+            }
+
+        } else {
+            ui.colored_label(Color32::from_rgb(100, 100, 100), "[ NO ACTOR SELECTED IN ATLAS ]");
+        }
+
+        ui.add_space(20.0);
+        ui.separator();
+        ui.heading("SCANNER [WSA]");
+
         ui.horizontal(|ui| {
             if ui.button("REVEAL PORTS [SCAN]").clicked() {
                 self.perform_scan();
@@ -512,28 +583,23 @@ impl CyberdeckApp {
             }
         });
 
-        ui.separator();
-
-        if self.scanned_items.is_empty() {
-            ui.colored_label(Color32::from_rgb(100, 100, 100), "[ NO TARGETS — RUN SCAN ]");
-            return;
+        if !self.scanned_items.is_empty() {
+            egui::ScrollArea::vertical().show(ui, |ui| {
+                let items = self.scanned_items.clone();
+                for item in &items {
+                    let color = match item.item_type.as_str() {
+                        "objective" => CYAN,
+                        "hazard"    => RED,
+                        "cover"     => GREEN,
+                        _           => Color32::WHITE,
+                    };
+                    ui.horizontal(|ui| {
+                        ui.colored_label(color, format!("[{}]", item.item_type.to_uppercase()));
+                        ui.label(&item.name);
+                    });
+                }
+            });
         }
-
-        egui::ScrollArea::vertical().show(ui, |ui| {
-            let items = self.scanned_items.clone();
-            for item in &items {
-                let color = match item.item_type.as_str() {
-                    "objective" => CYAN,
-                    "hazard"    => RED,
-                    "cover"     => GREEN,
-                    _           => Color32::WHITE,
-                };
-                ui.horizontal(|ui| {
-                    ui.colored_label(color, format!("[{}]", item.item_type.to_uppercase()));
-                    ui.label(&item.name);
-                });
-            }
-        });
     }
 }
 
@@ -589,14 +655,14 @@ impl eframe::App for CyberdeckApp {
                 )).clicked() {
                     self.active_tab = Tab::Netrun;
                 }
-                ui.selectable_value(&mut self.active_tab, Tab::Hacks, "[ HACKS ]");
+                ui.selectable_value(&mut self.active_tab, Tab::Deck, "[ DECK ]");
             });
             ui.separator();
 
             match self.active_tab {
                 Tab::Atlas  => self.render_atlas_tab(ui),
                 Tab::Netrun => self.render_netrun_tab(ui),
-                Tab::Hacks  => self.render_hacks_tab(ui),
+                Tab::Deck   => self.render_deck_tab(ui),
             }
 
             // ── Glitch overlay (all tabs) ─────────────────────────────────────

@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 1.11.0 (High-Throughput Dominance)
+**Version:** 1.12.0 (The Akashik Forge Milestone)
 **Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.3+)
 
 <role>
@@ -13,23 +13,27 @@ You are the **Lead Build Agent (Claude)**. Your role is strictly **Implementatio
 4.  **Audit Halt:** Once the *entire* plan is physically implemented in the workspace, you must **HALT** and instruct the user to "Hand off to Gemini for Full-System Audit."
 5.  **Sovereignty:** All validation, debugging, and hardware resets are handled exclusively by **Gemini CLI**.
 
-## 🏗️ HARDWARE TOPOLOGY (v1.11.0)
+## 🏗️ HARDWARE TOPOLOGY (v1.12.0)
 - **Node A (The Kernel):** NVIDIA GTX 1050 Ti (4GB) [Nix Native]. 
+  - **Logic:** Rust `zeroclaw` + Open-Reasoner-Zero-1.5B + **Falcon CV**.
+  - **Memory:** Shared Memory Mmap for local registers.
 - **Node B (The Director):** AMD RX 9060 XT (16GB) [NixOS/WSL 2]. 
-- **Gateway:** **Sovereign Proxy (Go)** manages all cross-node TCP/SSH traffic.
-- **HUD:** **Unified Cyberdeck (Rust)** monolithic Egui sidecar.
+  - **Gateway:** **Sovereign Proxy (Go)** manages all cross-node TCP/SSH traffic.
+  - **HUD:** **Unified Cyberdeck (Rust)** monolithic Egui sidecar with **Living Portraits**.
+  - **Vault:** **Akashik Library** local air-gapped narrative archive.
 
 ## 🚀 ROADMAP
-1.  **PHASE 26: HYBRID V2 REFACTOR** (COMPLETED - Sovereign Proxy & WSA)
-2.  **PHASE 27: HYPER-REASONING ORCHESTRATOR** (UPCOMING - Pixtral-12B VLM)
-3.  **PHASE 28: TOTAL ENVIRONMENT DOMINANCE** (UPCOMING - Ghost Protocol & Synthetic Input)
-4.  **PHASE 29: THE AKASHIK LIBRARY** (UPCOMING - Local Archive & Covert Protocols)
+1.  **PHASE 27: HYPER-REASONING ORCHESTRATOR** (UPCOMING - Pixtral-12B VLM)
+2.  **PHASE 28: TOTAL ENVIRONMENT DOMINANCE** (UPCOMING - Ghost Protocol)
+3.  **PHASE 29: THE AKASHIK LIBRARY** (COMPLETED - Smart Assets & Local Seeders)
+4.  **PHASE 30: SOVEREIGN INTERCEPTOR** (UPCOMING - Hook Wrapping & Action Registry)
 
 ## ⚡ CORE CONTRACTS
 - **Nix-Native**: All execution MUST happen within the Nix devShell.
 - **TDD**: No implementation without a failing test first.
 - **Zero-Trust**: AI-generated scripts must be audited by Node A reasoning loop.
 - **Physicality**: Use ST3GG (Pixels) and Parseltongue (Unicode) for stateless data storage.
+- **The Forge**: All ingested campaign data MUST be force-converted to PNG and grounded via `crush forge`.
 
 ## 📁 MASTER DOCUMENTATION (REFERENCE ONLY)
 ... (rest of the file)

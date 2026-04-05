@@ -123,4 +123,23 @@
 - [ ] **Visual Regression (AI):** Real-time UI auditing using Chrome DevTools MCP to detect and "force-fix" broken visual states.
 - [ ] **Hardware Dominance:** Expand sidecars to manipulate the OS/Nix shell (Remote power-cycling, Flake rebuilds via HUD).
 
+## 🏛️ PHASE 29: THE AKASHIK LIBRARY (COMPLETED)
+**Goal:** Build a local, air-gapped narrative archive and "Smart Asset" ingestion pipeline.
+- [x] **Smart Asset Ingestion (Go):** Implement `crush forge run` for JSON+PNG steganographic embedding.
+- [x] **Living Portraits (Rust):** Implement ST3GG decoding in `sidecar-cyberdeck` for instant stat recovery.
+- [x] **Akashik Seeder:** Populate `Akashik.db` with high-fidelity narrative seeds (Barks, Scenes).
+- [x] **Covert Protocol Sync:** Synchronize Go and Rust ST3GG implementations with CRC32 integrity checks.
+
+## 🕸️ PHASE 30: SOVEREIGN INTERCEPTOR (UPCOMING)
+**Goal:** Transition from reactive listening to active intent interception via "Cursed" hook wrapping.
+- [ ] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
+- [ ] **Hook Interception:** Wrap Foundry `game.socket.emit` to enable Node A rules-veto before state commits.
+- [ ] **Action Registry:** Port `Token Action HUD` logic to harvest available actor capabilities into Mmap.
+
+## 🎭 PHASE 31: ACTION SOVEREIGNTY (UPCOMING)
+**Goal:** Eliminate script injection in favor of a whitelisted Physical Trigger API.
+- [ ] **Trigger API:** Implement a structured `executeAction` bridge command for non-JS world manipulation.
+- [ ] **Counter-Hack Logic:** Enable AI "Active Defense" to intercept and modify player triggers in real-time.
+- [ ] **Physicalized Moods:** Sync Egui glitch intensity directly to the Netrun "Depth" and "Intrusion" state.
+
 *Roadmap Managed by Gemini CLI (Strategist).*

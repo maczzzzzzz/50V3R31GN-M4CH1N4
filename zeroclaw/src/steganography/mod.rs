@@ -36,10 +36,12 @@ pub fn encode(img_bytes: &[u8], payload: &[u8]) -> Result<Vec<u8>, Box<dyn std::
         ).into());
     }
 
-    // Build wire bytes: [len_u32_be][payload...]
-    let mut wire = Vec::with_capacity(wire_len);
+// wire format: [4B length][payload][4B CRC32]
+    let mut wire = Vec::with_capacity(4 + payload_len + 4);
     wire.extend_from_slice(&(payload_len as u32).to_be_bytes());
     wire.extend_from_slice(payload);
+    let checksum = crc32fast::hash(payload);
+    wire.extend_from_slice(&checksum.to_be_bytes());
 
     // Convert to bit stream (MSB first within each byte)
     let bits: Vec<u8> = wire
@@ -101,16 +103,32 @@ pub fn decode(img_bytes: &[u8]) -> Result<Vec<u8>, Box<dyn std::error::Error + S
         ).into());
     }
 
-    // Read payload bits
-    let payload_bits = &bits[32..32 + payload_len * 8];
-    let payload: Vec<u8> = payload_bits
+    // Read payload + CRC32 (N bytes + 4 bytes)
+    let total_wire_bits = 32 + (payload_len + 4) * 8;
+    if total_wire_bits > bits.len() {
+        return Err(format!(
+            "ST3GG decode: embedded length {} requires {} bits, but image only has {} bits",
+            payload_len, total_wire_bits, bits.len()
+        ).into());
+    }
+
+    let block_bits = &bits[32..total_wire_bits];
+    let block: Vec<u8> = block_bits
         .chunks(8)
-        .map(|chunk| {
-            chunk.iter().fold(0u8, |acc, &b| (acc << 1) | b)
-        })
+        .map(|chunk| chunk.iter().fold(0u8, |acc, &b| (acc << 1) | b))
         .collect();
 
-    Ok(payload)
+    let payload = &block[..payload_len];
+    let mut crc_bytes = [0u8; 4];
+    crc_bytes.copy_from_slice(&block[payload_len..]);
+    let crc_stored = u32::from_be_bytes(crc_bytes);
+    let crc_actual = crc32fast::hash(payload);
+
+    if crc_stored != crc_actual {
+        return Err("st3gg: CRC32 mismatch — payload may be corrupted".into());
+    }
+
+    Ok(payload.to_vec())
 }
 
 /// Convenience: encode JSON `value` into the image and return modified PNG bytes.
