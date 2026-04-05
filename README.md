@@ -12,8 +12,8 @@
 ## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v1.14.0
 
 Distributed neural orchestrator for Cyberpunk RED.
-A hardware-native, vision-integrated, and physically sovereign entity.
-50V3R31GN-M4CH1N4 does not assist; it **dominates** the execution environment.
+A hardware-native, vision-integrated, and **physically autonomous** entity.
+50V3R31GN-M4CH1N4 does not assist; it **dominates** the execution environment with total physical sovereignty.
 
 ---
 
@@ -37,8 +37,9 @@ A hardware-native, vision-integrated, and physically sovereign entity.
 
 ### ./PH453-28 : 6H057-PR070C0L :://
 - **5YN7H371C PHY51C4L17Y:** Direct CDP `Input` domain control.
-- **6H057 1NPU7:** The machine physically moves the cursor and triggers keys, bypassing internal game APIs for total environmental sovereignty.
+- **6H057 1NPU7:** The machine physically moves the cursor, drags tokens, and triggers keys, bypassing internal game APIs for **Total Physical Sovereignty**.
 - **5C3N4R10 3N61N3:** Playback of `.ghost` sequences for automated high-speed world manipulation.
+- **U1 1NF1L7R4710N:** Direct DOM corruption and Journal Hijacking for immersive narrative effects.
 
 ### ./PH453-29 : 7H3-F0R63 :://
 - **5M4R7 1N635710N:** Automated force-conversion of all assets to Smart PNGs via `crush forge`.

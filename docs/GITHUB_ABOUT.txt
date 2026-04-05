@@ -1,9 +1,9 @@
 50V3R31GN-M4CH1N4 // THE GHOST PROTOCOL [v1.14.0]
 
-Total Environment Dominance // Synthetic Input // CDP Sovereignty
+Total Environment Dominance // Synthetic Input // Physical Sovereignty
 Native Hybrid (Go/Rust/TS) // Sub-1ms VSB Binary UDP Highway
 Perception: ST3GG LSB-embedded map metadata // Pixtral-12B VLM Audit
-Control: Ghost Protocol Synthetic Input // Interceptor Hook Wrapping
+Control: Ghost Protocol Physical Input // Interceptor Hook Wrapping
 Authority: Open-Reasoner-1.5B // Hardware Residency (mlock)
-Future: Action Sovereignty // Physical Trigger API // Counter-Hacks
+Autonomy: Physically drags tokens, types keys, and corrupts UI via CDP.
 ::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE
