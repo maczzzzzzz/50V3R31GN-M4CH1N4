@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2026-04-05
+### Added
+- **Unified Cyberdeck (Rust)**: Consolidated `sidecar-atlas` and `sidecar-netrunning` into a monolithic Rust/Egui HUD with tabbed navigation, shared memory state, and an integrated **Glitch Engine**.
+- **High-Throughput Partnership Protocol**: Established new guidelines for Claude (Build) and Gemini (Strategy) to optimize development speed and token usage.
+- **Extended WSA Commands**: Added `hack` and `scan` subcommands to `crush` CLI for physical world manipulation.
+- **Smart Asset System (Design Approved)**: Codified v1.12.0 spec for PNG-enforced steganography and atomized token grounding.
+
+### Changed
+- **Sidecar Consolidation**: All tactical and network visualization is now handled by a single high-performance binary (`sidecar-cyberdeck`).
+- **Partnership Guideline**: Claude now completes entire implementation plans before handing off to Gemini for audit.
+
+### Fixed
+- **Egui 0.31 Compatibility**: Added required `StrokeKind::Middle` to `rect_stroke` calls in the glitch shader and HUD main loop.
+- **Dead-Code Remediation**: Silenced warnings for parsed protocol fields in `RadarBlip` and `ScannedItem` structs.
+
 ## [1.10.0] - 2026-04-05
 ### Added
 - **Phase 26: Hybrid V2 Refactor (Initiated)**: Commenced massive architectural shift to Go-based orchestration and Rust-based state authority.
