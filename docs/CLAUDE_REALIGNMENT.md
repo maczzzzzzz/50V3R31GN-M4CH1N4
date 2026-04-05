@@ -11,20 +11,18 @@ The project has successfully transitioned to **v1.9.0 (Sovereign Highway Stabili
 ## 🛠️ TECHNICAL DIRECTIVES (NON-NEGOTIABLE)
 
 ### 1. VSB BINARY PROTOCOL (C-PACKED)
-All inter-node communication must strictly follow the `#[repr(C, packed)]` schema in `src/shared/vsb_protocol.rs`:
-- **IntentPacket:** Exactly **302 bytes**.
-- **ResultPacket:** Exactly **290 bytes**.
-- **SovereignHeader (13 bytes):** Magic `0xC0DE` (u16 LE), Version `0x01`, PacketType, SequenceID, PayloadLen, Checksum (XOR of bytes 0-11).
-- **Heartbeat:** `IntentType::Roll (0x01)` with payload `HEARTBEAT_PROBE`.
+... (omitted for brevity)
 
 ### 2. DECK IGNITER ORCHESTRATION
-- **Remediated Logic:** Probes for `foundry-vtt` (CDP 9222), `director` (TCP 3010), `sidecars` (PID Signal 0), and `zeroclaw` (302-byte VSB UDP).
-- **Config:** Dynamic `.env` mapping for `NODE_A_HOST`, `CLAWLINK_USER`, `CLAWLINK_SSH_PORT`, and `ZEROCLAW_PORT`.
+... (omitted for brevity)
 
-### 3. NIX-NATIVE EXECUTION
-- **Environment:** All commands MUST run within the `nix develop` shells.
-- **Node A:** Use `. #cuda` flake output.
-- **Node B:** Use default `nix develop` (Vulkan/AMD).
+### 3. AI-DRIVEN SCRIPT INJECTION (NEW)
+- **Power:** Node B can now inject raw JavaScript into Foundry via `foundry.runScript(code, broadcast)`.
+- **Trust:** This is a high-privilege orchestration tool. Use it for immersive effects (UI glitches, sound triggers, lighting shifts).
+- **Service:** `NetrunnerAntagonistService` provides a high-level API for these "attacks."
+
+### 4. NIX-NATIVE EXECUTION
+... (omitted for brevity)
 
 ## 🗺️ RESEARCH & SPEC ANCHORS
 - **Phase 25:** Native Inference Engine (llama-server migration completed).
