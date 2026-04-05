@@ -28,6 +28,7 @@ import { bootstrapTttaPart1, createTttaPart1InitialState } from './core/campaign
 import { DiscordChroniclerClient } from './core/discord-chronicler-client.js';
 import { SpatialVisionService } from './core/spatial-vision-service.js';
 import { VisualMonitorService } from './core/visual-monitor-service.js';
+import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
 
 async function main() {
   console.log('🌃 ASP.GM-Agent: Booting Orchestrator (v0.8.3)...');
@@ -99,6 +100,11 @@ async function main() {
   const architect = new ArchitectPassService(neuralUplink);
 
   // 7. Assemble Orchestration Loop
+  const auditor = new AkashikVisualAuditor(
+    oracle,
+    process.env.VLM_ENDPOINT,
+  );
+
   const controller = new HybridRoutingController({
     nitroLogicClient: nitroLogic,
     vsbClient: vsbClient,
@@ -113,6 +119,7 @@ async function main() {
     chronicler,
     visualMonitor: neuralUplink,
     architect,
+    auditor,
     onboardingEnabled: true,
   });
 

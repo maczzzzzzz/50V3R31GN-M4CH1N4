@@ -27,6 +27,7 @@ import { OnboardingController, type BuildType } from './onboarding-controller.js
 import { RulesGrepService } from './rules-grep-service.js';
 import { MissionSwarmOrchestrator } from './mission-swarm-orchestrator.js';
 import { SteganographyService } from './steganography-service.js';
+import { AkashikVisualAuditor } from './akashik-visual-auditor.js';
 import { VsbClient } from '../api/vsb-client.js';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
 import fs from 'node:fs';
@@ -54,6 +55,7 @@ export interface HybridRoutingControllerOptions {
   readonly sharedMemoryService?: SharedMemoryService | undefined;
   readonly missionSwarm?: MissionSwarmOrchestrator | undefined;
   readonly turnDaemon?: TurnDaemon | undefined;
+  readonly auditor?: AkashikVisualAuditor | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -80,6 +82,7 @@ export class HybridRoutingController {
   private readonly steganographyService: SteganographyService;
   private readonly taskRouter: TaskRouterProxy;
   private readonly vsb: VsbClient | undefined;
+  private readonly auditor: AkashikVisualAuditor | undefined;
 
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
@@ -106,6 +109,7 @@ export class HybridRoutingController {
     this.turnDaemon = options.turnDaemon;
     this.steganographyService = new SteganographyService();
     this.taskRouter = new TaskRouterProxy();
+    this.auditor = options.auditor;
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -324,6 +328,8 @@ export class HybridRoutingController {
         return this.handleNpcTurn(event.payload);
       case 'thought_stream':
         return this.handleThoughtStream(event.payload);
+      case 'audit_library':
+        return this.handleAuditLibrary(event.payload);
       default: {
         const exhaustiveCheck: never = event;
         throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as any).type}'`);
@@ -710,6 +716,19 @@ export class HybridRoutingController {
     await this.foundry.streamThoughtTokens(payload.content, (token) => {
       this.clawlink?.publish(JSON.stringify({ type: 'token', token }));
     });
+  }
+
+  private async handleAuditLibrary(payload: { assetsDir?: string }): Promise<void> {
+    if (!this.auditor) {
+      console.warn('[HRC] audit_library received but AkashikVisualAuditor is not wired.');
+      return;
+    }
+    console.log('[HRC] Starting AkashikVisualAuditor global lore extraction pass...');
+    const count = await this.auditor.runGlobalAudit(payload.assetsDir);
+    console.log(`[HRC] Visual audit complete. ${count} lore seeds extracted and saved to library.`);
+    await this.foundry.sendChatMessage(
+      `📚 **Akashik Audit Complete** — ${count} lore seed(s) extracted from visual assets and committed to the library.`
+    );
   }
 
   private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {

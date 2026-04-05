@@ -76,6 +76,62 @@ export class GhostInputService {
   }
 
   /**
+   * Dispatch a single key press (keyDown + keyUp).
+   * Handles printable characters and named keys (e.g. 'Enter', 'Escape', 'Tab').
+   */
+  async dispatchKey(key: string): Promise<void> {
+    const client = this.visualMonitor.getClient();
+    // Named keys map to their DOM key identifiers; single chars use their value as text.
+    const isPrintable = key.length === 1;
+    await client.Input.dispatchKeyEvent({
+      type: 'keyDown',
+      key,
+      text: isPrintable ? key : undefined,
+    });
+    await client.Input.dispatchKeyEvent({
+      type: 'keyUp',
+      key,
+      text: isPrintable ? key : undefined,
+    });
+    console.log(`📡 GhostInput: Physical KEY dispatched: ${key}`);
+  }
+
+  /**
+   * Move a Foundry token to new canvas coordinates using a physical drag sequence.
+   * Resolves the token's current screen position via CDP Runtime, then calls dragGesture.
+   */
+  async dragToken(tokenId: string, targetCanvasX: number, targetCanvasY: number): Promise<void> {
+    const client = this.visualMonitor.getClient();
+
+    // Resolve the token's current screen coordinates from Foundry canvas state.
+    const { result, exceptionDetails } = await client.Runtime.evaluate({
+      expression: `(function() {
+        const token = canvas.tokens.get(${JSON.stringify(tokenId)});
+        if (!token) throw new Error('Token not found: ' + ${JSON.stringify(tokenId)});
+        const stage = canvas.app.stage;
+        // Convert canvas coordinates to screen coordinates via the PIXI stage transform.
+        const screenFrom = stage.toGlobal({ x: token.x, y: token.y });
+        const screenTo   = stage.toGlobal({ x: ${targetCanvasX}, y: ${targetCanvasY} });
+        return { fromX: screenFrom.x, fromY: screenFrom.y, toX: screenTo.x, toY: screenTo.y };
+      })()`,
+      returnByValue: true,
+    });
+
+    if (exceptionDetails) {
+      throw new Error(
+        `[GhostInputService] dragToken coordinate resolution failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
+      );
+    }
+
+    const coords = result.value as { fromX: number; fromY: number; toX: number; toY: number };
+    await this.dragGesture(
+      { x: coords.fromX, y: coords.fromY },
+      { x: coords.toX,   y: coords.toY },
+    );
+    console.log(`📡 GhostInput: Token ${tokenId} dragged to canvas (${targetCanvasX}, ${targetCanvasY})`);
+  }
+
+  /**
    * Perform a physical drag-and-drop operation.
    * Useful for moving tokens or dragging items from sidebar.
    */
