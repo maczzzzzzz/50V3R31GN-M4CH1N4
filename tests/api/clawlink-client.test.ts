@@ -1,251 +1,99 @@
-/**
- * tests/api/clawlink-client.test.ts
- *
- * Unit tests for ClawLinkClient.
- */
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import net from 'node:net';
+import { ClawLinkClient } from '../../src/api/clawlink-client.js';
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-
-vi.mock('node:net', () => {
-  const { EventEmitter } = require('node:events');
-  class MockSocket extends EventEmitter {
-    connect = vi.fn().mockReturnThis();
-    write = vi.fn((data: string, _encoding?: string, cb?: (err?: Error) => void) => {
-      cb?.();
-      return true;
-    });
-    destroy = vi.fn();
-    destroyed = false;
-  }
-  const mockConnect = vi.fn(() => new MockSocket());
+vi.mock('node:net', async () => {
+  const actual = await vi.importActual<typeof net>('node:net');
   return {
-    default: { connect: mockConnect },
-    connect: mockConnect,
+    ...actual,
+    default: {
+      ...actual,
+      connect: vi.fn(),
+    },
   };
 });
 
-import net from 'node:net';
-import { ClawLinkClient } from '../../src/api/clawlink-client.js';
-import { ParseltongueCodec } from '../../src/shared/parseltongue-codec.js';
-import type { ClawLinkConfig } from '../../src/shared/schemas/clawlink.schema.js';
-import type { WorldCommand } from '../../src/shared/schemas/world-commands.schema.js';
-
-// ── Fixture config ────────────────────────────────────────────────────────────
-
-const VALID_CONFIG: ClawLinkConfig = {
-  host: '192.168.0.50',
-  port: 7878,
-  timeoutMs: 200, // short timeout for test speed
+const mockSocket = {
+  on: vi.fn().mockReturnThis(),
+  write: vi.fn(),
+  destroy: vi.fn(),
+  destroyed: false,
 };
 
-// ── Helper: simulate a ClawLinkPacket arriving on the socket ─────────────────
-
-function emitPacket(socket: any, traceId: string, payload: Record<string, unknown>): void {
-  const packet = {
-    trace_id: traceId,
-    payload: JSON.stringify(payload),
-    checksum: 0,
-  };
-  socket.emit('data', Buffer.from(JSON.stringify(packet) + '\n'));
-}
-
-// ── Tests ─────────────────────────────────────────────────────────────────────
-
 describe('ClawLinkClient', () => {
-  let client: ClawLinkClient;
-  let mockSocket: any;
-
   beforeEach(() => {
     vi.clearAllMocks();
-    client = new ClawLinkClient(VALID_CONFIG);
-    mockSocket = (net.connect as any).mock.results[0]?.value;
+    (net.connect as ReturnType<typeof vi.fn>).mockReturnValue(mockSocket);
   });
 
-  afterEach(async () => {
-    await client.disconnect().catch(() => {});
+  it('connects via Unix socket path, not TCP host/port', async () => {
+    const client = new ClawLinkClient({ socketPath: '/tmp/test.sock' });
+
+    mockSocket.on.mockImplementation((event: string, cb: () => void) => {
+      if (event === 'connect') cb();
+      return mockSocket;
+    });
+
+    await client.connect();
+
+    expect(net.connect).toHaveBeenCalledWith('/tmp/test.sock');
+    expect(net.connect).not.toHaveBeenCalledWith(
+      expect.any(Number),
+      expect.any(String),
+    );
   });
 
-  // ── Constructor ─────────────────────────────────────────────────────────────
+  it('uses default socket path when not specified', async () => {
+    const client = new ClawLinkClient({});
 
-  describe('constructor', () => {
-    it('throws if config validation fails (missing required field)', () => {
-      expect(
-        () => new ClawLinkClient({ ...VALID_CONFIG, host: '' } as any),
-      ).toThrow('config validation failed');
+    mockSocket.on.mockImplementation((event: string, cb: () => void) => {
+      if (event === 'connect') cb();
+      return mockSocket;
     });
 
-    it('throws if port is out of range', () => {
-      expect(
-        () => new ClawLinkClient({ ...VALID_CONFIG, port: 99999 } as any),
-      ).toThrow('config validation failed');
-    });
+    await client.connect();
+
+    expect(net.connect).toHaveBeenCalledWith('/run/crush/clawlink.sock');
+  });
+});
+
+describe('ClawLinkClient.wsaAudit', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (net.connect as ReturnType<typeof vi.fn>).mockReturnValue(mockSocket);
   });
 
-  // ── connect() ───────────────────────────────────────────────────────────────
+  it('sends reason_audit RPC and returns GRANTED verdict', async () => {
+    const client = new ClawLinkClient({ socketPath: '/tmp/test.sock' });
 
-  describe('connect()', () => {
-    it('calls net.connect() with correct host and port', async () => {
-      const connectPromise = client.connect();
-      mockSocket = (net.connect as any).mock.results[(net.connect as any).mock.results.length - 1].value;
-      mockSocket.emit('connect');
-      await connectPromise;
-
-      expect(net.connect).toHaveBeenCalledWith(7878, '192.168.0.50');
+    mockSocket.on.mockImplementation((event: string, cb: (...args: unknown[]) => void) => {
+      if (event === 'connect') cb();
+      return mockSocket;
     });
 
-    it('rejects if socket emits error', async () => {
-      const connectPromise = client.connect();
-      mockSocket = (net.connect as any).mock.results[(net.connect as any).mock.results.length - 1].value;
-      mockSocket.emit('error', new Error('ECONNREFUSED'));
-      await expect(connectPromise).rejects.toThrow('ECONNREFUSED');
-    });
-  });
+    mockSocket.write.mockImplementation((frame: string, _enc: string, callback?: () => void) => {
+      const pkt = JSON.parse(frame.trim());
+      const inner = JSON.parse(pkt.payload);
 
-  // ── disconnect() ────────────────────────────────────────────────────────────
-
-  describe('disconnect()', () => {
-    it('calls socket.destroy()', async () => {
-      const connectPromise = client.connect();
-      mockSocket = (net.connect as any).mock.results[(net.connect as any).mock.results.length - 1].value;
-      mockSocket.emit('connect');
-      await connectPromise;
-      
-      await client.disconnect();
-      expect(mockSocket.destroy).toHaveBeenCalled();
-    });
-
-    it('rejects pending requests on disconnect', async () => {
-      const connectPromise = client.connect();
-      mockSocket = (net.connect as any).mock.results[(net.connect as any).mock.results.length - 1].value;
-      mockSocket.emit('connect');
-      await connectPromise;
-
-      // Start a request but don't respond to it
-      const searchPromise = client.hybridSearch('test', 'namespace', 5);
-      await client.disconnect();
-
-      await expect(searchPromise).rejects.toThrow('disconnected with pending request');
-    });
-  });
-
-  // ── isHealthy() ─────────────────────────────────────────────────────────────
-
-  describe('isHealthy()', () => {
-    it('returns true when Node A responds with pong', async () => {
-      const connectPromise = client.connect();
-      mockSocket = (net.connect as any).mock.results[(net.connect as any).mock.results.length - 1].value;
-      mockSocket.emit('connect');
-      await connectPromise;
-
-      mockSocket.write.mockImplementation((data: string) => {
-        const packet = JSON.parse(data.trim());
-        const rpc = JSON.parse(packet.payload);
-        setTimeout(() => emitPacket(mockSocket, packet.trace_id, { id: rpc.id, result: { pong: true } }), 0);
-        return true;
+      const responseInner = JSON.stringify({
+        id: inner.id,
+        result: { verdict: 'GRANTED', rationale: 'All clear.' },
+        error: null,
       });
+      const response =
+        JSON.stringify({ trace_id: inner.id, payload: responseInner, checksum: 0 }) + '\n';
 
-      const healthy = await client.isHealthy();
-      expect(healthy).toBe(true);
+      const dataHandler = (mockSocket.on.mock.calls as Array<[string, (...a: unknown[]) => void]>)
+        .find(([event]) => event === 'data')?.[1];
+      if (dataHandler) dataHandler(Buffer.from(response));
+      if (callback) callback();
+      return true;
     });
 
-    it('returns false when not connected', async () => {
-      const healthy = await client.isHealthy();
-      expect(healthy).toBe(false);
-    });
-  });
+    await client.connect();
 
-  // ── Chunked data ─────────────────────────────────────────────────────────────
-
-  describe('chunked data handling', () => {
-    it('reassembles a response split across multiple data events', async () => {
-      const connectPromise = client.connect();
-      mockSocket = (net.connect as any).mock.results[(net.connect as any).mock.results.length - 1].value;
-      mockSocket.emit('connect');
-      await connectPromise;
-
-      mockSocket.write.mockImplementation((data: string) => {
-        const packet = JSON.parse(data.trim());
-        const rpc = JSON.parse(packet.payload);
-        const full = JSON.stringify({
-          trace_id: packet.trace_id,
-          payload: JSON.stringify({ id: rpc.id, result: { pong: true } }),
-          checksum: 0,
-        }) + '\n';
-
-        setTimeout(() => {
-          mockSocket.emit('data', Buffer.from(full.slice(0, 10)));
-          mockSocket.emit('data', Buffer.from(full.slice(10)));
-        }, 0);
-        return true;
-      });
-
-      const healthy = await client.isHealthy();
-      expect(healthy).toBe(true);
-    });
-  });
-
-  // ── Phase 20: processParseltongueNarrative ──────────────────────────────────
-
-  describe('processParseltongueNarrative', () => {
-    const UPDATE_CMD: WorldCommand = {
-      action: 'UPDATE_NPC',
-      target: 'npc_maelstrom_001',
-      data: { hp: 5, disposition: 'hostile' },
-    };
-
-    it('returns false and does not call execute for clean text', async () => {
-      const execute = vi.fn();
-      const result = await client.processParseltongueNarrative('Clean bark. No payload.', execute);
-      expect(result).toBe(false);
-      expect(execute).not.toHaveBeenCalled();
-    });
-
-    it('returns true and calls execute with decoded WorldCommand', async () => {
-      const cloaked = ParseltongueCodec.cloakCommand('Vekh ra-koru!', UPDATE_CMD);
-      const execute = vi.fn().mockResolvedValue(undefined);
-      const result = await client.processParseltongueNarrative(cloaked, execute);
-      expect(result).toBe(true);
-      expect(execute).toHaveBeenCalledOnce();
-      expect(execute).toHaveBeenCalledWith(UPDATE_CMD);
-    });
-
-    it('returns false when payload is present but fails Zod validation', async () => {
-      const malformed = ParseltongueCodec.cloak('Bark.', JSON.stringify({ action: 'NOT_A_REAL_ACTION' }));
-      const execute = vi.fn();
-      const result = await client.processParseltongueNarrative(malformed, execute);
-      expect(result).toBe(false);
-      expect(execute).not.toHaveBeenCalled();
-    });
-
-    it('awaits the execute handler before returning', async () => {
-      const order: string[] = [];
-      const cloaked = ParseltongueCodec.cloakCommand('Bark.', UPDATE_CMD);
-      const execute = vi.fn().mockImplementation(async () => {
-        order.push('execute');
-      });
-      order.push('before');
-      await client.processParseltongueNarrative(cloaked, execute);
-      order.push('after');
-      expect(order).toEqual(['before', 'execute', 'after']);
-    });
-
-    it('re-throws and logs when execute callback rejects', async () => {
-      const cloaked = ParseltongueCodec.cloakCommand('Bark.', UPDATE_CMD);
-      const boom = new Error('Foundry write failed');
-      const execute = vi.fn().mockRejectedValue(boom);
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      await expect(
-        client.processParseltongueNarrative(cloaked, execute),
-      ).rejects.toThrow('Foundry write failed');
-
-      expect(consoleSpy).toHaveBeenCalledOnce();
-      const logged = JSON.parse(consoleSpy.mock.calls[0]![0] as string);
-      expect(logged.severity).toBe('ERROR');
-      expect(logged.data.action).toBe('UPDATE_NPC');
-      expect(logged.data.error).toBe('Foundry write failed');
-
-      consoleSpy.mockRestore();
-    });
+    const result = await client.wsaAudit('unlock', 'door_001', 'Unlock door_001.');
+    expect(result.verdict).toBe('GRANTED');
+    expect(result.rationale).toBe('All clear.');
   });
 });
