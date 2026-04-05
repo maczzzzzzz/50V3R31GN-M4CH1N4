@@ -90,6 +90,7 @@ impl GlitchEngine {
                     rect,
                     0.0,
                     Stroke::new(2.0, Color32::from_rgba_unmultiplied(0xff, 0x20, 0x20, 180)),
+                    egui::StrokeKind::Middle,
                 );
                 painter.text(
                     rect.center() + egui::vec2(0.0, -120.0),
