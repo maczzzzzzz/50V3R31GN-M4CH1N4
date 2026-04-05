@@ -227,22 +227,19 @@ func main() {
 
 		case "devdom":
 			if len(os.Args) < 3 {
-				fmt.Println("Usage: crush devdom [corrupt-ui|ghost-play]")
+				fmt.Println("Usage: crush devdom [corrupt-ui|ghost-play <file.ghost>]")
 				return
 			}
-			
-			// Note: This requires a proxy to be running in another process or same process
-			// We will use a dedicated client for broadcast
-			proxyClient, err := net.Dial("unix", Cfg.ClawlinkSock)
+
+			dc, err := NewDevDomController(Cfg.ClawlinkSock)
 			if err != nil {
-				fmt.Printf("Error: Sovereign Proxy not detected at %s\n", Cfg.ClawlinkSock)
-				return
+				fmt.Printf("Error: %v\n", err)
+				os.Exit(1)
 			}
-			defer proxyClient.Close()
+			defer dc.Close()
 
 			switch os.Args[2] {
 			case "corrupt-ui":
-				// Defaults
 				intensity := 0.5
 				cType := "leet"
 				if len(os.Args) > 3 {
@@ -251,27 +248,48 @@ func main() {
 				if len(os.Args) > 4 {
 					cType = os.Args[4]
 				}
-				
-				fmt.Printf("📡 50V3R31GN-M4CH1N4: Injecting UI Corruption [Type: %s, Intensity: %.2f]\n", cType, intensity)
-				cmd := map[string]interface{}{
-					"type": "broadcast",
-					"payload": map[string]interface{}{
-						"type": "corrupt_ui",
-						"intensity": intensity,
-						"cType": cType,
-					},
+				if err := dc.ForceCorruption(intensity, cType); err != nil {
+					fmt.Printf("Error: %v\n", err)
+					os.Exit(1)
 				}
-				json.NewEncoder(proxyClient).Encode(cmd)
 
 			case "ghost-play":
 				if len(os.Args) < 4 {
 					fmt.Println("Usage: crush devdom ghost-play <file.ghost>")
-					return
+					os.Exit(1)
 				}
-				// Handled in a separate logic block or devdom.go
-				// For now, we'll keep it simple and broadcast the playback intent
-				fmt.Printf("📡 50V3R31GN-M4CH1N4: Initiating Ghost Playback [%s]\n", os.Args[3])
-				// (Implementation would read file and stream actions)
+				if err := dc.PlaybackSequence(os.Args[3]); err != nil {
+					fmt.Printf("Error: %v\n", err)
+					os.Exit(1)
+				}
+			}
+			return
+
+		case "chaos":
+			if len(os.Args) < 3 || os.Args[2] != "network" {
+				fmt.Println("Usage: crush chaos network --latency <ms> [--iface <iface>]")
+				os.Exit(1)
+			}
+			var latencyMs int
+			iface := "eth0"
+			args := os.Args[3:]
+			for i := 0; i < len(args); i++ {
+				switch args[i] {
+				case "--latency":
+					if i+1 < len(args) {
+						fmt.Sscanf(args[i+1], "%d", &latencyMs)
+						i++
+					}
+				case "--iface":
+					if i+1 < len(args) {
+						iface = args[i+1]
+						i++
+					}
+				}
+			}
+			if err := RunChaosNetwork(iface, latencyMs); err != nil {
+				fmt.Printf("Error: %v\n", err)
+				os.Exit(1)
 			}
 			return
 		}
