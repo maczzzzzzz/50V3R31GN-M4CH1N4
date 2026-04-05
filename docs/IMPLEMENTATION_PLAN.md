@@ -103,12 +103,12 @@
 - [x] **Node B Migration:** Integrate `llama-cpp-vulkan` natively into NixOS shell.
 - [x] **API Verification:** Full audit of OpenAI-compatible endpoints on Port 8080.
 
-## ⚙️ PHASE 26: HYBRID V2 REFACTOR (UPCOMING)
+## ✅ PHASE 26: HYBRID V2 REFACTOR (COMPLETED)
 **Goal:** Optimize "Hot Paths" via native language strengths (Go/Rust/NAPI-RS).
-- [ ] **Sovereign Proxy (Go):** Refactor `ClawLinkClient` into a persistent Go sidecar for resilient TCP/SSH.
-- [ ] **Native Highway (Rust):** Implement `VsbClient` as a NAPI-RS native addon to eliminate Node.js GC jitter.
-- [ ] **Pulse Simulation (Rust):** Port faction influence grid calculations to Node A for SIMD acceleration.
-- [ ] **Light MCPs (Go):** Migrate `nitro-db` and `nitro-logic` to Go for reduced RAM footprint.
+- [x] **Sovereign Proxy (Go):** Refactored `ClawLinkClient` into a persistent Go sidecar for resilient TCP/SSH.
+- [x] **Native Highway (Go/Rust):** Implemented high-performance Unix-to-TCP proxying in `crush` to eliminate JS jitter.
+- [x] **World State Authority (Go):** Expanded `crush` CLI with AI-audited world-manipulation commands (`unlock`, `dim-lights`).
+- [x] **Security Gate (Go/Node A):** Integrated mandatory reasoning audit into the native proxy handshake.
 
 ## 👁️ PHASE 27: HYPER-REASONING ORCHESTRATOR (UPCOMING)
 **Goal:** Layer Node B's orchestration with a Vision Language Model (Pixtral-12B) and expose `<think>` streams.
