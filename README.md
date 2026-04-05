@@ -21,7 +21,7 @@ A hardware-native, vision-integrated, and physically sovereign entity.
 
 ### :/N0D3-B : 7H3-D1R3C70R //
 - **C0R3:** NixOS / WSL2 (Native)
-- **BR41N:** Mistral-Nemo (12B) // Pixtral-12B (VLM)
+- **BR41N:** Pixtral-12B (VLM + Reasoner)
 - **PR0XY:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
 - **R0L3:** Narrative Sovereignty & High-Concurrency Orchestration.
 
