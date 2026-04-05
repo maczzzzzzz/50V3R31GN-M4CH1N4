@@ -103,7 +103,14 @@
 - [x] **Node B Migration:** Integrate `llama-cpp-vulkan` natively into NixOS shell.
 - [x] **API Verification:** Full audit of OpenAI-compatible endpoints on Port 8080.
 
-## 👁️ PHASE 26: HYPER-REASONING ORCHESTRATOR (UPCOMING)
+## ⚙️ PHASE 26: HYBRID V2 REFACTOR (UPCOMING)
+**Goal:** Optimize "Hot Paths" via native language strengths (Go/Rust/NAPI-RS).
+- [ ] **Sovereign Proxy (Go):** Refactor `ClawLinkClient` into a persistent Go sidecar for resilient TCP/SSH.
+- [ ] **Native Highway (Rust):** Implement `VsbClient` as a NAPI-RS native addon to eliminate Node.js GC jitter.
+- [ ] **Pulse Simulation (Rust):** Port faction influence grid calculations to Node A for SIMD acceleration.
+- [ ] **Light MCPs (Go):** Migrate `nitro-db` and `nitro-logic` to Go for reduced RAM footprint.
+
+## 👁️ PHASE 27: HYPER-REASONING ORCHESTRATOR (UPCOMING)
 **Goal:** Layer Node B's orchestration with a Vision Language Model (Pixtral-12B) and expose `<think>` streams.
 - [ ] **Pixtral Provisioning:** Acquire Pixtral-12B Q5_K_M GGUF and `mmproj` encoder.
 - [ ] **VLM Pipeline:** Pipe Foundry map canvas crops to `llama-server` via base64 for semantic context.

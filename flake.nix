@@ -43,7 +43,13 @@
             libxcb
             libxkbcommon
             wayland
-            
+            cmake
+            clang
+
+            # Hybrid v2 (NAPI-RS / Interop)
+            napi-rs-cli
+            protobuf
+
             # AI/Inference & GPU (Phase 25)
             llama-cpp-vulkan
             vulkan-loader

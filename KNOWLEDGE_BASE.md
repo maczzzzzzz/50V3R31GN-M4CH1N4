@@ -8,6 +8,9 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 | Pattern | Implementation | Source | Role |
 | :--- | :--- | :--- | :--- |
 | **Virtual System Bus** | Mmap + UDP | Internal | Lock-free, dual-bus binary state synchronization. |
+| **Native Highway** | NAPI-RS (Rust) | Internal | Zero-overhead Binary UDP client for Node B (Hybrid v2). |
+| **Sovereign Proxy** | Go Sidecar | Internal | Resilient TCP/SSH bridge maintaining ClawLink persistence (Hybrid v2). |
+| **Pulse Simulation** | Rust (Node A) | Internal | SIMD-accelerated faction influence and economic modeling (Hybrid v2). |
 | **Mini-Vault Judge** | Llama-1.5B (Node A) | Internal | Resident, deterministic rules authority; zero-latency via llama-server. |
 | **Tactical-MMU** | Rust (Node A) | Internal | Hardware-accelerated spatial heat-maps (O(1) tactics). |
 | **Neural-Compositor**| Rust (Node B) | Internal | 16-core latency masking via procedural visual glitches. |
@@ -48,29 +51,23 @@ Patterns preserved for technical lineage or general research.
 | **CLIProxyAPI** | [router-for-me](https://github.com/router-for-me/CLIProxyAPI) | ARCHIVED | Integrated into core `ClawLink` binary bridge. |
 | **OpenCrawl (v1.0)** | Internal | ARCHIVED | Integrated into `SensoryFilter` and `Intent Swarm`. |
 
-## 📂 Repository Registry
-The ASP-GM-Agent ecosystem is distributed across specialized repositories for hardware isolation:
-
-- **asp-gm-agent**: The primary TypeScript orchestrator and vision pipeline (Node B).
-- **zeroclaw**: The Rust-native rules engine and NVIDIA-bound authority (Node A).
-- **foundry-module**: The native Foundry VTT integration layer (ClawLink Client).
-- **sidecar-atlas**: High-performance Egui/Rust spatial radar (Shared Memory).
-- **sidecar-netrunning**: Isometric 3D subnet HUD (Egui/Rust) [Phase 24].
-- **sidecar-cyberdeck**: Vertical quick-hack utility HUD [Phase 24].
-- **crush**: Lipgloss-powered Go supervisor and Physical ACK interface.
-
-## 📦 Dependency Registry (Pinned v1.8.0)
+## 📦 Dependency Registry (Pinned v1.9.0)
 
 ### UI & Layout (Atmosphere First)
 - **Pretext**: Pure JS text layout engine (Reflow elimination).
 - **Lipgloss**: Terminal UI layout engine (Crush CLI).
-- **Bubble Tea**: The Elm Architecture for Go (Crush Auth Pane).
+- **Bubble Tea**: The Elm Architecture for Go (Crush Auth Pane / Igniter).
 - **Egui/Eframe**: Immediate mode GUI for Rust sidecars.
 
 ### Deep Reasoning (Tier 3 Consultant)
 - **llama.cpp / llama-server**: Native C++ inference engine. Zero wrapper overhead.
-- **Open-Reasoner-Zero**: 1.5B reasoning-focused RL model for Node A (`<think>` tokens).
-- **Pixtral-12B**: Native Vision Language Model (VLM) for Node B semantic map understanding.
+- **Open-Reasoner-Zero-1.5B**: Reasoning-focused RL model for Node A (`<think>` tokens).
+- **Pixtral-12B**: Native Vision Language Model (VLM) for Node B map understanding.
+
+### Interop & Performance (Hybrid v2)
+- **NAPI-RS**: Rust native addons for Node.js (Zero-overhead VSB client).
+- **go-mcp**: Lightweight Go implementation of the Model Context Protocol.
+- **memmap2**: Rust crate for shared memory management (L1-Registry).
 
 ### Core Rules System (Foundry VTT)
 - **Cyberpunk RED Core**: `v0.92.3` (**PINNED** for CSS Layer and Foundry v12 support)
