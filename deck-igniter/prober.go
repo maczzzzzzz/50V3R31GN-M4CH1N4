@@ -30,9 +30,8 @@ const (
 	probeTimeout = 1500 * time.Millisecond
 
 	// Local WSL endpoints
-	cdpEndpoint      = "http://localhost:9222/json"
-	directorWSAddr   = "localhost:3010" // WebSocket server — TCP dial only
-	foundryPort      = 9222
+	cdpEndpoint    = "http://localhost:9222/json"
+	directorWSAddr = "localhost:3010" // WebSocket server — TCP dial only
 
 	// VSB UDP timeouts
 	vsbUDPReadTimeout = 1 * time.Second
