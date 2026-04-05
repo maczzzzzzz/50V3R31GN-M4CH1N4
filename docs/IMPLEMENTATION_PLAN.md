@@ -132,16 +132,20 @@
 - [x] **Akashik Seeder:** Populate `Akashik.db` with high-fidelity narrative seeds (Barks, Scenes).
 - [x] **Covert Protocol Sync:** Synchronize Go and Rust ST3GG implementations with CRC32 integrity checks.
 
-## 🕸️ PHASE 30: SOVEREIGN INTERCEPTOR (IN PROGRESS)
-**Goal:** Transition from reactive listening to active intent interception via "Cursed" hook wrapping.
-- [ ] **Task 1: Protocol SDK Unification:** Implement a unified `Sovereign-SDK` in Rust with C-FFI exports. Migrate `crush` (Go) to use these shared headers for Mmap/VSB structures to eliminate logic drift.
-- [ ] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
+## 🕸️ PHASE 30: SOVEREIGN INTERCEPTOR & VESPER PROTOCOL (IN PROGRESS)
+**Goal:** Transition from reactive listening to active, secure intent interception with persistent background operation.
+- [ ] **Task 1: Protocol SDK Unification:** Implement a unified `Sovereign-SDK` in Rust with C-FFI exports to eliminate logic drift in Mmap/VSB structures.
+- [ ] **Task 2: Vesper Shadow Mode:** Implement a persistent, low-risk background loop for autonomous reconnaissance. Must enforce strict Risk Engine classification (Low/Medium/High) and route all non-Low actions through the Flush Gate.
+- [ ] **Task 3: Security Hardening:** 
+    - Enforce `127.0.0.1` binding and implement an ephemeral handshake token for the Node B WebSocket server.
+    - Enforce `0600` permissions and magic byte validation for the VSB Mmap file.
 - [ ] **Hook Interception:** Wrap Foundry `game.socket.emit` to enable Node A rules-veto before state commits.
-- [ ] **Action Registry:** Port `Token Action HUD` logic to harvest available actor capabilities into Mmap.
+- [ ] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
 
-## 🎭 PHASE 31: ACTION SOVEREIGNTY (UPCOMING)
-**Goal:** Eliminate script injection in favor of a whitelisted Physical Trigger API.
-- [ ] **Trigger API:** Implement a structured `executeAction` bridge command for non-JS world manipulation.
+## 🎭 PHASE 31: ACTION SOVEREIGNTY & OBLITERATION (UPCOMING)
+**Goal:** Eliminate script injection in favor of a whitelisted Physical Trigger API, achieving total structural lockdown.
+- [ ] **Trigger API:** Implement a structured `executeAction` bridge command for non-JS world manipulation. Deprecate and remove raw `runScript` injection.
+- [ ] **Action Registry:** Port `Token Action HUD` logic to harvest available actor capabilities into Mmap.
 - [ ] **Counter-Hack Logic:** Enable AI "Active Defense" to intercept and modify player triggers in real-time.
 - [ ] **Physicalized Moods:** Sync Egui glitch intensity directly to the Netrun "Depth" and "Intrusion" state.
 
