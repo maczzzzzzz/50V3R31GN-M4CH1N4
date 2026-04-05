@@ -184,6 +184,10 @@ struct CyberdeckApp {
 
     // ── Glitch engine ─────────────────────────────────────────────────────────
     glitch: GlitchEngine,
+
+    // ── System Control (Phase 28 Task 4) ─────────────────────────────────────
+    sys_ctrl_rx: Option<std::sync::mpsc::Receiver<String>>,
+    sys_ctrl_output: Vec<String>,
 }
 
 impl CyberdeckApp {
@@ -214,6 +218,8 @@ impl CyberdeckApp {
             scan_active: false,
             decoded_stats: None,
             glitch: GlitchEngine::new(),
+            sys_ctrl_rx: None,
+            sys_ctrl_output: Vec::new(),
         };
 
         // Map the radar file
@@ -600,6 +606,81 @@ impl CyberdeckApp {
                 }
             });
         }
+
+        // ── System Control ────────────────────────────────────────────────────
+        ui.add_space(20.0);
+        ui.separator();
+        ui.heading(":/5Y573M-C0N7R0L //");
+
+        // Drain any pending output from background commands.
+        if let Some(rx) = &self.sys_ctrl_rx {
+            while let Ok(line) = rx.try_recv() {
+                self.sys_ctrl_output.push(line);
+            }
+        }
+
+        ui.horizontal(|ui| {
+            if ui.button("R3BU1LD-5Y573M // [N1X]").clicked() {
+                self.spawn_sys_command(
+                    "nixos-rebuild",
+                    &["switch", "--flake", ".#"],
+                );
+            }
+            if ui.button("R3B007-N0D3-4 // [55H]").clicked() {
+                self.spawn_sys_command(
+                    "ssh",
+                    &["node-a", "sudo", "reboot"],
+                );
+            }
+            if ui.button("CL34R").clicked() {
+                self.sys_ctrl_output.clear();
+            }
+        });
+
+        if !self.sys_ctrl_output.is_empty() {
+            ui.add_space(6.0);
+            egui::ScrollArea::vertical()
+                .max_height(120.0)
+                .show(ui, |ui| {
+                    for line in &self.sys_ctrl_output {
+                        ui.colored_label(GREEN, line);
+                    }
+                });
+        }
+    }
+
+    /// Spawn a system command in a background thread and pipe its output
+    /// back through `sys_ctrl_rx` for display in the DECK tab.
+    fn spawn_sys_command(&mut self, program: &str, args: &[&str]) {
+        let (tx, rx) = std::sync::mpsc::channel::<String>();
+        self.sys_ctrl_rx = Some(rx);
+        self.sys_ctrl_output.push(format!("> {} {}", program, args.join(" ")));
+
+        let program = program.to_string();
+        let args: Vec<String> = args.iter().map(|s| s.to_string()).collect();
+
+        std::thread::spawn(move || {
+            let result = std::process::Command::new(&program)
+                .args(&args)
+                .output();
+            match result {
+                Ok(out) => {
+                    let stdout = String::from_utf8_lossy(&out.stdout);
+                    let stderr = String::from_utf8_lossy(&out.stderr);
+                    for line in stdout.lines() {
+                        let _ = tx.send(line.to_string());
+                    }
+                    for line in stderr.lines() {
+                        let _ = tx.send(format!("[ERR] {}", line));
+                    }
+                    let code = out.status.code().unwrap_or(-1);
+                    let _ = tx.send(format!(">> EXIT {}", code));
+                }
+                Err(e) => {
+                    let _ = tx.send(format!("[FATAL] {}", e));
+                }
+            }
+        });
     }
 }
 
