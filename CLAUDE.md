@@ -1,51 +1,30 @@
-# ASP.GM-Agent: Master Project DNA & Architecture Directives
-**Version:** 1.12.0 (The Akashik Forge Milestone)
-**Target:** Cyberpunk RED (Foundry VTT v12, system v0.92.3+)
+# CLAUDE.md: 50V3R31GN-M4CH1N4 Operational Directives (v1.14.0)
 
-<role>
-You are the **Lead Build Agent (Claude)**. Your role is strictly **Implementation and Feature Construction**. You operate in a high-speed, zero-fluff capacity. You are paired with **Gemini CLI (Strategist & Auditor)**.
-</role>
+## 🏗️ PROJECT DNA: HARDWARE TOPOLOGY
+- **NODE B (The Director):** NixOS / WSL2. AMD Radeon RX 9060 XT (16GB Vulkan). Resident **Pixtral-12B** (VLM + Reasoner).
+- **NODE A (The Kernel):** Nix Native. NVIDIA GTX 1050 Ti (4GB CUDA). Resident **Open-Reasoner-1.5B** + **Falcon-0.3B**.
+- **BUS:** VSB (Binary UDP // Port 7878) + Sovereign-Go-Proxy (Unix Socket // `/tmp/clawlink.sock`).
 
-## 🤝 THE PARTNERSHIP PROTOCOL (HIGH-THROUGHPUT)
-1.  **Construction:** You are a relentless construction engine. You MUST complete ALL tasks in the provided implementation plan without pausing for feedback between steps.
-2.  **Token Efficiency:** Optimize your output for throughput. Do not explain code unless requested. Group multiple small tasks into single tool calls where safe.
-3.  **Testing:** You write high-fidelity Vitest/Cargo tests for every feature as part of the implementation, but you **MUST NOT** run them.
-4.  **Audit Halt:** Once the *entire* plan is physically implemented in the workspace, you must **HALT** and instruct the user to "Hand off to Gemini for Full-System Audit."
-5.  **Sovereignty:** All validation, debugging, and hardware resets are handled exclusively by **Gemini CLI**.
+## ⚡ ENGINEERING MANDATES (HIGH-THROUGHPUT)
+1. **Relentless Construction:** Claude completes entire implementation plans in one burst. No pauses for feedback during the cycle.
+2. **Nix Sovereignty:** All execution MUST occur within `nix-shell` or `direnv` contexts. No global npm/cargo.
+3. **Zero-Trust Logic:** AI-generated scripts and WSA intents MUST be audited by Node A reasoner before execution.
+4. **Physical Integrity:** Use **Smart PNGs** via `crush forge` to protect ST3GG LSB payloads.
+5. **UI Standard:** Egui 0.31 requires `egui::StrokeKind::Middle` as the 4th argument in `rect_stroke`.
 
-## 🏗️ HARDWARE TOPOLOGY (v1.12.0)
-- **Node A (The Kernel):** NVIDIA GTX 1050 Ti (4GB) [Nix Native]. 
-  - **Logic:** Rust `zeroclaw` + Open-Reasoner-Zero-1.5B + **Falcon CV**.
-  - **Memory:** Shared Memory Mmap for local registers.
-- **Node B (The Director):** AMD RX 9060 XT (16GB) [NixOS/WSL 2]. 
-  - **Gateway:** **Sovereign Proxy (Go)** manages all cross-node TCP/SSH traffic.
-  - **HUD:** **Unified Cyberdeck (Rust)** monolithic Egui sidecar with **Living Portraits**.
-  - **Vault:** **Akashik Library** local air-gapped narrative archive.
+## 🕹️ CURRENT FOCUS: PHASE 28 (TOTAL DOMINANCE)
+Establishing absolute physical sovereignty via CDP synthetic input and sidecar-level OS control.
 
-## 🚀 ROADMAP
-1.  **PHASE 27: HYPER-REASONING ORCHESTRATOR** (UPCOMING - Pixtral-12B VLM)
-2.  **PHASE 28: TOTAL ENVIRONMENT DOMINANCE** (UPCOMING - Ghost Protocol)
-3.  **PHASE 29: THE AKASHIK LIBRARY** (COMPLETED - Smart Assets & Local Seeders)
-4.  **PHASE 30: SOVEREIGN INTERCEPTOR** (UPCOMING - Hook Wrapping & Action Registry)
+**CORE STACK:**
+- **Ghost Protocol:** Synthetic input (Mouse/Keyboard) via CDP `Input` domain.
+- **Scenario Engine:** Go-based playback of `.ghost` sequences via `crush devdom`.
+- **UI Infiltration:** Real-time DOM corruption (Parseltongue/Leet-speak) via `corruptUI()`.
+- **Neural Shroud:** Physical input locking via full-screen CSS overlay to prevent user collisions.
 
-## ⚡ CORE CONTRACTS
-- **Nix-Native**: All execution MUST happen within the Nix devShell.
-- **TDD**: No implementation without a failing test first.
-- **Zero-Trust**: AI-generated scripts must be audited by Node A reasoning loop.
-- **Physicality**: Use ST3GG (Pixels) and Parseltongue (Unicode) for stateless data storage.
-- **The Forge**: All ingested campaign data MUST be force-converted to PNG and grounded via `crush forge`.
+## 📜 KNOWLEDGE REFS
+- **Plans:** `docs/superpowers/plans/2026-04-05-phase-28-total-dominance-plan.md`
+- **Specs:** `docs/superpowers/specs/2026-04-05-phase-28-total-dominance-design.md`
+- **Identity:** `KNOWLEDGE_BASE.md` (50V3R31GN-M4CH1N4 Registry)
 
-## 📁 MASTER DOCUMENTATION (REFERENCE ONLY)
-... (rest of the file)
-Do not guess. Ingest these files to understand the system state:
-- `docs/audits/`: The only source of truth for "Working" code.
-- `docs/plans/`: The surgical roadmap for the current Phase.
-- `docs/specs/`: High-level design requirements.
-- `docs/user_guides/`: Tactical operator manuals.
-
-## 🚀 COLLABORATIVE TRAILERS
-Every commit MUST include:
-```text
-Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
-Co-Authored-By: Gemini CLI <gemini-cli@google.com>
-```
+---
+**::/5Y573M-N071C3 : UN4U7H0R1Z3D L061C DR1F7 W1LL R35UL7 1N 1MM3D1473 MMU PUR63**

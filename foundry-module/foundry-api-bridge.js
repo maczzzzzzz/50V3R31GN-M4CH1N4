@@ -57,8 +57,49 @@ class FoundryApiBridge {
       });
     }
 
+    // Phase 28: Journal Hijack Hook
+    Hooks.on('renderJournalSheet', (app, html, data) => {
+      if (this.journalCorruptionActive) {
+        this._hijackJournal(html);
+      }
+    });
+
     this._connect(wsUrl);
     window.ASP_BRIDGE = this;
+  }
+
+  /**
+   * Physically corrupt the text nodes of an opened Journal sheet.
+   */
+  _hijackJournal(html) {
+    const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'g': '6', 'b': '8' };
+    const parselChars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\░▒▓█";
+    
+    const transform = (text) => {
+      let out = "";
+      for (let char of text) {
+        const lower = char.toLowerCase();
+        if (this.corruptionType === 'leet' && leetMap[lower] && Math.random() < 0.4) {
+          out += leetMap[lower];
+        } else if (this.corruptionType === 'parsel' && Math.random() < 0.3) {
+          out += parselChars[Math.floor(Math.random() * parselChars.length)];
+        } else {
+          out += char;
+        }
+      }
+      return out;
+    };
+
+    const textNodes = html.find('*:not(script):not(style)').contents().filter(function() {
+      return this.nodeType === 3; // Text nodes
+    });
+
+    textNodes.each(function() {
+      this.nodeValue = transform(this.nodeValue);
+    });
+
+    // Add a visual glitch to the window header
+    html.closest('.app').find('.window-header').addClass('neural-glitch-active');
   }
 
   destroy() {

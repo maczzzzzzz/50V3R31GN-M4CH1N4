@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2026-04-05
+### Added
+- **Project Identity: 50V3R31GN-M4CH1N4**: Rebranded the entire project to reflect its evolution into a distributed, physically sovereign machine.
+- **Phase 28: Ghost Protocol (Core Functional)**: Established physical sovereignty over the Foundry VTT renderer.
+- **Ghost Input Service**: Implemented synthetic mouse/keyboard orchestration via the CDP `Input` domain, enabling physical token dragging and UI clicks.
+- **UI Infiltration Protocol**: Added `corruptUI()` to `VisualMonitorService` for direct DOM manipulation (Leet-speak and Parseltongue corruption).
+- **Journal Hijack Hook**: Integrated a `renderJournalSheet` hook into the Foundry bridge to scramble journal entries in real-time.
+- **Scenario Engine (Go)**: Expanded `crush` CLI with `devdom` and `ghost-play` subcommands for automated scenario playback.
+- **Neural Shroud**: Implemented a physical input lock (`setPhysicalLock`) to prevent user collisions during machine-driven actions.
+- **Cyberpunk UI Encoding**: Applied consistent leet-speak and disk-drive styling (`:/`, `:://`) to the README, CLI headers, and all Rust sidecar interfaces.
+
+### Changed
+- **Branding**: Renamed the `KNOWLEDGE_BASE.md` and updated all core documentation headers to the new 50V3R31GN-M4CH1N4 identity.
+- **Node B BR41N**: Optimized the primary model configuration to prioritize Pixtral-12B for both multimodal perception and narrative reasoning.
+
+### Fixed
+- **Pretext Corruption**: Repaired a corrupted `PretextOverlayPayloadSchema` in the Foundry bridge schema.
+
 ## [1.13.0] - 2026-04-05
 ### Added
 - **Phase 27: Hyper-Reasoning Orchestrator (Completed)**: Integrated multimodal perception and real-time reasoning streams.

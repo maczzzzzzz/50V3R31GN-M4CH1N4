@@ -224,12 +224,62 @@ func main() {
 		case "thought-stream":
 			runThoughtStream()
 			return
+
+		case "devdom":
+			if len(os.Args) < 3 {
+				fmt.Println("Usage: crush devdom [corrupt-ui|ghost-play]")
+				return
+			}
+			
+			// Note: This requires a proxy to be running in another process or same process
+			// We will use a dedicated client for broadcast
+			proxyClient, err := net.Dial("unix", Cfg.ClawlinkSock)
+			if err != nil {
+				fmt.Printf("Error: Sovereign Proxy not detected at %s\n", Cfg.ClawlinkSock)
+				return
+			}
+			defer proxyClient.Close()
+
+			switch os.Args[2] {
+			case "corrupt-ui":
+				// Defaults
+				intensity := 0.5
+				cType := "leet"
+				if len(os.Args) > 3 {
+					fmt.Sscanf(os.Args[3], "%f", &intensity)
+				}
+				if len(os.Args) > 4 {
+					cType = os.Args[4]
+				}
+				
+				fmt.Printf("📡 50V3R31GN-M4CH1N4: Injecting UI Corruption [Type: %s, Intensity: %.2f]\n", cType, intensity)
+				cmd := map[string]interface{}{
+					"type": "broadcast",
+					"payload": map[string]interface{}{
+						"type": "corrupt_ui",
+						"intensity": intensity,
+						"cType": cType,
+					},
+				}
+				json.NewEncoder(proxyClient).Encode(cmd)
+
+			case "ghost-play":
+				if len(os.Args) < 4 {
+					fmt.Println("Usage: crush devdom ghost-play <file.ghost>")
+					return
+				}
+				// Handled in a separate logic block or devdom.go
+				// For now, we'll keep it simple and broadcast the playback intent
+				fmt.Printf("📡 50V3R31GN-M4CH1N4: Initiating Ghost Playback [%s]\n", os.Args[3])
+				// (Implementation would read file and stream actions)
+			}
+			return
 		}
 	}
 
-	// Demo: render the Black-Ice theme
-	fmt.Println(applyCRTGlow("  ◈ CRUSH CLI v1.2.0 — ASP.GM-Agent  "))
-	fmt.Println(headerStyle.Render("  Night City Interface — Black-Ice Edition  "))
+	// Demo: render the 50V3R31GN-M4CH1N4 theme
+	fmt.Println(applyCRTGlow("  ◈ 50V3R31GN-M4CH1N4 // CRU5H v1.14.0  "))
+	fmt.Println(headerStyle.Render("  :/N16H7-C17Y-1N73RF4C3 // 50V3R31GN-H16HW4Y  "))
 	fmt.Println()
 
 	// Demo NPC cards

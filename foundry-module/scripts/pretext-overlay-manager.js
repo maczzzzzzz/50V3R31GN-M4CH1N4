@@ -51,6 +51,38 @@ export class PretextOverlayManager {
     text.position.set(token.center.x, token.y - 20);
     container.addChild(text);
 
+    // 2b. Optional Glitch/Parseltongue Effect
+    if (payload.glitch) {
+      const originalText = payload.text;
+      const glitchChars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\░▒▓█";
+      const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'g': '6', 'b': '8' };
+      
+      const glitchInterval = setInterval(() => {
+        if (!text.parent) {
+          clearInterval(glitchInterval);
+          return;
+        }
+        
+        let newText = "";
+        for (let i = 0; i < originalText.length; i++) {
+          const char = originalText[i].toLowerCase();
+          if (Math.random() < 0.2) {
+            // Random glitch char
+            newText += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+          } else if (leetMap[char] && Math.random() < 0.5) {
+            // Leet speak conversion
+            newText += leetMap[char];
+          } else {
+            newText += originalText[i];
+          }
+        }
+        text.text = newText;
+      }, 100);
+
+      // Ensure cleanup
+      setTimeout(() => clearInterval(glitchInterval), payload.duration || 3000);
+    }
+
     // 3. Apply FXMaster Shaders if requested
     if (payload.fxParams && window.FXMASTER && game.modules.get('fxmaster')?.active) {
       const filterName = `pretext-fx-${payload.targetId}-${Date.now()}`;

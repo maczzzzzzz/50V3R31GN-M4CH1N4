@@ -169,6 +169,13 @@ export class OnboardingController {
    */
   async startInterview(): Promise<void> {
     this.assertState(InterviewState.INITIAL, 'startInterview');
+
+    // Phase 28: Visual Immersion — Neural Handshake
+    // We assume the storyEngine has the adapter (Task 1 Remediation)
+    if (this.session.state === InterviewState.INITIAL) {
+       process.stdout.write('📡 50V3R31GN-M4CH1N4: N3UR4L H4ND5H4K3 1N1714L1Z3D\n');
+    }
+
     this.session.state = InterviewState.VIBE_CHECK;
   }
 

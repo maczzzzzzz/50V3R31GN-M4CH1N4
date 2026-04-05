@@ -207,7 +207,7 @@ impl eframe::App for NetrunApp {
             }
 
             // ── Status Bar ────────────────────────────────────────────────────
-            let status = format!("NETRUNNER HUD v1.0 | NODES: {} | INTRUSION: {:.0}%", node_count, self.intrusion_level * 100.0);
+            let status = format!(":/N37RUN-D43M0N // 5747U5: 4C71V3 | N0D35: {} | 1N7RU510N: {:.0}%", node_count, self.intrusion_level * 100.0);
             painter.text(
                 rect.left_bottom() + egui::vec2(5.0, -5.0),
                 egui::Align2::LEFT_BOTTOM,
@@ -223,7 +223,7 @@ impl eframe::App for NetrunApp {
                     painter.text(
                         rect.center() + egui::vec2(0.0, -100.0),
                         egui::Align2::CENTER_CENTER,
-                        "⚠️ INTRUSION DETECTED ⚠️",
+                        "!! 1N7RU510N D373C73D !!",
                         FontId::monospace(24.0),
                         RED,
                     );
@@ -248,12 +248,12 @@ impl eframe::App for NetrunApp {
 fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_title("NETRUNNING HUD | BLACKICE")
+            .with_title(":/50V3R31GN-M4CH1N4 // N37RUN")
             .with_inner_size([900.0, 700.0]),
         ..Default::default()
     };
     eframe::run_native(
-        "Netrunning HUD",
+        ":/50V3R31GN-M4CH1N4 // N37RUN",
         options,
         Box::new(|_cc| Ok(Box::new(NetrunApp::new()))),
     )

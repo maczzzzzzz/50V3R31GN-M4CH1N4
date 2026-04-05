@@ -419,7 +419,7 @@ impl CyberdeckApp {
         let status = if let Some(err) = &self.last_error {
             err.clone()
         } else {
-            format!("ATLAS ACTIVE | TX: {} | GHOSTS: {}", self.transaction_counter, ghost_blips.len())
+            format!(":/47L45-D43M0N // 5747U5: 4C71V3 | 7X: {} | 6H0575: {}", self.transaction_counter, ghost_blips.len())
         };
         painter.text(rect.left_bottom() + egui::vec2(5.0, -5.0), egui::Align2::LEFT_BOTTOM, status, FontId::monospace(12.0), CYAN);
     }
@@ -523,7 +523,7 @@ impl CyberdeckApp {
     }
 
     fn render_deck_tab(&mut self, ui: &mut egui::Ui) {
-        ui.heading("CYBERDECK BIOMETRICS");
+        ui.heading(":/CYB3RD3CK-B10M37R1C5 //");
         ui.separator();
 
         if let Some(id) = &self.selected_id {
@@ -531,14 +531,14 @@ impl CyberdeckApp {
             let name = blip.map(|b| b.name.as_str()).unwrap_or("Unknown");
             
             ui.horizontal(|ui| {
-                ui.label("Selected:");
+                ui.label("53L3C73D:");
                 ui.colored_label(CYAN, name);
                 ui.label(format!("({})", id));
             });
 
             ui.add_space(10.0);
 
-            if ui.button("LOAD SMART PORTRAIT [ST3GG]").clicked() {
+            if ui.button("L04D-5M4R7-P0R7R417 // [57366]").clicked() {
                 // Try to find image in data/assets/{id}.png
                 let img_path = PathBuf::from("data/assets").join(format!("{}.png", id));
                 if let Ok(img_bytes) = std::fs::read(&img_path) {
@@ -548,38 +548,38 @@ impl CyberdeckApp {
                             self.last_error = None;
                         }
                         Err(e) => {
-                            self.last_error = Some(format!("ST3GG Error: {}", e));
+                            self.last_error = Some(format!("57366-3RR0R: {}", e));
                         }
                     }
                 } else {
-                    self.last_error = Some(format!("Portrait not found: {:?}", img_path));
+                    self.last_error = Some(format!("45537-N07-F0UND: {:?}", img_path));
                 }
             }
 
             if let Some(stats) = &self.decoded_stats {
                 ui.add_space(10.0);
-                ui.colored_label(GREEN, ">> DATA DECODED SUCCESSFULLY");
+                ui.colored_label(GREEN, ">> D474-D3C0D3D-5UCC355FULLY //");
                 egui::ScrollArea::vertical().show(ui, |ui| {
                     ui.label(serde_json::to_string_pretty(stats).unwrap_or_default());
                 });
             } else if let Some(err) = &self.last_error {
-                ui.colored_label(RED, format!("!! ERROR: {}", err));
+                ui.colored_label(RED, format!("!! 3RR0R: {}", err));
             }
 
         } else {
-            ui.colored_label(Color32::from_rgb(100, 100, 100), "[ NO ACTOR SELECTED IN ATLAS ]");
+            ui.colored_label(Color32::from_rgb(100, 100, 100), "[ N0-4C70R-53L3C73D-1N-47L45 ]");
         }
 
         ui.add_space(20.0);
         ui.separator();
-        ui.heading("SCANNER [WSA]");
+        ui.heading(":/5C4NN3R-W54 //");
 
         ui.horizontal(|ui| {
-            if ui.button("REVEAL PORTS [SCAN]").clicked() {
+            if ui.button("R3V34L-P0R75 // [5C4N]").clicked() {
                 self.perform_scan();
             }
             if self.scan_active {
-                ui.colored_label(GREEN, format!("{} targets acquired", self.scanned_items.len()));
+                ui.colored_label(GREEN, format!("{} 74R6375-4CQU1R3D", self.scanned_items.len()));
             }
         });
 
@@ -645,9 +645,9 @@ impl eframe::App for CyberdeckApp {
         CentralPanel::default().show(ctx, |ui| {
             // ── Tab bar ───────────────────────────────────────────────────────
             ui.horizontal(|ui| {
-                ui.selectable_value(&mut self.active_tab, Tab::Atlas,  "[ ATLAS ]");
+                ui.selectable_value(&mut self.active_tab, Tab::Atlas,  ":/47L45 //");
                 // Netrun tab pulses red when intruded
-                let netrun_label = if self.intrusion_level > 0.3 { "[ NETRUN !! ]" } else { "[ NETRUN ]" };
+                let netrun_label = if self.intrusion_level > 0.3 { "::/N37RUN !! //" } else { ":/N37RUN //" };
                 let netrun_color = if self.intrusion_level > 0.3 { RED } else { CYAN };
                 if ui.add(egui::SelectableLabel::new(
                     self.active_tab == Tab::Netrun,
@@ -655,7 +655,7 @@ impl eframe::App for CyberdeckApp {
                 )).clicked() {
                     self.active_tab = Tab::Netrun;
                 }
-                ui.selectable_value(&mut self.active_tab, Tab::Deck, "[ DECK ]");
+                ui.selectable_value(&mut self.active_tab, Tab::Deck, ":/D3CK //");
             });
             ui.separator();
 
@@ -682,12 +682,12 @@ fn main() -> eframe::Result<()> {
 
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_title("CYBERDECK HUD | NIGHT CITY")
+            .with_title(":/50V3R31GN-M4CH1N4 // HUD")
             .with_inner_size([900.0, 700.0]),
         ..Default::default()
     };
     eframe::run_native(
-        "CYBERDECK HUD",
+        ":/50V3R31GN-M4CH1N4 // HUD",
         options,
         Box::new(|_cc| Ok(Box::new(CyberdeckApp::new(mem_path)))),
     )

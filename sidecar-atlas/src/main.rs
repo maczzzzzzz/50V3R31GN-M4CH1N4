@@ -397,7 +397,7 @@ impl eframe::App for AtlasApp {
                 err.clone()
             } else {
                 format!(
-                    "RADAR ACTIVE | TX: {} | GHOSTS: {}",
+                    ":/47L45-D43M0N // 5747U5: 4C71V3 | 7X: {} | 6H0575: {}",
                     self.transaction_counter,
                     ghost_blips.len()
                 )
@@ -423,12 +423,12 @@ fn main() -> eframe::Result<()> {
 
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_title("STRATEGIC ATLAS | NIGHT CITY")
+            .with_title(":/50V3R31GN-M4CH1N4 // 47L45")
             .with_inner_size([800.0, 600.0]),
         ..Default::default()
     };
     eframe::run_native(
-        "Strategic Atlas",
+        ":/50V3R31GN-M4CH1N4 // 47L45",
         options,
         Box::new(|_cc| Ok(Box::new(AtlasApp::new(mem_path)))),
     )

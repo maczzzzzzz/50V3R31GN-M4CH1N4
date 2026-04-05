@@ -374,6 +374,7 @@ export class HybridRoutingController {
               text: generatedOverlay.text,
               color: generatedOverlay.color || '#ff003c',
               duration: generatedOverlay.duration || 3000,
+              glitch: newHp <= 1, // Trigger parseltongue/glitch for death state
               fxParams: generatedOverlay.fxParams || { shader: 'chromatic_aberration', intensity: 2.5 }
             });
           }

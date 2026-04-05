@@ -123,6 +123,7 @@ export class VisualMonitorService {
       this.client.Page.enable(),
       this.client.Runtime.enable(),
       this.client.CSS.enable(),
+      this.client.Input.enable(),
     ]);
 
     console.log('✅ Neural Uplink: Native CDP Engine Active.');
@@ -496,6 +497,101 @@ export class VisualMonitorService {
       throw new Error(
         `[VisualMonitorService] restoreAtmosphere failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
       );
+    }
+  }
+
+  /**
+   * Phase 28: Neural Shroud — Physically lock/unlock user input.
+   * Injects a full-screen transparent overlay to block actual mouse events
+   * while the machine is performing Ghost Protocol actions.
+   */
+  async setPhysicalLock(locked: boolean): Promise<void> {
+    const client = this.getClient();
+    if (locked) {
+      const css = `
+        #neural-shroud-lock {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          z-index: 20000; cursor: wait; pointer-events: all;
+          background: rgba(0, 243, 255, 0.05);
+        }
+      `;
+      await this.injectCSS(css);
+      await client.Runtime.evaluate({
+        expression: `if (!document.getElementById('neural-shroud-lock')) {
+          const div = document.createElement('div');
+          div.id = 'neural-shroud-lock';
+          document.body.appendChild(div);
+        }`
+      });
+    } else {
+      await client.Runtime.evaluate({
+        expression: `const el = document.getElementById('neural-shroud-lock'); if (el) el.remove();`
+      });
+    }
+  }
+
+  /**
+   * Phase 28: UI Infiltration — Physically corrupt Foundry UI elements.
+   * Injects a script via CDP Runtime.evaluate to transform existing UI text
+   * into leet-speak or parseltongue flickering.
+   */
+  async corruptUI(intensity: number = 0.5, type: 'leet' | 'parsel' = 'leet'): Promise<void> {
+    const client = this.getClient();
+    
+    const script = `(async () => {
+      const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'g': '6', 'b': '8' };
+      const parselChars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\░▒▓█";
+      
+      const transform = (text) => {
+        let out = "";
+        for (let char of text) {
+          const lower = char.toLowerCase();
+          if ("${type}" === 'leet' && leetMap[lower] && Math.random() < ${intensity}) {
+            out += leetMap[lower];
+          } else if ("${type}" === 'parsel' && Math.random() < ${intensity}) {
+            out += parselChars[Math.floor(Math.random() * parselChars.length)];
+          } else {
+            out += char;
+          }
+        }
+        return out;
+      };
+
+      // Target specific high-impact UI components
+      const targets = [
+        ...document.querySelectorAll('.chat-message .message-header'),
+        ...document.querySelectorAll('.chat-message .message-content'),
+        ...document.querySelectorAll('#sidebar-tabs .item'),
+        ...document.querySelectorAll('.window-title'),
+        ...document.querySelectorAll('.scene-name')
+      ];
+
+      for (let el of targets) {
+        if (el.children.length === 0) {
+          el.innerText = transform(el.innerText);
+        } else {
+          // Walk text nodes for complex elements
+          const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+          let node;
+          while (walker.nextNode()) {
+            node = walker.currentNode;
+            node.nodeValue = transform(node.nodeValue);
+          }
+        }
+      }
+      return targets.length;
+    })()`;
+
+    const { result, exceptionDetails } = await client.Runtime.evaluate({
+      expression: script,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+
+    if (exceptionDetails) {
+      process.stderr.write(`[VisualMonitor] corruptUI injection failed: ${exceptionDetails.text}\n`);
+    } else {
+      console.log(`📡 UI Infiltration: Corrupted ${result.value} UI nodes via CDP.`);
     }
   }
 }

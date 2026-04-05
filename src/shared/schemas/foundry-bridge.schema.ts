@@ -197,14 +197,25 @@ export const RunScriptPayloadSchema = z.object({
   broadcast: z.boolean().default(false),
 });
 
-export const RunScriptCommandSchema = z.object({
-  type: z.literal('run_script'),
-  requestId: RequestIdSchema,
-  payload: RunScriptPayloadSchema,
-});
-
-    rgbSplit: z.number().optional()
-  }).optional()
+export const PretextOverlayPayloadSchema = z.object({
+  /** The target actor ID to attach the overlay to. */
+  targetId: z.string().min(1),
+  /** Optional overlay type (e.g. 'critical_damage', 'death_state'). */
+  overlayType: z.string().optional(),
+  /** The text content to display. */
+  text: z.string().min(1),
+  /** CSS color string for the text. */
+  color: z.string().optional(),
+  /** Duration in milliseconds. */
+  duration: z.number().int().positive().optional(),
+  /** Whether to apply a glitch/parseltongue effect to the text. */
+  glitch: z.boolean().optional(),
+  /** Optional FXMaster shader parameters. */
+  fxParams: z.object({
+    shader: z.string(),
+    intensity: z.number().optional(),
+    rgbSplit: z.number().optional(),
+  }).optional(),
 });
 
 /**

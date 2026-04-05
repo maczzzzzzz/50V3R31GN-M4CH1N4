@@ -350,6 +350,20 @@ export class FoundryAdapter implements IFoundryAdapter {
   }
 
   async runScript(code: string, broadcast: boolean = false): Promise<void> {
+    // Phase 28: Visual Sovereignty — Show "LOGIC INTRUSION" during AI script injection
+    try {
+      // Don't await this so it's parallel with the script execution
+      this.triggerPretextOverlay({
+        targetId: 'all', // We assume 'all' or active token
+        overlayType: 'script_injection',
+        text: 'L061C-1N7RU510N :://',
+        color: '#39ff14', // Cyber-neon green
+        duration: 1500,
+        glitch: true,
+        fxParams: { shader: 'glitch-v3', intensity: 1.5 }
+      }).catch(() => {});
+    } catch { /* skip visual on error */ }
+
     await this.sendCommand({
       type: 'run_script',
       requestId: this.generateRequestId(),
