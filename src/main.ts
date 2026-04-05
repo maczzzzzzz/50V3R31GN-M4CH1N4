@@ -72,6 +72,11 @@ async function main() {
     timeoutMs: 2000,
   });
 
+  const clawlinkClient = new ClawLinkClient({
+    socketPath: process.env.CLAWLINK_SOCK || '/run/crush/clawlink.sock',
+    timeoutMs: parseInt(process.env.CLAWLINK_TIMEOUT || '5000', 10),
+  });
+
   // 4. Initialise State Engine
   // For the "Live-Fire" test, we use the TttA Part 1 starting state
   const storyEngine = new StoryEngine(createTttaPart1InitialState(), ollama);
@@ -97,6 +102,7 @@ async function main() {
   const controller = new HybridRoutingController({
     nitroLogicClient: nitroLogic,
     vsbClient: vsbClient,
+    clawlinkClient: clawlinkClient,
     ollamaClient: ollama,
     foundryAdapter: foundry,
     storyEngine,
@@ -120,7 +126,11 @@ async function main() {
   });
 
   // 9. Start the WS Server
-  await foundry.start(3010);
+  await Promise.all([
+    foundry.start(3010),
+    vsbClient.connect(),
+    clawlinkClient.connect(),
+  ]);
 
   console.log('🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
 
@@ -145,6 +155,9 @@ async function main() {
 
       vsbClient.close();
       console.log('✅ VsbClient (UDP) STOPPED.');
+
+      await clawlinkClient.disconnect().catch(() => {});
+      console.log('✅ ClawLink Client DISCONNECTED.');
 
       // Disconnect Oracle
       await oracle.disconnect();

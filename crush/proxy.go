@@ -23,6 +23,7 @@ type clawLinkPacket struct {
 	TraceID  string `json:"trace_id"`
 	Payload  string `json:"payload"`
 	Checksum uint32 `json:"checksum"`
+	Type     string `json:"type,omitempty"` // "broadcast" for real-time streams
 }
 
 // payloadChecksum computes the uint32 sum of payload byte values,
@@ -57,6 +58,10 @@ type proxy struct {
 	// pending maps trace_id → response channel for in-flight requests.
 	pendingMu sync.Mutex
 	pending   map[string]chan clawLinkPacket
+
+	// clients tracks active Unix socket connections for broadcasting.
+	clientsMu sync.Mutex
+	clients   map[net.Conn]struct{}
 }
 
 func newProxy() *proxy {
@@ -66,6 +71,7 @@ func newProxy() *proxy {
 		timeout:    time.Duration(Cfg.ClawlinkTimeout) * time.Millisecond,
 		writerCh:   make(chan []byte, 64),
 		pending:    make(map[string]chan clawLinkPacket),
+		clients:    make(map[net.Conn]struct{}),
 	}
 }
 
@@ -233,13 +239,29 @@ func (p *proxy) send(frame []byte, traceID string) (clawLinkPacket, error) {
 
 // handleUnixConn serves one Unix socket client connection.
 func (p *proxy) handleUnixConn(conn net.Conn) {
-	defer conn.Close()
+	p.clientsMu.Lock()
+	p.clients[conn] = struct{}{}
+	p.clientsMu.Unlock()
+
+	defer func() {
+		p.clientsMu.Lock()
+		delete(p.clients, conn)
+		p.clientsMu.Unlock()
+		conn.Close()
+	}()
+
 	sc := bufio.NewScanner(conn)
 	sc.Buffer(make([]byte, 4*1024*1024), 4*1024*1024)
 	for sc.Scan() {
 		raw := sc.Bytes()
 		var pkt clawLinkPacket
 		if err := json.Unmarshal(raw, &pkt); err != nil {
+			continue
+		}
+
+		// Handle broadcast packets from Node B (TypeScript)
+		if pkt.Type == "broadcast" {
+			p.broadcast(raw)
 			continue
 		}
 
@@ -250,6 +272,19 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 		}
 		b, _ := json.Marshal(resp)
 		conn.Write(append(b, '\n'))
+	}
+}
+
+// broadcast sends a raw frame to all connected Unix socket clients.
+func (p *proxy) broadcast(frame []byte) {
+	if !bytes.HasSuffix(frame, []byte("\n")) {
+		frame = append(frame, '\n')
+	}
+
+	p.clientsMu.Lock()
+	defer p.clientsMu.Unlock()
+	for c := range p.clients {
+		c.Write(frame)
 	}
 }
 

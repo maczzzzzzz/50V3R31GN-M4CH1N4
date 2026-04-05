@@ -1,139 +1,121 @@
 /**
  * src/core/akashik-visual-auditor.ts
  *
- * AkashikVisualAuditor — Phase 27 Hyper-Reasoning Orchestrator
+ * AkashikVisualAuditor — Phase 27 Visual Lore Extraction
  *
- * Feeds Forge-generated Smart PNGs to the Pixtral VLM and extracts
- * lore-dense metadata (aesthetic, mood, faction markers) for storage
- * in the Akashik Library's library_entries table.
+ * This service uses the Pixtral-12B VLM to "audit" campaign assets (PNGs)
+ * and extract narrative barks and street scenes grounded in PDF artwork.
  */
 
-import { readdir, readFile } from 'node:fs/promises';
-import { join, extname, basename } from 'node:path';
+import fs from 'node:fs';
+import path from 'node:path';
+import { randomUUID } from 'node:crypto';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
-export interface AkashikVisualAuditorConfig {
-  /** Path to the data/assets directory containing Forge Smart PNGs. */
-  assetsDir: string;
-  /** Oracle client for persisting audit results to Akashik.db. */
-  oracle: UnifiedOracleClient;
-  /** VLM endpoint (default: VLM_ENDPOINT env var). */
-  vlmEndpoint?: string;
-  /** VLM model name (default: VLM_MODEL env var). */
-  vlmModel?: string;
-}
-
-export interface VisualAuditResult {
-  stem: string;
-  aesthetic: string;
-  factionMarkers: string[];
-  moodTags: string[];
-  rawDescription: string;
-}
-
-const LORE_EXTRACTION_PROMPT =
-  'You are auditing Cyberpunk RED campaign artwork. ' +
-  'Extract lore metadata from this image. ' +
-  'Respond ONLY with valid JSON matching: ' +
-  '{"aesthetic": string, "factionMarkers": string[], "moodTags": string[], "rawDescription": string}';
-
-interface VlmResponse {
-  choices: Array<{ message: { content: string } }>;
+export interface AuditResult {
+  category: 'combat' | 'netrun' | 'economy' | 'lore' | 'tutorial';
+  district?: string;
+  seedText: string;
+  metadata: Record<string, unknown>;
 }
 
 export class AkashikVisualAuditor {
   private readonly vlmEndpoint: string;
-  private readonly vlmModel: string;
 
-  constructor(private readonly config: AkashikVisualAuditorConfig) {
-    this.vlmEndpoint =
-      config.vlmEndpoint ?? process.env['VLM_ENDPOINT'] ?? 'http://localhost:8080/v1/chat/completions';
-    this.vlmModel =
-      config.vlmModel ?? process.env['VLM_MODEL'] ?? 'pixtral';
+  constructor(
+    private readonly oracle: UnifiedOracleClient,
+    endpoint?: string
+  ) {
+    this.vlmEndpoint = endpoint ?? process.env.VLM_ENDPOINT ?? 'http://localhost:8080/v1/chat/completions';
   }
 
   /**
-   * Audit all Smart PNGs in assetsDir and upsert results into library_entries.
-   * Returns the count of successfully audited assets.
+   * Performs a visual audit on all Smart Assets in the assets directory.
+   * Extracts district-specific lore and atmospheric seeds.
    */
-  async auditAll(): Promise<number> {
-    const entries = await readdir(this.config.assetsDir);
-    const pngs = entries.filter(e => extname(e).toLowerCase() === '.png');
+  async runGlobalAudit(assetsDir: string = './data/assets'): Promise<number> {
+    if (!fs.existsSync(assetsDir)) return 0;
 
+    const files = fs.readdirSync(assetsDir).filter(f => f.endsWith('.png'));
     let count = 0;
-    for (const filename of pngs) {
-      const stem = basename(filename, '.png');
+
+    for (const file of files) {
+      const filePath = path.join(assetsDir, file);
+      const b64 = fs.readFileSync(filePath, { encoding: 'base64' });
+      
+      const district = this.inferDistrictFromFilename(file);
+      
       try {
-        const result = await this.auditOne(join(this.config.assetsDir, filename), stem);
-        this.persist(result);
-        count++;
+        const results = await this.auditImage(b64, district);
+        for (const res of results) {
+          this.saveToLibrary(res);
+          count++;
+        }
       } catch (err) {
-        process.stderr.write(`[AkashikVisualAuditor] Failed to audit ${filename}: ${err}\n`);
+        console.error(`[AkashikAuditor] Failed to audit ${file}:`, err);
       }
     }
+
     return count;
   }
 
-  async auditOne(pngPath: string, stem: string): Promise<VisualAuditResult> {
-    const pngBytes = await readFile(pngPath);
-    const base64 = pngBytes.toString('base64');
+  private async auditImage(imageB64: string, district?: string): Promise<AuditResult[]> {
+    const prompt = `Analyze this Cyberpunk RED campaign asset. 
+    1. Extract 2-3 atmospheric "Street Barks" (one-liners overheard nearby).
+    2. Describe the visual "Vibe" in 1 sentence for lore grounding.
+    
+    Output ONLY valid JSON in this format:
+    {"seeds": [{"category": "lore", "seedText": "...", "metadata": {"vibe": "..."}}, {"category": "lore", "seedText": "...", "metadata": {"type": "bark"}}]}
+    `;
 
     const res = await fetch(this.vlmEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: this.vlmModel,
-        messages: [
-          {
-            role: 'user',
-            content: [
-              { type: 'text', text: LORE_EXTRACTION_PROMPT },
-              { type: 'image_url', image_url: { url: `data:image/png;base64,${base64}` } },
-            ],
-          },
-        ],
-        stream: false,
-      }),
+        model: "pixtral",
+        messages: [{
+          role: "user",
+          content: [
+            { type: "text", text: prompt },
+            { type: "image_url", image_url: { url: `data:image/png;base64,${imageB64}` } }
+          ]
+        }],
+        response_format: { type: "json_object" }
+      })
     });
 
-    if (!res.ok) {
-      throw new Error(`VLM request failed: ${res.status} ${res.statusText}`);
-    }
+    if (!res.ok) throw new Error(`VLM responded with ${res.status}`);
+    const data = await res.json();
+    const content = data.choices[0]?.message?.content;
+    if (!content) return [];
 
-    const data = (await res.json()) as VlmResponse;
-    const content = data.choices[0]?.message.content ?? '';
-
-    try {
-      const parsed = JSON.parse(content) as {
-        aesthetic: string;
-        factionMarkers: string[];
-        moodTags: string[];
-        rawDescription: string;
-      };
-      return { stem, ...parsed };
-    } catch {
-      return {
-        stem,
-        aesthetic: '',
-        factionMarkers: [],
-        moodTags: [],
-        rawDescription: content,
-      };
-    }
+    const parsed = JSON.parse(content);
+    return (parsed.seeds || []).map((s: any) => ({
+      ...s,
+      district,
+      id: randomUUID()
+    }));
   }
 
-  private persist(result: VisualAuditResult): void {
-    this.config.oracle.execute(
-      `INSERT OR REPLACE INTO library_entries
-         (stem, aesthetic, faction_markers_json, mood_tags_json, raw_description, audited_at)
-       VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
+  private saveToLibrary(result: AuditResult): void {
+    this.oracle.execute(
+      'INSERT INTO library_entries (id, category, district, seed_text, metadata) VALUES (?, ?, ?, ?, ?)',
       [
-        result.stem,
-        result.aesthetic,
-        JSON.stringify(result.factionMarkers),
-        JSON.stringify(result.moodTags),
-        result.rawDescription,
-      ],
+        randomUUID(),
+        result.category,
+        result.district || null,
+        result.seedText,
+        JSON.stringify(result.metadata)
+      ]
     );
+  }
+
+  private inferDistrictFromFilename(filename: string): string | undefined {
+    const lower = filename.toLowerCase();
+    if (lower.includes('glen')) return 'The Glen';
+    if (lower.includes('japantown')) return 'Japantown';
+    if (lower.includes('watson')) return 'Watson';
+    if (lower.includes('wellsprings')) return 'Wellsprings';
+    return undefined;
   }
 }

@@ -45,6 +45,8 @@
             wayland
             cmake
             clang
+            python3
+            python311Packages.pip
 
             # Hybrid v2 (NAPI-RS / Interop)
             napi-rs-cli

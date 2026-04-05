@@ -28,6 +28,7 @@ import { RulesGrepService } from './rules-grep-service.js';
 import { MissionSwarmOrchestrator } from './mission-swarm-orchestrator.js';
 import { SteganographyService } from './steganography-service.js';
 import { VsbClient } from '../api/vsb-client.js';
+import type { IClawLinkClient } from '../api/clawlink-client.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -61,6 +62,7 @@ export class HybridRoutingController {
   private readonly nitroLogic: INitroLogicClient;
   private readonly ollama: IOllamaClient;
   private readonly foundry: IFoundryAdapter;
+  private readonly clawlink: IClawLinkClient | undefined;
   private readonly storyEngine: StoryEngine;
   private readonly gmApprovalQueue: GmApprovalQueue;
   private readonly nightMarketService: NightMarketService;
@@ -85,6 +87,7 @@ export class HybridRoutingController {
   constructor(options: HybridRoutingControllerOptions) {
     this.nitroLogic = options.nitroLogicClient;
     this.vsb = options.vsbClient;
+    this.clawlink = options.clawlinkClient;
     this.ollama = options.ollamaClient;
     this.foundry = options.foundryAdapter;
     this.storyEngine = options.storyEngine;
@@ -319,6 +322,8 @@ export class HybridRoutingController {
         return this.handleDecryptRequest(event.payload);
       case 'npc_turn':
         return this.handleNpcTurn(event.payload);
+      case 'thought_stream':
+        return this.handleThoughtStream(event.payload);
       default: {
         const exhaustiveCheck: never = event;
         throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as any).type}'`);
@@ -697,6 +702,13 @@ export class HybridRoutingController {
       throw new Error('HybridRoutingController: npc_turn event received but no TurnDaemon is configured');
     }
     return this.turnDaemon.runTurn(payload.npcId, payload.sensoryContext);
+  }
+
+  private async handleThoughtStream(payload: { content: string }): Promise<void> {
+    if (!this.clawlink) return;
+    await this.foundry.streamThoughtTokens(payload.content, (token) => {
+      this.clawlink?.publish(JSON.stringify({ type: 'token', token }));
+    });
   }
 
   private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {

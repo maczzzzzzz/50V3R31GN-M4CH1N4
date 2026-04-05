@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"context"
+	"encoding/json"
 	"fmt"
+	"net"
 	"os"
 	"os/signal"
 	"strings"
@@ -218,6 +221,9 @@ func main() {
 					}
 				}
 			}
+		case "thought-stream":
+			runThoughtStream()
+			return
 		}
 	}
 
@@ -261,4 +267,30 @@ func main() {
 		tsLines = append(tsLines, lipgloss.NewStyle().Foreground(colorCyan).Italic(true).Render("  "+l))
 	}
 	fmt.Println(paneStyle.Render(strings.Join(tsLines, "\n")))
+}
+
+func runThoughtStream() {
+	conn, err := net.Dial("unix", Cfg.ClawlinkSock)
+	if err != nil {
+		fmt.Printf("Failed to connect to proxy: %v\n", err)
+		os.Exit(1)
+	}
+	defer conn.Close()
+
+	fmt.Println(headerStyle.Render("⟨ INCOMING THOUGHT STREAM ⟩"))
+	fmt.Println(lipgloss.NewStyle().Foreground(colorDim).Italic(true).Render("  (Press Ctrl+C to disconnect)"))
+
+	sc := bufio.NewScanner(conn)
+	for sc.Scan() {
+		var pkt struct {
+			Type  string `json:"type"`
+			Token string `json:"token"`
+		}
+		if err := json.Unmarshal(sc.Bytes(), &pkt); err != nil {
+			continue
+		}
+		if pkt.Type == "token" {
+			fmt.Print(lipgloss.NewStyle().Foreground(colorCyan).Italic(true).Render(pkt.Token))
+		}
+	}
 }

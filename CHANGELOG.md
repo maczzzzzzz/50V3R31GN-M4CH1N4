@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2026-04-05
+### Added
+- **Phase 27: Hyper-Reasoning Orchestrator (Completed)**: Integrated multimodal perception and real-time reasoning streams.
+- **Pixtral-12B VLM Integration**: Provisioned and launched Pixtral-12B on Node B for visual world-state understanding.
+- **Thought Stream (CoT) Pipeline**: Implemented real-time streaming of AI tactical reasoning from Node B to `crush` CLI.
+- **Surgical Perception**: Added CDP-based high-resolution coordinate cropping for precise visual auditing.
+- **Akashik Visual Auditor**: New service to extract narrative lore and atmospheric barks from campaign PDF artwork using the VLM.
+
+### Changed
+- **Vision Pipeline**: Migrated from Ollama-specific vision to native `llama-server` OpenAI-compatible multimodal endpoints.
+- **CLI Refresh**: Expanded `crush` CLI with the `thought-stream` command for live developer observability.
+
+### Fixed
+- **Proxy Broadcasting**: Resolved race conditions in the Go proxy by implementing a thread-safe client registry for real-time packet broadcasting.
+
 ## [1.12.0] - 2026-04-05
 ### Added
 - **Phase 29: The Forge (Completed)**: Implemented a user-friendly air-gapped pipeline for "Smart Asset" ingestion.

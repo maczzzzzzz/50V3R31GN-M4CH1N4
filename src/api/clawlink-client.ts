@@ -43,6 +43,10 @@ export interface IClawLinkClient {
   resolveAttack(dice: number[], stat: number, skill: number, dv: number): Promise<ClawLinkAttackResult>;
   resolveDamage(dice: number[], bonus: number, armourSp: number): Promise<ClawLinkDamageResult>;
   executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T>;
+  /**
+   * Publish a broadcast message to the proxy (e.g., real-time tokens).
+   */
+  publish(payload: string): Promise<void>;
   /** ST3GG: Encode a string payload into a PNG's LSBs. Returns the modified PNG as base64. */
   st3ggEncode(imageB64: string, payload: string): Promise<string>;
   /** ST3GG: Decode a payload previously embedded by st3ggEncode. Returns the raw payload string. */
@@ -74,6 +78,7 @@ interface ClawLinkPacket {
   trace_id: string;
   payload: string;
   checksum: number;
+  type?: string; // "broadcast" for real-time streams
 }
 
 interface PendingRequest {
@@ -222,6 +227,29 @@ export class ClawLinkClient implements IClawLinkClient {
    */
   async executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T> {
     return this.send<T>(method, params);
+  }
+
+  /**
+   * Publish a broadcast packet to the proxy. No response expected.
+   */
+  async publish(payload: string): Promise<void> {
+    if (!this.socket || this.socket.destroyed) {
+      throw new Error(`${CONTEXT} not connected — call connect() first`);
+    }
+
+    const packet: ClawLinkPacket = {
+      trace_id: randomUUID(),
+      payload,
+      checksum: 0, // Broadcasts currently skip checksum validation in proxy
+      type: 'broadcast',
+    };
+
+    return new Promise((resolve, reject) => {
+      this.socket!.write(JSON.stringify(packet) + '\n', 'utf8', (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
   }
 
   /**

@@ -220,7 +220,17 @@ CREATE TABLE IF NOT EXISTS conceptual_seeds (
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+-- Phase 29: Akashik Library (Air-Gapped Narrative Archive)
+CREATE TABLE IF NOT EXISTS library_entries (
+    id          TEXT PRIMARY KEY,
+    category    TEXT NOT NULL CHECK (category IN ('combat', 'netrun', 'economy', 'lore', 'tutorial')),
+    district    TEXT,               -- NULL = global
+    seed_text   TEXT NOT NULL,      -- The narrative spark or rule math
+    metadata    TEXT,               -- JSON additional context (e.g. vetted_by, persona)
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
 -- Phase 21: npc_logs is managed via the initSchema() migration path in
+...
 -- unified-oracle-client.ts to support brownfield Akashik.db upgrades.
 -- See: src/db/unified-oracle-client.ts initSchema()
