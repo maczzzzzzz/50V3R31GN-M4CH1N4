@@ -101,10 +101,12 @@ export type ClawLinkDamageResult = z.infer<typeof ClawLinkDamageResultSchema>;
 // ── ClawLinkClient config schema ──────────────────────────────────────────────
 
 export const ClawLinkConfigSchema = z.object({
-  /** Node A IP address. */
-  host: z.string().min(1),
-  /** zeroclaw TCP server port on Node A (default: 7878). */
-  port: z.number().int().min(1).max(65535),
+  /**
+   * Unix socket path for the crush proxy daemon.
+   * Default: /run/crush/clawlink.sock
+   * Proxy must be started with `crush proxy` before connecting.
+   */
+  socketPath: z.string().min(1).default('/run/crush/clawlink.sock'),
   /** Per-request RPC timeout in milliseconds (default: 5000). */
   timeoutMs: z.number().int().min(1).optional(),
 });
