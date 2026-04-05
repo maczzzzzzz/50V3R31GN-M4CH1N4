@@ -301,6 +301,12 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				)
 			}
 
+		case msg.Type == tea.KeyCtrlP:
+			return m, tea.Batch(
+				logEvent("⚡ INITIATING SYSTEM-WIDE PURGE..."),
+				performPurge(),
+			)
+
 		case msg.String() == "r":
 			if m.selected >= 0 && m.selected < len(m.components) {
 				c := m.components[m.selected]
@@ -433,6 +439,7 @@ func (m Model) renderLogFeed() string {
 func (m Model) renderLegend() string {
 	keys := []string{
 		okStyle.Render("ctrl+i") + " ignite all",
+		okStyle.Render("ctrl+p") + " purge zombies",
 		okStyle.Render("r") + " reset selected",
 		okStyle.Render("k") + " kill selected",
 		okStyle.Render("↑/↓") + " navigate",

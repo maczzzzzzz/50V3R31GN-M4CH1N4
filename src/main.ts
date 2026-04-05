@@ -31,7 +31,7 @@ import { VisualMonitorService } from './core/visual-monitor-service.js';
 import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
 
 async function main() {
-  console.log('🌃 ASP.GM-Agent: Booting Orchestrator (v0.8.3)...');
+  console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v1.14.0)...');
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({
@@ -40,6 +40,29 @@ async function main() {
   });
   await oracle.connect();
   console.log('✅ Unified Oracle ONLINE.');
+
+  // ... (setup continues)
+
+  // 10. Heartbeat Watchdog — Self-terminate if Foundry dies
+  const FOUNDRY_HEARTBEAT_MS = 30_000;
+  const ZOMBIE_TIMEOUT_MS = 5 * 60_000; // 5 minutes
+  let lastFoundrySeen = Date.now();
+
+  setInterval(async () => {
+    try {
+      if (neuralUplink.isConnected()) {
+        await neuralUplink.getClient().Page.getFrameTree(); // Simple ping
+        lastFoundrySeen = Date.now();
+      }
+    } catch {
+      // Foundry might be closed or crashed
+    }
+
+    if (Date.now() - lastFoundrySeen > ZOMBIE_TIMEOUT_MS) {
+      console.error('!! ZOMBIE DETECTED: Foundry connection lost for >5m. Purging Node B.');
+      process.emit('SIGTERM');
+    }
+  }, FOUNDRY_HEARTBEAT_MS);
 
   // 2. Initialise Bridge (ClawLink)
   const clawlink = new ClawLinkClient({

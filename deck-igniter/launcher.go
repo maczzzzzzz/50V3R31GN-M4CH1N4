@@ -232,3 +232,24 @@ func shutdownCmd(components []*Component) tea.Cmd {
 		return tea.Quit()
 	}
 }
+
+// performPurge aggressively kills all project-related processes to prevent zombies.
+func performPurge() tea.Cmd {
+	return func() tea.Msg {
+		targets := []string{
+			"sidecar-cyberdeck",
+			"sidecar-atlas",
+			"sidecar-netrunning",
+			"crush",
+			"deck-igniter",
+			"llama-server",
+		}
+		for _, t := range targets {
+			// pkill -9 for maximum dominance over zombie processes
+			_ = exec.Command("pkill", "-9", t).Run()
+		}
+		// Settle time after purge
+		time.Sleep(1 * time.Second)
+		return logMsg{text: "⚡ PURGE C0MPL373: All zombie processes neutralized."}
+	}
+}
