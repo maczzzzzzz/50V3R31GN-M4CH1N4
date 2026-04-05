@@ -44,6 +44,7 @@ enum Tab {
 // ─── Radar structs ────────────────────────────────────────────────────────────
 
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 struct RadarBlip {
     id: String,
     name: String,
@@ -82,6 +83,7 @@ struct IceNode {
 // ─── ScannedItem ──────────────────────────────────────────────────────────────
 
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 pub(crate) struct ScannedItem {
     pub name: String,
     pub item_type: String, // "objective", "hazard", "cover"
