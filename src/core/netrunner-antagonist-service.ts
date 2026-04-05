@@ -8,6 +8,7 @@
  */
 
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
+import type { INitroLogicClient } from './interfaces.js';
 
 export interface NetrunnerAttackOptions {
   /** The intensity of the visual disruption (0.0 - 1.0). */
@@ -17,7 +18,26 @@ export interface NetrunnerAttackOptions {
 }
 
 export class NetrunnerAntagonistService {
-  constructor(private readonly foundry: IFoundryAdapter) {}
+  constructor(
+    private readonly foundry: IFoundryAdapter,
+    private readonly nitro: INitroLogicClient,
+  ) {}
+
+  /**
+   * Internal helper to audit and execute a script.
+   * Throws if Node A deems the script unsafe.
+   */
+  private async _safeRunScript(code: string, broadcast: boolean, context: string): Promise<void> {
+    const audit = await this.nitro.auditScript({ code, context });
+    
+    if (!audit.passed) {
+      console.error(`[NetrunnerAntagonist] SECURITY AUDIT FAILED for ${context}:`, audit.issue);
+      console.error(`[NetrunnerAntagonist] Reasoning:`, audit.reasoning);
+      throw new Error(`Security violation in generated script: ${audit.issue}`);
+    }
+
+    await this.foundry.runScript(code, broadcast);
+  }
 
   /**
    * Inject a raw CSS glitch into the Foundry UI to simulate a neural-link hack.
@@ -56,7 +76,7 @@ export class NetrunnerAntagonistService {
     `;
 
     // Broadcast to all players for maximum psychological impact
-    await this.foundry.runScript(code, true);
+    await this._safeRunScript(code, true, 'Netrunner UI Glitch');
     
     // Also trigger the standard GPU glitch for layering
     await this.foundry.triggerFxGlitch(intensity * 2);
@@ -80,7 +100,7 @@ export class NetrunnerAntagonistService {
     });
 
     // Audio cue via runScript (Foundry Audio Engine)
-    await this.foundry.runScript(`AudioHelper.play({src: "sounds/glitch.wav", volume: 0.8}, true)`, true);
+    await this._safeRunScript(`AudioHelper.play({src: "sounds/glitch.wav", volume: 0.8}, true)`, true, 'Biomonitor Scramble Audio');
   }
 
   /**
@@ -105,6 +125,6 @@ export class NetrunnerAntagonistService {
       })()
     `;
     
-    await this.foundry.runScript(macroCode, true);
+    await this._safeRunScript(macroCode, true, 'Black Ice Spawn Macro');
   }
 }

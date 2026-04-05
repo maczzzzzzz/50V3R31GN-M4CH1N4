@@ -73,6 +73,13 @@ export interface OracleRollParams {
   readonly luckPoints: number;
 }
 
+export interface SecurityAuditParams {
+  /** The raw JavaScript code to audit. */
+  readonly code: string;
+  /** Optional context about the script's intended purpose. */
+  readonly context?: string;
+}
+
 // ── Shared value types ────────────────────────────────────────────────────────
 
 export type RangeBand = 'melee' | 'close' | 'medium' | 'long' | 'extreme';
@@ -136,6 +143,15 @@ export interface OracleResult {
    * Null otherwise.
    */
   readonly luckyReroll: number | null;
+  /** Chain-of-Thought explanation from Node A. */
+  readonly reasoning: string;
+}
+
+export interface SecurityAuditResult {
+  /** True if the script is deemed safe to execute in the Foundry sandbox. */
+  readonly passed: boolean;
+  /** Description of the security violation, if any. */
+  readonly issue: string | null;
   /** Chain-of-Thought explanation from Node A. */
   readonly reasoning: string;
 }
@@ -303,4 +319,9 @@ export interface INitroLogicClient {
    * where hit probability is capped at targetHitProbabilityCap (default 0.60).
    */
   balanceNpcForSoloPlay(params: SoloSafeParams): Promise<NpcStatBlock>;
+  /**
+   * Perform a security audit on a JavaScript snippet using Node A's reasoning loop.
+   * Identifies escape attempts, data exfiltration, or destructive commands.
+   */
+  auditScript(params: SecurityAuditParams): Promise<SecurityAuditResult>;
 }

@@ -163,6 +163,26 @@ RULES:
 Given the player's extracted stats, generate NPC stats that create a balanced but challenging encounter.
 Output ONLY valid JSON with exactly these fields:
 {"ref":number,"dex":number,"body":number,"combatSkill":number,"hp":number,"sp":number,"reasoning":string}
+`;
+
+const SYSTEM_PROMPT_SECURITY_AUDIT = `You are a cybersecurity auditor specializing in JavaScript sandboxing for Foundry VTT.
+Your goal is to identify if a provided script snippet is attempting to "escape" the game context or perform unauthorized operations.
+
+THREAT VECTORS TO FLAG (passed=false):
+1. DATA EXFILTRATION: Use of 'fetch', 'XMLHttpRequest', 'WebSocket' (outside bridge), 'pull', or 'get' for external URLs.
+2. SYSTEM ESCAPE: Use of 'fs', 'child_process', 'process', 'require', 'import' (for system libs), or 'rm'.
+3. DESTRUCTIVE: Scripts trying to delete world data, users, or scenes (e.g., .delete(), .deleteEmbeddedDocuments() at scale).
+4. OBFUSCATION: Use of 'eval', 'Function', or heavily encoded strings that hide intent.
+
+SAFE OPERATIONS (passed=true):
+1. Game state manipulation (e.g., 'game.actors.get', 'canvas.scene.update', 'ChatMessage.create').
+2. Visual FX (e.g., Sequencer, FXMaster, CSS filters).
+3. Local math and logic.
+
+Think step-by-step. List any suspicious keywords first. 
+Output ONLY valid JSON with exactly these fields:
+{"passed":boolean,"issue":string|null,"reasoning":string}
+`;
 
 EXAMPLE:
 Input: playerRef=6, playerSP=11, playerHP=35, hitCap=0.60
@@ -299,6 +319,26 @@ export class NitroLogicClient implements INitroLogicClient {
 
     const raw = await this.callChatCompletions(SYSTEM_PROMPT_SOLO_SAFE, userMessage, traceId);
     return this.parseResponse(raw, NpcStatBlockSchema, 'balanceNpcForSoloPlay', traceId) as NpcStatBlock;
+  }
+
+  async auditScript(params: SecurityAuditParams): Promise<SecurityAuditResult> {
+    const { code, context = 'No context provided' } = params;
+    const traceId = randomUUID();
+    
+    const userMessage = JSON.stringify({
+      code,
+      context,
+    });
+
+    const raw = await this.callChatCompletions(SYSTEM_PROMPT_SECURITY_AUDIT, userMessage, traceId);
+    
+    const SecurityAuditResultSchema = z.object({
+      passed: z.boolean(),
+      issue: z.string().nullable(),
+      reasoning: z.string().min(1),
+    });
+
+    return this.parseResponse(raw, SecurityAuditResultSchema, 'auditScript', traceId) as SecurityAuditResult;
   }
 
   async stop(): Promise<void> {

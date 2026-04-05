@@ -48,6 +48,11 @@ The v1.9.0 release introduces **AI-Driven Script Injection**. The Director (Node
 - **Black Ice Injection**: Creating dynamic macros to dim lights and spawn hostile entities.
 
 These effects are managed by the `NetrunnerAntagonistService` and are visible in the **Netrunner HUD Sidecar**, which now features real-time **Intrusion Alert** visuals.
+
+### SECURITY PROTOCOL (ZERO-TRUST)
+Every script injected by the AI is first routed through **Node A (The Reasoner)** for a mandatory security audit.
+- **Pattern Matching**: Node A scans for forbidden keywords (`fetch`, `rm`, `pull`, `fs`, `eval`).
+- **Chain-of-Thought Validation**: The Reasoner analyzes the *intent* of the code. If it attempts to escape the Foundry sandbox or exfiltrate player data, the execution is blocked with a `Security violation` error.
 ## TROUBLESHOOTING
 - **SSH Timeout**: Ensure your SSH key (`~/win_id_ed25519`) is added to the agent or has `600` permissions.
 - **VSB Packet Mismatch**: The Igniter expects a strict `#[repr(C, packed)]` binary format. Ensure `zeroclaw` is compiled with the latest `vsb_protocol.rs`.
