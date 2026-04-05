@@ -185,6 +185,30 @@ export class VisualMonitorService {
     return { hash, timestamp, sceneId: sceneId ?? null, data };
   }
 
+  /**
+   * Surgical Perception (Phase 27): Capture a high-resolution crop of a
+   * specific Foundry canvas coordinate via CDP Page.captureScreenshot clip.
+   * Returns Base64-encoded PNG data suitable for direct VLM submission.
+   *
+   * @param x      Center X coordinate in Foundry canvas space.
+   * @param y      Center Y coordinate in Foundry canvas space.
+   * @param size   Square crop size in pixels (default 512).
+   */
+  async captureCoordinateCrop(x: number, y: number, size: number = 512): Promise<string> {
+    const client = this.getClient();
+    const { data } = await client.Page.captureScreenshot({
+      format: 'png',
+      clip: {
+        x: x - (size / 2),
+        y: y - (size / 2),
+        width: size,
+        height: size,
+        scale: 1,
+      },
+    });
+    return data; // Base64
+  }
+
   // ── Task 3: Ghost-Refresh & Live Inversion ──────────────────────────────────
 
   /**
