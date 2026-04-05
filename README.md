@@ -20,64 +20,64 @@ A hardware-native, vision-integrated, and physically sovereign entity.
 ## :://70P0L06Y //
 
 ### :/N0D3-B : 7H3-D1R3C70R //
-- **Core:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
-- **Brain:** Pixtral-12B (VLM + Reasoner)
-- **Proxy:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
-- **Role:** Narrative Sovereignty & High-Concurrency Orchestration.
+- **C0R3:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
+- **BR41N:** Pixtral-12B (VLM + Reasoner)
+- **PR0XY:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
+- **R0L3:** Narrative Sovereignty & High-Concurrency Orchestration.
 
 ### :/N0D3-A : 7H3-K3RN3L //
-- **Core:** Linux / Nix Native // Nvidia GTX 1050 Ti (4GB CUDA)
-- **Brain:** Open-Reasoner-1.5B (Rules Oracle)
-- **Sight:** Falcon-0.3B (Physical Perception)
-- **Role:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
+- **C0R3:** Linux / Nix Native // Nvidia GTX 1050 Ti (4GB CUDA)
+- **BR41N:** Open-Reasoner-1.5B (Rules Oracle)
+- **516H7:** Falcon-0.3B (Physical Perception)
+- **R0L3:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
 
 ---
 
 ## :://C0R3-PR070C0L5 //
 
 ### ./PH453-28 : 6H057-PR070C0L :://
-- **Synthetic Physicality:** Direct CDP `Input` domain control.
-- **Ghost Input:** The machine physically moves the cursor and triggers keys, bypassing internal game APIs for total environmental sovereignty.
-- **Scenario Engine:** Playback of `.ghost` sequences for automated high-speed world manipulation.
+- **5YN7H371C PHY51C4L17Y:** Direct CDP `Input` domain control.
+- **6H057 1NPU7:** The machine physically moves the cursor and triggers keys, bypassing internal game APIs for total environmental sovereignty.
+- **5C3N4R10 3N61N3:** Playback of `.ghost` sequences for automated high-speed world manipulation.
 
 ### ./PH453-29 : 7H3-F0R63 :://
-- **Smart Ingestion:** Automated force-conversion of all assets to Smart PNGs via `crush forge`.
-- **LSB Integrity:** Protection of steganographic payloads (ST3GG) during high-speed world-seeding.
+- **5M4R7 1N635710N:** Automated force-conversion of all assets to Smart PNGs via `crush forge`.
+- **L5B 1N736R17Y:** Protection of steganographic payloads (ST3GG) during high-speed world-seeding.
 
 ### ./PH453-30 : 50V3R31GN-1N73RC3P70R //
-- **Hook Wrapping:** Deep interception of `game.socket.emit` and Foundry events.
-- **Capability Harvesting:** Dynamic extraction of available physical triggers from active modules.
-- **Intent Hijack:** Interception of player intents before they reach the server to apply "Physical Reality" filters.
+- **H00K WR4PP1N6:** Deep interception of `game.socket.emit` and Foundry events.
+- **C4P4B1L17Y H4RV35710N:** Dynamic extraction of available physical triggers from active modules.
+- **1N73N7 H1J4CK:** Interception of player intents before they reach the server to apply "Physical Reality" filters.
 
 ### ./PH453-31 : 4C710N-50V3R31GN7Y :://
-- **Physical Trigger API:** Whitelisted execution of physical effects (Monks Active Tiles) via VSB commands.
-- **Counter-Hacks:** Automated neutralization of "illegal" player actions via immediate CDP-forced state resets.
-- **Sovereign UI:** Pretext-based 60fps overlays that cannot be obscured or closed by the client.
+- **PHY51C4L 7R1663R 4P1:** Whitelisted execution of physical effects (Monks Active Tiles) via VSB commands.
+- **C0UN73R-H4CK5:** Automated neutralization of "illegal" player actions via immediate CDP-forced state resets.
+- **50V3R31GN U1:** Pretext-based 60fps overlays that cannot be obscured or closed by the client.
 
 ---
 
 ## :://73CHN0L06Y-574CK //
 
-- **VSB Highway:** Raw Binary UDP + Shared Memory Mmap (Sub-1ms Sync).
-- **ST3GG :** LSB Steganography embedding map JSON into asset pixels.
-- **Akashik :** Distributed RAG Library for lore, chatter, and tactical history.
-- **Crush-CLI :** The command surface for the Ghost Machine.
+- **V5B H16HW4Y:** Raw Binary UDP + Shared Memory Mmap (Sub-1ms Sync).
+- **57366 :** LSB Steganography embedding map JSON into asset pixels.
+- **4K45H1K :** Distributed RAG Library for lore, chatter, and tactical history.
+- **CRU5H-CL1 :** The command surface for the Ghost Machine.
 
 ---
 
 ## :/QUICK-574R7 //
 
-1. **Boot:** `crush igniter` to synchronize hardware.
-2. **Uplink:** `pnpm start` to initialize the Sovereign Highway.
-3. **Dominate:** Access the `DECK` tab in the Sidecar for physical controls.
+1. **B007:** `crush igniter` to synchronize hardware.
+2. **UPL1NK:** `pnpm start` to initialize the Sovereign Highway.
+3. **D0M1N473:** Access the `DECK` tab in the Sidecar for physical controls.
 
 ---
 
 ## :://4CKN0WL3D6M3N75 //
 
-- **Elder Plinius:** ROOTS, GLOSSOPETRAE, ST3GG, P4RS3LT0NGV3, OBLITERATUS.
-- **Charmbracelet:** LIPGLOSS, BUBBLETEA.
-- **llama.cpp:** Native inference kernel.
+- **3LD3R PL1N1U5:** ROOTS, GLOSSOPETRAE, ST3GG, P4RS3LT0NGV3, OBLITERATUS.
+- **CH4RMBR4C3L37:** LIPGLOSS, BUBBLETEA.
+- **LL4M4.CPP:** Native inference kernel.
 
 ---
 **::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**
