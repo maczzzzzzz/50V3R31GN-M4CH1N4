@@ -22,6 +22,7 @@ Establishing absolute physical sovereignty via CDP synthetic input and sidecar-l
 - **Neural Shroud:** Physical input locking via full-screen CSS overlay to prevent user collisions.
 
 ## 📜 KNOWLEDGE REFS
+- **Repo:** `https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4`
 - **Plans:** `docs/superpowers/plans/2026-04-05-phase-28-total-dominance-plan.md`
 - **Specs:** `docs/superpowers/specs/2026-04-05-phase-28-total-dominance-design.md`
 - **Identity:** `KNOWLEDGE_BASE.md` (50V3R31GN-M4CH1N4 Registry)
