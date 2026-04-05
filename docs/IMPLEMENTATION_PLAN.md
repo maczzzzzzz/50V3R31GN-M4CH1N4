@@ -139,6 +139,11 @@
 - [ ] **Task 3: Security Hardening:** 
     - Enforce `127.0.0.1` binding and implement an ephemeral handshake token for the Node B WebSocket server.
     - Enforce `0600` permissions and magic byte validation for the VSB Mmap file.
+- [ ] **Task 4: Vesper Lifecycle & Ignition:** 
+    - Integrate Vesper startup into `deck-igniter` (Ignition Sequence).
+    - Implement a 30-minute idle heartbeat timeout in the Go proxy.
+    - Implement "Safe Shutdown" state-saving to `Akashik.db` upon SIGTERM.
+    - Add a global "V35P3R-K1LL" button to the Rust HUD for immediate user override.
 - [ ] **Hook Interception:** Wrap Foundry `game.socket.emit` to enable Node A rules-veto before state commits.
 - [ ] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
 
