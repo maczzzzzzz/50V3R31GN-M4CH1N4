@@ -180,6 +180,12 @@ func main() {
 		case "wsa":
 			os.Exit(runWSA(os.Args[2:]))
 
+		case "hack":
+			os.Exit(runHack(os.Args[2:]))
+
+		case "scan":
+			os.Exit(runScan(os.Args[2:]))
+
 		case "belt":
 			if len(os.Args) > 2 {
 				switch os.Args[2] {
