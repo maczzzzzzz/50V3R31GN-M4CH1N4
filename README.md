@@ -1,83 +1,75 @@
-# ASP-GM-AGENT v1.9.0
+  ___   ___________ _____ ___  ___   ___  _____  _____ _   _ _____ 
+ / _ \ /  ___| ___ \  __ \|  \/  |  / _ \|  __ \|  ___| \ | |_   _|
+/ /_\ \\ `--.| |_/ / |  \/| .  . | / /_\ \ |  \/| |__ |  \| | | |  
+|  _  | `--. \  __/| | __ | |\/| | |  _  | | __ |  __|| . ` | | |  
+| | | |/\__/ / |_  | |_\ \| |  | | | | | | |_\ \| |___| |\  | | |  
+\_| |_/\____/\_(_)  \____/\_|  |_/ \_| |_/\____/\____/\_| \_/ \_/  
+                                                                   
+                                                                   
+## SYSTEM STATUS: SOVEREIGN HIGHWAY ACTIVE // v1.9.0
 
-```text
- █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
- █  █████╗ ███████╗██████╗      ██████╗ ███╗   ███╗           █
- █  ██╔══██╗██╔════╝██╔══██╗    ██╔════╝ ████╗ ████║          █
- █  ███████║███████╗██████╔╝    ██║  ███╗██╔████╔██║          █
- █  ██╔══██║╚════██║██╔═══╝     ██║   ██║██║╚██╔╝██║          █
- █  ██║  ██║███████║██║         ╚██████╔╝██║ ╚═╝ ██║          █
- █  ╚═╝  ╚═╝╚══════╝╚═╝          ╚═════╝ ╚═╝     ╚═╝          █
- █                                                            █
- █  SYSTEM STATUS: SOVEREIGN HIGHWAY ACTIVE // v1.9.0         █
- █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+Distributed neural orchestrator for Cyberpunk RED. Dual-node LLM runtime synchronized via sub-1ms VSB Binary UDP + Mmap.
 
- █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
- █  01 // SYSTEM TOPOLOGY                                     █
- █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+---
 
- [ NODE B: THE DIRECTOR ]           [ NODE A: THE KERNEL ]
- ------------------------           ----------------------
- > NixOS on WSL 2 (Native)          > Linux / Nix Native
- > Mistral-Nemo (12B)               > Open-Reasoner-1.5B
- > RDNA 4 (AMD) // Vulkan           > GTX 1050 Ti // CUDA
- > Narrative Orchestrator           > Mechanical Rules Judge
+## SYSTEM TOPOLOGY
 
-           ||                          ||
-           ╚════════════════════════════╝
-               [ VSB SOVEREIGN HIGHWAY ]
-               Binary UDP (Cross-Machine)
-               Shared Memory Mmap (Local)
+### NODE B: THE DIRECTOR
+- **OS:** NixOS on WSL 2 (Native)
+- **Logic:** Mistral-Nemo (12B)
+- **Sight:** Pixtral Vision (VLM)
+- **Role:** Narrative Orchestrator managing high-level story state and the Sovereign Bridge.
 
- █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
- █  02 // CORE TECHNOLOGY                                     █
- █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+### NODE A: THE KERNEL
+- **OS:** Linux / Nix Native
+- **Logic:** Open-Reasoner-1.5B
+- **Sight:** Falcon CV (0.3B)
+- **Role:** Mechanical Rules Judge and Perception Engine enforcing world physics.
 
- [ TRANSPORT ] : VSB HIGHWAY
- Sub-1ms state synchronization via raw C-style binary UDP. 
- Dedicated physical threads watch the bus for zero-latency.
+### THE HIGHWAY
+- **Transport:** Virtual System Bus (VSB) via raw C-style Binary UDP.
+- **Latency:** Sub-1ms state synchronization.
+- **Memory:** Shared Memory Mmap for local registers.
 
- [ INFERENCE ] : NATIVE LLAMA-SERVER
- Ollama overhead eliminated. Native llama.cpp binaries 
- with residency enforced via --mlock and hardware pins.
+---
 
- [ SENSORY ]   : OPTICAL BRIDGE
- Falcon-0.3B perception extracts physical facts from 
- Foundry VTT pixels via raw CDP visual capture.
+## CORE TECHNOLOGY
 
- [ VISUALS ]   : LAYOUT SOVEREIGNTY
- Pretext engine renders narrative overlays at 60fps
- directly to detached PIXI.js canvas. Zero reflows.
+### INFRASTRUCTURE
+- **Nix Sovereignty:** Entire environment defined via Flakes for total reproducibility.
+- **VSB Highway:** Zero-overhead state synchronization between distributed nodes.
+- **Deck Igniter (NEW):** Go-based TUI for system-wide boot synchronization and health probing. [View Guide](docs/user_guides/DECK_IGNITER_GUIDE.md).
 
- [ STEGO ]     : ST3GG & ROOTS
- Physical wall coordinates and metadata embedded 
- directly into asset pixels using LSB Steganography.
+### INFERENCE
+- **Native llama-server:** Native llama.cpp binaries with residency enforced via --mlock.
+- **Reasoning Loop:** Open-Reasoner-Zero-1.5B providing deterministic rules judgment with chain-of-thought verification.
 
- █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
- █  03 // DECK IGNITION (QUICK START)                         █
- █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+### SENSORY
+- **Optical Bridge:** Falcon-0.3B perception extracts physical facts from Foundry VTT pixels via CDP.
+- **ST3GG Stego:** Wall coordinates and object metadata embedded directly into asset pixels using LSB Steganography.
 
- 1. Jack into the internal NixOS filesystem:
-    $ cd /home/nixos/asp-gm-agent
+### VISUALS
+- **Layout Sovereignty:** Pretext engine renders narrative overlays at 60fps directly to detached PIXI.js canvas.
+- **Neural Compositor:** 16-core latency masking via procedural visual glitches and shaders.
 
- 2. Synchronize hardware environment:
-    [Node B] $ nix develop
-    [Node A] $ nix develop .#cuda
+---
 
- 3. Boot the Orchestrator:
-    $ pnpm start
+## QUICK START
 
- █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
- █  04 // NETWORK NODES (ACKNOWLEDGMENTS)                     █
- █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+1. **Enter the Nix Shell:**
+   - Node B: `nix develop`
+   - Node A: `nix develop .#cuda`
+2. **Synchronize Hardware:** Verify the VSB Bridge is active on the internal network.
+3. **Boot the Orchestrator:** `pnpm start`
 
- * Elder Plinius : Roots, Glossopetrae, ST3GG, AutoStoryGen.
- * Charmbracelet : Terminal UI via lipgloss & bubbletea.
- * llama.cpp     : The foundation of our native inference.
- * Foundry VTT   : The physical medium we inhabit.
+---
 
- --------------------------------------------------------------
- Cyberpunk RED is a trademark of R. Talsorian Games. 
- This project is an independent architectural toolset.
- --------------------------------------------------------------
-```
+## ACKNOWLEDGMENTS
+
+- **Elder Plinius:** Roots, Glossopetrae, ST3GG, AutoStoryGen.
+- **Charmbracelet:** Terminal UI via lipgloss & bubbletea.
+- **llama.cpp:** Native inference foundation.
+- **Foundry VTT:** The physical medium we inhabit.
+
+---
+**SECURITY NOTICE:** Unauthorized access to the VSB Sovereign Highway is punishable by Neural Wipe.

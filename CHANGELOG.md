@@ -7,6 +7,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.9.0] - 2026-04-05
 ### Added
+- **Deck Igniter (TUI Orchestration)**: New Go-based unified terminal interface for system-wide boot synchronization, CDP probing, and Node A SSH handshakes.
 - **Phase 25: Native Inference Engine (Completed)**: Migrated entire project from Ollama to native `llama-server` (llama.cpp) for zero-overhead inference.
 - **Node A Nix Sovereignty**: Installed Nix on Node A (physical machine) for full environment parity with Node B.
 - **Hardware-Optimized Flake**: Updated `flake.nix` with multi-GPU support: CUDA-optimized shell for Node A (NVIDIA) and Vulkan-optimized shell for Node B (AMD).
@@ -18,11 +19,13 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Resident Management**: Shifted VRAM residency enforcement to process-level `--mlock` via `llama-server` native flags.
 - **Network Protocol**: Refactored `zeroclaw` to use `127.0.0.1` binding internally to prevent IPv6 resolution lag.
 - **Orchestration**: Integrated `VsbClient` into `HybridRoutingController` for sub-1ms mechanical validation fast-path.
+- **Refactored Deck Igniter Config**: Mapped `.env` keys (`CLAWLINK_USER`, `CLAWLINK_SSH_PORT`, `ZEROCLAW_PORT`) to Go config for seamless multi-node orchestration.
 
 ### Fixed
 - **VSB UDP Binding**: Resolved binding bottlenecks in Node A startup script to allow external connections.
 - **Node A Dependencies**: Replaced manual Ubuntu `apt` management with deterministic Nix development shells.
 - **Build Integrity**: Fixed `zeroclaw` Rust compilation errors related to missing `Deserialize` derives and OpenSSL linkage.
+- **Deck Igniter Prober**: Remedied binary UDP packet size (302 bytes) to match VSB specification for heartbeat probes.
 
 ## [1.8.0] - 2026-04-04
 ### Added
