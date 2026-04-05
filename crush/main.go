@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -160,9 +163,23 @@ func main() {
 		State:      StateOffline,
 	})
 
-	// Handle simple CLI flags/args
+	// Top-level subcommand dispatch
 	if len(os.Args) > 1 {
 		switch os.Args[1] {
+		case "proxy":
+			ctx, cancel := signal.NotifyContext(
+				context.Background(), syscall.SIGINT, syscall.SIGTERM,
+			)
+			defer cancel()
+			if err := runProxy(ctx); err != nil {
+				fmt.Fprintf(os.Stderr, "[CRUSH] proxy error: %v\n", err)
+				os.Exit(1)
+			}
+			return
+
+		case "wsa":
+			os.Exit(runWSA(os.Args[2:]))
+
 		case "belt":
 			if len(os.Args) > 2 {
 				switch os.Args[2] {
@@ -173,7 +190,7 @@ func main() {
 						if s.State == StateOffline {
 							statusColor = colorDim
 						}
-						fmt.Printf("  %s %s [%s] (Weight: %.1fGB)\n", 
+						fmt.Printf("  %s %s [%s] (Weight: %.1fGB)\n",
 							lipgloss.NewStyle().Foreground(statusColor).Render("◈"),
 							s.Name, s.State, s.VramWeight)
 					}
