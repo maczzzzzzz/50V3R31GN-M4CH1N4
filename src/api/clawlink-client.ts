@@ -5,9 +5,9 @@
  *
  * Transport layer:
  *   Node B (this class)
- *     → node:net Socket (direct TCP to Node A)
+ *     → node:net Socket (Unix socket to crush proxy daemon)
  *     → newline-delimited JSON ClawLinkPackets
- *     → ZeroClaw (Rust TCP server, port 7878 on Node A)
+ *     → crush proxy → ZeroClaw (Rust TCP server on Node A)
  *
  * Zero-Trust: All responses from Node A are validated against Zod schemas
  * before being returned to callers, per CLAUDE.md §9.
@@ -56,6 +56,16 @@ export interface IClawLinkClient {
     text: string,
     execute: (cmd: WorldCommand) => Promise<void>,
   ): Promise<boolean>;
+  /**
+   * World State Authority: send a reason_audit RPC to the crush proxy.
+   * Used by the Director for AI-initiated WSA mutations before calling runScript.
+   * Returns verdict ('GRANTED' | 'REJECTED') and rationale from Node A.
+   */
+  wsaAudit(
+    action: string,
+    targetId: string,
+    context: string,
+  ): Promise<{ verdict: 'GRANTED' | 'REJECTED'; rationale: string }>;
 }
 
 // ── Internal types ────────────────────────────────────────────────────────────
@@ -75,8 +85,9 @@ interface PendingRequest {
 // ── Implementation ────────────────────────────────────────────────────────────
 
 /**
- * ClawLinkClient establishes and maintains a persistent TCP connection to Node A,
- * then dispatches JSON-RPC calls wrapped in ClawLinkPackets to the ZeroClaw server.
+ * ClawLinkClient establishes and maintains a persistent Unix socket connection to the
+ * crush proxy daemon, then dispatches JSON-RPC calls wrapped in ClawLinkPackets to
+ * the ZeroClaw server on Node A.
  */
 export class ClawLinkClient implements IClawLinkClient {
   private readonly config: ClawLinkConfig;
@@ -100,12 +111,12 @@ export class ClawLinkClient implements IClawLinkClient {
   // ── Public API ──────────────────────────────────────────────────────────────
 
   /**
-   * Establish the TCP connection to zeroclaw.
+   * Establish the Unix socket connection to the crush proxy daemon.
    * Must be called before any RPC methods.
    */
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const socket = net.connect(this.config.port, this.config.host);
+      const socket = net.connect(this.config.socketPath);
       this.socket = socket;
 
       socket.on('connect', () => {
@@ -134,7 +145,7 @@ export class ClawLinkClient implements IClawLinkClient {
     });
   }
 
-  /** Close the TCP connection. */
+  /** Close the Unix socket connection. */
   async disconnect(): Promise<void> {
     // Reject all pending requests
     for (const [id, pending] of this.pending) {
@@ -274,6 +285,23 @@ export class ClawLinkClient implements IClawLinkClient {
       throw err;
     }
     return true;
+  }
+
+  async wsaAudit(
+    action: string,
+    targetId: string,
+    context: string,
+  ): Promise<{ verdict: 'GRANTED' | 'REJECTED'; rationale: string }> {
+    const raw = await this.send<{ verdict: string; rationale: string }>(
+      'reason_audit',
+      { action, target_id: targetId, context },
+    );
+    if (raw.verdict !== 'GRANTED' && raw.verdict !== 'REJECTED') {
+      throw new Error(
+        `${CONTEXT} wsaAudit: unexpected verdict ${JSON.stringify(raw.verdict)}`,
+      );
+    }
+    return { verdict: raw.verdict, rationale: raw.rationale ?? '' };
   }
 
   // ── Private helpers ─────────────────────────────────────────────────────────
