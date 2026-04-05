@@ -21,13 +21,9 @@ import (
 // ── Node A Connection Config ───────────────────────────────────────────────────
 
 const (
-	nodeAHost       = "node-a"        // resolvable hostname or IP
-	nodeAPort       = "22"
-	nodeAUser       = "nixos"
-	nodeAIdentity   = "~/win_id_ed25519"
-	nodeASetupScript = "~/setup-resident-models.sh"
-	nodeAZeroclaw   = "zeroclaw"
-	sshDialTimeout  = 30 * time.Second
+	nodeAIdentity  = "~/win_id_ed25519"
+	nodeAZeroclaw  = "zeroclaw"
+	sshDialTimeout = 30 * time.Second
 )
 
 // expandHome replaces a leading "~" with the actual home directory.
@@ -45,6 +41,7 @@ func expandHome(path string) string {
 // ── SSH Client Helpers ─────────────────────────────────────────────────────────
 
 // newNodeAClient dials Node A and returns an authenticated *ssh.Client.
+// Host, port, and user are loaded from Cfg (populated by LoadConfig / .env).
 func newNodeAClient() (*ssh.Client, error) {
 	keyPath := expandHome(nodeAIdentity)
 	keyBytes, err := os.ReadFile(keyPath)
@@ -57,15 +54,15 @@ func newNodeAClient() (*ssh.Client, error) {
 		return nil, fmt.Errorf("parse identity key: %w", err)
 	}
 
-	cfg := &ssh.ClientConfig{
-		User:            nodeAUser,
+	sshCfg := &ssh.ClientConfig{
+		User:            Cfg.NodeAUser,
 		Auth:            []ssh.AuthMethod{ssh.PublicKeys(signer)},
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(), // replace with known_hosts in prod
 		Timeout:         sshDialTimeout,
 	}
 
-	addr := net.JoinHostPort(nodeAHost, nodeAPort)
-	client, err := ssh.Dial("tcp", addr, cfg)
+	addr := net.JoinHostPort(Cfg.NodeAHost, Cfg.NodeASSHPort)
+	client, err := ssh.Dial("tcp", addr, sshCfg)
 	if err != nil {
 		return nil, fmt.Errorf("ssh dial %s: %w", addr, err)
 	}
@@ -121,7 +118,7 @@ func launchLlamaServer(c *Component) tea.Cmd {
 		}
 		defer client.Close()
 
-		script := expandHome(nodeASetupScript)
+		script := expandHome(Cfg.SetupScriptPath)
 		if err := startRemote(client, fmt.Sprintf("bash %s", script)); err != nil {
 			return stateUpdateMsg{
 				name:  c.Name,

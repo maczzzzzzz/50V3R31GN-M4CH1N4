@@ -448,6 +448,8 @@ func (m Model) renderLegend() string {
 // ── Entry Point ───────────────────────────────────────────────────────────────
 
 func main() {
+	LoadConfig()
+
 	p := tea.NewProgram(
 		initialModel(),
 		tea.WithAltScreen(),
