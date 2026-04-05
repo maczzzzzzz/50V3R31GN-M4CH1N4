@@ -1,4 +1,4 @@
-# PROJECT_DNA: ASP-GM-AGENT
+# PROJECT_DNA: 50V3R31GN-M4CH1N4
 Mirroring directives from CLAUDE.md and KNOWLEDGE_BASE.md.
 
 ## 🏗️ HARDWARE MAP (v1.9.0)

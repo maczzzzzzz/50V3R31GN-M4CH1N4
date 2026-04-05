@@ -628,6 +628,29 @@ export const SystemHeartbeatEventSchema = z.object({
   }),
 });
 
+/**
+ * Request to trigger the AkashikVisualAuditor's global VLM lore extraction pass.
+ * Node B will scan all Smart Assets in the assets directory and populate the library.
+ */
+export const AuditLibraryEventSchema = z.object({
+  type: z.literal('audit_library'),
+  payload: z.object({
+    /** Optional override for the assets directory path. */
+    assetsDir: z.string().optional(),
+  }),
+});
+
+/**
+ * Real-time Thought Stream event from Foundry (Phase 26).
+ * Carries a content string for the live reasoning feed.
+ */
+export const ThoughtStreamEventSchema = z.object({
+  type: z.literal('thought_stream'),
+  payload: z.object({
+    content: z.string(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -645,6 +668,8 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   DecryptSt3ggEventSchema,
   SystemHeartbeatEventSchema,
   NpcTurnEventSchema,
+  ThoughtStreamEventSchema,
+  AuditLibraryEventSchema,
 ]);
 
 /**

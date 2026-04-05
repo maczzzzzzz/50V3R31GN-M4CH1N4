@@ -1,4 +1,4 @@
-# ASP.GM-Agent: External Knowledge Base & Dependency Registry
+# 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
 **Version:** 1.9.0 (The Sovereign Highway Stabilization)
 **Target:** v1.9.0+ The Sovereign Highway Milestone
 
