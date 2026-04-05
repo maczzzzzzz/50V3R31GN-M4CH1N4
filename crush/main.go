@@ -248,4 +248,17 @@ func main() {
 		},
 	}
 	fmt.Println(renderSearchPane(sr))
+
+	// Demo: Thought Stream panel
+	thoughtLines := []string{
+		"<think> Analyzing tactical position... </think>",
+		"<think> Vido is at 40% HP — escalate threat. </think>",
+		"Recommend: Suppressive fire from cover, 2 AP.",
+	}
+	var tsLines []string
+	tsLines = append(tsLines, headerStyle.Render("⟨ THOUGHT STREAM ⟩"))
+	for _, l := range thoughtLines {
+		tsLines = append(tsLines, lipgloss.NewStyle().Foreground(colorCyan).Italic(true).Render("  "+l))
+	}
+	fmt.Println(paneStyle.Render(strings.Join(tsLines, "\n")))
 }
