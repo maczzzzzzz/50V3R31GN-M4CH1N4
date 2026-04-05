@@ -24,7 +24,7 @@ The system decomposes the single-process `claw-code` harness into a "Soul & Body
     - `zeroclaw-core`: Fork of `claw-code::tools` runner managing the 1B Judge and Falcon Perception.
     - `mechanical-plugin`: Maps Abstract Intents to physical rule-checks (Tactical-MMU, D10 Oracle).
     - `vsb-server`: The authority on the Sovereign Highway; serializes reality into binary packets.
-    - `task-router-proxy`: Manages VRAM swapping between Llama-1B and Falcon models.
+    - `task-router-proxy`: Manages VRAM swapping between Open-Reasoner-Zero-1.5B and Falcon models.
 
 ## 3. The Sovereign Loop
 1. **Intent Generation (Node B):** 12B Brain generates an action; `director-rs` captures and serializes it as an Abstract Intent.

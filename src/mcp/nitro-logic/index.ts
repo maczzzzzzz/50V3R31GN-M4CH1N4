@@ -158,7 +158,7 @@ const server = new McpServer({
 
 server.tool(
   'resolve_attack',
-  'Resolve a Cyberpunk RED attack roll. Sends attacker stats + weapon + defender REF/SP to Node A (Llama-3.2-3B) with a Chain-of-Thought prompt. Returns hit/miss, damage after armor, and critical injury flag as styled Markdown.',
+  'Resolve a Cyberpunk RED attack roll. Sends attacker stats + weapon + defender REF/SP to Node A (Open-Reasoner-Zero-1.5B) with a Chain-of-Thought prompt. Returns hit/miss, damage after armor, and critical injury flag as styled Markdown.',
   {
     attackerSkill: z.number().int().min(0).max(10).describe('Attacker\'s relevant combat skill rank'),
     attackerRef: z.number().int().min(1).max(10).describe('Attacker\'s REF stat'),

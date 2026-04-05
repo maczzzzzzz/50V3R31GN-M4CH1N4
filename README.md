@@ -18,7 +18,7 @@ ASP.GM-Agent is a production-grade, air-gapped platform designed for the determi
 ```
 
 ## 🏗️ Architecture (v1.8.0)
-- **Node A (The Rules Vault):** NVIDIA GTX 1050 Ti. Resident **Llama-3.2-1B** + **Falcon CV**. (OS: Linux/Nix).
+- **Node A (The Rules Vault):** NVIDIA GTX 1050 Ti. Resident **Open-Reasoner-Zero-1.5B** + **Falcon CV**. (OS: Linux/Nix).
 - **Node B (The Director):** Ryzen 5950X. Resident **12B Mistral-Nemo**. (**OS: NixOS on WSL 2**).
 - **VSB (Virtual System Bus):** Sub-1ms state sync via **Binary UDP** (Cross-Node) and **Mmap** (Local Sidecars).
 
@@ -47,7 +47,7 @@ pnpm build
 Phase 22 introduces a hardware-level **Sovereign Highway**. By utilizing binary UDP mirroring and local memory mapping, Node A and Node B achieve sub-1ms state synchronization. Node B's 16-core CPU dedicates physical threads to "watch" the network bus, ensuring zero-latency access to the world state.
 
 ### ⚖️ The Mini-Vault (Resident 1B Judge)
-By pivoting to a resident **Llama-1B-Instruct** model on Node A, the system eliminates the 8s model-swapping delay. The 1B model acts as a deterministic "Mechanical Judge," air-gapped from the narrative engine to prevent contextual drift and ensure 100% rules adherence.
+By pivoting to a resident **Open-Reasoner-Zero-1.5B** model on Node A, the system eliminates the 8s model-swapping delay. The 1B model acts as a deterministic "Mechanical Judge," air-gapped from the narrative engine to prevent contextual drift and ensure 100% rules adherence.
 
 ### 🎨 Pretext Integration (Layout Sovereignty)
 Leveraging the **Pretext** engine, the agent side-steps the DOM entirely. It renders narrative text and UI overlays directly to a detached PIXI.js canvas, achieving 60fps performance without triggering browser reflows, ensuring high-fidelity atmospheric glitches and screamsheets.

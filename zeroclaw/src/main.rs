@@ -19,24 +19,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     );
     info!("👁️  Falcon Sidecar: PerceptionController online (VRAM lock acquired).");
 
+    // 2a. Phase 22.5: Residency Lockdown — Lock Open-Reasoner-Zero-1.5B and Falcon into VRAM
+    let perception_init = Arc::clone(&perception);
+    tokio::spawn(async move {
+        if let Err(e) = perception_init.ensure_residency().await {
+            error!("⚠️  Model residency lockdown FAILED: {}", e);
+        }
+    });
+
     // 3. Shared HTTP client for Ollama (reused by ClawLink and VSB Judge)
     let http_client = Arc::new(Client::new());
-
-    // 3a. Warm up resident Llama-1B (VSB Judge + ClawLink) — best-effort, non-blocking
-    {
-        let wc = Arc::clone(&http_client);
-        tokio::spawn(async move {
-            #[derive(serde::Serialize)]
-            struct Warmup<'a> { model: &'a str, prompt: &'a str, stream: bool }
-            match wc.post("http://localhost:11434/api/generate")
-                .json(&Warmup { model: "llama3.2:1b", prompt: ".", stream: false })
-                .send().await
-            {
-                Ok(_)  => tracing::info!("🔒 Llama-1B resident model locked into VRAM."),
-                Err(e) => tracing::warn!("⚠️  Llama-1B warmup failed (Ollama unavailable): {}", e),
-            }
-        });
-    }
 
     // 4. Spawn VSB Sovereign Highway (UDP :7878) — Phase 22.5
     //    Runs concurrently with the TCP ClawLink server. UDP and TCP share

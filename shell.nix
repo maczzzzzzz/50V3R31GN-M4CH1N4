@@ -8,6 +8,7 @@ pkgs.mkShell {
     sqlite
     git
     ripgrep
+    llama-cpp
   ];
 
   shellHook = ''

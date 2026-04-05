@@ -18,6 +18,7 @@ import { NitroLogicClient } from './core/nitro-logic-client.js';
 import { OllamaClient } from './core/ollama-client.js';
 import { HybridRoutingController } from './core/hybrid-routing-controller.js';
 import { StoryEngine } from './core/story-engine.js';
+import { VsbClient } from './api/vsb-client.js';
 import { GmApprovalQueue } from './core/gm-approval-queue.js';
 import { NightMarketService } from './core/night-market-service.js';
 import { RedTradeService } from './core/red-trade-service.js';
@@ -55,7 +56,7 @@ async function main() {
   });
 
   const ollama = new OllamaClient({
-    baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:11434',
+    baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:8080/v1',
     model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
     timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
     num_gpu: process.env.OLLAMA_NUM_GPU ? parseInt(process.env.OLLAMA_NUM_GPU, 10) : undefined,
@@ -64,6 +65,12 @@ async function main() {
   const chronicler = process.env.DISCORD_SCREAMSHEET_WEBHOOK 
     ? new DiscordChroniclerClient(process.env.DISCORD_SCREAMSHEET_WEBHOOK)
     : undefined;
+
+  const vsbClient = new VsbClient({
+    host: process.env.NODE_A_HOST || '192.168.0.50',
+    port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
+    timeoutMs: 2000,
+  });
 
   // 4. Initialise State Engine
   // For the "Live-Fire" test, we use the TttA Part 1 starting state
@@ -89,6 +96,7 @@ async function main() {
   // 7. Assemble Orchestration Loop
   const controller = new HybridRoutingController({
     nitroLogicClient: nitroLogic,
+    vsbClient: vsbClient,
     ollamaClient: ollama,
     foundryAdapter: foundry,
     storyEngine,
@@ -134,6 +142,9 @@ async function main() {
       
       await nitroLogic.stop();
       console.log('✅ NitroLogic Client STOPPED.');
+
+      vsbClient.close();
+      console.log('✅ VsbClient (UDP) STOPPED.');
 
       // Disconnect Oracle
       await oracle.disconnect();

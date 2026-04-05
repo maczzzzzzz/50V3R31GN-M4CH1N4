@@ -78,3 +78,6 @@ dist/
 Modelfile.test
 docs/audits/temp_*
 .worktrees/
+*.gguf
+*.onnx
+*.onnx.data

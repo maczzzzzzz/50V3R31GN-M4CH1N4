@@ -2,19 +2,7 @@
  * src/core/spatial-vision-service.ts
  *
  * Optical Bridge — Playwright CDP capture + Llava tactical analysis.
- *
- * Pipeline:
- *   1. Connect to an existing Chrome session via CDP (--remote-debugging-port).
- *   2. Find the active page and capture the Foundry VTT #canvas element.
- *   3. POST the screenshot buffer to Ollama Llava for spatial analysis.
- *   4. Return a structured VisualTacticalContext for narrative synthesis.
- *
- * Performance target: <10s end-to-end (spec §5).
- *
- * ENV used by callers (not consumed here):
- *   CHROME_CDP_URL  — e.g. http://localhost:9222
- *   OLLAMA_BASE_URL — e.g. http://localhost:11434 (default)
- *   LLAVA_MODEL     — e.g. llava:latest (default)
+ * (Migrated to llama-server native inference)
  */
 
 import { chromium, type Browser } from 'playwright-core';
@@ -31,14 +19,18 @@ export interface VisualTacticalContext {
 export interface SpatialVisionConfig {
   /** CDP endpoint of the running Chrome session, e.g. http://localhost:9222 */
   chromeCdpUrl: string;
-  /** Base URL of the Ollama server, e.g. http://localhost:11434 */
+  /** Base URL of the llama-server, e.g. http://localhost:8080/v1 */
   ollamaBaseUrl?: string;
-  /** Llava model tag, e.g. "llava:latest" */
+  /** Vision model tag, e.g. "llava-v1.5-7b" */
   visionModel?: string;
 }
 
-interface OllamaGenerateResponse {
-  response: string;
+interface OpenAICompletionResponse {
+  choices: Array<{
+    message: {
+      content: string;
+    };
+  }>;
 }
 
 const ANALYSIS_PROMPT =
@@ -49,12 +41,12 @@ const ANALYSIS_PROMPT =
   '{"tokenClusters": string[], "environmentalFeatures": string[], "rawDescription": string}';
 
 export class SpatialVisionService {
-  private readonly ollamaBaseUrl: string;
+  private readonly llamaBaseUrl: string;
   private readonly visionModel: string;
 
   constructor(private readonly config: SpatialVisionConfig) {
-    this.ollamaBaseUrl = config.ollamaBaseUrl ?? 'http://localhost:11434';
-    this.visionModel = config.visionModel ?? 'llava:latest';
+    this.llamaBaseUrl = config.ollamaBaseUrl ?? 'http://localhost:8080/v1';
+    this.visionModel = config.visionModel ?? 'llava-v1.5-7b';
   }
 
   async captureAndAnalyze(): Promise<VisualTacticalContext> {
@@ -79,32 +71,46 @@ export class SpatialVisionService {
   }
 
   async analyzeWithLlava(base64Image: string): Promise<VisualTacticalContext> {
-    const response = await fetch(`${this.ollamaBaseUrl}/api/generate`, {
+    // llama-server OpenAI-compatible chat endpoint with vision support
+    // uses the same format as GPT-4V
+    const response = await fetch(`${this.llamaBaseUrl}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: this.visionModel,
-        prompt: ANALYSIS_PROMPT,
-        images: [base64Image],
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: ANALYSIS_PROMPT },
+              {
+                type: 'image_url',
+                image_url: {
+                  url: `data:image/png;base64,${base64Image}`,
+                },
+              },
+            ],
+          },
+        ],
         stream: false,
-        format: 'json',
+        response_format: { type: 'json_object' },
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`Ollama Llava request failed: ${response.status} ${response.statusText}`);
+      throw new Error(`llama-server vision request failed: ${response.status} ${response.statusText}`);
     }
 
-    const data = (await response.json()) as OllamaGenerateResponse;
+    const data = (await response.json()) as OpenAICompletionResponse;
+    const content = data.choices[0]?.message.content ?? '';
 
     try {
-      return JSON.parse(data.response) as VisualTacticalContext;
+      return JSON.parse(content) as VisualTacticalContext;
     } catch {
-      // Llava returned free text instead of JSON — wrap it gracefully
       return {
         tokenClusters: [],
         environmentalFeatures: [],
-        rawDescription: data.response,
+        rawDescription: content,
       };
     }
   }

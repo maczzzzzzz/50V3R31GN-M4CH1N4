@@ -9,7 +9,7 @@
 - **Latency Issue:** Model swapping on Pascal-based cards (PCIe 3.0) causes a **4-8 second delay** per NPC turn. The 1050 Ti cannot fit both models in VRAM simultaneously without thrashing.
 
 ### 1.2. Optimized State (Phase 22)
-- **Model:** Llama-3.2-1B-Instruct (0.8GB) + Falcon-0.3B (0.2GB).
+- **Model:** Open-Reasoner-Zero-1.5B-Instruct (0.8GB) + Falcon-0.3B (0.2GB).
 - **Total VRAM Resident:** ~1.5GB (including OS/Buffers).
 - **Latency Gain:** **Sub-1s response.** By switching to a 1B model, both "Vision" (Falcon) and the "Mechanical Judge" (1B) stay resident 100% of the time.
 

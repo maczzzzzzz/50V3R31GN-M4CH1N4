@@ -1,17 +1,12 @@
 /**
  * src/core/tactical-vision-service.ts
  *
- * TacticalVisionService — Semantic Map Analysis (LLava 1.6)
- *
- * Provides "Eyes" to the AI by identifying tactical regions on a map.
- * Normalized coordinates (0-1000) allow scaling to any Foundry VTT grid.
+ * TacticalVisionService — Semantic Map Analysis (Migrated to llama-server)
  */
 
 import fs from 'node:fs/promises';
 import { z } from 'zod';
 import type { TacticalRegion, OllamaConfig } from './interfaces.js';
-
-// ── Zod response schema ───────────────────────────────────────────────────────
 
 const TacticalRegionSchema = z.object({
   category: z.enum(['cover_high', 'cover_partial', 'hazard', 'security']),
@@ -23,8 +18,6 @@ const TacticalVisionResponseSchema = z.object({
   regions: z.array(TacticalRegionSchema),
 });
 
-// ── Implementation ────────────────────────────────────────────────────────────
-
 export class TacticalVisionService {
   private readonly config: OllamaConfig;
 
@@ -32,11 +25,6 @@ export class TacticalVisionService {
     this.config = config;
   }
 
-  /**
-   * Scan a map image and extract tactical metadata.
-   * @param imagePath Local path to the map image (PNG/JPG).
-   * @returns Array of identified TacticalRegions.
-   */
   async scanMap(imagePath: string): Promise<TacticalRegion[]> {
     let imageData: Buffer;
     try {
@@ -62,20 +50,32 @@ Each region MUST have:
 
 Example: {"regions": [{"category": "hazard", "box2d": [100, 200, 150, 250], "label": "Industrial Fan"}]}`;
 
-    const response = await fetch(`${this.config.baseUrl}/api/generate`, {
+    const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'llava:7b', // Hardcoded vision model to differentiate from Mistral-Nemo
-        prompt,
-        images: [base64Image],
+        model: 'llava-v1.5-7b',
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: prompt },
+              {
+                type: 'image_url',
+                image_url: {
+                  url: `data:image/png;base64,${base64Image}`,
+                },
+              },
+            ],
+          },
+        ],
         stream: false,
-        format: 'json',
+        response_format: { type: 'json_object' },
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`TacticalVisionService: Ollama HTTP ${response.status} — ${response.statusText}`);
+      throw new Error(`TacticalVisionService: llama-server HTTP ${response.status} — ${response.statusText}`);
     }
 
     let json: any;
@@ -85,8 +85,7 @@ Example: {"regions": [{"category": "hazard", "box2d": [100, 200, 150, 250], "lab
       throw new Error('TacticalVisionService: failed to parse root response JSON');
     }
 
-    // Ollama's /api/generate returns the model output in the 'response' field
-    const responseText = json.response;
+    const responseText = json.choices[0]?.message.content ?? '';
     let parsedData: unknown;
     try {
       parsedData = JSON.parse(responseText);

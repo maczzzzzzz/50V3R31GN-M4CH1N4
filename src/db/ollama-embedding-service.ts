@@ -9,22 +9,26 @@ const EmbeddingServiceConfigSchema = z.object({
   timeoutMs: z.number().int().min(1, 'timeoutMs must be >= 1'),
 });
 
-/** Zod schema for validating Ollama /api/embed responses (Zero-Trust). */
-const OllamaEmbedResponseSchema = z.object({
-  model: z.string().optional(),
-  embeddings: z.array(z.array(z.number())).min(1, 'embeddings array must not be empty'),
-  total_duration: z.number().optional(),
-  load_duration: z.number().optional(),
-  prompt_eval_count: z.number().optional(),
+/** Zod schema for validating OpenAI-compatible embedding responses (Zero-Trust). */
+const OpenAIEmbeddingResponseSchema = z.object({
+  object: z.literal('list'),
+  data: z.array(z.object({
+    object: z.literal('embedding'),
+    embedding: z.array(z.number()),
+    index: z.number(),
+  })).min(1, 'data array must not be empty'),
+  model: z.string(),
+  usage: z.object({
+    prompt_tokens: z.number().optional(),
+    total_tokens: z.number().optional(),
+  }).optional(),
 });
 
 /**
- * OllamaEmbeddingService — Converts text to vectors via Node B's local Ollama instance.
+ * OllamaEmbeddingService — Converts text to vectors via llama-server's OpenAI-compatible endpoint.
  *
- * Targets the nomic-embed-text model at http://localhost:11434/api/embed.
- * Produces 768-dimension L2-normalized vectors for pgvector cosine similarity search.
- *
- * All Ollama responses are validated through Zod before returning to the caller.
+ * Targets the /v1/embeddings endpoint.
+ * Produces L2-normalized vectors for cosine similarity search.
  */
 export class OllamaEmbeddingService implements IEmbeddingService {
   private readonly config: EmbeddingServiceConfig;
@@ -49,11 +53,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
   }
 
   /**
-   * Convert a single text string into a float vector via Ollama /api/embed.
-   *
-   * @param text - The text to embed. Must not be empty.
-   * @returns A number array representing the embedding vector.
-   * @throws On empty input, network failure, or malformed Ollama response.
+   * Convert a single text string into a float vector via llama-server /v1/embeddings.
    */
   async embed(text: string): Promise<number[]> {
     if (!text || text.trim().length === 0) {
@@ -61,8 +61,8 @@ export class OllamaEmbeddingService implements IEmbeddingService {
     }
 
     const traceId = randomUUID();
-    const result = await this.callOllamaEmbed(text, traceId);
-    const vector = result.embeddings[0]!;
+    const result = await this.callLlamaEmbed(text, traceId);
+    const vector = result.data[0]!.embedding;
 
     if (this.detectedDimensions === null) {
       this.detectedDimensions = vector.length;
@@ -75,11 +75,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
   }
 
   /**
-   * Convert multiple text strings into float vectors in a single Ollama call.
-   *
-   * @param texts - Array of texts to embed. Must not be empty; no element may be empty.
-   * @returns Array of number arrays, one vector per input text.
-   * @throws On empty input, count mismatch, network failure, or malformed response.
+   * Convert multiple text strings into float vectors in a single call.
    */
   async embedBatch(texts: string[]): Promise<number[][]> {
     if (texts.length === 0) {
@@ -93,40 +89,41 @@ export class OllamaEmbeddingService implements IEmbeddingService {
     }
 
     const traceId = randomUUID();
-    const result = await this.callOllamaEmbed(texts, traceId);
+    const result = await this.callLlamaEmbed(texts, traceId);
 
-    if (result.embeddings.length !== texts.length) {
+    if (result.data.length !== texts.length) {
       throw new Error(
-        `embedBatch() count mismatch: sent ${texts.length} inputs but received ${result.embeddings.length} embeddings`
+        `embedBatch() count mismatch: sent ${texts.length} inputs but received ${result.data.length} embeddings`
       );
     }
 
-    if (this.detectedDimensions === null && result.embeddings.length > 0) {
-      this.detectedDimensions = result.embeddings[0]!.length;
+    // Sort by index to ensure order matches input
+    const sortedEmbeddings = [...result.data]
+      .sort((a, b) => a.index - b.index)
+      .map(d => d.embedding);
+
+    if (this.detectedDimensions === null && sortedEmbeddings.length > 0) {
+      this.detectedDimensions = sortedEmbeddings[0]!.length;
       this.logger.info('OllamaEmbeddingService', traceId, `Detected embedding dimensions: ${this.detectedDimensions}`, {
         dimensions: this.detectedDimensions,
       });
     }
 
-    return result.embeddings;
+    return sortedEmbeddings;
   }
 
-  /**
-   * Returns the dimensionality detected from the first successful embedding call.
-   * Returns null if no embedding has been generated yet.
-   */
   getDimensions(): number | null {
     return this.detectedDimensions;
   }
 
   /**
-   * Internal: calls Ollama POST /api/embed and Zod-validates the response.
+   * Internal: calls llama-server POST /v1/embeddings and Zod-validates the response.
    */
-  private async callOllamaEmbed(
+  private async callLlamaEmbed(
     input: string | string[],
     traceId: string,
-  ): Promise<z.infer<typeof OllamaEmbedResponseSchema>> {
-    const url = `${this.config.baseUrl}/api/embed`;
+  ): Promise<z.infer<typeof OpenAIEmbeddingResponseSchema>> {
+    const url = `${this.config.baseUrl}/embeddings`;
     const payload = {
       model: this.config.model,
       input,
@@ -147,7 +144,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
       });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      this.logger.error('OllamaEmbeddingService', traceId, `Network error calling Ollama: ${message}`, {
+      this.logger.error('OllamaEmbeddingService', traceId, `Network error calling llama-server: ${message}`, {
         url,
         stack: err instanceof Error ? err.stack : undefined,
       });
@@ -156,30 +153,23 @@ export class OllamaEmbeddingService implements IEmbeddingService {
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => 'unable to read response body');
-      this.logger.error('OllamaEmbeddingService', traceId, `Ollama returned HTTP ${response.status}`, {
+      this.logger.error('OllamaEmbeddingService', traceId, `llama-server returned HTTP ${response.status}`, {
         status: response.status,
         body: errorBody,
       });
-      throw new Error(`Ollama embed failed with HTTP ${response.status}: ${errorBody}`);
+      throw new Error(`llama-server embed failed with HTTP ${response.status}: ${errorBody}`);
     }
 
     const rawJson: unknown = await response.json();
 
-    // Zero-Trust: validate Ollama response through Zod
-    const parsed = OllamaEmbedResponseSchema.safeParse(rawJson);
+    const parsed = OpenAIEmbeddingResponseSchema.safeParse(rawJson);
     if (!parsed.success) {
-      this.logger.error('OllamaEmbeddingService', traceId, 'Ollama response failed Zod validation', {
+      this.logger.error('OllamaEmbeddingService', traceId, 'llama-server response failed Zod validation', {
         errors: parsed.error.issues.map(i => i.message),
         rawKeys: typeof rawJson === 'object' && rawJson !== null ? Object.keys(rawJson) : [],
       });
-      throw new Error(`Ollama embed response failed schema validation: ${parsed.error.issues[0]?.message ?? 'unknown'}`);
+      throw new Error(`llama-server embed response failed schema validation: ${parsed.error.issues[0]?.message ?? 'unknown'}`);
     }
-
-    this.logger.debug('OllamaEmbeddingService', traceId, 'Embedding generated successfully', {
-      embeddingCount: parsed.data.embeddings.length,
-      dimensions: parsed.data.embeddings[0]?.length,
-      totalDurationNs: parsed.data.total_duration,
-    });
 
     return parsed.data;
   }

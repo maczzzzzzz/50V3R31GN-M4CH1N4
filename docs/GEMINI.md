@@ -3,8 +3,8 @@
 
 ## ◈ RECENT VERDICTS (APRIL 4, 2026)
 1. **NixOS Sovereignty:** Node B is now 100% Linux-native. All execution MUST happen within the `/home/nixos/asp-gm-agent` directory.
-2. **VSB Authority:** The Virtual System Bus (Binary UDP) is the final authority for physical validation. Node B (Mistral-Nemo) proposes narrative intent; Node A (Llama-1B Judge) signs off on mechanical reality.
-3. **Agentic Physicality:** Phase 23 moves from "Narrator" to "Actor." The Agent manipulates the Foundry canvas via `easy-phasey` and dynamic region seeding.
+2. **VSB Authority:** The Virtual System Bus (Binary UDP) is the final authority for physical validation. Node B (Mistral-Nemo) proposes narrative intent; Node A (Open-Reasoner-Zero-1.5B Judge) signs off on mechanical reality.
+3. **Phase 23 Completed:** The "Neural World Engine" is fully merged. The Agent now manipulates the Foundry canvas via `easy-phasey`, dynamic region seeding, and solo-safe NPC incarnation.
 
 ## ◈ RESEARCH ANCHORS
 - **Ghost Object Protocol:** Extracts physical facts from pixels via ST3GG.

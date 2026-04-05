@@ -10,8 +10,8 @@ To safely operate within our strict 4GB/16GB VRAM split, we will combine the pro
 **1. Hardware Abstraction Proxy (CLIProxyAPI Pattern):**
 The `HybridRoutingController` on Node B is upgraded to an intelligent Proxy.
 *   *Heavy Tasks:* Narrative generation, complex planning -> Routed to Mistral-Nemo (16GB VRAM).
-*   *Light Tasks:* Math, D10 Oracle, OCR Vision -> Routed to Node A (Rust/Falcon/Llama-3 4GB).
-*   *State Safety:* If Node A is currently swapping models (e.g., unloading Llama-3 to warm up Falcon for Vision), the Proxy queues incoming Oracle requests instead of failing.
+*   *Light Tasks:* Math, D10 Oracle, OCR Vision -> Routed to Node A (Rust/Falcon/Open-Reasoner-Zero-1.5B 4GB).
+*   *State Safety:* If Node A is currently swapping models (e.g., unloading Open-Reasoner-Zero-1.5B to warm up Falcon for Vision), the Proxy queues incoming Oracle requests instead of failing.
 
 **2. Strict State Loop (OpenCrawl Pattern):**
 To run an Autonomous NPC, we cannot feed it the entire Foundry map.

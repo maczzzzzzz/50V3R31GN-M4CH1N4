@@ -91,7 +91,7 @@ export type DifficultyLabel =
 
 /**
  * Result of a complete attack resolution.
- * `reasoning` contains the CoT scratchpad from Llama-3.2-3B.
+ * `reasoning` contains the CoT scratchpad from Open-Reasoner-Zero-1.5B.
  */
 export interface AttackResult {
   readonly hit: boolean;
@@ -146,8 +146,7 @@ export interface OracleResult {
  * Connection parameters for Node B's Ollama endpoint (Mistral-Nemo 12B).
  */
 export interface OllamaConfig {
-  /** Base URL of Node B's Ollama OpenAI-compatible server. e.g. http://localhost:11434/v1 */
-  readonly baseUrl: string;
+  /** Base URL of Node B's llama-server OpenAI-compatible server. e.g. http://localhost:8080/v1 */  readonly baseUrl: string;
   /** Model identifier (e.g. "mistral-nemo:latest"). */
   readonly model: string;
   /** HTTP request timeout in milliseconds. */

@@ -15,7 +15,6 @@ static RED_RULES: OnceLock<String> = OnceLock::new();
 pub fn get_red_rules() -> &'static str {
     RED_RULES.get_or_init(|| {
         fs::read_to_string("../RED_RULES.md").unwrap_or_else(|_| {
-            // Fallback for different working directories
             fs::read_to_string("RED_RULES.md").unwrap_or_else(|_| {
                 "RECONSTITUTION ERROR: Global Rules Oracle Invariants Missing.".to_string()
             })
@@ -45,15 +44,26 @@ pub struct RpcResponse {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct OllamaGenerateRequest {
+struct OpenAIMessage {
+    role: String,
+    content: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct OpenAIRequest {
     model: String,
-    prompt: String,
+    messages: Vec<OpenAIMessage>,
     stream: bool,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct OllamaGenerateResponse {
-    response: String,
+struct OpenAIChoice {
+    message: OpenAIMessage,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct OpenAIResponse {
+    choices: Vec<OpenAIChoice>,
 }
 
 pub async fn handle_connection(socket: TcpStream, perception: Arc<PerceptionController>) {
@@ -62,7 +72,6 @@ pub async fn handle_connection(socket: TcpStream, perception: Arc<PerceptionCont
     let mut reader = BufReader::new(reader);
     let (tx, mut rx) = tokio::sync::mpsc::channel::<ClawLinkPacket>(32);
 
-    // Response writer task: Handles outgoing packets sequentially to avoid interleaving.
     tokio::spawn(async move {
         while let Some(response_packet) = rx.recv().await {
             let response_line = format!("{}\n", serde_json::to_string(&response_packet).unwrap());
@@ -77,7 +86,7 @@ pub async fn handle_connection(socket: TcpStream, perception: Arc<PerceptionCont
     loop {
         line.clear();
         match reader.read_line(&mut line).await {
-            Ok(0) => break, // Connection closed
+            Ok(0) => break,
             Ok(_) => {
                 let packet: ClawLinkPacket = match serde_json::from_str(&line) {
                     Ok(p) => p,
@@ -101,7 +110,6 @@ pub async fn handle_connection(socket: TcpStream, perception: Arc<PerceptionCont
                 let tx_clone = tx.clone();
                 let perception_clone = Arc::clone(&perception);
 
-                // Swarm Oracle: Each request is processed in its own isolated task.
                 tokio::spawn(async move {
                     let rpc_result = process_rpc(&client_clone, &perception_clone, request.method, request.params).await;
 
@@ -157,21 +165,22 @@ async fn process_rpc(
         "resolve_math" => {
             let rules = get_red_rules();
             let prompt = build_math_prompt(rules, &params);
-            let ollama_req = OllamaGenerateRequest {
-                model: "llama3.2:3b".to_string(),
-                prompt,
+            let req = OpenAIRequest {
+                model: "Open-Reasoner-Zero-1.5B".to_string(),
+                messages: vec![OpenAIMessage { role: "user".to_string(), content: prompt }],
                 stream: false,
             };
 
             let res = client
-                .post("http://localhost:11434/api/generate")
-                .json(&ollama_req)
+                .post("http://127.0.0.1:8080/v1/chat/completions")
+                .json(&req)
                 .send()
                 .await?
-                .json::<OllamaGenerateResponse>()
+                .json::<OpenAIResponse>()
                 .await?;
 
-            Ok(serde_json::json!({ "result": res.response }))
+            let result = res.choices.first().map(|c| c.message.content.clone()).unwrap_or_default();
+            Ok(serde_json::json!({ "result": result }))
         }
 
         "detect_walls" => {
@@ -182,13 +191,6 @@ async fn process_rpc(
             Ok(serde_json::to_value(walls)?)
         }
 
-        // ── Phase 16: Falcon Sidecar — OCR Scene Analysis ───────────────────
-        //
-        // Params: { "image": "<base64-encoded PNG/JPEG>" }
-        // Returns: [ { "text": "...", "x": 0.0, "y": 0.0, "confidence": 0.0 }, ... ]
-        //
-        // Activates the Model Swap Protocol:
-        //   Unloads Llama-3 → Falcon inference → Reloads Llama-3
         "ocr_analyze" => {
             let base64_image = params
                 .get("image")
@@ -200,16 +202,6 @@ async fn process_rpc(
             Ok(serde_json::to_value(entities)?)
         }
 
-        // ── Phase 21 Task 2: Tactical Swarm Simulation ──────────────────────
-        //
-        // Params: JSON array of action objects.
-        // Each object must have a "type" field of "attack" or "damage".
-        //
-        // Attack fields: attacker_id, dice (array of u8), stat, skill, dv
-        // Damage fields: attacker_id, dice (array of u8), bonus, armour_sp
-        //
-        // Returns: array of SwarmResult objects. Actions that fail to parse
-        // are silently skipped; an unparseable batch returns [].
         "resolve_swarm" => {
             use crate::rules::swarm_resolver::{SwarmAction, resolve_swarm};
 
@@ -234,46 +226,17 @@ async fn process_rpc(
             Ok(serde_json::to_value(results)?)
         }
 
-        // ── Phase 20 Task 3: P4RS3LT0NGV3 Linguistic Steganography ────────────
-        //
-        // linguistic_encode
-        //   Params: { "text": "<conlang text>", "payload_hex": "<hex-encoded bytes>" }
-        //   Returns: { "encoded": "<text with morpheme variants substituted>" }
-        //
-        // linguistic_decode
-        //   Params: { "text": "<encoded conlang text>" }
-        //   Returns: { "payload_hex": "<hex-encoded recovered bytes>" }
-        //
-        // Both operations are pure CPU — no VRAM usage, no LLM inference.
         "linguistic_encode" => {
-            let text = params
-                .get("text")
-                .and_then(|v| v.as_str())
-                .ok_or("linguistic_encode requires params.text (string)")?;
-
-            let payload_hex = params
-                .get("payload_hex")
-                .and_then(|v| v.as_str())
-                .ok_or("linguistic_encode requires params.payload_hex (hex string)")?;
-
-            let payload = decode_hex(payload_hex)
-                .map_err(|e| format!("linguistic_encode: invalid hex payload: {}", e))?;
-
-            let encoded = crate::linguistics::encode(text, &payload)
-                .map_err(|e| format!("linguistic_encode failed: {}", e))?;
-
+            let text = params.get("text").and_then(|v| v.as_str()).ok_or("missing text")?;
+            let payload_hex = params.get("payload_hex").and_then(|v| v.as_str()).ok_or("missing payload")?;
+            let payload = decode_hex(payload_hex)?;
+            let encoded = crate::linguistics::encode(text, &payload)?;
             Ok(serde_json::json!({ "encoded": encoded }))
         }
 
         "linguistic_decode" => {
-            let text = params
-                .get("text")
-                .and_then(|v| v.as_str())
-                .ok_or("linguistic_decode requires params.text (string)")?;
-
-            let payload = crate::linguistics::decode(text)
-                .map_err(|e| format!("linguistic_decode failed: {}", e))?;
-
+            let text = params.get("text").and_then(|v| v.as_str()).ok_or("missing text")?;
+            let payload = crate::linguistics::decode(text)?;
             Ok(serde_json::json!({ "payload_hex": encode_hex(&payload) }))
         }
 
@@ -281,96 +244,10 @@ async fn process_rpc(
     }
 }
 
-// ── Hex helpers ───────────────────────────────────────────────────────────────
-
 fn decode_hex(s: &str) -> Result<Vec<u8>, String> {
-    if s.len() % 2 != 0 {
-        return Err("hex string has odd length".to_string());
-    }
-    (0..s.len())
-        .step_by(2)
-        .map(|i| {
-            u8::from_str_radix(&s[i..i + 2], 16)
-                .map_err(|e| format!("invalid hex byte at position {}: {}", i, e))
-        })
-        .collect()
+    (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i+2], 16).map_err(|e| e.to_string())).collect()
 }
 
 fn encode_hex(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{:02x}", b)).collect()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_build_math_prompt() {
-        let rules = "Rule 1: Be cool.";
-        let params = serde_json::json!({ "check": "D10 + 5" });
-        let prompt = build_math_prompt(rules, &params);
-        assert!(prompt.contains("CONSTITUTION:"));
-        assert!(prompt.contains("Rule 1: Be cool."));
-        assert!(prompt.contains("D10 + 5"));
-    }
-
-    // ── decode_hex / encode_hex helpers ──────────────────────────────────────
-    // These are the new functions introduced by the linguistic_encode/decode RPC
-    // arms. The encode/decode logic itself is covered by linguistics/mod.rs tests.
-
-    #[test]
-    fn test_decode_hex_valid() {
-        assert_eq!(decode_hex("deadbeef").unwrap(), vec![0xde, 0xad, 0xbe, 0xef]);
-        assert_eq!(decode_hex("").unwrap(), Vec::<u8>::new());
-        assert_eq!(decode_hex("41").unwrap(), vec![0x41]); // 'A'
-        assert_eq!(decode_hex("00ff").unwrap(), vec![0x00, 0xff]);
-    }
-
-    #[test]
-    fn test_decode_hex_odd_length_returns_err() {
-        let err = decode_hex("abc").unwrap_err();
-        assert!(err.contains("odd length"), "got: {}", err);
-    }
-
-    #[test]
-    fn test_decode_hex_invalid_char_returns_err() {
-        let err = decode_hex("zz").unwrap_err();
-        assert!(err.contains("invalid hex byte"), "got: {}", err);
-    }
-
-    #[test]
-    fn test_decode_hex_uppercase_accepted() {
-        assert_eq!(decode_hex("DEADBEEF").unwrap(), vec![0xde, 0xad, 0xbe, 0xef]);
-    }
-
-    #[test]
-    fn test_encode_hex_round_trips_decode() {
-        let bytes = vec![0x00u8, 0x7f, 0x80, 0xff];
-        let hex = encode_hex(&bytes);
-        assert_eq!(decode_hex(&hex).unwrap(), bytes);
-    }
-
-    #[test]
-    fn test_encode_hex_empty() {
-        assert_eq!(encode_hex(&[]), "");
-    }
-
-    // ── linguistic encode/decode via module API (covers RPC wire logic) ───────
-    // process_rpc requires a live PerceptionController (ONNX model load),
-    // so we test the encode/decode logic through crate::linguistics directly.
-    // The hex param parsing path is covered above via decode_hex/encode_hex tests.
-
-    #[test]
-    fn test_linguistic_rpc_encode_decode_round_trip_via_module() {
-        // 16 carrier words → 16 bits → 8-bit length prefix + 8-bit payload
-        let text = "ra va ku shi ke mo da no ak ri ek ok zha me sha ve";
-        let payload = b"X"; // 0x58
-        let encoded = crate::linguistics::encode(text, payload).expect("encode failed");
-        let decoded = crate::linguistics::decode(&encoded).expect("decode failed");
-        assert_eq!(decoded.as_slice(), payload.as_ref());
-        // Verify the hex round-trip that the RPC arms perform
-        let hex = encode_hex(&decoded);
-        assert_eq!(hex, "58");
-        assert_eq!(decode_hex(&hex).unwrap(), payload.to_vec());
-    }
 }

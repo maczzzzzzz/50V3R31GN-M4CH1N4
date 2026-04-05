@@ -14,19 +14,22 @@ You are the **Lead Build Agent (Claude)**. Your role is strictly **Implementatio
 
 ## 🏗️ HARDWARE TOPOLOGY (v1.8.0)
 - **Node A (The Rules Vault):** NVIDIA GTX 1050 Ti (4GB). 
-  - **Logic:** Rust `zeroclaw` (Claw-Code fork) + Llama-3.2-1B + **Falcon CV**.
+  - **Logic:** Rust `zeroclaw` (Claw-Code fork) + Open-Reasoner-Zero-1.5B + **Falcon CV**.
   - **New Authority:** **Mechanical Engine** (VSB Server) + **Tactical-MMU**.
-  - **Constraint:** Sandboxed via Nix/Bubblewrap. Models 100% Resident.
+  - **Constraint:** Sandboxed via Nix/Bubblewrap. Models 100% Resident via `llama-server`.
 - **Node B (The Director):** AMD RX 9060 XT (16GB). 
-  - **Logic:** Mistral-Nemo 12B + Rust `director-rs` (Claw-Code fork). **OS: NixOS/WSL 2**.
+  - **Logic:** Pixtral-12B (VLM) + Rust `director-rs` (Claw-Code fork). **OS: NixOS/WSL 2**.
   - **New Authority:** **Narrative Engine** (VSB Bridge) + **Skillstone Registry**.
   - **Constraint:** Manages **Neural Uplink (Port 9222)** and **Sovereign Highway (Binary UDP/Mmap)**.
 
 ## 🚀 ROADMAP (v1.8.0+)
 1.  **PHASE 21: TOTAL AUTONOMY** (COMPLETED)
 2.  **PHASE 22: THE SOVEREIGN HIGHWAY** (COMPLETED - Rust Harness & NixOS)
-3.  **PHASE 22.5: CROSS-NODE STABILIZATION** (ACTIVE - Binary UDP Heartbeat)
-4.  **PHASE 23: NEURAL WORLD ENGINE** (UPCOMING - Agentic Physicality)
+3.  **PHASE 22.5: CROSS-NODE STABILIZATION** (COMPLETED - Binary UDP Heartbeat)
+4.  **PHASE 23: NEURAL WORLD ENGINE** (COMPLETED - Agentic Physicality)
+5.  **PHASE 24: SOVEREIGN UTILITY BELT** (COMPLETED - Registry, Physical ACK, HUDs, Flush Gate)
+6.  **PHASE 25: NATIVE INFERENCE ENGINE** (UPCOMING - llama.cpp Migration)
+7.  **PHASE 26: HYPER-REASONING ORCHESTRATOR** (UPCOMING - Pixtral-12B VLM)
 
 ## ⚡ CORE CONTRACTS (v1.8.0)
 - **Sovereignty**: VSB Binary UDP is the primary authority for rules validation. 

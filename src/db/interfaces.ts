@@ -59,8 +59,7 @@ export interface HealthCheckResult {
 
 /** Configuration for the Ollama embedding service on Node B. */
 export interface EmbeddingServiceConfig {
-  /** Ollama base URL (e.g., http://localhost:11434). */
-  readonly baseUrl: string;
+  /** Base URL (e.g., http://localhost:8080/v1). */  readonly baseUrl: string;
   /** Model name as shown by `ollama list` (e.g., nomic-embed-text). */
   readonly model: string;
   /** Request timeout in milliseconds. */

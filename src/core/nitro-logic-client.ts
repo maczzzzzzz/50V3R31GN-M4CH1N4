@@ -175,7 +175,7 @@ const CONTEXT = 'NitroLogicClient';
 /**
  * NitroLogicClient — The Rules Authority Bridge to Node A.
  *
- * Wraps Node A's Llama-3.2-3B-Instruct inference engine via the
+ * Wraps Node A's Open-Reasoner-Zero-1.5B-Instruct inference engine via the
  * OpenAI-compatible /v1/chat/completions endpoint exposed by llama.cpp.
  *
  * All requests use:

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -129,8 +130,73 @@ func renderSearchPane(sr SearchResult) string {
 }
 
 func main() {
+	registry, err := NewSidecarRegistry()
+	if err != nil {
+		fmt.Printf("Error initializing registry: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Initialize VSB Watcher
+	watcher, err := NewVsbWatcher("black_ice_state.mem")
+	if err != nil {
+		fmt.Printf("Warning: VSB Mmap failed: %v\n", err)
+	} else {
+		// Run watcher in background
+		watcher.Watch(func(p *Proposal) {
+			// Trigger Authorization Pane
+			choice, err := RunAuthPane(p)
+			if err == nil {
+				watcher.SetStatus(choice)
+				fmt.Printf("\n[VSB] Proposal %d marked as %v\n", p.ID, choice)
+			}
+		})
+	}
+
+	// Register default sidecars
+	registry.Register(&Sidecar{
+		Name:       "atlas",
+		BinaryPath: "./sidecar-atlas/target/release/sidecar-atlas",
+		VramWeight: 0.5,
+		State:      StateOffline,
+	})
+
+	// Handle simple CLI flags/args
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "belt":
+			if len(os.Args) > 2 {
+				switch os.Args[2] {
+				case "list":
+					fmt.Println(headerStyle.Render("⟨ UTILITY BELT: ACTIVE SIDECARS ⟩"))
+					for _, s := range registry.List() {
+						statusColor := colorCyan
+						if s.State == StateOffline {
+							statusColor = colorDim
+						}
+						fmt.Printf("  %s %s [%s] (Weight: %.1fGB)\n", 
+							lipgloss.NewStyle().Foreground(statusColor).Render("◈"),
+							s.Name, s.State, s.VramWeight)
+					}
+					vram, _ := CheckVramHeadroom()
+					fmt.Printf("\n  VRAM Headroom: %.2fGB\n", vram)
+					return
+				case "start":
+					if len(os.Args) > 3 {
+						name := os.Args[3]
+						if err := registry.Start(name); err != nil {
+							fmt.Printf("Error starting %s: %v\n", name, err)
+						} else {
+							fmt.Printf("Sidecar %s launched successfully.\n", name)
+						}
+						return
+					}
+				}
+			}
+		}
+	}
+
 	// Demo: render the Black-Ice theme
-	fmt.Println(applyCRTGlow("  ◈ CRUSH CLI v1.1.0 — ASP.GM-Agent  "))
+	fmt.Println(applyCRTGlow("  ◈ CRUSH CLI v1.2.0 — ASP.GM-Agent  "))
 	fmt.Println(headerStyle.Render("  Night City Interface — Black-Ice Edition  "))
 	fmt.Println()
 

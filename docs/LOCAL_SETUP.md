@@ -35,13 +35,20 @@ cd ../crush && go build -o crush
 ```
 
 ## 🧠 Step 3: Model Provisioning
-```bash
-# Node B (Intelligence)
-ollama pull mistral-nemo:12b-instruct-fp16
+The system now uses native `llama-server` for zero-overhead inference and explicit VRAM control.
 
-# Node A (Sovereign Judge) - Resident on physical Node A machine
-# llama3.2:1b-instruct-fp16
-# falcon:0.3b
+### Node B (Intelligence)
+1. **Download:** Acquire `mistral-nemo:12b-instruct-fp16` in GGUF format.
+2. **Place:** Store in `data/models/mistral-nemo-12b.gguf`.
+3. **Ignite:**
+```bash
+llama-server -m data/models/mistral-nemo-12b.gguf -c 8192 --port 8080 --mlock
+```
+
+### Node A (Sovereign Judge)
+Run the automated script on Node A:
+```bash
+bash zeroclaw/scripts/setup-resident-models.sh
 ```
 
 ## 🌐 Step 4: Network Verification

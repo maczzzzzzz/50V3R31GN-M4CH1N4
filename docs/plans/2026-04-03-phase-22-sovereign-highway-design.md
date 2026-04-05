@@ -58,7 +58,7 @@ A lock-free, dual-file binary memory bridge synchronized over the local network 
 ---
 
 ## 5. Security & Integrity
-- **The Mini-Vault:** By using Llama-1B-Instruct on Node A, the rules logic remains physically isolated from the 12B narrative engine, preventing "Contextual Drift."
+- **The Mini-Vault:** By using Open-Reasoner-Zero-1.5B on Node A, the rules logic remains physically isolated from the 12B narrative engine, preventing "Contextual Drift."
 - **Atomic ACK:** The `SYNC_ACK` field in the header ensures that Node B never processes a narrative result for a move that Node A hasn't mechanically verified.
 
 ---

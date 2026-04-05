@@ -27,6 +27,7 @@ import { OnboardingController, type BuildType } from './onboarding-controller.js
 import { RulesGrepService } from './rules-grep-service.js';
 import { MissionSwarmOrchestrator } from './mission-swarm-orchestrator.js';
 import { SteganographyService } from './steganography-service.js';
+import { VsbClient } from '../api/vsb-client.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -34,6 +35,7 @@ import path from 'node:path';
 
 export interface HybridRoutingControllerOptions {
   readonly nitroLogicClient: INitroLogicClient;
+  readonly vsbClient?: VsbClient | undefined;
   readonly ollamaClient: IOllamaClient;
   readonly foundryAdapter: IFoundryAdapter;
   readonly storyEngine: StoryEngine;
@@ -75,12 +77,14 @@ export class HybridRoutingController {
   private readonly turnDaemon: TurnDaemon | undefined;
   private readonly steganographyService: SteganographyService;
   private readonly taskRouter: TaskRouterProxy;
+  private readonly vsb: VsbClient | undefined;
 
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
 
   constructor(options: HybridRoutingControllerOptions) {
     this.nitroLogic = options.nitroLogicClient;
+    this.vsb = options.vsbClient;
     this.ollama = options.ollamaClient;
     this.foundry = options.foundryAdapter;
     this.storyEngine = options.storyEngine;
@@ -110,28 +114,40 @@ export class HybridRoutingController {
     // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
     if (this.unifiedOracle) {
       this.unifiedOracle.onAuthorize = async (commands) => {
-        console.log('\n⚠️  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed.');
+        console.log('\n⚠️  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed via VSB.');
         console.log('────────────────────────────────────────────────────────────');
         commands.forEach((cmd, i) => {
           console.log(`[${i+1}] ${cmd.action}: ${JSON.stringify(cmd)}`);
         });
         console.log('────────────────────────────────────────────────────────────');
         
-        // Dynamic import to prevent TTY issues in non-interactive sessions
-        const rl = await import('node:readline/promises');
-        const reader = rl.createInterface({ input: process.stdin, output: process.stdout });
-        
-        try {
-          // If in an automated test environment, we auto-ACK
-          if (process.env.NODE_ENV === 'test') return true;
+        // If in an automated test environment, we auto-ACK
+        if (process.env.NODE_ENV === 'test') return true;
 
-          const answer = await reader.question('>>> Type "ACK" or press ENTER to commit, or "N" to reject: ');
-          return answer.toLowerCase() !== 'n';
-        } catch {
-          return true; // Fallback to ACK if TTY fails
-        } finally {
-          reader.close();
+        if (!this.sharedMemory) {
+          console.warn('VSB SharedMemory not available. Auto-ACKing.');
+          return true;
         }
+
+        const proposalId = Math.floor(Math.random() * 1000000) + 1;
+        const payload = commands.map(c => c.action).join(', ');
+        this.sharedMemory.writeProposal(proposalId, 1, 0, payload);
+
+        // Polling for ACK
+        return new Promise((resolve) => {
+          const interval = setInterval(() => {
+            const { id, status } = this.sharedMemory!.checkProposalStatus();
+            if (id === proposalId || id === 0) {
+              if (status === 1) { // StatusApproved
+                clearInterval(interval);
+                resolve(true);
+              } else if (status === 2) { // StatusRejected
+                clearInterval(interval);
+                resolve(false);
+              }
+            }
+          }, 100);
+        });
       };
     }
 
@@ -139,6 +155,36 @@ export class HybridRoutingController {
     this.restoreSystemState().catch(err => {
       console.warn('[HRC] System state auto-restore failed:', err.message);
     });
+  }
+
+  /**
+   * Sovereign Highway (Phase 25): Fast-path for mechanical validation.
+   * If vsbClient is available, it sends a UDP packet to Node A.
+   * Otherwise, it returns null (caller should fall back to standard HTTP/Ollama path).
+   */
+  async validateMechanicalIntent(
+    payload: string,
+    actorIdHex: string = '00'.repeat(16),
+    sessionIdHex: string = '00'.repeat(16)
+  ): Promise<{ valid: boolean; code: number } | null> {
+    if (!this.vsb) return null;
+
+    try {
+      const sequenceId = Math.floor(Math.random() * 65535);
+      const session = new Uint8Array(16);
+      const actor = new Uint8Array(16);
+      const payloadBuf = new Uint8Array(256);
+      Buffer.from(payload.slice(0, 256)).copy(payloadBuf);
+
+      const result = await this.vsb.sendSkillCheck(sequenceId, session, actor, payloadBuf);
+      return {
+        valid: result.status === 0,
+        code: result.resultCode
+      };
+    } catch (err) {
+      console.warn(`[HRC] VSB fast-path failed, falling back to HTTP: ${err instanceof Error ? err.message : String(err)}`);
+      return null;
+    }
   }
 
   async evaluateIntentSwarm(context: string): Promise<{ tone: string, intensity: number }> {

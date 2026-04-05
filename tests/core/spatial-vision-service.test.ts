@@ -1,11 +1,7 @@
 /**
  * tests/core/spatial-vision-service.test.ts
  *
- * Unit tests for SpatialVisionService.
- *
- * The Playwright CDP path requires a live Chrome session and is an integration
- * concern; we test it via a subclass stub. The Llava analysis path is tested
- * by mocking the global fetch API.
+ * Unit tests for SpatialVisionService (Migrated to llama-server).
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
@@ -19,8 +15,18 @@ function makeFetchMock(responseBody: unknown, status = 200) {
     status,
     statusText: status === 200 ? 'OK' : 'Error',
     json: () => Promise.resolve(responseBody),
-    text: () => Promise.resolve(String(responseBody)),
+    text: () => Promise.resolve(JSON.stringify(responseBody)),
   });
+}
+
+function wrapChatResponse(content: string): object {
+  return {
+    choices: [
+      {
+        message: { content },
+      },
+    ],
+  };
 }
 
 // ── analyzeWithLlava ─────────────────────────────────────────────────────────
@@ -28,8 +34,8 @@ function makeFetchMock(responseBody: unknown, status = 200) {
 describe('SpatialVisionService.analyzeWithLlava', () => {
   const service = new SpatialVisionService({
     chromeCdpUrl: 'http://localhost:9222',
-    ollamaBaseUrl: 'http://localhost:11434',
-    visionModel: 'llava:latest',
+    ollamaBaseUrl: 'http://localhost:8080/v1',
+    visionModel: 'llava-v1.5-7b',
   });
 
   beforeEach(() => {
@@ -40,7 +46,7 @@ describe('SpatialVisionService.analyzeWithLlava', () => {
     vi.unstubAllGlobals();
   });
 
-  it('parses a well-formed JSON response from Llava', async () => {
+  it('parses a well-formed JSON response from llama-server', async () => {
     const expected: VisualTacticalContext = {
       tokenClusters: ['3 hostiles near the north door', 'PC at center table'],
       environmentalFeatures: ['concrete wall (north)', 'low cover (crates, east)'],
@@ -49,16 +55,16 @@ describe('SpatialVisionService.analyzeWithLlava', () => {
 
     vi.stubGlobal(
       'fetch',
-      makeFetchMock({ response: JSON.stringify(expected) }),
+      makeFetchMock(wrapChatResponse(JSON.stringify(expected))),
     );
 
     const result = await service.analyzeWithLlava('base64data==');
     expect(result).toEqual(expected);
   });
 
-  it('wraps a non-JSON Llava response in rawDescription', async () => {
+  it('wraps a non-JSON response in rawDescription', async () => {
     const freeText = 'I see a map with some tokens.';
-    vi.stubGlobal('fetch', makeFetchMock({ response: freeText }));
+    vi.stubGlobal('fetch', makeFetchMock(wrapChatResponse(freeText)));
 
     const result = await service.analyzeWithLlava('base64data==');
     expect(result.rawDescription).toBe(freeText);
@@ -66,45 +72,44 @@ describe('SpatialVisionService.analyzeWithLlava', () => {
     expect(result.environmentalFeatures).toEqual([]);
   });
 
-  it('throws when Ollama returns a non-2xx status', async () => {
+  it('throws when llama-server returns a non-2xx status', async () => {
     vi.stubGlobal('fetch', makeFetchMock({}, 503));
 
     await expect(service.analyzeWithLlava('base64data==')).rejects.toThrow(
-      'Ollama Llava request failed: 503',
+      'llama-server vision request failed: 503',
     );
   });
 
-  it('posts to the correct Ollama endpoint with the correct model', async () => {
-    const mockFetch = makeFetchMock({ response: '{}' });
+  it('posts to the correct OpenAI-compatible endpoint', async () => {
+    const mockFetch = makeFetchMock(wrapChatResponse('{}'));
     vi.stubGlobal('fetch', mockFetch);
 
     await service.analyzeWithLlava('abc123==').catch(() => {});
 
     expect(mockFetch).toHaveBeenCalledOnce();
     const [url, options] = mockFetch.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe('http://localhost:11434/api/generate');
+    expect(url).toBe('http://localhost:8080/v1/chat/completions');
+    
     const body = JSON.parse(options.body as string);
-    expect(body.model).toBe('llava:latest');
-    expect(body.images).toEqual(['abc123==']);
-    expect(body.format).toBe('json');
-    expect(body.stream).toBe(false);
+    expect(body.model).toBe('llava-v1.5-7b');
+    expect(body.messages[0].content[1].image_url.url).toContain('abc123==');
   });
 });
 
 // ── Default config values ─────────────────────────────────────────────────────
 
 describe('SpatialVisionService config defaults', () => {
-  it('falls back to http://localhost:11434 and llava:latest when not specified', async () => {
+  it('falls back to http://localhost:8080/v1 and llava-v1.5-7b when not specified', async () => {
     const service = new SpatialVisionService({ chromeCdpUrl: 'http://localhost:9222' });
 
-    const mockFetch = makeFetchMock({ response: '{}' });
+    const mockFetch = makeFetchMock(wrapChatResponse('{}'));
     vi.stubGlobal('fetch', mockFetch);
 
     await service.analyzeWithLlava('data==').catch(() => {});
 
-    const [url, options] = mockFetch.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe('http://localhost:11434/api/generate');
-    expect(JSON.parse(options.body as string).model).toBe('llava:latest');
+    const [url] = mockFetch.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe('http://localhost:8080/v1/chat/completions');
+    expect(JSON.parse((mockFetch.mock.calls[0] as [string, RequestInit])[1].body as string).model).toBe('llava-v1.5-7b');
 
     vi.unstubAllGlobals();
   });

@@ -1,6 +1,6 @@
 # ASP.GM-Agent: External Knowledge Base & Dependency Registry
-**Version:** 1.8.0 (The Sovereign Highway Milestone)
-**Target:** v1.8.0+ The Sovereign Highway Milestone
+**Version:** 1.9.0 (The Sovereign Highway Stabilization)
+**Target:** v1.9.0+ The Sovereign Highway Milestone
 
 ## 🧠 Architectural Patterns (Phase 22+)
 These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.
@@ -8,7 +8,7 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 | Pattern | Implementation | Source | Role |
 | :--- | :--- | :--- | :--- |
 | **Virtual System Bus** | Mmap + UDP | Internal | Lock-free, dual-bus binary state synchronization. |
-| **Mini-Vault Judge** | Llama-1B (Node A) | Internal | Resident, deterministic rules authority; zero-latency. |
+| **Mini-Vault Judge** | Llama-1.5B (Node A) | Internal | Resident, deterministic rules authority; zero-latency via llama-server. |
 | **Tactical-MMU** | Rust (Node A) | Internal | Hardware-accelerated spatial heat-maps (O(1) tactics). |
 | **Neural-Compositor**| Rust (Node B) | Internal | 16-core latency masking via procedural visual glitches. |
 | **L1-Registry** | Rust (Node B) | Internal | Memory-mapped SQLite mirror for zero-latency NPC data. |
@@ -54,13 +54,23 @@ The ASP-GM-Agent ecosystem is distributed across specialized repositories for ha
 - **asp-gm-agent**: The primary TypeScript orchestrator and vision pipeline (Node B).
 - **zeroclaw**: The Rust-native rules engine and NVIDIA-bound authority (Node A).
 - **foundry-module**: The native Foundry VTT integration layer (ClawLink Client).
-- **sidecar-atlas**: The high-performance Egui/Rust radar window (Shared Memory).
-- **crush**: The Lipgloss-powered CLI management interface.
+- **sidecar-atlas**: High-performance Egui/Rust spatial radar (Shared Memory).
+- **sidecar-netrunning**: Isometric 3D subnet HUD (Egui/Rust) [Phase 24].
+- **sidecar-cyberdeck**: Vertical quick-hack utility HUD [Phase 24].
+- **crush**: Lipgloss-powered Go supervisor and Physical ACK interface.
 
-## 📦 Dependency Registry (Pinned v1.6.0)
+## 📦 Dependency Registry (Pinned v1.8.0)
 
 ### UI & Layout (Atmosphere First)
 - **Pretext**: Pure JS text layout engine (Reflow elimination).
+- **Lipgloss**: Terminal UI layout engine (Crush CLI).
+- **Bubble Tea**: The Elm Architecture for Go (Crush Auth Pane).
+- **Egui/Eframe**: Immediate mode GUI for Rust sidecars.
+
+### Deep Reasoning (Tier 3 Consultant)
+- **llama.cpp / llama-server**: Native C++ inference engine. Zero wrapper overhead.
+- **Open-Reasoner-Zero**: 1.5B reasoning-focused RL model for Node A (`<think>` tokens).
+- **Pixtral-12B**: Native Vision Language Model (VLM) for Node B semantic map understanding.
 
 ### Core Rules System (Foundry VTT)
 - **Cyberpunk RED Core**: `v0.92.3` (**PINNED** for CSS Layer and Foundry v12 support)
@@ -95,7 +105,12 @@ The ASP-GM-Agent ecosystem is distributed across specialized repositories for ha
 - **RKG (Relational Knowledge Graph):** `Akashik.db` (Unified World State).
 - **Session Memory:** `.crush/crush.db` (Historical Lore).
 - **Physical Rules:** `RED_RULES.md` (Grounding Anchor).
-- **Precision Data:** `docs/raw_data/core_rules/` (Markdown Rulebooks).
+
+---
+*Verified by Gemini CLI v1.6.0.*
+
+- **Session Memory:** `.crush/crush.db` (Historical Lore).
+- **Physical Rules:** `RED_RULES.md` (Grounding Anchor).
 
 ---
 *Verified by Gemini CLI v1.6.0.*

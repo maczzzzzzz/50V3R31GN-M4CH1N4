@@ -1,19 +1,10 @@
 /**
  * src/core/ollama-client.ts
  *
- * OllamaClient — Node B Narrative Synthesis Client
+ * OllamaClient — Node B Narrative Synthesis Client (Migrated to llama-server)
  *
- * Connects to Mistral-Nemo 12B via Ollama's OpenAI-compatible
- * /v1/chat/completions endpoint at http://localhost:11434/v1.
- *
- * Responsibilities:
- *   - Accept a directive prompt + optional rules/math context string
- *   - Return GM narrative prose (non-streaming)
- *   - Validate responses with Zod before returning
- *
- * Unlike NitroLogicClient (deterministic, temperature: 0.0), OllamaClient
- * uses default Ollama sampling for natural narrative variation.
- * temperature and other sampling params are left to Ollama defaults.
+ * Connects to Mistral-Nemo 12B via llama-server's OpenAI-compatible
+ * /v1/chat/completions endpoint.
  */
 
 import { z } from 'zod';
@@ -25,7 +16,6 @@ const OllamaConfigSchema = z.object({
   baseUrl: z.string().min(1, 'baseUrl must not be empty'),
   model: z.string().min(1, 'model must not be empty'),
   timeoutMs: z.number().int().positive('timeoutMs must be a positive integer'),
-  num_gpu: z.number().int().optional(),
 });
 
 // ── Zod response schema ───────────────────────────────────────────────────────
@@ -38,7 +28,7 @@ const ChatMessageSchema = z.object({
 const ChatChoiceSchema = z.object({
   index: z.number(),
   message: ChatMessageSchema,
-  finish_reason: z.string().nullable(),
+  finish_reason: z.string().nullable().optional(),
 });
 
 const ChatCompletionResponseSchema = z.object({
@@ -75,7 +65,10 @@ export class OllamaClient implements IOllamaClient {
 
   async isHealthy(): Promise<boolean> {
     try {
-      const response = await fetch(`${this.config.baseUrl}/models`);
+      // llama-server health endpoint is usually at /health
+      // baseUrl is e.g. http://localhost:8080/v1
+      const healthUrl = this.config.baseUrl.replace(/\/v1$/, '/health');
+      const response = await fetch(healthUrl);
       return response.ok;
     } catch {
       return false;
@@ -85,21 +78,9 @@ export class OllamaClient implements IOllamaClient {
   // ── stop ───────────────────────────────────────────────────────────────────
 
   async stop(): Promise<void> {
-    try {
-      // To unload a model from VRAM, call the chat endpoint with keep_alive: 0
-      // We use the native Ollama /api/chat endpoint for this.
-      await fetch(`${this.config.baseUrl}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: this.config.model,
-          keep_alive: 0,
-        }),
-      });
-      console.log(`[OllamaClient] Unloaded model: ${this.config.model}`);
-    } catch {
-      // Silently fail during shutdown
-    }
+    // llama-server is a persistent process managed externally (e.g. systemd/bash)
+    // No explicit unload needed per-session.
+    console.log(`[OllamaClient] Detaching from llama-server: ${this.config.model}`);
   }
 
   // ── generateNarrative ───────────────────────────────────────────────────────
@@ -123,8 +104,7 @@ export class OllamaClient implements IOllamaClient {
         { role: 'system', content: systemContent },
         { role: 'user', content: userContent },
       ],
-      // Pass num_gpu if explicitly configured
-      options: this.config.num_gpu !== undefined ? { num_gpu: this.config.num_gpu } : undefined,
+      temperature: 0.7,
     };
 
     let response: Response;
@@ -145,14 +125,14 @@ export class OllamaClient implements IOllamaClient {
     }
 
     if (!response.ok) {
-      throw new Error(`OllamaClient: HTTP ${response.status} from Ollama — ${response.statusText}`);
+      throw new Error(`OllamaClient: HTTP ${response.status} from llama-server — ${response.statusText}`);
     }
 
     let json: unknown;
     try {
       json = await response.json();
     } catch {
-      throw new Error('OllamaClient: failed to parse JSON from Ollama response');
+      throw new Error('OllamaClient: failed to parse JSON from llama-server response');
     }
 
     const parsed = ChatCompletionResponseSchema.safeParse(json);

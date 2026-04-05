@@ -1,4 +1,4 @@
-# Phase 22.5: Cross-Node Stabilization Implementation Plan
+# Phase 22.5: Cross-Node Stabilization Implementation Plan (COMPLETED)
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
@@ -6,23 +6,23 @@
 
 **Architecture:** A Rust-native VSB Server on Node A (ZeroClaw) and a VSB Bridge on Node B (Director). Communication uses raw C-style binary structs over UDP to minimize serialization overhead.
 
-**Tech Stack:** Rust (Tokio), UDP, Llama-3.2-1B (GGUF), NixOS.
+**Tech Stack:** Rust (Tokio), UDP, Open-Reasoner-Zero-1.5B (GGUF), NixOS.
 
 ---
 
-### Task 1: Define the Sovereign Binary Schema
+### Task 1: Define the Sovereign Binary Schema [DONE]
 
 **Files:**
 - Create: `src/shared/vsb_protocol.rs`
 - Create: `src/shared/vsb_protocol.ts`
 
-**Step 1: Write the failing test**
+**Step 1: Write the failing test** [DONE]
 Verify that a Rust struct can be serialized to a 13-byte header + payload and recovered perfectly.
 
-**Step 2: Implement Protocol Structs**
+**Step 2: Implement Protocol Structs** [DONE]
 Define `SovereignHeader`, `IntentPacket`, and `ResultPacket` using `#[repr(C)]`.
 
-**Step 3: Commit**
+**Step 3: Commit** [DONE]
 ```bash
 git add src/shared/vsb_protocol.rs src/shared/vsb_protocol.ts
 git commit -m "feat(vsb): define binary sovereign handshake schema"
@@ -30,19 +30,19 @@ git commit -m "feat(vsb): define binary sovereign handshake schema"
 
 ---
 
-### Task 2: Implement VSB UDP Server (Node A - ZeroClaw)
+### Task 2: Implement VSB UDP Server (Node A - ZeroClaw) [DONE]
 
 **Files:**
 - Create: `zeroclaw/src/server/vsb_udp.rs`
 - Modify: `zeroclaw/src/main.rs`
 
-**Step 1: Write the UDP listener**
+**Step 1: Write the UDP listener** [DONE]
 Implement a Tokio-driven loop on Port 7878 that awaits `0x01 INTENT` packets.
 
-**Step 2: Integration with 1B Judge**
-Route the decoded intent to the resident Llama-1B model for mechanical validation.
+**Step 2: Integration with 1B Judge** [DONE]
+Route the decoded intent to the resident Open-Reasoner-Zero-1.5B model for mechanical validation.
 
-**Step 3: Commit**
+**Step 3: Commit** [DONE]
 ```bash
 git add zeroclaw/src/server/vsb_udp.rs
 git commit -m "feat(node-a): implement high-priority VSB UDP server"
@@ -50,17 +50,17 @@ git commit -m "feat(node-a): implement high-priority VSB UDP server"
 
 ---
 
-### Task 3: 1B Model Residency Lockdown (Node A)
+### Task 3: Residency Lockdown (1B + Falcon) [DONE]
 
 **Files:**
+- Modify: `zeroclaw/src/perception/mod.rs`
 - Modify: `zeroclaw/src/main.rs`
-- Create: `zeroclaw/scripts/setup-resident-models.sh`
 
-**Step 1: Decommission Swap Protocol**
-Remove the logic that evicts models from VRAM. Force-load Llama-1B and Falcon-0.3B on startup.
+**Step 1: Implement Residency Logic** [DONE]
+Ensure both Open-Reasoner-Zero-1.5B (via Ollama keep-alive) and Falcon (via persistent ONNX session) are locked into VRAM.
 
-**Step 2: Commit**
+**Step 2: Commit** [DONE]
 ```bash
-git add zeroclaw/src/main.rs
-git commit -m "fix(node-a): lock 1B and Falcon models into VRAM residency"
+git add zeroclaw/src/perception/mod.rs zeroclaw/src/main.rs
+git commit -m "feat(node-a): lock Open-Reasoner-Zero-1.5B and Falcon into resident VRAM (Phase 22.5)"
 ```

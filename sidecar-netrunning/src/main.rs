@@ -6,7 +6,7 @@ use std::time::Duration;
 const CYAN: Color32 = Color32::from_rgb(0x00, 0xf3, 0xff);
 const RED: Color32 = Color32::from_rgb(0xff, 0x20, 0x20);
 const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
-const DIMCYAN: Color32 = Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, 60);
+fn dim_cyan() -> Color32 { Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, 60) }
 
 // ─── Isometric Math ──────────────────────────────────────────────────────────
 
@@ -151,7 +151,7 @@ impl eframe::App for NetrunApp {
             let tile_w = 64.0_f32;
             let tile_h = 32.0_f32;
             let origin = grid_origin(rect, self.grid_cols, self.grid_rows, tile_w, tile_h);
-            let grid_stroke = Stroke::new(0.5, DIMCYAN);
+            let grid_stroke = Stroke::new(0.5, dim_cyan());
 
             // Draw grid lines along rows (connecting cols across a row)
             for row in 0..=self.grid_rows {
@@ -191,7 +191,7 @@ impl eframe::App for NetrunApp {
                         let right = Pos2::new(cx + r, cy);
                         let bottom = Pos2::new(cx, cy + r);
                         let left = Pos2::new(cx - r, cy);
-                        let color = if active { CYAN } else { DIMCYAN };
+                        let color = if active { CYAN } else { dim_cyan() };
                         let stroke = Stroke::new(1.5, color);
                         painter.line_segment([top, right], stroke);
                         painter.line_segment([right, bottom], stroke);

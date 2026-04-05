@@ -6,7 +6,7 @@ This document provides the operational sequence for igniting the **Split-Node v1
 ---
 
 ## 🏗️ Hardware Check
-- **Node A (The Physical Kernel):** Ubuntu 24.04 (NVIDIA 1050 Ti). Resident **Falcon (0.3B)** + **Llama-1B-Instruct**.
+- **Node A (The Physical Kernel):** Ubuntu 24.04 (NVIDIA 1050 Ti). Resident **Falcon (0.3B)** + **Open-Reasoner-Zero-1.5B**.
 - **Node B (The Director):** Windows (AMD 5950X / RX 9060 XT). Resident **Mistral-Nemo (12B)**.
 - **Bus:** Verify low-latency LAN connectivity for the UDP binary state-mirror.
 
@@ -32,7 +32,7 @@ This document provides the operational sequence for igniting the **Split-Node v1
 
 ## ⚠️ Troubleshooting
 - **Bus Lag:** Check LAN jitter if `/audit` reports >5ms transaction latency.
-- **Judge Drift:** If Node A reports VRAM thrashing, verify Llama-1B-Instruct is the active model.
+- **Judge Drift:** If Node A reports VRAM thrashing, verify Open-Reasoner-Zero-1.5B is the active model.
 - **Compositor Lag:** Check Node B CPU usage; ensure "High-Priority" threads are available for VSB.
 
 ---

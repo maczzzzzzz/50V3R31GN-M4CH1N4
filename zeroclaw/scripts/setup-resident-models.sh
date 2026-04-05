@@ -1,28 +1,52 @@
 #!/usr/bin/env bash
 # zeroclaw/scripts/setup-resident-models.sh
-# Phase 22.5 Task 3 — Force-load resident models into Node A VRAM
+# Phase 25 Task 1 — Migrate from Ollama to native llama-server via Nix
 # Usage: bash zeroclaw/scripts/setup-resident-models.sh
 set -euo pipefail
 
-OLLAMA_URL="http://localhost:11434"
+# Node A: NVIDIA 1050 Ti (4GB VRAM)
+# Using Open-Reasoner-Zero-1.5B (Q8_0) for rules validation.
+MODEL_PATH="zeroclaw/models/Open-Reasoner-Zero-1.5B.Q8_0.gguf"
+PORT=8080
 
-echo "==> Checking Ollama availability..."
-if ! curl -sf "${OLLAMA_URL}/api/tags" > /dev/null; then
-    echo "ERROR: Ollama is not running at ${OLLAMA_URL}. Start it first." >&2
+echo "==> Verifying model availability at $MODEL_PATH..."
+if [ ! -f "$MODEL_PATH" ]; then
+    echo "ERROR: Model not found at $MODEL_PATH." >&2
     exit 1
 fi
 
-echo "==> Pulling llama3.2:1b (VSB Judge + ClawLink)..."
-ollama pull llama3.2:1b
+echo "==> Checking if llama-server is already running on port $PORT..."
+if curl -sf "http://localhost:${PORT}/health" > /dev/null; then
+    echo "llama-server is already active. Skipping ignition."
+else
+    echo "==> Starting llama-server (Node A Rules Vault) via Nix..."
+    # We use nix develop .#cuda to ensure we have CUDA acceleration on Node A.
+    # -c 2048: Context size
+    # -fa: Flash attention
+    # --mlock: Force VRAM/RAM residency
+    # -ngl 999: Offload all layers to GPU
+    nix develop .#cuda --command llama-server \
+        -m "$MODEL_PATH" \
+        --host 0.0.0.0 \
+        --port "$PORT" \
+        -c 2048 \
+        -fa \
+        -ngl 999 \
+        --mlock \
+        --nobuffer > /dev/null 2>&1 &
+    
+    echo "==> Waiting for llama-server to initialize..."
+    sleep 10
+fi
 
-echo "==> Warming up llama3.2:1b (force VRAM residency)..."
-curl -sf -X POST "${OLLAMA_URL}/api/generate" \
-    -H "Content-Type: application/json" \
-    -d '{"model":"llama3.2:1b","prompt":".","stream":false}' \
-    > /dev/null
+if curl -sf "http://localhost:${PORT}/health" > /dev/null; then
+    echo "==> Model residency established (Node A Nix/CUDA)."
+    echo "    Open-Reasoner-Zero-1.5B  → VRAM resident (llama-server)"
+    echo "    Port: $PORT"
+else
+    echo "ERROR: llama-server failed to start." >&2
+    exit 1
+fi
 
-echo "==> Model residency established."
-echo "    llama3.2:1b  → VRAM resident (Ollama)"
-echo "    falcon-0.3b  → ONNX session on demand (CPU/CUDA)"
 echo ""
-echo "ZeroClaw Node A ready for Phase 22.5 operation."
+echo "ZeroClaw Node A ready for Phase 25 operation."

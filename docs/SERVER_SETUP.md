@@ -19,17 +19,25 @@ This document details the configuration for **Node A**, the secondary rules and 
    ```
 
 ## 🧠 Step 2: Model Provisioning
+The model is now stored locally as a GGUF file for native inference.
 ```bash
-ollama pull llama3.2:3b
+# Verify the model exists
+ls -lh zeroclaw/models/Open-Reasoner-Zero-1.5B.Q8_0.gguf
 ```
 
-## 🏗️ Step 3: Build & Sandbox
+## 🏗️ Step 3: Ignition & Residency
+Instead of the Ollama wrapper, we use native `llama-server` for zero-overhead inference and explicit VRAM control.
+```bash
+bash zeroclaw/scripts/setup-resident-models.sh
+```
+
+## 🏗️ Step 4: Build & Sandbox
 1. **Build:** `cargo build --release`.
 2. **Sandbox Setup:** Install `bubblewrap` (`sudo apt install bubblewrap`).
 3. **Deploy Service:** Copy `docs/zeroclaw.service` to `/etc/systemd/system/`.
    - *This service automatically jails the process via `--unshare-net`.*
 
-## 🎲 Step 4: Ignition
+## 🎲 Step 5: Ignition
 ```bash
 sudo systemctl enable --now zeroclaw
 ```

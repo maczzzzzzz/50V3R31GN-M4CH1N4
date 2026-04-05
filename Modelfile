@@ -1,0 +1,1 @@
+FROM /home/nixos/asp-gm-agent/zeroclaw/models/Open-Reasoner-Zero-1.5B.Q8_0.gguf

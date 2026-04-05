@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Implementation Execution Plan
-**Version:** 1.6.0 (Omni-Sovereignty Roadmap)
+**Version:** 1.9.0 (The Sovereign Highway Stabilization)
 **Architecture:** Distributed Split-Node (Rust/ZeroClaw + Node.js/Orchestrator)
 
 ## ✅ PHASE 11: THE NEURAL UPLINK (COMPLETED)
@@ -42,37 +42,19 @@
 - [x] **Matrix Flow:** Isometric text wrapping for Netrunning and news tickers.
 - [x] **Canvas Direct:** High-priority text rendering directly to bridge canvas.
 
-## ✅ PHASE 22: THE SOVEREIGN HIGHWAY (COMPLETED)
-- [x] **Rust Harness:** Forge `zeroclaw` and `director-rs` from `claw-code`.
-- [x] **Nix Unification:** Complete migration of Node B to NixOS (WSL).
-- [x] **Local VSB:** Shared memory (Mmap) implementation for local sidecars.
-
----
-
-## 🛠️ PHASE 22.5: CROSS-NODE STABILIZATION (ACTIVE)
-**Goal:** Establish sub-1ms state sync between physical nodes via Binary UDP.
-- [ ] **Binary Schema:** Define `SovereignHeader` and `IntentPacket` structs.
-- [ ] **UDP Server:** Implement Port 7878 high-priority listener on Node A.
-- [ ] **Residency:** Lock Llama-1B and Falcon models into 1050 Ti VRAM.
-
-## 🏗️ PHASE 23: NEURAL WORLD ENGINE (UPCOMING)
-**Goal:** Full Agentic Physicality within the Foundry canvas.
-- [ ] **Solo-Safe Balancing:** Adaptive NPC generation relative to player power.
-- [ ] **Ghost Protocol:** ST3GG perception mapping from pixels to VSB `GhostBlips`.
-- [ ] **Scene Evolution:** Link narrative beats to `easy-phasey` scene shifts.
-
-## 🎒 PHASE 24: SOVEREIGN UTILITY BELT
-- [ ] **Crush Registry:** Sidecar process manager in Crush CLI (Go).
-- [ ] **Physical ACK:** Authorization Pane (`ENTER` to sign mutations).
-- [ ] **HUD Deployment:** Atlas Radar, Netrunning Isometric HUD, Cyberdeck.
+## ✅ PHASE 18: OMNI ORCHESTRATOR (COMPLETED)
+**Goal:** Reactive "Central Nervous System" and hardware task routing.
+- [x] **TaskRouterProxy:** Concurrent hardware locking and queue management (Node B).
+- [x] **SensoryFilter:** Strict hallucination-free line-of-sight data filtering in Bridge.
+- [x] **Intent Swarm:** Concurrent event classification (Scalar/Tone) via split-node LLMs.
 
 ---
 
 ## ✅ PHASE 19: THE LATENT SEED (COMPLETED)
 **Goal:** Concurrent Swarm Intelligence for high-fidelity reactive NPC autonomy.
-- [x] **Node A ST3GG:** High-performance Rust implementation of LSB steganography.
-- [x] **Self-Describing Maps:** Embed physical wall coordinates directly into asset pixels for database-independent grounding.
-- [x] **Latent Seeding (R00TS):** Conceptual bias engine via `pgvector` similarity search to influence NPC consciousness.
+- [x] **Node A ST3GG:** High-performance Rust implementation of LSB steganography in `zeroclaw`.
+- [x] **Self-Describing Maps:** Embed physical wall coordinates directly into asset pixels.
+- [x] **Latent Seeding (R00TS):** Conceptual bias engine via `pgvector` similarity search.
 
 ## ✅ PHASE 20: LINGUISTIC SOVEREIGNTY (COMPLETED)
 **Goal:** Unique NPC identities and covert Hive coordination.
@@ -84,25 +66,47 @@
 **Goal:** NPCs as self-directed agents with long-term persistence.
 - [x] **Autonomous Turn Daemon:** 4-stage agentic loop (Reason -> Intent -> Action -> Validate).
 - [x] **Tactical Swarm Simulation:** Concurrent combat resolution on Node A.
-- [x] **Life-Path Persistence:** Daily logs and historical grounding.
-
-## 🚀 PHASE 22: THE SOVEREIGN HIGHWAY (ACTIVE)
-**Goal:** Distributed Claw-Code Rust Harness for sub-1ms state synchronization.
-- [ ] **Dual-Harness Scaffold:** Fork and specialize `claw-code` Rust crates for Node A/B.
-- [ ] **WSL Pivot:** Migrate `director-rs` and `crush` to WSL (Nix-hardened).
-- [ ] **VSB Integration:** Implement Binary UDP "Sovereign Highway" protocol (Cross-Subsystem).
-- [ ] **Foundry UDP-Relay:** Implement Windows-side proxy for browser-to-VSB link.
-- [ ] **Sovereign Loop:** Implement Abstract Intent -> Mechanical Rules -> Result pipeline.
-
-## 🚀 PHASE 23: NEURAL WORLD ENGINE (DRAFT)
-**Goal:** Atlas Radar Evolution and Crush Sidecar Bridge (Modular HUDs).
-- [ ] **ST3GG Scanner HUD:** Implement Egui/Rust pass to visualize hidden LSB data.
-- [ ] **Ghost Object Protocol:** Expand VSB schema for HiddenState and GhostBlips.
-- [ ] **Crush Sidecar Registry:** Implement Go-based process manager for Rust sidecars.
-- [ ] **Authorization Pane:** Implement Lipgloss-based Physical ACK loop in Crush.
-- [ ] **Netrunning HUDs:** Implement Isometric Tower and Cyberdeck Quick-Hacks.
-- [ ] **Pretext Aesthetic Buffer:** Implement 60fps Net-AR overlays and Glitch-Sync.
-- [ ] **Mission Weaver:** Implement Node B plugin for physically anchored generation.
+- [x] **Life-Path Persistence:** Daily logs and historical grounding in `Akashik.db`.
 
 ---
+
+## ✅ PHASE 22: THE SOVEREIGN HIGHWAY (COMPLETED)
+**Goal:** Distributed Claw-Code Rust Harness for sub-1ms state synchronization.
+- [x] **Rust Harness:** Forge `zeroclaw` and `director-rs` from `claw-code`.
+- [x] **Nix Unification:** Complete migration of Node B to NixOS (WSL).
+- [x] **Local VSB:** Shared memory (Mmap) implementation for local sidecars.
+
+## ✅ PHASE 22.5: CROSS-NODE STABILIZATION (COMPLETED)
+**Goal:** Establish sub-1ms state sync between physical nodes via Binary UDP.
+- [x] **Binary Schema:** Defined `SovereignHeader` and `IntentPacket` structs in `vsb_protocol.ts`.
+- [x] **UDP Server:** Implemented Port 7878 high-priority listener on Node A (`vsb_udp.rs`).
+- [x] **Residency:** Locked Open-Reasoner-Zero-1.5B and Falcon models into 1050 Ti VRAM via persistent sessions.
+
+## ✅ PHASE 23: NEURAL WORLD ENGINE (COMPLETED)
+**Goal:** Full Agentic Physicality within the Foundry canvas.
+- [x] **Solo-Safe Balancing:** Adaptive NPC generation relative to player power in `NitroLogicClient`.
+- [x] **Ghost Protocol:** VSB extension for `GhostBlip` payload decoding and tactical `SceneRegion` seeding.
+- [x] **Scene Evolution:** Linked narrative beats to successful `easy-phasey` scene shifts.
+
+---
+
+## ✅ PHASE 24: SOVEREIGN UTILITY BELT (COMPLETED)
+**Goal:** Transform the Agent into a physical actor with human-in-the-loop safety.
+- [x] **Crush Registry:** Implemented Go-based process manager for Rust sidecars.
+- [x] **Physical ACK:** Implementation of **Authorization Pane** and VSB watcher in Crush.
+- [x] **HUD Deployment:** Atlas Radar v2.0 and Netrunning Isometric HUD.
+- [x] **The Flush Gate:** Implement VSB-driven Proposal/ACK loop in Node B for critical actions.
+
+## ✅ PHASE 25: NATIVE INFERENCE ENGINE (COMPLETED)
+**Goal:** Migrate both nodes to raw `llama.cpp` to eliminate Ollama runtime overhead and enable precise VRAM allocation.
+- [x] **Node A Migration:** Replace Ollama with native `llama-server` locking Open-Reasoner-Zero-1.5B.
+- [x] **Node B Migration:** Integrate `llama-cpp-vulkan` natively into NixOS shell.
+- [x] **API Verification:** Full audit of OpenAI-compatible endpoints on Port 8080.
+
+## 👁️ PHASE 26: HYPER-REASONING ORCHESTRATOR (UPCOMING)
+**Goal:** Layer Node B's orchestration with a Vision Language Model (Pixtral-12B) and expose `<think>` streams.
+- [ ] **Pixtral Provisioning:** Acquire Pixtral-12B Q5_K_M GGUF and `mmproj` encoder.
+- [ ] **VLM Pipeline:** Pipe Foundry map canvas crops to `llama-server` via base64 for semantic context.
+- [ ] **Thought Stream:** Render Node A's `<think>` tokens in real-time within the Crush CLI.
+
 *Roadmap Managed by Gemini CLI (Strategist).*

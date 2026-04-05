@@ -117,6 +117,46 @@ export class SharedMemoryService {
     }
   }
 
+  // Phase 24: The Flush Gate
+  // Proposal layout at offset 1024:
+  // ID: UInt32LE (0-3)
+  // Origin: UInt8 (4)
+  // ActionType: UInt8 (5)
+  // Status: UInt8 (6)
+  // Reserved: UInt8 (7)
+  // Payload: 256 bytes (8-263)
+  
+  writeProposal(id: number, origin: number, actionType: number, payloadStr: string): void {
+    if (this.fd === null) throw new Error('SharedMemoryService: call open() first');
+    
+    const PROPOSAL_OFFSET = 1024;
+    this.buf.writeUInt32LE(id, PROPOSAL_OFFSET);
+    this.buf.writeUInt8(origin, PROPOSAL_OFFSET + 4);
+    this.buf.writeUInt8(actionType, PROPOSAL_OFFSET + 5);
+    this.buf.writeUInt8(0, PROPOSAL_OFFSET + 6); // Status = 0 (Pending)
+    this.buf.writeUInt8(0, PROPOSAL_OFFSET + 7); // Reserved
+    
+    // Clear payload
+    this.buf.fill(0, PROPOSAL_OFFSET + 8, PROPOSAL_OFFSET + 264);
+    const payloadBuf = Buffer.from(payloadStr.slice(0, 256), 'utf8');
+    payloadBuf.copy(this.buf, PROPOSAL_OFFSET + 8);
+    
+    fs.writeSync(this.fd, this.buf, PROPOSAL_OFFSET, 264, PROPOSAL_OFFSET);
+  }
+
+  checkProposalStatus(): { id: number; status: number } {
+    if (this.fd === null) throw new Error('SharedMemoryService: call open() first');
+    
+    const PROPOSAL_OFFSET = 1024;
+    const headerBuf = Buffer.alloc(8);
+    fs.readSync(this.fd, headerBuf, 0, 8, PROPOSAL_OFFSET);
+    
+    return {
+      id: headerBuf.readUInt32LE(0),
+      status: headerBuf.readUInt8(6)
+    };
+  }
+
   get transactionCounter(): number {
     return this.counter;
   }
