@@ -198,14 +198,21 @@ pub async fn run(client: Arc<Client>) {
     info!("⚡ VSB Sovereign Highway ONLINE (Native Inference) — UDP:{}", VSB_UDP_PORT);
 
     let mut buf = [0u8; MAX_DATAGRAM];
+    let idle_timeout = tokio::time::Duration::from_secs(15 * 60); // 15 minutes
 
     loop {
-        match socket.recv_from(&mut buf).await {
-            Ok((n, src)) => {
+        // Phase 28: Idle Timeout Watchdog
+        // Self-terminate if no packets received for 15 minutes to save Node A resources.
+        match tokio::time::timeout(idle_timeout, socket.recv_from(&mut buf)).await {
+            Ok(Ok((n, src))) => {
                 dispatch(&socket, &client, &buf[..n], src).await;
             }
-            Err(e) => {
+            Ok(Err(e)) => {
                 error!("vsb_udp: recv_from error: {}", e);
+            }
+            Err(_) => {
+                warn!("!! IDLE TIMEOUT: No VSB traffic for 15m. Neutralizing Node A kernel to save resources.");
+                std::process::exit(0);
             }
         }
     }
