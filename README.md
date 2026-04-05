@@ -11,73 +11,73 @@
 
 ## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v1.14.0
 
-D157R1BU73D N3UR4L 0RCH357R470R F0R CYB3RPUNK R3D.
-4 H4RDW4R3-N471V3, V1510N-1N736R473D, 4ND PHY51C4LLY 50V3R31GN 3N717Y.
-50V3R31GN-M4CH1N4 D035 N07 455157; 17 **D0M1N4735** 7H3 3X3CU710N 3NV1R0NM3N7.
+Distributed neural orchestrator for Cyberpunk RED.
+A hardware-native, vision-integrated, and physically sovereign entity.
+50V3R31GN-M4CH1N4 does not assist; it **dominates** the execution environment.
 
 ---
 
 ## :://70P0L06Y //
 
 ### :/N0D3-B : 7H3-D1R3C70R //
-- **C0R3:** N1X05 / W5L2 (N471V3) // 4MD R4D30N RX 9060 X7 (166B VULK4N)
-- **BR41N:** P1X7R4L-12B (VLM + R3450N3R)
-- **PR0XY:** 50V3R31GN-60-PR0XY (Z3R0-J1773R 70K3N 57R34M)
-- **R0L3:** N4RR471V3 50V3R31GN7Y & H16H-C0NCURR3NCY 0RCH357R4710N.
+- **Core:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
+- **Brain:** Pixtral-12B (VLM + Reasoner)
+- **Proxy:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
+- **Role:** Narrative Sovereignty & High-Concurrency Orchestration.
 
 ### :/N0D3-A : 7H3-K3RN3L //
-- **C0R3:** L1NUX / N1X N471V3 // NV1D14 67X 1050 71 (46B CUD4)
-- **BR41N:** 0P3N-R3450N3R-1.5B (RUL35 0R4CL3)
-- **516H7:** F4LC0N-0.3B (PHY51C4L P3RC3P710N)
-- **R0L3:** M3CH4N1C4L R34L17Y 3NF0RC3M3N7 & Z3R0-7RU57 L061C 4UD17.
+- **Core:** Linux / Nix Native // Nvidia GTX 1050 Ti (4GB CUDA)
+- **Brain:** Open-Reasoner-1.5B (Rules Oracle)
+- **Sight:** Falcon-0.3B (Physical Perception)
+- **Role:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
 
 ---
 
 ## :://C0R3-PR070C0L5 //
 
 ### ./PH453-28 : 6H057-PR070C0L :://
-- **5YN7H371C PHY51C4L17Y:** D1R3C7 CDP `1NPU7` D0M41N C0N7R0L.
-- **6H057 1NPU7:** 7H3 M4CH1N3 PHY51C4LLY M0V35 7H3 CUR50R 4ND 7R1663R5 K3Y5, BYP4551N6 1N73RN4L 64M3 4P15 F0R 7074L 3NV1R0NM3N74L 50V3R31GN7Y.
-- **5C3N4R10 3N61N3:** PL4YB4CK 0F `.6H057` 53QU3NC35 F0R 4U70M473D H16H-5P33D W0RLD M4N1PUL4710N.
+- **Synthetic Physicality:** Direct CDP `Input` domain control.
+- **Ghost Input:** The machine physically moves the cursor and triggers keys, bypassing internal game APIs for total environmental sovereignty.
+- **Scenario Engine:** Playback of `.ghost` sequences for automated high-speed world manipulation.
 
 ### ./PH453-29 : 7H3-F0R63 :://
-- **5M4R7 1N635710N:** 4U70M473D F0RC3-C0NV3R510N 0F 4LL 455375 70 5M4R7 PN65 V14 `CRU5H F0R63`.
-- **L5B 1N736R17Y:** PR073C710N 0F 57364N06R4PH1C P4YL04D5 (57366) DUR1N6 H16H-5P33D W0RLD-533D1N6.
+- **Smart Ingestion:** Automated force-conversion of all assets to Smart PNGs via `crush forge`.
+- **LSB Integrity:** Protection of steganographic payloads (ST3GG) during high-speed world-seeding.
 
 ### ./PH453-30 : 50V3R31GN-1N73RC3P70R //
-- **H00K WR4PP1N6:** D33P 1N73RC3P710N 0F `64M3.50CK37.3M17` 4ND F0UNDRY 3V3N75.
-- **C4P4B1L17Y H4RV35710N:** DYN4M1C 3X7R4C710N 0F 4V41L4BL3 PHY51C4L 7R1663R5 FR0M 4C71V3 M0DUL35.
-- **1N73N7 H1J4CK:** 1N73RC3P710N PL4Y3R 1N73N75 B3F0R3 7H3Y R34CH 7H3 53RV3R 70 4PPLY "PHY51C4L R34L17Y" F1L73R5.
+- **Hook Wrapping:** Deep interception of `game.socket.emit` and Foundry events.
+- **Capability Harvesting:** Dynamic extraction of available physical triggers from active modules.
+- **Intent Hijack:** Interception of player intents before they reach the server to apply "Physical Reality" filters.
 
 ### ./PH453-31 : 4C710N-50V3R31GN7Y :://
-- **PHY51C4L 7R1663R 4P1:** WH173L1573D 3X3CU710N 0F PHY51C4L 3FF3C75 (M0NK5 4C71V3 71L35) V14 V5B C0MM4ND5.
-- **C0UN73R-H4CK5:** 4U70M473D N3U7R4L1Z4710N 0F "1LL364L" PL4Y3R 4C710N5 V14 1MM3D1473 CDP-F0RC3D 57473 R35375.
-- **50V3R31GN U1:** PR373X7-B453D 60FP5 0V3RL4Y5 7H47 C4NN07 B3 0B5CUR3D 0R CL053D BY 7H3 CL13N7.
+- **Physical Trigger API:** Whitelisted execution of physical effects (Monks Active Tiles) via VSB commands.
+- **Counter-Hacks:** Automated neutralization of "illegal" player actions via immediate CDP-forced state resets.
+- **Sovereign UI:** Pretext-based 60fps overlays that cannot be obscured or closed by the client.
 
 ---
 
 ## :://73CHN0L06Y-574CK //
 
-- **V5B H16HW4Y:** R4W B1N4RY UDP + 5H4R3D M3M0RY MM4P (5UB-1M5 5YNC).
-- **57366 :** L5B 57364N06R4PHY 3MB3DD1N6 M4P J50N 1N70 45537 P1X3L5.
-- **4K45H1K :** D157R1BU73D R46 L1BR4RY F0R L0R3, CH4773R, 4ND 74C71C4L H1570RY.
-- **CRU5H-CL1 :** 7H3 C0MM4ND 5URF4C3 F0R 7H3 6H057 M4CH1N3.
+- **VSB Highway:** Raw Binary UDP + Shared Memory Mmap (Sub-1ms Sync).
+- **ST3GG :** LSB Steganography embedding map JSON into asset pixels.
+- **Akashik :** Distributed RAG Library for lore, chatter, and tactical history.
+- **Crush-CLI :** The command surface for the Ghost Machine.
 
 ---
 
 ## :/QUICK-574R7 //
 
-1. **B007:** `CRU5H 16N173R` 70 5YNC H4RDW4R3.
-2. **UPL1NK:** `PNPM 574R7` 70 1N1714L1Z3 7H3 50V3R31GN H16HW4Y.
-3. **D0M1N473:** 4CC355 7H3 `D3CK` 74B 1N 7H3 51D3C4R F0R PHY51C4L C0N7R0L5.
+1. **Boot:** `crush igniter` to synchronize hardware.
+2. **Uplink:** `pnpm start` to initialize the Sovereign Highway.
+3. **Dominate:** Access the `DECK` tab in the Sidecar for physical controls.
 
 ---
 
 ## :://4CKN0WL3D6M3N75 //
 
-- **3LD3R PL1N1U5:** R0075, 6L0550P37R43, 57366, P4R53L70N6V3, 0BL173R47U5.
-- **CH4RMBR4C3L37:** L1P6L055, BUBBL3734.
-- **LL4M4.CPP:** N471V3 1NF3R3NC3 K3RN3L.
+- **Elder Plinius:** ROOTS, GLOSSOPETRAE, ST3GG, P4RS3LT0NGV3, OBLITERATUS.
+- **Charmbracelet:** LIPGLOSS, BUBBLETEA.
+- **llama.cpp:** Native inference kernel.
 
 ---
-**::/5Y573M-N071C3 : UN4U7H0R1Z3D L061C DR1F7 W1LL R35UL7 1N 1MM3D1473 MMU PUR63 // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**
