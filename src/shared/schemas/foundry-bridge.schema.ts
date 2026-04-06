@@ -737,6 +737,20 @@ export const CapabilitiesUpdateEventSchema = z.object({
   })
 });
 
+/**
+ * Phase 31: Counter-Hacks (Active Defense)
+ * Intercept token movement updates in Foundry and validate them via Node B.
+ */
+export const ValidateMoveEventSchema = z.object({
+  type: z.literal('validate_move'),
+  payload: z.object({
+    actorId: z.string().min(1),
+    tokenId: z.string().min(1),
+    x: z.number(),
+    y: z.number(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -757,6 +771,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   ThoughtStreamEventSchema,
   AuditLibraryEventSchema,
   CapabilitiesUpdateEventSchema,
+  ValidateMoveEventSchema,
 ]);
 
 /**

@@ -93,7 +93,48 @@ class FoundryApiBridge {
 
     this._connect(wsUrl);
     this._setupInterception();
+    this._setupCounterHacks();
     window.ASP_BRIDGE = this;
+  }
+
+  /**
+   * Phase 31: Counter-Hacks (Active Defense)
+   * Intercept token movement updates in Foundry and validate them via Node B.
+   */
+  _setupCounterHacks() {
+    const bridge = this;
+    const wrapper = async function(wrapped, ...args) {
+      const [data] = args;
+      if (data.x !== undefined || data.y !== undefined) {
+        console.log(`[${MODULE_ID}] INTERCEPTED MOVE: ${this.id}`);
+        try {
+          const isLegal = await bridge.sendRequest('validate_move', { 
+            actorId: this.actor?.id, 
+            tokenId: this.id,
+            x: data.x !== undefined ? data.x : this.x, 
+            y: data.y !== undefined ? data.y : this.y 
+          });
+
+          if (isLegal && isLegal.verdict === 'INVALID') {
+            console.warn(`[${MODULE_ID}] Movement Blocked: ${isLegal.reason}`);
+            ui.notifications.warn(`Movement Blocked: ${isLegal.reason}`);
+            return null; 
+          }
+        } catch (err) {
+          console.error(`[${MODULE_ID}] Move validation failed, allowing:`, err);
+        }
+      }
+      return wrapped(...args);
+    };
+
+    if (game.modules.get('lib-wrapper')?.active) {
+      libWrapper.register(MODULE_ID, 'TokenDocument.prototype.update', wrapper, 'MIXED');
+    } else {
+      const originalUpdate = TokenDocument.prototype.update;
+      TokenDocument.prototype.update = async function(...args) {
+        return wrapper.call(this, originalUpdate.bind(this), ...args);
+      };
+    }
   }
 
   /**
