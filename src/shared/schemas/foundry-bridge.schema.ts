@@ -671,6 +671,25 @@ export const ThoughtStreamEventSchema = z.object({
   }),
 });
 
+/**
+ * Phase 31: Capability Harvesting
+ * Reported when a token is controlled, listing all items/actions available to that actor.
+ */
+export const CapabilitySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.string(),
+  img: z.string().optional()
+});
+
+export const CapabilitiesUpdateEventSchema = z.object({
+  type: z.literal('capabilities_update'),
+  payload: z.object({
+    actorId: z.string(),
+    items: z.array(CapabilitySchema)
+  })
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -690,6 +709,7 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   NpcTurnEventSchema,
   ThoughtStreamEventSchema,
   AuditLibraryEventSchema,
+  CapabilitiesUpdateEventSchema,
 ]);
 
 /**

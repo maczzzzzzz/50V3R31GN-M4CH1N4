@@ -32,6 +32,22 @@ const DEFAULT_WS_URL = 'ws://localhost:3010';
 const RECONNECT_DELAY_MS = 5000;
 const MAX_RECONNECT_ATTEMPTS = 10;
 
+/**
+ * Phase 31: Capability Harvesting
+ * Scans controlled tokens for available actions (items) and reports them to Node B.
+ */
+class ActionHarvester {
+  static harvest(token) {
+    if (!token?.actor) return [];
+    return token.actor.items.map(item => ({
+      id: item.id,
+      name: item.name,
+      type: item.type,
+      img: item.img
+    }));
+  }
+}
+
 class FoundryApiBridge {
   constructor() {
     this.ws = null;
@@ -61,6 +77,17 @@ class FoundryApiBridge {
     Hooks.on('renderJournalSheet', (app, html, data) => {
       if (this.journalCorruptionActive) {
         this._hijackJournal(html);
+      }
+    });
+
+    // Phase 31: Capability Harvesting
+    Hooks.on('controlToken', (token, controlled) => {
+      if (controlled && token.actor) {
+        const items = ActionHarvester.harvest(token);
+        this._sendEvent('capabilities_update', {
+          actorId: token.actor.id,
+          items: items
+        });
       }
     });
 
