@@ -396,6 +396,15 @@ export const DashboardSyncPayloadSchema = z.object({
   }),
 });
 
+export const RunScriptCommandSchema = z.object({
+  type: z.literal('run_script'),
+  requestId: RequestIdSchema,
+  payload: z.object({
+    code: z.string(),
+    broadcast: z.boolean().optional().default(false),
+  }),
+});
+
 /** All valid commands from Node B → Foundry. */
 export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ChatMessageCommandSchema,

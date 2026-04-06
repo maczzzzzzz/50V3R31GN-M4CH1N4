@@ -65,7 +65,52 @@ class FoundryApiBridge {
     });
 
     this._connect(wsUrl);
+    this._setupInterception();
     window.ASP_BRIDGE = this;
+  }
+
+  /**
+   * Phase 30: Sovereign Interceptor
+   * Wrap game.socket.emit to enable Node A rules-veto.
+   */
+  _setupInterception() {
+    const bridge = this;
+    const INTERCEPT_EVENTS = ['applyDamage', 'updateActor', 'createItem', 'deleteItem'];
+
+    const wrapper = async function(wrapped, ...args) {
+      const [eventName, data] = args;
+
+      if (INTERCEPT_EVENTS.includes(eventName)) {
+        console.log(`[${MODULE_ID}] INTERCEPTED: ${eventName}`);
+        
+        try {
+          const result = await bridge.sendRequest('audit_intent', {
+            event: eventName,
+            data: data
+          });
+
+          if (result.verdict === 'INVALID') {
+            console.warn(`[${MODULE_ID}] Rules Veto: ${eventName} rejected by Node A. Reason: ${result.reason}`);
+            ui.notifications.warn(`Rules Violation: ${result.reason}`);
+            return false;
+          }
+        } catch (err) {
+          console.error(`[${MODULE_ID}] Audit failed, allowing by default:`, err);
+        }
+      }
+
+      return wrapped(...args);
+    };
+
+    if (game.modules.get('lib-wrapper')?.active) {
+      libWrapper.register(MODULE_ID, 'game.socket.emit', wrapper, 'MIXED');
+    } else {
+      // Fallback: Monkeypatch
+      const originalEmit = game.socket.emit;
+      game.socket.emit = async function(...args) {
+        return wrapper.call(this, originalEmit.bind(game.socket), ...args);
+      };
+    }
   }
 
   /**

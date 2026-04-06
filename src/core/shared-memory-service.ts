@@ -35,13 +35,24 @@ export class SharedMemoryService {
 
   open(): void {
     const fileExists = fs.existsSync(this.filePath);
-    this.fd = fs.openSync(this.filePath, fileExists ? 'r+' : 'w+');
 
     if (fileExists) {
+      this.fd = fs.openSync(this.filePath, 'r+');
+      fs.chmodSync(this.filePath, 0o600);
+
       const headerBuf = Buffer.alloc(24);
       fs.readSync(this.fd, headerBuf, 0, 24, 0);
+
+      const magic = headerBuf.subarray(0, 16);
+      if (!magic.equals(MAGIC)) {
+        fs.closeSync(this.fd);
+        this.fd = null;
+        throw new Error('SharedMemoryService: invalid magic bytes — file may be corrupted');
+      }
+
       this.counter = headerBuf.readUInt32LE(16);
     } else {
+      this.fd = fs.openSync(this.filePath, 'w+', 0o600);
       MAGIC.copy(this.buf, 0);
       this.buf.writeUInt32LE(0, 16);
       this.buf.writeUInt32LE(0, 20);

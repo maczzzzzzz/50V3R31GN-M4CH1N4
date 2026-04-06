@@ -72,6 +72,7 @@ interface PendingRequest {
 
 export interface IFoundryAdapter {
   start(port: number): Promise<void>;
+  getHandshakeToken(): string;
   stop(): Promise<void>;
   isConnected(): boolean;
   onEvent(callback: (event: any) => Promise<void>): void;
@@ -124,16 +125,23 @@ export class FoundryAdapter implements IFoundryAdapter {
   private clientSocket: WebSocket | null = null;
   private readonly pending = new Map<string, PendingRequest>();
   private eventCallback: ((event: any) => Promise<void>) | null = null;
+  private handshakeToken: string = '';
 
   constructor(options: FoundryAdapterOptions = {}) {
     this.commandTimeoutMs = options.commandTimeoutMs ?? 10_000;
   }
 
+  getHandshakeToken(): string {
+    return this.handshakeToken;
+  }
+
   // ── Lifecycle ───────────────────────────────────────────────────────────────
 
   async start(port: number): Promise<void> {
+    this.handshakeToken = randomBytes(32).toString('hex');
+
     await new Promise<void>((resolve, reject) => {
-      const server = new WebSocketServer({ port });
+      const server = new WebSocketServer({ port, host: '127.0.0.1' });
 
       server.once('error', (err) => {
         reject(err);
@@ -141,12 +149,25 @@ export class FoundryAdapter implements IFoundryAdapter {
 
       server.once('listening', () => {
         this.wss = server;
-        logger.info('FoundryAdapter', `WebSocket server listening on port ${port}`);
+        logger.info('FoundryAdapter', `WebSocket server listening on 127.0.0.1:${port}`);
         resolve();
       });
 
       server.on('connection', (ws: WebSocket, req: IncomingMessage) => {
         const remoteAddr = req.socket.remoteAddress ?? 'unknown';
+
+        // Validate ephemeral handshake token from query param
+        const rawUrl = req.url ?? '';
+        const queryStart = rawUrl.indexOf('?');
+        const query = queryStart !== -1 ? new URLSearchParams(rawUrl.slice(queryStart + 1)) : new URLSearchParams();
+        const providedToken = query.get('token') ?? '';
+
+        if (providedToken !== this.handshakeToken) {
+          logger.warn('FoundryAdapter', 'Rejected connection: invalid or missing token', { remoteAddr });
+          ws.close(4401);
+          return;
+        }
+
         logger.info('FoundryAdapter', 'Foundry bridge module connected', { remoteAddr });
 
         // Replace any existing client (single-slot)
@@ -495,7 +516,33 @@ export class FoundryAdapter implements IFoundryAdapter {
       return;
     }
 
-    // 3. Fallback for unknown messages
+    // 3. Handle audit_intent RPC FROM Bridge
+    const auditParsed = parsed as any;
+    if (auditParsed.type === 'audit_intent' && auditParsed.requestId) {
+      logger.info('FoundryAdapter', `Intercepted Intent for Audit: ${auditParsed.payload?.event}`);
+      if (this.eventCallback) {
+        const auditEvent = {
+          type: 'audit_request',
+          requestId: auditParsed.requestId,
+          payload: auditParsed.payload,
+          respond: (result: any) => {
+            if (this.clientSocket && this.clientSocket.readyState === WebSocket.OPEN) {
+              this.clientSocket.send(JSON.stringify({
+                type: 'success',
+                requestId: auditParsed.requestId,
+                data: result
+              }));
+            }
+          }
+        };
+        this.eventCallback(auditEvent).catch(err => {
+          logger.error('FoundryAdapter', 'Audit event callback failed', { error: err.message });
+        });
+      }
+      return;
+    }
+
+    // 4. Fallback for unknown messages
     logger.warn('FoundryAdapter', 'Received unknown or invalid message from Foundry module', {
       raw: raw.slice(0, 200),
     });

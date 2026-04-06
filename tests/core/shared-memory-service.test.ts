@@ -175,4 +175,45 @@ describe('SharedMemoryService', () => {
 
     expect(idBuf.toString('utf8', 0, 6)).toBe('second');
   });
+
+  // ── security hardening ──────────────────────────────────────────────────────
+
+  describe('security hardening', () => {
+    it('open() on a new file creates it with 0600 permissions', () => {
+      svc.open();
+      const stat = fs.statSync(tmpFile);
+      // stat.mode & 0o777 masks off the file-type bits
+      expect(stat.mode & 0o777).toBe(0o600);
+    });
+
+    it('open() on an existing file enforces 0600 permissions', () => {
+      // Create a file with overly permissive mode first
+      fs.writeFileSync(tmpFile, Buffer.alloc(4_194_304, 0), { mode: 0o644 });
+      // Write valid magic so the re-open won't throw on bad magic
+      const MAGIC = Buffer.from('BLACK-ICE-RADAR\0', 'utf8');
+      const fd = fs.openSync(tmpFile, 'r+');
+      fs.writeSync(fd, MAGIC, 0, 16, 0);
+      fs.closeSync(fd);
+
+      const svc2 = new SharedMemoryService(tmpFile);
+      svc2.open();
+      svc2.close();
+
+      const stat = fs.statSync(tmpFile);
+      expect(stat.mode & 0o777).toBe(0o600);
+    });
+
+    it('open() on an existing file with bad magic throws invalid magic bytes error', () => {
+      // Create a file with wrong magic bytes
+      fs.writeFileSync(tmpFile, Buffer.alloc(4_194_304, 0), { mode: 0o600 });
+      const badMagic = Buffer.from('CORRUPTED-DATA\0\0', 'utf8');
+      const fd = fs.openSync(tmpFile, 'r+');
+      fs.writeSync(fd, badMagic, 0, 16, 0);
+      fs.closeSync(fd);
+
+      const svc2 = new SharedMemoryService(tmpFile);
+      expect(() => svc2.open()).toThrow('SharedMemoryService: invalid magic bytes — file may be corrupted');
+      svc2.close();
+    });
+  });
 });

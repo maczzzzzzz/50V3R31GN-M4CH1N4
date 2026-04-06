@@ -29,6 +29,7 @@ import { DiscordChroniclerClient } from './core/discord-chronicler-client.js';
 import { SpatialVisionService } from './core/spatial-vision-service.js';
 import { VisualMonitorService } from './core/visual-monitor-service.js';
 import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
+import { VesperService } from './core/vesper-service.js';
 
 async function main() {
   console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v1.14.0)...');
@@ -122,7 +123,18 @@ async function main() {
 
   const architect = new ArchitectPassService(neuralUplink);
 
-  // 7. Assemble Orchestration Loop
+  // 7. Initialize Shared Memory (VSB Mmap)
+  const sharedMemory = new SharedMemoryService(
+    process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem'
+  );
+  try {
+    sharedMemory.open();
+    console.log(`✅ VSB Shared Memory OPEN: ${process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem'}`);
+  } catch (err) {
+    console.warn(`⚠️  VSB Shared Memory failed to open: ${(err as Error).message}`);
+  }
+
+  // 8. Assemble Orchestration Loop
   const auditor = new AkashikVisualAuditor(
     oracle,
     process.env.VLM_ENDPOINT,
@@ -143,19 +155,38 @@ async function main() {
     visualMonitor: neuralUplink,
     architect,
     auditor,
+    sharedMemoryService: sharedMemory,
     onboardingEnabled: true,
   });
 
-  // 8. Wire Orchestrator to Bridge Events
+  // 9. Vesper Shadow Mode — Autonomous Reconnaissance
+  const vesper = new VesperService(
+    foundry,
+    neuralUplink,
+    oracle,
+    sharedMemory,
+  );
+  vesper.start();
+
+  // 10. Wire Orchestrator to Bridge Events
   foundry.onEvent(async (event) => {
     try {
       await controller.handleFoundryEvent(event);
     } catch (err) {
-      console.error('[Main] Orchestrator error:', err);
+      console.error('[Main] Orchestrator event error:', err);
     }
   });
 
-  // 9. Start the WS Server
+  // 11. Wire Proxy Intents (crush-cli)
+  clawlinkClient.onIntent(async (intent) => {
+    try {
+      await controller.handleProxyIntent(intent);
+    } catch (err) {
+      console.error('[Main] Proxy intent error:', err);
+    }
+  });
+
+  // 12. Start the WS Server
   await Promise.all([
     foundry.start(3010),
     vsbClient.connect(),

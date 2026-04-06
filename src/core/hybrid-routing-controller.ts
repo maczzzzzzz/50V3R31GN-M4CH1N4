@@ -237,8 +237,12 @@ export class HybridRoutingController {
 
   // ── Main dispatcher ─────────────────────────────────────────────────────────
 
-  async handleFoundryEvent(event: FoundryEvent): Promise<unknown> {
-    switch (event.type) {
+  async handleFoundryEvent(event: any): Promise<unknown> {
+    if (event.type === 'audit_request') {
+      return this.handleAuditRequest(event);
+    }
+
+    switch (event.type as string) {
       case 'resolve_attack':
         return this.handleResolveAttack(event.payload, event.payload.spatial);
       case 'calculate_dv': {
@@ -704,7 +708,79 @@ export class HybridRoutingController {
     return `**Attack Roll** — ${hitLabel}${critSuffix} | Roll: ${result.rollTotal} vs DV ${result.dvTarget} | Damage: ${result.netDamage} net`;
   }
 
+  /**
+   * Phase 30: Handle human intents from the crush proxy (Go).
+   */
+  async handleProxyIntent(intent: any): Promise<void> {
+    const { id, method, params } = intent;
+    if (!method) return;
+
+    console.log(`[HRC] Proxy Intent: ${method}`);
+
+    let result: any = { status: 'GRANTED' };
+
+    try {
+      switch (method) {
+        case 'scan':
+          await this.handleScan();
+          result.message = 'Scan complete.';
+          break;
+        case 'crop-scan':
+          const cropData = await this.handleCropScan(params.x, params.y, params.size);
+          result.message = 'Crop-scan complete.';
+          result.data = cropData;
+          break;
+        case 'hack':
+          const hackRes = await this.handleHack(params.action, params.target);
+          result = hackRes;
+          break;
+        case 'shut-down':
+          console.log('🔴 EMERGENCY SHUTDOWN RECEIVED FROM PROXY');
+          process.emit('SIGTERM');
+          result.message = 'Shutdown sequence initiated.';
+          break;
+        default:
+          result = { status: 'REJECTED', message: `Unknown command: ${method}` };
+      }
+    } catch (err) {
+      result = { status: 'REJECTED', message: (err as Error).message };
+    }
+
+    // Send response back via broadcast
+    if (this.clawlink) {
+      await this.clawlink.publish(JSON.stringify({ id, ...result }));
+    }
+  }
+
+  private async handleCropScan(x: number, y: number, size: number): Promise<string> {
+    if (!this.neuralUplink?.isConnected()) {
+      throw new Error('Neural Uplink not connected');
+    }
+    return this.neuralUplink.captureCoordinateCrop(x, y, size);
+  }
+
+  private async handleHack(action: string, target: string): Promise<{ status: 'GRANTED' | 'REJECTED', message: string }> {
+    // WSA Audit via Node A
+    if (this.clawlink) {
+      const audit = await this.clawlink.wsaAudit(action, target, 'Human crush-cli intent');
+      if (audit.verdict === 'REJECTED') {
+        return { status: 'REJECTED', message: audit.rationale };
+      }
+    }
+
+    // Execute physical mutation
+    if (action === 'unlock') {
+      await this.foundry.updateActor(target, { 'system.locked': false });
+    } else if (action === 'dim-lights') {
+      // Direct lighting manipulation
+      await this.foundry.runScript(`Canvas.layers.lighting.updateAll({darknessLevel: 0.8})`);
+    }
+
+    return { status: 'GRANTED', message: `${action} executed on ${target}` };
+  }
+
   private async handleNpcTurn(payload: NpcTurnEvent['payload']): Promise<TurnResult> {
+
     if (!this.turnDaemon) {
       throw new Error('HybridRoutingController: npc_turn event received but no TurnDaemon is configured');
     }
@@ -789,6 +865,44 @@ export class HybridRoutingController {
     } catch (err) {
       console.error('[HRC] Steganography decoding failed:', err);
       return { secret: "ERROR: Data corruption. Decryption failed." };
+    }
+  }
+
+  /**
+   * Phase 30: Handle Hook Interception Audit
+   * Forwards intercepted intents to Node A for rules-veto.
+   */
+  private async handleAuditRequest(event: { requestId: string, payload: { event: string, data: any }, respond: (res: any) => void }): Promise<void> {
+    console.log(`[HRC] Auditing Intent: ${event.payload.event}`);
+
+    // If Node A (VSB) is not available, allow by default
+    if (!this.vsb) {
+      event.respond({ verdict: 'VALID' });
+      return;
+    }
+
+    try {
+      // Fast-path: Send to Node A via UDP SkillCheck (repurposed for audit)
+      // Node A 1.5B Reasoner is the authority here.
+      const payloadStr = JSON.stringify({
+        audit: true,
+        event: event.payload.event,
+        data: event.payload.data
+      });
+
+      const validation = await this.validateMechanicalIntent(payloadStr);
+      
+      if (validation && !validation.valid) {
+        event.respond({ 
+          verdict: 'INVALID', 
+          reason: `Mechanical Veto: Code ${validation.code}` 
+        });
+      } else {
+        event.respond({ verdict: 'VALID' });
+      }
+    } catch (err) {
+      console.error('[HRC] Audit error, allowing by default:', err);
+      event.respond({ verdict: 'VALID' });
     }
   }
 }

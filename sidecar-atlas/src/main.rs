@@ -1,6 +1,10 @@
 use eframe::egui;
 use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Stroke};
 use memmap2::Mmap;
+use sovereign_sdk::protocol::{
+    GhostBlip as GhostBlipProtocol, GHOST_BLIP_SIZE, GHOST_HEADER_SIZE, GHOST_MAGIC, RADAR_BLIP_SIZE,
+    RADAR_HEADER_SIZE, RADAR_MAGIC,
+};
 use std::fs::File;
 use std::path::PathBuf;
 use std::time::Duration;
@@ -9,16 +13,6 @@ use std::time::Duration;
 const CYAN: Color32 = Color32::from_rgb(0x00, 0xf3, 0xff);
 const RED: Color32 = Color32::from_rgb(0xff, 0x20, 0x20);
 const GREEN: Color32 = Color32::from_rgb(0x20, 0xff, 0x60);
-
-// ─── Radar mmap constants ─────────────────────────────────────────────────────
-const MAGIC: &[u8; 16] = b"BLACK-ICE-RADAR\0";
-const BLIP_SIZE: usize = 64;
-const HEADER_SIZE: usize = 24;
-
-// ─── Ghost mmap constants ─────────────────────────────────────────────────────
-const GHOST_MAGIC: &[u8; 16] = b"GHOST-BLIPS-V1\0\0";
-const GHOST_HEADER_SIZE: usize = 20; // magic[16] + ghost_count[4]
-const GHOST_BLIP_SIZE: usize = 9;    // x[4] + y[4] + blip_type[1]
 
 // ─── GhostBlip type constants ─────────────────────────────────────────────────
 const BLIP_COVER: u8 = 0x01;
@@ -38,8 +32,7 @@ struct RadarBlip {
     faction: String,
 }
 
-/// Local copy of the GhostBlip protocol struct.
-/// Source-of-truth lives in `src/shared/vsb_protocol.rs` — do not import from there.
+/// Local copy of the GhostBlip protocol struct for UI use.
 #[derive(Debug, Clone, Copy)]
 struct GhostBlip {
     pub x: f32,         // Normalised X coordinate [0.0–1.0]
@@ -75,11 +68,12 @@ fn parse_ghost_blips(data: &[u8]) -> Vec<GhostBlip> {
         if data.len() < base + GHOST_BLIP_SIZE {
             break;
         }
-        let entry = &data[base..base + GHOST_BLIP_SIZE];
+        let entry = &data[base..base + 9];
+        let gb = GhostBlipProtocol::decode(entry.try_into().unwrap());
         blips.push(GhostBlip {
-            x: f32::from_le_bytes(entry[0..4].try_into().unwrap_or([0; 4])),
-            y: f32::from_le_bytes(entry[4..8].try_into().unwrap_or([0; 4])),
-            blip_type: entry[8],
+            x: gb.x,
+            y: gb.y,
+            blip_type: gb.blip_type,
         });
     }
     blips
@@ -176,7 +170,7 @@ impl AtlasApp {
         };
 
         let data = &mmap[..];
-        if data.len() < HEADER_SIZE || &data[0..16] != MAGIC {
+        if data.len() < RADAR_HEADER_SIZE || &data[0..16] != RADAR_MAGIC {
             self.last_error = Some("Invalid or truncated .mem file".to_string());
             return;
         }
@@ -186,11 +180,11 @@ impl AtlasApp {
 
         let mut blips = Vec::with_capacity(blip_count);
         for i in 0..blip_count {
-            let base = HEADER_SIZE + i * BLIP_SIZE;
-            if data.len() < base + BLIP_SIZE {
+            let base = RADAR_HEADER_SIZE + i * RADAR_BLIP_SIZE;
+            if data.len() < base + RADAR_BLIP_SIZE {
                 break;
             }
-            let blip_data = &data[base..base + BLIP_SIZE];
+            let blip_data = &data[base..base + RADAR_BLIP_SIZE];
             blips.push(RadarBlip {
                 id: parse_null_str(&blip_data[0..16]),
                 name: parse_null_str(&blip_data[16..32]),

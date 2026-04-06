@@ -39,12 +39,22 @@ Example:
   crush scan objectives
 `
 
+const cropScanUsage = `Usage: crush crop-scan <x> <y> [size]
+
+Example:
+  crush crop-scan 1200 850
+  crush crop-scan 500 500 256
+`
+
 // IntentPayload is the JSON message sent to Node B Director.
 type IntentPayload struct {
 	Command  string `json:"command"`
 	Action   string `json:"action,omitempty"`
 	Target   string `json:"target,omitempty"`
 	ScanType string `json:"scan_type,omitempty"`
+	X        float64 `json:"x,omitempty"`
+	Y        float64 `json:"y,omitempty"`
+	Size     int     `json:"size,omitempty"`
 }
 
 // runHack sends a hack intent to Node B via the crush proxy socket.
@@ -92,6 +102,41 @@ func runScan(args []string) int {
 	payload := IntentPayload{
 		Command:  "scan",
 		ScanType: scanType,
+	}
+
+	return sendIntent(payload)
+}
+
+// runCropScan sends a crop-scan intent to Node B.
+func runCropScan(args []string) int {
+	if len(args) < 2 {
+		fmt.Fprint(os.Stderr, cropScanUsage)
+		return 1
+	}
+
+	var x, y float64
+	size := 512
+
+	if _, err := fmt.Sscanf(args[0], "%f", &x); err != nil {
+		fmt.Fprintf(os.Stderr, "[SCAN] invalid x coordinate: %v\n", err)
+		return 1
+	}
+	if _, err := fmt.Sscanf(args[1], "%f", &y); err != nil {
+		fmt.Fprintf(os.Stderr, "[SCAN] invalid y coordinate: %v\n", err)
+		return 1
+	}
+	if len(args) > 2 {
+		if _, err := fmt.Sscanf(args[2], "%d", &size); err != nil {
+			fmt.Fprintf(os.Stderr, "[SCAN] invalid size: %v\n", err)
+			return 1
+		}
+	}
+
+	payload := IntentPayload{
+		Command: "crop-scan",
+		X:       x,
+		Y:       y,
+		Size:    size,
 	}
 
 	return sendIntent(payload)

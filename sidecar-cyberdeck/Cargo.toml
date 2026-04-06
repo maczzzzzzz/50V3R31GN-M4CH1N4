@@ -11,3 +11,4 @@ rand = "0.8"
 image = "0.25"
 crc32fast = "1.4"
 serde_json = "1.0"
+sovereign-sdk = { path = "../sovereign-sdk" }

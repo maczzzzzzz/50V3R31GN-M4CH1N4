@@ -1,6 +1,10 @@
 use eframe::egui;
 use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Rect, Stroke};
 use memmap2::Mmap;
+use sovereign_sdk::protocol::{
+    GhostBlip as GhostBlipProtocol, GHOST_BLIP_SIZE, GHOST_HEADER_SIZE, GHOST_MAGIC, RADAR_BLIP_SIZE,
+    RADAR_HEADER_SIZE, RADAR_MAGIC,
+};
 use std::fs::File;
 use std::path::PathBuf;
 use std::time::Duration;
@@ -17,16 +21,6 @@ const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
 fn dim_cyan() -> Color32 {
     Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, 60)
 }
-
-// ─── Radar mmap constants ─────────────────────────────────────────────────────
-const MAGIC: &[u8; 16] = b"BLACK-ICE-RADAR\0";
-const BLIP_SIZE: usize = 64;
-const HEADER_SIZE: usize = 24;
-
-// ─── Ghost mmap constants ─────────────────────────────────────────────────────
-const GHOST_MAGIC: &[u8; 16] = b"GHOST-BLIPS-V1\0\0";
-const GHOST_HEADER_SIZE: usize = 20;
-const GHOST_BLIP_SIZE: usize = 9;
 
 // ─── GhostBlip type constants ─────────────────────────────────────────────────
 const BLIP_COVER: u8 = 0x01;
@@ -117,10 +111,11 @@ fn parse_ghost_blips(data: &[u8]) -> Vec<GhostBlip> {
             break;
         }
         let entry = &data[base..base + GHOST_BLIP_SIZE];
+        let gb = GhostBlipProtocol::decode(entry.try_into().unwrap());
         blips.push(GhostBlip {
-            x: f32::from_le_bytes(entry[0..4].try_into().unwrap_or([0; 4])),
-            y: f32::from_le_bytes(entry[4..8].try_into().unwrap_or([0; 4])),
-            blip_type: entry[8],
+            x: gb.x,
+            y: gb.y,
+            blip_type: gb.blip_type,
         });
     }
     blips
@@ -267,7 +262,7 @@ impl CyberdeckApp {
             None => return,
         };
         let data = &mmap[..];
-        if data.len() < HEADER_SIZE || &data[0..16] != MAGIC {
+        if data.len() < RADAR_HEADER_SIZE || &data[0..16] != RADAR_MAGIC {
             self.last_error = Some("Invalid or truncated .mem file".to_string());
             return;
         }
@@ -278,11 +273,11 @@ impl CyberdeckApp {
 
         let mut blips = Vec::with_capacity(blip_count);
         for i in 0..blip_count {
-            let base = HEADER_SIZE + i * BLIP_SIZE;
-            if data.len() < base + BLIP_SIZE {
+            let base = RADAR_HEADER_SIZE + i * RADAR_BLIP_SIZE;
+            if data.len() < base + RADAR_BLIP_SIZE {
                 break;
             }
-            let d = &data[base..base + BLIP_SIZE];
+            let d = &data[base..base + RADAR_BLIP_SIZE];
             blips.push(RadarBlip {
                 id: parse_null_str(&d[0..16]),
                 name: parse_null_str(&d[16..32]),
