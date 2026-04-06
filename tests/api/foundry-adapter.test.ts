@@ -18,7 +18,7 @@ const TEST_PORT = 33099;
  * Creates a mock Foundry client (simulates the Foundry module connecting out).
  * Returns ws client + a helper to send a response with a given requestId.
  */
-async function connectMockFoundry(port: number): Promise<{
+async function connectMockFoundry(port: number, token?: string): Promise<{
   client: WebSocket;
   sendResponse: (requestId: string, data?: unknown, error?: string) => void;
   receivedMessages: Array<Record<string, unknown>>;
@@ -26,7 +26,8 @@ async function connectMockFoundry(port: number): Promise<{
 }> {
   const receivedMessages: Array<Record<string, unknown>> = [];
 
-  const client = new WebSocket(`ws://localhost:${port}`);
+  const url = token ? `ws://localhost:${port}?token=${token}` : `ws://localhost:${port}`;
+  const client = new WebSocket(url);
 
   await new Promise<void>((resolve, reject) => {
     client.once('open', resolve);
@@ -81,8 +82,9 @@ describe('FoundryAdapter', () => {
     it('starts a WebSocket server on the given port', async () => {
       await adapter.start(TEST_PORT);
 
-      // If start threw, the test would fail. Now verify we can connect.
-      const client = new WebSocket(`ws://localhost:${TEST_PORT}`);
+      // If start threw, the test would fail. Now verify we can connect with valid token.
+      const token = adapter.getHandshakeToken();
+      const client = new WebSocket(`ws://localhost:${TEST_PORT}?token=${token}`);
       await new Promise<void>((res, rej) => {
         client.once('open', res);
         client.once('error', rej);
@@ -97,7 +99,7 @@ describe('FoundryAdapter', () => {
 
     it('reports isConnected() = true after Foundry module connects', async () => {
       await adapter.start(TEST_PORT);
-      const { close } = await connectMockFoundry(TEST_PORT);
+      const { close } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
 
       // Give the server time to register the connection
       await new Promise(r => setTimeout(r, 50));
@@ -107,7 +109,7 @@ describe('FoundryAdapter', () => {
 
     it('reports isConnected() = false after the client disconnects', async () => {
       await adapter.start(TEST_PORT);
-      const { close } = await connectMockFoundry(TEST_PORT);
+      const { close } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       close();
@@ -135,7 +137,7 @@ describe('FoundryAdapter', () => {
   describe('sendChatMessage', () => {
     it('sends a chat_message command with content and speaker', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.sendChatMessage('Hello Night City', { alias: 'GM Assistant' });
@@ -156,7 +158,7 @@ describe('FoundryAdapter', () => {
 
     it('sends chat_message without speaker (optional)', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.sendChatMessage('Test message');
@@ -167,7 +169,7 @@ describe('FoundryAdapter', () => {
 
     it('rejects if Foundry returns an error response', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.sendChatMessage('Test');
@@ -188,7 +190,7 @@ describe('FoundryAdapter', () => {
   describe('readActor', () => {
     it('sends a read_actor command and returns actor data', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const actorData = { name: 'Johnny Silverhand', hp: 40 };
@@ -205,7 +207,7 @@ describe('FoundryAdapter', () => {
 
     it('rejects if Foundry returns an error for readActor', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.readActor('bad-id');
@@ -221,7 +223,7 @@ describe('FoundryAdapter', () => {
   describe('triggerSimplePhone', () => {
     it('sends a simple_phone command with correct payload', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.triggerSimplePhone('555-ROGUE', 'Got a job for you, choom.');
@@ -245,7 +247,7 @@ describe('FoundryAdapter', () => {
   describe('rollDice', () => {
     it('sends a dice_roll command and returns the numeric result', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.rollDice('1d10');
@@ -265,7 +267,7 @@ describe('FoundryAdapter', () => {
   describe('activateScene', () => {
     it('sends a scene_activate command', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.activateScene('scene-afterlife-001');
@@ -285,7 +287,7 @@ describe('FoundryAdapter', () => {
   describe('openNightMarket', () => {
     it('sends an open_night_market command with items payload', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const items = [
@@ -311,7 +313,7 @@ describe('FoundryAdapter', () => {
   describe('createActor', () => {
     it('sends a create_actor command and returns the new actorId', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const createPayload = {
@@ -344,7 +346,7 @@ describe('FoundryAdapter', () => {
 
     it('sends a create_actor command with empty seedItems and no bio', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.createActor({
@@ -365,7 +367,7 @@ describe('FoundryAdapter', () => {
 
     it('rejects if Foundry returns an error for createActor', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.createActor({
@@ -399,7 +401,7 @@ describe('FoundryAdapter', () => {
   describe('requestId generation', () => {
     it('generates unique 9-character alphanumeric requestIds', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const p1 = adapter.sendChatMessage('Message 1');
@@ -428,7 +430,7 @@ describe('FoundryAdapter', () => {
       await shortTimeoutAdapter.start(TEST_PORT);
 
       try {
-        await connectMockFoundry(TEST_PORT);
+        await connectMockFoundry(TEST_PORT, shortTimeoutAdapter.getHandshakeToken());
         await new Promise(r => setTimeout(r, 50));
 
         await expect(shortTimeoutAdapter.sendChatMessage('Will timeout')).rejects.toThrow(/timeout/i);
@@ -438,12 +440,57 @@ describe('FoundryAdapter', () => {
     });
   });
 
+  // ── handshake token ─────────────────────────────────────────────────────────
+
+  describe('handshake token', () => {
+    it('getHandshakeToken() returns a 64-char hex string after start()', async () => {
+      await adapter.start(TEST_PORT);
+      const token = adapter.getHandshakeToken();
+      expect(token).toMatch(/^[0-9a-f]{64}$/);
+    });
+
+    it('rejects connection without token param with close code 4401', async () => {
+      await adapter.start(TEST_PORT);
+      const closeCode = await new Promise<number>((resolve) => {
+        const client = new WebSocket(`ws://localhost:${TEST_PORT}`);
+        client.on('close', (code) => resolve(code));
+        client.on('error', () => {});
+      });
+      expect(closeCode).toBe(4401);
+    });
+
+    it('rejects connection with wrong token with close code 4401', async () => {
+      await adapter.start(TEST_PORT);
+      const closeCode = await new Promise<number>((resolve) => {
+        const client = new WebSocket(`ws://localhost:${TEST_PORT}?token=deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef`);
+        client.on('close', (code) => resolve(code));
+        client.on('error', () => {});
+      });
+      expect(closeCode).toBe(4401);
+    });
+
+    it('accepts connection with correct token and becomes the active client', async () => {
+      await adapter.start(TEST_PORT);
+      const token = adapter.getHandshakeToken();
+
+      const client = new WebSocket(`ws://localhost:${TEST_PORT}?token=${token}`);
+      await new Promise<void>((resolve, reject) => {
+        client.once('open', resolve);
+        client.once('error', reject);
+      });
+
+      await new Promise(r => setTimeout(r, 50));
+      expect(adapter.isConnected()).toBe(true);
+      client.close();
+    });
+  });
+
   // ── advancePhase ────────────────────────────────────────────────────────────
 
   describe('advancePhase()', () => {
     it('sends an advance_phase command with correct sceneId and phaseIndex payload', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.advancePhase('scene-downtown-001', 3);
@@ -464,7 +511,7 @@ describe('FoundryAdapter', () => {
 
     it('sends advance_phase with null sceneId (active scene)', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.advancePhase(null, 0);
@@ -483,7 +530,7 @@ describe('FoundryAdapter', () => {
 
     it('resolves when Foundry responds with success', async () => {
       await adapter.start(TEST_PORT);
-      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
       await new Promise(r => setTimeout(r, 50));
 
       const promise = adapter.advancePhase(null, 2);

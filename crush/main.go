@@ -183,11 +183,26 @@ func main() {
 		case "wsa":
 			os.Exit(runWSA(os.Args[2:]))
 
+		case "shut-down":
+			fmt.Println(critStyle.Render("!! EMERGENCY SHUTDOWN INITIATED !!"))
+			fmt.Println(critStyle.Render("Purging all Node B renderer and sidecar processes..."))
+			
+			// Kill WSL processes
+			_ = syscall.Kill(-1, syscall.SIGKILL) // Kill entire process group
+			
+			// Try to also send intent to Director for graceful-ish shutdown if possible
+			runHack([]string{"shut-down", "node-b"})
+			
+			os.Exit(0)
+
 		case "hack":
 			os.Exit(runHack(os.Args[2:]))
 
 		case "scan":
 			os.Exit(runScan(os.Args[2:]))
+
+		case "crop-scan":
+			os.Exit(runCropScan(os.Args[2:]))
 
 		case "forge":
 			os.Exit(runForge(os.Args[2:]))

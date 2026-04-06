@@ -203,6 +203,7 @@ func initialModel() Model {
 			{Name: "foundry-vtt", Layer: LayerWindows},
 			{Name: "director", Layer: LayerWSL},
 			{Name: "sidecar-atlas", Layer: LayerWSL},
+			{Name: "sidecar-cyberdeck", Layer: LayerWSL},
 			{Name: "sidecar-netrunning", Layer: LayerWSL},
 			{Name: "llama-server", Layer: LayerRemote},
 			{Name: "zeroclaw", Layer: LayerRemote},

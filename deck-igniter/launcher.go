@@ -156,6 +156,7 @@ func launchSidecar(c *Component, subdir string) tea.Cmd {
 // sidecarSubdir maps a component name to its source subdirectory.
 var sidecarSubdir = map[string]string{
 	"sidecar-atlas":      "sidecar-atlas",
+	"sidecar-cyberdeck":  "sidecar-cyberdeck",
 	"sidecar-netrunning": "sidecar-netrunning",
 }
 

@@ -7,5 +7,4 @@ pub mod steganography;
 pub mod linguistics;
 
 // Phase 22.5: VSB Sovereign Binary Schema (shared wire protocol)
-#[path = "../../src/shared/vsb_protocol.rs"]
-pub mod vsb_protocol;
+pub use sovereign_sdk::protocol as vsb_protocol;

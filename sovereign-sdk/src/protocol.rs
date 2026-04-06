@@ -49,6 +49,70 @@ pub enum ResultStatus {
     Pending = 0x02,
 }
 
+// ─── Radar Mmap Protocol (black_ice_state.mem) ────────────────────────────────
+
+pub const RADAR_MAGIC: &[u8; 16] = b"BLACK-ICE-RADAR\0";
+pub const RADAR_HEADER_SIZE: usize = 24;
+pub const RADAR_BLIP_SIZE: usize = 64;
+
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct RadarHeader {
+    pub magic: [u8; 16],
+    pub transaction_counter: u32,
+    pub blip_count: u32,
+}
+
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct RadarBlipRaw {
+    pub id: [u8; 16],
+    pub name: [u8; 16],
+    pub x: f32,
+    pub y: f32,
+    pub hp: i32,
+    pub actor_type: u8,
+    pub _reserved: [u8; 3], // Padding to align faction
+    pub faction: [u8; 16],
+}
+
+// ─── Ghost Mmap Protocol (.ghost) ─────────────────────────────────────────────
+
+pub const GHOST_MAGIC: &[u8; 16] = b"GHOST-BLIPS-V1\0\0";
+pub const GHOST_HEADER_SIZE: usize = 20;
+pub const GHOST_BLIP_SIZE: usize = 9;
+
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct GhostHeader {
+    pub magic: [u8; 16],
+    pub ghost_count: u32,
+}
+
+// ─── Flush Gate Proposal (VSB Shared Memory) ─────────────────────────────────
+
+pub const PROPOSAL_OFFSET: usize = 1024;
+
+#[repr(u8)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ProposalStatus {
+    Pending   = 0x00,
+    Approved  = 0x01,
+    Rejected  = 0x02,
+    Committed = 0x03,
+}
+
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct Proposal {
+    pub id:          u32,
+    pub origin:      u8,
+    pub action_type: u8,
+    pub status:      u8, // ProposalStatus discriminant
+    pub reserved:    u8,
+    pub payload:     [u8; 256],
+}
+
 // ─── SovereignHeader (13 bytes) ──────────────────────────────────────────────
 //
 // `#[repr(C, packed)]` eliminates all padding. On x86-64 unaligned u32 reads

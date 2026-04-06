@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"syscall"
 	"time"
@@ -9,6 +10,7 @@ import (
 
 const (
 	VsbMapSize      = 4096
+	Magic           = "BLACK-ICE-RADAR\x00" // 16 bytes
 	ProposalOffset  = 1024
 	ProposalSize    = 302 // Matches IntentPacket size for simplicity
 )
@@ -38,7 +40,12 @@ type VsbWatcher struct {
 }
 
 func NewVsbWatcher(path string) (*VsbWatcher, error) {
-	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0644)
+	// Check if file exists to decide if we need to init magic
+	_, statErr := os.Stat(path)
+	isNew := os.IsNotExist(statErr)
+
+	// Enforce 0600 permissions
+	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
 		return nil, err
 	}
@@ -52,6 +59,17 @@ func NewVsbWatcher(path string) (*VsbWatcher, error) {
 	data, err := syscall.Mmap(int(f.Fd()), 0, VsbMapSize, syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_SHARED)
 	if err != nil {
 		return nil, err
+	}
+
+	if isNew {
+		// Initialize magic bytes for new file
+		copy(data[:len(Magic)], Magic)
+	} else {
+		// Validate magic bytes
+		if string(data[:len(Magic)]) != Magic {
+			syscall.Munmap(data)
+			return nil, fmt.Errorf("invalid VSB magic bytes — unauthorized or corrupted shared memory")
+		}
 	}
 
 	return &VsbWatcher{mmap: data}, nil

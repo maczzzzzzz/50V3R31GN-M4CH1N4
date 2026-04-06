@@ -39,6 +39,7 @@ export interface IClawLinkClient {
   connect(): Promise<void>;
   disconnect(): Promise<void>;
   isHealthy(): Promise<boolean>;
+  onIntent(handler: (intent: any) => Promise<void>): void;
   hybridSearch(query: string, namespace: string, topK: number): Promise<ClawLinkSearchResult[]>;
   resolveAttack(dice: number[], stat: number, skill: number, dv: number): Promise<ClawLinkAttackResult>;
   resolveDamage(dice: number[], bonus: number, armourSp: number): Promise<ClawLinkDamageResult>;
@@ -102,6 +103,7 @@ export class ClawLinkClient implements IClawLinkClient {
   private buffer: string = '';
   private readonly pending = new Map<string, PendingRequest>();
   private requestQueue: Promise<void> = Promise.resolve();
+  private intentHandler: ((intent: any) => Promise<void>) | null = null;
 
   constructor(config: ClawLinkConfig) {
     const parsed = ClawLinkConfigSchema.safeParse(config);
@@ -168,13 +170,16 @@ export class ClawLinkClient implements IClawLinkClient {
   }
 
   /** Send a ping and return true if zeroclaw responds within timeoutMs. */
-  async isHealthy(): Promise<boolean> {
+  isHealthy(): Promise<boolean> {
     try {
-      const result = await this.send<{ pong: boolean }>('ping', {});
-      return result.pong === true;
+      return this.send<{ pong: boolean }>('ping', {}).then(res => res.pong === true);
     } catch {
-      return false;
+      return Promise.resolve(false);
     }
+  }
+
+  onIntent(handler: (intent: any) => Promise<void>): void {
+    this.intentHandler = handler;
   }
 
   /**
@@ -476,7 +481,16 @@ export class ClawLinkClient implements IClawLinkClient {
 
     const { id, result, error } = envelope.data;
     const pending = this.pending.get(id);
-    if (!pending) return; // Stale/duplicate response — discard
+    
+    if (!pending) {
+      // Unsolicited message (intent from proxy)
+      if (this.intentHandler) {
+        this.intentHandler(parsedRpc).catch(err => {
+          console.error(`[${CONTEXT}] Intent handler failed:`, err.message);
+        });
+      }
+      return;
+    }
 
     clearTimeout(pending.timer);
     this.pending.delete(id);

@@ -265,6 +265,20 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 			continue
 		}
 
+		// Phase 30: Route human intents to Node B (Director)
+		// We detect these by parsing the payload for commands like "scan" or "hack".
+		var intent struct {
+			Command string `json:"command"`
+		}
+		_ = json.Unmarshal([]byte(pkt.Payload), &intent)
+
+		if intent.Command == "scan" || intent.Command == "hack" || intent.Command == "crop-scan" {
+			// Broadcast to Node B and other listeners
+			// We wrap it in a "broadcast" type so Node B's onIntent receives it.
+			p.broadcast(raw)
+			continue
+		}
+
 		resp, err := p.send(append(raw[:len(raw):len(raw)], '\n'), pkt.TraceID)
 		if err != nil {
 			conn.Write(errorPacketJSON(pkt.TraceID, err.Error()))
