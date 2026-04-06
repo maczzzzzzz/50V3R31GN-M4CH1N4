@@ -333,6 +333,12 @@ class FoundryApiBridge {
         return this._handleRunSequence(command);
       case 'pretext_overlay':
         return this._handlePretextOverlay(command);
+      case 'execute_action':
+        return this._handleExecuteAction(command);
+      case 'trigger_tile':
+        return this._handleTriggerTile(command);
+      case 'play_sequence':
+        return this._handlePlaySequence(command);
       case 'run_script':
         return this._handleRunScript(command);
       default:
@@ -341,6 +347,71 @@ class FoundryApiBridge {
   }
 
   // ── Command handlers ────────────────────────────────────────────────────────
+
+  async _handleExecuteAction({ requestId, payload }) {
+    try {
+      const { actorId, itemId } = payload;
+      const actor = game.actors.get(actorId);
+      const item = actor?.items.get(itemId);
+      if (item) {
+        const result = await item.use();
+        this._sendSuccess(requestId, result ?? null);
+      } else {
+        this._sendError(requestId, "Actor or Item not found");
+      }
+    } catch (err) {
+      console.error(`[${MODULE_ID}] execute_action failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handleTriggerTile({ requestId, payload }) {
+    try {
+      const { tileId } = payload;
+      const tile = canvas.tiles.get(tileId);
+      if (tile) {
+        // Monks Active Tile Trigger
+        const result = await tile.trigger();
+        this._sendSuccess(requestId, result ?? null);
+      } else {
+        this._sendError(requestId, "Tile not found");
+      }
+    } catch (err) {
+      console.error(`[${MODULE_ID}] trigger_tile failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handlePlaySequence({ requestId, payload }) {
+    try {
+      if (!game.modules.get('sequencer')?.active) {
+        this._sendError(requestId, "Sequencer module not active");
+        return;
+      }
+      // sequenceData is expected to be a serialized sequence or raw JS
+      // For now, we'll support a simple eval or a specific structure
+      // Let's assume sequenceData is a string of code that returns a Sequence object
+      const { sequenceData } = payload;
+      let seq;
+      if (typeof sequenceData === 'string') {
+        seq = new Function('Sequence', 'return ' + sequenceData)(Sequence);
+      } else {
+        // Fallback or specific object handling
+        seq = new Sequence();
+        // (Add logic for structured data if needed)
+      }
+      
+      if (seq instanceof Sequence) {
+        await seq.play();
+        this._sendSuccess(requestId, null);
+      } else {
+        this._sendError(requestId, "Invalid sequence data");
+      }
+    } catch (err) {
+      console.error(`[${MODULE_ID}] play_sequence failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
 
   async _handleRunScript({ requestId, payload }) {
     try {

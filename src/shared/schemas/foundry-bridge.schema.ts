@@ -263,6 +263,32 @@ export const UpdateActorPayloadSchema = z.object({
 });
 
 /**
+ * Execute an item/action on a Foundry actor.
+ */
+export const ExecuteActionPayloadSchema = z.object({
+  /** The Foundry document id of the actor. */
+  actorId: z.string().min(1),
+  /** The Foundry document id of the item/action. */
+  itemId: z.string().min(1),
+});
+
+/**
+ * Trigger a Monks Active Tile in the current scene.
+ */
+export const TriggerTilePayloadSchema = z.object({
+  /** The Foundry document id of the tile. */
+  tileId: z.string().min(1),
+});
+
+/**
+ * Play a high-fidelity animation sequence via the Sequencer module.
+ */
+export const PlaySequencePayloadSchema = z.object({
+  /** The raw sequence data to be interpreted by the bridge. */
+  sequenceData: z.unknown(),
+});
+
+/**
  * Queue a change for human (GM) approval.
  */
 export const QueueApprovalPayloadSchema = z.object({
@@ -368,6 +394,24 @@ export const Show3dDiceCommandSchema = z.object({
   payload: Show3dDicePayloadSchema,
 });
 
+export const ExecuteActionCommandSchema = z.object({
+  type: z.literal('execute_action'),
+  requestId: RequestIdSchema,
+  payload: ExecuteActionPayloadSchema,
+});
+
+export const TriggerTileCommandSchema = z.object({
+  type: z.literal('trigger_tile'),
+  requestId: RequestIdSchema,
+  payload: TriggerTilePayloadSchema,
+});
+
+export const PlaySequenceCommandSchema = z.object({
+  type: z.literal('play_sequence'),
+  requestId: RequestIdSchema,
+  payload: PlaySequencePayloadSchema,
+});
+
 /** Query the list of available scenes in the world. */
 export const QueryScenesPayloadSchema = z.object({
   /** Optional filter by name. */
@@ -421,6 +465,9 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   RunSequenceCommandSchema,
   PretextOverlayCommandSchema,
   RunScriptCommandSchema,
+  ExecuteActionCommandSchema,
+  TriggerTileCommandSchema,
+  PlaySequenceCommandSchema,
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
   SpawnSoloSafeNpcCommandSchema,
