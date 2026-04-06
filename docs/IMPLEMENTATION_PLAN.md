@@ -117,13 +117,13 @@
 - [x] **Thought Stream:** Implemented real-time streaming of AI tactical reasoning from Node B to `crush` CLI via proxy broadcasting.
 - [x] **Akashik Visual Audit:** Implemented `AkashikVisualAuditor` for VLM-driven lore extraction from campaign artwork.
 
-## 🕹️ PHASE 28: TOTAL ENVIRONMENT DOMINANCE (IN PROGRESS)
+## ✅ PHASE 28: TOTAL ENVIRONMENT DOMINANCE (COMPLETED)
 **Goal:** Maximize environmental control via CDP synthetic input and sidecar manipulation for exhaustive testing and feature forcing.
-- [ ] **Task 1: Phase 27 Remediation:** Wire `AkashikVisualAuditor` into the production loop (`src/main.ts`) and add lore extraction triggers.
+- [x] **Task 1: Phase 27 Remediation:** Wired `AkashikVisualAuditor` into the production loop (`src/main.ts`) and added lore extraction triggers.
 - [x] **Ghost Protocol:** Enabled CDP `Input` domain for synthetic mouse/keyboard orchestration (Physical token dragging, UI clicking).
 - [x] **Scenario Engine (Go):** Implemented `crush devdom` for scripted scenario playback and high-speed world manipulation.
 - [x] **UI Infiltration:** Implemented direct DOM manipulation and "Journal Hijack" for immersive leet-speak/parseltongue effects.
-- [ ] **Hardware Dominance:** Expand sidecars to manipulate the OS/Nix shell (Remote power-cycling, Flake rebuilds via HUD).
+- [x] **Hardware Dominance:** Expanded sidecars to manipulate the OS/Nix shell (Remote power-cycling, Flake rebuilds via HUD).
 
 ## 🏛️ PHASE 29: THE AKASHIK LIBRARY (COMPLETED)
 **Goal:** Build a local, air-gapped narrative archive and "Smart Asset" ingestion pipeline.

@@ -227,7 +227,7 @@ impl eframe::App for NetrunApp {
                         FontId::monospace(24.0),
                         RED,
                     );
-                    painter.rect_stroke(rect, 0.0, Stroke::new(2.0, RED));
+                    painter.rect_stroke(rect, 0.0, Stroke::new(2.0, RED), egui::StrokeKind::Middle);
                 }
                 
                 // Glitch noise
