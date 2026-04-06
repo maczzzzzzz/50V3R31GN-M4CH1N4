@@ -13,6 +13,7 @@ import (
 	"image/draw"
 	"image/png"
 	"io"
+	"os"
 )
 
 // EncryptPayload encrypts data using AES-256-GCM with the provided key.
@@ -74,14 +75,6 @@ func st3ggCapacity(w, h int) int {
 }
 
 // St3ggEncode embeds payload into the LSBs of img and returns lossless PNG bytes.
-//
-// Wire format (row-major, 1 bit per RGBA channel LSB, MSB first per byte):
-//
-//	[4B big-endian uint32 payload length][N bytes payload][4B big-endian CRC32]
-//
-// All alpha channels are forced to 255 before encoding so that the PNG
-// round-trip is lossless (fully-opaque pixels are never premultiplied by
-// Go's png package, and the raw pix bytes are preserved in the NRGBA decode).
 func St3ggEncode(img image.Image, payload []byte) ([]byte, error) {
 	bounds := img.Bounds()
 	w, h := bounds.Dx(), bounds.Dy()
@@ -91,27 +84,20 @@ func St3ggEncode(img image.Image, payload []byte) ([]byte, error) {
 			len(payload), st3ggCapacity(w, h), w, h)
 	}
 
-	// Use NRGBA (non-premultiplied) so the PNG round-trip is byte-perfect.
-	// Go's png.Encode stores NRGBA bytes as-is; png.Decode creates *image.NRGBA
-	// with the same bytes. Encoding as *image.RGBA would cause the decoder to
-	// un-premultiply, corrupting channel LSBs for non-opaque pixels.
 	nrgba := image.NewNRGBA(image.Rect(0, 0, w, h))
 	draw.Draw(nrgba, nrgba.Bounds(), img, bounds.Min, draw.Src)
 
-	// Force all alpha channels to 255 before writing wire bits.
 	pix := nrgba.Pix
 	for i := 3; i < len(pix); i += 4 {
 		pix[i] = 255
 	}
 
-	// Build wire bytes: [length u32 BE][payload][CRC32 BE]
 	checksum := crc32.ChecksumIEEE(payload)
 	wire := make([]byte, 4+len(payload)+4)
 	binary.BigEndian.PutUint32(wire[0:4], uint32(len(payload)))
 	copy(wire[4:4+len(payload)], payload)
 	binary.BigEndian.PutUint32(wire[4+len(payload):], checksum)
 
-	// Write wire bits into ALL channel LSBs including alpha (MSB first per wire byte).
 	bitIdx := 0
 	for _, wb := range wire {
 		for b := 7; b >= 0; b-- {
@@ -128,7 +114,6 @@ func St3ggEncode(img image.Image, payload []byte) ([]byte, error) {
 }
 
 // St3ggDecode extracts and CRC32-validates the payload from ST3GG-encoded PNG bytes.
-// Returns ErrCRC32Mismatch if the checksum fails.
 func St3ggDecode(pngBytes []byte) ([]byte, error) {
 	img, err := png.Decode(bytes.NewReader(pngBytes))
 	if err != nil {
@@ -138,9 +123,6 @@ func St3ggDecode(pngBytes []byte) ([]byte, error) {
 	w, h := bounds.Dx(), bounds.Dy()
 	capBytes := (w * h * 4) / 8
 
-	// Read raw pixel bytes without draw.Draw to avoid premultiplication artifacts.
-	// Go's png.Decode returns *image.RGBA for opaque RGB PNGs and *image.NRGBA
-	// for RGBA PNGs; both store raw channel bytes in Pix without conversion.
 	var pix []byte
 	switch v := img.(type) {
 	case *image.RGBA:
@@ -153,8 +135,6 @@ func St3ggDecode(pngBytes []byte) ([]byte, error) {
 		pix = rgba.Pix
 	}
 
-	// readWireBytes reads nBytes from pix LSBs starting at bitOffset.
-	// Reconstructs each byte MSB-first to match the encode direction.
 	readWireBytes := func(bitOffset, nBytes int) []byte {
 		out := make([]byte, nBytes)
 		for i := 0; i < nBytes; i++ {
@@ -168,18 +148,13 @@ func St3ggDecode(pngBytes []byte) ([]byte, error) {
 		return out
 	}
 
-	// Read 4-byte length header (bits 0–31).
 	lenHeader := readWireBytes(0, 4)
 	payloadLen := int(binary.BigEndian.Uint32(lenHeader))
 
 	if 4+payloadLen+4 > capBytes {
-		return nil, fmt.Errorf(
-			"st3gg: embedded length %d exceeds image capacity %d bytes — not ST3GG or corrupted",
-			payloadLen, capBytes,
-		)
+		return nil, fmt.Errorf("st3gg: embedded length %d exceeds capacity", payloadLen)
 	}
 
-	// Read payload + CRC32 starting at bit 32.
 	block := readWireBytes(32, payloadLen+4)
 	payload := block[:payloadLen]
 	crcStored := binary.BigEndian.Uint32(block[payloadLen:])
@@ -189,4 +164,20 @@ func St3ggDecode(pngBytes []byte) ([]byte, error) {
 		return nil, ErrCRC32Mismatch
 	}
 	return payload, nil
+}
+
+func St3ggEncodeToPath(cover image.Image, payload []byte, outPath string) error {
+	encoded, err := St3ggEncode(cover, payload)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(outPath, encoded, 0644)
+}
+
+func St3ggDecodePath(path string) ([]byte, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	return St3ggDecode(data)
 }
