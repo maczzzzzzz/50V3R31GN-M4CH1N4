@@ -33,6 +33,8 @@ import type { IClawLinkClient } from '../api/clawlink-client.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { SovereignJudge } from './sovereign-judge.js';
+
 // ── Constructor options ───────────────────────────────────────────────────────
 
 export interface HybridRoutingControllerOptions {
@@ -52,6 +54,7 @@ export interface HybridRoutingControllerOptions {
   readonly architect?: IArchitectService | undefined;
   readonly onboardingEnabled?: boolean | undefined;
 
+  readonly clawlinkClient?: IClawLinkClient | undefined;
   readonly sharedMemoryService?: SharedMemoryService | undefined;
   readonly missionSwarm?: MissionSwarmOrchestrator | undefined;
   readonly turnDaemon?: TurnDaemon | undefined;
@@ -83,6 +86,7 @@ export class HybridRoutingController {
   private readonly taskRouter: TaskRouterProxy;
   private readonly vsb: VsbClient | undefined;
   private readonly auditor: AkashikVisualAuditor | undefined;
+  private readonly sovereignJudge: SovereignJudge;
 
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
@@ -110,6 +114,14 @@ export class HybridRoutingController {
     this.steganographyService = new SteganographyService();
     this.taskRouter = new TaskRouterProxy();
     this.auditor = options.auditor;
+
+    this.sovereignJudge = new SovereignJudge({
+      nitroLogicClient: this.nitroLogic,
+      ollamaClient: this.ollama,
+      oracle: this.unifiedOracle,
+      clawlinkClient: this.clawlink,
+      foundryAdapter: this.foundry,
+    });
 
     this.rulesGrep = new RulesGrepService();
     try {
@@ -629,8 +641,11 @@ export class HybridRoutingController {
     let narrative: string;
     try {
       const systemContext = await this.applyWorldPulseGrounding(prompt + ' ' + context, spatial);
-      narrative = await this.ollama.generateNarrative(prompt, context, systemContext);
-    } catch {
+      // We pass the scene's district name if available, for now undefined.
+      const result = await this.sovereignJudge.evaluateNarrative(prompt, context, systemContext, undefined);
+      narrative = result.narrative;
+    } catch (e) {
+      console.error('[HRC] pushNarrativeOrFallback Error:', e);
       narrative = fallback;
     }
     await this.foundry.sendChatMessage(narrative, { alias: 'GM Assistant' });

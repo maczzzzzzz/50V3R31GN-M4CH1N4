@@ -215,7 +215,10 @@ describe('HybridRoutingController', () => {
         expect.any(String),
         expect.stringContaining('vendor=Vido'),
         expect.stringContaining('WORLD PULSE (GROUNDED TRUTH):\n- Vido: HP=40, Faction=Maelstrom, Stance=neutral\n  Context: "Vido says hello...."'),
-        );
+        undefined,
+        0.8,
+        0.9
+      );
         });
 
   });

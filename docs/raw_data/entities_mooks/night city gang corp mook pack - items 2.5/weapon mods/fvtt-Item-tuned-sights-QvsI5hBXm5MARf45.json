@@ -1,0 +1,162 @@
+{
+  "folder": "PS2CVzyq2xLTTBaM",
+  "name": "Tuned Sights",
+  "type": "itemUpgrade",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Gear.svg",
+  "system": {
+    "weaponType": "",
+    "weaponSkill": "",
+    "fireModes": {
+      "autoFire": 0,
+      "suppressiveFire": false
+    },
+    "damage": "1d6",
+    "rof": 1,
+    "dvTable": "",
+    "isRanged": false,
+    "unarmedAutomaticCalculation": true,
+    "attackmod": 0,
+    "description": {
+      "value": "<p><span data-sheets-formula-bar-text-style=\"font-size:16px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;\">A sight midification for any ranged weapon. Provides +1 to hit against targets within 12m.<br /></span></p>"
+    },
+    "source": {
+      "book": "Homebrew",
+      "page": 0
+    },
+    "favorite": false,
+    "isElectronic": false,
+    "providesHardening": false,
+    "revealed": true,
+    "usage": "toggled",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "installLocation": "mall",
+    "size": 1,
+    "usesType": "magazine",
+    "magazine": {
+      "value": 0,
+      "max": 0,
+      "ammoData": null
+    },
+    "ammoVariety": [],
+    "price": {
+      "market": 200
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "handsReq": 0,
+    "type": "weapon",
+    "modifiers": {
+      "secondaryWeapon": {
+        "configured": false
+      },
+      "damage": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "rof": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "attackmod": {
+        "type": "modifier",
+        "value": 1,
+        "isSituational": true,
+        "onByDefault": false
+      },
+      "magazine": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "sdp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "seats": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "speedCombat": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "slots": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "bodySp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "headSp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "shieldHp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "Wardrobe & Style": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "cool": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      }
+    },
+    "canIgnoreArmor": true,
+    "ignoreArmorPercent": 50,
+    "critFailEffect": "jammed",
+    "ignoreBelowSP": 0
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

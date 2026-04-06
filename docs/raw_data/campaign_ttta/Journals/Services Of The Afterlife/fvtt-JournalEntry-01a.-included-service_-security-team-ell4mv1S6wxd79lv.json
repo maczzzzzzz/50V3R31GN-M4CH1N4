@@ -1,0 +1,59 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "01a. Included Service: Security Team",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Don't Mess With The Best",
+      "type": "text",
+      "_id": "fdwxCwdRL9Tl6Hmc",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once the players have recruited a head of security for the Afterlife (usually after Mission 2).</p><h3>Cost</h3><p><strong>None.</strong> This service is included when a visitor pays for entrance.</p><h3>Function</h3><p>The Afterlife has a strict policy that they rigorously enforce: no violent business may be conducted on the grounds. If someone is attacked, they may defend themselves without worry of repercussion; otherwise, they'll face severe consequences.</p><p>When an individual is found to have committed a violent act on the premises, they're removed from the grounds. After this, if they're still alive, the head of security convenes with the hotel's owner and the concierge, to decide on appropriate punishment.</p><ul><li><p><strong>For a lesser offense</strong> (noticeable property damage, getting drunk and assaulting another patron, for example), the perpetrator will be excommunicated from the organization - Eagles in their possession become worthless, and they may not purchase services from the organization any longer. They are banned from the hotel grounds.</p></li><li><p><strong>For serious offenses</strong> (attempted murder, arson, etc.) the perpetrator will have a bounty placed on their head, and the Afterlife head of security will be assigned to hunt down and eliminate them. Like above, they'll no longer have access to the Afterlife or its services - unlike above, they might consider fleeing Night City if they want to stay alive.</p></li></ul><h3>Extra Details</h3><p>In addition to Silvers, the security of the Afterlife is made up of several mook types:</p><ul><li><p><strong>Silvers' team</strong> is comprised of <strong>RatSec Elites.</strong> Each one may be equipped with a Torrell &amp; Chang armorjack and up to 1000eb of extra gear at GM discretion.</p></li><li><p><strong>Outside the Afterlife,</strong> management contracts with the <strong>Iron Sights</strong> to manage problems - their statblocks may be used at GM discretion to hunt down and eliminate problems.</p></li></ul>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

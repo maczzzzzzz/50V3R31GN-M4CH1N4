@@ -1,0 +1,61 @@
+{
+  "name": "RHIB Boat",
+  "type": "vehicle",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/RHIB%20Boats/RHIB%20Boat%20(1).webp",
+  "system": {
+    "description": {
+      "value": "<p>Nomad access 4.</p><p><span style=\"font-family:Jost\">A former tool of the US Coast Guard and Navy - now, these are a common sight among coastal pirate gangs and RatSec river patrols. RHIB Boats are unexpectedly durable compared to a typical speedboat, with self-healing fibers and light armor plating (SP7) supplementing their hull. Most are equipped for security use, complete with a mounted gun.</span></p><p style=\"box-sizing:border-box;user-select:text;margin:0.5em 0px;color:rgb(13, 11, 12);font-family:Jost;font-size:14px;font-style:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-weight:400;letter-spacing:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;-webkit-text-stroke-width:0px;background-color:rgb(234, 234, 234);text-decoration-thickness:initial;text-decoration-style:initial;text-decoration-color:initial;text-align:start\"><span style=\"font-family:Jost\">RHIB Boats have 4 seats. 12 MOVE / 60 MPH / 97 KPH top speed. 35 HP. Worth 30,000eb. Comes with SP7 armor and a mounted turret. When firing the mounted gun, the boat's Martial stat (12 by default) can be used in place of the user's Heavy Weapons or Martial skill. When the mounted turret is fired, the shooter can take the suppressive fire action, in addition to making an attack. Cannot take the Armored Chassis vehicle upgrade.</span></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 30000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 35,
+    "seats": 4,
+    "speedCombat": 12,
+    "speedNarrative": "60MPH/97KPH"
+  },
+  "effects": [],
+  "folder": "nw7GVCTc2LMEvDZe",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

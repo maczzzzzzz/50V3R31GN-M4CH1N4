@@ -1,0 +1,61 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "10. Afterlife Night Market",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "We're Going To Need Guns...",
+      "type": "text",
+      "_id": "O1VD3eim7l5mz43z",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once <strong>Supply Lines</strong> has been completed. It takes place on Sublevel 2 of the Afterlife, and is maintained by Mr. Connors (weapons &amp; armor), Miss Piercing (Cyberware, Electronics, and Crafting Supplies) and Madame Garcia (food, drugs, home supplies, vehicles, and clothing).</p><h2>Cost</h2><p>The Afterlife's Eagles are suddenly worth significantly more than the cash they could be redeemed for - in case that wasn't already clear.</p><ul><li><p>All of the Afterlife's booths are stocked with any item in-category worth 100eb or less. <strong>1 Eagle = 200eb in credit</strong> towards these items.</p></li><li><p>Otherwise, once items are rolled, they use the following prices at GM discretion, depending on demand:</p><ul><li><p>500eb = <strong>2-4 Eagles</strong></p></li><li><p>1000eb = <strong>6-9 Eagles</strong></p></li><li><p>Luxury = <strong>10+ Eagles</strong></p></li><li><p>Super Luxury = <strong>20+ Eagles</strong></p></li></ul></li><li><p>For obvious reasons, these prices vary depending on demand and item versatility - for vehicles in particular, an air vehicle at a certain price may be, in practice, worth more Eagles than a groundcar of equivalent book value. Likewise for particular highly in-demand weapons, pieces of cyberware, etc.</p></li></ul><h2>Function</h2><p>Every week <strong>on Sunday,</strong> the Afterlife's 3 market fixers reserve a niche of their garage to host a Night Market with the above prices. The event is quite a happening, but free to attend for anyone who pays to enter the establishment (note: being comped to pursue mercwork doesn't count - pay to play, baby!)</p><p>The market itself contains a number of valuable items which depend on your party's size.</p><p>Each player in your party may choose to roll twice on any combination of tables <em>(note: improved tables have been included in NC G&amp;C - see the rollable table compendium for details)</em>.</p><p>If a player chooses, they can spend one of their rolls buying clothing, instead. If they do so, they pay a price in Eagles for the relevant clothing items (note - items worth 100eb or less are still 2-for-1). Once they've described their new outfit, they gain a +1 personal rep bonus for the next in-game week, starting the first time they wear their new outfit in public. This bonus does not stack.</p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "core": {
+      "sourceId": "JournalEntry.XUOpfREiYQEErhe6"
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

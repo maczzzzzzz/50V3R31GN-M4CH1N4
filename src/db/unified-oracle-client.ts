@@ -29,6 +29,13 @@ export class UnifiedOracleClient {
   private readonly config: UnifiedOracleConfig;
   private connected = false;
 
+  public getRawDatabase(): Database.Database {
+    if (!this.db) {
+      throw new Error('Database is not connected');
+    }
+    return this.db;
+  }
+
   /**
    * Authorization Gate Callback.
    * If provided, executeTransaction will pause and wait for this to resolve.

@@ -1,0 +1,21 @@
+If you haven't already, you should also make the associated journal (in this case it's @UUID[JournalEntry.ell4mv1S6wxd79lv]{01a. Included Service: Security Team}) visible to your players - you can do so by right clicking it, selecting "Configure Ownership", and changing the "All Players" dropdown to "Observer."
+
+Sometimes, you and your players might find that a few autoguns won't be enough to discourage bad actors within the Afterlife's hallowed halls. Silvers has been recruited to fix that problem.
+
+Silvers In The Afterlife
+
+Silvers has taken up residence in one of the Afterlife's hotel rooms, along with her son - she's staying there indefinitely in exchange for her services, which was part of her negotiations with The Owner.
+
+While on the grounds, she primarily acts as a bouncer for the establishment while on-duty, and spends time homeschooling her son when not. She rarely leaves the premises except on business, on account of the 60k EB bounty on her head.
+
+Service: Silver Bullets
+
+While on the Afterlife's staff, Silvers acts as the muscle of the establishment, taking out the trash. If an individual or organization has committed violent acts on the Afterlife's grounds, she confers with Sprinter and The Owner to reach a verdict:
+
+If it was a minor offense, the individual responsible might be excommunicated - their Eagles become worthless and a bounty is placed on their head - if an NPC, the party might even be able to pursue it.
+
+Otherwise, Silvers and her team will hunt the individual responsible down, and eliminate them.
+
+Aside from Silvers herself, her team is comprised of 1*partycount RatSec Elites. Each one may be equipped with a Torrell & Chang armorjack and up to 1000eb of extra gear at GM discretion.
+
+Obviously, individuals should feel free to defend themselves without repercussions, if attacked.

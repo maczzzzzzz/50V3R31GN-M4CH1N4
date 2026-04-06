@@ -1,0 +1,58 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "08. Chef Fenison's Fine Foods & Atmosphere",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Bon Appetit",
+      "type": "text",
+      "_id": "dgnGZwmppmnkyjH9",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once <strong>Chef's Kiss</strong> has been completed. It takes place on the Afterlife's second floor, and is maintained by the Techtopia Tastemaker (or his replacement).</p><h2>Cost</h2><p>1 meal (which will keep any character fed for 1 full day) costs <strong>1 Eagle.</strong></p><h2>Function</h2><p>The player partaking immediately gains the benefits of eating at the Fresh Food lifestyle. If you're playing food benefits RAW, then they can immediately gain the following, instead:</p><ul><li><p>Once in the next 24 hours, they can choose to gain +2 to a check of their choice</p></li><li><p>For the next 24 hours, they gain +1 to a stat of their choice.</p></li><li><p>For the next 24 hours, they gain +2 to a skill of their choice.</p></li></ul><p>Editor's note: it's recommended that either the player or the GM create an active effect on their character sheet to track these changes, so they can be easily disabled once time is up.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

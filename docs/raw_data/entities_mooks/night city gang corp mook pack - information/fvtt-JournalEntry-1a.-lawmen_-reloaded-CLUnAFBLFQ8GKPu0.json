@@ -1,0 +1,59 @@
+{
+  "folder": null,
+  "name": "1a. Lawmen: Reloaded",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Wow, You Mean Your Backup Comes When You Call?",
+      "type": "text",
+      "_id": "Ugb6aYHEBxLveBb9",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Lawmen in the base game suffer from 3 core issues.</p><ol><li><p>Ranking up doesn't actually unlock new stuff, for some reason, sometimes. Lawmen have 10 ranks but only 7 of them provide new material.</p></li><li><p>RTal has shot themselves in the foot by not allowing anyone to reproduce/distribute the mooks included in the core rules, meaning the role isn't ready to play out-of-the-box like the others.</p></li><li><p>Backup arrives too slow, and sometimes doesn't do anything, especially at low ranks.</p></li></ol><p>This rework seeks to repair all 3 of these issues, as follows:</p><ol><li><p>More ranks do stuff, and more stuff can be done, providing more use-cases for the role to be taken in.</p></li><li><p>The rework references mooks from the mook pack instead of ones you need to create yourself.</p></li><li><p>Calling for backup works significantly differently, and always works 100% of the time, lending the role some much-needed consistency.</p></li></ol><p>Treat the contents of this document as a direct substitute for the basic Lawman role ability, used at GM discretion. If you're interested in playing Lawman and want to use these rules instead, ask your GM!</p><h2>Backup (Lawman Role Ability)</h2><p>Lawmen aren't just thugs with guns, they're the long arm of the law… y'know, whatever that means, nowadays. That means they've got resources, whether they're part of a gang, a police force, a vigilante group or a corporation, and those resources go well beyond just a couple of extra bodies to throw on a fire.</p><p>As you rank up in Lawman, you don't just gain ranks in your organization, you gain access to the resources that rank creates. And the first part of that ability is your <strong>Clout.</strong></p><h3>Clout</h3><p>As a lawman, you have the respect your badge demands - you can add 1/2 your rank in Lawman (rounded down) to any facedown checks.</p><h3>Calling For Backup</h3><p><strong>As an action,</strong> you can call for backup from an effect at your Backup rank or lower, once a day. It must be done in an area where the backup could conceivably assist, and will usually take a moment to arrive. <strong>All reinforcements arrive in 1d3 minutes and can be equipped by the Lawman from gear available as specified on their mook sheet.</strong></p><p><strong>When backup arrives and the encounters involving them are concluded,</strong> the Lawman must attempt to roll ≤ their rank in Backup on 1d10. On failure, for one reason or another your backup's cooldown is extended by an additional 48 hours.</p><p><strong>Most of the effects listed will take time to become effective</strong>, meaning they won't be very worthwhile in the heat of battle unless you're really stuck in and ready to bunker down. Use your role ability proactively, and off-class to Solo or Exec if you need more immediate assistance.</p><p><strong>Final note:</strong> when the backup you summon dies or becomes irrelevant, the gear those individuals were carrying melts away into nothingness after you make your Lawman check. Don't go farming your allies for loot, that's unsanitary.</p><h3>Backup Ranks 1&amp;2 (Reinforcements)</h3><p><strong>Locally-Sourced, Environmentally-Friendly Merc Crews:</strong> A street punk and street bully arrive, equipped how you see fit from their available gear. They arrive on foot, ro by combat cab. If they die, no big deal - there'll be more waiting in the wings the next time you call.</p><h3>Backup Rank 3 (Reinforcements)</h3><p><strong>Upgrades, People, Upgrades!: </strong>You can call for up to 3 Street Bullies, equipped how you see fit from their available gear. They arrive on foot, or by combat cab. As noted at ranks 1 &amp; 2, if they die, nobody's holding a funeral.</p><h3>Backup Rank 4 (Requisitions)</h3><p><strong>Be Prepared:</strong> When you call in backup, they bring up to 100eb of gear of your choice. If this gear is not consumed/destroyed, it is reclaimed by your backup when the backup goes home/the scene ends. This increases to 200eb of gear at rank 6, and 400eb of gear at rank 8.</p><h3>Backup Rank 5 (Meat Shields)</h3><p><strong>Soak Fire:</strong> 2 Militech Suppressors arrive via groundcar. If killed, it takes three in-game days to source this ability again.</p><h3>Backup Rank 6 (Area Control)</h3><p><strong>I Have A Megaphone, That Means I'm In Charge: </strong>3 RatSec Elites arrive in a pair of Generic Compacts and will attempt to secure the scene. Ignore the clause in their Gang Wide Ability which states they will attempt to contact the NCPD. They will back up the Lawman if combat breaks out, but have come equipped to secure the location with yellow tape, spike strips, and a megaphone.</p><h3>Backup, Rank 7 (Long-Range Support)</h3><p><strong>Take The Shot:</strong> When called in, the Lawman chooses between a mortar shell (outside only) or a sniper rifle (Line of Sight only). Designated by laser pointer, smoke, or identified through other previously-defined means, as an action on their turn the Lawman chooses one target. If the sniper was chosen, the target is immediately hit in a chosen location with a Militech Elephant Round (see item compendium) fired from a sniper rifle. If the mortar shell was chosen, the location is immediately hit by a grenade of the Lawman's choice. Only one activation/call.</p><h3>Backup, Rank 8 (Chew Bubblegum)</h3><p><strong>Kick Ass:</strong> A Militech Specialist arrives on the scene, equipped how you see fit from their available gear. When considering the use of their <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">Advanced Tactics</span></span> or <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">Electrical Disparagement</span></span> abilities, assume they can interact with the Lawman and the Lawman's reinforcements correctly, and only those individuals. If the specialist dies, it takes two in-game weeks to source another.</p><h3>Bankup, Rank 9 (Unstoppable Force)</h3><p><strong>&amp; Immovable Object:</strong> Either a Militech Brute or Militech Demolitionist arrives on the scene. Their advanced tactics work akin to as specified in Rank 8. If either option dies, it takes two in-game weeks to source this rank ability again.</p><h3>Backup, Rank 10 (I Am The Law)</h3><p><strong>No Rules:</strong> Choose two of the options available to this class when calling in backup, instead of one. The same option may not be chosen twice. Doing so still only results in 1 Lawman roll afterwards, not that you're capable of failing those at this point.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774383602481,
+    "modifiedTime": 1774383602481,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

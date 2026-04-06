@@ -1,0 +1,47 @@
+Triumphant Returns
+
+After the robbery, players might wish to return to the Afterlife.
+
+If they do, Vido will greet them gladly regardless of the result, so long as a robbery was attempted.
+
+Sammy's opinion of the party will quickly sour if they killed any civilians or Vampyres, though a little bit of spilled blood is overlooked.
+
+Both will be intensely amused but otherwise unbothered if the players end up arrested, but an arrest won't otherwise affect their standing with either.
+
+When the players return after attempting the robbery, the Afterlife opens its doors the following day. All players gain 1 personal rep for being so instrumental in its success. If they managed to upstage the Vampyres and steal the headline, they gain 2 rep instead.
+
+Their actions have also unlocked the 7th Circle Bar, Club & Bounty Board. @UUID[JournalEntry.SDvTzlKjvOpgC3EC]{See the associated journal entry for more.} If you haven't already, you should also make it visible to your players - you can do so by right clicking it, selecting "Configure Ownership", and changing the "All Players" dropdown to "Observer."
+
+What's In The Box??!
+
+Players open stolen boxes without replacement; if more than 10 boxes were looted, each additional box is worth 150eb.
+
+These rewards can be increased at GM discretion, if players thought ahead to try and ensure there would be, for example, more cash than normal in the vaults during the robbery.
+
+Result 1 - 1000eb
+
+Result 2 - 500eb
+
+Result 3 - 250eb
+
+Result 4 - a piece of art, sold via a trading check; the base price (result of 16 or below) is 500eb; worth full value of 750eb at 17+; worth 1000eb at 21+.
+
+Result 5 - A bottle of extremely high end liquor; can be sold to Sammy Chauvin for 5 Eagles.
+
+Result 6 - Materials to turn 2 regular quality melee weapons into excellent quality melee weapons, and add an upgrade slot to each. All of these such tools are priced at GM discretion.
+
+Result 7 - Materials to turn 2 regular quality ranged weapons into excellent quality ranged weapons, and add an upgrade slot to each.
+
+Result 8 - Materials to add an option slot to 2 pieces of cyberware, or 1 piece of borgware.
+
+Result 9 - A collection of blackmail materials among prominent gangs worth 7 downtime days
+
+Result 10 - A prototype RatSec Mini Air Drone with dartgun; all its base stats are increased by 1, its armor is increased by 2, and it can be controlled via either an included remote as an action, or instantaneously via an included chip which can be inserted into a chipslot.
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!

@@ -63,6 +63,8 @@ import { VisualMonitorService } from './core/visual-monitor-service.js';
 import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
 import { VesperService } from './core/vesper-service.js';
 
+import { RootsInjector } from './core/roots-injector.js';
+
 async function main() {
   console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v1.14.0)...');
 
@@ -112,12 +114,14 @@ async function main() {
     seed: 42,
   });
 
+  const rootsInjector = new RootsInjector(oracle.getRawDatabase());
+
   const ollama = new OllamaClient({
     baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:8080/v1',
     model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
     timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
     num_gpu: process.env.OLLAMA_NUM_GPU ? parseInt(process.env.OLLAMA_NUM_GPU, 10) : undefined,
-  });
+  }, rootsInjector);
 
   const chronicler = process.env.DISCORD_SCREAMSHEET_WEBHOOK 
     ? new DiscordChroniclerClient(process.env.DISCORD_SCREAMSHEET_WEBHOOK)

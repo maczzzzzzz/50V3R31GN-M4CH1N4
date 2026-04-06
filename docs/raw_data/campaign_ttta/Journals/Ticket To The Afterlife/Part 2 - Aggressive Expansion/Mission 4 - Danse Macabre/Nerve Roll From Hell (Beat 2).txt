@@ -1,0 +1,61 @@
+This scene makes use of the @UUID[Scene.Og6KezyP50QPbfHZ]{Afterlife Hotel Rooms} scene. To begin:
+
+Place @UUID[Actor.lyTAAOSCBrk275hV]{Clarisa's} token on the bed in the suite on the bottom right corner of the map. This is Clarisa's room.
+
+Place the player tokens within the room.
+
+Place relevant Afterlife staff in the room.
+
+Remain in the 7th Circle Bar scene after doing so, for now.
+
+Panic on the Dance Floor
+
+Sammy rushes out from behind the bar, calling for Silvers. The lights come on and the music stops as the two try to grab Clarisa who is dancing manically with a strange, frozen look of fear on her face. She does not respond to any stimuli and she continues to thrash around even when put on the ground.
+
+Subduing Clarisa requires a DV15 First Aid check or a DV13 Paramedic check, and restraining her requires a DV13 Brawling check.
+
+Silvers will assist how she can.
+
+Once Clarisa has been subdued, Silvers calls Sprinter on her agent, informs her what's happened, and tells her to talk to the owner.
+
+If the players suggest calling Trauma Team or otherwise remove Clarisa from the premises, Silvers will tell them to wait until they ask the owner.
+
+Silvers' Justification: This is only the first few days of the Afterlife's opening, and everything's run smoothly so far. The last thing the club needs is Trauma showing up or word getting out that someone's been assassinated in the bar.
+
+Sammy objects to this, but he ultimately backs down and does what Silvers says, and encourages the players to do the same.
+
+If the players still insist on immediately moving Clarisa elsewhere, have Sprinter intervene by notifying them through their agents that they'll be paid to figure out what's going on and to keep a lid on the situation.
+
+Once the situation has calmed enough to resolve itself, Silvers brings Clarisa to her room.
+
+Clarisa's Room
+
+Clarisa's room is messier than you expected, but not overwhelmingly so. Nice clothes are strewn about the floor, and a small trash can in the corner can just barely contain the packed garbage stored within it. Her small SmartVanity is, by contrast, meticulously organized and clean. Silvers lays Clarisa's shaking body on her bed and then she steps out of the room.
+
+Sammy is deeply shaken, and he commiserates with the players about the startling and strange situation. Clarisa's still thrashing around with the same frozen expression, but she is not getting out of the bed and her vitals seem to be fine outside of dilated pupils and an elevated heart rate.
+
+After a moment, Sprinter walks into the room. Even she is surprised about seeing the state Clarisa is in. Sprinter tells the players that she and Silvers filled in the owner, who has decided to keep Clarisa under watch in her room unless her symptoms get any more serious. The owner wants to keep Trauma Team away for the moment, as they want the club's operating season to go as smoothly as possible and with minimal potential media coverage. The owner has also decided to personally hire the players to figure out what happened to Clarisa and why before they have to bring her to the hospital in the morning.
+
+Job Details
+
+The group has roughly Twelve Hours (It is 10:30 pm now and they are going to bring her to the hospital at 10:30 am tomorrow) to solve the following:
+
+What Happened to Her?
+
+Detailed explanation and timeline
+
+How Can We Stop It?
+
+Treatments, cures, etc.
+
+Who Is Responsible?
+
+First Name, Last Name, detailed information and confirmation
+
+The time limit is in place so that the owner can reach out to some media friends of theirs early with enough information to beat out any potential negative press that might get linked back to the bar. The owner also has a vested interest in Clarisa getting better, given that she is a reliable patron.
+
+After getting solid answers to all three questions, they are to report to Sprinter with their findings. Sprinter will then look through all the information themselves and have it sent to the medias that the owner works with. If the group's information clashes with the media's own investigation, it will severely… 'disappoint' the owner and halve their payout.
+
+Given that this is an internal matter, the owner has pledged to give up to 5 Eagles to each member of the party, depending on how successful they are.
+
+If the group finds a guilty party, they are encouraged to deal with them as they see fit. They will not get a bonus payout for neutralizing the guilty party. Sammy chimes in saying he'll front them a round of drinks for the trouble though, a notion which Sprinter shrugs at but doesn't fight back against.

@@ -9,6 +9,7 @@
 
 import { z } from 'zod';
 import type { IOllamaClient, OllamaConfig } from './interfaces.js';
+import { RootsInjector } from './roots-injector.js';
 
 // ── Zod config validation ─────────────────────────────────────────────────────
 
@@ -38,7 +39,7 @@ const ChatCompletionResponseSchema = z.object({
 
 // ── System prompt ─────────────────────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `You are a Game Master AI running a Cyberpunk RED campaign set in Night City.
+export const SYSTEM_PROMPT = `You are a Game Master AI running a Cyberpunk RED campaign set in Night City.
 Your job is to synthesise atmospheric, terse narrative prose based on mechanical outcomes.
 
 Rules:
@@ -52,13 +53,19 @@ Rules:
 
 export class OllamaClient implements IOllamaClient {
   private readonly config: OllamaConfig;
+  private rootsInjector?: RootsInjector | undefined;
 
-  constructor(config: OllamaConfig) {
+  constructor(config: OllamaConfig, rootsInjector?: RootsInjector) {
     const parsed = OllamaConfigSchema.safeParse(config);
     if (!parsed.success) {
       throw new Error(`OllamaClient: invalid config — ${parsed.error.message}`);
     }
     this.config = config;
+    this.rootsInjector = rootsInjector;
+  }
+
+  public setRootsInjector(injector: RootsInjector) {
+    this.rootsInjector = injector;
   }
 
   // ── isHealthy ───────────────────────────────────────────────────────────────
@@ -85,7 +92,7 @@ export class OllamaClient implements IOllamaClient {
 
   // ── generateNarrative ───────────────────────────────────────────────────────
 
-  async generateNarrative(prompt: string, context: string, systemContext?: string): Promise<string> {
+  async generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature: number = 0.7, topP: number = 0.9): Promise<string> {
     const controller = new AbortController();
     const timeoutHandle = setTimeout(() => controller.abort(), this.config.timeoutMs);
 
@@ -93,18 +100,23 @@ export class OllamaClient implements IOllamaClient {
       ? `${prompt}\n\nGame State:\n${context}`
       : prompt;
 
-    const systemContent = systemContext
+    let baseSysContent = systemContext
       ? `${systemContext}\n\n${SYSTEM_PROMPT}`
       : SYSTEM_PROMPT;
+
+    if (this.rootsInjector) {
+      baseSysContent = this.rootsInjector.inject(districtName || null, baseSysContent);
+    }
 
     const requestBody = {
       model: this.config.model,
       stream: false,
       messages: [
-        { role: 'system', content: systemContent },
+        { role: 'system', content: baseSysContent },
         { role: 'user', content: userContent },
       ],
-      temperature: 0.7,
+      temperature,
+      top_p: topP,
     };
 
     let response: Response;

@@ -1,0 +1,78 @@
+{
+  "name": "Skull Plates",
+  "type": "armor",
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/superchrome_covering.svg",
+  "system": {
+    "description": {
+      "value": "<p>Armor item for associated cyberware - @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.jhoUf3WMcaQbiNdr]{see cyberware item for more details.}</p>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 0
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": false,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "isHeadLocation": true,
+    "headLocation": {
+      "sp": 4,
+      "ablation": 0
+    },
+    "isBodyLocation": false,
+    "bodyLocation": {
+      "sp": 7,
+      "ablation": 0
+    },
+    "isShield": false,
+    "shieldHitPoints": {
+      "value": 4,
+      "max": 4
+    },
+    "penalty": 0
+  },
+  "effects": [],
+  "folder": "Jg7kWDZQZKQXBw44",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "folder": "douvun9WtUjO2zaD",
+  "name": "Updated Night Markets - Food, Drugs & Home",
+  "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/4tify.svg",
+  "description": "<p>Updated to include minor homebrew and DLC, and to remove useless or unwanted entries. Still missing a few extremely specific odds and ends, but I don't remember what they are. See subtables in compendium for drug table.</p>",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        15
+      ],
+      "drawn": false,
+      "_id": "vDzAKKosKFaTPAnP",
+      "text": "1 week's Good Prepak (150eb)",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Good%20Prepak.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        16,
+        30
+      ],
+      "drawn": false,
+      "_id": "XeKKBuUUz1jxhFyo",
+      "text": "1 week's Fresh Food (375eb)",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Fresh%20Food.webp"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        31,
+        40
+      ],
+      "drawn": false,
+      "_id": "wvP5gaaQRwLT0GWN",
+      "text": "2 sets of High Quality Disposable Goods, from chemically-enhanced breath mints to business cards - used when making a check of any kind; the check receives a +3. 125eb/each.",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Background%20Point%201.webp"
+    },
+    {
+      "type": "text",
+      "documentCollection": "RollTable",
+      "weight": 1,
+      "range": [
+        46,
+        50
+      ],
+      "drawn": false,
+      "_id": "LThlaMAjqJJk1zAh",
+      "text": "1 week of addiction therapy (1,000eb)",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/trauma-team-medscan.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "RollTable",
+      "weight": 1,
+      "range": [
+        51,
+        55
+      ],
+      "drawn": false,
+      "_id": "iljQFqOz1jhybphv",
+      "text": "1 week of standard humanity loss therapy (500eb)",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/trauma-team-medscan.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "RollTable",
+      "weight": 1,
+      "range": [
+        56,
+        60
+      ],
+      "drawn": false,
+      "_id": "SEeiVfNFDvQUDlFa",
+      "text": "1 week of extreme humanity loss therapy (1,000eb)",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/trauma-team-medscan.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "Item",
+      "weight": 1,
+      "range": [
+        61,
+        65
+      ],
+      "drawn": false,
+      "_id": "99nifu91Oe8Vd2Sk",
+      "text": "Vial of Biotoxin",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/gear/vial_biotoxin.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "Item",
+      "weight": 1,
+      "range": [
+        66,
+        75
+      ],
+      "drawn": false,
+      "_id": "x0D4Y4WR8hxBP5hX",
+      "text": "An open studio apartment",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Downtime%20Day.webp"
+    },
+    {
+      "type": "text",
+      "documentCollection": "Item",
+      "weight": 1,
+      "range": [
+        76,
+        85
+      ],
+      "drawn": false,
+      "_id": "47N0LB4c9nKTfM4V",
+      "text": "An open two-bedroom apartment",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Downtime%20Day.webp"
+    },
+    {
+      "type": "text",
+      "documentCollection": "Item",
+      "weight": 1,
+      "range": [
+        86,
+        90
+      ],
+      "drawn": false,
+      "_id": "dlFkW18zCDtuCNL1",
+      "text": "An open upscale conapt",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Downtime%20Day.webp"
+    },
+    {
+      "type": "text",
+      "documentCollection": "Item",
+      "weight": 1,
+      "range": [
+        91,
+        95
+      ],
+      "drawn": false,
+      "_id": "ZxMg7mlKYO6ejzul",
+      "text": "An open luxury penthouse",
+      "documentId": null,
+      "flags": {},
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Downtime%20Day.webp"
+    },
+    {
+      "type": "text",
+      "documentCollection": "Item",
+      "weight": 1,
+      "range": [
+        96,
+        100
+      ],
+      "drawn": false,
+      "_id": "TnJaf0L9lDbIbO3e",
+      "text": "One player may place an item",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-highlight.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 1,
+      "range": [
+        41,
+        45
+      ],
+      "drawn": false,
+      "text": "1d6 Hits of Homemade Drugs (Secondary effect -2 DV)",
+      "documentId": null,
+      "img": "systems/cyberpunk-red-core/icons/compendium/drugs/synthcoke.svg",
+      "_id": "uT6bXVfIsEZzrmMq",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": false,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d100"
+}

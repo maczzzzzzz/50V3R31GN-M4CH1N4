@@ -1,0 +1,133 @@
+{
+  "name": "1b. Netrunning: Rebooted 2.0",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "For Those Of Us With More Interesting Things To Do",
+      "type": "text",
+      "_id": "JHnitxNem8mieYnU",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The core netrunning system is fundamentally flawed in several key ways:</p><ol><li><p>Even the \"simplified\" system in Red VS 2020 is far too complex for a casual player/GM, and its rules are very poorly explained in the CORE book.</p></li><li><p>Implementing Netrunning in Foundry is… complicated, and a big time sink.</p></li><li><p>Even in its most streamlined form with both a knowledgeable GM and player, the system takes far too much time at the table to use, and often feels as though the GM &amp; netrunner should've just set aside some time before the game to run the architecture, instead.</p></li><li><p>The resource tax it imposes on Netrunners is <em>way</em> more than any other class, for very little reason.</p></li></ol><p>If, like me, you and your players are tired of dealing with it or don't know where to start, here's a new option: just skip it, and use these tables instead.</p><h2>Requirements</h2><p>The only thing required to use this system is a character with the Interface who has an accessible Netdeck. An excellent-quality Netdeck adds +1 to checks, and a poor-quality one provides -1. Programs are not necessary, though GMs can offer bonuses for their presence, at their discretion.</p><h2>Updated DVs</h2><p>The Interface skill doesn't use a stat mod, so using default DVs doesn't work. Instead, use the tables below.</p><h3>After You Roll…</h3><ul><li><p><strong>If you pass the check</strong>, you achieve the desired result.</p></li><li><p><strong>If you fail the check by 1 DV category or less</strong>, you take 2d6 brain damage but still achieve the desired result.</p></li><li><p><strong>If you fail the check by more than 1 DV bracket</strong>, you take 2d6 brain damage and fail to achieve a result, but can choose to repeat the check with a negative modifier.</p></li></ul><table><tbody><tr><td data-colwidth=\"89\"><p>Difficulty</p></td><td data-colwidth=\"412\"><p>Description</p></td><td><p>DV</p></td></tr><tr><td data-colwidth=\"89\"><p>Simple</p></td><td data-colwidth=\"412\"><p>Unsecured systems with plenty of time to hack</p></td><td><p>4</p></td></tr><tr><td data-colwidth=\"89\"><p>Everyday</p></td><td data-colwidth=\"412\"><p>Low-pressure, light security. A traffic camera or remotely located vendit.</p></td><td><p>7</p></td></tr><tr><td data-colwidth=\"89\"><p>Difficult</p></td><td data-colwidth=\"412\"><p>A modestly encrypted system - personal computers, a reception desk, etc.</p></td><td><p>9</p></td></tr><tr><td data-colwidth=\"89\"><p>Professional</p></td><td data-colwidth=\"412\"><p>Most corpo/govt systems; moderate ICE, recently updated.</p></td><td><p>11</p></td></tr><tr><td data-colwidth=\"89\"><p>Heroic</p></td><td data-colwidth=\"412\"><p>New-age tech, produced within the last 2-4 years.</p></td><td><p>14</p></td></tr><tr><td data-colwidth=\"89\"><p>Incredible</p></td><td data-colwidth=\"412\"><p>Hot off the presses - the absolute latest, most cutting-edge tech on the market.</p></td><td><p>17</p></td></tr></tbody></table><h2>Roll Modifiers</h2><table><tbody><tr><td data-colwidth=\"427\"><p>Condition</p></td><td><p>Mod</p></td></tr><tr><td data-colwidth=\"427\"><p>Repeated Attempt (Stacks per absolute failure)</p></td><td><p>DV+1 Each</p></td></tr><tr><td data-colwidth=\"427\"><p>Under Pressure, Going Fast, Attempting Stealth, etc. (Stacks)</p></td><td><p>DV+2 Each</p></td></tr><tr><td data-colwidth=\"427\"><p>Enemy Runner Presence</p></td><td><p>DV+3 Each</p></td></tr></tbody></table>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 200000,
+      "name": "New Netrunning Gear",
+      "type": "text",
+      "_id": "luFdkX9tbEPJyF0d",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>The suite of programs and Black ICE found in the core book are mostly obsolete, but due to requests at my table I've been slowly bringing them back into play.</p><h1>Extra Actions</h1><p>As Netrunners level in the core rulebook, they gain extra net actions each turn. This is also reflected here, as follows:</p><table><tbody><tr><td><p>Interface Rank</p></td><td><p style=\"text-align:center\">1 to 4</p></td><td><p style=\"text-align:center\">5 to 7</p></td><td><p style=\"text-align:center\">8+</p></td></tr><tr><td><p>Interface Actions</p></td><td><p style=\"text-align:center\">1</p></td><td><p style=\"text-align:center\">2</p></td><td><p style=\"text-align:center\">3</p></td></tr></tbody></table><h1>Cyberdeck Integration</h1><p>All base Cyberdecks have 3 program/upgrade slots; exotic decks should be ruled at GM discretion. Poor and excellent quality decks have the following modifiers instead:</p><ul><li><p><strong>Poor:</strong> After rolling a 1 on an interface check while using this deck, the deck ceases functioning until repaired, which requires an action.</p></li><li><p><strong>Excellent:</strong> The user receives +! to their interface checks made using this deck.</p></li></ul><h1>Programs</h1><p>Programs have been re-tooled for the simpler DV-based system. If the program isn't on this list, it's useless. Program rules:</p><ul><li><p>Programs are stored on @Compendium[cyberpunk-red-core.core_gear.LKAYRh3Oecskc6kH]{Memory Chips}. Only one program can be installed on each chip.</p></li><li><p>No program can be installed more than once in a deck.</p></li><li><p>Any number of programs can be removed from a deck at any time as an action, or can be done as a free action by destroying the program.</p></li><li><p>Slotting a new program requires an action.</p></li><li><p>Programs can't be added or removed to a deck while the user is jacked in.</p></li></ul><table><tbody><tr><td><p>Program Name</p></td><td><p>Description</p></td><td data-colwidth=\"139\"><p>Slots Required</p></td><td><p>Cost</p></td></tr><tr><td><p>Shield (Defensive)</p></td><td><p>When slotted, the user reduces all brain damage taken by 1.</p></td><td data-colwidth=\"139\"><p>1</p></td><td><p>50eb</p></td></tr><tr><td><p>Armor (Defensive)</p></td><td><p>When slotted, if the user takes more than 7 brain damage after failing a check, they take 7 brain damage instead.</p></td><td data-colwidth=\"139\"><p>2</p></td><td><p>100eb</p></td></tr><tr><td><p>Worm (Utility)</p></td><td><p>When slotted, the first time the user makes a check against a system, they may add +1 to the roll result.</p></td><td data-colwidth=\"139\"><p>1</p></td><td><p>50eb</p></td></tr><tr><td><p>Eraser (Utility)</p></td><td><p>When slotted, the user can jack in and out of systems invisibly, until they take brain damage.</p></td><td data-colwidth=\"139\"><p>1</p></td><td><p>50eb</p></td></tr><tr><td><p>Speedy Gonzalvez (Utility)</p></td><td><p>When slotted, the user can take an extra NET action each turn..</p></td><td data-colwidth=\"139\"><p>3</p></td><td><p>500eb</p></td></tr><tr><td><p>Banhammer (Offensive)</p></td><td><p>When slotted, when making a contested check against a system, such as against ICE, an AI, or another Netrunner, the first time the user succeeds the check, all subsequent checks against the system are made with a +2 bonus until jacking out.</p></td><td data-colwidth=\"139\"><p>1</p></td><td><p>50eb</p></td></tr><tr><td><p>Sword (Offensive)</p></td><td><p>When slotted, each time the user succeeds a check against a system, they make subsequent checks against the system with a +1 bonus until jacking out. This bonus stacks up to twice.</p></td><td data-colwidth=\"139\"><p>2</p></td><td><p>100eb</p></td></tr></tbody></table><h1>Crafting Programs &amp; Viruses</h1><p>Netrunners can craft programs and viruses using their Electronics/Security Tech check skill, using the crafting rules for techs as found on page 149 of the core rules and adding their Interface rank to the roll result. Program modifiers are not applied, but if an excellent quality cyberdeck is used, the user may add it's +1 to the roll result.</p><p>The crafting materials for a program or virus are always 1 <strong>@Compendium[cyberpunk-red-core.core_gear.LKAYRh3Oecskc6kH]{Memory Chip}</strong>, and 1 <strong>@Compendium[cyberpunk-red-core.core_gear.1K1dtvrm7rjoraAJ]{Computer}</strong> or Cyberdeck of any type, though the computer is not consumed in the crafting. Techscanners and other, similar buffs are not applied to the roll.</p><p>Techs are also still capable of crafting programs, but do not add their ranks in Expertise to the roll result.</p><h2>Viruses</h2><p>Additionally, Netrunners can craft <strong>viruses</strong> - portable, one-use software installations that are custom-made for the job at hand. <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">Only Netrunners can craft viruses.</span></span></p><ul><li><p>To craft a virus, the Netrunner must first declare the desired DV of the Interface checks which the virus can beat, according to the updated Interface DVs on the tables in this journal.</p><ul><li><p>This determines how long, and how difficult, the virus is to craft - see the table below.</p></li></ul></li><li><p>Once crafted, a virus becomes a one-time-use program on the user's Netdeck, and its installation requires 1 Program/Upgrade slot.</p><ul><li><p>Just like with other programs, viruses can also be kept offline/uninstalled and stored for later.</p></li><li><p>Just like with other programs, only one virus can be installed on a deck at any given time, whether the viruses are identical or not.</p></li></ul></li><li><p>Uploading a virus to a system requires the user to be jacked into the system, and requires the user to pass an interface check, the DV of which is equal to the DV the virus can beat.</p><ul><li><p>Once the virus is uploaded, it is removed from the user's deck, and cannot be recovered from the system.</p></li></ul></li><li><p>Why all the trouble? Because once a virus is installed, the user can take a free NET action each turn as the virus, which can make checks on the user's behalf with the user's Interface skill.</p><ul><li><p>The virus is only capable of attempting checks against DVs at or below the set DV it's able to beat.</p></li><li><p>Program modifiers are not applied.</p></li><li><p>The user does not need to remain jacked into the system to continue making these checks.</p></li><li><p>If the virus fails a check, the user does not take brain damage.</p><ul><li><p>Note: checks made with viruses are pass/fail only - no \"partial success\" for scoring 1 below a DV tier.</p></li></ul></li><li><p>If a virus fails 3 or more checks, it is deleted from the system.</p></li><li><p>If a system or runner proactively tries to wipe a virus, beating the highest DV it's capable of beating destroys it immediately.</p></li></ul></li></ul><table><tbody><tr><td><p>DV The Virus Can Beat (Interface)</p></td><td><p>DV To Craft</p></td><td><p>Time Required</p></td></tr><tr><td><p>4</p></td><td><p>7</p></td><td><p>6 Hours</p></td></tr><tr><td><p>7</p></td><td><p>9</p></td><td><p>1 Day</p></td></tr><tr><td><p>9</p></td><td><p>11</p></td><td><p>3 Days</p></td></tr><tr><td><p>11</p></td><td><p>14</p></td><td><p>5 Days</p></td></tr><tr><td><p>14</p></td><td><p>17</p></td><td><p>1 Week</p></td></tr><tr><td><p>17</p></td><td><p>Impossible</p></td><td><p>--</p></td></tr></tbody></table>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yfla3fSwmfAeONFH": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 300000,
+      "name": "Contested Checks",
+      "type": "text",
+      "_id": "dI8C4o0anwS9jZ6i",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Most basic ICE and conventionally encrypted systems should only take a basic check to begin to manipulate - that's things like lights, conveyor belts, doors, locks, information infrastructure, etc.</p><p>But when <strong>something is already being controlled,</strong> like in the case of a drone or turret, or a system where a force is actively trying to stop the runner from taking control, a contested check should be made instead.</p><p>Use contested checks to represent particularly fearsome Black ICE, enemy Netrunners, or AI presence in a system.</p><p>Contested checks are pass/fail - if the aggressor passes the check, they succeed the action; if they fail, they take 2d6 brain damage. Because tracking enemy health pools that might not otherwise exist is a pain, just assume that when the <em>defender</em> fails, they retreat to safety instead of taking damage.</p><p>Below are the suggested modifiers for different NET presences.</p><table><tbody><tr><td><p>Type Of Presence</p></td><td><p>Where They're Commonly Found</p></td><td><p>Check Modifier Range</p></td></tr><tr><td><p>Basic Guidance Routines</p></td><td><p>Automated gang &amp; low level corp defenses; abandoned/old tech, Untrained netrunners. Old or damaged AIs.</p></td><td><p>+1 to +3</p></td></tr><tr><td><p>Modern Commercial ICE</p></td><td><p>Completent netrunners and corp defenses; most modern systems. Shackled or experimental AIs.</p></td><td><p>+4 to +7</p></td></tr><tr><td><p>Advanced Systems</p></td><td><p>Well-supplied netrunners and cutting-edge corp defenses, most AIs; as good as it gets without being something rare and unusual.</p></td><td><p>+8 to +10</p></td></tr><tr><td><p>You're Dead, Kiddo</p></td><td><p>Arasaka Agents, Modern or Multiple AIs, and horrors beyond human comprehension.</p></td><td><p>+11 or higher.</p></td></tr></tbody></table>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "folder": null,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774383604315,
+    "modifiedTime": 1774383604315,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

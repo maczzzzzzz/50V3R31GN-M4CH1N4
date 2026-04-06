@@ -1,0 +1,165 @@
+{
+  "folder": "nZVv94PGEMwe7Mrx",
+  "name": "Devastator Damage",
+  "type": "drug",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Devastator%20Damage.webp",
+  "system": {
+    "description": {
+      "value": "<p>Only found by defeating Night City Nightmares. Consumed as an action. Its effect replaces the effect of any other active Nightmare Powerup. After being consumed, the user's ranged attacks gain an additional 1d6 damage for the next in-game minute. If only 1 shot is fired during a turn and that shot normally does less than 6d6 damage, the attack gains an additional 2d6 damage instead.</p>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "snorted",
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 100
+    },
+    "consumed": "None"
+  },
+  "effects": [
+    {
+      "name": "Devastator Damage - Small And Fast",
+      "origin": "Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.72StUEbWDcIKuBAT",
+      "disabled": true,
+      "_id": "kZi6eCsh9whzHi7x",
+      "changes": [
+        {
+          "key": "bonuses.ranged",
+          "value": "1d6",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "combat"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Devastator%20Damage.webp",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "Devastator Damage - Hard And Strong",
+      "origin": "Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.72StUEbWDcIKuBAT",
+      "disabled": false,
+      "_id": "FMkhDGVFSgIkWQeV",
+      "changes": [
+        {
+          "key": "bonuses.ranged",
+          "value": "2d6",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "combat"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Devastator%20Damage.webp",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "name": "TttA Bounties, 1 - Employers",
+  "img": "systems/cyberpunk-red-core/icons/compendium/gear/agent.svg",
+  "description": "<p>Roll first, to determine who's offering the job.</p>",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "h1Va8uM60P9j5wuq",
+      "text": "A staff member at the Afterlife.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "_id": "Q0v9DmuuopAI3YAJ",
+      "text": "A notable somebody from a major gang or corp - roll on the Bounty Factions table, disregarding doubles rules.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "_id": "A37aRfQtiU10pCbB",
+      "text": "Someone the party already knows - pick a friend from among the various character sheets..",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "_id": "wgzSGqWrISRe6mUd",
+      "text": "A private individual of a wealthy persuasion - whoever they are, they've got money.",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "_id": "Z2wYOCJlm2dJOg4c",
+      "text": "A private individual that can barely afford to pay you - the bounty was probably pooled",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    },
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "_id": "UXcN7JLb5qBm1JJy",
+      "text": "A business interest of some kind which isn't among the existing gangs and corps, from Continental Brands to Petrochem",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-black.svg"
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "folder": "Ad4jNi5p028hdDLl",
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224954365,
+    "modifiedTime": 1774375917758,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d6"
+}

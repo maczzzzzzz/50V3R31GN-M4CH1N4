@@ -1,0 +1,243 @@
+{
+  "folder": "wfo1b78X1ygRgdoN",
+  "name": "Outfit - Gang Colors (G&C Ver)",
+  "type": "clothing",
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/Default_Clothing.svg",
+  "system": {
+    "description": {
+      "value": "<p>Some bandit-y trimmin's - spikes, blood, skulls, that kinda thing.</p><p>When the outfit is bought, the buyer declares which gang it's a part of. While wearing the colors:</p><ul><li><p>They're thought to be a low-level member of that gang;</p></li><li><p>They gain +2 to <strong>Bribery, Interrogation, Persuasion and Streetwise</strong> rolls while on the gang's turf…</p></li><li><p>And <strong>-2 to those rolls everywhere else.</strong></p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "equipped",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 200
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "type": "top",
+    "style": "gangColors"
+  },
+  "effects": [
+    {
+      "name": "Outfit - Gang Colors (Bonus - On Turf)",
+      "origin": "Item.S2iTdaoiTC2kL01g",
+      "disabled": false,
+      "_id": "kcyVr6ShQmtkGQ3W",
+      "changes": [
+        {
+          "key": "bonuses.bribery",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.interrogation",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.persuasion",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.streetWise",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "skill",
+              "1": "skill",
+              "2": "skill",
+              "3": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              },
+              "1": {
+                "isSituational": true,
+                "onByDefault": false
+              },
+              "2": {
+                "isSituational": true,
+                "onByDefault": false
+              },
+              "3": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "Outfit - Gang Colors (Penalty - Off Turf)",
+      "origin": "Item.S2iTdaoiTC2kL01g",
+      "disabled": false,
+      "_id": "Yl2DSngp89ku1Eum",
+      "changes": [
+        {
+          "key": "bonuses.bribery",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.interrogation",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.persuasion",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        },
+        {
+          "key": "bonuses.streetWise",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "skill",
+              "1": "skill",
+              "2": "skill",
+              "3": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              },
+              "1": {
+                "isSituational": true,
+                "onByDefault": false
+              },
+              "2": {
+                "isSituational": true,
+                "onByDefault": false
+              },
+              "3": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

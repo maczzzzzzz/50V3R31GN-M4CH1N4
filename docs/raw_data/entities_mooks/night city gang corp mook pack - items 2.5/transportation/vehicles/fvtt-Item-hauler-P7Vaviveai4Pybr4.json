@@ -1,0 +1,61 @@
+{
+  "effects": [],
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Haulers/Hauler%20-%20Blue.png",
+  "name": "Hauler",
+  "system": {
+    "description": {
+      "value": "<p>Nomad access 3.</p><p>Haulers are an alternative to generic compacts. They're specially designed trucks that take advantage of the higher performance of CHOOH2 to haul cargo, and have mostly replaced conventional 18-wheelers across the world for being smaller, easier to maintain and less fuel intensive. Haulers are the only generic vehicles capable of hauling other vehicles, either on a trailer or through a hitch, and their high durability makes them heavily in demand.</p><p>2 seats, 70 HP; capable of pulling trailers loaded with virtually anything that someone can actually manage to fit on one. 60,000eb (Super Luxury) item. 20 MOVE / 100 MPH / 161 KPH narrative move. The passengers are elevanted; add 5 M/yds to any ranges targeting them to reflect a difficulty to hit.</p><p><em>Tokens and Art by reddragon8928 on Discord. Redistributed with permission.</em></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 60000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "sdp": 70,
+    "seats": 2,
+    "speedCombat": 20,
+    "speedNarrative": "100 MPH / 161 KPH"
+  },
+  "type": "vehicle",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "nw7GVCTc2LMEvDZe",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

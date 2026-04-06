@@ -1,0 +1,63 @@
+In this beat, the party will attempt to upstage the Vampyres at Night City Bank, robbing the place in the process.
+
+This beat uses the @UUID[Scene.KvOyTclweloOmLEO]{Little Europe Environment} and @UUID[Scene.vboI8hWM5vr7ZfIB]{Night City Bank} scenes. To begin:
+
+Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.70S20tDJetnmcAa9]{Vampyre MC}, 1 + 1/2 Playercount (rounded up) @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.yzai3h4XK0T0Bzzg]{Vampyre Performers}, and 1/3 Playercount (rounded up) @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.BF54nXCe0HAYzSBS]{Vampyre Showstoppers} in the scene.
+
+Place the player tokens on the street outside the bank.
+
+Place 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.AIR0MIWchnbMvM5D]{RatSec Grunts} at the entrance, keeping watch on the crowds.
+
+Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.91JT7Zncn3Sb60Ge]{RatSec Elite} and 1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.AIR0MIWchnbMvM5D]{RatSec Grunts} in the southernmost portion of the admin area of the bank (where the couch is), keeping an eye on the security cameras.
+
+Place 1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.nUF7oF2uBUTM4Ur4]{RatSec Execs} around the scene at your discretion.
+
+For every other actor in the scene, place up to 2 civilians, representing bank staff and customers.
+
+Set up the Vampyre abilities - distribute luck points for the performers, roll for the Vampyre set dressing, roll a second set dressing for the Showstopper(s), etc.
+
+Review the "playing as the Vampyres" journal entry at the end of this mission's journal.
+
+Change the scene to the @UUID[Scene.KvOyTclweloOmLEO]{Little Europe Environment.}
+
+Then read the following:
+
+The Bank Of Night City
+
+Nestled comfortably among the brownstone sprawl of Little Europe, the marbled halls of Night City Bank have survived every calamity to befall the city since the collapse, robbing its citizens with interest and collections all the while. The bank is mostly a front for Night Corp and its various factions to store and transfer money through, laundering it for the mafia that runs the corp or else financing the various discrete power struggles among its members. Even still, by day it maintains a flourishing business front by financing loans for desperate Night Citizens who don't want to go to the gangs, and maintaining/strongarming the exorbitant investment portfolios the debt finances across the cityscape.
+
+The bank's gilded doors are bustling even more heavily than usual. A pair of security guards are accompanied by cameras and an autoturret to watch the crowd, but it's readily apparent that they're woefully insufficient to fully track the ins and outs of the bank's customers. Where the Vampyres are - and just how many of these people are here exclusively to see if they make good on their promise - remains to be seen.
+
+Once Inside…
+
+Well-polished stone floors reflect light around the room in a dazzling display. To the north are bathrooms and a manager's office, while more offices obstruct the center of the room. On their other side, a terminal has been set up to allow for access to an underground series of lockboxes which can be rented by bank members. Further along, a row of teller's booths are serving customers; through the window which watches the floor, a staffed security station watches the area with suspicion.
+
+Robbing The Place
+
+While players compete with the Vampyres for attention, both parties are also obviously trying to rob the place. They can do so as follows:
+
+The petty cash vault (adjacent to the main lobby) holds 5 actions worth of valuables. Its doorway is secured by a DV11 Netrunning check or a DV17 Electronics/Security Tech or Pick Lock check. The interior gate is opened by taking an additional action (no DV) once the outer doors have been opened.
+
+The main vault (back of the building) holds 10 actions worth of valuables. Its doorway is secured by a DV14 netrunning check or a DV21 Electronics/Security Tech or Pick Lock check. The interior gate requires a DV15 Electronics/Security Tech or Pick Lock check, or a DV9 Netrunning check.
+
+While in a vault, any actor can grab a loot box as an action, stowing it on their person. Loot boxes are sealed until opened as an additional action, at which point the player takes the next sequential entry from the results table - see Beat 5 for more details.
+
+Choreographing the Vampyres
+
+Check out my notes (Testing Session - How I Planned My Vampyres) for how I did it; you're welcome to use them as an instruction manual if you don't want to build your own directions.
+
+Dealing With RatSec
+
+The RatSec forces will prioritize guarding the vaults, up to and including if the execs' lives are threatened. They will freely shoot at anyone who they can reasonably hit, and might even fire at civilians in the process. If they use suppressive fire, the effect can be cancelled by an un-suppressed Vampyre successfully attacking the perpetrator and offering assurances to the crowd.
+
+Proceeding To The Next Scene
+
+The NCPD is called as soon as the Vampyres appear (remember, they were expecting this to happen) but don't arrive until one or more of the following occurs:
+
+Either faction's tally of spotlight points reaches 4.
+
+Half of either faction's members are rendered unconscious or killed
+
+2 or more civilians are killed, or 4 or more are injured
+
+4 or more looting actions are taken, total, between the two vaults.

@@ -1,0 +1,221 @@
+{
+  "folder": "VCrXA9avaNRgVEgS",
+  "name": "Mumbo Jumbo",
+  "type": "drug",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Mumbo%20Jumbo%20Image.webp",
+  "system": {
+    "description": {
+      "value": "<p>Similar in appearance to soup crackers, when under its influence the user has increased fine motor control and spacial awareness.</p><p><strong>Primary Effect</strong></p><ul><li><p>Dose lasts 4 hours</p></li></ul><ul><li><p>For the duration of the effect, the user's DEX increases by 1 point. This can raise your DEX above 8. In addition, they are prone to involuntary spasmatic movements.</p></li><li><p>For the duration of the Primary Effect, your GM will occasionally tell you when you feel a twitch coming on, and you should do your best to roleplay accordingly.</p></li></ul><p><strong>Secondary Effect (DV15)</strong></p><ul><li><p>If the user wasn't already addicted to Mumbo Jumbo, they are now. While addicted, their DEX is lowered by 2 points, unless the user is currently experiencing the primary effect of Mumbo Jumbo.</p></li><li><p>While addicted to Mumbo Jumbo, your GM will occasionally tell you when you crave more Mumbo Jumbo, and you should do your best to roleplay accordingly.</p></li></ul>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "snorted",
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 100
+    },
+    "consumed": "Mumbo Jumbo Primary"
+  },
+  "effects": [
+    {
+      "name": "Mumbo Jumbo Primary",
+      "origin": "Item.fiIxu1nCw3lMtcun",
+      "disabled": true,
+      "_id": "m4JwDIjwh2fAK4yg",
+      "changes": [
+        {
+          "key": "system.stats.dex.value",
+          "value": "1",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "stat"
+            },
+            "situational": {
+              "0": {
+                "isSituational": false,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "Mumbo Jumbo Addiction",
+      "origin": "Item.fiIxu1nCw3lMtcun",
+      "disabled": true,
+      "_id": "RjKVYST6xDpKX0en",
+      "changes": [
+        {
+          "key": "system.stats.dex.value",
+          "value": "-2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "stat"
+            },
+            "situational": {
+              "0": {
+                "isSituational": false,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    },
+    {
+      "name": "Mumbo Jumbo Addicted Primary",
+      "origin": "Item.fiIxu1nCw3lMtcun",
+      "disabled": true,
+      "_id": "Dy8cIk5xbFqJiENF",
+      "changes": [
+        {
+          "key": "system.stats.dex.value",
+          "value": "3",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "stat"
+            },
+            "situational": {
+              "0": {
+                "isSituational": false,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "flags": {
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

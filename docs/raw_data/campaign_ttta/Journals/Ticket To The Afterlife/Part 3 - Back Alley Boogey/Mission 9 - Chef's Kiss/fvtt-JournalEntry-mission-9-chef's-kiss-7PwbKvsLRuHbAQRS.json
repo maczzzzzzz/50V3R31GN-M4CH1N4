@@ -1,0 +1,275 @@
+{
+  "folder": "aZy5qjkCgOHnErUR",
+  "name": "Mission 9 - Chef's Kiss",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Beat Chart & Mission Summary",
+      "type": "text",
+      "_id": "GdWtyOxX6Tgtfvi4",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Mission Setup Time: 20-30 Minutes. Most of that time will be spent populating the Gala scene correctly as outlined in Beat 3, as well as learning about the 3 key players that are keeping the event running.</strong></p><p>The Afterlife's restaurant needs a kitchen, and the Owner knows just the person. The problem? Their contract isn't exactly up for bid.</p><table><tbody><tr><td data-colwidth=\"283\"><h2>Chef's Kiss</h2></td><td><p></p></td></tr><tr><td data-colwidth=\"283\"><h5>Friend Opportunity: Chef William</h5><p>Chef William has a long and storied history of the eccentric and unorthodox. They adore those who share their passion for all things unusual, while turning their nose up at the mundane. They would be happy to cook for such an individual, every so often.</p></td><td><h5>Enemy Opportunity - Scav Leader/Gala Host/Head of Security</h5><p>There are several notable figures involved in keeping Fenison captive, including a scav leader, the host of the event where he's being held, and the head of security for the event, all of which have ties to Night Corp.</p></td></tr><tr><td data-colwidth=\"283\"><h5>Rep Opportunity: The Appetizer</h5><p>Defeat one or more of the event leadership with damage or effects from any type of drug or poison. The player who does so gains the rep bonus.</p></td><td><h5>Gig Payout</h5><p>350eb + 3 Eagles apiece + a high-quality outfit, with a bonus of 150eb + 1 Eagle if Fenison approves a bonus.</p><p></p></td></tr></tbody></table><h1>Beat Chart</h1><p><strong>Beat 1: 5-Star Restaurateur</strong></p><p>Rogue meets the party in the admin area of the Afterlife, providing some details on an old friend of hers who she'd like to bring back into the fold.</p><p><strong>Beat 2: Table For Hammina</strong></p><p>The party scouts and infiltrates a white-tie event.</p><p><strong>Beat 3: Fine Dining And Breathing</strong></p><p>Once inside, the party locates Chef William</p><p><strong>Beat 4: Would You Like Some Cheese On That, Sir?</strong></p><p>Well, now it's just a simple matter of getting him out, right?</p><p><strong>Beat 5: Just The Usual</strong></p><p>Returning to the Afterlife, Chef William is given a proper kitchen</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 200000,
+      "name": "Nightlight Editorial",
+      "type": "text",
+      "_id": "HARVAsw0cUqVWYzU",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2 data-anchor=\"the-fm-receiver-crackles,-the-pirate-wavelength-carrying-a-cool,\">The FM Receiver Crackles, The Pirate Wavelength Carrying A Cool, Seductive Female Voice…</h2><p><em>\"Good evening Night Owls, and what a beautiful evening it is! This is Nightlight, voice of the city, here to take the scream out of the sheets and into your ears for those of you who are putting this lovely night to better use than reading the news. If you've got the CHOOH, Nightlight recommends a quick trip to the Pacifica Coast - those beaches will be empty and pristine at this time of night - just be careful of the RatSec trawling the sand.</em></p><p><em>\"Our top story tonight is colored Soylent Green, with Continental Brands facing fresh accusations that those protein crumbles in their hambanger kibble bags might have more in common with the folks eating them than the animals they're supposed to be eating. Continental has denied the allegations of course, but with the death of the third whistleblower in the last 72 hours, I'm keeping my pretty hands firmly in the fruit flavors from here on out. Synth-sirloin and locust paste will have to do for the rest of you, unless you're interested in, heh, meating Night City's denizens a little more intimately than you might've expected.</em></p><p><em>\"In other news, still haven't heard anyone claim responsibility for the Militech convoy hijacking from earlier this month. Militech's still offering a bounty for anyone who's got good information, and following a string of false flags, the NCPD's offering a cushy concrete cell to anyone Militech says isn't reliable. It's standing room only in the holding cells this week, folks, so unless you want to catch a bad case of everything, I'd steer clear.</em></p><p><em>\"Last but not least, it looks like someone at Night Corp is cleaning house - over a dozen upper management positions have opened up over the last 10 days, anyone's guess as to why, so if you're a Rat looking for a new sewer to hide in and your noncompete's run out, well, maybe give the NC Mob another shot.</em></p><p><em>\"More on Night City's recent employment boom next, but first, it's the Black Rabbit with \"Corporate Conscript.\" This has been Nightlight, and I hope I made your night a little brighter.\"</em></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379546764,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 300000,
+      "name": "5-Star Restaurateur (Beat 1)",
+      "type": "text",
+      "_id": "869XEFJWcilP62B2",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene uses the <strong>@UUID[Scene.H9Xf3i0THBRbdHa6]{Afterlife Floor 2}</strong> scene. To begin:</p><ul><li><p>Place <strong>@Actor[5jUfSTLGzd7EEBWX]{Rogue Amendiares, The Owner}</strong> in her office - the big one in the upper leftcorner.</p></li><li><p>Place the player tokens in the hallway, at the south side of the scene.</p></li></ul><p>Then read the following</p><h2>The Appetizer</h2><p><em>It's been a beautiful day in Night City, and now, evening is setting in. During the day, a courier arrived for each of you, tracking you down through the city streets, delivering letters stamped with the Afterlife's Eagle insignia. Inside, the Owner has asked you to meet her once again - in her office, this time, on the second floor of the building. Why she's gone to the trouble of sending a letter instead of just texting you, remains to be seen - it's not as though anything in the letter was particularly sensitive.</em></p><p><em>Still, though - arriving on the scene, you find the Afterlife once again buzzing with activity. It's far from the shell of a club it was when you first saw it - now, the doors are opening and closing regularly to make way for execs, gang leaders, and edgerunners. The building itself is still nondescript, but it seems the secret is out.</em></p><p><em>Inside, Sprinter is busy handling rooms for customers, but gives you a friendly wave, and you head upstairs to the second floor for the first time - to her right, instead of her left. You follow the signs for administration, and pass an elegant, unused dining hall on the way. The admin area itself is rather mundane by comparison - handsome wood paneling covers the walls, but otherwise, it's unremarkable. The Owner's office is much the same; she looks up from a holographic keyboard as you enter, but whatever she's typing is obscured from view behind her chyrons. The actual computer on her desk goes unused.</em></p><p>\"It's time to get the Afterlife's dining services running - the last thing we'll need before going world class. And that requires a cook. Fortunately, I've got just the person in mind.\"</p><hr /><p><span style=\"font-family:Signika\"><strong>As usual, the Owner is blunt and to the point, though if the party has been successful on their prior missions, they've gained a fair measure of her respect.</strong></span></p><p><span style=\"font-family:Signika\"><strong>The coming mission is a Rogue special - she plied her talents as one of Night City's top fixers to secure the location of a Michelin chef for the Afterlife's kitchen. Of course, nothing is ever simple, and even for the Afterlife's wallet, a Michelin chef would be quite the expense. So, she's improvising.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The chef's name is William Fenison, an eccentric genius who went missing recently.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Chef Fenison's last appearance was at a NightCorp gala, last month - he didn't make it home, afterwards.</span></p></li><li><p><span style=\"font-family:Signika\">Fortunately, the Owner's already done the hard part in tracking him down.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>After nearly 30 days without a trace, the Owner managed to secure the details about an… auction… that's being held in the basement of an apartment complex in the Glen, which the chef is catering.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The auction is selling trafficked people.</span></p></li><li><p><span style=\"font-family:Signika\">Most of it's attendees are current or former high level execs who've gone completely psycho.</span></p></li><li><p><span style=\"font-family:Signika\">The auction's security (and its contents) are being provided by scavs.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>While the Owner wasn't able to confirm what was being served, given the auction's contents, she fears the worst.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">She's sure, however, that the Chef would not cooperate willingly, and is certainly being held captive somehow.</span></p></li><li><p><span style=\"font-family:Signika\">Given how easy it would be for him to poison the food, she suspects he's being held on a very short leash.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>She was able to secure the party invites, and also knows the following about the event:</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The event is illegal even by Night City standards, but with so many NightCorp officials involved, there's no way the NCPD will respond.</span></p></li><li><p><span style=\"font-family:Signika\">The event is white-tie, and she's commissioned a suit of Torrell and Chiang @UUID[Compendium.cyberpunk-red-core.black-chrome_armor.7Ki9v2iwMH8AZp8B]{Executive Armor} for each member of the party (awarded at the start of the next scene).</span></p></li><li><p><span style=\"font-family:Signika\">Security will be tight, with exceptions.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>It's no secret that certain members of the community can pretty much do what they want.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>The party, though, will need to pack light and conceal their weapons.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>For best results, she advises the party figure out the following before heading in (see beat 2):</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Who's running the show (one or more enemies chosen as part of the mission summary)</span></p><ul><li><p><span style=\"font-family:Signika\">There are three points of interest, in this regard: the auctioneer, the event's leader, and the head of security.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\">What's keeping Chef Fenison cooperative.</span></p></li><li><p><span style=\"font-family:Signika\">How the party will persuade him to come work for the Afterlife, when rescuing him.</span></p></li><li><p>She provides the party the address to Fenison's apartment to try and find out more about him.</p></li></ul></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>When players are ready to begin chasing down those leads, proceed to beat 2.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379546359,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 400000,
+      "name": "Table For Hammina (Beat 2)",
+      "type": "text",
+      "_id": "0bmoE80Y0T3aCVuG",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene takes place in Night City; it has no map. Instead, players will move about the city looking for information on one or more of the outlined areas below. All of these approaches can be provided to your players via tactics or deductions checks, with higher rolls providing more ideas.</p><p>Before they get to that, however, each member of the party is given a set of items, as follows:</p><ul><li><p>1 Gala outfit, made up of a businesswear jacket, top, bottom, and shoes, all of which together comprise a set of <strong>@UUID[Compendium.cyberpunk-red-core.black-chrome_armor.7Ki9v2iwMH8AZp8B]{Executive Armor}</strong></p></li><li><p>1 <strong>@UUID[Item.VOFnxBgH9hPlezuT]{Underground Gala Invite}</strong></p></li></ul><h2>Who's Running The Show?</h2><p><span style=\"font-family: Signika\"><strong>There are 3 people of note involved in running the auction (+/- any that you, the GM, decide to involve as well).</strong></span></p><p><span style=\"font-family: Signika\"><strong>Finding the names of these individuals can be achieved through the checks outlined below. Further information, like weaknesses and things to watch out for, can be found via the statblock descriptions.</strong></span></p><ul><li><p><span style=\"text-decoration:underline\"><span style=\"font-family: Signika\"><strong><span style=\"text-decoration: underline;\">The head of security:</span></strong></span></span><span style=\"font-family: Signika\"><strong> a mean mercenary by the name of Trevor Green, contracted via Militech.</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>Trevor runs a tight ship, and the RatSec staffing the party are scared of him. He's a high-level Mlitech exec - high enough that he can moonlight as a solo with his company gear and nobody bats an eye.</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>Uses the Militech Brute stat block.</strong></span></p></li></ul></li><li><p><span style=\"font-family: Signika\"><strong>Green has made an impression on the world and hasn't been quiet about his involvement in a \"special event\" to help continue building his rep.</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>Players can learn his name, his Militech affiliation, and that he's a Militech Brute, through a DV17 Streetwise or Business check, reduced to a DV15 with 3 or more points in the associated skill.</strong></span></p></li></ul></li></ul></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family: Signika\"><strong><span style=\"text-decoration: underline;\">The head of the auction:</span></strong></span></span><span style=\"font-family: Signika\"><strong> a cold, cruel Night Corp exec named Luna Bianchi.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">Luna isn't the CEO of Night Corp - with the corp needing a face, they're kept clean of secrets, including ones like this auction - but she still wields considerable power. Enough to put a human trafficking auction on in downtown NC and get away with it.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>Uses a variation of the RatSec Exec statblock.</em></span></p></li></ul></li><li><p><span style=\"font-family: Signika\">Luna is a sociopathic force of nature on the Night Corp board, and while there are several lower-level execs in attendance, she's the only one with the power and M.O. to throw the event.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>Players can learn her name and her Night Corp affiliation through a DV17 Business or Library Search check, reduced to a DV15 with 3 or more points in the associated skill.</em></span></p></li></ul></li></ul></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family: Signika\"><strong><span style=\"text-decoration: underline;\">The scav leader:</span></strong></span></span><span style=\"font-family: Signika\"><strong> a brutal Scav butcher named Nails.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">Nails is the human trafficking scav supplying the event's merchandise, and competes with several other scav gangs in Downtown NC for corporate business. She's a tried-and-true monster - the type of person who sells other people for money, essentially.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>Players can learn her name and her relationship with the other scav gangs in the area (hostile) through a DV17 Local Expert (anywhere in Downtown NC) or Streetwise check.</em></span></p></li></ul></li></ul></li></ul><h2>What's Keeping Chef Fenison Cooperative?</h2><p><span style=\"font-family: Signika\"><strong>It's not immediately obvious why Fenison is playing ball with the event to begin with - threats of violence only go so far, when talking about someone with the knowledge to poison your food without you ever knowing.</strong></span></p><p><span style=\"font-family: Signika\"><strong>As on-site insurance, Fenison has a bomb chip stuck in his chipslot which he will tell the party about after they make contact.</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>Any of the 3 named enemies can set off this bomb as an action, should Fenison try to leave with the players prior to its removal or if, for example, the event's food is poisoned and its attendees start dropping like flies.</strong></span></p></li><li><p><span style=\"font-family: Signika\"><strong>Removing the bomb chip requires a DV15 Cybertech check, a DV17 Electronics/Security check, or a DV11 Interface check.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">For the Cybertech and E/S checks, a check result of 10 or lower sets off the bomb, killing Fenison instantly - this is a fail state. The same is true for Interface with a check result of 8 or lower.</span></p></li></ul></li></ul><p><span style=\"font-family: Signika\"><strong>Fenison, however, has a daughter who kept her mother's name - Sarah Shales - who attends NCU. This fact can be learned by doing some background research on Fenison himself, as follows:</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>A DV17 Deduction check is enough to figure out that the gun is to someone else's head besides the chef's.</strong></span></p></li><li><p><span style=\"font-family: Signika\"><strong>Alternately, searching Fenison's apartment reveals digital photoframes around his place - most of them feature himself and a young blonde woman, or himself and a little blonde girl through her life growing up in NC - the oldest of these show her at around high school age.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">The pictures are of his wife (divorced) and daughter.</span></p></li><li><p><span style=\"font-family: Signika\">His daughter is now 22, but that's not immediately apparent - she's the spitting image of her mother, and Fenison got married young and divorced quickly, and hasn't noticeably aged through the photographs.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>A DV17 Deduction check, or DV15 Human Perception, is sufficient to notice that the daughter is not in high school but in college, and that it's easy to confuse her with his wife.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family: Signika\"><strong>Once that's known, it's a matter of narrowing down the scope:</strong></span></p><ul><li><p><span style=\"font-family: Signika\">Sarah hasn't lived with her dad in a long time, but he funds her college tuition .</span></p></li><li><p><span style=\"font-family: Signika\">A DV21 Library Search check reveals her as Fenison's daughter on the NCU student information roster - this check is lowered to DV17 if in the University District.</span></p></li><li><p><span style=\"font-family: Signika\">Alternately, the party can ask around - a DV15 Local Expert (University District) check is sufficient to ascertain that someone with the same description is a regular in the district drunk tank.</span></p></li></ul></li></ul><p><span style=\"font-family: Signika\"><strong>For her part, Sarah isn't aware that she's being watched for leverage over her father, only that dear ol' Dad's been more distant than usual over the last month. She's not too worried about it, preoccupied as she is with partying her way through college, except that she hasn't gotten her usual stipend for the month.</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>If the party rescues her and assures her safety, they will be ambushed en route by a group of 1/3 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.SNKnBqS4lCZPd5yU]{Scav Savages}, 1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.UM3c8a92eSdEQmB8]{Scav Monsters}, and 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.pNTV62sWeONIvn7Z]{Scav Tech} all of which report to Nails. The ambush circumstances and map are at GM discretion.</strong></span></p></li><li><p><span style=\"font-family: Signika\"><strong>If the party secures Sarah's safety, Fenison approves their bonus, but he will not agree to work with the Afterlife or even leave the Gala until she is secure.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">Alternately, for an easier experience but no bonus payout, the Owner will send a different team of Afterlife mercs to secure Sarah from the NCU campus and deliver her to the Afterlife for safekeeping.</span></p></li></ul></li></ul><h2>How Does The Party Plan To Pursuade Chef Fenison To Work With Them?</h2><p><span style=\"font-family: Signika\"><strong>Fenison will not cooperate with any plans to help the party rescue him or in any way negatively impact the event he's catering until he learns that his daughter has been safely secured. He also needs the bomb in his head taken care of (see above post) before he will leave.</strong></span></p><p><span style=\"font-family: Signika\"><strong>He is, however, a noncombatant - while the event staff can threaten him to get him to cooperate, he won't be expected to draw a gun.</strong></span></p><hr><p><span style=\"font-family: Signika\"><strong>Once the party has conducted all the research they plan to do and are ready to attend the event, proceed to Beat 3.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379545965,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 500000,
+      "name": "Fine Dining And Breathing (Beat 3)",
+      "type": "text",
+      "_id": "XLA5N5k9Tt0xaRhZ",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat takes place in the <strong>@Scene[dsfXkMEqBTzWpMtC]{Glen Basement}</strong> scene. To begin:</p><ul><li><p>Populate each table with between 1 and <strong>3 @UUID[Actor.5OKBjbr1vwtm6XOd]{Gala Attendees}.</strong></p><ul><li><p>For every third attendee in the scene, place up to 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.nUF7oF2uBUTM4Ur4]{RatSec Exec}</strong> and up to 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.91JT7Zncn3Sb60Ge]{RatSec Elite}</strong>, representing personal assistants and bodyguards.</p></li><li><p>Place <strong>@Actor[ilk7m8ivVpB1CzyG]{Luna Bianchi}</strong> at one of the tables, accompanied by <strong>2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.91JT7Zncn3Sb60Ge]{RatSec Elites}.</strong></p></li></ul></li><li><p>Place 3 <strong>@Actor[AojFb2KAvzInEfFV]{Waitstaff}</strong> around the dining area, and 4 more in the kitchen.</p></li><li><p>Place <strong>@Actor[BcWFTMDxWmajFJ9M]{William Fenison}</strong> in the kitchen.</p></li><li><p>Place 1 <strong>@Actor[6hKGk8kjE0CkPOEF]{Event Staff}</strong> at the control booth on the stage.</p><ul><li><p>Place 2+1/2 Partycount <strong>@Actor[6hKGk8kjE0CkPOEF]{Event Staff}</strong> backstage next to the enclosure, one of which guards the back door.</p></li><li><p>Place <strong>@Actor[tyN6z0DRtNFXaoyO]{Nails}</strong> backstage, watching the merchandise - the \"event staff\" are her scav gang, dressed up the evening.</p></li></ul></li><li><p>Place 1 <strong>@Actor[Kt12XKNxbONp8ogu]{NightCorp Security}</strong> just inside the north entrance to the building, and 2 more in the security booth/weapons check just inside.</p><ul><li><p>Place <strong>@Actor[seOlHfl8MbTHdn4Y]{Trevor Green}</strong> in the security booth/weapons check, behind his staff, keeping an eye on the entrance.</p></li><li><p>Place 3+partycount <strong>@Actor[Kt12XKNxbONp8ogu]{NightCorp Security}</strong> around the dining room, with 1 more in the kitchen.</p></li></ul><p>Finally, place as many <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.JCpR3fjW7E7Aggac]{Civilians}</strong> as you can fit in the enclosure/cage backstage - the \"merchandise\" being auctioned for the evening.</p></li></ul><p>Then read the following:</p><h2>Night On The Town</h2><p><em>The apartment block that the Owner sourced the address of is pretty nondescript from the outside - just one more upper-class apartment building among the many that dot the streets of the Glen. Polished, tinted glass watches the street, and down below, the basement entrance is nothing special - a short stairwell to a shut single door. If you weren't already clued in, you'd never know that a slave auction was taking place.</em></p><p><em>Inside, a carpeted lobby greets you. On your right is a security checkpoint, the glass obviously bulletproof, manned by security guards with covered faces. Another such guard greets you at the door, his voice muffled slightly by his mask: </em>\"Invitations, please.\"</p><h2>Weapons Check</h2><p><span style=\"font-family:Signika\"><strong>Once players have shown their invitations, they'll be asked to check their weapons. No one will be hassled over 1-2 medium pistols, heavy pistols, a light or medium melee weapon, or a regular SMG - anything larger than that must be concealable to get through unnoticed, and requires a DV17 Conceal/Reveal Object check. Checks with a techscanner ensure that weapons concealed in cyberware are spotted - in such cases, cyberlimbs are fitted with restraining bolts (DV17 Electronics/Security or Pick Lock, or DV9 Interface to remove), stopping the weapons from being popped out.</strong></span></p><p><span style=\"font-family:Signika\"><strong>The one exception to this is anyone who can pass as a bodyguard. Such individuals may carry 1 weapon larger than those noted above after passing a DV17 Acting or DV19 Persuasion check, though security will raise eyebrows if the weapon changes hands.</strong></span></p><h2>In The Ballroom</h2><p><em>The carpet of the room beyond the lobby matches the entryway - a rich, velvety red, lined with dim glowing LED strips, leads beneath and between tables and chairs. On your right, an elevated stage has been set up and is wreathed with lights. A curtain helps to conceal the operator booth. Waitstaff wind their way hurriedly between the tables and two sets of double doors at the back of the room, and on your left are the bathrooms. The security office exits out onto the main floor next ot the stage, and all the way at the back of the stage is another exit, presumably to some kind of green room.</em></p><p><em>The room's occupants are shadowed, the lighting for the event having been kept deliberately low. Some are wearing masks, but most aren't. Executives make up most of the crowd, obviously high-ranking given their dress and willingness to be seen without a mask, though most are accompanied by at least 1 team member.</em></p><p><em>More private security watches from the corners - if nothing else, it's obvious that this event has been very well secured.</em></p><p><em>Given that nobody has approached you, it's evident that you'll be allowed to sit anywhere.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>From here on, the room is the players to play with. So long as they maintain their cover, most checks (stealth, persuasion, conversation, interrogation, etc.) will be at DV17 - this is raised to a DV19 if they're doing something outwardly suspicious, and DV21 if so suspicious that the activity threatens to blow their cover.</strong></span></p><p><span style=\"font-family:Signika\"><strong>The party's primary goal at this stage should be to contact chef Fenison, letting him know that he's being rescued and attempting to obtain his cooperation. How the party does this is up to them, but a Tactics or Deduction check (DV17) can reveal the following options:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>After ordering, demand that the chef be brought out to complain about the quality of the food, or to compliment it.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Persuade a kitchen guard or waitstaff member to let a party member into the kitchen to communicate a \"special order\" to the chef.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Ambush a waitstaff member during a bathroom break and steal their uniform.</strong></span></p></li></ul><p><span style=\"font-family:Signika\"><strong>The evening's menu has been provided for by the scavs. It consists of 3 items:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Chicken Nuggies (dinosaur shaped)</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Mac N Cheese (from a box)</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Chef's Surprise (the only actual option, the other two are for the scavs and executive team members)</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The Chef's Surprise is described as a meat patty, finely tenderized, served with gravy, broasted potatoes and asparagus, with a side salad. The type of meat is not specified.</span></p></li><li><p><span style=\"font-family:Signika\">Although no waitstaff will answer the question directly, the implication is that the Chef's Surprise contains human meat. A DV15 Conceal/Reveal or DV17 Perception check upon receiving the dish immediately disproves this, revealing it merely to be well-processed synth-sirloin.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>Although the executives in attendance won't ask, the general assumption is that they're all cannibalistic, most of them being either current- or ex-NightCorp executives that are themselves a step removed from psychotic scavs, Patrick Bateman style.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>Chef Fenison would refuse to serve human meat, but fortunately, was never given the chance to begin with - the scavs running the show provided him the sirloin instead without telling anyone, viewing anything to the otherwise as a waste of good merchandise.</em></span></p></li></ul></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>The auction begins 5 minutes after the players arrive. The scavs in the back room run the show, bringing civilians up one at a time to be bid on, espousing their merits which could range from soft skills to physical qualities.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Note: keep the auction contents light on the details, it's already pretty gross.</strong></span></p><hr /><p><span style=\"font-family:Signika\"><strong>Once the players have made contact with Chef Fenison and are ready to leave, or have had their cover compromised, proceed to beat 4.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379545584,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 600000,
+      "name": "Would You Like Some Cheese On That, Sir? (Beat 4)",
+      "type": "text",
+      "_id": "SE99QKsid8MLlW5p",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat continues Beat 3, and no further setup is required. It begins when players are prepared to leave, or when their cover IDs have been compromised.</p><h2>Getting Out Alive</h2><p><span style=\"font-family:Signika\"><strong>As mentioned in Beat 2, Chef Fenison will not leave until he's been assured that his daughter is safe. He won't be </strong><em><strong>able</strong></em><strong> to leave until the bomb in his head has been dealt with - as soon as someone notices he's missing, the bomb will be set off.</strong></span></p><p><span style=\"font-family:Signika\"><strong>He also will not be allowed to leave by anyone at the event while any of the three named characters are present, but especially Trevor Green - any attempts will result in security stopping the party until they can verify whatever the lie was with the named character, at which point they will find out the truth and turn hostile towards the party.</strong></span></p><p><span style=\"font-family:Signika\"><strong>The </strong><em><strong>easiest</strong></em><strong> way to get Chef Fenison out alive is to wait until the auction is over and hide somewhere while waiting for the waitstaff to be disposed of and the Chef carted off.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Speaking of which…</strong></span></p><h2>On The Waitstaff</h2><p><span style=\"font-family:Signika\"><strong>The waitstaff know nothing, except that they're in over their heads. They're all a part of a corporation that subcontracts for Night Corp and whose employees have a long-standing reputation for going missing. Each was searched for an agent or other communication device on the way in, and 1 hour after the event ends, the scavs will take them out to the side alley, where they'll be escorted into an unmarked van, taken to the Old Combat Zone, executed, and their bodies dumped.</strong></span></p><p><span style=\"font-family:Signika\"><strong>They don't know this will happen, of course, but given the evening's subject matter, it might not take much to push them to this conclusion.</strong></span></p><h2>On The \"Merchandise\"</h2><p><span style=\"font-family:Signika\"><strong>If your players are decent people, they might want to try and rescue the people being auctioned off. Unfortunately, altruism rarely gets one far in Night City.</strong></span></p><p><span style=\"font-family:Signika\"><strong>There is no listed reward for rescuing the would-be slaves. Each of them is drugged and/or scared out of their wits, and while they might respond to a heroic rescuer, how they'd respond is left to GM discretion. This module recommends blind panic.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Should the players choose to go out of their way to rescue the captives, 1d4 or 1d6 Humanity can be awarded to the participating characters, at GM discretion.</strong></span></p><h2>On Security</h2><p><span style=\"font-family:Signika\"><strong>The event security are the \"shoot first, ask questions later\" type of hired guns, and paid well for it. No private security in Night City has any moral scruples to speak of - such things are left to the gangs. They will avoid shooting the guests where they can, since doing so is bad business, and know the penalty for blabbing about who was in attendance at the auction.</strong></span></p><p><span style=\"font-family:Signika\"><strong>They're very bullet-liberal and not afraid to get messy, and care about little beyond their next paycheck. They are not friendly, and are all the type of person that can be trusted to secure a slave auction for wealth corpos. Roleplay accordingly.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Do note, the NCPD has been paid off to ignore calls from this area tonight, and will not respond if notified, whether by the party or by RatSec. The only person who can circumvent this restriction is Luna Bianchi.</strong></span></p><h2>On The Guests</h2><p><span style=\"font-family:Signika\"><strong>When the shooting starts, some guests might be entertained, others might panic - at GM discretion.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Most have brought a team of some kind with them. These team members will work to defend their employer however possible, and work with the event security to do so - though they'll always stay within reach of their employer, and will prioritize that person's health and safety above any other orders, regardless of who gives them.</strong></span></p><p><span style=\"font-family:Signika\"><strong>In the event that the audience panics, there will be a stampede towards the front exit, and a crush. How this plays out is at GM discretion, but if nothing else, it will likely block the most prominent escape route for several rounds.</strong></span></p><hr /><p><span style=\"font-family:Signika\"><strong>Once players have managed to get out of the auction, proceed to beat 5.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379545096,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 700000,
+      "name": "Just The Usual (Beat 5)",
+      "type": "text",
+      "_id": "nLarcXZ4PhxeUAZt",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat uses the <strong>@Scene[VCbthP8Ez4uhtdkr]{Afterlife Exterior Environment}</strong>. Switch to it, and then read the following:</p><h2>Early Morning, Upper Marina</h2><p><span style=\"font-family:Signika\">T<strong>he clean, corporate image of Upper Marina seems a little dirtier, when you finally return to the Afterlife. It's the same scene as ever, marred by invisible water stains. How many other basements are holding events like the one you just came from? How many apartments are holding crazy cannibal corpo rats or their helpless slaves?</strong></span></p><p><span style=\"font-family:Signika\"><strong>It puts a damper on things, as you finally step through the Afterlife's doors. As usual, Sprinter is at the concierge's desk. Vido is in the lobby as well, leaning against a wall and chatting with her.</strong></span></p><p><span style=\"font-family:Signika\"><strong>\"Bonjeur, mis vouchers!\" </strong><em><strong>he exclaims in his usual greeting.</strong></em><strong> \"I'm afraid the Owner had other things to attend to, and has handed your contract to me in her stead. How was your night on the town?\"</strong></span></p><hr /><p><span style=\"font-family:Signika\"><strong>Assuming the gig was completed successfully, Vido pays the players the amount Rogue specified to him (the agreed upon amount).</strong></span></p><p><span style=\"font-family:Signika\"><strong>If an Afterlife team was sent to recover Chef Fenison's daughter, it arrives only a moment after the party does with his airheaded daughter in tow. She's been shot in the arm, and is screaming bloody murder - the scavs only break off their pursuit when the Afterlife's exterior turrets spin up and open fire. Fenison is, obviously, rather troubled that his daughter wasn't already safe and secured. The daughter is happy to see her daddy, though has no idea what troubles he's been through and thinks the people attacking her were drunken suitors.</strong></span></p><p><span style=\"font-family:Signika\"><strong>If the party rescued the Chef's daughter, she is upstairs in the Afterlife when they arrive, and Fenison agrees to authorize their bonus.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Assuming the gig was completed successfully, the players will have access ot the Afterlife's dining services beginning the following morning - see @UUID[JournalEntry.UWipowbnk4tPOKSR]{08. Chef Fenison's Fine Foods &amp; Atmosphere}. The Chef, at GM discretion, might insist on at least providing them one meal for free in exchange for his rescue.</strong></span></p><p><span style=\"font-family:Signika\"><strong>The end - see you for the next one!</strong></span></p><h2>Your Feedback Wanted!</h2><p>Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.</p><p>If you have a few minutes after your session, <a href=\"https://forms.gle/sfvVM21YrA88fyC77\">please take the time to fill out the feedback survey for this campaign, located here.</a> It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.</p><p>Your feedback matters! Thank you for playing!</p><p></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379542990,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

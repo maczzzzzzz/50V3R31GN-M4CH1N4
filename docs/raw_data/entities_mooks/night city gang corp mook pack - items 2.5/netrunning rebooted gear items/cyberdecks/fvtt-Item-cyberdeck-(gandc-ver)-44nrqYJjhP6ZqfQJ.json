@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "img": "systems/cyberpunk-red-core/icons/compendium/default/cyberdeck.svg",
+  "name": "Cyberdeck (G&C Ver)",
+  "system": {
+    "description": {
+      "value": "<p>A vanilla netdeck for use with the simplified netrunning rules found in Night City Gangs &amp; Corps. 3 program slots.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "isElectronic": true,
+    "providesHardening": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "equipped": "owned",
+    "installLocation": "mall",
+    "size": 1,
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade",
+        "program"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "quality": "standard"
+  },
+  "type": "cyberdeck",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "R4NKxIqCAeI8nYfh",
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.cyberpunk-red-core.core_gear.Item.0T5Yjy0asGttmbXP"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

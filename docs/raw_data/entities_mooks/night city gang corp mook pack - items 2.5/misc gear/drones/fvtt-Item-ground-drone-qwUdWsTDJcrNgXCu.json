@@ -1,0 +1,56 @@
+{
+  "name": "Ground Drone",
+  "type": "gear",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Mooks/RatSec%20Ground%20Drone.webp",
+  "system": {
+    "description": {
+      "value": "<p>Zhirafa drones have a simple claim to fame: they're cheap, durable, and easy to repair, making them an essential tool of most organizations within the Red Decades.</p><p>Ground Drones are quadrapeds, usually shaped to resemble headless dogs covered in armor plating. They struggle to move quickly, but will always get where they're going.</p><p><strong>Uses the @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.3MeQ26jFt0k6mvC7]{RatSec Ground Drone} statblock.</strong></p><p>Includes a slot for mounting any 1-handed weapon which could be mounted in a cyberarm - by default, equipped with either a Dartgun or Very Heavy Pistol. Always equipped with a front-mounted <strong>@UUID[Compendium.cyberpunk-red-core.core_gear.clCxd7qkp2olsKii]{Video Camera}</strong> and 2 Drone-Integrated Scratchers, a <strong>@UUID[Compendium.cyberpunk-red-core.core_cyberware.dM6LI4fqDdgut7Uy]{Scratcher}</strong> cyberware attached in both front paws which cannot be removed.</p><p>See Controlling Drones in the Associated Homebrew document for more details on how to control the drone, once purchased.</p>"
+    },
+    "favorite": false,
+    "source": {
+      "page": 0,
+      "book": "NC G&C"
+    },
+    "installedItems": {
+      "allowed": true,
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "amount": 1,
+    "price": {
+      "market": 1000
+    },
+    "brand": "Zhirafa Mfg"
+  },
+  "effects": [],
+  "folder": "YSggDWRa0KmI9uoM",
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

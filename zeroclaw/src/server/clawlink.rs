@@ -226,6 +226,34 @@ async fn process_rpc(
             Ok(serde_json::to_value(results)?)
         }
 
+        "audit_narrative_fidelity" => {
+            let text = params.get("text").and_then(|v| v.as_str()).ok_or("missing text")?;
+            let lower_text = text.to_lowercase();
+            let ai_isms = [
+                "as an ai", "however,", "it is important to remember", "let's explore", 
+                "i cannot", "i apologize", "delve into", "tapestry", "testament", "realm of"
+            ];
+            let mut ai_ism_count = 0;
+            for ism in ai_isms.iter() {
+                if lower_text.contains(ism) {
+                    ai_ism_count += 1;
+                }
+            }
+            
+            let mut score = 10.0;
+            score -= (ai_ism_count as f64) * 5.0;
+            if score < 0.0 { score = 0.0; }
+
+            let passed = score >= 7.0 && ai_ism_count == 0;
+
+            Ok(serde_json::json!({
+                "score": score,
+                "ai_ism_count": ai_ism_count,
+                "passed": passed,
+                "reasoning": format!("Found {} AI-isms.", ai_ism_count)
+            }))
+        }
+
         "linguistic_encode" => {
             let text = params.get("text").and_then(|v| v.as_str()).ok_or("missing text")?;
             let payload_hex = params.get("payload_hex").and_then(|v| v.as_str()).ok_or("missing payload")?;

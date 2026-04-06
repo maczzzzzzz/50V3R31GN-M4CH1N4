@@ -1,0 +1,87 @@
+This scene makes use of the @UUID[Scene.2xnt6sWEtQGRrG9I]{7th Circle scene (Holodeck set to SNC)}. To begin:
+
+Place a token for @UUID[Actor.5jUfSTLGzd7EEBWX]{The Owner} in one of the booths in the back.
+
+Place @UUID[Actor.17CTAE5lKmZFHY9i]{Vido} in the same booth.
+
+They're accompanied by an @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.OsMgIFVPASZhAtIm]{Iron Sights Hitman,} and the booth is guarded by a pair of @UUID[Actor.ZakpSB6xMgx0ikC5]{Afterlife Security} agents.
+
+@UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers} is guarding the door, but leaves after the party arrives.
+
+Place the player characters next to the booth.
+
+The rest of the club is empty; it's off hours.
+
+Then read the prompt below.
+
+A Text From Vido
+
+Bojour, Mis Vouchers! At my behest, it's been decided that it's finally time for you to meet someone special! You have done an admirable job in helping the Afterlife to stand on its own two feet, and the Owner has taken a personal interest in you.
+
+Meet us in the 7th Circle today at 10:30 AM, assuming you are available. Be dressed to impress! Every connection is a new opportunity, no?
+
+The morning that the players are summoned, the Afterlife is closed - the hotel is not yet functional, after all, and the club is hardly going to be open 24 hours a day.
+
+An automated script allows players into the lobby, which is otherwise empty.
+
+Silvers opens the door to the 7th Circle, and leaves after the players arrive.
+
+The Afterlife is conspicuously empty, for the first time you've seen since its opening. It's eerie, in a way - even though it's only been a short time since it opened its doors, you've already gotten used to the music and crowds, Sprinter at the Concierge's desk and Sammy at the bar.
+
+Of course, they have to sleep at some point, right?
+
+As you approach the 7th Circle, Silvers opens the door for you without prompting. She gives you a respectful nod, looks you over, says, "The Owner's in the back," and then leaves without another word.
+
+At the back of the bar, you see an occupied booth. Two of Silvers' hired goons are standing guard at either side. Inside, the thin trail of cigarette smoke marks a friendly face, as Vido waves at you cheerily. Beyond him, there's another figure sitting in the back, their face shadowed. A case is open in front of them. On their right is a nondescript individual you don't recognize, with buzzed hair and a pristine business suit, conversing quietly with them.
+
+Vido stands as you approach. "Good morning, my friends! I am glad to find you well. Shall I make your introductions?"
+
+Before Vido introduces the party, have each member make a DV17 Wardrobe & Style Check - 4 or more points in the skill is sufficient to auto-pass.
+
+Any characters with 3 or fewer points in Personal Grooming must also succeed a DV15 Personal Grooming check.
+
+If either check is failed, Vido tisks and chastises them for not taking the occasion more seriously, as first impressions do matter.
+
+Any player who failed either check has lost a facedown against the Owner for the remainder of the session.
+
+"Madame Proprietaire, might I introduce the up-and-comers I spoke of?" Vido says to the pair in the back.
+
+The open case snaps shut on the table between the two figures. The one at the back nods to the other, who stands and takes the mystery box, and fixes the party with a cold, indifferent stare as they leave the booth.
+
+A DV19 Conceal/Reveal Object Check or a DV21 Perception Check can determine that the case was filled with rows of Eagles - considerably more than you've seen as pay so far, even combined.
+
+The shadowy figure at the back then leans forward, revealing a feminine form. She looks middle aged, Caucasian, with dark blue hair running down her neck and a jacket to match. Unlike Clarisa's artificial beauty, the owner is elegant without trying, and there's an aura of power about her - a coiled viper, resting, but deadly.
+
+She looks the group up and down.
+
+"So, this is the next generation of Night City's finest? Pleased to meet you. I'm Rogue, but call me the Owner."
+
+Rogue is interested in the party from a practical perspective. The gigs are only going to get tougher, and now that the club's new rep is on the line, she wants to know who's working for her. She's interested in three things, and will promote the characters who she thinks stands out the most at the end of the session:
+
+Each character's motivations for edgerunning, vs joining one of the gangs or corps - what's brought them to the lifestyle and why they keep slinging bullets.
+
+Once a character has told their story, have them make a DV21 check related to their story and where they got their start - this can be anything except for a class skill, a fighting skill, or a ranged weapon skill. Note the penalty for the facedown, earlier, and keep track of who passes.
+
+What their final goal is.
+
+Above table, this is a very relevant question for the players. The party might go out in a blaze of glory, of course - that's always an option. But let's say they make it all the way to the top. What's their goal? Rescue family, live on the moon, make it into PanAfrica, burn down the Neocorps?
+
+Once a character has explained their motivations, have them make a DV21 Conversation check. Note the penalty for the facedown, earlier, and keep track of who passes.
+
+That thing everyone's been talking about.
+
+Maybe it's a nomad's highly-customized jetbike or gyro, or a tech's ridiculously specialized tool belt, or a medtech's unique cyberarm, or a rockerboy's odd instrument of choice.
+
+Once a player has explained their particular interesting thing, have them make a DV21 check related to the item - probably a technique, education, or performance skill of some kind. Note the penalty for the facedown, earlier, and keep track of who passes.
+
+Once Rogue's gotten an alright understanding of who's who, read the following.
+
+With your stories concluded, the Owner stands and looks at Vido. "Well then, enough gab. Is it ready?" she asks.
+
+Vido nods and grins. "As of 4:00 AM this morning. Shall we go test it out?"
+
+The Owner nods back, and turns to the party. "Don't take this the wrong way, but I'd like some assurances that you can do more than just talk pretty. I've heard stories but I'd like to see for myself. The Afterlife's newest feature is just about to open for business - how about we go pay a visit?"
+
+Without waiting for a response, she leads the way across the club floor, into the hall, and into the door opposite the club which, until now, has been both sealed and unremarkable.
+
+Continue to beat 2.

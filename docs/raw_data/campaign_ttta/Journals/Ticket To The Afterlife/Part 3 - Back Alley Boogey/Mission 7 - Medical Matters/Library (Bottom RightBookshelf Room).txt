@@ -1,0 +1,65 @@
+Class Is In Session (Library)
+
+Each room in the Bozo Lair is a "school classroom," designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.
+
+Each of the rooms is a "puzzle"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they do entertain the idea of someone being able to "outwit" them, and those who do are brought to the Principal for "disrupting the class."
+
+Each of the Bozos are dressed for the room they're occupying.
+
+ReTox
+
+When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.
+
+Psychological Conditioning
+
+While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.
+
+At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.
+
+Track the amount lost - 1/2 of it will be regained after 24 hours.
+
+Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).
+
+While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.
+
+Opt Out
+
+Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.
+
+Keep Your Voice Down
+
+To begin:
+
+Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} next to the desk on the right side of the room, and another at the door.
+
+Place the abducted character in the grey chair.
+
+Then read the following:
+
+Your ride is dark and terrifying through the chutes and pulleys of the Bozo lair before you finally plummet down into the light, landing with a loud crack at a desk in an otherwise silent room. You have just enough time to register the bookshelves around you before you feel a sharp slap across your still restrained knuckles from a ruler; this is accompanied by a loud "CRACK!" that resounds even more than the sound of your chair's impact.
+
+(The character immediately feels the effects of ReTox, making it hard to remember anything that's happened outside the Bozo Lair, and making them both twitchy and extremely sensitive to sound.)
+
+"BE QUIET, THIS IS A LIBRARY!" the Bozo responsible for the crack lifts her ruler. She's dressed like an old hag, complete with spectacles with the little chain on them. The makeup isn't very convincing - it's obvious she's not even half the age she's pretending to be. She gestures to the desk.
+
+"Your mother was very clear; you won't be leaving UNTIL YOU PASS!" the librarian screams, far too close to your ear for comfort; the side of your head is spattered with saliva, and you can smell her rancid breath.
+
+She taps the desk in front of you, where a multiple choice test is waiting, number 2 pencil and all. A moment later, she adds, "and just to make sure…" before attaching bells to your neck and wrists via collar and bracelets. Your arm and leg restraints are then released. Then she turns over an hourglass and stalks off between the shelves. Good luck!
+
+In front of the character is a general education test. Hope they studied for their SATs! Just kidding - no high school student would be able to pass this.
+
+The test itself is almost entirely obscure trivia that would be Alex Trebek turn over in his grave. Both the questions and the answers are worded confusingly, requiring extra time thanks to all the double-negatives and other nonsense.
+
+Adding to the problem are the bells the character is wearing, which are locked on (DV15 Lockpicking); even the smallest movement causes them to ring, which attracts the Librarian's ire. Not exactly an ideal study solution.
+
+And of course, the Librarian is periodically coming around to harass the character, always attempting to surprise them and break their concentration.
+
+Combined, these will slowly drive the character mad - both the test itself, and the
+
+This challenge has 3 possible solutions:
+
+Just Pass The Test: Passing the test is possible, but requires a DV19 Education check. Hopefully the character was paying attention in class!
+
+Sneak out of the library: perhaps intentionally, the librarian is stalking the shelves doing… something. Stocking books, maybe? In any case, a DV19 Stealth check can be used to sneak past her; if successful, the door guard will escort the character to the Principal for "trying to cheat." The Stealth check difficulty can be reduced by first removing the bells.
+
+Fake Insanity: A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).

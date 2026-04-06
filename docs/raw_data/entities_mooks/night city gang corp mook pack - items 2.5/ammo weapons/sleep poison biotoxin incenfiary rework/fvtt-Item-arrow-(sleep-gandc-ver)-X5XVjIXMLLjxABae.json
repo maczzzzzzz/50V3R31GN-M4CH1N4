@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/bow_sleep.png",
+  "name": "Arrow (Sleep - G&C ver)",
+  "system": {
+    "description": {
+      "value": "<p>No immediate damage, no ablation. Inflicts Sleep status. DV13 Resist Torture/Drugs Check (Physical for most mooks);on fail falls Prone (see pg. 169) and unconscious for 1 minute.. Lasts for 10 triggers/10 rounds/5 minutes/until an antidote is administered. New application refreshes the timer. Once the target is asleep, they no longer attempt the checks and remain unconscious for 1 minute in combat, 1 hour out of combat, until non-status-effect damage is taken, or until they're woken up as an action. Once woken, if enough time hasn't passed, they may be at risk of falling back asleep!</p>"
+    },
+    "source": {
+      "book": "Core",
+      "page": 346
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": true,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 10,
+    "price": {
+      "market": 500
+    },
+    "variety": "arrow",
+    "type": "sleep",
+    "ablationValue": 1,
+    "overrides": {
+      "damage": {
+        "mode": "set",
+        "value": "0",
+        "minimum": "1d6"
+      },
+      "autofire": {
+        "mode": "none",
+        "value": -1,
+        "minimum": 3
+      }
+    },
+    "installLocation": "mall",
+    "size": 0
+  },
+  "type": "ammo",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "VABqsOjR5mmavLRV",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

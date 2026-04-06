@@ -1,0 +1,55 @@
+This scene makes use of the @UUID[Scene.fqgvewCqt8z94mll]{The 7th Circle Bar & Casino + Holodeck} scene. To begin:
+
+Place @UUID[Actor.rQdrdTOYV13yilZD]{Sammy Chauvin, Bartender For The Afterlife} behind the bar, and @UUID[Actor.17CTAE5lKmZFHY9i]{Vido Dubois, The Frenchman} in his usual booth at the back. @UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers the Solo} is guarding the door and @UUID[Actor.Y7NnvbMut6swzVaA]{Checkers, The Afterlife Dealer} is in the gambling pit.
+
+The club itself is populated at GM discretion, except for 4 @UUID[Actor.6DkEWEDkSFcSGvgS]{Bozo Fools}, 1 @UUID[Actor.PMLS2DHJADArZ6TG]{Bozo Jester} and some amount of Generic Gangsters in various combinations, all affiliated with the Bozos.
+
+Place the player tokens at their usual spots around the bar.
+
+Then read the following:
+
+Big Ol' Honkers
+
+Another day, another reach-out from Vido - the first one in awhile, actually, asking you to meet down in the Afterlife's club as usual - and to "not mind the confetti."
+
+As you step into the 7th Circle for your latest job, the reason for the odd remark is readily apparent. The bar's been transformed into a Bozo circus, with clown metal blasting over the brightly-colored dance floor while a collection of the titular clowns losing whats left of their minds in time with the beat. More are at the bar, doing lines of coke on every surface, or taking who-knows-what-else while giggling maniacally.
+
+Silvers gives you a meaningful look to play nice as you enter, but she doesn't look especially at ease herself. She doesn't speak over the discordant 'music,' instead gesturing towards Vido's usual spot at the back. On your way over, Sammy gives you a wave but looks similarly stressed to Silvers as he pours out brightly-colored drinks for the clowns.
+
+"Bonjour!" Vido calls. "Come, pay the red-noses no mind! Take a seat, let's talk business!"
+
+On the clowns:
+
+Vido notes that they're (relatively) harmless, and part of the circus of Joy.
+
+The Bozos have two sides, which hate each other - the circus of Joy, which is a partygang, and the circus of Merriment, which is commonly described as "the Joker plus Jigsaw."
+
+The two sides have been locked in civil war for months.
+
+Despite being the "safe" kind of Bozos, though, he still doesn't recommend partying with the circus of Joy, either.
+
+The clowns here are celebrating a special occasion - Bozo's deathday.
+
+Since all Bozos call each other "Bozo," Vido's not sure if that's a reference to the gang's first clown, every clown that's died during the war, or something else entirely, and he's not about to ask.
+
+On the job:
+
+The Afterlife's medical bay is stocked and needs a head doctor.
+
+The club has already hired a nurse, but she won't be able to handle the clinic alone.
+
+The nurse (Dr. Carter) is waiting downstairs once Vido's worked out payment.
+
+Speaking of Bozos, Carter's partner is who the party is after - the good Doctor Nightshade.
+
+He notes that Dr. Carter can speak more about the individual in question - Vido knows very little about them.
+
+Dr. Nightshade has been abducted by the Bozos while performing surgery for them in the University District.
+
+While Vido notes that Dr. Carter will have more details for them once they get downstairs, he notes that payment will still be going through him, and shares the basics - the party should take the time to haggle with him now, if they intend to do so at all.
+
+Once the conversation with Vido has concluded, the party must make their way back to the bar's exit - through the crowd of Bozos. Have each player make a Willpower save for the Bozo gang-wide ability; those who fail suffer the effects of ReTox for the next 45 minutes, as detailed in the ability description of the Bozo Fool.
+
+The Bozos are very insistent that the players come party with them, and may need 'aggressively persuaded' to leave the group alone.
+
+Once the party have left the club and head downstairs, proceed to beat 2.

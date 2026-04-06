@@ -233,3 +233,14 @@ CREATE TABLE IF NOT EXISTS library_entries (
 -- Phase 21: npc_logs is managed via the initSchema() migration path in
 -- unified-oracle-client.ts to support brownfield Akashik.db upgrades.
 -- See: src/db/unified-oracle-client.ts initSchema()
+
+-- Phase 33: District DNA (The Roots Layer)
+-- Stores hostility baselines and lore fragments for the Black-Ice Reality Engine
+CREATE TABLE IF NOT EXISTS district_dna (
+    id TEXT PRIMARY KEY,
+    district_name TEXT NOT NULL UNIQUE,
+    hostility_baseline REAL DEFAULT 0.5 CHECK (hostility_baseline BETWEEN 0.0 AND 1.0),
+    lore_fragments_json TEXT NOT NULL DEFAULT '[]',
+    persona_override TEXT,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);

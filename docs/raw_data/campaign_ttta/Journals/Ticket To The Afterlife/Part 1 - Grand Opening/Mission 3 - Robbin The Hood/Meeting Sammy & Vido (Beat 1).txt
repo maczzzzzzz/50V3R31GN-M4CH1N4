@@ -1,0 +1,153 @@
+In this beat, the party learns how Vido is planning to promote the Afterlife's bar before it opens in a few days.
+
+This mission makes use of the @UUID[Scene.fqgvewCqt8z94mll]{7th Circle Bar & Casino} and @UUID[Scene.vboI8hWM5vr7ZfIB]{Night City Bank} scenes, along with a few environments. To begin:
+
+Place a token for @UUID[Actor.17CTAE5lKmZFHY9i]{Vido Dubois} in the bar scene, on one of the stools at the bar. He's waiting to meet the players.
+
+Place a token for @UUID[Actor.rQdrdTOYV13yilZD]{Sammy Chauvin} in the scene, behind the counter at the bar. He's the Afterlife's prospective bartender.
+
+Place a token for @UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers} inside the bar, next to the door. She's acting as bouncer and is there to let the players in, leaving afterwards.
+
+Place the player tokens outside the door, in the hallway beyond.
+
+Change the scene to @UUID[Scene.VCbthP8Ez4uhtdkr]{Afterlife Exterior Environment.}
+
+Then read the following:
+
+Afterlife Interior - Basement Level 1
+
+The evening is late and the Afterlife glowing red over the streets of the Upper Marina. The city is unusually quiet tonight - or maybe you're just too used to the overpacked suburbs and combat zones, where gunshots have become a natural part of your background ambience.
+
+Each of you received a text from Vido, only a few hours ago:
+
+"Bonjour, mis vachers!"
+
+(French slang for 'cowherd,' and also 'edgerunner')
+
+"I hope you enjoy staying up late, because the Afterlife's grand opening is only a few days away, and we have need of you for our promotion! Assuming you are available, myself and the Afterlife's new bartender will be waiting for you in the first basement level at 8:00 this evening. As per last time, I am told that the drinks will be complementary."
+
+If players knock at the front door to the Afterlife, they can easily coerce Sprinter into letting them into the area without paying, though they won't get the rep bonus for doing so. Sprinter notes that this will be "the last time" since "the club's openin' up day after tomorrow."
+
+Once the players are inside, Sprinter greets them cheerfully, asks after their health and well being, then ushers them downstairs via the hallway ramp in the back left corner of the lobby. She's excited about the opening, having been involved in the project for much longer than you all.
+
+Once players have cleared the lobby, read the following.
+
+The glowing lobby is left behind as you descend, for the first time, into the deeper reaches of the Afterlife. The ramp downwards is well lit, and Sprinter chats amicably about this-and-that in her personal life as she walks you down.
+
+The first stop on the right is a steel-plated door that looks like it could take a shot from a GunMart Engage and stay standing. Like at the entrance, there's a coin slot where the door handle should be, and a metal shutter hiding a viewpoint - or muzzlepoint - at eye level.
+
+Rather than depositing a coin, Sprinter raps her knuckles on the metal door twice. "'Ello!" she calls. "Sammy? You in there?"
+
+The shutter slides open for a moment, and you catch the glint of steely grey eyes, before it slides shut again without a word. The door clicks as a heavy bolt is moved, and it opens.
+
+"Have fun, loves!" Sprinter says as she turns to head back up the ramp. "And go easy on the new guy, yeah? He seems nice."
+
+(Switch the scene to The 7th Circle)
+
+Inside the 7th Circle
+
+Beyond the door is Silvers, evidently acting as bouncer to the club beyond. Inside is an extravagant sight that's an even match for the lobby, albeit in an entirely different way.
+
+The central floor flickers and glows in a pixelated LED simulation of fire. Directly in front of you on the right is a dance floor in front of a stage, pulsing with light and illumination at a much more intense rate.
+
+On your left, the rest of the club stretches out. A casino sits pristine and as-yet unused in a pit on the east side of the room - above it dangle decorative chains and cages. On the room's west wall is a well-stocked, well-illuminated bar fronted by a row of stools. Beyond it is a seating area - each table has an expensive looking holographic projector installed in its center.
+
+At the back of the room are four booths, each a different color from the last - purple, green, blue, orange - and on the left and right sides of the row are doors, swung open to reveal a more private meeting space, if one was needed.
+
+It's quiet and empty save for some hard rock playing quietly near the bar, but you suspect that it won't remain that way for much longer.
+
+Vido and Sammy are sitting at the bar, but Silvers exits the club once you're all inside. Evidently, you can be trusted not to trash the place, for the moment. Vido waves in a friendly fashion, and the man behind the bar smiles at you. He's stupendously handsome in a way Vido could never be, with toned muscle visible on his arms and beneath his tight shirt. He's wearing a banana-yellow vest, and his hair has been carefully groomed, as has his flamboyant and well-waxed mustache and goatee.
+
+Now would be a good time to show your party the artwork for Sammy.
+
+"Howdy, fellas (and ladyfellas)," he says, speaking in a light and pleasant drawl. "Sammy Chauvin, at your service. Pull up a stool, why don't ya? I've got work, and Vido says you're just the man for it."
+
+Roleplaying Exercise - In Loving Memory
+
+As players sit down, Vido informs Sammy that the drinks are on him, for theariety of booze and other ingredients behind the counter. Each player needs to specify day, and each party member can choose to create a drink of their choice from the wide v at least 2 ingredients, and in true Afterlife tradition, if they flatline in an adequately spectacular fashion, their personal taste (or lack thereof) will be available for purchase in their memory henceforth.
+
+Some memorable examples from my own games:
+
+Neon Gas: Lambda, one of the edgerunners included in NCG&C, drinks Neon Gas - one part grain alcohol that's one step away from being refined into CHOOH2, four parts energy drink, with a cheap neon additive stirred in that glows going down (and coming out). Often mixed with drugs, since it already tastes foul. But it sure makes you go-go-go!
+
+Red Juju: Cyber Warlord, another edgerunner, drinks Red Juju - a short glass of iced whiskey, mixed with a healthy portion of cinnamon and a shot of hot sauce.
+
+Sacred Herb Smash: xXDreadedElfKillerXx, an Elflines cosplayer/fixer, drinks a mix of proprietary "sacred herbs" from an Elflines-sponsored food line, with a can of smash mixed in.
+
+Kuchikamizake: named after the first alcoholic beverage in Japan. 1 part sake, 1 part any soju (korean plum wine), 1 part yuzu juice (a citrus fruit). It's drunk by Sirius, an Arasaka-aligned exec.
+
+Desert Rose: Six, a cowboy-themed solo, drinks a Desert Rose - 2 parts tequila, 2 parts cactus juice, 1/2 oz Lime Juice, a pinch of salt, iced, with a lime wheel for garnish.
+
+Poison Ivy: Ivy, a shy-but-eccentric medtech, drinks Poison Ivy - a base of Midori (bright green Japanese melon liquor) with an absolute ton of lemon/lime additives to make it as sour as possible.
+
+Those who participate may earn 1 background point if that system is being utilized, which expires at the end of the mission - otherwise, they simply gain +3 to their next check.
+
+Once everyone's settled, Sammy begins talking about the job.
+
+Talking As Sammy
+
+In case you didn't get the idea yet, Sammy is ridiculously hot, coolly confident, and easy to get along with. In short, it's easy to get lost while talking with him.
+
+Any player with a COOL stat of less than 6 must make a DV13 COOL Concentration check.
+
+On failure:
+
+If the character is sexually attracted to men, they're more than a little abashed, and might stumble over words.
+
+If they're not, they suddenly feel rather insecure about themselves by comparison, and should roleplay accordingly.
+
+Sammy talks in a drawl that'd be typical of the California countryside some 40 years ago. He's easygoing and laughs at his problems - see his mook sheet for more details.
+
+Job Details
+
+The Afterlife is opening its doors to the public about 48 hours after the conversation takes place - or at least some parts are.
+
+Sammy notes that the club and lobby are ready to go, but the gambling den and hotel rooms will be future jobs, after this one is finished.
+
+He's brought the players in to promote the club in a rather unusual way.
+
+He has an old friend/rival in the Philharmonic Vampyres, and they're robbing a major bank in Little Europe.
+
+The players will be upstaging them to make headlines, something that the Vampyres excel at.
+
+This won't be the only promotion, but the club is for edgerunners, so the club's appealing to the community by showing a gig worthy of the 2020s.
+
+Don't worry about any legal consequences for the robbery, once they're off the scene.
+
+Between the Afterlife and the Vampyres, and the known fact that it's a bank which the mob - AKA Night Corp - uses to launder money, it's a once-in-a-lifetime opportunity to shoot at the NCPD without meaningful repercussions… mostly.
+
+Sammy notes that this gig needs to be non lethal.
+
+The Vampyres have a reputation as vigilantes - the kind of people that are after Sammy's own heart, and part of that reputation is their use of rubber bullets and, generally speaking, leaving whoever they're messing with alive to tell the tale.
+
+Doubling down on that, there's no way the NCPD won't respond, and no amount of "alternative facts" in the press or grassroots activism from Vampyre fans will get the cops to drop the case if any of them end up dead on the job.
+
+That's not to say the cops won't be using live ammo, of course.
+
+He also notes that, thanks to an anonymous tip to Nightlight, the bank and its occupants know the heist is going down.
+
+The players will face ready opposition, and an audience will be present.
+
+Don't worry about the police waiting in the wings, though.
+
+The NCPD are too understaffed to keep anyone on site just for a mere maybe, especially when making such a threat to ruffle feathers and then not showing up would set an unfortunate precedent for being an excellent prank.
+
+That's also why the bank's still open - stubborn managers not willing to lose a day of profits on a maybe.
+
+On the gig, players will be competing for attention, pulling stunts and making a scene and generally upstaging the Vamps at their own game.
+
+Mechanically, this will be accomplished by players asking to perform, being told the roll, and setting the DV for that roll themselves. The higher the DV they pass, the more the payout.
+
+Sammy has some assistance waiting in the wings to help players prep for the show - but they should formulate some ideas of their own, as well.
+
+At this, he produces a thick briefcase from underneath the bar - "barter materials for your supplier," he says.
+
+The address he provides is in Upper Marina, only a few blocks away and in comfortable walking distance.
+
+He refuses to elaborate on what the supplier is offering, however.
+
+The briefcase is locked via combination lock, but can be opened with a DV15 Pick Lock check. Inside is a week's supply of very high quality fresh food - mostly fruits and veggies.
+
+"Don't you worry about the code," Sammy says, "the supplier already knows it."
+
+Once players have exhausted any questions for Sammy, proceed to Beat 2.

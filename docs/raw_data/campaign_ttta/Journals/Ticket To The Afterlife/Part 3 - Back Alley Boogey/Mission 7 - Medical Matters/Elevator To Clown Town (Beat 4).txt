@@ -1,0 +1,47 @@
+This beat uses the @UUID[Scene.8JCd50xPHCjcFbR6]{Bozo Lair} scene. To begin, read the following:
+
+Clown Compartment
+
+Only once you get moving do you realize that Bozo seems to have chosen the furthest possible point in the University District from your destination. The clean, well-kept, well-secured buildings close to the university district fade quickly, replaced by the poorly maintained brownstones and converted houses that make up the district's edges. The exec-financed cars and scholarship-provided housing quickly turn to something you'd more closely associate with the decay of the suburbs - homeless camps in the alleys and run down junkers on the streets. It's not quite the combat zone, presumably thanks to the NCPD patrol cars that seem to be everywhere, but still - all those folks who are paying their own way through college have to live somewhere.
+
+"Here - hahaha - stop here, last stop to heaven and hell, he he he!" Bozo says, and points down the street. In one of the buildings, its windows a combination of boarded and broken, an elevator car sits with its doors swung open. It's unremarkable, except for the single Bozo tag on the inside of one of the doors - a clown with pointed teeth and red eyes.
+
+"Hee hee, the Doctor's making a house call down below," Bozo says. "Now if you'll excuse me, hahaha, I just remembered I left my refridgerator running and need to get home before it gets out."
+
+Unless anyone stops him, he exits the scene as quickly as he can a moment later.
+
+The Elevator
+
+At a glance, the elevator car is unremarkable. Its control panel has two buttons - one up, and one down. It has two stops: ground level, and the Bozo lair.
+
+When the down button is pressed, it takes the elevator one minute to reach the Bozo lair after the doors close. 10 seconds after the doors close, however, the elevator fills with knockout gas. The gas is silent except for a very quiet hiss, odorless, and colorless, and takes effect immediately as follows:
+
+Five Resist Drug/Torture checks are required from your players, at an escalating DV. After each check, each character who is still conscious has time for 1 action.
+
+The DV for these checks are: 13/15/17/19/19
+
+Until a character falls unconscious, the GM should roll these checks secretly. After a character falls unconscious, players may roll any remaining checks themselves.
+
+This can be done by changing the roll mode from public roll to blind GM roll, then rolling the skill on each player's character sheet.
+
+After the first round of checks, if no one passed out, the characters with the lowest result(s) finds themself involuntarily yawning.
+
+Prior to the first character falling unconscious, any equipped anti-smog breathing masks provide a +1 to each check; nasal filter cyberware provides a +3.
+
+After a character falls unconscious, breathing masks continue to provide a +1; nasal filters will from then-on provide immunity if the character using them breathes entirely through their nose.
+
+Once a character falls unconscious, they stay asleep for 1 in-game hour, until woken up as an action, or until they take any kind of non-poison damage.
+
+Characters cannot be woken up while the elevator doors are closed - the knockout gas puts them back to sleep instantly.
+
+Once the elevator doors close, radio communicators and agents immediately become unable to contact the outside world - the Bozos don't want their captives calling for help.
+
+Once all 5 rounds of checks have completed, the elevator doors open on the entry room of the Bozo lair - see the next scene - and the knockout gas ceases to be effective after players leave the elevator.
+
+Finding the trap: locating the trap requires a DV21 Conceal/Reveal object check conducted on the elevator - this is reduced to a DV17 if the attempting player has at least 3 points in the skill. It can be disarmed with a single action via a DV13 Basic Tech check.
+
+If disarmed before the elevator begins moving, no gas escapes and the elevator ride is uneventful.
+
+If located and disarmed after the elevator starts moving, the DV for any subsequent checks will not further increase. Instead, it will decrease by 2 for each remaining check until the elevator is open, at which point no more checks are required.
+
+Once players have made it into the lair, proceed to Beat 5.

@@ -1,0 +1,63 @@
+This beat makes use of the @Scene[Yt3KYkHw5vY9DBFl]{Badlands Ambush} scene. To begin:
+
+Set up the convoy as you've determined it from Beat 3.
+
+The Hauler and its trailer(s) are always in the lead.
+
+Assuming the overpass blew at the correct time, the Hauler should be stopped and blocking the road just in front of the bridge.
+
+If the overpass blew too late, it's in the ditch instead; the hauler itself is at half HP, and its occupants will likely have trouble leaving the vehicle.
+
+The other vehicles are behind the Hauler.
+
+Set up the player characters and their Dustwalker vehicles and reinforcements at your discretion around the map.
+
+These should've been determined in Beat 2.
+
+Then read the following:
+
+So You Decided To Stop The Convoy…
+
+You can hear the boom from the dynamite - it rattles your teeth even from a ridge away, even amid the sandstorm. Accompanying it a moment later is the sounds of crashing concrete and steel as the targeted overpass collapses. The Dustwalker vehicles have tucked themselves behind dunes and rocks, just out of view, a few hundred feet away.
+
+Ranger's voice crackles over the radio - even at such short range, the interference from the sandstorm is considerable. "Alright locos, convoy's stopped, time to cut the dust. Yippie ki yay!"
+
+A moment later you're surrounded by the roar of engines, proofed against dust mostly, but only barely. It's the sound everyone in North America knows to fear whenever they leave the safety of the cities, one that Network 54 has spent the better part of 30 years dramatizing and one featured in half the video games, movies and TV shows since - the sound of a nomad ambush… though being on this side of one is, at least, a novel experience.
+
+As the Dustwalkers burst onto the scene, Militech immediately takes action. Their primary objective will be to get the convoy moving again - back towards Night City ideally. However, they've trained for such scenarios.
+
+The driver of the Hauler will stay in their cab, and attempt to turn the hauler around - which is easier said than done.
+
+Them doing so requires the ability to reverse the truck and its trailers, and requires at least 4 turns of DV15 Drive Land Vehicle checks to do so, which the driver attempts with their Technical skill (note the +4 bonus outlined in Beat 3).
+
+On failure, the Hauler still moves, but returns to the same position at the start of its turn.
+
+Once the Hauler is free, it will immediately begin driving back towards Night City. Such a drive will take about an hour; after 45 minutes are elapsed, it will be free of the storm enough to communicate with Militech, constituting a fail-state due to reinforcements.
+
+The motorcycle(s) will break off and their driver(s) immediately seek advantageous position(s), like on dunes at the edge of the map or behind rocks, or else begin hit-and-runs on the party.
+
+All other Militech staff will attempt to protect the Hauler as it gets turned around to go home.
+
+Most will likely disembark their vehicles immediately to try and find cover, conscious of the hazards of concentrated targets and exploding vehicles.
+
+The exception to this will be the drivers, who will weaponize their vehicles if possible, or else at least do their best to get out of the way of the hauler turning around.
+
+In both cases, Militech will prioritize their targets, first honing in on any heavy weapons that they're aware of, then targeting the largest threats to the otherwise while communicating well to focus on targets of opportunity.
+
+Beyond that, what and how they attack is at GM discretion.
+
+Militech will surrender once it becomes clear that they can no longer win the fight.
+
+They will never surrender, however, while the Strike Commander/Convoy Commander is conscious and still capable of giving orders - and the commander will never surrender.
+
+In cases where they do surrender, Ranger's a good-natured sort about it, not wanting a reputation as Raffen.
+
+The Dustwalkers always conceal their faces, and have no insignias on their cars (they cover those on their jackets before negotiating).
+
+Additionally, killing the surrendering Militech officers gains them nothing, while letting them live increases the chances, however slight, of a more favorable interaction between the two organizations in the future.
+
+Because of this, Ranger will leave the vehicles that aren't already his, and insist the rest of the party do the same (they're filled with trackers and unmistakably Militech in origin, making them more trouble than they're worth).
+
+While he'll flatten their tires to prevent pursuit, he'll also leave Militech a functional radio and a small supply of water - when the sandstorm dies down, surrendering officers will be able to get home safely, corporate consequences notwithstanding.
+
+Once the convoy has been defeated, proceed to beat 5.

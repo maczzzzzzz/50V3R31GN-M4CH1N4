@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/grenade_sleep.png",
+  "name": "Grenade (Sleep - G&C ver)",
+  "system": {
+    "description": {
+      "value": "<p>No immediate damage, no Ablation.. Lingers for 1 minute in an open area, or 5 minutes in an enclosed area. In open spaces, AOE might expand slightly over time.</p><p>If hit DV13 Resist Torture/Drugs Check (mooks use Physical). On fail falls Prone (see pg. 169) and unconscious for 1 minute in combat/1 hour out of combat. Can be woken by damage or another person using an action to touch/shake them. Reapplies to anyone in the AOE at the start of the attacker's turns. Subsequent checks are made with a -2 penalty (max -6).</p>"
+    },
+    "source": {
+      "book": "Core",
+      "page": 346
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": true,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 500
+    },
+    "variety": "grenade",
+    "type": "sleep",
+    "ablationValue": 1,
+    "overrides": {
+      "damage": {
+        "mode": "set",
+        "value": "0",
+        "minimum": "1d6"
+      },
+      "autofire": {
+        "mode": "none",
+        "value": -1,
+        "minimum": 3
+      }
+    },
+    "installLocation": "mall",
+    "size": 0
+  },
+  "type": "ammo",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "VABqsOjR5mmavLRV",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "folder": "ti5x6LL0LcAG2zYh",
+  "name": "2 Neuralware Options Worth 500eb Or More",
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/pain_editor.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "text": "Braindance Recorder",
+      "documentId": "U4RT0J4GJLz7gmby",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/braindance_recorder.svg",
+      "_id": "GeDOtD09lQEYYo94",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "text": "Chipware Socket",
+      "documentId": "IJarQGKk5rPayoLT",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/chipware_socket.svg",
+      "_id": "RietDoHt6EPZn4B0",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "Interface Plugs",
+      "documentId": "KofoAolDFb3rvpbL",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/interface_plugs.svg",
+      "_id": "xbqa5r9TsQ1rbbCb",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "text": "Kerenzikov",
+      "documentId": "nSdoCKRscSOeaZUH",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/kerenzikov.svg",
+      "_id": "4Fo95UH1xNqB0DfY",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "Sandevistan",
+      "documentId": "UX79WfUt7Yungbx7",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/sandevistan.svg",
+      "_id": "tJpR9qjU2vyWFfGB",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "text": "Chemical Analyzer",
+      "documentId": "UzJBUdhSbGW6wzA2",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/chemical_analyzer.svg",
+      "_id": "rBFmgRGu63nJw0gQ",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "text": "Pain Editor",
+      "documentId": "umX2i9wlVcBG1lgv",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/pain_editor.svg",
+      "_id": "Fr8g42ocG7EKxfKX",
+      "flags": {}
+    },
+    {
+      "type": "text",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "_id": "evOZAQv502pLw2SB",
+      "text": "Skill Shard (500eb - player's choice of category)",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/skill_chip.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "cyberpunk-red-core.core_cyberware",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "_id": "vibWKAZpLiQqzbNg",
+      "text": "Skill Shard (1000eb/x2 skill - player's choice of category)",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/skill_chip.svg"
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": ""
+}
