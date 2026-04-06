@@ -7,6 +7,7 @@
 
 ## ⚡ ENGINEERING MANDATES (HIGH-THROUGHPUT)
 0. **VAULT HANDSHAKE (CRITICAL):** If `docs/superpowers/plans/` contains only `.png` files, the system is SEALED. You MUST request the `SOVEREIGN_KEY` from the user (or verify it in `.env`) and run `crush vault open <dir>` for all doc folders before proceeding.
+0.1 **PUSH SECURITY (ABSOLUTE):** ALWAYS check if the vault is open before any `git push`. You MUST run `crush vault seal <dir>` for all doc folders before pushing to remote. You MUST ask for user permission before re-opening the vault after a push.
 1. **Relentless Construction:** Claude completes entire implementation plans in one burst. No pauses for feedback during the cycle.
 2. **Nix Sovereignty:** All execution MUST occur within `nix-shell` or `direnv` contexts. No global npm/cargo.
 3. **Zero-Trust Logic:** AI-generated scripts and WSA intents MUST be audited by Node A reasoner before execution.

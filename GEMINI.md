@@ -7,6 +7,7 @@ Mirroring directives from CLAUDE.md and KNOWLEDGE_BASE.md.
 - **Bus:** Virtual System Bus (VSB) via **Binary UDP** (Cross-Machine) + **Mmap** (Local).
 
 ## ⚡ AGENTIC RULES
+- **Vault Security (ABSOLUTE):** ALWAYS check if the Obsidian Vault is open before any `git push`. You MUST run `crush vault seal` on all documentation directories before pushing to the remote. After the push, you MUST ask the user for permission before re-opening the vault.
 - **Sovereignty**: VSB Binary UDP is the primary "Sovereign Highway" for rules validation.
 - **Integrity**: 1.5B Reasoner on Node A is the final authority to prevent context drift.
 - **Nix-Native**: Both Node A and Node B MUST execute within Nix development shells.
