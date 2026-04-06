@@ -6,6 +6,7 @@
 - **BUS:** VSB (Binary UDP // Port 7878) + Sovereign-Go-Proxy (Unix Socket // `/tmp/clawlink.sock`).
 
 ## ⚡ ENGINEERING MANDATES (HIGH-THROUGHPUT)
+0. **VAULT HANDSHAKE (CRITICAL):** If `docs/superpowers/plans/` contains only `.png` files, the system is SEALED. You MUST request the `SOVEREIGN_KEY` from the user (or verify it in `.env`) and run `crush vault open <dir>` for all doc folders before proceeding.
 1. **Relentless Construction:** Claude completes entire implementation plans in one burst. No pauses for feedback during the cycle.
 2. **Nix Sovereignty:** All execution MUST occur within `nix-shell` or `direnv` contexts. No global npm/cargo.
 3. **Zero-Trust Logic:** AI-generated scripts and WSA intents MUST be audited by Node A reasoner before execution.
