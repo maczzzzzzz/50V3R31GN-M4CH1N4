@@ -10,11 +10,22 @@ export interface RadarBlip {
   faction: string;
 }
 
+export interface Capability {
+  id: string;
+  name: string;
+  type: string;
+}
+
 const MAGIC = Buffer.from('BLACK-ICE-RADAR\0', 'utf8'); // 16 bytes
+const CAPABILITY_MAGIC = Buffer.from('CAPABILITY-LIST\0', 'utf8'); // 16 bytes
 const FILE_SIZE = 4_194_304;
 const HEADER_SIZE = 24;
 const BLIP_SIZE = 64;
 const MAX_BLIPS = Math.floor((FILE_SIZE - HEADER_SIZE) / BLIP_SIZE); // 65503
+
+const CAPABILITY_OFFSET = 8192;
+const CAPABILITY_HEADER_SIZE = 20;
+const CAPABILITY_ITEM_SIZE = 64;
 
 function writeNullPadded(buf: Buffer, offset: number, str: string, maxChars: number): void {
   buf.fill(0, offset, offset + maxChars + 1);
@@ -166,6 +177,30 @@ export class SharedMemoryService {
       id: headerBuf.readUInt32LE(0),
       status: headerBuf.readUInt8(6)
     };
+  }
+
+  writeCapabilities(actorId: string, capabilities: Capability[]): void {
+    if (this.fd === null) throw new Error('SharedMemoryService: call open() first');
+
+    const count = Math.min(capabilities.length, 128); // Limit to 128 capabilities for now
+
+    // Write Capability Header
+    this.buf.fill(0, CAPABILITY_OFFSET, CAPABILITY_OFFSET + CAPABILITY_HEADER_SIZE);
+    CAPABILITY_MAGIC.copy(this.buf, CAPABILITY_OFFSET);
+    this.buf.writeUInt32LE(count, CAPABILITY_OFFSET + 16);
+
+    for (let i = 0; i < count; i++) {
+      const cap = capabilities[i];
+      const base = CAPABILITY_OFFSET + CAPABILITY_HEADER_SIZE + i * CAPABILITY_ITEM_SIZE;
+
+      // CapabilityRaw: id (16), name (32), capability_type (16)
+      writeNullPadded(this.buf, base + 0, cap.id, 15);
+      writeNullPadded(this.buf, base + 16, cap.name, 31);
+      writeNullPadded(this.buf, base + 48, cap.type, 15);
+    }
+
+    const totalSize = CAPABILITY_HEADER_SIZE + count * CAPABILITY_ITEM_SIZE;
+    fs.writeSync(this.fd, this.buf, CAPABILITY_OFFSET, totalSize, CAPABILITY_OFFSET);
   }
 
   get transactionCounter(): number {

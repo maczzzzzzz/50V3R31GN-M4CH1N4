@@ -216,4 +216,30 @@ describe('SharedMemoryService', () => {
       svc2.close();
     });
   });
+
+  it('writeCapabilities serializes capabilities at offset 8192', () => {
+    const caps = [
+      { id: 'cap1', name: 'Neural Link', type: 'interface' },
+      { id: 'cap2', name: 'Optics', type: 'sensory' },
+    ];
+    svc.open();
+    svc.writeCapabilities('actor1', caps);
+
+    const fd = fs.openSync(tmpFile, 'r');
+    
+    // Check Header
+    const headerBuf = Buffer.alloc(20);
+    fs.readSync(fd, headerBuf, 0, 20, 8192);
+    expect(headerBuf.toString('utf8', 0, 15)).toBe('CAPABILITY-LIST');
+    expect(headerBuf.readUInt32LE(16)).toBe(2);
+
+    // Check First Item
+    const itemBuf = Buffer.alloc(64);
+    fs.readSync(fd, itemBuf, 0, 64, 8192 + 20);
+    expect(itemBuf.toString('utf8', 0, 4)).toBe('cap1');
+    expect(itemBuf.toString('utf8', 16, 16 + 11)).toBe('Neural Link');
+    expect(itemBuf.toString('utf8', 48, 48 + 9)).toBe('interface');
+
+    fs.closeSync(fd);
+  });
 });

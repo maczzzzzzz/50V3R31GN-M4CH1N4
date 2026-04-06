@@ -271,6 +271,13 @@ export class HybridRoutingController {
       }
       case 'read_actor':
         return this.foundry.readActor(event.payload.actorId);
+      case 'capabilities_update': {
+        const p = event.payload;
+        if (this.sharedMemory) {
+          this.sharedMemory.writeCapabilities(p.actorId, p.capabilities);
+        }
+        return;
+      }
       case 'buy_item':
         return this.handleBuyItem(event.payload);
       case 'approval_response':
