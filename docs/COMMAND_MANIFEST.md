@@ -1,85 +1,72 @@
-# ASP.GM-Agent: Command & Bridge Manifest (v1.9.0)
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Command & Bridge Manifest (v1.14.0)
 **Protocol:** Binary RPC over ClawLink + VSB Sovereign Highway
 
 This document provides an exhaustive list of all control plane commands, startup scripts, developer tools, and API events available across the **Sovereign Highway** architecture.
 
 ---
 
-## Master Ignition & Orchestration
-These commands are used to launch, build, and maintain the ASP.GM-Agent ecosystem using the Nix-native workflow.
+## :/M4573R-16N1710N //
+These commands are used to launch, build, and maintain the ecosystem using the Nix-native workflow.
 
-### Nix Environment Commands
+### :/N1X-C0MM4ND5 //
 | Command | Node | Description |
 | :--- | :--- | :--- |
-| `nix develop` | Node B | **Primary Shell**: Activates the Vulkan-optimized environment for the Orchestrator. |
-| `nix develop .#cuda` | Node A | **Kernel Shell**: Activates the CUDA-optimized environment for the Rules Vault. |
+| `nix develop` | Node B | **Primary Shell**: Activates the Vulkan-optimized environment. |
+| `nix develop .#cuda` | Node A | **Kernel Shell**: Activates the CUDA-optimized environment. |
 
-### NPM Scripts (Node B Orchestrator)
+### :/NPM-5CR1P75 //
 | Command | Description |
 | :--- | :--- |
-| `npm start` | Launches the Node.js Orchestrator (Mistral-Nemo 12B Director). |
-| `npm run build` | Compiles the TypeScript source code into the `dist/` directory. |
-| `npm run test` | Executes the full Vitest suite (Standard and Integration). |
-| `npm run crush` | Launches the Crush CLI control plane. |
+| `pnpm start` | Launches the Node B Orchestrator (Pixtral-12B Director). |
+| `pnpm build` | Compiles the TypeScript source code into `dist/`. |
+| `pnpm test` | Executes the full Vitest suite. |
 
 ---
 
-## Crush CLI: System Control
-The Crush CLI is the primary human-in-the-loop management interface for the AI GM.
+## :/CRU5H-CL1 : 5Y573M-C0N7R0L //
+The primary human-in-the-loop management interface for the machine.
 
+### :://V4UL7-PR070C0L //
 | Command | Arguments | Description |
 | :--- | :--- | :--- |
-| `/scan` | None | Triggers resident Falcon (Node A) for raw pixel tactical analysis. |
-| `/onboard` | `<PlayerName> <Role>` | Initiates the Fixer Interview and character materialization. |
-| `/audit` | None | High-signal health check of VSB Bus, Node A/B sync, and hardware. |
-| `/flush` | None | Manual trigger for the Akashik Flush Gate (SQLite Commit). |
-| `/mission` | `<district>` | Generates a high-fidelity mission blueprint via Mission Swarm. |
+| `vault seal` | `<dir>` | Encrypts and hides markdown files into steganographic PNGs. |
+| `vault open` | `<dir>` | Decrypts and restores markdown files using `SOVEREIGN_KEY`. |
 
----
-
-## Neural Hive Commands (NPC Autonomy)
-Commands utilized by the **Turn Daemon** during agentic loops.
-
-| Command | Logic | Authority |
+### :://D3VD0M : ENV1R0NM3N7-D0M1N4NC3 //
+| Command | Arguments | Description |
 | :--- | :--- | :--- |
-| `npc_turn` | Reason -> Intent -> Action | Node B (12B Brain) |
-| `validate_npc_action` | VSB Rules Check | Node A (Open-Reasoner-Zero-1.5B) |
-| `mutate_skillstone` | Linguistic Mutation | Node B (Mistral-Nemo) |
-| `embed_mutation` | P4RS3LT0NGV3 Encode | Node B (Parseltongue) |
+| `devdom corrupt-ui` | `[int] [type]` | Injects real-time leet-speak/parseltongue into the Foundry UI. |
+| `devdom ghost-play` | `<file.ghost>` | Plays back a physical input sequence (Move/Drag/Click/Key). |
+| `chaos network` | `--latency <ms>` | Injects synthetic network lag into Node B via Linux `tc`. |
+
+### :://W54 : W0RLD-57473-4U7H0R17Y //
+| Command | Arguments | Description |
+| :--- | :--- | :--- |
+| `wsa unlock` | None | Physically removes permission checks from Foundry RAM via CDP. |
+| `wsa dim-lights` | `<intensity>` | Direct physical manipulation of canvas lighting. |
+| `wsa shut-down` | None | Emergency hard-kill of all Node B renderer processes. |
 
 ---
 
-## Layout & Atmosphere (Bridge)
-Commands targeting the **Pretext** engine and Foundry VTT.
+## :/PHY51C4L-P3RC3P710N //
+Commands for grounding the machine in reality.
 
 | Command | Effect | Engine |
 | :--- | :--- | :--- |
-| `trigger_pretext` | Zero-reflow UI overlay | Pretext (Canvas) |
-| `apply_glitch` | Neural screen artifacting | FXMaster (GPU) |
-| `spawn_sequence` | Atomic visual effect | Sequencer (Socket) |
-| `matrix_ticker` | Scrolling news/net feed | Pretext (Isometric) |
+| `capture_gpu` | Raw screenshot via CDP | Neural Uplink |
+| `audit_library` | Lore extraction from PNGs | Akashik VLM |
+| `decrypt_st3gg` | LSB pixel secret decoding | Node A Rust |
 
 ---
 
-## Perception (Sovereign Sensor)
-Commands for physical world grounding.
-
-| Command | Effect | Authority |
-| :--- | :--- | :--- |
-| `capture_gpu` | Raw screenshot via CDP | Neural Uplink (Node B) |
-| `reground_scene` | Full Falcon semantic scan | Node A (Falcon 0.3B) |
-| `decrypt_st3gg` | LSB pixel secret decoding | Node A (Rust ST3GG) |
-
----
-
-## Specialized Sidecars (v1.9.0 Drivers)
+## :/5P3C14L1Z3D-51D3C4R5 //
 OS-level services for the Sovereign Highway.
 
 | Sidecar | Role | Node |
 | :--- | :--- | :--- |
-| `TACTICAL-MMU` | Hardware-accelerated spatial heat-maps | Node A (Rust) |
-| `NEURAL-COMPOSITOR` | 16-core aesthetic latency-masking | Node B (Rust) |
-| `L1-REGISTRY` | Memory-mapped SQLite mirror | Node B (Rust) |
+| `CYBERDECK-HUD` | Monolithic tabbed interface (Atlas/Netrun/Deck). | Node B (Rust) |
+| `SOVEREIGN-PROXY` | Resilient zero-jitter TCP/SSH bridge. | Node B (Go) |
+| `ZEROCLAW-KERNEL` | Rules Oracle and mechanical reality enforcement. | Node A (Rust) |
 
 ---
-*Verified by Gemini CLI v1.9.0 Strategist.*
+**::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**

@@ -8,11 +8,17 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.14.0] - 2026-04-05
 ### Added
 - **Project Identity: 50V3R31GN-M4CH1N4**: Rebranded the entire project to reflect its evolution into a distributed, physically sovereign machine.
+- **Phase 32: 7H3-0B51D14N-V4UL7**: Implemented encrypted steganography for all project documentation (AES-256-GCM + ST3GG).
+- **Vault Subcommands**: Added `crush vault seal` and `crush vault open` to protect blueprints and research.
 - **Phase 28: Ghost Protocol (Core Functional)**: Established physical sovereignty over the Foundry VTT renderer.
 - **Ghost Input Service**: Implemented synthetic mouse/keyboard orchestration via the CDP `Input` domain, enabling physical token dragging and UI clicks.
 - **UI Infiltration Protocol**: Added `corruptUI()` to `VisualMonitorService` for direct DOM manipulation (Leet-speak and Parseltongue corruption).
 - **Journal Hijack Hook**: Integrated a `renderJournalSheet` hook into the Foundry bridge to scramble journal entries in real-time.
 - **Scenario Engine (Go)**: Expanded `crush` CLI with `devdom` and `ghost-play` subcommands for automated scenario playback.
+- **Security & Lifecycle Hardening**:
+    - **Zombie Purge**: Added `ctrl+p` to `deck-igniter` for aggressive process cleanup (`pkill -9`).
+    - **Node B Watchdog**: Self-terminates if Foundry connection is lost for >5 minutes.
+    - **Node A Watchdog**: Self-terminates if VSB traffic is idle for >15 minutes.
 - **Neural Shroud**: Implemented a physical input lock (`setPhysicalLock`) to prevent user collisions during machine-driven actions.
 - **Cyberpunk UI Encoding**: Applied consistent leet-speak and disk-drive styling (`:/`, `:://`) to the README, CLI headers, and all Rust sidecar interfaces.
 
