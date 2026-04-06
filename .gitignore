@@ -24,9 +24,14 @@ coverage/
 !.env.example
 
 # --- 7H3-V4UL7 (Steganographic Shards) ---
-# We block the .png shards from being tracked to keep the remote "clean"
-# and force local-only vault residency for maximum security.
-docs/**/*.md.png
+# We ALLOW shards on the remote so the project is reproduceable from GitHub.
+# We STRICTLY BLOCK the cleartext markdown files.
+docs/superpowers/plans/*.md
+docs/superpowers/specs/*.md
+docs/research/*.md
+docs/audits/*.md
+docs/archive/**/*.md
+
 .vesper_state
 
 # --- Project Specific Data (Surgical) ---
