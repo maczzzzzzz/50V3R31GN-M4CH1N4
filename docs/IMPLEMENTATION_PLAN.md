@@ -154,4 +154,11 @@
 - [ ] **Counter-Hack Logic:** Enable AI "Active Defense" to intercept and modify player triggers in real-time.
 - [ ] **Physicalized Moods:** Sync Egui glitch intensity directly to the Netrun "Depth" and "Intrusion" state.
 
+## 🔒 PHASE 32: 7H3-0B51D14N-V4UL7 (IN PROGRESS)
+**Goal:** Physically hide project documentation inside campaign assets using encrypted steganography.
+- [x] **Crypto Integration:** Added AES-256-GCM encryption/decryption to the `crush` tool.
+- [x] **Vault Subcommand:** Implemented `crush vault seal` and `crush vault open` for automated steganographic doc protection.
+- [ ] **Cold Storage:** Migrate all non-essential research and legacy specs into the vault.
+- [ ] **Key Protocol:** Establish `SOVEREIGN_KEY` environment requirement for agentic doc access.
+
 *Roadmap Managed by Gemini CLI (Strategist).*

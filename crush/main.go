@@ -192,6 +192,18 @@ func main() {
 		case "forge":
 			os.Exit(runForge(os.Args[2:]))
 
+		case "vault":
+			if len(os.Args) < 3 {
+				fmt.Println("Usage: crush vault [seal|open] <target_path>")
+				return
+			}
+			key := os.Getenv("SOVEREIGN_KEY")
+			if key == "" {
+				fmt.Println("Error: SOVEREIGN_KEY not found in environment.")
+				return
+			}
+			os.Exit(runVault(os.Args[2:], key))
+
 		case "belt":
 			if len(os.Args) > 2 {
 				switch os.Args[2] {

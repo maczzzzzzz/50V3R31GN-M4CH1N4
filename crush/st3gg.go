@@ -2,6 +2,9 @@ package main
 
 import (
 	"bytes"
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -9,7 +12,56 @@ import (
 	"image"
 	"image/draw"
 	"image/png"
+	"io"
 )
+
+// EncryptPayload encrypts data using AES-256-GCM with the provided key.
+func EncryptPayload(data []byte, key string) ([]byte, error) {
+	// Ensure key is 32 bytes
+	keyBytes := make([]byte, 32)
+	copy(keyBytes, []byte(key))
+
+	block, err := aes.NewCipher(keyBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	gcm, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, err
+	}
+
+	nonce := make([]byte, gcm.NonceSize())
+	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+		return nil, err
+	}
+
+	return gcm.Seal(nonce, nonce, data, nil), nil
+}
+
+// DecryptPayload decrypts data using AES-256-GCM.
+func DecryptPayload(data []byte, key string) ([]byte, error) {
+	keyBytes := make([]byte, 32)
+	copy(keyBytes, []byte(key))
+
+	block, err := aes.NewCipher(keyBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	gcm, err := cipher.NewGCM(block)
+	if err != nil {
+		return nil, err
+	}
+
+	nonceSize := gcm.NonceSize()
+	if len(data) < nonceSize {
+		return nil, errors.New("ciphertext too short")
+	}
+
+	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
+	return gcm.Open(nil, nonce, ciphertext, nil)
+}
 
 // ErrCRC32Mismatch is returned by St3ggDecode when the embedded CRC32 does not
 // match the decoded payload. Indicates corruption or an un-encoded image.
