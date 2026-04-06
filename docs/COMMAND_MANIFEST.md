@@ -29,8 +29,8 @@ The primary human-in-the-loop management interface for the machine.
 ### :://V4UL7-PR070C0L //
 | Command | Arguments | Description |
 | :--- | :--- | :--- |
-| `vault seal` | `<dir>` | Encrypts and hides markdown files into steganographic PNGs. |
-| `vault open` | `<dir>` | Decrypts and restores markdown files using `SOVEREIGN_KEY`. |
+| `vault seal` | `<dir>` | Encrypts and hides markdown, json, png, and txt files into steganographic PNGs. |
+| `vault open` | `<dir>` | Decrypts and restores documentation files using `SOVEREIGN_KEY`. |
 
 ### :://D3VD0M : ENV1R0NM3N7-D0M1N4NC3 //
 | Command | Arguments | Description |

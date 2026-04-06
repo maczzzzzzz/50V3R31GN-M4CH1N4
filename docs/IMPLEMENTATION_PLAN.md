@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Implementation Execution Plan
-**Version:** 1.11.0 (High-Throughput Dominance)
+**Version:** 2.0.0 (The Ouroboros Kernel Milestone)
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS)
 
 ## ✅ PHASE 11: THE NEURAL UPLINK (COMPLETED)
@@ -132,27 +132,27 @@
 - [x] **Akashik Seeder:** Populate `Akashik.db` with high-fidelity narrative seeds (Barks, Scenes).
 - [x] **Covert Protocol Sync:** Synchronize Go and Rust ST3GG implementations with CRC32 integrity checks.
 
-## 🕸️ PHASE 30: SOVEREIGN INTERCEPTOR & VESPER PROTOCOL (IN PROGRESS)
+## ✅ PHASE 30: SOVEREIGN INTERCEPTOR & VESPER PROTOCOL (COMPLETED)
 **Goal:** Transition from reactive listening to active, secure intent interception with persistent background operation.
-- [ ] **Task 1: Protocol SDK Unification:** Implement a unified `Sovereign-SDK` in Rust with C-FFI exports to eliminate logic drift in Mmap/VSB structures.
-- [ ] **Task 2: Vesper Shadow Mode:** Implement a persistent, low-risk background loop for autonomous reconnaissance. Must enforce strict Risk Engine classification (Low/Medium/High) and route all non-Low actions through the Flush Gate.
-- [ ] **Task 3: Security Hardening:** 
+- [x] **Task 1: Protocol SDK Unification:** Implement a unified `Sovereign-SDK` in Rust with C-FFI exports to eliminate logic drift in Mmap/VSB structures.
+- [x] **Task 2: Vesper Shadow Mode:** Implement a persistent, low-risk background loop for autonomous reconnaissance. Must enforce strict Risk Engine classification (Low/Medium/High) and route all non-Low actions through the Flush Gate.
+- [x] **Task 3: Security Hardening:** 
     - Enforce `127.0.0.1` binding and implement an ephemeral handshake token for the Node B WebSocket server.
     - Enforce `0600` permissions and magic byte validation for the VSB Mmap file.
-- [ ] **Task 4: Vesper Lifecycle & Ignition:** 
+- [x] **Task 4: Vesper Lifecycle & Ignition:** 
     - Integrate Vesper startup into `deck-igniter` (Ignition Sequence).
     - Implement a 30-minute idle heartbeat timeout in the Go proxy.
     - Implement "Safe Shutdown" state-saving to `Akashik.db` upon SIGTERM.
     - Add a global "V35P3R-K1LL" button to the Rust HUD for immediate user override.
-- [ ] **Hook Interception:** Wrap Foundry `game.socket.emit` to enable Node A rules-veto before state commits.
-- [ ] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
+- [x] **Hook Interception:** Wrap Foundry `game.socket.emit` to enable Node A rules-veto before state commits.
+- [x] **Surgical Perception:** Implement crop-scan RPC for high-fidelity OCR on specific map coordinates.
 
-## 🎭 PHASE 31: ACTION SOVEREIGNTY & OBLITERATION (UPCOMING)
+## ✅ PHASE 31: ACTION SOVEREIGNTY & OBLITERATION (COMPLETED)
 **Goal:** Eliminate script injection in favor of a whitelisted Physical Trigger API, achieving total structural lockdown.
-- [ ] **Trigger API:** Implement a structured `executeAction` bridge command for non-JS world manipulation. Deprecate and remove raw `runScript` injection.
-- [ ] **Action Registry:** Port `Token Action HUD` logic to harvest available actor capabilities into Mmap.
-- [ ] **Counter-Hack Logic:** Enable AI "Active Defense" to intercept and modify player triggers in real-time.
-- [ ] **Physicalized Moods:** Sync Egui glitch intensity directly to the Netrun "Depth" and "Intrusion" state.
+- [x] **Trigger API:** Implement a structured `executeAction` bridge command for non-JS world manipulation. Deprecate and remove raw `runScript` injection.
+- [x] **Action Registry:** Port `Token Action HUD` logic to harvest available actor capabilities into Mmap.
+- [x] **Counter-Hack Logic:** Enable AI "Active Defense" to intercept and modify player triggers in real-time.
+- [x] **Physicalized Moods:** Sync Egui glitch intensity directly to the Netrun "Depth" and "Intrusion" state.
 
 ## 🔒 PHASE 32: 7H3-0B51D14N-V4UL7 (IN PROGRESS)
 **Goal:** Physically hide project documentation inside campaign assets using encrypted steganography.

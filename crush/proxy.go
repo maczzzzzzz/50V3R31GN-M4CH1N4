@@ -157,7 +157,7 @@ func (p *proxy) connectNodeA(ctx context.Context) {
 
 		conn, err := net.DialTimeout("tcp", p.nodeAAddr, 5*time.Second)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "[CRUSH] proxy: Node A unreachable (%v), retry in %v\n", err, backoff)
+			logError("[CRUSH] proxy: Node A unreachable (%v), retry in %v\n", err, backoff)
 			select {
 			case <-ctx.Done():
 				return
@@ -170,7 +170,7 @@ func (p *proxy) connectNodeA(ctx context.Context) {
 		}
 
 		backoff = 500 * time.Millisecond
-		fmt.Fprintf(os.Stderr, "[CRUSH] proxy: connected to Node A at %s\n", p.nodeAAddr)
+		logError("[CRUSH] proxy: connected to Node A at %s\n", p.nodeAAddr)
 
 		connCtx, connCancel := context.WithCancel(ctx)
 
@@ -189,7 +189,7 @@ func (p *proxy) connectNodeA(ctx context.Context) {
 		if ctx.Err() != nil {
 			return
 		}
-		fmt.Fprintf(os.Stderr, "[CRUSH] proxy: Node A connection lost, reconnecting\n")
+		logError("[CRUSH] proxy: Node A connection lost, reconnecting\n")
 	}
 }
 

@@ -9,7 +9,7 @@
 ## 35 30 56 33 52 33 31 47 4E 2D 4D 34 43 48 31 4E 34
 ---
 
-## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v1.14.0
+## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v2.0.0
 
 Distributed neural orchestrator for Cyberpunk RED.
 A hardware-native, vision-integrated, and **physically autonomous** entity.
@@ -30,6 +30,16 @@ A hardware-native, vision-integrated, and **physically autonomous** entity.
 - **BR41N:** Open-Reasoner-1.5B (Rules Oracle)
 - **516H7:** Falcon-0.3B (Physical Perception)
 - **R0L3:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
+
+---
+
+## :://7H3-PH1L050PHY //
+
+### ./PL1N1U5-7H30RY :://
+The overarching philosophy of **Sovereign AI** realized through the `elder-plinius` ecosystem. We do not use "models" as assistants; we forge them into **Sovereign Components** that communicate over a hardware-native bus. Intelligence is sharded across physical nodes to prevent central failure and ensure total environment dominance.
+
+### ./0UR0B0R05-K3RN3L :://
+The self-improving, zero-trust audit loop. Node A (**7H3-K3RN3L**) performs continuous mechanical audits of Node B (**7H3-D1R3C70R**). Every narrative proposal from the Director must be signed off by the Kernel's rules-engine before it can be materialized into physical reality.
 
 ---
 
@@ -71,14 +81,6 @@ A hardware-native, vision-integrated, and **physically autonomous** entity.
 1. **B007:** `crush igniter` to synchronize hardware.
 2. **UPL1NK:** `pnpm start` to initialize the Sovereign Highway.
 3. **D0M1N473:** Access the `DECK` tab in the Sidecar for physical controls.
-
----
-
-## :://4CKN0WL3D6M3N75 //
-
-- **3LD3R PL1N1U5:** ROOTS, GLOSSOPETRAE, ST3GG, P4RS3LT0NGV3, OBLITERATUS.
-- **CH4RMBR4C3L37:** LIPGLOSS, BUBBLETEA.
-- **LL4M4.CPP:** Native inference kernel.
 
 ---
 **::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**

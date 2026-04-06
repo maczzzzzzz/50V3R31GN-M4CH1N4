@@ -175,7 +175,7 @@ func main() {
 			)
 			defer cancel()
 			if err := runProxy(ctx); err != nil {
-				fmt.Fprintf(os.Stderr, "[CRUSH] proxy error: %v\n", err)
+				logError("[CRUSH] proxy error: %v\n", err)
 				os.Exit(1)
 			}
 			return

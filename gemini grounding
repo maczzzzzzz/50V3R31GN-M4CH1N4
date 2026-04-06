@@ -1,0 +1,31 @@
+READ ALL - CREATE TASK LIST - DO ALL 
+
+REVIEW WORKTREES PHASE 30 AND 31 ARE COMPLETE- READ IMPLEMENTATIONPLAN MD
+
+- update knowledgebase we are missing ALOT of new and in use repository links, archive old links preserving historical lineage.
+
+- update readme to include info about what we have dubbed the "Pl1n1u5 7h30ry" and the "0ur0b0ro5 K3rn3l" - 50V3R31GN-M4CH1N4 - the acknowledgements section can be removed and a full exhaustive acknowledgements list can be  added to the githubabout.txt as a section we continuously amend to when necessary. The existing about "blurb" is what i copy into the github page- we will update that blurb to reflect the updated readme.
+
+- update all other documentation to reflect the projects current sovereign state and version. 
+
+- update the project version in accordance with industry standards this is a major patch and the end of a heavy weekend of development. We get into heavy testing this week.
+
+- with heavy live testing beginning we need to make sure all error logging is consistent with the systems current state. alot has changed over the past 72 hrs. ensure logging is in place for every imaginable point of failure. 
+
+- Update user guides and set up guides
+
+- ADD TO VAULT:
+\wsl.localhost\NixOS\home\nixos\asp-gm-agent\docs\raw_data\entities_mooks
+
+\wsl.localhost\NixOS\home\nixos\asp-gm-agent\docs\raw_data\campaign_ttta
+
+- move \\wsl.localhost\NixOS\home\nixos\asp-gm-agent\docs\research and \\wsl.localhost\NixOS\home\nixos\asp-gm-agent\docs\audits into docs/superpowers alongside plans and specs. one folder to encrypt and decrypt also just easier to locate in general. update the vault script.
+
+- CONSOLIDATE BRANCHES > MERGE TO LOCAL > SAFELY DELETE WORKTREES
+- **SEAL VAULT**
+- PUSH TO REMOTE
+-ENSURE NODE REPO PARITY 
+and
+- CALL IT A NIGHT, GOOD WORK CH00M
+
+5L33P 15 N33D3D

@@ -123,7 +123,7 @@ func forgeAsset(pair forgePair, assetsDir string) error {
 func forgeRun(cfg ForgeConfig) (ok, skipped, failed int) {
 	pairs, unpaired, err := findPairs(cfg.IngestionDir)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[FORGE] %v\n", err)
+		logError("[FORGE] %v\n", err)
 		failed++
 		return
 	}

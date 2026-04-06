@@ -42,7 +42,7 @@ func runWSA(args []string) int {
 
 	ctx := buildAuditContext(action, targetID)
 	if ctx == "" {
-		fmt.Fprintf(os.Stderr, "[CRUSH] ERROR: unknown WSA action %q\n", action)
+		logError("[CRUSH] ERROR: unknown WSA action %q\n", action)
 		fmt.Fprint(os.Stderr, wsaUsage)
 		return 1
 	}
@@ -52,7 +52,7 @@ func runWSA(args []string) int {
 		if strings.Contains(err.Error(), "proxy not running") {
 			fmt.Fprintln(os.Stderr, "[CRUSH] ERROR: proxy not running — start with 'crush proxy'")
 		} else {
-			fmt.Fprintf(os.Stderr, "[CRUSH] ERROR: audit failed: %v\n", err)
+			logError("[CRUSH] ERROR: audit failed: %v\n", err)
 		}
 		return 1
 	}
@@ -74,7 +74,7 @@ func runWSA(args []string) int {
 		) + " : " + rationale)
 		return 2
 	default:
-		fmt.Fprintf(os.Stderr, "[CRUSH] ERROR: unexpected verdict %q\n", verdict)
+		logError("[CRUSH] ERROR: unexpected verdict %q\n", verdict)
 		return 1
 	}
 }

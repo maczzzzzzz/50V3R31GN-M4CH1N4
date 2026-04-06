@@ -12,6 +12,38 @@
 
 import 'dotenv/config';
 import fs from 'node:fs';
+import path from 'node:path';
+import { Console } from 'node:console';
+
+const logDir = './data/logs';
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir, { recursive: true });
+}
+const logStream = fs.createWriteStream(path.join(logDir, 'orchestrator.log'), { flags: 'a' });
+const fileLogger = new Console({ stdout: logStream, stderr: logStream });
+
+const originalConsoleLog = console.log;
+const originalConsoleError = console.error;
+const originalConsoleWarn = console.warn;
+const originalConsoleInfo = console.info;
+
+console.log = (...args) => {
+  fileLogger.log(...args);
+  originalConsoleLog(...args);
+};
+console.error = (...args) => {
+  fileLogger.error(...args);
+  originalConsoleError(...args);
+};
+console.warn = (...args) => {
+  fileLogger.warn(...args);
+  originalConsoleWarn(...args);
+};
+console.info = (...args) => {
+  fileLogger.info(...args);
+  originalConsoleInfo(...args);
+};
+
 import { FoundryAdapter } from './api/foundry-adapter.js';
 import { ClawLinkClient } from './api/clawlink-client.js';
 import { NitroLogicClient } from './core/nitro-logic-client.js';

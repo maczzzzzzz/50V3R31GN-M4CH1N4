@@ -72,7 +72,7 @@ func runHack(args []string) int {
 		"unlock": true, "dim-lights": true, "hack-camera": true, "shut-down": true,
 	}
 	if !validActions[action] {
-		fmt.Fprintf(os.Stderr, "[HACK] unknown action %q\n%s", action, hackUsage)
+		logError("[HACK] unknown action %q\n%s", action, hackUsage)
 		return 1
 	}
 
@@ -94,7 +94,7 @@ func runScan(args []string) int {
 		case "objectives", "hazards", "cover", "all":
 			scanType = args[0]
 		default:
-			fmt.Fprintf(os.Stderr, "[SCAN] unknown target-type %q\n%s", args[0], scanUsage)
+			logError("[SCAN] unknown target-type %q\n%s", args[0], scanUsage)
 			return 1
 		}
 	}
@@ -118,16 +118,16 @@ func runCropScan(args []string) int {
 	size := 512
 
 	if _, err := fmt.Sscanf(args[0], "%f", &x); err != nil {
-		fmt.Fprintf(os.Stderr, "[SCAN] invalid x coordinate: %v\n", err)
+		logError("[SCAN] invalid x coordinate: %v\n", err)
 		return 1
 	}
 	if _, err := fmt.Sscanf(args[1], "%f", &y); err != nil {
-		fmt.Fprintf(os.Stderr, "[SCAN] invalid y coordinate: %v\n", err)
+		logError("[SCAN] invalid y coordinate: %v\n", err)
 		return 1
 	}
 	if len(args) > 2 {
 		if _, err := fmt.Sscanf(args[2], "%d", &size); err != nil {
-			fmt.Fprintf(os.Stderr, "[SCAN] invalid size: %v\n", err)
+			logError("[SCAN] invalid size: %v\n", err)
 			return 1
 		}
 	}
@@ -147,14 +147,14 @@ func runCropScan(args []string) int {
 func sendIntent(payload IntentPayload) int {
 	data, err := json.Marshal(payload)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[CRUSH] marshal error: %v\n", err)
+		logError("[CRUSH] marshal error: %v\n", err)
 		return 1
 	}
 
 	timeout := time.Duration(Cfg.ClawlinkTimeout) * time.Millisecond
 	conn, err := net.DialTimeout("unix", Cfg.ClawlinkSock, timeout)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "[CRUSH] proxy unavailable (%s): %v\n", Cfg.ClawlinkSock, err)
+		logError("[CRUSH] proxy unavailable (%s): %v\n", Cfg.ClawlinkSock, err)
 		return 1
 	}
 	defer conn.Close()
@@ -163,7 +163,7 @@ func sendIntent(payload IntentPayload) int {
 
 	// Write newline-delimited JSON frame
 	if _, err := fmt.Fprintf(conn, "%s\n", data); err != nil {
-		fmt.Fprintf(os.Stderr, "[CRUSH] write error: %v\n", err)
+		logError("[CRUSH] write error: %v\n", err)
 		return 1
 	}
 
@@ -171,7 +171,7 @@ func sendIntent(payload IntentPayload) int {
 	scanner := bufio.NewScanner(conn)
 	if !scanner.Scan() {
 		if err := scanner.Err(); err != nil {
-			fmt.Fprintf(os.Stderr, "[CRUSH] read error: %v\n", err)
+			logError("[CRUSH] read error: %v\n", err)
 		} else {
 			fmt.Fprintln(os.Stderr, "[CRUSH] proxy closed connection without response")
 		}

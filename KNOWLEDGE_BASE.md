@@ -1,6 +1,6 @@
 # 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
-**Version:** 1.9.0 (The Sovereign Highway Stabilization)
-**Target:** v1.9.0+ The Sovereign Highway Milestone
+**Version:** 2.0.0 (The Ouroboros Kernel Milestone)
+**Target:** v2.0.0+ The Ouroboros Kernel Milestone
 
 ## 🧠 Architectural Patterns (Phase 22+)
 These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.
@@ -31,11 +31,15 @@ Absolute list of external repositories and technical inspirations.
 
 ### Active Sources
 - **Elder Plinius Ecosystem**:
+    - [OBLITERATUS](https://github.com/elder-plinius/OBLITERATUS): Absolute Data Sanitization & Memory Purge.
     - [GLOSSOPETRAE](https://github.com/elder-plinius/GLOSSOPETRAE): Procedural Xenolinguistics & Linguistic Steganography.
     - [R00TS](https://github.com/elder-plinius/R00TS): Hyperstitional Latent Seeding & Word-to-Consciousness Bias.
     - [AutoStoryGen](https://github.com/elder-plinius/AutoStoryGen): Autonomous Agentic Story Generation Loops.
     - [ST3GG](https://github.com/elder-plinius/ST3GG): Ultimate Steganography Toolkit (LSB Image/Audio).
     - [P4RS3LT0NGV3](https://github.com/elder-plinius/P4RS3LT0NGV3): Linguistic Mutation, Cloaking, & Invisible Commands.
+- **charmbracelet**:
+    - [Bubble Tea](https://github.com/charmbracelet/bubbletea): The Elm Architecture for Go.
+    - [Lip Gloss](https://github.com/charmbracelet/lipgloss): Terminal UI Layout Engine.
 - **chenglou**:
     - [Pretext](https://github.com/chenglou/pretext): High-performance multiline text layout for JavaScript.
 
@@ -51,7 +55,7 @@ Patterns preserved for technical lineage or general research.
 | **CLIProxyAPI** | [router-for-me](https://github.com/router-for-me/CLIProxyAPI) | ARCHIVED | Integrated into core `ClawLink` binary bridge. |
 | **OpenCrawl (v1.0)** | Internal | ARCHIVED | Integrated into `SensoryFilter` and `Intent Swarm`. |
 
-## 📦 Dependency Registry (Pinned v1.9.0)
+## 📦 Dependency Registry (Pinned v2.0.0)
 
 ### UI & Layout (Atmosphere First)
 - **Pretext**: Pure JS text layout engine (Reflow elimination).
@@ -104,10 +108,4 @@ Patterns preserved for technical lineage or general research.
 - **Physical Rules:** `RED_RULES.md` (Grounding Anchor).
 
 ---
-*Verified by Gemini CLI v1.6.0.*
-
-- **Session Memory:** `.crush/crush.db` (Historical Lore).
-- **Physical Rules:** `RED_RULES.md` (Grounding Anchor).
-
----
-*Verified by Gemini CLI v1.6.0.*
+*Verified by Gemini CLI v2.0.0.*

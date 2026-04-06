@@ -37,7 +37,27 @@ func sealDirectory(dir string, key string) int {
 		if err != nil {
 			return err
 		}
-		if info.IsDir() || !strings.HasSuffix(path, ".md") {
+		if info.IsDir() {
+			return nil
+		}
+
+		// Supported extensions for sealing
+		validExts := []string{".md", ".json", ".png", ".txt"}
+		isSupported := false
+		for _, ext := range validExts {
+			if strings.HasSuffix(path, ext) {
+				// Avoid sealing already sealed files (e.g., .md.png, .json.png, etc.)
+				if !strings.HasSuffix(path, ".md.png") &&
+					!strings.HasSuffix(path, ".json.png") &&
+					!strings.HasSuffix(path, ".txt.png") &&
+					!strings.HasSuffix(path, ".png.png") {
+					isSupported = true
+					break
+				}
+			}
+		}
+
+		if !isSupported {
 			return nil
 		}
 
@@ -56,7 +76,11 @@ func sealDirectory(dir string, key string) int {
 		}
 
 		// 3. Embed into a "Noise Map" PNG
-		cover := createNoiseImage(512, 512) // Larger cover for MD files
+		side := 512
+		for (side * side * 3) / 8 < len(encrypted) + 1024 {
+			side += 512
+		}
+		cover := createNoiseImage(side, side) // Dynamically sized cover
 		outPath := path + ".png"
 		
 		err = St3ggEncodeToPath(cover, encrypted, outPath)
@@ -85,7 +109,20 @@ func openDirectory(dir string, key string) int {
 		if err != nil {
 			return err
 		}
-		if info.IsDir() || !strings.HasSuffix(path, ".md.png") {
+		if info.IsDir() {
+			return nil
+		}
+
+		// Check if it's a sealed file we want to open
+		isSealed := false
+		if strings.HasSuffix(path, ".md.png") ||
+			strings.HasSuffix(path, ".json.png") ||
+			strings.HasSuffix(path, ".txt.png") ||
+			strings.HasSuffix(path, ".png.png") {
+			isSealed = true
+		}
+
+		if !isSealed {
 			return nil
 		}
 
@@ -103,7 +140,7 @@ func openDirectory(dir string, key string) int {
 			return fmt.Errorf("decryption failed for %s (wrong key?): %w", path, err)
 		}
 
-		// 3. Restore .md
+		// 3. Restore original file
 		outPath := strings.TrimSuffix(path, ".png")
 		err = ioutil.WriteFile(outPath, plaintext, 0600)
 		if err != nil {
