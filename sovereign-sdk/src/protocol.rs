@@ -113,6 +113,26 @@ pub struct Proposal {
     pub payload:     [u8; 256],
 }
 
+// ─── Capability Mmap Protocol ────────────────────────────────────────────────
+
+pub const CAPABILITY_MAGIC: &[u8; 16] = b"CAPABILITY-LIST\0";
+pub const CAPABILITY_OFFSET: usize = 8192;
+
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct CapabilityHeader {
+    pub magic: [u8; 16],
+    pub count: u32,
+}
+
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy)]
+pub struct CapabilityRaw {
+    pub id: [u8; 16],
+    pub name: [u8; 32],
+    pub capability_type: [u8; 16],
+}
+
 // ─── SovereignHeader (13 bytes) ──────────────────────────────────────────────
 //
 // `#[repr(C, packed)]` eliminates all padding. On x86-64 unaligned u32 reads

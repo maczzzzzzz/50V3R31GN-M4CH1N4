@@ -27,6 +27,10 @@ const { mockEnable, mockClose, mockCDP, mockClient } = vi.hoisted(() => {
       createStyleSheet: vi.fn().mockResolvedValue({ styleSheetId: 'ss-001' }),
       setStyleSheetText: vi.fn().mockResolvedValue(undefined),
     },
+    Input: {
+      enable: vi.fn().mockResolvedValue(undefined),
+      dispatchMouseEvent: vi.fn().mockResolvedValue(undefined),
+    },
     close,
   };
   const cdp = vi.fn().mockResolvedValue(client) as any;

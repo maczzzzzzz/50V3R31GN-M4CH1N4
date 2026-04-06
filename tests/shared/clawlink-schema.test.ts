@@ -23,15 +23,15 @@ describe('ClawLinkConfigSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('does not include host or port fields in output', () => {
+  it('includes host or port fields in output', () => {
     const result = ClawLinkConfigSchema.safeParse({
       host: '192.168.0.50',
       port: 7878,
     });
     expect(result.success).toBe(true);
     if (result.success) {
-      expect((result.data as Record<string, unknown>)['host']).toBeUndefined();
-      expect((result.data as Record<string, unknown>)['port']).toBeUndefined();
+      expect(result.data.host).toBe('192.168.0.50');
+      expect(result.data.port).toBe(7878);
     }
   });
 });

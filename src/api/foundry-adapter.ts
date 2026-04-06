@@ -92,6 +92,18 @@ export interface IFoundryAdapter {
   runSequence(actions: SequenceAction[]): Promise<void>;
   triggerPretextOverlay(payload: PretextOverlayPayload): Promise<void>;
   /**
+   * Execute an item/action on a Foundry actor.
+   */
+  executeAction(actorId: string, itemId: string): Promise<void>;
+  /**
+   * Trigger a Monks Active Tile in the current scene.
+   */
+  triggerTile(tileId: string): Promise<void>;
+  /**
+   * Play a high-fidelity animation sequence via the Sequencer module.
+   */
+  playSequence(sequenceData: any): Promise<void>;
+  /**
    * Execute raw JavaScript on the Foundry client (script injection).
    */
   runScript(code: string, broadcast?: boolean): Promise<void>;
@@ -370,6 +382,30 @@ export class FoundryAdapter implements IFoundryAdapter {
     });
   }
 
+  async executeAction(actorId: string, itemId: string): Promise<void> {
+    await this.sendCommand({
+      type: 'execute_action',
+      requestId: this.generateRequestId(),
+      payload: { actorId, itemId },
+    });
+  }
+
+  async triggerTile(tileId: string): Promise<void> {
+    await this.sendCommand({
+      type: 'trigger_tile',
+      requestId: this.generateRequestId(),
+      payload: { tileId },
+    });
+  }
+
+  async playSequence(sequenceData: any): Promise<void> {
+    await this.sendCommand({
+      type: 'play_sequence',
+      requestId: this.generateRequestId(),
+      payload: { sequenceData },
+    });
+  }
+
   async runScript(code: string, broadcast: boolean = false): Promise<void> {
     // Phase 28: Visual Sovereignty — Show "LOGIC INTRUSION" during AI script injection
     try {
@@ -542,7 +578,33 @@ export class FoundryAdapter implements IFoundryAdapter {
       return;
     }
 
-    // 4. Fallback for unknown messages
+    // 4. Handle validate_move RPC FROM Bridge
+    const moveParsed = parsed as any;
+    if (moveParsed.type === 'validate_move' && moveParsed.requestId) {
+      logger.info('FoundryAdapter', `Intercepted Move for Validation: ${moveParsed.payload?.tokenId}`);
+      if (this.eventCallback) {
+        const moveEvent = {
+          type: 'validate_move',
+          requestId: moveParsed.requestId,
+          payload: moveParsed.payload,
+          respond: (result: any) => {
+            if (this.clientSocket && this.clientSocket.readyState === WebSocket.OPEN) {
+              this.clientSocket.send(JSON.stringify({
+                type: 'success',
+                requestId: moveParsed.requestId,
+                data: result
+              }));
+            }
+          }
+        };
+        this.eventCallback(moveEvent).catch(err => {
+          logger.error('FoundryAdapter', 'Move validation event callback failed', { error: err.message });
+        });
+      }
+      return;
+    }
+
+    // 5. Fallback for unknown messages
     logger.warn('FoundryAdapter', 'Received unknown or invalid message from Foundry module', {
       raw: raw.slice(0, 200),
     });

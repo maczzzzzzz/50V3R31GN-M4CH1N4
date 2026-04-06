@@ -52,9 +52,17 @@ describe('v1.0.2 Extreme Stress Cycle', () => {
     
     grep = new RulesGrepService(testRulesDir);
     
-    // 2. Setup Node A Handshake
-    clawlink = new ClawLinkClient({ host: '192.168.0.50', port: 7878, timeoutMs: 30000 });
-    await clawlink.connect();
+    // 2. Mock Node A Handshake (avoid remote connection during local tests)
+    clawlink = {
+      connect: vi.fn().mockResolvedValue(undefined),
+      disconnect: vi.fn().mockResolvedValue(undefined),
+      executeRpc: vi.fn().mockImplementation((method, params) => {
+        if (method === 'resolve_math') return Promise.resolve({ result: 17 });
+        return Promise.resolve({});
+      }),
+      isHealthy: vi.fn().mockResolvedValue(true),
+      wsaAudit: vi.fn().mockResolvedValue({ verdict: 'GRANTED', rationale: 'Mocked' }),
+    } as any;
 
     // 3. Setup Orchestrator
     controller = new HybridRoutingController({

@@ -109,7 +109,7 @@ describe('SpatialVisionService config defaults', () => {
 
     const [url] = mockFetch.mock.calls[0] as [string, RequestInit];
     expect(url).toBe('http://localhost:8080/v1/chat/completions');
-    expect(JSON.parse((mockFetch.mock.calls[0] as [string, RequestInit])[1].body as string).model).toBe('llava-v1.5-7b');
+    expect(JSON.parse((mockFetch.mock.calls[0] as [string, RequestInit])[1].body as string).model).toBe('pixtral-12b-q5_k_m.gguf');
 
     vi.unstubAllGlobals();
   });

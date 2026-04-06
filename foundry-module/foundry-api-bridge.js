@@ -32,6 +32,22 @@ const DEFAULT_WS_URL = 'ws://localhost:3010';
 const RECONNECT_DELAY_MS = 5000;
 const MAX_RECONNECT_ATTEMPTS = 10;
 
+/**
+ * Phase 31: Capability Harvesting
+ * Scans controlled tokens for available actions (items) and reports them to Node B.
+ */
+class ActionHarvester {
+  static harvest(token) {
+    if (!token?.actor) return [];
+    return token.actor.items.map(item => ({
+      id: item.id,
+      name: item.name,
+      type: item.type,
+      img: item.img
+    }));
+  }
+}
+
 class FoundryApiBridge {
   constructor() {
     this.ws = null;
@@ -64,9 +80,61 @@ class FoundryApiBridge {
       }
     });
 
+    // Phase 31: Capability Harvesting
+    Hooks.on('controlToken', (token, controlled) => {
+      if (controlled && token.actor) {
+        const items = ActionHarvester.harvest(token);
+        this._sendEvent('capabilities_update', {
+          actorId: token.actor.id,
+          items: items
+        });
+      }
+    });
+
     this._connect(wsUrl);
     this._setupInterception();
+    this._setupCounterHacks();
     window.ASP_BRIDGE = this;
+  }
+
+  /**
+   * Phase 31: Counter-Hacks (Active Defense)
+   * Intercept token movement updates in Foundry and validate them via Node B.
+   */
+  _setupCounterHacks() {
+    const bridge = this;
+    const wrapper = async function(wrapped, ...args) {
+      const [data] = args;
+      if (data.x !== undefined || data.y !== undefined) {
+        console.log(`[${MODULE_ID}] INTERCEPTED MOVE: ${this.id}`);
+        try {
+          const isLegal = await bridge.sendRequest('validate_move', { 
+            actorId: this.actor?.id, 
+            tokenId: this.id,
+            x: data.x !== undefined ? data.x : this.x, 
+            y: data.y !== undefined ? data.y : this.y 
+          });
+
+          if (isLegal && isLegal.verdict === 'INVALID') {
+            console.warn(`[${MODULE_ID}] Movement Blocked: ${isLegal.reason}`);
+            ui.notifications.warn(`Movement Blocked: ${isLegal.reason}`);
+            return null; 
+          }
+        } catch (err) {
+          console.error(`[${MODULE_ID}] Move validation failed, allowing:`, err);
+        }
+      }
+      return wrapped(...args);
+    };
+
+    if (game.modules.get('lib-wrapper')?.active) {
+      libWrapper.register(MODULE_ID, 'TokenDocument.prototype.update', wrapper, 'MIXED');
+    } else {
+      const originalUpdate = TokenDocument.prototype.update;
+      TokenDocument.prototype.update = async function(...args) {
+        return wrapper.call(this, originalUpdate.bind(this), ...args);
+      };
+    }
   }
 
   /**
@@ -306,6 +374,12 @@ class FoundryApiBridge {
         return this._handleRunSequence(command);
       case 'pretext_overlay':
         return this._handlePretextOverlay(command);
+      case 'execute_action':
+        return this._handleExecuteAction(command);
+      case 'trigger_tile':
+        return this._handleTriggerTile(command);
+      case 'play_sequence':
+        return this._handlePlaySequence(command);
       case 'run_script':
         return this._handleRunScript(command);
       default:
@@ -314,6 +388,71 @@ class FoundryApiBridge {
   }
 
   // ── Command handlers ────────────────────────────────────────────────────────
+
+  async _handleExecuteAction({ requestId, payload }) {
+    try {
+      const { actorId, itemId } = payload;
+      const actor = game.actors.get(actorId);
+      const item = actor?.items.get(itemId);
+      if (item) {
+        const result = await item.use();
+        this._sendSuccess(requestId, result ?? null);
+      } else {
+        this._sendError(requestId, "Actor or Item not found");
+      }
+    } catch (err) {
+      console.error(`[${MODULE_ID}] execute_action failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handleTriggerTile({ requestId, payload }) {
+    try {
+      const { tileId } = payload;
+      const tile = canvas.tiles.get(tileId);
+      if (tile) {
+        // Monks Active Tile Trigger
+        const result = await tile.trigger();
+        this._sendSuccess(requestId, result ?? null);
+      } else {
+        this._sendError(requestId, "Tile not found");
+      }
+    } catch (err) {
+      console.error(`[${MODULE_ID}] trigger_tile failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
+
+  async _handlePlaySequence({ requestId, payload }) {
+    try {
+      if (!game.modules.get('sequencer')?.active) {
+        this._sendError(requestId, "Sequencer module not active");
+        return;
+      }
+      // sequenceData is expected to be a serialized sequence or raw JS
+      // For now, we'll support a simple eval or a specific structure
+      // Let's assume sequenceData is a string of code that returns a Sequence object
+      const { sequenceData } = payload;
+      let seq;
+      if (typeof sequenceData === 'string') {
+        seq = new Function('Sequence', 'return ' + sequenceData)(Sequence);
+      } else {
+        // Fallback or specific object handling
+        seq = new Sequence();
+        // (Add logic for structured data if needed)
+      }
+      
+      if (seq instanceof Sequence) {
+        await seq.play();
+        this._sendSuccess(requestId, null);
+      } else {
+        this._sendError(requestId, "Invalid sequence data");
+      }
+    } catch (err) {
+      console.error(`[${MODULE_ID}] play_sequence failed:`, err);
+      this._sendError(requestId, err.message ?? String(err));
+    }
+  }
 
   async _handleRunScript({ requestId, payload }) {
     try {

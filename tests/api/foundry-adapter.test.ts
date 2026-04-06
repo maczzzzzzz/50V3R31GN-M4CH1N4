@@ -546,4 +546,72 @@ describe('FoundryAdapter', () => {
       await expect(adapter.advancePhase(null, 1)).rejects.toThrow('not connected');
     });
   });
+
+  // ── executeAction ───────────────────────────────────────────────────────────
+
+  describe('executeAction()', () => {
+    it('sends an execute_action command with actorId and itemId', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.executeAction('actor-123', 'item-456');
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+
+      expect(cmd.type).toBe('execute_action');
+      const payload = cmd.payload as { actorId: string; itemId: string };
+      expect(payload.actorId).toBe('actor-123');
+      expect(payload.itemId).toBe('item-456');
+
+      sendResponse(cmd.requestId as string);
+      await expect(promise).resolves.toBeUndefined();
+    });
+  });
+
+  // ── triggerTile ─────────────────────────────────────────────────────────────
+
+  describe('triggerTile()', () => {
+    it('sends a trigger_tile command with tileId', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
+      await new Promise(r => setTimeout(r, 50));
+
+      const promise = adapter.triggerTile('tile-789');
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+
+      expect(cmd.type).toBe('trigger_tile');
+      const payload = cmd.payload as { tileId: string };
+      expect(payload.tileId).toBe('tile-789');
+
+      sendResponse(cmd.requestId as string);
+      await expect(promise).resolves.toBeUndefined();
+    });
+  });
+
+  // ── playSequence ────────────────────────────────────────────────────────────
+
+  describe('playSequence()', () => {
+    it('sends a play_sequence command with sequenceData', async () => {
+      await adapter.start(TEST_PORT);
+      const { sendResponse, receivedMessages } = await connectMockFoundry(TEST_PORT, adapter.getHandshakeToken());
+      await new Promise(r => setTimeout(r, 50));
+
+      const seqData = "new Sequence().effect().file('fx.webm').at(token).play()";
+      const promise = adapter.playSequence(seqData);
+
+      await waitForMessages(receivedMessages, 1);
+      const cmd = receivedMessages[0];
+
+      expect(cmd.type).toBe('play_sequence');
+      const payload = cmd.payload as { sequenceData: any };
+      expect(payload.sequenceData).toBe(seqData);
+
+      sendResponse(cmd.requestId as string);
+      await expect(promise).resolves.toBeUndefined();
+    });
+  });
 });

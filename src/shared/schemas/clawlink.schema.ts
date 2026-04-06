@@ -107,6 +107,10 @@ export const ClawLinkConfigSchema = z.object({
    * Proxy must be started with `crush proxy` before connecting.
    */
   socketPath: z.string().min(1).default('/run/crush/clawlink.sock'),
+  /** Host for TCP connection (testing/remote) */
+  host: z.string().optional(),
+  /** Port for TCP connection (testing/remote) */
+  port: z.number().int().optional(),
   /** Per-request RPC timeout in milliseconds (default: 5000). */
   timeoutMs: z.number().int().min(1).optional(),
 });

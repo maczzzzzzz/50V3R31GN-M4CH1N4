@@ -242,6 +242,10 @@ export class HybridRoutingController {
       return this.handleAuditRequest(event);
     }
 
+    if (event.type === 'validate_move') {
+      return this.handleMoveValidation(event);
+    }
+
     switch (event.type as string) {
       case 'resolve_attack':
         return this.handleResolveAttack(event.payload, event.payload.spatial);
@@ -267,6 +271,13 @@ export class HybridRoutingController {
       }
       case 'read_actor':
         return this.foundry.readActor(event.payload.actorId);
+      case 'capabilities_update': {
+        const p = event.payload;
+        if (this.sharedMemory) {
+          this.sharedMemory.writeCapabilities(p.actorId, p.capabilities);
+        }
+        return;
+      }
       case 'buy_item':
         return this.handleBuyItem(event.payload);
       case 'approval_response':
@@ -866,6 +877,85 @@ export class HybridRoutingController {
       console.error('[HRC] Steganography decoding failed:', err);
       return { secret: "ERROR: Data corruption. Decryption failed." };
     }
+  }
+
+  /**
+   * Phase 31: Counter-Hacks (Active Defense)
+   * Intercept token movement updates in Foundry and validate them via Node B.
+   */
+  private async handleMoveValidation(event: { requestId: string, payload: { actorId: string, tokenId: string, x: number, y: number }, respond: (res: any) => void }): Promise<void> {
+    const { tokenId, x, y } = event.payload;
+    console.log(`[HRC] Validating Move for token: ${tokenId} to {${x}, ${y}}`);
+
+    // 1. Basic "Active Defense" rule: Teleport Hack detection
+    // We check against the last known position in Radar (Shared Memory or Oracle)
+    let currentX = x;
+    let currentY = y;
+    let found = false;
+
+    if (this.sharedMemory) {
+      const radar = this.sharedMemory.readWorldState();
+      const blip = radar.find((b: any) => b.id === tokenId);
+      if (blip) {
+        currentX = blip.x;
+        currentY = blip.y;
+        found = true;
+      }
+    }
+
+    // Fallback to Oracle if not in Shared Memory
+    if (!found && this.unifiedOracle?.isConnected()) {
+      const rows = this.unifiedOracle.query('SELECT x, y FROM radar WHERE id = ?', [tokenId]) as any[];
+      if (rows.length > 0) {
+        currentX = rows[0].x;
+        currentY = rows[0].y;
+        found = true;
+      }
+    }
+
+    if (found) {
+      const dx = x - currentX;
+      const dy = y - currentY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance > 1000) {
+        event.respond({
+          verdict: 'INVALID',
+          reason: `Teleport Hack Detected: Movement of ${Math.round(distance)} units exceeds the 1000-unit limit.`
+        });
+        return;
+      }
+    }
+
+    // 2. Restricted Region check (Stub: x > 5000 is restricted)
+    if (x > 5000) {
+      event.respond({
+        verdict: 'INVALID',
+        reason: 'Restricted Region: You do not have authorization to enter this sector.'
+      });
+      return;
+    }
+
+    // 3. Fallback to Node A mechanical validation if available
+    if (this.vsb) {
+      const payloadStr = JSON.stringify({
+        action: 'validate_move',
+        tokenId,
+        target: { x, y },
+        current: found ? { x: currentX, y: currentY } : null
+      });
+
+      const validation = await this.validateMechanicalIntent(payloadStr);
+      if (validation && !validation.valid) {
+        event.respond({
+          verdict: 'INVALID',
+          reason: `Sovereign Veto: Movement rejected by Node A Reasoner (Code ${validation.code}).`
+        });
+        return;
+      }
+    }
+
+    event.respond({ verdict: 'VALID' });
   }
 
   /**

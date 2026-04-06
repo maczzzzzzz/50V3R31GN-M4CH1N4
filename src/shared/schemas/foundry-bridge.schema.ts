@@ -263,6 +263,32 @@ export const UpdateActorPayloadSchema = z.object({
 });
 
 /**
+ * Execute an item/action on a Foundry actor.
+ */
+export const ExecuteActionPayloadSchema = z.object({
+  /** The Foundry document id of the actor. */
+  actorId: z.string().min(1),
+  /** The Foundry document id of the item/action. */
+  itemId: z.string().min(1),
+});
+
+/**
+ * Trigger a Monks Active Tile in the current scene.
+ */
+export const TriggerTilePayloadSchema = z.object({
+  /** The Foundry document id of the tile. */
+  tileId: z.string().min(1),
+});
+
+/**
+ * Play a high-fidelity animation sequence via the Sequencer module.
+ */
+export const PlaySequencePayloadSchema = z.object({
+  /** The raw sequence data to be interpreted by the bridge. */
+  sequenceData: z.unknown(),
+});
+
+/**
  * Queue a change for human (GM) approval.
  */
 export const QueueApprovalPayloadSchema = z.object({
@@ -368,6 +394,24 @@ export const Show3dDiceCommandSchema = z.object({
   payload: Show3dDicePayloadSchema,
 });
 
+export const ExecuteActionCommandSchema = z.object({
+  type: z.literal('execute_action'),
+  requestId: RequestIdSchema,
+  payload: ExecuteActionPayloadSchema,
+});
+
+export const TriggerTileCommandSchema = z.object({
+  type: z.literal('trigger_tile'),
+  requestId: RequestIdSchema,
+  payload: TriggerTilePayloadSchema,
+});
+
+export const PlaySequenceCommandSchema = z.object({
+  type: z.literal('play_sequence'),
+  requestId: RequestIdSchema,
+  payload: PlaySequencePayloadSchema,
+});
+
 /** Query the list of available scenes in the world. */
 export const QueryScenesPayloadSchema = z.object({
   /** Optional filter by name. */
@@ -421,6 +465,9 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   RunSequenceCommandSchema,
   PretextOverlayCommandSchema,
   RunScriptCommandSchema,
+  ExecuteActionCommandSchema,
+  TriggerTileCommandSchema,
+  PlaySequenceCommandSchema,
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
   SpawnSoloSafeNpcCommandSchema,
@@ -671,6 +718,39 @@ export const ThoughtStreamEventSchema = z.object({
   }),
 });
 
+/**
+ * Phase 31: Capability Harvesting
+ * Reported when a token is controlled, listing all items/actions available to that actor.
+ */
+export const CapabilitySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.string(),
+  img: z.string().optional()
+});
+
+export const CapabilitiesUpdateEventSchema = z.object({
+  type: z.literal('capabilities_update'),
+  payload: z.object({
+    actorId: z.string(),
+    items: z.array(CapabilitySchema)
+  })
+});
+
+/**
+ * Phase 31: Counter-Hacks (Active Defense)
+ * Intercept token movement updates in Foundry and validate them via Node B.
+ */
+export const ValidateMoveEventSchema = z.object({
+  type: z.literal('validate_move'),
+  payload: z.object({
+    actorId: z.string().min(1),
+    tokenId: z.string().min(1),
+    x: z.number(),
+    y: z.number(),
+  }),
+});
+
 /** All valid inbound events from Foundry → Node B (HybridRoutingController input). */
 export const FoundryEventSchema = z.discriminatedUnion('type', [
   ResolveAttackEventSchema,
@@ -690,6 +770,8 @@ export const FoundryEventSchema = z.discriminatedUnion('type', [
   NpcTurnEventSchema,
   ThoughtStreamEventSchema,
   AuditLibraryEventSchema,
+  CapabilitiesUpdateEventSchema,
+  ValidateMoveEventSchema,
 ]);
 
 /**
