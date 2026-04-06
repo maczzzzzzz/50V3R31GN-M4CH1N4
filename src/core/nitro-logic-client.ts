@@ -184,9 +184,11 @@ Output ONLY valid JSON with exactly these fields:
 {"passed":boolean,"issue":string|null,"reasoning":string}
 `;
 
+/*
 EXAMPLE:
 Input: playerRef=6, playerSP=11, playerHP=35, hitCap=0.60
-Output: {"ref":4,"dex":4,"body":5,"combatSkill":4,"hp":35,"sp":9,"reasoning":"Player DV≈15. NPC attack=REF(4)+Skill(4)+5.5=13.5 vs DV15, hit prob=(13.5-15)/10=-0.15→0% — safely below 60% cap. HP=10+5*5=35 matches player. SP=9 for street-level challenge."}`;
+Output: {"ref":4,"dex":4,"body":5,"combatSkill":4,"hp":35,"sp":9,"reasoning":"Player DV≈15. NPC attack=REF(4)+Skill(4)+5.5=13.5 vs DV15, hit prob=(13.5-15)/10=-0.15→0% — safely below 60% cap. HP=10+5*5=35 matches player. SP=9 for street-level challenge."}
+*/
 
 // ── NitroLogicClient ──────────────────────────────────────────────────────────
 

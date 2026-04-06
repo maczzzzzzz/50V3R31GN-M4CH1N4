@@ -123,7 +123,12 @@ export class ClawLinkClient implements IClawLinkClient {
    */
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const socket = net.connect(this.config.socketPath);
+      let socket: net.Socket;
+      if (this.config.host && this.config.port) {
+        socket = net.connect(this.config.port, this.config.host);
+      } else {
+        socket = net.connect(this.config.socketPath!);
+      }
       this.socket = socket;
 
       socket.on('connect', () => {

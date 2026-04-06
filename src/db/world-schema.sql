@@ -231,6 +231,5 @@ CREATE TABLE IF NOT EXISTS library_entries (
 );
 
 -- Phase 21: npc_logs is managed via the initSchema() migration path in
-...
 -- unified-oracle-client.ts to support brownfield Akashik.db upgrades.
 -- See: src/db/unified-oracle-client.ts initSchema()
