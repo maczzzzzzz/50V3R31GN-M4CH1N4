@@ -1,29 +1,39 @@
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４ // G1716N0R3
+
 # Dependencies
 node_modules/
+.venv/
+__pycache__/
 
 # Build & Runtime Output
 dist/
 build/
 coverage/
+**/target/
+**/*.exe
+**/*.bin
+**/*.o
+**/*.a
+**/*.so
+**/*.dll
+**/*.dylib
 
-# Environment & Secrets
+# Environment & Secrets (MANDATORY BLOCK)
 .env
 .env.*
 !.env.example
 
+# --- 7H3-V4UL7 (Steganographic Shards) ---
+# We block the .png shards from being tracked to keep the remote "clean"
+# and force local-only vault residency for maximum security.
+docs/**/*.md.png
+.vesper_state
+
 # --- Project Specific Data (Surgical) ---
-# Block all raw data by default to catch PDFs...
 docs/raw_data/*
-# ...but explicitly allow the lightweight JSON modules for disaster recovery
 !docs/raw_data/campaign_ttta/
 !docs/raw_data/entities_mooks/
-
 docs/rulebooks_raw/
-
-# Ignore everything in superpowers EXCEPT our blueprints
-docs/superpowers/*
-!docs/superpowers/plans/
-!docs/superpowers/specs/
 
 # IDE & OS Files
 .vscode/
@@ -32,7 +42,7 @@ docs/superpowers/*
 .DS_Store
 Thumbs.db
 
-# logs
+# Logs
 logs/
 !logs/**/.gitkeep
 *.log
@@ -47,44 +57,22 @@ data/
 *.db-wal
 *.mem
 *.ghost
-.vesper_state
 
-# Claude Code Session Data
+# Claude/Gemini Session Data
 .claude/
+.gemini/
 
-# Example Proposals
-night market ttta proposal/
-
-# Git Worktrees
+# Git Infrastructure
 .worktrees/
-
-# --- Languages & Build Tools ---
-**/target/
-**/*.exe
-**/*.bin
-**/*.o
-**/*.a
-**/*.so
-**/*.dll
-**/*.dylib
 .direnv/
 .envrc
 flake.lock.bak
 
-# --- System & Sidecars ---
-sidecar-atlas/target/
-sidecar-cyberdeck/target/
-sidecar-netrunning/target/
-zeroclaw/target/
+# System & Sidecars
 crush/crush
-crush/crush.exe
 deck-igniter/deck-igniter
-dist/
 
-# --- Development Artifacts ---
-Modelfile.test
-docs/audits/temp_*
-.worktrees/
+# Models
 *.gguf
 *.onnx
 *.onnx.data
