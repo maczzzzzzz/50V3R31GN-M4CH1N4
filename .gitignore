@@ -64,7 +64,9 @@ data/
 *.ghost
 
 # Claude/Gemini Session Data
+.claude
 .claude/
+.gemini
 .gemini/
 narrative_seed_data/
 
