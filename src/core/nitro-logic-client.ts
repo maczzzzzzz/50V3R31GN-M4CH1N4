@@ -21,6 +21,7 @@ const NitroLogicConfigSchema = z.object({
   model: z.string().min(1, 'model must not be empty'),
   timeoutMs: z.number().int().min(1, 'timeoutMs must be >= 1'),
   seed: z.number().int(),
+  aaakPrefix: z.string().optional(),
 });
 
 // ── OpenAI-compatible response envelope ───────────────────────────────────────
@@ -364,10 +365,16 @@ export class NitroLogicClient implements INitroLogicClient {
   ): Promise<string> {
     const url = `${this.config.baseUrl}/chat/completions`;
 
-    const payload = {
+    // Phase 34: AAAK prefix caching — prepend identity block to system prompt
+    // and request KV cache reuse so llama-server processes this prefix at 0ms.
+    const effectiveSystem = this.config.aaakPrefix
+      ? `${this.config.aaakPrefix}\n${systemPrompt}`
+      : systemPrompt;
+
+    const payload: Record<string, unknown> = {
       model: this.config.model,
       messages: [
-        { role: 'system', content: systemPrompt },
+        { role: 'system', content: effectiveSystem },
         { role: 'user', content: userContent },
       ],
       temperature: 0.0,
@@ -375,6 +382,7 @@ export class NitroLogicClient implements INitroLogicClient {
       top_p: 1.0,
       seed: this.config.seed,
       response_format: { type: 'json_object' },
+      ...(this.config.aaakPrefix ? { cache_prompt: true } : {}),
     };
 
     let response: Response;

@@ -40,6 +40,13 @@ export interface NitroLogicConfig {
   readonly clawlinkClient?: {
     executeRpc<T>(method: string, params: Record<string, unknown>): Promise<T>;
   } | undefined;
+  /**
+   * Phase 34 — AAAK prefix prompt for llama-server KV cache residency.
+   * When set, this string is prepended to every system message and
+   * `cache_prompt: true` is sent so llama-server pre-computes and caches
+   * the KV state for this common prefix (0ms latency on subsequent calls).
+   */
+  readonly aaakPrefix?: string | undefined;
 }
 
 // ── Input parameter types ─────────────────────────────────────────────────────
