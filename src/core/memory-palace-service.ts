@@ -5,6 +5,7 @@
  *   - Wings   → broad context buckets (DISTRICT, FACTION, PLAYER)
  *   - Rooms   → high-density Points of Interest within a Wing
  *   - Tunnels → logical cross-reference links between Wings/Rooms
+ *   - Drawer  → verbatim ChromaDB storage of session exchanges (L3)
  *
  * The active room context is written to `data/palace_context.json` so that
  * all sidecars can read which Wing/Room is currently loaded without going
@@ -14,6 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { ChromaClient, type Collection } from 'chromadb';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -55,9 +57,75 @@ export interface PalaceContext {
   updatedAt: string;
 }
 
-// ── Service ───────────────────────────────────────────────────────────────────
+export interface DrawerEntry {
+  id: string;
+  document: string;
+  roomId: string;
+  wingId: string;
+  timestamp: string;
+  distance?: number;
+}
+
+export interface DrawerConfig {
+  /** Base URL of the ChromaDB HTTP server, e.g. http://localhost:8000 */
+  chromaUrl: string;
+  /** Base URL of the llama-server /v1 endpoint for embeddings */
+  embeddingBaseUrl: string;
+  /** Embedding model name, e.g. nomic-embed-text */
+  embeddingModel: string;
+}
+
+// ── OBLITERATUS Sanitizer ─────────────────────────────────────────────────────
+// Strip prompt-injection patterns before storing verbatim logs in the Drawer.
+
+const INJECTION_PATTERNS = [
+  /<\|im_start\|>[\s\S]*?<\|im_end\|>/g,   // ChatML tokens
+  /<s>[\s\S]*?<\/s>/g,                       // Llama BOS/EOS
+  /\[INST\][\s\S]*?\[\/INST\]/g,             // Llama instruction tags
+  /<<SYS>>[\s\S]*?<\/SYS>>/g,               // System tags
+  /###\s*(System|Human|Assistant):/gi,        // Markdown-style role markers
+];
+
+function obliteratus(text: string): string {
+  let sanitized = text;
+  for (const pattern of INJECTION_PATTERNS) {
+    sanitized = sanitized.replace(pattern, '[REDACTED]');
+  }
+  return sanitized.trim();
+}
+
+// ── Llama-server Embedding Function (ChromaDB v3 EmbeddingFunction interface) ─
+
+class LlamaEmbeddingFunction {
+  private readonly baseUrl: string;
+  private readonly model: string;
+
+  constructor(baseUrl: string, model: string) {
+    this.baseUrl = baseUrl;
+    this.model = model;
+  }
+
+  async generate(texts: string[]): Promise<number[][]> {
+    const response = await fetch(`${this.baseUrl}/embeddings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: this.model, input: texts }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!response.ok) {
+      throw new Error(`[Drawer] Embedding request failed: HTTP ${response.status}`);
+    }
+    const json = await response.json() as { data: Array<{ embedding: number[]; index: number }> };
+    return json.data.sort((a, b) => a.index - b.index).map(d => d.embedding);
+  }
+}
+
+// ── Constants ─────────────────────────────────────────────────────────────────
 
 const CONTEXT_FILE = 'data/palace_context.json';
+const DRAWER_COLLECTION = 'sovereign_drawer';
+
+// ── Service ───────────────────────────────────────────────────────────────────
 
 export class MemoryPalaceService {
   private readonly oracle: UnifiedOracleClient;
@@ -69,8 +137,93 @@ export class MemoryPalaceService {
     updatedAt: new Date().toISOString(),
   };
 
+  // Drawer (ChromaDB) — initialized lazily via initDrawer()
+  private chroma: ChromaClient | null = null;
+  private drawer: Collection | null = null;
+  private embedFn: LlamaEmbeddingFunction | null = null;
+
   constructor(oracle: UnifiedOracleClient) {
     this.oracle = oracle;
+  }
+
+  /**
+   * Initialize the ChromaDB Drawer. Must be called before mineExchange() or queryDrawer().
+   * Silently degrades if ChromaDB is unavailable — the Palace will still function
+   * without the Drawer (Wings/Rooms/Tunnels remain operational).
+   */
+  async initDrawer(config: DrawerConfig): Promise<void> {
+    try {
+      this.embedFn = new LlamaEmbeddingFunction(config.embeddingBaseUrl, config.embeddingModel);
+      this.chroma = new ChromaClient({ path: config.chromaUrl });
+      this.drawer = await this.chroma.getOrCreateCollection({
+        name: DRAWER_COLLECTION,
+        embeddingFunction: this.embedFn,
+        metadata: { 'hnsw:space': 'cosine' },
+      });
+      process.stdout.write(`[MemoryPalace] Drawer online: ${DRAWER_COLLECTION} @ ${config.chromaUrl}\n`);
+    } catch (err) {
+      process.stderr.write(`[MemoryPalace] Drawer unavailable (ChromaDB not running?): ${err}\n`);
+      this.drawer = null;
+    }
+  }
+
+  /**
+   * Mine a verbatim exchange into the Drawer, tagged with current Palace context.
+   * OBLITERATUS sanitization is applied to both turns before storage.
+   */
+  async mineExchange(userTurn: string, assistantTurn: string): Promise<void> {
+    if (!this.drawer) return;
+
+    const { roomId, wingId } = this.activeContext;
+    if (!roomId || !wingId) {
+      process.stderr.write('[MemoryPalace] mineExchange skipped: no active room context\n');
+      return;
+    }
+
+    const safeUser = obliteratus(userTurn);
+    const safeAssistant = obliteratus(assistantTurn);
+    const document = `USER: ${safeUser}\nASSISTANT: ${safeAssistant}`;
+
+    await this.drawer.add({
+      ids: [randomUUID()],
+      documents: [document],
+      metadatas: [{ roomId, wingId, timestamp: new Date().toISOString() }],
+    });
+  }
+
+  /**
+   * Query the Drawer for semantically similar exchanges.
+   * Optionally scoped to a specific roomId for context precision.
+   */
+  async queryDrawer(query: string, roomId?: string, limit = 5): Promise<DrawerEntry[]> {
+    if (!this.drawer) return [];
+
+    const where = roomId ? ({ roomId } as Record<string, string>) : undefined;
+
+    const results = await this.drawer.query({
+      queryTexts: [query],
+      nResults: limit,
+      ...(where ? { where } : {}),
+      include: ['documents', 'metadatas', 'distances'] as any,
+    });
+
+    const ids = results.ids[0] ?? [];
+    const docs = results.documents[0] ?? [];
+    const metas = results.metadatas[0] ?? [];
+    const dists = (results.distances?.[0]) ?? [];
+
+    return ids.map((id, i): DrawerEntry => {
+      const dist = dists[i];
+      const entry: DrawerEntry = {
+        id,
+        document: docs[i] ?? '',
+        roomId: (metas[i] as any)?.roomId ?? '',
+        wingId: (metas[i] as any)?.wingId ?? '',
+        timestamp: (metas[i] as any)?.timestamp ?? '',
+      };
+      if (dist != null) entry.distance = dist;
+      return entry;
+    });
   }
 
   // ── Wings ─────────────────────────────────────────────────────────────────
