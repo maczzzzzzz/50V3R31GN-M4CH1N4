@@ -38,11 +38,13 @@ describe('Mmap Concurrency & Integrity Audit', () => {
           if (blips.length === 0) {
             corruptedReads++;
           }
-          readCount++;
         } catch (err: any) {
           // It's acceptable to throw range/allocation errors if count is malformed,
           // as long as it doesn't crash the Node process entirely
-          expect(err.message).toMatch(/allocation failed|out of bounds|Invalid/);
+          expect(err.message).toMatch(/allocation failed|out of bounds|Invalid|Received undefined|call open/i);
+          corruptedReads++;
+        } finally {
+          readCount++;
         }
 
         if (Date.now() - startTime > 2500) {

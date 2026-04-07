@@ -4,7 +4,6 @@ use std::time::Duration;
 
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
 const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
-const RED: Color32 = Color32::from_rgb(0xff, 0x20, 0x20);
 const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
 fn dim_cyan() -> Color32 { Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60) }
 

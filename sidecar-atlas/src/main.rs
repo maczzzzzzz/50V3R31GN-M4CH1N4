@@ -11,7 +11,6 @@ use std::time::Duration;
 
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
 const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
-const RED: Color32 = Color32::from_rgb(0xff, 0x20, 0x20);
 const GREEN: Color32 = Color32::from_rgb(0x20, 0xff, 0x60);
 
 // ─── GhostBlip type constants ─────────────────────────────────────────────────
@@ -387,22 +386,28 @@ impl eframe::App for AtlasApp {
             }
 
             // ── Status bar ────────────────────────────────────────────────────
-            let status = if let Some(err) = &self.last_error {
-                err.clone()
+            if let Some(err) = &self.last_error {
+                painter.text(
+                    rect.left_bottom() + egui::vec2(5.0, -5.0),
+                    egui::Align2::LEFT_BOTTOM,
+                    err.as_str(),
+                    FontId::monospace(12.0),
+                    RED,
+                );
             } else {
-                format!(
+                let status = format!(
                     ":/47L45-D43M0N // 5747U5: 4C71V3 | 7X: {} | 6H0575: {}",
                     self.transaction_counter,
-                    ghost_blips.len()
-                )
-            };
-            painter.text(
-                rect.left_bottom() + egui::vec2(5.0, -5.0),
-                egui::Align2::LEFT_BOTTOM,
-                status,
-                FontId::monospace(12.0),
-                RED,
-            );
+                    self.ghost_blips.len()
+                );
+                painter.text(
+                    rect.left_bottom() + egui::vec2(5.0, -5.0),
+                    egui::Align2::LEFT_BOTTOM,
+                    status,
+                    FontId::monospace(12.0),
+                    RED,
+                );
+            }
         });
     }
 }
