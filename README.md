@@ -21,7 +21,7 @@ A hardware-native, vision-integrated, and **physically autonomous** entity.
 
 ### :/N0D3-B : 7H3-D1R3C70R //
 - **C0R3:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
-- **BR41N:** Pixtral-12B (VLM + Reasoner)
+- **BR41N:** Mistral-Nemo-12B (48L173R473D Reasoner) + Pixtral Vision
 - **PR0XY:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
 - **R0L3:** Narrative Sovereignty & High-Concurrency Orchestration.
 
