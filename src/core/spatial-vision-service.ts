@@ -110,16 +110,25 @@ export class SpatialVisionService {
   }
 
   async analyzeWithLlava(base64Image: string): Promise<VisualTacticalContext> {
-    const data = await this.callVlm(ANALYSIS_PROMPT, base64Image);
-    const content = data.choices[0]?.message.content ?? '';
-
     try {
-      return JSON.parse(content) as VisualTacticalContext;
-    } catch {
+      const data = await this.callVlm(ANALYSIS_PROMPT, base64Image);
+      const content = data.choices[0]?.message.content ?? '';
+
+      try {
+        return JSON.parse(content) as VisualTacticalContext;
+      } catch {
+        return {
+          tokenClusters: [],
+          environmentalFeatures: [],
+          rawDescription: content,
+        };
+      }
+    } catch (error) {
+      console.warn(`[SpatialVisionService] VLM Inference Failed: ${(error as Error).message}`);
       return {
         tokenClusters: [],
         environmentalFeatures: [],
-        rawDescription: content,
+        rawDescription: 'VLM Analysis Unavailable',
       };
     }
   }
