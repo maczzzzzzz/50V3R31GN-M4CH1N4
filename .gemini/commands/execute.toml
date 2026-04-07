@@ -1,6 +1,0 @@
-﻿description = "Implementation Mode: Executes an approved plan with TDD."
-prompt = """
-Execute the approved plan: {{args}}
-Adhere to the 'No Creep' contract. Ensure ESM TypeScript and Zod validation.
-Run tests after every file change. Use Node A (.50) for DB operations.
-"""
