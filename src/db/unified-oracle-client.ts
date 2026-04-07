@@ -152,6 +152,11 @@ export class UnifiedOracleClient {
     const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
     this.db.exec(schema);
 
+    // ── Phase 34 Migration: Memory Palace ────────────────────────────────────
+    // Idempotent — safe to run against any existing DB (pre-Phase 34 or fresh).
+    const palaceSchema = fs.readFileSync('src/db/palace-schema.sql', 'utf8');
+    this.db.exec(palaceSchema);
+
     // ── Phase 21 Migration: NPC Life-Path Logs ────────────────────────────────
     // Idempotent — safe to run against any existing DB (pre-Phase 21 or fresh).
     this.db.exec(`
