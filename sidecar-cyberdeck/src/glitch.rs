@@ -57,7 +57,7 @@ impl GlitchEngine {
             let color = if self.intensity > 0.7 {
                 Color32::from_rgba_unmultiplied(0xff, 0x20, 0x20, alpha)
             } else {
-                Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, alpha)
+                Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, alpha)
             };
             painter.circle_filled(Pos2::new(rx, ry), 1.5, color);
         }
@@ -73,7 +73,7 @@ impl GlitchEngine {
                 let shift = (t * 7.0 + i as f32 * 33.3).sin() * self.intensity * 20.0;
                 let alpha: u8 = (self.intensity * 60.0) as u8;
                 let slice_color =
-                    Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, alpha);
+                    Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, alpha);
                 let band_rect = Rect::from_min_max(
                     Pos2::new(rect.left() + shift, band_y),
                     Pos2::new(rect.right() + shift, band_y + band_h),

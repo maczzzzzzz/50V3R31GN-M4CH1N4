@@ -154,18 +154,12 @@
 - [x] **Counter-Hack Logic:** Enable AI "Active Defense" to intercept and modify player triggers in real-time.
 - [x] **Physicalized Moods:** Sync Egui glitch intensity directly to the Netrun "Depth" and "Intrusion" state.
 
-## 🔒 PHASE 32: 7H3-0B51D14N-V4UL7 (IN PROGRESS)
+## ✅ PHASE 32: 7H3-0B51D14N-V4UL7 (COMPLETED)
 **Goal:** Physically hide project documentation inside campaign assets using encrypted steganography.
 - [x] **Crypto Integration:** Added AES-256-GCM encryption/decryption to the `crush` tool.
 - [x] **Vault Subcommand:** Implemented `crush vault seal` and `crush vault open` for automated steganographic doc protection.
-- [ ] **Cold Storage:** Migrate all non-essential research and legacy specs into the vault.
-- [ ] **Key Protocol:** Establish `SOVEREIGN_KEY` environment requirement for agentic doc access.
+- [x] **Cold Storage:** Migrate all non-essential research and legacy specs into the vault.
+- [x] **Key Protocol:** Establish `SOVEREIGN_KEY` environment requirement for agentic doc access.
 
-## 🌌 PHASE 33: 7H3-6H057-R3P05170RY (NORTH STAR)
-**Goal:** Transmute the entire codebase into encrypted steganography, materializing only through a sovereign handshake.
-- [ ] **The Seed:** Implement the dual-identity `.gitignore` (Git Config + Go Bootstrap).
-- [ ] **Sharded Hive:** Implement source code sharding and AES-256-GCM embedding into high-res PNGs.
-- [ ] **The Phoenix Protocol:** Link repository materialization to automated Nix Flake environment reconstruction.
-- [ ] **Total Invisibility:** Achieve a repository state where zero cleartext logic exists on the remote.
 
 *Roadmap Managed by Gemini CLI (Strategist).*

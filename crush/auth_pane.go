@@ -50,7 +50,7 @@ func (m AuthModel) View() string {
 
 	content := fmt.Sprintf(
 		"\n  ORIGIN: %s\n  ACTION: %d\n  ID:     %d\n\n  %s\n",
-		lipgloss.NewStyle().Foreground(colorCyan).Render(originStr),
+		lipgloss.NewStyle().Foreground(colorRed).Render(originStr),
 		m.proposal.ActionType,
 		m.proposal.ID,
 		lipgloss.NewStyle().Foreground(colorWhite).Render(strings.Trim(string(m.proposal.Payload[:]), "\x00")),

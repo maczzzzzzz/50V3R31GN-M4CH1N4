@@ -244,20 +244,20 @@ describe('VisualMonitorService', () => {
     beforeEach(async () => { await service.connect(); });
 
     it('gets the frame tree to obtain frameId', async () => {
-      await service.injectCSS('body { color: #00f3ff; }');
+      await service.injectCSS('body { color: #ff003c; }');
       expect(mockClient.Page.getFrameTree).toHaveBeenCalled();
     });
 
     it('creates a stylesheet in the correct frame', async () => {
-      await service.injectCSS('body { color: #00f3ff; }');
+      await service.injectCSS('body { color: #ff003c; }');
       expect(mockClient.CSS.createStyleSheet).toHaveBeenCalledWith({ frameId: 'frame-001' });
     });
 
     it('sets the stylesheet text to the provided CSS', async () => {
-      await service.injectCSS('body { color: #00f3ff; }');
+      await service.injectCSS('body { color: #ff003c; }');
       expect(mockClient.CSS.setStyleSheetText).toHaveBeenCalledWith({
         styleSheetId: 'ss-001',
-        text: 'body { color: #00f3ff; }',
+        text: 'body { color: #ff003c; }',
       });
     });
 

@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS library_entries (
 -- unified-oracle-client.ts to support brownfield Akashik.db upgrades.
 -- See: src/db/unified-oracle-client.ts initSchema()
 
--- Phase 33: District DNA (The Roots Layer)
+-- District DNA (The Roots Layer)
 -- Stores hostility baselines and lore fragments for the Black-Ice Reality Engine
 CREATE TABLE IF NOT EXISTS district_dna (
     id TEXT PRIMARY KEY,

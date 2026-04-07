@@ -439,7 +439,7 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   async streamThoughtTokens(content: string, onToken: (token: string) => void): Promise<void> {
     const endpoint = process.env['VLM_ENDPOINT'] ?? 'http://localhost:8080/v1/chat/completions';
-    const model = process.env['VLM_MODEL'] ?? 'pixtral';
+    const model = process.env['VLM_MODEL'] ?? 'mistralai-Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B.i1-Q4_K_M.gguf';
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

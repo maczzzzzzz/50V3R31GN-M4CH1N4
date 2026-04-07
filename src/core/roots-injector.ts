@@ -37,7 +37,10 @@ export class RootsInjector {
         try {
           const fragments = JSON.parse(dna.lore_fragments_json);
           if (Array.isArray(fragments) && fragments.length > 0) {
-            injected += `\nLore Fragments: ${fragments.join(' | ')}`;
+            // Randomly sample up to 3 fragments to prevent context overflow
+            const shuffled = fragments.sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 3);
+            injected += `\nLore Fragments: ${selected.join(' | ')}`;
           }
         } catch (e) {
           // ignore JSON parse errors

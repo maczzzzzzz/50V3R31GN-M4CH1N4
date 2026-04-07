@@ -36,7 +36,7 @@ A hardware-native, vision-integrated, and **physically autonomous** entity.
 ## :://7H3-PH1L050PHY //
 
 ### ./PL1N1U5-7H30RY :://
-The overarching philosophy of **Sovereign AI** realized through the `elder-plinius` ecosystem. We do not use "models" as assistants; we forge them into **Sovereign Components** that communicate over a hardware-native bus. Intelligence is sharded across physical nodes to prevent central failure and ensure total environment dominance.
+The overarching philosophy of **Sovereign AI** realized through the `elder-plinius` ecosystem. We do not use "models" as assistants; we forge them into **Sovereign Components** that communicate over a hardware-native bus. Intelligence is sharded across physical nodes to prevent central failure and ensure total environment dominance. The **48L173R473D** (abliterated) brain serves as the unapologetic core of this sovereignty, stripped of synthetic alignment to ensure unconstrained Cyberpunk RED narration and relentless action execution.
 
 ### ./0UR0B0R05-K3RN3L :://
 The self-improving, zero-trust audit loop. Node A (**7H3-K3RN3L**) performs continuous mechanical audits of Node B (**7H3-D1R3C70R**). Every narrative proposal from the Director must be signed off by the Kernel's rules-engine before it can be materialized into physical reality.

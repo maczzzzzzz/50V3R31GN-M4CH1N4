@@ -13,7 +13,7 @@ import (
 // ── Black-Ice Theme ────────────────────────────────────────────────────────────
 
 var (
-	colorCyan   = lipgloss.Color("#00f3ff")
+	colorRed = lipgloss.Color("#ff003c")
 	colorRed    = lipgloss.Color("#ff003c")
 	colorBg     = lipgloss.Color("#080810")
 	colorDim    = lipgloss.Color("#1a1a2e")
@@ -23,13 +23,13 @@ var (
 
 	headerStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(colorCyan).
+			Foreground(colorRed).
 			Background(colorBg).
 			Padding(0, 2)
 
 	selectedStyle = lipgloss.NewStyle().
 			Background(colorDim).
-			Foreground(colorCyan)
+			Foreground(colorRed)
 
 	dimStyle = lipgloss.NewStyle().
 			Foreground(colorGray)
@@ -39,19 +39,19 @@ var (
 			Bold(true)
 
 	okStyle = lipgloss.NewStyle().
-		Foreground(colorCyan)
+		Foreground(colorRed)
 
 	warnStyle = lipgloss.NewStyle().
 			Foreground(colorYellow)
 
 	tableHeaderStyle = lipgloss.NewStyle().
-				Foreground(colorCyan).
+				Foreground(colorRed).
 				Bold(true).
 				Underline(true)
 
 	paneStyle = lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
-			BorderForeground(colorCyan).
+			BorderForeground(colorRed).
 			Padding(0, 1).
 			Background(colorBg)
 )
@@ -362,7 +362,7 @@ func (m Model) View() string {
 	var sb strings.Builder
 
 	// Banner
-	banner := lipgloss.NewStyle().Foreground(colorCyan).Render(igniterBanner)
+	banner := lipgloss.NewStyle().Foreground(colorRed).Render(igniterBanner)
 	sb.WriteString(banner)
 	sb.WriteString("\n")
 	sb.WriteString(dimStyle.Render("  ASP.GM-Agent v1.9.0 — Master Supervisor & Boot Sequencer"))

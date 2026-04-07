@@ -25,7 +25,7 @@ const { mockCDP, mockClient } = vi.hoisted(() => {
       evaluate: vi.fn().mockResolvedValue({
         result: {
           value: {
-            lightingColor: '#00f3ff',
+            lightingColor: '#ff003c',
             animationType: 'torch',
             intensity: 0.7,
             darknessLevel: 0.5,
@@ -97,7 +97,7 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
     mockClient.Runtime.evaluate.mockResolvedValue({
       result: {
         value: {
-          lightingColor: '#00f3ff',
+          lightingColor: '#ff003c',
           animationType: 'torch',
           intensity: 0.7,
           darknessLevel: 0.5,
@@ -126,7 +126,7 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
     const state: AtmosphereState = await service.captureAtmosphere('scene-neon-01');
 
     expect(state.sceneId).toBe('scene-neon-01');
-    expect(state.lightingColor).toBe('#00f3ff');
+    expect(state.lightingColor).toBe('#ff003c');
     expect(state.animationType).toBe('torch');
     expect(state.intensity).toBe(0.7);
     expect(state.darknessLevel).toBe(0.5);
@@ -144,7 +144,7 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
     const [sql, params] = oracle.execute.mock.calls[0];
     expect(sql).toContain('INSERT OR REPLACE INTO scene_atmosphere');
     expect(params).toContain('scene-neon-01');
-    expect(params).toContain('#00f3ff');
+    expect(params).toContain('#ff003c');
     expect(params).toContain('torch');
     expect(params).toContain(0.7);
     expect(params).toContain(0.5);
@@ -176,7 +176,7 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
   // Test 6: restoreAtmosphere() calls Runtime.evaluate with stored atmosphere values
   it('restoreAtmosphere() calls Runtime.evaluate with the stored atmosphere values from oracle', async () => {
     const storedRow = {
-      lighting_color: '#00f3ff',
+      lighting_color: '#ff003c',
       animation_type: 'torch',
       intensity: 0.7,
       darkness_level: 0.5,
@@ -197,7 +197,7 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
     const callArg = mockClient.Runtime.evaluate.mock.calls[0][0];
     expect(callArg.awaitPromise).toBe(true);
     expect(callArg.returnByValue).toBe(false);
-    expect(callArg.expression).toContain('#00f3ff');
+    expect(callArg.expression).toContain('#ff003c');
     expect(callArg.expression).toContain('torch');
     expect(callArg.expression).toContain('0.7');
     expect(callArg.expression).toContain('0.5');

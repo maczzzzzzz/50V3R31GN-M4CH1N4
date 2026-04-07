@@ -72,7 +72,7 @@ export class AkashikVisualAuditor {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: "pixtral",
+        model: "mistralai-Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B.i1-Q4_K_M.gguf",
         messages: [{
           role: "user",
           content: [

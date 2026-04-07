@@ -78,7 +78,7 @@ describe('StoryEngine', () => {
       eagleBalance: 0,
     };
     const mockOllama = {
-      generateNarrative: vi.fn().mockResolvedValue('{"text":"ALL CLEAR","color":"#00f3ff","duration":2000,"fxParams":{"shader":"none","intensity":0}}'),
+      generateNarrative: vi.fn().mockResolvedValue('{"text":"ALL CLEAR","color":"#ff003c","duration":2000,"fxParams":{"shader":"none","intensity":0}}'),
     } as any;
     const engine = new StoryEngine(state, mockOllama);
 

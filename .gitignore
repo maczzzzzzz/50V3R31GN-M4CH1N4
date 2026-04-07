@@ -66,6 +66,7 @@ data/
 # Claude/Gemini Session Data
 .claude/
 .gemini/
+narrative_seed_data/
 
 # Git Infrastructure
 .worktrees/

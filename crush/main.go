@@ -15,14 +15,14 @@ import (
 )
 
 // Black-Ice Theme constants
-// Primary:    #00f3ff (cyan)
+// Primary:    #ff003c (cyan)
 // Background: #080810 (near-black)
 // Accent:     #ff003c (red for critical)
 // Dim:        #1a1a2e (dark panel bg)
 // White:      #e0e0e0
 
 var (
-	colorCyan   = lipgloss.Color("#00f3ff")
+	colorRed = lipgloss.Color("#ff003c")
 	colorBg     = lipgloss.Color("#080810")
 	colorAccent = lipgloss.Color("#ff003c")
 	colorDim    = lipgloss.Color("#1a1a2e")
@@ -31,14 +31,14 @@ var (
 	// Bordered pane style
 	paneStyle = lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).
-			BorderForeground(colorCyan).
+			BorderForeground(colorRed).
 			Padding(0, 1).
 			Background(colorDim)
 
 	// Header style
 	headerStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(colorCyan).
+			Foreground(colorRed).
 			Background(colorBg).
 			Padding(0, 2)
 
@@ -82,7 +82,7 @@ func renderVitalityBar(current, max, width int, label string) string {
 	case pct <= 0.50:
 		barStr = lipgloss.NewStyle().Foreground(lipgloss.Color("#ffaa00")).Render(bar)
 	default:
-		barStr = lipgloss.NewStyle().Foreground(colorCyan).Render(bar)
+		barStr = lipgloss.NewStyle().Foreground(colorRed).Render(bar)
 	}
 
 	return labelStyle.Render(label+": ") + barStr + " " + lipgloss.NewStyle().Foreground(colorWhite).Render(ratio)
@@ -103,7 +103,7 @@ func renderNPCCard(npc NPC) string {
 	title := headerStyle.Render("◈ " + npc.Name)
 	hpBar := renderVitalityBar(npc.HP, npc.MaxHP, 20, "HP")
 	spBar := renderVitalityBar(npc.SP, npc.MaxSP, 20, "SP")
-	factionLine := labelStyle.Render("Faction: ") + lipgloss.NewStyle().Foreground(colorCyan).Render(npc.Faction)
+	factionLine := labelStyle.Render("Faction: ") + lipgloss.NewStyle().Foreground(colorRed).Render(npc.Faction)
 	dispLine := labelStyle.Render("Stance: ") + lipgloss.NewStyle().Foreground(colorWhite).Render(npc.Disposition)
 
 	content := strings.Join([]string{title, hpBar, spBar, factionLine, dispLine}, "\n")
@@ -128,7 +128,7 @@ func renderSearchPane(sr SearchResult) string {
 	lines = append(lines, header)
 	for i, r := range sr.Results {
 		lines = append(lines, fmt.Sprintf("  %s %s",
-			lipgloss.NewStyle().Foreground(colorCyan).Render(fmt.Sprintf("[%02d]", i+1)),
+			lipgloss.NewStyle().Foreground(colorRed).Render(fmt.Sprintf("[%02d]", i+1)),
 			lipgloss.NewStyle().Foreground(colorWhite).Render(r),
 		))
 	}
@@ -225,7 +225,7 @@ func main() {
 				case "list":
 					fmt.Println(headerStyle.Render("⟨ UTILITY BELT: ACTIVE SIDECARS ⟩"))
 					for _, s := range registry.List() {
-						statusColor := colorCyan
+						statusColor := colorRed
 						if s.State == StateOffline {
 							statusColor = colorDim
 						}
@@ -359,7 +359,7 @@ func main() {
 	var tsLines []string
 	tsLines = append(tsLines, headerStyle.Render("⟨ THOUGHT STREAM ⟩"))
 	for _, l := range thoughtLines {
-		tsLines = append(tsLines, lipgloss.NewStyle().Foreground(colorCyan).Italic(true).Render("  "+l))
+		tsLines = append(tsLines, lipgloss.NewStyle().Foreground(colorRed).Italic(true).Render("  "+l))
 	}
 	fmt.Println(paneStyle.Render(strings.Join(tsLines, "\n")))
 }
@@ -385,7 +385,7 @@ func runThoughtStream() {
 			continue
 		}
 		if pkt.Type == "token" {
-			fmt.Print(lipgloss.NewStyle().Foreground(colorCyan).Italic(true).Render(pkt.Token))
+			fmt.Print(lipgloss.NewStyle().Foreground(colorRed).Italic(true).Render(pkt.Token))
 		}
 	}
 }

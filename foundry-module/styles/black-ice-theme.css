@@ -10,10 +10,10 @@
     :root {
         --cpr-bg-black: #000000;
         --cpr-bg-dark-grey: #050505;
-        --cpr-cyan: #00f3ff;
+        --cpr-red: #ff003c;
         --cpr-white: #ffffff;
         --cpr-text-main: #eeeeee;
-        --black-ice-glow: 0 0 10px rgba(0, 243, 255, 0.8);
+        --black-ice-glow: 0 0 10px rgba(255, 0, 60, 0.8);
         
         /* Neutralize system variables */
         --cpr-red: #000000 !important;
@@ -40,7 +40,7 @@
         background-color: #000000 !important;
         background-image: none !important;
         color: var(--cpr-text-main) !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
 
     /* 2. HEADER SUPREMACY (Glowing Cyan Top-Line) */
@@ -57,10 +57,10 @@
     body.vtt .cpr-header,
     body.vtt .title,
     body.vtt th {
-        color: var(--cpr-cyan) !important;
+        color: var(--cpr-red) !important;
         text-shadow: var(--black-ice-glow) !important;
         background: #000000 !important;
-        border-bottom: 1px solid var(--cpr-cyan) !important;
+        border-bottom: 1px solid var(--cpr-red) !important;
         text-transform: uppercase !important;
         padding: 4px 8px !important;
     }
@@ -73,10 +73,10 @@
     body.vtt header.playlist-header,
     body.vtt header#ui-top,
     body.vtt header.window-header {
-        color: var(--cpr-cyan) !important;
+        color: var(--cpr-red) !important;
         background-color: #000000 !important;
         background-image: none !important;
-        border-bottom: 1px solid var(--cpr-cyan) !important;
+        border-bottom: 1px solid var(--cpr-red) !important;
         text-shadow: var(--black-ice-glow) !important;
     }
 
@@ -89,8 +89,8 @@
     body.vtt .scene-controls li.control-tool.active,
     body.vtt #controls li.scene-control.active,
     body.vtt #controls li.control-tool.active {
-        border-top-color: var(--cpr-cyan) !important;
-        border-color: var(--cpr-cyan) !important;
+        border-top-color: var(--cpr-red) !important;
+        border-color: var(--cpr-red) !important;
     }
 
     /* 3. COMPONENT BOXING (The Roll-Table Row Pattern) */
@@ -106,7 +106,7 @@
     body.vtt .journal-page-content table tr,
     body.vtt .journal-page-content div {
         background-color: #000000 !important;
-        border: 1px solid var(--cpr-cyan) !important;
+        border: 1px solid var(--cpr-red) !important;
         margin: 2px 0 !important;
         color: #ffffff !important;
     }
@@ -119,7 +119,7 @@
     body.vtt .bottom-content-section {
         background-color: #000000 !important;
         background-image: none !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
 
     /* 3c. CPR FIGHT TAB — Zero-Red Protocol (Live Audit v1.5.0)
@@ -130,7 +130,7 @@
     body.vtt .tab.fight-tab.active {
         background-color: #000000 !important;
         background-image: none !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
 
     /* 4. TEXT READABILITY (Pure White inside boxes) */
@@ -145,7 +145,7 @@
     body.vtt textarea {
         color: #ffffff !important;
         background-color: #000 !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
 
     /* 4b. EDITOR CONTENT — ProseMirror / Foundry notepad (Live Audit v1.5.0)
@@ -174,9 +174,9 @@
     body.vtt .nav-item.active,
     body.vtt button:hover {
         background: #000 !important;
-        color: var(--cpr-cyan) !important;
-        border: 1px solid var(--cpr-cyan) !important;
-        box-shadow: inset 0 0 8px var(--cpr-cyan) !important;
+        color: var(--cpr-red) !important;
+        border: 1px solid var(--cpr-red) !important;
+        box-shadow: inset 0 0 8px var(--cpr-red) !important;
     }
 
     /* 6. THIRD-PARTY MODULE HARDENING (Simple Calendar, etc.) */
@@ -184,7 +184,7 @@
     body.vtt .simple-calendar {
         background-color: #000 !important;
         color: #fff !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
 
     /* 7. SYSTEM COLOR PURGE (The Scythe) */
@@ -209,18 +209,18 @@
     body.vtt .scene-player {
         background-color: #000000 !important;
         background: #000000 !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
         color: #ffffff !important;
     }
 
     /* Normalize icons to cyan */
     body.vtt i.fas, body.vtt i.far, body.vtt i.fa-solid, body.vtt i.fa-regular {
-        color: var(--cpr-cyan) !important;
+        color: var(--cpr-red) !important;
     }
 
     /* 8. SCROLLBARS */
     body.vtt ::-webkit-scrollbar-thumb {
-        background: var(--cpr-cyan) !important;
+        background: var(--cpr-red) !important;
         box-shadow: var(--black-ice-glow);
     }
 
@@ -233,19 +233,19 @@
     /* Container */
     body.vtt .dice-tray {
         background-color: #000000 !important;
-        border-top: 1px solid var(--cpr-cyan) !important;
+        border-top: 1px solid var(--cpr-red) !important;
     }
 
     /* Die-face buttons (d4, d6, d8, d10, d12, d20, d100) */
     body.vtt .dice-tray__button {
         background-color: #050505 !important;
-        border: 1px solid var(--cpr-cyan) !important;
-        color: var(--cpr-cyan) !important;
-        box-shadow: inset 0 0 6px rgba(0, 243, 255, 0.12) !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
+        box-shadow: inset 0 0 6px rgba(255, 0, 60, 0.12) !important;
     }
     body.vtt .dice-tray__button:hover {
         background-color: #1a1a1a !important;
-        box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.45) !important;
+        box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.45) !important;
     }
     /* Tint die-face <img> icons to cyan */
     body.vtt .dice-tray__button img {
@@ -255,28 +255,28 @@
     /* Operator buttons: – and + */
     body.vtt .dice-tray__operator {
         background-color: #000000 !important;
-        border: 1px solid var(--cpr-cyan) !important;
-        color: var(--cpr-cyan) !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
     }
     body.vtt .dice-tray__operator:hover {
         background-color: #1a1a1a !important;
-        box-shadow: inset 0 0 8px rgba(0, 243, 255, 0.4) !important;
+        box-shadow: inset 0 0 8px rgba(255, 0, 60, 0.4) !important;
     }
 
     /* Quantity input (the "0" box) */
     body.vtt .dice-tray__input,
     body.vtt .dice-tray__input input {
         background-color: #000000 !important;
-        border: 1px solid var(--cpr-cyan) !important;
-        color: var(--cpr-cyan) !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
     }
 
     /* Advantage / disadvantage selector (KH / KL) */
     body.vtt .dice-tray__advantage,
     body.vtt .dice-tray__disadvantage {
         background-color: #000000 !important;
-        border: 1px solid var(--cpr-cyan) !important;
-        color: var(--cpr-cyan) !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
     }
     body.vtt .dice-tray__advantage:hover,
     body.vtt .dice-tray__disadvantage:hover {
@@ -286,13 +286,13 @@
     /* ROLL button */
     body.vtt .dice-tray__roll {
         background-color: #000000 !important;
-        border: 1px solid var(--cpr-cyan) !important;
-        color: var(--cpr-cyan) !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
         text-shadow: var(--black-ice-glow) !important;
     }
     body.vtt .dice-tray__roll:hover {
         background-color: #1a1a1a !important;
-        box-shadow: inset 0 0 8px var(--cpr-cyan) !important;
+        box-shadow: inset 0 0 8px var(--cpr-red) !important;
     }
 
 
@@ -348,7 +348,7 @@
     body.vtt .control-tool {
         background-color: #000000 !important;
         color: #ffffff !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
     body.vtt .control-tool.toggle.active {
         background-color: #000000 !important;
@@ -357,7 +357,7 @@
     body.vtt .control-tool.toggle {
         background-color: #000000 !important;
         color: #ffffff !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
     body.vtt .fa-duotone.fa-object-subtract {
         color: #ffffff !important;
@@ -604,7 +604,7 @@
     }
     body.vtt .right-content-section {
         background-color: #000000 !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
     body.vtt .tab.skills-tab.active {
         background-color: #000000 !important;

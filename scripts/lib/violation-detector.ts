@@ -42,7 +42,7 @@ function isAllowedBg(value: string): boolean {
 const ALLOWED_TEXT_SET = new Set([
   'rgb(255, 255, 255)', // #ffffff — primary text
   'rgb(238, 238, 238)', // #eeeeee — --cpr-text-main
-  'rgb(0, 243, 255)',   // #00f3ff — --cpr-cyan
+  'rgb(255, 0, 60)',    // #ff003c — --cpr-red
   'rgba(0, 0, 0, 0)',
   'transparent',
   '',
@@ -55,7 +55,7 @@ function isAllowedText(value: string): boolean {
 }
 
 const ALLOWED_BORDER_SET = new Set([
-  'rgb(0, 243, 255)',   // #00f3ff — --cpr-cyan
+  'rgb(255, 0, 60)',    // #ff003c — --cpr-red
   'rgba(0, 0, 0, 0)',
   'transparent',
   '',

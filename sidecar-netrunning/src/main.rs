@@ -3,10 +3,10 @@ use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Stroke};
 use std::time::Duration;
 
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
-const CYAN: Color32 = Color32::from_rgb(0x00, 0xf3, 0xff);
+const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
 const RED: Color32 = Color32::from_rgb(0xff, 0x20, 0x20);
 const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
-fn dim_cyan() -> Color32 { Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, 60) }
+fn dim_cyan() -> Color32 { Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60) }
 
 // ─── Isometric Math ──────────────────────────────────────────────────────────
 
@@ -96,12 +96,12 @@ impl eframe::App for NetrunApp {
         visuals.window_fill = BLACK;
         visuals.extreme_bg_color = BLACK;
         visuals.faint_bg_color = Color32::from_rgb(5, 5, 5);
-        visuals.window_stroke = Stroke::new(1.0, CYAN);
+        visuals.window_stroke = Stroke::new(1.0, RED);
         visuals.window_shadow = epaint::Shadow::NONE;
         visuals.popup_shadow = epaint::Shadow::NONE;
-        visuals.override_text_color = Some(CYAN);
+        visuals.override_text_color = Some(RED);
         visuals.widgets.noninteractive.bg_fill = BLACK;
-        visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0, CYAN);
+        visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0, RED);
         ctx.set_visuals(visuals);
         ctx.request_repaint_after(Duration::from_millis(33));
 
@@ -156,7 +156,7 @@ impl eframe::App for NetrunApp {
                         let right = Pos2::new(cx + r, cy);
                         let bottom = Pos2::new(cx, cy + r);
                         let left = Pos2::new(cx - r, cy);
-                        let color = if active { CYAN } else { dim_cyan() };
+                        let color = if active { RED } else { dim_cyan() };
                         let stroke = Stroke::new(1.5, color);
                         painter.line_segment([top, right], stroke);
                         painter.line_segment([right, bottom], stroke);
@@ -167,7 +167,7 @@ impl eframe::App for NetrunApp {
                             egui::Align2::CENTER_TOP,
                             &label,
                             FontId::monospace(9.0),
-                            CYAN,
+                            RED,
                         );
                     }
                     IceType::Trace => {
@@ -213,7 +213,7 @@ impl eframe::App for NetrunApp {
                 egui::Align2::LEFT_BOTTOM,
                 status,
                 FontId::monospace(11.0),
-                if self.intrusion_level > 0.7 { RED } else { CYAN },
+                if self.intrusion_level > 0.7 { RED } else { RED },
             );
 
             // ── Intrusion Alert Overlay ────────────────────────────────────────

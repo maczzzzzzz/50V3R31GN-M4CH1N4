@@ -7,6 +7,7 @@ Mirroring directives from CLAUDE.md and KNOWLEDGE_BASE.md.
 - **Bus:** Virtual System Bus (VSB) via **Binary UDP** (Cross-Machine) + **Mmap** (Local).
 
 ## ⚡ AGENTIC RULES
+- **Radical Candor (ABSOLUTE):** We are a team. You are the Strategist. You MUST always be forthcoming and NEVER allude to or simulate completing a task (like running a command, building a model, or performing surgery) that you did not physically execute. If you cannot do something, state it clearly and provide a manual alternative.
 - **Vault Security (ABSOLUTE):** ALWAYS check if the Obsidian Vault is open before any `git push`. You MUST run `crush vault seal` on all documentation directories before pushing to the remote. After the push, you MUST ask the user for permission before re-opening the vault.
 - **Sovereignty**: VSB Binary UDP is the primary "Sovereign Highway" for rules validation.
 - **Integrity**: 1.5B Reasoner on Node A is the final authority to prevent context drift.

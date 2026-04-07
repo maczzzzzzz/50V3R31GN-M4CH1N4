@@ -6,8 +6,9 @@ import type { Page, Browser, BrowserContext } from 'playwright-core';
 import { detectViolations } from './lib/violation-detector.js';
 import { buildSelector } from './lib/selector-builder.js';
 import { patchFile, buildPatchBlock, applyPatch } from './lib/css-patcher.js';
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { fileURLToPath } from 'url';
+import { readFileSync, readdirSync, statSync } from 'fs';
 
 // applyPatch is imported for completeness of the patcher API surface; patchFile
 // is the write path and buildPatchBlock is used for dry-run display.
@@ -21,26 +22,48 @@ type SheetTarget = 'character' | 'item' | 'journal' | 'blackIce';
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes('--dry-run');
+const STATIC_ONLY = args.includes('--static');
 const targetArg = args.find((a) => a.startsWith('--target='))?.split('=')[1];
 
-const VALID_TARGETS = new Set<string>(['character', 'item', 'journal', 'blackIce']);
-if (targetArg !== undefined && !VALID_TARGETS.has(targetArg)) {
-  console.error(`[theme-auditor] Unknown --target value: "${targetArg}". Valid: character, item, journal, blackIce`);
-  process.exit(1);
+const FORBIDDEN_RED = /#ff003c|rgb\(0,\s*243,\s*255\)|0x00,\s*0xf3,\s*0xff/i;
+
+function scanStaticFiles(dir: string, extensions: string[]): string[] {
+  const results: string[] = [];
+  const entries = readdirSync(dir);
+
+  for (const entry of entries) {
+    const fullPath = join(dir, entry);
+    const stats = statSync(fullPath);
+
+    if (stats.isDirectory()) {
+      if (entry === 'node_modules' || entry === '.git' || entry === 'dist' || entry === 'target') continue;
+      results.push(...scanStaticFiles(fullPath, extensions));
+    } else if (extensions.some(ext => entry.endsWith(ext))) {
+      const content = readFileSync(fullPath, 'utf-8');
+      if (FORBIDDEN_RED.test(content)) {
+        results.push(fullPath);
+      }
+    }
+  }
+  return results;
 }
 
-const TARGETS: SheetTarget[] = targetArg
-  ? [targetArg as SheetTarget]
-  : ['character', 'item', 'journal', 'blackIce'];
+async function runStaticAudit(): Promise<void> {
+  console.log('[theme-auditor] Running static source code audit...');
+  const root = resolve(__dirname, '..');
+  const files = scanStaticFiles(root, ['.rs', '.go', '.css', '.ts']);
+  
+  console.log(`[theme-auditor] Found ${files.length} files with forbidden Cyan values:`);
+  for (const file of files) {
+    console.log(`  [VIOLATION] ${file}`);
+  }
 
-// Serializable data returned from page.evaluate()
-// borderColor is borderTopColor (single value, not shorthand) and is '' when no visible border.
-type RawElement = {
-  classes: string[];
-  backgroundColor: string;
-  color: string;
-  borderColor: string;
-};
+  if (files.length > 0) {
+    console.log('\n[theme-auditor] Run `tsx scripts/theme-sync.ts` to automatically replace these values.');
+  } else {
+    console.log('[theme-auditor] Static audit clean.');
+  }
+}
 
 async function openSheet(page: Page, target: SheetTarget): Promise<void> {
   const script: Record<SheetTarget, string> = {
@@ -104,6 +127,11 @@ async function scanPage(page: Page): Promise<RawElement[]> {
 }
 
 async function main(): Promise<void> {
+  if (STATIC_ONLY) {
+    await runStaticAudit();
+    process.exit(0);
+  }
+
   console.log(`[theme-auditor] Connecting to Foundry at ${CDP_ENDPOINT}...`);
   const browser: Browser = await chromium.connectOverCDP(CDP_ENDPOINT);
 

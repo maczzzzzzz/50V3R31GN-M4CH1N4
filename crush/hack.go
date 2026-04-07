@@ -14,7 +14,7 @@ import (
 var (
 	hackGrantedStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("#00ff87")).Bold(true)
 	hackRejectedStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#ff003c")).Bold(true)
-	hackInfoStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("#00f3ff"))
+	hackInfoStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("#ff003c"))
 )
 
 const hackUsage = `Usage: crush hack <action> <target-id>

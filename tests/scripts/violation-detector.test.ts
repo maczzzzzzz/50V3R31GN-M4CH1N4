@@ -9,7 +9,7 @@ describe('detectViolations', () => {
         styles: {
           backgroundColor: 'rgb(0, 0, 0)',
           color: 'rgb(255, 255, 255)',
-          borderColor: 'rgb(0, 243, 255)',
+          borderColor: 'rgb(255, 0, 60)',
         },
       },
     ]);
@@ -23,7 +23,7 @@ describe('detectViolations', () => {
         styles: {
           backgroundColor: 'rgb(185, 2, 2)',
           color: 'rgb(255, 255, 255)',
-          borderColor: 'rgb(0, 243, 255)',
+          borderColor: 'rgb(255, 0, 60)',
         },
       },
     ]);
@@ -80,11 +80,11 @@ describe('detectViolations', () => {
     const result = detectViolations([
       {
         selector: 'body.vtt .same-class',
-        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(0, 243, 255)' },
+        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(255, 0, 60)' },
       },
       {
         selector: 'body.vtt .same-class',
-        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(0, 243, 255)' },
+        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(255, 0, 60)' },
       },
     ]);
     expect(result).toHaveLength(1);

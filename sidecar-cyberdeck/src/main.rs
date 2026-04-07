@@ -14,12 +14,12 @@ mod st3gg;
 pub(crate) use glitch::GlitchEngine;
 
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
-const CYAN: Color32 = Color32::from_rgb(0x00, 0xf3, 0xff);
+const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
 const RED: Color32 = Color32::from_rgb(0xff, 0x20, 0x20);
 const GREEN: Color32 = Color32::from_rgb(0x20, 0xff, 0x60);
 const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
 fn dim_cyan() -> Color32 {
-    Color32::from_rgba_unmultiplied(0x00, 0xf3, 0xff, 60)
+    Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60)
 }
 
 // ─── GhostBlip type constants ─────────────────────────────────────────────────
@@ -331,12 +331,12 @@ impl CyberdeckApp {
             let x = rect.left() + (i as f32 * width / 10.0);
             painter.line_segment(
                 [Pos2::new(x, rect.top()), Pos2::new(x, rect.bottom())],
-                Stroke::new(0.5, Color32::from_rgba_unmultiplied(0, 243, 255, 50)),
+                Stroke::new(0.5, Color32::from_rgba_unmultiplied(255, 0, 60, 50)),
             );
             let y = rect.top() + (i as f32 * height / 10.0);
             painter.line_segment(
                 [Pos2::new(rect.left(), y), Pos2::new(rect.right(), y)],
-                Stroke::new(0.5, Color32::from_rgba_unmultiplied(0, 243, 255, 50)),
+                Stroke::new(0.5, Color32::from_rgba_unmultiplied(255, 0, 60, 50)),
             );
         }
 
@@ -349,7 +349,7 @@ impl CyberdeckApp {
             
             // Selection logic
             let is_selected = self.selected_id.as_ref() == Some(&blip.id);
-            let color = if is_selected { Color32::WHITE } else { CYAN };
+            let color = if is_selected { Color32::WHITE } else { RED };
             let radius = if is_selected { 8.0 } else { 5.0 };
 
             if blip.actor_type == 1 {
@@ -406,13 +406,13 @@ impl CyberdeckApp {
                 }
                 BLIP_OBJECTIVE => {
                     let r = 8.0_f32;
-                    let stroke = Stroke::new(1.5, CYAN);
+                    let stroke = Stroke::new(1.5, RED);
                     painter.line_segment([Pos2::new(cx - r, cy), Pos2::new(cx + r, cy)], stroke);
                     painter.line_segment([Pos2::new(cx, cy - r), Pos2::new(cx, cy + r)], stroke);
                     painter.circle_stroke(center, r + 3.0, stroke);
-                    painter.text(center + egui::vec2(0.0, r + 7.0), egui::Align2::CENTER_TOP, "objective", FontId::monospace(9.0), CYAN);
+                    painter.text(center + egui::vec2(0.0, r + 7.0), egui::Align2::CENTER_TOP, "objective", FontId::monospace(9.0), RED);
                 }
-                _ => { painter.circle_filled(center, 3.0, CYAN); }
+                _ => { painter.circle_filled(center, 3.0, RED); }
             }
         }
 
@@ -422,7 +422,7 @@ impl CyberdeckApp {
         } else {
             format!(":/47L45-D43M0N // 5747U5: 4C71V3 | 7X: {} | 6H0575: {}", self.transaction_counter, ghost_blips.len())
         };
-        painter.text(rect.left_bottom() + egui::vec2(5.0, -5.0), egui::Align2::LEFT_BOTTOM, status, FontId::monospace(12.0), CYAN);
+        painter.text(rect.left_bottom() + egui::vec2(5.0, -5.0), egui::Align2::LEFT_BOTTOM, status, FontId::monospace(12.0), RED);
     }
 
     fn render_netrun_tab(&self, ui: &mut egui::Ui) {
@@ -463,13 +463,13 @@ impl CyberdeckApp {
             match ice_type {
                 IceType::Firewall => {
                     let r = 10.0_f32;
-                    let color = if active { CYAN } else { dim_cyan() };
+                    let color = if active { RED } else { dim_cyan() };
                     let stroke = Stroke::new(1.5, color);
                     painter.line_segment([Pos2::new(cx, cy - r), Pos2::new(cx + r, cy)], stroke);
                     painter.line_segment([Pos2::new(cx + r, cy), Pos2::new(cx, cy + r)], stroke);
                     painter.line_segment([Pos2::new(cx, cy + r), Pos2::new(cx - r, cy)], stroke);
                     painter.line_segment([Pos2::new(cx - r, cy), Pos2::new(cx, cy - r)], stroke);
-                    painter.text(center + egui::vec2(0.0, r + 4.0), egui::Align2::CENTER_TOP, &label, FontId::monospace(9.0), CYAN);
+                    painter.text(center + egui::vec2(0.0, r + 4.0), egui::Align2::CENTER_TOP, &label, FontId::monospace(9.0), RED);
                 }
                 IceType::Trace => {
                     if active {
@@ -505,7 +505,7 @@ impl CyberdeckApp {
             egui::Align2::LEFT_BOTTOM,
             status,
             FontId::monospace(11.0),
-            if self.intrusion_level > 0.7 { RED } else { CYAN },
+            if self.intrusion_level > 0.7 { RED } else { RED },
         );
 
         if self.intrusion_level > 0.3 {
@@ -533,7 +533,7 @@ impl CyberdeckApp {
             
             ui.horizontal(|ui| {
                 ui.label("53L3C73D:");
-                ui.colored_label(CYAN, name);
+                ui.colored_label(RED, name);
                 ui.label(format!("({})", id));
             });
 
@@ -589,7 +589,7 @@ impl CyberdeckApp {
                 let items = self.scanned_items.clone();
                 for item in &items {
                     let color = match item.item_type.as_str() {
-                        "objective" => CYAN,
+                        "objective" => RED,
                         "hazard"    => RED,
                         "cover"     => GREEN,
                         _           => Color32::WHITE,
@@ -697,24 +697,24 @@ impl eframe::App for CyberdeckApp {
         visuals.extreme_bg_color     = BLACK;
         visuals.faint_bg_color       = Color32::from_rgb(5, 5, 5);
         visuals.code_bg_color        = Color32::from_rgb(5, 5, 5);
-        visuals.window_stroke        = Stroke::new(1.0, CYAN);
+        visuals.window_stroke        = Stroke::new(1.0, RED);
         visuals.window_shadow        = epaint::Shadow::NONE;
         visuals.popup_shadow         = epaint::Shadow::NONE;
         visuals.override_text_color  = Some(Color32::from_rgb(238, 238, 238));
         visuals.widgets.noninteractive.bg_fill      = Color32::from_rgb(5, 5, 5);
         visuals.widgets.noninteractive.weak_bg_fill = BLACK;
         visuals.widgets.noninteractive.bg_stroke    = Stroke::new(1.0, Color32::from_rgb(34, 34, 34));
-        visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, CYAN);
+        visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, RED);
         visuals.widgets.inactive.bg_fill            = Color32::from_rgb(5, 5, 5);
         visuals.widgets.inactive.weak_bg_fill       = BLACK;
         visuals.widgets.inactive.fg_stroke          = Stroke::new(1.0, Color32::from_rgb(136, 136, 136));
         visuals.widgets.hovered.bg_fill             = Color32::from_rgb(26, 26, 26);
-        visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, CYAN);
-        visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, CYAN);
+        visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, RED);
+        visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, RED);
         visuals.widgets.active.bg_fill              = BLACK;
-        visuals.widgets.active.fg_stroke            = Stroke::new(2.0, CYAN);
-        visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(0, 243, 255, 40);
-        visuals.selection.stroke     = Stroke::new(1.0, CYAN);
+        visuals.widgets.active.fg_stroke            = Stroke::new(2.0, RED);
+        visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(255, 0, 60, 40);
+        visuals.selection.stroke     = Stroke::new(1.0, RED);
         ctx.set_visuals(visuals);
         ctx.request_repaint_after(Duration::from_millis(33));
 
@@ -724,7 +724,7 @@ impl eframe::App for CyberdeckApp {
                 ui.selectable_value(&mut self.active_tab, Tab::Atlas,  ":/47L45 //");
                 // Netrun tab pulses red when intruded
                 let netrun_label = if self.intrusion_level > 0.3 { "::/N37RUN !! //" } else { ":/N37RUN //" };
-                let netrun_color = if self.intrusion_level > 0.3 { RED } else { CYAN };
+                let netrun_color = if self.intrusion_level > 0.3 { RED } else { RED };
                 if ui.add(egui::SelectableLabel::new(
                     self.active_tab == Tab::Netrun,
                     egui::RichText::new(netrun_label).color(netrun_color),

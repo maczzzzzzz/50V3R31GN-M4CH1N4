@@ -29,7 +29,7 @@ describe('buildPatchBlock', () => {
 
   it('generates border fix for border violation', () => {
     const block = buildPatchBlock(SAMPLE_VIOLATIONS, '2026-04-03');
-    expect(block).toContain('border-color: var(--cpr-cyan) !important;');
+    expect(block).toContain('border-color: var(--cpr-red) !important;');
   });
 
   it('generates text fix for color violation', () => {
@@ -49,7 +49,7 @@ describe('buildPatchBlock', () => {
 });
 
 describe('applyPatch', () => {
-  const BASE_CSS = `@layer black-ice {\n    :root { --cpr-cyan: #00f3ff; }\n}`;
+  const BASE_CSS = `@layer black-ice {\n    :root { --cpr-red: #ff003c; }\n}`;
 
   it('inserts patch block before closing brace of @layer black-ice', () => {
     const patchBlock = '/* AUTO-PATCH: 2026-04-03 — theme-auditor */\nbody.vtt .x { color: #fff !important; }\n/* END AUTO-PATCH */\n';
@@ -85,7 +85,7 @@ describe('extractExistingViolations', () => {
     }
     body.vtt .mook-sheet {
         background-color: #000000 !important;
-        border-color: var(--cpr-cyan) !important;
+        border-color: var(--cpr-red) !important;
     }
     body.vtt .some-text {
         color: #ffffff !important;
@@ -112,7 +112,7 @@ describe('extractExistingViolations', () => {
     const v = result.find((x) => x.selector === 'body.vtt .mook-sheet');
     expect(v).toBeDefined();
     expect(v!.backgroundColor).toBe('#000000');
-    expect(v!.borderColor).toBe('cyan');
+    expect(v!.borderColor).toBe('red');
   });
 
   it('parses color violations', () => {
@@ -149,11 +149,11 @@ describe('mergeViolations', () => {
       { selector: 'body.vtt .sheet', backgroundColor: '#000000' },
     ];
     const incoming: ElementViolation[] = [
-      { selector: 'body.vtt .sheet', backgroundColor: '#000000', borderColor: 'cyan' },
+      { selector: 'body.vtt .sheet', backgroundColor: '#000000', borderColor: 'red' },
     ];
     const merged = mergeViolations(existing, incoming);
     const v = merged.find((x) => x.selector === 'body.vtt .sheet');
-    expect(v!.borderColor).toBe('cyan');
+    expect(v!.borderColor).toBe('red');
   });
 
   it('produces no duplicates', () => {
@@ -163,7 +163,7 @@ describe('mergeViolations', () => {
     ];
     const incoming: ElementViolation[] = [
       { selector: 'body.vtt .a', backgroundColor: '#000000' },
-      { selector: 'body.vtt .c', borderColor: 'cyan' },
+      { selector: 'body.vtt .c', borderColor: 'red' },
     ];
     const merged = mergeViolations(existing, incoming);
     expect(merged).toHaveLength(3);
@@ -173,7 +173,7 @@ describe('mergeViolations', () => {
     // Simulates: full audit patched .mook-sheet, then --target=blackIce runs
     const afterFullSweep: ElementViolation[] = [
       { selector: 'body.vtt .mook-sheet', backgroundColor: '#000000' },
-      { selector: 'body.vtt .right-content-section', backgroundColor: '#000000', borderColor: 'cyan' },
+      { selector: 'body.vtt .right-content-section', backgroundColor: '#000000', borderColor: 'red' },
     ];
     const blackIceScan: ElementViolation[] = [
       { selector: 'body.vtt .blackice-sheet', backgroundColor: '#000000' },
@@ -190,3 +190,4 @@ describe('mergeViolations', () => {
     expect(merged).toHaveLength(4);
   });
 });
+

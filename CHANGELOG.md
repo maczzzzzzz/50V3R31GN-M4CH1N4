@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-04-07
+### Changed
+- Migrated default VLM to Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B for Sovereign Highway execution.
+- Migrated global color theme from Cyan to Cyberpunk Red (#ff003c) across all UI elements and Foundry modules.
+
 ## [1.14.0] - 2026-04-05
 ### Added
 - **Project Identity: 50V3R31GN-M4CH1N4**: Rebranded the entire project to reflect its evolution into a distributed, physically sovereign machine.

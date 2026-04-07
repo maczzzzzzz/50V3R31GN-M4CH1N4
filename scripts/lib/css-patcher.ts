@@ -15,7 +15,7 @@ export function buildPatchBlock(violations: ElementViolation[], date: string): s
     lines.push(`    ${v.selector} {`);
     if (v.backgroundColor) lines.push(`        background-color: #000000 !important;`);
     if (v.color)            lines.push(`        color: #ffffff !important;`);
-    if (v.borderColor)      lines.push(`        border-color: var(--cpr-cyan) !important;`);
+    if (v.borderColor)      lines.push(`        border-color: var(--cpr-red) !important;`);
     lines.push(`    }`);
   }
 
@@ -47,7 +47,7 @@ export function extractExistingViolations(css: string): ElementViolation[] {
     const v: ElementViolation = { selector };
     if (ruleLines.some((l) => l.startsWith('background-color'))) v.backgroundColor = '#000000';
     if (ruleLines.some((l) => l.startsWith('color:')))           v.color = '#ffffff';
-    if (ruleLines.some((l) => l.startsWith('border-color')))     v.borderColor = 'cyan';
+    if (ruleLines.some((l) => l.startsWith('border-color')))     v.borderColor = 'red';
     violations.push(v);
   }
 
