@@ -1,0 +1,74 @@
+**Pre-World UI Theme Examples (to match your Ghost Protocol / Sovereign altered theme)**
+
+**1. Ghost Protocol Neon (Default Sovereign)**
+- Background: Deep black (#0a0a0a) with subtle red scanlines.
+- Accents: Aggressive neon red (#ff0044) and cyan (#00ffff).
+- Text: Sharp, high-contrast white with red glow on hover.
+- Buttons: Black with red border, glowing on focus.
+- Logo/headers: Red-tinted with slight chromatic aberration.
+
+**2. Raw Street Chrome**
+- Background: Dark concrete texture with rain streaks.
+- Accents: Dirty chrome silver (#cccccc) and blood red (#990000).
+- Text: Worn, slightly distorted font with yellow-orange highlights.
+- Buttons: Scratched metal look, red warning glow.
+- Overall vibe: Gritty, lived-in Night City alley feel.
+
+**3. Sovereign Void**
+- Background: Pure void black with faint grid lines.
+- Accents: Cold electric blue (#00ddff) and pure white.
+- Text: Clean monospace with blue data-stream effect.
+- Buttons: Minimalist, glowing blue edges only when active.
+- Vibe: Cold, machine-dominant, sterile sovereignty.
+
+**Summary (save this):**
+
+Use these three themes in `theme-sync.ts` pre-world block:
+- "ghost-protocol" → neon red/cyan on black (aggressive sovereign default)
+- "raw-street" → dirty chrome + blood red (gritty street feel)
+- "sovereign-void" → cold blue/white on void (machine purity)
+
+Add via CSS injection in `Hooks.once("init")` as shown earlier. Tie to RKG sovereign flag for auto-switching.
+
+Ready to copy-paste into your script later today.
+
+**Extended `theme-sync.ts` for pre-world theming:**
+
+Add this to the top of your existing `theme-sync.ts`:
+
+```ts
+// Pre-world theming (main menu, setup, login, world select)
+Hooks.once("init", () => {
+  const sovereignTheme = game.settings.get("50V3R31GN-M4CH1N4", "sovereignTheme") || "ghost-protocol";
+
+  const preWorldCSS = document.createElement("style");
+  preWorldCSS.id = "sovereign-preworld-theme";
+
+  if (sovereignTheme === "ghost-protocol") {
+    preWorldCSS.textContent = `
+      #main-menu, .setup, .login-form, #worlds, body {
+        background: #0a0a0a !important;
+        color: #ff0044 !important;
+      }
+      .window-app, .dialog, button, input {
+        background: #1a0000 !important;
+        border: 1px solid #ff0044 !important;
+        color: #ffccdd !important;
+      }
+      .logo, h1 { filter: hue-rotate(330deg) brightness(1.3); }
+    `;
+  } else if (sovereignTheme === "raw-street") {
+    preWorldCSS.textContent = `
+      body, #main-menu { background: linear-gradient(#1a0f00, #330000) !important; }
+    `;
+  }
+
+  document.head.appendChild(preWorldCSS);
+});
+```
+
+**Usage:**
+- Call `themeSync()` from your boot script or after RKG load.
+- Add a world setting `sovereignTheme` (string) to control it.
+
+This extends your existing `theme-sync.ts` to cover pre-world UI (main menu, setup, login, world list) while keeping sovereign consistency. No new files needed. Simple and clean.

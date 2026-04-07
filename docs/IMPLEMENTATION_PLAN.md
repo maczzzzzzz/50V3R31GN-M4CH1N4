@@ -161,5 +161,25 @@
 - [x] **Cold Storage:** Migrate all non-essential research and legacy specs into the vault.
 - [x] **Key Protocol:** Establish `SOVEREIGN_KEY` environment requirement for agentic doc access.
 
+## 🧠 PHASE 33: UN1F13D-L0R3-M1ND (IN PROGRESS)
+**Goal:** Scale the Sovereign Machina's intelligence via unified multi-source lore ingestion and Provenance Tagging.
+- [ ] **Database Expansion:** Extend `Akashik.db` with the `chronicle_seeds` table for long-term world memory.
+- [ ] **Chronicle Harvester:** Build a modular scraper script to ingest lore from Miraheze, Z-Team, and World Anvil.
+- [ ] **Provenance Tagging:** Implement automated categorization and source-weighting for ingested seeds.
+- [ ] **Unified Oracle Integration:** Enable the 48L173R473D brain to JOIN District DNA with historical context in a single query turn.
+
+## 🏛️ PHASE 34: 7H3-M3M0RY-P4L4C3 (PLANNED)
+**Goal:** Implement hierarchical memory architecture and background consolidation loop (The Infinite Mind).
+- [ ] **Palace Hierarchy:** Implement Wings, Rooms, and Tunnels structure in Node B.
+- [ ] **Tiered Storage:** Integrate local ChromaDB for verbatim log storage (The Drawer).
+- [ ] **Dreaming Loop:** Deploy the 3-phase background consolidation process on Node A.
+- [ ] **AAAK Dialect:** Implement 170-token identity compression for prompt residency.
+
+## 👁️ PHASE 35: V15U4L-D0M1N4NC3 (PLANNED)
+**Goal:** Total UI Hijack and aesthetic dominance via the "Total Red Shift."
+- [ ] **Sovereign Hijack:** Implement the 600ms high-intensity boot glitch sequence.
+- [ ] **Theme State Machine:** Evolve `theme-sync.ts` to manage pre-world and in-world styling.
+- [ ] **Total Red Migration:** Purge all Cyan remnants and enforce VT323 font injection.
+- [ ] **Interception Layer:** Enforce Sovereign styling via direct DOM hijacking through CDP.
 
 *Roadmap Managed by Gemini CLI (Strategist).*
