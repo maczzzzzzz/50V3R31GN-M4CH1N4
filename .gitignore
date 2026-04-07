@@ -38,6 +38,7 @@ docs/archive/**/*.md
 docs/raw_data/*
 !docs/raw_data/campaign_ttta/
 !docs/raw_data/entities_mooks/
+!docs/raw_data/community_compendium/
 docs/rulebooks_raw/
 
 # IDE & OS Files

@@ -42,17 +42,27 @@ func sealDirectory(dir string, key string) int {
 		}
 
 		// Supported extensions for sealing
-		validExts := []string{".md", ".json", ".png", ".txt"}
+		validExts := []string{".md", ".json", ".png", ".txt", ".db", ".ldb", ".log"}
 		isSupported := false
-		for _, ext := range validExts {
-			if strings.HasSuffix(path, ext) {
-				// Avoid sealing already sealed files (e.g., .md.png, .json.png, etc.)
-				if !strings.HasSuffix(path, ".md.png") &&
-					!strings.HasSuffix(path, ".json.png") &&
-					!strings.HasSuffix(path, ".txt.png") &&
-					!strings.HasSuffix(path, ".png.png") {
-					isSupported = true
-					break
+		base := filepath.Base(path)
+
+		// Generic support for LevelDB control files
+		if base == "CURRENT" || strings.HasPrefix(base, "MANIFEST") || base == "LOCK" || base == "LOG" || base == "LOG.old" {
+			isSupported = true
+		} else {
+			for _, ext := range validExts {
+				if strings.HasSuffix(path, ext) {
+					// Avoid sealing already sealed files (e.g., .md.png, .json.png, etc.)
+					if !strings.HasSuffix(path, ".md.png") &&
+						!strings.HasSuffix(path, ".json.png") &&
+						!strings.HasSuffix(path, ".txt.png") &&
+						!strings.HasSuffix(path, ".db.png") &&
+						!strings.HasSuffix(path, ".ldb.png") &&
+						!strings.HasSuffix(path, ".log.png") &&
+						!strings.HasSuffix(path, ".png.png") {
+						isSupported = true
+						break
+					}
 				}
 			}
 		}
@@ -118,6 +128,12 @@ func openDirectory(dir string, key string) int {
 		if strings.HasSuffix(path, ".md.png") ||
 			strings.HasSuffix(path, ".json.png") ||
 			strings.HasSuffix(path, ".txt.png") ||
+			strings.HasSuffix(path, ".db.png") ||
+			strings.HasSuffix(path, ".ldb.png") ||
+			strings.HasSuffix(path, ".log.png") ||
+			strings.HasSuffix(path, "CURRENT.png") ||
+			strings.HasSuffix(path, "LOCK.png") ||
+			strings.Contains(path, "MANIFEST") && strings.HasSuffix(path, ".png") ||
 			strings.HasSuffix(path, ".png.png") {
 			isSealed = true
 		}

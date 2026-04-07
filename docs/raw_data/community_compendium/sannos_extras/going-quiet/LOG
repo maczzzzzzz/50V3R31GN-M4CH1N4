@@ -1,0 +1,8 @@
+2025/07/16-12:15:00.770 183c Recovering log #81
+2025/07/16-12:15:00.775 183c Delete type=0 #81
+2025/07/16-12:15:00.776 183c Delete type=3 #80
+2025/07/16-15:15:17.294 1fcc Level-0 table #85: started
+2025/07/16-15:15:17.294 1fcc Level-0 table #85: 0 bytes OK
+2025/07/16-15:15:17.296 1fcc Delete type=0 #83
+2025/07/16-15:15:17.303 1fcc Manual compaction at level-0 from '!folders!6v7HukOec0lNFr7N' @ 72057594037927935 : 1 .. '!items!nZEUEl9Z4wfPNgm7' @ 0 : 0; will stop at (end)
+2025/07/16-15:15:17.314 1fcc Manual compaction at level-1 from '!folders!6v7HukOec0lNFr7N' @ 72057594037927935 : 1 .. '!items!nZEUEl9Z4wfPNgm7' @ 0 : 0; will stop at (end)

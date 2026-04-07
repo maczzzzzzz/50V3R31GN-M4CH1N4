@@ -42,6 +42,10 @@ Absolute list of external repositories and technical inspirations.
     - [Lip Gloss](https://github.com/charmbracelet/lipgloss): Terminal UI Layout Engine.
 - **chenglou**:
     - [Pretext](https://github.com/chenglou/pretext): High-performance multiline text layout for JavaScript.
+- **Community Data (2045 Seed Data)**:
+    - [CPRED Fan Compendium](https://github.com/DankTrain11949/CyberPunk-Red-Fan-Compendium): Structured Foundry packs for NPCs, gear, and roll tables.
+    - [CPRED Going Metal](https://github.com/Schism989/cpred-going-metal): Full Body Conversion (FBC) mechanics and borg stat blocks.
+    - [Sanno's Extras](https://github.com/Sannosama/sannos-super-cyberpunk-red-extras): Official DLC mechanics and environmental roll tables.
 
 ### 📂 Archived Patterns & Sources
 Patterns preserved for technical lineage or general research.
