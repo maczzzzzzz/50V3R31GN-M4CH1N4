@@ -5,7 +5,7 @@
  */
 
 import type {
-  INitroLogicClient, IOllamaClient, IDiscordChroniclerClient, ScreamsheetPersona,
+  INitroLogicClient, IOllamaClient, 
   AttackResult, DvResult, OracleResult,
   ResolveAttackParams, CalculateDvParams, OracleRollParams, IArchitectService,
 } from './interfaces.js';
@@ -47,7 +47,6 @@ export interface HybridRoutingControllerOptions {
   readonly nightMarketService: NightMarketService;
   readonly unifiedOracle: UnifiedOracleClient;
   readonly redTradeService: RedTradeService;
-  readonly chronicler?: IDiscordChroniclerClient | undefined;
   readonly spatialVision?: SpatialVisionService | undefined;
   readonly visualMonitor?: VisualMonitorService | undefined;
   readonly neuralUplink?: VisualMonitorService | undefined;
@@ -73,7 +72,6 @@ export class HybridRoutingController {
   private readonly nightMarketService: NightMarketService;
   private readonly unifiedOracle: UnifiedOracleClient;
   private readonly redTradeService: RedTradeService;
-  private readonly chronicler: IDiscordChroniclerClient | undefined;
   private readonly spatialVision: SpatialVisionService | undefined;
   private readonly visualMonitor: VisualMonitorService | undefined;
   private readonly neuralUplink: VisualMonitorService | undefined;
@@ -102,7 +100,6 @@ export class HybridRoutingController {
     this.nightMarketService = options.nightMarketService;
     this.unifiedOracle = options.unifiedOracle;
     this.redTradeService = options.redTradeService;
-    this.chronicler = options.chronicler;
     this.spatialVision = options.spatialVision;
     this.visualMonitor = options.visualMonitor;
     this.neuralUplink = options.neuralUplink ?? options.visualMonitor;

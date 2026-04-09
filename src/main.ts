@@ -57,7 +57,6 @@ import { RedTradeService } from './core/red-trade-service.js';
 import { UnifiedOracleClient } from './db/unified-oracle-client.js';
 import { ArchitectPassService } from './core/architect-pass-service.js';
 import { bootstrapTttaPart1, createTttaPart1InitialState } from './core/campaign-registry.js';
-import { DiscordChroniclerClient } from './core/discord-chronicler-client.js';
 import { SpatialVisionService } from './core/spatial-vision-service.js';
 import { VisualMonitorService } from './core/visual-monitor-service.js';
 import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
@@ -117,10 +116,6 @@ async function main() {
     timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
     num_gpu: process.env.OLLAMA_NUM_GPU ? parseInt(process.env.OLLAMA_NUM_GPU, 10) : undefined,
   }, rootsInjector);
-
-  const chronicler = process.env.DISCORD_SCREAMSHEET_WEBHOOK 
-    ? new DiscordChroniclerClient(process.env.DISCORD_SCREAMSHEET_WEBHOOK)
-    : undefined;
 
   const vsbClient = new VsbClient({
     host: process.env.NODE_A_HOST || '192.168.0.50',
@@ -190,7 +185,6 @@ async function main() {
     nightMarketService: new NightMarketService(oracle),
     redTradeService: new RedTradeService(),
     unifiedOracle: oracle,
-    chronicler,
     visualMonitor: neuralUplink,
     architect,
     auditor,

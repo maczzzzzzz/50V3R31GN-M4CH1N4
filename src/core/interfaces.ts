@@ -260,16 +260,6 @@ export interface IArchitectService {
   seedGhostBlips(sceneId: string | null, blips: GhostBlip[], sceneDimensions: { width: number; height: number }): Promise<void>;
 }
 
-// ── Discord Chronicler ────────────────────────────────────────────────────────
-
-/** Narrative voice persona for Screamsheet broadcasts. */
-export type ScreamsheetPersona = 'Netwatch Alerts' | 'NCPD Scanner' | 'Street Rumor';
-
-export interface IDiscordChroniclerClient {
-  /** Post a screamsheet bark to the configured Discord channel. Non-fatal. */
-  screamsheetPost(content: string, persona: ScreamsheetPersona): Promise<void>;
-}
-
 // ── Client interface ──────────────────────────────────────────────────────────
 
 /** A single entity detected by the Falcon OCR pass on a scene image. */
