@@ -57,7 +57,7 @@ func projectRoot() string {
 	// Fallback: walk up from the binary location.
 	dir, err := os.Getwd()
 	if err != nil {
-		return "/home/nixos/asp-gm-agent"
+		return "/home/nixos/50v3r31gn-m4ch1n4"
 	}
 	return dir
 }
@@ -217,6 +217,25 @@ func launchShadowDashboard(c *Component) tea.Cmd {
 	}
 }
 
+// launchVaultSync starts the Obsidian bidirectional sync daemon via tsx.
+func launchVaultSync(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		cmd := nixCmd(root, "pnpm", "exec", "tsx", "src/core/obsidian-sync-service.ts")
+
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{
+				name:  c.Name,
+				state: StateError,
+				err:   fmt.Sprintf("vault-sync launch failed: %v", err),
+			}
+		}
+		registerProc(c.Name, cmd)
+		go func() { _ = cmd.Wait() }()
+		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
+	}
+}
+
 // ── Boot Sequence ─────────────────────────────────────────────────────────────
 
 // bootSequenceCmd implements the ctrl+i ignition: sequential boot across all
@@ -243,6 +262,8 @@ func bootSequenceCmd(components []*Component) tea.Cmd {
 				cmds = append(cmds, launchDashboardBridge(comp))
 			case "shadow-dashboard":
 				cmds = append(cmds, launchShadowDashboard(comp))
+			case "vault-sync":
+				cmds = append(cmds, launchVaultSync(comp))
 			default:
 				if subdir, ok := sidecarSubdir[comp.Name]; ok {
 					cmds = append(cmds, launchSidecar(comp, subdir))

@@ -125,7 +125,7 @@ func (l Layer) String() string {
 // MaxRestarts is the ceiling before the Igniter gives up auto-recovery.
 const MaxRestarts = 3
 
-// Component tracks a supervised process in the ASP.GM-Agent stack.
+// Component tracks a supervised process in the 50V3R31GN-M4CH1N4 stack.
 type Component struct {
 	Name      string
 	Layer     Layer
@@ -207,6 +207,7 @@ func initialModel() Model {
 			{Name: "sidecar-netrunning", Layer: LayerWSL},
 			{Name: "dashboard-bridge", Layer: LayerWSL},
 			{Name: "shadow-dashboard", Layer: LayerWSL},
+			{Name: "vault-sync", Layer: LayerWSL},
 			{Name: "llama-server", Layer: LayerRemote},
 			{Name: "zeroclaw", Layer: LayerRemote},
 		},
@@ -367,7 +368,7 @@ func (m Model) View() string {
 	banner := lipgloss.NewStyle().Foreground(colorRed).Render(igniterBanner)
 	sb.WriteString(banner)
 	sb.WriteString("\n")
-	sb.WriteString(dimStyle.Render("  ASP.GM-Agent v1.9.0 — Master Supervisor & Boot Sequencer"))
+	sb.WriteString(dimStyle.Render("  50V3R31GN-M4CH1N4 v1.9.0 — Master Supervisor & Boot Sequencer"))
 	sb.WriteString("\n\n")
 
 	// Status table
