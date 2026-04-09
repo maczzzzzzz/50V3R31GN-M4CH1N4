@@ -161,14 +161,14 @@
 - [x] **Cold Storage:** Migrate all non-essential research and legacy specs into the vault.
 - [x] **Key Protocol:** Establish `SOVEREIGN_KEY` environment requirement for agentic doc access.
 
-## 🧠 PHASE 33: UN1F13D-L0R3-M1ND (IN PROGRESS)
+## ✅ PHASE 33: UN1F13D-L0R3-M1ND (COMPLETED)
 **Goal:** Scale the Sovereign Machina's intelligence via unified multi-source lore ingestion and Provenance Tagging.
 - [x] **Host-Native Pivot:** Migrated Node B inference to Windows-native `llama-server` to bypass WSL kernel deadlocks.
 - [x] **Ignition Integration:** Added `pixtral` component to `deck-igniter` for automated Windows server management.
-- [ ] **Database Expansion:** Extend `Akashik.db` with the `chronicle_seeds` table for long-term world memory.
-- [ ] **Chronicle Harvester:** Build a modular scraper script to ingest lore from local pdfs.
-- [ ] **Provenance Tagging:** Implement automated categorization and source-weighting for ingested seeds.
-- [ ] **Unified Oracle Integration:** Enable the 48L173R473D brain to JOIN District DNA with historical context in a single query turn.
+- [x] **Database Expansion:** Extend `Akashik.db` with the `chronicle_seeds` table for long-term world memory.
+- [x] **Chronicle Harvester:** Build a modular scraper script to ingest lore from local pdfs.
+- [x] **Provenance Tagging:** Implement automated categorization and source-weighting for ingested seeds.
+- [x] **Unified Oracle Integration:** Enable the 48L173R473D brain to JOIN District DNA with historical context in a single query turn.
 
 ## ✅ PHASE 34: 7H3-M3M0RY-P4L4C3 (COMPLETED)
 **Goal:** Implement hierarchical memory architecture and background consolidation loop (The Infinite Mind).

@@ -10,6 +10,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Host-Native Inference Migration (Option 1)**: Pivoted Node B inference to a Windows-native `llama-server` to bypass WSL `dxgkrnl` kernel deadlocks.
 - **Windows Interop Shortcuts**: Created `start_pixtral.bat` and `add_firewall_rule.bat` on the Windows host (`D:/llama.cpp`) for automated GPU-accelerated startup.
 - **Deck-Igniter Integration**: Added `pixtral` as a first-class component in the Go-based launcher, enabling automated Windows-side server ignition via WSL interop.
+- **Phase 33: UN1F13D-L0R3-M1ND (Completed)**: Enhanced the Chronicle Harvester with multi-tier heuristic and LLM-assisted categorization, enabling granular provenance tagging and embedding into the Memory Palace.
 - **Phase 34: 7H3-M3M0RY-P4L4C3 (Completed)**: Hierarchical memory architecture and ChromaDB integration finalized.
 - **Phase 35: V15U4L-D0M1N4NC3 (Completed)**: Total UI Hijack and Cyberpunk Red theme enforcement completed.
 

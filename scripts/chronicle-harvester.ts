@@ -6,9 +6,15 @@ import 'dotenv/config';
 import { UnifiedOracleClient } from '../src/db/unified-oracle-client.js';
 import { AkashikVisualAuditor } from '../src/core/akashik-visual-auditor.js';
 import { MemoryPalaceService } from '../src/core/memory-palace-service.js';
+import { OllamaClient } from '../src/core/ollama-client.js';
 
 const require = createRequire(import.meta.url);
 const pdf = require('pdf-parse');
+
+const CATEGORIES = [
+  '#Lore', '#Gear', '#Combat', '#Netrunning', '#Character', 
+  '#World', '#Mission', '#Rules', '#Economy', '#DLC'
+];
 
 /**
  * Chronicle Harvester (Phase 33)
@@ -20,11 +26,17 @@ export class ChronicleHarvester {
   private oracle: UnifiedOracleClient;
   private auditor: AkashikVisualAuditor;
   private palace: MemoryPalaceService;
+  private llm: OllamaClient;
 
   constructor(oracle: UnifiedOracleClient) {
     this.oracle = oracle;
     this.auditor = new AkashikVisualAuditor(oracle);
     this.palace = new MemoryPalaceService(oracle);
+    this.llm = new OllamaClient({
+      baseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',
+      model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
+      timeoutMs: 30000,
+    });
   }
 
   /**
@@ -61,6 +73,69 @@ export class ChronicleHarvester {
     }
 
     return chunks;
+  }
+
+  /**
+   * Categorizes a chunk based on heuristics or LLM second pass.
+   */
+  async categorizeChunk(file: string, chunk: string): Promise<string> {
+    const content = chunk.toLowerCase();
+    const fileName = file.toLowerCase();
+    
+    // 1. Heuristics (Fast Path)
+    
+    // #Gear & #Economy
+    if (content.includes('price') || content.includes('eurobuck') || content.includes('eb') || content.includes('market') || content.includes('cost')) {
+      return '#Economy';
+    }
+    if (content.includes('weapon') || content.includes('armor') || content.includes('gear') || content.includes('item') || content.includes('ammo')) {
+      return '#Gear';
+    }
+
+    // #Combat & #Rules
+    if (content.includes('damage') || content.includes('initiative') || content.includes('hit point') || content.includes('wound') || content.includes('death save')) {
+      return '#Combat';
+    }
+    if (content.includes('check') || content.includes('difficulty value') || content.includes('dv') || content.includes('modifier') || content.includes('roll')) {
+      return '#Rules';
+    }
+
+    // #Netrunning
+    if (content.includes('cyberdeck') || content.includes('program') || content.includes('netrun') || content.includes('black ice') || content.includes('interface')) {
+      return '#Netrunning';
+    }
+
+    // #Character
+    if (content.includes('skill') || content.includes('stat') || content.includes('role') || content.includes('lifepath') || content.includes('humanity')) {
+      return '#Character';
+    }
+
+    // #Mission & #Lore
+    if (content.includes('street story') || content.includes('screamsheet') || content.includes('mission') || content.includes('hook') || content.includes('encounter')) {
+      return '#Mission';
+    }
+    if (content.includes('history') || content.includes('night city') || content.includes('corporation') || content.includes('faction') || content.includes('background')) {
+      return '#Lore';
+    }
+
+    // File-based fallbacks
+    if (fileName.includes('blackchrome')) return '#Gear';
+    if (fileName.includes('tales-of-the-red')) return '#Mission';
+    if (fileName.includes('noplacelikehome')) return '#Housing';
+
+    // 2. LLM Second Pass (Deep Path) - Only if heuristics fail or are generic
+    try {
+      const prompt = `Categorize this Cyberpunk RED rulebook excerpt into exactly one of these tags: ${CATEGORIES.join(', ')}. 
+      Respond ONLY with the tag.
+      
+      Excerpt: ${chunk.substring(0, 500)}`;
+      
+      const tag = await this.llm.generateNarrative(prompt, '', 'You are a classification engine.');
+      const matched = CATEGORIES.find(c => tag.includes(c));
+      return matched || '#Technical';
+    } catch {
+      return '#Technical';
+    }
   }
 
   async runHarvest() {
@@ -115,14 +190,17 @@ export class ChronicleHarvester {
           const existing = this.oracle.query<{ id: string }>('SELECT id FROM chronicle_seeds WHERE id = ?', [hashId]);
           
           if (existing.length === 0) {
+            // Apply refined categorization
+            const category = await this.categorizeChunk(file, chunk);
+
             // Graft to chronicle_seeds (Legacy random access)
             this.oracle.execute(
               `INSERT INTO chronicle_seeds (id, title, content, source, category, era_grounding, status) VALUES (?, ?, ?, ?, ?, ?, 'approved')`,
-              [hashId, title, chunk, 'LOCAL_PDF', '#Technical', '2045']
+              [hashId, title, chunk, 'LOCAL_PDF', category, '2045']
             );
             
             // Graft to Memory Palace Drawer (Semantic lookup)
-            await this.palace.mineExchange(`Source: ${file}`, chunk);
+            await this.palace.mineExchange(`Source: ${file} (Category: ${category})`, chunk);
             
             grafted++;
           }
@@ -138,6 +216,25 @@ export class ChronicleHarvester {
         console.error(`[ChronicleHarvester] Error processing ${file}:`, err);
       }
     }
+  }
+
+  /**
+   * Re-categorizes existing records in the database.
+   */
+  async reScan() {
+    console.log('[ChronicleHarvester] Starting re-scan of existing seeds...');
+    const seeds = this.oracle.query<{ id: string, title: string, content: string, source: string }>("SELECT id, title, content, source FROM chronicle_seeds WHERE category = '#Technical' OR category = 'LOCAL_PDF'");
+    
+    console.log(`[ChronicleHarvester] Found ${seeds.length} seeds to refine`);
+    
+    for (const seed of seeds) {
+      const category = await this.categorizeChunk(seed.title, seed.content);
+      if (category !== '#Technical') {
+        this.oracle.execute('UPDATE chronicle_seeds SET category = ? WHERE id = ?', [category, seed.id]);
+        console.log(`[ChronicleHarvester] Updated [${seed.title}] -> ${category}`);
+      }
+    }
+    console.log('[ChronicleHarvester] Re-scan complete.');
   }
 }
 
@@ -163,7 +260,13 @@ if (process.argv[1] && process.argv[1].endsWith('chronicle-harvester.ts')) {
     }
     await oracle.initSchema(); // Idempotently applies Phase 33/34 tables
     const harvester = new ChronicleHarvester(oracle);
-    await harvester.runHarvest();
+
+    if (process.argv.includes('--rescan')) {
+      await harvester.reScan();
+    } else {
+      await harvester.runHarvest();
+    }
+
     await oracle.disconnect();
     console.log('[ChronicleHarvester] Cycle complete.');
   };
