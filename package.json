@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "22.19.15",
     "@types/node-cron": "^3.0.11",
     "@types/pdf-parse": "1.1.5",
@@ -52,6 +53,7 @@
     "chromadb": "^3.4.2",
     "chrome-remote-interface": "0.33.3",
     "dotenv": "17.3.1",
+    "js-yaml": "^4.1.1",
     "jsdom": "^29.0.1",
     "node-cron": "^4.2.1",
     "pdf-parse": "1.1.1",
