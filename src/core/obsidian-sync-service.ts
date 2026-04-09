@@ -87,7 +87,11 @@ function tripletToMarkdown(triplet: Triplet): string {
     '',
     '### ◈ CONNECTED TRIADS',
     '',
+    '<div class="provenance-machine">',
+    '',
     `- **${triplet.predicate}** → ${toObsidianLink(triplet.object_literal)}`,
+    '',
+    '</div>',
     '',
   ].join('\n');
 }
@@ -180,7 +184,11 @@ export class ObsidianSyncService {
           '',
           '### ◈ CONNECTED TRIADS',
           '',
+          '<div class="provenance-machine">',
+          '',
           ...triadLines,
+          '',
+          '</div>',
           '',
         ].join('\n');
 
