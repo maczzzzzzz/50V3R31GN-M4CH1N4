@@ -31,7 +31,8 @@
     ]
   },
   "esmodules": [
-    "foundry-api-bridge.js"
+    "foundry-api-bridge.js",
+    "scripts/sovereign-dashboard.js"
   ],
   "styles": [
     "styles/bridge-layers.css",
