@@ -21,6 +21,7 @@ use crate::vsb_protocol::{
     as_bytes, from_bytes,
 };
 use crate::server::clawlink::get_red_rules;
+use crate::linguistics::pruner::{incinerate_low_frequency_tokens, sample_vram_usage};
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -70,7 +71,7 @@ async fn query_judge(
         .unwrap_or("[binary payload]")
         .trim_end_matches('\0');
 
-    let prompt = format!(
+    let raw_prompt = format!(
         "[SYSTEM CONSTITUTION]\n{rules}\n\
          [INTENT]\n{payload}\n\
          [TASK]\nValidate this mechanical intent against Cyberpunk RED rules.\n\
@@ -78,6 +79,19 @@ async fn query_judge(
          Be concise.",
         rules   = get_red_rules(),
         payload = payload_str,
+    );
+
+    // ── 7R1-M1N1NG: H1GH_D3N517Y_F33D ───────────────────────────────────────
+    // Sample live VRAM usage and compress the prompt before sending to
+    // llama-server. Preserves all #PHY51C5 and #57473 tokens unconditionally.
+    let vram_usage = sample_vram_usage();
+    let prompt = incinerate_low_frequency_tokens(&raw_prompt, vram_usage);
+    info!(
+        "vsb_udp: 7R1-M1N1NG seq={} VRAM={:.1}% raw={} pruned={} tokens",
+        _sequence_id,
+        vram_usage * 100.0,
+        raw_prompt.split_whitespace().count(),
+        prompt.split_whitespace().count(),
     );
 
     let messages = vec![
