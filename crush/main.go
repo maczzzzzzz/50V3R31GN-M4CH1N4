@@ -292,6 +292,13 @@ func main() {
 			}
 			return
 
+		case "dashboard-bridge":
+			if err := runDashboardBridge(); err != nil {
+				fmt.Printf("[BRIDGE] fatal: %v\n", err)
+				os.Exit(1)
+			}
+			return
+
 		case "chaos":
 			if len(os.Args) < 3 || os.Args[2] != "network" {
 				fmt.Println("Usage: crush chaos network --latency <ms> [--iface <iface>]")

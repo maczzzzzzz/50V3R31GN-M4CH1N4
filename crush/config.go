@@ -11,6 +11,7 @@ type Config struct {
 	ClawlinkPort    string // CLAWLINK_PORT — ZeroClaw TCP port
 	ClawlinkSock    string // CLAWLINK_SOCK — Unix socket path for proxy
 	ClawlinkTimeout int    // CLAWLINK_TIMEOUT — per-request timeout in ms
+	DashboardPort   string // DASHBOARD_PORT — WebSocket port for telemetry broadcast
 }
 
 // Cfg is the package-level config loaded at startup.
@@ -22,6 +23,7 @@ func loadConfig() Config {
 		ClawlinkPort:    getEnv("CLAWLINK_PORT", "7878"),
 		ClawlinkSock:    getEnv("CLAWLINK_SOCK", "/run/crush/clawlink.sock"),
 		ClawlinkTimeout: getEnvInt("CLAWLINK_TIMEOUT", 5000),
+		DashboardPort:   getEnv("DASHBOARD_PORT", "9090"),
 	}
 }
 
