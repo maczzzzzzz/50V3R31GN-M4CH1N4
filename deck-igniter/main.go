@@ -368,7 +368,7 @@ func (m Model) View() string {
 	banner := lipgloss.NewStyle().Foreground(colorRed).Render(igniterBanner)
 	sb.WriteString(banner)
 	sb.WriteString("\n")
-	sb.WriteString(dimStyle.Render("  50V3R31GN-M4CH1N4 v1.9.0 — Master Supervisor & Boot Sequencer"))
+	sb.WriteString(dimStyle.Render("  50V3R31GN-M4CH1N4 v2.2.0 — Master Supervisor & Boot Sequencer"))
 	sb.WriteString("\n\n")
 
 	// Status table

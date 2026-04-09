@@ -1,5 +1,5 @@
 # Local Setup: Node B (NixOS/WSL Orchestrator)
-### ASP.GM-Agent v1.9.0 | The Sovereign Highway Stabilization
+### 50V3R31GN-M4CH1N4 v1.9.0 | The Sovereign Highway Stabilization
 
 This document details the configuration for **Node B**, the primary narrative and vision orchestrator, now unified on **NixOS (WSL 2)**.
 
@@ -18,7 +18,7 @@ This document details the configuration for **Node B**, the primary narrative an
 ## 🚀 Step 2: Build & Installation
 ```bash
 # Enter the Reproducible Env
-cd /home/nixos/asp-gm-agent
+cd /home/nixos/50v3r31gn-m4ch1n4
 nix-shell
 
 # Node.js Stack

@@ -29,7 +29,7 @@ var defaultConfig = Config{
 	NodeASSHPort:    "22",
 	NodeALlamaURL:   "http://192.168.0.50:8080/v1",
 	ClawlinkPort:    "7878",
-	SetupScriptPath: "~/asp-gm-agent-v0.9.1/zeroclaw/scripts/setup-resident-models.sh",
+	SetupScriptPath: "~/50v3r31gn-m4ch1n4-v0.9.1/zeroclaw/scripts/setup-resident-models.sh",
 }
 
 // Cfg is the global runtime config, populated by LoadConfig() at startup.

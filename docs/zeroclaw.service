@@ -1,5 +1,5 @@
 [Unit]
-Description=ZeroClaw Rules Oracle (ASP.GM-Agent Node A) — Sandboxed v1.0.3
+Description=ZeroClaw Rules Oracle (50V3R31GN-M4CH1N4 Node A) — Sandboxed v2.2.0
 After=network.target
 
 [Service]

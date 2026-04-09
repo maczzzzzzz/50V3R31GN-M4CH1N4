@@ -1,6 +1,6 @@
 # High-Signal Logging & Observability Guide (v1.9.0)
 
-This document defines the persistent logging strategy for the **ASP.GM-Agent** Split-Node stack. Use these logs to debug the binary bridge, swarm concurrency, and world state mutations.
+This document defines the persistent logging strategy for the **50V3R31GN-M4CH1N4** Split-Node stack. Use these logs to debug the binary bridge, swarm concurrency, and world state mutations.
 
 ---
 

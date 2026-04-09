@@ -3,7 +3,7 @@
  *
  * Nitro-Dev MCP Server — Unified Mutation Engine (God Mode)
  *
- * Provides high-level surgical control over the ASP.GM-Agent world engine.
+ * Provides high-level surgical control over the 50V3R31GN-M4CH1N4 world engine.
  * Implements the "Unified State Mutation" pattern for clean agentic control.
  */
 

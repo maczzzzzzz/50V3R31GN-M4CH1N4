@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-04-09
+### Added
+- **Phase 36: 5H4D0W_D45HB04RD [50V3R31GN_MN7R] (Completed)**: Built a high-speed real-time monitoring dashboard for dual-node observability, bridging binary VSB telemetry to a Next.js UI inside Foundry.
+- **Phase 37: 0B51D14N_5YNC [7H3-HUM4N-R34D4BL3-V4UL7] (Completed)**: Implemented bidirectional synchronization between machine-memory (SQLite) and human-memory (Obsidian vault).
+- **Global Rebranding**: Executed a total sweep of the codebase to replace all "ASP.GM-Agent" references with the official "50V3R31GN-M4CH1N4" identity.
+
+### Changed
+- **Version Iteration**: Bumped system versions across Go sidecars, Rust SDKs, and Node.js manifests to v2.2.0.
+- **Vault Governance**: Refined `.gitignore` to strictly enforce documentation sovereignty by blocking cleartext blueprints while allowing encrypted shards.
+
 ## [2.1.0] - 2026-04-08
 ### Added
 - **Host-Native Inference Migration (Option 1)**: Pivoted Node B inference to a Windows-native `llama-server` to bypass WSL `dxgkrnl` kernel deadlocks.

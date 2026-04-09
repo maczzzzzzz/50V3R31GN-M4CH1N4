@@ -1,6 +1,6 @@
 # 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
-**Version:** 2.0.0 (The Ouroboros Kernel Milestone)
-**Target:** v2.0.0+ The Ouroboros Kernel Milestone
+**Version:** 2.2.0 (The Total Red Observability Milestone)
+**Target:** v2.2.0+ The Total Red Observability Milestone
 
 ## 🧠 Architectural Patterns (Phase 22+)
 These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.

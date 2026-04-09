@@ -1,5 +1,5 @@
 {
-  description = "ASP.GM-Agent: Node B (The Director) Development Shell";
+  description = "50V3R31GN-M4CH1N4: Node B (The Director) Development Shell";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -88,7 +88,7 @@
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
             
-            echo "◈ ASP.GM-Agent: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
+            echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
             echo "◈ Node.js: $(node --version)"
             echo "◈ Go: $(go version)"
@@ -135,7 +135,7 @@
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
             
-            echo "◈ ASP.GM-Agent: Node A (NixOS/Ubuntu) Environment Loaded [GPU: CUDA]."
+            echo "◈ 50V3R31GN-M4CH1N4: Node A (NixOS/Ubuntu) Environment Loaded [GPU: CUDA]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
           '';
         };

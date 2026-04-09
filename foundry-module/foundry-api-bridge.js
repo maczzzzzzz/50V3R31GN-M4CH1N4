@@ -1,9 +1,9 @@
 /**
  * foundry-api-bridge.js
  *
- * ASP.GM-Agent: Foundry VTT v12 WebSocket Bridge Module
+ * 50V3R31GN-M4CH1N4: Foundry VTT v12 WebSocket Bridge Module
  *
- * Co-Authored-By: ASP.GM-Agent <gm-agent@black-ice.net>
+ * Co-Authored-By: 50V3R31GN-M4CH1N4 <gm-agent@black-ice.net>
  *
  * Architecture (Palantiri-style Reverse Proxy):
  *   - This module runs INSIDE Foundry VTT's server-side Node.js process.
@@ -932,7 +932,7 @@ let bridge = null;
 Hooks.once('init', () => {
   game.settings.register(MODULE_ID, 'nodeBWsUrl', {
     name: 'Node B WebSocket URL',
-    hint: 'WebSocket address of the ASP.GM-Agent Node B FoundryAdapter server.',
+    hint: 'WebSocket address of the 50V3R31GN-M4CH1N4 Node B FoundryAdapter server.',
     scope: 'world',
     config: true,
     type: String,

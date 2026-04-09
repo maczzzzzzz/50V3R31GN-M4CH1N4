@@ -1,7 +1,7 @@
 /**
  * src/main.ts
  *
- * ASP.GM-Agent — Production Orchestrator Entry Point
+ * 50V3R31GN-M4CH1N4 — Production Orchestrator Entry Point
  *
  * This script wires the Split-Node architecture:
  *   - Connects to ZeroClaw (Node A) via ClawLink SSH Bridge.
@@ -68,7 +68,7 @@ import { RootsInjector } from './core/roots-injector.js';
 import { SOVEREIGN_HIJACK_JS } from '../scripts/theme-sync.js';
 
 async function main() {
-  console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v1.14.0)...');
+  console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v2.2.0)...');
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({
@@ -263,7 +263,7 @@ async function main() {
       await oracle.disconnect();
       console.log('✅ Unified Oracle DISCONNECTED.');
 
-      console.log('👋 ASP.GM-Agent shutdown complete.');
+      console.log('👋 50V3R31GN-M4CH1N4 shutdown complete.');
       process.exit(0);
     } catch (err) {
       console.error('[Main] Error during shutdown:', err);
