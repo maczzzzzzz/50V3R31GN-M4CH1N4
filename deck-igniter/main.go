@@ -205,6 +205,8 @@ func initialModel() Model {
 			{Name: "sidecar-atlas", Layer: LayerWSL},
 			{Name: "sidecar-cyberdeck", Layer: LayerWSL},
 			{Name: "sidecar-netrunning", Layer: LayerWSL},
+			{Name: "dashboard-bridge", Layer: LayerWSL},
+			{Name: "shadow-dashboard", Layer: LayerWSL},
 			{Name: "llama-server", Layer: LayerRemote},
 			{Name: "zeroclaw", Layer: LayerRemote},
 		},
