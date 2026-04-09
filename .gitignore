@@ -57,6 +57,8 @@ npm-debug.log*
 data/
 !data/assets/
 !data/skillstones/
+!data/vault/
+data/vault/**/*.md
 *.db
 *.db-journal
 *.db-wal
