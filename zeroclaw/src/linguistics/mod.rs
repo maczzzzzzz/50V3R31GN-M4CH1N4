@@ -1,28 +1,36 @@
 //! zeroclaw/src/linguistics/mod.rs
 //!
-//! Phase 20 Task 3 — P4RS3LT0NGV3 Linguistic Steganography Engine
-//!
-//! Encodes binary payloads into Skillstone conlang text by substituting
-//! equivalent morpheme variants ("synonym substitution" channel). Pairs of
-//! interchangeable morphemes drawn from the Skillstone phoneme pool act as
-//! "carriers": choosing variant A encodes a 0 bit; variant B encodes a 1 bit.
-//!
-//! ── Encoding scheme ───────────────────────────────────────────────────────────
-//!   Payload is length-prefixed (1 × u8, max 255 bytes) before bit-packing.
-//!   Carrier words are identified by suffix match (longest-suffix-first to avoid
-//!   ambiguity between e.g. "ra" and the "sha" terminal pair).
-//!   Non-carrier words pass through unchanged, preserving semantic content.
-//!
-//! ── Carrier pair table ────────────────────────────────────────────────────────
-//!   Each entry is (form_a → bit 0, form_b → bit 1).
-//!   Morphemes are drawn from the same pools used by the Skillstone generator
-//!   (TENSE_PARTICLES, NEG_FORMS, PLURAL_ANIMATE, PLURAL_INANIMATE,
-//!   QUESTION_PARTICLES) so substitutions are always grammatically valid.
-//!
-//! ── Capacity ──────────────────────────────────────────────────────────────────
-//!   A 20-word Skillstone bark typically contains 6–10 carrier words, giving
-//!   6–10 bits of covert capacity (≈1 byte of payload + the 8-bit length prefix).
-//!   Longer texts or repeated particle usage increase capacity proportionally.
+//! Phase 20: P4RS3LT0NGV3 Linguistic Steganography Engine (carrier-morpheme
+//!           synonym-substitution steganography).
+//! Phase 38: 7R1_SC0R3R + M3M0RY_1NC1N3R4710N context compression layer.
+
+// Phase 38 submodules
+pub mod tri_scorer;
+pub mod pruner;
+
+// ── Phase 20: P4RS3LT0NGV3 Linguistic Steganography Engine ───────────────────
+//
+// Encodes binary payloads into Skillstone conlang text by substituting
+// equivalent morpheme variants ("synonym substitution" channel). Pairs of
+// interchangeable morphemes drawn from the Skillstone phoneme pool act as
+// "carriers": choosing variant A encodes a 0 bit; variant B encodes a 1 bit.
+//
+// ── Encoding scheme ───────────────────────────────────────────────────────────
+//   Payload is length-prefixed (1 × u8, max 255 bytes) before bit-packing.
+//   Carrier words are identified by suffix match (longest-suffix-first to avoid
+//   ambiguity between e.g. "ra" and the "sha" terminal pair).
+//   Non-carrier words pass through unchanged, preserving semantic content.
+//
+// ── Carrier pair table ────────────────────────────────────────────────────────
+//   Each entry is (form_a → bit 0, form_b → bit 1).
+//   Morphemes are drawn from the same pools used by the Skillstone generator
+//   (TENSE_PARTICLES, NEG_FORMS, PLURAL_ANIMATE, PLURAL_INANIMATE,
+//   QUESTION_PARTICLES) so substitutions are always grammatically valid.
+//
+// ── Capacity ──────────────────────────────────────────────────────────────────
+//   A 20-word Skillstone bark typically contains 6–10 carrier words, giving
+//   6–10 bits of covert capacity (≈1 byte of payload + the 8-bit length prefix).
+//   Longer texts or repeated particle usage increase capacity proportionally.
 
 // ── Carrier pair table ────────────────────────────────────────────────────────
 // Ordered longest-suffix-first to prevent "sha" being shadowed by "a".
