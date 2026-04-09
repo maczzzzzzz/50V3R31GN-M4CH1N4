@@ -26,10 +26,19 @@ coverage/
 # --- 7H3-V4UL7 (Steganographic Shards) ---
 # We ALLOW shards on the remote so the project is reproduceable from GitHub.
 # We STRICTLY BLOCK the cleartext markdown files.
-docs/superpowers/
-docs/research/
-docs/audits/
-docs/archive/
+docs/superpowers/**/*.md
+docs/research/**/*.md
+docs/audits/**/*.md
+docs/archive/**/*.md
+docs/raw_data/**/*.json
+docs/raw_data/**/*.txt
+docs/user_guides/**/*.md
+data/vault/**/*.md
+*.md
+!*.md.png
+!**/*.md.png
+!**/*.json.png
+!**/*.txt.png
 
 .vesper_state
 

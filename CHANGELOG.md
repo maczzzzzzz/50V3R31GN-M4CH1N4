@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-04-09
+### Added
+- **Phase 38: 7R1-M1N1NG [VRAM_50V3R31GN7Y] (Completed)**: Implemented a geometric context compression layer (Trigonometric Scoring) to achieve 10.7x simulated context density on Node A's 4GB VRAM.
+- **UI Unification: R3D_V01D [7074L-R3D-0B53RV4B1L17Y] (Completed)**: Unified all project interfaces (Obsidian, VS Code, Dashboard, Foundry) into a single, high-fidelity black/red machine aesthetic.
+- **Master Theme Artery**: Physicalized `src/shared/sovereign-theme.css` to enforce aesthetic consistency across all monorepo components.
+
+### Changed
+- **Version Iteration**: Bumped system version to v2.3.0.
+- **Context Management**: Shifted Node A memory management from reactive FIFO to proactive Geometric Pruning (7R1_SC0R3R).
+
 ## [2.2.0] - 2026-04-09
 ### Added
 - **Phase 36: 5H4D0W_D45HB04RD [50V3R31GN_MN7R] (Completed)**: Built a high-speed real-time monitoring dashboard for dual-node observability, bridging binary VSB telemetry to a Next.js UI inside Foundry.

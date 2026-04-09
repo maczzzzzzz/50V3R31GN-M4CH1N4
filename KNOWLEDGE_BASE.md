@@ -1,6 +1,6 @@
 # 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
-**Version:** 2.2.0 (The Total Red Observability Milestone)
-**Target:** v2.2.0+ The Total Red Observability Milestone
+**Version:** 2.3.0 (The Geometric Memory & Total Red Milestone)
+**Target:** v2.3.0+ The Geometric Memory & Total Red Milestone
 
 ## 🧠 Architectural Patterns (Phase 22+)
 These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.
@@ -69,6 +69,8 @@ Patterns preserved for technical lineage or general research.
 
 ### Deep Reasoning (Tier 3 Consultant)
 - **llama.cpp / llama-server**: Native C++ inference engine. Zero wrapper overhead.
+- **TriAttention**: Trigonometric KV cache compression for long-context optimization.
+- **vLLM**: High-throughput serving with PagedAttention (Node B optimization path).
 - **Open-Reasoner-Zero-1.5B**: Reasoning-focused RL model for Node A (`<think>` tokens).
 - **Pixtral-12B**: Native Vision Language Model (VLM) for Node B map understanding.
 
@@ -97,8 +99,9 @@ Patterns preserved for technical lineage or general research.
 
 ### Node B (TypeScript Orchestrator)
 - `@modelcontextprotocol/sdk`: `1.28.0`
-- `better-sqlite3`: `12.8.0`
-- `chokidar`: `^3.6.0` (Asset Watcher)
+- `better-sqlite3`: `12.8.0` (Unified RKG / Lore Engine)
+- `chokidar`: `^3.6.0` (Asset & Obsidian Watcher)
+- `js-yaml`: `^4.1.1` (Markdown Frontmatter Parser)
 - `pixelmatch`: `^5.3.0` (Visual Diff Stride)
 
 ### Node A (Rust Rules Engine)

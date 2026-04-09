@@ -3,7 +3,7 @@ import path from 'node:path';
 import { RedTradeService } from '../../src/core/red-trade-service.js';
 import { RedTradeCargoSchema, FrictionRollResultSchema } from '../../src/shared/schemas/red-trade.schema.js';
 
-const ITEMS_DIR = path.resolve('docs/raw_data');
+const ITEMS_DIR = path.resolve('tests/fixtures/red-trade-items');
 
 describe('RedTradeService', () => {
   let service: RedTradeService;

@@ -1,0 +1,5 @@
+{
+  "name": "Heavy Cannon",
+  "type": "weapon",
+  "system": { "price": { "market": 5000 } }
+}

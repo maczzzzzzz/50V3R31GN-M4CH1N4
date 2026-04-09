@@ -2468,7 +2468,7 @@ dependencies = [
 
 [[package]]
 name = "sovereign-sdk"
-version = "0.1.0"
+version = "2.2.0"
 
 [[package]]
 name = "stable_deref_trait"
@@ -3536,7 +3536,7 @@ dependencies = [
 
 [[package]]
 name = "zeroclaw"
-version = "1.13.0"
+version = "2.2.0"
 dependencies = [
  "axum",
  "base64",

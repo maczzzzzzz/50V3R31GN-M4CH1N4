@@ -1,0 +1,5 @@
+{
+  "name": "Medical Supplies",
+  "type": "gear",
+  "system": { "price": { "market": 500 } }
+}

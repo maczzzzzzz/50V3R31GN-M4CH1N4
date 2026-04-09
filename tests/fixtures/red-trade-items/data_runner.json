@@ -1,0 +1,5 @@
+{
+  "name": "Access Badge",
+  "type": "gear",
+  "system": { "isElectronic": true }
+}

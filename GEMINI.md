@@ -1,7 +1,7 @@
 # PROJECT_DNA: 50V3R31GN-M4CH1N4
 Mirroring directives from CLAUDE.md and KNOWLEDGE_BASE.md.
 
-## 🏗️ HARDWARE MAP (v2.2.0)
+## 🏗️ HARDWARE MAP (v2.3.0)
 - **Node A (192.168.0.50)**: The Kernel (GTX 1050 Ti 4GB). Resident **1.5B Reasoner** + **Falcon**. [Nix Native]
 - **Node B (192.168.0.51)**: The Director (5950X / WSL NixOS). Resident **12B Brain**. [Nix Native]
 - **Bus:** Virtual System Bus (VSB) via **Binary UDP** (Cross-Machine) + **Mmap** (Local).

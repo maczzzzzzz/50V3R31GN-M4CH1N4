@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 describe('RulesGrepService', () => {
-  const testDir = 'docs/raw_data/test_rules';
+  const testDir = 'tests/fixtures/test_rules';
   let service: RulesGrepService;
 
   beforeEach(() => {
