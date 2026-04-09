@@ -88,20 +88,39 @@ const LORE_KEYWORDS: &[&str] = &[
 ];
 
 /// Classify a single token into its `SovereignTier`.
-/// Case-insensitive. Checks longest tiers first (Physics > State > Lore).
+/// Case-insensitive. Uses exact whole-word match (after stripping leading/
+/// trailing punctuation) plus dedicated prefix rules for dice and DV notation.
 pub fn classify_token(token: &str) -> SovereignTier {
     let lower = token.to_lowercase();
+    // Strip leading/trailing non-alphanumeric chars for clean keyword matching
     let word = lower.trim_matches(|c: char| !c.is_alphanumeric());
 
-    if PHYSICS_KEYWORDS.iter().any(|k| word == *k || lower.contains(k)) {
+    if is_physics_token(word) {
         SovereignTier::Physics
-    } else if STATE_KEYWORDS.iter().any(|k| word == *k || lower.contains(k)) {
+    } else if STATE_KEYWORDS.iter().any(|k| word == *k) {
         SovereignTier::State
-    } else if LORE_KEYWORDS.iter().any(|k| word == *k || lower.contains(k)) {
+    } else if LORE_KEYWORDS.iter().any(|k| word == *k) {
         SovereignTier::Lore
     } else {
         SovereignTier::Flavor
     }
+}
+
+/// Check whether a (pre-lowercased, punctuation-stripped) word belongs to
+/// the #PHY51C5 tier.
+fn is_physics_token(word: &str) -> bool {
+    if PHYSICS_KEYWORDS.iter().any(|k| word == *k) {
+        return true;
+    }
+    // Dice notation: d6, d10, d12, d20, d100, …
+    if word.len() >= 2 && word.starts_with('d') && word[1..].chars().all(|c| c.is_ascii_digit()) {
+        return true;
+    }
+    // DV values: dv10, dv15, dv17, …
+    if word.len() >= 3 && word.starts_with("dv") && word[2..].chars().all(|c| c.is_ascii_digit()) {
+        return true;
+    }
+    false
 }
 
 // ── Harmonic Center Calculation ───────────────────────────────────────────────
