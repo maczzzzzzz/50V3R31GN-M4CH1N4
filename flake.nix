@@ -52,6 +52,10 @@
             python312
             python312Packages.pip
 
+            # R3D_V01D Theme Fonts (WSLg X-server / Obsidian / VS Code)
+            hack-font
+            jetbrains-mono
+
             # Hybrid v2 (NAPI-RS / Interop)
             napi-rs-cli
             protobuf
@@ -72,7 +76,10 @@
             export PROJECT_ROOT=$(pwd)
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
             export CRUSH_DB_PATH="$PROJECT_ROOT/.crush/crush.db"
-            
+
+            # R3D_V01D Font Config — expose Hack + JetBrains Mono to WSLg X-server
+            export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ pkgs.hack-font pkgs.jetbrains-mono ]; }}"
+
             # Mapped WSL Driver Path + Nix Store libs
             export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [ 
               openssl 
