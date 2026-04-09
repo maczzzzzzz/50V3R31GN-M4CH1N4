@@ -41,7 +41,8 @@ docs/raw_data/*
 docs/rulebooks_raw/
 
 # IDE & OS Files
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 *.swp
 .DS_Store

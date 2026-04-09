@@ -1,0 +1,91 @@
+{
+  "editor.fontFamily": "'JetBrains Mono', 'Hack', 'Fira Code', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+
+  "markdown.preview.fontFamily": "'VT323', monospace",
+  "markdown.preview.fontSize": 18,
+
+  "workbench.colorCustomizations": {
+    "activityBar.background":             "#0a0a0a",
+    "activityBar.foreground":             "#ff1a1a",
+    "activityBar.activeBorder":           "#ff1a1a",
+    "activityBar.activeBackground":       "#1a0000",
+    "activityBarBadge.background":        "#ff1a1a",
+    "activityBarBadge.foreground":        "#0a0a0a",
+
+    "sideBar.background":                 "#0a0a0a",
+    "sideBar.foreground":                 "#e0e0e0",
+    "sideBar.border":                     "#440000",
+    "sideBarSectionHeader.background":    "#0f0f1a",
+    "sideBarSectionHeader.foreground":    "#ff1a1a",
+    "sideBarSectionHeader.border":        "#440000",
+
+    "editor.background":                  "#0a0a0a",
+    "editor.foreground":                  "#e0e0e0",
+    "editorLineNumber.foreground":        "#440000",
+    "editorLineNumber.activeForeground":  "#ff1a1a",
+    "editorCursor.foreground":            "#ff1a1a",
+    "editor.selectionBackground":         "#44000066",
+    "editor.lineHighlightBackground":     "#0f0f1a",
+
+    "statusBar.background":               "#0a0a0a",
+    "statusBar.foreground":               "#ff1a1a",
+    "statusBar.border":                   "#440000",
+    "statusBar.noFolderBackground":       "#0a0a0a",
+    "statusBarItem.hoverBackground":      "#1a0000",
+
+    "titleBar.activeBackground":          "#0a0a0a",
+    "titleBar.activeForeground":          "#ff1a1a",
+    "titleBar.inactiveBackground":        "#0a0a0a",
+    "titleBar.inactiveForeground":        "#440000",
+    "titleBar.border":                    "#440000",
+
+    "tab.activeBackground":               "#0f0f1a",
+    "tab.activeForeground":               "#ff1a1a",
+    "tab.inactiveBackground":             "#0a0a0a",
+    "tab.inactiveForeground":             "#888888",
+    "tab.activeBorder":                   "#ff1a1a",
+    "tab.border":                         "#440000",
+    "editorGroupHeader.tabsBackground":   "#0a0a0a",
+
+    "terminal.background":                "#0a0a0a",
+    "terminal.foreground":                "#e0e0e0",
+    "terminal.ansiRed":                   "#ff1a1a",
+    "terminal.ansiBrightRed":             "#ff4444",
+    "terminalCursor.foreground":          "#ff1a1a",
+
+    "focusBorder":                        "#ff1a1a",
+    "scrollbarSlider.background":         "#44000066",
+    "scrollbarSlider.hoverBackground":    "#ff1a1a44",
+    "scrollbarSlider.activeBackground":   "#ff1a1a88",
+
+    "badge.background":                   "#ff1a1a",
+    "badge.foreground":                   "#0a0a0a",
+    "progressBar.background":             "#ff1a1a",
+    "button.background":                  "#440000",
+    "button.hoverBackground":             "#660000",
+    "button.foreground":                  "#ff1a1a",
+    "input.background":                   "#0f0f1a",
+    "input.border":                       "#440000",
+    "input.foreground":                   "#e0e0e0",
+    "inputOption.activeBorder":           "#ff1a1a",
+    "dropdown.background":                "#0f0f1a",
+    "dropdown.border":                    "#440000",
+    "dropdown.foreground":                "#e0e0e0",
+    "list.activeSelectionBackground":     "#1a0000",
+    "list.activeSelectionForeground":     "#ff1a1a",
+    "list.hoverBackground":               "#0f0f1a",
+    "list.hoverForeground":               "#e0e0e0",
+    "list.highlightForeground":           "#ff1a1a"
+  },
+
+  "editor.tokenColorCustomizations": {
+    "comments":   "#440000",
+    "keywords":   "#ff1a1a",
+    "strings":    "#cc4444",
+    "functions":  "#ff6666",
+    "numbers":    "#ff8888",
+    "types":      "#ff4444"
+  }
+}
