@@ -35,6 +35,7 @@
     "scripts/sovereign-dashboard.js"
   ],
   "styles": [
+    "styles/sovereign-red-void.css",
     "styles/bridge-layers.css",
     "styles/black-ice-theme.css"
   ],

@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import '../../src/shared/sovereign-theme.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary: #ff003c;
-  --background: #0a0a0a;
-  --panel: #0f0f1a;
+  /* Dashboard aliases mapping to THE_M4573R_7H3M3 master palette */
+  --primary:    var(--sovereign-red);
+  --background: var(--sovereign-void);
+  --panel:      var(--sovereign-panel);
 }
 
 html, body {
