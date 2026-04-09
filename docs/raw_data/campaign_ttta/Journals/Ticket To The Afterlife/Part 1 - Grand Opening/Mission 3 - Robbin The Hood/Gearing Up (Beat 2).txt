@@ -1,0 +1,87 @@
+In this beat, the party meets a head honcho of the Vampyres, who offers to help them in preparing for their upcoming job - competition makes for the greatest show, after all!
+
+Change the environment to @UUID[Scene.RND2jHUhhcOv5uJH]{Upper Marina Environment,} then read the following:
+
+A Nondescript Storefront In Upper Marina
+
+Like any properly gentrified neighborhood, Upper Marina is a medium commercial/residential district filled to the brim with perfectly acceptable buildings that are utterly unused thanks to starscraping rent prices. It's one of these locations that Sammy has provided you, just a few short blocks from the Afterlife on the district's west side, and one extra layer of brownstone away from turning into the ordered brick streets of Little Europe.
+
+The storefront is locked, its tinted windows blacking out the sun from the outside. A large sign pinned in the window is promoting the future location of Dracula's Harvest, which appears to be some type of theater studio, or maybe a location for studying improv. No further information is provided.
+
+There are two ways into the building - the front and the back.
+
+If entering through the front, the door can be opened with a DV17 Pick Lock check (it is Upper Marina, after all).
+
+Players can also simply choose to knock.
+
+Optionally, have the player roll a luck save to see if an NCPD patrol car drives by while they're attempting the pick.
+
+Otherwise, the back door is locked by the same check, but is much more secluded in an alleyway rimming the strip of businesses that the storefront is a part of.
+
+An unlocked window adjoins a fire escape above the door, which leads down a flight of stairs to the back exit.
+
+Once players are inside, read the following.
+
+As soon as the last of you enters, the door swings shut and the room goes black.
+
+"AVAST, YE SALTY DAWGS!" Cries a voice. A moment later a spotlight blares bright, revealing that a rickety-looking wooden pirate ship as the room's sole feature. Atop it, a man in an eyepatch and pirate garb thrusts a saber towards you. His teeth glint gold in the sudden light. "Stand to, and relinquish ye treasure, lest ye… ah… hm. Damn it! Line! This is why we need to open the place…"
+
+Speaking As Patrick The Pirate
+
+Patrick is a member of the Vampyres, and on good terms with Sammy Chauvin. He's also the spearhead behind the informal HQ that the gang will be setting up with the bank's proceeds, which the party is currently standing in. He's "new to the pirate role" and will try to speak accordingly. But probably won't do well. Any facedowns will involve him attempting to fight the person making the facedown with his (dulled saber).
+
+Patrick is amicable to the party once he learns who they are. He provides the following supplies:
+
+Any player may requisition up to 6 magazines each of rubber ammo of any type.
+
+He also offers to blunt any relevant melee weapons, upon request - doing so stops the weapons from drawing blood or causing critical injuries and any targets reduced to 0 HP by the weapon are unconscious, but stable.
+
+For every 3 members of the party (rounded up), Patrick supplies 1 teargas grenade and 1 smoke grenade.
+
+Patrick is excited about the upcoming heist, and feels that any good performance troupe shines brightest when competing for attention, hence his assistance.
+
+His troupe is only just getting started, and he wants to help them make a name. Seeing the favor he owed Sammy, he views the situation as a win-win for both sides.
+
+Above table, now is also a good time to explain how the upcoming encounter works.
+
+Each initiative round, the Vampyres and the party will compete for attention during the robbery. On every player's turn, they may attempt an action of any kind to do so.
+
+When doing so, the GM informs the player of the DV for the check.
+
+If the player succeeds the DV, they gain the spotlight until someone else in the scene succeeds a check with a DV higher than the one the player set.
+
+If the player fails the check, the next check a Vampyre makes is made at a cumulative +3 bonus.
+
+At the end of the round, whichever side of the performance holds the spotlight scores a point. Whoever has the most points once Beat 4 begins wins the contest.
+
+(Optional): Enhanced assistance:
+
+Any actor can choose to hold their turn until a certain point in initiative, allowing for assistance towards a check.
+
+Any actor can use their action to assist in a check on their turn in a fashion which seems appropriate.
+
+If they exceed the result rolled by the actor they're assisting, the final score of the assisted check is increased by 3.
+
+If they tie the result, the final score is increased by 2.
+
+If below the result, the final score is increased by 1.
+
+Because of this, he also reveals an array of "combat costumes" from crates that are off to the side of the room, and insists that the party choose a theme for their robbery.
+
+He'll work with the party to brainstorm a theme for the robbery with which they can compete with the Vampyres.
+
+Patrick is partial to the pirate theme, and encourages the party to embrace it, but also suggests an old west robbery, an alien invasion, a Robin Hood theme, Sportsball, or a creative reinterpretation of your personal Tolkein race of choice to suit the occasion.
+
+Once costumes are decided on, each party member may add 1 outfit comprised of a mix of Leisurewear/Asia Pop/Urban Flash to their inventory at their discretion, renamed to describe the costume they've chosen.
+
+The relevant pieces of this costume have been reinforced with light armorjack.
+
+Once costumes are assembled, have each player roll a Wardrobe & Style check while describing their costume.
+
+On passing a DV17, players can add 1 to the DV reference for stealing the spotlight, directly after they steal it (it's a little harder for the Vampyres to steal back). This bonus is increased to 2 if they roll 22+.
+
+It only occurs to Patrick after everyone's in costume that he's supposed to be paid for his help.
+
+Opening the briefcase reveals a week's supply of very high quality fresh food - mostly fruits and veggies. Fruit prevents scurvy!
+
+Once players are outfitted and ready to go, advance time to around midday of the next if you're not already there, and advance to beat 3.

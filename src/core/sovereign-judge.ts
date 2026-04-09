@@ -22,8 +22,8 @@ export class SovereignJudge {
     this.nitro = options.nitroLogicClient;
     this.ollama = options.ollamaClient;
     this.oracle = options.oracle;
-    this.clawlink = options.clawlinkClient;
-    this.foundry = options.foundryAdapter;
+    if (options.clawlinkClient !== undefined) this.clawlink = options.clawlinkClient;
+    if (options.foundryAdapter !== undefined) this.foundry = options.foundryAdapter;
   }
 
   public async evaluateNarrative(

@@ -62,8 +62,10 @@ import { SpatialVisionService } from './core/spatial-vision-service.js';
 import { VisualMonitorService } from './core/visual-monitor-service.js';
 import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
 import { VesperService } from './core/vesper-service.js';
+import { SharedMemoryService } from './core/shared-memory-service.js';
 
 import { RootsInjector } from './core/roots-injector.js';
+import { SOVEREIGN_HIJACK_JS } from '../scripts/theme-sync.js';
 
 async function main() {
   console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v1.14.0)...');
@@ -99,13 +101,6 @@ async function main() {
     }
   }, FOUNDRY_HEARTBEAT_MS);
 
-  // 2. Initialise Bridge (ClawLink)
-  const clawlink = new ClawLinkClient({
-    host: process.env.CLAWLINK_HOST || '192.168.0.50',
-    port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
-  });
-  // Note: Connection handled as needed by consumers
-
   // 3. Initialise Hardware Clients
   const nitroLogic = new NitroLogicClient({
     baseUrl: process.env.NODE_A_LLAMA_URL || 'http://192.168.0.50:8080/v1',
@@ -117,7 +112,7 @@ async function main() {
   const rootsInjector = new RootsInjector(oracle.getRawDatabase());
 
   const ollama = new OllamaClient({
-    baseUrl: process.env.OLLAMA_BASE_URL || 'http://localhost:8080/v1',
+    baseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',
     model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
     timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
     num_gpu: process.env.OLLAMA_NUM_GPU ? parseInt(process.env.OLLAMA_NUM_GPU, 10) : undefined,
@@ -153,6 +148,14 @@ async function main() {
   });
   try {
     await neuralUplink.connect();
+    
+    // Phase 35: Inject SOVEREIGN_HIJACK_JS payload upon successful CDP connection
+    const client = neuralUplink.getClient();
+    await client.Runtime.evaluate({
+      expression: SOVEREIGN_HIJACK_JS,
+      awaitPromise: true,
+    });
+    console.log('💉 SOVEREIGN_HIJACK_JS Payload Injected.');
   } catch (err) {
     console.warn(`⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
   }

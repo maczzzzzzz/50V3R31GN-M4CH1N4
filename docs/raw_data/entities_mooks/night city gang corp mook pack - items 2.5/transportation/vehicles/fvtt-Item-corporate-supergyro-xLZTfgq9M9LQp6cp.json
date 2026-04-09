@@ -1,0 +1,61 @@
+{
+  "folder": "nw7GVCTc2LMEvDZe",
+  "name": "Corporate Supergyro",
+  "type": "vehicle",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsMooks/Generic%20Vehicles/Corporate%20Supergyro/Gyro-Corpo-Jet-Stylised.webp",
+  "system": {
+    "description": {
+      "value": "<p>A late-model gyro with its rotors replaced by the AV thrusters of an Aerodyne. For the corpo who needs to get somewhere <em>really really fast</em>. Nomad access 6.</p><p><em>Tokens and Art by </em><a href=\"https://www.patreon.com/solutionmaps\"><em>SolutionMaps on Patreon</em></a><em>. Redistributed with permission.</em></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 50000
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 0
+    },
+    "sdp": 35,
+    "seats": 2,
+    "speedCombat": 40,
+    "speedNarrative": "200 MPH/322 KPH"
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

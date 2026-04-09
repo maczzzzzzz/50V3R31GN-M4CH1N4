@@ -1,0 +1,120 @@
+{
+  "name": "Demolitionist's Toolkit",
+  "type": "gear",
+  "img": "systems/cyberpunk-red-core/icons/compendium/gear/tech_bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Like a tech bag, but explicitly for rapidly disassembling big things into asymmetrical smaller chunks. Has tools for running tripwires, calibrating pressure sensors, calculating explosive force, setting fuses, and even allows for frag grenades or IEDs to be converted to landmines, with pre-set detonation conditions. Comes with a free c4 clacker.</p><p>Also contains the tools for safely disposing of all that stuff, of course - though a bomb vest is still recommended.</p><p>Gives +2 to Demolitions checks when used as part of the check.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "carried",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 500
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    }
+  },
+  "effects": [
+    {
+      "name": "Demolitions Bonus",
+      "origin": "Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.Hat1nKbqvilFyvJ5",
+      "disabled": false,
+      "_id": "FgQWD64pJwN6eoXz",
+      "changes": [
+        {
+          "key": "bonuses.demolitions",
+          "value": "2",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "skill"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "folder": "dcqta7WL1ifLv2wZ",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

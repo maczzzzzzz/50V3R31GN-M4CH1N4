@@ -13,7 +13,6 @@ import (
 // ── Black-Ice Theme ────────────────────────────────────────────────────────────
 
 var (
-	colorRed = lipgloss.Color("#ff003c")
 	colorRed    = lipgloss.Color("#ff003c")
 	colorBg     = lipgloss.Color("#080810")
 	colorDim    = lipgloss.Color("#1a1a2e")
@@ -201,6 +200,7 @@ func initialModel() Model {
 	return Model{
 		components: []*Component{
 			{Name: "foundry-vtt", Layer: LayerWindows},
+			{Name: "pixtral", Layer: LayerWindows},
 			{Name: "director", Layer: LayerWSL},
 			{Name: "sidecar-atlas", Layer: LayerWSL},
 			{Name: "sidecar-cyberdeck", Layer: LayerWSL},

@@ -1,0 +1,30 @@
+This beat uses the @Scene[VCbthP8Ez4uhtdkr]{Afterlife Exterior Environment}. Switch to it, and then read the following:
+
+Early Morning, Upper Marina
+
+The clean, corporate image of Upper Marina seems a little dirtier, when you finally return to the Afterlife. It's the same scene as ever, marred by invisible water stains. How many other basements are holding events like the one you just came from? How many apartments are holding crazy cannibal corpo rats or their helpless slaves?
+
+It puts a damper on things, as you finally step through the Afterlife's doors. As usual, Sprinter is at the concierge's desk. Vido is in the lobby as well, leaning against a wall and chatting with her.
+
+"Bonjeur, mis vouchers!" he exclaims in his usual greeting. "I'm afraid the Owner had other things to attend to, and has handed your contract to me in her stead. How was your night on the town?"
+
+Assuming the gig was completed successfully, Vido pays the players the amount Rogue specified to him (the agreed upon amount).
+
+If an Afterlife team was sent to recover Chef Fenison's daughter, it arrives only a moment after the party does with his airheaded daughter in tow. She's been shot in the arm, and is screaming bloody murder - the scavs only break off their pursuit when the Afterlife's exterior turrets spin up and open fire. Fenison is, obviously, rather troubled that his daughter wasn't already safe and secured. The daughter is happy to see her daddy, though has no idea what troubles he's been through and thinks the people attacking her were drunken suitors.
+
+If the party rescued the Chef's daughter, she is upstairs in the Afterlife when they arrive, and Fenison agrees to authorize their bonus.
+
+Assuming the gig was completed successfully, the players will have access ot the Afterlife's dining services beginning the following morning - see @UUID[JournalEntry.UWipowbnk4tPOKSR]{08. Chef Fenison's Fine Foods & Atmosphere}. The Chef, at GM discretion, might insist on at least providing them one meal for free in exchange for his rescue.
+
+The end - see you for the next one!
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!
+
+
+

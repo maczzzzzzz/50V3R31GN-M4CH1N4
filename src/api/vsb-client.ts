@@ -9,7 +9,7 @@ import {
   IntentPacketCodec,
   IntentType,
   ResultPacketCodec,
-  type ResultPacket,
+  type ResultPacketView,
 } from '../shared/vsb_protocol.js';
 
 export interface VsbConfig {
@@ -26,14 +26,14 @@ export class VsbClient {
   }
 
   /**
-   * Send a SkillCheck intent to Node A and await a ResultPacket.
+   * Send a SkillCheck intent to Node A and await a ResultPacketView.
    */
   async sendSkillCheck(
     sequenceId: number,
     sessionId: Uint8Array,
     actorId: Uint8Array,
     payload: Uint8Array
-  ): Promise<ResultPacket> {
+  ): Promise<ResultPacketView> {
     const intent = IntentPacketCodec.encode(
       IntentType.SkillCheck,
       sequenceId,
@@ -66,6 +66,16 @@ export class VsbClient {
           this.socket.off('message', onMessage);
           reject(err);
         }
+      });
+    });
+  }
+
+  /** UDP is connectionless — bind the socket so it can receive replies. */
+  async connect(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.socket.bind(0, (err?: Error) => {
+        if (err) reject(err);
+        else resolve();
       });
     });
   }

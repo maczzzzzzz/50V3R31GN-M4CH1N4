@@ -1,0 +1,313 @@
+{
+  "folder": "aZy5qjkCgOHnErUR",
+  "name": "Mission 8 - Dust In The Wind",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Beat Chart & Mission Summary",
+      "type": "text",
+      "_id": "GdWtyOxX6Tgtfvi4",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Mission Setup Time: 30-40 Minutes. Most of that time will be spent identifying and setting up the convoy and Dustwalker/player vehicles as outlined in Beats 2 and 3.</strong></p><p>With the basics taken care of, ownership is shifting focus to some luxury services - turning the Afterlife from a spot into a destination. One of the stretch goals is transportation, turning the Afterlife from an isolated kingdom into a small part of an ever-expanding ecosystem.</p><table><tbody><tr><td data-colwidth=\"283\"><h2>Jingle Jangle Jingle</h2></td><td><p></p></td></tr><tr><td data-colwidth=\"283\"><h5>Friend Opportunity: Ranger</h5><p>Ranger is a storied veteran of CW4 and the Steel Vaqueros, who's split off to form his own family called the Dustwalkers. He's very predictably a huge motorhead and always enjoys a good scrap, but is put off by those who've abandoned their humanity to cyberware. He'd be happy to teach his friends how to drive all manner of vehicles.</p></td><td><h5>Enemy Opportunity - Militech Convoy Commander</h5><p>Recovering the Dustwalkers' vehicles from Militech will be no mean feat, commanded as they are by a mean, well-seasoned corporate veteran. The convoy commander can be replaced by any enemy who's aligned with Militech, or has a military background.</p></td></tr><tr><td data-colwidth=\"283\"><h5>Rep Opportunity: Hey Man, Nice Shot</h5><p>Make an aimed shot against the head of an enemy more than 50 meters away with a sniper rifle. If it hits, the target is instantly killed and the character responsible gains 1 personal rep.</p></td><td><h5>Gig Payout</h5><p>500eb + 4 Eagles per player, with a bonus of 150eb + 2 Eagles if the Dustwalker vehicles are recovered without any damage, and another 100eb + 1 Eagle if no Dustwalkers are seriously injured in the attempt.</p></td></tr></tbody></table><h1>Beat Chart</h1><p><strong>Beat 1: Dustwalker, Texas Ranger</strong></p><p>The group meets up with Vido, who introduces Ranger and breaks the ice - you're about to go up against Militech.</p><p><strong>Beat 2: Desert Winds</strong></p><p>Ranger takes the party out to the Badlands, where he introduces his family and provides some extra resources for the ambush.</p><p><strong>Beat 3: Scouting The Convoy &amp; Ambush Site</strong></p><p>A nondescript, deserted highway has been located, which will be the perfect ambush site. Alternately, the party gears up for the ride of their lives as they attempt to take the convoy without it ever slowing down.</p><p><strong>Beat 4a: Ambush In The Dust</strong></p><p>The trap is set and sprung, as the ambush stops the convoy in its tracks.</p><p><strong>Beat 4b: Ambush On The Road</strong></p><p>The perfect stretch of highway has been located, ideal for nabbing the convoy without ever needing to stop it.</p><p><strong>Beat 5: Triumphant Returns</strong></p><p>The survivors return to the Afterlife for their pay and some very well-earned R&amp;R.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379371237,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 200000,
+      "name": "Dustwalker, Texas Ranger (Beat 1)",
+      "type": "text",
+      "_id": "Rn9MdQ8WCzPVAZzc",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat, as usual, takes place in the 7th Circle. To begin:</p><ul><li><p>Place tokens for the club's staff (Sammy, Checkers, Silvers) around the bar and populate the bar at your discretion.</p></li><li><p>Place Vido in his usual booth at the back.</p></li><li><p>Place <strong>@Actor[cPKW14g48b5jpes3]{Ranger, Head Of The Dustwalkers}</strong> in the booth with Vido</p></li><li><p>Place the player tokens at the bar's entrance.</p></li></ul><p>Then read the following:</p><h2>Blowing Hot Air</h2><p>\"Howdy, cowboys!\" <em>Vido's text reads.</em> \"I am told my western accent is truly terrible - alas, I lack the Italian blood which made the old west shine. In any case, you are needed at the Afterlife this afternoon, at 14:00 hours, for the next job. You'll be operating out in the dust, so I recommend bringing some decent boots, and a water bottle. The jackets will be provided.\"</p><p><em>Inside the Afterlife, the scene is as-usual, and thankfully clown-free. Silvers is standing watch over a high-stakes table in the gambling pit. Given that the table occupants are Tygers, it's a safe guess that more than just money is being gambled on.</em></p><p><em>Over at the bar, Sammy gives you a cheery wave. Clarisa Bohr is laughing too loudly, very obviously high on something-or-other, and a 20-something himbo in a bright, asian pop jacket is sitting next to her and very clearly regretting his choices.</em></p><p><em>In the back, the Frenchman is keeping someone company in his usual booth. You don't recognize the other man, but he's obviously a nomad. If the sun-beaten leather armorjack and full face mask weren't enough of a getaway, there's a thin trail of dust leading from the door to the booth.</em></p><img src=\"modules/ticket-to-the-afterlife/packs/ticket-to-the-afterlife/Afterlife%20Evergreen/Mooks/Ranger%2C%20Afterlife%20Smuggler.webp\" class=\" centered\" width=\"300\" height=\"300\" /><p><em>Vido says something, and the nomad stands as you're spotted, shedding more dust on the booth in the process. Through his breathing mask you hear a Mexican accent and a smile. </em>\"Hola, locos!\" <em>he calls. </em>\"I take it you're the specialist French Fries was telling me about?\"</p><p><em>Vido's smile seems decidedly fixed, and he mutters under his breath about French Fries being an American invention.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>Ranger is extroverted and friendly to pretty much anyone that he doesn't consider a threat, even if the feeling isn't mutual. The only exception to this are obvious borgs and psychos, which he considers a liability.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>He </strong><em><strong>will</strong></em><strong> assign each player a nickname, regardless of their real name or handle.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>He will freely share his background and personal details if asked - see his mook sheet for more details.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>He will decide if he trusts the party almost immediately, operating entirely on intuition and first impressions.</strong></span></p></li></ul><p><span style=\"font-family:Signika\"><strong>Ranger is in the bar to represent his family, called the Dustwalkers - a small, talented group of smugglers that the Afterlife intends to hire.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The Dustwalkers were once part of the Steel Vaqueros nomad family, which were themselves part of the Aldecaldo nation.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Ranger split off from the Vaqueros when his subclan's motor pool began eclipsing the larger family's, and his disagreements with their leadership intensified.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Ranger wanted more discretion in the jobs his clan took; the leadership of the Vaqueros disagreed.</span></p></li><li><p><span style=\"font-family:Signika\">The two families aren't necessarily shoot-on-sight, but neither are they on especially good terms.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The Dustwalkers specialize in smuggling of all kinds, and in discretion - a highly sought after and difficult-to-maintain trait.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Their reputation precedes them in the higher circles of Night City - they're the best of the best.</span></p></li></ul></li></ul><h2>The Job</h2><p><span style=\"font-family:Signika\"><strong>Once Ranger's given the party some background on the Dustwalkers, Vido takes over to provide the job details, but notes that this one will be harder than most, and emphasizes that there's no shame in walking away - the target of the job is none other than Militech.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>A few days ago, some of Ranger's people were involved in a smuggling job that went wrong, resulting in both Ranger's personal ride, as well as the family's A/V-4, being \"repossesd\" by Militech.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The group were hazed by a fixer that double-crossed them for Militech in exchange for a cut of the cargo - highly valuable military-spec weapon and vehicle parts.</span></p></li><li><p><span style=\"font-family:Signika\">Said fixer is now rotting, thanks to Vido - a favor to show the Afterlife's good will towards Ranger's crew.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Ranger and most of his people got out alive, and most of the vehicles were inconsequential and easily replaced. Two, however, were not - Ranger's personalized pickup, and an A/V-4.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Like any good motorhead, Ranger <em>will</em> brag about his vehicle given the chance - it's a <strong>@UUID[Compendium.cyberpunk-red-core.black-chrome_vehicles.7CayuDCC2lrf4LkR]{Volkhov}</strong> that's been upgraded with a smuggling compartment, comms center, NOS, and a security upgrade - everything a nomad leader could ever need, and not easily replaced if lost.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>As part of Ranger's terms for signing on at the Afterlife, its management has agreed to recover his vehicles for him.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Fortunately, nobody has to raid the NorCal Military Base - instead, the vehicles are being transported North, to a Militech base in Sacramento, to be retrofitted for service to the corp.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The mission, then, will be a simple 3-part job.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">First, the party will meet the Dustwalkers, who are camped outside NC and waiting for word on the plan of action.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>The Dustwalkers intend to support the venture themselves, of course - providing transportation, some dynamite, and a few extra hands.</em></span></p></li></ul></li><li><p><span style=\"font-family:Signika\">Second, the party will scout the convoy and decide on their plan of attack - ambush, or a moving hijack.</span></p></li><li><p><span style=\"font-family:Signika\">Third, the plan is executed.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>Simple and to the point - what could go wrong?</em></span></p></li></ul></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>If questioned about the Militech convoy, Vido provides what little else he knows:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The convoy is only lightly defended, at least by Militech standards.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The corp was hoping to be discrete in the shipment, but that evidently will not be the case.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Expect the convoy commander to be a highly mobile specialist - the biggest threat of the operation.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>As far as enemy munitions go, they might employ turrets or grenade launchers, but Vido doesn't expect anything heavier than that.</strong></span></p></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once the party has agreed on the terms and payment, Vido wishes them luck, and Ranger offers them a ride out to the Badlands in a beat up pickup that he's been using in place of his stolen truck. Proceed to beat 2.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379370386,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 300000,
+      "name": "Desert Winds (Beat 2)",
+      "type": "text",
+      "_id": "glFDiZUpFBJMAzzW",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene makes use of the <strong>@Scene[wanUwHXksurmCUGL]{Badlands Environment}</strong>. To begin, read the following:</p><h2>Bumpy Ride</h2><p><em>The ride out to the Badlands isn't comfortable at the best of times. Night City isn't exactly known for its well maintained roads - and beyond the city limits, cracked asphalt quickly turns to gravel beyond the highways, which themselves haven't seen paint or fresh pavement since before CW4.</em></p><p><em>And even those vestiges of level ground and society are quickly left behind - Ranger's substitute ride needs a new set of shock absorbers, to be sure, but that doesn't stop him from immediately taking it off road. Mexican rap plays over the stereo as you bounce around beside him or behind him. Unless you've got wheels of your own, and those geared for desert wear-and-tear at that, the hour drive quickly turns to hell.</em></p><p><em>Ranger is cheery, though, either because he's used to getting knocked around or, more likely, because his seat has some extra padding in it that wasn't spared for shotgun or bed. He makes loud conversation over the radio - </em>\"So, locos! How long have you known Frenchie? Do you trust him?\"</p><hr><p><span style=\"font-family: Signika\"><strong>The ride to the desert is a test of endurance more than anything else. Every party member must make an endurance check for the ride, the difficulty of which varies considerably:</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>Ranger's truck has 1 spare seat - for the character occupying it, the check is DV15. This check can be auto-passed if the character has 4 or more points in the Endurance skill.</strong></span></p></li><li><p><span style=\"font-family: Signika\"><strong>If the rest of the party isn't able to provide their own transportation, they must cram into the truck bed, which is hot, lacks proper seats and has no shade. The check for those riding in the truck bed is DV19, and reduced to DV15 if the character has 4 or more points in Endurance.</strong></span></p></li><li><p><span style=\"font-family: Signika\"><strong>If a party member has a Moto rank of 4 or more, they can make a DV13 Endurance check instead of any other option.</strong></span></p></li><li><p><span style=\"font-family: Signika\"><strong>If the party has access to a set of wheels that have been desert-prepped (note: GM discretion on what that constitutes), those riding in the vehicle make a DV13 Endurance check; this check can be auto-passed if the character has 3 or more points in Endurance.</strong></span></p></li></ul><p><span style=\"font-family: Signika\"><strong>On failing the check, the character is fatigued, suffering a -2 penalty to all actions until they've had at least 4 hours of uninterrupted, comfortable rest.</strong></span></p><p><span style=\"font-family: Signika\"><strong>(Note: the convoy will be in \"ambush position\" within 2 hours of the players' arrival to the Dustwalker camp).</strong></span></p><p><span style=\"font-family: Signika\"><strong>Once all players have made/skipped the check, continue below.</strong></span></p><hr><p><em>After an eternity (about an hour) under the desert sun, the Dustwalker camp finally rolls into view. It's not much to look at, but maybe that's the point. Desert camo tarps are covering an array of vehicles, and similar looking tents have been pitched that blend well with the surrounding sand. The entire arrangement has been set up in a gully, surrounded on all sides by dunes and rocks. In short: if you didn't know it was there, it'd be virtually impossible to find.</em></p><p><em>Figures - Dustwalkers, presumably - emerge from tents as Ranger's truck arrives, maybe a little over a dozen in total - given the number of vehicles, it's likely there's a few more inside, keeping out of the heat. Most of them are dressed similar to Ranger - faces obscured by helmets, dust masks and sunglasses, bodies covered in sun-worn nomad leathers.</em></p><p>\"We're here locos!\" <em>Ranger calls as his truck engine rumbles to a halt, and the stereo with it. </em>\"Welcome to Dustwalker central. Mi casa es su casa - let's get you up to speed.\"</p><hr><p><span style=\"font-family: Signika\"><strong>Ranger is quick to introduce his family to the party - mechanics, drivers, gunners, and so on, it seems that everyone has a role. He also provides the following to get the party set up for the mission (</strong></span><span style=\"text-decoration:underline\"><span style=\"font-family: Signika\"><strong><span style=\"text-decoration: underline;\">Note:</span></strong></span></span><span style=\"font-family: Signika\"><strong> you'll need to set these vehicles/mooks up later, so keep track of what's showing up!)</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><strong>Every party member is provided a @UUID[Compendium.cyberpunk-red-core.core_gear.LTxStSIeRegbtZpd]{dust mask} and a @UUID[Compendium.cyberpunk-red-core.core_clothing.5ieeaIfU392bw34p]{Dustwalker Nomad Leathers Jacket} which both look similar to his own.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">The jacket provides a +2 bonus to checks made to resist desert conditions, like those endured when driving to the camp. The dust mask is a dust mask.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>He wants the jackets back when the job is done… unless the party wants to join the family, anyway.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family: Signika\"><strong>He also provides 4 bundles of dynamite for use in a potential ambush situation or whatever else.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">The dynamite bundles are <strong>@UUID[Compendium.cyberpunk-red-core.core_ammo.tivSfxqoNYnBlNah]{Armor-Piercing Grenades}</strong> which operate via timer and/or fuse instead of detonating after being thrown.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>Setting the timer/fuse correctly requires a DV15 Demolitions skill check; this check can be auto-passed with 2 or more points in the skill.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family: Signika\"><strong>Ranger pledges Dustwalker support to helping jack the convoy, as follows:</strong></span></p><ul><li><p><span style=\"font-family: Signika\">He will provide <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.860mzcwLNjI8k1VY]{Buggies,} @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.x9phBEbuufeWlZiW]{Motorcycles,} and @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.fJADjN524RCZyD54]{Generic Trucks}.</strong></span></p><ul><li><p><span style=\"font-family: Signika\"><em>The party has access to a pool of moto points for this requisition = the number of party members.</em></span></p></li><li><p><span style=\"font-family: Signika\"><em>A truck costs 3 points, a buggy costs 2, and a Motorcycle costs 1.</em></span></p></li></ul></li><li><p><span style=\"font-family: Signika\">If players aren't driving (see next), each vehicle taken will be manned by 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.xoiovcHTBz5FK3Jz]{Steel Driver,}</strong> renamed to Dustwalker Drivers.</span></p></li><li><p><span style=\"font-family: Signika\">Otherwise, any empty seats are filled by <strong>@Actor[PvwsjskfBnf7Uhlu]{Steel Riders}</strong>, renamed to Dustwalker Gunners.</span></p></li><li><p><span style=\"font-family: Signika\">In both cases, each vehicle may be upgraded once, at you or your players' discretion.</span></p><ul><li><p><span style=\"font-family: Signika\"><em>If upgraded with a weapon mount, the weapon mount can only hold a heavy SMG in the case of motorcycles, or an assault rifle in the case of trucks or buggies.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family: Signika\"><strong>In cases where Dustwalker mooks are provided, best practice is to give players control over those mooks to a limited degree - noting what they'll be doing and when.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">You can do this by copying the sheets and giving your party ownership over them, or else by taking their orders during the encounter.</span></p></li><li><p><span style=\"font-family: Signika\">Note: they're still humans, and their loyalty would be to the Dustwalkers first in all cases - this is just a way to improve player impact and spice up a scene that will, in all likelihood, have a <em>lot</em> of actors in initiative.</span></p></li></ul></li><li><p><span style=\"font-family: Signika\"><strong>Lastly, Ranger </strong><em><strong>potentially</strong></em><strong> provides loaner vehicles to party members which know how to drive but haven't brought their own wheels.</strong></span></p><ul><li><p><span style=\"font-family: Signika\">He requires proof that the party member can drive correctly, first - this requires a DV15 Drive Land Vehicle check, which cannot be attempted without at least 2 points in the skill, and can be auto-passed with 4 or more points in the skill.</span></p></li><li><p><span style=\"font-family: Signika\">If the check is successful, each player who succeeded and doesn't already have their own car can borrow a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.860mzcwLNjI8k1VY]{Buggy} or a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.x9phBEbuufeWlZiW]{Motorcycle}.</strong></span></p></li><li><p><span style=\"font-family: Signika\">These vehicles count towards the vehicle limit outlined above, and are also manned/upgraded accordingly.</span></p></li></ul></li></ul><hr><p><span style=\"font-family: Signika\"><strong>Once players are ready to start planning their attack by scouting the convoy, proceed to the next beat.</strong></span></p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 400000,
+      "name": "Scouting The Convoy & Ambush Site (Beat 3)",
+      "type": "text",
+      "_id": "5sDNaRE28BC0wXuH",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene requires you to set up the convoy before continuing. The convoy's contents are as follows (<strong>Note:</strong> you'll need to set it up in the next beat, so write down its configuration once you figure it out!)</p><ul><li><p>1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.EWqVqKfX6XR7hfze]{Hauler} </strong>and an associated <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.xRcSGTvpuJtN8La1]{Trailer} (or two trailers, at GM discretion)</strong> form the core of the convoy and are always present.</p><ul><li><p>The Hauler always leads the convoy, and it's been reinforced with a heavy chassis, armored chassis, a ram, and bulletproof windows.</p></li><li><p>The Hauler's trailer holds a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.AVg7DSH6R5Pqszo3]{Generic A/V-4}</strong> and Ranger's Volkhov, which can be represented via a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.FvEVg5aUhP5dLU0b]{Generic Truck}</strong></p></li></ul></li><li><p>The convoy always contains 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.FvEVg5aUhP5dLU0b]{Generic Truck},</strong> acting as an escort vehicle. It's been upgraded with a turret mount which holds an assault rifle upgraded with a drum magazine, as well as a <strong>@UUID[Compendium.cyberpunk-red-core.core_upgrades.YRDJbfFA4knBhApR]{Heavy Chassis}</strong> and an <strong>@UUID[Compendium.cyberpunk-red-core.core_upgrades.l2lIF8c1HknhG8CN]{Armored Chassis}</strong></p><ul><li><p>This escort vehicle can optionally be replaced by a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.KqYOXf7FwofgL68y]{Militech \"Roach\" Armored Transport}</strong> at GM discretion; this will raise the difficulty level of the encounter.</p></li></ul></li><li><p>Both vehicles are occupied by 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.91JT7Zncn3Sb60Ge]{RatSec Elite} </strong>as a driver and 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Fn6sba31t3fGJBOM]{Militech Grunt} </strong>acting as a guard.</p><ul><li><p>If the escort vehicle is the generic truck, its gunner nest is occupied by a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Fn6sba31t3fGJBOM]{Militech Grunt}</strong></p></li><li><p>In both cases the back of the vehicle (a seating upgrade has been added if need be) is occupied by a pair of <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.91JT7Zncn3Sb60Ge]{RatSec Elites} </strong>equipped with Assault Rifles.</p><ul><li><p>These RatSec officers can be replaced by <strong>Suppressors</strong> in the case of the Roach, at GM discretion.</p></li></ul></li></ul></li><li><p>The convoy is also always escorted by the Convoy Commander, which is a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.nETJMfdVTY72YwJa]{Militech Strike Commander}</strong> riding a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.sO9nXymx4OmxB4Hx]{Motorcycle}</strong> which has been upgraded with NOS, and a</p></li></ul><p>Beyond this, the convoy is geared as follows:</p><ul><li><p>If the party has 4 or more members, the convoy is joined by another motorcycle carrying a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.kkITSSkpW4W9dAOx]{Militech Specialist}</strong>, with a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Fn6sba31t3fGJBOM]{Militech Grunt}</strong> riding behind them.</p></li><li><p>If the party has 5 or more members, the convoy is also joined by a Generic Truck which has been upgraded with a Heavy Chassis and Armored Chassis (but no gun emplacement), and 2 extra seats in the bed. The driver of the truck is a RatSec Elite, and the passenger is a Militech Grunt. The grunt is equipped with a Grenade Launcher (fired using the Martial skill) and 4 Armor-Piercing Grenades.</p><ul><li><p>If the party has 6 members, the truck has been equipped with a seating upgrade in the bed; the 2 seats are filled by a pair of RatSec Elites carrying Assault Rifles instead of Heavy SMGs.</p></li></ul></li></ul><p>Every vehicle's driver uses the <strong>Technical</strong> skill while making Drive Land Vehicle checks; they're said to have 4 points in the skill, and gain +4 to any technical checks made to drive.</p><h2>Scouting The Convoy</h2><p><span style=\"font-family:Signika\"><strong>Thanks to Ranger's expertise, scouting the convoy without being seen isn't too difficult. However, a sandstorm is kicking up - while not yet that intense (and a good way to make sure the convoy can't call for help), it's impairing visibility. Have the party member(s) scouting the convoy make a perception DV15 perception check. On a fail, they know the convoy is there but can't learn much else. Reveal the following as the result improves:</strong></span></p><table><tbody><tr><td><p>Result</p></td><td><p>Information</p></td></tr><tr><td><p><span style=\"font-family:Signika\"><strong>16+</strong></span></p></td><td><p><span style=\"font-family:Signika\"><strong>The party learns the number of vehicles, and their type, but not any specific details.</strong></span></p></td></tr><tr><td><p><span style=\"font-family:Signika\"><strong>18+</strong></span></p></td><td><p><span style=\"font-family:Signika\"><strong>The party also learns how the vehicles are outfitted - what guns are present, etc.</strong></span></p></td></tr><tr><td><p><span style=\"font-family:Signika\"><strong>20+</strong></span></p></td><td><p><span style=\"font-family:Signika\"><strong>The party learns the number of crew assigned to the convoy, and a rough estimate of their power level (yes strike commander, no brute or demo, etc.)</strong></span></p></td></tr><tr><td><p><span style=\"font-family:Signika\"><strong>22+</strong></span></p></td><td><p><span style=\"font-family:Signika\"><strong>The party gleans everything they could want to know about the convoy, including the armaments of those manning it.</strong></span></p></td></tr></tbody></table><h2>Scouting The Ambush Site</h2><p><span style=\"font-family:Signika\"><strong>Ranger is much more excited about the prospect of a </strong><em><strong>moving</strong></em><strong> ambush than just stopping the convoy, but provides an option for doing so all the same. Racing ahead of the lumbering hauler and its escorts, he shows the party scout(s) a decrepit highway overpass. His suggestion to stop the convoy is to plant dynamite beneath the overpass, demolishing it as the convoy approaches and throwing the Miilitech forces into disarray.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Take this time to show the scout(s) the @Scene[Rr3BAJcbh6mzathM]{Badlands Ambush} scene, and give them the opportunity to assess their plan of attack.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Ranger </strong><em><strong>really</strong></em><strong> wants to do the \"moving heist\" option though, because it's way cooler, and will say as much.</strong></span></p><h2>Does the Sandstorm Intensify?</h2><p><span style=\"font-family:Signika\"><strong>In either ambush scenario, a moderate sandstorm stops Militech from calling for help. The storm isn't severe enough to impact the operation, however - assuming the players are wearing dust-protective gear provided by the nomads, they shouldn't face any difficulties.</strong></span></p><p><span style=\"font-family:Signika\"><strong>As an optional extra challenge, however, the sandstorm can be intensified, to the following effects:</strong></span></p><ol><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">Impeded visibility:</span></strong></span></span><span style=\"font-family:Signika\"><strong> Any perception checks or shots made beyond 10m are made at a cumulative -2 penalty for each 10m beyond the first.</strong></span></p></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">Keep it on the road:</span></strong></span></span><span style=\"font-family:Signika\"><strong> Any kind of vehicle maneuvers are made at a -4 penalty.</strong></span></p></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">It's coarse and rough, and gets everywhere:</span></strong></span></span><span style=\"font-family:Signika\"><strong> When a weapon is fired, it jams on a 1 and requires an action to clear.</strong></span></p></li></ol><p><span style=\"font-family:Signika\"><strong>Once the party has decided on their plan of attack, and the GM has decided if the sandstorm intensifies or not, proceed to Beat 4a or 4b.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379307561,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 500000,
+      "name": "Ambush In The Dust (Beat 4a)",
+      "type": "text",
+      "_id": "2WEspNKLZPSa0szT",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat makes use of the <strong>@Scene[Yt3KYkHw5vY9DBFl]{Badlands Ambush}</strong> scene. To begin:</p><ul><li><p>Set up the convoy as you've determined it from Beat 3.</p><ul><li><p>The Hauler and its trailer(s) are always in the lead.</p></li><li><p>Assuming the overpass blew at the correct time, the Hauler should be stopped and blocking the road just in front of the bridge.</p></li><li><p>If the overpass blew too late, it's in the ditch instead; the hauler itself is at half HP, and its occupants will likely have trouble leaving the vehicle.</p></li><li><p>The other vehicles are behind the Hauler.</p></li></ul></li><li><p>Set up the player characters and their Dustwalker vehicles and reinforcements at your discretion around the map.</p><ul><li><p>These should've been determined in Beat 2.</p></li></ul></li></ul><p>Then read the following:</p><h2>So You Decided To Stop The Convoy…</h2><p><em>You can hear the boom from the dynamite - it rattles your teeth even from a ridge away, even amid the sandstorm. Accompanying it a moment later is the sounds of crashing concrete and steel as the targeted overpass collapses. The Dustwalker vehicles have tucked themselves behind dunes and rocks, just out of view, a few hundred feet away.</em></p><p><em>Ranger's voice crackles over the radio - even at such short range, the interference from the sandstorm is considerable.</em> \"Alright locos, convoy's stopped, time to cut the dust. Yippie ki yay!\"</p><p><em>A moment later you're surrounded by the roar of engines, proofed against dust mostly, but only barely. It's the sound everyone in North America knows to fear whenever they leave the safety of the cities, one that Network 54 has spent the better part of 30 years dramatizing and one featured in half the video games, movies and TV shows since - the sound of a nomad ambush… though being on this side of one is, at least, a novel experience.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>As the Dustwalkers burst onto the scene, Militech immediately takes action. Their primary objective will be to get the convoy moving again - back towards Night City ideally. However, they've trained for such scenarios.</strong></span></p><ul><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">The driver of the Hauler</span></strong></span></span><span style=\"font-family:Signika\"><strong> will stay in their cab, and attempt to turn the hauler around - which is easier said than done.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Them doing so requires the ability to reverse the truck and its trailers, and requires at least 4 turns of DV15 Drive Land Vehicle checks to do so, which the driver attempts with their Technical skill (note the +4 bonus outlined in Beat 3).</span></p></li><li><p><span style=\"font-family:Signika\">On failure, the Hauler still moves, but returns to the same position at the start of its turn.</span></p></li><li><p><span style=\"font-family:Signika\">Once the Hauler is free, it will immediately begin driving back towards Night City. Such a drive will take about an hour; after 45 minutes are elapsed, it will be free of the storm enough to communicate with Militech, constituting a fail-state due to reinforcements.</span></p></li></ul></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">The motorcycle(s)</span></strong></span></span><span style=\"font-family:Signika\"><strong> will break off and their driver(s) immediately seek advantageous position(s), like on dunes at the edge of the map or behind rocks, or else begin hit-and-runs on the party.</strong></span></p></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">All other Militech staff</span></strong></span></span><span style=\"font-family:Signika\"><strong> will attempt to protect the Hauler as it gets turned around to go home.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Most will likely disembark their vehicles immediately to try and find cover, conscious of the hazards of concentrated targets and exploding vehicles.</span></p></li><li><p><span style=\"font-family:Signika\">The exception to this will be the drivers, who will weaponize their vehicles if possible, or else <em>at least</em> do their best to get out of the way of the hauler turning around.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>In both cases, Militech will prioritize their targets, first honing in on any heavy weapons that they're aware of, then targeting the largest threats to the otherwise while communicating well to focus on targets of opportunity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Beyond that, what and how they attack is at GM discretion.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Militech will surrender once it becomes clear that they can no longer win the fight.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">They will never surrender, however, while the Strike Commander/Convoy Commander is conscious and still capable of giving orders - and the commander will never surrender.</span></p></li><li><p><span style=\"font-family:Signika\">In cases where they do surrender, Ranger's a good-natured sort about it, not wanting a reputation as Raffen.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>The Dustwalkers always conceal their faces, and have no insignias on their cars (they cover those on their jackets before negotiating).</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>Additionally, killing the surrendering Militech officers gains them nothing, while letting them live increases the chances, however slight, of a more favorable interaction between the two organizations in the future.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>Because of this, Ranger will leave the vehicles that aren't already his, and insist the rest of the party do the same (they're filled with trackers and unmistakably Militech in origin, making them more trouble than they're worth).</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>While he'll flatten their tires to prevent pursuit, he'll also leave Militech a functional radio and a small supply of water - when the sandstorm dies down, surrendering officers will be able to get home safely, corporate consequences notwithstanding.</em></span></p></li></ul></li></ul></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once the convoy has been defeated, proceed to beat 5.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379369537,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 600000,
+      "name": "Ambush On The Road (Beat 4b)",
+      "type": "text",
+      "_id": "u6Byp7olZ3Xgi4yD",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat makes use of the <strong>@UUID[Scene.mKjcTgVHGEjAXlt5]{Repeating Highway}</strong> scene. To begin:</p><ul><li><p>Set up the convoy as you've determined it from Beat 3.</p><ul><li><p>The Hauler and its trailer(s) are always in the lead.</p></li></ul></li><li><p>Set up the player characters and their Dustwalker vehicles and reinforcements at your discretion around the map.</p><ul><li><p>These should've been determined in Beat 2.</p></li></ul></li></ul><p>Then read the following:</p><h2>So You Decided To Hit The Convoy While It's Moving…</h2><p><em>You can hear the roar of the convoy's engines from a mile away. They're the only vehicles on the highway, and the hauler's massive motor is distinctive even without seeing it, masking most of the rest of the cars in a low rumble that vibrates your teeth.</em></p><p><em>There's a simple GPS display, home-cooked by the nomads, on a laptop in every car. It ticks down the seconds - dots for you, one dot for the convoy. 3 miles. 2 miles. 1 mile.</em></p><p><em>Ranger's voice crackles over the radio - even at such short range, the interference from the sandstorm is considerable. </em>\"Alright locos, convoy's in range, time to cut the dust. Yiipie ki yay!\"</p><p><em>A moment later you're surrounded by the roar of your own engines and the ambush party shoots up to speed. It's an insane velocity to be keeping with such low visibility from the storm, but the Dustwalkers take it in stride, best-of-the-best as they are. Around you, you hear the sound that all of North America has learned to fear whenever leaving the safety of its cities; one that Network 54 has spent the better part of 30 years dramatizing and one featured in half the video games, movies and TV shows since - the sound of a nomad ambush. Being on the side of the ambushers, though, is still proving to be a novel experience.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>As the Dustwalkers burst onto the scene, Militech immediately takes action. Their primary objective is to stop the ambush/protect the convoy, and if your players and the mooks are both smart, that will likely involved making aimed shots against the tires (see CORE p. 192, or alternately, tires have 10 SDP/20 if armored). As a result, the ambush will likely see a couple things happen:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Anyone who's able will probably attempt to jump to an opponent's car as soon as possible so as to avoid being taken completely out of the fight if their own car</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Jumping to another vehicles requires a DV15 Athletics check; characters can only jump 1/3rd their move characteristic in spaces given the inability to have a running start.</span></p></li><li><p><span style=\"font-family:Signika\">Alternately, the driver that's being jumped to can use their turn action to take evasive maneuvers; doing so requries all shots against the vehicle to beat the DV set by their Drive Land Vehicle check; this DV must also be beaten with Athletics to jump to the vehicle.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>On such checks, note the optional -4 for the severe desert conditions outlined in Beat 3.</em></span></p></li></ul></li><li><p><span style=\"font-family:Signika\">Once on a vehicle, the actor can make attacks against its occupants without making aimed shots (hitting specific vehicle parts still requires aimed shots, however).</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Vehicles will spray at each other: nobody smart is going to be aiming for particular actors unless they've already swapped vehicles.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Bigger vehicles will ram smaller ones: Motorcycles and buggies are vulnerable to ramming from trucks and the hauler.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>People will hit the pavement: If a jump is missed or someone is thrown off a vehicle, they hit the pavement. For every 10 MPH/16 KPH that the vehicle was moving before they were thrown off, they take 1d6 damage, ablated by armor/generating critical injuries as normal.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><em>Note that the general top speed of most vehicles is 100MPH/160KPH; if a vehicle used NOS, that's doubled to 200MPH/320KPH for 1 turn.</em></span></p></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>Otherwise, note the following:</strong></span></p><ul><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">The Hauler</span></strong></span></span><span style=\"font-family:Signika\"><strong> will attempt to run anyone who gets too close off the road but keep on course until its apparent it no longer will be able to (has been boarded and escort has been defeated, trailer is decoupled, etc.)</strong></span></p></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">The Motorcycles</span></strong></span></span><span style=\"font-family:Signika\"><strong> will immediately attempt to dump their occupants, either reinforcing their own vehicles to fight boarding parties or attempting to board someone else's vehicle.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Those aboard consider the motorcycles themselves to be disposable.</span></p></li></ul></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">All other Militech staff</span></strong></span></span><span style=\"font-family:Signika\"><strong> will work at their discretion, seizing targets of opportunity and focusing on enemy weak points or heavy weapons that are the biggest threat to their convoy.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The Strike Commander is competent, ordering their officers to fire to best effect.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The trailer can be freed from the Hauler by making an aimed shot against the hitch. The hitch has 10 SDP.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Doing this damages both the A/V-4 and Ranger's Volkhov (not to the point of being inoperable, but the trailer still flips and that's extra work), so should only be attempted as a last resort.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The vehicles can be freed from the trailer while the convoy is moving.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Doing so requires 2 actions from someone that's outside the vehicle.</span></p></li><li><p><span style=\"font-family:Signika\">Once this is done, the vehicle <em>immediately</em> comes free of the trailer.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>Keeping the Volkhov on the road requires a DV17 Drive Land Vehicle check (ignore the sandstorm modifier) from someone in the driver's seat, which is increased to a DV21 if the engine isn't running.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>Lifting the A/V-4 requires a DV15 Pilot Air Vehicle. This can't be attempted if the A/V-4 isn't running.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>If either check is failed, the vehicle topples off the trailer and onto the road, potentially being run into by the other vehicles. Treat it as a falling actor (\"People will hit the pavement\") and it may take additional damage from being rammed.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Militech will surrender once it becomes clear that they can no longer win the fight.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">They will never surrender, however, while the Strike Commander/Convoy Commander is conscious and still capable of giving orders - and the commander will never surrender.</span></p></li><li><p><span style=\"font-family:Signika\">In cases where they do surrender, Ranger's a good-natured sort about it, not wanting a reputation as Raffen.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>The Dustwalkers always conceal their faces, and have no insignias on their cars (they cover those on their jackets before negotiating).</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>Additionally, killing the surrendering Militech officers gains them nothing, while letting them live increases the chances, however slight, of a more favorable interaction between the two organizations in the future.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>Because of this, Ranger will leave the vehicles that aren't already his, and insist the rest of the party do the same (they're filled with trackers and unmistakably Militech in origin, making them more trouble than they're worth).</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>While he'll flatten their tires to prevent pursuit, he'll also leave Militech a functional radio and a small supply of water - when the sandstorm dies down, surrendering officers will be able to get home safely, corporate consequences notwithstanding.</em></span></p></li></ul></li></ul></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once the convoy has been defeated and/or the vehicles recovered, proceed to beat 5.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379369097,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 700000,
+      "name": "Triumphant Returns (Beat 5)",
+      "type": "text",
+      "_id": "7VKH2SKfCthrtnbF",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene takes place either at the Dustwalker camp, at the Afterlife, or some combination thereof; no dedicated scene is required. To begin, switch to the <strong>@Scene[wanUwHXksurmCUGL]{Badlands Environment}</strong> and read the following:</p><h2>Success!</h2><p><em>The mood is celebratory as the Dustwalkers return to camp with the party in tow. They've recovered their two biggest assets, and are obviously excited to be entering the employ of the Afterlife.</em></p><p>\"You city kids sure know how to party!\" <em>Ranger keeps saying.</em> \"Taking on a Militech convoy - what a rush!\"</p><p><em>He's quick to phone the Afterlife once he can, but the sandstorm's still hovering and he insists the party stay at the camp until it passes. It isn't exactly comfortable, being stuck in a dark tent with half a dozen of your new best friends, especially since it's obvious none of them have seen any kind of running water for the last few days - but between the booze, the war stories and the dust storm raging outside, well, it could be worse.</em></p><hr /><p><strong>(Bonus check time: the following is only read if one or more of the bonus payout conditions were achieved)</strong></p><p>\"Ladies and gents!\" <em>Even inside, Ranger keeps his helmet on - constant vigilance, he says, but it's a little odd that you still don't know what he actually looks like. A little, anyway.</em> \"Special announcement! We couldn't have pulled this off without a very special couple of folks. I want you all to keep those jackets - as far as I'm concerned, you're all honorary Dustwalkers. Just, eh, make sure you know how to drive before shooting for anything more than that, yeah?\"</p><p><em>The other nomads cheer and drinks are raised at the announcement. Congrats - you're now an honorary part of a group with a collective bounty in the hundreds of thousands.</em></p><hr /><p><em>Back at the Afterlife, Vido is pleased - Ranger has signed on and is ready to get to work. He offers your payment without issue,</em> <strong>((plus any bonuses that Ranger mentions))</strong> <em>and puts you on your way - the next job will be along soon.</em></p><hr /><p><strong>Assuming that the gig was completed, beginning immediately the players have access to the Afterlife's garage &amp; transportation services - @UUID[JournalEntry.mkFxfso1HXOrkEj6]{see the associated journal entry for more details.}</strong></p><h2>Your Feedback Wanted!</h2><p>Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.</p><p>If you have a few minutes after your session, <a href=\"https://forms.gle/sfvVM21YrA88fyC77\">please take the time to fill out the feedback survey for this campaign, located here.</a> It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.</p><p>Your feedback matters! Thank you for playing!</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379366742,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 150000,
+      "name": "Nightlight Editorial",
+      "type": "text",
+      "_id": "Ebc8N5FsHF2nnwci",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2 data-anchor=\"the-fm-receiver-crackles,-the-pirate-wavelength-carrying-a-cool,\">The FM Receiver Crackles, The Pirate Wavelength Carrying A Cool, Seductive Female Voice…</h2><p><em>Good evening and good morning Nightcrawlers. This is Nightlight, voice of the city, taking the scream out of the sheet and right into your ears, minus all of that awful shouting. Nightlight says you'd better have your Nightlights on and plugged in tonight, because we've got a sandstorm rolling through from NorCal that promises to put our dear city in the dust for the next few days, starting this afternoon. And speaking of, we're over to Batty Carlson - our top story tonight is the latest WNS report on runaway climate change, or as Network 54's been calling it, the longest streak of coincidences in world history. Anything to avoid putting Petrochem in a bad light. Batty?</em></p><p><em>Batty: Psh, weather - you can't trust any of those network news jockeys, how do we know that they're not making the weather themselves?</em></p><p><em>NL: Be that as it may, it is our story for tonight - how the dust storms are finally shutting off the last of the wind farms in NorCal -</em></p><p><em>Batty: And good riddance! What do you think those wind farms were for, Nightlight? You think they just used the wind? No, </em>they made it!\"</p><p><em>NL: Mhm…</em></p><p><em>Well, no more mic for Batty tonight, I think. In other news, looks like the east blocks in the University District are going to be a little more open than Scott Brown Real Estate anticipated, thanks to vacancies caused by the Bozo civil war. So long as you don't mind a few extra rads from the city center, head on over and apply, studio prices are down to a measly 2500eb a month -</em></p><p><em>(muffled, away from the mic) Batty: The rads are what MAKES THE CLOWNS!</em></p><p><em>Ah… perhaps we should just cut to the music. More on the happenings of NC, after this.</em></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379370701,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

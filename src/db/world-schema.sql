@@ -244,3 +244,15 @@ CREATE TABLE IF NOT EXISTS district_dna (
     persona_override TEXT,
     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Phase 33: Unified Lore Mind (Chronicle Seeds)
+CREATE TABLE IF NOT EXISTS chronicle_seeds (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    source TEXT NOT NULL, -- 'MIRAHEZE', 'Z-TEAM', 'WORLD-ANVIL'
+    category TEXT NOT NULL, -- '#Historical', '#Corporate', '#Gossip', '#Technical'
+    era_grounding TEXT DEFAULT '2045',
+    status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);

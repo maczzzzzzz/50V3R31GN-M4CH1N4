@@ -1,0 +1,39 @@
+First, prepare the scene of Sprinter's Gaff.
+
+Place Emily Dunnes' token at the top center of the apartment building on the grey fire escape.
+
+The door to Sprinter's apartment at the bottom left should already be open. The door at the top center of the fire escape is also open.
+
+Optionally, a second car be placed on the curb in front of the alley to the left of the apartment block.
+
+Add a good number of civillians to the streets in front of the building.
+
+The player character tokens can be placed anywhere on the streets.
+
+Activate the Little Europe Environment now and read the following:
+
+Sprinter's gaff
+
+Little Europe is definitely one of the more upmarket neighbourhoods and, compared to the rest of Night City, its residents can be considered the well-off upper middle class. You, being Edgerunners, armed and wearing armour, do stand out here.
+
+Between the hustle and bustle of passers-by, you can tell that this neighbourhood has seen better times, but definitely worse. It's a place where you can take a deep breath and unwind. The address, 221 Brugha Lane, is a medium-sized flat block in fairly decent condition.
+
+Now activate the scene Sprinter's Gaff.
+
+The PCs have to take the elevator to the second floor of the building. When the doors open, they see a hooded figure on the fire escape right in front of them. It hastily climbs and jumps down, rushes through the alley and drives off in a car. If the PCs want to give chase, they must pass a professional check on Athletics, otherwise they injure themselves when jumping off the fire ladder (2D6 - armour is ignored). With a bit of luck and professional checks on Perception, they can still recognise the license plate. Note that any bonus from suitable cyber optics or gear may be relevant here.
+
+If the PCs later find out who the car is registered to, they will discover that it is a rental car from a company near the airport of Sacramento.
+
+It is easy to see that the door to Sprinter's apartment has been forced open and the gaff itself hastily searched. It is difficult to tell whether anything of value or interest has been removed.
+
+If the PCs are not reasonably discreet in their search, the neighbours, now back from work, will call the police, who should arrive in 1D10 +3 rounds.
+
+The furnishings in the gaff must have once been very exclusive and beautiful, but unfortunately Adam Smasher himself has obviously vented his frustration over a lost bet here. Nothing is left where it should be.
+
+A professional check on Perception or a difficult check on Reveal Object lets the PCs find a damaged digital photo frame next to the bedside table. It has a crack in the display, switching to other pictures no longer works, but it shows the last picture viewed:
+
+Sprinter is standing in front of a dive bar with another person. According to the neon-coloured and flickering sign, it is called "The Hideout". Next to Sprinter, you can see a male person a few years younger who bears a striking resemblance to her.
+
+This is a good time to show your players the character artwork of the NPC Franklin Cross.
+
+To find out the address of the "The Hideout", a professional Streetwise check is required. Alternatively, they could ask a combat cab driver / Fixer for a fee (19 Dame Street). The dive bar is located at the very edge of Little Europe near the border to the Hot Zone.

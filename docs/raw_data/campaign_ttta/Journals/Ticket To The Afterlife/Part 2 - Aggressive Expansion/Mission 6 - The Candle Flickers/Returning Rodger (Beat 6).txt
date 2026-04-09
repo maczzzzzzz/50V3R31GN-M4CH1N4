@@ -1,0 +1,59 @@
+This beat begins once Rodger has been safely removed from the premises, and has 3 potential outcomes + an optional extra bit of summary for any other rescued sleepers, as follows:
+
+If The Other Sleepers Were Rescued
+
+Use when: the other sleepers were awoken at Shady Shallows, and at least some were escorted safely from the premises.
+
+The worst part of the trip back is the smell. Old-person-le-pew, intensified from weeks of not properly bathing. Despite this, though, the old folks are in good spirits, and seem to have fared better in the game than Rodger. Maybe it's from less time spent inside the pods, or maybe they never dove as deep as Rodger did. In either case, they can tell stories of the demon of Acheron, who remained at the top of the leaderboard for their entire, limited stay at Shady Shallows. They are also, of course, quite grateful that you chose to save them.
+
+Upon being returned to the Afterlife, David Valdez will take responsibility for the awakened sleepers, finding them rooms in the Afterlife or the surrounding area for a few days, and reconnecting some with their families.
+
+If inquired after, Sammy will mention weeks later that his father was fundamentally disturbed by the nightmare fate that can await the elderly in Night City, and has equipped those former sleepers so-willing with considerable resources, forming a private task force to hunt institutions similar to Shady Shallows.
+
+Stout will also have tertiary involvement, though after this attempt on his life, the head of house has decided that the Afterlife will make for a suitable retirement spot.
+
+If they're ever encountered again, former sleepers will likely recognize their saviors on sight, and use RatSec Elite statblocks.
+
+Critical Condition
+
+Use when: Rodger was removed from the premises but was severely injured in the process and/or the chipware in his head was not removed before leaving.
+
+The trip back to the Afterlife is tense. Stout is in-and-out of consciousness the whole way - periodically he'll wake up and babble about rivers of fire, before seeming to come to his senses - except each time, he insists that he only dozed off while you were with him on an errand run, and keeps calling everyone Thomas, Sam, or Martha, no matter how many times he's corrected. Often, he'll pass out again after only one or two sentences.
+
+Upon returning to the club, Sammy's father is relieved to see Stout - but shocked at his condition. Stout doesn't seem to recognize him any more than anyone else, and David is quick to order the hotel staff to usher his old friend off for medical care.
+
+In this ending, the party is provided the base payout by a distracted David and Sammy, but it will be 4d6 in-game days (average of 2 weeks) before Rodger is fit to begin work at the Afterlife.
+
+Once Rodger has recovered, Stout has no memory of his rescuers, but retains his memories of Acheron. Once he begins work, the players unlock the Afterlife Hotel services - @UUID[JournalEntry.lFqb5sng3SXQyjfJ]{see the associated journal entry for more information.}
+
+Stable
+
+Use when: Rodger was removed from Shady Shallows safely and without serious harm, and the chipware was found and removed from his socket.
+
+Rodger sleeps soundly most of the way back to the Afterlife. In a couple sporadic bouts of consciousness, he doesn't seem lucid, and he doesn't recognize any of you. He mostly mutters to himself, and falls back asleep quickly.
+
+Upon return, David is relieved to find Rodger in reasonably stable condition, and grateful to the party for his rescue. He arranges for Stout to be cared for within the Afterlife while he recovers from his ordeal, and promises that he'll be paying for a live-in nurse and therapist to assist with Rodger's recovery while there.
+
+In this ending, the party is provided the base payout by a grateful David and Sammy, and Rodger will be able to start working within the next 1d6 days thanks to intensive medical care and therapy.
+
+Rodger will not remember the party rescuing him, and his memories of Acheron will be clouded. Once he begins work, the players unlock the Afterlife Hotel services - @UUID[JournalEntry.lFqb5sng3SXQyjfJ]{see the associated journal entry for more information.}
+
+In Good Health
+
+Use when: Rodger was removed from Shady Shallows without serious harm, and an anti-Alzheimer's chip was found and inserted into his chipware socket after removing the prior chipware.
+
+In a turn of events that's shocking in its abruptness, Rodger regains consciousness on the way back to the Afterlife. He refuses to answer any questions about how he got to the state he was in, and instead questions you rigorously on where he is, and why he was rescued. He nearly seems more preoccupied with ensuring he properly repays his debt to the individual/organization responsible for organizing his release, than he is about his own condition.
+
+By the time you're back at the Afterlife, he greets Sammy's father formally, but with a friendly air, and insists that David introduce him to the Afterlife's owner immediately so he can attend to his debt for his rescue. David insists that Rodger at least eat something, first, and is quite pleased that your main goal was such a resounding success.
+
+In this ending, the party is provided the base payout and, assuming they haven't heavily offended Rodger somehow, he will also authorize their bonus. He remembers most of the rescue and the party, and is quite grateful to be released.
+
+He will be able to begin work immediately, and will insist upon doing so as repayment for his rescue. Once he begins work, the players unlock the Afterlife Hotel services - @UUID[JournalEntry.lFqb5sng3SXQyjfJ]{see the associated journal entry for more information.}
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!

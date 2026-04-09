@@ -1,0 +1,124 @@
+{
+  "effects": [
+    {
+      "name": "First-Time System Interface Bonus (Worm)",
+      "origin": "Item.ETrfRkbVeiBuoIB6",
+      "disabled": false,
+      "_id": "CftQsJfdk1kMpR0i",
+      "changes": [
+        {
+          "key": "bonuses.interface",
+          "value": "1",
+          "mode": 2,
+          "priority": null
+        }
+      ],
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "transfer": true,
+      "statuses": [],
+      "flags": {
+        "cyberpunk-red-core": {
+          "changes": {
+            "cats": {
+              "0": "role"
+            },
+            "situational": {
+              "0": {
+                "isSituational": true,
+                "onByDefault": false
+              }
+            }
+          }
+        }
+      },
+      "tint": "#ffffff",
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "img": "icons/svg/aura.svg",
+      "type": "base",
+      "system": {},
+      "sort": 0
+    }
+  ],
+  "img": "systems/cyberpunk-red-core/icons/compendium/programs/worm.svg",
+  "name": "Worm (G&C Ver)",
+  "system": {
+    "description": {
+      "value": "<p>A program for use with the simplified netrunning rules found in Night City Gangs &amp; Corps. When slotted, the first time the user makes a check against a system, they may add +1 to the roll result. Requires 1 slot.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "always",
+    "installLocation": "mall",
+    "size": 1,
+    "price": {
+      "market": 50
+    },
+    "class": "booster",
+    "blackIceType": "antipersonnel",
+    "prototypeActor": "",
+    "interface": 0,
+    "isRezzed": false,
+    "damage": {
+      "standard": "1d6",
+      "blackIce": "1d6"
+    },
+    "per": 0,
+    "spd": 0,
+    "atk": 0,
+    "def": 0,
+    "rez": {
+      "value": 0,
+      "max": 0,
+      "transactions": []
+    }
+  },
+  "type": "program",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "jbJdPxC2WOthUryG",
+  "flags": {
+    "core": {
+      "sourceId": "Compendium.cyberpunk-red-core.core_programs.Item.SmwW6B3Qi6svIClB"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

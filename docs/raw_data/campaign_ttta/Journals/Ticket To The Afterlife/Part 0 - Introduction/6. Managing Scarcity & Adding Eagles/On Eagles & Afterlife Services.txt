@@ -1,0 +1,11 @@
+So your players like the concept of Eagles, but never seem to have enough? Here are my suggestions.
+
+For every 150eb they're offered on a job, have the fixer offer an extra Eagle instead. Eagles are worth less than 150eb in cash value, but more in terms of services they can purchase.
+
+Be mindful that, when in the Afterlife at a fixer's request, players won't have to pay to get in the door - the fixer pays for them instead. They don't get the rep bonus outlined in @UUID[JournalEntry.yt2ffG5B0uqTKi1z]{service one}, but they do still get access to all of the club's services (that they've unlocked) at normal price, once inside.
+
+Introduce Bounties! Included in @UUID[JournalEntry.SDvTzlKjvOpgC3EC]{service two} are rules for bringing some extra revenue to your players while they're out in Night City.
+
+Provide Eagles in other ways. Are your players loot-goblins? Do they constantly search corpses and scenes for valuables or intel? In instances where they've done so, it never hurts to offer a bonus for thinking about it - ask them to specify what they're looking for, and if it might be of value to someone at the Afterlife, give them an Eagle if they locate it, instead of whatever random loot might be in the scene.
+
+And of course, there's no rule that only missions included in this module are allowed to provide Eagles. Generally, these jobs provide 1 Eagle in place of ~200eb in cash for a job reward, and I recommend following the same model for yourself.

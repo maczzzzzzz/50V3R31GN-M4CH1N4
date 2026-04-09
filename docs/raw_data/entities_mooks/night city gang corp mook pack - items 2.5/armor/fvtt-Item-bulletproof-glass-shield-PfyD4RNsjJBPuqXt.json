@@ -1,0 +1,78 @@
+{
+  "folder": "Jg7kWDZQZKQXBw44",
+  "name": "Bulletproof Glass Shield",
+  "type": "armor",
+  "img": "systems/cyberpunk-red-core/icons/compendium/armor/bullet_proof_shield.svg",
+  "system": {
+    "description": {
+      "value": "<p>A shield with a bit more mass, used for riot control. Requires BODY 7 to wield effectively.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "price": {
+      "market": 200
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "isHeadLocation": false,
+    "headLocation": {
+      "sp": 0,
+      "ablation": 0
+    },
+    "isBodyLocation": false,
+    "bodyLocation": {
+      "sp": 0,
+      "ablation": 0
+    },
+    "isShield": true,
+    "shieldHitPoints": {
+      "value": 20,
+      "max": 20
+    },
+    "penalty": 0
+  },
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

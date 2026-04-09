@@ -1,0 +1,162 @@
+{
+  "name": "Brittle Edges",
+  "type": "itemUpgrade",
+  "img": "modules/night-city-gang-and-corp-mook-pack/packs/NCGangsnCorpsItems/Brittle%20Edges.webp",
+  "system": {
+    "weaponType": "",
+    "weaponSkill": "",
+    "fireModes": {
+      "autoFire": 0,
+      "suppressiveFire": false
+    },
+    "damage": "1d6",
+    "rof": 1,
+    "dvTable": "",
+    "isRanged": false,
+    "unarmedAutomaticCalculation": true,
+    "attackmod": 0,
+    "description": {
+      "value": "<p>Can be installed into any light melee weapon. On a successful hit with the weapon, roll 1d6 and consult the following table. After a successful attack, the weapon is destroyed.</p><table><tbody><tr><td data-colwidth=\"88\"><p>Roll Result</p></td><td data-colwidth=\"367\"><p>Effect</p></td></tr><tr><td data-colwidth=\"88\"><p>1-3</p></td><td data-colwidth=\"367\"><p>The weapon inflicts the Foreign Object critical injury.</p></td></tr><tr><td data-colwidth=\"88\"><p>4</p></td><td data-colwidth=\"367\"><p>The weapon inflicts the Torn Muscle critical injury. (Cracked Skull if aimed at head)</p></td></tr><tr><td data-colwidth=\"88\"><p>5</p></td><td data-colwidth=\"367\"><p>The weapon inflicts the Spinal Injury critical injury. (Damaged Ear if aimed at head)</p></td></tr><tr><td data-colwidth=\"88\"><p>6</p></td><td data-colwidth=\"367\"><p>The user drops 1 item they're holding, which becomes damaged and must be repaired before it's operable again.</p></td></tr></tbody></table>"
+    },
+    "source": {
+      "book": "",
+      "page": 0
+    },
+    "favorite": false,
+    "isElectronic": false,
+    "providesHardening": false,
+    "revealed": true,
+    "usage": "toggled",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "installLocation": "mall",
+    "size": 1,
+    "usesType": "magazine",
+    "magazine": {
+      "value": 0,
+      "max": 0,
+      "ammoData": null
+    },
+    "ammoVariety": [],
+    "price": {
+      "market": 20
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "handsReq": 0,
+    "type": "weapon",
+    "modifiers": {
+      "secondaryWeapon": {
+        "configured": false
+      },
+      "damage": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "rof": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "attackmod": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "magazine": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "sdp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "seats": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "speedCombat": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "slots": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "bodySp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "headSp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "shieldHp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "Wardrobe & Style": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "cool": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      }
+    },
+    "canIgnoreArmor": true,
+    "ignoreArmorPercent": 50,
+    "critFailEffect": "jammed",
+    "ignoreBelowSP": 0
+  },
+  "effects": [],
+  "folder": "eugV96mcAKVVx1tU",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

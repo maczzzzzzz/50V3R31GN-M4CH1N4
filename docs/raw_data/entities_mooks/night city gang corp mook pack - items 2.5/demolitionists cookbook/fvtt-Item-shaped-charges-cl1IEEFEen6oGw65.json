@@ -1,0 +1,63 @@
+{
+  "name": "Shaped Charges",
+  "type": "gear",
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/rocket_smart.png",
+  "system": {
+    "description": {
+      "value": "<p>Malleable plastic explosive - the kind that doesn't go boom just because it gets hot, wet, or hit too hard. Reliable but pricey. Treated as an Expensive item, despite only being priced Premium.</p><p>Can be thrown as an Improvised Grenade (see @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.G4tPG6L2dN8y9q83]{Grenade (Improvised)}). Alternately, can be shaped into a breaching charge or other specialized explosive. Doing so requires a demolitions check as an action (the faster you do it, the harder the check) but if successful, when the charge is detonated it deals 50 damage to the item it's attached to and nothing else.</p><p>Setting the trigger/detonating the explosive requires a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Hat1nKbqvilFyvJ5]{Demolitionist's Toolkit}.</p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "revealed": true,
+    "usage": "toggled",
+    "isElectronic": false,
+    "providesHardening": false,
+    "equipped": "owned",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 1,
+    "price": {
+      "market": 200
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": true,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    }
+  },
+  "effects": [],
+  "folder": "dcqta7WL1ifLv2wZ",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

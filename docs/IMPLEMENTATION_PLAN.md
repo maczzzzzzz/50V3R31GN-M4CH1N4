@@ -1,5 +1,5 @@
 # ASP.GM-Agent: Master Implementation Execution Plan
-**Version:** 2.0.0 (The Ouroboros Kernel Milestone)
+**Version:** 2.1.0 (The Host-Native Inference Milestone)
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS)
 
 ## ✅ PHASE 11: THE NEURAL UPLINK (COMPLETED)
@@ -129,7 +129,7 @@
 **Goal:** Build a local, air-gapped narrative archive and "Smart Asset" ingestion pipeline.
 - [x] **Smart Asset Ingestion (Go):** Implement `crush forge run` for JSON+PNG steganographic embedding.
 - [x] **Living Portraits (Rust):** Implement ST3GG decoding in `sidecar-cyberdeck` for instant stat recovery.
-- [x] **Akashik Seeder:** Populate `Akashik.db` with high-fidelity narrative seeds (Barks, Scenes).
+- [x] **Akashik Seeder:** Populate `Akashik.db` with high-fidelity narrative barks and street scenes from PDF narrative data.
 - [x] **Covert Protocol Sync:** Synchronize Go and Rust ST3GG implementations with CRC32 integrity checks.
 
 ## ✅ PHASE 30: SOVEREIGN INTERCEPTOR & VESPER PROTOCOL (COMPLETED)
@@ -163,23 +163,25 @@
 
 ## 🧠 PHASE 33: UN1F13D-L0R3-M1ND (IN PROGRESS)
 **Goal:** Scale the Sovereign Machina's intelligence via unified multi-source lore ingestion and Provenance Tagging.
+- [x] **Host-Native Pivot:** Migrated Node B inference to Windows-native `llama-server` to bypass WSL kernel deadlocks.
+- [x] **Ignition Integration:** Added `pixtral` component to `deck-igniter` for automated Windows server management.
 - [ ] **Database Expansion:** Extend `Akashik.db` with the `chronicle_seeds` table for long-term world memory.
-- [ ] **Chronicle Harvester:** Build a modular scraper script to ingest lore from Miraheze, Z-Team, and World Anvil.
+- [ ] **Chronicle Harvester:** Build a modular scraper script to ingest lore from local pdfs.
 - [ ] **Provenance Tagging:** Implement automated categorization and source-weighting for ingested seeds.
 - [ ] **Unified Oracle Integration:** Enable the 48L173R473D brain to JOIN District DNA with historical context in a single query turn.
 
-## 🏛️ PHASE 34: 7H3-M3M0RY-P4L4C3 (PLANNED)
+## ✅ PHASE 34: 7H3-M3M0RY-P4L4C3 (COMPLETED)
 **Goal:** Implement hierarchical memory architecture and background consolidation loop (The Infinite Mind).
-- [ ] **Palace Hierarchy:** Implement Wings, Rooms, and Tunnels structure in Node B.
-- [ ] **Tiered Storage:** Integrate local ChromaDB for verbatim log storage (The Drawer).
-- [ ] **Dreaming Loop:** Deploy the 3-phase background consolidation process on Node A.
-- [ ] **AAAK Dialect:** Implement 170-token identity compression for prompt residency.
+- [x] **Palace Hierarchy:** Implement Wings, Rooms, and Tunnels structure in Node B.
+- [x] **Tiered Storage:** Integrate local ChromaDB for verbatim log storage (The Drawer).
+- [x] **Dreaming Loop:** Deploy the 3-phase background consolidation process on Node A.
+- [x] **AAAK Dialect:** Implement 170-token identity compression for prompt residency.
 
-## 👁️ PHASE 35: V15U4L-D0M1N4NC3 (PLANNED)
+## ✅ PHASE 35: V15U4L-D0M1N4NC3 (COMPLETED)
 **Goal:** Total UI Hijack and aesthetic dominance via the "Total Red Shift."
-- [ ] **Sovereign Hijack:** Implement the 600ms high-intensity boot glitch sequence.
-- [ ] **Theme State Machine:** Evolve `theme-sync.ts` to manage pre-world and in-world styling.
-- [ ] **Total Red Migration:** Purge all Cyan remnants and enforce VT323 font injection.
-- [ ] **Interception Layer:** Enforce Sovereign styling via direct DOM hijacking through CDP.
+- [x] **Sovereign Hijack:** Implement the 600ms high-intensity boot glitch sequence.
+- [x] **Theme State Machine:** Evolve `theme-sync.ts` to manage pre-world and in-world styling.
+- [x] **Total Red Migration:** Purge all Cyan remnants and enforce VT323 font injection.
+- [x] **Interception Layer:** Enforce Sovereign styling via direct DOM hijacking through CDP.
 
 *Roadmap Managed by Gemini CLI (Strategist).*

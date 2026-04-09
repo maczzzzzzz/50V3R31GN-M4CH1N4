@@ -22,6 +22,7 @@ import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 export type WingType = 'DISTRICT' | 'FACTION' | 'PLAYER';
 export type RoomType = 'POI' | 'SCENE' | 'ENCOUNTER';
+export type HallType = 'hall_facts' | 'hall_events' | 'hall_discoveries' | 'hall_preferences' | 'hall_advice';
 
 export interface Wing {
   id: string;
@@ -37,6 +38,21 @@ export interface Room {
   name: string;
   room_type: RoomType;
   description: string | null;
+  created_at: string;
+}
+
+export interface Hall {
+  id: string;
+  room_id: string;
+  hall_type: HallType;
+  created_at: string;
+}
+
+export interface Closet {
+  id: string;
+  hall_id: string;
+  summary: string;
+  drawer_ref: string;
   created_at: string;
 }
 
@@ -280,6 +296,45 @@ export class MemoryPalaceService {
     return this.oracle.getRawDatabase().prepare(
       'SELECT * FROM palace_rooms WHERE wing_id = ? ORDER BY created_at DESC'
     ).all(wingId) as Room[];
+  }
+
+  // ── Halls ─────────────────────────────────────────────────────────────────
+
+  upsertHall(roomId: string, hall_type: HallType): Hall {
+    const db = this.oracle.getRawDatabase();
+    const id = randomUUID();
+    db.prepare(`
+      INSERT INTO palace_halls (id, room_id, hall_type)
+      VALUES (?, ?, ?)
+      ON CONFLICT DO NOTHING
+    `).run(id, roomId, hall_type);
+
+    return db.prepare('SELECT * FROM palace_halls WHERE room_id = ? AND hall_type = ?').get(roomId, hall_type) as Hall;
+  }
+
+  listHalls(roomId: string): Hall[] {
+    return this.oracle.getRawDatabase().prepare(
+      'SELECT * FROM palace_halls WHERE room_id = ? ORDER BY created_at ASC'
+    ).all(roomId) as Hall[];
+  }
+
+  // ── Closets ───────────────────────────────────────────────────────────────
+
+  addCloset(hallId: string, summary: string, drawerRef: string): Closet {
+    const db = this.oracle.getRawDatabase();
+    const id = randomUUID();
+    db.prepare(`
+      INSERT INTO palace_closets (id, hall_id, summary, drawer_ref)
+      VALUES (?, ?, ?, ?)
+    `).run(id, hallId, summary, drawerRef);
+
+    return db.prepare('SELECT * FROM palace_closets WHERE id = ?').get(id) as Closet;
+  }
+
+  listClosets(hallId: string): Closet[] {
+    return this.oracle.getRawDatabase().prepare(
+      'SELECT * FROM palace_closets WHERE hall_id = ? ORDER BY created_at DESC'
+    ).all(hallId) as Closet[];
   }
 
   // ── Tunnels ───────────────────────────────────────────────────────────────

@@ -1,0 +1,22 @@
+Every mission in this campaign features the following block of information. This info is intended to be shared with your players directly (just screenshot it) after they've been briefed on the job by their point of contact.
+
+Gig Title
+
+
+
+Friend Opportunity
+
+Making a new friend unlocks a bonus associated with that friend (listed on the mook sheet for the Afterlife NPCs) and unlocks the ability to call on that friend with PBGPs.
+
+Enemy Opportunity
+
+Enemies from player backgrounds can be substituted in for enemies that are included in the modules; if a player defeats their enemy in a suitably satisfying way, they earn 1 personal rep that expires in an in-game month.
+
+Personal Rep Opportunity
+
+Sometimes these are high-DV checks; other times, they're just specific actions that have specific consequences - the first person to do the opportunity earns 1 personal rep.
+
+Gig Payout
+
+Usually a combination of Eagles, euros, and gear. IP should be awarded at GM discretion - I recommend consulting the tables in RED CORE p. 410.
+

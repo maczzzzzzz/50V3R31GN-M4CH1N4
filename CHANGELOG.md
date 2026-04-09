@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-04-08
+### Added
+- **Host-Native Inference Migration (Option 1)**: Pivoted Node B inference to a Windows-native `llama-server` to bypass WSL `dxgkrnl` kernel deadlocks.
+- **Windows Interop Shortcuts**: Created `start_pixtral.bat` and `add_firewall_rule.bat` on the Windows host (`D:/llama.cpp`) for automated GPU-accelerated startup.
+- **Deck-Igniter Integration**: Added `pixtral` as a first-class component in the Go-based launcher, enabling automated Windows-side server ignition via WSL interop.
+- **Phase 34: 7H3-M3M0RY-P4L4C3 (Completed)**: Hierarchical memory architecture and ChromaDB integration finalized.
+- **Phase 35: V15U4L-D0M1N4NC3 (Completed)**: Total UI Hijack and Cyberpunk Red theme enforcement completed.
+
+### Changed
+- **Node B Orchestrator**: Updated `OLLAMA_BASE_URL` and `VLM_ENDPOINT` defaults to point to the Hyper-V internal gateway (`172.26.208.1`).
+- **Environment Cleanup**: Removed redundant Vulkan/ROCm fallback variables from `.env` to ensure stable network-based inference.
+
+### Fixed
+- **WSL Stability**: Eliminated system-wide kernel hangs by offloading hardware IOCTLs to the stable Windows host driver.
+- **Go Syntax**: Resolved duplicate `colorRed` declaration in `deck-igniter/main.go`.
+
 ## [2.0.0] - 2026-04-07
 ### Changed
 - Migrated default VLM to Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B for Sovereign Highway execution.

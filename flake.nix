@@ -10,9 +10,13 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       
-      # Hardware-Optimized llama-cpp (Phase 25)
+      # Hardware-Optimized llama-cpp
       llama-cpp-vulkan = pkgs.llama-cpp.override {
         vulkanSupport = true;
+      };
+      
+      llama-cpp-rocm = pkgs.llama-cpp.override {
+        rocmSupport = true;
       };
       
       llama-cpp-cuda = pkgs.llama-cpp.override {
@@ -52,33 +56,43 @@
             napi-rs-cli
             protobuf
 
-            # AI/Inference & GPU (Phase 25)
+            # AI/Inference & GPU (RADV for AMD Vulkan)
             llama-cpp-vulkan
             vulkan-loader
             vulkan-headers
-            
-            # Utilities
-            ripgrep
-            fd
-            git
+            vulkan-tools
+            mesa-demos
+            clinfo
+            pciutils
+            usbutils
+            mesa
           ];
 
           shellHook = ''
             export PROJECT_ROOT=$(pwd)
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
             export CRUSH_DB_PATH="$PROJECT_ROOT/.crush/crush.db"
-            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath (with pkgs; [ openssl libxcb libxkbcommon wayland vulkan-loader ])}:$LD_LIBRARY_PATH"
+            
+            # Mapped WSL Driver Path + Nix Store libs
+            export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [ 
+              openssl 
+              libxcb 
+              libxkbcommon 
+              wayland 
+              vulkan-loader 
+              stdenv.cc.cc.lib
+              mesa
+            ])}:$LD_LIBRARY_PATH"
+            
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
             
-            # llama.cpp Vulkan Config
-            export GGML_VULKAN=1
-            
-            echo "◈ ASP.GM-Agent: Node B (NixOS/WSL) Environment Loaded [GPU: Vulkan]."
+            echo "◈ ASP.GM-Agent: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
             echo "◈ Node.js: $(node --version)"
             echo "◈ Go: $(go version)"
+            echo "◈ GPU Search: $(ls /dev/dxg)"
           '';
         };
 

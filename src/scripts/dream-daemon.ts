@@ -23,6 +23,7 @@ import { randomUUID } from 'node:crypto';
 import 'dotenv/config';
 import Database from 'better-sqlite3';
 import { z } from 'zod';
+import cron from 'node-cron';
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
@@ -31,11 +32,12 @@ const NODE_A_MODEL    = process.env['NODE_A_MODEL'] ?? 'open-reasoner-zero-1.5b'
 const AKASHIK_DB_PATH = process.env['AKASHIK_DB_PATH'] ?? 'data/Akashik.db';
 const DREAMS_MD_PATH  = process.env['DREAMS_MD_PATH'] ?? 'docs/DREAMS.md';
 const SIGNAL_LIMIT    = parseInt(process.env['DREAM_SIGNAL_LIMIT'] ?? '20', 10);
+const MIN_SCORE       = parseFloat(process.env['DREAM_MIN_SCORE'] ?? '0.7');
 
 const args = process.argv.slice(2);
 const runOnce = args.includes('--once');
-const intervalArg = args.find(a => a.startsWith('--interval-ms='));
-const intervalMs = intervalArg ? parseInt(intervalArg.split('=')[1]!, 10) : 300_000;
+const scheduleArg = args.find(a => a.startsWith('--schedule='));
+const schedule = scheduleArg ? scheduleArg.split('=')[1]! : '0 3 * * *';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -120,12 +122,13 @@ async function remPhase(signals: LoreSignal[], cycleId: string): Promise<RemAudi
 
   const systemPrompt = `You are a lore consolidation engine for a Cyberpunk RED campaign.
 You receive a list of recent world-state signals and must:
-1. Identify TRUE FACTS: statements that are consistent and can be committed as durable world-state.
+1. Identify TRUE FACTS: statements that are consistent and can be committed as durable world-state. Assign a confidence 'score' (0.0 to 1.0).
 2. Identify CONTRADICTIONS: pairs of signals that conflict with each other.
-3. Write a brief SUMMARY of the most important world developments.
+3. Extract THEMES and REFLECTIONS from the data.
+4. Write a brief SUMMARY of the most important world developments.
 
 Output ONLY valid JSON with exactly these fields:
-{"true_facts":["fact1","fact2"],"contradictions":["contradiction1"],"summary":"string","reasoning":"string"}`;
+{"true_facts":[{"fact":"...","score":0.9}],"contradictions":["..."],"themes":["..."],"reflections":["..."],"summary":"...","reasoning":"..."}`;
 
   const userMessage = `Analyze these recent lore signals from Night City (cycle ${cycleId}):\n\n${signalText}`;
 
@@ -245,15 +248,14 @@ async function main(): Promise<void> {
     return;
   }
 
-  // Continuous loop
-  while (true) {
+  process.stdout.write(`[DreamDaemon] Auto dreaming scheduled with cron: ${schedule}\n`);
+  cron.schedule(schedule, async () => {
     try {
       await dreamCycle();
     } catch (err) {
       process.stderr.write(`[DreamDaemon] Cycle error: ${err}\n`);
     }
-    await new Promise(resolve => setTimeout(resolve, intervalMs));
-  }
+  });
 }
 
 main().catch(err => {

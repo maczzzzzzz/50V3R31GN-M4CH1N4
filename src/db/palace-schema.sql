@@ -23,6 +23,27 @@ CREATE TABLE IF NOT EXISTS palace_rooms (
 
 CREATE INDEX IF NOT EXISTS idx_palace_rooms_wing ON palace_rooms(wing_id);
 
+CREATE TABLE IF NOT EXISTS palace_halls (
+    id          TEXT PRIMARY KEY,
+    room_id     TEXT NOT NULL,
+    hall_type   TEXT NOT NULL CHECK (hall_type IN ('hall_facts', 'hall_events', 'hall_discoveries', 'hall_preferences', 'hall_advice')),
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(room_id) REFERENCES palace_rooms(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_palace_halls_room ON palace_halls(room_id);
+
+CREATE TABLE IF NOT EXISTS palace_closets (
+    id          TEXT PRIMARY KEY,
+    hall_id     TEXT NOT NULL,
+    summary     TEXT NOT NULL,
+    drawer_ref  TEXT NOT NULL,
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(hall_id) REFERENCES palace_halls(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_palace_closets_hall ON palace_closets(hall_id);
+
 CREATE TABLE IF NOT EXISTS palace_tunnels (
     id            TEXT PRIMARY KEY,
     source_id     TEXT NOT NULL,

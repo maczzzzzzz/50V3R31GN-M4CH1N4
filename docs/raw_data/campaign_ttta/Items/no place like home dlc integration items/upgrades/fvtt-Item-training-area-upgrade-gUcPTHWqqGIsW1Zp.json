@@ -1,0 +1,164 @@
+{
+  "folder": "f3gdiruiD4aA1fyM",
+  "name": "Training Area Upgrade",
+  "type": "itemUpgrade",
+  "img": "modules/ticket-to-the-afterlife/packs/ticket-to-the-afterlife/Afterlife%20Evergreen/Training%20Area.webp",
+  "system": {
+    "weaponType": "",
+    "weaponSkill": "",
+    "fireModes": {
+      "autoFire": 0,
+      "suppressiveFire": false
+    },
+    "damage": "1d6",
+    "rof": 1,
+    "dvTable": "",
+    "isRanged": false,
+    "unarmedAutomaticCalculation": true,
+    "attackmod": 0,
+    "description": {
+      "value": "<p>If upgraded, your home gym works <em>extra</em> good for Solos - the meathead of the party evidently has a certain protein powder preference, and it can only be sourced from a small farm in South America.</p>"
+    },
+    "source": {
+      "book": "TTTA",
+      "page": 0
+    },
+    "favorite": false,
+    "isElectronic": false,
+    "providesHardening": false,
+    "revealed": true,
+    "usage": "toggled",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "installLocation": "mall",
+    "size": 0,
+    "usesType": "magazine",
+    "magazine": {
+      "value": 0,
+      "max": 0,
+      "ammoData": null
+    },
+    "ammoVariety": [],
+    "price": {
+      "market": 40
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": false,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "handsReq": 0,
+    "type": "gear",
+    "modifiers": {
+      "secondaryWeapon": {
+        "configured": false
+      },
+      "damage": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "rof": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "attackmod": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "magazine": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "sdp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "seats": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "speedCombat": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "slots": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "bodySp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "headSp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "shieldHp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "Wardrobe & Style": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "cool": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      }
+    },
+    "canIgnoreArmor": true,
+    "ignoreArmorPercent": 50,
+    "critFailEffect": "jammed",
+    "ignoreBelowSP": 0
+  },
+  "effects": [],
+  "flags": {
+    "core": {
+      "sourceId": "Item.fGEhmfvijEPGY90R"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953275,
+    "modifiedTime": 1774375916124,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

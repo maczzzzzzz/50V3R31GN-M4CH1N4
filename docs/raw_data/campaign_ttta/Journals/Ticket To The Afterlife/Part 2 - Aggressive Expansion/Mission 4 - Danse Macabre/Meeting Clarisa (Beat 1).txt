@@ -1,0 +1,115 @@
+This mission makes use of the @UUID[Scene.s4clZm7hY4mfQllb]{Afterlife Lobby,} @UUID[Scene.fqgvewCqt8z94mll]{Afterlife Bar & Casino,} @UUID[Scene.Og6KezyP50QPbfHZ]{Afterlife Hotel Rooms,} and the various Danse Macabre maps, along with a few environments. To begin:
+
+In the 7th Circle…
+
+Place a token for @UUID[Actor.rQdrdTOYV13yilZD]{Sammy Chauvin} in the bar scene, behind the counter at the bar.
+
+Place a token for @UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers} inside the bar, next to the door. She's acting as bouncer and is there to let the players in. She hangs around but avoids idle conversation.
+
+Place @UUID[Actor.lyTAAOSCBrk275hV]{Clarisa} in the bar scene, near Sammy's bar.
+
+Place the player tokens outside the door, in the hallway beyond.
+
+In the Afterlife Lobby…
+
+Place a token for @UUID[Actor.C1opBA4gYUZcTiGp]{Sprinter} at her concierge desk in the lobby.
+
+Place a token for @UUID[Actor.lyTAAOSCBrk275hV]{Clarisa} in the lobby, and keep her initially hidden.
+
+Place the player tokens at the entrance of the lobby.
+
+Change the scene to @UUID[Scene.VCbthP8Ez4uhtdkr]{Afterlife Exterior Environment.}
+
+Then read the following:
+
+Afterlife Exterior - Noir
+
+The time is 10:42 PM, and the rain is sticking to your soles like a Piranha's Smash habit. It isn't quite acidic enough to melt anything, which is a shame - the way this town's going, a little bit of melt would've only been an improvement. The stink of chemicals it holds all the same keeps you from appreciating the uncharacteristic serenity it provides to the dark streets around you, the pitter patter of a million droplets hiding the gunshots in the distance like a black eye hidden under foundation. The rain is cold, reeks of runoff, and blankets all of you as you approach the outside of the Afterlife. Your mission: Sammy the bartender is promising work, and you're eager to stick your hands into the bloody underbelly of Night City once again. Just another late night in the city of dreams.
+
+Change the scene to Afterlife Lobby.
+
+Afterlife Lobby
+
+You all enter the lobby and see Sprinter rubbing the bridge of her nose while flipping through some paperwork. She greets you with a tired smile.
+
+Sprinter greets the players and asks after their business in the club that evening.
+
+If they ask her what she's doing she responds that she is going through some bills for the Afterlife and organizing them.
+
+Normally she would have someone else doing this busy work, but the owner has insisted on keeping the staff size small and limited to essential personnel for now. Since the owner isn't up for the job themself, the responsibility falls on Sprinter.
+
+Sprinter says, "Ultimately, these bills are not the real biggest stressor I've been dealing with", and before she can elaborate, she is loudly cut off.
+
+Once Sprinter has finished greeting the players, read the following (inspiration: as if you are a lightly tipsy woman at a bachelorette party)
+
+"HEYA, SPRINTER! Who are these gorgeous people?"
+
+You see a pretty woman in a tight chrome-sequinned dress strut towards you. Sprinter's expression is pained and distant for a moment, but she quickly constructs a faux smile and turns to the intruder.
+
+"'Ello Clarisa, how are you?"
+
+Clarisa talks to the players excitedly, assuming they are new staff for the club.
+
+It should be made clear very quickly to the players that Clarisa is not an edgerunner of any kind, and that she is not aware of the Afterlife's true purpose as a edgerunner meeting place.
+
+Any mention of the club's true purpose is interrupted by Sprinter, who tells Clarisa that they are 'previous guests who are looking for work' (unless they have already constructed a lie).
+
+Clarisa eventually leaves the conversation, heading towards the club proper.
+
+When asking Sprinter about Clarisa, she replies:
+
+"You know how this place used to be a regular hotel, right? Well, that was the hotel's previous landlady who sold this building to our current owner. She's… well… a bit of a euro-heiress ditz, but she overpays and overtips for everything at the club, so the owner's decided to let her stay in her own part of the hotel. She's harmless enough, just a bit irritating. Whenever she's in the club, just keep her happy and stay out of earshot when talking about 'work', k?"
+
+After conversation concludes, Sprinter will encourage the players to head to check in with Sammy for their job.
+
+Return to the 7th Circle
+
+The players re-enter the 7th Circle, and they see Sammy subtly smile at their arrival. They also see Clarisa at Sammy's bar, playfully flirting with him before she gets a call from her agent. She looks at it, and the players might notice (Human Perception DV11, autopass with 3 or more points) her expression shift from playful fun to a more sober, frustrated look. She walks off to a private corner and takes her call.
+
+If any of the players decide to listen in on this call, they hear the following call (but only from Clarisa's end):
+
+?: Clarisa, finally.
+
+Clarisa: What is it? I’m busy.
+
+?: We need to talk finances babe, you're bleeding money right now.
+
+Clarisa: I’m not bleeding anything. You’re the one who’s gonna be bleeding if you keep calling me on my day off.
+
+?: Look, I get it, but your inheritance can only keep you going so long.
+
+Clarisa: Did you check that number?  If not, double-check it. That’s a cool 750K, and that’s after a couple of years. I’ve been careful, and I'm allowed to destress how I want. You sound like my mom.
+
+?: Claire…
+
+Clarisa: Don’t you Claire me! You know what would really save me something? Cutting you off. Don’t call again tonight, and I'll give you some cash tomorrow.
+
+?: Ugh. Fine, boss.
+
+Clarisa: You bet your… ugh. Look, just talk to me tomorrow, okay?
+
+-END CALL-
+
+After her convo, Clarisa hangs up her agent and returns to the bar smiling. She will ask Sammy for her 'usual' (a Triti-Fizz and Vodka) which she takes, swirls a few times, and then drinks. The song 'PARTY ALL NIGHT' starts playing, at which Clarisa yells "This is my song!" before rushing over to the dance floor.
+
+Sammy will use this opportunity to talk to the players about the gig that he had for them.
+
+You can make up whatever you want for this faux gig! Get creative and make sure that, whatever it is, it keeps the players talking for a bit and that it is low-stakes. You can even have your players do your seeded gig after this one if you want to inject some more of your personality into the campaign. If you cannot think of anything, here are some suggestions:
+
+A new 'Alien Dissection' tourist trap has opened up in the badlands, and there are suspicions of Scav connections to the establishment.
+
+Sightings of the Night City Gator have re-emerged, and Biotechnica is offering a decent sum to the group that can capture and deliver it to them.
+
+Two warring nomad packs are competing in a game of Stickball, and they need impartial referees and backup players.
+
+While talking about the gig, Sammy suddenly gets very quiet before muttering "Huh?" under his breath. Read the following.
+
+Sammy looks out at the flashing lights of the club behind you, where Clarisa went to dance.
+
+"Hey, Clarisa? You good?" he calls out.
+
+Clarisa doesn't respond, but then, it's loud in here.
+
+"Clarisa?", he calls again before squinting.
+
+When you turn to look at her, you see her flailing her arms and legs in strange, fast ways. You might just dismiss her as drunk at first - until you catch the pained and frozen expression of horror on her face, illuminated only by the lightly flashing lights on the dance floor.

@@ -1,0 +1,277 @@
+{
+  "folder": "SSiVr3kLjknqgmoX",
+  "name": "Mission 5 - Checkered Past",
+  "pages": [
+    {
+      "sort": -100000,
+      "name": "Beat Chart & Mission Summary",
+      "type": "text",
+      "_id": "GdWtyOxX6Tgtfvi4",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Total required setup time: 30-40 minutes. Some of that time will need to be spent reviewing the gambling rules included in @UUID[JournalEntry.IkDSs2unumcnBVVq]{Afterlife Service 04.}</strong></p><p>Now that the Afterlife's been opened to the public, there are two key features that the owner wants to prioritize. The first is the gambling den within the 7th Circle, which currently sits dormant or else self-regulating as the clubgoers make use of it themselves.</p><p>This mission unlocks the Gambling Den's services on completion, if Checkers is rescued successfully. If she isn't, the Afterlife can hire someone else to introduce the den at GM discretion.</p><table><tbody><tr><td data-colwidth=\"282\"><h2>Checkered Past</h2></td><td><p></p></td></tr><tr><td data-colwidth=\"282\"><h5>Friend Opportunity: Checkers</h5><p>Checkers once made a career of gambling. Though retired, the Afterlife has pulled her back in. If you have her as a friend, you can occasionally spend time with her to learn the tricks of the trade, being tutored in the gambling skill.</p></td><td><h5>Enemy Opportunity - Reckoner Leader</h5><p>The chaplain of a cell of New Westbrook Reckoners has been actively recruiting, and Checkers ended up caught in the middle, somehow. This leader can be replaced with a gang-aligned player enemy.</p></td></tr><tr><td data-colwidth=\"282\"><h5>Rep Opportunity: Dead Man's Hand</h5><p>Win the gamble against the Reckoner Chaplain without losing a single hand.</p></td><td><h5>Gig Payout</h5><p>300eb + 2 Eagles per player, with a bonus of 100eb + 1 Eagle per player if Checkers is recovered without injury and gives the go-ahead to Sammy, and an additional 2 Eagles per player if they can recover any concrete evidence of so-called \"supernatural gifts\" that the Reckoners are purported to have.</p></td></tr></tbody></table><h1>Beat Chart</h1><p><strong>Beat 1:</strong> <strong>Dealer's Table</strong></p><p>The players meet up with Sammy, who introduces the assignment: he has an old friend named Checkers who he used to run with as a bounty-hunter in LA, and he thinks she'll be a great asset to the Afterlife's gambling den. The players need to recover her.</p><p><strong>Beat 2: All Aces</strong></p><p>Sammy insists that the players play through a hand of poker with him before they head out, thinking it unwise to introduce Checkers to a group that's got no talent.</p><p><strong>Beat 3: Full House</strong></p><p>The first and only lead the players have for Checkers' location is her family. The players will need to go introduce themselves and try to figure out what happened to her.</p><p><strong>Beat 4: Know When To Fold 'Em</strong></p><p>Heading to the Reckoner recruitment site, the party must locate and liberate Checkers. But not all is as it seems…</p><p><strong>Beat 5: Counting Cards</strong></p><p>What a day. Just try explaining that one to… anyone. But it's certainly a story to tell, and a cautionary tale: perhaps the Reckoners are more than they seem?</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 125000,
+      "name": "Dealer's Table (Beat 1)",
+      "type": "text",
+      "_id": "8PbzolxP1EZ369WT",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This session makes use of the <strong>@UUID[Scene.fqgvewCqt8z94mll]{7th Circle} </strong>and <strong>@UUID[Scene.dYz47SZ9gtkOKbUR]{Martyr Motel}</strong> scenes, along with an environment. To begin:</p><ul><li><p>Place <strong>@UUID[Actor.rQdrdTOYV13yilZD]{Sammy Chauvin}</strong> behind the bar in the 7th circle.</p></li><li><p>Populate the bar at your discretion.</p></li><li><p>Place <strong>@UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers}</strong> at the door to the bar, and the players outside of it.</p></li><li><p>Change the scene to the <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">@UUID[Scene.VCbthP8Ez4uhtdkr]{Afterlife Exterior Environment.}</span></span></p></li></ul><p>Then read the following:</p><h2>Holding All The Cards…</h2><p><em>Another day, another call - Sammy's rung you up again - the gambling pit across from the bar is awfully quiet, and the Afterlife wants to start running tables. He, apparently, knows just the person for the job, but of course, nothing's ever simple.</em></p><p><em>Including your entry to the Afterlife, apparently - the front door almost costs you a cheap limb when you step through it, snapping shut with even more force than usual. </em>\"Sorry!\"<em> a beleagered Sprinter runs over from her desk and flips open a panel on the wall next to the door to begin tinkering. </em>\"Everything's on the fritz here today, no idea why. Head downstairs, the poison gas should still be disabled if you take the ramp.\"</p><p><em>The lights above are flickering as well, the holographic cloud expanse periodically disappearing to show a mundane ceiling that's quite a bit lower than you thought it was.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>That was a joke.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Change the scene to the 7th Circle.</strong></span></p><p><span style=\"font-family:Signika\"><strong>If asked about the broken electronics, nobody knows anything - there's some suspicion that recent software upgrades had the clap, or a junior netrunner is screwing with the systems to make a name for themselves. For now, everyone's just putting out fires.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Above-table/for GM eyes only: the Reckoners deal with occult/supernatural themes, and the \"haunted\" Afterlife is a light homage/theming to that effect.</strong></span></p><hr /><p><em>Down in the 7th Circle, the scene isn't much better - the floor and walls normally flicker with electronic, pixelated flames, which are now flickering in the wrong way to a distracting effect. The club is less occupied than the last time you were in, probably as a result.</em></p><p><em>But the door is manual, at least, Silvers giving you the usual side-eye as you step inside, and Sammy's lights and appliances seem to be working, at least. A pair of angry-looking Tygers are at the bar right now, and Silvers follows you over. They get the hint and move off in time for Sammy to offer you a drink.</em></p><hr /><p><strong>As per usual, the party have been contracted to provide the Afterlife with a new staff member -the details of the gig are below.</strong></p><ul><li><p><strong>The target's name is Checkers.</strong></p><ul><li><p>She's a middle-aged black woman who ran with Sammy back when he was running a vigilante team in the ruins of Los Angeles.</p></li><li><p>Her exact role is never stated, but it should be implied to be non-violent.</p></li></ul></li><li><p><strong>Once recruited, Checkers will be managing the Afterlife's casino floor.</strong></p><ul><li><p>Sammy's never known Checkers to lose a game of cards that she didn't intend to lose, which is a valuable skill to have when running tables.</p></li><li><p>More broadly, she'll be info-gathering for the club in conjunction with Sammy - the Afterlife information apparatus needs data, and the more places it can be gathered from, the better.</p></li></ul></li><li><p><strong>Checkers and Sammy parted semi-amicably, but Checkers went straight and she and Sammy haven't talked much in recent years.</strong></p><ul><li><p>They parted around 5 years prior.</p></li><li><p>Sammy checked in on her once, and found out that she found herself an input and is helping her raise a son.</p></li></ul></li><li><p><strong>When reaching out to Checkers, Sammy found that she's gone missing.</strong></p><ul><li><p>Apparently her surrogate son is missing as well, but he couldn't find out anything more except the disappearance may have something to do with the Reckoners.</p></li><li><p>Checkers' input is none-too-friendly with edgerunners (or gang members, or corpos) and has been stonewalling Sammy as a result.</p></li></ul></li><li><p><strong>Sammy insists that the players learn to play Night City Holdem before going to rescue his former comrade; doing anything to the otherwise would be in bad taste.</strong></p></li><li><p><strong>Some other basic details:</strong></p><ul><li><p>Checkers disappeared in New Westbrook, which is also where she lived. As near as Sammy can tell, she just vanished without a trace 3-4 days ago.</p></li><li><p>He's found her address, and her input still lives there. He stresses that the woman is not at all friendly towards people of the party's persuasion, and some subterfuge or persuasion will be needed to get in the door.</p></li><li><p>He's also done some basic background on the area: the Reckoners are a nihilistic cult gang best known for their dedication to the coming \"end times.\" Standard apocalypse cult, mostly - watch out for the bomb vests.</p><ul><li><p><em>They made headlines yesterday after they blew up a Heywood hospital which was under 6th Street protection.</em></p></li><li><p><em>Although nobody's been able to bring back proof, everyone from the NCPD to the other gangs in NC swear that the Reckoners have supernatural gifts.</em></p></li><li><p><em>Although it's only tangentially related to the primary job, Sammy offers a bonus for anyone who can bring back evidence of these \"gifts.\"</em></p></li></ul></li></ul></li></ul><hr /><p><strong>Once players are finished questioning Sammy and ready to learn to gamble, proceed to the next beat.</strong></p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774378348880,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 0,
+      "name": "Nightlight Editorial",
+      "type": "text",
+      "_id": "VXfYejyECah4r2pJ",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>The FM Receiver Crackles, The Pirate Wavelength Carrying A Cool, Seductive Female Voice…</h2><p><em>Good evening Night City, this is Nightlight, voice of the town, here to take the scream outta the sheets and into your ears for those who just can't bear to look. I hope your day's gone well, and that your night goes better - and failing that, I hope you don't have any plans for a lengthy hospital stay, anytime soon.</em></p><p><em>Top story tonight is, to no one's surprise, the bombing of the Heywood General Hospital. Wasn't much of a major landmark to begin with, being staffed and watched by 6th Street, but its loss has already sent shockwaves through the community of chromers, druggies and the physically impaired all across the city. Over 100 dead, and no replacement's popping up anytime soon. Responsibility for the attack goes to the Reckoners, our least-favorite gang of suicide psychopaths, who credit the destruction to some incomprehensible gibberish about the end of times. Details at how they even managed to find the ordinance for the job haven't been released by the NCPD just yet, but if you ask me, it was probably an inside job all along.</em></p><p><em>In other news, if you're feeling suicidally inclined but aren't interested in taking anyone else with you, the Totentanz is hiring a new bouncer for the 6th week running. Looks like the club's latest wound up in the same shallow grave as all the rest, and the bets are on as to if the next one will last any longer. But hey, if you're into life on the razor's edge, the club's promising ins with Maelstrom, free drinks, pay enough to afford the implants you'll likely need to survive the role, and if you cross 21 days without dying, the betting pool's yours to spend how you will.</em></p><p><em>Finally, it looks like the Night City Gator might have been more than a rumor after all. We've got more confirmed sightings from Watson to Rancho of one-or-more eight-foot beasts snapping up housepets and swallowing down the homeless, so if you're out there sleeping in the gutter, maybe try for an alleyway instead, tonight.</em></p><p><em>We've got more on that with our resident expert on the absurd and obscene, Batty Carlson, but before that, we've got the top hits from the Totentanz to light up your night and make it burn bright. This has been Nightlight, hoping she's made your night, a little brighter.</em></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 225000,
+      "name": "All Aces (Beat 2)",
+      "type": "text",
+      "_id": "vzWaFVvQJ60t4Apm",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>For this beat, move Sammy and the players to the casino pit, around one of the poker tables. Any number of players may participate in the game.</p><h2>Night City Holdem</h2><p><span style=\"font-family:Signika\"><strong>Table Difficulty:</strong> Simple - 3 rounds.</span></p><p><span style=\"font-family:Signika\"><strong>Ante: </strong>2 Eagles.</span></p><p><span style=\"font-family:Signika\"><strong>Sammy heads the table, but doesn't say much - this is, rather, a chance for you to introduce your players to the rules. Gambling rules can be found in the Afterlife Services journal entry #4.</strong></span></p><p><span style=\"font-family:Signika\"><strong>If multiple players pass all 3 rounds, they continue playing until there is a single victor, who takes double the ante. All others who made it past 3 rounds break even. this may not make mathematical sense - if so, oops! Oh well.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Once players have finished their game and are ready to go find Checkers, advance to the next beat.</strong></span></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774378372783,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 325000,
+      "name": "Full House (Beat 3)",
+      "type": "text",
+      "_id": "8tnXs1NPZ9LI3TKq",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>For this beat, change the scene to <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">@UUID[Scene.x54RnBX4pYEGzPEl]{Central New Westbrook Environment,}</span></span><em> </em>then read the following:</p><h2>Spray-Paint Wasteland</h2><p><em>As you head from the inner city to the former executive zone, you can see Night City's typical urban decay, all the more present for the buildings it's contrasting. Former suburbs are taken over by tent cities of the homeless, and entire roads are blocked from the sprawl. Formerly-gleaming storefronts have been shattered and boarded over or reinforced with metal grates; impressive, formerly colorful apartment blocks that nearly rival the scale of Watson's soon-to-be megabuildings have been blackened by desert sand and industrial grime from the district's northern portions.</em></p><p><em>Rising above it all, decrepit former McMansions dominate the hills, dark and empty - too far from public utilities and city services to interest even the homeless, and too exposed to interest the gangs.</em></p><p><em>But most shocking is the gang tagging. Colorful graffiti both warning and artistic covers every available surface, layers of it painted overtop one another in an impressive aerosol war for district dominance.</em></p><p><em>The apartment of Checkers' girlfriend is just ahead, looking just the same as the rest. It's hard to say what you'll find inside, but it can't be much worse than what's out here.</em></p><h2>Upstairs…</h2><p><em>Checkers' input, Amelia, lives on the 10th floor of a 14-story apartment building. The hall is lined with garbage, and smells like you'd expect as a result. Of the 3 elevators, only 1 is operational, being watched by a local lawman. He fixes you with a glare as you crowd into it, but doesn't say anything otherwise.</em></p><p><em>So… who's knocking?</em></p><hr /><ul><li><p><span style=\"font-family:Signika\"><strong>The average DV for social checks in this scene should hover around DV15</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Down to 13 (or auto-passing) if the character strikes a chord with Amelia</span></p></li><li><p><span style=\"font-family:Signika\">Up to 17 or 18 if Amelia decides to be uncooperative.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Amelia (see her mook sheet) reacts with suspicion to any knock, and surveys the peephole before opening the door.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">If she doesn't see anyone, she won't open the door regardless.</span></p></li><li><p><span style=\"font-family:Signika\">It can be broken open with a DV17 BODY Athletics check.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>She will respond with outward hostility to gang members, corp officials, edgerunners, or anyone else that looks like trouble.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">She's also not a fan of Sammy Chauvin in particular - she was friends with Checkers for a long time before they started dating, and views the bartender as a gateway drug for Checkers, dragging her back into her dangerous old life.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Amelia's apartment is larger than what most of the PCs might have - two bedrooms, with a sitting room and kitchenette. The sitting room is scattered with secondhand toys suitable for an adolescent boy.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>However, she's also desperate - she's contacted the NCPD about her family's disappearance to no result except for an officer stopping by to collect a formal statement.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">She has no gang ties, and no savings, to pursue alternate methods of locating the duo, and she herself is in no state to be fighting gang members.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>She suspects where her family is.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The Reckoners have a recruitment stand in an old motel on the east side of the district.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Despite her every intention, her son James rubs elbows with bad influences in school and might've ended up there.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Checkers disappeared after their son did, while looking for him.</strong></span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>She has the address, but doesn't know much else about the place.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>If Amelia refuses to cooperate entirely, a DV15 Local Expert (New Westbrook) check will also be sufficient from context clues to locate the Reckoner recruitment place, though doing so will take much longer than getting the info from Amelia.</strong></span></p></li></ul><hr /><p>Once players have finished questioning Amelia and are ready to investigate the Martyr Motel, proceed to the next beat.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774378387607,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 425000,
+      "name": "Know When To Fold 'Em (Beat 4)",
+      "type": "text",
+      "_id": "pgxM7IkiyzumyEYF",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat makes use of the <span style=\"text-decoration:underline\"><span style=\"text-decoration:underline\">@UUID[Scene.dYz47SZ9gtkOKbUR]{Martyr Motel}</span></span> scene. To begin:</p><ul><li><p>Place 1/2 partycount <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.zeG9k6liLkdHNrf4]{Booster Gangsters}</strong> around the hotel - at the table outside, standing guard at the front, in one of the rooms, etc.</p><ul><li><p>Prep reinforcements for these Boosters as normal, should a fight break out.</p></li></ul></li><li><p>Place 3 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.DmL6CWBr2gtqDvEu]{Reckoner Maryrs} </strong>around the hotel - 1 guarding the door, 1 in the back right room with the computer (watching the cameras), and 1 at your discretion.</p></li><li><p>Place 1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.eNrZqwNEB3cQaD3W]{Reckoner Chaplain}</strong> in the room with the cards table, alone.</p></li><li><p>Place tokens for <strong>@UUID[Actor.Y7NnvbMut6swzVaA]{Checkers}</strong> and <strong>@UUID[Actor.jX6bbdNcZ8MNJqP0]{Jason}</strong> in the back left room of the motel.</p><ul><li><p>Note that both are wearing Reckoner-made bomb vests. They can be disarmed with a DV17 Demolitions check - reduced to a DV13 if the attempting character has 2 or more points in the skill.</p></li><li><p>They'll remove them themselves after the gig, if not taken care of before then.</p></li><li><p>If the check is failed by 5 or more, the vest being disarmed explodes, instead, killing its wearer instantly and inflicting 8d6 damage to its surroundings.</p></li><li><p>They can be detonated by the Reckoner Chaplain at any time while the Chaplain remains within 1mi/1.6km of the vest.</p></li></ul></li><li><p>Place tokens for the party at your discretion.</p></li><li><p>Swap the scene appropriately.</p></li></ul><p>Then read the following…</p><h2>Something Secret Steers Us…</h2><p><em>The motel isn't much to look at, but it's certainly Reckoner territory. All other tags have been covered by their logo and icons - hands clutching grenades, icons of burning buildings, and bloody, dismembered eyeballs.</em></p><p><em>There's some light presence out in front of the building, but nobody raises a hand, if they see you at all.</em></p><h2>Meet Your Reckoning</h2><p><span style=\"font-family:Signika\"><strong>The Reckoners will not be outwardly hostile to the party, even if the party directly states that they've come to rescue Checkers and her son. Instead, they will direct the party to the Chaplain, noting that \"they're expected.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>If questioned about how they were expected, the Chaplain notes that they didn't know the party's individual identities, but rather, that there was an \"air of fate\" around the two captives.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>The Chaplain will not allow the party to leave with Checkers and her son prior to any bargaining, and notes that the vests the two are wearing will automatically go off if they leave the premises, and also, that they won't want to leave until the Chaplain allows them to.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The first point is a bluff - the Chaplain will simply detonate the vests.</span></p></li><li><p><span style=\"font-family:Signika\">The second point is true - both Checkers and her son are, somehow, under the Chaplain's control, and will refuse to leave, even fighting to stay, until told otherwise.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The Chaplain recognizes the value of the hostages, though, and instead offers to gamble for their lives - vs the party's.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">At this point, if the party agrees, the Chaplain has the two captives brought in. Their expressions are vacant and dreamy, and they don't respond to questions or stimulus except in ways explicitly allowed by the Chapplain.</span></p></li><li><p><span style=\"font-family:Signika\">A DV21 first aid check (lowered to DV17 with 4 or more ranks) or DV15 Paramedic check reveals that the two seem to be in a trance.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>No success, however, is sufficient to determine the cause of the trance. Guesses might include drugs, hypnosis, or in Checkers' case, control via her chipware socket.</em></span></p></li></ul></li></ul></li></ul><h2>Blood Money//Gamble Your Soul</h2><p><strong>Table Difficulty:</strong> Moderate - 6 rounds.</p><p><strong>Ante:</strong> 100eb + Player humanity vs possession of Checkers and Jason.</p><p><strong>A maximum of 2 players</strong> may join the table; all others are escorted to elsewhere in the scene by the Reckoner forces.</p><h3>How Blood Money Works</h3><p><span style=\"font-family:Signika\"><strong>The game is </strong></span><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">Blood Money</span></strong></span></span><span style=\"font-family:Signika\"><strong> (note: uses gambling rules found in service journal 4, this is just for flavor).</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>A stack of plastic playing cards (2 + 3 for each actor at the table) is placed on the table to represent the pot, along with a very sharp knife.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Starting at a new place each time, each actor at the table takes turns stabbing the cards while they're placed atop the back of their hand, taking at least 2 cards each time.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>The exact number of cards each player takes is secret until the end of the round.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Once one or no cards remain, the round ends.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>If an actor fails to take 2 cards, they lose the round.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>If an actor stabs their own hand while trying to take cards, they lose the round.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Once the round finishes, the pot is awarded according to the proportion of cards that each player has (players who did not get to stab have their ante returned to them first), and the game resets.</strong></span></p></li></ul><h3>How The Game's Unusual Ante Is Awarded.</h3><p><span style=\"font-family:Signika\"><strong>As for how the unusual \"ante\" is distributed, it's as follows:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>If any player wins all 6 rounds, or wins back their ante + 100eb total across multiple games, they immediately take possession of Checkers and Jason, who follow their commands, including a command like \"wake up\" to restore them to their full faculties.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">They also win 200eb. Yay!</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>If any player loses in the first 2 rounds, they immediately lose 10 humanity.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>If any player loses in the third or fourth round, they immediately lose 5 humanity instead.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>If any player loses in the fifth or sixth round, they have half their humanity lost in this way restored to them, in addition to winning back their ante + 50%.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>If any player wins all 6 rounds, they regain all their lost humanity in addition to winning possession of Checkers and Jason.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Note that only the winning player(s) gets this effect.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>If a player drops below 1 humanity in this way, their character is effectively dead - completely under the control of the Chaplain, they become a loyal member of the Reckoners and part ways with the rest of the party. What happens to them after that is left to GM discretion.</strong></span></p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">Important Note:</span></strong></span></span><span style=\"font-family:Signika\"><strong> For every 10 humanity lost to the Chaplain at the table, add 1 to subsequent round DVs for the game, reflecting the Chaplain's power growing as they gain control of more spiritual juju.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Lost humanity can </strong></span><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">only</span></strong></span></span><span style=\"font-family:Signika\"><strong> be reclaimed through play or by the Chaplain voluntarily surrendering it. If the Chaplain is killed, etc., the humanity remains lost.</strong></span></p><h2>Game Over?</h2><p><span style=\"font-family:Signika\"><strong>Players can continue playing any number of times, so long as they're willing to do so. The Chaplain is confident in their ability to eventually win out, and does not care if players drop in/out of the game.</strong></span></p><p><span style=\"font-family:Signika\"><strong>If the Chaplain </strong></span><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">does</span></strong></span></span><span style=\"font-family:Signika\"><strong> lose, their response is at GM discretion, but they will honor their bet - Checkers and Jason fall under the control of the player who won them, and the Reckoners will not harm or harass the party as they leave the scene.</strong></span></p><hr /><p><span style=\"font-family:Signika\"><strong>Once the party has secured the freedom of Checkers and Jason, proceed to the final beat.</strong></span></p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774378411558,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 525000,
+      "name": "Counting Cards (Beat 5)",
+      "type": "text",
+      "_id": "hQmKngnvuZNCH0hE",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat takes place at GM discretion - typical locations are Checkers' apartment or the 7th Circle.</p><h2>Back in relative safety…</h2><p>(Once Checkers has been \"woken up\")</p><p><em>Checkers blinks, the fog clearing from her eyes, though suspicion replaces it a moment later.</em> \"Who the hell are you?\" <em>she asks.</em></p><hr /><ul><li><p><strong>Neither Checkers nor Jason remembers how they got to the Martyr Motel, nor anything about being under the control of the Chaplain.</strong></p><ul><li><p>Checkers does have a chipware socket, but it's empty… and Jason doesn't have any chrome at all save for a prosthetic finger on one hand.</p></li></ul></li></ul><p><strong>Author intent: there is intentionally no satisfying explanation for how the Chaplain retained control over Checkers and Jason - this is a deliberate play into the supernatural elements surrounding the gang.</strong></p><ul><li><p><strong>Amelia is none-too-happy to see Checkers or Jason when they're home. She's relieved, of course, but also very angry that they disappeared in the first place.</strong></p></li><li><p><strong>As for Jason, he remembers going out with a group of his school friends to get FroYo, but nothing beyond that.</strong></p><ul><li><p>Yes, a girl was indeed involved. 8th graders, amirite?</p></li></ul></li></ul><p><strong>Regardless, so long as Jason was rescued with minimal injury, Checkers will eventually agree to work with Sammy, against Amelia's extremely vulgar objections.</strong></p><p><strong>Once Sammy gets word that Checkers has agreed to working at the Afterlife, he pays the players no questions asked.</strong></p><ul><li><p><strong>Checkers will authorize her bonus if Jason is rescued without injury.</strong></p></li><li><p><strong>As far as \"evidence of the supernatural,\" well, that's up to GM discretion and player ingenuity. How do you prove something that, by its nature, can't be proven?</strong></p></li></ul><p><span style=\"font-family:Signika\"><strong>Once the mission has been completed, the players unlock the Gambling Den - @UUID[JournalEntry.IkDSs2unumcnBVVq]{see the journal entry for more details.}</strong></span></p><h2>Your Feedback Wanted!</h2><p>Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.</p><p>If you have a few minutes after your session, <a href=\"https://forms.gle/sfvVM21YrA88fyC77\">please take the time to fill out the feedback survey for this campaign, located here.</a> It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.</p><p>Your feedback matters! Thank you for playing!</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774378442145,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

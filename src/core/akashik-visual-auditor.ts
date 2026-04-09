@@ -10,6 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { execSync } from 'node:child_process';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 export interface AuditResult {
@@ -26,47 +27,100 @@ export class AkashikVisualAuditor {
     private readonly oracle: UnifiedOracleClient,
     endpoint?: string
   ) {
-    this.vlmEndpoint = endpoint ?? process.env.VLM_ENDPOINT ?? 'http://localhost:8080/v1/chat/completions';
+    this.vlmEndpoint = endpoint ?? process.env.VLM_ENDPOINT ?? 'http://172.26.208.1:8080/v1/chat/completions';
   }
 
   /**
-   * Performs a visual audit on all Smart Assets in the assets directory.
-   * Extracts district-specific lore and atmospheric seeds.
+   * Performs a visual audit on all Smart Assets or PDF rulebooks.
+   * Extracts district-specific lore, atmospheric seeds, and structured tables.
    */
   async runGlobalAudit(assetsDir: string = './data/assets'): Promise<number> {
     if (!fs.existsSync(assetsDir)) return 0;
 
-    const files = fs.readdirSync(assetsDir).filter(f => f.endsWith('.png'));
+    const files = fs.readdirSync(assetsDir);
     let count = 0;
 
     for (const file of files) {
       const filePath = path.join(assetsDir, file);
-      const b64 = fs.readFileSync(filePath, { encoding: 'base64' });
       
-      const district = this.inferDistrictFromFilename(file);
-      
-      try {
-        const results = await this.auditImage(b64, district);
-        for (const res of results) {
-          this.saveToLibrary(res);
-          count++;
+      if (file.endsWith('.png')) {
+        const b64 = fs.readFileSync(filePath, { encoding: 'base64' });
+        const district = this.inferDistrictFromFilename(file);
+        
+        try {
+          const results = await this.auditImage(b64, district);
+          for (const res of results) {
+            this.saveToLibrary(res);
+            count++;
+          }
+        } catch (err) {
+          console.error(`[AkashikAuditor] Failed to audit image ${file}:`, err);
         }
-      } catch (err) {
-        console.error(`[AkashikAuditor] Failed to audit ${file}:`, err);
+      } else if (file.endsWith('.pdf')) {
+        console.log(`[AkashikAuditor] Rasterizing PDF for visual audit: ${file}`);
+        try {
+          const resultCount = await this.runPdfAudit(filePath);
+          count += resultCount;
+        } catch (err) {
+          console.error(`[AkashikAuditor] Failed to audit PDF ${file}:`, err);
+        }
       }
     }
 
     return count;
   }
 
+  /**
+   * Rasterizes PDF pages to temporary PNGs and dispatches them to the VLM.
+   */
+  async runPdfAudit(pdfPath: string): Promise<number> {
+    const tempDir = path.join('/tmp', `audit-${randomUUID()}`);
+    fs.mkdirSync(tempDir, { recursive: true });
+    let count = 0;
+
+    try {
+      // Use nix-shell to run pdftoppm without requiring permanent installation
+      // -png: output PNG, -f 1 -l 10: first 10 pages only for efficiency
+      const command = `nix-shell -p poppler-utils --run "pdftoppm -png -f 1 -l 10 '${pdfPath}' ${tempDir}/page"`;
+      execSync(command, { stdio: 'inherit' });
+
+      const pages = fs.readdirSync(tempDir).filter(f => f.endsWith('.png'));
+      for (const page of pages) {
+        const b64 = fs.readFileSync(path.join(tempDir, page), { encoding: 'base64' });
+        const results = await this.auditImage(b64, `PDF: ${path.basename(pdfPath)}`);
+        for (const res of results) {
+          this.saveToLibrary(res);
+          count++;
+        }
+      }
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+
+    return count;
+  }
+
   private async auditImage(imageB64: string, district?: string): Promise<AuditResult[]> {
-    const prompt = `Analyze this Cyberpunk RED campaign asset. 
-    1. Extract 2-3 atmospheric "Street Barks" (one-liners overheard nearby).
-    2. Describe the visual "Vibe" in 1 sentence for lore grounding.
+    const prompt = `Analyze this Cyberpunk RED asset (Rulebook Page, Map, or Art).
+    1. Extract Atmospheric "Street Barks" (overheard one-liners).
+    2. Identify and reconstruct DATA TABLES (Weapon stats, Gear costs, Encounter tables).
+    3. Describe the visual "Vibe" or "Historical Context" for lore grounding.
+    4. If this is a MAP, identify key POIs and Tactical Features.
     
     Output ONLY valid JSON in this format:
-    {"seeds": [{"category": "lore", "seedText": "...", "metadata": {"vibe": "..."}}, {"category": "lore", "seedText": "...", "metadata": {"type": "bark"}}]}
-    `;
+    {
+      "seeds": [
+        {
+          "category": "lore|combat|economy", 
+          "seedText": "...", 
+          "metadata": {
+            "vibe": "...",
+            "type": "table|bark|poi|lore",
+            "source_context": "${district}"
+          }
+        }
+      ]
+    }`;
 
     const res = await fetch(this.vlmEndpoint, {
       method: 'POST',
@@ -85,19 +139,40 @@ export class AkashikVisualAuditor {
     });
 
     if (!res.ok) throw new Error(`VLM responded with ${res.status}`);
-    const data = await res.json();
+    const data = await res.json() as { choices: Array<{ message: { content: string } }> };
     const content = data.choices[0]?.message?.content;
     if (!content) return [];
 
-    const parsed = JSON.parse(content);
-    return (parsed.seeds || []).map((s: any) => ({
-      ...s,
-      district,
-      id: randomUUID()
-    }));
+    try {
+      const parsed = JSON.parse(content);
+      return (parsed.seeds || []).map((s: any) => ({
+        ...s,
+        district: s.district || district,
+        id: randomUUID()
+      }));
+    } catch (e) {
+      console.error("[AkashikAuditor] Failed to parse VLM response:", content);
+      return [];
+    }
   }
 
   private saveToLibrary(result: AuditResult): void {
+    // Phase 33 Bridge: Also graft into chronicle_seeds for unified access if appropriate
+    if (result.category === 'lore' || result.category === 'economy') {
+      this.oracle.execute(
+        `INSERT INTO chronicle_seeds (id, title, content, source, category, era_grounding, status) 
+         VALUES (?, ?, ?, ?, ?, ?, 'approved')`,
+        [
+          randomUUID(),
+          `Visual Lore: ${result.metadata.type || 'Extract'}`,
+          result.seedText,
+          'VISUAL_AUDIT',
+          `#${result.category.charAt(0).toUpperCase() + result.category.slice(1)}`,
+          '2045'
+        ]
+      );
+    }
+
     this.oracle.execute(
       'INSERT INTO library_entries (id, category, district, seed_text, metadata) VALUES (?, ?, ?, ?, ?)',
       [
@@ -119,3 +194,4 @@ export class AkashikVisualAuditor {
     return undefined;
   }
 }
+

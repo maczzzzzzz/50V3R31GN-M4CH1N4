@@ -12,6 +12,8 @@ import type {
   DetectedEntity,
   NpcStatBlock,
   SoloSafeParams,
+  SecurityAuditParams,
+  SecurityAuditResult,
 } from './interfaces.js';
 
 // ── Config validation schema ──────────────────────────────────────────────────

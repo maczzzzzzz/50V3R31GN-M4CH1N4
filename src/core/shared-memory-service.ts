@@ -36,12 +36,16 @@ function writeNullPadded(buf: Buffer, offset: number, str: string, maxChars: num
 export class SharedMemoryService {
   private readonly filePath: string;
   private readonly buf: Buffer;
+  private readonly readHeaderBuf: Buffer;
+  private readonly readBodyBuf: Buffer;
   private fd: number | null = null;
   private counter: number = 0;
 
   constructor(memFilePath: string) {
     this.filePath = memFilePath;
     this.buf = Buffer.alloc(FILE_SIZE, 0);
+    this.readHeaderBuf = Buffer.alloc(HEADER_SIZE, 0);
+    this.readBodyBuf = Buffer.alloc(MAX_BLIPS * BLIP_SIZE, 0);
   }
 
   open(): void {
@@ -190,6 +194,7 @@ export class SharedMemoryService {
 
     for (let i = 0; i < count; i++) {
       const cap = capabilities[i];
+      if (!cap) continue;
       const base = CAPABILITY_OFFSET + CAPABILITY_HEADER_SIZE + i * CAPABILITY_ITEM_SIZE;
 
       // CapabilityRaw: id (16), name (32), capability_type (16)

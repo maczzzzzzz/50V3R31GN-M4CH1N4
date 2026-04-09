@@ -1,0 +1,89 @@
+Setting up the Aaron Kelly Dance Studio: The players should be placed in the @UUID[Scene.MYQDJzWfelBf8JsK]{Aaron Kelly Studio Floor One} scene, on the street outside the building. There is a bodega to the north of the studio with a tired man in it. Players can buy anything in the CRB that is cheaper than 50 Eurobucks here (including ammo).
+
+Then, switch yourself to the @UUID[Scene.vns3jR3C8M5Hpccp]{Aaron Kelly Studio Floor Two} scene and place @UUID[Actor.qkQNXPG8OHhnkpXN]{Antonio Kelly} at the area in the apartment with the red stains on the floor. Also place your players at the base of the staircase for later. Return to the Floor One scene and activate it.
+
+How That Dead Man Danced
+
+The studio is dark. Located on the edge of the Glen and Old Combat Zone, the not-distant-enough gunshots of the zone ring out from the alley behind you. The studio itself sits at the bottom of a two-story building, with the logo of a dancing corpse painted on its window.
+
+The building is conventionally locked (DV: 15 Pick Lock), and faint music and light filter out of the second-story windows (DV: 17 Perception). The window between the street and studio has an sdp of 30, and it will start a faint alarm when broken. This alarm can be turned off with a DV: 13 Electronics/Security Tech check.
+
+Important: If the alarm is signalled, it will alert Antonio Kelly to the players. Upstairs, he will hide and try to ambush them. If the alarm is left on, the police will arrive on the scene to investigate in roughly five minutes.
+
+There is nothing of particular note in the dance studio, and it seems surprisingly normal. The players can find the following things by exploring:
+
+A dry-erase calendar near the door that lists different clients/classes at different times each day. There are even general seniors/children's classes listed. Clarisa is listed at 6:00-7:20 on Tuesdays, and it looks like she's taking solo classes. The last part where her name shows up is next Tuesday, where she is booked with several other girls for a 'Group Performance'. Weirdly, her name stops being listed afterward.
+
+A switch that changes the window of the studio from clear to fully grey and opaque. Next to it is a light switch. On a DV: 15 Basic Tech, it is apparent that the light switch has been modified to have a secret third setting between 'on' and 'off'. When this third setting is active, the lights start humming and flickering in an odd pattern.
+
+Exercise balls and other equipment in the back storage room, along with shoes and towels.
+
+A framed photo on the wall of Antonio Kelly and his father Aaron Kelly. On a DC: 20 Deduction or Perception check, the outline of scribbles on the backside of the photo can be seen. Taking the photo out of the frame reveals the back message to read:
+
+"Aaron and Ant at the Richard Night Aquarium, 2022.
+
+hey dad"
+
+The door between the studio and the stairs up is also locked (being a DV: 13 Pick Lock check). The players can find a back locker room under the stairs, which contains a medtech bag at the back and assorted dance clothes in the lockers. (A DV: 15 conceal/reveal object check nets a forgotten wallet belonging to a 'Terry Magdiline Hartweather' with a SIN card, a credit card and 43 Eurobucks).
+
+If the players decide to climb the stairs, switch to the Floor Two scene.
+
+
+
+A Private Last Dance
+
+Music and multi-colored light faintly streams out of the bottom of the door at the end of the hallway. The music is that of a slow dance, slow drifting R&B. As you walk forward, you are each hit by a horrible smell. Like rotting rose petals, lube, spoiled milk and forgotten takeout. Your faces scrunch up reflexively.
+
+IF THE ALARM WAS NOT SOUNDED:
+
+You open the door to see a wrecked apartment. Trash and refuse litter the floor. At the other end of the room you see a man scrawling something on the wall with his bloodied hands, his back turned to you. The message on the wall reads "PARTY ALL NIGHT" in large letters. The man is shirtless, and wearing a huge disco-ball-shaped helmet that is slowly spinning and spreading shimmering light around the room. As the door opens, he stops his scrawling and turns to look at you, his face fully obscured by the helmet.
+
+"Its really late… do you? do you have an… appointment? haha… no need for anyone to… to get hurt. lets talk?"
+
+Antonio stands up, waiting for the players to make a move. He is willing to talk openly with the players (go to what he knows), but will attack the instant he feels threatened. His disco helmet works similarly to a Superflash Jacket, and he will activate it before/during his first turn in combat.
+
+
+
+IF THE ALARM WAS SOUNDED:
+
+You open the door to see a wrecked apartment. Trash and refuse litter the floor. At the other end of the room, you see a bloody message on the wall that reads "PARTY ALL NIGHT" in large letters.
+
+Have the players make a group perception check after entering the door (tell solos to add threat detection if they have any points in that). The DV for this roll is 15. Antonio will attack the player with the lowest roll using his Maelstrom mod-wolvers, regardless of success. If the player did succeed, they are able to evade this attack. If more than half of the party succeeded on the perception roll, initiative is rolled. Otherwise, treat this as an ambush.
+
+Antonio knows the following:
+
+QUICK NOTE: If the players kill Antonio before he is able to divulge some of the more important info, you can store that info in an encrypted journal or locked agent (DV: 13 Cryptography and DV:13 Electronics/Security Tech respectively) so that the players can still finish the job on a high note.
+
+He has been supplying Clarisa and several other women with private dance classes, during which he has been subliminally hypnotizing them with the altered lighting system. He has been targeting attractive women with braindance implants, and he has found three.
+
+He is planning on using the commissioned song from Jerry as an 'activator' to bring on the 'endless dance'. He and several other Maelstrom gangers are doing this all to set up for a 'private party' with the girls, then once they are done they are going to sell the XBDs of the party to get some eddies and finish it all out by selling the girls to the Weng Fang Tong.
+
+He has been struggling with hypnotizing Clarisa in particular, because of her chaotic lifestyle and substance use. To fix this, he tracked down her dealer (B00zeHound) and made him apply a barbiturate-based hypnotic-enhancing drug cocktail.
+
+The only way to end the effect is to flash the lights in a specific pattern (Off 2 secs, Flash, Flash, Off 2 secs, Flash, Flash, Flash, Off 3 secs, On).
+
+He does not know that the song was released online and that Clarisa has been triggered early. He freaks out when he learns this and gains a -2 to all of his rolls for the next 5 minutes.
+
+
+
+After Party:
+
+After subduing Antonio Kelly and searching for any remaining information they need, the players can return to the Afterlife to share their findings.
+
+Correct solutions to earlier questions:
+
+They need to give a detailed explanation of the events that led to Clarisa's affliction (If they forget minor details, they can make DV: 13 Concentration checks to get hints).
+
+They can use the light pattern to end the effect on Clarisa.
+
+They can name Antonio Kelly as the definite culprit. They can also name B00zeHound and Maelstrom as collaborators (optional).
+
+Sprinter takes the information that the players give her, then immediately goes to try their proposed treatment on Clarisa. If they got the light sequence right, she stops thrashing around and snaps out of her dazed state. She then starts crying and thanks the players and Sprinter with a hug. Sprinter awkwardly accepts the hug, and the players are provided their eagles.
+
+Your Feedback Wanted!
+
+Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.
+
+If you have a few minutes after your session, please take the time to fill out the feedback survey for this campaign, located here. It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.
+
+Your feedback matters! Thank you for playing!

@@ -1,0 +1,59 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "05. Afterlife Hotel, Garage, & Crafting Bays",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Your Home Away From Home",
+      "type": "text",
+      "_id": "VWQ1dwwmqSpWQtzo",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once <strong>The Candle Flickers</strong> has been completed. It takes place in the upper floors of the Afterlife, and is maintained by Mr. Stout (or his replacement) along with other Afterlife staff.</p><h2>Cost</h2><p>Each room sleeps 2 comfortably, and costs <strong>1 Eagle per 24 hours</strong>. An additional Eagle can be paid for access to a private workshop. Another can be paid to secure a vehicle during that time.</p><h2>Function</h2><p>The hotel provides the following services:</p><ul><li><p><strong>Peace, Quiet, And Comfort:</strong> Anyone who spends a downtime day healing while staying at the Afterlife hotel regains 25% additional HP, compared to the normal amount.</p><ul><li><p>That's 25% of the regained amount, mind, not 25% of their total max health.</p></li></ul></li><li><p><strong>Secure Storage:</strong> For an additional Eagle, the Afterlife will store a vehicle in its secure garage for a day, ensuring that it can't be noticed, defaced, broken into, or stolen.</p><ul><li><p>This service does <strong>not</strong> require the purchase of a hotel stay.</p></li></ul></li><li><p><strong>Private Workshops:</strong> An additional Eagle unlocks crafting bays filled with state-of-the-art technology; each downtime day spent crafting in these workshops produces an additional 8 hours of output.</p><ul><li><p>This service <strong>requires</strong> the purchase of a hotel stay.</p></li></ul></li></ul>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

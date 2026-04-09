@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/bow_poison.png",
+  "name": "Arrow (Poison - G&C ver)",
+  "system": {
+    "description": {
+      "value": "<p>No immediate damage, no ablation. Inflicts Poison status. DV13 Resist Torture/Drugs Check (Physical for most mooks); on a fail 2d6 damage to HP. Lasts for 10 triggers/10 rounds/5 minutes/until an antidote is administered. New application refreshes the timer. Stacks with Biotoxin. Does not cause a sleeping target to wake.</p>"
+    },
+    "source": {
+      "book": "Core",
+      "page": 346
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": true,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 10,
+    "price": {
+      "market": 100
+    },
+    "variety": "arrow",
+    "type": "poison",
+    "ablationValue": 0,
+    "overrides": {
+      "damage": {
+        "mode": "set",
+        "value": "2d6",
+        "minimum": "1d6"
+      },
+      "autofire": {
+        "mode": "none",
+        "value": -1,
+        "minimum": 3
+      }
+    },
+    "installLocation": "mall",
+    "size": 0
+  },
+  "type": "ammo",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385395850,
+    "modifiedTime": 1774385395850,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "VABqsOjR5mmavLRV",
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  }
+}

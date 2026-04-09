@@ -1,0 +1,66 @@
+{
+  "effects": [],
+  "flags": {
+    "core": {},
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "img": "systems/cyberpunk-red-core/icons/compendium/ammo/bow_expansive.png",
+  "name": "Arrow (Expansive - Rework)",
+  "system": {
+    "description": {
+      "value": "<p><span data-sheets-formula-bar-text-style=\"font-size:16px;color:#000000;font-weight:normal;text-decoration:none;font-family:'Arial';font-style:normal;text-decoration-skip-ink:none;\">Hollow-point rounds designed to splinter on impact, embedding hot, painful shrapnel into the target. When you inflict a critical injury using this ammunition, the victim suffers the Foreign Object critical injury in addition to any other injuries rolled. Bonus damage is still only dealt once.</span></p>"
+    },
+    "source": {
+      "book": "NC G&C",
+      "page": 0
+    },
+    "favorite": false,
+    "concealable": {
+      "concealable": true,
+      "isConcealed": false
+    },
+    "brand": "",
+    "amount": 10,
+    "price": {
+      "market": 100
+    },
+    "variety": "arrow",
+    "type": "expansive",
+    "ablationValue": 1,
+    "overrides": {
+      "damage": {
+        "mode": "none",
+        "value": "3d6",
+        "minimum": "1d6"
+      },
+      "autofire": {
+        "mode": "none",
+        "value": -1,
+        "minimum": 3
+      }
+    },
+    "installLocation": "mall",
+    "size": 0
+  },
+  "type": "ammo",
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385396014,
+    "modifiedTime": 1774385396014,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "folder": "4ELFrxlZIFOGzIbd"
+}

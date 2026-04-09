@@ -1,0 +1,672 @@
+{
+  "folder": "aZy5qjkCgOHnErUR",
+  "name": "Mission 7 - Medical Matters",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Beat Chart & Mission Summary",
+      "type": "text",
+      "_id": "GdWtyOxX6Tgtfvi4",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>Mission Setup Time: 30-40 Minutes.</strong></p><p><strong>Note: 1/3rd of that time will be spent setting up and familiarizing yourself with the subrooms of the lair as pointed out in beat 5. Given that what happens during beat 5 varies wildly, this extra prep may not end up being necessary.</strong></p><p>With the basics taken care of, ownership is shifting focus to some luxury services - turning the Afterlife from a spot into a destination. The most essential of these will be a state-of-the-art surgery center, to provide what Night City's hospitals can't: discretion.</p><table><tbody><tr><td data-colwidth=\"283\"><h2>Medical Matters</h2></td><td><p></p></td></tr><tr><td data-colwidth=\"283\"><h5>Friend Opportunity: Sam Carter</h5><p>Carter is a Militech-trained nurse and astonishing all-around intellect who takes great pride in her work. If befriended, she'll gladly patch up her friend for free. She enjoys bookish types and gets along well with intellectuals, and dislikes brash, reckless behavior.</p></td><td><h5>Enemy Opportunity - Bozo The Principal</h5><p>The Bozos are up to no good once again, and have been abducting people all over the University District. Their leadership can be replaced by anyone who has an enemy with a gang background, is into thrill-seeking, or is just flat-out insane.</p></td></tr><tr><td data-colwidth=\"283\"><h5>Rep Opportunity: Big Red Honker</h5><p>Pull the nose off of the Bozo leader while they're actively guarding it; doing so requires making an aimed brawling or martial arts strike at the Bozo's head. On success, the target suffers Whiplash in addition to any other damage/crits.</p></td><td><h5>Gig Payout</h5><p>500eb + 4 Eagles per player, with a rep bonus if the Bozos start talking about you. No bonus opportunities from inside the club this time - Vido knows <em>exactly</em> what you're getting into, for once.</p></td></tr></tbody></table><h1>Beat Chart</h1><p><strong>Beat 1: Clowning Around</strong></p><p>The party meets with Vido briefly and are directed to the Afterlife's medical ward from the suddenly clown-themed club, to learn about the civil war going on within the Bozos from the Afterlife's nurse.</p><p><strong>Beat 2: Laughing Gas</strong></p><p>The party meets Sam and sees the lower level of the Afterlife for the first time, and are given the assignment proper.</p><p><strong>Beat 3: Clowns On Parade</strong></p><p>The party meet with another a very special contact - a Bozo who's a triple agent - to learn where Nightshade is being kept.</p><p><strong>Beat 4: Elevator To Clowntown</strong></p><p>Arriving at the location, an innocuous elevator ride awaits. Surely there's nothing amiss, here!</p><p><strong>Beat 5:</strong> <strong>Underground Clown Posse</strong></p><p>The abducted party members must fight through the Bozo lair and take on the leader.</p><p><strong>Beat 6: It's The Principal Of The Thing</strong></p><p>The party must deal with the leader of this Bozo cell, one way or another.</p><p><strong>Beat 7: Funny Business</strong></p><p>The party returns to Vido and his special friend, to debrief and receive their pay.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 200000,
+      "name": "Clowning Around (Beat 1)",
+      "type": "text",
+      "_id": "sm3EKC4iz7TURzxx",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene makes use of the <strong>@UUID[Scene.fqgvewCqt8z94mll]{The 7th Circle Bar &amp; Casino + Holodeck}</strong> scene. To begin:</p><ul><li><p>Place <strong>@UUID[Actor.rQdrdTOYV13yilZD]{Sammy Chauvin, Bartender For The Afterlife}</strong> behind the bar, and <strong>@UUID[Actor.17CTAE5lKmZFHY9i]{Vido Dubois, The Frenchman}</strong> in his usual booth at the back. <strong>@UUID[Actor.PJBDw6Qy61QZGIXp]{Silvers the Solo}</strong> is guarding the door and <strong>@UUID[Actor.Y7NnvbMut6swzVaA]{Checkers, The Afterlife Dealer}</strong> is in the gambling pit.</p></li><li><p>The club itself is populated at GM discretion, except for 4 <strong>@UUID[Actor.6DkEWEDkSFcSGvgS]{Bozo Fools}</strong>, 1 <strong>@UUID[Actor.PMLS2DHJADArZ6TG]{Bozo Jester}</strong> and some amount of Generic Gangsters in various combinations, all affiliated with the Bozos.</p></li><li><p>Place the player tokens at their usual spots around the bar.</p></li></ul><p>Then read the following:</p><h2>Big Ol' Honkers</h2><p><em>Another day, another reach-out from Vido - the first one in awhile, actually, asking you to meet down in the Afterlife's club as usual - and to \"not mind the confetti.\"</em></p><p><em>As you step into the 7th Circle for your latest job, the reason for the odd remark is readily apparent. The bar's been transformed into a Bozo circus, with </em><a href=\"https://www.youtube.com/watch?v=hT7x1NvGf5k\"><em>clown metal</em></a><em> blasting over the brightly-colored dance floor while a collection of the titular clowns losing whats left of their minds in time with the beat. More are at the bar, doing lines of coke on every surface, or taking who-knows-what-else while giggling maniacally.</em></p><p><em>Silvers gives you a meaningful look to play nice as you enter, but she doesn't look especially at ease herself. She doesn't speak over the discordant 'music,' instead gesturing towards Vido's usual spot at the back. On your way over, Sammy gives you a wave but looks similarly stressed to Silvers as he pours out brightly-colored drinks for the clowns.</em></p><p>\"Bonjour!\"<em> Vido calls. </em>\"Come, pay the red-noses no mind! Take a seat, let's talk business!\"</p><hr /><p><span style=\"font-family:Signika\"><strong>On the clowns:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Vido notes that they're (relatively) harmless, and part of the circus of Joy.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The Bozos have two sides, which hate each other - the circus of Joy, which is a partygang, and the circus of Merriment, which is commonly described as \"the Joker plus Jigsaw.\"</span></p><ul><li><p><span style=\"font-family:Signika\"><em>The two sides have been locked in civil war for months.</em></span></p></li></ul></li><li><p><span style=\"font-family:Signika\">Despite being the \"safe\" kind of Bozos, though, he still doesn't recommend partying with the circus of Joy, either.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The clowns here are celebrating a special occasion - Bozo's deathday.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Since all Bozos call each other \"Bozo,\" Vido's not sure if that's a reference to the gang's first clown, every clown that's died during the war, or something else entirely, and he's not about to ask.</span></p></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>On the job:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The Afterlife's medical bay is stocked and needs a head doctor.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The club has already hired a nurse, but she won't be able to handle the clinic alone.</span></p></li><li><p><span style=\"font-family:Signika\">The nurse (Dr. Carter) is waiting downstairs once Vido's worked out payment.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Speaking of Bozos, Carter's partner is who the party is after - the good Doctor Nightshade.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">He notes that Dr. Carter can speak more about the individual in question - Vido knows very little about them.</span></p></li><li><p><span style=\"font-family:Signika\">Dr. Nightshade has been abducted by the Bozos while performing surgery for them in the University District.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>While Vido notes that Dr. Carter will have more details for them once they get downstairs, he notes that payment will still be going through him, and shares the basics - the party should take the time to haggle with him now, if they intend to do so at all.</strong></span></p></li></ul><p><span style=\"font-family:Signika\"><strong>Once the conversation with Vido has concluded, the party must make their way back to the bar's exit - through the crowd of Bozos. Have each player make a Willpower save for the Bozo gang-wide ability; those who fail suffer the effects of ReTox for the next 45 minutes, as detailed in the ability description of the Bozo Fool.</strong></span></p><p><span style=\"font-family:Signika\"><strong>The Bozos are very insistent that the players come party with them, and may need 'aggressively persuaded' to leave the group alone.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Once the party have left the club and head downstairs, proceed to beat 2.</strong></span></p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379133776,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 300000,
+      "name": "Laughing Gas (Beat 2)",
+      "type": "text",
+      "_id": "36TMEwVUbtwx6M3x",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene makes use of the <strong>@UUID[Scene.6hT6obPZNLoSsbiD]{Afterlife Sublevel 2}</strong> scene. To begin:</p><ul><li><p>Place a token for <strong>@UUID[Actor.sBheILpJQeMzC4eh]{Dr. Sam Carter}</strong> in the medical ward.</p></li><li><p>Lock all of the doors in the scene except for those of the medical ward, between the the ramp, and the elevators.</p></li><li><p>Turn off all the lights in the scene except for those on the ramp and in the medical ward.</p><ul><li><p>You can do this by going into the lighting tool in the tool ribbon, and right clicking each light in the scene.</p></li></ul></li><li><p>Place the player tokens at their means of entrance - either the elevators, or the ramp down.</p></li></ul><p>Then, read the following:</p><h2>Laughing Gas</h2><p><em>The second basement level of the Afterlife isn't much to look at - at least, not initially. The main area looks to be a marketplace that hasn't yet been staffed, and outside dark doors is the empty cavern of a parking garage. Only the medical ward is online, its sterile light acting as a beacon on the otherwise-dark floor.</em></p><p><em>Inside is a slim, modern medical ward that's as nice as any hospital in the city, all of its equipment pristine and waiting to be used. Across from an unused office space, an extra desk, computer and chair have been set up on the tiled floor, as if added as an after thought. Sitting in the chair is a woman of middling height with short, messy blonde hair and a pristine nurse's smock. She turns to you as you enter, standing from the chair - on the computer screen behind her, you can see what looks like an NCPD website with pictures of more Bozos on it.</em></p><p><em>She holds out her hand to the leader of the pack as you approach.</em> \"You must be the crew here to rescue my partner. I'm Doctor Carter, nice to meet you.\"</p><img src=\"modules/ticket-to-the-afterlife/packs/ticket-to-the-afterlife/Afterlife%20Evergreen/Mooks/Sam%20Carter.webp\" class=\" centered\" width=\"250\" height=\"250\" /><h2>Job Details</h2><p><span style=\"font-family:Signika\"><strong>Sam was hired into the Afterlife as 1/2 of a duo to run the medical ward. Her partner is Dr. Iris Nightshade, who served alongside Dr. Carter during CW4 and afterwards; for all of Carter's merits, she insists that Dr. Nightshade is considerably more talented, and considerably better equipped for work where violence is often an indispensable part of the job description.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Until a week ago, Dr. Carter and Nightshade ran a roving ripperdoc clinic all over Night City, and were highly in demand for their services.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">They primarily served the gangs, as opposed to edgerunners - they did surgery for everyone from 6th Street to Maelstrom, boasting a much safer operating environment and much higher success rates than anyone in the gangs themselves.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Last week, Carter and Nightshade received a lucrative offer from the Afterlife, and accepted - but they had one last contract to fulfill before joining up, for the Bozos.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While filling the contract, a rival group of Bozos to the group they were working on ambushed the pair, killing their subject and attempting to abduct the doctors.</span></p></li><li><p><span style=\"font-family:Signika\">Dr. Nightshade sacrificed herself to buy time for Carter to escape, and was abducted by the Bozos in the process.</span></p></li></ul></li></ul><h3>About the Bozos</h3><p><span style=\"font-family:Signika\"><strong>Carter isn't sure why the Bozos wanted to abduct them, but can guess.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The Bozos are embroiled in a bloody civil war between two factions - \"purist\" partygangers, who she and Nightshade were operating on when ambushed, and a breakaway gang of psychos.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Neither gang is especially talented at surgery, and Bozos need a lot of it - each one is practically a walking clown-themed full body conversion.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Given that the upgrades Carter and Nightshade were installing on their clients were made explicitly to help them fight the other gang (armored headgear, jaw-implanted rippers, spring feet, and so on), Carter expects that Nightshade was taken to do the same thing to the other gang.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Given that they need her in one piece to conduct her services, this leaves Carter optimistic that the Bozos haven't executed Nightshade… yet.</span></p></li></ul></li></ul><h3>About Dr. Nightshade</h3><p><span style=\"font-family:Signika\"><strong>Despite having worked together for years, Carter doesn't know much about Iris Nightshade - she's aloof, blunt, an astonishingly proficient surgeon, a skilled combatant when necessary (which is unfortunately often) and completely obstinate when it comes to revealing anything about herself. Carter's never seen her do so much as read a book, never mind mention a family, friends or talk about hobbies. She does know a few things, though.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Carter knows that Iris served in Europe initially during CW4, before migrating over to American soil where they got to know one another while working together.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Just before Carter went AWOL (after the war - see Carter's mook sheet for a bit more on her own backstory), Nightshade was recruited into a Militech black ops unit and disappeared without a trace or a goodbye.</span></p></li><li><p><span style=\"font-family:Signika\">The two reconnected in Night City about 5 years ago - Nightshade providing just enough information that Carter could confirm who she was, and nothing else, which was followed by them starting a clinic together.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Between the time that Carter went AWOL after CW4 and now, she's certain that Nightshade has gotten a new face, but has never seen it - the doctor wears her beaked mask and hood at all times, to the point that Carter suspects they're implants.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Even before being recruited into black ops, Nightshade wasn't exactly the fuzziest person - in truth, Carter feels like the only thing that's really changed between then and now is the mask.</span></p></li></ul></li></ul><h3>The Mission's First Step</h3><p><span style=\"font-family:Signika\"><strong>With the help of the Owner, Carter has tracked down a lead for the party to follow up on.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>There's a contact that Carter worked on awhile back named Bozo, who, in true Bozo fashion, is operating as a triple agent - feeding both factions in the civil war information about one another.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Bozo would like to meet the party - he's offering his help in exchange for Carter offering her services to him.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Bozo is a ReTox addict, like many other members of his gang, and most of the cyberware Carter put into him was secondhand at best - Carter isn't sure what, exactly, he wants her help with, but she's willing to provide it if he can help the Afterlife get to Iris.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Bozo has agreed to meet the party in a coffee shop in the University District - Carter expects that the district residents will be giving him space, but Bozos aren't a particularly rare sight, there.</strong></span></p></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>When players have finished asking questions and are ready to meet with Bozo, proceed to beat 3.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379133399,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 400000,
+      "name": "Clowns On Parade (Beat 3)",
+      "type": "text",
+      "_id": "d9Pp3xMEMyIhRVD3",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat makes use of the <strong>@UUID[Scene.u8tv2BV9kaAUbZqA]{University Coffee Shop}</strong> environment. To begin, switch the scene, then read the following:</p><h2>Coffee and Donuts</h2><p><em>The location you've been given in the University District is unremarkable - just one of the dozens of high-end coffee shops and study bars that make up the blocks surrounding the university itself, frequented by the new-age trust fund pharaohs that make up half the University's population, and staffed by the overworked and underpaid students that make up it's other half. Large, clean glass-front windows look out over tables and a narrow street, the entire scene buzzing with activity.</em></p><p><em>Inside, the place is just as busy as it looks. One table, though, is being given a wide berth. A Bozo is sitting alone, three coffee cups in front of him, and his mere presence seems to be acting as a repelling force against the students. While not an altogether alien sight, it's clear that Bozos in broad daylight are still to weird to be normal.</em></p><p><em>As the party approaches him, he greets them with a nervous, strained titter, like gas escaping from a balloon.</em> \"I'm Bozo - haha - Bozo the clown; you wanted to - hehehe - make a doctor reappear?\"</p><h2>Playing Bozo</h2><p><em>The Bozo looks… haggard. His hair has been shaved down the center, with two nightmare tufts of bright green, frizzy nonsense stuck out to the sides, which seem wilted - you can spot bits of dust and even specks of trash in them, as if he's been sleeping in the street. That matches his smell - coffee-scented gutter.</em></p><p><em>He doesn't have the big red honker that many Bozos wear, but his regular noise is likewise conspicuously absent, revealing a cyberware port, as if its replacement was never installed. His polka-dotted clownfit is stained and has lost much of its bright color. His eyes were oddly colored to begin with - pure blue, with no irises - but are somehow still bloodshot.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>All Bozos are referred to as Bozo - their real names have been lost or forgotten. They vary slightly in individual personality, but most have 3 character traits in common, including the one the party is meeting:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>All of them are nihilists; the partygang (Joy) variety express this by partying wildly and pulling aggressive pranks against anyone that bothers them, and the psycho (Merriment) variety, who violently torture themselves and others for their amusement.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Members of both varieties struggle to find value in anything other than the next high; they view their own lives, the lives of both their fellow gang members, and most other individuals, as expendable.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Even the most depraved Bozo is still silly in a clownlike way, responding to any serious tone or topic with a corresponding disregard for it - the more serious the subject, the more absurd and lighthearted a Bozo will be.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Because of this, it's virtually impossible to have a serious discussion with one - the more you try, the more props and slapstick the Bozo will engage in to avoid it.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>All of them are habitual users of ReTox, the gang's drug of choice, which effectively renders them extremely bipolar - the happier they are, the more antics they get up to, and the sadder they are, the more nihilistic they become.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">This effect can easily be communicated by periodically rolling a D10; resutls of 1-5 result in a severely depressive mood, while results of 6-10 result in manic joy.</span></p></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>In addition to these qualities, the Bozo the players meet is suffering from the following:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Nervous breakdown: Bozo has an uncontrollable tic, laughing regardless of situation - the laugh is strained and involuntary.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Withdrawl: Bozo misses his input, who he thought broke up with him but really was leaving down for a few weeks, and is trying to leave the Bozos - his body is rejecting his clown-themed Full Body Conversion, and he's suffering from ReTox withdrawl, struggling to feel anything at all.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Worried for his health: Bozo has been playing a triple-agent, feeding both sides of the civil war info about one another in the hopes that one will eventually give him enough resources to get out altogether, and expects one side or the other will kill him for the betrayal eventually.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Being worried for one's personal health is an uncommon trait for a Bozo, and one that Bozo hasn't had much practice in lately. As a result he might be somewhat eccentric - being worried that someone slipped cyanide into his coffee after he looked away, but being completely unconcerned about being in an active gunfight, for example.</span></p></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>Bozo uses the @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.6DkEWEDkSFcSGvgS]{Bozo Fool} statblock.</strong></span></p><h2>Bozo's Information</h2><p>\"So, you're - haha - edgerunners, right? What edge are you running? Hee hee, the edge of sanity?\"</p><hr /><p><span style=\"font-family:Signika\"><strong>Thanks to his unique position, Bozo knows where Iris is being held, and by who - see below.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Nightshade was kidnapped by a particularly vicious faction of the Circus of Merriment, who want her to continue augmenting them into still-less-human clown psychos courtesy of some borgware that they picked up from Maelstrom.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Once installed, this tech could put them on with the city's heavy-hitters, like Maelstrom itself, and that's bad for <em>everyone.</em></span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The gang is being led by Bozo, a particularly cruel Jester who's been abducting people across the university district.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">These abductions are the primary way the Circus of Merriment increases its numbers - students or other Night Citizens are abducted, their minds are broken, they're addicted to ReTox, their bodies are transfigured into the Bozo form by the gang's doctors, and before long they gleefully help abduct further members.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>The washout/death rate of this process is high - presumably 9/10 or more - and the NCPD is actively trying to stop the abductions, but so far have had little success.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The gang's headquarters is in NC's undercity - the largely-abandoned second skin of basements, corporate facilities, subway tunnels, and other infrastructure that most of Night City is built on top of.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Bozo assures the party that accessing the lair is easy, but there's only one way in and out - an exterior elevator of an apartment building at the edge of the University District.</span></p></li><li><p><span style=\"font-family:Signika\">The lair itself is a maze - Bozo doesn't know the full layout - run by the Jester's gang - Bozo doesn't know their numbers.</span></p></li><li><p><span style=\"font-family:Signika\">Bozo himself adamantly refuses to get any closer to the elevator than across the street, worried that the elevator will \"suck him in.\"</span></p><ul><li><p><span style=\"font-family:Signika\"><em>This is a reference to part of his initiation to the Bozos itself, before the civil war, where he was taken to a similar facility to undergo his own ReTox treatment and the beginnings of his FBC.</em></span></p></li></ul></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>Bozo doesn't know much else, but will guide the party to the elevator entrance - from a safe distance.</strong></span></p><hr /><p><span style=\"font-family:Signika\"><strong>Once players are ready to head into the lair, proceed to beat 4.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379132991,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 500000,
+      "name": "Elevator To Clown Town (Beat 4)",
+      "type": "text",
+      "_id": "2eUYPtOyDSy3mTVH",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat uses the <strong>@UUID[Scene.8JCd50xPHCjcFbR6]{Bozo Lair}</strong> scene. To begin, read the following:</p><h2>Clown Compartment</h2><p><em>Only once you get moving do you realize that Bozo seems to have chosen the furthest possible point in the University District from your destination. The clean, well-kept, well-secured buildings close to the university district fade quickly, replaced by the poorly maintained brownstones and converted houses that make up the district's edges. The exec-financed cars and scholarship-provided housing quickly turn to something you'd more closely associate with the decay of the suburbs - homeless camps in the alleys and run down junkers on the streets. It's not quite the combat zone, presumably thanks to the NCPD patrol cars that seem to be everywhere, but still - all those folks who are paying their </em><span style=\"text-decoration:underline\"><em><span style=\"text-decoration:underline\">own</span></em></span><em> way through college have to live somewhere.</em></p><p>\"Here - hahaha - stop here, last stop to heaven and hell, he he he!\" <em>Bozo says, and points down the street. In one of the buildings, its windows a combination of boarded and broken, an elevator car sits with its doors swung open. It's unremarkable, except for the single Bozo tag on the inside of one of the doors - a clown with pointed teeth and red eyes.</em></p><p>\"Hee hee, the Doctor's making a house call down below,\" <em>Bozo says.</em> \"Now if you'll excuse me, hahaha, I just remembered I left my refridgerator running and need to get home before it gets out.\"</p><p><em>Unless anyone stops him, he exits the scene as quickly as he can a moment later.</em></p><h2>The Elevator</h2><p><span style=\"font-family:Signika\"><strong>At a glance, the elevator car is unremarkable. Its control panel has two buttons - one up, and one down. It has two stops: ground level, and the Bozo lair.</strong></span></p><p><span style=\"font-family:Signika\"><strong>When the down button is pressed, it takes the elevator one minute to reach the Bozo lair after the doors close. 10 seconds after the doors close, however, the elevator fills with knockout gas. The gas is silent except for a very quiet hiss, odorless, and colorless, and takes effect immediately as follows:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Five Resist Drug/Torture checks are required from your players, at an escalating DV. After each check, each character who is still conscious has time for 1 action.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The DV for these checks are: 13/15/17/19/19</span></p></li><li><p><span style=\"font-family:Signika\">Until a character falls unconscious, the GM should roll these checks secretly. After a character falls unconscious, players may roll any remaining checks themselves.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>This can be done by changing the roll mode from public roll to blind GM roll, then rolling the skill on each player's character sheet.</em></span></p></li><li><p><span style=\"font-family:Signika\"><em>After the first round of checks, if no one passed out, the characters with the lowest result(s) finds themself involuntarily yawning.</em></span></p></li></ul></li><li><p><span style=\"font-family:Signika\">Prior to the first character falling unconscious, any equipped anti-smog breathing masks provide a +1 to each check; nasal filter cyberware provides a +3.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>After a character falls unconscious, breathing masks continue to provide a +1; nasal filters will from then-on provide immunity if the character using them breathes entirely through their nose.</em></span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once a character falls unconscious,</strong> they stay asleep for 1 in-game hour, until woken up as an action, or until they take any kind of non-poison damage.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>Characters cannot be woken up while the elevator doors are closed - the knockout gas puts them back to sleep instantly.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once the elevator doors close, radio communicators and agents immediately become unable to contact the outside world - the Bozos don't want their captives calling for help.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Once all 5 rounds of checks have completed, the elevator doors open on the entry room of the Bozo lair - see the next scene - and the knockout gas ceases to be effective after players leave the elevator.</strong></span></p></li><li><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">Finding the trap:</span></strong></span></span><span style=\"font-family:Signika\"><strong> locating the trap requires a DV21 Conceal/Reveal object check conducted on the elevator - this is reduced to a DV17 if the attempting player has at least 3 points in the skill. It can be disarmed with a single action via a DV13 Basic Tech check.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">If disarmed before the elevator begins moving, no gas escapes and the elevator ride is uneventful.</span></p></li><li><p><span style=\"font-family:Signika\">If located and disarmed after the elevator starts moving, the DV for any subsequent checks will not further increase. Instead, it will decrease by 2 for each remaining check until the elevator is open, at which point no more checks are required.</span></p></li></ul></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once players have made it into the lair, proceed to Beat 5.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379132590,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 600000,
+      "name": "Underground Clown Posse",
+      "type": "text",
+      "_id": "eGPf9kGUEtOsDI7m",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat takes place in the Clown Dungeon scene, but it varies considerably depending on if the party passed out in beat 4 or not.</p><p><strong>If the entire party passed out:</strong></p><ul><li><p>Each character is placed in a chair, in the elevator-adjacent room of the Bozo Lair.</p></li><li><p>Proceed with Beat 5a.</p></li></ul><p><strong>If at least half the party passed out:</strong></p><ul><li><p>Place the tokens for the player characters in the elevator, indicating those who are prone/have fallen asleep.</p></li><li><p>Place 1*partycount <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.6DkEWEDkSFcSGvgS]{Bozo Fools}</strong> at the elevator entrance when the door opens.</p></li><li><p>Proceed with Beat 5b.</p></li></ul><p><strong>If less than half the party passed out:</strong></p><ul><li><p>Place the tokens for the player characters in the elevator, indicating those who are prone/have fallen asleep.</p></li><li><p>Place 1*partycount <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.6DkEWEDkSFcSGvgS]{Bozo Fools}</strong> around the edges of the elevator-adjacent room.</p></li><li><p>Proceed with Beat 5c.</p></li></ul>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379132159,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 700000,
+      "name": "UCP (Beat 5a)",
+      "type": "text",
+      "_id": "gnkel4xf1ZIPpDFe",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>Used when the entire party has passed out. Begin by reading the following.</p><h2>Welcome To Hell</h2><p><em>Slowly, the world returns. Maybe - the grimy, black-and-white tiles under your feet aren't familiar. Neither is the uncomfortable, lumpy padding of the chair you find yourself in… or the restraints on your arms and legs.</em></p><p><em>Before you're even fully conscious, there's a loud, monotone ring filling your surroundings, and a moment later, a maniacal cackle sounds over some shoddy-sounding loudspeakers.</em></p><p>\"WAKE UP!\" <em>The voice, male, shrieks loud enough to peak the mic. Your eyes fly open and you wish they hadn't. Next to you, your fellow edgerunners are similarly restrained in a long string of chairs. The walls are blinking black and white squares, flashing fast enough to be painful to look at.</em></p><p>\"WELCOME TO HELL!\" <em>the demented voice continues screaming, then laughs insanely again. </em>\"OTHERWISE KNOWN AS HIGH SCHOOL! CLASS IS IN SESSION AND YOU'RE. ALL. TARDY! GO! GO GO GO GO GO GO GO!\"</p><p><em>You can still hear the laughing as you're suddenly weightless, the floor under you opening and plunging you straight down into blackness.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>After dropping your players, randomly assign each of them a room 1-6, and see the room prompts for further setup. Once all rooms have been resolved, proceed to beat 6.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379131727,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 150000,
+      "name": "Nightlight Editorial",
+      "type": "text",
+      "_id": "39Eia5j0nm0IWIjX",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>The FM Receiver Crackles, The Pirate Wavelength Carrying A Cool, Seductive Female Voice…</h2><p><em>\"Hey out there Night Owls, this is Nightlight, the voice of the city, here to take the scream out of the sheets and into your ears, just in case you haven't had enough screaming in your day already - and boy, is NC getting a little scarier by the day.</em></p><p><em>\"You already know our top story tonight: the continuing escalation of gang violence in the university district - clown on clown for a Bozo street brawl, but this slapstick is no laughing matter. The confirmed death toll of night's bombing of the Kappa Sigma Pi frat house is 7, and I'm hearing reports that only five of them were nepo-babies - my heart's out to you, to the two that worked their way up to Uni only to be taken down by clowns on parade. The NCPD has imposed a 10:00 PM curfew on the campus proper until they can finish cracking down on the violence - considering it's been months with no word, something tells me this semester might see a few fewer parties than normal.</em></p><p><em>\"Elsewhere, it looks like the cold war between Petrochem and SovOil is reigniting, thanks to some espionage from both sides. We've got oil fields and office buildings burning from North New Westbrook all the way to Heywood, seemingly without a single care for the carbon emissions involved. Someone ought to tell the mercs involved to find a more environmentally-conscious way of conducting warfare - but it ain't gonna be me.</em></p><p><em>\"And of course, we've got the hot scoop - and some free tickets - to the surprise shows that the Jewels are putting on across the combat zones. Considering the riots that follow their last tour, I'd board up your windows if they aren't already, Nightcrawlers.</em></p><p><em>\"Speaking of, it's time for a blast from the past that's as resonate as ever. Crank the volume for Activist Violence, straight off of RTJ6 and a reminder of the depression we left behind alongside the recession we're still living through. Until tomorrow Night City, Nightlight is signing off, and hoping I made your night a little brighter.\"</em></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774378755165,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 800000,
+      "name": "UCP (Beat 5b)",
+      "type": "text",
+      "_id": "4iAmUKgIWxQO5Kig",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat is triggered when <em>some</em> of the party fell asleep.</p><h2>Welcome To… Oops! You Aren't Supposed To Be Awake</h2><p><em>You can only hold your breath for so long - fortunately, after what doors finally open, revealing a dimly lit room, some chairs, and several demented looking clowns.</em></p><p>\"Alright boys!\" <em>one squeaks in a voice that's FAR too high for them. </em>\"Fresh recruits! A special batch! Let's get them - wait, WHAT?! Boss, they're awake!\"</p><p><em>After a moment, there's a low tone and a very worn-out intercom sounds over the room.</em> \"Darn it Bozo! HAHAHAH! I told you not to get the discount stuff! But no problem, our new recruits are always so rational! No need to fear, the Bozos are here for you! Just cooperate and you won't be harmed!\"</p><hr /><p><span style=\"font-family:Signika\"><strong>Until such a time that a party member decides to be uncooperative, the Bozos in the room will attempt to drag any unconscious members into the chairs in the center of the room, which are fastened with restraints at their arms and legs. Conscious players will also be encouraged to sit down.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>If characters don't cooperate, the Bozos will not hesitate to use force to get them to sit down, and don't care much about their own injuries when doing so.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Once all players have been fastened in - or it becomes clear that the Bozos will no longer be able to sit any further players - the intercom sounds with a school bell and the lead Bozo screams over the mic, \"CLASS IS IN SESSION!\"</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Beneath any occupied chairs, pit traps open, sending the chairs and their occupants straight down into the floor.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">These in turn move about a complex series of chutes, pulleys and other mechanisms before eventually being coughed up in rooms around the complex.</span></p></li><li><p><span style=\"font-family:Signika\">Assign players to unoccupied rooms around the perimeter of the lair at random and refer to their associated room instructions.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>From that point onward, any players which step adjacent to a space with a chair will trigger its trap and they must attempt a DEX save - on failure, they also fall into the pit (use the falling rules - they fall 20m total) and reappear 20 seconds later in a random unoccupied room.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>For those players that don't end up falling into a room, once the Bozos have been dealt with, climbing to the catwalk at the front of the room only requires a moment; the door beyond is sealed via a DV15 Electronics Security or Pick Lock check, and the door beyond that is not sealed.</strong></span></p></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once players enter the principal's office, proceed to beat 6.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379131265,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 900000,
+      "name": "UCP (Beat 5c)",
+      "type": "text",
+      "_id": "mVYGAjGeJV4dNyLX",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat is triggered when <em>none</em> of the party fell asleep.</p><h2>Welcome To… WHAAAAAT?</h2><p><em>The elevator doors open on a dull, grimy black-and-white room with flashing checkerboard walls… and a surprised-looking set of Bozos.</em></p><p>\"Uh, boss!\" <em>one says in a voice far too high.</em> \"They didn't fall asleep!\"</p><p>\"WHAT?\" <em>A voice screeches over an intercom.</em> \"Did one of you BOZOS forget to refill the knockout gas canister? If I find out which one's responsible, I'll hammer your feet flat! See if they'll cooperate - if not, waste them, then report to my office! The principal is going to have <em>words</em> with you!\"</p><p><em>The intercom shuts off. The Bozo in the room who spoke gives a creepy smile.</em> \"Hehe, hi there,\" <em>he says, still in that too-high voice.</em> \"I don't suppose you'd be interested in some secondary education?\"</p><hr /><p><span style=\"font-family:Signika\"><strong>The Bozos will attempt to threaten and coerce the players into the chairs at the center of the room. If, for some reason, the party plays along, proceed to beat 5a, though the Principal/voice on the intercom might be surprised that they were so accommodating.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Otherwise, the Bozos will open fire on the party and attempt to execute them.</strong></span></p><p><span style=\"font-family:Signika\"><strong>If the party survives/once the Bozos have been cleaned up, climbing the catwalk at the far end of the room is simple enough for most characters - the door is secured via a DV15 lock (either pick lock or electronics/security) and the door beyond it is not secured.</strong></span></p><hr /><p><span style=\"font-family:Signika\"><strong>Once players have broken into the principal's office beyond the doors, proceed to beat 5.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379130893,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 1000000,
+      "name": "Computer Lab (Top Left/Green Table)",
+      "type": "text",
+      "_id": "ktvreNHzpxER1KXt",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>Class Is In Session (Computer Lab)</h2><p>Each room in the Bozo Lair is a \"school classroom,\" designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.</p><p>Each of the rooms is a \"puzzle\"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they <em>do</em> entertain the idea of someone being able to \"outwit\" them, and those who do are brought to the Principal for \"disrupting the class.\"</p><p>Each of the Bozos are dressed for the room they're occupying.</p><h3>ReTox</h3><p><span style=\"font-family:Signika\"><strong>When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.</strong></span></p><h3>Psychological Conditioning</h3><p><span style=\"font-family:Signika\"><strong>While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Track the amount lost - 1/2 of it will be regained after 24 hours.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.</span></p></li></ul></li></ul><h3>Opt Out</h3><p><span style=\"font-family:Signika\"><strong>Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.</strong></span></p><h2>Crash Your Operating System</h2><p><span style=\"font-family:Signika\"><strong>To begin:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} in the blue chair, and another in front of the door.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Place the abducted character in the grey chair.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Then read the following:</strong></span></p></li></ul><hr /><p><em>The tube carrying you twists and tumbles before you finally fall out of the ceiling - landing with a thud right in front of a computer desk and monitor. The monitor in front of you is playing a quick, seizure-inducing black and white checkerboard pattern, which matches the walls and floor.</em></p><p>(The character immediately feels the effects of ReTox, making them especially vulnerable to the flashing images on the screen and the shifting pattern on the walls).</p><p><em>Across from you, a Bozo wearing an oversized pair of glasses is sitting at an identical computer. In a dull voice reminiscent of Ben Stein, he says in a depressed, dull voice, </em>\"Hello class, welcome to Computers for stupid people. Today you will learn the basics of how to use the miracle of 21st century technology.\"</p><p><em>From behind you, another Bozo giggles. On the screen, the maddening pattern is replaced by a collection of images of fruit - apples, bananas, and cherries.</em></p><p>\"To begin, please match the like images.\"</p><hr /><p><span style=\"font-family:Signika\"><strong>The \"class\" is actually a series of children's puzzles and Captchas, like matching images, digital sliding-tile pictures that need organized. deciphering text, playing Tic Tac Toe, and so on.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The puzzles, however, are being sabotaged by the Bozo at the other computer - images will change while being clicked on, text will distort when being answered, puzzles will reset just before being completed, etc.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Each time this happens, the screen flashes violently with a series of mesmerizing images that the ReTox dosed character can't look away from - images of clowns, violent torture, various phobia triggers, and so on.</strong></span></p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">This challenge has 3 possible solutions:</span></strong></span></span></p><ol><li><p><strong>Beat Bozo at his own game:</strong> the character can access admin privileges and out-program the Bozo with a DV12 Interface check, or a DV17 Electronics/Security Tech check.</p></li><li><p><strong>Embrace The Crazy/Decipher The Pattern:</strong> A DV17 Cryptography check is sufficient to defeat the puzzle by deciphering its pattern.</p></li><li><p><strong>Fake Insanity:</strong> A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).</p></li></ol>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379129637,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 1000000,
+      "name": "Chemistry Lab (Middle Left/Classroom)",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>Class Is In Session (Chemistry Lab)</h2><p>Each room in the Bozo Lair is a \"school classroom,\" designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.</p><p>Each of the rooms is a \"puzzle\"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they <em>do</em> entertain the idea of someone being able to \"outwit\" them, and those who do are brought to the Principal for \"disrupting the class.\"</p><p>Each of the Bozos are dressed for the room they're occupying.</p><h3>ReTox</h3><p><span style=\"font-family:Signika\"><strong>When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.</strong></span></p><h3>Psychological Conditioning</h3><p><span style=\"font-family:Signika\"><strong>While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Track the amount lost - 1/2 of it will be regained after 24 hours.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.</span></p></li></ul></li></ul><h3>Opt Out</h3><p><span style=\"font-family:Signika\"><strong>Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.</strong></span></p><h2>Caution: Hazardous Chemicals</h2><p><span style=\"font-family:Signika\"><strong>To begin:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} at the front of the room next to the table with all of the stuff on it, and another next to the door.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Place the abducted character in the grey chair.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Then read the following:</strong></span></p></li></ul><hr /><p><em>The tube carrying you twists and tumbles before you finally fall out of the ceiling - landing with a thud in front of a desk laden with smoking beakers atop Bunsen burners racks of multicolored vials, piles of colored powders, and what looks like a jug of Soda, for some reason.</em></p><p>(The character immediately feels the effects of ReTox, making them especially vulnerable to the smells and visions that the chemicals produce).</p><p><em>Next to you, a female Bozo wearing a blood-spattered lab coat leers at you. </em>\"Welcome to Chemistry, hon! Today we're going to learn about hazardous chemicals!\"</p><p><em>Next to the door, you hear a deep inhale and another Bozo's voice, saying </em>\"I love the smell of nitroglycerine in the morning!\"</p><p><em>The woman at the front looks sharply at her counterpart, and responds, </em>\"no talking while class is in session!\"<em> then turns back to you.</em> \"Start mixing, hon!\"</p><hr /><p><span style=\"font-family:Signika\"><strong>The \"class\" is actually a chem lab, with the twist that virtually all of the substances on the table will aerosolize when mixed, producing maddening psychedelic images.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>No matter what's mixed with exception to the puzzle solutions, the character will be dosed in this manner, resulting in the EMP save.</strong></span></p></li><li><p><strong>The Bozo in charge will applaud any attempted mixtures; their only goal seems to be \"make something happen.\"</strong></p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">This challenge has 3 possible solutions:</span></strong></span></span></p><ol><li><p><strong>Neutralize the Table:</strong> the character can mix the only possible combination of non-dangerous chemicals at the table, which also neutralizes all the other substances, via a DV15 Science -&gt; Chemistry check or DV17 Medical Tech check.</p></li><li><p><strong>Mix Everything, All At Once:</strong> Mixing 4 or more substances simultaneously causes an explosion, ruining the table. A Molotov Cocktail is detonated at the center point of the table, which lights both the character and the Bozo 'scientist' on fire.</p></li><li><p><strong>Fake Insanity:</strong> A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).</p></li></ol>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379129207,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      },
+      "_id": "uRIp5FLqrhraGkBb"
+    },
+    {
+      "sort": 1000000,
+      "name": "Gym Class (Bottom Left/Basketball Court)",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>Class Is In Session (Gym)</h2><p>Each room in the Bozo Lair is a \"school classroom,\" designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.</p><p>Each of the rooms is a \"puzzle\"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they <em>do</em> entertain the idea of someone being able to \"outwit\" them, and those who do are brought to the Principal for \"disrupting the class.\"</p><p>Each of the Bozos are dressed for the room they're occupying.</p><h3>ReTox</h3><p><span style=\"font-family:Signika\"><strong>When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.</strong></span></p><h3>Psychological Conditioning</h3><p><span style=\"font-family:Signika\"><strong>While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Track the amount lost - 1/2 of it will be regained after 24 hours.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.</span></p></li></ul></li></ul><h3>Opt Out</h3><p><span style=\"font-family:Signika\"><strong>Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.</strong></span></p><h2>If You Can Dodge A Bozo, You Can Dodge A Ball</h2><p><span style=\"font-family:Signika\"><strong>To begin:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} at the 3 point line of the B-Ball court, and another guarding the door.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Place the abducted character in the grey chair.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Then read the following:</strong></span></p></li></ul><hr /><p><em>The tube carrying you twists and tumbles before you finally fall out of the ceiling - landing with a thud on the polished wooden floor of a basketball court. Immediately a shrill whistle blows, and in front of you, you see a Bozo wearing a tie-dye jersey (it reads </em>Coach Bozo) <em>and holding a whistle, and another at the door behind him that's grinning and giggling.</em></p><p>\"Foul!\"<em> Coach Bozo roars. </em>\"I want order on this court dammit, this is a playoff game!\"</p><p><em>He chucks the basketball that he was under his arm at you, which smacks you in the face unpleasantly, but ineffectually.</em></p><p>(The character immediately feels the effects of ReTox, making them sluggish and more prone to physical damage).</p><p><em>The restraints on your chair unlock, freeing your arms and legs - just in time, as the Bozo chucks the ball again and you narrowly move out of the way.</em></p><p>\"You think you got what it takes to take on the Bozo Blazers? Prove it!\"<em> the 'coach' says.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>The \"class\" is how the Principal remembers gym class - an abusive instructor and physical ineptitude. Every time the basketball is thrown by either the abducted character or the coach, it unerringly ends up smacking the player character in the head or the groin, either directly or on the rebound.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The player can attempt to throw a score - but if they do so, they net lifts up and out of the way before the ball can land.</strong></span></p></li><li><p><strong>Each time the ball rebounds into the player, it's accompanied by a scathing remark from Coach Bozo.</strong></p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">This challenge has 3 possible solutions:</span></strong></span></span></p><ol><li><p><strong>Dunk The Ball:</strong> the character can make a flying leap to attempt to dunk the ball, which requires a DV21 Athletics check (reduced by 3 for each Cyberleg the character has), shattering the backboard of the court in the process.</p></li><li><p><strong>Give The Coach What He Deserves:</strong> the character can use thrown weapon attacks to chuck the ball at Coach Bozo, who dodges using his Physical skill with a +3 modifier (reflecting the player's ReTox disability). Upon being struck, the coach \"takes the player out of the game\" to the Principal's office.</p></li><li><p><strong>Fake Insanity:</strong> A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).</p></li></ol>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379128765,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      },
+      "_id": "Ck2pHsmqM2NvHyWK"
+    },
+    {
+      "sort": 1000000,
+      "name": "Art Class (Top Right/Color Swirl)",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>Class Is In Session (Art)</h2><p>Each room in the Bozo Lair is a \"school classroom,\" designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.</p><p>Each of the rooms is a \"puzzle\"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they <em>do</em> entertain the idea of someone being able to \"outwit\" them, and those who do are brought to the Principal for \"disrupting the class.\"</p><p>Each of the Bozos are dressed for the room they're occupying.</p><h3>ReTox</h3><p><span style=\"font-family:Signika\"><strong>When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.</strong></span></p><h3>Psychological Conditioning</h3><p><span style=\"font-family:Signika\"><strong>While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Track the amount lost - 1/2 of it will be regained after 24 hours.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.</span></p></li></ul></li></ul><h3>Opt Out</h3><p><span style=\"font-family:Signika\"><strong>Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.</strong></span></p><h2>(In)Humanities</h2><p><span style=\"font-family:Signika\"><strong>To begin:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} next to the easel in the center of the room, and another at the door.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Place the abducted character in the grey chair.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Then read the following:</strong></span></p></li></ul><hr /><p><em>The tube carrying you twists and tumbles before you finally fall out of the ceiling - landing with a crash in the center of a psychedelic swirl of colors. An easel is in front of you, its canvas blindingly white like a scar in the scene.</em></p><p>(The character immediately feels the effects of ReTox, making them more vulnerable to the acid-trippy visuals of the room)</p><p><em>A face suddenly looms large, entirely too close to comfort, out of the swirl of colors across the floors, walls and ceiling - not from them, but too close to you. A Bozo, their clothes, face, and even hair painted in an eye-watering swirl of neon colors that blends perfectly with the surroundings. Only the whites of their eyes and their yellow teeth are differentiating them from the background.</em></p><p>\"Who is this that they've sent me?\"<em> the 'artist' asks derisively. </em>\"Another foolish artist with delusions of grandeur, I presume?\"</p><p><em>Behind you, you hear the sound of a door opening and closing - you crane your neck just in time to see it slide shut before being disguised by the room, along with the Bozo that was admitted.</em></p><p>\"Well?\" <em>the artist demands, and the restraints on your arms are released. </em>\"Let's see what you can do!\"</p><hr /><p><strong>The \"class\" is 'art', which means 'painting.' The room, however, is an illusion amid a drug-induced haze. Anything the character paints on the easel immediately bleeds off of the white canvas and into the surrounding color swirl, taking on exaggerated, nightmarish characteristics in the process which assault all 5 senses.</strong></p><ul><li><p><span style=\"font-family:Signika\"><strong>Any interaction with the room paint results in derision from the artist, who also continuously criticizes the character for their 'feeble attempts at art.'</strong></span></p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">This challenge has 3 possible solutions:</span></strong></span></span></p><ol><li><p><strong>Paint Your Way:</strong> the character can attempt to create something beautiful on the easel despite the problems with doing so, producing a basic work of art that the artist begrudgingly respects by attempting a DV15 Paint/Draw/Sculpt check, or DV17 Composition check.</p></li><li><p><strong>Challenge the Artist:</strong> the character can attempt to goad the artist into attempting a work themselves through a DV18 Persuasion or Interrogation check - the colors will fade as the artist removes the \"distraction\" to show their prowess, and they create a sad clown painting.</p></li><li><p><strong>Fake Insanity:</strong> A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).</p></li></ol>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379128097,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      },
+      "_id": "XmmiWWzGh6fv3NbU"
+    },
+    {
+      "sort": 1000000,
+      "name": "School Dance (Middle Right/Open Floor Room/",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>School's Out! (Dance)</h2><p>Each room in the Bozo Lair is a \"school classroom,\" designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.</p><p>Each of the rooms is a \"puzzle\"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they <em>do</em> entertain the idea of someone being able to \"outwit\" them, and those who do are brought to the Principal for \"disrupting the class.\"</p><p>Each of the Bozos are dressed for the room they're occupying.</p><h3>ReTox</h3><p><span style=\"font-family:Signika\"><strong>When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.</strong></span></p><h3>Psychological Conditioning</h3><p><span style=\"font-family:Signika\"><strong>While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Track the amount lost - 1/2 of it will be regained after 24 hours.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.</span></p></li></ul></li></ul><h3>Opt Out</h3><p><span style=\"font-family:Signika\"><strong>Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.</strong></span></p><h2>Panic! At The Disco</h2><p><span style=\"font-family:Signika\"><strong>To begin:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} at the chair on the DJ's Stand, and another at the door.</strong></span></p></li><li><p><strong>Place 6 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.JCpR3fjW7E7Aggac]{Civilian (Male-presenting)} tokens on one side of the room, and 6 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.XqxwWAyfPzrob7Ex]{Civilian (Female-presenting)} tokens on the other.</strong></p></li><li><p><span style=\"font-family:Signika\"><strong>Place the abducted character in the grey chair.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Then read the following:</strong></span></p></li></ul><hr /><p><em>The tube carrying you twists and tumbles before you finally fall out of the ceiling - landing painfully, on your side, in your worst nightmare: the corner of a high school dance. Music is playing that's at least 40 years out of date, and the empty dance floor is rimmed by poorly choreographed lights. The room is filled with people, all of them wearing clown masks, but none of them dressed for the occasion. They stand silent, unmoving, all turned towards you, and segregated by gender. Worse, enormous eyes are displayed on screens around the edges of the room, all of them, watching. Menacingly.</em></p><p>(The character immediately feels the effects of ReTox, making them more socially conscious and a bit awkward and gangly.)</p><p>\"Allllright everyone!\" <em>a woman's voice says; up at the DJ booth you can see a Bozo manning the table, her hair wild and frizzy even by Bozo standards. When she starts talking, the restraints on your chair are released. </em>\"Let's get this party started; make sure to leave room for a Bozo while you dance!\"</p><hr /><p><strong>Truly a living nightmare, the character must navigate a school dance where nobody's allowed to dance. Social anxiety is always in the corner of the character's mind thanks to their ReTox dose, and the DJ isn't helping matters.</strong></p><ul><li><p>The room's other occupants are fake - mannequins (and/or animatronics at GM discretion) that are only rendered lifelike attributes thanks to the lighting, the environment, some convincing paint, and the ReTox. Characters can determine this with a DV15 Human Perception check.</p></li><li><p>The DJ is actively contributing to the character's social anxiety - the spotlight follows them as they move around, and the music constantly shifts and skips; the floor is greased, making it hard to move, and through a trick of the sound system, it seems like there's teenagers whispering and giggling behind them at all times.</p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">This challenge has 3 possible solutions:</span></strong></span></span></p><ol><li><p><strong>Cut Footloose:</strong> Screw all the people watching - live in the moment! The funk and fugue of the dance can be cut through by busting a move, either solo or by taking one of the mannequins for a spin, with a DV15 Play Instrument (if the character has something suitable to play), DV17 Dance, or DV22 Athletics check.</p></li><li><p><strong>Indecent Exposure:</strong> the character can attempt to ruin the dance by 'acting inappropriately,' I.E. stripping naked, getting rowdy around the room, attacking the crowd (but not the Bozos), telling lewd jokes, or whatever other ways that one would get themselves kicked out of a high school dance. This strategy can be determined via a DV17 Tactics or Deduction check.</p></li><li><p><strong>Fake Insanity:</strong> A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).</p></li></ol>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379127627,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      },
+      "_id": "QTfRzncYXBh1tRym"
+    },
+    {
+      "sort": 1000000,
+      "name": "Library (Bottom Right/Bookshelf Room)",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2>Class Is In Session (Library)</h2><p>Each room in the Bozo Lair is a \"school classroom,\" designed to addict those abducted to them to retox while also driving them mad (Bozo the Principal was bullied in High School). All of them are staffed by 2 Bozo Fools, 1 to run the show, the other to watch the door and the captive.</p><p>Each of the rooms is a \"puzzle\"/has a win condition where the player can beat it and be escorted to the principal without getting attacked by their guards. The Bozos have a sense of humor, in this regard - they <em>do</em> entertain the idea of someone being able to \"outwit\" them, and those who do are brought to the Principal for \"disrupting the class.\"</p><p>Each of the Bozos are dressed for the room they're occupying.</p><h3>ReTox</h3><p><span style=\"font-family:Signika\"><strong>When a character enters the room, they are immediately dosed with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.0BF7aE8rsFg3qKgP]{ReTox}, which lasts until they leave the lair. They make a resist drugs/torture roll as normal for purposes of determining addiction.</strong></span></p><h3>Psychological Conditioning</h3><p><span style=\"font-family:Signika\"><strong>While in class, each character is being subjected to extreme psychological conditioning through drugs, physical abuse, and visual stimuli.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>At the end of each of their turns, they must attempt an EMP save - each time they fail, they lose 1d6 humanity.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Track the amount lost - 1/2 of it will be regained after 24 hours.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once they reach 1 or less EMP through one of these triggers, they're driven temporarily mad (have them roleplay accordingly).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">While they don't owe allegiance to the Bozos, the gang will nonetheless consider their job done and the character will be released and escorted to the Principal for further conditioning.</span></p></li></ul></li></ul><h3>Opt Out</h3><p><span style=\"font-family:Signika\"><strong>Players can, of course, simply choose to attack the Bozos guarding them, who will fight and attempt to subdue any character that doesn't play along - any restraints require a DV19 BODY Athletics check to break free from, or a DV15 DEX Contortionist.</strong></span></p><h2>Keep Your Voice Down</h2><p><span style=\"font-family:Signika\"><strong>To begin:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Place 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fool} next to the desk on the right side of the room, and another at the door.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Place the abducted character in the grey chair.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Then read the following:</strong></span></p></li></ul><hr /><p><em>Your ride is dark and terrifying through the chutes and pulleys of the Bozo lair before you finally plummet down into the light, landing with a loud </em>crack<em> at a desk in an otherwise silent room. You have just enough time to register the bookshelves around you before you feel a sharp slap across your still restrained knuckles from a ruler; this is accompanied by a loud <strong>\"CRACK!\" </strong>that resounds even more than the sound of your chair's impact.</em></p><p>(The character immediately feels the effects of ReTox, making it hard to remember anything that's happened outside the Bozo Lair, and making them both twitchy and <em>extremely</em> sensitive to sound.)</p><p>\"BE QUIET, THIS IS A LIBRARY!\" <em>the Bozo responsible for the crack lifts her ruler. She's dressed like an old hag, complete with spectacles with the little chain on them. The makeup isn't very convincing - it's obvious she's not even half the age she's pretending to be. She gestures to the desk.</em></p><p>\"Your mother was very clear; you won't be leaving UNTIL YOU PASS!\" <em>the librarian screams, far too close to your ear for comfort; the side of your head is spattered with saliva, and you can smell her rancid breath.</em></p><p><em>She taps the desk in front of you, where a multiple choice test is waiting, number 2 pencil and all. A moment later, she adds,</em> \"and just to make sure…\" <em>before attaching bells to your neck and wrists via collar and bracelets.</em> <em>Your arm and leg restraints are then released. Then she turns over an hourglass and stalks off between the shelves. Good luck!</em></p><hr /><p><strong>In front of the character is a general education test. Hope they studied for their SATs! Just kidding - no high school student would be able to pass this.</strong></p><ul><li><p>The test itself is almost entirely obscure trivia that would be Alex Trebek turn over in his grave. Both the questions and the answers are worded confusingly, requiring extra time thanks to all the double-negatives and other nonsense.</p></li><li><p>Adding to the problem are the bells the character is wearing, which are locked on (DV15 Lockpicking); even the smallest movement causes them to ring, which attracts the Librarian's ire. Not exactly an ideal study solution.</p></li><li><p>And of course, the Librarian is periodically coming around to harass the character, always attempting to surprise them and break their concentration.</p></li><li><p>Combined, these will slowly drive the character mad - both the test itself, and the</p></li></ul><p><span style=\"text-decoration:underline\"><span style=\"font-family:Signika\"><strong><span style=\"text-decoration:underline\">This challenge has 3 possible solutions:</span></strong></span></span></p><ol><li><p><strong>Just Pass The Test:</strong> Passing the test <em>is</em> possible, but requires a DV19 Education check. Hopefully the character was paying attention in class!</p></li><li><p><strong>Sneak out of the library:</strong> perhaps intentionally, the librarian is stalking the shelves doing… something. Stocking books, maybe? In any case, a DV19 Stealth check can be used to sneak past her; if successful, the door guard will escort the character to the Principal for \"trying to cheat.\" The Stealth check difficulty can be reduced by first removing the bells.</p></li><li><p><strong>Fake Insanity:</strong> A DV17 EMP Acting check will convince the Bozos that they've achieved their goal of driving the character mad (this is an option in every room).</p></li></ol>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379126664,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      },
+      "_id": "hO9G4niytvLtGLAV"
+    },
+    {
+      "sort": 950000,
+      "name": "The Principal Of The Thing (Beat 6)",
+      "type": "text",
+      "_id": "3MjGfcu6kFK3F9o8",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat continues from one of thee outcomes of Beat 5, as follows. Though the methods of getting here are different, the end result is generally the same - the Principal threatens to kill anyone who doesn't become a Bozo, begins the process of drowning Dr. Nightshade, and tries to kill the characters that don't join up. First, set up the office:</p><ul><li><p>Place a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.PMLS2DHJADArZ6TG]{Bozo Jester}</strong> behind the desk in the center of the room; this is the Bozo Principal.</p></li><li><p>Place <strong>1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6DkEWEDkSFcSGvgS]{Bozo Fools}</strong> around the office as security.</p></li><li><p>Place <strong>@Actor[QfV07Q4ukpgjWqDS]{Dr. Iris Nightshade}</strong> in the \"tank\" behind the principal's desk.</p></li><li><p>Any Bozos who escort the player characters through the halls are also present; otherwise, they are waiting in their rooms and will be summoned over the lair's intercom to watch and intervene when the Principal attacks.</p></li></ul><h2>Truant Officers</h2><p><span style=\"font-family:Signika\"><strong>Some of your party might play along, while others choose violence. In such cases, the Bozos will attempt to subdue those players. If the Bozos inside a room can't subdue the character, the Principal becomes aware of the issue and sends his office guards to investigate. He will not, himself, ever move from the office, though.</strong></span></p><h2>Final Exam</h2><p><em>The principal's office is like the rest of the lair - its walls and floors have the same maddening checkerboard pattern, making it hard to look at, except for the center of the floor, where wood paneling has been put in place beneeath a desk, some chairs, and a pair of flimsy office dividers.</em></p><p><em>Behind the desk sits a razor-thin Bozo with wiry green hair and a giant red nose, wearing a stained business suit that hangs off his starved frame.</em></p><p>\"Well well, what a bunch of TROUBLEMAKERS!\" <em>the Principal howls as you enter the room. </em>\"You probably consider yourself good students! Or bad students! But the important thing is that this is MY SCHOOL, which means you ALL get a failing grade! Unless…\"</p><p><em>He snaps his fingers. Behind him you see an enormous reinforced steel pressure tank - inside is a woman, her face covered by a beaked mask, her body shrouded by a black robe. The tank begins filling with water a moment later.</em></p><p>\"Class, it's time for the PLEDGE OF ALLEGIANCE!\" <em>The Principal exclaims. </em>\"Otherwise, take a look at what happens to those who - ha ha ha - WASH OUT!\"</p><hr /><p><span style=\"font-family:Signika\"><strong>The Principal will give the members of the party who played along or were broken by the lair the opportunity to pledge to the Bozos.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Those who do so do not attract the immediate ire of any room guards when combat breaks out, but receive a -3 all checks made for the first 2 rounds of combat as the effects of ReTox lead them to partially believe their own words.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>While this is happening, everyone in the scene is able to ready an action before initiative is rolled, should combat break out.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Once the players have had the opportunity to join up, the Principal and his staff open fire on anyone who did not pledge.</strong></span></p></li></ul><p><span style=\"font-family:Signika\"><strong>Any Bozos who aren't members of the Principal's personal staff are directed </strong><em><strong>only</strong></em><strong> to watch, even if the Principal is about to die, </strong><em><strong>unless</strong></em><strong> a party member attacks them, or the tank holding Nightshade.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>In either which case the party member's assigned Bozos join the fight to try and stop the party member from \"destroying the school.\"</strong></span></p></li></ul><p><span style=\"font-family:Signika\"><strong>The tank holding Nightshade takes 4 rounds to fill with water, and Nightshade will go unconscious 4 rounds after that, after which point she begins taking 10 damage a turn until dead.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The tank's glass can be punctured; each pane has 30 HP.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Destroying a pane shatters it and the tank immediately empties into the surroundings.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>The tank filling process can also be stopped, and the captive released, if the controls are recovered from the Principal's body.</strong></span></p></li></ul><p><span style=\"font-family:Signika\"><strong>If the players defeat the Principal and his goon squad without having attracted the ire of any other Bozos, something unusual happens:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>As soon as the last aggressive Bozo goes down, the loudspeakers sound with a different Bozo's voice, which shouts: \"Graduation Protocols! We've got a bunch of Straight-A students here!\"</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Any Bozos around the room begin applauding the party's efforts, offering doses of various drugs in congratulations.</span></p></li><li><p><span style=\"font-family:Signika\">Over the loudspeakers, <a href=\"https://www.youtube.com/watch?v=Kw-_Ew5bVxs\">Pomp and Circumstance</a> begins to play.</span></p></li><li><p><span style=\"font-family:Signika\">The walls and floors, formerly the checkerboard pattern, shift to a nauseating display of confetti puffs across brightly colored celebratory slogans and, sometimes, overblown pictures of party members' faces.</span></p></li><li><p><span style=\"font-family:Signika\">Every party member gains 1 personal rep, which expires in 1 month, as the Bozos spread the word of their exceptional feats.</span></p></li><li><p><span style=\"font-family:Signika\">From that point on, the Bozos will cease any hostility to the players - both they, and Dr. Nightshade, will be allowed to leave without issue.</span></p></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>For her part, Dr. Nightshade is grateful, if brisk, to the players for rescuing her, but refuses to reveal her face and asks after the status of her assistant.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>Her pistol and Mono-Katana can be found in the Principal's desk. She wants them back. She will take them back.</strong></span></p></li></ul><hr /><p><span style=\"font-family:Signika\">Once all players have left the lair and returned to the Afterlife, proceed to Beat 7.</span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379130516,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 975000,
+      "name": "Funny Business (Beat 7)",
+      "type": "text",
+      "_id": "T3dcAAoXyOJUKJfv",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat takes place in the 7th Circle, which should be much as the party left it with a couple of exceptions:</p><ol><li><p>Most of the Bozos have cleared out, except for a couple which are strung out or hung over around the bar.</p></li><li><p>There's a dead Bozo on the dance floor, courtesy of Silvers. Most are ignoring it, but some Afterlife staffers arrive to drag it off around the same time the party shows back up.</p></li></ol><p>Vido is still in his booth, and waits for the party with payment in hand.</p><hr /><p><em>If nothing else, the 7th Circle is quieter, now. When you return, most of the Bozos are gone, except for a few that are strung out over the bar's tables. A clown corpse, male, is dead on the dance floor, with the Afterlife staff already on the scene to clean up the mess. The corpse is missing its arm and its head, which have already been collected.</em></p><p><em>Silvers is cleaning one of her swords as she lets you in, leaving little guesswork in what happened to him.</em></p><p>\"Bonjour mis vouchers!\" <em>Vido calls from the back booth.</em> \"How was your time in clown town, eh? Don't mind the body - my understanding is that he got a little handsy, and then lost his head. Now, for the matter of your pay!\"</p><hr /><p><span style=\"font-family:Signika\"><strong>Assuming that Nightshade was delivered alive, Vido congratulates the players on a job well done, and pays the agreed amount. Beginning the following day, the players have access to the Afterlife's medical services - @UUID[JournalEntry.fSYrBTqTQ6GeKR0g]{see the associated journal entry for more details.}</strong></span></p><h2>Your Feedback Wanted!</h2><p>Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.</p><p>If you have a few minutes after your session, <a href=\"https://forms.gle/sfvVM21YrA88fyC77\">please take the time to fill out the feedback survey for this campaign, located here.</a> It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.</p><p>Your feedback matters! Thank you for playing!</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379130083,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

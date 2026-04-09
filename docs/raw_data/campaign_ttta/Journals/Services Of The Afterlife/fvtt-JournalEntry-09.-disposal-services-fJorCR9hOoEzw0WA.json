@@ -1,0 +1,59 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "09. Disposal Services",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Order A Dinner Reservation",
+      "type": "text",
+      "_id": "ALkCjNlpioDdLlFq",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once <strong>Skeletons in the Closet</strong> has been completed. It takes place in the lowest level of the Afterlife, and is maintained by Bones Malone and his crew (or their replacements).</p><h2>Cost</h2><p>Bones and his boys will dispose of up to 3 bodies and repair the surroundings of the corpses for <strong>1 Eagle. </strong>This fee can be paid multiple times, should you need to remove more bodies or require more extensive scene restoration.</p><h2>Function</h2><p>There are several phone lines within the Afterlife; depending on if you call the restaurant or sublevel 3, though, you may be in for a very different type of <strong>dinner reservation.</strong></p><p>When contacted, Bones and his boys will arrive on a scene of choice to make some bodies mysteriously disappear (into the furnaces in the Afterlife's basement, that is). After arriving (which usually takes less than half an hour), they'll gather up corpses, clean up bloodstains, repair broken glass, and do whatever else is needed to return a scene to its pristine, pre-firefight conditions.</p><p>Uncovering this subterfuge requires a <strong>DV21 Conceal/Reveal object</strong> check, after the fact. The best concealment is there not being an investigation in the first place!</p><p>Bones and his boys won't fight enemies left on the scene, or disable security measures - they're just there to clean up. Likewise, they don't have the tools to reproduce irreplaceable artifacts (unique stained glass designs, files on broken computer systems, etc.) though their tech can do a decent job repairing most things.</p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

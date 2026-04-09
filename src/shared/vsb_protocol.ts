@@ -1,3 +1,4 @@
+/// <reference types="vitest/importMeta" />
 /**
  * VSB Protocol: Sovereign Binary Schema (TypeScript Mirror)
  * Phase 22.5: Cross-Node Stabilization
@@ -302,7 +303,7 @@ if (import.meta.vitest) {
     it('rejects a packet with corrupted checksum', () => {
       const buf = new Uint8Array(HEADER_SIZE);
       SovereignHeaderCodec.encode(buf, 0, PacketType.Intent, 1, 0);
-      buf[4] ^= 0xFF; // corrupt sequence_id byte
+      buf[4]! ^= 0xFF; // corrupt sequence_id byte
       expect(SovereignHeaderCodec.decode(buf)).toBeNull();
     });
 
@@ -391,7 +392,7 @@ if (import.meta.vitest) {
       const session = new Uint8Array(16);
       const payload = new Uint8Array(256);
       const buf = ResultPacketCodec.encode(ResultStatus.Ok, 0, session, 0, payload);
-      buf[12] ^= 0xFF; // corrupt checksum byte
+      buf[12]! ^= 0xFF; // corrupt checksum byte
       expect(ResultPacketCodec.decode(buf)).toBeNull();
     });
   });

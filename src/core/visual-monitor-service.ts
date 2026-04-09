@@ -539,8 +539,8 @@ export class VisualMonitorService {
     const client = this.getClient();
     
     const script = `(async () => {
-      const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'g': '6', 'b': '8' };
-      const parselChars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\░▒▓█";
+      const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'z': '2', 'b': '8', 'g': '6' };
+      const parselChars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\\\░▒▓█";
       
       const transform = (text) => {
         let out = "";

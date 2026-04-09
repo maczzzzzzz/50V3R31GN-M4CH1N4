@@ -1,0 +1,69 @@
+This beat is a continuation of Beat 3, but requires setup of either Militech or Maelstrom reinforcements. If both Militech and Maelstrom were totally wiped out during Beat 2, the party can leave the bunker without issue, safely skipping this beat.
+
+If Militech survived -
+
+Place any surviving members of the Militech squad in defensive positions around the bunker.
+
+Place a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.OtEZqK6hA9CVIBAe]{Militech A/V-4} somewhere in the scene, hovering overhead to provide fire support.
+
+Add 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Fn6sba31t3fGJBOM]{Militech Grunts} and 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6rEW0UHcCQVMShPe]{Militech Suppressors} to the scene, either just outside the bunker doors or creeping into the bunker to ambush the party.
+
+If Maelstrom survived -
+
+Place any surviving members of Maelstrom outside the bunker doors.
+
+These are accompanied by an additional @Actor[zL4MIuNuqr9QOANV]{Maelstrom Psycho}, representing gang leadership, as well as 1/2 partycount @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.zeG9k6liLkdHNrf4]{Booster Gangsters} that the psycho dragged along as meat shields.
+
+At GM discretion, you can also place up to 1/2 partycount Maelstrom Brawlers or Punishers on the scene for added difficulty.
+
+Then, assuming the beat isn't being skipped, read the following…
+
+Lights Out (Militech Version)
+
+In the 2020s, a bunker like this likely would've been considered nigh-impregnable, or at least, incursion-resistant. Especially if it had a corporate HQ on its head. But it's not the 2020s, and the entire room shakes as an explosion at the front doors leaves ears ringing.
+
+In the hall, dark shapes are moving amid the concrete dust, and more such debris is piling down into the room from the cracked ceiling - a couple more explosions like that one, and the bunker will be buried under its own weight. As the shapes advance, though, you can hear military chatter: "Breach successful - sterilization team, moving in."
+
+More Militech, apparently, and they don't sound too interested in negotiating.
+
+Roll for initiative.
+
+Militech has been employed by Netwatch to track down AI Nora and either destroy her, or recover her for integration into the Blackwall.
+
+If Nora starts broadcasting, the team will pursue the party until they disappear into the ruins, and continue patrolling in their A/V-4 after that point.
+
+Eluding their grasp requires a DV17 Stealth check from each party member - they can make the check up to 3 times, but only need to pass once.
+
+Each time they fail, they take an Elephant Round sniper shot to the chest.
+
+Alternately, shooting down the A/V-4 will also do the trick, if someone in the party brought along a rocket launcher.
+
+If Nora isn't broadcasting, Militech will check the bunker before pursuing the party, giving them a chance to get away - see above, but they only have the opportunity to fail the stealth check twice instead of thrice.
+
+Lights Out (Maelstrom Version)
+
+There's a dull pounding coming from the front doors. If it were 2025, they'd be unbreakable to most forces - but it's 2045, and Maelstrom aren't exactly "most forces."
+
+You hear crumbling rock and shrieking steel, along with an angry roar from the other side of the doors - whatever nightmare Maelstrom has dug up, apparently they finally found purchase enough to rip one of the doors to the side. In the light, you see dark shapes, arguing about who goes first. The psycho that pulled the door off its hinges turns and decapitates one of the arguing goons, sending the rest scurrying towards the doors - evidently, they want whatever's in the bunker just as much as you do.
+
+Roll for initiative.
+
+Maelstrom doesn't give a damn about the party, except that they may have killed Maelstrom members, and will instead seek to get into and loot the bunker instead of pursuing the party back into the ruins. They do this regardless of if Nora is broadcasting or not.
+
+This is a good opportunity to make an enemy of the psycho, but Maelstrom definitely lets the party off easier than Militech.
+
+Live Broadcast From The Old Combat Zone
+
+At this point, if Nightlight's construct has been rescued (and understands the situation), she senses a good time for good publicity - everyone loves seeing Maelstrom get wacked, and Militech isn't supposed to be in Night City at all, after all. She'll ask the party to hook her back up to her broadcasting systems and help her get the word out.
+
+If the party wishes to do so, it involves pulling back a panel in the wall next to Nora's corpse/netrunning chair and inserting Nightlight's construct into a computer system found there.
+
+From there, players will need to locate the damaged hardlines that formerly connected her to the net and repair them - a DV21 Basic Tech check, lowered to DV17 if two actions are taken instead of one.
+
+Once they've made the repair, Nightlight's voice begins transmitting through an old FM radio somewhere in the kitchen - she's back on the air, and asks to be inserted into an Agent (also an action).
+
+From that point on, she's live and transmitting across her usual pirate wavelength, commentating her rescue like a wrestling match through cameras positioned around the bunker and hidden in the ruins outside.
+
+If the party successfully rescues her, every surviving member gains a personal rep.
+
+Once the party has rescued Nightlight successfully, proceed to the final beat of the campaign.

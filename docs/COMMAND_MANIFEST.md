@@ -1,4 +1,4 @@
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Command & Bridge Manifest (v1.14.0)
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Command & Bridge Manifest (v2.1.0)
 **Protocol:** Binary RPC over ClawLink + VSB Sovereign Highway
 
 This document provides an exhaustive list of all control plane commands, startup scripts, developer tools, and API events available across the **Sovereign Highway** architecture.

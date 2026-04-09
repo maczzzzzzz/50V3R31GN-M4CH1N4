@@ -1,0 +1,58 @@
+{
+  "folder": "0oUKFp7ZhEwe1OwS",
+  "name": "01. Entrance Fee - Sanctuary & Reputation",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Sanctuary In The Afterlife",
+      "type": "text",
+      "_id": "prGgarru4zqO7IRE",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This service is unlocked once the first mission - <strong>Guarding the Pearly Gates -</strong> has been completed.</p><h3>Cost</h3><p><strong>1 Eagle/2 entrants. This fee is mandatory</strong> unless waived by an Afterlife staff member; the club cannot otherwise be accessed.</p><p>Note: this fee can always be waived for members who just want to come in for a job briefing from the Afterlife's staff. If they don't pay the fee, though, they don't get the Legends of Night City bonus, and they'll only be able to stay on the premises a few hours.</p><h3>Function</h3><p>The automated defenses of the Afterlife help protect it from attack, and the building has also been reinforced against small arms fire. Paying the fee at the front doors purchases these protections for up to 18 hours, providing a safehouse for those inside.</p><ul><li><p><strong>My Kingdom Come: </strong>Gangs and corps will not pursue paying tenants past the doors, though they might wait outside for their target to leave and act then.</p></li><li><p><strong>Legends of Night City: </strong>the Afterlife has a legendary reputation - any characters who purchase entry gain +1 personal rep for 24 hours as soon as they step foot inside the club.</p><ul><li><p>Freeloaders don't get this bonus.</p></li></ul></li></ul><h3>Extra Details - Dealing With Intruders</h3><p>The Afterlife has automated defensive turrets scattered about both inside and outside the hotel at GM discretion, which automatically detect, flag, and attack anyone on hotel premises who isn't identified as an authorized visitor.</p><ul><li><p>When a coin is slotted in the front door, an integrated VI detects once two people have entered - after that, the doors snap shut under hydraulic power.</p></li><li><p>For each person entering, another can attempt to enter without tripping the VI - doing so requires a DV21 Stealth check. On failure, they're detected and flagged as an unauthorized visitor, and will likely be attacked as soon as paying visitors are out of the way.</p><ul><li><p>For obvious reasons, the automated security won't fire if there's risk of hitting a paying customer - in those cases, the VI notifies individuals in the lobby of an unauthorized visitor, and requests those in the doorway stand aside to allow the problem to be taken care of.</p><ul><li><p>If the paying visitor can't/doesn't move, the hotel concierge and security teams are called to deal with the problem.</p></li></ul></li><li><p>At GM discretion, unauthorized visitors might receive one warning to exit the premises, before being attacked.</p></li></ul></li><li><p>When the door snaps shut, anyone in the doorway must make a reflex save (roll 1d10; a result ≤ their REF score passes)</p><ul><li><p>On success, they move to either side of the doorway</p></li><li><p>On failure, they suffer 4d6 damage (reduced by body armor), a random appendage is severed (they take the damage for the critical injury), and they're placed on whichever side of the doorway they were closer to when it shut.</p></li><li><p>They'll also be apprehended by security, who will perform first aid to staunch the bleeding and then swiftly eject the offender (with their dismembered body part, if necessary) and warn them that if they're caught doing it again they'll lose more than just a limb.</p></li></ul></li></ul><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    }
+  ],
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

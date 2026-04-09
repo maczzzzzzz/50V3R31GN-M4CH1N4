@@ -1,0 +1,164 @@
+{
+  "folder": "GdupeWGrdrnYzRvR",
+  "name": "SmartHouse Kitchenette (Lifestyle)",
+  "type": "itemUpgrade",
+  "img": "modules/ticket-to-the-afterlife/packs/ticket-to-the-afterlife/Afterlife%20Evergreen/Fresh%20Food.webp",
+  "system": {
+    "weaponType": "",
+    "weaponSkill": "",
+    "fireModes": {
+      "autoFire": 0,
+      "suppressiveFire": false
+    },
+    "damage": "1d6",
+    "rof": 1,
+    "dvTable": "",
+    "isRanged": false,
+    "unarmedAutomaticCalculation": true,
+    "attackmod": 0,
+    "description": {
+      "value": "<p>A small kitchenette with a convection stovetop, oven, microwave, refrigerator, and cabinets, all of which are equipped with an AI synced to your agent, which automatically tracks and orders ingredients as they're consumed.</p><p>One is included with each room rented on the 4th floor of the Afterlife, and stored by the hotel, free of charge, if removed. All others must be purchased using HQ IP.</p><p>Allows up to 3 edgerunners to store and prepare food acquired via lifestyle expenses. When doing so, they receive a 10% refund when lifestyle costs are accrued.</p>"
+    },
+    "source": {
+      "book": "TTTA",
+      "page": 0
+    },
+    "favorite": false,
+    "isElectronic": false,
+    "providesHardening": false,
+    "revealed": true,
+    "usage": "toggled",
+    "concealable": {
+      "concealable": false,
+      "isConcealed": false
+    },
+    "brand": "",
+    "installLocation": "mall",
+    "size": 1,
+    "usesType": "magazine",
+    "magazine": {
+      "value": 0,
+      "max": 0,
+      "ammoData": null
+    },
+    "ammoVariety": [],
+    "price": {
+      "market": 40
+    },
+    "installedItems": {
+      "allowedTypes": [
+        "itemUpgrade"
+      ],
+      "allowed": false,
+      "list": [],
+      "usedSlots": 0,
+      "slots": 3
+    },
+    "handsReq": 0,
+    "type": "gear",
+    "modifiers": {
+      "secondaryWeapon": {
+        "configured": false
+      },
+      "damage": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "rof": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "attackmod": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "magazine": {
+        "type": "modifier",
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "sdp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "seats": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "speedCombat": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "slots": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "bodySp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "headSp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "shieldHp": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "Wardrobe & Style": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      },
+      "cool": {
+        "value": null,
+        "isSituational": false,
+        "onByDefault": false
+      }
+    },
+    "canIgnoreArmor": true,
+    "ignoreArmorPercent": 50,
+    "critFailEffect": "jammed",
+    "ignoreBelowSP": 0
+  },
+  "effects": [],
+  "flags": {
+    "core": {
+      "sourceId": "Item.IvJzbqAIa3ij818a"
+    },
+    "cyberpunk-red-core": {
+      "_migration": {
+        "previous": "24",
+        "current": 34
+      }
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953275,
+    "modifiedTime": 1774375916124,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

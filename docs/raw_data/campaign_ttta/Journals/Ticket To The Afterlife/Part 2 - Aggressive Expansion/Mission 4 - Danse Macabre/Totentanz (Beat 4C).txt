@@ -1,0 +1,101 @@
+Setting up the @UUID[Scene.3F46oncmINIuqf5l]{Totentanz:} The players should be placed in the Totentanz scene, right at the elevator at the bottom left. Pepper the hallway with street trash (tier 1 street thugs) and place a Maelstrom-affiliated @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.siXtBrzjkX0N0AIc]{Gangster Enforcer} by the door. In the club proper, place roughly 10 civvies and street trash outside the stage. Place 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.CMi960vZd9O0kTUd]{maelstrom rippers} on stage, and 3 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.4xU3a21yd0HN77KT]{maelstrom brawlers} at the table south of the bar. Place a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.hyIBMpK21BmlaAU4]{street punk} behind the bar, @UUID[Actor.jz0AoU38jx6qbCN1]{Jerry} at one of the booths south of the bar, and lastly put a maelstrom psycho in the back area of the club.
+
+Let's Bounce:
+
+You enter the run-down building and being to ride the sweaty elevator up to the Totentaz. Used condoms, trash, and various small brown stains freckle the floor of this elevator, which weakly sticks to your shoes as you step on it. The elevator arrives at one of the top floors before opening, and muffled, thumping chromer music greets your ears. A line of various chromers, punks, and lost tourists stretches before you towards the entrance of the Totentanz.
+
+This building can get very VERY dangerous to edgerunners without good social sense. Luckily, the dress code is less strict than in places like MA&F. Anyone wearing businesswear or high fashion who approaches the bouncer gets a chuckle and a 'VIP' ticket to the back area. They are escorted by the Maelstrom brawlers at the booth near the door towards the back area, where they (and the Maelstrom psycho back there) will try to kill them and take all their stuff.
+
+
+
+Maelstrom does entry at the door, and doesn't do reservations. The entry cost is 25 euro at the door. Players can choose to wait in line (Pass time by 1 hour) or they can choose to cut in line (roll a social check against the Bouncer).
+
+Pretend to be Maelstrom Members through a DV: 17 Acting roll.
+
+Charm the bouncer with a DV: 15 persuasion roll.
+
+Intimidate the bouncer with a Facedown.
+
+Bribe the bouncer. DV: 15 - (euro offered by players / 100)
+
+Wearing gang colors (that do not bear the symbols of the Inquisitors or 6th Street) grants a +1 to any of these social rolls. Wearing maelstrom colors/symbols grants an additional +1.
+
+
+
+(Dead) Body Shots:
+
+Thumping music, thrashing patrons, a filthy bar with filthier drinks. The floor is sweaty, the air is warm, and the overhead lights hurt your eyes.
+
+However the party enters the club, they see a bunch of civvies/chromers on the dance floor, a bartender at the bar, some maelstrom gangers performing on the stage, and a lonely man sitting at one of the booths. If the players have done any research on Jerry from Jerry and the Holograms, they recognize him at the booth.
+
+The players can ask these different groups for answers.
+
+The Civvies:
+
+Don't know shit.
+
+Most are high on synth-coke.
+
+Will generally ignore the players unless they do something crazy.
+
+The Bartender:
+
+The bartender is behind a bulletproof glass case around the bar, almost as if they are a fish in a tank. They slide drinks under small holes at the base of the glass.
+
+The bartender avoids talking to patrons, usually only asking what drinks people want.
+
+The bartender knows Jerry, and how he performs here every few nights. If the players earn the bartender's trust, they might tell them about Jerry being indebted to Maelstrom or surface level observations he has about the workings of the club/Maelstrom.
+
+The Maelstromers:
+
+Don't even try. They will either tell you to shove off or invite you to 'talk' in the back room if you say something alarming to them.
+
+If you go to the back room, you get instantly attacked once you're out of the sight of Totentanz patrons.
+
+Jerry:
+
+Jerry is wearing dimmed holo-wear, that is set to look like inconspicuous brown clothes. His face looks really tired, and long blonde hair hangs down to his shoulders and obscures his eyes. He is looking out at the stage, running his finger around the rim of his glass.
+
+On a successful DV: 13 Wardrobe and Style/Deduction check, a carefully made-up black eye on his left and several hidden cuts can be made out. He is drinking by himself, staring off into the distance and trying to blend into the area around him.
+
+Jerry avoids chatting out loud, as to stay out of trouble with Maelstrom. He can be convinced to talk by:
+
+Trying to persuade him. DV: 21.
+
+Interrogating him. DV: 13.
+
+Making small talk with him (Persuasion). DV: 17
+
+Buying him a drink (+2 to any other social roll)
+
+Jerry knows the following:
+
+He has no idea who Clarisa is. He also has no idea who B00zeHound or Sarah is.
+
+He has been indebted to Maelstrom for the past few years for their assistance with his career. This arrangement has been mutually beneficial, until recently. One of the Maelstrom members, 'AK' has started tightening the 'leash' of his arrangement with Maelstrom.
+
+AK and some of the other members commissioned a song from Jerry that included this weird static-ey noise to it's backing track. When he asked about the song's purpose, he was only told about it being needed for a 'private party' that would be held 'next Tuesday' (a few days from now).
+
+Jerry slipped up while working on the song earlier today. He was high, and he accidentally uploaded it on the garden patch page where he had meant to upload a song meant for the public. Needless to say, Maelstrom was upset at him.
+
+AK, who spearheaded the commission offer, hasn't seemed to find out about the song mix-up yet. Jerry is not excited for when he finds out.
+
+Jerry's description of AK lines up with B00zeHound's description of 'That Maelstromer Guy'.
+
+Jerry says that, AK and his friends are the really freaky members of Maelstrom. He recounts the following story.
+
+"So, AK right? Theres this story one of the gangers told me once about him. Ya see, AK don't got any visible Ware, so everybody wonders how he got so high in Malestrom. The story goes that, he was dared to kill someone close to him as an initiation. The leaders expected him to maybe whine and give up, but thats the thing man. They say he broke into an abandoned industrial mill a few miles out, hung up a bunch of decorations, and filmed himself dancing as a convayor belt dragged his tied up father towards this industrial woodchipper… He aimed the wood chipper right over him, and kept dancing as the blood, bone, and organs of his pops showered his body. Real fucking fever dream XBD shit. When the maelstrom leaders questioned the voracity of the vid, the story goes that AK smiled at them… before pulling out a bag and dumping the only solid remnants of his dad at their feet. Real fucking psycho."
+
+
+
+So, Someone Drawed Iron.
+
+So, lets say that something goes wrong. If weapons are drawn in the open club, the Maelstrom gangers will attempt a facedown or defer the task to the bouncer. If the party is packing serious visible firepower, the gangers will try to persuade them to leave before popping off.
+
+The moment a fight breaks out, roll 1d10. This represents how many civvies are going to run away during the fight. Civvies that are choosing to run away join initiative collectively, at the end of the turn order. On the civvies turns, they will do anything to get out of the club and call the elevator. (This includes the people in the line, how much of which being up to the GM).
+
+The elevator takes 3 rounds to arrive, and 3 rounds to reach the bottom floor. There are no other ways to safely exit the Totentanz. Players could always try some unsafe methods of escape (jumping out windows) if they are unable to wait for the elevator.
+
+The bouncer will fight alongside the Maelstrom gangers, who will be doing everything they can to focus fire their targets. They 'kinda' try to avoid collateral damage, but accidents do happen. If the fight starts seeming particularly dicey for the Maelstrom gangers, they will rush backstage to get the Maelstrom Psycho in initiative.
+
+The bartender rushes back to the cooler area and barricades the door. Jerry will instantly flee like the rest of the civvies.

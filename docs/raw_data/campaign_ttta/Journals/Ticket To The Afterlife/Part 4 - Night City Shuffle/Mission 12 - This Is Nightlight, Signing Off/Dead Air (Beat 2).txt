@@ -1,0 +1,77 @@
+This beat takes place in the @UUID[Scene.374bQGpfwqtgOt2A]{Old City Center Ruins} scene and uses the @UUID[Scene.H5yxGI7jxQtTxJCM]{Old City Center} environment. To begin:
+
+Place a hardened gang of Maelstrom mooks in the boulding on the south side of the street, considering of:
+
+2/3 Partycount (rounded down) @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.4xU3a21yd0HN77KT]{Maelstrom Brawlers}
+
+2/3 Partycount (rounded down) @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.HVnFvv61CdCL6vcZ]{Maelstrom Punishers}
+
+2 Maelstrom Rippers (either variant)
+
+1 Maelstrom Psycho
+
+Place a black ops Militech strike team on the building to the north side of the street, consisting of:
+
+1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.nETJMfdVTY72YwJa]{Militech Strike Commander} equipped with their sword loadout
+
+1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.kkITSSkpW4W9dAOx]{Militech Specialist} equipped with their sniper loadout.
+
+1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.xco99o2zPkLF4jeX]{Militech Brute}.
+
+If your party numbers 4 or more, they are also accompanied by 3 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.6rEW0UHcCQVMShPe]{Militech Suppressors}
+
+If your party numbers 6 or more, they are also accompanied by 1 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.w3zuHZSRIUm6okoI]{Militech Demolitionist}.
+
+Place 2 @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.t89AW0hfFOpHHaHw]{RatSec Security Turrets} next to the door on the southeast side of the map, both with half their health and armor SP remaining.
+
+These are Nightlight's - they're inoperable when the scene begins, but will spring to life when Nightlight sees the party attempting to access the vault, and attack anyone who isn't a party member.
+
+Place the player tokens on the west side of the map, in the ruined building there.
+
+Switch to the environment
+
+Then read the following:
+
+50,000 People Used To Live Here, Now It's A Ghost Town…
+
+Even after 20 years, the Old City Center is still in informal quarantine. After the bombing of Arasaka Tower turned half the city's landfill foundations to quicksand, roads crumbled, buildings toppled and seawater rushed in, making a desolate, post-apocalyptic landscape. Some of it was cleared away and tossed into the bay as more fill to build on. Most of it wasn't.
+
+It wasn't a big bomb that hit Saka tower, and the radiation and toxicity that continues to hover over the area is only partially attributed to it. Other bits are attributed to the dozens of other hazardous experiments and toxic sites that were cracked open like rotten eggs when everything fell apart. A popular conspiracy is that Maelstrom is also polluting the area themselves, wanting to keep their hidden HQ secure and discourage scavs and the homeless from moving in to contest the territory. Nobody's bothered investigating to find out if that's true, though.
+
+The roads get bumpy as you get close, and before long, a 20 foot drop into an exposed sewer line means that your ride can't get any further. Just as well that the combat cabs don't run any deeper than this anyway - from here, it's on foot.
+
+Navigating the ruins of the city center is a treacherous endeavor, and there's a reason that even the boostergangs avoid it - while navigating to the ruins on foot, each member of the party must make the following checks:
+
+A DV17 Resist Drugs/Torture check to avoid any negative effects of the fallout, rancid chemicals, and toxic biohazards. The difficulty of this check can be reduced by 2 if the user is wearing an @UUID[Compendium.cyberpunk-red-core.core_gear.LTxStSIeRegbtZpd]{Anti-Smog Breathing Mask} and/or has @UUID[Compendium.cyberpunk-red-core.core_cyberware.OhW1h2rwb7lvJPs3]{Toxin Binders} installed.
+
+If the check is failed, the party member becomes fatigued. If failed multiple times, each subsequent failure results in 2d6 damage inflicted directly to their HP (this damage cannot inflict critical injuries).
+
+Each party member must reattempt this check every hour they're in the area, or every 2 hours if one of the above items is in use. Note that the mask replaces head armor if worn.
+
+A DV19 Athletics check to navigate the ruins. The difficulty of this check can be reduced by 2 if the user uses a @UUID[Compendium.cyberpunk-red-core.core_gear.VrwVUEHuMCGjp8Fi]{Grapple Gun} or @UUID[Compendium.cyberpunk-red-core.core_cyberware.v69jYqL7RMbs9PW4]{Grapple Hand}, and by 2 more if the user has paired @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.se4PZ6IevRDLLn67]{Grip Feet}.
+
+On failure, the user takes 1d6 damage for every 2 DV the check was failed by, to a max of 5d6. This damage is ablated by armor as normal, and can cause critical injuries.
+
+Once every member of the party has made both checks, change the scene to Old City Center Ruins, and read the following:
+
+Fires are still burning at the ruins of the building Nightlight was talking about in her broadcast. It looks like a parking structure of some kind, unearthed when the building atop it toppled, and raised to the light by the shifting terrain. A section of broken asphalt provides a narrow access between it and the cracked, burned out office building opposite, and you can see movement from both buildings, and corpses on the street. It's obvious that the blows being traded between Militech and Maelstrom haven't subsided just yet, as the periodic shots between one building and the other would indicate.
+
+Time to break the tie.
+
+Breaking The Tie
+
+Maelstrom and Militech will not immediately reengage when the players enter the scene, though both are hostile to the players - Militech due to a kill on sight order (+ the fact that they're not supposed to be within Night City limits at all) and Maelstrom because… Maelstrom.
+
+Instead, attacking one will cause the other to engage, targeting both opposing groups in the process.
+
+Maelstrom will fight to the death - Militech, meanwhile, will retreat if a third or more of the strike team is brought below half health, or if a quarter of their number are critically injured.
+
+Scouting can reveal the enemy numbers and locations.
+
+This can be done with a DV17 Conceal/Reveal object or DV21 Perception check for each respective gang - the player making the check may add +3 for using a sniper scope or another source of magnification, or by getting dangerously close to the building they're scouting (GM discretion).
+
+The party's goal is not to defeat both camps, but get into the sealed bunker beneath the Maelstrom building. This door, which is located on the southeast side of the map, can be opened with a DV19 Electronics Security check (the door interface is damaged), or a DV11 Interface check. The door can be closed behind them, though the party's entrance will have compromised the security systems which were formerly stopping Maelstrom, meaning that it won't stay sealed for long.
+
+When the door is accessed, Nightlight's security turrets will spring to life and help defend any party member attempting to access the door.
+
+Once players are inside the bunker, proceed to Beat 3.

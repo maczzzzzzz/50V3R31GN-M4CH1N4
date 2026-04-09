@@ -119,7 +119,7 @@ export class HybridRoutingController {
       nitroLogicClient: this.nitroLogic,
       ollamaClient: this.ollama,
       oracle: this.unifiedOracle,
-      clawlinkClient: this.clawlink,
+      ...(this.clawlink !== undefined ? { clawlinkClient: this.clawlink } : {}),
       foundryAdapter: this.foundry,
     });
 
@@ -358,8 +358,7 @@ export class HybridRoutingController {
       case 'audit_library':
         return this.handleAuditLibrary(event.payload);
       default: {
-        const exhaustiveCheck: never = event;
-        throw new Error(`HybridRoutingController: unknown event type '${(exhaustiveCheck as any).type}'`);
+        throw new Error(`HybridRoutingController: unknown event type '${(event as any).type}'`);
       }
     }
   }

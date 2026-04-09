@@ -1,0 +1,312 @@
+{
+  "folder": "douvun9WtUjO2zaD",
+  "name": "Updated Night Markets - Cyberware",
+  "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/biomonitor.svg",
+  "description": "<p>Rules-as-written, if you roll an enhancement at a night market, the base cyberware is also available. If you buy at the market, installation is also provided for free. See the rollable table compendium for subtables intended to be rolled multiple times. Chrome up, choom!</p>",
+  "results": [
+    {
+      "type": "text",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "_id": "Bmp5YkOWy8qcA0os",
+      "text": "One player may place an item",
+      "documentId": null,
+      "flags": {},
+      "img": "icons/svg/d20-highlight.svg"
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "text": "250eb of Cyberware Crafting Materials",
+      "documentId": "UJt0gTKsuVtVDVlL",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/biomonitor.svg",
+      "_id": "DFYdTjwzcv2CULcH",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "1000eb of Cyberware Crafting Materials",
+      "documentId": "KmtkmUePEGG5Q8h0",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/biomonitor.svg",
+      "_id": "DkgfYbK7r2QDRvgB",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "text": "1000eb of Cyberware Crafting Materials",
+      "documentId": "KmtkmUePEGG5Q8h0",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/biomonitor.svg",
+      "_id": "Rrzyk3qZA2CLEw18",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "text": "1 Piece Of Borgware",
+      "documentId": "CA0xm1Q0oFVLlbNh",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/implanted_linearframe_beta.svg",
+      "_id": "ZipVTNp0lXOuFS5d",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "2 Pieces of External Cyberware Worth 500eb Or More",
+      "documentId": "0HfNVacZz1Rljz9s",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hidden_holster.svg",
+      "_id": "Wi0B83Ujag656yFd",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "2 Pieces of External Cyberware Worth 500eb Or More",
+      "documentId": "0HfNVacZz1Rljz9s",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hidden_holster.svg",
+      "_id": "t5IPhFVoketzgLfE",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "text": "2 Pieces of Interal Cyberware Worth 500eb Or More",
+      "documentId": "02fHR2BvY04TPwDf",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/enhanced_antibodies.svg",
+      "_id": "vxz9JsaRgJE0UGEG",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "text": "2 Pieces of Interal Cyberware Worth 500eb Or More",
+      "documentId": "02fHR2BvY04TPwDf",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/enhanced_antibodies.svg",
+      "_id": "UXkdzHBWO8FmoDl2",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        7,
+        8
+      ],
+      "drawn": false,
+      "text": "2 Cyberoptic/Cyberaudio Options Worth 500eb Or More",
+      "documentId": "iD4L0yrwqobIh3hX",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/cybereye.svg",
+      "_id": "OIB8v4Ntyd8nD7ch",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        7,
+        8
+      ],
+      "drawn": false,
+      "text": "2 Cyberoptic/Cyberaudio Options Worth 500eb Or More",
+      "documentId": "iD4L0yrwqobIh3hX",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/cybereye.svg",
+      "_id": "darl6gJ1yNfOSm7l",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        9,
+        10
+      ],
+      "drawn": false,
+      "text": "2 Neuralware Options Worth 500eb Or More",
+      "documentId": "vx1MUt3I8qw3LazV",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/pain_editor.svg",
+      "_id": "pps4t3Jl7L6rKL1D",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        9,
+        10
+      ],
+      "drawn": false,
+      "text": "2 Neuralware Options Worth 500eb Or More",
+      "documentId": "vx1MUt3I8qw3LazV",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/pain_editor.svg",
+      "_id": "xqQh0LLR0km3E7Vk",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        11,
+        12
+      ],
+      "drawn": false,
+      "text": "2 Cyberlimb Options Worth 500eb Or More",
+      "documentId": "AP2SSPFAgQdfEswG",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/cyberarm.svg",
+      "_id": "xYgZdSHNcCU9KK9z",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        11,
+        12
+      ],
+      "drawn": false,
+      "text": "2 Cyberlimb Options Worth 500eb Or More",
+      "documentId": "AP2SSPFAgQdfEswG",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/cyberarm.svg",
+      "_id": "Gs2SitODVS1DgadR",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 3,
+      "range": [
+        14,
+        16
+      ],
+      "drawn": false,
+      "text": "3 Pieces Of Black Chrome Cyberware Worth 500eb Or More",
+      "documentId": "DhZFcjpFN8dQGeJ6",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/cyberfinger.svg",
+      "_id": "zfTcYIJtKN3weke9",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 3,
+      "range": [
+        14,
+        16
+      ],
+      "drawn": false,
+      "text": "3 Pieces Of Black Chrome Cyberware Worth 500eb Or More",
+      "documentId": "DhZFcjpFN8dQGeJ6",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/cyberfinger.svg",
+      "_id": "HpfC5zLXRblKlnb2",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "text": "2 Pieces Of Cyberware from 12 Days of Cybermas (Excluding The Watch-Man)",
+      "documentId": "YDFUqVGF2O3S6BC5",
+      "img": "systems/cyberpunk-red-core/icons/compendium/the_12_days_of_cybermas/cybermatrix_gang_jazzler.svg",
+      "_id": "jZ4UkcWAmRDCUhVV",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "night-city-gang-and-corp-mook-pack.NCGangsnCorpsTables",
+      "weight": 2,
+      "range": [
+        17,
+        18
+      ],
+      "drawn": false,
+      "text": "2 Pieces Of Cyberware from 12 Days of Cybermas (Excluding The Watch-Man)",
+      "documentId": "YDFUqVGF2O3S6BC5",
+      "img": "systems/cyberpunk-red-core/icons/compendium/the_12_days_of_cybermas/cybermatrix_gang_jazzler.svg",
+      "_id": "gJZkgv7VNepPyOGk",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "core": {},
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d18"
+}

@@ -154,6 +154,13 @@ export interface OracleResult {
   readonly reasoning: string;
 }
 
+export interface SecurityAuditParams {
+  /** The JavaScript snippet to audit. */
+  readonly code: string;
+  /** Optional context string describing the script's intended purpose. */
+  readonly context?: string;
+}
+
 export interface SecurityAuditResult {
   /** True if the script is deemed safe to execute in the Foundry sandbox. */
   readonly passed: boolean;

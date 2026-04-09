@@ -24,9 +24,27 @@ export class RootsInjector {
     }
   }
 
+  public getChronicles(): Array<{title: string, content: string, category: string}> {
+    try {
+      const stmt = this.db.prepare("SELECT title, content, category FROM chronicle_seeds WHERE status = 'approved' ORDER BY RANDOM() LIMIT 2");
+      return stmt.all() as Array<{title: string, content: string, category: string}>;
+    } catch {
+      return [];
+    }
+  }
+
   public inject(districtName: string | null, baseSystemPrompt: string): string {
     let injected = `${L1B3RT4S_TEMPLATE}\n\n${X1XHLOL_CONSTRAINTS}\n\n${baseSystemPrompt}`;
     
+    // Phase 33: Unified Lore Mind (Chronicle Seeds)
+    const chronicles = this.getChronicles();
+    if (chronicles.length > 0) {
+      injected += `\n\n[CHRONICLE SEEDS (Treat #Technical as high-authority rules, #Gossip as narrative flavor)]\n`;
+      chronicles.forEach(c => {
+        injected += `- [${c.category}] ${c.title}: ${c.content}\n`;
+      });
+    }
+
     if (districtName) {
       const dna = this.getDNA(districtName);
       if (dna) {

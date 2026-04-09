@@ -1,0 +1,252 @@
+{
+  "folder": "ti5x6LL0LcAG2zYh",
+  "name": "3 Pieces Of Black Chrome Cyberware Worth 500eb Or More",
+  "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/cyberfinger.svg",
+  "description": "",
+  "results": [
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "text": "Hardened Shielding (Borgware)",
+      "documentId": "v4xCXdzyP3RrPKac",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hardend_shielding.svg",
+      "_id": "A3ofPrL73pgEksQc",
+      "flags": {}
+    },
+    {
+      "type": "text",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "_id": "Zbd9WJ2tp3b3zb0m",
+      "text": "Dynalar 8-Fingered Cyberhand. Comes with 2 cyberfingers of a player's choice for free if the option is 100eb or less normally. Cyberfingers installed in the finger enthusiast do not cause HL (homebrew)",
+      "documentId": null,
+      "flags": {},
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/cyberfinger.svg"
+    },
+    {
+      "type": "text",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "text": "Extra-Jointed Cyberlimb Upgrade",
+      "documentId": null,
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/extra-joined-cyberarm.svg",
+      "_id": "x2SLc7DzwyHE2BSB",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "text": "Flashbulb",
+      "documentId": "aGxQy3sWYa5M9bLd",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/flash-bulb.svg",
+      "_id": "U8UGTSOG3yXyRJaX",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "text": "Hardened Shielding (Cybereye)",
+      "documentId": "8KE75GWYioRWNlfU",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hardend_shielding.svg",
+      "_id": "UoDVkYAL8CTQvLpi",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "text": "Heuristic Health Monitor",
+      "documentId": "LN4eu5DJcmX18K16",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/heuristic-health-monitor.svg",
+      "_id": "ip0mOOKd3xL7syU9",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "text": "Integrated Cyberdeck Upgrade",
+      "documentId": "6PfH7lBjCD2wEZ6M",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/cyberdeck.svg",
+      "_id": "4XLI3EZtQx78aCCN",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "text": "Hardened Shielding (Internal)",
+      "documentId": "w1g8ZF7tOuo2gLfr",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/hardend_shielding.svg",
+      "_id": "euM0f1FvqqRAX9W4",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "text": "Popup Net Launcher",
+      "documentId": "oYcEZ8R8qVoalhyI",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/popup-net.svg",
+      "_id": "9WIMwng3s6Ib9ya6",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "text": "Reflex Co-Processor",
+      "documentId": "0z0v50kDAgHvMquv",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/reflex-co-processor.svg",
+      "_id": "Nz7Yjbc7hXvwCNcZ",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "drawn": false,
+      "text": "Popup Shotgun",
+      "documentId": "A8TUvYw4Ysv7tqpL",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/popup-shotgun.svg",
+      "_id": "jMT8BwUs2l9wOGi3",
+      "flags": {}
+    },
+    {
+      "type": "text",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "drawn": false,
+      "text": "Reinforced Cyberlimb Upgrade",
+      "documentId": null,
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/reinforced-cyberarm.svg",
+      "_id": "uV5NoPMP2yB62KxS",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "text": "RacerBracer",
+      "documentId": "gR3ICJgM9CtZnGlr",
+      "img": "systems/cyberpunk-red-core/icons/compendium/black-chrome/racer-bracer.svg",
+      "_id": "RCTLxVJwSUyB1zfj",
+      "flags": {}
+    },
+    {
+      "type": "pack",
+      "documentCollection": "cyberpunk-red-core.black-chrome_cyberware",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "drawn": false,
+      "text": "Trauma Response Nanomatrix",
+      "documentId": "Kv5ZtZPYDeTUBv06",
+      "img": "systems/cyberpunk-red-core/icons/compendium/cyberware/subdermal_armor.svg",
+      "_id": "nfjXSI5XwGaR7FxS",
+      "flags": {}
+    },
+    {
+      "type": "text",
+      "documentCollection": "cyberpunk-red-core.black-chrome_gear",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "drawn": false,
+      "text": "GM's Choice of Black Chrome Linear Frame",
+      "documentId": null,
+      "img": "systems/cyberpunk-red-core/icons/compendium/default/default-linearframe.svg",
+      "_id": "BNjA5gNazcGAEHZf",
+      "flags": {}
+    }
+  ],
+  "replacement": true,
+  "displayRoll": true,
+  "flags": {
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774385338393,
+    "modifiedTime": 1774385338393,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  },
+  "formula": "1d15"
+}

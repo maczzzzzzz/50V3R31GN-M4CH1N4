@@ -72,6 +72,8 @@ func probeComponent(c *Component) tea.Cmd {
 	switch c.Name {
 	case "foundry-vtt":
 		return probeCDP(c.Name)
+	case "pixtral":
+		return probeHTTP(c.Name, "http://172.26.208.1:8080/health")
 	case "director":
 		return probeTCPDial(c.Name, directorWSAddr)
 	case "sidecar-atlas", "sidecar-netrunning":

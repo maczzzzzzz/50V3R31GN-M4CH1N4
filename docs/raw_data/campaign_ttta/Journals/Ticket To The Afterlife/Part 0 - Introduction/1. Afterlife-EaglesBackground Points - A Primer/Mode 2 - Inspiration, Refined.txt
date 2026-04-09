@@ -1,0 +1,27 @@
+Note: if this mode is not being used and a module point calls for background points to be distributed in the world (I.E. "not as a job reward, or from someone who knows the Afterlife") distribute the alternative listed reward instead.
+
+In addition to Mode 1, Eagles have an additional, optional functionality as background points.
+
+If you've ever played D&D 5e, you're familiar with the mechanic of Inspiration. If you've ever played Fantasy Flight Games' Star Wars ttrpg, you're familiar with the concept of light side/dark side points.
+
+This system is inspired by both.
+
+What Are Background Points?
+
+They've been described as your players' personal Deus Ex Machina, as the briefcase from Pulp Fiction, and as Hammerspace (if you're a Spiderverse fan). Exactly what you need, exactly when you need it - new, blue, Zinthos.
+
+Background points offer roleplay & interaction incentives, and the ability for players to alter scenes based on their characters background (hence the name!). They do not have a definite form - rather, they're awarded and used in scenes without being defined until needed, allowing for greater loot opportunities and for players to advance stories according to their agenda.
+
+How Do They Work?
+
+In practice, the function of Background Points is very simple:
+
+By spending 1 point, a player can gain a +3 bonus on a check before making the roll, by relying on their prior knowledge or ability in some way. For example, a gunslinger improves their ranged attack by focusing in on all the similar shots they'd made before then.
+
+By spending 2 points, a player can place (or replace) an asset or individual within a scene with one that they would have access to/know about. For example, if a player's made friends with one of the NPCs they encountered throughout the story, and needs a distraction to sneak by a guard, they can spend 2 points to summon that friend (assuming it'd be circumstantially possible to do so).
+
+By spending 3 points, a player can reimagine an aspect of a scene to suit their strengths - for example, a rockerboy has played at the club the party is currently casing many times before, and knows all its nooks, crannies, and staff like the back of their hand.
+
+At GM discretion, the inverse actions/penalties can also be taken to spontaneously earn points in the same way.
+
+They can also be found within scenes at GM discretion or according to the module, though the points earned this way can't be resold and expire at the end of the session.

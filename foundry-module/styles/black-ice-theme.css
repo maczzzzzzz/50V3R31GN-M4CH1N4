@@ -6,6 +6,8 @@
 
 @layer cpr-theme, black-ice;
 
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 @layer black-ice {
     :root {
         --cpr-bg-black: #000000;
@@ -14,6 +16,7 @@
         --cpr-white: #ffffff;
         --cpr-text-main: #eeeeee;
         --black-ice-glow: 0 0 10px rgba(255, 0, 60, 0.8);
+        --font-primary: 'VT323', monospace;
         
         /* Neutralize system variables */
         --cpr-red: #000000 !important;
@@ -41,6 +44,7 @@
         background-image: none !important;
         color: var(--cpr-text-main) !important;
         border-color: var(--cpr-red) !important;
+        font-family: var(--font-primary) !important;
     }
 
     /* 2. HEADER SUPREMACY (Glowing Cyan Top-Line) */

@@ -1,0 +1,19 @@
+This beat is triggered when none of the party fell asleep.
+
+Welcome To… WHAAAAAT?
+
+The elevator doors open on a dull, grimy black-and-white room with flashing checkerboard walls… and a surprised-looking set of Bozos.
+
+"Uh, boss!" one says in a voice far too high. "They didn't fall asleep!"
+
+"WHAT?" A voice screeches over an intercom. "Did one of you BOZOS forget to refill the knockout gas canister? If I find out which one's responsible, I'll hammer your feet flat! See if they'll cooperate - if not, waste them, then report to my office! The principal is going to have words with you!"
+
+The intercom shuts off. The Bozo in the room who spoke gives a creepy smile. "Hehe, hi there," he says, still in that too-high voice. "I don't suppose you'd be interested in some secondary education?"
+
+The Bozos will attempt to threaten and coerce the players into the chairs at the center of the room. If, for some reason, the party plays along, proceed to beat 5a, though the Principal/voice on the intercom might be surprised that they were so accommodating.
+
+Otherwise, the Bozos will open fire on the party and attempt to execute them.
+
+If the party survives/once the Bozos have been cleaned up, climbing the catwalk at the far end of the room is simple enough for most characters - the door is secured via a DV15 lock (either pick lock or electronics/security) and the door beyond it is not secured.
+
+Once players have broken into the principal's office beyond the doors, proceed to beat 5.

@@ -1,0 +1,111 @@
+This beat takes place at the @Scene[0YzOG7RQWv3nbC8m]{Discreet Morgue}. To begin:
+
+Place a @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.skUkbMc9rOygWl4o]{Generic Van} in the garage, as though it backed in.
+
+Place 1*playercount @Actor[97RmZwmbbaGBX6RE]{Black Ops Soldiers} around the Morgue - patrolling the hallways, watching Bones' crew, whatever.
+
+Have NCPD backup ready in the wings if things go loud - the black ops soldiers will still call them!
+
+Place 1 @Actor[h2URI3iK93xB1YYU]{Arasaka Mastermind} in the office at the south side of the scene.
+
+Update the mastermind's name, token name and token art to match the Black Ops soldiers. They also have a copy of the soldiers' assault rifle.
+
+Although there's an obvious skill difference in combat, the mastermind is physically identical to the rest of the squad - they recognize the mastermind's voice over radio, but there are no markings to indicate command.
+
+Place @Actor[f6JZ9wdvWEzo10lp]{Bones Malone, Afterlife Cleanup Crew} and 2 @Actor[GvlJENm86jrBsZck]{Rattlers (Bones' Gang)} in the garage next to the van.
+
+Place 2 more Rattlers in the morgue itself, and 2 more in the furnace room.
+
+Populate the map with @UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.ZZKdjSmBDqF0RJOT]{RatSec Security Cameras}:
+
+There's one above the garage door, one covering the outside doorway, one at either end of the long, north-south hallway at the center of the map, one in the office, and one each in the furnace room and morgue.
+
+Place the party on the left side of the map, somewhere.
+
+Activate the scene
+
+Then read the following…
+
+Meanwhile In New Westbrook
+
+The building the van pulls intop is unremarkable - a 6 story apartment block in New Westbrook, unremarkable in every way. A 2-car garage opens in the basement level to receive it, then closes immediately afterwards. There are no signs of any other activity.
+
+The building itself is nothing to look at - aside from the ramp down to the garage, there's a street stair access. The upstairs has a few windows illuminated, suggesting its occupied - given how overcrowded buildings like this are, that's not exactly surprising.
+
+The street is otherwise empty.
+
+If the cleanup crew arrived here, it's safe to assume they don't know the party is nearby. While there are cameras - they're linked onto a single architecture and being watched by someone in the office timing their sightlines - the area is likely on low alert.
+
+Getting in is pretty easy - blowing either door would likely be simple, if noisy. Otherwise, the garage door can be lifted with an athletics check, and the lock on the side door can be picked or hacked, all at a DV19 (raised to 20 if the person doing so is attempting to dodge the field of view of the cameras in the process).
+
+Once inside, the guards are patrolling, but it's generally another night on the job for them - aside from the covert Arasaka operative in the office that's always vigilant, most of the guards won't be expecting the unexpected and can be lured around the base to avoid attracting attention.
+
+The party's goal is pretty simple - make contact with Bones and get him and his crew out.
+
+Liberating Bones & The Rattlers
+
+Bones and his boys will be generally agreeable to the party, but will take orders from any of the NCPD soldiers if given them. The reason for this is simple - the rattlers each have a pretty big bomb in their head.
+
+The bombs can be disarmed with a DV15 Demolitions, DV17 Electronics/Security, or DV17 Cyberware check.
+
+Once a check has been succeeded twice, attempting it for any other rattler auto-passes.
+
+If a check is failed by 5 or more, the bomb detonates, killing the person equipped with it instantly and dealing 3d6 damage to anyone directly adjacent to the poor soul as they expire.
+
+There's a bit of a complication - if the NCPD realize that Bones has told anyone about the bombs, they'll kill him and his crew instantly, considering it better to destroy the asset than risk them leaking secrets.
+
+This is likewise true if the Rattlers manage to get away and the NCPD realizes they're gone - dead instantly. For this reason, they will not leave with the party until the chips have been disarmed unless they have no other choice.
+
+The NCPD are monitoring vitals, and a basic Virtual Intelligence in the Rattlers' neuralware is also monitoring what they're saying, triggering the bomb if the Rattlers drop too obvious a hint.
+
+Information on these bombs can be found written in an offline journal kept on the computer in the morgue, which is otherwise used to track equipment expenses and material requisitions. They can also be disarmed by hacking the Arasaka Mastermind's personal terminal - see the next heading.
+
+Info On Arasaka
+
+There is an info blackout perpetuated by the Arasaka Mastermind surrounding the Rattlers, and the Owner wants information on who's the cause and why. This info can be found on the Mastermind's computer (or a datachip inside their cerebrum), requiring a DV24 Electronics/Security or DV14 Interface check to crack open and access.
+
+If the party can't get the data open, taking a hard drive or the Mastermind's data chip to the Owner will also suffice - they'll only receive 2/3rds the bonus, though, and only after an in-game week has passed, to reflect the Owner's time and expense in cracking the material.
+
+As for the conspiracy itself, well…
+
+The Mastermind's mission is simple - infiltrate Night City and gain leverage on NightCorp.
+
+During the Red Decades, no Arasaka operations are permitted within NC, but Arasaka mostly ignores this.
+
+If their covert operations are found, Night Corp contracts with Militech to help kick them out with extreme prejudice.
+
+Posing as an independent Fixer, the Mastermind infiltrated the NCPD as a contract worker and was placed in charge of their cleanup division after stellar work performance.
+
+From there, the Mastermind has been slowly amassing a large pile of NightCorp secrets for Arasaka's benefit, while also making sure nobody knows about the operation.
+
+Talk about putting the fox in charge of the henhouse!
+
+Ironically, the Mastermind also saved Bones' life as a result, having been the one to give the order to take Bones home instead of executing him and his gang as ordered, and maintaining plausible deniability about the action towards NightCorp.
+
+Hence, at least in part, the reason for the info blackout.
+
+Note that while NightCorp and the NCPD really don't want their dirty laundry plastered all over the net, neither are they the type of corporation to play ball with extortionists - if the party threatens to leak the information, NightCorp is big enough to place a sizeable bounty on their heads, not to mention deep-sixing any media foolish enough to publish the stuff.
+
+The ruthlessness of NightCorp would be common knowledge to most Night City locals, not requiring a check - it's well known that its current membership is largely comprised of "old money" organized crime members like the Yakuza, Mafia, Mob, etc., who've "gone legit" through the corp but haven't lost their ruthless edge.
+
+A Message They'll Never Forget
+
+Bones and his boys have been kept captive by the NCPD for well over a year, now, and they're thirsty for revenge.
+
+The method of that revenge is simple - they want to take the Mastermind alive, torture them to death, then string their mutilated remains up on the US 16 North bridge, between Watson and Little Europe…
+
+…with a pair of soiled underpants hanging around their neck…
+
+…while sending the contents of the agent's head to every Media in the city, still-decrpyted or otherwise - literally hanging NightCorp's dirty laundry out to dry.
+
+Hey, Bones is a cyberpsycho - what did you expect?
+
+Bones can be talked down from the torture and mutilation (DV17 Persuasion), and even from killing the operative - if the party finds out the Mastermind is Arasaka-affiliated, Bones will even prefer stringing the operative up alive for further humiliation and eventual grisly demise via Arasaka cleanup crew or Militech hit squad.
+
+But the core mission is the same: one spy, one bridge, one pair of dirty underpants, and the contents of the operation sent to every Media from Pacifica to Sacramento.
+
+Getting it done earns the party a personal rep, and the player who advocates the hardest for the goal will earn Bones' friendship.
+
+Running The Escape
+
+Maybe things will get hot, or maybe the party has somehow found a miraculous way to get Bones and his gang free without attracting attention. In either case, once the situation escalates, proceed to beat 4.

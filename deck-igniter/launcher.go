@@ -67,6 +67,7 @@ func projectRoot() string {
 const (
 	foundryExe  = `D:\FoundryVTT\Foundry Virtual Tabletop\Foundry Virtual Tabletop.exe`
 	foundryPort = 9222
+	pixtralBat  = `D:\llama.cpp\start_pixtral.bat`
 	cmdExe      = "/mnt/c/Windows/System32/cmd.exe"
 )
 
@@ -91,6 +92,24 @@ func launchFoundry(c *Component) tea.Cmd {
 		// Foundry is detached — we don't track its PID, just mark as Starting.
 		// The heartbeat prober (Task 5) will transition it to Running once
 		// localhost:9222 responds.
+		return stateUpdateMsg{name: c.Name, state: StateStarting}
+	}
+}
+
+// launchPixtral fires the Pixtral Windows Native Server via WSL interop cmd.exe.
+func launchPixtral(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		startArg := fmt.Sprintf(`start "" "%s"`, pixtralBat)
+		cmd := exec.Command(cmdExe, "/C", startArg)
+		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
+
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{
+				name:  c.Name,
+				state: StateError,
+				err:   fmt.Sprintf("cmd.exe interop failed: %v", err),
+			}
+		}
 		return stateUpdateMsg{name: c.Name, state: StateStarting}
 	}
 }
@@ -171,7 +190,12 @@ func bootSequenceCmd(components []*Component) tea.Cmd {
 		comp := c // capture
 		switch comp.Layer {
 		case LayerWindows:
-			cmds = append(cmds, launchFoundry(comp))
+			switch comp.Name {
+			case "foundry-vtt":
+				cmds = append(cmds, launchFoundry(comp))
+			case "pixtral":
+				cmds = append(cmds, launchPixtral(comp))
+			}
 
 		case LayerWSL:
 			switch comp.Name {
@@ -249,6 +273,8 @@ func performPurge() tea.Cmd {
 			// pkill -9 for maximum dominance over zombie processes
 			_ = exec.Command("pkill", "-9", t).Run()
 		}
+		// Also kill the Windows-native pixtral server just in case
+		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe").Run()
 		// Settle time after purge
 		time.Sleep(1 * time.Second)
 		return logMsg{text: "⚡ PURGE C0MPL373: All zombie processes neutralized."}

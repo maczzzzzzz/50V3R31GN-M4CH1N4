@@ -106,7 +106,7 @@ export class VesperService {
           const scene = await this.foundry.readActor('active'); // Dummy call to get active scene? 
           // Actually FoundryAdapter doesn't have getActiveScene, but VisualMonitor might know.
           // For now, we just trigger reground on the neural uplink.
-          await this.neuralUplink.regroundScene(null);
+          await this.neuralUplink.regroundScene('');
         }
       }
     });

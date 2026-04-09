@@ -1,0 +1,50 @@
+In this beat, players must recover the chipware they're after from the scavs, one way or another.
+
+The scavs in the basketball court are only really there to loot the software that they were after, which they've already found - at this point they're lounging about, keeping an eye on the streets for 6th Street reinforcements, looting the dead and waiting for orders.
+
+You should be ready for this beat already, having set it up before the start of Beat 2.
+
+The Win Condition
+
+Players must acquire the chipsoft, by whatever means they feel appropriate.
+
+The Chip Location
+
+To find the chip, an actor needs to be inside one of the vans and succeed a DV15 Conceal/Reveal object check as an action; this check can be repeated, if failed, and the chip can automatically be located after a combined 1 minute of searching.
+
+If players are feeling rich, they can attempt to just buy the chip in question; the scavs will ask for $1,250eb, reduced to $900eb if a DV15 trading/haggle check is passed.
+
+If the check is failed, the scavs will immediately roll initiative and open fire, looking to take what the players have.
+
+Note: Vido and the Afterlife have already paid for the chip once, and no amount of coercion will convince them to foot the extra cost.
+
+If this route is taken, then when 6th Street arrives in Beat 4 they will assume the party is part of the scav gang and open fire on them; players can gun down the scavs alongside them, but will still need to persuade the streeters that they're not affiliated with the botched trade.
+
+Stealthing past the scavs is also an option; a mook's "passive perception" is calculated as lowdown + 6, or lowdown + 3, any time the actor could potentially be seen.
+
+Beyond that, how you rule stealth as a GM is up to you.
+
+Otherwise, players will likely have to resort to combat.
+
+The scavs will attempt to kill the party, up until more than 2/3rds are dead or seriously wounded. At that point, the survivors will attempt to get into the vans and fly off into the streets - if they make it to the front gate, the first one out crashes into the arriving 6th Streeters in encounter 4, blocking it.
+
+If the scavs see that a party member has gone down, they won't prioritize that character, and instead choose to focus on anyone still up and fighting.
+
+If the players are on the verge of defeat and Sprinter is still up, she will flee to the Afterlife and inform Vido that the job was a failure, likely climbing or jumping up across the rooftop of the classroom she had been interrogating her prisoner in to do so.
+
+If the party fails the gig somehow, Vido doesn't hold it against any survivors, but notes that a failure on their audition job isn't exactly a glowing recommendation.
+
+On failure, the questline will end until the players purchase the chip for Vido on the black market for $1,500eb - alternately, Vido will shrug, the Afterlife will buy the chip from 6th Street again, and you can proceed with the next mission regardless. No rewards except IP should be given to the survivors.
+
+Once the chip is recovered, Sprinter will take possession of it immediately for safe keeping.
+
+Beat 4 commences any of the following occurs:
+
+The scavs finish looting the scene and attempt to leave;
+
+1 minute passes after the scavs are defeated by the players;
+
+The scavs attempt to flee the scene after being confronted, and a van makes it to the front gate;
+
+10 seconds pass after the players acquire the security chipsoft under any circumstances.
+

@@ -72,12 +72,13 @@ describe('SpatialVisionService.analyzeWithLlava', () => {
     expect(result.environmentalFeatures).toEqual([]);
   });
 
-  it('throws when llama-server returns a non-2xx status', async () => {
+  it('returns a graceful fallback when llama-server returns a non-2xx status', async () => {
     vi.stubGlobal('fetch', makeFetchMock({}, 503));
 
-    await expect(service.analyzeWithLlava('base64data==')).rejects.toThrow(
-      'llama-server vision request failed: 503',
-    );
+    const result = await service.analyzeWithLlava('base64data==');
+    expect(result.tokenClusters).toEqual([]);
+    expect(result.environmentalFeatures).toEqual([]);
+    expect(result.rawDescription).toBe('VLM Analysis Unavailable');
   });
 
   it('posts to the correct OpenAI-compatible endpoint', async () => {

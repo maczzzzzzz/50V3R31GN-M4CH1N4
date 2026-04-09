@@ -9,7 +9,7 @@ async function runDecryption() {
     new Dialog({
       title: "Decryption Daemon v1.0",
       content: `
-        <div style="font-family: monospace; background: #1a1a1a; color: #00f3ff; padding: 10px;">
+        <div style="font-family: monospace; background: #1a1a1a; color: #ff003c; padding: 10px;">
           <p>SCANNING FOR ENCRYPTED FRAGMENTS...</p>
           <div class="form-group">
             <label>Image URL:</label>
@@ -49,7 +49,7 @@ async function runDecryption() {
       user: game.user.id,
       whisper: [game.user.id],
       content: `
-        <div style="font-family: monospace; border: 1px solid #00f3ff; background: #001a1a; padding: 8px; color: #00f3ff;">
+        <div style="font-family: monospace; border: 1px solid #ff003c; background: #001a1a; padding: 8px; color: #ff003c;">
           <strong>[DECRYPTION SUCCESS]</strong><br/>
           <p>${response.secret}</p>
         </div>

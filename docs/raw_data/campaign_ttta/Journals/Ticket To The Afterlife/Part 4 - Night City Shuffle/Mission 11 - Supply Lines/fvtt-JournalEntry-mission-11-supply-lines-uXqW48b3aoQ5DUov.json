@@ -1,0 +1,279 @@
+{
+  "folder": "czYDMO4X20DKVDPr",
+  "name": "Mission 11 - Supply Lines",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Beat Chart & Mission Summary",
+      "type": "text",
+      "_id": "GdWtyOxX6Tgtfvi4",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p><strong>While not required, this mission features heavy vehicle combat - this guide recommends familiarizing yourself with the Token Attacher module for easy gyro crew movement. Multilevel tokens is also a useful tool, allowing you to track initiative across multiple scenes simultaneously.</strong></p><p><strong>Mission Setup Time: 45-60 minutes. Much of that time will be spent messing with Token Attacher to get initiative working and get scavs loaded into their proper gyros.</strong></p><p>Leveraging her mysterious contacts, Rogue is setting up a marketplace that she plans to make the heart of Night City. She's got the fixers all lined up - now it's just a matter of getting their stuff. That… might not be as easy as she's hoping.</p><table><tbody><tr><td data-colwidth=\"283\"><h2>Supply Lines</h2></td><td><p></p></td></tr><tr><td data-colwidth=\"283\"><h5>Friend Opportunity: Mr. Collins</h5><p>The Afterlife's supplier-in-chief is a friendly Britishman with a nerdy streak for weapons. He can easily be won over by those with a similar interest, and his friends always get first crack at his new inventory.</p></td><td><h5>Enemy Opportunity - Corporate Captain/Raffen Leader</h5><p>The Corporate Captain is a lazy and entitled nepobaby, ready and willing to direct all their numerous failings onto their defenseless underlings at any opportunity. The Raffen leader is a desperate, borderline-psychotic character who will do anything to secure their power and their next meal. Either can be replaced with a player enemy at GM discretion.</p></td></tr><tr><td data-colwidth=\"283\"><h5>Rep Opportunity: Free Fallin'</h5><p>Survive an improvised departure from the AeroZep… without a parachute.</p></td><td><h5>Gig Payout</h5><p>5 Eagles +500eb per player, plus a potential bonus from what you find on the mission…</p></td></tr></tbody></table><h1>Beat Chart</h1><p><strong>Beat 1: Interference Patterns</strong></p><p>The players meet Mr. Connors and his associates to learn about the job: hijacking an AeroZep transport.</p><p><strong>Beat 2: Earning Your Wings</strong></p><p>The players arm up, and meet Ranger for the AeroZep infiltration.</p><p><strong>Beat 3: Air Traffic Control</strong></p><p>The players arrive at the Aero and find a way aboard.</p><p><strong>Beat 4: Pirate Air</strong></p><p>The party fights off some interference.</p><p><strong>Beat 5: Desert Heat</strong></p><p>Now all that's left is actually getting the zep for yourself. Easy, right?</p><p><strong>Beat 7: Ground Control</strong></p><p>All that's left is to tally the takehome.</p><p></p>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      }
+    },
+    {
+      "sort": 200000,
+      "name": "Nightlight's Editorial",
+      "type": "text",
+      "_id": "2EtNtq5A53BPWKRl",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<h2 data-anchor=\"the-fm-receiver-crackles,-the-pirate-wavelength-carrying-a-cool,\">The FM Receiver Crackles, The Pirate Wavelength Carrying A Cool, Seductive Female Voice…</h2><p><em>Good evening Night City! This is Nightlight, voice of the city - you know the rest! Let's get into it.</em></p><p><em>Our top story tonight is a downed megazepp just outside the city limits, with Raffen Shiv taking credit for the attack. Militech's promised to triple down on its badlands patrols in response to the unprecedented hit, leading some to question if it was an inside job all along. You ask me, bringing one of those bad boys down could set a gang up for years to come - assuming you can contend with the flak guns and merc crews to do it. No ulterior motive needed.</em></p><p><em>Also got a heartbreaking story out of Heywood - looks like the NCPD got a gang bust wrong, gunning down over a dozen innocent people. The local medias are already calling in the Heywood Blue Massacre, and protests were staged outside of the NCPD Heywood HQ - right up until they broke out the teargas and water cannons. Considering just how many riots Night City's seen over the last 20 years, another one seems to be brewing soon, though given our track record, it'll likely kill more kids than cops. Stay safe out there folks - you know old Nightlight is never one to turn away from a good street scrap, but maybe stay home for the next one. Last thing we need is Militech rolling through the streets like we're back in 2037.</em></p><p><em>And on a lighter bit of news, dear ol' Nightlight's celebrating her two-year anniversary on this frequency! That's right - yours truly has been spinning tracks and scoring the soundtrack to the truth for over 700 days! That's longer than your average news anchor lasts on Network 54, that's for sure! Nobody's planned out a surprise party for yours truly just yet, but hey, I'll keep my eyes closed as I walk into the living room for another few days, just in case.</em></p><p><em>That's it for tonight - up on the chopping block is Black Edward with Desert Winds - let's keep those sails full and backs to the wind. This has been Nightlight, and I hope I made your night a little brighter.</em></p><p></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379939083,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 300000,
+      "name": "Interference Patterns (Beat 1)",
+      "type": "text",
+      "_id": "mArKwqdqmSBfvOkw",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene makes use of the <strong>7th Circle </strong>map. To begin:</p><ul><li><p>Place the Owner, Mr. Connors, Ranger, and two of the Afterlife's security guards in one of the booths at the back of the scene.</p><ul><li><p>The Owner and Connors are sitting in the booth; the two guards are flanking it.</p></li></ul></li><li><p>Place Sammy, Silvers and Checkers in their typical respective positions around the bar.</p></li><li><p>Populate the remainder of the bar at your discretion.</p></li><li><p>Place the player characters outside the Owner's booth.</p></li><li><p>Change the scene to the 7th Circle.</p></li></ul><p>Then read the following:</p><h2>Air Time</h2><p><em>The Owner watches you approach her booth with keen interest. Next to her is one more new face - a British man in a fine suit and bow tie, looking prim and proper compared to the club's usual occupants. The Owner sent for you personally, on this one, sort-of. Sent for you personally via a message from the Frenchman. Close enough.</em></p><p><em>She's straight to business as you sit down.</em></p><p>\"The Afterlife is having supply issues and you're going to rectify them. Mr. Connors?\"</p><p><em>The man sitting next to her smiles.</em> \"To the point as always, ma'am.\" <em>Then he turns to the rest of the group.</em> \"My name is Dylan Connors. I have been the primary supplier of the Afterlife's various needs up until now, including its tool bays, its medical facilities, and many of its other features. The Owner has requested more, and I am afraid I am at the limits of my capability, which is where you come in.\"</p><hr /><p><span style=\"font-family:Signika\"><strong>Mr. Connors intends to, in conjunction with a pair of other fixers, run a Night Market once a week in the basement of the Afterlife, but to do so, he needs to lean on the Dustwalkers, and they require a better means of transport than their singular A/V-4. It just so happens that one is flying just outside of Night City airspace.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>The job: steal a 40-ton, top-of-the-line shipping AeroZep, first of its kind, from Zhirafa Technical Manufacturing and deliver the desert back into nomad hands where it belongs.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Nomads control almost the entirety of the world's shipping; Zhirafa producing its own means/alternative isn't sitting well with Ranger.</span></p></li><li><p><span style=\"font-family:Signika\">The ship was produced and assembled in the Zhirafa campus in Night City - time for a homecoming!</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Ranger/the Dustwalker clan is providing transport up to the ship, which is currently puttering towards the Pacifica Confederation, having just left Sacramento.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>The Afterlife's staff have pulled some strings to bring the party on as extra security.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Before the flight, they ensured that the ship would only have a skeleton crew of staff.</span></p></li><li><p><span style=\"font-family:Signika\">Then they made that fact known to a NorCal raider gang that'd recently been troubling air traffic with their collection of air gyros.</span></p></li><li><p><span style=\"font-family:Signika\">Then they told Zhirafa about the raid under the guise of Lazarus Security, offering a discrete collection of short-notice mercenaries to help secure the shipment.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once the group is in uniform and on board, they'll need to stop the raiders, while also seizing the ship for themselves. Simple!</strong></span></p><ul><li><p><span style=\"font-family:Signika\">You all have someone who can fly the ship, right?</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>The Afterlife has also secured a little bit of information about the captain of the vessel.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The captain is exactly what everyone thinks a typical exec would be - narcissistic, selfish, lazy, and only-too-willing to betray those in their command when something goes wrong.</span></p></li><li><p><span style=\"font-family:Signika\">Though nobody has any confirmation, it's hard to imagine anyone on board being very loyal to the man…</span></p></li></ul></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once players are finished talking to Mr. Connors, head on over to Beat 2.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379938570,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 400000,
+      "name": "Earning Your Wings (Beat 2)",
+      "type": "text",
+      "_id": "ypz7fFzXpRC6p8rE",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>For this beat, change the scene to @UUID[Scene.6hT6obPZNLoSsbiD]{Afterlife Sublevel 2.} Place the player tokens and Mr. Connors around the marketplace, then read the following:</p><h2>You Read The Manual, Right?</h2><p><em>Once you're finished, Connors stands and makes to escort you downstairs into the yet-to-be-opened market area, astride the parking garage. </em>\"I've already prepared uniforms, tailored to fit your various sizes. They won't conceal much, but I've taken the liberty of ensuring that they at least fit over your usual armor.\"</p><p><em>And true to his word, he's provided you what you need - a set of navy-blue flight jackets and corresponding vests and slacks along with, for those so inclined, a similarly-blue flight cap (no logo, though) and pair of aviator sunglasses.. Across each, the yellow Zhirafa logo has been proudly emblazoned - a small one on the chest and right shoulder, and a large one on the back. All of them have been fitted to work with your typical armor of choice.</em></p><p>\"And of course, you'll need your I.D.s,\"<em> Connors adds. He nods towards a desk in the corner - on it, a collection of plastic tags are spread, as generically corporate as the outfits. </em>\"Short notice, low-security, Zhirafa provided. They won't have enough authorization to get you into anything that the captain or his first mate wants you out of, but they'll suffice for opening the ship's doors.\"</p><p>\"Ah, and the final touch,\" <em>he adds. From below the same desk, he retrieves a set of backpacks, compressed into near-wafer thinness. An unmistakable ripcord dangles from the right front strap of each, along with a harness for attaching it at the chest, waist, and around the thighs.</em> \"In case you find yourself in a long fall, a parachute will ensure that there is no sudden stop at the end. Pull to deploy. Do note that while the pack is kevlar-reinforced, there is no backup chute. If you intend to enter a firefight, I recommend not being shot in the back; doing so would render it quite useless.\"</p><hr /><p>All characters may add the following to their inventory:</p><ul><li><p>1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsItems22.Item.8HiBXhTMq5r2EKlM]{Ez-Breeze Parachute}</strong></p></li><li><p>1 <strong>@UUID[Item.eFWQX1bHhPETeuaM]{Zhirafa Security Badge}</strong></p></li><li><p>1 Zhirafa flight security crew outfit, comprised of:</p><ul><li><p>A <strong>@UUID[Compendium.cyberpunk-red-core.core_clothing.Item.2mb53u4D65ddOlNx]{Businesswear Jacket} </strong>(rename to <em>Zhirafa Flight Jacket)</em></p></li><li><p>A set of <strong>@UUID[Compendium.cyberpunk-red-core.core_clothing.Item.7R9YRIcp19dPV3eV]{Businesswear Bottoms}</strong> (rename to <em>Zhirafa Flight Slacks)</em></p></li><li><p>A <strong>@UUID[Compendium.cyberpunk-red-core.core_clothing.Item.ZfvZg3yRrs9mHEqT]{Generic Chic Top}</strong></p></li><li><p>All of which will accommodate the character's usual armor plates, though it won't conceal them.</p></li><li><p>Courtesy of Mr. Connors, at their discretion players may also add:</p><ul><li><p>1 pair of <strong>@UUID[Compendium.cyberpunk-red-core.core_clothing.Item.lNAutq2C1if6vjlT]{Urban Flash Glasses}</strong> (aviators)</p></li><li><p>1 <strong>@UUID[Compendium.cyberpunk-red-core.core_clothing.Item.8wOCTUwRwIWMdbEH]{Leisurewear Hat}</strong>, (a sleek, warm, faux-leather aviator's cap).</p></li></ul></li></ul></li></ul><hr /><p><em>Once everyone's taken their possessions, Connors finishes up. </em>\"Now then, with that out of the way, I do have a small collection of goods here for your perusal, just for the occasion. Best of luck, edgerunners; the Dustwalkers will be here tomorrow morning for your pickup.\"</p><hr /><p><span style=\"font-family:Signika\"><strong>Though not a Night Market, Connors will nonetheless procure cheap goods in exchange for Eagles, at a rate of 1 Eagle = 200eb of gear. For the moment, players may only purchase gear items worth 100eb or less each in this fashion.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Once everyone's geared up and ready for the mission, advance time to the following morning, and move to the next beat.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379938037,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 500000,
+      "name": "Air Traffic Control (Beat 3)",
+      "type": "text",
+      "_id": "7EXXbSofUuLWfZfT",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This beat makes use of the <strong>@UUID[Scene.wanUwHXksurmCUGL]{Badlands Environment}</strong> and <strong>@UUID[Scene.RhMyE4ALlMT8CKqU]{Lady Of Commerce - Rooms}</strong> scenes. To begin:</p><ul><li><p>Place 3 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.91JT7Zncn3Sb60Ge]{RatSec Elites}</strong> around the Lady of Commerce; 1 at the landing platform to the west, 1 on the bridge, and 2 at your discretion</p></li><li><p>Place <strong>@UUID[Actor.OjaS32vurnF5McFJ]{First Mate Ben Matthews}</strong> at the landing platform.</p></li><li><p>Place <strong>@UUID[Actor.fUURZKajl41k7KTL]{Captain Eric Blancher}</strong> in his office/quarters on the north side of the ship.</p></li><li><p>Change the scene to the Badlands Environment</p></li></ul><p>Then read the following…</p><h2>Aboard The A/V</h2><p><em>Ranger is on the roof of the Afterlife bright and early, the A/V's doors open and its engines humming on the helipad tarmac. He's brought a pair of Dustwalkers with him, presumably to run the zep once it's been taken. Ranger hasn't removed his mask, but greets you with a chipper wave.</em></p><p>\"Mornin, <em>Locos!</em> Let's go steal us an Aerozep!\"</p><hr /><p><span style=\"font-family:Signika\"><strong>The trip to meet up with the AeroZep (which is just north of Sacramento) will take about an hour, and passes without event. During the trip, Ranger notes that he'll be standing by for air support just outside the radar range of the target, though the A/V doesn't have any weapons mounted on it at the moment. If players have radio communicators, they can use them to reach him.</strong></span></p><h2>On Arrival</h2><p>\"Ey, choombas, look to the front! She's beautiful!\"</p><p><em>The GPS on the cabin's main screen shows that the AV is less than 3 miles from the meetup coordinates. A moment later the integrated camera flicks on, showing the vehicle in all its glory.</em></p><p><em>The Aerozep is a gleaming, silver, hard-body construction. A pair of engines on either side push it through the sky, an even distance between the ground and the scarce clouds of the badlands. It gleams brightly in the daylight, almost painful to look at. The Zhirafa logo is painted onto its side, and below it, the name: </em>Lady of Commerce.</p><p><em>The A/V zips forward, easily outpacing the zep's top speed. It's a trick of the eyes, though, as it pulls up alongside the target and Ranger begins exchanging credentials. Below you, the ground is still passing along at nearly 100 mph/160kph.</em></p><p>\"Good luck, Locos!\" <em>Ranger calls over the intercom. The other walkers have joined him in the cockpit.</em></p><p><em>A moment later, the side-doors of the A/V open to reveal an abutting landing platform that's been built into the rear of the </em>Lady<em>. Standing on it are two ship staff, looking at you expectantly, but the roar of the A/V's engines is too loud for them to do much else.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>Swap the scene to @UUID[Scene.RhMyE4ALlMT8CKqU]{Lady Of Commerce - Rooms}.</strong></span></p><p><span style=\"font-family:Signika\"><strong>As they step out onto the platform, any players with a WILL stat of 5 or less must make a WILL save; on failure, they suddenly (re)discover a severe fear of heights, and add -2 to all checks they make while the open sky or the ground is in view until they finally land.</strong></span></p><h2>Welcome Aboard</h2><p><em>As you step onto the ship, the door of Ranger's A/V clacks shut, and it banks away. The entire platform is shadowed by the enormous hull of the ship above, but in the absence of the A/V, the quiet is suddenly eerie. Up above, the engines produce a quiet hum as they propel the ship, but it's scarcely a whisper, nearly lost on the wind.</em></p><p>\"Welcome to the Lady of Commerce.\" <em>one of the ship staffers steps forward, revealing a black man with a lined face and a grey beard. His eyes are alert, though, beneath his flight cap, and he has an assault rifle slung across his back.</em> \"I'm First Mate Ben Matthews. Come inside and set down your things, then we'll get to work.\"</p><h2>Trouble In Heaven</h2><p><em>As soon as Matthews steps inside (every door on the ship, including the one to the landing pad, requires a keycard - he scans his to allow the players in) the intercom sounds with a gruff, angry voice.</em></p><p>\"Matthews! Are the mercs arrived yet? I want them upstairs securing cargo yesterday, this is going in my report!\"</p><p><em>Mattews swears under his breath.</em> \"Captain Blancher,\" <em>he tells the party. </em>\"He's just as friendly as he seems.\"</p><p><em>Inside, the ship's cabin is a sturdy-looking metal frame, warmly lit and covered by red carpet. Despite the ship's supposed new state, the carpet is already fraying. The other member of the greeting party rolls their eyes and heads off to the bridge.</em></p><hr /><p><span style=\"font-family:Signika\"><strong>Matthews directs the players to the bunkroom, and informs them that, as would be typical for a regular-sized crew, they'll be sleeping in shifts - but also expects that the trip will only take 3 or 4 days to complete.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>It should be made readily apparent that Matthews and Blancher are butting heads.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">In particular, Matthews was selected for his experience in running ships like this, but Blancher politicked his way into the position.</span></p></li><li><p><span style=\"font-family:Signika\">Matthews is on probation because of his boss's crap orders and management, having been forced to take the blame for both.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once the players have had a chance to see the bunks, Matthews takes them up the freight elevator in the center of the ship to the upper level (see below).</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The cargo there is in complete disarray, and he puts players to work in organizing it.</span></p></li><li><p><span style=\"font-family:Signika\">Organizing the cargo isn't hard, but it is labor intensive, and there's no tools around to make it easier; if no member of the party has a BODY of 10 or more, they're only partially successful. If no member of the party has a BODY of 8 or more, the effort is a failure.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Once players have had a chance to survey the upper deck, Captain Blancher summons whoever Connors identified as the \"leader\" of the merc team via the intercom; this could be the party's face or tactician - whoever it is that fixers usually work through.</strong></span></p></li></ul><h2>The Upper Deck</h2><p><em>The center of the upper deck is dominated by the freight elevator, which comes up between the machines and fuel tanks for the ship engines. Around them, the deck is in utter chaos.</em></p><p><em>Shipping containers of all sizes are scattered around, ranging in size from suitcases and cardboard boxes all the way up to full-sized cargo containers. Far from the orderly maximization of space you might've imagined, it appears the only rule in filling the hold was \"first in, last out.\" Some of the larger boxes have been fastened down, and that's about it.</em></p><p><em>Of note: beyond the boxes, at the fore of the deck, a large gun has been positioned on either side of the ship, looking out at the sky. A gleaming, like-new console is astride its ammo feed, locked and awaiting use.</em></p><h2>Mutinous Intentions</h2><p><em>The captain looks up with emerald-green cybereyes as you enter his office. He's incredibly large, and pressed into an armored business suit that looks like it's armored just as much as a precaution to keep his belly in, as it is to keep bullets out.</em></p><p>\"Finally,\" <em>he snorts. </em>\"We've got things to talk about.\"</p><hr /><p><span style=\"font-family:Signika\"><strong>In this conversation, the Captain reveals that he intends to charge First Mate Matthews with gross negligence of duty after the expected attack is repelled, holding the officer, rather than himself, accountable for the damages and loss of time caused by the skeleton crew.</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>He's also concerned that Matthews is going to turn traitor soon, blaming his \"religious fanaticism.\"</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Given that the players are a team of mercenaries, he intends to buy their support.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">The captain is concerned that Matthews' crew will side with the first mate, rather than the captain, when Blancher declares the trial.</span></p></li><li><p><span style=\"font-family:Signika\">He offers the players 1000eb each on delivery of the cargo safely to Seattle, if they support him in his effort to imprison Blancher.</span></p><ul><li><p><span style=\"font-family:Signika\"><em>The players, of course, will need the ship and its cargo anyway, and so will likely never see this money regardless.</em></span></p></li></ul></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Matthews can be told this information, at which point he plots to mutiny against the captain.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Before he can, though, or if/when the players decide not to tell him, proceed to the next beat.</span></p></li></ul></li></ul>",
+        "markdown": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379937569,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 600000,
+      "name": "Pirate Air (Beat 4)",
+      "type": "text",
+      "_id": "y4k7uPN6Qnqt9rvm",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This scene makes use of the <strong>@UUID[Scene.3KoKUS4ZTKK2sjl9]{Lady Of Commerce - Cargo Hold}</strong>, <strong>@UUID[Scene.8KNDRhRL75cQzmZ1]{Lady Of Commerce - Exterior}</strong> and <strong>@UUID[Scene.RhMyE4ALlMT8CKqU]{Lady Of Commerce - Rooms}</strong> scenes. To begin:</p><ul><li><p>Create 1 + partycouny <strong>@UUID[Actor.bpoMuj8xnxw70nDp]{Raffen Gyros}</strong>.</p><ul><li><p>Each is manned by a <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.pNTV62sWeONIvn7Z]{Scav Tech}</strong> as a pilot. Otherwise, distribute the following mooks around:</p><ul><li><p>1 + (1/2*partycount) <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.UM3c8a92eSdEQmB8]{Scav Monsters}</strong></p></li><li><p>1 <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.N1143CZDzlca7sz6]{Scav Butchers}</strong></p></li><li><p>All other seats (3 total per craft, including the pilot) are filled by <strong>@UUID[Compendium.night-city-gang-and-corp-mook-pack.NCGangsnCorpsMooks.Actor.SNKnBqS4lCZPd5yU]{Scav Savages}.</strong></p></li></ul></li><li><p>During initiative, roll the Raffen Gyros; their occupants then act on the gyro's initiative.</p></li><li><p>Occupants immediately roll initiative when they leave the gyro.</p></li></ul></li><li><p>Review the \"gyro attackers\" heading for rules on the assault.</p></li></ul><p>Then read the following.</p><h2>Alarms Blare, and Matthews' Voice Shouts Over The Intercom</h2><p>\"Man the guns!\" <em>the sailor shouts over the intercom. </em>\"We've got incoming! A lot of incoming! Time to work, merc team!\"</p><p><span style=\"font-family:Signika\"><strong>Roll initiative.</strong></span></p><h2>Gyro Attackers</h2><p><span style=\"font-family:Signika\"><strong>The gyros appear in the sky around the zepplin, each and all of them 100 meters off the edge of the map in their respective direction (that's 2.5 turns of movement, since 1 move = 2 m/yds and gyros have a move of 20) and immediately roll initiative. The raiders aboard are screaming and hollering as they approach the craft, slinging grapple hooks and firing weapons into the air.</strong></span></p><p><span style=\"font-family:Signika\"><strong>When they get close to the zep, the craft do the following:</strong></span></p><ul><li><p><span style=\"font-family:Signika\"><strong>1/3rd of the craft (or whereabouts) head for the crew deck, and cover one another while their raiders are dropped onto the landing platform.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>1/3rd of the craft (or whereabouts) head to the top of the craft, dropping their crew onto the roof, where they'll head for the ladder down into the cargo bay.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>1/3rd of the craft circle the cargo deck - as they approach the gun hatches, their crew will, one at a time, sling grappling hooks to catch the guns and swing over before climbing up.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">This requires the scav make a DV15 Physical check; on failure they're unsuccessful.</span></p></li><li><p><span style=\"font-family:Signika\">Only 1 scav from each craft can attempt this each gyro turn.</span></p></li><li><p><span style=\"font-family:Signika\">On success, the scav is immediately transported just outside the main gun, 1d10 (minimum 5) meters below the gun.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Empty gyros, or those waiting to drop their crew, provide suppressive fire or attempt to disable the guns on the zep's main deck.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">Do note, though, that the scavs are just as interested in the zep itself as they are in its cargo, and will try not to damage it beyond operation.</span></p></li></ul></li><li><p><span style=\"font-family:Signika\"><strong>Scavs don't have radios, but the zep has an external intercom; communication can be attempted via the bridge.</strong></span></p></li><li><p><span style=\"font-family:Signika\"><strong>Once aboard, the scavs will attempt to seize control of the ship; if they get to the bridge, they immediately take the zep off course to their encampment, taking 20 minutes to arrive.</strong></span></p><ul><li><p><span style=\"font-family:Signika\">More reinforcements likely await here, at GM discretion.</span></p></li></ul></li></ul><hr /><p><span style=\"font-family:Signika\"><strong>Once the scavs have been repelled, proceed to beat 5.</strong></span></p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379937199,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    },
+    {
+      "sort": 700000,
+      "name": "Desert Heat (Beat 5)",
+      "type": "text",
+      "_id": "uhdY8Sc3617sZaZV",
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>This mission makes use of the scenes from the previous beats, and can be continued directly from Beat 4.</p><h2>The Final Fight</h2><p><em>The quiet is eerie, but incomplete - the buzz of the zepp's engines is accompanied by the creaking of a taxed endoskeleton, suffering from combat damage. Still, it's (presumably) not about to go down, leaving only fires to put out… and a crew to deal with.</em></p><hr /><p><strong>Once the ship has been saved, there's still the matter of its crew to attend to.</strong></p><ul><li><p><strong>The captain can be allied with to lock up Matthews in his quarters; the surviving crew will side with Matthews.</strong></p><ul><li><p><strong>Depending on their health after the fight, they might try to take down the captain.</strong></p></li></ul></li><li><p><strong>Matthews can be allied with against the captain.</strong></p></li><li><p><strong>In either case, a DV21 (17 if seriously wounded - auto-pass if below 10 HP) check will be required to talk down whoever's being gunned against.</strong></p><ul><li><p>If Matthews is allied with, he can be persuaded to join the Afterlife staff/hand over the ship in exchange for being allowed to keep his job, with a DV17 check.</p><ul><li><p><em>Players will gain 1 personal rep at the end of the mission for allying with Matthews.</em></p></li></ul></li><li><p>If the Captain is allied with, he can be persuaded via DV21 to step down from his role once it's clear that the players won't be finishing the delivery. If successful, he promises to forge papers making it look like the ship was lost to the scavs, and offers players 700eb apiece for his life.</p></li></ul></li></ul><p><span style=\"font-family:Signika\"><strong>In either case, Ranger arrives shortly afterwards to take control of the vessel with the help of the Dustwalkers. Between the party and some fresh Nomad guns in an A/V-4, the fight will be short, if it happens at all - Ranger doesn't screw around when cargo's on the line.</strong></span></p><h2>Back At The Afterlife…</h2><p><em>Fantasies of flying the AeroZepp straight back to the Afterlife are soon dashed - as it turns out, pirating vehicles necessitates certain protocols, meaning that the Dustwalkers escort the zepp into the deep desert and you hitch an A/V-4 back to NC instead. What a shame.</em></p><p><em>Back at home, Connors and Vido are waiting on the roof, though they seem just as disappointed that you didn't pull up in a stolen multi-million-euro aircraft.</em></p><p><em>Still, they're cheerful enough once you announce your success, and are invited inside - shortly after, Connors receives a manifest of the ship's cargo from Ranger's crew, promising a Night Market in the very near future…</em></p><hr /><p><span style=\"font-family:Signika\"><strong>Assuming the zepp was recovered successfully, the party unlocks the Afterlife's weekly midnight markets - check @UUID[JournalEntry.XUOpfREiYQEErhe6]{10. Afterlife Night Market} for more details.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Additionally, while the party is being paid, Ranger will insist on an extra reward for a job well done, and Connors agrees </strong><em><strong>if</strong></em><strong> the party managed to either talk down the captain/take his bribe for his life, or saved Matthews and the crew and convinced them to join the Dustwalkers.</strong></span></p><p><span style=\"font-family:Signika\"><strong>If either of these bonus criteria are met, each member of the party receives their choice of a 500eb item, said to be pulled directly from the cargo bay of the lady of commerce.</strong></span></p><p><span style=\"font-family:Signika\"><strong>Congratulations - mission complete! Only one left, and it's a doozy! See you there!</strong></span></p><h2 data-anchor=\"your-feedback-wanted!\">Your Feedback Wanted!</h2><p>Did you enjoy this session? Did something go wrong? Was there broken content? I would very much like to hear about your successes and failures both.</p><p>If you have a few minutes after your session, <a href=\"https://forms.gle/sfvVM21YrA88fyC77\">please take the time to fill out the feedback survey for this campaign, located here.</a> It should only take 5 minutes, and will be actively considered as I make revisions to the campaign.</p><p>Your feedback matters! Thank you for playing!</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "system": {},
+      "ownership": {
+        "default": -1,
+        "Yt9a42dcgfh2uSf4": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "12.343",
+        "systemId": "cyberpunk-red-core",
+        "systemVersion": "v0.92.2",
+        "createdTime": null,
+        "modifiedTime": 1774379936765,
+        "lastModifiedBy": "bQcpWG6lypIQoS5d"
+      }
+    }
+  ],
+  "flags": {
+    "core": {
+      "sourceId": "JournalEntry.oXVIRljz3fxVnxfy"
+    },
+    "exportSource": {
+      "world": "test",
+      "system": "cyberpunk-red-core",
+      "coreVersion": "12.343",
+      "systemVersion": "v0.92.2"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.343",
+    "systemId": "cyberpunk-red-core",
+    "systemVersion": "v0.92.2",
+    "createdTime": 1774224953356,
+    "modifiedTime": 1774375916197,
+    "lastModifiedBy": "bQcpWG6lypIQoS5d"
+  }
+}

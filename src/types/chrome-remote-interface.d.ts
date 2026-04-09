@@ -6,6 +6,7 @@ declare module 'chrome-remote-interface' {
       CSS: any;
       DOM: any;
       Network: any;
+      Input: any;
       on(event: string, callback: (params: any) => void): void;
       close(): Promise<void>;
     }
