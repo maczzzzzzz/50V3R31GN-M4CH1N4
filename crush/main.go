@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"os/exec"
 	"os/signal"
 	"strings"
 	"syscall"
@@ -169,6 +170,34 @@ func main() {
 	// Top-level subcommand dispatch
 	if len(os.Args) > 1 {
 		switch os.Args[1] {
+		case "start":
+			mode := "full"
+			if len(os.Args) > 2 && os.Args[2] == "--lite" {
+				mode = "lite"
+			} else if len(os.Args) > 2 && os.Args[2] == "--full" {
+				mode = "full"
+			}
+			
+			fmt.Printf("Initiating 50V3R31GN-M4CH1N4 Deck Igniter in %s mode...\n", mode)
+			cmd := os.Getenv("PROJECT_ROOT")
+			if cmd == "" {
+				cmd = ".."
+			}
+			cmdPath := cmd + "/deck-igniter/deck-igniter"
+			
+			// Try to run the igniter directly
+			execCmd := exec.Command(cmdPath)
+			execCmd.Env = append(os.Environ(), "IGNITER_MODE="+mode)
+			execCmd.Stdin = os.Stdin
+			execCmd.Stdout = os.Stdout
+			execCmd.Stderr = os.Stderr
+			
+			if err := execCmd.Run(); err != nil {
+				fmt.Printf("Error starting deck-igniter: %v\n", err)
+				os.Exit(1)
+			}
+			return
+
 		case "proxy":
 			ctx, cancel := signal.NotifyContext(
 				context.Background(), syscall.SIGINT, syscall.SIGTERM,

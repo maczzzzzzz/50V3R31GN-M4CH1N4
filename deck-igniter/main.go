@@ -197,21 +197,39 @@ type Model struct {
 // ── Initialization ─────────────────────────────────────────────────────────────
 
 func initialModel() Model {
+	mode := os.Getenv("IGNITER_MODE")
+	if mode == "" {
+		mode = "full"
+	}
+
+	allComponents := []*Component{
+		{Name: "foundry-vtt", Layer: LayerWindows},
+		{Name: "pixtral", Layer: LayerWindows},
+		{Name: "director", Layer: LayerWSL},
+		{Name: "sidecar-atlas", Layer: LayerWSL},
+		{Name: "sidecar-cyberdeck", Layer: LayerWSL},
+		{Name: "sidecar-netrunning", Layer: LayerWSL},
+		{Name: "dashboard-bridge", Layer: LayerWSL},
+		{Name: "shadow-dashboard", Layer: LayerWSL},
+		{Name: "vault-sync", Layer: LayerWSL},
+		{Name: "llama-server", Layer: LayerRemote},
+		{Name: "zeroclaw", Layer: LayerRemote},
+	}
+
+	var activeComponents []*Component
+	if mode == "lite" {
+		for _, c := range allComponents {
+			if c.Name != "foundry-vtt" && c.Name != "vault-sync" && c.Name != "shadow-dashboard" {
+				activeComponents = append(activeComponents, c)
+			}
+		}
+	} else {
+		activeComponents = allComponents
+	}
+
 	return Model{
-		components: []*Component{
-			{Name: "foundry-vtt", Layer: LayerWindows},
-			{Name: "pixtral", Layer: LayerWindows},
-			{Name: "director", Layer: LayerWSL},
-			{Name: "sidecar-atlas", Layer: LayerWSL},
-			{Name: "sidecar-cyberdeck", Layer: LayerWSL},
-			{Name: "sidecar-netrunning", Layer: LayerWSL},
-			{Name: "dashboard-bridge", Layer: LayerWSL},
-			{Name: "shadow-dashboard", Layer: LayerWSL},
-			{Name: "vault-sync", Layer: LayerWSL},
-			{Name: "llama-server", Layer: LayerRemote},
-			{Name: "zeroclaw", Layer: LayerRemote},
-		},
-		logs: []string{},
+		components: activeComponents,
+		logs:       []string{fmt.Sprintf("Initialized in %s mode", mode)},
 	}
 }
 
