@@ -179,6 +179,18 @@ func main() {
 			}
 			
 			fmt.Printf("Initiating 50V3R31GN-M4CH1N4 Deck Igniter in %s mode...\n", mode)
+
+			// Auto-Unseal for Runtime
+			key := os.Getenv("SOVEREIGN_KEY")
+			if key != "" {
+				fmt.Println("🔓 Auto-Unsealing runtime documentation...")
+				openDirectory("../docs/", key)
+				openDirectory("../data/vault/", key)
+				openDirectory("../akashik_guides/", key)
+			} else {
+				fmt.Println("⚠️  SOVEREIGN_KEY not found. Skipping auto-unseal.")
+			}
+
 			cmd := os.Getenv("PROJECT_ROOT")
 			if cmd == "" {
 				cmd = ".."
@@ -195,6 +207,26 @@ func main() {
 			if err := execCmd.Run(); err != nil {
 				fmt.Printf("Error starting deck-igniter: %v\n", err)
 				os.Exit(1)
+			}
+			return
+
+		case "sovereign-mode":
+			if len(os.Args) < 3 {
+				fmt.Println("Usage: crush sovereign-mode [on|off]")
+				return
+			}
+			on := os.Args[2] == "on"
+			
+			watcher, err := NewVsbWatcher("black_ice_state.mem")
+			if err != nil {
+				fmt.Printf("Error accessing Mmap: %v\n", err)
+				os.Exit(1)
+			}
+			watcher.ToggleSovereignMode(on)
+			if on {
+				fmt.Println("👑 SOVEREIGN MODE: ON (Rules Oracle Bypassed)")
+			} else {
+				fmt.Println("⚖️  SOVEREIGN MODE: OFF (Physics Constitution Enforced)")
 			}
 			return
 

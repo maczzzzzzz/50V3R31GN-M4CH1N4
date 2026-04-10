@@ -33,6 +33,8 @@ func runVault(args []string, key string) int {
 func sealDirectory(dir string, key string) int {
 	fmt.Printf("🔒 50V3R31GN-M4CH1N4: Sealing directory [%s] into 7H3-V4UL7...\n", dir)
 	
+	validExts := []string{".md", ".json", ".png", ".txt", ".db", ".ldb", ".log", ".pdf", ".webp", ".jpg", ".jpeg", ".mp3", ".wav", ".mp4"}
+
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -41,8 +43,6 @@ func sealDirectory(dir string, key string) int {
 			return nil
 		}
 
-		// Supported extensions for sealing
-		validExts := []string{".md", ".json", ".png", ".txt", ".db", ".ldb", ".log"}
 		isSupported := false
 		base := filepath.Base(path)
 
@@ -52,22 +52,30 @@ func sealDirectory(dir string, key string) int {
 		} else {
 			for _, ext := range validExts {
 				if strings.HasSuffix(path, ext) {
-					// Avoid sealing already sealed files (e.g., .md.png, .json.png, etc.)
-					if !strings.HasSuffix(path, ".md.png") &&
-						!strings.HasSuffix(path, ".json.png") &&
-						!strings.HasSuffix(path, ".txt.png") &&
-						!strings.HasSuffix(path, ".db.png") &&
-						!strings.HasSuffix(path, ".ldb.png") &&
-						!strings.HasSuffix(path, ".log.png") &&
-						!strings.HasSuffix(path, ".png.png") &&
-						!strings.HasSuffix(path, "CURRENT.png") &&
-						!strings.HasSuffix(path, "LOCK.png") &&
-						!strings.HasSuffix(path, "LOG.png") &&
-						!strings.HasSuffix(path, "LOG.old.png") &&
-						!(strings.Contains(path, "MANIFEST") && strings.HasSuffix(path, ".png")) {
-						isSupported = true
-						break
+					// Detect if this is already a container (e.g., file.json.png or file.png.png)
+					if strings.HasSuffix(path, ".png") {
+						stem := strings.TrimSuffix(path, ".png")
+						isContainer := false
+						
+						// If the stem ends in any valid extension, it's a container
+						for _, e := range validExts {
+							if strings.HasSuffix(stem, e) {
+								isContainer = true
+								break
+							}
+						}
+						// Also check for LevelDB control files inside the stem
+						stemBase := filepath.Base(stem)
+						if stemBase == "CURRENT" || strings.HasPrefix(stemBase, "MANIFEST") || stemBase == "LOCK" || stemBase == "LOG" || stemBase == "LOG.old" {
+							isContainer = true
+						}
+
+						if isContainer {
+							break 
+						}
 					}
+					isSupported = true
+					break
 				}
 			}
 		}
@@ -120,6 +128,8 @@ func sealDirectory(dir string, key string) int {
 func openDirectory(dir string, key string) int {
 	fmt.Printf("🔓 50V3R31GN-M4CH1N4: Opening 7H3-V4UL7 in [%s]...\n", dir)
 
+	validExts := []string{".md", ".json", ".png", ".txt", ".db", ".ldb", ".log", ".pdf", ".webp", ".jpg", ".jpeg", ".mp3", ".wav", ".mp4"}
+
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -128,19 +138,23 @@ func openDirectory(dir string, key string) int {
 			return nil
 		}
 
-		// Check if it's a sealed file we want to open
 		isSealed := false
-		if strings.HasSuffix(path, ".md.png") ||
-			strings.HasSuffix(path, ".json.png") ||
-			strings.HasSuffix(path, ".txt.png") ||
-			strings.HasSuffix(path, ".db.png") ||
-			strings.HasSuffix(path, ".ldb.png") ||
-			strings.HasSuffix(path, ".log.png") ||
-			strings.HasSuffix(path, "CURRENT.png") ||
-			strings.HasSuffix(path, "LOCK.png") ||
-			strings.Contains(path, "MANIFEST") && strings.HasSuffix(path, ".png") ||
-			strings.HasSuffix(path, ".png.png") {
-			isSealed = true
+		if strings.HasSuffix(path, ".png") {
+			stem := strings.TrimSuffix(path, ".png")
+			
+			// Check if the stem base is a LevelDB control file
+			stemBase := filepath.Base(stem)
+			if stemBase == "CURRENT" || strings.HasPrefix(stemBase, "MANIFEST") || stemBase == "LOCK" || stemBase == "LOG" || stemBase == "LOG.old" {
+				isSealed = true
+			} else {
+				// Check if the stem ends in any valid extension
+				for _, e := range validExts {
+					if strings.HasSuffix(stem, e) {
+						isSealed = true
+						break
+					}
+				}
+			}
 		}
 
 		if !isSealed {

@@ -13,6 +13,7 @@ const (
 	Magic           = "BLACK-ICE-RADAR\x00" // 16 bytes
 	ProposalOffset  = 1024
 	ProposalSize    = 302 // Matches IntentPacket size for simplicity
+	SovereignModeOffset = 2048
 )
 
 // ProposalStatus mirrors the VSB schema.
@@ -87,6 +88,14 @@ func (w *VsbWatcher) SetStatus(status ProposalStatus) {
 	// re-triggering the same proposal if the loop speed is faster than the status sync.
 	if status == StatusApproved || status == StatusRejected {
 		p.ID = 0
+	}
+}
+
+func (w *VsbWatcher) ToggleSovereignMode(on bool) {
+	if on {
+		w.mmap[SovereignModeOffset] = 0x01
+	} else {
+		w.mmap[SovereignModeOffset] = 0x00
 	}
 }
 

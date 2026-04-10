@@ -26,13 +26,7 @@ coverage/
 # --- 7H3-V4UL7 (Steganographic Shards) ---
 # We ALLOW shards on the remote so the project is reproduceable from GitHub.
 # We STRICTLY BLOCK the cleartext markdown files.
-docs/superpowers/**/*.md
-docs/research/**/*.md
-docs/audits/**/*.md
 docs/archive/**/*.md
-docs/raw_data/**/*.json
-docs/raw_data/**/*.txt
-docs/user_guides/**/*.md
 data/vault/**/*.md
 akashik_guides/**/*.md
 akashik_guides/**/*.json
@@ -42,14 +36,16 @@ akashik_guides/**/*.txt
 !**/*.md.png
 !**/*.json.png
 !**/*.txt.png
+!**/*.pdf.png
+!**/*.db.png
+!**/*.ldb.png
+!**/*.log.png
 
 .vesper_state
 
 # --- Project Specific Data (Surgical) ---
-docs/raw_data/*
-!docs/raw_data/campaign_ttta/
-!docs/raw_data/entities_mooks/
-!docs/raw_data/community_compendium/
+docs/raw_data/
+docs/superpowers/
 docs/rulebooks_raw/
 
 # IDE & OS Files
