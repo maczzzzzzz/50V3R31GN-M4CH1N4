@@ -6,8 +6,52 @@ import (
 	"time"
 )
 
+const (
+	mmapMagic      = "BLACK-ICE-RADAR\x00"
+	mmapMagicLen   = 16
+	defaultMemPath = "black_ice_state.mem"
+)
+
+func checkIntegrity(filePath string) {
+	f, err := os.Open(filePath)
+	if err != nil {
+		fmt.Printf("◈ VSB Integrity: MISSING — %v\n", err)
+		os.Exit(1)
+	}
+	defer f.Close()
+
+	buf := make([]byte, mmapMagicLen)
+	if _, err := f.ReadAt(buf, 0); err != nil {
+		fmt.Printf("◈ VSB Integrity: READ_ERROR — %v\n", err)
+		os.Exit(1)
+	}
+
+	if string(buf) == mmapMagic {
+		fmt.Println("◈ VSB Integrity: VALID")
+		os.Exit(0)
+	} else {
+		fmt.Printf("◈ VSB Integrity: CORRUPTED — magic mismatch (got: %q)\n", buf)
+		os.Exit(1)
+	}
+}
+
 func main() {
-	filePath := "black_ice_state.mem"
+	// --check mode: validate magic bytes and exit
+	for _, arg := range os.Args[1:] {
+		if arg == "--check" {
+			path := defaultMemPath
+			// Allow: --check <path>
+			for i, a := range os.Args[1:] {
+				if a == "--check" && i+1 < len(os.Args[1:]) {
+					path = os.Args[i+2]
+				}
+			}
+			checkIntegrity(path)
+			return
+		}
+	}
+
+	filePath := defaultMemPath
 	if len(os.Args) > 1 {
 		filePath = os.Args[1]
 	}
