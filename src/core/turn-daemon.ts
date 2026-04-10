@@ -11,7 +11,7 @@
  */
 
 import { z } from 'zod';
-import type { IOllamaClient } from './interfaces.js';
+import type { ISovereignNarrativeClient } from './interfaces.js';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
 import type { LifePathService } from './life-path-service.js';
 import type { NpcLog } from './life-path-service.js';
@@ -82,7 +82,7 @@ The object MUST match exactly one of these shapes:
 // ── TurnDaemon ────────────────────────────────────────────────────────────────
 
 export class TurnDaemon {
-  private readonly ollama: IOllamaClient;
+  private readonly sovereignNarrative: ISovereignNarrativeClient;
   private readonly clawlink: IClawLinkClient;
   private readonly lifePathService: LifePathService;
 
@@ -92,11 +92,11 @@ export class TurnDaemon {
    * any NPC in the session without producing mis-attributed life-path logs.
    */
   constructor(
-    ollama: IOllamaClient,
+    sovereignNarrative: ISovereignNarrativeClient,
     clawlink: IClawLinkClient,
     lifePathService: LifePathService,
   ) {
-    this.ollama = ollama;
+    this.sovereignNarrative = sovereignNarrative;
     this.clawlink = clawlink;
     this.lifePathService = lifePathService;
   }
@@ -143,7 +143,7 @@ export class TurnDaemon {
       `Current sensory context: ${sensoryContext}\n\n` +
       `Analyse this situation. What is happening around you and why does it matter to your survival?`;
 
-    const reasoning = await this.ollama.generateNarrative(
+    const reasoning = await this.sovereignNarrative.generateNarrative(
       reasonPrompt,
       sensoryContext,
       undefined,
@@ -161,7 +161,7 @@ export class TurnDaemon {
       `"Retreat to cover and radio backup").\n\n` +
       `Reasoning:\n${reasoning}`;
 
-    const intent = await this.ollama.generateNarrative(
+    const intent = await this.sovereignNarrative.generateNarrative(
       intentPrompt,
       reasoning,
       undefined,
@@ -192,7 +192,7 @@ export class TurnDaemon {
     let raw: string;
     try {
       raw = await Promise.race([
-        this.ollama.generateNarrative(actionPrompt, sensoryContext, undefined),
+        this.sovereignNarrative.generateNarrative(actionPrompt, sensoryContext, undefined),
         timeoutPromise,
       ]);
     } catch (err) {

@@ -70,6 +70,51 @@ export class VsbClient {
     });
   }
 
+  /**
+   * Send a Friction intent to Node A and await a ResultPacketView.
+   */
+  async sendFrictionIntent(
+    sequenceId: number,
+    sessionId: Uint8Array,
+    actorId: Uint8Array,
+    payload: Uint8Array
+  ): Promise<ResultPacketView> {
+    const intent = IntentPacketCodec.encode(
+      IntentType.Friction,
+      sequenceId,
+      sessionId,
+      actorId,
+      payload
+    );
+
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error(`VSB Timeout: No response from ${this.config.host}:${this.config.port} for seq=${sequenceId}`));
+      }, this.config.timeoutMs);
+
+      const onMessage = (msg: Buffer, rinfo: dgram.RemoteInfo) => {
+        if (rinfo.address !== this.config.host) return;
+
+        const result = ResultPacketCodec.decode(new Uint8Array(msg));
+        if (result && result.header.sequenceId === sequenceId) {
+          clearTimeout(timer);
+          this.socket.off('message', onMessage);
+          resolve(result);
+        }
+      };
+
+      this.socket.on('message', onMessage);
+
+      this.socket.send(intent, this.config.port, this.config.host, (err) => {
+        if (err) {
+          clearTimeout(timer);
+          this.socket.off('message', onMessage);
+          reject(err);
+        }
+      });
+    });
+  }
+
   /** UDP is connectionless — bind the socket so it can receive replies. */
   async connect(): Promise<void> {
     return new Promise((resolve, reject) => {

@@ -35,6 +35,7 @@ export const enum IntentType {
   Damage     = 0x02,
   SkillCheck = 0x03,
   Heal       = 0x04,
+  Friction   = 0x05,
 }
 
 export const enum ResultStatus {

@@ -20,10 +20,10 @@ export interface SpatialVisionConfig {
   /** CDP endpoint of the running Chrome session, e.g. http://localhost:9222 */
   chromeCdpUrl: string;
   /** Base URL of the llama-server, e.g. http://localhost:8080/v1 (kept for backwards compatibility) */
-  ollamaBaseUrl?: string;
+  sovereignNarrativeBaseUrl?: string;
   /** Vision model tag, e.g. "llava-v1.5-7b" (kept for backwards compatibility) */
   visionModel?: string;
-  /** Full chat completions endpoint URL; overrides ollamaBaseUrl when set */
+  /** Full chat completions endpoint URL; overrides sovereignNarrativeBaseUrl when set */
   vlmEndpoint?: string;
 }
 
@@ -50,7 +50,7 @@ export class SpatialVisionService {
     this.vlmEndpoint =
       config.vlmEndpoint ??
       process.env['VLM_ENDPOINT'] ??
-      `${config.ollamaBaseUrl ?? 'http://172.26.208.1:8080/v1'}/chat/completions`;
+      `${config.sovereignNarrativeBaseUrl ?? 'http://172.26.208.1:8080/v1'}/chat/completions`;
 
     this.visionModel =
       config.visionModel ?? process.env['VLM_MODEL'] ?? 'llava-v1.5-7b';

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SkillstoneService } from '../../src/core/skillstone-service.js';
 import { StoryEngine } from '../../src/core/story-engine.js';
-import type { IOllamaClient } from '../../src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 
 // ── SkillstoneService unit tests ──────────────────────────────────────────────
 
@@ -110,7 +110,7 @@ describe('SkillstoneService', () => {
 
 describe('StoryEngine — Skillstone ICL injection', () => {
   let skillstoneSvc: SkillstoneService;
-  let mockOllama: IOllamaClient;
+  let mockSovereignNarrative: ISovereignNarrativeClient;
   let capturedPrompt: string;
 
   beforeEach(() => {
@@ -118,7 +118,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
     skillstoneSvc = new SkillstoneService();
     skillstoneSvc.register('maelstrom', 42);
 
-    mockOllama = {
+    mockSovereignNarrative = {
       generateNarrative: vi.fn(async (prompt: string) => {
         capturedPrompt = prompt;
         return JSON.stringify({ text: 'TEST OK', color: '#ff003c', duration: 3000 });
@@ -131,7 +131,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
   it('injects SKILLSTONE block into prompt when factionId is provided', async () => {
     const engine = new StoryEngine(
       { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
-      mockOllama,
+      mockSovereignNarrative,
       skillstoneSvc,
     );
 
@@ -145,7 +145,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
   it('does NOT inject SKILLSTONE when factionId is omitted', async () => {
     const engine = new StoryEngine(
       { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
-      mockOllama,
+      mockSovereignNarrative,
       skillstoneSvc,
     );
 
@@ -157,7 +157,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
   it('does NOT inject SKILLSTONE for unknown faction (returns empty clause)', async () => {
     const engine = new StoryEngine(
       { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
-      mockOllama,
+      mockSovereignNarrative,
       skillstoneSvc,
     );
 
@@ -169,7 +169,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
   it('injects SKILLSTONE and seedBias together', async () => {
     const engine = new StoryEngine(
       { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
-      mockOllama,
+      mockSovereignNarrative,
       skillstoneSvc,
     );
 
@@ -186,7 +186,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
   it('setSkillstoneService attaches service after construction', async () => {
     const engine = new StoryEngine(
       { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
-      mockOllama,
+      mockSovereignNarrative,
     );
 
     // No service attached yet — no injection
@@ -204,7 +204,7 @@ describe('StoryEngine — Skillstone ICL injection', () => {
   it('prompt still contains biomonitor system instruction after Skillstone block', async () => {
     const engine = new StoryEngine(
       { currentArc: 'main', currentBeat: 'start', completedBeats: [], worldState: {}, eagleBalance: 0 },
-      mockOllama,
+      mockSovereignNarrative,
       skillstoneSvc,
     );
 

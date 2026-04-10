@@ -6,13 +6,13 @@
  *   - Lifepath mapping: oracleRoll(expression: "1d10") → Mistral-Nemo dialogue
  *   - NPC/gang tracking: player_friends_enemies inserts via UnifiedOracleClient
  *   - Build type: "Standard" (62-point) vs "Major League" (80-point)
- *   - Error handling: nitro-logic unreachable, Ollama unreachable
+ *   - Error handling: nitro-logic unreachable, SovereignNarrative unreachable
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { OnboardingController } from '../../src/core/onboarding-controller.js';
 import type { INitroLogicClient, OracleResult } from '../../src/core/interfaces.js';
-import type { IOllamaClient } from '../../src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
 import { InterviewState } from '../../src/core/onboarding-controller.js';
 
@@ -33,7 +33,7 @@ function makeMockNitroLogic(): INitroLogicClient {
   };
 }
 
-function makeMockOllama(): IOllamaClient {
+function makeMockSovereignNarrative(): ISovereignNarrativeClient {
   return {
     generateNarrative: vi.fn().mockResolvedValue(
       'The fixer leans back, studying you with chrome eyes. "Street kid, huh? I know that look."'
@@ -56,12 +56,12 @@ function makeMockOracle(): UnifiedOracleClient {
 
 function makeController(overrides?: {
   nitroLogic?: INitroLogicClient;
-  ollama?: IOllamaClient;
+  sovereignNarrative?: ISovereignNarrativeClient;
   oracle?: UnifiedOracleClient;
 }) {
   return new OnboardingController({
     nitroLogicClient: overrides?.nitroLogic ?? makeMockNitroLogic(),
-    ollamaClient: overrides?.ollama ?? makeMockOllama(),
+    sovereignNarrativeClient: overrides?.sovereignNarrative ?? makeMockSovereignNarrative(),
     unifiedOracle: overrides?.oracle ?? makeMockOracle(),
   });
 }
@@ -167,14 +167,14 @@ describe('OnboardingController — lifepath rolls', () => {
     });
   });
 
-  it('calls Mistral-Nemo (ollama) to generate interview dialogue with roll context', async () => {
-    const ollama = makeMockOllama();
-    const ctrl = makeController({ ollama });
+  it('calls Mistral-Nemo (sovereignNarrative) to generate interview dialogue with roll context', async () => {
+    const sovereignNarrative = makeMockSovereignNarrative();
+    const ctrl = makeController({ sovereignNarrative });
     await ctrl.startInterview();
     await ctrl.advanceToLifepath();
     await ctrl.rollLifepath();
 
-    expect(ollama.generateNarrative).toHaveBeenCalledWith(
+    expect(sovereignNarrative.generateNarrative).toHaveBeenCalledWith(
       expect.stringContaining('Lifepath'),
       expect.any(String),
       expect.any(String),
@@ -391,10 +391,10 @@ describe('OnboardingController — error handling', () => {
     await expect(ctrl.rollLifepath()).rejects.toThrow('Node A unreachable');
   });
 
-  it('falls back gracefully when Ollama narrative generation fails', async () => {
-    const ollama = makeMockOllama();
-    vi.mocked(ollama.generateNarrative).mockRejectedValue(new Error('Ollama offline'));
-    const ctrl = makeController({ ollama });
+  it('falls back gracefully when SovereignNarrative narrative generation fails', async () => {
+    const sovereignNarrative = makeMockSovereignNarrative();
+    vi.mocked(sovereignNarrative.generateNarrative).mockRejectedValue(new Error('SovereignNarrative offline'));
+    const ctrl = makeController({ sovereignNarrative });
     await ctrl.startInterview();
     await ctrl.advanceToLifepath();
     // Should still resolve with a fallback dialogue, not throw

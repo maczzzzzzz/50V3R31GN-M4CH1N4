@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
 import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import type { INitroLogicClient, IOllamaClient, IFoundryAdapter } from '../../src/core/interfaces.js';
+import type { INitroLogicClient, ISovereignNarrativeClient, IFoundryAdapter } from '../../src/core/interfaces.js';
 import { StoryEngine } from '../../src/core/story-engine.js';
 import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
 import { NightMarketService } from '../../src/core/night-market-service.js';
@@ -49,7 +49,7 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
 
     controller = new HybridRoutingController({
       nitroLogicClient: logic,
-      ollamaClient: { generateNarrative: vi.fn().mockResolvedValue('prose'), isHealthy: vi.fn().mockResolvedValue(true) } as any,
+      sovereignNarrativeClient: { generateNarrative: vi.fn().mockResolvedValue('prose'), isHealthy: vi.fn().mockResolvedValue(true) } as any,
       foundryAdapter: foundry,
       storyEngine: { evaluateEvent: vi.fn().mockReturnValue({ transitioned: false }) } as any,
       gmApprovalQueue: {} as any,

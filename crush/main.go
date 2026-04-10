@@ -230,6 +230,22 @@ func main() {
 			}
 			return
 
+		case "radar":
+			if len(os.Args) < 4 || os.Args[2] != "--public" {
+				fmt.Println("Usage: crush radar --public [on|off]")
+				return
+			}
+			on := os.Args[3] == "on"
+			
+			watcher, err := NewVsbWatcher("black_ice_state.mem")
+			if err != nil {
+				fmt.Printf("Error accessing Mmap: %v\n", err)
+				os.Exit(1)
+			}
+			watcher.WriteRadar(true, 128, on) // Default heat to 128 for testing
+			fmt.Printf("Tactical Radar Public: %v\n", on)
+			return
+
 		case "proxy":
 			ctx, cancel := signal.NotifyContext(
 				context.Background(), syscall.SIGINT, syscall.SIGTERM,

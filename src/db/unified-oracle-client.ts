@@ -135,7 +135,7 @@ export class UnifiedOracleClient {
         sourceFile: 'unified-oracle',
         sourceRef: `triplet:${r.subject_id}`,
         sectionHeading: r.predicate,
-        score: 1.0 - (index * 0.05), // Mock score for baseline compliance
+        score: r.distance !== undefined ? 1.0 - r.distance : 0.0,
         pageStart: 0,
         pageEnd: 0,
       }));

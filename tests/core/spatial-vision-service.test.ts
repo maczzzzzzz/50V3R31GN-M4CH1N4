@@ -34,7 +34,7 @@ function wrapChatResponse(content: string): object {
 describe('SpatialVisionService.analyzeWithLlava', () => {
   const service = new SpatialVisionService({
     chromeCdpUrl: 'http://localhost:9222',
-    ollamaBaseUrl: 'http://localhost:8080/v1',
+    sovereignNarrativeBaseUrl: 'http://localhost:8080/v1',
     visionModel: 'llava-v1.5-7b',
   });
 

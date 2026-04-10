@@ -211,6 +211,11 @@ struct CyberdeckApp {
     sys_ctrl_rx: Option<std::sync::mpsc::Receiver<String>>,
     sys_ctrl_output: Vec<String>,
 
+    // ── Phase 40: Tactical Heat Radar ─────────────────────────────────────────
+    radar_active: bool,
+    radar_heat: u8,
+    radar_public: bool,
+
     // ── Phase 39: Infiltration Scanner ────────────────────────────────────────
     hovered_unit: Option<HoveredUnit>,
 }
@@ -245,6 +250,9 @@ impl CyberdeckApp {
             glitch: GlitchEngine::new(),
             sys_ctrl_rx: None,
             sys_ctrl_output: Vec::new(),
+            radar_active: false,
+            radar_heat: 0,
+            radar_public: false,
             hovered_unit: None,
         };
 
@@ -428,6 +436,39 @@ impl CyberdeckApp {
                 &blip.name,
                 FontId::monospace(10.0),
                 color,
+            );
+        }
+
+        // Phase 40: Tactical Heat Radar Widget
+        if self.radar_active {
+            let heat_pct = self.radar_heat as f32 / 255.0;
+            let radar_center = Pos2::new(rect.right() - 40.0, rect.top() + 40.0);
+            
+            // Background pulsing
+            let pulse = (ui.input(|i| i.time) as f32 * (2.0 + heat_pct * 5.0)).sin() * 0.5 + 0.5;
+            let heat_color = if heat_pct > 0.7 { RED } else { Color32::from_rgb(255, 170, 0) };
+            
+            painter.circle_filled(
+                radar_center,
+                20.0 + (pulse as f32 * 5.0),
+                Color32::from_rgba_unmultiplied(heat_color.r(), heat_color.g(), heat_color.b(), 40)
+            );
+            painter.circle_stroke(radar_center, 20.0, Stroke::new(2.0, heat_color));
+
+            // Scanning line
+            let angle = ui.input(|i| i.time) as f32 * 3.0;
+            let end_x = radar_center.x + angle.cos() * 20.0;
+            let end_y = radar_center.y + angle.sin() * 20.0;
+            painter.line_segment([radar_center, Pos2::new(end_x, end_y)], Stroke::new(1.5, Color32::WHITE));
+
+            // Status Text
+            let status = if self.radar_public { "PUBLIC" } else { "STEALTH" };
+            painter.text(
+                radar_center + egui::vec2(0.0, 30.0),
+                egui::Align2::CENTER_TOP,
+                format!("H:{:03} [{}]", self.radar_heat, status),
+                FontId::monospace(10.0),
+                heat_color,
             );
         }
 

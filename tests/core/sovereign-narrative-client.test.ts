@@ -1,10 +1,10 @@
 /**
- * TDD Tests: OllamaClient (Migrated to llama-server)
+ * TDD Tests: SovereignNarrativeClient (Migrated to llama-server)
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { OllamaClient } from '../../src/core/ollama-client.js';
-import type { OllamaConfig } from '../../src/core/interfaces.js';
+import { SovereignNarrativeClient } from '../../src/core/sovereign-narrative-client.js';
+import type { SovereignNarrativeConfig } from '../../src/core/interfaces.js';
 
 const mockFetch = vi.fn();
 vi.stubGlobal('fetch', mockFetch);
@@ -63,43 +63,43 @@ function mockFetchTimeout(): void {
   });
 }
 
-const baseConfig: OllamaConfig = {
+const baseConfig: SovereignNarrativeConfig = {
   baseUrl: 'http://localhost:8080/v1',
   model: 'mistral-nemo-12b',
   timeoutMs: 5000,
 };
 
-describe('OllamaClient', () => {
+describe('SovereignNarrativeClient', () => {
   describe('constructor', () => {
     it('accepts a valid config without throwing', () => {
-      expect(() => new OllamaClient(baseConfig)).not.toThrow();
+      expect(() => new SovereignNarrativeClient(baseConfig)).not.toThrow();
     });
 
     it('throws if baseUrl is empty', () => {
-      expect(() => new OllamaClient({ ...baseConfig, baseUrl: '' })).toThrow();
+      expect(() => new SovereignNarrativeClient({ ...baseConfig, baseUrl: '' })).toThrow();
     });
 
     it('throws if model is empty', () => {
-      expect(() => new OllamaClient({ ...baseConfig, model: '' })).toThrow();
+      expect(() => new SovereignNarrativeClient({ ...baseConfig, model: '' })).toThrow();
     });
 
     it('throws if timeoutMs is non-positive', () => {
-      expect(() => new OllamaClient({ ...baseConfig, timeoutMs: 0 })).toThrow();
-      expect(() => new OllamaClient({ ...baseConfig, timeoutMs: -1 })).toThrow();
+      expect(() => new SovereignNarrativeClient({ ...baseConfig, timeoutMs: 0 })).toThrow();
+      expect(() => new SovereignNarrativeClient({ ...baseConfig, timeoutMs: -1 })).toThrow();
     });
   });
 
   describe('isHealthy', () => {
     it('returns true when llama-server responds with 200', async () => {
       mockFetch.mockResolvedValueOnce({ ok: true, status: 200 });
-      const client = new OllamaClient(baseConfig);
+      const client = new SovereignNarrativeClient(baseConfig);
       await expect(client.isHealthy()).resolves.toBe(true);
       expect(mockFetch).toHaveBeenCalledWith('http://localhost:8080/health');
     });
 
     it('returns false when llama-server is unreachable', async () => {
       mockFetchNetworkError();
-      const client = new OllamaClient(baseConfig);
+      const client = new SovereignNarrativeClient(baseConfig);
       await expect(client.isHealthy()).resolves.toBe(false);
     });
   });
@@ -109,14 +109,14 @@ describe('OllamaClient', () => {
       const narrative = 'The rain hammers Night City as you step into the Afterlife.';
       mockFetchSuccess(narrative);
 
-      const client = new OllamaClient(baseConfig);
+      const client = new SovereignNarrativeClient(baseConfig);
       const result = await client.generateNarrative('Set the scene at the Afterlife bar.', '');
       expect(result).toBe(narrative);
     });
 
     it('sends correct request body to llama-server', async () => {
       mockFetchSuccess('Narrative output');
-      const client = new OllamaClient(baseConfig);
+      const client = new SovereignNarrativeClient(baseConfig);
 
       await client.generateNarrative('Describe the combat result.', 'Hit: 3d6 → 14 damage');
 
@@ -131,7 +131,7 @@ describe('OllamaClient', () => {
 
     it('throws on HTTP error with status code in message', async () => {
       mockFetchHttpError(500, 'Internal Server Error');
-      const client = new OllamaClient(baseConfig);
+      const client = new SovereignNarrativeClient(baseConfig);
       await expect(client.generateNarrative('Test', '')).rejects.toThrow('500');
     });
   });

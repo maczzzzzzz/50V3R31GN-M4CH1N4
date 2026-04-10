@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import type { ILogger, EmbeddingServiceConfig } from '../../src/db/interfaces.js';
-import { OllamaEmbeddingService } from '../../src/db/ollama-embedding-service.js';
+import { SovereignEmbeddingService } from '../../src/db/sovereign-embedding-service.js';
 
 function createMockLogger(): ILogger & { calls: Array<{ severity: string; traceId: string; message: string }> } {
   const calls: Array<{ severity: string; traceId: string; message: string }> = [];
@@ -40,14 +40,14 @@ function mockFetchResponse(body: unknown, ok = true, status = 200): Response {
   } as Response;
 }
 
-describe('OllamaEmbeddingService', () => {
+describe('SovereignEmbeddingService', () => {
   let logger: ReturnType<typeof createMockLogger>;
-  let service: OllamaEmbeddingService;
+  let service: SovereignEmbeddingService;
   let originalFetch: typeof globalThis.fetch;
 
   beforeEach(() => {
     logger = createMockLogger();
-    service = new OllamaEmbeddingService(TEST_CONFIG, logger);
+    service = new SovereignEmbeddingService(TEST_CONFIG, logger);
     originalFetch = globalThis.fetch;
   });
 
@@ -57,7 +57,7 @@ describe('OllamaEmbeddingService', () => {
 
   describe('construction', () => {
     it('should create an instance with valid config', () => {
-      expect(service).toBeInstanceOf(OllamaEmbeddingService);
+      expect(service).toBeInstanceOf(SovereignEmbeddingService);
     });
   });
 

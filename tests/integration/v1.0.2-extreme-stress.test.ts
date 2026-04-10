@@ -67,7 +67,7 @@ describe('v1.0.2 Extreme Stress Cycle', () => {
     // 3. Setup Orchestrator
     controller = new HybridRoutingController({
       nitroLogicClient: clawlink as any,
-      ollamaClient: { generateNarrative: vi.fn().mockResolvedValue('Extreme outcome achieved.') } as any,
+      sovereignNarrativeClient: { generateNarrative: vi.fn().mockResolvedValue('Extreme outcome achieved.') } as any,
       foundryAdapter: mockFoundry as any,
       storyEngine: new StoryEngine({ currentArc: 'Audit', currentBeat: 'Stress', context: {} }),
       gmApprovalQueue: new GmApprovalQueue(mockFoundry as any),

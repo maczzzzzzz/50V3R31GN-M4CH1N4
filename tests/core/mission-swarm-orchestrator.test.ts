@@ -3,7 +3,7 @@ import { MissionSwarmOrchestrator } from '../../src/core/mission-swarm-orchestra
 
 // ── Mock helpers ──────────────────────────────────────────────────────────────
 
-function makeMockOllama() {
+function makeMockSovereignNarrative() {
   return {
     generateNarrative: vi.fn().mockImplementation(async (prompt: string, context: string) => {
       if (prompt.includes('Fixer in Night City')) {
@@ -32,15 +32,15 @@ function makeMockNitroLogic() {
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
 describe('MissionSwarmOrchestrator', () => {
-  it('generateMission() uses ollama to generate brief and tactical analysis', async () => {
-    const ollama = makeMockOllama();
+  it('generateMission() uses sovereignNarrative to generate brief and tactical analysis', async () => {
+    const sovereignNarrative = makeMockSovereignNarrative();
     const oracle = makeMockOracle();
     const nitroLogic = makeMockNitroLogic();
-    const orchestrator = new MissionSwarmOrchestrator({ ollama, oracle, nitroLogic });
+    const orchestrator = new MissionSwarmOrchestrator({ sovereignNarrative, oracle, nitroLogic });
 
     const blueprint = await orchestrator.generateMission('Watson');
 
-    expect(ollama.generateNarrative).toHaveBeenCalledTimes(2);
+    expect(sovereignNarrative.generateNarrative).toHaveBeenCalledTimes(2);
     expect(blueprint.district).toBe('Watson');
     expect(blueprint.brief).toBe('Brief: Assault the Arasaka convoy.');
     expect(blueprint.tacticalAnalysis).toBe('Tactics: 1. High cover, 2. Sniper, 3. Flank.');
@@ -52,7 +52,7 @@ describe('MissionSwarmOrchestrator', () => {
       { content: 'Johnny warned about Maxtac in Watson district' },
     ]);
     const orchestrator = new MissionSwarmOrchestrator({
-      ollama: makeMockOllama(),
+      sovereignNarrative: makeMockSovereignNarrative(),
       oracle,
       nitroLogic: makeMockNitroLogic(),
     });
@@ -66,7 +66,7 @@ describe('MissionSwarmOrchestrator', () => {
 
   it('generateMission() includes rulesIntel hardcoded for now', async () => {
     const orchestrator = new MissionSwarmOrchestrator({
-      ollama: makeMockOllama(),
+      sovereignNarrative: makeMockSovereignNarrative(),
       oracle: makeMockOracle(),
       nitroLogic: makeMockNitroLogic(),
     });

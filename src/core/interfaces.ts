@@ -170,12 +170,12 @@ export interface SecurityAuditResult {
   readonly reasoning: string;
 }
 
-// ── Ollama (Node B narrative) types ───────────────────────────────────────────
+// ── SovereignNarrative (Node B narrative) types ───────────────────────────────────────────
 
 /**
- * Connection parameters for Node B's Ollama endpoint (Mistral-Nemo 12B).
+ * Connection parameters for Node B's SovereignNarrative endpoint (Mistral-Nemo 12B).
  */
-export interface OllamaConfig {
+export interface SovereignNarrativeConfig {
   /** Base URL of Node B's llama-server OpenAI-compatible server. e.g. http://localhost:8080/v1 */  readonly baseUrl: string;
   /** Model identifier (e.g. "mistral-nemo:latest"). */
   readonly model: string;
@@ -183,22 +183,22 @@ export interface OllamaConfig {
   readonly timeoutMs: number;
   /** 
    * Optional: Number of layers to offload to GPU. 
-   * If omitted, Ollama defaults to auto-detection (-1).
+   * If omitted, SovereignNarrative defaults to auto-detection (-1).
    */
   readonly num_gpu?: number | undefined;
 }
 
-export interface IOllamaClient {
+export interface ISovereignNarrativeClient {
   /**
    * Generate narrative prose from a directive prompt and an optional
    * math/rules context string (e.g. serialised AttackResult).
    */
   generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature?: number, topP?: number): Promise<string>;
-  /** Checks whether Ollama is reachable. Does not validate model accuracy. */
+  /** Checks whether SovereignNarrative is reachable. Does not validate model accuracy. */
   isHealthy(): Promise<boolean>;
   /** 
    * Perform graceful cleanup. 
-   * For Ollama, this unloads the model from VRAM.
+   * For SovereignNarrative, this unloads the model from VRAM.
    */
   stop(): Promise<void>;
 }

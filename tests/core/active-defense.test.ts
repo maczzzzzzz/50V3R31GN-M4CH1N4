@@ -2,7 +2,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
 import type { INitroLogicClient } from '../../src/core/interfaces.js';
-import type { IOllamaClient } from '../../src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import { StoryEngine } from '../../src/core/story-engine.js';
 import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
@@ -21,7 +21,7 @@ function makeMockNitroLogic(): INitroLogicClient {
   };
 }
 
-function makeMockOllama(): IOllamaClient {
+function makeMockSovereignNarrative(): ISovereignNarrativeClient {
   return {
     generateNarrative: vi.fn().mockResolvedValue('The night is young, choom.'),
     isHealthy: vi.fn().mockResolvedValue(true),
@@ -73,7 +73,7 @@ describe('Active Defense: Token Movement Validation', () => {
 
     controller = new HybridRoutingController({
       nitroLogicClient: makeMockNitroLogic(),
-      ollamaClient: makeMockOllama(),
+      sovereignNarrativeClient: makeMockSovereignNarrative(),
       foundryAdapter: foundry,
       storyEngine: {} as any,
       gmApprovalQueue: {} as any,

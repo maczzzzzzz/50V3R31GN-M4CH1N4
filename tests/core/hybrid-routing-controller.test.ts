@@ -3,7 +3,7 @@
  *
  * Tests for the Phase 4 orchestration loop:
  *   - Node A (NitroLogicClient) for math/rules
- *   - Node B (OllamaClient) for narrative synthesis
+ *   - Node B (SovereignNarrativeClient) for narrative synthesis
  *   - StoryEngine for deterministic state transitions
  *   - GmApprovalQueue for human-in-the-loop
  * ...then pushes the result back to Foundry via FoundryAdapter.
@@ -12,7 +12,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
 import type { INitroLogicClient, AttackResult, DvResult, OracleResult } from '../../src/core/interfaces.js';
-import type { IOllamaClient } from '../../src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
 import { PretextOverlayPayloadSchema } from '../../src/shared/schemas/foundry-bridge.schema.js';
@@ -35,7 +35,7 @@ function makeMockNitroLogic(): INitroLogicClient {
   };
 }
 
-function makeMockOllama(): IOllamaClient {
+function makeMockSovereignNarrative(): ISovereignNarrativeClient {
   return {
     generateNarrative: vi.fn().mockResolvedValue('The night is young, choom.'),
     isHealthy: vi.fn().mockResolvedValue(true),
@@ -132,7 +132,7 @@ const sampleOracleResult: OracleResult = {
 
 describe('HybridRoutingController', () => {
   let nitroLogic: INitroLogicClient;
-  let ollama: IOllamaClient;
+  let sovereignNarrative: ISovereignNarrativeClient;
   let foundry: IFoundryAdapter;
   let storyEngine: StoryEngine;
   let gmApprovalQueue: GmApprovalQueue;
@@ -143,7 +143,7 @@ describe('HybridRoutingController', () => {
 
   beforeEach(() => {
     nitroLogic = makeMockNitroLogic();
-    ollama = makeMockOllama();
+    sovereignNarrative = makeMockSovereignNarrative();
     foundry = makeMockFoundryAdapter();
     storyEngine = makeMockStoryEngine();
     gmApprovalQueue = makeMockGmApprovalQueue();
@@ -152,7 +152,7 @@ describe('HybridRoutingController', () => {
     redTradeService = makeMockRedTradeService();
     controller = new HybridRoutingController({
       nitroLogicClient: nitroLogic,
-      ollamaClient: ollama,
+      sovereignNarrativeClient: sovereignNarrative,
       foundryAdapter: foundry,
       storyEngine,
       gmApprovalQueue,
@@ -189,7 +189,7 @@ describe('HybridRoutingController', () => {
       };
 
       // Prompt should mention "Vido" to trigger grounding
-      vi.mocked(ollama.generateNarrative).mockImplementation((prompt) => {
+      vi.mocked(sovereignNarrative.generateNarrative).mockImplementation((prompt) => {
         return Promise.resolve(`Narrative about Vido`);
       });
 
@@ -211,7 +211,7 @@ describe('HybridRoutingController', () => {
 
       await controller.handleFoundryEvent(buyEvent);
 
-      expect(ollama.generateNarrative).toHaveBeenCalledWith(
+      expect(sovereignNarrative.generateNarrative).toHaveBeenCalledWith(
         expect.any(String),
         expect.stringContaining('vendor=Vido'),
         expect.stringContaining('WORLD PULSE (GROUNDED TRUTH):\n- Vido: HP=40, Faction=Maelstrom, Stance=neutral\n  Context: "Vido says hello...."'),
@@ -265,7 +265,7 @@ describe('HybridRoutingController', () => {
 
       expect(foundry.readActor).toHaveBeenCalledWith('actor-v-001');
       expect(foundry.updateActor).toHaveBeenCalledWith('actor-v-001', { 'system.wealth.eb': 400 });
-      expect(ollama.generateNarrative).toHaveBeenCalled();
+      expect(sovereignNarrative.generateNarrative).toHaveBeenCalled();
     });
 
     it('fails if actor has insufficient funds', async () => {
@@ -399,8 +399,8 @@ describe('HybridRoutingController', () => {
 
   describe('Intent Swarm', () => {
     it('dispatches concurrent requests to determine Tone and Intensity', async () => {
-      // Mock ollama and nitrologic, spy on them.
-      const generateSpy = vi.spyOn(ollama, 'generateNarrative').mockResolvedValue('Tense');
+      // Mock sovereignNarrative and nitrologic, spy on them.
+      const generateSpy = vi.spyOn(sovereignNarrative, 'generateNarrative').mockResolvedValue('Tense');
       const calcDvSpy = vi.spyOn(nitroLogic, 'calculateDv').mockResolvedValue({
         dv: 16,
         breakdown: 'Mock',

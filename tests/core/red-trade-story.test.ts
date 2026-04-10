@@ -16,7 +16,7 @@ import {
   bootstrapRedTrade,
   createRedTradeInitialState,
 } from '../../src/core/campaign-registry.js';
-import type { INitroLogicClient, IOllamaClient } from '../../src/core/interfaces.js';
+import type { INitroLogicClient, ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
 import type { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
@@ -35,7 +35,7 @@ function makeMockNitroLogic(): INitroLogicClient {
   };
 }
 
-function makeMockOllama(): IOllamaClient {
+function makeMockSovereignNarrative(): ISovereignNarrativeClient {
   return {
     generateNarrative: vi.fn().mockResolvedValue('The city never sleeps, choom.'),
     isHealthy: vi.fn().mockResolvedValue(true),
@@ -71,7 +71,7 @@ function makeMockRedTradeService(): RedTradeService {
 function makeController(storyEngine: StoryEngine, foundry: IFoundryAdapter, redTradeService: RedTradeService): HybridRoutingController {
   return new HybridRoutingController({
     nitroLogicClient: makeMockNitroLogic(),
-    ollamaClient: makeMockOllama(),
+    sovereignNarrativeClient: makeMockSovereignNarrative(),
     foundryAdapter: foundry,
     storyEngine,
     gmApprovalQueue: { enqueue: vi.fn(), handleResponse: vi.fn(), getPending: vi.fn() } as unknown as GmApprovalQueue,

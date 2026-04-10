@@ -6,7 +6,7 @@
 
 import fs from 'node:fs/promises';
 import { z } from 'zod';
-import type { TacticalRegion, OllamaConfig } from './interfaces.js';
+import type { TacticalRegion, SovereignNarrativeConfig } from './interfaces.js';
 
 const TacticalRegionSchema = z.object({
   category: z.enum(['cover_high', 'cover_partial', 'hazard', 'security']),
@@ -19,9 +19,9 @@ const TacticalVisionResponseSchema = z.object({
 });
 
 export class TacticalVisionService {
-  private readonly config: OllamaConfig;
+  private readonly config: SovereignNarrativeConfig;
 
-  constructor(config: OllamaConfig) {
+  constructor(config: SovereignNarrativeConfig) {
     this.config = config;
   }
 

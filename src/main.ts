@@ -47,7 +47,7 @@ console.info = (...args) => {
 import { FoundryAdapter } from './api/foundry-adapter.js';
 import { ClawLinkClient } from './api/clawlink-client.js';
 import { NitroLogicClient } from './core/nitro-logic-client.js';
-import { OllamaClient } from './core/ollama-client.js';
+import { SovereignNarrativeClient } from './core/sovereign-narrative-client.js';
 import { HybridRoutingController } from './core/hybrid-routing-controller.js';
 import { StoryEngine } from './core/story-engine.js';
 import { VsbClient } from './api/vsb-client.js';
@@ -110,7 +110,7 @@ async function main() {
 
   const rootsInjector = new RootsInjector(oracle.getRawDatabase());
 
-  const ollama = new OllamaClient({
+  const sovereignNarrative = new SovereignNarrativeClient({
     baseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',
     model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
     timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
@@ -130,7 +130,7 @@ async function main() {
 
   // 4. Initialise State Engine
   // For the "Live-Fire" test, we use the TttA Part 1 starting state
-  const storyEngine = new StoryEngine(createTttaPart1InitialState(), ollama);
+  const storyEngine = new StoryEngine(createTttaPart1InitialState(), sovereignNarrative);
   bootstrapTttaPart1(storyEngine);
 
   // 5. Build Foundry Adapter
@@ -178,7 +178,7 @@ async function main() {
     nitroLogicClient: nitroLogic,
     vsbClient: vsbClient,
     clawlinkClient: clawlinkClient,
-    ollamaClient: ollama,
+    sovereignNarrativeClient: sovereignNarrative,
     foundryAdapter: foundry,
     storyEngine,
     gmApprovalQueue: new GmApprovalQueue(foundry),
@@ -240,9 +240,9 @@ async function main() {
       await foundry.stop();
       console.log('✅ Foundry Adapter STOPPED.');
 
-      // Stop AI clients (Ollama will unload model)
-      await ollama.stop();
-      console.log('✅ Ollama Client STOPPED.');
+      // Stop AI clients (SovereignNarrative will unload model)
+      await sovereignNarrative.stop();
+      console.log('✅ SovereignNarrative Client STOPPED.');
       
       await nitroLogic.stop();
       console.log('✅ NitroLogic Client STOPPED.');

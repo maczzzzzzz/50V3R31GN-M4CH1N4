@@ -25,12 +25,12 @@ const OpenAIEmbeddingResponseSchema = z.object({
 });
 
 /**
- * OllamaEmbeddingService — Converts text to vectors via llama-server's OpenAI-compatible endpoint.
+ * SovereignEmbeddingService — Converts text to vectors via llama-server's OpenAI-compatible endpoint.
  *
  * Targets the /v1/embeddings endpoint.
  * Produces L2-normalized vectors for cosine similarity search.
  */
-export class OllamaEmbeddingService implements IEmbeddingService {
+export class SovereignEmbeddingService implements IEmbeddingService {
   private readonly config: EmbeddingServiceConfig;
   private readonly logger: ILogger;
   private detectedDimensions: number | null = null;
@@ -46,7 +46,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
     this.logger = logger;
 
     const initTraceId = randomUUID();
-    this.logger.info('OllamaEmbeddingService', initTraceId, `Initialized for ${this.config.baseUrl} with model ${this.config.model}`, {
+    this.logger.info('SovereignEmbeddingService', initTraceId, `Initialized for ${this.config.baseUrl} with model ${this.config.model}`, {
       baseUrl: this.config.baseUrl,
       model: this.config.model,
     });
@@ -66,7 +66,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
 
     if (this.detectedDimensions === null) {
       this.detectedDimensions = vector.length;
-      this.logger.info('OllamaEmbeddingService', traceId, `Detected embedding dimensions: ${vector.length}`, {
+      this.logger.info('SovereignEmbeddingService', traceId, `Detected embedding dimensions: ${vector.length}`, {
         dimensions: vector.length,
       });
     }
@@ -104,7 +104,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
 
     if (this.detectedDimensions === null && sortedEmbeddings.length > 0) {
       this.detectedDimensions = sortedEmbeddings[0]!.length;
-      this.logger.info('OllamaEmbeddingService', traceId, `Detected embedding dimensions: ${this.detectedDimensions}`, {
+      this.logger.info('SovereignEmbeddingService', traceId, `Detected embedding dimensions: ${this.detectedDimensions}`, {
         dimensions: this.detectedDimensions,
       });
     }
@@ -129,7 +129,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
       input,
     };
 
-    this.logger.debug('OllamaEmbeddingService', traceId, `POST ${url}`, {
+    this.logger.debug('SovereignEmbeddingService', traceId, `POST ${url}`, {
       model: this.config.model,
       inputCount: Array.isArray(input) ? input.length : 1,
     });
@@ -144,16 +144,16 @@ export class OllamaEmbeddingService implements IEmbeddingService {
       });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      this.logger.error('OllamaEmbeddingService', traceId, `Network error calling llama-server: ${message}`, {
+      this.logger.error('SovereignEmbeddingService', traceId, `Network error calling llama-server: ${message}`, {
         url,
         stack: err instanceof Error ? err.stack : undefined,
       });
-      throw new Error(`OllamaEmbeddingService network error: ${message}`);
+      throw new Error(`SovereignEmbeddingService network error: ${message}`);
     }
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => 'unable to read response body');
-      this.logger.error('OllamaEmbeddingService', traceId, `llama-server returned HTTP ${response.status}`, {
+      this.logger.error('SovereignEmbeddingService', traceId, `llama-server returned HTTP ${response.status}`, {
         status: response.status,
         body: errorBody,
       });
@@ -164,7 +164,7 @@ export class OllamaEmbeddingService implements IEmbeddingService {
 
     const parsed = OpenAIEmbeddingResponseSchema.safeParse(rawJson);
     if (!parsed.success) {
-      this.logger.error('OllamaEmbeddingService', traceId, 'llama-server response failed Zod validation', {
+      this.logger.error('SovereignEmbeddingService', traceId, 'llama-server response failed Zod validation', {
         errors: parsed.error.issues.map(i => i.message),
         rawKeys: typeof rawJson === 'object' && rawJson !== null ? Object.keys(rawJson) : [],
       });

@@ -101,6 +101,15 @@ class FoundryApiBridge {
           x: token.x,
           y: token.y,
         });
+        
+        // Phase 40: Hover Vendor check
+        const isVendor = token.actor?.items?.some(i => i.type === "market") || token.document?.flags?.isVendor;
+        if (isVendor) {
+          this._sendEvent('hoverVendor', {
+            actorId: token.actor.id,
+            vendorName: token.name
+          });
+        }
       } else {
         this._sendEvent('perception_hover_out', { id: token?.id ?? null });
       }

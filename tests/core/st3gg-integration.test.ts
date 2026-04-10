@@ -10,7 +10,7 @@ import { PNG } from 'pngjs';
 
 // Mocks
 const mockNitroLogic = { resolveAttack: vi.fn(), calculateDv: vi.fn(), oracleRoll: vi.fn(), isHealthy: vi.fn().mockResolvedValue(true) };
-const mockOllama = { generateNarrative: vi.fn().mockResolvedValue("SECRET_KEY") };
+const mockSovereignNarrative = { generateNarrative: vi.fn().mockResolvedValue("SECRET_KEY") };
 const mockFoundry = { 
   sendChatMessage: vi.fn(), 
   show3dDice: vi.fn(), 
@@ -43,7 +43,7 @@ describe('HybridRoutingController - ST3GG Integration', () => {
 
     controller = new HybridRoutingController({
       nitroLogicClient: mockNitroLogic as any,
-      ollamaClient: mockOllama as any,
+      sovereignNarrativeClient: mockSovereignNarrative as any,
       foundryAdapter: mockFoundry as any,
       storyEngine: mockStory as any,
       gmApprovalQueue: {} as any,
@@ -61,7 +61,7 @@ describe('HybridRoutingController - ST3GG Integration', () => {
 
     await controller.handleFoundryEvent(event);
 
-    expect(mockOllama.generateNarrative).toHaveBeenCalled();
+    expect(mockSovereignNarrative.generateNarrative).toHaveBeenCalled();
     expect(mockFoundry.sendChatMessage).toHaveBeenCalledWith(
       expect.stringContaining('assets/st3gg_drops/'),
       expect.any(Object)

@@ -14,9 +14,14 @@ const (
 	ProposalOffset      = 1024
 	ProposalSize        = 302 // Matches IntentPacket size for simplicity
 	SovereignModeOffset = 2048
+
+	// Phase 40: Tactical Heat Radar
+	// Layout: active(1) | heat(1) | public(1) = 3 bytes
+	RadarOffset = 3072
+
 	// Phase 39: Transient biometric hover slot.
 	// Layout: active(1) | id(16) | type(8) | x_f32(4) | y_f32(4) | imgPath(100) = 133 bytes
-	HoveredUnitOffset = 3072
+	HoveredUnitOffset = 3205
 	HoveredUnitSize   = 133
 )
 
@@ -100,6 +105,21 @@ func (w *VsbWatcher) ToggleSovereignMode(on bool) {
 		w.mmap[SovereignModeOffset] = 0x01
 	} else {
 		w.mmap[SovereignModeOffset] = 0x00
+	}
+}
+
+// WriteRadar updates the tactical heat radar slot.
+func (w *VsbWatcher) WriteRadar(active bool, heat uint8, public bool) {
+	if active {
+		w.mmap[RadarOffset] = 0x01
+	} else {
+		w.mmap[RadarOffset] = 0x00
+	}
+	w.mmap[RadarOffset+1] = heat
+	if public {
+		w.mmap[RadarOffset+2] = 0x01
+	} else {
+		w.mmap[RadarOffset+2] = 0x00
 	}
 }
 

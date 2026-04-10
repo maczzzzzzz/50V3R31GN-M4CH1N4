@@ -57,10 +57,10 @@ export interface HealthCheckResult {
   readonly timestamp: string;
 }
 
-/** Configuration for the Ollama embedding service on Node B. */
+/** Configuration for the SovereignNarrative embedding service on Node B. */
 export interface EmbeddingServiceConfig {
   /** Base URL (e.g., http://localhost:8080/v1). */  readonly baseUrl: string;
-  /** Model name as shown by `ollama list` (e.g., nomic-embed-text). */
+  /** Model name as shown by `sovereignNarrative list` (e.g., nomic-embed-text). */
   readonly model: string;
   /** Request timeout in milliseconds. */
   readonly timeoutMs: number;

@@ -5,7 +5,7 @@
  */
 
 import type {
-  INitroLogicClient, IOllamaClient, 
+  INitroLogicClient, ISovereignNarrativeClient, 
   AttackResult, DvResult, OracleResult,
   ResolveAttackParams, CalculateDvParams, OracleRollParams, IArchitectService,
 } from './interfaces.js';
@@ -40,7 +40,7 @@ import { SovereignJudge } from './sovereign-judge.js';
 export interface HybridRoutingControllerOptions {
   readonly nitroLogicClient: INitroLogicClient;
   readonly vsbClient?: VsbClient | undefined;
-  readonly ollamaClient: IOllamaClient;
+  readonly sovereignNarrativeClient: ISovereignNarrativeClient;
   readonly foundryAdapter: IFoundryAdapter;
   readonly storyEngine: StoryEngine;
   readonly gmApprovalQueue: GmApprovalQueue;
@@ -64,7 +64,7 @@ export interface HybridRoutingControllerOptions {
 
 export class HybridRoutingController {
   private readonly nitroLogic: INitroLogicClient;
-  private readonly ollama: IOllamaClient;
+  private readonly sovereignNarrative: ISovereignNarrativeClient;
   private readonly foundry: IFoundryAdapter;
   private readonly clawlink: IClawLinkClient | undefined;
   private readonly storyEngine: StoryEngine;
@@ -93,7 +93,7 @@ export class HybridRoutingController {
     this.nitroLogic = options.nitroLogicClient;
     this.vsb = options.vsbClient;
     this.clawlink = options.clawlinkClient;
-    this.ollama = options.ollamaClient;
+    this.sovereignNarrative = options.sovereignNarrativeClient;
     this.foundry = options.foundryAdapter;
     this.storyEngine = options.storyEngine;
     this.gmApprovalQueue = options.gmApprovalQueue;
@@ -114,7 +114,7 @@ export class HybridRoutingController {
 
     this.sovereignJudge = new SovereignJudge({
       nitroLogicClient: this.nitroLogic,
-      ollamaClient: this.ollama,
+      sovereignNarrativeClient: this.sovereignNarrative,
       oracle: this.unifiedOracle,
       ...(this.clawlink !== undefined ? { clawlinkClient: this.clawlink } : {}),
       foundryAdapter: this.foundry,
@@ -176,7 +176,7 @@ export class HybridRoutingController {
   /**
    * Sovereign Highway (Phase 25): Fast-path for mechanical validation.
    * If vsbClient is available, it sends a UDP packet to Node A.
-   * Otherwise, it returns null (caller should fall back to standard HTTP/Ollama path).
+   * Otherwise, it returns null (caller should fall back to standard HTTP/SovereignNarrative path).
    */
   async validateMechanicalIntent(
     payload: string,
@@ -207,7 +207,7 @@ export class HybridRoutingController {
     // Use TaskRouterProxy to dispatch concurrently
     const [toneTask, intensityTask] = await Promise.all([
       this.taskRouter.dispatch({ destination: 'NodeB', cost: 'HEAVY' }, async () => {
-        return this.ollama.generateNarrative('Determine emotional tone (1 word) of:', context);
+        return this.sovereignNarrative.generateNarrative('Determine emotional tone (1 word) of:', context);
       }),
       this.taskRouter.dispatch({ destination: 'NodeA', cost: 'LIGHT' }, async () => {
         const response = await this.nitroLogic.calculateDv({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional', situationalModifiers: 0 });
@@ -296,6 +296,9 @@ export class HybridRoutingController {
           event.payload.editedData,
         );
       case 'open_night_market':
+        return this.handleOpenNightMarket(event.payload.actorId, event.payload.vendorName);
+      case 'hoverVendor':
+        // Phase 40: Hovering over a vendor triggers the Night Market HUD
         return this.handleOpenNightMarket(event.payload.actorId, event.payload.vendorName);
       case 'red_trade_transit':
         return this.handleRedTradeTransit(event.payload);
@@ -605,7 +608,7 @@ export class HybridRoutingController {
     const visualSummary = `Tokens: ${visual.tokenClusters.join(', ')}. Environment: ${visual.environmentalFeatures.join(', ')}.`;
     const groundedContext = await this.applyWorldPulseGrounding(visualSummary);
     const prompt = 'Describe the tactical situation on the battle map.';
-    const narrative = await this.ollama.generateNarrative(prompt, visualSummary, groundedContext);
+    const narrative = await this.sovereignNarrative.generateNarrative(prompt, visualSummary, groundedContext);
     await this.foundry.sendChatMessage(narrative, { alias: 'Optical Bridge' });
   }
 
@@ -613,7 +616,7 @@ export class HybridRoutingController {
     if (!this.onboardingEnabled) return;
     const controller = new OnboardingController({
       nitroLogicClient: this.nitroLogic,
-      ollamaClient:     this.ollama,
+      sovereignNarrativeClient:     this.sovereignNarrative,
       unifiedOracle:    this.unifiedOracle,
     });
     await controller.startInterview();
@@ -806,7 +809,16 @@ export class HybridRoutingController {
     if (!this.turnDaemon) {
       throw new Error('HybridRoutingController: npc_turn event received but no TurnDaemon is configured');
     }
-    return this.turnDaemon.runTurn(payload.npcId, payload.sensoryContext);
+    const result = await this.turnDaemon.runTurn(payload.npcId, payload.sensoryContext);
+
+    // Phase 40: Ambush Spawning
+    if (result.action.type === 'attack' && this.architect) {
+      this.architect.spawnToken(null, 500, 500).catch((err: Error) => {
+        console.warn('[HRC] Architect hostile manifestation failed:', err.message);
+      });
+    }
+
+    return result;
   }
 
   private async handleThoughtStream(payload: { content: string }): Promise<void> {
@@ -832,7 +844,7 @@ export class HybridRoutingController {
   private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {
     // 1. Generate Contextual Secret (Node B GPU)
     const prompt = `Generate a short (max 15 words) secret password, data fragment, or lore clue found in a file related to: ${payload.context}`;
-    const secret = await this.ollama.generateNarrative(prompt, payload.context, 'Generate a short Cyberpunk secret.');
+    const secret = await this.sovereignNarrative.generateNarrative(prompt, payload.context, 'Generate a short Cyberpunk secret.');
 
     // 2. Select Template & Encode (Node B CPU)
     // We assume templates exist in data/assets/st3gg_templates/

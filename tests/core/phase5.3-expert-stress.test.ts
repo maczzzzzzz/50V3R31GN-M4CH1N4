@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 import { OnboardingController, InterviewState } from '../../src/core/onboarding-controller.js';
-import type { INitroLogicClient, IOllamaClient } from '../../src/core/interfaces.js';
+import type { INitroLogicClient, ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
 
 describe('Phase 5.3 Expert Stress Tests', () => {
   const mockNitro = {} as INitroLogicClient;
-  const mockOllama = {} as IOllamaClient;
+  const mockSovereignNarrative = {} as ISovereignNarrativeClient;
   const mockOracle = {
     isConnected: () => true,
     execute: vi.fn(),
@@ -14,7 +14,7 @@ describe('Phase 5.3 Expert Stress Tests', () => {
   it('BREAK TEST: Stat Distribution Cap (CP Red Creation Rules)', async () => {
     const controller = new OnboardingController({
       nitroLogicClient: mockNitro,
-      ollamaClient: mockOllama,
+      sovereignNarrativeClient: mockSovereignNarrative,
       unifiedOracle: mockOracle
     });
 
@@ -36,7 +36,7 @@ describe('Phase 5.3 Expert Stress Tests', () => {
   it('BREAK TEST: LUCK Overflow Remainder Logic', async () => {
     const controller = new OnboardingController({
       nitroLogicClient: mockNitro,
-      ollamaClient: mockOllama,
+      sovereignNarrativeClient: mockSovereignNarrative,
       unifiedOracle: mockOracle
     });
 
@@ -52,8 +52,8 @@ describe('Phase 5.3 Expert Stress Tests', () => {
   });
 
   it('BREAK TEST: Parallel Session Race Condition', async () => {
-    const controller1 = new OnboardingController({ nitroLogicClient: mockNitro, ollamaClient: mockOllama, unifiedOracle: mockOracle });
-    const controller2 = new OnboardingController({ nitroLogicClient: mockNitro, ollamaClient: mockOllama, unifiedOracle: mockOracle });
+    const controller1 = new OnboardingController({ nitroLogicClient: mockNitro, sovereignNarrativeClient: mockSovereignNarrative, unifiedOracle: mockOracle });
+    const controller2 = new OnboardingController({ nitroLogicClient: mockNitro, sovereignNarrativeClient: mockSovereignNarrative, unifiedOracle: mockOracle });
 
     expect(controller1.getSession().sessionId).not.toBe(controller2.getSession().sessionId);
   });

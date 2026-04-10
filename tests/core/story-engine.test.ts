@@ -55,15 +55,15 @@ describe('StoryEngine', () => {
       worldState: {},
       eagleBalance: 0,
     };
-    const mockOllama = {
+    const mockSovereignNarrative = {
       generateNarrative: vi.fn().mockResolvedValue('{"text":"NEURAL COLLAPSE","color":"#ff003c","duration":3000,"fxParams":{"shader":"chromatic_aberration","intensity":2.5}}'),
     } as any;
-    const engine = new StoryEngine(state, mockOllama);
+    const engine = new StoryEngine(state, mockSovereignNarrative);
 
     await engine.generateOverlayParams('NPC sees runner', '[DISTRICT ATMOSPHERE: Watson] DOMINANT THEMES: Despair (0.90)');
 
-    expect(mockOllama.generateNarrative).toHaveBeenCalledOnce();
-    const promptArg: string = mockOllama.generateNarrative.mock.calls[0][0];
+    expect(mockSovereignNarrative.generateNarrative).toHaveBeenCalledOnce();
+    const promptArg: string = mockSovereignNarrative.generateNarrative.mock.calls[0][0];
     expect(promptArg).toContain('ATMOSPHERIC BIAS');
     expect(promptArg).toContain('Watson');
     expect(promptArg).toContain('Despair');
@@ -77,18 +77,18 @@ describe('StoryEngine', () => {
       worldState: {},
       eagleBalance: 0,
     };
-    const mockOllama = {
+    const mockSovereignNarrative = {
       generateNarrative: vi.fn().mockResolvedValue('{"text":"ALL CLEAR","color":"#ff003c","duration":2000,"fxParams":{"shader":"none","intensity":0}}'),
     } as any;
-    const engine = new StoryEngine(state, mockOllama);
+    const engine = new StoryEngine(state, mockSovereignNarrative);
 
     await engine.generateOverlayParams('Calm area', '');
 
-    const promptArg: string = mockOllama.generateNarrative.mock.calls[0][0];
+    const promptArg: string = mockSovereignNarrative.generateNarrative.mock.calls[0][0];
     expect(promptArg).not.toContain('ATMOSPHERIC BIAS');
   });
 
-  it('generateOverlayParams() returns text-only overlay when no ollama client', async () => {
+  it('generateOverlayParams() returns text-only overlay when no sovereignNarrative client', async () => {
     const state: StoryState = {
       currentArc: 'Pacifica',
       currentBeat: 'Beat 1',

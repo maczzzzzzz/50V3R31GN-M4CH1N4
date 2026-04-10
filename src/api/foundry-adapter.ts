@@ -127,6 +127,7 @@ export interface IFoundryAdapter {
    * content token received in the SSE stream.
    */
   streamThoughtTokens(content: string, onToken: (token: string) => void): Promise<void>;
+  sendRpc(method: string, payload: unknown): Promise<unknown>;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -426,6 +427,14 @@ export class FoundryAdapter implements IFoundryAdapter {
       requestId: this.generateRequestId(),
       payload: { code, broadcast },
     });
+  }
+
+  async sendRpc(method: string, payload: unknown): Promise<unknown> {
+    return this.sendCommand({
+      type: 'rpc',
+      requestId: this.generateRequestId(),
+      payload: { method, payload },
+    } as any);
   }
 
   async advancePhase(sceneId: string | null, phaseIndex: number): Promise<void> {

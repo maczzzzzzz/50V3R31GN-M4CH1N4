@@ -5,7 +5,7 @@
  *
  * This test simulates a complete solo session cycle using the real StoryEngine
  * bootstrapped with TttA Part 1 campaign beats. All external adapters
- * (FoundryAdapter, NitroLogicClient, OllamaClient) are mocked.
+ * (FoundryAdapter, NitroLogicClient, SovereignNarrativeClient) are mocked.
  *
  * Verified sequence (Phase Gate per docs/research/2026-03-29_Phase-4-Exhaustive-Blueprint.md §5):
  *   1. Trigger Fixer Gig      → simple_phone → "Got a job, choom."
@@ -22,7 +22,7 @@ import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
 import { NightMarketService } from '../../src/core/night-market-service.js';
 import { bootstrapTttaPart1, createTttaPart1InitialState } from '../../src/core/campaign-registry.js';
 import type { INitroLogicClient, AttackResult } from '../../src/core/interfaces.js';
-import type { IOllamaClient } from '../../src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
 import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
 import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
 import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
@@ -39,7 +39,7 @@ function makeMockNitroLogic(): INitroLogicClient {
   };
 }
 
-function makeMockOllama(): IOllamaClient {
+function makeMockSovereignNarrative(): ISovereignNarrativeClient {
   return {
     generateNarrative: vi.fn().mockResolvedValue('The night belongs to you, choom.'),
     isHealthy: vi.fn().mockResolvedValue(true),
@@ -139,7 +139,7 @@ const buyItemEvent: FoundryEvent = {
 
 describe('Full World Test: TttA Part 1 E2E Session Loop', () => {
   let nitroLogic: INitroLogicClient;
-  let ollama: IOllamaClient;
+  let sovereignNarrative: ISovereignNarrativeClient;
   let foundry: IFoundryAdapter;
   let storyEngine: StoryEngine;
   let gmApprovalQueue: GmApprovalQueue;
@@ -154,7 +154,7 @@ describe('Full World Test: TttA Part 1 E2E Session Loop', () => {
     bootstrapTttaPart1(storyEngine);
 
     nitroLogic = makeMockNitroLogic();
-    ollama = makeMockOllama();
+    sovereignNarrative = makeMockSovereignNarrative();
     foundry = makeMockFoundryAdapter();
     gmApprovalQueue = makeMockGmApprovalQueue();
     nightMarketService = makeMockNightMarketService();
@@ -163,7 +163,7 @@ describe('Full World Test: TttA Part 1 E2E Session Loop', () => {
 
     controller = new HybridRoutingController({
       nitroLogicClient: nitroLogic,
-      ollamaClient: ollama,
+      sovereignNarrativeClient: sovereignNarrative,
       foundryAdapter: foundry,
       storyEngine,
       gmApprovalQueue,

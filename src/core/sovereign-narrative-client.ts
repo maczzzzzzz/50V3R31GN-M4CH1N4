@@ -1,19 +1,19 @@
 /**
- * src/core/ollama-client.ts
+ * src/core/sovereign-narrative-client.ts
  *
- * OllamaClient — Node B Narrative Synthesis Client (Migrated to llama-server)
+ * SovereignNarrativeClient — Node B Narrative Synthesis Client (Migrated to llama-server)
  *
  * Connects to Mistral-Nemo 12B via llama-server's OpenAI-compatible
  * /v1/chat/completions endpoint.
  */
 
 import { z } from 'zod';
-import type { IOllamaClient, OllamaConfig } from './interfaces.js';
+import type { ISovereignNarrativeClient, SovereignNarrativeConfig } from './interfaces.js';
 import { RootsInjector } from './roots-injector.js';
 
 // ── Zod config validation ─────────────────────────────────────────────────────
 
-const OllamaConfigSchema = z.object({
+const SovereignNarrativeConfigSchema = z.object({
   baseUrl: z.string().min(1, 'baseUrl must not be empty'),
   model: z.string().min(1, 'model must not be empty'),
   timeoutMs: z.number().int().positive('timeoutMs must be a positive integer'),
@@ -51,14 +51,14 @@ Rules:
 
 // ── Implementation ────────────────────────────────────────────────────────────
 
-export class OllamaClient implements IOllamaClient {
-  private readonly config: OllamaConfig;
+export class SovereignNarrativeClient implements ISovereignNarrativeClient {
+  private readonly config: SovereignNarrativeConfig;
   private rootsInjector?: RootsInjector | undefined;
 
-  constructor(config: OllamaConfig, rootsInjector?: RootsInjector) {
-    const parsed = OllamaConfigSchema.safeParse(config);
+  constructor(config: SovereignNarrativeConfig, rootsInjector?: RootsInjector) {
+    const parsed = SovereignNarrativeConfigSchema.safeParse(config);
     if (!parsed.success) {
-      throw new Error(`OllamaClient: invalid config — ${parsed.error.message}`);
+      throw new Error(`SovereignNarrativeClient: invalid config — ${parsed.error.message}`);
     }
     this.config = config;
     this.rootsInjector = rootsInjector;
@@ -87,7 +87,7 @@ export class OllamaClient implements IOllamaClient {
   async stop(): Promise<void> {
     // llama-server is a persistent process managed externally (e.g. systemd/bash)
     // No explicit unload needed per-session.
-    console.log(`[OllamaClient] Detaching from llama-server: ${this.config.model}`);
+    console.log(`[SovereignNarrativeClient] Detaching from llama-server: ${this.config.model}`);
   }
 
   // ── generateNarrative ───────────────────────────────────────────────────────
@@ -129,7 +129,7 @@ export class OllamaClient implements IOllamaClient {
       });
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
-        throw new Error(`OllamaClient: generateNarrative timeout after ${this.config.timeoutMs}ms`);
+        throw new Error(`SovereignNarrativeClient: generateNarrative timeout after ${this.config.timeoutMs}ms`);
       }
       throw err;
     } finally {
@@ -137,24 +137,24 @@ export class OllamaClient implements IOllamaClient {
     }
 
     if (!response.ok) {
-      throw new Error(`OllamaClient: HTTP ${response.status} from llama-server — ${response.statusText}`);
+      throw new Error(`SovereignNarrativeClient: HTTP ${response.status} from llama-server — ${response.statusText}`);
     }
 
     let json: unknown;
     try {
       json = await response.json();
     } catch {
-      throw new Error('OllamaClient: failed to parse JSON from llama-server response');
+      throw new Error('SovereignNarrativeClient: failed to parse JSON from llama-server response');
     }
 
     const parsed = ChatCompletionResponseSchema.safeParse(json);
     if (!parsed.success) {
-      throw new Error(`OllamaClient: schema validation failed — ${parsed.error.message}`);
+      throw new Error(`SovereignNarrativeClient: schema validation failed — ${parsed.error.message}`);
     }
 
     const first = parsed.data.choices[0];
     if (!first) {
-      throw new Error('OllamaClient: schema validation failed — choices array is empty');
+      throw new Error('SovereignNarrativeClient: schema validation failed — choices array is empty');
     }
     return first.message.content;
   }

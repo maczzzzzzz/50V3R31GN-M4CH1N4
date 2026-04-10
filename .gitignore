@@ -97,3 +97,4 @@ deck-igniter/deck-igniter
 docs/raw_data/
 docs/superpowers/
 docs/rulebooks_raw/
+*.tsbuildinfo

@@ -9,18 +9,18 @@
  *   INITIAL → VIBE_CHECK → LIFEPATH → STATS → REVIEW → FINALIZED
  *
  * Each LIFEPATH roll calls Node A (nitro-logic) for deterministic 1d10 results,
- * passes the roll context to Node B (Mistral-Nemo via OllamaClient) for
+ * passes the roll context to Node B (Mistral-Nemo via SovereignNarrativeClient) for
  * interview dialogue, and persists discovered NPCs/gangs into the
  * player_friends_enemies table via UnifiedOracleClient.
  *
  * Architecture:
  *   - nitro-logic (Node A): oracleRoll("1d10") for all table rolls
- *   - Mistral-Nemo (Node B): dialogue generation via IOllamaClient
+ *   - Mistral-Nemo (Node B): dialogue generation via ISovereignNarrativeClient
  *   - UnifiedOracleClient: RKG writes (npcs + player_friends_enemies)
  */
 
 import { randomUUID } from 'node:crypto';
-import type { INitroLogicClient, IOllamaClient } from './interfaces.js';
+import type { INitroLogicClient, ISovereignNarrativeClient } from './interfaces.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 
 // ── State Machine ──────────────────────────────────────────────────────────────
@@ -125,7 +125,7 @@ export interface OnboardingSession {
 
 export interface OnboardingControllerOptions {
   readonly nitroLogicClient: INitroLogicClient;
-  readonly ollamaClient:     IOllamaClient;
+  readonly sovereignNarrativeClient:     ISovereignNarrativeClient;
   readonly unifiedOracle:    UnifiedOracleClient;
 }
 
@@ -133,14 +133,14 @@ export interface OnboardingControllerOptions {
 
 export class OnboardingController {
   private readonly nitroLogic: INitroLogicClient;
-  private readonly ollama:      IOllamaClient;
+  private readonly sovereignNarrative:      ISovereignNarrativeClient;
   private readonly oracle:      UnifiedOracleClient;
 
   private readonly session: OnboardingSession;
 
-  constructor({ nitroLogicClient, ollamaClient, unifiedOracle }: OnboardingControllerOptions) {
+  constructor({ nitroLogicClient, sovereignNarrativeClient, unifiedOracle }: OnboardingControllerOptions) {
     this.nitroLogic = nitroLogicClient;
-    this.ollama     = ollamaClient;
+    this.sovereignNarrative     = sovereignNarrativeClient;
     this.oracle     = unifiedOracle;
 
     this.session = {
@@ -237,7 +237,7 @@ export class OnboardingController {
 
     let dialogue: string;
     try {
-      dialogue = await this.ollama.generateNarrative(prompt, context, 'Cyberpunk RED character creation interview.');
+      dialogue = await this.sovereignNarrative.generateNarrative(prompt, context, 'Cyberpunk RED character creation interview.');
     } catch {
       // Immersion-safe fallback — never leave the interview silent
       dialogue = `${interviewNPC.split('(')[0]?.trim() ?? 'The fixer'} nods slowly, absorbing your history. "Rough start. This city chews up kids like you — unless they're smart." The chrome eyes linger. "Let's see if you're smart."`;

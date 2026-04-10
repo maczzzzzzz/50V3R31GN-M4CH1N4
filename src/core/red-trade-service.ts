@@ -50,10 +50,27 @@ export class RedTradeService {
 
   /**
    * Orchestrates a full friction roll by looking up faction state from the oracle.
-   * This is the entry point for the Pulse Engine.
+   * Dispatches a FrictionIntent via VSB for processing by Node A.
    */
-  async calculateFrictionRoll(factionName: string, oracle: { getFactionFriction(name: string): Promise<number> }): Promise<FrictionRollResult> {
+  async calculateFrictionRoll(
+    factionName: string,
+    oracle: { getFactionFriction(name: string): Promise<number> },
+    vsbClient?: import('../api/vsb-client.js').VsbClient
+  ): Promise<FrictionRollResult> {
     const friction = await oracle.getFactionFriction(factionName);
+
+    if (vsbClient) {
+      const sessionId = new Uint8Array(16);
+      const actorId = new Uint8Array(16);
+      const payload = new Uint8Array(256);
+      payload[0] = friction; // Minimal encoding of current friction
+
+      // Dispatch but don't await blocking here, we assume asynchronous resolution for now
+      vsbClient.sendFrictionIntent(1, sessionId, actorId, payload).catch(err => {
+        process.stderr.write(`[RedTradeService] VSB Friction Dispatch Failed: ${err}\n`);
+      });
+    }
+
     return this.rollFriction(friction);
   }
 

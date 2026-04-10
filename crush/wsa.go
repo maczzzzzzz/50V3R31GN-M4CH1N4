@@ -24,6 +24,7 @@ Actions:
   dim-lights  <scene-id>    Dim lights in a scene
   hack-camera <camera-id>   Hack a surveillance camera
   shut-down   <device-id>   Shut down a networked device
+  friction    <faction-id>  Trigger friction roll for faction
 `
 
 // runWSA executes a WSA subcommand and returns an exit code:

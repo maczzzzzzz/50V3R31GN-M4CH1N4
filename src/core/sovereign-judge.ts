@@ -1,11 +1,11 @@
-import type { IOllamaClient, INitroLogicClient } from './interfaces.js';
+import type { ISovereignNarrativeClient, INitroLogicClient } from './interfaces.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 
 export interface SovereignJudgeOptions {
   nitroLogicClient: INitroLogicClient;
-  ollamaClient: IOllamaClient;
+  sovereignNarrativeClient: ISovereignNarrativeClient;
   oracle: UnifiedOracleClient;
   clawlinkClient?: IClawLinkClient;
   foundryAdapter?: IFoundryAdapter;
@@ -13,14 +13,14 @@ export interface SovereignJudgeOptions {
 
 export class SovereignJudge {
   private readonly nitro: INitroLogicClient;
-  private readonly ollama: IOllamaClient;
+  private readonly sovereignNarrative: ISovereignNarrativeClient;
   private readonly oracle: UnifiedOracleClient;
   private readonly clawlink?: IClawLinkClient;
   private readonly foundry?: IFoundryAdapter;
 
   constructor(options: SovereignJudgeOptions) {
     this.nitro = options.nitroLogicClient;
-    this.ollama = options.ollamaClient;
+    this.sovereignNarrative = options.sovereignNarrativeClient;
     this.oracle = options.oracle;
     if (options.clawlinkClient !== undefined) this.clawlink = options.clawlinkClient;
     if (options.foundryAdapter !== undefined) this.foundry = options.foundryAdapter;
@@ -40,7 +40,7 @@ export class SovereignJudge {
     while (attempts < maxRetries) {
       attempts++;
       
-      const narrative = await this.ollama.generateNarrative(
+      const narrative = await this.sovereignNarrative.generateNarrative(
         currentPrompt, 
         context, 
         systemContext, 

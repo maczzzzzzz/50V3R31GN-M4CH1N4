@@ -1,6 +1,6 @@
 // src/core/story-engine.ts
 import type { StoryState } from '../shared/schemas/story.schema.js';
-import type { IOllamaClient } from './interfaces.js';
+import type { ISovereignNarrativeClient } from './interfaces.js';
 import type { SkillstoneService } from './skillstone-service.js';
 import { ParseltongueCodec } from '../shared/parseltongue-codec.js';
 import type { WorldCommand } from '../shared/schemas/world-commands.schema.js';
@@ -36,7 +36,7 @@ export class StoryEngine {
 
   constructor(
     private state: StoryState,
-    private ollama?: IOllamaClient,
+    private sovereignNarrative?: ISovereignNarrativeClient,
     private skillstoneService?: SkillstoneService,
     private foundryAdapter?: IFoundryAdapter,
   ) {}
@@ -95,7 +95,7 @@ export class StoryEngine {
    *                  enabling the LLM to produce dialect-inflected overlay text.
    */
   async generateOverlayParams(context: string, seedBias?: string, factionId?: string): Promise<OverlayParams> {
-    if (!this.ollama) {
+    if (!this.sovereignNarrative) {
       return { text: context };
     }
 
@@ -120,7 +120,7 @@ Return ONLY a JSON object in this format:
 }`;
 
     try {
-      const response = await this.ollama.generateNarrative(prompt, context, 'Return valid JSON only.');
+      const response = await this.sovereignNarrative.generateNarrative(prompt, context, 'Return valid JSON only.');
       // Extract JSON if model adds fluff
       const jsonMatch = response.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
