@@ -1,6 +1,6 @@
 {
-  "id": "asp-gm-bridge",
-  "title": "ASP GM Agent: High-Fidelity Bridge",
+  "id": "50v3r31gn-bridge",
+  "title": "50V3R31GN-M4CH1N4: High-Fidelity Bridge",
   "description": "Physicalized interface between Node B and the Foundry VTT renderer. Provides high-performance orchestration via Sequencer, FXMaster, and Socketlib.",
   "version": "1.5.0",
   "library": false,

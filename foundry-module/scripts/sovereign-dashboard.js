@@ -65,7 +65,7 @@ function triggerGhostBoot() {
     }
   } catch (e) {
     // Fallback: emit a direct game socket intent
-    game.socket?.emit("module.asp-gm-bridge", {
+    game.socket?.emit("module.50v3r31gn-bridge", {
       type: "GH057_B007",
       timestamp: Date.now(),
     });
@@ -88,7 +88,7 @@ Hooks.once("ready", () => {
   game.sovereignDashboard = new SovereignDashboard();
 
   // Register keybinding: Ctrl+Shift+D opens the dashboard
-  game.keybindings.register("asp-gm-bridge", "openDashboard", {
+  game.keybindings.register("50v3r31gn-bridge", "openDashboard", {
     name: "Open Sovereign Dashboard",
     hint: "Opens the 5H4D0W_D45HB04RD monitoring window",
     editable: [{ key: "KeyD", modifiers: ["Control", "Shift"] }],

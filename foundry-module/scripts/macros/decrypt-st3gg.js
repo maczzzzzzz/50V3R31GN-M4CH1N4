@@ -35,15 +35,15 @@ async function runDecryption() {
 
   if (!imageUrl) return;
 
-  // Assume window.ASP_BRIDGE is the global instance of FoundryApiBridge
+  // Assume window.SOVEREIGN_BRIDGE is the global instance of FoundryApiBridge
   // Note: Since we switched to esmodules, we might need to expose it or use a hook.
-  if (!window.ASP_BRIDGE) {
-    ui.notifications.error("ASP GM Agent Bridge not found.");
+  if (!window.SOVEREIGN_BRIDGE) {
+    ui.notifications.error("50V3R31GN-M4CH1N4 Bridge not found.");
     return;
   }
 
   try {
-    const response = await window.ASP_BRIDGE.sendRequest('decrypt_st3gg', { imagePath: imageUrl });
+    const response = await window.SOVEREIGN_BRIDGE.sendRequest('decrypt_st3gg', { imagePath: imageUrl });
     
     ChatMessage.create({
       user: game.user.id,

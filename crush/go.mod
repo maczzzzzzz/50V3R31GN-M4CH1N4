@@ -1,4 +1,4 @@
-module github.com/asp-gm-agent/crush
+module github.com/50v3r31gn-m4ch1n4/crush
 
 go 1.25.0
 

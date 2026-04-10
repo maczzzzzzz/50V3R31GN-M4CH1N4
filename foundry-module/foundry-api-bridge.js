@@ -3,7 +3,7 @@
  *
  * 50V3R31GN-M4CH1N4: Foundry VTT v12 WebSocket Bridge Module
  *
- * Co-Authored-By: 50V3R31GN-M4CH1N4 <gm-agent@black-ice.net>
+ * Co-Authored-By: 50V3R31GN-M4CH1N4 <50v3r31gn@black-ice.net>
  *
  * Architecture (Palantiri-style Reverse Proxy):
  *   - This module runs INSIDE Foundry VTT's server-side Node.js process.
@@ -94,7 +94,7 @@ class FoundryApiBridge {
     this._connect(wsUrl);
     this._setupInterception();
     this._setupCounterHacks();
-    window.ASP_BRIDGE = this;
+    window.SOVEREIGN_BRIDGE = this;
   }
 
   /**
@@ -880,13 +880,13 @@ class DashboardTab extends Application {
 
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      id: "asp-gm-dashboard",
+      id: "50v3r31gn-dashboard",
       template: "modules/foundry-api-bridge/templates/dashboard.hbs",
       title: "Night City Dashboard",
       width: 320,
       height: 600,
       resizable: true,
-      classes: ["asp-gm-dashboard-app"]
+      classes: ["50v3r31gn-dashboard-app"]
     });
   }
 
@@ -941,7 +941,7 @@ Hooks.once('init', () => {
 
   // Register the DashboardTab class
   if (CONFIG.ui.sidebarTabs) {
-    CONFIG.ui.sidebarTabs["asp-gm-dashboard"] = DashboardTab;
+    CONFIG.ui.sidebarTabs["50v3r31gn-dashboard"] = DashboardTab;
   }
 });
 
