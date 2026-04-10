@@ -43,11 +43,6 @@ akashik_guides/**/*.txt
 
 .vesper_state
 
-# --- Project Specific Data (Surgical) ---
-docs/raw_data/
-docs/superpowers/
-docs/rulebooks_raw/
-
 # IDE & OS Files
 .vscode/*
 !.vscode/settings.json
@@ -95,3 +90,10 @@ deck-igniter/deck-igniter
 *.gguf
 *.onnx
 *.onnx.data
+
+# --- OPERATIONAL DATA (LOCAL ONLY) ---
+# Strictly block all raw assets, campaign data, and internal designs.
+# These are unsealed for Node B runtime but MUST NOT be pushed.
+docs/raw_data/
+docs/superpowers/
+docs/rulebooks_raw/
