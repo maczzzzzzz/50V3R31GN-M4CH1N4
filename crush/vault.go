@@ -59,7 +59,12 @@ func sealDirectory(dir string, key string) int {
 						!strings.HasSuffix(path, ".db.png") &&
 						!strings.HasSuffix(path, ".ldb.png") &&
 						!strings.HasSuffix(path, ".log.png") &&
-						!strings.HasSuffix(path, ".png.png") {
+						!strings.HasSuffix(path, ".png.png") &&
+						!strings.HasSuffix(path, "CURRENT.png") &&
+						!strings.HasSuffix(path, "LOCK.png") &&
+						!strings.HasSuffix(path, "LOG.png") &&
+						!strings.HasSuffix(path, "LOG.old.png") &&
+						!(strings.Contains(path, "MANIFEST") && strings.HasSuffix(path, ".png")) {
 						isSupported = true
 						break
 					}
