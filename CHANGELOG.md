@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.1] - 2026-04-10
+### Added
+- **Startup Modality**: Introduced `crush start --lite` and `--full` flags. Lite mode suppresses heavy GUI elements (Foundry, Obsidian, Dashboard) for terminal-only sovereign operations.
+
+### Changed
+- **Total Identity Purge**: Systematically removed all legacy `ASP GM Agent` identifiers. Replaced with `50V3R31GN-M4CH1N4` and `SOVEREIGN_BRIDGE` across Foundry modules, Go binaries, and system services.
+- **Akashik Library Reorganization**: Migrated all system guides into a Diátaxis-compliant structure at `akashik_guides/`.
+
+### Fixed
+- **Vault Double-Seal Bug**: Patched `crush/vault.go` to prevent recursive encryption of LevelDB shards.
+
 ## [2.3.0] - 2026-04-09
 ### Added
 - **Phase 38: 7R1-M1N1NG [VRAM_50V3R31GN7Y] (Completed)**: Implemented a geometric context compression layer (Trigonometric Scoring) to achieve 10.7x simulated context density on Node A's 4GB VRAM.

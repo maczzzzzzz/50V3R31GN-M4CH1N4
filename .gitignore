@@ -34,6 +34,9 @@ docs/raw_data/**/*.json
 docs/raw_data/**/*.txt
 docs/user_guides/**/*.md
 data/vault/**/*.md
+akashik_guides/**/*.md
+akashik_guides/**/*.json
+akashik_guides/**/*.txt
 *.md
 !*.md.png
 !**/*.md.png
