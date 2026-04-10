@@ -14,6 +14,12 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 - **Version Iteration**: Bumped system version to v2.3.0.
 - **Context Management**: Shifted Node A memory management from reactive FIFO to proactive Geometric Pruning (7R1_SC0R3R).
+- **Technical Debt Sweep**: Removed unused packages (`cheerio`), dead environments (`fhs.nix`, `shell.nix`, `Modelfile`), and obsolete Python inference scripts.
+
+### Fixed
+- **System-Wide Debug Audit (Completed)**: Physicalized and executed a cross-machine dry fire to verify VSB Sovereignty, Rules Oracle Invariants, Economic Friction, Ghost Object extraction, and UI Telemetry.
+- **Vault Security**: Resolved a critical double-seal bug in `crush/vault.go` where steganographic `.png` shards were being encrypted twice, and purged temporary LevelDB logs.
+- **Test Race Conditions**: Stabilized `RedTradeService` and `RulesGrepService` by migrating data dependencies to dedicated `tests/fixtures/`. Full 523 test suite passing.
 
 ## [2.2.0] - 2026-04-09
 ### Added
