@@ -9,7 +9,7 @@
 ## 35 30 56 33 52 33 31 47 4E 2D 4D 34 43 48 31 4E 34
 ---
 
-## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v2.3.1
+## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v2.4.0
 
 Distributed neural orchestrator for Cyberpunk RED.
 A hardware-native, vision-integrated, and **physically autonomous** entity.

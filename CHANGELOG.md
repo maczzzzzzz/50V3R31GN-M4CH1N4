@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-04-10
+### Added
+- **Phase 39: 534ML355-1NF1L7R4710N (Completed)**: Transformed the system into an active infiltration engine.
+- **Transient Biometric Scanning**: Implemented high-fidelity `hoverToken`, `hoverDrawing`, and `hoverNote` hooks in the Foundry bridge, synchronizing live NPC data to the HUD via Mmap.
+- **Quick Hack Console**: Integrated a Netrunning suite directly into the `sidecar-cyberdeck` Rust HUD, allowing for one-click hacks (`SY573M-5H0CK`, `OP71C5-D15RUP7`, etc.) adjudicated by the Node A Rules Oracle.
+- **Architect Auto-Forge**: Automated the Smart Asset ingestion process. The Architect now background-bakes biometric ST3GG shards into every token it materializes on the scene.
+- **Sovereign Mode**: Added `crush sovereign-mode [on|off]` to toggle God-Mode rules overrides for the GM.
+
 ## [2.3.1] - 2026-04-10
 ### Added
 - **Startup Modality**: Introduced `crush start --lite` and `--full` flags. Lite mode suppresses heavy GUI elements (Foundry, Obsidian, Dashboard) for terminal-only sovereign operations.
