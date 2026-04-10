@@ -112,9 +112,22 @@ fn is_physics_token(word: &str) -> bool {
     if PHYSICS_KEYWORDS.iter().any(|k| word == *k) {
         return true;
     }
-    // Dice notation: d6, d10, d12, d20, d100, …
+    // Simple dice notation: d6, d10, d12, d20, d100, …
     if word.len() >= 2 && word.starts_with('d') && word[1..].chars().all(|c| c.is_ascii_digit()) {
         return true;
+    }
+    // Multi-dice notation: 2d6, 4d10, 1d6, 3d6, … (NdM where N and M are digits)
+    if let Some(d_pos) = word.find('d') {
+        if d_pos > 0 {
+            let prefix = &word[..d_pos];
+            let suffix = &word[d_pos + 1..];
+            if !suffix.is_empty()
+                && prefix.chars().all(|c| c.is_ascii_digit())
+                && suffix.chars().all(|c| c.is_ascii_digit())
+            {
+                return true;
+            }
+        }
     }
     // DV values: dv10, dv15, dv17, …
     if word.len() >= 3 && word.starts_with("dv") && word[2..].chars().all(|c| c.is_ascii_digit()) {
