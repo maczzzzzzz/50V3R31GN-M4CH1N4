@@ -32,6 +32,8 @@ akashik_guides/**/*.md
 akashik_guides/**/*.json
 akashik_guides/**/*.txt
 *.md
+!README.md
+!CHANGELOG.md
 !*.md.png
 !**/*.md.png
 !**/*.json.png
