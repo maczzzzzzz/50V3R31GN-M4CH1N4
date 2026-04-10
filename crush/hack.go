@@ -70,6 +70,8 @@ func runHack(args []string) int {
 
 	validActions := map[string]bool{
 		"unlock": true, "dim-lights": true, "hack-camera": true, "shut-down": true,
+		// Phase 39: Quick Hack Console actions
+		"sy573m-5h0ck": true, "op71c5-d15rup7": true, "5ynp471c-ov3rl0ad": true, "br41n-w1p3": true,
 	}
 	if !validActions[action] {
 		logError("[HACK] unknown action %q\n%s", action, hackUsage)

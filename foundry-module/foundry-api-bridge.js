@@ -91,6 +91,51 @@ class FoundryApiBridge {
       }
     });
 
+    // Phase 39: Biometric Hover Protocol (Transient Grounding)
+    Hooks.on('hoverToken', (token, hovered) => {
+      if (hovered && token) {
+        this._sendEvent('perception_hover', {
+          id: token.id,
+          type: 'Token',
+          imgPath: token.document?.texture?.src ?? '',
+          x: token.x,
+          y: token.y,
+        });
+      } else {
+        this._sendEvent('perception_hover_out', { id: token?.id ?? null });
+      }
+    });
+
+    Hooks.on('hoverDrawing', (drawing, hovered) => {
+      if (hovered && drawing) {
+        const isSovereign = drawing.document?.flags?.[MODULE_ID]?.sovereign ?? false;
+        this._sendEvent('perception_hover', {
+          id: drawing.id,
+          type: 'Drawing',
+          imgPath: drawing.document?.texture?.src ?? '',
+          x: drawing.x,
+          y: drawing.y,
+          sovereign: isSovereign,
+        });
+      } else {
+        this._sendEvent('perception_hover_out', { id: drawing?.id ?? null });
+      }
+    });
+
+    Hooks.on('hoverNote', (note, hovered) => {
+      if (hovered && note) {
+        this._sendEvent('perception_hover', {
+          id: note.id,
+          type: 'Note',
+          imgPath: note.document?.texture?.src ?? '',
+          x: note.x,
+          y: note.y,
+        });
+      } else {
+        this._sendEvent('perception_hover_out', { id: note?.id ?? null });
+      }
+    });
+
     this._connect(wsUrl);
     this._setupInterception();
     this._setupCounterHacks();

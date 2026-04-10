@@ -85,6 +85,34 @@ pub(crate) struct ScannedItem {
     pub y: f32,
 }
 
+// ─── Phase 39: HoveredUnit ────────────────────────────────────────────────────
+
+/// Phase 39 transient biometric hover data from Mmap offset 3072.
+/// Layout: active(1) | id(16) | type(8) | x_f32(4) | y_f32(4) | imgPath(100)
+const HOVERED_UNIT_OFFSET: usize = 3072;
+
+#[derive(Debug, Clone)]
+struct HoveredUnit {
+    id:        String,
+    unit_type: String,
+    x:         f32,
+    y:         f32,
+    img_path:  String,
+}
+
+/// Phase 39 Quick Hack definitions.
+struct QuickHack {
+    label:  &'static str,
+    action: &'static str,
+}
+
+const QUICK_HACKS: &[QuickHack] = &[
+    QuickHack { label: "SY573M-5H0CK    // [ELEC DMG]",    action: "sy573m-5h0ck"    },
+    QuickHack { label: "OP71C5-D15RUP7  // [BLINDED]",     action: "op71c5-d15rup7"  },
+    QuickHack { label: "5YNP471C-OV3RL0AD // [HUM DMG]",   action: "5ynp471c-ov3rl0ad" },
+    QuickHack { label: "BR41N-W1P3      // [RESET INIT]",  action: "br41n-w1p3"      },
+];
+
 // ─── Parsing helpers ──────────────────────────────────────────────────────────
 
 fn parse_null_str(bytes: &[u8]) -> String {
@@ -182,6 +210,9 @@ struct CyberdeckApp {
     // ── System Control (Phase 28 Task 4) ─────────────────────────────────────
     sys_ctrl_rx: Option<std::sync::mpsc::Receiver<String>>,
     sys_ctrl_output: Vec<String>,
+
+    // ── Phase 39: Infiltration Scanner ────────────────────────────────────────
+    hovered_unit: Option<HoveredUnit>,
 }
 
 impl CyberdeckApp {
@@ -214,6 +245,7 @@ impl CyberdeckApp {
             glitch: GlitchEngine::new(),
             sys_ctrl_rx: None,
             sys_ctrl_output: Vec::new(),
+            hovered_unit: None,
         };
 
         // Map the radar file
@@ -289,6 +321,31 @@ impl CyberdeckApp {
         }
         self.blips = blips;
         self.last_error = None;
+    }
+
+    /// Phase 39: Parse transient biometric hover slot from Mmap at HOVERED_UNIT_OFFSET.
+    fn parse_hovered_unit(&mut self) {
+        let mmap = match &self.radar_mmap {
+            Some(m) => m,
+            None => { self.hovered_unit = None; return; }
+        };
+        let data = &mmap[..];
+        if data.len() < HOVERED_UNIT_OFFSET + 133 {
+            self.hovered_unit = None;
+            return;
+        }
+        let base = HOVERED_UNIT_OFFSET;
+        if data[base] != 0x01 {
+            self.hovered_unit = None;
+            return;
+        }
+        self.hovered_unit = Some(HoveredUnit {
+            id:        parse_null_str(&data[base + 1  .. base + 17]),
+            unit_type: parse_null_str(&data[base + 17 .. base + 25]),
+            x:         f32::from_le_bytes(data[base + 25 .. base + 29].try_into().unwrap_or([0; 4])),
+            y:         f32::from_le_bytes(data[base + 29 .. base + 33].try_into().unwrap_or([0; 4])),
+            img_path:  parse_null_str(&data[base + 33 .. base + 133]),
+        });
     }
 
     fn parse_ghost_state(&mut self) {
@@ -523,6 +580,55 @@ impl CyberdeckApp {
     }
 
     fn render_deck_tab(&mut self, ui: &mut egui::Ui) {
+        // ── Phase 39: Infiltration Scanner ────────────────────────────────────
+        ui.heading(":/1NF1L7R4710N-5C4NN3R //");
+        ui.separator();
+
+        if let Some(hovered) = self.hovered_unit.clone() {
+            egui::Frame::default()
+                .fill(Color32::from_rgb(10, 0, 0))
+                .stroke(Stroke::new(1.0, RED))
+                .inner_margin(egui::Margin::same(8))
+                .show(ui, |ui| {
+                    ui.horizontal(|ui| {
+                        ui.colored_label(RED, "◈ 74R637:");
+                        ui.colored_label(Color32::WHITE, &hovered.id);
+                        ui.colored_label(Color32::from_rgb(120, 120, 120), format!("[{}]", hovered.unit_type));
+                    });
+                    ui.horizontal(|ui| {
+                        ui.colored_label(Color32::from_rgb(120, 120, 120), "POS:");
+                        ui.colored_label(Color32::WHITE, format!("x:{:.1} y:{:.1}", hovered.x, hovered.y));
+                    });
+                    if !hovered.img_path.is_empty() {
+                        ui.horizontal(|ui| {
+                            ui.colored_label(Color32::from_rgb(120, 120, 120), "4557:");
+                            ui.colored_label(Color32::from_rgb(180, 180, 180), &hovered.img_path);
+                        });
+                    }
+
+                    ui.add_space(8.0);
+                    ui.colored_label(RED, ">> QU1CK-H4CK-C0N50L3 //");
+                    ui.add_space(4.0);
+
+                    let target_id = hovered.id.clone();
+                    for hack in QUICK_HACKS {
+                        if ui.button(hack.label).clicked() {
+                            self.spawn_sys_command(
+                                "crush",
+                                &["hack", hack.action, &target_id],
+                            );
+                        }
+                    }
+                });
+        } else {
+            ui.colored_label(
+                Color32::from_rgb(60, 60, 60),
+                "[ N0-74R637-H0V3R3D — M0V3-0V3R-70K3N-70-5C4N ]",
+            );
+        }
+
+        ui.add_space(16.0);
+
         ui.heading(":/CYB3RD3CK-B10M37R1C5 //");
         ui.separator();
 
@@ -684,6 +790,7 @@ impl eframe::App for CyberdeckApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         self.parse_radar_state();
         self.parse_ghost_state();
+        self.parse_hovered_unit();
 
         // Sync intrusion_level into glitch engine
         let il = self.intrusion_level;

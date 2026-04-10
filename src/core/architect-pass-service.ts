@@ -179,6 +179,20 @@ export class ArchitectPassService implements IArchitectService {
     }
 
     console.log(`✅ Architect: ${result.count} tokens materialized successfully.`);
+
+    // Phase 39: Auto-Forge — background-bake biometrics into token portraits via ST3GG.
+    if (this.foundryAdapter?.isConnected()) {
+      for (const token of tokens) {
+        if (!token.actorId) continue;
+        this.foundryAdapter.sendRpc?.('forge_and_ground', {
+          actorId: token.actorId,
+          x: token.x,
+          y: token.y,
+        }).catch((err: Error) => {
+          console.warn(`Architect: forge_and_ground failed for ${token.actorId}:`, err);
+        });
+      }
+    }
   }
 
   /**

@@ -27,6 +27,11 @@ const CAPABILITY_OFFSET = 8192;
 const CAPABILITY_HEADER_SIZE = 20;
 const CAPABILITY_ITEM_SIZE = 64;
 
+// Phase 39: Transient biometric hover slot.
+// Layout: active(1) | id(16) | type(8) | x_f32(4) | y_f32(4) | imgPath(100) = 133 bytes
+const HOVERED_UNIT_OFFSET = 3072;
+const HOVERED_UNIT_SIZE = 133;
+
 function writeNullPadded(buf: Buffer, offset: number, str: string, maxChars: number): void {
   buf.fill(0, offset, offset + maxChars + 1);
   const truncated = str.slice(0, maxChars);
@@ -40,6 +45,8 @@ export class SharedMemoryService {
   private readonly readBodyBuf: Buffer;
   private fd: number | null = null;
   private counter: number = 0;
+  // Phase 39: Transient hover state preserved across world-state writes
+  private hoveredUnit: { id: string; type: string; imgPath: string; x: number; y: number } | null = null;
 
   constructor(memFilePath: string) {
     this.filePath = memFilePath;
@@ -104,6 +111,8 @@ export class SharedMemoryService {
     }
 
     fs.writeSync(this.fd, this.buf, 0, FILE_SIZE, 0);
+    // Phase 39: Re-apply transient hover data after world-state overwrites offset 3072
+    this._flushHoveredUnit();
   }
 
   readWorldState(): RadarBlip[] {
@@ -133,6 +142,31 @@ export class SharedMemoryService {
       });
     }
     return blips;
+  }
+
+  // Phase 39: Biometric hover slot — write/clear/flush
+  writeHoveredUnit(id: string, type: string, imgPath: string, x: number, y: number): void {
+    this.hoveredUnit = { id, type, imgPath, x, y };
+    this._flushHoveredUnit();
+  }
+
+  clearHoveredUnit(): void {
+    this.hoveredUnit = null;
+    this._flushHoveredUnit();
+  }
+
+  private _flushHoveredUnit(): void {
+    if (this.fd === null) return;
+    const buf = Buffer.alloc(HOVERED_UNIT_SIZE, 0);
+    if (this.hoveredUnit) {
+      buf[0] = 0x01; // active flag
+      writeNullPadded(buf, 1, this.hoveredUnit.id, 15);
+      writeNullPadded(buf, 17, this.hoveredUnit.type, 7);
+      buf.writeFloatLE(this.hoveredUnit.x, 25);
+      buf.writeFloatLE(this.hoveredUnit.y, 29);
+      writeNullPadded(buf, 33, this.hoveredUnit.imgPath, 99);
+    }
+    fs.writeSync(this.fd, buf, 0, HOVERED_UNIT_SIZE, HOVERED_UNIT_OFFSET);
   }
 
   close(): void {
