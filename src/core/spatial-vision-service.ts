@@ -50,7 +50,7 @@ export class SpatialVisionService {
     this.vlmEndpoint =
       config.vlmEndpoint ??
       process.env['VLM_ENDPOINT'] ??
-      `${config.sovereignNarrativeBaseUrl ?? 'http://172.26.208.1:8080/v1'}/chat/completions`;
+      `${config.sovereignNarrativeBaseUrl ?? 'http://localhost:8080/v1'}/chat/completions`;
 
     this.visionModel =
       config.visionModel ?? process.env['VLM_MODEL'] ?? 'llava-v1.5-7b';

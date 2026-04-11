@@ -125,7 +125,7 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   constructor(options: FoundryAdapterOptions = {}) {
     this.commandTimeoutMs = options.commandTimeoutMs ?? 10_000;
-    this.logger = options.logger;
+    if (options.logger !== undefined) { this.logger = options.logger; }
   }
 
   getHandshakeToken(): string {
@@ -136,10 +136,10 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   async start(port: number): Promise<void> {
     const traceId = randomUUID();
-    this.handshakeToken = randomBytes(32).toString('hex');
+    this.handshakeToken = process.env.FOUNDRY_BRIDGE_TOKEN || randomBytes(32).toString('hex');
 
     await new Promise<void>((resolve, reject) => {
-      const server = new WebSocketServer({ port, host: '127.0.0.1' });
+      const server = new WebSocketServer({ port, host: '0.0.0.0' });
 
       server.once('error', (err) => {
         this.logger?.error('FoundryAdapter', traceId, `WebSocket server failed to start: ${err.message}`);
@@ -148,7 +148,7 @@ export class FoundryAdapter implements IFoundryAdapter {
 
       server.once('listening', () => {
         this.wss = server;
-        this.logger?.info('FoundryAdapter', traceId, `WebSocket server listening on 127.0.0.1:${port}`);
+        this.logger?.info('FoundryAdapter', traceId, `WebSocket server listening on 0.0.0.0:${port}. Token: ${this.handshakeToken}`);
         resolve();
       });
 

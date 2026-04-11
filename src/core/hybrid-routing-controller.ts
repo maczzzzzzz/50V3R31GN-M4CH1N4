@@ -252,19 +252,20 @@ export class HybridRoutingController {
 
   async handleFoundryEvent(event: any): Promise<unknown> {
     const traceId = randomUUID();
-    this.logger?.debug('HRC', traceId, `Handling Foundry Event: ${event.type}`, { payload: event.payload });
+    const { type, payload } = event;
+    this.logger?.debug('HRC', traceId, `Handling Foundry Event: ${type}`, { payload });
 
-    if (event.type === 'audit_request') {
+    if (type === 'audit_request') {
       return this.handleAuditRequest(event);
     }
 
-    if (event.type === 'validate_move') {
+    if (type === 'validate_move') {
       return this.handleMoveValidation(event);
     }
 
-    switch (event.type as string) {
+    switch (type as string) {
       case 'resolve_attack':
-        return this.handleResolveAttack(event.payload, event.payload.spatial);
+        return this.handleResolveAttack(payload, payload.spatial);
       case 'calculate_dv': {
         const p = event.payload;
         return this.handleCalculateDv({
@@ -352,6 +353,12 @@ export class HybridRoutingController {
         this.logger?.debug('HRC', traceId, `System Heartbeat: socketlib=${p.socketlib}, fxmaster=${p.fxmaster}, sequencer=${p.sequencer}, splatter=${p.splatter}`);
         return;
       }
+      case 'reconnect_uplink': {
+        if (this.neuralUplink) {
+          await this.neuralUplink.reconnect();
+        }
+        return;
+      }
       case 'file_extraction':
         return this.handleFileExtraction(event.payload);
       case 'decrypt_st3gg':
@@ -362,6 +369,8 @@ export class HybridRoutingController {
         return this.handleThoughtStream(event.payload);
       case 'audit_library':
         return this.handleAuditLibrary(event.payload);
+      case 'scene_dispatch':
+        return this.handleSceneDispatch(event.payload as { sceneType: string; journalId: string });
       default: {
         this.logger?.error('HRC', traceId, `Unknown event type '${(event as any).type}'`);
         throw new Error(`HybridRoutingController: unknown event type '${(event as any).type}'`);
@@ -517,6 +526,40 @@ export class HybridRoutingController {
     this.logger?.info('HRC', traceId, `Opening Night Market for vendor: ${vendorName}`);
     const items = await this.nightMarketService.getVendorInventory(vendorName);
     await this.foundry.openNightMarket(actorId, vendorName, items);
+  }
+
+  private async handleSceneDispatch(payload: { sceneType: string; journalId: string }): Promise<void> {
+    const traceId = randomUUID();
+    const { sceneType, journalId } = payload;
+    this.logger?.info('HRC', traceId, `scene_dispatch: type=${sceneType} journal=${journalId}`);
+
+    switch (sceneType) {
+      case 'night_market': {
+        const items = await this.nightMarketService.getVendorInventory(journalId);
+        const lines = items.slice(0, 10).map((item) => `• **${item.name}** — ${item.costEb}eb`).join('\n');
+        await this.foundry.sendChatMessage(`🏪 **Night Market** — ${journalId}\n${lines || '_No stock found._'}`, { alias: 'Night Market' });
+        break;
+      }
+      case 'red_trade': {
+        const result = this.redTradeService.rollFriction(0);
+        const messages: Record<string, string> = {
+          bark:   `🌆 *Streets are quiet... for now.* Heat: ${result.total}`,
+          gate:   `⚠️ **Decision Gate** — The broker wants proof. Roll: ${result.total}`,
+          ambush: `🔴 **AMBUSH** — You've been made. Roll: ${result.total}`,
+        };
+        await this.foundry.sendChatMessage(messages[result.outcome] ?? `🌆 Red Trade: ${result.outcome}`, { alias: 'Red Trade' });
+        break;
+      }
+      case 'character_creation': {
+        await this.foundry.sendChatMessage(
+          `🧬 **Character Creation Initiated**\nJournal: \`${journalId}\`\nGM: use \`/onboard <name> <role>\` to begin lifepath interview.`,
+          { alias: '50V3R31GN' },
+        );
+        break;
+      }
+      default:
+        this.logger?.warn('HRC', traceId, `scene_dispatch: unknown sceneType '${sceneType}'`);
+    }
   }
 
   private evaluateStoryEvent(event: any): void {
@@ -758,16 +801,39 @@ export class HybridRoutingController {
    * Phase 30: Handle human intents from the crush proxy (Go).
    */
   async handleProxyIntent(intent: any): Promise<void> {
-    const { id, method, params } = intent;
-    if (!method) return;
+    this.logger?.info('HRC', 'debug', '[HRC] Received raw proxy intent object:', { intent });
+    const { id, method, command, params } = intent;
+    const effectiveMethod = method || command;
+    if (!effectiveMethod) return;
+    
     const traceId = randomUUID();
 
-    this.logger?.info('HRC', traceId, `[HRC] Proxy Intent: ${method}`, { params });
+    this.logger?.info('HRC', traceId, `[HRC] Proxy Intent: ${effectiveMethod}`, { params, intent });
 
     let result: any = { status: 'GRANTED' };
 
     try {
-      switch (method) {
+      if (effectiveMethod === 'reason_audit') {
+        const { action, target_id } = params;
+        if (action === 'friction') {
+          this.logger?.info('HRC', traceId, `[HRC] Triggering Friction Roll for ${target_id}`);
+          const friction = await this.unifiedOracle.getFactionFriction(target_id);
+          const rollRes = this.redTradeService.rollFriction(friction);
+          const messages: Record<string, string> = {
+            bark:   `🌆 *The streets feel tense...* Heat: ${rollRes.total}`,
+            gate:   `⚠️ **Decision Gate** — Heat rising. Roll: ${rollRes.total}`,
+            ambush: `🔴 **RIVAL INTERVENTION** — Ambush! Roll: ${rollRes.total}`,
+          };
+          await this.foundry.sendChatMessage(messages[rollRes.outcome] || `🌆 *Streets of Night City:* ${rollRes.outcome}`, { alias: 'Friction Engine' });
+          
+          if (rollRes.outcome === 'ambush' && this.architect) {
+             this.architect.spawnToken(null, 500, 500).catch(() => {});
+          }
+          return;
+        }
+      }
+
+      switch (effectiveMethod) {
         case 'scan':
           await this.handleScan();
           result.message = 'Scan complete.';
@@ -776,6 +842,19 @@ export class HybridRoutingController {
           const cropData = await this.handleCropScan(params.x, params.y, params.size);
           result.message = 'Crop-scan complete.';
           result.data = cropData;
+          break;
+        case 'intent':
+          const intentType = params?.type || intent.type;
+          this.logger?.info('HRC', traceId, `[HRC] Intent Type: ${intentType}, neuralUplink defined: ${!!this.neuralUplink}`);
+          if (intentType === 'heavy') {
+            await this.neuralUplink?.setPhysicalLock(true);
+            // Simulate heavy operation
+            await new Promise(r => setTimeout(r, 4000));
+            await this.neuralUplink?.setPhysicalLock(false);
+            result.message = 'Heavy intent processed and shroud unlocked.';
+          } else {
+            result = { status: 'REJECTED', message: `Unknown intent type: ${intentType}` };
+          }
           break;
         case 'hack':
           const hackRes = await this.handleHack(params.action, params.target);

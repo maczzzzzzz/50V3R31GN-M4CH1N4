@@ -22,11 +22,35 @@ export const SOVEREIGN_THEME_CSS = `
     --font-primary: 'VT323', monospace;
 }
 
-body.vtt, .app, .window-app {
+/* Global Core */
+body.vtt, .app, .window-app, #chat-log, #sidebar, #controls {
     background: var(--cpr-black) !important;
     color: var(--cpr-red) !important;
     font-family: var(--font-primary) !important;
-    text-shadow: 0 0 5px rgba(255, 0, 60, 0.5);
+}
+
+/* Fix White Backgrounds in Sheets & Editors (Foundry v12 / ProseMirror) */
+.sheet, .journal-entry, .item-sheet, .actor-sheet, .journal-sheet,
+.journal-entry-page, .journal-page-content, .journal-entry-content,
+.prosemirror, .ProseMirror, .editor-content, .window-content, .tab-content,
+.item-sheet .sheet-body, .sheet .sheet-body {
+    background-color: var(--cpr-black) !important;
+    background-image: none !important;
+    color: var(--cpr-red) !important;
+}
+
+/* ProseMirror rich-text node overrides (Foundry v12 replaced TinyMCE) */
+.ProseMirror p, .ProseMirror li, .ProseMirror blockquote,
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
+    background-color: transparent !important;
+    color: var(--cpr-red) !important;
+}
+
+/* Target tables and specific CPR system elements */
+table, tr, td, th, .cpr-sheet, .cpr-control, .item-list, .attributes {
+    background: transparent !important;
+    border-color: var(--cpr-red) !important;
+    color: var(--cpr-red) !important;
 }
 
 .window-app .window-header {
@@ -41,29 +65,34 @@ button, input, select, textarea {
     font-family: var(--font-primary) !important;
 }
 
-/* UI GLITCH OVERLAYS */
+/* UI GLITCH OVERLAYS - More Translucent */
 #sovereign-scanlines {
     position: fixed;
     inset: 0;
     pointer-events: none;
     background: repeating-linear-gradient(
         transparent 0px,
-        rgba(255, 0, 60, 0.05) 1px,
+        rgba(255, 0, 60, 0.02) 1px,
         transparent 3px
     );
     z-index: 9999;
+    opacity: 0.6;
 }
 `;
 
 export const SOVEREIGN_HIJACK_JS = `
 (function() {
     console.log("::/5Y573M-N071C3 : GH0S7-PR070C0L 4C71V473D");
+    
+    // Global hack state
+    window.HACK_ACTIVE = false;
 
     // 1. 1337-5P34K MUTATION ENGINE
     const LEET_MAP = { 'A': '4', 'E': '3', 'I': '1', 'O': '0', 'S': '5', 'T': '7', 'Z': '2', 'B': '8', 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'z': '2', 'b': '8' };
     const toLeet = (text) => text.split('').map(c => LEET_MAP[c] || c).join('');
 
     const mutateText = (node) => {
+        if (!window.HACK_ACTIVE) return;
         if (node.nodeType === Node.TEXT_NODE && node.parentElement) {
             const tag = node.parentElement.tagName;
             const isIgnored = ['SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA'].includes(tag) || !!node.parentElement.closest('.hp-value, .sp-value');
@@ -78,6 +107,7 @@ export const SOVEREIGN_HIJACK_JS = `
     };
 
     const observer = new MutationObserver((mutations) => {
+        if (!window.HACK_ACTIVE) return;
         for (const mutation of mutations) {
             for (const node of mutation.addedNodes) mutateText(node);
         }
@@ -86,43 +116,33 @@ export const SOVEREIGN_HIJACK_JS = `
     // 2. HARD OVERWRITE GLITCH (BOOT SEQUENCE)
     const triggerGlitch = () => {
         const body = document.body;
-        body.style.transition = "none";
         
-        let frames = 0;
-        const interval = setInterval(() => {
-            if (frames < 5) {
-                // Stage 1: Corruption (0-200ms)
-                body.style.filter = "hue-rotate(25deg) contrast(2.1)";
-                body.style.clipPath = "none";
-            } else if (frames < 10) {
-                // Stage 2: Tearing (200-400ms)
-                const y1 = Math.random() * 100;
-                const y2 = Math.random() * 100;
-                body.style.filter = "none";
-                body.style.clipPath = \`polygon(0% \${Math.min(y1, y2)}%, 100% \${Math.min(y1, y2)}%, 100% \${Math.max(y1, y2)}%, 0% \${Math.max(y1, y2)}%)\`;
-                body.style.transform = \`translate(\${Math.random() * 10 - 5}px, \${Math.random() * 10 - 5}px)\`;
-            } else {
-                // Stage 3: Stabilization (400-600ms)
-                clearInterval(interval);
-                body.style.filter = "none";
-                body.style.clipPath = "none";
-                body.style.transform = "none";
-                
-                // Final stabilization
-                const style = document.createElement('style');
-                style.textContent = \`${SOVEREIGN_THEME_CSS}\`;
-                document.head.appendChild(style);
-                
-                const scan = document.createElement('div');
-                scan.id = 'sovereign-scanlines';
-                document.body.appendChild(scan);
+        // Final stabilization
+        const style = document.createElement('style');
+        style.id = 'sovereign-theme-overrides';
+        style.textContent = \`${SOVEREIGN_THEME_CSS}\`;
+        document.head.appendChild(style);
+        
+        if (!document.getElementById('sovereign-scanlines')) {
+            const scan = document.createElement('div');
+            scan.id = 'sovereign-scanlines';
+            document.body.appendChild(scan);
+        }
 
-                // Start Leet monitoring
-                mutateText(document.body);
-                observer.observe(document.body, { childList: true, subtree: true });
-            }
-            frames++;
-        }, 40);
+        // Start Leet monitoring (will only mutate if HACK_ACTIVE is true)
+        observer.observe(document.body, { childList: true, subtree: true });
+    };
+
+    // External Trigger for Hacks
+    window.setSovereignHack = (active) => {
+        window.HACK_ACTIVE = active;
+        if (active) {
+            mutateText(document.body);
+            console.log("::/5Y573M-N071C3 : H4CK-M0D3 3N48L3D");
+        } else {
+            console.log("::/5Y573M-N071C3 : H4CK-M0D3 D1548L3D");
+            // Note: reverting leet speak is hard without reloading, we accept it for now
+        }
     };
 
     if (typeof game !== 'undefined' && game.ready) triggerGlitch();

@@ -48,13 +48,14 @@ Example:
 
 // IntentPayload is the JSON message sent to Node B Director.
 type IntentPayload struct {
-	Command  string `json:"command"`
-	Action   string `json:"action,omitempty"`
-	Target   string `json:"target,omitempty"`
-	ScanType string `json:"scan_type,omitempty"`
+	Command  string  `json:"command"`
+	Action   string  `json:"action,omitempty"`
+	Target   string  `json:"target,omitempty"`
+	ScanType string  `json:"scan_type,omitempty"`
 	X        float64 `json:"x,omitempty"`
 	Y        float64 `json:"y,omitempty"`
 	Size     int     `json:"size,omitempty"`
+	Type     string  `json:"type,omitempty"`
 }
 
 // runHack sends a hack intent to Node B via the crush proxy socket.
@@ -139,6 +140,21 @@ func runCropScan(args []string) int {
 		X:       x,
 		Y:       y,
 		Size:    size,
+	}
+
+	return sendIntent(payload)
+}
+
+// runIntent sends an arbitrary intent to Node B via the crush proxy socket.
+func runIntent(args []string) int {
+	if len(args) < 1 {
+		fmt.Fprintln(os.Stderr, "Usage: crush intent <type>")
+		return 1
+	}
+
+	payload := IntentPayload{
+		Command: "intent",
+		Type:    args[0],
 	}
 
 	return sendIntent(payload)

@@ -388,7 +388,12 @@ export class ClawLinkClient implements IClawLinkClient {
 
     const envelope = ClawLinkRpcResponseSchema.safeParse(parsedRpc);
     if (!envelope.success) {
-      this.logger?.error(CONTEXT, packetData.trace_id, 'RpcResponse envelope failed Zero-Trust validation', { issue: envelope.error.issues[0]?.message });
+      // If not a standard RPC response, it might be an inbound intent/broadcast
+      if (this.intentHandler) {
+        this.intentHandler(parsedRpc).catch(err => {
+          this.logger?.error(CONTEXT, packetData.trace_id, 'Intent handler failed', { error: err.message });
+        });
+      }
       return;
     }
 

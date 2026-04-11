@@ -63,7 +63,9 @@ export interface AtmosphereState {
 }
 
 export interface VisualMonitorConfig {
-  /** CDP debug port. Must be bound to 127.0.0.1. Default: 9222 */
+  /** CDP debug host. Default: 127.0.0.1 */
+  readonly debugHost?: string;
+  /** CDP debug port. Default: 9222 */
   readonly debugPort?: number;
   /** Oracle for persisting vision records to Akashik.db. Optional. */
   readonly oracle?: UnifiedOracleClient;
@@ -89,6 +91,7 @@ export interface ScreenshotRecord {
 // ── Implementation ────────────────────────────────────────────────────────────
 
 export class VisualMonitorService {
+  private readonly debugHost: string;
   private readonly debugPort: number;
   private readonly oracle: UnifiedOracleClient | undefined;
   private readonly foundryAdapter: IFoundryAdapter | undefined;
@@ -97,6 +100,7 @@ export class VisualMonitorService {
   private client: CDP.Client | null = null;
 
   constructor(config: VisualMonitorConfig = {}) {
+    this.debugHost = config.debugHost ?? '127.0.0.1';
     this.debugPort = config.debugPort ?? 9222;
     this.oracle = config.oracle;
     this.foundryAdapter = config.foundryAdapter;
@@ -111,27 +115,32 @@ export class VisualMonitorService {
   async connect(): Promise<void> {
     const traceId = randomUUID();
     try {
-      const targets = await CDP.List({ port: this.debugPort });
+      const targets = await CDP.List({ host: this.debugHost, port: this.debugPort });
       const pageTarget = targets.find((t: CDP.Target) => t.type === 'page');
 
       if (!pageTarget?.webSocketDebuggerUrl) {
         throw new Error(
-          `No page target found at http://127.0.0.1:${this.debugPort}/json. ` +
+          `No page target found at http://${this.debugHost}:${this.debugPort}/json. ` +
           `Ensure Foundry is running with --remote-debugging-port=${this.debugPort}.`
         );
       }
 
+      const wsUrl = pageTarget.webSocketDebuggerUrl.replace('127.0.0.1', this.debugHost);
+
       this.client = await CDP({
-        target: pageTarget.webSocketDebuggerUrl,
+        target: wsUrl,
+        host: this.debugHost,
         port: this.debugPort,
       });
 
       await Promise.all([
         this.client.Page.enable(),
+        this.client.DOM.enable(),
         this.client.Runtime.enable(),
-        this.client.CSS.enable(),
-        this.client.Input.enable(),
       ]);
+
+      // CSS depends on DOM
+      await this.client.CSS.enable();
 
       this.logger?.info('VisualMonitorService', traceId, '✅ Neural Uplink: Native CDP Engine Active.');
     } catch (err) {
@@ -512,9 +521,27 @@ export class VisualMonitorService {
   /**
    * Phase 28: Neural Shroud — Physically lock/unlock user input.
    */
+  async reconnect(): Promise<void> {
+    const traceId = randomUUID();
+    this.logger?.info('VisualMonitorService', traceId, '🔄 Reconnecting Neural Uplink (CDP)...');
+    try {
+      if (this.client) {
+        // Try to close cleanly, ignore errors
+        await this.client.close().catch(() => {});
+      }
+      await this.connect();
+      this.logger?.info('VisualMonitorService', traceId, '✅ Neural Uplink Reconnected.');
+    } catch (err) {
+      this.logger?.error('VisualMonitorService', traceId, `Neural Uplink reconnection failed: ${(err as Error).message}`);
+    }
+  }
+
   async setPhysicalLock(locked: boolean): Promise<void> {
     const traceId = randomUUID();
-    const client = this.getClient();
+    if (!this.client) {
+      this.logger?.error('VisualMonitorService', traceId, 'Cannot set physical lock: CDP client not connected.');
+      return;
+    }
     this.logger?.info('VisualMonitorService', traceId, `Neural Shroud physical lock set to: ${locked}`);
     
     if (locked) {
@@ -526,7 +553,7 @@ export class VisualMonitorService {
         }
       `;
       await this.injectCSS(css);
-      await client.Runtime.evaluate({
+      await this.client.Runtime.evaluate({
         expression: `if (!document.getElementById('neural-shroud-lock')) {
           const div = document.createElement('div');
           div.id = 'neural-shroud-lock';
@@ -534,7 +561,7 @@ export class VisualMonitorService {
         }`
       });
     } else {
-      await client.Runtime.evaluate({
+      await this.client.Runtime.evaluate({
         expression: `const el = document.getElementById('neural-shroud-lock'); if (el) el.remove();`
       });
     }

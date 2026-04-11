@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SensoryFilter } from '../../foundry-module/scripts/sensory-filter.js';
+import { SensoryFilter } from '../../50v3r31gn-bridge/scripts/sensory-filter.js';
 
 describe('SensoryFilter', () => {
   beforeEach(() => {

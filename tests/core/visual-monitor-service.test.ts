@@ -21,6 +21,7 @@ const { mockEnable, mockClose, mockCDP, mockClient } = vi.hoisted(() => {
         frameTree: { frame: { id: 'frame-001' } },
       }),
     },
+    DOM: { enable: vi.fn().mockResolvedValue(undefined) },
     Runtime: { enable: vi.fn().mockResolvedValue(undefined) },
     CSS: {
       enable: vi.fn().mockResolvedValue(undefined),
@@ -93,13 +94,14 @@ describe('VisualMonitorService', () => {
   describe('connect()', () => {
     it('discovers the page target via CDP.List', async () => {
       await service.connect();
-      expect(mockCDP.List).toHaveBeenCalledWith({ port: 9222 });
+      expect(mockCDP.List).toHaveBeenCalledWith({ host: '127.0.0.1', port: 9222 });
     });
 
     it('connects using the webSocketDebuggerUrl of the page target', async () => {
       await service.connect();
       expect(mockCDP).toHaveBeenCalledWith({
         target: 'ws://127.0.0.1:9222/devtools/page/test-id',
+        host: '127.0.0.1',
         port: 9222,
       });
     });
@@ -137,7 +139,7 @@ describe('VisualMonitorService', () => {
     it('uses custom debugPort from config', async () => {
       const custom = new VisualMonitorService({ debugPort: 9333 });
       await custom.connect();
-      expect(mockCDP.List).toHaveBeenCalledWith({ port: 9333 });
+      expect(mockCDP.List).toHaveBeenCalledWith({ host: '127.0.0.1', port: 9333 });
     });
   });
 

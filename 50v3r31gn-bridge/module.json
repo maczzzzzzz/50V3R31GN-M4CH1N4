@@ -19,7 +19,7 @@
     "maximum": "12"
   },
   "relationships": {
-    "requires": [
+    "recommends": [
       { "id": "socketlib", "reason": "Administrative Sovereignty and Permission Elevation" },
       { "id": "fxmaster", "reason": "Atmosphere-First Screen Filters and Weather" },
       { "id": "sequencer", "reason": "Atomic Orchestration of Visual/Audio Sequences" },
@@ -31,13 +31,13 @@
     ]
   },
   "esmodules": [
-    "foundry-api-bridge.js",
-    "scripts/sovereign-dashboard.js"
+    "50v3r31gn-bridge.js"
   ],
   "styles": [
     "styles/sovereign-red-void.css",
     "styles/bridge-layers.css",
     "styles/black-ice-theme.css"
   ],
-  "packs": []
+  "packs": [],
+  "socket": true
 }

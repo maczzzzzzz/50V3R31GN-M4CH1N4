@@ -87,17 +87,5 @@ Hooks.once("ready", () => {
   // Expose global instance for console access
   game.sovereignDashboard = new SovereignDashboard();
 
-  // Register keybinding: Ctrl+Shift+D opens the dashboard
-  game.keybindings.register("50v3r31gn-bridge", "openDashboard", {
-    name: "Open Sovereign Dashboard",
-    hint: "Opens the 5H4D0W_D45HB04RD monitoring window",
-    editable: [{ key: "KeyD", modifiers: ["Control", "Shift"] }],
-    onDown: () => {
-      game.sovereignDashboard.render({ force: true });
-      return true;
-    },
-    restricted: true,
-  });
-
   console.log("[SOVEREIGN] Dashboard bridge registered — Ctrl+Shift+D to open");
 });

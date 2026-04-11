@@ -19,10 +19,12 @@ describe('Crush Proxy Chaos & Resilience Test', () => {
       env: {
         ...process.env,
         CLAWLINK_SOCK: SOCKET_PATH,
-        // Provide a dummy TCP host so it doesn't fail trying to reach Node A
         NODE_A_HOST: '127.0.0.1:9999'
       }
     });
+
+    proxyProcess.stderr?.on('data', (data) => console.error(`[PROXY ERR] ${data.toString()}`));
+    proxyProcess.stdout?.on('data', (data) => console.log(`[PROXY OUT] ${data.toString()}`));
 
     // Wait for the socket to be created
     await new Promise<void>((resolve, reject) => {

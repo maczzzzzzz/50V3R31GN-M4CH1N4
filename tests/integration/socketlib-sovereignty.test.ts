@@ -61,7 +61,7 @@ describe('Socketlib Sovereignty Integration', () => {
     
     const registrationCode = `
       if (game.modules.get('socketlib')?.active) {
-        this.socket = socketlib.registerModule('foundry-api-bridge');
+        this.socket = socketlib.registerModule('50v3r31gn-bridge');
         this.socket.register('executeRawJs', (code) => {
           return new Function('return ' + code)();
         });
@@ -74,7 +74,7 @@ describe('Socketlib Sovereignty Integration', () => {
     
     init();
 
-    expect(mockSocketlib.registerModule).toHaveBeenCalledWith('foundry-api-bridge');
+    expect(mockSocketlib.registerModule).toHaveBeenCalledWith('50v3r31gn-bridge');
     expect(bridgeContext.socket.register).toHaveBeenCalledWith('executeRawJs', expect.any(Function));
   });
 

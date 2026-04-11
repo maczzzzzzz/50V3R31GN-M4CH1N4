@@ -11,6 +11,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 const { mockCDP, mockClient } = vi.hoisted(() => {
   const client = {
     Page: { enable: vi.fn().mockResolvedValue(undefined) },
+    DOM: { enable: vi.fn().mockResolvedValue(undefined) },
     Runtime: {
       enable: vi.fn().mockResolvedValue(undefined),
       evaluate: vi.fn().mockResolvedValue({ result: { value: 5 } }),

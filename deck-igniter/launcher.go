@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"sync"
 	"syscall"
 	"time"
@@ -69,47 +70,65 @@ const (
 	foundryPort = 9222
 	pixtralBat  = `D:\llama.cpp\start_pixtral.bat`
 	cmdExe      = "/mnt/c/Windows/System32/cmd.exe"
+	pwshExe     = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 )
 
-// launchFoundry fires Foundry VTT via WSL interop cmd.exe.
-// The process is detached (Foundry manages its own window); we track state
-// by polling the CDP port (localhost:9222) rather than the PID.
+// launchFoundry fires Foundry VTT via WSL interop powershell.exe.
+// The process is detached; we track state by polling CDP port 9222.
 func launchFoundry(c *Component) tea.Cmd {
 	return func() tea.Msg {
-		// Use cmd.exe /C start to launch a detached Windows process.
-		startArg := fmt.Sprintf(`start "" "%s" --remote-debugging-port=%d`, foundryExe, foundryPort)
-		cmd := exec.Command(cmdExe, "/C", startArg)
-		// SysProcAttr: don't inherit WSL signals.
+		// Using PowerShell Start-Process with -WorkingDirectory to completely bypass UNC warnings.
+		workDir := `D:\FoundryVTT\Foundry Virtual Tabletop`
+		args := fmt.Sprintf(`--remote-debugging-port=%d`, foundryPort)
+		
+		// 1. Launch Foundry
+		psCmdFoundry := fmt.Sprintf(`Start-Process -FilePath '%s' -ArgumentList '%s' -WorkingDirectory '%s'`, foundryExe, args, workDir)
+		
+		// 2. Launch win-proxy (bridges WSL2 to Windows CDP 9222 -> 9223)
+		psCmdProxy := `
+$conn = Get-NetTCPConnection -LocalPort 9223 -ErrorAction SilentlyContinue;
+if ($conn) { Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue };
+Start-Process -FilePath 'D:\Nodejs\node.exe' -ArgumentList 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\scripts\win-proxy.cjs' -RedirectStandardOutput 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\win-proxy.log' -RedirectStandardError 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\win-proxy-err.log'
+`
+		// Combine both into a single PowerShell execution block
+		psCmd := fmt.Sprintf("%s;\n%s", psCmdFoundry, psCmdProxy)
+		
+		cmd := exec.Command(pwshExe, "-NoProfile", "-Command", psCmd)
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 
-		if err := cmd.Start(); err != nil {
+		out, err := cmd.CombinedOutput()
+		if err != nil {
 			return stateUpdateMsg{
 				name:  c.Name,
 				state: StateError,
-				err:   fmt.Sprintf("cmd.exe interop failed: %v", err),
+				err:   fmt.Sprintf("pwsh error: %v | out: %s", err, string(out)),
 			}
 		}
-		// Foundry is detached — we don't track its PID, just mark as Starting.
-		// The heartbeat prober (Task 5) will transition it to Running once
-		// localhost:9222 responds.
+		
 		return stateUpdateMsg{name: c.Name, state: StateStarting}
 	}
 }
 
-// launchPixtral fires the Pixtral Windows Native Server via WSL interop cmd.exe.
+// launchPixtral fires the Pixtral Windows Native Server via WSL interop powershell.exe.
 func launchPixtral(c *Component) tea.Cmd {
 	return func() tea.Msg {
-		startArg := fmt.Sprintf(`start "" "%s"`, pixtralBat)
-		cmd := exec.Command(cmdExe, "/C", startArg)
+		workDir := `D:\llama.cpp`
+		// cmd /K keeps the window open for diagnostics if llama-server fails.
+		args := fmt.Sprintf(`/K "%s"`, pixtralBat)
+		psCmd := fmt.Sprintf(`Start-Process -FilePath 'cmd.exe' -ArgumentList '%s' -WorkingDirectory '%s'`, args, workDir)
+		
+		cmd := exec.Command(pwshExe, "-NoProfile", "-Command", psCmd)
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 
-		if err := cmd.Start(); err != nil {
+		out, err := cmd.CombinedOutput()
+		if err != nil {
 			return stateUpdateMsg{
 				name:  c.Name,
 				state: StateError,
-				err:   fmt.Sprintf("cmd.exe interop failed: %v", err),
+				err:   fmt.Sprintf("pwsh error (pixtral): %v | out: %s", err, string(out)),
 			}
 		}
+		
 		return stateUpdateMsg{name: c.Name, state: StateStarting}
 	}
 }
@@ -123,6 +142,57 @@ func nixCmd(dir string, args ...string) *exec.Cmd {
 	cmd.Dir = dir
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	return cmd
+}
+
+// launchCrushProxy starts the Crush CLI in proxy mode.
+func launchCrushProxy(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		cmd := exec.Command("./crush-cli", "proxy")
+		cmd.Dir = root
+		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
+
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{
+				name:  c.Name,
+				state: StateError,
+				err:   fmt.Sprintf("crush-proxy launch failed: %v", err),
+			}
+		}
+
+		registerProc(c.Name, cmd)
+		go func() {
+			err := cmd.Wait()
+			if err != nil {
+				// We don't have a direct channel to tea.Msg here, but the prober
+				// will eventually notice it's dead, or we can log it.
+			}
+		}()
+
+		return stateUpdateMsg{
+			name:  c.Name,
+			state: StateStarting,
+		}
+	}
+}
+
+// launchCrushGUI opens a new Windows console window running `crush-cli thought-stream`.
+// This is the primary model-comms interface — streams inference tokens from Node A
+// via the clawlink socket. Requires crush-proxy sock to be ready before calling.
+func launchCrushGUI(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		// Start-Process wsl.exe opens a new visible Windows console window.
+		bashCmd := fmt.Sprintf(`cd %s && ./crush-cli thought-stream`, root)
+		psCmd := fmt.Sprintf(`Start-Process 'C:\Windows\System32\wsl.exe' -ArgumentList '-d NixOS -- bash -c \"%s\"' -WindowStyle Normal`, bashCmd)
+		cmd := exec.Command(pwshExe, "-NoProfile", "-Command", psCmd)
+		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
+		if out, err := cmd.CombinedOutput(); err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError,
+				err: fmt.Sprintf("crush-gui launch: %v | %s", err, string(out))}
+		}
+		return stateUpdateMsg{name: c.Name, state: StateRunning}
+	}
 }
 
 // launchDirector starts the Node B orchestrator via `nix develop --command pnpm start`.
@@ -149,13 +219,21 @@ func launchDirector(c *Component) tea.Cmd {
 	}
 }
 
-// launchSidecar starts a Rust sidecar via `nix develop --command cargo run --release`.
-// dir is the sidecar's subdirectory (e.g. "sidecar-atlas").
+// launchSidecar starts a Rust sidecar via `nix develop`.
+// It checks if the release binary exists to avoid expensive compilation during boot.
 func launchSidecar(c *Component, subdir string) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
 		dir := fmt.Sprintf("%s/%s", root, subdir)
-		cmd := nixCmd(dir, "cargo", "run", "--release")
+		
+		// Optimization: If binary exists, run it directly to avoid "cargo run" overhead
+		binPath := filepath.Join(dir, "target/release", subdir)
+		var cmd *exec.Cmd
+		if _, err := os.Stat(binPath); err == nil {
+			cmd = nixCmd(dir, "./target/release/"+subdir)
+		} else {
+			cmd = nixCmd(dir, "cargo", "run", "--release")
+		}
 
 		if err := cmd.Start(); err != nil {
 			return stateUpdateMsg{
@@ -167,6 +245,9 @@ func launchSidecar(c *Component, subdir string) tea.Cmd {
 		registerProc(c.Name, cmd)
 
 		go func() { _ = cmd.Wait() }()
+
+		// Settle delay to prevent CPU/RAM thrasher when booting 3 sidecars at once
+		time.Sleep(2 * time.Second)
 
 		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
 	}
@@ -238,10 +319,42 @@ func launchVaultSync(c *Component) tea.Cmd {
 
 // ── Boot Sequence ─────────────────────────────────────────────────────────────
 
+func finalizeGhostBoot() tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		
+		// 1. Run win-test.cjs for automated login
+		loginCmd := exec.Command("nix", "develop", "--command", "npx", "tsx", "scripts/win-test.cjs")
+		loginCmd.Dir = root
+		out, err := loginCmd.CombinedOutput()
+		os.WriteFile(filepath.Join(root, "data", "logs", "win-test.log"), out, 0644)
+		if err != nil {
+			return logMsg{text: fmt.Sprintf("GHOST LOGIN ERROR: %v | log written to win-test.log", err)}
+		}
+		
+		// 2. Short settle
+		time.Sleep(5 * time.Second)
+		
+		// 3. Run sovereign-live-audit.ts for health check
+		auditCmd := exec.Command("nix", "develop", "--command", "npx", "tsx", "scripts/sovereign-live-audit.ts")
+		auditCmd.Dir = root
+		auditOut, err := auditCmd.CombinedOutput()
+		os.WriteFile(filepath.Join(root, "data", "logs", "win-audit.log"), auditOut, 0644)
+		if err != nil {
+			return logMsg{text: fmt.Sprintf("GHOST AUDIT ERROR: %v | log written to win-audit.log", err)}
+		}
+		
+		return logMsg{text: "GHOST BOOT PROTOCOL: ALL SYSTEMS NOMINAL"}
+	}
+}
+
 // bootSequenceCmd implements the ctrl+i ignition: sequential boot across all
 // layers.  Layer 3 (SSH / Node A) is appended by Task 3.
-func bootSequenceCmd(components []*Component) tea.Cmd {
+func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 	var cmds []tea.Cmd
+
+	// First pass: log start of sequence
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 1 — Windows Orchestration"))
 
 	for _, c := range components {
 		comp := c // capture
@@ -253,26 +366,90 @@ func bootSequenceCmd(components []*Component) tea.Cmd {
 			case "pixtral":
 				cmds = append(cmds, launchPixtral(comp))
 			}
+		}
+	}
 
-		case LayerWSL:
-			switch comp.Name {
-			case "director":
-				cmds = append(cmds, launchDirector(comp))
-			case "dashboard-bridge":
-				cmds = append(cmds, launchDashboardBridge(comp))
-			case "shadow-dashboard":
-				cmds = append(cmds, launchShadowDashboard(comp))
-			case "vault-sync":
-				cmds = append(cmds, launchVaultSync(comp))
-			default:
-				if subdir, ok := sidecarSubdir[comp.Name]; ok {
-					cmds = append(cmds, launchSidecar(comp, subdir))
-				}
+	// Gate: Foundry CDP must have a page target before WSL layer starts
+	cmds = append(cmds, logEvent("GATE: waiting for Foundry CDP page target (90s)..."))
+	cmds = append(cmds, waitForCDPGate(90*time.Second))
+
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2 — WSL Orchestration"))
+
+	var sidecarCmds []tea.Cmd
+
+	// 2a: crush-proxy first, then wait for its Unix socket
+	clawSock := os.Getenv("CLAWLINK_SOCK")
+	if clawSock == "" {
+		clawSock = filepath.Join(projectRoot(), ".crush", "clawlink.sock")
+	}
+	for _, c := range components {
+		comp := c
+		if comp.Layer == LayerWSL && comp.Name == "crush-proxy" {
+			cmds = append(cmds, launchCrushProxy(comp))
+			cmds = append(cmds, logEvent(fmt.Sprintf("GATE: waiting for %s (15s)...", clawSock)))
+			cmds = append(cmds, waitForSockGate(clawSock, 15*time.Second))
+			break
+		}
+	}
+
+	// 2a.1: crush-gui — open thought-stream terminal as soon as sock is live
+	for _, c := range components {
+		comp := c
+		if comp.Layer == LayerWSL && comp.Name == "crush-gui" {
+			cmds = append(cmds, launchCrushGUI(comp))
+			break
+		}
+	}
+
+	// 2b: director next, then wait for its WebSocket port
+	for _, c := range components {
+		comp := c
+		if comp.Layer == LayerWSL && comp.Name == "director" {
+			cmds = append(cmds, launchDirector(comp))
+			cmds = append(cmds, logEvent("GATE: waiting for Director :3010 (30s)..."))
+			cmds = append(cmds, waitForTCPGate(directorWSAddr, 30*time.Second))
+			break
+		}
+	}
+
+	// 2c: remaining WSL services (dashboard, vault) and collect sidecars
+	for _, c := range components {
+		comp := c
+		if comp.Layer != LayerWSL {
+			continue
+		}
+		switch comp.Name {
+		case "crush-proxy", "director", "crush-gui":
+			// handled above with dependency gates
+		case "dashboard-bridge":
+			cmds = append(cmds, launchDashboardBridge(comp))
+		case "shadow-dashboard":
+			cmds = append(cmds, launchShadowDashboard(comp))
+		case "vault-sync":
+			cmds = append(cmds, launchVaultSync(comp))
+		default:
+			if subdir, ok := sidecarSubdir[comp.Name]; ok {
+				sidecarCmds = append(sidecarCmds, launchSidecar(comp, subdir))
 			}
+		}
+	}
 
-		case LayerRemote:
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 3 — Remote Orchestration (Node A)"))
+
+	for _, c := range components {
+		comp := c // capture
+		if comp.Layer == LayerRemote {
 			cmds = append(cmds, nodeABootCmd(comp))
 		}
+	}
+
+	if ghostMode {
+		cmds = append(cmds, finalizeGhostBoot())
+	}
+
+	if len(sidecarCmds) > 0 {
+		cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 4 — Sidecar Ignition"))
+		cmds = append(cmds, sidecarCmds...)
 	}
 
 	// Signal completion so the UI can re-arm ctrl+i if needed.
@@ -328,18 +505,20 @@ func performPurge() tea.Cmd {
 			"sidecar-cyberdeck",
 			"sidecar-atlas",
 			"sidecar-netrunning",
-			"crush",
-			"deck-igniter",
 			"llama-server",
+			"obsidian-sync-service", // instead of tsx, targeting the specific daemon
+			"next dev",              // instead of pnpm, targeting the specific server
 		}
 		for _, t := range targets {
-			// pkill -9 for maximum dominance over zombie processes
-			_ = exec.Command("pkill", "-9", t).Run()
+			// pkill -9 with -f to match specific command parts.
+			// This is safer for Gemini sessions because we've removed broad targets like 'pnpm' or 'tsx'
+			// which may be used by the developer's tools or the Gemini CLI itself.
+			_ = exec.Command("pkill", "-9", "-f", t).Run()
 		}
 		// Also kill the Windows-native pixtral server just in case
-		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe").Run()
+		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe /T").Run()
 		// Settle time after purge
 		time.Sleep(1 * time.Second)
-		return logMsg{text: "⚡ PURGE C0MPL373: All zombie processes neutralized."}
+		return logMsg{text: "⚡ PURGE C0MPL373: Targeted zombie processes neutralized."}
 	}
 }

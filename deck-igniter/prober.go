@@ -5,7 +5,7 @@ package main
 // Every 2 seconds the tickMsg fires probeAllCmd which dispatches concurrent
 // health probes per component:
 //
-//   foundry-vtt       → CDP JSON probe:  GET http://localhost:9222/json
+//   foundry-vtt       → CDP JSON probe:  GET http://<win-host>:9223/json (via win-proxy.cjs)
 //   director          → TCP dial:        localhost:3010 (WebSocket server)
 //   sidecar-atlas     → PID registry:    process alive check (Egui native, no HTTP)
 //   sidecar-netrunning→ PID registry:    process alive check (Egui native, no HTTP)
@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 	"syscall"
 	"time"
 
@@ -29,13 +30,25 @@ import (
 const (
 	probeTimeout = 1500 * time.Millisecond
 
-	// Local WSL endpoints
-	cdpEndpoint    = "http://localhost:9222/json"
-	directorWSAddr = "localhost:3010" // WebSocket server — TCP dial only
+	// directorWSAddr is the local WSL WebSocket TCP endpoint for the Director.
+	directorWSAddr = "localhost:3010"
+
+	// cdpProxyPort is the win-proxy port that forwards WSL2 → Windows CDP.
+	// win-proxy.cjs must be running on the Windows host (scripts/win-proxy.cjs).
+	cdpProxyPort = 9223
 
 	// VSB UDP timeouts
 	vsbUDPReadTimeout = 1 * time.Second
 )
+
+// cdpJSONEndpoint returns the CDP /json URL routed through the Windows proxy.
+// Foundry VTT Electron binds CDP strictly to Windows 127.0.0.1:9222; it
+// ignores --remote-debugging-address=0.0.0.0.  win-proxy.cjs bridges
+// 0.0.0.0:9223 → 127.0.0.1:9222 on the Windows side. From WSL2 we reach
+// Windows via the default gateway (ResolveWindowsHostIP).
+func cdpJSONEndpoint() string {
+	return fmt.Sprintf("http://%s:%d/json", ResolveWindowsHostIP(), cdpProxyPort)
+}
 
 // llamaHealthURL is derived at runtime from Cfg.NodeAHost.
 func llamaHealthURL() string {
@@ -73,11 +86,14 @@ func probeComponent(c *Component) tea.Cmd {
 	case "foundry-vtt":
 		return probeCDP(c.Name)
 	case "pixtral":
-		return probeHTTP(c.Name, "http://172.26.208.1:8080/health")
+		// Pixtral runs on Windows; reach it via the WSL2 gateway.
+		return probeHTTP(c.Name, fmt.Sprintf("http://%s:8080/health", ResolveWindowsHostIP()))
 	case "director":
 		return probeTCPDial(c.Name, directorWSAddr)
-	case "sidecar-atlas", "sidecar-netrunning":
+	case "sidecar-atlas", "sidecar-netrunning", "sidecar-cyberdeck", "crush-proxy", "dashboard-bridge", "shadow-dashboard", "vault-sync":
 		return probePID(c.Name)
+	case "crush-gui":
+		return nil // external Windows console window — not probed via PID
 	case "llama-server":
 		return probeHTTP(c.Name, llamaHealthURL())
 	case "zeroclaw":
@@ -156,7 +172,7 @@ type cdpTarget struct {
 
 func probeCDP(name string) tea.Cmd {
 	return func() tea.Msg {
-		resp, err := httpProber.Get(cdpEndpoint)
+		resp, err := httpProber.Get(cdpJSONEndpoint())
 		if err != nil {
 			return probeResultMsg{name: name, healthy: false,
 				err: fmt.Sprintf("CDP unreachable: %v", err)}
@@ -287,5 +303,67 @@ func promoteIfHealthy(m *Model, msg probeResultMsg) {
 				c.StartedAt = time.Now()
 			}
 		}
+	}
+}
+
+// ── Boot Sequence Gate Probes ─────────────────────────────────────────────────
+//
+// Each gate blocks inside a tea.Cmd until a readiness condition is met or the
+// deadline expires, enforcing strict dependency ordering in bootSequenceCmd.
+// tea.Sequence will not dispatch the next command until the gate returns.
+
+// waitForCDPGate polls cdpJSONEndpoint until a "page" target appears (Foundry
+// world loaded) or timeout expires.
+func waitForCDPGate(timeout time.Duration) tea.Cmd {
+	return func() tea.Msg {
+		deadline := time.Now().Add(timeout)
+		for time.Now().Before(deadline) {
+			resp, err := httpProber.Get(cdpJSONEndpoint())
+			if err == nil {
+				var targets []cdpTarget
+				if json.NewDecoder(resp.Body).Decode(&targets) == nil {
+					resp.Body.Close()
+					for _, t := range targets {
+						if t.Type == "page" {
+							return logMsg{text: fmt.Sprintf("[%s] GATE ✓ CDP page target confirmed", time.Now().Format("15:04:05"))}
+						}
+					}
+				} else {
+					resp.Body.Close()
+				}
+			}
+			time.Sleep(2 * time.Second)
+		}
+		return logMsg{text: fmt.Sprintf("[%s] GATE TIMEOUT: CDP unreachable after %s — continuing anyway", time.Now().Format("15:04:05"), timeout)}
+	}
+}
+
+// waitForSockGate polls for a Unix socket file until it exists or timeout expires.
+func waitForSockGate(sockPath string, timeout time.Duration) tea.Cmd {
+	return func() tea.Msg {
+		deadline := time.Now().Add(timeout)
+		for time.Now().Before(deadline) {
+			if _, err := os.Stat(sockPath); err == nil {
+				return logMsg{text: fmt.Sprintf("[%s] GATE ✓ socket %s ready", time.Now().Format("15:04:05"), sockPath)}
+			}
+			time.Sleep(500 * time.Millisecond)
+		}
+		return logMsg{text: fmt.Sprintf("[%s] GATE TIMEOUT: %s not found after %s — continuing anyway", time.Now().Format("15:04:05"), sockPath, timeout)}
+	}
+}
+
+// waitForTCPGate polls a TCP address until a connection succeeds or timeout expires.
+func waitForTCPGate(addr string, timeout time.Duration) tea.Cmd {
+	return func() tea.Msg {
+		deadline := time.Now().Add(timeout)
+		for time.Now().Before(deadline) {
+			conn, err := net.DialTimeout("tcp", addr, 1*time.Second)
+			if err == nil {
+				conn.Close()
+				return logMsg{text: fmt.Sprintf("[%s] GATE ✓ TCP %s confirmed", time.Now().Format("15:04:05"), addr)}
+			}
+			time.Sleep(1 * time.Second)
+		}
+		return logMsg{text: fmt.Sprintf("[%s] GATE TIMEOUT: TCP %s unreachable after %s — continuing anyway", time.Now().Format("15:04:05"), addr, timeout)}
 	}
 }

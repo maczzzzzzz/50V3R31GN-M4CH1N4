@@ -25,11 +25,14 @@ export class PretextOverlayManager {
     console.log(`[Pretext] Drawing overlay: "${payload.text}" for actor ${payload.targetId}`);
 
     // 1. Create/Get Overlay Container
+    // canvas.interface (InterfaceCanvasGroup) is the correct layer for floating UI
+    // overlays in Foundry v12. canvas.effects is a CachedContainer that composites
+    // to a baked texture — PIXI.Text added there does not render.
     let container = this.activeOverlays.get(payload.targetId);
     if (!container) {
       container = new PIXI.Container();
       container.name = `pretext-${payload.targetId}`;
-      canvas.effects.addChild(container);
+      canvas.interface.addChild(container);
       this.activeOverlays.set(payload.targetId, container);
     }
 
@@ -116,7 +119,7 @@ export class PretextOverlayManager {
       } else {
         container.removeChild(text);
         if (container.children.length === 0) {
-          canvas.effects.removeChild(container);
+          canvas.interface.removeChild(container);
           this.activeOverlays.delete(payload.targetId);
         }
       }

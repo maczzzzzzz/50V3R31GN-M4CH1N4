@@ -25,6 +25,7 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "f(){ if [ -z \"$IN_NIX_SHELL\" ] && command -v nix >/dev/null 2>&1; then nix develop .#default --command vitest run \"$@\"; else vitest run \"$@\"; fi; }; f",
+    "test:live": "npx concurrently \"bash scripts/watch-logs.sh\" \"/mnt/c/Windows/System32/cmd.exe /c 'cd C:\\Temp\\foundry-auto && node test.js'\"",
     "test:watch": "f(){ if [ -z \"$IN_NIX_SHELL\" ] && command -v nix >/dev/null 2>&1; then nix develop .#default --command vitest \"$@\"; else vitest \"$@\"; fi; }; f",
     "audit:theme": "tsx scripts/theme-auditor.ts",
     "audit:theme:dry": "tsx scripts/theme-auditor.ts --dry-run",

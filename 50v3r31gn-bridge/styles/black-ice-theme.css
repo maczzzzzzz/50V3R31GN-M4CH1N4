@@ -18,9 +18,10 @@
         --black-ice-glow: 0 0 10px rgba(255, 0, 60, 0.8);
         --font-primary: 'VT323', monospace;
         
-        /* Neutralize system variables */
-        --cpr-red: #000000 !important;
-        --cpr-red-dark: #000000 !important;
+        /* Neutralize CPR system background/fill reds only — NOT the text/border color var.
+           We override specific CPR element backgrounds below instead of zeroing the variable,
+           because zeroing --cpr-red makes all var(--cpr-red) usages (icons, borders, headers)
+           resolve to black-on-black and become invisible. */
     }
 
     /* 1. UNIVERSAL SOVEREIGNTY - THE ROLL TABLE PATTERN */
@@ -31,8 +32,14 @@
     body.vtt .app,
     body.vtt .application,
     body.vtt .sheet,
+    body.vtt .item-sheet,
+    body.vtt .cpr-item-sheet,
     body.vtt .journal-entry,
+    body.vtt .journal-sheet,
     body.vtt .journal-entry-pages,
+    body.vtt .journal-entry-page,
+    body.vtt .journal-pages-list,
+    body.vtt .journal-page-header,
     body.vtt .journal-page-content,
     body.vtt .roll-table-config,
     body.vtt .directory-item,
@@ -126,6 +133,36 @@
         border-color: var(--cpr-red) !important;
     }
 
+    /* 3b-2. ITEM SHEET SOVEREIGNTY — CPR item sheets use rgb(234,234,234) bg
+       .item-sheet and .cpr-item-sheet are not caught by .sheet specificity battle */
+    body.vtt .item-sheet,
+    body.vtt .cpr-item-sheet,
+    body.vtt .item-sheet .window-content,
+    body.vtt .cpr-item-sheet .window-content {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-red) !important;
+        color: var(--cpr-text-main) !important;
+    }
+
+    /* 3b-3. JOURNAL v12 DOM — Foundry v12 renamed sheet containers */
+    body.vtt .journal-sheet,
+    body.vtt .journal-sheet .window-content,
+    body.vtt .journal-entry-page,
+    body.vtt .journal-pages-list,
+    body.vtt .journal-page-header {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-red) !important;
+        color: var(--cpr-text-main) !important;
+    }
+    body.vtt .journal-pages-list {
+        border-right: 1px solid var(--cpr-red) !important;
+    }
+    body.vtt .journal-page-header {
+        border-bottom: 1px solid var(--cpr-red) !important;
+    }
+
     /* 3c. CPR FIGHT TAB — Zero-Red Protocol (Live Audit v1.5.0)
        CPR v0.9.3 hardcodes rgb(185,2,2) on .fight-tab and .tab.fight-tab.active.
        Requires explicit both-class overrides with !important to beat specificity. */
@@ -167,8 +204,8 @@
     body.vtt .nav-item,
     body.vtt button {
         background: #050505 !important;
-        color: #888 !important;
-        border: 1px solid #222 !important;
+        color: #e0e0e0 !important;   /* white — readable on black */
+        border: 1px solid #333 !important;
         text-transform: uppercase !important;
     }
 
@@ -176,11 +213,49 @@
     body.vtt .sheet-tabs .item.active,
     body.vtt #sidebar-tabs .item.active,
     body.vtt .nav-item.active,
-    body.vtt button:hover {
-        background: #000 !important;
-        color: var(--cpr-red) !important;
-        border: 1px solid var(--cpr-red) !important;
-        box-shadow: inset 0 0 8px var(--cpr-red) !important;
+    body.vtt button:hover,
+    body.vtt button:focus,
+    body.vtt button:active {
+        background: #0a0a0a !important;
+        color: #ff003c !important;
+        border: 1px solid #ff003c !important;
+        box-shadow: inset 0 0 8px rgba(255,0,60,0.4) !important;
+        text-shadow: 0 0 6px rgba(255,0,60,0.6) !important;
+    }
+
+    /* 5b. SIDEBAR TAB ICONS — explicit white default, red active */
+    body.vtt #sidebar-tabs .item i,
+    body.vtt #sidebar-tabs > .item i { color: #c8c8c8 !important; }
+    body.vtt #sidebar-tabs .item.active i,
+    body.vtt #sidebar-tabs .item:hover i { color: #ff003c !important; text-shadow: 0 0 8px rgba(255,0,60,0.8) !important; }
+
+    /* 5c. DIRECTORY ENTRY NAMES — h4/span elements were getting h4 { color: var(--cpr-red) } */
+    body.vtt .entry-name,
+    body.vtt .entry-name a,
+    body.vtt .entry-name span,
+    body.vtt h4.entry-name,
+    body.vtt .document-name { color: #e0e0e0 !important; text-shadow: none !important; border-bottom: none !important; }
+    body.vtt .entry-name:hover,
+    body.vtt .entry-name a:hover,
+    body.vtt li.directory-item:hover .entry-name { color: #ff003c !important; text-shadow: 0 0 6px rgba(255,0,60,0.5) !important; }
+
+    /* 5d. FOLDER HEADERS in directory lists */
+    body.vtt .folder-header,
+    body.vtt .folder-header .noborder,
+    body.vtt .folder-header span { color: #e0e0e0 !important; }
+    body.vtt .folder-header:hover { color: #ff003c !important; }
+
+    /* 5e. CHAT & SIDEBAR CONTENT text */
+    body.vtt .chat-message .message-header,
+    body.vtt .chat-message .message-sender,
+    body.vtt .chat-message .message-metadata,
+    body.vtt .chat-message .flavor-text,
+    body.vtt .chat-message .dice-formula,
+    body.vtt .chat-message .dice-total,
+    body.vtt #chat-log .whisper-to { color: #e0e0e0 !important; }
+    
+    body.vtt .chat-message .message-content {
+        color: #ffffff !important;
     }
 
     /* 6. THIRD-PARTY MODULE HARDENING (Simple Calendar, etc.) */
@@ -217,9 +292,19 @@
         color: #ffffff !important;
     }
 
-    /* Normalize icons to cyan */
-    body.vtt i.fas, body.vtt i.far, body.vtt i.fa-solid, body.vtt i.fa-regular {
-        color: var(--cpr-red) !important;
+    /* Normalize icons — grey by default (readable on black), red on interaction */
+    body.vtt i.fas, body.vtt i.far, body.vtt i.fa-solid,
+    body.vtt i.fa-regular, body.vtt i.fal, body.vtt i.fat {
+        color: #9a9a9a !important;
+    }
+    body.vtt button:hover i.fas, body.vtt button:hover i.far,
+    body.vtt button:hover i.fa-solid, body.vtt button:hover i.fal,
+    body.vtt a:hover > i.fas, body.vtt a:hover > i.far,
+    body.vtt a:hover > i.fa-solid, body.vtt a:hover > i.fal,
+    body.vtt .item.active i.fas, body.vtt .item.active i.far,
+    body.vtt .item.active i.fa-solid, body.vtt .item.active i.fal {
+        color: #ff003c !important;
+        text-shadow: 0 0 6px rgba(255,0,60,0.6) !important;
     }
 
     /* 8. SCROLLBARS */
@@ -836,4 +921,87 @@
         background-color: #000000 !important;
     }
 /* END AUTO-PATCH */
+
+    /* ── Sovereign Main Menu Button ───────────────────────────────────── */
+    li#sovereign-menu-btn {
+        list-style: none !important;
+    }
+    li#sovereign-menu-btn .sovereign-btn {
+        width: 100% !important;
+        background-color: #000000 !important;
+        border: 1px solid #ff003c !important;
+        color: #ff003c !important;
+        font-family: 'VT323', monospace !important;
+        font-size: 16px !important;
+        text-shadow: 0 0 8px rgba(255, 0, 60, 0.8) !important;
+        box-shadow: 0 0 6px rgba(255, 0, 60, 0.4) !important;
+        padding: 4px 8px !important;
+        cursor: pointer !important;
+        letter-spacing: 2px !important;
+    }
+    li#sovereign-menu-btn .sovereign-btn:hover {
+        background-color: #1a0000 !important;
+        box-shadow: 0 0 12px rgba(255, 0, 60, 0.9) !important;
+    }
+
+    /* ── CHAT READABILITY FIX ─────────────────────────────────────────────
+       CPR system injects .card-section, .cpr-chat-card, .cpr-roll-section
+       and related divs with class-based light grey/white backgrounds.
+       The Scythe (Section 7) only catches inline styles — not class styles.
+       Result: color:#fff text on grey/white bg = invisible.
+       Fix: force dark base on .chat-message, transparent on all inner divs,
+       then re-assert readable text throughout. ──────────────────────────── */
+    body.vtt li.chat-message,
+    body.vtt .chat-message {
+        background-color: #0d0d0d !important;
+        border: 1px solid #2a0000 !important;
+        color: #e0e0e0 !important;
+    }
+    /* Wipe class-based backgrounds from every inner element */
+    body.vtt .chat-message .message-content,
+    body.vtt .chat-message .card-section,
+    body.vtt .chat-message .card-header,
+    body.vtt .chat-message .cpr-chat-card,
+    body.vtt .chat-message .cpr-chat-card-header,
+    body.vtt .chat-message .cpr-roll-section,
+    body.vtt .chat-message .cpr-card-content,
+    body.vtt .chat-message .success-row,
+    body.vtt .chat-message .failure-row,
+    body.vtt .chat-message .chat-card,
+    body.vtt .chat-message table,
+    body.vtt .chat-message thead,
+    body.vtt .chat-message tbody,
+    body.vtt .chat-message tr,
+    body.vtt .chat-message td,
+    body.vtt .chat-message th,
+    body.vtt .chat-message div,
+    body.vtt .chat-message p,
+    body.vtt .chat-message span,
+    body.vtt .chat-message li {
+        background-color: transparent !important;
+        color: #e0e0e0 !important;
+    }
+    /* Re-assert heading colors after the transparent wipe */
+    body.vtt .chat-message h1,
+    body.vtt .chat-message h2,
+    body.vtt .chat-message h3,
+    body.vtt .chat-message h4,
+    body.vtt .chat-message h5,
+    body.vtt .chat-message h6 {
+        color: var(--cpr-red) !important;
+        background-color: transparent !important;
+        text-shadow: var(--black-ice-glow) !important;
+    }
+    /* Dice total highlight — keep it readable */
+    body.vtt .chat-message .dice-total,
+    body.vtt .chat-message .total {
+        color: #ff003c !important;
+        font-weight: bold !important;
+        text-shadow: 0 0 6px rgba(255,0,60,0.6) !important;
+    }
+    /* Success/failure text colours */
+    body.vtt .chat-message .success,
+    body.vtt .chat-message .success-text { color: #00ff99 !important; }
+    body.vtt .chat-message .failure,
+    body.vtt .chat-message .failure-text { color: #ff003c !important; }
 }

@@ -15,6 +15,7 @@ const { mockCDP, mockClient } = vi.hoisted(() => {
         frameTree: { frame: { id: 'frame-001' } },
       }),
     },
+    DOM: { enable: vi.fn().mockResolvedValue(undefined) },
     Runtime: {
       enable: vi.fn().mockResolvedValue(undefined),
     },

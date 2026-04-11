@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
 	"strings"
 	"syscall"
 
@@ -198,9 +199,14 @@ func main() {
 
 			cmd := os.Getenv("PROJECT_ROOT")
 			if cmd == "" {
-				cmd = ".."
+				cwd, _ := os.Getwd()
+				cmd = cwd
 			}
-			cmdPath := cmd + "/deck-igniter/deck-igniter"
+			cmdPath := filepath.Join(cmd, "deck-igniter/deck-igniter")
+			if _, err := os.Stat(cmdPath); err != nil {
+				// Fallback to deck-igniter-cli in current directory
+				cmdPath = filepath.Join(cmd, "deck-igniter-cli")
+			}
 			
 			// Try to run the igniter directly
 			execCmd := exec.Command(cmdPath)
@@ -282,6 +288,9 @@ func main() {
 
 		case "scan":
 			os.Exit(runScan(os.Args[2:]))
+
+		case "intent":
+			os.Exit(runIntent(os.Args[2:]))
 
 		case "crop-scan":
 			os.Exit(runCropScan(os.Args[2:]))

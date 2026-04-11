@@ -92,6 +92,8 @@ func buildAuditContext(action, targetID string) string {
 		return fmt.Sprintf("Hack surveillance camera %s in current scene. Operator-initiated via crush CLI.", targetID)
 	case "shut-down":
 		return fmt.Sprintf("Shut down networked device %s in current scene. Operator-initiated via crush CLI.", targetID)
+	case "friction":
+		return fmt.Sprintf("Trigger friction roll for faction %s. Operator-initiated via crush CLI.", targetID)
 	default:
 		return ""
 	}
@@ -136,6 +138,8 @@ func reasonAudit(action, targetID, auditContext string) (verdict, rationale stri
 		return "", "", fmt.Errorf("parse proxy response: %w", err)
 	}
 
+	fmt.Fprintf(os.Stderr, "[DEBUG] respPkt.Payload: %s\n", respPkt.Payload)
+
 	var rpcResp struct {
 		Result json.RawMessage `json:"result"`
 		Error  *string         `json:"error"`
@@ -143,6 +147,8 @@ func reasonAudit(action, targetID, auditContext string) (verdict, rationale stri
 	if err := json.Unmarshal([]byte(respPkt.Payload), &rpcResp); err != nil {
 		return "", "", fmt.Errorf("parse rpc envelope: %w", err)
 	}
+	
+	fmt.Fprintf(os.Stderr, "[DEBUG] rpcResp.Result: %s\n", string(rpcResp.Result))
 	if rpcResp.Error != nil && *rpcResp.Error != "" {
 		return "", "", fmt.Errorf("Node A error: %s", *rpcResp.Error)
 	}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"strings"
 	"time"
@@ -192,6 +193,7 @@ type Model struct {
 	width      int
 	height     int
 	booting    bool // true while sequential ctrl+i boot is in progress
+	ghostMode  bool // true if started via './deck-igniter-cli ghost'
 }
 
 // ── Initialization ─────────────────────────────────────────────────────────────
@@ -202,9 +204,16 @@ func initialModel() Model {
 		mode = "full"
 	}
 
+	ghost := false
+	if len(os.Args) > 1 && os.Args[1] == "ghost" {
+		ghost = true
+	}
+
 	allComponents := []*Component{
 		{Name: "foundry-vtt", Layer: LayerWindows},
 		{Name: "pixtral", Layer: LayerWindows},
+		{Name: "crush-proxy", Layer: LayerWSL},
+		{Name: "crush-gui", Layer: LayerWSL},   // thought-stream terminal — primary model comms UI
 		{Name: "director", Layer: LayerWSL},
 		{Name: "sidecar-atlas", Layer: LayerWSL},
 		{Name: "sidecar-cyberdeck", Layer: LayerWSL},
@@ -230,11 +239,19 @@ func initialModel() Model {
 	return Model{
 		components: activeComponents,
 		logs:       []string{fmt.Sprintf("Initialized in %s mode", mode)},
+		ghostMode:  ghost,
 	}
 }
 
 func (m Model) Init() tea.Cmd {
-	return tickCmd()
+	cmds := []tea.Cmd{tickCmd()}
+	if os.Getenv("AUTO_IGNITE") == "1" || m.ghostMode {
+		cmds = append(cmds, tea.Sequence(
+			logEvent("GHOST BOOT PROTOCOL ACTIVATED"),
+			bootSequenceCmd(m.components, m.ghostMode),
+		))
+	}
+	return tea.Batch(cmds...)
 }
 
 // ── Commands ──────────────────────────────────────────────────────────────────
@@ -319,7 +336,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.booting = true
 				return m, tea.Batch(
 					logEvent("IGNITION SEQUENCE INITIATED"),
-					bootSequenceCmd(m.components),
+					bootSequenceCmd(m.components, m.ghostMode),
 				)
 			}
 
@@ -479,10 +496,24 @@ func (m Model) renderLegend() string {
 func main() {
 	LoadConfig()
 
-	p := tea.NewProgram(
-		initialModel(),
+	opts := []tea.ProgramOption{
 		tea.WithAltScreen(),
 		tea.WithMouseCellMotion(),
+	}
+
+	// If running in the background without a TTY (e.g. from a script), disable the UI
+	if os.Getenv("HEADLESS") == "1" {
+		pr, _ := io.Pipe()
+		opts = []tea.ProgramOption{
+			tea.WithOutput(os.Stdout),
+			tea.WithInput(pr),
+			tea.WithoutRenderer(),
+		}
+	}
+
+	p := tea.NewProgram(
+		initialModel(),
+		opts...
 	)
 
 	if _, err := p.Run(); err != nil {

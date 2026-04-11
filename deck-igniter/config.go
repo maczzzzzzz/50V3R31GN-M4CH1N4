@@ -20,6 +20,7 @@ type Config struct {
 	NodeALlamaURL   string // NODE_A_LLAMA_URL
 	ClawlinkPort    string // CLAWLINK_PORT (VSB UDP port)
 	SetupScriptPath string // full path to setup-resident-models.sh on Node A
+	WindowsHostIP   string // WINDOWS_HOST_IP — override WSL2 auto-detection (default: empty = auto)
 }
 
 // defaults are the fallback values if the .env key is absent.
@@ -30,6 +31,7 @@ var defaultConfig = Config{
 	NodeALlamaURL:   "http://192.168.0.50:8080/v1",
 	ClawlinkPort:    "7878",
 	SetupScriptPath: "~/50v3r31gn-m4ch1n4-v0.9.1/zeroclaw/scripts/setup-resident-models.sh",
+	WindowsHostIP:   "",
 }
 
 // Cfg is the global runtime config, populated by LoadConfig() at startup.
@@ -69,6 +71,30 @@ func LoadConfig() {
 	if v, ok := env["NODE_A_SETUP_SCRIPT"]; ok && v != "" {
 		Cfg.SetupScriptPath = v
 	}
+	if v, ok := env["WINDOWS_HOST_IP"]; ok && v != "" {
+		Cfg.WindowsHostIP = v
+	}
+}
+
+// ResolveWindowsHostIP returns the Windows host IP for WSL2 cross-boundary
+// connections. If WINDOWS_HOST_IP is set in config it is used directly;
+// otherwise the WSL2 default gateway (which IS the Windows host) is read
+// from /etc/resolv.conf nameserver line.
+func ResolveWindowsHostIP() string {
+	if Cfg.WindowsHostIP != "" {
+		return Cfg.WindowsHostIP
+	}
+	data, err := os.ReadFile("/etc/resolv.conf")
+	if err != nil {
+		return "localhost"
+	}
+	for _, line := range strings.Split(string(data), "\n") {
+		line = strings.TrimSpace(line)
+		if strings.HasPrefix(line, "nameserver ") {
+			return strings.TrimSpace(strings.TrimPrefix(line, "nameserver "))
+		}
+	}
+	return "localhost"
 }
 
 // findEnvFile searches for a .env file relative to PROJECT_ROOT or the binary.

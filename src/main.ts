@@ -15,6 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Console } from 'node:console';
 import { randomUUID } from 'node:crypto';
+import { execSync } from 'node:child_process';
 
 const logDir = './data/logs';
 if (!fs.existsSync(logDir)) {
@@ -126,8 +127,8 @@ async function main() {
   }, logger);
 
   const clawlinkClient = new ClawLinkClient({
-    socketPath: process.env.CLAWLINK_SOCK || '/run/crush/clawlink.sock',
-    timeoutMs: parseInt(process.env.CLAWLINK_TIMEOUT || '5000', 10),
+    socketPath: process.env.CLAWLINK_SOCK || '/home/nixos/50V3R31GN-M4CH1N4/.crush/clawlink.sock',
+    timeoutMs: parseInt(process.env.CLAWLINK_TIMEOUT || '15000', 10),
   });
 
   // 4. Initialise State Engine
@@ -138,9 +139,23 @@ async function main() {
   // 5. Build Foundry Adapter
   const foundry = new FoundryAdapter({ logger });
 
+  const getWslHostIp = () => {
+    try {
+      return execSync("ip route | grep default | awk '{print $3}'").toString().trim();
+    } catch (e) {
+      logger.warn('Orchestrator', 'boot', `Failed to resolve WSL host IP: ${(e as Error).message}`);
+      return '127.0.0.1';
+    }
+  };
+
+  const debugHost = getWslHostIp();
+  const debugPort = debugHost === '127.0.0.1' ? 9222 : 9223;
+  logger.info('Orchestrator', bootTraceId, `Neural Uplink target: ${debugHost}:${debugPort}`);
+
   // 6. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
   const neuralUplink = new VisualMonitorService({
-    debugPort: parseInt(process.env.CDP_DEBUG_PORT || '9222', 10),
+    debugHost,
+    debugPort: parseInt(process.env.CDP_DEBUG_PORT || String(debugPort), 10),
     oracle,
   });
   try {
@@ -148,6 +163,25 @@ async function main() {
     
     // Phase 35: Inject SOVEREIGN_HIJACK_JS payload upon successful CDP connection
     const client = neuralUplink.getClient();
+    const token = foundry.getHandshakeToken();
+    
+    await client.Runtime.evaluate({
+      expression: `
+        (async () => {
+          if (typeof game !== 'undefined' && game.ready) {
+            await game.settings.set('50v3r31gn-bridge', 'nodeBWsUrl', 'ws://localhost:3010?token=${token}');
+            console.log('::/5Y573M-N071C3 : Bridge token injected.');
+          } else {
+            Hooks.once('ready', async () => {
+              await game.settings.set('50v3r31gn-bridge', 'nodeBWsUrl', 'ws://localhost:3010?token=${token}');
+              console.log('::/5Y573M-N071C3 : Bridge token injected (deferred).');
+            });
+          }
+        })()
+      `,
+      awaitPromise: true,
+    });
+
     await client.Runtime.evaluate({
       expression: SOVEREIGN_HIJACK_JS,
       awaitPromise: true,
