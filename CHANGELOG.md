@@ -5,8 +5,6 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.5.0] - 2026-04-10
-### Added
 ## [2.6.0] - 2026-04-11
 ### Added
 - **Phase 41: Legacy Stabilization (Completed)**: Critical optimization pass targeting Phases 1-20 core infrastructure.
@@ -20,9 +18,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - **Type Safety**: Resolved long-standing inconsistencies between NpcStatBlock and player StatBlock interfaces.
-
-### Known Issues
-- **CI/Environment**: Integration tests for Go components (Crush Proxy) are failing in the isolated runner due to missing Go binary paths. ACTION: Review Nix shell isolation for vitest runner.
+- **CI/Environment**: Fixed `spawn go ENOENT` errors in isolated runners by wrapping test scripts in Nix environment detection logic.
 
 ## [2.5.0] - 2026-04-10
 ### Added
@@ -38,24 +34,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Mock Logic Purge**: Replaced all hardcoded mock scoring in Unified Oracle with real vector distance metrics.
 - **System Version**: Bumped core engine to v2.5.0.
 
-- **Phase 40: 50V3R31GN-3C0N0MY (Completed)**: Fully integrated Red Trade and Night Market systems into the dual-node hardware bus.
-- **Binary Friction UDP**: Implemented native  (Type `0x05`) for asynchronous rules-processing on Node A.
-- **Tactical Heat Radar**: Allocated dedicated Mmap slots (`3072-3074`) for real-time heat telemetry.
-- **Cyberdeck HUD Radar**: Engineered a circular pulsing radar widget in the Rust egui HUD, synced to Mmap state.
-- **Architect Mission Loops**: Integrated autonomous token manifestations for dead drops and hostile ambushes directly into the Story Engine.
-- **Smart Night Markets**: Extended Foundry bridge with `hoverVendor` events to trigger real-time shop displays in the HUD.
-
-### Changed
-- **Phase 39: Legacy Remediation (Completed)**: Systematic rebranding of all "Ollama" clients to `SovereignNarrativeClient` and `SovereignEmbeddingService`.
-- **Mock Logic Purge**: Replaced all hardcoded mock scoring in Unified Oracle with real vector distance metrics.
-- **System Version**: Bumped core engine to v2.5.0.
-
-
+## [2.4.0] - 2026-04-10
+### Added
 - **Phase 39: 534ML355-1NF1L7R4710N (Completed)**: Transformed the system into an active infiltration engine.
-- **Transient Biometric Scanning**: Implemented high-fidelity `hoverToken`, `hoverDrawing`, and `hoverNote` hooks in the Foundry bridge, synchronizing live NPC data to the HUD via Mmap.
-- **Quick Hack Console**: Integrated a Netrunning suite directly into the `sidecar-cyberdeck` Rust HUD, allowing for one-click hacks (`SY573M-5H0CK`, `OP71C5-D15RUP7`, etc.) adjudicated by the Node A Rules Oracle.
-- **Architect Auto-Forge**: Automated the Smart Asset ingestion process. The Architect now background-bakes biometric ST3GG shards into every token it materializes on the scene.
-- **Sovereign Mode**: Added `crush sovereign-mode [on|off]` to toggle God-Mode rules overrides for the GM.
 
 ## [2.3.1] - 2026-04-10
 ### Added
