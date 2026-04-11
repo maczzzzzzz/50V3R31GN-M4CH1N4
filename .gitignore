@@ -87,6 +87,17 @@ flake.lock.bak
 # System & Sidecars
 crush/crush
 deck-igniter/deck-igniter
+crush-bin
+crush-cli
+deck-igniter-cli
+
+# Dashboard build cache
+dashboard/.next/
+
+# Foundry game data exports (runtime operational)
+fvtt-*.json
+fvtt-*.json:Zone.Identifier
+foundry-baseline.png
 
 # Models
 *.gguf
