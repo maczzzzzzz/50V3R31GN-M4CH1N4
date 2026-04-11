@@ -187,6 +187,11 @@ func main() {
 				openDirectory("../docs/", key)
 				openDirectory("../data/vault/", key)
 				openDirectory("../akashik_guides/", key)
+				
+				// Unseal root-level directive shards
+				openDirectory("../CLAUDE.md.png", key)
+				openDirectory("../GEMINI.md.png", key)
+				openDirectory("../RED_RULES.md.png", key)
 			} else {
 				fmt.Println("⚠️  SOVEREIGN_KEY not found. Skipping auto-unseal.")
 			}
