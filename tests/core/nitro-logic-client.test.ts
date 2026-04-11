@@ -388,9 +388,9 @@ describe('NitroLogicClient — balanceNpcForSoloPlay()', () => {
   };
 
   const VALID_NPC_STAT_BLOCK = {
-    ref: 4,
-    dex: 4,
-    body: 5,
+    REF: 4,
+    DEX: 4,
+    BODY: 5,
     combatSkill: 4,
     hp: 35,
     sp: 9,
@@ -409,9 +409,9 @@ describe('NitroLogicClient — balanceNpcForSoloPlay()', () => {
     const client = new NitroLogicClient(CLIENT_WITH_CLAW);
     const result = await client.balanceNpcForSoloPlay({ playerSheetBase64: 'base64img' });
 
-    expect(result.ref).toBe(4);
-    expect(result.dex).toBe(4);
-    expect(result.body).toBe(5);
+    expect(result.REF).toBe(4);
+    expect(result.DEX).toBe(4);
+    expect(result.BODY).toBe(5);
     expect(result.combatSkill).toBe(4);
     expect(result.hp).toBe(35);
     expect(result.sp).toBe(9);
@@ -456,7 +456,7 @@ describe('NitroLogicClient — balanceNpcForSoloPlay()', () => {
 
   it('throws Zero-Trust validation error when LLM returns invalid JSON shape (missing ref)', async () => {
     MOCK_RPC.mockResolvedValue([{ text: 'REF:6 SP:11 HP:35', x: 0, y: 0, confidence: 1.0 }]);
-    const malformed = { dex: 4, body: 5, combatSkill: 4, hp: 35, sp: 9, reasoning: 'ok' }; // missing ref
+    const malformed = { DEX: 4, BODY: 5, combatSkill: 4, hp: 35, sp: 9, reasoning: 'ok' }; // missing REF
     vi.stubGlobal('fetch', mockFetchSuccess(wrapChatResponse(malformed)));
 
     const client = new NitroLogicClient(CLIENT_WITH_CLAW);

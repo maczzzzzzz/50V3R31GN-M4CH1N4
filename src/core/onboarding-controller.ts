@@ -22,6 +22,7 @@
 import { randomUUID } from 'node:crypto';
 import type { INitroLogicClient, ISovereignNarrativeClient } from './interfaces.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
+import type { BaseStatBlock } from '../types/stats.js';
 
 // ── State Machine ──────────────────────────────────────────────────────────────
 
@@ -95,18 +96,7 @@ export interface LifepathResult {
   readonly dialogue:         string;
 }
 
-export interface StatBlock {
-  readonly INT:  number;
-  readonly REF:  number;
-  readonly DEX:  number;
-  readonly TECH: number;
-  readonly COOL: number;
-  readonly WILL: number;
-  readonly LUCK: number;
-  readonly MOVE: number;
-  readonly BODY: number;
-  readonly EMP:  number;
-}
+export interface StatBlock extends BaseStatBlock {}
 
 export interface StatsResult {
   readonly buildType: BuildType;

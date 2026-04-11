@@ -656,17 +656,20 @@ export class HybridRoutingController {
     try {
       let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
 
-      // NPC grounding — must come first so substring checks match test expectations
-      const npcs = this.unifiedOracle.query('SELECT name, hp, faction, disposition FROM npcs', []);
-      const mentions = npcs.filter((n: any) => n.name && input.toLowerCase().includes(n.name.toLowerCase()));
+      // NPC grounding
+      // Phase 41 Optimization: Filter NPCs by name existence in the input string at the DB level
+      const npcs = this.unifiedOracle.query(
+        "SELECT name, hp, faction, disposition FROM npcs WHERE ? LIKE '%' || name || '%'",
+        [input]
+      );
 
-      for (const npc of mentions) {
+      for (const npc of npcs) {
         pulse += `- ${npc.name}: HP=${npc.hp}, Faction=${npc.faction}, Stance=${npc.disposition}\n`;
         const [lastMsg] = this.unifiedOracle.query(
           'SELECT content FROM session_memory.messages WHERE content LIKE ? ORDER BY rowid DESC LIMIT 1',
           [`%${npc.name}%`]
         );
-        if (lastMsg) {
+        if (lastMsg && lastMsg.content) {
           const snippet = lastMsg.content.length > 40 ? lastMsg.content.slice(0, 40) : lastMsg.content;
           pulse += `  Context: "${snippet}..."\n`;
         }

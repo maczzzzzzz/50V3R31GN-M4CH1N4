@@ -5,6 +5,7 @@ import type { SkillstoneService } from './skillstone-service.js';
 import { ParseltongueCodec } from '../shared/parseltongue-codec.js';
 import type { WorldCommand } from '../shared/schemas/world-commands.schema.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
+import { extractJsonObject } from '../shared/utils/json-extractor.js';
 
 export interface BeatConfig {
   id: string;
@@ -121,10 +122,9 @@ Return ONLY a JSON object in this format:
 
     try {
       const response = await this.sovereignNarrative.generateNarrative(prompt, context, 'Return valid JSON only.');
-      // Extract JSON if model adds fluff
-      const jsonMatch = response.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        return JSON.parse(jsonMatch[0]);
+      const extracted = extractJsonObject<OverlayParams>(response);
+      if (extracted) {
+        return extracted;
       }
       return { text: response.trim() };
     } catch (err) {

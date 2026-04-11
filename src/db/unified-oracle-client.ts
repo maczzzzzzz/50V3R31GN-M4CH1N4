@@ -25,14 +25,15 @@ export interface UnifiedOracleConfig {
 }
 
 export class UnifiedOracleClient {
-  private db: Database.Database | null = null;
+  private _dbInternal: Database.Database | null = null;
+  private get db(): Database.Database {
+    if (!this._dbInternal) throw new Error('Database not connected');
+    return this._dbInternal;
+  }
   private readonly config: UnifiedOracleConfig;
   private connected = false;
 
   public getRawDatabase(): Database.Database {
-    if (!this.db) {
-      throw new Error('Database is not connected');
-    }
     return this.db;
   }
 
@@ -48,7 +49,7 @@ export class UnifiedOracleClient {
 
   async connect(): Promise<void> {
     if (this.connected) return;
-    this.db = new Database(this.config.worldDbPath);
+    this._dbInternal = new Database(this.config.worldDbPath);
     this.db.pragma('journal_mode = WAL');
     this.db.pragma('synchronous = NORMAL');
     this.db.pragma('foreign_keys = ON');
@@ -82,8 +83,8 @@ export class UnifiedOracleClient {
   }
 
   async disconnect(): Promise<void> {
-    this.db?.close();
-    this.db = null;
+    this._dbInternal?.close();
+    this._dbInternal = null;
     this.connected = false;
   }
 
@@ -147,7 +148,11 @@ export class UnifiedOracleClient {
     }
   }
 
+  private schemaInitialized = false;
+
   async initSchema(): Promise<void> {
+    if (this.schemaInitialized) return;
+    this.schemaInitialized = true;
     if (!this.db) throw new Error('Database not connected');
     const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
     this.db.exec(schema);
@@ -364,7 +369,7 @@ export class UnifiedOracleClient {
         const params: any[] = entries.map(([_, v]) => (typeof v === 'boolean' ? (v ? 1 : 0) : v));
         params.push(target);
 
-        this.db!.prepare(`UPDATE npcs SET ${setClause} WHERE id = ?`).run(...params);
+        this.db.prepare(`UPDATE npcs SET ${setClause} WHERE id = ?`).run(...params);
 
         if ('humanity' in data) {
           this.recalculateDerivedStats(target);
@@ -374,18 +379,18 @@ export class UnifiedOracleClient {
 
       case 'ADD_LORE': {
         const { subject, predicate, object } = validated;
-        this.db!.prepare('INSERT INTO triplets (subject_id, predicate, object_literal) VALUES (?, ?, ?)')
+        this.db.prepare('INSERT INTO triplets (subject_id, predicate, object_literal) VALUES (?, ?, ?)')
           .run(subject, predicate, object);
         break;
       }
 
       case 'TRANSFER_ITEM': {
         const { itemId, fromId, toId } = validated;
-        const item = this.db!.prepare('SELECT owner_id FROM inventory WHERE item_id = ?').get(itemId) as { owner_id: string } | undefined;
+        const item = this.db.prepare('SELECT owner_id FROM inventory WHERE item_id = ?').get(itemId) as { owner_id: string } | undefined;
         if (!item || item.owner_id !== fromId) {
           throw new Error(`Ownership mismatch: Item ${itemId} belongs to ${item?.owner_id ?? 'nobody'}, not ${fromId}.`);
         }
-        this.db!.prepare('UPDATE inventory SET owner_id = ?, is_equipped = 0 WHERE item_id = ?')
+        this.db.prepare('UPDATE inventory SET owner_id = ?, is_equipped = 0 WHERE item_id = ?')
           .run(toId, itemId);
         break;
       }

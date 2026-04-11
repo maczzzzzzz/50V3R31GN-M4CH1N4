@@ -11,6 +11,7 @@
  * scratchpad emitted by Llama-3.2-3B per the research mandate (Phase-2-3-Orchestration-Research §1.2).
  */
 
+import type { BaseStatBlock } from '../types/stats.js';
 import type { GhostBlip } from '../shared/vsb_protocol.js';
 export type { GhostBlip };
 
@@ -266,21 +267,15 @@ export interface IArchitectService {
 export interface DetectedEntity {
   /** OCR-extracted text label (e.g. room name, zone identifier). */
   text: string;
-  /** Normalised X coordinate [0.0–1.0] relative to the source image width. */
+  /** Machine X coordinate [0-1000] relative to the source image width. */
   x: number;
-  /** Normalised Y coordinate [0.0–1.0] relative to the source image height. */
+  /** Machine Y coordinate [0-1000] relative to the source image height. */
   y: number;
   /** Confidence score from the Falcon model [0.0–1.0]. */
   confidence: number;
 }
 
-export interface NpcStatBlock {
-  /** Reflexes stat (REF) — governs initiative and ranged combat */
-  readonly ref: number;
-  /** Dexterity stat (DEX) — governs melee and evasion */
-  readonly dex: number;
-  /** Body stat (BOD) — governs HP and melee damage bonus */
-  readonly body: number;
+export interface NpcStatBlock extends BaseStatBlock {
   /** Combat skill level */
   readonly combatSkill: number;
   /** Hit points */

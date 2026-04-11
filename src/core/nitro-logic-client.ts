@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
+import { normalizedToMachine } from '../shared/utils/coords.js';
 import type {
   NitroLogicConfig,
   INitroLogicClient,
@@ -74,13 +75,21 @@ const DetectedEntitySchema = z.object({
 const DetectedEntitiesSchema = z.array(DetectedEntitySchema);
 
 const NpcStatBlockSchema = z.object({
-  ref: z.number().int().min(1).max(10),
-  dex: z.number().int().min(1).max(10),
-  body: z.number().int().min(1).max(10),
+  REF: z.number().int().min(1).max(10),
+  DEX: z.number().int().min(1).max(10),
+  BODY: z.number().int().min(1).max(10),
   combatSkill: z.number().int().min(0).max(10),
   hp: z.number().int().min(15),
   sp: z.number().int().min(0),
   reasoning: z.string().min(1),
+  // Additional stats to satisfy BaseStatBlock
+  INT: z.number().int().default(5),
+  TECH: z.number().int().default(5),
+  COOL: z.number().int().default(5),
+  WILL: z.number().int().default(5),
+  LUCK: z.number().int().default(5),
+  MOVE: z.number().int().default(5),
+  EMP: z.number().int().default(5),
 });
 
 // ── System prompts with few-shot CoT exemplars ────────────────────────────────
@@ -165,7 +174,7 @@ RULES:
 
 Given the player's extracted stats, generate NPC stats that create a balanced but challenging encounter.
 Output ONLY valid JSON with exactly these fields:
-{"ref":number,"dex":number,"body":number,"combatSkill":number,"hp":number,"sp":number,"reasoning":string}
+{"REF":number,"DEX":number,"BODY":number,"combatSkill":number,"hp":number,"sp":number,"reasoning":string}
 `;
 
 const SYSTEM_PROMPT_SECURITY_AUDIT = `You are a cybersecurity auditor specializing in JavaScript sandboxing for Foundry VTT.
@@ -303,7 +312,13 @@ export class NitroLogicClient implements INitroLogicClient {
         `${issue?.message ?? 'unknown'} (path: ${issue?.path.join('.') ?? 'root'})`,
       );
     }
-    return result.data;
+    
+    // Map coordinates to 0-1000 machine scale
+    return result.data.map(e => ({
+      ...e,
+      x: normalizedToMachine(e.x),
+      y: normalizedToMachine(e.y)
+    }));
   }
 
   async balanceNpcForSoloPlay(params: SoloSafeParams): Promise<NpcStatBlock> {

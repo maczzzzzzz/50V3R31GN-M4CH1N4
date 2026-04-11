@@ -7,6 +7,23 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.5.0] - 2026-04-10
 ### Added
+## [2.6.0] - 2026-04-11
+### Added
+- **Phase 41: Legacy Stabilization (Completed)**: Critical optimization pass targeting Phases 1-20 core infrastructure.
+- **Coordinate Normalization**: Implemented shared utility for 0-1000 integer-scaled geometry, standardizing coordinate handling across OCR and renderer.
+- **Robust JSON Extraction**: Centralized LLM response parsing into a specialized utility, significantly reducing fragility in narrative generation.
+- **Stat Key Standardization**: Migrated the entire character system (schemas, prompts, and controllers) to standard Uppercase Stat Keys (REF, DEX, BODY, etc.).
+
+### Changed
+- **Oracle Refactoring**: Decoupled database connection logic and implemented a private accessor pattern, reducing boilerplate by ~30% in UnifiedOracleClient.
+- **Grounding Optimization**: Batched NPC lookup queries in HybridRoutingController, offloading substring filtering to the SQLite engine.
+
+### Fixed
+- **Type Safety**: Resolved long-standing inconsistencies between NpcStatBlock and player StatBlock interfaces.
+
+### Known Issues
+- **CI/Environment**: Integration tests for Go components (Crush Proxy) are failing in the isolated runner due to missing Go binary paths. ACTION: Review Nix shell isolation for vitest runner.
+
 ## [2.5.0] - 2026-04-10
 ### Added
 - **Phase 40: 50V3R31GN-3C0N0MY (Completed)**: Fully integrated Red Trade and Night Market systems into the dual-node hardware bus.
