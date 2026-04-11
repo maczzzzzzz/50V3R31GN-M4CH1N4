@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2026-04-11
+### Added
+- **Gated Boot Sequence (Phase 42)**: Deck-Igniter now enforces strict dependency ordering via blocking readiness gates — CDP page target before WSL layer, clawlink socket before director, director :3010 before sidecars. Eliminates race conditions that caused silent boot failures.
+- **crush-gui Component**: Supervised thought-stream terminal that launches as a visible Windows console window via PowerShell WSL interop immediately after clawlink socket is live. Streams inference tokens from Node A in real-time.
+- **Windows Host IP Resolution**: `ResolveWindowsHostIP()` in both deck-igniter and director reads WSL gateway from `/etc/resolv.conf`, with `WINDOWS_HOST_IP` env override for static deployments. Neural Uplink now targets port 9223 (win-proxy) instead of 9222 (direct Foundry).
+- **Crush .env Auto-Loading**: `LoadEnv()` runs in `init()` so all .env keys are injected before config resolves — no more stale defaults when running `./crush-cli` from project root.
+- **Phase 42 Audit Scripts**: `sovereign-live-audit.ts` (CDP audit + WebSocket reconnection polling), `synthetic-gauntlet.ts` (combat/movement intent injection), `ghost-boot.sh` (headless driver), `watch-logs.sh` (ERROR/WARN surveillance).
+- **50v3r31gn-bridge Module**: Consolidated Foundry module with fixed entry point, v12 compatibility, and bridge token auto-injection via CDP on successful Neural Uplink connection.
+
+### Fixed
+- **Clawlink Socket Path**: Aligned default path to `.crush/clawlink.sock` across crush-cli, deck-igniter, and director — eliminates `ENOENT` on first connection.
+- **Crush-Proxy Timeout**: Bumped `CLAWLINK_TIMEOUT` default from 5s to 15s to accommodate cold-start latency.
+- **Join Page Race Condition**: Ghost boot automation now correctly polls for the Foundry join page before attempting login.
+- **CDP Browser Disconnect**: Fixed `browser.close()` call in audit scripts to use proper CDP mode disconnect.
+
 ## [2.7.0] - 2026-04-11
 ### Added
 - **Global Structured Logging Overhaul**: Implemented a centralized, JSON-structured logging system across all Node.js services.
