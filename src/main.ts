@@ -14,6 +14,7 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Console } from 'node:console';
+import { randomUUID } from 'node:crypto';
 
 const logDir = './data/logs';
 if (!fs.existsSync(logDir)) {
@@ -65,17 +66,18 @@ import { SharedMemoryService } from './core/shared-memory-service.js';
 
 import { RootsInjector } from './core/roots-injector.js';
 import { SOVEREIGN_HIJACK_JS } from '../scripts/theme-sync.js';
+import { logger } from './shared/logger.js';
 
 async function main() {
-  console.log('🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v2.2.0)...');
+  const bootTraceId = 'boot-' + Date.now();
+  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v2.6.0)...');
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({
     worldDbPath: process.env.AKASHIK_DB_PATH ?? './data/Akashik.db',
     crushDbPath: process.env.CRUSH_DB_PATH ?? './data/crush.db',
-  });
+  }, logger);
   await oracle.connect();
-  console.log('✅ Unified Oracle ONLINE.');
 
   // ... (setup continues)
 
@@ -95,7 +97,7 @@ async function main() {
     }
 
     if (Date.now() - lastFoundrySeen > ZOMBIE_TIMEOUT_MS) {
-      console.error('!! ZOMBIE DETECTED: Foundry connection lost for >5m. Purging Node B.');
+      logger.error('Orchestrator', 'watchdog', '!! ZOMBIE DETECTED: Foundry connection lost for >5m. Purging Node B.');
       process.emit('SIGTERM');
     }
   }, FOUNDRY_HEARTBEAT_MS);
@@ -106,7 +108,7 @@ async function main() {
     model: process.env.NODE_A_LLAMA_MODEL || 'local-llama',
     timeoutMs: 30000,
     seed: 42,
-  });
+  }, logger);
 
   const rootsInjector = new RootsInjector(oracle.getRawDatabase());
 
@@ -121,7 +123,7 @@ async function main() {
     host: process.env.NODE_A_HOST || '192.168.0.50',
     port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
     timeoutMs: 2000,
-  });
+  }, logger);
 
   const clawlinkClient = new ClawLinkClient({
     socketPath: process.env.CLAWLINK_SOCK || '/run/crush/clawlink.sock',
@@ -134,7 +136,7 @@ async function main() {
   bootstrapTttaPart1(storyEngine);
 
   // 5. Build Foundry Adapter
-  const foundry = new FoundryAdapter();
+  const foundry = new FoundryAdapter({ logger });
 
   // 6. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
   const neuralUplink = new VisualMonitorService({
@@ -150,9 +152,9 @@ async function main() {
       expression: SOVEREIGN_HIJACK_JS,
       awaitPromise: true,
     });
-    console.log('💉 SOVEREIGN_HIJACK_JS Payload Injected.');
+    logger.info('Orchestrator', bootTraceId, '💉 SOVEREIGN_HIJACK_JS Payload Injected.');
   } catch (err) {
-    console.warn(`⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
+    logger.warn('Orchestrator', bootTraceId, `⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
   }
 
   const architect = new ArchitectPassService(neuralUplink);
@@ -163,9 +165,9 @@ async function main() {
   );
   try {
     sharedMemory.open();
-    console.log(`✅ VSB Shared Memory OPEN: ${process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem'}`);
+    logger.info('Orchestrator', bootTraceId, `✅ VSB Shared Memory OPEN: ${process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem'}`);
   } catch (err) {
-    console.warn(`⚠️  VSB Shared Memory failed to open: ${(err as Error).message}`);
+    logger.warn('Orchestrator', bootTraceId, `⚠️  VSB Shared Memory failed to open: ${(err as Error).message}`);
   }
 
   // 8. Assemble Orchestration Loop
@@ -190,6 +192,7 @@ async function main() {
     auditor,
     sharedMemoryService: sharedMemory,
     onboardingEnabled: true,
+    logger: logger,
   });
 
   // 9. Vesper Shadow Mode — Autonomous Reconnaissance
@@ -203,19 +206,21 @@ async function main() {
 
   // 10. Wire Orchestrator to Bridge Events
   foundry.onEvent(async (event) => {
+    const traceId = randomUUID();
     try {
       await controller.handleFoundryEvent(event);
     } catch (err) {
-      console.error('[Main] Orchestrator event error:', err);
+      logger.error('Orchestrator', traceId, '[Main] Orchestrator event error:', { error: (err as Error).message, event });
     }
   });
 
   // 11. Wire Proxy Intents (crush-cli)
   clawlinkClient.onIntent(async (intent) => {
+    const traceId = randomUUID();
     try {
       await controller.handleProxyIntent(intent);
     } catch (err) {
-      console.error('[Main] Proxy intent error:', err);
+      logger.error('Orchestrator', traceId, '[Main] Proxy intent error:', { error: (err as Error).message, intent });
     }
   });
 
@@ -226,11 +231,12 @@ async function main() {
     clawlinkClient.connect(),
   ]);
 
-  console.log('🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
+  logger.info('Orchestrator', bootTraceId, '🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
 
   // 9. Graceful Shutdown
   const shutdown = async (signal: string) => {
-    console.log(`\n[Main] Received ${signal}. Shutting down gracefully...`);
+    const shutdownTraceId = 'shutdown-' + Date.now();
+    logger.info('Orchestrator', shutdownTraceId, `\n[Main] Received ${signal}. Shutting down gracefully...`);
     
     try {
       // Disconnect Neural Uplink
@@ -238,29 +244,29 @@ async function main() {
 
       // Stop Foundry first to stop incoming events
       await foundry.stop();
-      console.log('✅ Foundry Adapter STOPPED.');
+      logger.info('Orchestrator', shutdownTraceId, '✅ Foundry Adapter STOPPED.');
 
       // Stop AI clients (SovereignNarrative will unload model)
       await sovereignNarrative.stop();
-      console.log('✅ SovereignNarrative Client STOPPED.');
+      logger.info('Orchestrator', shutdownTraceId, '✅ SovereignNarrative Client STOPPED.');
       
       await nitroLogic.stop();
-      console.log('✅ NitroLogic Client STOPPED.');
+      logger.info('Orchestrator', shutdownTraceId, '✅ NitroLogic Client STOPPED.');
 
       vsbClient.close();
-      console.log('✅ VsbClient (UDP) STOPPED.');
+      logger.info('Orchestrator', shutdownTraceId, '✅ VsbClient (UDP) STOPPED.');
 
       await clawlinkClient.disconnect().catch(() => {});
-      console.log('✅ ClawLink Client DISCONNECTED.');
+      logger.info('Orchestrator', shutdownTraceId, '✅ ClawLink Client DISCONNECTED.');
 
       // Disconnect Oracle
       await oracle.disconnect();
-      console.log('✅ Unified Oracle DISCONNECTED.');
+      logger.info('Orchestrator', shutdownTraceId, '✅ Unified Oracle DISCONNECTED.');
 
-      console.log('👋 50V3R31GN-M4CH1N4 shutdown complete.');
+      logger.info('Orchestrator', shutdownTraceId, '👋 50V3R31GN-M4CH1N4 shutdown complete.');
       process.exit(0);
     } catch (err) {
-      console.error('[Main] Error during shutdown:', err);
+      logger.error('Orchestrator', shutdownTraceId, '[Main] Error during shutdown:', { error: (err as Error).message });
       process.exit(1);
     }
   };

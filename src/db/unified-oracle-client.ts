@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 import fs from 'node:fs';
 import { randomUUID } from 'node:crypto';
 import { WorldCommandSchema, type WorldCommand } from '../shared/schemas/world-commands.schema.js';
-import type { RagSearchParams, HealthCheckResult } from './interfaces.js';
+import type { RagSearchParams, HealthCheckResult, ILogger } from './interfaces.js';
 import { RagQueryResultSchema } from '../shared/schemas/index.js';
 import { z } from 'zod';
 
@@ -31,6 +31,7 @@ export class UnifiedOracleClient {
     return this._dbInternal;
   }
   private readonly config: UnifiedOracleConfig;
+  private readonly logger?: ILogger | undefined;
   private connected = false;
 
   public getRawDatabase(): Database.Database {
@@ -43,24 +44,40 @@ export class UnifiedOracleClient {
    */
   public onAuthorize?: (commands: WorldCommand[]) => Promise<boolean>;
 
-  constructor(config: UnifiedOracleConfig) {
+  constructor(config: UnifiedOracleConfig, logger?: ILogger) {
     this.config = config;
+    this.logger = logger;
   }
 
   async connect(): Promise<void> {
     if (this.connected) return;
-    this._dbInternal = new Database(this.config.worldDbPath);
-    this.db.pragma('journal_mode = WAL');
-    this.db.pragma('synchronous = NORMAL');
-    this.db.pragma('foreign_keys = ON');
-    this.db.pragma('recursive_triggers = ON');
-    
-    // Attach crush db if it exists
-    if (fs.existsSync(this.config.crushDbPath)) {
-      this.db.prepare('ATTACH DATABASE ? AS session_memory').run(this.config.crushDbPath);
+    const traceId = randomUUID();
+
+    try {
+      this._dbInternal = new Database(this.config.worldDbPath);
+      this.db.pragma('journal_mode = WAL');
+      this.db.pragma('synchronous = NORMAL');
+      this.db.pragma('foreign_keys = ON');
+      this.db.pragma('recursive_triggers = ON');
+      
+      // Attach crush db if it exists
+      if (fs.existsSync(this.config.crushDbPath)) {
+        this.db.prepare('ATTACH DATABASE ? AS session_memory').run(this.config.crushDbPath);
+      }
+      
+      this.connected = true;
+      await this.initSchema();
+      this.logger?.info('UnifiedOracleClient', traceId, 'Connected to world and crush databases', {
+        worldDbPath: this.config.worldDbPath,
+        crushDbPath: this.config.crushDbPath,
+      });
+    } catch (err) {
+      this.logger?.error('UnifiedOracleClient', traceId, 'Failed to connect to databases', {
+        error: (err as Error).message,
+        config: this.config,
+      });
+      throw err;
     }
-    
-    this.connected = true;
   }
 
   /**
@@ -68,7 +85,7 @@ export class UnifiedOracleClient {
    * Required for the Phase 6 Pulse Engine.
    */
   async seedDistrictGrid(factionName: string): Promise<void> {
-    if (!this.db) throw new Error('Database not connected');
+    const traceId = randomUUID();
     const stmt = this.db.prepare(
       'INSERT OR IGNORE INTO district_grid (x, y, faction_name, strength) VALUES (?, ?, ?, 0)'
     );
@@ -79,13 +96,24 @@ export class UnifiedOracleClient {
         }
       }
     });
-    transaction();
+    
+    try {
+      transaction();
+      this.logger?.info('UnifiedOracleClient', traceId, `Seeded district grid for faction: ${factionName}`);
+    } catch (err) {
+      this.logger?.error('UnifiedOracleClient', traceId, `Failed to seed district grid for faction: ${factionName}`, {
+        error: (err as Error).message,
+      });
+      throw err;
+    }
   }
 
   async disconnect(): Promise<void> {
+    const traceId = randomUUID();
     this._dbInternal?.close();
     this._dbInternal = null;
     this.connected = false;
+    this.logger?.info('UnifiedOracleClient', traceId, 'Disconnected from databases');
   }
 
   isConnected(): boolean {
@@ -95,7 +123,6 @@ export class UnifiedOracleClient {
   async healthCheck(): Promise<HealthCheckResult> {
     const start = performance.now();
     try {
-      if (!this.db) throw new Error('Not connected');
       this.db.prepare('SELECT 1').get();
       return {
         connected: true,
@@ -114,12 +141,9 @@ export class UnifiedOracleClient {
   }
 
   async ragSearch(params: RagSearchParams): Promise<z.infer<typeof RagQueryResultSchema>> {
-    if (!this.db) throw new Error('Database not connected');
-    
-    // Fallback to simple FTS5 search on triplets
+    const traceId = randomUUID();
     const { query, topK } = params;
     
-    // Try to use FTS5 if table exists, otherwise return empty
     try {
       const results = this.db.prepare(`
         SELECT subject_id, predicate, object_literal
@@ -128,7 +152,7 @@ export class UnifiedOracleClient {
         LIMIT ?
       `).all(query, topK) as any[];
 
-      const matches = results.map((r, index) => ({
+      const matches = results.map((r) => ({
         content: `${r.subject_id} ${r.predicate}: ${r.object_literal}`,
         namespace: params.namespace,
         contextType: 'lore' as const,
@@ -143,7 +167,10 @@ export class UnifiedOracleClient {
 
       return { query, matches };
     } catch (err) {
-      // If schema not initialized or FTS5 fails, return empty matches
+      this.logger?.warn('UnifiedOracleClient', traceId, 'RAG search failed or schema not initialized', {
+        error: (err as Error).message,
+        query,
+      });
       return { query, matches: [] };
     }
   }
@@ -153,42 +180,46 @@ export class UnifiedOracleClient {
   async initSchema(): Promise<void> {
     if (this.schemaInitialized) return;
     this.schemaInitialized = true;
-    if (!this.db) throw new Error('Database not connected');
-    const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
-    this.db.exec(schema);
+    const traceId = randomUUID();
+    
+    try {
+      const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
+      this.db.exec(schema);
 
-    // ── Phase 34 Migration: Memory Palace ────────────────────────────────────
-    // Idempotent — safe to run against any existing DB (pre-Phase 34 or fresh).
-    const palaceSchema = fs.readFileSync('src/db/palace-schema.sql', 'utf8');
-    this.db.exec(palaceSchema);
+      // ── Phase 34 Migration: Memory Palace ────────────────────────────────────
+      const palaceSchema = fs.readFileSync('src/db/palace-schema.sql', 'utf8');
+      this.db.exec(palaceSchema);
 
-    // ── Phase 21 Migration: NPC Life-Path Logs ────────────────────────────────
-    // Idempotent — safe to run against any existing DB (pre-Phase 21 or fresh).
-    this.db.exec(`
-      CREATE TABLE IF NOT EXISTS npc_logs (
-          id          INTEGER PRIMARY KEY AUTOINCREMENT,
-          npc_id      TEXT NOT NULL,
-          summary     TEXT NOT NULL,
-          log_type    TEXT NOT NULL DEFAULT 'action' CHECK (log_type IN ('action', 'interaction', 'observation')),
-          created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
-      );
+      // ── Phase 21 Migration: NPC Life-Path Logs ────────────────────────────────
+      this.db.exec(`
+        CREATE TABLE IF NOT EXISTS npc_logs (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            npc_id      TEXT NOT NULL,
+            summary     TEXT NOT NULL,
+            log_type    TEXT NOT NULL DEFAULT 'action' CHECK (log_type IN ('action', 'interaction', 'observation')),
+            created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
 
-      CREATE INDEX IF NOT EXISTS idx_npc_logs_npc_id ON npc_logs (npc_id, created_at DESC);
-    `);
+        CREATE INDEX IF NOT EXISTS idx_npc_logs_npc_id ON npc_logs (npc_id, created_at DESC);
+      `);
+      this.logger?.info('UnifiedOracleClient', traceId, 'Database schemas initialized successfully');
+    } catch (err) {
+      this.logger?.error('UnifiedOracleClient', traceId, 'Failed to initialize database schemas', {
+        error: (err as Error).message,
+      });
+      throw err;
+    }
   }
 
   query<T = any>(sql: string, params: any[] = []): T[] {
-    if (!this.db) throw new Error('Database not connected');
     return this.db.prepare(sql).all(...params) as T[];
   }
 
   execute(sql: string, params: any[] = []): Database.RunResult {
-    if (!this.db) throw new Error('Database not connected');
     return this.db.prepare(sql).run(...params);
   }
 
   getPlayerHousing(actorId: string): PlayerHousing | null {
-    if (!this.db) throw new Error('Database not connected');
     const row = this.db.prepare(
       'SELECT actor_id, housing_tier, monthly_rent_eb, eb_balance FROM player_housing WHERE actor_id = ?'
     ).get(actorId) as PlayerHousing | undefined;
@@ -196,7 +227,6 @@ export class UnifiedOracleClient {
   }
 
   setPlayerHousing(actorId: string, data: PlayerHousingUpdate & { housing_tier: PlayerHousing['housing_tier']; monthly_rent_eb: number; eb_balance: number }): void {
-    if (!this.db) throw new Error('Database not connected');
     this.db.prepare(
       `INSERT INTO player_housing (actor_id, housing_tier, monthly_rent_eb, eb_balance)
        VALUES (?, ?, ?, ?)
@@ -208,7 +238,6 @@ export class UnifiedOracleClient {
   }
 
   updatePlayerHousing(actorId: string, data: PlayerHousingUpdate): void {
-    if (!this.db) throw new Error('Database not connected');
     const entries = Object.entries(data).filter(([, v]) => v !== undefined);
     if (entries.length === 0) return;
     const setClause = entries.map(([k]) => `${k} = ?`).join(', ');
@@ -222,7 +251,6 @@ export class UnifiedOracleClient {
    * Defaults to 0 if the faction is not tracked or has no data.
    */
   async getFactionFriction(factionName: string): Promise<number> {
-    if (!this.db) throw new Error('Database not connected');
     const row = this.db.prepare('SELECT friction_pool FROM factions WHERE name = ?').get(factionName) as { friction_pool: number } | undefined;
     return row?.friction_pool ?? 0;
   }
@@ -232,8 +260,6 @@ export class UnifiedOracleClient {
    * Automatically called after NPC state mutations.
    */
   private recalculateDerivedStats(actorId: string): void {
-    if (!this.db) return;
-
     const npc = this.db.prepare('SELECT humanity FROM npcs WHERE id = ?').get(actorId) as { humanity: number } | undefined;
     if (!npc) return;
 
@@ -245,7 +271,6 @@ export class UnifiedOracleClient {
 
   /**
    * Upsert a conceptual seed for a district.
-   * Inserts or replaces by id; updates updated_at on conflict.
    */
   upsertSeed(seed: {
     id: string;
@@ -255,7 +280,6 @@ export class UnifiedOracleClient {
     district: string | null;
     vectorJson?: string;
   }): void {
-    if (!this.db) throw new Error('Database not connected');
     this.db.prepare(`
       INSERT INTO conceptual_seeds (id, word, weight, category, district, vector_json, updated_at)
       VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
@@ -278,15 +302,11 @@ export class UnifiedOracleClient {
 
   /**
    * Return seeds for a district, sorted by weight descending.
-   * Includes global seeds (district IS NULL) regardless of filter.
-   * @param district Night City district name, or null for global only.
-   * @param limit Max number of seeds to return. Defaults to 10.
    */
   getSeedsForDistrict(
     district: string | null,
     limit = 10,
   ): Array<{ id: string; word: string; weight: number; category: string }> {
-    if (!this.db) throw new Error('Database not connected');
     if (district === null) {
       return this.db.prepare(`
         SELECT id, word, weight, category
@@ -310,20 +330,18 @@ export class UnifiedOracleClient {
    * "The Flush Gate" pattern: Ensures world state consistency under load.
    */
   async executeTransaction(commands: WorldCommand[]): Promise<void> {
-    if (!this.db) throw new Error('Database not connected');
+    const traceId = randomUUID();
 
     // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
     if (this.onAuthorize) {
       const authorized = await this.onAuthorize(commands);
       if (!authorized) {
-        process.stderr.write('[Oracle] Transaction REJECTED by human supervisor.\n');
+        this.logger?.warn('UnifiedOracleClient', traceId, 'Transaction REJECTED by human supervisor', { commands });
         return;
       }
     }
 
     const start = Date.now();
-    
-    // Using BEGIN IMMEDIATE to prevent deadlocks during high-load Pulse updates
     const transaction = this.db.transaction((cmds: WorldCommand[]) => {
       for (const cmd of cmds) {
         this.applyCommandSync(cmd);
@@ -333,23 +351,28 @@ export class UnifiedOracleClient {
     try {
       transaction(commands);
       const duration = Date.now() - start;
+      this.logger?.info('UnifiedOracleClient', traceId, 'Transaction committed', {
+        commandCount: commands.length,
+        durationMs: duration,
+      });
       if (duration > 100) {
-        process.stderr.write(`[Oracle] Flush Gate slowdown: ${duration}ms for ${commands.length} commands\n`);
+        this.logger?.warn('UnifiedOracleClient', traceId, 'Flush Gate slowdown detected', { durationMs: duration });
       }
     } catch (err) {
-      process.stderr.write(`[Oracle] Transaction failed, rolling back: ${err}\n`);
+      this.logger?.error('UnifiedOracleClient', traceId, 'Transaction failed, rolling back', {
+        error: (err as Error).message,
+        commands,
+      });
       throw err;
     }
   }
 
   async executeCommand(command: WorldCommand): Promise<void> {
-    if (!this.db) throw new Error('Database not connected');
     this.applyCommandSync(command);
   }
 
   /**
    * Synchronous version of applyCommand for use within transactions.
-   * Enforces Cyberpunk RED coupling rules and reconciliation.
    */
   private applyCommandSync(command: WorldCommand): void {
     const validated = WorldCommandSchema.parse(command);
@@ -360,7 +383,6 @@ export class UnifiedOracleClient {
         const entries = Object.entries(data).filter(([_, v]) => v !== undefined);
         if (entries.length === 0) return;
 
-        // Force lowercase disposition to match CHECK constraint ('friendly', 'neutral', 'hostile')
         if ('disposition' in data && typeof data.disposition === 'string') {
           data.disposition = data.disposition.toLowerCase() as 'friendly' | 'neutral' | 'hostile';
         }

@@ -15,10 +15,11 @@
 
 import CDP from 'chrome-remote-interface';
 import crypto from 'node:crypto';
+import { randomUUID } from 'node:crypto';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { VisualDiffService, DiffResult } from './visual-diff-service.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
-import type { INitroLogicClient, DetectedEntity } from './interfaces.js';
+import type { INitroLogicClient, DetectedEntity, ILogger } from './interfaces.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -73,6 +74,8 @@ export interface VisualMonitorConfig {
    * Required for regroundScene() to perform OCR analysis.
    */
   readonly nitroLogic?: INitroLogicClient | undefined;
+  /** Centralized logger for system observability. */
+  readonly logger?: ILogger | undefined;
 }
 
 export interface ScreenshotRecord {
@@ -90,6 +93,7 @@ export class VisualMonitorService {
   private readonly oracle: UnifiedOracleClient | undefined;
   private readonly foundryAdapter: IFoundryAdapter | undefined;
   private readonly nitroLogic: INitroLogicClient | undefined;
+  private readonly logger?: ILogger | undefined;
   private client: CDP.Client | null = null;
 
   constructor(config: VisualMonitorConfig = {}) {
@@ -97,6 +101,7 @@ export class VisualMonitorService {
     this.oracle = config.oracle;
     this.foundryAdapter = config.foundryAdapter;
     this.nitroLogic = config.nitroLogic;
+    this.logger = config.logger;
   }
 
   /**
@@ -104,35 +109,43 @@ export class VisualMonitorService {
    * establish the WebSocket handshake, and enable Page/Runtime/CSS domains.
    */
   async connect(): Promise<void> {
-    const targets = await CDP.List({ port: this.debugPort });
-    const pageTarget = targets.find((t: CDP.Target) => t.type === 'page');
+    const traceId = randomUUID();
+    try {
+      const targets = await CDP.List({ port: this.debugPort });
+      const pageTarget = targets.find((t: CDP.Target) => t.type === 'page');
 
-    if (!pageTarget?.webSocketDebuggerUrl) {
-      throw new Error(
-        `[VisualMonitorService] No page target found at http://127.0.0.1:${this.debugPort}/json. ` +
-        `Ensure Foundry is running with --remote-debugging-port=${this.debugPort}.`
-      );
+      if (!pageTarget?.webSocketDebuggerUrl) {
+        throw new Error(
+          `No page target found at http://127.0.0.1:${this.debugPort}/json. ` +
+          `Ensure Foundry is running with --remote-debugging-port=${this.debugPort}.`
+        );
+      }
+
+      this.client = await CDP({
+        target: pageTarget.webSocketDebuggerUrl,
+        port: this.debugPort,
+      });
+
+      await Promise.all([
+        this.client.Page.enable(),
+        this.client.Runtime.enable(),
+        this.client.CSS.enable(),
+        this.client.Input.enable(),
+      ]);
+
+      this.logger?.info('VisualMonitorService', traceId, '✅ Neural Uplink: Native CDP Engine Active.');
+    } catch (err) {
+      this.logger?.error('VisualMonitorService', traceId, `Failed to connect to CDP: ${(err as Error).message}`);
+      throw err;
     }
-
-    this.client = await CDP({
-      target: pageTarget.webSocketDebuggerUrl,
-      port: this.debugPort,
-    });
-
-    await Promise.all([
-      this.client.Page.enable(),
-      this.client.Runtime.enable(),
-      this.client.CSS.enable(),
-      this.client.Input.enable(),
-    ]);
-
-    console.log('✅ Neural Uplink: Native CDP Engine Active.');
   }
 
   async disconnect(): Promise<void> {
+    const traceId = randomUUID();
     if (this.client) {
       await this.client.close();
       this.client = null;
+      this.logger?.info('VisualMonitorService', traceId, 'Neural Uplink disconnected.');
     }
   }
 
@@ -151,13 +164,12 @@ export class VisualMonitorService {
    * Capture a raw PNG screenshot from the Foundry Electron renderer.
    * If an oracle was provided at construction, persists metadata to
    * the vision_history table in Akashik.db.
-   * 
-   * Efficiency Hack (v1.3.2): Deduplication.
-   * Only stores the screenshot if the hash differs from the last entry
-   * for this scene, preventing redundant DB bloat.
    */
   async captureScreenshot(sceneId?: string): Promise<ScreenshotRecord> {
+    const traceId = randomUUID();
     const client = this.getClient();
+    this.logger?.debug('VisualMonitorService', traceId, `Capturing screenshot for scene: ${sceneId ?? 'active'}`);
+    
     const { data } = await client.Page.captureScreenshot({ format: 'png' });
 
     const hash = crypto
@@ -180,6 +192,7 @@ export class VisualMonitorService {
           'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
           [sceneId ?? null, hash, timestamp]
         );
+        this.logger?.debug('VisualMonitorService', traceId, 'New vision record committed to Oracle.');
       }
     }
 
@@ -189,14 +202,12 @@ export class VisualMonitorService {
   /**
    * Surgical Perception (Phase 27): Capture a high-resolution crop of a
    * specific Foundry canvas coordinate via CDP Page.captureScreenshot clip.
-   * Returns Base64-encoded PNG data suitable for direct VLM submission.
-   *
-   * @param x      Center X coordinate in Foundry canvas space.
-   * @param y      Center Y coordinate in Foundry canvas space.
-   * @param size   Square crop size in pixels (default 512).
    */
   async captureCoordinateCrop(x: number, y: number, size: number = 512): Promise<string> {
+    const traceId = randomUUID();
     const client = this.getClient();
+    this.logger?.debug('VisualMonitorService', traceId, `Capturing coordinate crop at {${x}, ${y}} (size=${size})`);
+    
     const { data } = await client.Page.captureScreenshot({
       format: 'png',
       clip: {
@@ -214,40 +225,47 @@ export class VisualMonitorService {
 
   /**
    * Physically reload the Foundry Electron window (Ghost-Refresh).
-   * Activates any pending module updates without manual intervention.
    */
   async reloadWindow(): Promise<void> {
+    const traceId = randomUUID();
+    this.logger?.info('VisualMonitorService', traceId, 'Executing Ghost-Refresh (Window Reload).');
     await this.getClient().Page.reload({ ignoreCache: false });
   }
 
   /**
    * Inject a CSS stylesheet into the live Foundry renderer via the CDP CSS domain.
-   * Returns the styleSheetId for later mutation or removal.
-   * No page reload required.
    */
   async injectCSS(cssText: string): Promise<string> {
+    const traceId = randomUUID();
     const client = this.getClient();
     const { frameTree } = await client.Page.getFrameTree();
     const frameId: string = frameTree.frame.id;
     const { styleSheetId } = await client.CSS.createStyleSheet({ frameId });
     await client.CSS.setStyleSheetText({ styleSheetId, text: cssText });
+    this.logger?.debug('VisualMonitorService', traceId, 'Injected CSS stylesheet via CDP.', { styleSheetId });
     return styleSheetId;
   }
 
   /**
    * Batch-materialize walls, lights, and tokens into a Foundry scene via
    * a single CDP Runtime.evaluate call (Neural Painter).
-   * Throws if not connected or if the CDP evaluation fails.
    */
   async batchCreateDocuments(blueprint: SceneBlueprint): Promise<MaterializationResult> {
+    const traceId = randomUUID();
     const client = this.getClient();
     const start = Date.now();
+
+    this.logger?.info('VisualMonitorService', traceId, 'Commencing Neural Painter batch materialization', { 
+      sceneId: blueprint.sceneId,
+      wallCount: blueprint.walls?.length ?? 0,
+      lightCount: blueprint.lights?.length ?? 0,
+      tokenCount: blueprint.tokens?.length ?? 0
+    });
 
     const walls = blueprint.walls ?? [];
     const lights = blueprint.lights ?? [];
     const tokens = blueprint.tokens ?? [];
 
-    // Build a single JS script to execute in the Foundry renderer context
     const script = `(async () => {
     const scene = game.scenes.get(${JSON.stringify(blueprint.sceneId)});
     if (!scene) throw new Error('Scene not found: ' + ${JSON.stringify(blueprint.sceneId)});
@@ -269,34 +287,35 @@ export class VisualMonitorService {
     });
 
     if (exceptionDetails) {
-      throw new Error(
-        `[VisualMonitorService] Neural Painter CDP error: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
-      );
+      const errorMsg = exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown';
+      this.logger?.error('VisualMonitorService', traceId, `Neural Painter CDP error: ${errorMsg}`);
+      throw new Error(`[VisualMonitorService] Neural Painter CDP error: ${errorMsg}`);
     }
 
     const value = result.value as { wallsCreated: number; lightsCreated: number; tokensCreated: number };
+    this.logger?.info('VisualMonitorService', traceId, 'Materialization complete.', {
+      ...value,
+      executionMs: Date.now() - start
+    });
+    
     return {
-      wallsCreated: value.wallsCreated,
-      lightsCreated: value.lightsCreated,
-      tokensCreated: value.tokensCreated,
+      ...value,
       executionMs: Date.now() - start,
     };
   }
 
   /**
    * Trigger a temporary "Neural Glitch" effect on the Electron window.
-   * Resiliency Tier (v1.5.0):
-   * 1. Try Bridge fx_glitch command (FXMaster GPU-accelerated, Phase 15).
-   * 2. Fallback to Raw CSS Injection via CDP (Atmosphere First baseline).
    */
   async triggerNeuralGlitch(intensity: number = 1.0): Promise<void> {
+    const traceId = randomUUID();
     // 1. Tier 1 (Elite): Delegate to Bridge for FXMaster GPU acceleration
     if (this.foundryAdapter?.isConnected()) {
       try {
         await this.foundryAdapter.triggerFxGlitch(intensity);
         return;
       } catch (err) {
-        process.stderr.write(`[VisualMonitor] Bridge fx_glitch failed, falling back to CSS: ${err}\n`);
+        this.logger?.warn('VisualMonitorService', traceId, `Bridge fx_glitch failed, falling back to CSS: ${(err as Error).message}`);
       }
     }
 
@@ -332,27 +351,17 @@ export class VisualMonitorService {
         } catch { /* ignore cleanup errors */ }
       }, glitchDuration);
     } catch (err) {
-      process.stderr.write(`[VisualMonitor] triggerNeuralGlitch fallback failed: ${err}\n`);
+      this.logger?.error('VisualMonitorService', traceId, `triggerNeuralGlitch fallback failed: ${(err as Error).message}`);
     }
   }
 
   /**
    * Phase 16: Semantic Perception — Reground the current scene via Falcon OCR.
-   *
-   * If the oracle has no perception data for this sceneId:
-   *   1. Fire Neural Shroud (glitch) to mask the 3–5s model swap
-   *   2. Capture a CDP screenshot
-   *   3. Call ocrAnalyze via NitroLogicClient → ZeroClaw ClawLink
-   *   4. Persist detected entity labels to scene_perception
-   *
-   * Requires both oracle and nitroLogic to be configured. Logs a warning and
-   * returns early if either is absent (never throws on missing config).
    */
   async regroundScene(sceneId: string): Promise<void> {
+    const traceId = randomUUID();
     if (!this.oracle?.isConnected() || !this.nitroLogic) {
-      process.stderr.write(
-        `[VisualMonitorService] regroundScene: oracle or nitroLogic not configured — skip.\n`
-      );
+      this.logger?.warn('VisualMonitorService', traceId, 'regroundScene: oracle or nitroLogic not configured — skip.');
       return;
     }
 
@@ -365,6 +374,8 @@ export class VisualMonitorService {
       return;
     }
 
+    this.logger?.info('VisualMonitorService', traceId, `Commencing Semantic Perception Reground for scene: ${sceneId}`);
+
     // Neural Shroud — mask the model-swap latency with a glitch overlay
     await this.triggerNeuralGlitch(2.5);
 
@@ -373,7 +384,7 @@ export class VisualMonitorService {
       const screenshot = await this.captureScreenshot(sceneId);
       entities = await this.nitroLogic.ocrAnalyze(screenshot.data);
     } catch (err) {
-      process.stderr.write(`[VisualMonitorService] regroundScene OCR failed for ${sceneId}: ${err}\n`);
+      this.logger?.error('VisualMonitorService', traceId, `regroundScene OCR failed for ${sceneId}: ${(err as Error).message}`);
       return;
     }
 
@@ -382,15 +393,11 @@ export class VisualMonitorService {
       [sceneId, JSON.stringify(entities), new Date().toISOString()]
     );
 
-    console.log(
-      `[VisualMonitorService] regroundScene: ${entities.length} entities persisted for scene ${sceneId}`
-    );
+    this.logger?.info('VisualMonitorService', traceId, `regroundScene: ${entities.length} entities persisted for scene ${sceneId}`);
   }
 
   /**
    * Capture a live screenshot and diff it against the stored base map for the scene.
-   * Returns the DiffResult with transient entity locations.
-   * Requires a VisualDiffService instance to be provided.
    */
   async diffScene(sceneId: string, diffService: VisualDiffService): Promise<DiffResult> {
     const live = await this.captureScreenshot(sceneId);
@@ -402,11 +409,10 @@ export class VisualMonitorService {
   }
 
   /**
-   * Capture the current scene atmosphere (lighting/darkness) from Foundry
-   * via CDP Runtime.evaluate and persist to scene_atmosphere in Akashik.db.
-   * oracle must be provided in config.
+   * Capture the current scene atmosphere (lighting/darkness) from Foundry.
    */
   async captureAtmosphere(sceneId: string): Promise<AtmosphereState> {
+    const traceId = randomUUID();
     const client = this.getClient();
 
     const script = `(async () => {
@@ -427,9 +433,9 @@ export class VisualMonitorService {
     });
 
     if (exceptionDetails) {
-      throw new Error(
-        `[VisualMonitorService] captureAtmosphere failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
-      );
+      const errorMsg = exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown';
+      this.logger?.error('VisualMonitorService', traceId, `captureAtmosphere failed: ${errorMsg}`);
+      throw new Error(`[VisualMonitorService] captureAtmosphere failed: ${errorMsg}`);
     }
 
     const val = result.value as { lightingColor: string; animationType: string | null; intensity: number; darknessLevel: number };
@@ -447,6 +453,7 @@ export class VisualMonitorService {
          VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
         [sceneId, state.lightingColor, state.animationType, state.intensity, state.darknessLevel]
       );
+      this.logger?.debug('VisualMonitorService', traceId, 'Atmosphere state committed to Oracle.');
     }
 
     return state;
@@ -455,9 +462,9 @@ export class VisualMonitorService {
   /**
    * Retrieve stored atmosphere for a scene from Akashik.db and re-inject
    * it into the Foundry renderer via CDP Runtime.evaluate (Pulse Restore).
-   * No-op if no atmosphere is stored for the scene.
    */
   async restoreAtmosphere(sceneId: string): Promise<void> {
+    const traceId = randomUUID();
     if (!this.oracle?.isConnected()) return;
 
     const rows = this.oracle.query<{
@@ -474,6 +481,8 @@ export class VisualMonitorService {
     if (rows.length === 0) return;
     const atm = rows[0];
     if (!atm) return;
+
+    this.logger?.info('VisualMonitorService', traceId, `Restoring atmosphere for scene: ${sceneId}`);
 
     const client = this.getClient();
     const script = `(async () => {
@@ -494,19 +503,20 @@ export class VisualMonitorService {
     });
 
     if (exceptionDetails) {
-      throw new Error(
-        `[VisualMonitorService] restoreAtmosphere failed: ${exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown'}`
-      );
+      const errorMsg = exceptionDetails.text ?? exceptionDetails.exception?.description ?? 'unknown';
+      this.logger?.error('VisualMonitorService', traceId, `restoreAtmosphere failed: ${errorMsg}`);
+      throw new Error(`[VisualMonitorService] restoreAtmosphere failed: ${errorMsg}`);
     }
   }
 
   /**
    * Phase 28: Neural Shroud — Physically lock/unlock user input.
-   * Injects a full-screen transparent overlay to block actual mouse events
-   * while the machine is performing Ghost Protocol actions.
    */
   async setPhysicalLock(locked: boolean): Promise<void> {
+    const traceId = randomUUID();
     const client = this.getClient();
+    this.logger?.info('VisualMonitorService', traceId, `Neural Shroud physical lock set to: ${locked}`);
+    
     if (locked) {
       const css = `
         #neural-shroud-lock {
@@ -532,12 +542,13 @@ export class VisualMonitorService {
 
   /**
    * Phase 28: UI Infiltration — Physically corrupt Foundry UI elements.
-   * Injects a script via CDP Runtime.evaluate to transform existing UI text
-   * into leet-speak or parseltongue flickering.
    */
   async corruptUI(intensity: number = 0.5, type: 'leet' | 'parsel' = 'leet'): Promise<void> {
+    const traceId = randomUUID();
     const client = this.getClient();
     
+    this.logger?.info('VisualMonitorService', traceId, `Executing UI Infiltration (${type}, intensity=${intensity})`);
+
     const script = `(async () => {
       const leetMap = { 'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '5', 't': '7', 'z': '2', 'b': '8', 'g': '6' };
       const parselChars = "0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/\\\\░▒▓█";
@@ -589,9 +600,9 @@ export class VisualMonitorService {
     });
 
     if (exceptionDetails) {
-      process.stderr.write(`[VisualMonitor] corruptUI injection failed: ${exceptionDetails.text}\n`);
+      this.logger?.error('VisualMonitorService', traceId, `corruptUI injection failed: ${exceptionDetails.text}`);
     } else {
-      console.log(`📡 UI Infiltration: Corrupted ${result.value} UI nodes via CDP.`);
+      this.logger?.info('VisualMonitorService', traceId, `📡 UI Infiltration: Corrupted ${result.value} UI nodes via CDP.`);
     }
   }
 }

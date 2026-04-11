@@ -8,6 +8,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { FoundryAdapter } from '../../src/api/foundry-adapter.js';
+import { logger } from '../../src/shared/logger.js';
 import WebSocket from 'ws';
 
 // ── Mock Foundry Globals ──────────────────────────────────────────────────────
@@ -45,7 +46,7 @@ describe('Socketlib Sovereignty Integration', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    adapter = new FoundryAdapter();
+    adapter = new FoundryAdapter({ logger });
     await adapter.start(PORT);
   });
 
@@ -90,7 +91,7 @@ describe('Socketlib Sovereignty Integration', () => {
   });
 
   it('Node B should receive system_heartbeat and log module status', async () => {
-    const logSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
+    const logSpy = vi.spyOn(console, 'debug').mockImplementation(() => {});
     
     // Simulate inbound heartbeat from bridge
     const heartbeatEvent = {
@@ -107,13 +108,14 @@ describe('Socketlib Sovereignty Integration', () => {
     const { HybridRoutingController } = await import('../../src/core/hybrid-routing-controller.js');
     const controller = new HybridRoutingController({
       foundryAdapter: adapter,
+      logger,
       // ... rest of mocks
     } as any);
 
     await controller.handleFoundryEvent(heartbeatEvent as any);
 
     expect(logSpy).toHaveBeenCalledWith(
-      expect.stringContaining('[v1.5.0 Bridge] Heartbeat: socketlib=true, fxmaster=true, sequencer=true, splatter=false')
+      expect.stringContaining('System Heartbeat: socketlib=true, fxmaster=true, sequencer=true, splatter=false')
     );
     
     logSpy.mockRestore();

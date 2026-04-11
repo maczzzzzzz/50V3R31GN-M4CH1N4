@@ -16,11 +16,11 @@
  * All frames are Zod-validated before dispatch or acceptance.
  */
 
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
 import { WebSocketServer, WebSocket } from 'ws';
 import type { IncomingMessage } from 'node:http';
-import type { NpcStatBlock } from '../core/interfaces.js';
+import type { NpcStatBlock, ILogger } from '../core/interfaces.js';
 import {
   BridgeCommandSchema,
   BridgeResponseSchema,
@@ -34,31 +34,13 @@ import {
   type PretextOverlayPayload,
 } from '../shared/schemas/foundry-bridge.schema.js';
 
-// ── Logger (stderr-only, JSON structured) ────────────────────────────────────
-
-const logger = {
-  info(context: string, message: string, data?: Record<string, unknown>): void {
-    process.stderr.write(
-      JSON.stringify({ timestamp: new Date().toISOString(), severity: 'INFO', context, message, ...(data ? { data } : {}) }) + '\n',
-    );
-  },
-  warn(context: string, message: string, data?: Record<string, unknown>): void {
-    process.stderr.write(
-      JSON.stringify({ timestamp: new Date().toISOString(), severity: 'WARN', context, message, ...(data ? { data } : {}) }) + '\n',
-    );
-  },
-  error(context: string, message: string, data?: Record<string, unknown>): void {
-    process.stderr.write(
-      JSON.stringify({ timestamp: new Date().toISOString(), severity: 'ERROR', context, message, ...(data ? { data } : {}) }) + '\n',
-    );
-  },
-};
-
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface FoundryAdapterOptions {
   /** Timeout in milliseconds for a command to receive a response. Default: 10000. */
   commandTimeoutMs?: number;
+  /** Centralized logger for production observability. */
+  logger?: ILogger;
 }
 
 /** Pending request awaiting a response from Foundry. */
@@ -134,6 +116,7 @@ export interface IFoundryAdapter {
 
 export class FoundryAdapter implements IFoundryAdapter {
   private readonly commandTimeoutMs: number;
+  private readonly logger?: ILogger;
   private wss: WebSocketServer | null = null;
   private clientSocket: WebSocket | null = null;
   private readonly pending = new Map<string, PendingRequest>();
@@ -142,6 +125,7 @@ export class FoundryAdapter implements IFoundryAdapter {
 
   constructor(options: FoundryAdapterOptions = {}) {
     this.commandTimeoutMs = options.commandTimeoutMs ?? 10_000;
+    this.logger = options.logger;
   }
 
   getHandshakeToken(): string {
@@ -151,22 +135,25 @@ export class FoundryAdapter implements IFoundryAdapter {
   // ── Lifecycle ───────────────────────────────────────────────────────────────
 
   async start(port: number): Promise<void> {
+    const traceId = randomUUID();
     this.handshakeToken = randomBytes(32).toString('hex');
 
     await new Promise<void>((resolve, reject) => {
       const server = new WebSocketServer({ port, host: '127.0.0.1' });
 
       server.once('error', (err) => {
+        this.logger?.error('FoundryAdapter', traceId, `WebSocket server failed to start: ${err.message}`);
         reject(err);
       });
 
       server.once('listening', () => {
         this.wss = server;
-        logger.info('FoundryAdapter', `WebSocket server listening on 127.0.0.1:${port}`);
+        this.logger?.info('FoundryAdapter', traceId, `WebSocket server listening on 127.0.0.1:${port}`);
         resolve();
       });
 
       server.on('connection', (ws: WebSocket, req: IncomingMessage) => {
+        const connTraceId = randomUUID();
         const remoteAddr = req.socket.remoteAddress ?? 'unknown';
 
         // Validate ephemeral handshake token from query param
@@ -176,30 +163,30 @@ export class FoundryAdapter implements IFoundryAdapter {
         const providedToken = query.get('token') ?? '';
 
         if (providedToken !== this.handshakeToken) {
-          logger.warn('FoundryAdapter', 'Rejected connection: invalid or missing token', { remoteAddr });
+          this.logger?.warn('FoundryAdapter', connTraceId, 'Rejected connection: invalid or missing token', { remoteAddr });
           ws.close(4401);
           return;
         }
 
-        logger.info('FoundryAdapter', 'Foundry bridge module connected', { remoteAddr });
+        this.logger?.info('FoundryAdapter', connTraceId, 'Foundry bridge module connected', { remoteAddr });
 
         // Replace any existing client (single-slot)
         if (this.clientSocket && this.clientSocket.readyState === WebSocket.OPEN) {
-          logger.warn('FoundryAdapter', 'Replacing existing Foundry connection');
+          this.logger?.warn('FoundryAdapter', connTraceId, 'Replacing existing Foundry connection');
           this.clientSocket.close();
         }
 
         this.clientSocket = ws;
 
         // Notify Foundry UI that the bridge is connected
-        this.sendChatMessage('🟢 **Link Established** — 50V3R31GN-M4CH1N4 Orchestrator (v2.2.0) is now online.', { alias: 'System' }).catch(() => {});
+        this.sendChatMessage('🟢 **Link Established** — 50V3R31GN-M4CH1N4 Orchestrator (v2.6.0) is now online.', { alias: 'System' }).catch(() => {});
 
         ws.on('message', (raw) => {
           this.handleIncomingMessage(raw.toString());
         });
 
         ws.on('close', () => {
-          logger.info('FoundryAdapter', 'Foundry bridge module disconnected');
+          this.logger?.info('FoundryAdapter', connTraceId, 'Foundry bridge module disconnected');
           if (this.clientSocket === ws) {
             this.clientSocket = null;
           }
@@ -212,13 +199,14 @@ export class FoundryAdapter implements IFoundryAdapter {
         });
 
         ws.on('error', (err) => {
-          logger.error('FoundryAdapter', 'WebSocket client error', { error: err.message });
+          this.logger?.error('FoundryAdapter', connTraceId, `WebSocket client error: ${err.message}`);
         });
       });
     });
   }
 
   async stop(): Promise<void> {
+    const traceId = randomUUID();
     // Reject all pending requests
     for (const [requestId, pending] of this.pending) {
       clearTimeout(pending.timeoutHandle);
@@ -239,6 +227,7 @@ export class FoundryAdapter implements IFoundryAdapter {
       }
       this.wss.close(() => {
         this.wss = null;
+        this.logger?.info('FoundryAdapter', traceId, 'WebSocket server stopped');
         resolve();
       });
     });
@@ -447,8 +436,12 @@ export class FoundryAdapter implements IFoundryAdapter {
   }
 
   async streamThoughtTokens(content: string, onToken: (token: string) => void): Promise<void> {
+    const traceId = randomUUID();
     const endpoint = process.env['VLM_ENDPOINT'] ?? 'http://172.26.208.1:8080/v1/chat/completions';
     const model = process.env['VLM_MODEL'] ?? 'mistralai-Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B.i1-Q4_K_M.gguf';
+    
+    this.logger?.debug('FoundryAdapter', traceId, 'Streaming thought tokens from VLM', { endpoint, model });
+
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -459,7 +452,9 @@ export class FoundryAdapter implements IFoundryAdapter {
       }),
     });
     if (!res.ok || !res.body) {
-      throw new Error(`[FoundryAdapter] streamThoughtTokens: ${res.status} ${res.statusText}`);
+      const message = `FoundryAdapter streamThoughtTokens: ${res.status} ${res.statusText}`;
+      this.logger?.error('FoundryAdapter', traceId, message);
+      throw new Error(message);
     }
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
@@ -505,7 +500,9 @@ export class FoundryAdapter implements IFoundryAdapter {
 
       const timeoutHandle = setTimeout(() => {
         this.pending.delete(requestId);
-        reject(new Error(`FoundryAdapter: command '${command.type}' timeout after ${this.commandTimeoutMs}ms`));
+        const message = `FoundryAdapter: command '${command.type}' timeout after ${this.commandTimeoutMs}ms`;
+        this.logger?.error('FoundryAdapter', requestId, message);
+        reject(new Error(message));
       }, this.commandTimeoutMs);
 
       this.pending.set(requestId, { resolve, reject, timeoutHandle });
@@ -525,7 +522,7 @@ export class FoundryAdapter implements IFoundryAdapter {
     try {
       parsed = JSON.parse(raw);
     } catch {
-      logger.warn('FoundryAdapter', 'Received non-JSON message from Foundry module', { raw: raw.slice(0, 200) });
+      this.logger?.warn('FoundryAdapter', 'no-trace', 'Received non-JSON message from Foundry module', { raw: raw.slice(0, 200) });
       return;
     }
 
@@ -540,6 +537,7 @@ export class FoundryAdapter implements IFoundryAdapter {
         this.pending.delete(response.requestId);
 
         if (response.type === 'error') {
+          this.logger?.error('FoundryAdapter', response.requestId, `Foundry returned error: ${response.message}`);
           pending.reject(new Error(response.message));
         } else {
           pending.resolve(response.data);
@@ -553,10 +551,10 @@ export class FoundryAdapter implements IFoundryAdapter {
     if (eventResult.success) {
       if (this.eventCallback) {
         this.eventCallback(eventResult.data).catch((err) => {
-          logger.error('FoundryAdapter', 'Event callback failed', { error: err.message });
+          this.logger?.error('FoundryAdapter', 'event', 'Event callback failed', { error: err.message, eventType: eventResult.data.type });
         });
       } else {
-        logger.warn('FoundryAdapter', 'Received event but no callback registered', { type: eventResult.data.type });
+        this.logger?.warn('FoundryAdapter', 'event', 'Received event but no callback registered', { type: eventResult.data.type });
       }
       return;
     }
@@ -564,7 +562,7 @@ export class FoundryAdapter implements IFoundryAdapter {
     // 3. Handle audit_intent RPC FROM Bridge
     const auditParsed = parsed as any;
     if (auditParsed.type === 'audit_intent' && auditParsed.requestId) {
-      logger.info('FoundryAdapter', `Intercepted Intent for Audit: ${auditParsed.payload?.event}`);
+      this.logger?.info('FoundryAdapter', auditParsed.requestId, `Intercepted Intent for Audit: ${auditParsed.payload?.event}`);
       if (this.eventCallback) {
         const auditEvent = {
           type: 'audit_request',
@@ -581,7 +579,7 @@ export class FoundryAdapter implements IFoundryAdapter {
           }
         };
         this.eventCallback(auditEvent).catch(err => {
-          logger.error('FoundryAdapter', 'Audit event callback failed', { error: err.message });
+          this.logger?.error('FoundryAdapter', auditParsed.requestId, `Audit event callback failed: ${err.message}`);
         });
       }
       return;
@@ -590,7 +588,7 @@ export class FoundryAdapter implements IFoundryAdapter {
     // 4. Handle validate_move RPC FROM Bridge
     const moveParsed = parsed as any;
     if (moveParsed.type === 'validate_move' && moveParsed.requestId) {
-      logger.info('FoundryAdapter', `Intercepted Move for Validation: ${moveParsed.payload?.tokenId}`);
+      this.logger?.info('FoundryAdapter', moveParsed.requestId, `Intercepted Move for Validation: ${moveParsed.payload?.tokenId}`);
       if (this.eventCallback) {
         const moveEvent = {
           type: 'validate_move',
@@ -607,14 +605,14 @@ export class FoundryAdapter implements IFoundryAdapter {
           }
         };
         this.eventCallback(moveEvent).catch(err => {
-          logger.error('FoundryAdapter', 'Move validation event callback failed', { error: err.message });
+          this.logger?.error('FoundryAdapter', moveParsed.requestId, `Move validation event callback failed: ${err.message}`);
         });
       }
       return;
     }
 
     // 5. Fallback for unknown messages
-    logger.warn('FoundryAdapter', 'Received unknown or invalid message from Foundry module', {
+    this.logger?.warn('FoundryAdapter', 'unknown', 'Received unknown or invalid message from Foundry module', {
       raw: raw.slice(0, 200),
     });
   }

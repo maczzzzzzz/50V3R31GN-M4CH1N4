@@ -5,8 +5,17 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.6.0] - 2026-04-11
+## [2.7.0] - 2026-04-11
 ### Added
+- **Global Structured Logging Overhaul**: Implemented a centralized, JSON-structured logging system across all Node.js services.
+- **Traceability**: Every log entry now includes a unique `traceId`, timestamp, context, and severity for enhanced live testing observability.
+- **Hardware Telemetry**: Integrated detailed logging for Binary UDP (VSB), CDP (Neural Uplink), and RPC (ClawLink) communication layers.
+- **Oracle Observability**: Added transaction monitoring and Flush Gate approval tracking to the Unified Oracle.
+
+### Changed
+- **Service Refactoring**: Retrofitted 10+ core services to support the new `ILogger` interface.
+- **Production Hardening**: Replaced fragile `console.log` calls with structured telemetry to catch edge cases during live-fire testing.
+
 - **Phase 41: Legacy Stabilization (Completed)**: Critical optimization pass targeting Phases 1-20 core infrastructure.
 - **Coordinate Normalization**: Implemented shared utility for 0-1000 integer-scaled geometry, standardizing coordinate handling across OCR and renderer.
 - **Robust JSON Extraction**: Centralized LLM response parsing into a specialized utility, significantly reducing fragility in narrative generation.

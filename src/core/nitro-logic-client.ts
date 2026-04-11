@@ -15,6 +15,7 @@ import type {
   SoloSafeParams,
   SecurityAuditParams,
   SecurityAuditResult,
+  ILogger,
 } from './interfaces.js';
 
 // ── Config validation schema ──────────────────────────────────────────────────
@@ -196,37 +197,20 @@ Output ONLY valid JSON with exactly these fields:
 {"passed":boolean,"issue":string|null,"reasoning":string}
 `;
 
-/*
-EXAMPLE:
-Input: playerRef=6, playerSP=11, playerHP=35, hitCap=0.60
-Output: {"ref":4,"dex":4,"body":5,"combatSkill":4,"hp":35,"sp":9,"reasoning":"Player DV≈15. NPC attack=REF(4)+Skill(4)+5.5=13.5 vs DV15, hit prob=(13.5-15)/10=-0.15→0% — safely below 60% cap. HP=10+5*5=35 matches player. SP=9 for street-level challenge."}
-*/
-
 // ── NitroLogicClient ──────────────────────────────────────────────────────────
 
 const CONTEXT = 'NitroLogicClient';
 
 /**
  * NitroLogicClient — The Rules Authority Bridge to Node A.
- *
- * Wraps Node A's Open-Reasoner-Zero-1.5B-Instruct inference engine via the
- * OpenAI-compatible /v1/chat/completions endpoint exposed by llama.cpp.
- *
- * All requests use:
- *   temperature: 0.0  — mandatory determinism for TRPG math
- *   top_k: 1          — greedy sampling
- *   top_p: 1.0        — disabled nucleus sampling
- *   seed: <config>    — reproducible results
- *   response_format: { type: "json_object" }  — forces pure JSON output
- *
- * Every response from Node A is validated through Zod (Zero-Trust AI Bridging).
  */
 export class NitroLogicClient implements INitroLogicClient {
   private readonly config: NitroLogicConfig;
+  private readonly logger?: ILogger | undefined;
   private readonly clawlinkClient: NitroLogicConfig['clawlinkClient'];
 
-  constructor(config: NitroLogicConfig) {
-    // Extract clawlinkClient before Zod validation (it's a runtime object, not a primitive)
+  constructor(config: NitroLogicConfig, logger?: ILogger) {
+    this.logger = logger;
     this.clawlinkClient = config.clawlinkClient;
     const { clawlinkClient: _stripped, ...httpConfig } = config;
     const parsed = NitroLogicConfigSchema.safeParse(httpConfig);
@@ -252,8 +236,11 @@ export class NitroLogicClient implements INitroLogicClient {
       modifiers: params.modifiers,
     });
 
+    this.logger?.debug(CONTEXT, traceId, 'Resolving attack via Node A', params as unknown as Record<string, unknown>);
     const raw = await this.callChatCompletions(SYSTEM_PROMPT_ATTACK, userMessage, traceId);
-    return this.parseResponse(raw, AttackResultSchema, 'resolveAttack', traceId) as AttackResult;
+    const result = this.parseResponse(raw, AttackResultSchema, 'resolveAttack', traceId) as AttackResult;
+    this.logger?.info(CONTEXT, traceId, `Attack Resolved: hit=${result.hit}, damage=${result.netDamage}`);
+    return result;
   }
 
   async calculateDv(params: CalculateDvParams): Promise<DvResult> {
@@ -267,8 +254,11 @@ export class NitroLogicClient implements INitroLogicClient {
       targetDifficulty: params.targetDifficulty,
     });
 
+    this.logger?.debug(CONTEXT, traceId, 'Calculating DV via Node A', params as unknown as Record<string, unknown>);
     const raw = await this.callChatCompletions(SYSTEM_PROMPT_DV, userMessage, traceId);
-    return this.parseResponse(raw, DvResultSchema, 'calculateDv', traceId) as DvResult;
+    const result = this.parseResponse(raw, DvResultSchema, 'calculateDv', traceId) as DvResult;
+    this.logger?.info(CONTEXT, traceId, `DV Calculated: ${result.dv}`, { breakdown: result.breakdown });
+    return result;
   }
 
   async oracleRoll(params: OracleRollParams): Promise<OracleResult> {
@@ -280,8 +270,11 @@ export class NitroLogicClient implements INitroLogicClient {
       luckPoints: params.luckPoints,
     }) + contextLine;
 
+    this.logger?.debug(CONTEXT, traceId, 'Oracle roll requested from Node A', params as unknown as Record<string, unknown>);
     const raw = await this.callChatCompletions(SYSTEM_PROMPT_ORACLE, userMessage, traceId);
-    return this.parseResponse(raw, OracleResultSchema, 'oracleRoll', traceId) as OracleResult;
+    const result = this.parseResponse(raw, OracleResultSchema, 'oracleRoll', traceId) as OracleResult;
+    this.logger?.info(CONTEXT, traceId, `Oracle Roll Result: ${result.result}`);
+    return result;
   }
 
   async isHealthy(): Promise<boolean> {
@@ -298,22 +291,23 @@ export class NitroLogicClient implements INitroLogicClient {
   }
 
   async ocrAnalyze(base64Image: string): Promise<DetectedEntity[]> {
+    const traceId = randomUUID();
     if (!this.clawlinkClient) {
       throw new Error(
         `${CONTEXT} ocrAnalyze requires clawlinkClient in NitroLogicConfig — not provided.`,
       );
     }
+    this.logger?.debug(CONTEXT, traceId, 'Dispatching OCR analysis via ClawLink RPC');
     const raw = await this.clawlinkClient.executeRpc<unknown>('ocr_analyze', { image: base64Image });
     const result = DetectedEntitiesSchema.safeParse(raw);
     if (!result.success) {
       const issue = result.error.issues[0];
-      throw new Error(
-        `${CONTEXT} ocrAnalyze response failed Zero-Trust validation: ` +
-        `${issue?.message ?? 'unknown'} (path: ${issue?.path.join('.') ?? 'root'})`,
-      );
+      const message = `${CONTEXT} ocrAnalyze response failed Zero-Trust validation: ${issue?.message ?? 'unknown'}`;
+      this.logger?.error(CONTEXT, traceId, message);
+      throw new Error(message);
     }
     
-    // Map coordinates to 0-1000 machine scale
+    this.logger?.info(CONTEXT, traceId, `OCR Analysis complete: ${result.data.length} entities detected`);
     return result.data.map(e => ({
       ...e,
       x: normalizedToMachine(e.x),
@@ -324,6 +318,8 @@ export class NitroLogicClient implements INitroLogicClient {
   async balanceNpcForSoloPlay(params: SoloSafeParams): Promise<NpcStatBlock> {
     const cap = params.targetHitProbabilityCap ?? 0.60;
     const traceId = randomUUID();
+
+    this.logger?.info(CONTEXT, traceId, 'Starting Solo-Safe NPC generation', { hitCap: cap });
 
     // Step 1: OCR scan the player sheet
     const entities = await this.ocrAnalyze(params.playerSheetBase64);
@@ -338,13 +334,17 @@ export class NitroLogicClient implements INitroLogicClient {
     });
 
     const raw = await this.callChatCompletions(SYSTEM_PROMPT_SOLO_SAFE, userMessage, traceId);
-    return this.parseResponse(raw, NpcStatBlockSchema, 'balanceNpcForSoloPlay', traceId) as NpcStatBlock;
+    const result = this.parseResponse(raw, NpcStatBlockSchema, 'balanceNpcForSoloPlay', traceId) as NpcStatBlock;
+    this.logger?.info(CONTEXT, traceId, 'Balanced NPC Generated', { reasoning: result.reasoning });
+    return result;
   }
 
   async auditScript(params: SecurityAuditParams): Promise<SecurityAuditResult> {
     const { code, context = 'No context provided' } = params;
     const traceId = randomUUID();
     
+    this.logger?.info(CONTEXT, traceId, 'Starting security audit of script snippet', { context });
+
     const userMessage = JSON.stringify({
       code,
       context,
@@ -358,23 +358,22 @@ export class NitroLogicClient implements INitroLogicClient {
       reasoning: z.string().min(1),
     });
 
-    return this.parseResponse(raw, SecurityAuditResultSchema, 'auditScript', traceId) as SecurityAuditResult;
+    const result = this.parseResponse(raw, SecurityAuditResultSchema, 'auditScript', traceId) as SecurityAuditResult;
+    if (result.passed) {
+      this.logger?.info(CONTEXT, traceId, 'Security Audit: PASSED');
+    } else {
+      this.logger?.warn(CONTEXT, traceId, `Security Audit: FAILED - ${result.issue}`, { reasoning: result.reasoning });
+    }
+    return result;
   }
 
   async stop(): Promise<void> {
-    // For now, no persistent connections to close for HTTP bridge.
-    // If ClawLink added a persistent SSH tunnel that needed manual close,
-    // we would handle it here.
-    console.log(`[NitroLogicClient] Graceful shutdown complete for ${this.config.model}`);
+    const traceId = randomUUID();
+    this.logger?.info(CONTEXT, traceId, `Graceful shutdown complete for ${this.config.model}`);
   }
 
   // ── Private helpers ─────────────────────────────────────────────────────────
 
-  /**
-   * Sends a /v1/chat/completions request to Node A with strict determinism params.
-   * Returns the raw content string from the first choice.
-   * @throws on network error or non-2xx HTTP response.
-   */
   private async callChatCompletions(
     systemPrompt: string,
     userContent: string,
@@ -382,8 +381,6 @@ export class NitroLogicClient implements INitroLogicClient {
   ): Promise<string> {
     const url = `${this.config.baseUrl}/chat/completions`;
 
-    // Phase 34: AAAK prefix caching — prepend identity block to system prompt
-    // and request KV cache reuse so llama-server processes this prefix at 0ms.
     const effectiveSystem = this.config.aaakPrefix
       ? `${this.config.aaakPrefix}\n${systemPrompt}`
       : systemPrompt;
@@ -412,11 +409,13 @@ export class NitroLogicClient implements INitroLogicClient {
       });
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
+      this.logger?.error(CONTEXT, traceId, `Network error calling Node A: ${message}`);
       throw new Error(`${CONTEXT} network error calling Node A [traceId=${traceId}]: ${message}`);
     }
 
     if (!response.ok) {
       const errorBody = await response.text().catch(() => 'unable to read response body');
+      this.logger?.error(CONTEXT, traceId, `Node A returned HTTP ${response.status}`, { errorBody });
       throw new Error(
         `${CONTEXT} Node A returned HTTP ${response.status} [traceId=${traceId}]: ${errorBody}`,
       );
@@ -424,22 +423,16 @@ export class NitroLogicClient implements INitroLogicClient {
 
     const rawJson: unknown = await response.json();
 
-    // Validate the OpenAI envelope
     const envelope = ChatCompletionResponseSchema.safeParse(rawJson);
     if (!envelope.success) {
-      throw new Error(
-        `${CONTEXT} Node A response envelope invalid [traceId=${traceId}]: ${envelope.error.issues[0]?.message ?? 'unknown'}`,
-      );
+      const message = `${CONTEXT} Node A response envelope invalid: ${envelope.error.issues[0]?.message ?? 'unknown'}`;
+      this.logger?.error(CONTEXT, traceId, message);
+      throw new Error(`${CONTEXT} Node A response envelope invalid [traceId=${traceId}]: ${envelope.error.issues[0]?.message ?? 'unknown'}`);
     }
 
-    const content = envelope.data.choices[0]!.message.content;
-    return content;
+    return envelope.data.choices[0]!.message.content;
   }
 
-  /**
-   * Parses a raw JSON string from Node A against a Zod schema.
-   * Throws with a descriptive message on validation failure (Zero-Trust).
-   */
   private parseResponse<T>(
     rawContent: string,
     schema: z.ZodType<T>,
@@ -450,17 +443,17 @@ export class NitroLogicClient implements INitroLogicClient {
     try {
       parsed = JSON.parse(rawContent);
     } catch {
-      throw new Error(
-        `${CONTEXT} ${toolName} — Node A returned non-JSON [traceId=${traceId}]: ${rawContent.slice(0, 200)}`,
-      );
+      const message = `${CONTEXT} ${toolName} — Node A returned non-JSON: ${rawContent.slice(0, 200)}`;
+      this.logger?.error(CONTEXT, traceId, message);
+      throw new Error(`${CONTEXT} ${toolName} — Node A returned non-JSON [traceId=${traceId}]: ${rawContent.slice(0, 200)}`);
     }
 
     const result = schema.safeParse(parsed);
     if (!result.success) {
       const firstIssue = result.error.issues[0];
-      throw new Error(
-        `${CONTEXT} ${toolName} response failed schema validation [traceId=${traceId}]: ${firstIssue?.message ?? 'unknown'} (path: ${firstIssue?.path.join('.') ?? 'unknown'})`,
-      );
+      const message = `${CONTEXT} ${toolName} response failed schema validation: ${firstIssue?.message ?? 'unknown'}`;
+      this.logger?.error(CONTEXT, traceId, message, { path: firstIssue?.path });
+      throw new Error(`${CONTEXT} ${toolName} response failed schema validation [traceId=${traceId}]: ${firstIssue?.message ?? 'unknown'} (path: ${firstIssue?.path.join('.') ?? 'unknown'})`);
     }
 
     return result.data;

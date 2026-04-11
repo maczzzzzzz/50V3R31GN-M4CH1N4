@@ -8,8 +8,10 @@
  */
 
 import { z } from 'zod';
+import { randomUUID } from 'node:crypto';
 import type { ISovereignNarrativeClient, SovereignNarrativeConfig } from './interfaces.js';
 import { RootsInjector } from './roots-injector.js';
+import type { ILogger } from '../db/interfaces.js';
 
 // ── Zod config validation ─────────────────────────────────────────────────────
 
@@ -53,15 +55,17 @@ Rules:
 
 export class SovereignNarrativeClient implements ISovereignNarrativeClient {
   private readonly config: SovereignNarrativeConfig;
+  private readonly logger?: ILogger | undefined;
   private rootsInjector?: RootsInjector | undefined;
 
-  constructor(config: SovereignNarrativeConfig, rootsInjector?: RootsInjector) {
+  constructor(config: SovereignNarrativeConfig, rootsInjector?: RootsInjector, logger?: ILogger) {
     const parsed = SovereignNarrativeConfigSchema.safeParse(config);
     if (!parsed.success) {
       throw new Error(`SovereignNarrativeClient: invalid config — ${parsed.error.message}`);
     }
     this.config = config;
     this.rootsInjector = rootsInjector;
+    this.logger = logger;
   }
 
   public setRootsInjector(injector: RootsInjector) {
@@ -72,8 +76,6 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
 
   async isHealthy(): Promise<boolean> {
     try {
-      // llama-server health endpoint is usually at /health
-      // baseUrl is e.g. http://localhost:8080/v1
       const healthUrl = this.config.baseUrl.replace(/\/v1$/, '/health');
       const response = await fetch(healthUrl);
       return response.ok;
@@ -85,14 +87,14 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
   // ── stop ───────────────────────────────────────────────────────────────────
 
   async stop(): Promise<void> {
-    // llama-server is a persistent process managed externally (e.g. systemd/bash)
-    // No explicit unload needed per-session.
-    console.log(`[SovereignNarrativeClient] Detaching from llama-server: ${this.config.model}`);
+    const traceId = randomUUID();
+    this.logger?.info('SovereignNarrativeClient', traceId, `Detaching from llama-server: ${this.config.model}`);
   }
 
   // ── generateNarrative ───────────────────────────────────────────────────────
 
   async generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature: number = 0.7, topP: number = 0.9): Promise<string> {
+    const traceId = randomUUID();
     const controller = new AbortController();
     const timeoutHandle = setTimeout(() => controller.abort(), this.config.timeoutMs);
 
@@ -119,6 +121,8 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
       top_p: topP,
     };
 
+    this.logger?.debug('SovereignNarrativeClient', traceId, 'Generating narrative via Node B', { prompt, district: districtName });
+
     let response: Response;
     try {
       response = await fetch(`${this.config.baseUrl}/chat/completions`, {
@@ -129,33 +133,46 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
       });
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
-        throw new Error(`SovereignNarrativeClient: generateNarrative timeout after ${this.config.timeoutMs}ms`);
+        const message = `SovereignNarrativeClient: generateNarrative timeout after ${this.config.timeoutMs}ms`;
+        this.logger?.error('SovereignNarrativeClient', traceId, message);
+        throw new Error(message);
       }
+      this.logger?.error('SovereignNarrativeClient', traceId, `Network error calling Node B: ${(err as Error).message}`);
       throw err;
     } finally {
       clearTimeout(timeoutHandle);
     }
 
     if (!response.ok) {
-      throw new Error(`SovereignNarrativeClient: HTTP ${response.status} from llama-server — ${response.statusText}`);
+      const message = `SovereignNarrativeClient: HTTP ${response.status} from llama-server — ${response.statusText}`;
+      this.logger?.error('SovereignNarrativeClient', traceId, message);
+      throw new Error(message);
     }
 
     let json: unknown;
     try {
       json = await response.json();
     } catch {
-      throw new Error('SovereignNarrativeClient: failed to parse JSON from llama-server response');
+      const message = 'SovereignNarrativeClient: failed to parse JSON from llama-server response';
+      this.logger?.error('SovereignNarrativeClient', traceId, message);
+      throw new Error(message);
     }
 
     const parsed = ChatCompletionResponseSchema.safeParse(json);
     if (!parsed.success) {
-      throw new Error(`SovereignNarrativeClient: schema validation failed — ${parsed.error.message}`);
+      const message = `SovereignNarrativeClient: schema validation failed — ${parsed.error.message}`;
+      this.logger?.error('SovereignNarrativeClient', traceId, message);
+      throw new Error(message);
     }
 
     const first = parsed.data.choices[0];
     if (!first) {
-      throw new Error('SovereignNarrativeClient: schema validation failed — choices array is empty');
+      const message = 'SovereignNarrativeClient: schema validation failed — choices array is empty';
+      this.logger?.error('SovereignNarrativeClient', traceId, message);
+      throw new Error(message);
     }
+    
+    this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');
     return first.message.content;
   }
 }

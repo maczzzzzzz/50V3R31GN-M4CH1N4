@@ -33,7 +33,9 @@ import type { IClawLinkClient } from '../api/clawlink-client.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { randomUUID } from 'node:crypto';
 import { SovereignJudge } from './sovereign-judge.js';
+import type { ILogger } from '../db/interfaces.js';
 
 // ── Constructor options ───────────────────────────────────────────────────────
 
@@ -58,6 +60,7 @@ export interface HybridRoutingControllerOptions {
   readonly missionSwarm?: MissionSwarmOrchestrator | undefined;
   readonly turnDaemon?: TurnDaemon | undefined;
   readonly auditor?: AkashikVisualAuditor | undefined;
+  readonly logger?: ILogger | undefined | undefined;
 }
 
 // ── Implementation ────────────────────────────────────────────────────────────
@@ -85,6 +88,7 @@ export class HybridRoutingController {
   private readonly vsb: VsbClient | undefined;
   private readonly auditor: AkashikVisualAuditor | undefined;
   private readonly sovereignJudge: SovereignJudge;
+  private readonly logger?: ILogger | undefined;
 
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
@@ -111,6 +115,7 @@ export class HybridRoutingController {
     this.steganographyService = new SteganographyService();
     this.taskRouter = new TaskRouterProxy();
     this.auditor = options.auditor;
+    this.logger = options.logger;
 
     this.sovereignJudge = new SovereignJudge({
       nitroLogicClient: this.nitroLogic,
@@ -130,18 +135,14 @@ export class HybridRoutingController {
     // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
     if (this.unifiedOracle) {
       this.unifiedOracle.onAuthorize = async (commands) => {
-        console.log('\n⚠️  AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed via VSB.');
-        console.log('────────────────────────────────────────────────────────────');
-        commands.forEach((cmd, i) => {
-          console.log(`[${i+1}] ${cmd.action}: ${JSON.stringify(cmd)}`);
-        });
-        console.log('────────────────────────────────────────────────────────────');
+        const traceId = randomUUID();
+        this.logger?.info('HRC', traceId, 'AUTHORIZATION REQUIRED: Flush Gate Transaction Proposed', { commands });
         
         // If in an automated test environment, we auto-ACK
         if (process.env.NODE_ENV === 'test') return true;
 
         if (!this.sharedMemory) {
-          console.warn('VSB SharedMemory not available. Auto-ACKing.');
+          this.logger?.warn('HRC', traceId, 'VSB SharedMemory not available. Auto-ACKing.');
           return true;
         }
 
@@ -156,9 +157,11 @@ export class HybridRoutingController {
             if (id === proposalId || id === 0) {
               if (status === 1) { // StatusApproved
                 clearInterval(interval);
+                this.logger?.info('HRC', traceId, `Transaction ${proposalId} APPROVED via Mmap`);
                 resolve(true);
               } else if (status === 2) { // StatusRejected
                 clearInterval(interval);
+                this.logger?.warn('HRC', traceId, `Transaction ${proposalId} REJECTED via Mmap`);
                 resolve(false);
               }
             }
@@ -169,14 +172,12 @@ export class HybridRoutingController {
 
     // Unified Restore (v1.4.3): Automatically restore world-state on boot
     this.restoreSystemState().catch(err => {
-      console.warn('[HRC] System state auto-restore failed:', err.message);
+      this.logger?.warn('HRC', 'restore', `System state auto-restore failed: ${err.message}`);
     });
   }
 
   /**
    * Sovereign Highway (Phase 25): Fast-path for mechanical validation.
-   * If vsbClient is available, it sends a UDP packet to Node A.
-   * Otherwise, it returns null (caller should fall back to standard HTTP/SovereignNarrative path).
    */
   async validateMechanicalIntent(
     payload: string,
@@ -184,6 +185,7 @@ export class HybridRoutingController {
     sessionIdHex: string = '00'.repeat(16)
   ): Promise<{ valid: boolean; code: number } | null> {
     if (!this.vsb) return null;
+    const traceId = randomUUID();
 
     try {
       const sequenceId = Math.floor(Math.random() * 65535);
@@ -198,12 +200,14 @@ export class HybridRoutingController {
         code: result.resultCode
       };
     } catch (err) {
-      console.warn(`[HRC] VSB fast-path failed, falling back to HTTP: ${err instanceof Error ? err.message : String(err)}`);
+      this.logger?.warn('HRC', traceId, `VSB fast-path failed, falling back to HTTP: ${(err as Error).message}`);
       return null;
     }
   }
 
   async evaluateIntentSwarm(context: string): Promise<{ tone: string, intensity: number }> {
+    const traceId = randomUUID();
+    this.logger?.debug('HRC', traceId, 'Evaluating Intent Swarm', { contextSnippet: context.slice(0, 100) });
     // Use TaskRouterProxy to dispatch concurrently
     const [toneTask, intensityTask] = await Promise.all([
       this.taskRouter.dispatch({ destination: 'NodeB', cost: 'HEAVY' }, async () => {
@@ -228,7 +232,7 @@ export class HybridRoutingController {
     if (rows.length > 0 && rows[0]?.value !== 'null') {
       const sceneId = rows[0]?.value;
       if (!sceneId) return;
-      process.stdout.write(`[v1.4.3 Restore] Found last active scene: ${sceneId}. Restoring...\n`);
+      this.logger?.info('HRC', 'restore', `Found last active scene: ${sceneId}. Restoring...`);
       
       // We wrap in a short timeout to ensure all WebSocket/CDP links are primed
       setTimeout(async () => {
@@ -238,7 +242,7 @@ export class HybridRoutingController {
             await this.neuralUplink.restoreAtmosphere(sceneId);
           }
         } catch (err) {
-          console.warn(`[v1.4.3 Restore] Scene ${sceneId} restoration failed:`, (err as Error).message);
+          this.logger?.warn('HRC', 'restore', `Scene ${sceneId} restoration failed: ${(err as Error).message}`);
         }
       }, 3000);
     }
@@ -247,6 +251,9 @@ export class HybridRoutingController {
   // ── Main dispatcher ─────────────────────────────────────────────────────────
 
   async handleFoundryEvent(event: any): Promise<unknown> {
+    const traceId = randomUUID();
+    this.logger?.debug('HRC', traceId, `Handling Foundry Event: ${event.type}`, { payload: event.payload });
+
     if (event.type === 'audit_request') {
       return this.handleAuditRequest(event);
     }
@@ -319,7 +326,7 @@ export class HybridRoutingController {
         const sceneId = (event.payload as { sceneId?: string }).sceneId;
         if (this.neuralUplink?.isConnected() && sceneId) {
           await this.neuralUplink.restoreAtmosphere(sceneId).catch((err: Error) => {
-            console.warn(`[HybridRoutingController] Atmosphere restore failed for ${sceneId}: ${err.message}`);
+            this.logger?.warn('HRC', traceId, `Atmosphere restore failed for ${sceneId}: ${err.message}`);
           });
           // Phase 16: Clear stale perception data and trigger Falcon reground
           if (this.unifiedOracle?.isConnected()) {
@@ -329,7 +336,7 @@ export class HybridRoutingController {
             );
           }
           await this.neuralUplink.regroundScene(sceneId).catch((err: Error) => {
-            console.warn(`[HybridRoutingController] regroundScene failed for ${sceneId}: ${err.message}`);
+            this.logger?.warn('HRC', traceId, `regroundScene failed for ${sceneId}: ${err.message}`);
           });
         }
         return;
@@ -342,9 +349,7 @@ export class HybridRoutingController {
         return;
       case 'system_heartbeat': {
         const p = event.payload;
-        process.stdout.write(
-          `[v1.5.0 Bridge] Heartbeat: socketlib=${p.socketlib}, fxmaster=${p.fxmaster}, sequencer=${p.sequencer}, splatter=${p.splatter}\n`
-        );
+        this.logger?.debug('HRC', traceId, `System Heartbeat: socketlib=${p.socketlib}, fxmaster=${p.fxmaster}, sequencer=${p.sequencer}, splatter=${p.splatter}`);
         return;
       }
       case 'file_extraction':
@@ -358,6 +363,7 @@ export class HybridRoutingController {
       case 'audit_library':
         return this.handleAuditLibrary(event.payload);
       default: {
+        this.logger?.error('HRC', traceId, `Unknown event type '${(event as any).type}'`);
         throw new Error(`HybridRoutingController: unknown event type '${(event as any).type}'`);
       }
     }
@@ -366,6 +372,7 @@ export class HybridRoutingController {
   // ── Handlers ────────────────────────────────────────────────────────────────
 
   private async handleResolveAttack(payload: ResolveAttackParams, spatial?: { sceneId: string, x: number, y: number }): Promise<AttackResult> {
+    const traceId = randomUUID();
     const result = await this.nitroLogic.resolveAttack(payload);
     await this.foundry.show3dDice('1d10', result.rollTotal);
 
@@ -412,7 +419,7 @@ export class HybridRoutingController {
           }
         }
       } catch (err) {
-        console.warn(`[HRC] Failed to reconcile damage for target ${payload.targetId}:`, err);
+        this.logger?.warn('HRC', traceId, `Failed to reconcile damage for target ${payload.targetId}: ${(err as Error).message}`);
       }
     }
 
@@ -449,11 +456,13 @@ export class HybridRoutingController {
 
   private async handleBuyItem(payload: BuyItemEvent['payload']): Promise<void> {
     const { actorId, costEb, itemId, vendor } = payload;
+    const traceId = randomUUID();
     const actorData = await this.foundry.readActor(actorId) as any;
     const currentEb = actorData?.system?.wealth?.eb ?? 0;
 
     if (currentEb < costEb) {
       await this.foundry.sendChatMessage(`❌ **Transaction Failed**: Insufficient funds.`, { alias: vendor });
+      this.logger?.warn('HRC', traceId, 'BuyItem: Insufficient funds', { actorId, currentEb, costEb });
       return;
     }
 
@@ -468,7 +477,7 @@ export class HybridRoutingController {
         object: actorId,
       }]);
     } catch (err) {
-      console.warn(`[HRC] Failed to reconcile item ownership for ${itemId}:`, err);
+      this.logger?.warn('HRC', traceId, `Failed to reconcile item ownership for ${itemId}: ${(err as Error).message}`);
     }
 
     const context = `vendor=${vendor}, item=${itemId}, costEb=${costEb}, newBalance=${newEb}`;
@@ -482,6 +491,7 @@ export class HybridRoutingController {
   }
 
   private async handleRedTradeTransit(payload: RedTradeTransitEvent['payload']): Promise<FrictionRollResult> {
+    const traceId = randomUUID();
     const result = this.redTradeService.rollFriction(payload.currentFriction);
     const messages: Record<string, string> = {
       bark:   `🌆 *The streets feel tense...* Heat: ${result.total}`,
@@ -493,7 +503,7 @@ export class HybridRoutingController {
     // Architect Pass (Phase 12): Materialize ambush tokens directly in the renderer
     if (result.outcome === 'ambush' && this.architect) {
       this.architect.spawnToken(null, 500, 500).catch(err => {
-        console.warn('[HRC] Architect ambush manifestation failed:', err.message);
+        this.logger?.warn('HRC', traceId, `Architect ambush manifestation failed: ${err.message}`);
       });
     }
 
@@ -503,6 +513,8 @@ export class HybridRoutingController {
   }
 
   private async handleOpenNightMarket(actorId: string, vendorName: string): Promise<void> {
+    const traceId = randomUUID();
+    this.logger?.info('HRC', traceId, `Opening Night Market for vendor: ${vendorName}`);
     const items = await this.nightMarketService.getVendorInventory(vendorName);
     await this.foundry.openNightMarket(actorId, vendorName, items);
   }
@@ -521,6 +533,7 @@ export class HybridRoutingController {
    * to the Night City Dashboard sidebar in Foundry.
    */
   private async syncDashboard(): Promise<void> {
+    const traceId = randomUUID();
     try {
       // 1. Fetch NPC stats for the Bio-Monitor
       const npcs = this.unifiedOracle.query(
@@ -582,11 +595,12 @@ export class HybridRoutingController {
         this.sharedMemory.writeWorldState(blips);
       }
     } catch (err) {
-      console.warn('[HRC] Dashboard sync failed:', err);
+      this.logger?.warn('HRC', traceId, `Dashboard sync failed: ${(err as Error).message}`);
     }
   }
 
   async handleScan(): Promise<void> {
+    const traceId = randomUUID();
     let visualBuffer: Buffer | undefined;
     
     // Attempt Neural Uplink (CDP) capture first
@@ -594,9 +608,9 @@ export class HybridRoutingController {
       try {
         const record = await this.visualMonitor.captureScreenshot();
         visualBuffer = Buffer.from(record.data, 'base64');
-        console.log('📡 Neural Uplink: Captured GPU screenshot via CDP.');
+        this.logger?.info('HRC', traceId, '📡 Neural Uplink: Captured GPU screenshot via CDP.');
       } catch (err) {
-        console.warn('⚠️  Neural Uplink capture failed, falling back to legacy CV:', (err as Error).message);
+        this.logger?.warn('HRC', traceId, `⚠️  Neural Uplink capture failed, falling back to legacy CV: ${(err as Error).message}`);
       }
     }
 
@@ -614,6 +628,8 @@ export class HybridRoutingController {
 
   async handleOnboard(playerName: string, role: string, buildType: BuildType = 'Standard'): Promise<void> {
     if (!this.onboardingEnabled) return;
+    const traceId = randomUUID();
+    this.logger?.info('HRC', traceId, `Starting onboarding for ${playerName} as ${role} (${buildType})`);
     const controller = new OnboardingController({
       nitroLogicClient: this.nitroLogic,
       sovereignNarrativeClient:     this.sovereignNarrative,
@@ -638,13 +654,14 @@ export class HybridRoutingController {
 
   private async pushNarrativeOrFallback(prompt: string, context: string, fallback: string, spatial?: { sceneId: string, x: number, y: number }): Promise<void> {
     let narrative: string;
+    const traceId = randomUUID();
     try {
       const systemContext = await this.applyWorldPulseGrounding(prompt + ' ' + context, spatial);
       // We pass the scene's district name if available, for now undefined.
       const result = await this.sovereignJudge.evaluateNarrative(prompt, context, systemContext, undefined);
       narrative = result.narrative;
     } catch (e) {
-      console.error('[HRC] pushNarrativeOrFallback Error:', e);
+      this.logger?.error('HRC', traceId, 'pushNarrativeOrFallback Error:', { error: (e as Error).message });
       narrative = fallback;
     }
     await this.foundry.sendChatMessage(narrative, { alias: 'GM Assistant' });
@@ -652,6 +669,7 @@ export class HybridRoutingController {
 
   private async applyWorldPulseGrounding(input: string, spatial?: { sceneId: string, x: number, y: number }): Promise<string | undefined> {
     if (!this.unifiedOracle?.isConnected() || !input) return undefined;
+    const traceId = randomUUID();
 
     try {
       let pulse = 'WORLD PULSE (GROUNDED TRUTH):\n';
@@ -725,7 +743,7 @@ export class HybridRoutingController {
 
       return pulse;
     } catch (err) {
-      console.warn('World Pulse grounding failed:', err);
+      this.logger?.warn('HRC', traceId, `World Pulse grounding failed: ${(err as Error).message}`);
       return undefined;
     }
   }
@@ -742,8 +760,9 @@ export class HybridRoutingController {
   async handleProxyIntent(intent: any): Promise<void> {
     const { id, method, params } = intent;
     if (!method) return;
+    const traceId = randomUUID();
 
-    console.log(`[HRC] Proxy Intent: ${method}`);
+    this.logger?.info('HRC', traceId, `[HRC] Proxy Intent: ${method}`, { params });
 
     let result: any = { status: 'GRANTED' };
 
@@ -763,7 +782,7 @@ export class HybridRoutingController {
           result = hackRes;
           break;
         case 'shut-down':
-          console.log('🔴 EMERGENCY SHUTDOWN RECEIVED FROM PROXY');
+          this.logger?.info('HRC', traceId, '🔴 EMERGENCY SHUTDOWN RECEIVED FROM PROXY');
           process.emit('SIGTERM');
           result.message = 'Shutdown sequence initiated.';
           break;
@@ -771,6 +790,7 @@ export class HybridRoutingController {
           result = { status: 'REJECTED', message: `Unknown command: ${method}` };
       }
     } catch (err) {
+      this.logger?.error('HRC', traceId, `Proxy Intent Failed: ${(err as Error).message}`);
       result = { status: 'REJECTED', message: (err as Error).message };
     }
 
@@ -808,8 +828,9 @@ export class HybridRoutingController {
   }
 
   private async handleNpcTurn(payload: NpcTurnEvent['payload']): Promise<TurnResult> {
-
+    const traceId = randomUUID();
     if (!this.turnDaemon) {
+      this.logger?.error('HRC', traceId, 'npc_turn event received but no TurnDaemon is configured');
       throw new Error('HybridRoutingController: npc_turn event received but no TurnDaemon is configured');
     }
     const result = await this.turnDaemon.runTurn(payload.npcId, payload.sensoryContext);
@@ -817,7 +838,7 @@ export class HybridRoutingController {
     // Phase 40: Ambush Spawning
     if (result.action.type === 'attack' && this.architect) {
       this.architect.spawnToken(null, 500, 500).catch((err: Error) => {
-        console.warn('[HRC] Architect hostile manifestation failed:', err.message);
+        this.logger?.warn('HRC', traceId, `Architect hostile manifestation failed: ${err.message}`);
       });
     }
 
@@ -832,19 +853,21 @@ export class HybridRoutingController {
   }
 
   private async handleAuditLibrary(payload: { assetsDir?: string }): Promise<void> {
+    const traceId = randomUUID();
     if (!this.auditor) {
-      console.warn('[HRC] audit_library received but AkashikVisualAuditor is not wired.');
+      this.logger?.warn('HRC', traceId, 'audit_library received but AkashikVisualAuditor is not wired.');
       return;
     }
-    console.log('[HRC] Starting AkashikVisualAuditor global lore extraction pass...');
+    this.logger?.info('HRC', traceId, 'Starting AkashikVisualAuditor global lore extraction pass...');
     const count = await this.auditor.runGlobalAudit(payload.assetsDir);
-    console.log(`[HRC] Visual audit complete. ${count} lore seeds extracted and saved to library.`);
+    this.logger?.info('HRC', traceId, `Visual audit complete. ${count} lore seeds extracted and saved to library.`);
     await this.foundry.sendChatMessage(
       `📚 **Akashik Audit Complete** — ${count} lore seed(s) extracted from visual assets and committed to the library.`
     );
   }
 
   private async handleFileExtraction(payload: { targetActorId: string, context: string }): Promise<void> {
+    const traceId = randomUUID();
     // 1. Generate Contextual Secret (Node B GPU)
     const prompt = `Generate a short (max 15 words) secret password, data fragment, or lore clue found in a file related to: ${payload.context}`;
     const secret = await this.sovereignNarrative.generateNarrative(prompt, payload.context, 'Generate a short Cyberpunk secret.');
@@ -861,7 +884,7 @@ export class HybridRoutingController {
     // For now, if no templates exist, we can't encode.
     const templates = fs.readdirSync(templatesDir).filter(f => f.endsWith('.png'));
     if (templates.length === 0) {
-      console.warn('[HRC] No st3gg templates found in data/assets/st3gg_templates/. Skipping drop.');
+      this.logger?.warn('HRC', traceId, 'No st3gg templates found in data/assets/st3gg_templates/. Skipping drop.');
       return;
     }
 
@@ -884,11 +907,12 @@ export class HybridRoutingController {
         { alias: 'System' }
       );
     } catch (err) {
-      console.error('[HRC] Steganography encoding failed:', err);
+      this.logger?.error('HRC', traceId, `Steganography encoding failed: ${(err as Error).message}`);
     }
   }
 
   private async handleDecryptRequest(payload: { imagePath: string }): Promise<{ secret: string }> {
+    const traceId = randomUUID();
     // The imagePath from Foundry is likely relative, e.g. "assets/st3gg_drops/drop_123.png"
     // We need to map it back to the local filesystem.
     const localPath = path.join(process.cwd(), 'data', payload.imagePath);
@@ -900,7 +924,7 @@ export class HybridRoutingController {
       const secret = await this.steganographyService.decodeSecret(localPath);
       return { secret };
     } catch (err) {
-      console.error('[HRC] Steganography decoding failed:', err);
+      this.logger?.error('HRC', traceId, `Steganography decoding failed: ${(err as Error).message}`);
       return { secret: "ERROR: Data corruption. Decryption failed." };
     }
   }
@@ -911,7 +935,8 @@ export class HybridRoutingController {
    */
   private async handleMoveValidation(event: { requestId: string, payload: { actorId: string, tokenId: string, x: number, y: number }, respond: (res: any) => void }): Promise<void> {
     const { tokenId, x, y } = event.payload;
-    console.log(`[HRC] Validating Move for token: ${tokenId} to {${x}, ${y}}`);
+    const traceId = randomUUID();
+    this.logger?.debug('HRC', traceId, `Validating Move for token: ${tokenId} to {${x}, ${y}}`);
 
     // 1. Basic "Active Defense" rule: Teleport Hack detection
     // We check against the last known position in Radar (Shared Memory or Oracle)
@@ -945,6 +970,7 @@ export class HybridRoutingController {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance > 1000) {
+        this.logger?.warn('HRC', traceId, `Teleport Hack Detected: Movement of ${Math.round(distance)} units exceeds the 1000-unit limit.`, { tokenId, from: { x: currentX, y: currentY }, to: { x, y } });
         event.respond({
           verdict: 'INVALID',
           reason: `Teleport Hack Detected: Movement of ${Math.round(distance)} units exceeds the 1000-unit limit.`
@@ -955,6 +981,7 @@ export class HybridRoutingController {
 
     // 2. Restricted Region check (Stub: x > 5000 is restricted)
     if (x > 5000) {
+      this.logger?.warn('HRC', traceId, 'Restricted Region: Entry without authorization attempt', { tokenId, x, y });
       event.respond({
         verdict: 'INVALID',
         reason: 'Restricted Region: You do not have authorization to enter this sector.'
@@ -973,6 +1000,7 @@ export class HybridRoutingController {
 
       const validation = await this.validateMechanicalIntent(payloadStr);
       if (validation && !validation.valid) {
+        this.logger?.warn('HRC', traceId, `Sovereign Veto: Movement rejected by Node A Reasoner (Code ${validation.code})`, { tokenId, x, y });
         event.respond({
           verdict: 'INVALID',
           reason: `Sovereign Veto: Movement rejected by Node A Reasoner (Code ${validation.code}).`
@@ -989,7 +1017,8 @@ export class HybridRoutingController {
    * Forwards intercepted intents to Node A for rules-veto.
    */
   private async handleAuditRequest(event: { requestId: string, payload: { event: string, data: any }, respond: (res: any) => void }): Promise<void> {
-    console.log(`[HRC] Auditing Intent: ${event.payload.event}`);
+    const traceId = randomUUID();
+    this.logger?.debug('HRC', traceId, `Auditing Intent: ${event.payload.event}`);
 
     // If Node A (VSB) is not available, allow by default
     if (!this.vsb) {
@@ -1009,6 +1038,7 @@ export class HybridRoutingController {
       const validation = await this.validateMechanicalIntent(payloadStr);
       
       if (validation && !validation.valid) {
+        this.logger?.warn('HRC', traceId, `Mechanical Veto: Code ${validation.code} for event ${event.payload.event}`, { event: event.payload });
         event.respond({ 
           verdict: 'INVALID', 
           reason: `Mechanical Veto: Code ${validation.code}` 
@@ -1017,7 +1047,7 @@ export class HybridRoutingController {
         event.respond({ verdict: 'VALID' });
       }
     } catch (err) {
-      console.error('[HRC] Audit error, allowing by default:', err);
+      this.logger?.error('HRC', traceId, `Audit error, allowing by default: ${(err as Error).message}`);
       event.respond({ verdict: 'VALID' });
     }
   }

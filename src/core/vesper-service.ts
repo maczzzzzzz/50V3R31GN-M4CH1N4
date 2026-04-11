@@ -12,6 +12,8 @@ import { SharedMemoryService } from './shared-memory-service.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
 import type { VisualMonitorService } from './visual-monitor-service.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
+import type { ILogger } from '../db/interfaces.js';
+import { randomUUID } from 'node:crypto';
 
 export enum RiskLevel {
   LOW = 'LOW',       // Passive observation, read-only
@@ -36,6 +38,7 @@ export class VesperService {
     private readonly neuralUplink: VisualMonitorService,
     private readonly oracle: UnifiedOracleClient,
     private readonly sharedMemory: SharedMemoryService,
+    private readonly logger?: ILogger,
   ) {}
 
   /**
@@ -44,13 +47,15 @@ export class VesperService {
   start(): void {
     if (this.isRunning) return;
     this.isRunning = true;
-    console.log('🌘 VESPER: Shadow Mode ACTIVE. Commencing autonomous reconnaissance.');
+    const traceId = randomUUID();
+    this.logger?.info('Vesper', traceId, '🌘 VESPER: Shadow Mode ACTIVE. Commencing autonomous reconnaissance.');
     
     // Initial run
-    this.runCycle().catch(err => console.error('[Vesper] Initial cycle failed:', err));
+    this.runCycle().catch(err => this.logger?.error('Vesper', traceId, '[Vesper] Initial cycle failed', { error: (err as Error).message }));
     
     this.intervalId = setInterval(() => {
-      this.runCycle().catch(err => console.error('[Vesper] Cycle failed:', err));
+      const cycleTraceId = randomUUID();
+      this.runCycle().catch(err => this.logger?.error('Vesper', cycleTraceId, '[Vesper] Cycle failed', { error: (err as Error).message }));
     }, this.loopIntervalMs);
   }
 
@@ -63,14 +68,15 @@ export class VesperService {
       this.intervalId = null;
     }
     this.isRunning = false;
-    console.log('🌒 VESPER: Shadow Mode DEACTIVATED.');
+    this.logger?.info('Vesper', 'stop', '🌒 VESPER: Shadow Mode DEACTIVATED.');
   }
 
   /**
    * A single reconnaissance cycle.
    */
   private async runCycle(): Promise<void> {
-    console.log('🌘 VESPER: Pulse...');
+    const traceId = randomUUID();
+    this.logger?.debug('Vesper', traceId, '🌘 VESPER: Pulse...');
 
     // 1. Harvest Intents
     const actions = await this.harvestIntents();
@@ -79,11 +85,11 @@ export class VesperService {
     for (const action of actions) {
       if (action.risk === RiskLevel.LOW) {
         // Low risk: Execute immediately
-        console.log(`  >> Executing LOW risk action: ${action.name}`);
-        await action.execute().catch(err => console.error(`  !! Action ${action.name} failed:`, err));
+        this.logger?.info('Vesper', traceId, `Executing LOW risk action: ${action.name}`);
+        await action.execute().catch(err => this.logger?.error('Vesper', traceId, `Action ${action.name} failed`, { error: (err as Error).message }));
       } else {
         // Medium/High risk: Must route through Flush Gate (Shared Memory Proposal)
-        console.log(`  >> Proposing ${action.risk} risk action: ${action.name}`);
+        this.logger?.info('Vesper', traceId, `Proposing ${action.risk} risk action: ${action.name}`);
         await this.proposeThroughFlushGate(action);
       }
     }
@@ -103,9 +109,7 @@ export class VesperService {
       risk: RiskLevel.LOW,
       execute: async () => {
         if (this.foundry.isConnected() && this.neuralUplink.isConnected()) {
-          const scene = await this.foundry.readActor('active'); // Dummy call to get active scene? 
-          // Actually FoundryAdapter doesn't have getActiveScene, but VisualMonitor might know.
-          // For now, we just trigger reground on the neural uplink.
+          // Trigger reground on the neural uplink.
           await this.neuralUplink.regroundScene('');
         }
       }
@@ -120,7 +124,7 @@ export class VesperService {
       risk: RiskLevel.MEDIUM,
       execute: async () => {
         // Logic to trigger global audit or specific asset extraction
-        console.log('  [Flush Gate Approved] Committing lore seeds to Oracle...');
+        this.logger?.info('Vesper', 'ambient_audit', '[Flush Gate Approved] Committing lore seeds to Oracle...');
       }
     });
 
@@ -132,6 +136,7 @@ export class VesperService {
    */
   private async proposeThroughFlushGate(action: VesperAction): Promise<void> {
     const proposalId = Math.floor(Math.random() * 1000000) + 1;
+    const traceId = randomUUID();
     
     try {
       this.sharedMemory.writeProposal(
@@ -141,7 +146,7 @@ export class VesperService {
         action.name
       );
 
-      console.log(`  🕒 VESPER: Proposal ${proposalId} pending GM approval via Flush Gate.`);
+      this.logger?.info('Vesper', traceId, `🕒 VESPER: Proposal ${proposalId} pending GM approval via Flush Gate.`);
 
       // Background poll for this specific proposal
       const pollStart = Date.now();
@@ -154,25 +159,26 @@ export class VesperService {
           if (id === proposalId) {
             if (status === 1) { // Approved
               clearInterval(interval);
-              console.log(`  ✅ VESPER: Proposal ${proposalId} APPROVED. Executing...`);
-              action.execute().catch(err => console.error(`  !! Action ${action.name} failed after approval:`, err));
+              this.logger?.info('Vesper', traceId, `✅ VESPER: Proposal ${proposalId} APPROVED. Executing...`);
+              action.execute().catch(err => this.logger?.error('Vesper', traceId, `Action ${action.name} failed after approval`, { error: (err as Error).message }));
             } else if (status === 2) { // Rejected
               clearInterval(interval);
-              console.log(`  ❌ VESPER: Proposal ${proposalId} REJECTED by GM.`);
+              this.logger?.warn('Vesper', traceId, `❌ VESPER: Proposal ${proposalId} REJECTED by GM.`);
             }
           }
 
           if (Date.now() - pollStart > pollTimeout) {
             clearInterval(interval);
-            console.warn(`  🕒 VESPER: Proposal ${proposalId} timed out waiting for GM.`);
+            this.logger?.warn('Vesper', traceId, `🕒 VESPER: Proposal ${proposalId} timed out waiting for GM.`);
           }
         } catch (err) {
+          this.logger?.error('Vesper', traceId, 'Polling error', { error: (err as Error).message });
           clearInterval(interval);
         }
       }, 1000);
 
     } catch (err) {
-      console.warn('  ⚠️ VESPER: Failed to write proposal to Flush Gate:', (err as Error).message);
+      this.logger?.error('Vesper', traceId, 'Failed to write proposal to Flush Gate', { error: (err as Error).message });
     }
   }
 }

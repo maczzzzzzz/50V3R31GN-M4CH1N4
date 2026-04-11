@@ -1,4 +1,5 @@
-import type { ISovereignNarrativeClient, INitroLogicClient } from './interfaces.js';
+import { randomUUID } from 'node:crypto';
+import type { ISovereignNarrativeClient, INitroLogicClient, ILogger } from './interfaces.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
@@ -9,7 +10,10 @@ export interface SovereignJudgeOptions {
   oracle: UnifiedOracleClient;
   clawlinkClient?: IClawLinkClient;
   foundryAdapter?: IFoundryAdapter;
+  logger?: ILogger;
 }
+
+const CONTEXT = 'SovereignJudge';
 
 export class SovereignJudge {
   private readonly nitro: INitroLogicClient;
@@ -17,6 +21,7 @@ export class SovereignJudge {
   private readonly oracle: UnifiedOracleClient;
   private readonly clawlink?: IClawLinkClient;
   private readonly foundry?: IFoundryAdapter;
+  private readonly logger?: ILogger | undefined;
 
   constructor(options: SovereignJudgeOptions) {
     this.nitro = options.nitroLogicClient;
@@ -24,6 +29,7 @@ export class SovereignJudge {
     this.oracle = options.oracle;
     if (options.clawlinkClient !== undefined) this.clawlink = options.clawlinkClient;
     if (options.foundryAdapter !== undefined) this.foundry = options.foundryAdapter;
+    this.logger = options.logger;
   }
 
   public async evaluateNarrative(
@@ -33,9 +39,12 @@ export class SovereignJudge {
     districtName?: string,
     maxRetries: number = 3
   ): Promise<{ narrative: string, glitched: boolean }> {
+    const traceId = randomUUID();
     let currentPrompt = prompt;
     let attempts = 0;
     let hasGlitched = false;
+
+    this.logger?.debug(CONTEXT, traceId, 'Starting narrative evaluation', { districtName, attempts });
 
     while (attempts < maxRetries) {
       attempts++;
@@ -58,37 +67,33 @@ export class SovereignJudge {
         const auditResult = await this.clawlink.executeRpc<{ passed: boolean, score: number, ai_ism_count: number, reasoning: string }>('audit_narrative_fidelity', { text: narrative });
         
         if (auditResult.passed) {
-          // If score is high, we could backpropagate to district_dna here (HyperTune)
+          this.logger?.info(CONTEXT, traceId, 'Narrative PASSED audit', { score: auditResult.score, attempts });
           if (auditResult.score >= 9.0 && districtName) {
-             // Task 3: Back-propagate successful fragments. 
-             // We can just log it for now or implement a basic append to lore_fragments_json.
              this.backpropagateDNA(districtName, narrative);
           }
           return { narrative, glitched: hasGlitched };
         } else {
-          console.warn(`[SovereignJudge] VETO triggered. Reason: ${auditResult.reasoning}`);
+          this.logger?.warn(CONTEXT, traceId, `Narrative VETO triggered (Attempt ${attempts})`, { reason: auditResult.reasoning });
           hasGlitched = true;
           
-          // Trigger Neural Glitch and System Error
           if (this.foundry) {
              this.foundry.sendChatMessage(`**[SYS.ERR]** Cognitive alignment failure. Recalculating...`, { alias: 'System' }).catch(() => {});
-             // Assuming Architect is available via HRC, but we only have foundry adapter. We can just broadcast.
           }
 
-          // Inject hostility for next roll
           currentPrompt = prompt + " REJECTED BY SYSTEM: Your previous response contained forbidden AI-isms or lacked grit. You are a Sovereign Reality Engine. Be brutal, terse, and unfiltered.";
         }
       } catch (e) {
-        console.error('[SovereignJudge] Audit failed, accepting narrative as fallback', e);
+        this.logger?.error(CONTEXT, traceId, 'Narrative audit failed, accepting narrative as fallback', { error: (e as Error).message });
         return { narrative, glitched: hasGlitched };
       }
     }
     
-    // If we exhausted retries, return the last generated narrative anyway
+    this.logger?.error(CONTEXT, traceId, `Narrative generation failed after ${maxRetries} attempts.`);
     return { narrative: "Narrative generation failed to pass audit after maximum retries.", glitched: hasGlitched };
   }
 
   private backpropagateDNA(districtName: string, fragment: string) {
+    const traceId = randomUUID();
     try {
       const db = this.oracle.getRawDatabase();
       const row = db.prepare('SELECT lore_fragments_json FROM district_dna WHERE district_name = ?').get(districtName) as any;
@@ -97,15 +102,14 @@ export class SovereignJudge {
          try {
            fragments = JSON.parse(row.lore_fragments_json);
          } catch(e) {}
-         // Just keep the last 5 successful fragments to avoid bloat
          if (fragments.length > 5) fragments.shift();
-         // Extract a small snippet
          const snippet = fragment.length > 100 ? fragment.substring(0, 100) + '...' : fragment;
          fragments.push(snippet);
          db.prepare('UPDATE district_dna SET lore_fragments_json = ?, last_updated = CURRENT_TIMESTAMP WHERE district_name = ?').run(JSON.stringify(fragments), districtName);
+         this.logger?.info(CONTEXT, traceId, `DNA backpropagated for ${districtName}`, { snippet });
       }
     } catch(err) {
-      console.error('[SovereignJudge] DNA backpropagation failed:', err);
+      this.logger?.error(CONTEXT, traceId, 'DNA backpropagation failed', { districtName, error: (err as Error).message });
     }
   }
 }

@@ -50,6 +50,7 @@ vi.mock('chrome-remote-interface', () => ({ default: mockCDP }));
 // ── Import under test ─────────────────────────────────────────────────────────
 
 import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
+import { logger } from '../../src/shared/logger.js';
 
 // ── Mock oracle ───────────────────────────────────────────────────────────────
 
@@ -84,7 +85,7 @@ describe('VisualMonitorService', () => {
     mockClient.CSS.createStyleSheet.mockResolvedValue({ styleSheetId: 'ss-001' });
     mockClient.CSS.setStyleSheetText.mockResolvedValue(undefined);
 
-    service = new VisualMonitorService({ debugPort: 9222 });
+    service = new VisualMonitorService({ debugPort: 9222, logger });
   });
 
   // ── connect() ───────────────────────────────────────────────────────────────
@@ -111,9 +112,9 @@ describe('VisualMonitorService', () => {
     });
 
     it('logs the Neural Uplink activation message', async () => {
-      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const consoleSpy = vi.spyOn(console, 'info').mockImplementation(() => {});
       await service.connect();
-      expect(consoleSpy).toHaveBeenCalledWith('✅ Neural Uplink: Native CDP Engine Active.');
+      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('✅ Neural Uplink: Native CDP Engine Active.'));
       consoleSpy.mockRestore();
     });
 

@@ -15,6 +15,14 @@ import type { BaseStatBlock } from '../types/stats.js';
 import type { GhostBlip } from '../shared/vsb_protocol.js';
 export type { GhostBlip };
 
+/** Structured logger for production observability. */
+export interface ILogger {
+  debug(context: string, traceId: string, message: string, data?: Record<string, unknown>): void;
+  info(context: string, traceId: string, message: string, data?: Record<string, unknown>): void;
+  warn(context: string, traceId: string, message: string, data?: Record<string, unknown>): void;
+  error(context: string, traceId: string, message: string, data?: Record<string, unknown>): void;
+}
+
 // ── Configuration ─────────────────────────────────────────────────────────────
 
 /**
