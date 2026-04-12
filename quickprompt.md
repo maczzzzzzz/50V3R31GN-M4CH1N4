@@ -1,33 +1,28 @@
 # 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.0)
 
-**Context:** Phase 47 (Universal Codex) and Phase 48 (MCP Bridge) are COMPLETED. Infrastructure is stable but requires targeted remediation following recent audits.
+**Context:** Phases 46-48 and the TF-IDF harmonization upgrade (Phase 49 groundwork) are COMPLETED. Infrastructure is stable but requires minor hardening of the Nix environment.
 
-**Objective:** Implement Phase 46 (Pulse Propagation) and resolve critical regressions in the Bridge and Reconstruction engines.
+**Objective:** Finalize the Pulse Engine integration and resolve environment regressions.
 
 ---
 
 ## ✅ CRITICAL REMEDIATION (RESOLVED — 2026-04-12)
-All audit findings from phases 44.5–48 have been shipped in commit `f5f5fa23`:
-1. ✅ **libWrapper Conflict:** Unified `TokenDocument.prototype.update` interceptor in `_setupCounterHacks`.
-2. ✅ **VRAM Leak:** `textObj.destroy({ texture: false, baseTexture: false })` added in `PretextOverlayManager` animate cleanup.
-3. ✅ **Initialization Redundancy:** `canvasReady` Hooks.on deferred until after first `_initShroud` completes.
-4. ✅ **Droid Connectivity:** `.factory/mcp.json` created with Unix socket transport.
-5. ✅ **Mirroring Optimization:** `reconstruct-palace.sh` now uses `rsync -a --update`.
+All Phase 46-48 audit findings shipped across commits `0670c78b`–`9173a76a`:
+1. ✅ **Nix Dependencies:** `pkgs.rsync` + `pkgs.ripgrep` added to default shell `buildInputs`.
+2. ✅ **MCP Bridge Lifecycle:** `trap '...kill...' EXIT` removed from `flake.nix`.
+3. ✅ **Pulse Trigger:** `PulseEngine.propagatePulse()` fires after each gauntlet cycle (write-capable connection).
 
----
-
-## ✅ TASK 1: PHASE 46 - PULSE PROPAGATION (SHIPPED — 2026-04-12, commit `43530db6`)
-1. ✅ **Sovereignty Depth:** `sovereignty_depth` in `system_state` + `duel_history` table. `PulseEngine.propagatePulse()` recalculates from duel win/loss ratio.
-2. ✅ **Faction Ripple:** `propagatePulse()` increments `friction_pool` for each human-won duel per faction.
-3. ✅ **Linguistic Drift:** `LinguisticService` maps `sovereignty_depth` → dialect (authoritative/leet/rebellious) + corruption probability.
+## ✅ TASK 1: PHASE 49 — SEMANTIC REFINEMENT & THREAT LIBRARY (SHIPPED — 2026-04-12)
+1. ✅ **Semantic Precision:** `extractBigrams()` added to `harmonize-rkg.ts`; sub-zone phrases ("little china", "kabuki market") now emitted as compound TF-IDF features.
+2. ✅ **Threat Library Export:** `export-threat-library.ts` extended with `exportAkashikNpcs()` + `--source=akashik|foundry|all`; `npm run forge:threats:akashik` available.
+3. ✅ **Gauntlet `--shard=N`:** Engine now supports `npm run gauntlet -- --shard=49` to run a single phase.
 
 ---
 
 ## 📖 REFERENCES
-- **Audit: Phases 44.5 & 45:** `docs/superpowers/audits/2026-04-12-phase-44.5-45-audit.md`
-- **Audit: Phases 47 & 48:** `docs/superpowers/audits/2026-04-12-phase-47-48-audit.md`
-- **Memory Palace Spec:** `docs/superpowers/specs/2026-04-12-memory-palace-harmonization.md`
-- **Sovereign Triad Bridge Spec:** `docs/superpowers/specs/2026-04-12-sovereign-triad-mcp-bridge-design.md`
+- **Audit Report (Phases 46-48):** `docs/superpowers/audits/2026-04-12-phase-46-48-harmonization-audit.md`
+- **Harmonization Engine:** `scripts/harmonize-rkg.ts`
+- **Pulse Engine:** `src/core/pulse-engine.ts`
 
 **Final Validation:** Run a full `npm run gauntlet` audit.
 
