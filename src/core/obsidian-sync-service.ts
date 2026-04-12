@@ -239,7 +239,7 @@ export class ObsidianSyncService {
       const content = fs.readFileSync(filepath, 'utf8');
       const match = /^---\n([\s\S]*?)\n---/.exec(content);
       if (!match) return;
-      const fm = yaml.load(match[1]) as any;
+      const fm = yaml.load(match[1]!) as any;
       if (!fm) return;
 
       if (fm.type === 'Chronicle') {
