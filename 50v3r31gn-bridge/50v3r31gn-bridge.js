@@ -382,7 +382,19 @@ class FoundryApiBridge {
           whisper: [game.user.id],
         });
         break;
-      // ... minimal handlers for now
+      case 'create_actor':
+        await Actor.create(command.payload);
+        break;
+      case 'run_script':
+        // @ts-ignore
+        if (this.socket) {
+          // @ts-ignore
+          await this.socket.executeAsGM('executeRawJs', command.payload.code);
+        } else {
+          // Fallback to local eval if socketlib is missing or not GM
+          new Function(command.payload.code)();
+        }
+        break;
     }
     this._sendSuccess(command.requestId, null);
   }

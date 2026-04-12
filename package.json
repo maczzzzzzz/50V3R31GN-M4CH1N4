@@ -54,6 +54,7 @@
     "vitest": "3.2.4"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@modelcontextprotocol/sdk": "1.28.0",
     "better-sqlite3": "12.8.0",
     "chokidar": "^3.6.0",
