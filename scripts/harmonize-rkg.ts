@@ -47,6 +47,21 @@ interface Chronicle {
 
 // ── Keyword builder ────────────────────────────────────────────────────────────
 
+/**
+ * Extract consecutive 2-word bigrams from a string for sub-zone phrase matching.
+ * e.g. "Little China Market" → ["little china", "china market"]
+ * Phrases shorter than 7 characters are skipped to avoid noise.
+ */
+function extractBigrams(text: string): string[] {
+  const tokens = text.toLowerCase().split(/\W+/).filter(w => w.length > 2);
+  const bigrams: string[] = [];
+  for (let i = 0; i < tokens.length - 1; i++) {
+    const phrase = `${tokens[i]!} ${tokens[i + 1]!}`;
+    if (phrase.length >= 7) bigrams.push(phrase);
+  }
+  return bigrams;
+}
+
 function buildDistrictKeywords(dna: DistrictDNA): string[] {
   const words = new Set<string>();
   words.add(dna.district_name.toLowerCase());
@@ -55,12 +70,22 @@ function buildDistrictKeywords(dna: DistrictDNA): string[] {
   for (const w of dna.district_name.toLowerCase().split(/[\s_-]+/)) {
     if (w.length > 3) words.add(w);
   }
+  // District name bigrams (e.g. "little china", "night city")
+  for (const bg of extractBigrams(dna.district_name)) {
+    words.add(bg);
+  }
 
   try {
     const fragments: string[] = JSON.parse(dna.lore_fragments_json);
     for (const frag of fragments) {
       for (const word of frag.toLowerCase().split(/\W+/)) {
         if (word.length > 4) words.add(word);
+      }
+      // Sub-zone phrase matching: add bigrams from each lore fragment so that
+      // compound place-names like "Little China", "Jig-Jig Street", "North Oak"
+      // score as high-specificity phrases rather than ambiguous single tokens.
+      for (const bg of extractBigrams(frag)) {
+        words.add(bg);
       }
     }
   } catch { /* lore_fragments_json may be malformed */ }

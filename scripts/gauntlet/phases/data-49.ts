@@ -7,7 +7,17 @@
 
 import type { PhaseShard, GauntletContext } from '../types.js';
 
-// Mirror of the TF-IDF helpers in harmonize-rkg.ts for in-process validation.
+// Mirror of the TF-IDF + bigram helpers from harmonize-rkg.ts for in-process validation.
+function extractBigrams(text: string): string[] {
+  const tokens = text.toLowerCase().split(/\W+/).filter(w => w.length > 2);
+  const bigrams: string[] = [];
+  for (let i = 0; i < tokens.length - 1; i++) {
+    const phrase = `${tokens[i]!} ${tokens[i + 1]!}`;
+    if (phrase.length >= 7) bigrams.push(phrase);
+  }
+  return bigrams;
+}
+
 function buildIdfMap(keywordSets: string[][]): Map<string, number> {
   const N = keywordSets.length;
   const df = new Map<string, number>();
@@ -65,22 +75,42 @@ export const shard: PhaseShard = {
   },
 
   execute: async (ctx: GauntletContext): Promise<unknown> => {
-    // Full disambiguation probe with detailed output for the gauntlet report
+    // Full disambiguation probe with sub-zone bigram coverage
+    // Keywords include bigrams extracted from sub-zone names in lore fragments
+    const watsonFragments = ['Little China district', 'Kabuki market', 'Jig-Jig Street pleasure', 'industrial crime scavenger'];
+    const northsideFragments = ['Northside Industrial District', 'nomad container yard', 'gang warfare industrial'];
+
+    // Build keyword sets mirroring buildDistrictKeywords() with bigrams
+    const buildKw = (name: string, frags: string[]): string[] => {
+      const words = new Set<string>([name.toLowerCase()]);
+      for (const w of name.toLowerCase().split(/[\s_-]+/)) if (w.length > 3) words.add(w);
+      for (const bg of extractBigrams(name)) words.add(bg);
+      for (const frag of frags) {
+        for (const w of frag.toLowerCase().split(/\W+/)) if (w.length > 4) words.add(w);
+        for (const bg of extractBigrams(frag)) words.add(bg);
+      }
+      return [...words];
+    };
+
     const districts = [
-      { name: 'Watson',    keywords: ['watson', 'industrial', 'crime', 'scavenger', 'japantown'] },
-      { name: 'Northside', keywords: ['northside', 'industrial', 'gang', 'nomad', 'container'] },
-      { name: 'Heywood',   keywords: ['heywood', 'valentino', 'glen', 'wellsprings', 'shooting'] },
-      { name: 'Pacifica',  keywords: ['pacifica', 'voodoo', 'boys', 'resort', 'combat', 'zone'] },
+      { name: 'Watson',    keywords: buildKw('Watson', watsonFragments) },
+      { name: 'Northside', keywords: buildKw('Northside', northsideFragments) },
+      { name: 'Heywood',   keywords: buildKw('Heywood', ['heywood valentino glen wellsprings shooting']) },
+      { name: 'Pacifica',  keywords: buildKw('Pacifica', ['pacifica voodoo boys resort combat zone']) },
     ];
 
     const idfMap = buildIdfMap(districts.map(d => d.keywords));
 
     const probes = [
-      { text: 'watson scavengers near japantown industrial crime',            expected: 'Watson' },
-      { text: 'northside nomads container industrial gang territory',          expected: 'Northside' },
-      { text: 'heywood valentinos wellsprings shooting glen',                  expected: 'Heywood' },
-      { text: 'pacifica voodoo boys resort combat zone overgrown',             expected: 'Pacifica' },
-      { text: 'industrial zone gang activity nomads northside container yard',  expected: 'Northside' },
+      { text: 'watson scavengers near japantown industrial crime',                   expected: 'Watson' },
+      { text: 'northside nomads container industrial gang territory',                 expected: 'Northside' },
+      { text: 'heywood valentinos wellsprings shooting glen',                         expected: 'Heywood' },
+      { text: 'pacifica voodoo boys resort combat zone overgrown',                    expected: 'Pacifica' },
+      { text: 'industrial zone gang activity nomads northside container yard',         expected: 'Northside' },
+      // Sub-zone probe: "little china" phrase should uniquely resolve to Watson
+      { text: 'the little china market in the heart of watson district',              expected: 'Watson' },
+      // Sub-zone probe: bigram "kabuki market" should score Watson over Northside
+      { text: 'kabuki market ripper doc scavenger gang activity watson',               expected: 'Watson' },
     ];
 
     const results: Array<{ probe: string; expected: string; got: string; pass: boolean; scores: Record<string, number> }> = [];
