@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.0] - 2026-04-12
+## [3.2.0] - 2026-04-12
+### Added
+- **Phase 44.5 (The Sovereign Shroud)**: Designed a high-performance WebGL visual layer using a Master Fragment Shader for ambient CRT scanlines and dynamic glitch distortions.
+- **Ability Shard Mandate**: Established a permanent engineering mandate in CLAUDE.md requiring a corresponding verification shard for every project phase.
+- **Expanded Shard Context**: Added `vsb.send`, `bridge.runScript`, and `cli.execute` hooks to the Gauntlet Engine to enable direct world manipulation.
+
+### Changed
+- **Roadmap Evolution**: Integrated the Sovereign Shroud into the official implementation plan as a critical visual bridge between Motor Cortex and Governance Duels.
+- **Architecture Refinement**: Promoted Pretext rendering from individual DOM/Canvas elements to a single GPU-accelerated WebGL batch.
+
 ### Added
 - **Sovereign Manifest Engine**: Consolidated 43 historical phases into a unified "Ability Shard" framework. Each phase now has an `audit()` hook for verification and a `manifest()` hook for direct Sovereign Machina control.
 - **Bimodal Vision Integration**: Shards can now leverage Node A (Tactical) and Node B (Aesthetic) vision models for visual truth verification during audits.
