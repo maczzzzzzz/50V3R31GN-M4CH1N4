@@ -38,7 +38,8 @@
     "dream": "tsx src/scripts/dream-daemon.ts",
     "dream:once": "tsx src/scripts/dream-daemon.ts --once",
     "gauntlet": "tsx scripts/gauntlet/engine.ts",
-    "gauntlet:no-cdp": "tsx scripts/gauntlet/engine.ts --no-cdp"
+    "gauntlet:no-cdp": "tsx scripts/gauntlet/engine.ts --no-cdp",
+    "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest"
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",

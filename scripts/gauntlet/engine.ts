@@ -9,6 +9,8 @@ import Database from 'better-sqlite3';
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createSocket } from 'node:dgram';
+import { exec } from 'node:child_process';
 import { VisionClient } from './vision-client.js';
 import type { GauntletContext, SovereignShard, PhaseShard, GauntletReport, AuditResult } from './types.js';
 
@@ -179,11 +181,13 @@ async function main() {
   // ── CDP ───────────────────────────────────────────────────────────────────
   let browser: Browser | null = null;
   let page: Page | null = null;
+  let resolvedCdpEndpoint = '';
 
   if (!noCdp) {
     try {
       console.log('[cdp] Resolving endpoint...');
       const wsUrl = await fetchCdpWsUrl();
+      resolvedCdpEndpoint = wsUrl;
       console.log(`  → ${wsUrl}`);
       browser = await chromium.connectOverCDP(wsUrl);
       console.log('[cdp] Hunting for game.ready page...');
@@ -215,11 +219,45 @@ async function main() {
     }, msg).catch(() => { /* page may be closed */ });
   };
 
+  // ── Write-hooks (Control API) ─────────────────────────────────────────────
+  const vsbSend = (pkt: Buffer): Promise<void> =>
+    new Promise((resolve, reject) => {
+      const vsbPort = parseInt(process.env['ZEROCLAW_PORT'] ?? '7878', 10);
+      const nodeAHost = process.env['NODE_A_HOST'] ?? '192.168.0.50';
+      const sock = createSocket('udp4');
+      sock.send(pkt, vsbPort, nodeAHost, (err) => {
+        sock.close();
+        if (err) reject(err); else resolve();
+      });
+    });
+
+  const bridgeRunScript = (js: string): Promise<unknown> => {
+    if (!page) return Promise.reject(new Error('CDP page unavailable'));
+    return page.evaluate(`(async () => { ${js} })()`);
+  };
+
+  const bridgeInjectCSS = async (css: string): Promise<void> => {
+    if (!page) throw new Error('CDP page unavailable');
+    await page.addStyleTag({ content: css });
+  };
+
+  const cliExecute = (cmd: string): Promise<string> =>
+    new Promise((resolve, reject) => {
+      exec(cmd, { timeout: 30000 }, (err, stdout, stderr) => {
+        if (err) reject(new Error(`${err.message.slice(0, 200)}\n${stderr.slice(0, 200)}`));
+        else resolve(stdout);
+      });
+    });
+
   const ctx: GauntletContext = {
-    page, browser, db, vision, cdpEndpoint: '',
+    page, browser, db, vision,
+    cdpEndpoint: resolvedCdpEndpoint,
     logger,
     stabilize,
     manifestError,
+    vsb: { send: vsbSend },
+    bridge: { runScript: bridgeRunScript, injectCSS: bridgeInjectCSS },
+    cli: { execute: cliExecute },
   };
 
   // ── Discover & run shards ─────────────────────────────────────────────────
@@ -264,6 +302,23 @@ async function main() {
         message: `Unhandled: ${(e as Error).message}`,
         durationMs,
       });
+    }
+  }
+
+  // ── Manifest mode (Intent Delivery) ──────────────────────────────────────
+  const runManifest = process.argv.includes('--manifest');
+  if (runManifest) {
+    console.log('\n[manifest] Running manifest() on all SovereignShards...\n');
+    for (const shard of shards) {
+      if (!isSovereignShard(shard)) continue;
+      const id = String(shard.metadata.id).padStart(2, '0');
+      process.stdout.write(`  [${id}] ${shard.metadata.block}::${shard.metadata.name} manifest... `);
+      try {
+        await shard.manifest(ctx, {});
+        console.log('✓');
+      } catch (e) {
+        console.log(`✗ ${(e as Error).message.slice(0, 80)}`);
+      }
     }
   }
 

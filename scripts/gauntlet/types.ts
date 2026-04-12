@@ -24,6 +24,23 @@ export interface GauntletContext {
   stabilize: (ms?: number) => Promise<void>;
   /** Dispatch a visible error overlay into Foundry via the bridge */
   manifestError: (msg: string) => Promise<void>;
+  /** VSB (Binary UDP) dispatch to Node A */
+  vsb: {
+    /** Fire-and-forget UDP packet to Node A VSB port */
+    send: (pkt: Buffer) => Promise<void>;
+  };
+  /** CDP bridge — direct code / style injection into the Foundry page */
+  bridge: {
+    /** Evaluate a JS expression/statement string in the Foundry page context */
+    runScript: (js: string) => Promise<unknown>;
+    /** Inject raw CSS into the Foundry page */
+    injectCSS: (css: string) => Promise<void>;
+  };
+  /** Sovereign CLI execution (crush-cli / shell) */
+  cli: {
+    /** Execute a shell command and return stdout */
+    execute: (cmd: string) => Promise<string>;
+  };
 }
 
 export type AuditStatus = 'PASS' | 'FAIL' | 'WARN' | 'SKIP';
