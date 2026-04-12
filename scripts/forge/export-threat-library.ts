@@ -109,8 +109,6 @@ interface AkashikNpc {
   name: string;
   hp: number;
   sp: number;
-  emp: number;
-  humanity: number;
   faction: string | null;
   district_id: string | null;
   disposition: 'friendly' | 'neutral' | 'hostile' | null;
@@ -130,11 +128,18 @@ function exportAkashikNpcs(dbPath: string, outputDir: string): number {
   const db = new Database(dbPath, { readonly: true });
   let npcs: AkashikNpc[] = [];
   try {
+    const tableExists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='npcs'").get();
+    if (!tableExists) {
+      console.warn('  [akashik] npcs table not found in master — skipping');
+      db.close();
+      return 0;
+    }
+
     npcs = db.prepare(
-      'SELECT id, name, hp, sp, emp, humanity, faction, district_id, disposition, is_alive FROM npcs'
+      'SELECT id, name, hp, sp, faction, district_id, disposition, is_alive FROM npcs'
     ).all() as AkashikNpc[];
-  } catch {
-    console.warn('  [akashik] npcs table not found — skipping');
+  } catch (e) {
+    console.warn('  [akashik] Export query failed:', (e as Error).message);
     db.close();
     return 0;
   }
@@ -174,9 +179,9 @@ ${yaml.dump(frontmatter)}---
 - **Status:** ${npc.is_alive ? '🟢 Alive' : '🔴 Deceased'}
 
 ### ◈ STATS
-| HP | SP | EMP | Humanity |
-|----|-----|-----|----------|
-| ${npc.hp} | ${npc.sp} | ${npc.emp} | ${npc.humanity} |
+| HP | SP |
+|----|-----|
+| ${npc.hp} | ${npc.sp} |
 
 ---
 _Source: Akashik.db — ID: \`${npc.id}\`_
