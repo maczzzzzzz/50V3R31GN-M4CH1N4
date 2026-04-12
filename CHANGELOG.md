@@ -8,10 +8,13 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [3.2.1] - 2026-04-12
 ### Added
 - **Phase 49 (Semantic Refinement)**: Upgraded the harmonization engine with TF-IDF scoring and bigram phrase extraction for precise district disambiguation (e.g., "Little China" vs "Kabuki").
-- **Threat Library Export**: Extended the forge CLI to support NPC exports from `Akashik.db` with source-specific filtering.
+- **Semantic Precision Patch**: Lowered bigram matching threshold to 5 and implemented a `DISTRICT_PHRASE_WHITELIST` to correctly route short district names like "The Glen" and "North Oak," preventing generic fallback.
+- **High-Performance Harmonization**: Optimized the TF-IDF scorer with token frequency maps, reducing execution time for 3,300+ entries from >5 minutes to ~45 seconds.
+- **Threat Library Export**: Extended the forge CLI to support NPC exports from `Akashik.db` with source-specific filtering and district-aware tagging.
 - **Gauntlet Shard Filter**: Added `--shard=N` support to the gauntlet engine for targeted auditing.
 
 ### Changed
+- **District-Aware Memory Palace**: Upgraded `reconstruct-palace.sh` to organize the Obsidian RKG vault into a hierarchical `Districts/` structure.
 - **Nix Environment Hardening**: Added `rsync` and `ripgrep` to `flake.nix` and removed aggressive shell-exit traps to allow MCP bridge persistence.
 - **Pulse Automation**: Integrated automated sovereignty depth updates into the gauntlet execution loop.
 
