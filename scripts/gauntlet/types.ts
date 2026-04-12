@@ -99,4 +99,6 @@ export interface GauntletReport {
   skipped: number;
   results: AuditResult[];
   durationMs: number;
+  /** Phase 46 pulse delta — sovereignty_depth before/after propagatePulse() */
+  pulseDelta?: { before: number; after: number; delta: number };
 }

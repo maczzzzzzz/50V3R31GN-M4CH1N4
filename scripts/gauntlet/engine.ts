@@ -145,7 +145,8 @@ async function discoverShards(): Promise<AnyShard[]> {
 
 function renderMarkdown(report: GauntletReport): string {
   const sym = (s: string) => s === 'PASS' ? '🟢' : s === 'FAIL' ? '🔴' : s === 'WARN' ? '🟡' : '⚪';
-  return [
+
+  const lines = [
     '# 50V3R31GN-M4CH1N4 // SOVEREIGN MANIFEST ENGINE',
     `**Run:** ${report.timestamp}  |  **Duration:** ${report.durationMs}ms`,
     `**Result:** ${report.passed}/${report.totalPhases} PASS  |  ${report.failed} FAIL  |  ${report.warned} WARN  |  ${report.skipped} SKIP`,
@@ -155,7 +156,22 @@ function renderMarkdown(report: GauntletReport): string {
     ...report.results.map(r =>
       `| ${r.phaseId} | ${r.block} | ${sym(r.status)} ${r.status} | ${r.message} | ${r.durationMs ?? '-'} |`,
     ),
-  ].join('\n');
+  ];
+
+  if (report.pulseDelta !== undefined) {
+    const { before, after, delta } = report.pulseDelta;
+    const arrow = delta > 0 ? '▲' : delta < 0 ? '▼' : '═';
+    const sign = delta >= 0 ? '+' : '';
+    lines.push(
+      '',
+      '## ◈ PULSE',
+      `| sovereignty_depth before | after | Δ |`,
+      `|--------------------------|-------|---|`,
+      `| ${before} | ${after} | ${arrow} ${sign}${delta} |`,
+    );
+  }
+
+  return lines.join('\n');
 }
 
 async function main() {
@@ -322,14 +338,27 @@ async function main() {
 
   // ── Phase 46 Pulse Propagation — run after each gauntlet cycle ───────────
   // Open a separate write-capable connection since the audit db is readonly.
+  let pulseDelta: { before: number; after: number; delta: number } | undefined;
   if (worldDbPath) {
     let writeDb: Database.Database | null = null;
     try {
       writeDb = new Database(worldDbPath);
+
+      const readDepth = (): number => {
+        const row = writeDb!.prepare(
+          `SELECT value FROM system_state WHERE key = 'sovereignty_depth'`
+        ).get() as { value: string } | undefined;
+        return row ? parseFloat(row.value) : 0.5;
+      };
+
+      const depthBefore = readDepth();
       const minimalOracle = { getRawDatabase: () => writeDb } as unknown as UnifiedOracleClient;
       const pulse = new PulseEngine(minimalOracle, null as unknown as INitroLogicClient);
       pulse.propagatePulse();
-      console.log('\n  [pulse] propagatePulse() — sovereignty_depth and faction friction updated');
+      const depthAfter = readDepth();
+
+      pulseDelta = { before: depthBefore, after: depthAfter, delta: parseFloat((depthAfter - depthBefore).toFixed(4)) };
+      console.log(`\n  [pulse] sovereignty_depth: ${depthBefore} → ${depthAfter} (Δ${pulseDelta.delta >= 0 ? '+' : ''}${pulseDelta.delta})`);
     } catch (e) {
       console.warn('\n  [pulse] propagatePulse() skipped:', (e as Error).message.slice(0, 80));
     } finally {
@@ -370,6 +399,7 @@ async function main() {
     skipped,
     results,
     durationMs,
+    pulseDelta,
   };
 
   mkdirSync('./data/logs', { recursive: true });
