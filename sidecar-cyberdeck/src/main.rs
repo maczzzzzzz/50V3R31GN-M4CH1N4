@@ -898,10 +898,25 @@ impl eframe::App for CyberdeckApp {
 // ─── Entry point ─────────────────────────────────────────────────────────────
 
 fn main() -> eframe::Result<()> {
-    let mem_path = std::env::args()
-        .nth(1)
+    let args: Vec<String> = std::env::args().collect();
+    let headless = args.iter().any(|a| a == "--headless");
+
+    let mem_path = args.iter()
+        .skip(1)
+        .find(|a| !a.starts_with("--"))
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from("black_ice_state.mem"));
+
+    if headless {
+        println!("[CL4W]: Starting Headless Cyberdeck Daemon...");
+        let mut app = CyberdeckApp::new(mem_path.clone());
+        loop {
+            app.parse_radar_state();
+            app.parse_hovered_unit();
+            app.parse_ghost_state();
+            std::thread::sleep(std::time::Duration::from_millis(16));
+        }
+    }
 
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
