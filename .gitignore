@@ -112,6 +112,8 @@ foundry-baseline.png
 # --- OPERATIONAL DATA (LOCAL ONLY) ---
 # Strictly block all raw assets, campaign data, and internal designs.
 # These are unsealed for Node B runtime but MUST NOT be pushed.
+CLAUDE.md
+GEMINI.md
 docs/raw_data/
 docs/superpowers/
 docs/rulebooks_raw/
