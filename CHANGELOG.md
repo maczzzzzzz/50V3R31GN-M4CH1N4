@@ -12,6 +12,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Hermes Ecosystem Integration**: Conducted a deep dive into the Hermes Atlas, incorporating Mission Control patterns for the unified UI and planning AutoNovel integration for Atlas Forge.
 - **Dial-Up Governance Audio**: Added immersive legacy-inspired audio triggers for VSB Approval (Flush Gate) events.
 - **Headless Mode (Groundwork)**: Implemented `--headless` daemon mode for `sidecar-atlas` and `sidecar-cyberdeck` to support the monolithic deck pivot.
+- **Roadmap Expansion (Phases 51-52)**: Integrated advanced Hermes-inspired logic: Shard Distillation (Skill Factory), Declarative Identity (Nix-managed SOUL.md), and Sovereign Pulse (Autonomous hardware monitoring).
 
 ### Changed
 - **UI Consolidation**: Decommissioned all legacy EGUIs and TUIs in favor of the unified Nucleus Deck, reducing the workspace to exactly three primary surfaces.
