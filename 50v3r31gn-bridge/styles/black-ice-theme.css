@@ -1008,12 +1008,20 @@
     /* Force dark theme on Journals/Items (Phase 43) */
     body.vtt .journal-page-content,
     body.vtt .journal-entry-page .journal-page-content,
+    body.vtt .journal-entry-content,
     body.vtt .prosemirror,
     body.vtt .tox-tinymce,
     body.vtt .tox-edit-area__iframe,
     body.vtt .item-sheet .sheet-body,
-    body.vtt .cpr-item-sheet .sheet-body {
+    body.vtt .cpr-item-sheet .sheet-body,
+    body.vtt .item-sheet .item-details,
+    body.vtt .item-sheet .item-bottom-tabs-section,
+    body.vtt .item-sheet .item-summary-section,
+    body.vtt .item-sheet .item-description-section,
+    body.vtt .item-sheet .item-settings-tab,
+    body.vtt .item-sheet .item-effects-tab {
         background-color: #000000 !important;
+        background-image: none !important;
         color: #eeeeee !important;
     }
 
