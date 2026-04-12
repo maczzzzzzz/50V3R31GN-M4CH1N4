@@ -177,14 +177,23 @@ func launchCrushProxy(c *Component) tea.Cmd {
 }
 
 // launchCrushGUI opens a new Windows console window running `crush-cli thought-stream`.
-// This is the primary model-comms interface — streams inference tokens from Node A
-// via the clawlink socket. Requires crush-proxy sock to be ready before calling.
+// This is the PRIMARY model-comms interface — streams inference tokens from Node A
+// via the clawlink socket. Must be first WSL service launched after crush-proxy sock.
+//
+// PowerShell quoting note: use comma-separated -ArgumentList so each token is a
+// distinct element — avoids the \"...\" vs single-quote escaping footgun that
+// caused the window to silently fail in earlier versions.
 func launchCrushGUI(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
-		// Start-Process wsl.exe opens a new visible Windows console window.
-		bashCmd := fmt.Sprintf(`cd %s && ./crush-cli thought-stream`, root)
-		psCmd := fmt.Sprintf(`Start-Process 'C:\Windows\System32\wsl.exe' -ArgumentList '-d NixOS -- bash -c \"%s\"' -WindowStyle Normal`, bashCmd)
+		// Comma-separated -ArgumentList passes each element as a discrete arg to
+		// wsl.exe, so bash receives the -c string without any backslash artefacts.
+		psCmd := fmt.Sprintf(
+			`Start-Process -FilePath 'C:\Windows\System32\wsl.exe' `+
+				`-ArgumentList '-d','NixOS','--','bash','-c','cd %s && ./crush-cli thought-stream' `+
+				`-WindowStyle Normal`,
+			root,
+		)
 		cmd := exec.Command(pwshExe, "-NoProfile", "-Command", psCmd)
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 		if out, err := cmd.CombinedOutput(); err != nil {
@@ -375,8 +384,6 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 
 	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2 — WSL Orchestration"))
 
-	var sidecarCmds []tea.Cmd
-
 	// 2a: crush-proxy first, then wait for its Unix socket
 	clawSock := os.Getenv("CLAWLINK_SOCK")
 	if clawSock == "" {
@@ -392,10 +399,13 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 		}
 	}
 
-	// 2a.1: crush-gui — open thought-stream terminal as soon as sock is live
+	// 2a.1: crush-gui — PRIMARY model-comms terminal, first window to open after sock.
+	// MUST launch here, before director, before sidecars. This is the operator's
+	// main interface for watching Node A inference in real-time.
 	for _, c := range components {
 		comp := c
 		if comp.Layer == LayerWSL && comp.Name == "crush-gui" {
+			cmds = append(cmds, logEvent("LAUNCHING crush-gui — PRIMARY THOUGHT-STREAM TERMINAL"))
 			cmds = append(cmds, launchCrushGUI(comp))
 			break
 		}
@@ -412,7 +422,10 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 		}
 	}
 
-	// 2c: remaining WSL services (dashboard, vault) and collect sidecars
+	// 2c: all remaining WSL services — dashboard, vault, AND sidecars.
+	// Sidecars (egui GUIs) are WSL-native and only need the director; they MUST
+	// NOT be deferred to Phase 4 (after SSH) or they never appear during boot.
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2c — GUI Layer (Sidecars + Dashboard)"))
 	for _, c := range components {
 		comp := c
 		if comp.Layer != LayerWSL {
@@ -429,11 +442,13 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 			cmds = append(cmds, launchVaultSync(comp))
 		default:
 			if subdir, ok := sidecarSubdir[comp.Name]; ok {
-				sidecarCmds = append(sidecarCmds, launchSidecar(comp, subdir))
+				// Launch in Phase 2c — no Phase 4 deferral.
+				cmds = append(cmds, launchSidecar(comp, subdir))
 			}
 		}
 	}
 
+	// Phase 3: Node A SSH — runs concurrently with sidecars warming up.
 	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 3 — Remote Orchestration (Node A)"))
 
 	for _, c := range components {
@@ -445,11 +460,6 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 
 	if ghostMode {
 		cmds = append(cmds, finalizeGhostBoot())
-	}
-
-	if len(sidecarCmds) > 0 {
-		cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 4 — Sidecar Ignition"))
-		cmds = append(cmds, sidecarCmds...)
 	}
 
 	// Signal completion so the UI can re-arm ctrl+i if needed.
