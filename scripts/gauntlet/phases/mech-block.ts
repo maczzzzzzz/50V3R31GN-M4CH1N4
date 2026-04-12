@@ -45,7 +45,12 @@ export const phase5: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Force a tactical query to confirm Node A is accepting commands
+    const i = intent as { prompt?: string } | null;
+    const prompt = i?.prompt ?? 'Confirm operational status. Reply with only "SOVEREIGN".';
+    await ctx.vision.tacticalQuery({ prompt }).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -73,7 +78,13 @@ export const phase8: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Trigger a VSB self-ping to verify packet path is clear
+    const i = intent as { opcode?: number } | null;
+    const opcode = i?.opcode ?? 0x00;
+    const pkt = Buffer.from([opcode, 0x00, 0x00, 0x00]);
+    await ctx.vsb.send(pkt).catch(() => { /* non-fatal if Node A offline */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -103,7 +114,25 @@ export const phase13: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Migrated from synthetic-gauntlet.ts Task 3.1 — Resolve Attack Injection
+    if (!ctx.page) return;
+    const i = intent as { actorId?: string; targetId?: string; weaponId?: string } | null;
+    const actorId = i?.actorId ?? '';
+    const targetId = i?.targetId ?? '';
+    const weaponId = i?.weaponId ?? 'synthetic-test-smasher';
+    await ctx.bridge.runScript(`
+      const actor = ${actorId ? `game.actors.get(${JSON.stringify(actorId)})` : 'game.actors.contents[0]'};
+      if (!actor) throw new Error('resolveAttack: no actor found');
+      const tid = ${JSON.stringify(targetId)} || actor.id;
+      Hooks.call('sub rosa.resolveAttack', {
+        actorId: actor.id,
+        targetId: tid,
+        weaponId: ${JSON.stringify(weaponId)},
+        spatial: { sceneId: game.scenes?.active?.id, x: 500, y: 500 }
+      });
+    `);
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -127,7 +156,14 @@ export const phase25: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Force a DV lookup query to Node A
+    const i = intent as { scenario?: string } | null;
+    const scenario = i?.scenario ?? 'Short Range Ranged Attack';
+    await ctx.vision.tacticalQuery({
+      prompt: `In Cyberpunk RED, what is the DV for a ${scenario}? Reply with only the numeric DV value.`,
+    }).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -165,7 +201,13 @@ export const phase26: SovereignShard = {
     return pass(26, 'Radar-Heat', `VSB FRICTION_INTENT acknowledged by ${nodeAHost}:${vsbPort}`);
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Set radar heat level via VSB FRICTION_INTENT opcode (0x05)
+    const i = intent as { heat?: number } | null;
+    const heat = Math.max(0, Math.min(255, i?.heat ?? 50));
+    const pkt = Buffer.from([0x05, heat, 0x00, 0x00]);
+    await ctx.vsb.send(pkt).catch(() => { /* non-fatal if Node A offline */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -204,7 +246,17 @@ export const phase31: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Trigger SOVEREIGN_BRIDGE reconnect / synthetic input reset
+    if (!ctx.page) return;
+    const i = intent as { event?: string } | null;
+    const event = i?.event ?? 'reconnect_uplink';
+    await ctx.bridge.runScript(`
+      if (window.SOVEREIGN_BRIDGE) {
+        window.SOVEREIGN_BRIDGE._sendEvent(${JSON.stringify(event)}, {});
+      }
+    `).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -237,6 +289,11 @@ export const phase40: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Migrated from synthetic-gauntlet.ts Task 3.2 — VSB Friction Roll
+    const i = intent as { target?: string } | null;
+    const target = i?.target ?? 'tygerclaws';
+    await ctx.cli.execute(`./crush-cli wsa friction ${target}`).catch(() => { /* non-fatal if crush-cli absent */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };

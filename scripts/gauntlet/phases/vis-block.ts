@@ -55,7 +55,13 @@ export const phase11: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Enforce Sovereign CSS theme via bridge injection
+    if (!ctx.page) return;
+    const i = intent as { css?: string } | null;
+    const css = i?.css ?? ':root { --sovereign-primary: #00ff41; } body { background: #0a0a0a !important; }';
+    await ctx.bridge.injectCSS(css).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -93,7 +99,16 @@ export const phase14: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Force canvas redraw by toggling scene visibility via bridge
+    if (!ctx.page) return;
+    const i = intent as { sceneId?: string } | null;
+    const sceneId = i?.sceneId ?? '';
+    await ctx.bridge.runScript(`
+      const scene = ${sceneId ? `game.scenes.get(${JSON.stringify(sceneId)})` : 'game.scenes.active'};
+      if (scene && canvas.ready) { canvas.draw(scene).catch(() => {}); }
+    `).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -138,7 +153,12 @@ export const phase16: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Migrated from synthetic-gauntlet.ts Task 3.3 — Neural Shroud Validation
+    const i = intent as { intensity?: string } | null;
+    const intensity = i?.intensity ?? 'heavy';
+    await ctx.cli.execute(`./crush-cli intent ${intensity}`).catch(() => { /* non-fatal if crush-cli absent */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -179,7 +199,14 @@ export const phase35: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Trigger a Node B aesthetic analysis of the current page
+    if (!ctx.page) return;
+    const i = intent as { prompt?: string } | null;
+    const prompt = i?.prompt ??
+      'Analyze this Foundry VTT screenshot. Reply with "THEME_CLEAN" or "THEME_LEAK: <reason>".';
+    await ctx.vision.analyzePageAesthetics(ctx.page, prompt).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -211,6 +238,11 @@ export const phase42: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Ensure log directory and baseline symlinks are present
+    const { mkdirSync } = await import('node:fs');
+    mkdirSync('./data/logs', { recursive: true });
+    ctx.logger.info('Audit-Infrastructure manifest: log directory ensured');
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
