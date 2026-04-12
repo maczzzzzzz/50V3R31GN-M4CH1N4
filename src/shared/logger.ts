@@ -10,6 +10,17 @@ export interface LogEntry {
   data: Record<string, unknown> | undefined;
 }
 
+/** Structured gauntlet audit result — mirrors AuditResult from gauntlet/types.ts */
+export interface AuditLogEntry {
+  phaseId: number;
+  phaseName: string;
+  block: string;
+  status: 'PASS' | 'FAIL' | 'WARN' | 'SKIP';
+  message: string;
+  details?: Record<string, unknown>;
+  durationMs?: number;
+}
+
 export class Logger implements ILogger {
   private static instance: Logger;
 
@@ -64,6 +75,29 @@ export class Logger implements ILogger {
 
   error(context: string, traceId: string, message: string, data?: Record<string, unknown>): void {
     this.log('ERROR', context, traceId, message, data);
+  }
+
+  /** Log a structured gauntlet audit result. Severity maps PASS→INFO, WARN→WARN, FAIL/SKIP→ERROR/DEBUG. */
+  audit(result: AuditLogEntry): void {
+    const severityMap: Record<AuditLogEntry['status'], LogEntry['severity']> = {
+      PASS: 'INFO',
+      WARN: 'WARN',
+      FAIL: 'ERROR',
+      SKIP: 'DEBUG',
+    };
+    const severity = severityMap[result.status];
+    const traceId = `phase-${result.phaseId}`;
+    this.log(severity, `GAUNTLET::${result.block}`, traceId, `[${result.status}] ${result.phaseName}: ${result.message}`, {
+      phaseId: result.phaseId,
+      status: result.status,
+      durationMs: result.durationMs,
+      ...(result.details ?? {}),
+    });
+  }
+
+  /** Log a shard manifest() control event. */
+  manifest(phaseId: number, status: string, data?: Record<string, unknown>): void {
+    this.log('INFO', 'GAUNTLET::MANIFEST', `phase-${phaseId}`, `[MANIFEST] Phase ${phaseId}: ${status}`, data);
   }
 }
 
