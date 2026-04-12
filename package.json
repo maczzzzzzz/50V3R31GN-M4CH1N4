@@ -31,6 +31,7 @@
     "audit:theme:dry": "tsx scripts/theme-auditor.ts --dry-run",
     "boot": "./deck-igniter-cli start",
     "boot:ghost": "./deck-igniter-cli ghost",
+    "hub": "nix develop --command ./sidecar-cyberdeck/target/release/sidecar-cyberdeck",
     "reconstruct": "bash scripts/reconstruct-palace.sh",
     "crush": "./crush-cli",
     "terminal": "./crush-cli terminal",
