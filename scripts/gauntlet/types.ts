@@ -15,8 +15,6 @@ export interface GauntletContext {
   vision: VisionClient;
   /** Resolved CDP WebSocket endpoint */
   cdpEndpoint: string;
-  /** PostgreSQL client — optional, null when no PG server is available */
-  pg: PgClientLike | null;
   /** Structured logger */
   logger: {
     info: (msg: string, data?: unknown) => void;
@@ -58,12 +56,6 @@ export interface SovereignShard {
 }
 
 export type BlockType = 'DATA' | 'MECHANICAL' | 'ORCHESTRATION' | 'VISUAL' | 'NARRATIVE';
-
-/** pg.Client duck-type — avoids hard dep on @types/pg for optional connection */
-export interface PgClientLike {
-  query: (sql: string, params?: unknown[]) => Promise<{ rows: Record<string, unknown>[]; rowCount: number | null }>;
-  end: () => Promise<void>;
-}
 
 /**
  * PhaseShard — implementation-plan shard contract (verify/execute pattern).

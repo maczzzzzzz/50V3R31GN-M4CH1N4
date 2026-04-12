@@ -10,7 +10,7 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { VisionClient } from './vision-client.js';
-import type { GauntletContext, SovereignShard, PhaseShard, PgClientLike, GauntletReport, AuditResult } from './types.js';
+import type { GauntletContext, SovereignShard, PhaseShard, GauntletReport, AuditResult } from './types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -197,33 +197,6 @@ async function main() {
     console.log('[cdp] Skipped (--no-cdp)');
   }
 
-  // ── PostgreSQL (optional) ─────────────────────────────────────────────────
-  let pgClient: PgClientLike | null = null;
-  if (process.env['PGHOST'] || process.env['PGDATABASE']) {
-    try {
-      // Dynamic import — pg may not be installed; fail gracefully.
-      // createRequire bypasses tsc static module resolution for optional deps.
-      const { createRequire } = await import('node:module');
-      const req = createRequire(import.meta.url);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const pg = req('pg') as { Client: new (cfg: Record<string, unknown>) => PgClientLike };
-      const client = new pg.Client({
-        host: process.env['PGHOST'] ?? '192.168.0.50',
-        user: process.env['PGUSER'] ?? 'asp_gm',
-        database: process.env['PGDATABASE'] ?? 'asp_gm_agent',
-        password: process.env['PGPASSWORD'] ?? '',
-        connectionTimeoutMillis: 5000,
-      });
-      await client.query('SELECT 1');
-      pgClient = client;
-      console.log(`[pg] Connected to ${process.env['PGHOST']}/${process.env['PGDATABASE']}`);
-    } catch (e) {
-      console.warn(`[pg] Not available — (${(e as Error).message.slice(0, 80)})`);
-    }
-  } else {
-    console.log('[pg] Skipped (PGHOST not set)');
-  }
-
   // ── Context helpers ───────────────────────────────────────────────────────
   const logger = {
     info: (msg: string, data?: unknown) => console.log(`[GAUNTLET] INFO: ${msg}`, data ?? ''),
@@ -244,7 +217,6 @@ async function main() {
 
   const ctx: GauntletContext = {
     page, browser, db, vision, cdpEndpoint: '',
-    pg: pgClient,
     logger,
     stabilize,
     manifestError,
@@ -327,7 +299,6 @@ async function main() {
 
   // ── Cleanup ───────────────────────────────────────────────────────────────
   db?.close();
-  try { await pgClient?.end(); } catch { /* ignore */ }
   try { await browser?.close(); } catch { /* ignore */ }
 
   process.exit(failed > 0 ? 1 : 0);
