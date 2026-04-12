@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package nucleuspb;
+
+option go_package = "github.com/50v3r31gn-m4ch1n4/crush/nucleuspb";
+
+// Proposal mirrors the VSB pending-action struct from watcher.go.
+message Proposal {
+  uint32 id          = 1;
+  uint32 status      = 2;
+  string description = 3;
+}
+
+// HoveredUnit mirrors the Mmap hovered-unit layout.
+message HoveredUnit {
+  bool   active    = 1;
+  string id        = 2;
+  string unit_type = 3;
+  string img_path  = 4;
+  float  x         = 5;
+  float  y         = 6;
+}
+
+// NucleusState is the VSB snapshot broadcast to all Nucleus Deck clients at ~60fps.
+message NucleusState {
+  int64       timestamp    = 1;
+  Proposal    proposal     = 2;
+  HoveredUnit hovered_unit = 3;
+}

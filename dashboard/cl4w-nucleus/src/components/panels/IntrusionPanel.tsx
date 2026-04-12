@@ -1,5 +1,5 @@
 // :/INTRUSION // — Netrun panel (replaces sidecar-cyberdeck EGUI window)
-import { Container, Graphics, Text, TextStyle } from 'pixi.js';
+import { BitmapText, Container, Graphics } from 'pixi.js';
 import type { NucleusState } from '../../hooks/useNucleusWS';
 
 const RED  = 0xff003c;
@@ -9,7 +9,6 @@ const ICE_LABELS = ['FIREWALL', 'TRACE', 'GATE', 'CRYPTER'];
 
 export const IntrusionPanel = {
   init(c: Container, w: number, h: number) {
-    // Static ICE node grid (placeholder — 4 nodes)
     const nodeLayer = new Container();
     nodeLayer.label = 'nodes';
 
@@ -22,9 +21,9 @@ export const IntrusionPanel = {
       box.rect(nx - 30, ny - 20, 60, 40).fill({ color: DIM }).stroke({ width: 1, color: RED, alpha: 0.7 });
       nodeLayer.addChild(box);
 
-      const lbl = new Text({
+      const lbl = new BitmapText({
         text: ICE_LABELS[i] ?? '???',
-        style: new TextStyle({ fontFamily: 'monospace', fontSize: 9, fill: RED }),
+        style: { fontFamily: 'SovereignMonoRed', fontSize: 9, fill: RED },
       });
       lbl.anchor.set(0.5, 0.5);
       lbl.x = nx;
@@ -33,10 +32,10 @@ export const IntrusionPanel = {
     }
     c.addChild(nodeLayer);
 
-    // Depth meter
-    const depth = new Text({
+    // Depth meter — BitmapText for zero-reflow
+    const depth = new BitmapText({
       text: 'DEPTH: 0.000',
-      style: new TextStyle({ fontFamily: 'monospace', fontSize: 11, fill: 0xeeeeee }),
+      style: { fontFamily: 'SovereignMono', fontSize: 11, fill: 0xeeeeee },
     });
     depth.label = 'depth';
     depth.x = 8;

@@ -1,5 +1,5 @@
 // :/LOGISTICS // — Monitor / Igniter panel (replaces shadow-dashboard and deck-igniter TUI)
-import { Container, Graphics, Text, TextStyle } from 'pixi.js';
+import { BitmapText, Container, Graphics } from 'pixi.js';
 import type { NucleusState } from '../../hooks/useNucleusWS';
 
 const RED   = 0xff003c;
@@ -16,9 +16,9 @@ export const LogisticsPanel = {
     COMPONENTS.forEach((name, i) => {
       const y = 32 + i * 30;
 
-      const label = new Text({
+      const label = new BitmapText({
         text: name,
-        style: new TextStyle({ fontFamily: 'monospace', fontSize: 11, fill: WHITE }),
+        style: { fontFamily: 'SovereignMono', fontSize: 11, fill: WHITE },
       });
       label.x = 8;
       label.y = y;
@@ -51,9 +51,10 @@ export const LogisticsPanel = {
     wave.stroke();
     c.addChild(wave);
 
-    const status = new Text({
+    // Status text — BitmapText for zero-reflow hot-path rendering
+    const status = new BitmapText({
       text: 'VSB: ONLINE',
-      style: new TextStyle({ fontFamily: 'monospace', fontSize: 11, fill: GREEN }),
+      style: { fontFamily: 'SovereignMonoRed', fontSize: 11, fill: GREEN },
     });
     status.label = 'vsbStatus';
     status.x = 8;
@@ -63,11 +64,11 @@ export const LogisticsPanel = {
 
   update(c: Container | null, state: NucleusState) {
     if (!c) return;
-    const status = c.getChildByName('vsbStatus') as Text | null;
+    const status = c.getChildByName('vsbStatus') as BitmapText | null;
     if (status) {
       const lag = Date.now() - (state.timestamp ?? 0);
-      status.text = lag < 500 ? '✓ VSB: ONLINE' : '! VSB: LAG';
-      status.style.fill = lag < 500 ? GREEN : RED;
+      status.text  = lag < 500 ? 'VSB: ONLINE' : '! VSB: LAG';
+      status.tint  = lag < 500 ? GREEN : RED;
     }
   },
 };

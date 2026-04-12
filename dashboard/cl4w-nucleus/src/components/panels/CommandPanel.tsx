@@ -1,24 +1,24 @@
 // :/COMMAND // — Terminal REPL panel (replaces crush-cli terminal TUI)
-import { Container, Text, TextStyle } from 'pixi.js';
+import { BitmapText, Container } from 'pixi.js';
 import type { NucleusState } from '../../hooks/useNucleusWS';
 
 const RED   = 0xff003c;
 const WHITE = 0xeeeeee;
 
 export const CommandPanel = {
-  init(c: Container, _w: number, _h: number) {
-    const log = new Text({
+  init(c: Container, w: number, _h: number) {
+    const log = new BitmapText({
       text: '◈ COMMAND // READY\n> _',
-      style: new TextStyle({ fontFamily: 'monospace', fontSize: 12, fill: WHITE, wordWrap: true, wordWrapWidth: _w - 24 }),
+      style: { fontFamily: 'SovereignMono', fontSize: 12, fill: WHITE, wordWrap: true, wordWrapWidth: w - 24 },
     });
     log.label = 'log';
     log.x = 8;
     log.y = 30;
     c.addChild(log);
 
-    const cursor = new Text({
+    const cursor = new BitmapText({
       text: '> _',
-      style: new TextStyle({ fontFamily: 'monospace', fontSize: 12, fill: RED }),
+      style: { fontFamily: 'SovereignMonoRed', fontSize: 12, fill: RED },
     });
     cursor.label = 'cursor';
     cursor.x = 8;

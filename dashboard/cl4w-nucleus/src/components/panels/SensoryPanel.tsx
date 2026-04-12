@@ -1,5 +1,5 @@
 // :/SENSORY // — Atlas Radar panel (replaces sidecar-atlas EGUI window)
-import { Container, Graphics, Text, TextStyle } from 'pixi.js';
+import { BitmapText, Container, Graphics } from 'pixi.js';
 import type { NucleusState } from '../../hooks/useNucleusWS';
 
 const RED   = 0xff003c;
@@ -25,10 +25,10 @@ export const SensoryPanel = {
     blips.label = 'blips';
     c.addChild(blips);
 
-    // Status line
-    const status = new Text({
+    // Status line — BitmapText for zero-reflow rendering
+    const status = new BitmapText({
       text: '47L45: SCANNING...',
-      style: new TextStyle({ fontFamily: 'monospace', fontSize: 11, fill: WHITE }),
+      style: { fontFamily: 'SovereignMono', fontSize: 11, fill: WHITE },
     });
     status.label = 'status';
     status.x = 8;
@@ -48,9 +48,9 @@ export const SensoryPanel = {
       dot.circle(u.x * (c.width || 400), u.y * (c.height || 300), 6).fill({ color: 0xffffff });
       blips.addChild(dot);
 
-      const lbl = new Text({
+      const lbl = new BitmapText({
         text: u.id,
-        style: new TextStyle({ fontFamily: 'monospace', fontSize: 9, fill: RED }),
+        style: { fontFamily: 'SovereignMonoRed', fontSize: 9, fill: RED },
       });
       lbl.x = u.x * (c.width || 400) + 8;
       lbl.y = u.y * (c.height || 300) - 4;

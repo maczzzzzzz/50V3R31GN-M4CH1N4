@@ -1,6 +1,6 @@
 // crush/nucleus.go
 // Phase 50: Nucleus Artery — Protobuf-over-WebSocket bridge for the CL4W Command Deck.
-// Streams VSB Mmap state to connected browser clients and dispatches system commands.
+// Streams VSB Mmap state as Protobuf binary frames at ~60fps; receives JSON commands.
 package main
 
 import (
@@ -14,30 +14,17 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"google.golang.org/protobuf/proto"
+
+	"github.com/50v3r31gn-m4ch1n4/crush/nucleuspb"
 )
 
 var nucleusUpgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-// NucleusState is the VSB snapshot broadcast to all connected Nucleus clients.
-type NucleusState struct {
-	Timestamp   int64        `json:"timestamp"`
-	Proposal    *Proposal    `json:"proposal,omitempty"`
-	HoveredUnit *HoveredInfo `json:"hoveredUnit,omitempty"`
-}
-
-// HoveredInfo mirrors the Mmap hovered-unit layout for JSON serialisation.
-type HoveredInfo struct {
-	Active   bool    `json:"active"`
-	ID       string  `json:"id"`
-	UnitType string  `json:"unitType"`
-	ImgPath  string  `json:"imgPath"`
-	X        float32 `json:"x"`
-	Y        float32 `json:"y"`
-}
-
-// NucleusCommand is a command dispatched from the Nucleus Deck UI.
+// NucleusCommand is a JSON command dispatched from the Nucleus Deck UI.
+// Commands flow UI → server; state flows server → UI as Protobuf binary.
 type NucleusCommand struct {
 	Action string `json:"action"`
 	Arg    string `json:"arg,omitempty"`
@@ -53,7 +40,7 @@ func (h *nucleusHub) broadcast(data []byte) {
 	h.mu.RLock()
 	defer h.mu.RUnlock()
 	for c := range h.clients {
-		_ = c.WriteMessage(websocket.TextMessage, data)
+		_ = c.WriteMessage(websocket.BinaryMessage, data)
 	}
 }
 
@@ -79,7 +66,8 @@ func nucleusProjectRoot() string {
 }
 
 // startNucleusServer launches the Nucleus Artery on :3030.
-// It streams VSB state at ~60fps and handles system commands from the Deck UI.
+// State broadcasts are Protobuf binary (websocket.BinaryMessage).
+// Command messages from the UI are JSON text (websocket.TextMessage).
 func startNucleusServer() {
 	root := nucleusProjectRoot()
 	memPath := filepath.Join(root, "black_ice_state.mem")
@@ -91,25 +79,32 @@ func startNucleusServer() {
 
 	hub := &nucleusHub{clients: make(map[*websocket.Conn]bool)}
 
-	// State broadcast goroutine — ~60fps
+	// State broadcast goroutine — ~60fps, Protobuf binary frames
 	go func() {
 		for {
-			state := NucleusState{Timestamp: time.Now().UnixMilli()}
+			state := &nucleuspb.NucleusState{
+				Timestamp: time.Now().UnixMilli(),
+			}
+
 			if watcher != nil {
 				if p := watcher.GetProposal(); p != nil {
-					state.Proposal = p
+					state.Proposal = &nucleuspb.Proposal{
+						Id:     uint32(p.ID),
+						Status: uint32(p.Status),
+					}
 				}
 				active, id, unitType, imgPath, x, y := watcher.ReadHoveredUnit()
-				state.HoveredUnit = &HoveredInfo{
+				state.HoveredUnit = &nucleuspb.HoveredUnit{
 					Active:   active,
-					ID:       id,
+					Id:       id,
 					UnitType: unitType,
 					ImgPath:  imgPath,
 					X:        x,
 					Y:        y,
 				}
 			}
-			if data, err := json.Marshal(state); err == nil {
+
+			if data, marshalErr := proto.Marshal(state); marshalErr == nil {
 				hub.broadcast(data)
 			}
 			time.Sleep(16 * time.Millisecond)
@@ -118,7 +113,7 @@ func startNucleusServer() {
 
 	mux := http.NewServeMux()
 
-	// WebSocket endpoint
+	// WebSocket endpoint: binary out (Protobuf), text in (JSON commands)
 	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		conn, err := nucleusUpgrader.Upgrade(w, r, nil)
 		if err != nil {

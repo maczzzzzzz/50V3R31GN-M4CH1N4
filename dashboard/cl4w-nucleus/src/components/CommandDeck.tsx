@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Application, Container, Graphics, Text, TextStyle } from 'pixi.js';
+import { Application, BitmapFont, BitmapText, Container, Graphics } from 'pixi.js';
 import type { NucleusState } from '../hooks/useNucleusWS';
 import { CommandPanel } from './panels/CommandPanel';
 import { SensoryPanel } from './panels/SensoryPanel';
@@ -22,6 +22,16 @@ export function CommandDeck({ state }: Props) {
   // Bootstrap PIXI Application once
   useEffect(() => {
     if (!canvasRef.current || appRef.current) return;
+
+    // Pre-install Sovereign BitmapFont — GPU-accelerated, zero-reflow text
+    BitmapFont.install({
+      name: 'SovereignMono',
+      style: { fontFamily: 'monospace', fontSize: 12, fill: '#eeeeee' },
+    });
+    BitmapFont.install({
+      name: 'SovereignMonoRed',
+      style: { fontFamily: 'monospace', fontSize: 11, fill: '#ff003c' },
+    });
 
     const app = new Application();
 
@@ -112,10 +122,10 @@ function buildLayout(app: Application) {
     bg.rect(2, 2, half_w - 4, half_h - 4).fill({ color: DIM, alpha: 0.6 });
     c.addChild(bg);
 
-    // Panel label
-    const label = new Text({
+    // Panel label — BitmapText for zero-reflow GPU rendering
+    const label = new BitmapText({
       text: `://${name} //`,
-      style: new TextStyle({ fontFamily: 'monospace', fontSize: 11, fill: RED }),
+      style: { fontFamily: 'SovereignMonoRed', fontSize: 11, fill: RED },
     });
     label.x = 8;
     label.y = 8;
