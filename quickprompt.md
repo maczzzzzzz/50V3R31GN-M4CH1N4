@@ -1,42 +1,36 @@
-# 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.1)
+# 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.2)
 
-**Context:** Phase 50 (Nucleus Command Deck) and all associated remediations (Protobuf, Pretext, Dial-Up) are COMPLETED. The Artery is healthy and high-fidelity. Phase 51 (Headless Transition) is in progress.
+**Context:** The Nucleus Deck is online, and the trajectory for **Declarative Sovereignty** is locked. We are now entering the **Headless Transition** with a long-term goal of **Logical Self-Evolution**.
 
-**Objective:** Finalize the Headless Shard evolution and commence Phase 52 campaign generation.
-
----
-
-## ✅ PHASE 50 REMEDIATION (COMPLETED — 2026-04-12)
-1. ✅ **Protobuf Migration:** Artery now streams binary frames via `nucleuspb`.
-2. ✅ **Pretext Engine:** All quadrants refactored to use `BitmapText` for zero-reflow rendering.
-3. ✅ **Governance Audio:** Dial-Up trigger correctly tracks proposal IDs in `App.tsx`.
-4. ✅ **Foundry Purge:** All intrusive "Machina" buttons and iframes removed from world world.
+**Objective:** Implement Phase 51: Headless Sidecars & Declarative Identity.
 
 ---
 
-## 🛠️ TASK 1: PHASE 51 — SHARD EVOLUTION (IN PROGRESS)
-1. **Headless Verification:**
-   - The `--headless` flag is implemented in sidecars.
-   - **Requirement:** Update `scripts/gauntlet/phases/orch-block.ts` (Phase 4 & 24) to verify liveness via **Mmap Heartbeats** instead of EGUI window handles.
-2. **Purge Audit:**
-   - Implement `scripts/gauntlet/phases/purge-audit.ts` (Phase 52). This audit must FAIL if the `Sovereign Bridge` button is found in Foundry's `game.settings` via CDP.
-3. **Verification:** Run `npm run gauntlet --shard=51` to verify headless orchestration.
+## 🛠️ TASK 1: THE NIX IDENTITY FORGE (PHASE 51)
+1. **Framework:** Create `nix/identities.nix`. Move `SOUL.md` and `AGENTS.md` content into immutable Nix strings.
+2. **Injection:** Update `flake.nix` to export `SOVEREIGN_SOUL` and `SOVEREIGN_AGENTS` environment variables.
+3. **Verification:** Ensure these variables are manifest in the environment during `nix develop`.
 
 ---
 
-## 🛠️ TASK 2: PHASE 52 — THE ATLAS FORGE (RECURSIVE DREAM)
-1. **Threat Library:** Finalize the export of 500+ `NC_GANGS_CORPS` profiles to the refined RKG hierarchy.
-2. **Recursive Dream Loop:** 
-   - Implement the 3-stage background consolidation process: `Dream` (Scan) -> `Forge` (Embed) -> `Remember` (Link).
-   - Target: Sync 3,300+ chronicles into the Memory Palace via TF-IDF triplets.
+## 🛠️ TASK 2: HEADLESS RUST PIVOT
+1. **Sidecar Refactor:** Strip `egui` and `eframe` from `sidecar-atlas` and `sidecar-cyberdeck`.
+2. **Heartbeats:** Implement `DAEMON_HEARTBEAT` in Mmap slots for headless auditing.
+3. **Shard Evolution:** Update `orch-block.ts` to verify these heartbeats.
+
+---
+
+## 🛠️ TASK 3: THE SOUL LOGGER (OUROBOROS GROUNDWORK)
+1. **Logging:** Implement `src/core/soul-logger.ts` to capture Node B reasoning trajectories.
+2. **Tagging:** Integrate `training_value` tagging (Icarus pattern) for high-signal decisions.
 
 ---
 
 ## 📖 REFERENCES
-- **Audit: Phase 50 Remediations:** `docs/superpowers/audits/2026-04-12-phase-50-remediation-audit.md`
+- **Ouroboros Research:** `docs/superpowers/research/2026-04-12-ouroboros-logic-evolution.md`
+- **Identity Framework:** `nix/identities.nix` (Pending)
 - **Headless Plan:** `docs/superpowers/plans/2026-04-12-phase-51-headless-sidecars-and-shards.md`
-- **Memory Palace Spec:** `docs/superpowers/specs/2026-04-12-memory-palace-harmonization.md`
 
-**Final Validation:** Full Gauntlet Run -> 100% PASS across headless and purged world state.
+**Final Validation:** `nix develop` -> Verify Headless Heartbeats -> Verify Soul Logs in `data/logs/soul.jsonl`.
 
 *Directive Issued by Gemini CLI (Strategist).*
