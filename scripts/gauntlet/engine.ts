@@ -37,9 +37,7 @@ async function fetchCdpWsUrl(): Promise<string> {
 
   const candidates = [...new Set([
     `http://${bridgeHost}:${bridgePort}`,
-    `http://${wslGw}:9223`,
-    'http://192.168.0.51:9223',
-    'http://192.168.0.51:9222',
+    `http://${wslGw}:${bridgePort}`,
     `http://${wslGw}:9222`,
   ])];
 
@@ -51,8 +49,7 @@ async function fetchCdpWsUrl(): Promise<string> {
         const data = await res.json() as { webSocketDebuggerUrl: string };
         return data.webSocketDebuggerUrl
           .replace('localhost:9222', `${bridgeHost}:${bridgePort}`)
-          .replace('127.0.0.1:9222', `${bridgeHost}:${bridgePort}`)
-          .replace('192.168.0.51:9222', `${bridgeHost}:${bridgePort}`);
+          .replace('127.0.0.1:9222', `${bridgeHost}:${bridgePort}`);
       } catch { /* try next candidate */ }
     }
     if (attempt < 4) {

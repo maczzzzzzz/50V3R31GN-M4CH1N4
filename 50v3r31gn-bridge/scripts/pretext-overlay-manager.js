@@ -16,6 +16,8 @@ uniform float uTime;
 uniform float uGlitchIntensity;
 uniform float uTearAmount;
 uniform float uScanlineAlpha;
+// Physical display resolution in pixels — prevents scaling artifacts on HiDPI displays
+uniform vec2 uResolution;
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
@@ -24,10 +26,10 @@ float hash(vec2 p) {
 void main(void) {
   vec2 uv = vTextureCoord;
 
-  // Horizontal screen tear — random displacement strips driven by time-based noise
+  // Horizontal screen tear — pixel-accurate displacement using uResolution.x
   float tearLine = fract(uTime * 0.3 + hash(vec2(floor(uv.y * 15.0), floor(uTime * 2.0))));
   float tearZone = step(0.97, tearLine);
-  float tearOffset = tearZone * uGlitchIntensity * uTearAmount / 1024.0;
+  float tearOffset = tearZone * uGlitchIntensity * uTearAmount / max(uResolution.x, 1.0);
 
   // Chromatic aberration — R/G/B channel horizontal split mapped to uGlitchIntensity
   float rOffset = uGlitchIntensity * 0.006;
@@ -39,8 +41,9 @@ void main(void) {
   col.b = texture2D(uSampler, vec2(uv.x + bOffset  + tearOffset, uv.y)).b;
   col.a = texture2D(uSampler, uv).a;
 
-  // Ambient CRT scanlines — permanent 2-5% alpha sine-wave opacity mask
-  float scanline = sin(uv.y * 400.0) * 0.5 + 0.5;
+  // Ambient CRT scanlines — resolution-relative line frequency (3px per line at native res)
+  float linesPerPixel = uResolution.y / 3.0;
+  float scanline = sin(uv.y * linesPerPixel) * 0.5 + 0.5;
   col.rgb *= 1.0 - (scanline * uScanlineAlpha);
 
   // Static noise grain
@@ -103,6 +106,8 @@ export class PretextOverlayManager {
     shroud.interactiveChildren = false;
 
     // Build GLSL filter with initial uniforms
+    const resW = canvas.app?.renderer?.width ?? window.innerWidth ?? 1920;
+    const resH = canvas.app?.renderer?.height ?? window.innerHeight ?? 1080;
     let filter = null;
     try {
       filter = new PIXI.Filter(undefined, SHROUD_FRAG_SRC, {
@@ -110,6 +115,7 @@ export class PretextOverlayManager {
         uGlitchIntensity: 0.0,
         uTearAmount: 30.0,
         uScanlineAlpha: 0.04,
+        uResolution: [resW, resH],
       });
       shroud.filters = [filter];
     } catch (e) {
@@ -128,22 +134,38 @@ export class PretextOverlayManager {
   }
 
   static _reattachShroud() {
-    if (!this.shroud) {
-      this._initShroud();
-      return;
+    // Explicitly destroy the previous filter and container to free VRAM.
+    // Foundry destroys and recreates canvas.interface on every scene change,
+    // so the old shroud child reference becomes stale — always build fresh.
+    if (this._tickHandle) {
+      cancelAnimationFrame(this._tickHandle);
+      this._tickHandle = null;
     }
-    // Re-parent to new scene's interface layer
-    if (this.shroud.parent) this.shroud.parent.removeChild(this.shroud);
-    if (typeof canvas !== 'undefined' && canvas.interface) {
-      canvas.interface.addChild(this.shroud);
+    if (this.shroudFilter) {
+      try { this.shroudFilter.destroy(); } catch { /* already destroyed by PIXI */ }
+      this.shroudFilter = null;
     }
+    if (this.shroud) {
+      try { this.shroud.destroy({ children: true }); } catch { /* already destroyed */ }
+      this.shroud = null;
+    }
+    this._initShroud();
   }
 
   static _startTick() {
     if (this._tickHandle) return;
+    let lastResCheck = 0;
     const tick = () => {
       if (this.shroudFilter?.uniforms) {
         this.shroudFilter.uniforms.uTime = performance.now() / 1000.0;
+        // Update uResolution every 2 seconds to catch window/canvas resize events
+        const now = Date.now();
+        if (now - lastResCheck > 2000) {
+          const resW = canvas.app?.renderer?.width ?? window.innerWidth ?? 1920;
+          const resH = canvas.app?.renderer?.height ?? window.innerHeight ?? 1080;
+          this.shroudFilter.uniforms.uResolution = [resW, resH];
+          lastResCheck = now;
+        }
       }
       this._tickHandle = requestAnimationFrame(tick);
     };

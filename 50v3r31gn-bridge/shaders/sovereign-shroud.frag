@@ -16,6 +16,8 @@ uniform float uGlitchIntensity;
 uniform float uTearAmount;
 // CRT scanline opacity [0.0 – 0.1]
 uniform float uScanlineAlpha;
+// Physical display resolution in pixels — prevents scaling artifacts on HiDPI displays
+uniform vec2 uResolution;
 
 // Deterministic hash — maps a 2D point to [0,1)
 float hash(vec2 p) {
@@ -26,10 +28,10 @@ void main(void) {
   vec2 uv = vTextureCoord;
 
   // ── Horizontal Screen Tear ──────────────────────────────────────────────────
-  // Generates random horizontal displacement strips driven by time-based noise.
+  // Pixel-accurate horizontal displacement using uResolution.x.
   float tearLine = fract(uTime * 0.3 + hash(vec2(floor(uv.y * 15.0), floor(uTime * 2.0))));
   float tearZone = step(0.97, tearLine);
-  float tearOffset = tearZone * uGlitchIntensity * uTearAmount / 1024.0;
+  float tearOffset = tearZone * uGlitchIntensity * uTearAmount / max(uResolution.x, 1.0);
 
   // ── Chromatic Aberration ────────────────────────────────────────────────────
   // Impulse-driven R/B channel split — scales with uGlitchIntensity.
@@ -43,8 +45,9 @@ void main(void) {
   col.a = texture2D(uSampler, uv).a;
 
   // ── Ambient CRT Scanlines ───────────────────────────────────────────────────
-  // Permanent, subtle (2–5% alpha) sine-wave opacity mask.
-  float scanline = sin(uv.y * 400.0) * 0.5 + 0.5;
+  // Resolution-relative line frequency: 3px per scanline at native display resolution.
+  float linesPerPixel = uResolution.y / 3.0;
+  float scanline = sin(uv.y * linesPerPixel) * 0.5 + 0.5;
   col.rgb *= 1.0 - (scanline * uScanlineAlpha);
 
   // ── Static Noise Grain ──────────────────────────────────────────────────────

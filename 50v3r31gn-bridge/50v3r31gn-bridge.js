@@ -213,7 +213,20 @@ class FoundryApiBridge {
           ui.notifications.info(`[GOVERNANCE DUEL] Defer: ${verdict.reason ?? 'Operator granted concession.'}`);
         }
       } catch (err) {
-        console.warn(`[${MODULE_ID}] Governance duel request failed — allowing update:`, err);
+        // FAIL-LOCKED: governance connection failure BLOCKS the update.
+        // An unsanctioned change on a sovereign-authority object is never permitted
+        // silently — the operator must be notified and the change rejected.
+        const reason = err instanceof Error ? err.message : String(err);
+        ui.notifications.error(
+          `[GOVERNANCE DUEL] Fail-Locked — update BLOCKED (connection lost): ${reason}`
+        );
+        this._sendEvent('governance_fail_locked', {
+          documentType: doc.documentName ?? doc.constructor.name,
+          documentId: doc.id,
+          error: reason,
+          timestamp: Date.now(),
+        });
+        return null;
       }
 
       return wrapped(...args);
