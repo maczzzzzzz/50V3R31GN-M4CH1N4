@@ -10,7 +10,7 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { VisionClient } from './vision-client.js';
-import type { GauntletContext, SovereignShard, GauntletReport, AuditResult } from './types.js';
+import type { GauntletContext, SovereignShard, PhaseShard, PgClientLike, GauntletReport, AuditResult } from './types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -98,7 +98,13 @@ async function recursivePageHunt(
   throw new Error('recursivePageHunt: no usable pages found');
 }
 
-async function discoverShards(): Promise<SovereignShard[]> {
+type AnyShard = SovereignShard | PhaseShard;
+
+function isSovereignShard(s: AnyShard): s is SovereignShard {
+  return typeof (s as SovereignShard).audit === 'function';
+}
+
+async function discoverShards(): Promise<AnyShard[]> {
   const phasesDir = join(__dirname, 'phases');
   let files: string[];
   try {
@@ -108,27 +114,30 @@ async function discoverShards(): Promise<SovereignShard[]> {
     return [];
   }
 
-  const shards: SovereignShard[] = [];
+  // Deduplicate shards by phase ID — block files take priority over individual files
+  const shardMap = new Map<number, AnyShard>();
+
   for (const file of files.sort()) {
     const modPath = `./phases/${file.replace(/\.(ts|js)$/, '.js')}`;
     try {
       const mod = await import(modPath) as Record<string, unknown>;
       for (const exp of Object.values(mod)) {
-        if (
-          exp !== null &&
-          typeof exp === 'object' &&
-          'metadata' in exp &&
-          'audit' in exp &&
-          typeof (exp as SovereignShard).audit === 'function'
-        ) {
-          shards.push(exp as SovereignShard);
+        if (exp === null || typeof exp !== 'object' || !('metadata' in exp)) continue;
+        const candidate = exp as AnyShard;
+        const hasSovereignAudit = typeof (candidate as SovereignShard).audit === 'function';
+        const hasPhaseVerify = typeof (candidate as PhaseShard).verify === 'function';
+        if (!hasSovereignAudit && !hasPhaseVerify) continue;
+        const id = candidate.metadata.id;
+        // Block files (ending in -block.ts) take priority; individual files fill gaps
+        if (!shardMap.has(id) || file.endsWith('-block.ts') || file.endsWith('-block.js')) {
+          shardMap.set(id, candidate);
         }
       }
     } catch (e) {
       console.warn(`  [shards] failed to load ${file}: ${(e as Error).message}`);
     }
   }
-  return shards.sort((a, b) => a.metadata.id - b.metadata.id);
+  return [...shardMap.values()].sort((a, b) => a.metadata.id - b.metadata.id);
 }
 
 function renderMarkdown(report: GauntletReport): string {
@@ -188,7 +197,58 @@ async function main() {
     console.log('[cdp] Skipped (--no-cdp)');
   }
 
-  const ctx: GauntletContext = { page, browser, db, vision, cdpEndpoint: '' };
+  // ── PostgreSQL (optional) ─────────────────────────────────────────────────
+  let pgClient: PgClientLike | null = null;
+  if (process.env['PGHOST'] || process.env['PGDATABASE']) {
+    try {
+      // Dynamic import — pg may not be installed; fail gracefully.
+      // createRequire bypasses tsc static module resolution for optional deps.
+      const { createRequire } = await import('node:module');
+      const req = createRequire(import.meta.url);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const pg = req('pg') as { Client: new (cfg: Record<string, unknown>) => PgClientLike };
+      const client = new pg.Client({
+        host: process.env['PGHOST'] ?? '192.168.0.50',
+        user: process.env['PGUSER'] ?? 'asp_gm',
+        database: process.env['PGDATABASE'] ?? 'asp_gm_agent',
+        password: process.env['PGPASSWORD'] ?? '',
+        connectionTimeoutMillis: 5000,
+      });
+      await client.query('SELECT 1');
+      pgClient = client;
+      console.log(`[pg] Connected to ${process.env['PGHOST']}/${process.env['PGDATABASE']}`);
+    } catch (e) {
+      console.warn(`[pg] Not available — (${(e as Error).message.slice(0, 80)})`);
+    }
+  } else {
+    console.log('[pg] Skipped (PGHOST not set)');
+  }
+
+  // ── Context helpers ───────────────────────────────────────────────────────
+  const logger = {
+    info: (msg: string, data?: unknown) => console.log(`[GAUNTLET] INFO: ${msg}`, data ?? ''),
+    error: (msg: string, data?: unknown) => console.error(`[GAUNTLET] ERROR: ${msg}`, data ?? ''),
+  };
+  const stabilize = (ms = 2000): Promise<void> => new Promise(r => setTimeout(r, ms));
+  const manifestError = async (msg: string): Promise<void> => {
+    if (!page) return;
+    await page.evaluate((m: string) => {
+      const bridge = (globalThis as unknown as Record<string, unknown>)['SOVEREIGN_BRIDGE'];
+      if (bridge && typeof (bridge as Record<string, unknown>)['showErrorOverlay'] === 'function') {
+        (bridge as Record<string, (arg: unknown) => void>)['showErrorOverlay']({
+          code: 'S1GN4L_L055', message: m, severity: 'CRITICAL',
+        });
+      }
+    }, msg).catch(() => { /* page may be closed */ });
+  };
+
+  const ctx: GauntletContext = {
+    page, browser, db, vision, cdpEndpoint: '',
+    pg: pgClient,
+    logger,
+    stabilize,
+    manifestError,
+  };
 
   // ── Discover & run shards ─────────────────────────────────────────────────
   console.log('\n[shards] Discovering...');
@@ -202,7 +262,21 @@ async function main() {
     process.stdout.write(`  [${id}] ${shard.metadata.block}::${shard.metadata.name}... `);
     const ts = Date.now();
     try {
-      const result = await shard.audit(ctx);
+      let result: AuditResult;
+      if (isSovereignShard(shard)) {
+        // SovereignShard pattern: returns structured AuditResult
+        result = await shard.audit(ctx);
+      } else {
+        // PhaseShard pattern: returns boolean — wrap into AuditResult
+        const ok = await (shard as PhaseShard).verify(ctx);
+        result = {
+          phaseId: shard.metadata.id,
+          phaseName: shard.metadata.name,
+          block: shard.metadata.block,
+          status: ok ? 'PASS' : 'FAIL',
+          message: ok ? 'VERIFIED' : 'VERIFICATION FAILED',
+        };
+      }
       result.durationMs = Date.now() - ts;
       const icon = result.status === 'PASS' ? '✓' : result.status === 'FAIL' ? '✗' : result.status === 'WARN' ? '⚠' : '-';
       console.log(`${icon} ${result.message} (${result.durationMs}ms)`);
@@ -253,6 +327,7 @@ async function main() {
 
   // ── Cleanup ───────────────────────────────────────────────────────────────
   db?.close();
+  try { await pgClient?.end(); } catch { /* ignore */ }
   try { await browser?.close(); } catch { /* ignore */ }
 
   process.exit(failed > 0 ? 1 : 0);

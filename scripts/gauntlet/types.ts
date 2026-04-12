@@ -15,6 +15,17 @@ export interface GauntletContext {
   vision: VisionClient;
   /** Resolved CDP WebSocket endpoint */
   cdpEndpoint: string;
+  /** PostgreSQL client — optional, null when no PG server is available */
+  pg: PgClientLike | null;
+  /** Structured logger */
+  logger: {
+    info: (msg: string, data?: unknown) => void;
+    error: (msg: string, data?: unknown) => void;
+  };
+  /** Wait for the system to settle */
+  stabilize: (ms?: number) => Promise<void>;
+  /** Dispatch a visible error overlay into Foundry via the bridge */
+  manifestError: (msg: string) => Promise<void>;
 }
 
 export type AuditStatus = 'PASS' | 'FAIL' | 'WARN' | 'SKIP';
@@ -44,6 +55,30 @@ export interface SovereignShard {
 
   /** Self-Healing — background monitoring for state drift */
   onDrift: (ctx: GauntletContext, current: unknown, expected: unknown) => Promise<void>;
+}
+
+export type BlockType = 'DATA' | 'MECHANICAL' | 'ORCHESTRATION' | 'VISUAL' | 'NARRATIVE';
+
+/** pg.Client duck-type — avoids hard dep on @types/pg for optional connection */
+export interface PgClientLike {
+  query: (sql: string, params?: unknown[]) => Promise<{ rows: Record<string, unknown>[]; rowCount: number | null }>;
+  end: () => Promise<void>;
+}
+
+/**
+ * PhaseShard — implementation-plan shard contract (verify/execute pattern).
+ * Coexists with SovereignShard (audit/manifest/onDrift). Engine handles both.
+ */
+export interface PhaseShard {
+  metadata: {
+    id: number;
+    name: string;
+    block: BlockType;
+  };
+  /** Returns true if this phase is healthy */
+  verify: (ctx: GauntletContext) => Promise<boolean>;
+  /** Programmatic execution / self-healing */
+  execute: (ctx: GauntletContext, params?: unknown) => Promise<unknown>;
 }
 
 export interface GauntletReport {
