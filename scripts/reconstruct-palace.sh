@@ -159,7 +159,7 @@ ${district_props}sovereign: true
 $content
 
 ---
-_Source: $src_
+_Source: $dir_wsl
 EOF
 
     rsync -a --update "$path_wsl" "$path_win" 2>/dev/null || true

@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.2] - 2026-04-12
+### Added
+- **Phase 50 (Nucleus Command Deck)**: Implemented a monolithic, high-fidelity WebGL command center using React 19, PIXI.js v8, and the Pretext Engine.
+- **Nucleus Artery**: Established a Go-based WebSocket bridge using Protobuf binary frames for zero-latency VSB state streaming.
+- **Hermes Ecosystem Integration**: Conducted a deep dive into the Hermes Atlas, incorporating Mission Control patterns for the unified UI and planning AutoNovel integration for Atlas Forge.
+- **Dial-Up Governance Audio**: Added immersive legacy-inspired audio triggers for VSB Approval (Flush Gate) events.
+- **Headless Mode (Groundwork)**: Implemented `--headless` daemon mode for `sidecar-atlas` and `sidecar-cyberdeck` to support the monolithic deck pivot.
+
+### Changed
+- **UI Consolidation**: Decommissioned all legacy EGUIs and TUIs in favor of the unified Nucleus Deck, reducing the workspace to exactly three primary surfaces.
+- **Foundry VTT Purge**: Removed all intrusive "Machina" UI elements from the Foundry interface to restore full environmental immersion.
+
+### Fixed
+- **Phase 50 Audit Remediations**: 
+    - Migrated Nucleus state streaming from JSON to Protobuf binary serialization.
+    - Refactored all dashboard panels to use the Pretext Engine (`BitmapText`) for zero-reflow rendering.
+    - Optimized dial-up audio tracking to prevent redundant triggers.
+
 ## [3.2.1] - 2026-04-12
 ### Added
 - **Phase 49 (Semantic Refinement)**: Upgraded the harmonization engine with TF-IDF scoring and bigram phrase extraction for precise district disambiguation (e.g., "Little China" vs "Kabuki").
