@@ -198,6 +198,23 @@ CREATE TABLE IF NOT EXISTS system_state (
 -- Initialize with default active scene if not exists
 INSERT OR IGNORE INTO system_state (key, value) VALUES ('last_active_scene', 'null');
 
+-- Phase 46: Sovereignty depth tracks Machina vs Human authority balance (0.0–1.0).
+-- 0.0 = full human dominance, 1.0 = full Machina dominance.
+INSERT OR IGNORE INTO system_state (key, value) VALUES ('sovereignty_depth', '0.5');
+
+-- Phase 46: Governance Duel History
+-- Records each conflict_interrupt outcome for Pulse Engine weighting.
+CREATE TABLE IF NOT EXISTS duel_history (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_type TEXT NOT NULL,
+    document_id   TEXT NOT NULL,
+    document_name TEXT,
+    faction       TEXT,              -- NULL = unaffiliated
+    result        TEXT NOT NULL CHECK (result IN ('VETO', 'DEFER', 'PASS', 'FAIL_LOCKED')),
+    initiator     TEXT NOT NULL DEFAULT 'HUMAN' CHECK (initiator IN ('HUMAN', 'MACHINA')),
+    occurred_at   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Phase 16: Scene Perception Buffer (Falcon OCR / Semantic Perception)
 -- Stores OCR-detected map entity labels from the Falcon Sidecar, keyed by scene_id.
 -- Cleared on each scene_activate event and repopulated by regroundScene().

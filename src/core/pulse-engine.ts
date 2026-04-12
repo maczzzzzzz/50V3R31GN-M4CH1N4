@@ -2,19 +2,22 @@
  * src/core/pulse-engine.ts
  *
  * PulseEngine — Cryotank Skip / Capture Consequence (Phase 5 Red Trade)
+ *                + Phase 46 Pulse Propagation
  *
- * Implements the "Capture & Cryotank Skip" mechanic from the spec:
- *   1. Advance time by 1d6 months (caller provides the roll).
- *   2. Calculate rent debt: monthly_rent_eb × months.
- *   3. If eb_balance < debt → EVICTION: housing_tier = 'street', balance = 0.
- *   4. Else deduct rent from eb_balance.
- *   5. Dispatch two Punitive BD rolls to Node A (Humanity + Addiction checks).
- *   6. Return a validated TimeSkipResult.
+ * Phase 5: Implements the "Capture & Cryotank Skip" mechanic.
+ * Phase 46: propagatePulse() scans duel_history to update sovereignty_depth
+ *   and faction friction_pool based on Governance Duel outcomes.
  */
 
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { INitroLogicClient } from './interfaces.js';
 import { TimeSkipResultSchema, type TimeSkipResult } from '../shared/schemas/red-trade.schema.js';
+
+interface DuelFactionSummary {
+  faction: string | null;
+  machina_wins: number; // VETO outcomes (Machina authority upheld)
+  human_wins: number;   // DEFER + PASS outcomes (Human operator prevails)
+}
 
 export class PulseEngine {
   constructor(
@@ -74,5 +77,64 @@ export class PulseEngine {
       bdHumanityRoll: humanityResult.result,
       bdAddictionRoll: addictionResult.result,
     });
+  }
+
+  /**
+   * Phase 46: Pulse Propagation — scan duel_history and apply weighting shifts.
+   *
+   * 1. Recalculate sovereignty_depth from global duel win/loss ratio.
+   * 2. For each faction with losing Machina authority duels, increment friction_pool.
+   *
+   * Should be called on each Pulse tick or /pulse command invocation.
+   */
+  propagatePulse(): void {
+    const db = this.oracle.getRawDatabase();
+
+    // ── 1. Recalculate sovereignty_depth ──────────────────────────────────────
+    const globalTotals = db.prepare(`
+      SELECT
+        SUM(CASE WHEN result = 'VETO' THEN 1 ELSE 0 END)           AS machina_wins,
+        SUM(CASE WHEN result IN ('DEFER', 'PASS') THEN 1 ELSE 0 END) AS human_wins
+      FROM duel_history
+    `).get() as { machina_wins: number | null; human_wins: number | null };
+
+    const mWins = globalTotals.machina_wins ?? 0;
+    const hWins = globalTotals.human_wins ?? 0;
+    const total = mWins + hWins;
+
+    if (total > 0) {
+      const depth = parseFloat((mWins / total).toFixed(4));
+      db.prepare(`UPDATE system_state SET value = ?, updated_at = CURRENT_TIMESTAMP WHERE key = 'sovereignty_depth'`)
+        .run(String(depth));
+    }
+
+    // ── 2. Faction Ripple — increase friction for factions where Machina lost ──
+    const factionSummaries = db.prepare(`
+      SELECT
+        faction,
+        SUM(CASE WHEN result = 'VETO' THEN 1 ELSE 0 END)            AS machina_wins,
+        SUM(CASE WHEN result IN ('DEFER', 'PASS') THEN 1 ELSE 0 END) AS human_wins
+      FROM duel_history
+      WHERE faction IS NOT NULL
+      GROUP BY faction
+    `).all() as DuelFactionSummary[];
+
+    const frictionStmt = db.prepare(`
+      UPDATE factions
+      SET friction_pool = MIN(10, friction_pool + ?)
+      WHERE name = ?
+    `);
+
+    const applyFriction = db.transaction((summaries: DuelFactionSummary[]) => {
+      for (const row of summaries) {
+        if (row.faction == null) continue;
+        // Each human win against a Machina-authority duel for this faction adds +1 friction
+        if (row.human_wins > 0) {
+          frictionStmt.run(row.human_wins, row.faction);
+        }
+      }
+    });
+
+    applyFriction(factionSummaries);
   }
 }

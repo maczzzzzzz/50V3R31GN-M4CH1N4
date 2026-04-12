@@ -207,6 +207,21 @@ export class UnifiedOracleClient {
         } catch { /* table may not exist yet — world-schema.sql will create it */ }
       }
 
+      // ── Phase 46 Migration: Governance Duel History ──────────────────────────
+      this.db.exec(`
+        CREATE TABLE IF NOT EXISTS duel_history (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            document_type TEXT NOT NULL,
+            document_id   TEXT NOT NULL,
+            document_name TEXT,
+            faction       TEXT,
+            result        TEXT NOT NULL CHECK (result IN ('VETO', 'DEFER', 'PASS', 'FAIL_LOCKED')),
+            initiator     TEXT NOT NULL DEFAULT 'HUMAN' CHECK (initiator IN ('HUMAN', 'MACHINA')),
+            occurred_at   DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+        INSERT OR IGNORE INTO system_state (key, value) VALUES ('sovereignty_depth', '0.5');
+      `);
+
       // ── Phase 21 Migration: NPC Life-Path Logs ────────────────────────────────
       this.db.exec(`
         CREATE TABLE IF NOT EXISTS npc_logs (
