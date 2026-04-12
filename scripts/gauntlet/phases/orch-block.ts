@@ -90,7 +90,14 @@ export const phase2: SovereignShard = {
     return pass(2, 'VSB-Heartbeat', `VSB port ${vsbPort} reachable`, { nodeAHost, port: vsbPort });
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Send a VSB heartbeat packet (opcode 0x00 PING)
+    const i = intent as { payload?: number[] } | null;
+    const pkt = Buffer.from(i?.payload ?? [0x00, 0x00, 0x00, 0x00]);
+    await ctx.vsb.send(pkt).catch(e => {
+      ctx.logger.error('VSB-Heartbeat manifest: send failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -111,7 +118,12 @@ export const phase4: SovereignShard = {
     return pass(4, 'Clawlink-Socket', `${socketPath} present and connectable`);
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Restart deck-igniter to re-establish clawlink socket
+    await ctx.cli.execute('./deck-igniter-cli restart').catch(e => {
+      ctx.logger.error('Clawlink-Socket manifest: restart failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -136,7 +148,12 @@ export const phase15: SovereignShard = {
     return pass(15, 'Director-Service', `Director listening on port ${directorPort}`);
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Restart the Director service
+    await ctx.cli.execute('npm run start &').catch(e => {
+      ctx.logger.error('Director-Service manifest: restart failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -164,7 +181,12 @@ export const phase18: SovereignShard = {
     return pass(18, 'Crush-Proxy', `Proxy port ${proxyPort} listening | socket=${socketExists}`, details);
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Restart the CDP win-proxy (crush proxy)
+    await ctx.cli.execute('./crush-cli proxy restart').catch(e => {
+      ctx.logger.error('Crush-Proxy manifest: restart failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -191,7 +213,18 @@ export const phase22: SovereignShard = {
     });
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Re-establish SSH tunnel to Node A
+    const i = intent as { user?: string; host?: string; port?: number } | null;
+    const user = i?.user ?? process.env['CLAWLINK_USER'] ?? 'maczz';
+    const host = i?.host ?? process.env['NODE_A_HOST'] ?? '192.168.0.50';
+    const port = i?.port ?? parseInt(process.env['CLAWLINK_SSH_PORT'] ?? '22', 10);
+    await ctx.cli.execute(
+      `ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 -fNT ${user}@${host} -p ${port}`,
+    ).catch(e => {
+      ctx.logger.error('SSH-Tunnel manifest: tunnel failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -221,6 +254,11 @@ export const phase24: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Start deck-igniter if not running
+    await ctx.cli.execute('./deck-igniter-cli start').catch(e => {
+      ctx.logger.error('DeckIgniter-Supervisor manifest: start failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };

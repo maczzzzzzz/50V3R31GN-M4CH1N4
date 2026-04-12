@@ -52,7 +52,20 @@ export const phase6: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Onboard a new NPC into the story engine via Foundry bridge
+    if (!ctx.page) return;
+    const i = intent as { name?: string; role?: string; faction?: string } | null;
+    const name = i?.name ?? 'Sovereign-NPC';
+    const role = i?.role ?? 'Solo';
+    const faction = i?.faction ?? 'independent';
+    await ctx.bridge.runScript(`
+      const data = { name: ${JSON.stringify(name)}, type: 'npc', system: { roleInfo: { activeRole: ${JSON.stringify(role)} } } };
+      Actor.create(data).then(a => {
+        if (a) game.settings.set('50v3r31gn-bridge', 'lastOnboardedNpc', a.id).catch(() => {});
+      }).catch(() => {});
+    `).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -96,7 +109,20 @@ export const phase9: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Capture an NPC engram snapshot via Node B vision
+    if (!ctx.page) return;
+    const i = intent as { actorId?: string } | null;
+    const actorId = i?.actorId ?? '';
+    const prompt = 'Capture this Foundry NPC portrait as an engram snapshot. Describe in one sentence.';
+    await ctx.vision.analyzePageAesthetics(ctx.page, prompt).catch(() => { /* non-fatal */ });
+    if (actorId) {
+      await ctx.bridge.runScript(`
+        const actor = game.actors.get(${JSON.stringify(actorId)});
+        if (actor) Hooks.call('sovereign.engram.capture', { actorId: actor.id, timestamp: Date.now() });
+      `).catch(() => { /* non-fatal */ });
+    }
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -143,7 +169,16 @@ export const phase12: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Toggle leet-speak / journal corruption mutation state via bridge
+    if (!ctx.page) return;
+    const i = intent as { active?: boolean } | null;
+    const active = i?.active ?? true;
+    await ctx.bridge.runScript(`
+      game.settings.set('50v3r31gn-bridge', 'journalCorruptionActive', ${JSON.stringify(active)}).catch(() => {});
+      Hooks.call('sovereign.conlang.mutate', { active: ${JSON.stringify(active)} });
+    `).catch(() => { /* non-fatal */ });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -181,7 +216,15 @@ export const phase19: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Inject a new chronicle seed via crush-cli
+    const i = intent as { seed?: string; arc?: string } | null;
+    const seed = i?.seed ?? 'sovereign-manifest-engine-active';
+    const arc = i?.arc ?? 'control-upgrade';
+    await ctx.cli.execute(`./crush-cli seed inject --seed ${JSON.stringify(seed)} --arc ${JSON.stringify(arc)}`).catch(e => {
+      ctx.logger.error('Narrative-Seeding manifest: inject failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -218,7 +261,12 @@ export const phase20: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Force AAAK context rebuild by regenerating palace_context.json
+    await ctx.cli.execute('bash scripts/reconstruct-palace.sh --context-only').catch(e => {
+      ctx.logger.error('Prompt-Anchors manifest: context rebuild failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -259,6 +307,13 @@ export const phase21: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Expand Node B context window or send a buffer warm-up prompt
+    const i = intent as { prompt?: string } | null;
+    const prompt = i?.prompt ?? 'You are the Sovereign narrative engine. Confirm buffer depth with a single word: DEEP.';
+    await ctx.vision.tacticalQuery({ prompt }).catch(e => {
+      ctx.logger.error('Narrative-Buffer manifest: warm-up failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };

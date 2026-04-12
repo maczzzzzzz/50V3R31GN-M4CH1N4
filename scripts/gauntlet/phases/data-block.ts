@@ -40,7 +40,14 @@ export const phase0: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Run the DB migration script to initialize missing tables
+    const i = intent as { migrationScript?: string } | null;
+    const script = i?.migrationScript ?? 'npx tsx scripts/db-migrate.ts';
+    await ctx.cli.execute(script).catch(e => {
+      ctx.logger.error('DB-Init manifest: migration failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -73,7 +80,12 @@ export const phase1: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Run VACUUM to rebuild the DB and resolve integrity issues
+    await ctx.cli.execute('npx tsx -e "import Database from \'better-sqlite3\'; const db = new Database(process.env.WORLD_DB_PATH ?? \'./data/world.db\'); db.exec(\'VACUUM\'); db.close();"').catch(e => {
+      ctx.logger.error('Schema-Integrity manifest: VACUUM failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -98,7 +110,12 @@ export const phase30: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Trigger RKG vault reconstruction
+    await ctx.cli.execute('bash scripts/reconstruct-palace.sh').catch(e => {
+      ctx.logger.error('RKG-Chronicles manifest: reconstruct failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -129,7 +146,12 @@ export const phase34: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Force-sync the Memory Palace by running reconstruct-palace
+    await ctx.cli.execute('bash scripts/reconstruct-palace.sh --palace-only').catch(e => {
+      ctx.logger.error('Memory-Palace manifest: sync failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -160,7 +182,14 @@ export const phase37: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Force Akashik DB sync by copying world.db state to Akashik.db
+    const akashikPath = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
+    const worldPath = process.env['WORLD_DB_PATH'] ?? './data/world.db';
+    await ctx.cli.execute(`cp ${worldPath} ${akashikPath}.sync.tmp && mv ${akashikPath}.sync.tmp ${akashikPath}`).catch(e => {
+      ctx.logger.error('Akashik-Sync manifest: sync failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
@@ -189,6 +218,16 @@ export const phase43: SovereignShard = {
     }
   },
 
-  async manifest(_ctx: GauntletContext, _intent: unknown): Promise<void> { /* noop */ },
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // Write a stabilization checkpoint key to system_state via CLI
+    const i = intent as { key?: string; value?: string } | null;
+    const key = i?.key ?? 'gauntlet_last_manifest';
+    const value = i?.value ?? new Date().toISOString();
+    await ctx.cli.execute(
+      `npx tsx -e "import Database from 'better-sqlite3'; const db = new Database(process.env.WORLD_DB_PATH ?? './data/world.db'); db.prepare('INSERT OR REPLACE INTO system_state (key,value) VALUES (?,?)').run(${JSON.stringify(key)},${JSON.stringify(value)}); db.close();"`,
+    ).catch(e => {
+      ctx.logger.error('Stabilization manifest: checkpoint write failed', e.message);
+    });
+  },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
