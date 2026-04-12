@@ -39,6 +39,8 @@
     "terminal": "./crush-cli terminal",
     "dream": "tsx src/scripts/dream-daemon.ts",
     "dream:once": "tsx src/scripts/dream-daemon.ts --once",
+    "mcp:start": "tsx scripts/dev/mcp-daemon.ts",
+    "mcp:test": "tsx scripts/dev/test-mcp-connection.ts",
     "gauntlet": "tsx scripts/gauntlet/engine.ts",
     "gauntlet:no-cdp": "tsx scripts/gauntlet/engine.ts --no-cdp",
     "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest"

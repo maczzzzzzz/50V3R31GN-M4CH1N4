@@ -82,30 +82,46 @@
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
             export CRUSH_DB_PATH="$PROJECT_ROOT/.crush/crush.db"
 
+            # Phase 48: Sovereign Triad — Impure/Unfree mandates
+            export NIXPKGS_ALLOW_UNFREE=1
+
             # R3D_V01D Font Config — expose Hack + JetBrains Mono to WSLg X-server
             export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ pkgs.hack-font pkgs.jetbrains-mono ]; }}"
 
             # Mapped WSL Driver Path + Nix Store libs
-            export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [ 
-              openssl 
-              libxcb 
-              libxkbcommon 
-              wayland 
-              vulkan-loader 
+            export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [
+              openssl
+              libxcb
+              libxkbcommon
+              wayland
+              vulkan-loader
               stdenv.cc.cc.lib
               mesa
             ])}:$LD_LIBRARY_PATH"
-            
+
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
 
             # DROID_FACTORY: Wrapped execution via steam-run for NixOS compatibility
             alias droid="steam-run /home/nixos/.local/bin/droid"
-            
+
+            # Phase 48: Sovereign Triad MCP Bridge — spawn background sidecar
+            MCP_PID_FILE="$PROJECT_ROOT/.gemini/tmp/mcp-bridge.pid"
+            if [ ! -f "$MCP_PID_FILE" ] || ! kill -0 "$(cat "$MCP_PID_FILE")" 2>/dev/null; then
+              mkdir -p "$PROJECT_ROOT/.gemini/tmp" "$PROJECT_ROOT/data/logs"
+              npx tsx "$PROJECT_ROOT/scripts/dev/mcp-daemon.ts" \
+                >> "$PROJECT_ROOT/data/logs/mcp-bridge.log" 2>&1 &
+              disown $!
+            fi
+
+            # Kill daemon on shell exit
+            trap 'if [ -f "$MCP_PID_FILE" ]; then kill "$(cat "$MCP_PID_FILE")" 2>/dev/null || true; fi' EXIT
+
             echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
             echo "◈ DROID FACTORY: Enabled via 'droid' alias."
+            echo "◈ MCP Bridge: .gemini/tmp/sovereign-mcp.sock"
           '';
         };
 
@@ -145,6 +161,7 @@
             export PROJECT_ROOT=$(pwd)
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
             export CRUSH_DB_PATH="$PROJECT_ROOT/.crush/crush.db"
+            export NIXPKGS_ALLOW_UNFREE=1
             export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath (with pkgs; [ openssl linuxPackages.nvidia_x11 cudatoolkit ])}:$LD_LIBRARY_PATH"
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
