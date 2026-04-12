@@ -391,6 +391,10 @@ func main() {
 			}
 			return
 
+		case "nucleus":
+			startNucleusServer()
+			return
+
 		case "dashboard-bridge":
 			if err := runDashboardBridge(); err != nil {
 				fmt.Printf("[BRIDGE] fatal: %v\n", err)
