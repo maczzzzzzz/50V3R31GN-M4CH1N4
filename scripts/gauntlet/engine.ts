@@ -13,6 +13,9 @@ import { createSocket } from 'node:dgram';
 import { exec } from 'node:child_process';
 import { VisionClient } from './vision-client.js';
 import { Logger } from '../../src/shared/logger.js';
+import { PulseEngine } from '../../src/core/pulse-engine.js';
+import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import type { INitroLogicClient } from '../../src/core/interfaces.js';
 import type { GauntletContext, SovereignShard, PhaseShard, GauntletReport, AuditResult } from './types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -263,8 +266,16 @@ async function main() {
 
   // ── Discover & run shards ─────────────────────────────────────────────────
   console.log('\n[shards] Discovering...');
-  const shards = await discoverShards();
-  console.log(`  Loaded ${shards.length} shards\n`);
+  const allShards = await discoverShards();
+
+  // Optional single-shard filter: --shard=49
+  const shardFilterArg = process.argv.find(a => a.startsWith('--shard='));
+  const shardFilter = shardFilterArg ? parseInt(shardFilterArg.replace('--shard=', ''), 10) : null;
+  const shards = shardFilter !== null
+    ? allShards.filter(s => s.metadata.id === shardFilter)
+    : allShards;
+
+  console.log(`  Loaded ${allShards.length} shards${shardFilter !== null ? ` (filtered to shard ${shardFilter})` : ''}\n`);
   console.log('[audit] Running all phases...\n');
 
   const results: AuditResult[] = [];
@@ -309,11 +320,24 @@ async function main() {
     }
   }
 
+  // ── Phase 46 Pulse Propagation — run after each gauntlet cycle ───────────
+  if (db) {
+    try {
+      // Minimal oracle adapter: propagatePulse() only needs getRawDatabase()
+      const minimalOracle = { getRawDatabase: () => db } as unknown as UnifiedOracleClient;
+      const pulse = new PulseEngine(minimalOracle, null as unknown as INitroLogicClient);
+      pulse.propagatePulse();
+      console.log('\n  [pulse] propagatePulse() — sovereignty_depth and faction friction updated');
+    } catch (e) {
+      console.warn('\n  [pulse] propagatePulse() skipped (no duel_history yet):', (e as Error).message.slice(0, 80));
+    }
+  }
+
   // ── Manifest mode (Intent Delivery) ──────────────────────────────────────
   const runManifest = process.argv.includes('--manifest');
   if (runManifest) {
     console.log('\n[manifest] Running manifest() on all SovereignShards...\n');
-    for (const shard of shards) {
+    for (const shard of shards) { // shards already filtered by --shard if specified
       if (!isSovereignShard(shard)) continue;
       const id = String(shard.metadata.id).padStart(2, '0');
       process.stdout.write(`  [${id}] ${shard.metadata.block}::${shard.metadata.name} manifest... `);
