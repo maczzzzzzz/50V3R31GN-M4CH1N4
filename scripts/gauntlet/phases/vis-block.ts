@@ -246,3 +246,88 @@ export const phase42: SovereignShard = {
   },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
+
+// ── Phase 44.5: Sovereign Shroud Integrity ────────────────────────────────────
+// Verifies the Master Shroud PIXI container, VT323 BitmapText, and GLSL shader
+// uniforms (uScanlineAlpha, uGlitchIntensity) per the Sovereign Shroud design spec.
+export const phase44_5: SovereignShard = {
+  metadata: { id: 44.5, name: 'Sovereign-Shroud', block: 'VISUAL' },
+
+  async audit(ctx: GauntletContext): Promise<AuditResult> {
+    if (!ctx.page) return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'SKIP', message: 'CDP page unavailable' };
+
+    try {
+      const shroudStatus = await ctx.page.evaluate(() => {
+        const g = globalThis as unknown as Record<string, unknown>;
+        const pretextManager = g['PretextOverlayManager'] ?? g['PRETEXT_OVERLAY_MANAGER'];
+        const hasPretextManager = !!pretextManager;
+
+        const pixi = (g['PIXI'] ?? g['pixi']) as Record<string, unknown> | undefined;
+        const hasPIXI = !!pixi;
+        const hasBitmapText = !!(pixi?.['BitmapText']);
+
+        const canvas = g['canvas'] as Record<string, unknown> | undefined;
+        const interfaceLayer = canvas?.['interface'] as Record<string, unknown> | undefined;
+        const children = (interfaceLayer?.['children'] as unknown[]) ?? [];
+
+        let hasShoudContainer = false;
+        let hasScanlineUniform = false;
+        let hasGlitchUniform = false;
+
+        for (const child of children) {
+          const c = child as Record<string, unknown>;
+          if (c['label'] === 'SovereignShroud' || c['name'] === 'SovereignShroud') {
+            hasShoudContainer = true;
+            const filters = (c['filters'] as Array<Record<string, unknown>>) ?? [];
+            for (const f of filters) {
+              const uniforms = f['uniforms'] as Record<string, unknown> | undefined;
+              if (uniforms?.['uScanlineAlpha'] !== undefined) hasScanlineUniform = true;
+              if (uniforms?.['uGlitchIntensity'] !== undefined) hasGlitchUniform = true;
+            }
+          }
+        }
+
+        return { hasPretextManager, hasPIXI, hasBitmapText, canvasReady: !!canvas?.['ready'],
+          hasShoudContainer, hasScanlineUniform, hasGlitchUniform };
+      });
+
+      const details = shroudStatus as Record<string, unknown>;
+
+      if (!shroudStatus.hasPretextManager && !shroudStatus.hasShoudContainer) {
+        return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'WARN',
+          message: 'PretextOverlayManager absent — Shroud not yet instantiated (Phase 44.5 pre-implementation)', details };
+      }
+      if (shroudStatus.hasShoudContainer && !shroudStatus.hasScanlineUniform) {
+        return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'WARN',
+          message: 'Shroud container present but uScanlineAlpha shader uniform missing', details };
+      }
+      if (!shroudStatus.hasBitmapText) {
+        return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'WARN',
+          message: `Shroud ${shroudStatus.hasShoudContainer ? 'present' : 'absent'} | PIXI.BitmapText (VT323) not confirmed`, details };
+      }
+
+      return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'PASS',
+        message: `Shroud ONLINE | BitmapText=✓ scanline=${shroudStatus.hasScanlineUniform ? '✓' : '✗'} glitch=${shroudStatus.hasGlitchUniform ? '✓' : '✗'}`,
+        details };
+    } catch (e) {
+      return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'FAIL',
+        message: `CDP eval failed: ${(e as Error).message}` };
+    }
+  },
+
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    if (!ctx.page) return;
+    const i = intent as { text?: string; glitchIntensity?: number } | null;
+    const text = i?.text ?? 'S0VER31GN_SHROUD_TEST';
+    const intensity = i?.glitchIntensity ?? 0.3;
+    await ctx.bridge.runScript(`
+      const bridge = window.SOVEREIGN_BRIDGE;
+      if (bridge && typeof bridge._sendEvent === 'function') {
+        bridge._sendEvent('pretext_overlay', { text: ${JSON.stringify(text)}, duration: 3000 });
+        bridge._sendEvent('pretext_glitch_impulse', { intensity: ${intensity} });
+      }
+    `).catch(() => { /* non-fatal */ });
+  },
+
+  async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
+};

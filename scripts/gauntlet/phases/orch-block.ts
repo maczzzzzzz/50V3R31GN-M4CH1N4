@@ -262,3 +262,75 @@ export const phase24: SovereignShard = {
   },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
+
+// ── Phase 45: Governance Duel (SKELETON — not yet implemented) ─────────────────
+// Verifies that the conflict interception hooks (libWrapper + Document.prototype.update)
+// and arbitration service are registered and ready for the Governance Duel mechanic.
+export const phase45: SovereignShard = {
+  metadata: { id: 45, name: 'Governance-Duel', block: 'ORCHESTRATION' },
+
+  async audit(ctx: GauntletContext): Promise<AuditResult> {
+    if (!ctx.page) {
+      return { phaseId: 45, phaseName: 'Governance-Duel', block: 'ORCHESTRATION', status: 'SKIP',
+        message: 'CDP page unavailable — libWrapper hooks not verifiable' };
+    }
+
+    try {
+      const duelStatus = await ctx.page.evaluate(() => {
+        const g = globalThis as unknown as Record<string, unknown>;
+
+        // Check libWrapper is loaded (Phase 45 pre-req)
+        const hasLibWrapper = !!(g['libWrapper']);
+
+        // Check if Sovereign conflict interceptor is registered
+        // (registered during Phase 45 implementation as a libWrapper hook)
+        const bridge = g['SOVEREIGN_BRIDGE'] as Record<string, unknown> | undefined;
+        const hasConflictInterceptor = !!(bridge?.['_conflictInterceptor'] ?? bridge?.['conflictInterceptorActive']);
+
+        // Check if arbitration service is accessible via bridge
+        const hasArbitration = !!(bridge?.['_arbitrationService'] ?? bridge?.['arbitrationService']);
+
+        return { hasLibWrapper, hasConflictInterceptor, hasArbitration, bridgePresent: !!bridge };
+      });
+
+      const details = duelStatus as Record<string, unknown>;
+
+      if (!duelStatus.hasLibWrapper) {
+        return { phaseId: 45, phaseName: 'Governance-Duel', block: 'ORCHESTRATION', status: 'WARN',
+          message: 'libWrapper not loaded — Phase 45 implementation not yet deployed', details };
+      }
+      if (!duelStatus.hasConflictInterceptor) {
+        return { phaseId: 45, phaseName: 'Governance-Duel', block: 'ORCHESTRATION', status: 'WARN',
+          message: 'libWrapper present but conflict interceptor not registered', details };
+      }
+
+      return { phaseId: 45, phaseName: 'Governance-Duel', block: 'ORCHESTRATION', status: 'PASS',
+        message: `Governance Duel READY | libWrapper=✓ interceptor=✓ arbitration=${duelStatus.hasArbitration ? '✓' : '✗'}`,
+        details };
+    } catch (e) {
+      return { phaseId: 45, phaseName: 'Governance-Duel', block: 'ORCHESTRATION', status: 'FAIL',
+        message: `CDP eval failed: ${(e as Error).message}` };
+    }
+  },
+
+  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
+    // SKELETON: Trigger a test governance duel on the first authority-locked actor
+    // Full implementation pending Phase 45 bridge conflict interceptor deployment.
+    if (!ctx.page) return;
+    const i = intent as { actorId?: string } | null;
+    const actorId = i?.actorId ?? '';
+    await ctx.bridge.runScript(`
+      const bridge = window.SOVEREIGN_BRIDGE;
+      if (bridge && typeof bridge._sendEvent === 'function') {
+        const actor = ${actorId ? `game.actors.get(${JSON.stringify(actorId)})` : 'game.actors.find(a => a.flags?.sovereign?.authority)'};
+        if (actor) {
+          bridge._sendEvent('conflict_interrupt', { actorId: actor.id, source: 'gauntlet_manifest' });
+        } else {
+          bridge._sendEvent('conflict_interrupt', { actorId: null, source: 'gauntlet_manifest_test' });
+        }
+      }
+    `).catch(() => { /* non-fatal — Phase 45 not yet implemented */ });
+  },
+
+  async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
+};
