@@ -29,7 +29,11 @@
     "test:watch": "f(){ if [ -z \"$IN_NIX_SHELL\" ] && command -v nix >/dev/null 2>&1; then nix develop .#default --command vitest \"$@\"; else vitest \"$@\"; fi; }; f",
     "audit:theme": "tsx scripts/theme-auditor.ts",
     "audit:theme:dry": "tsx scripts/theme-auditor.ts --dry-run",
-    "crush": "crush",
+    "boot": "./deck-igniter-cli start",
+    "boot:ghost": "./deck-igniter-cli ghost",
+    "reconstruct": "bash scripts/reconstruct-palace.sh",
+    "crush": "./crush-cli",
+    "terminal": "./crush-cli terminal",
     "dream": "tsx src/scripts/dream-daemon.ts",
     "dream:once": "tsx src/scripts/dream-daemon.ts --once"
   },
