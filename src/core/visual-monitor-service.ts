@@ -125,7 +125,12 @@ export class VisualMonitorService {
         );
       }
 
-      const wsUrl = pageTarget.webSocketDebuggerUrl.replace('127.0.0.1', this.debugHost);
+      // win-proxy returns webSocketDebuggerUrl with `localhost:9222` (Foundry's
+      // internal address). We must rewrite BOTH host AND port to reach the proxy
+      // from WSL: localhost/127.0.0.1 → debugHost, :9222 → :debugPort.
+      const wsUrl = pageTarget.webSocketDebuggerUrl
+        .replace(/localhost:\d+/, `${this.debugHost}:${this.debugPort}`)
+        .replace(/127\.0\.0\.1:\d+/, `${this.debugHost}:${this.debugPort}`);
 
       this.client = await CDP({
         target: wsUrl,

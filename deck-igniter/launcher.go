@@ -74,61 +74,72 @@ const (
 )
 
 // launchFoundry fires Foundry VTT via WSL interop powershell.exe.
-// The process is detached; we track state by polling CDP port 9222.
+// Uses cmd.Start() (non-blocking) — PowerShell is fire-and-forget because
+// CombinedOutput() blocks until PS exits, and Start-Process with
+// -RedirectStandard* holds output handles open from non-console processes,
+// causing the entire boot sequence to hang indefinitely.
+// Readiness is tracked by polling the CDP gate, not PS exit code.
 func launchFoundry(c *Component) tea.Cmd {
 	return func() tea.Msg {
-		// Using PowerShell Start-Process with -WorkingDirectory to completely bypass UNC warnings.
 		workDir := `D:\FoundryVTT\Foundry Virtual Tabletop`
 		args := fmt.Sprintf(`--remote-debugging-port=%d`, foundryPort)
-		
+
 		// 1. Launch Foundry
-		psCmdFoundry := fmt.Sprintf(`Start-Process -FilePath '%s' -ArgumentList '%s' -WorkingDirectory '%s'`, foundryExe, args, workDir)
-		
-		// 2. Launch win-proxy (bridges WSL2 to Windows CDP 9222 -> 9223)
+		psCmdFoundry := fmt.Sprintf(
+			`Start-Process -FilePath '%s' -ArgumentList '%s' -WorkingDirectory '%s'`,
+			foundryExe, args, workDir,
+		)
+
+		// 2. Restart win-proxy — NO -RedirectStandard* flags: output redirection
+		// holds PS output handles open in non-console mode, causing a hang.
+		// win-proxy logs are managed by the process itself or omitted here.
 		psCmdProxy := `
 $conn = Get-NetTCPConnection -LocalPort 9223 -ErrorAction SilentlyContinue;
-if ($conn) { Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue };
-Start-Process -FilePath 'D:\Nodejs\node.exe' -ArgumentList 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\scripts\win-proxy.cjs' -RedirectStandardOutput 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\win-proxy.log' -RedirectStandardError 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\win-proxy-err.log'
+if ($conn) { Stop-Process -Id ($conn | Select-Object -First 1 -ExpandProperty OwningProcess) -Force -ErrorAction SilentlyContinue };
+Start-Process -FilePath 'D:\Nodejs\node.exe' -ArgumentList 'D:\FoundryVTT_Data\Data\modules\50v3r31gn-bridge\scripts\win-proxy.cjs' -WindowStyle Hidden
 `
-		// Combine both into a single PowerShell execution block
 		psCmd := fmt.Sprintf("%s;\n%s", psCmdFoundry, psCmdProxy)
-		
 		cmd := exec.Command(pwshExe, "-NoProfile", "-Command", psCmd)
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 
-		out, err := cmd.CombinedOutput()
-		if err != nil {
+		// Non-blocking: Start() returns as soon as PowerShell is launched.
+		// Any PS-level error (e.g. file not found) will be caught by the CDP gate timing out.
+		if err := cmd.Start(); err != nil {
 			return stateUpdateMsg{
 				name:  c.Name,
 				state: StateError,
-				err:   fmt.Sprintf("pwsh error: %v | out: %s", err, string(out)),
+				err:   fmt.Sprintf("pwsh start error: %v", err),
 			}
 		}
-		
+		// Detach — let PS run independently; we probe readiness via CDP.
+		go func() { _ = cmd.Wait() }()
+
 		return stateUpdateMsg{name: c.Name, state: StateStarting}
 	}
 }
 
 // launchPixtral fires the Pixtral Windows Native Server via WSL interop powershell.exe.
+// Non-blocking (cmd.Start) for the same reason as launchFoundry — CombinedOutput
+// hangs when PS is spawned from a non-console WSL process.
 func launchPixtral(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		workDir := `D:\llama.cpp`
-		// cmd /K keeps the window open for diagnostics if llama-server fails.
 		args := fmt.Sprintf(`/K "%s"`, pixtralBat)
-		psCmd := fmt.Sprintf(`Start-Process -FilePath 'cmd.exe' -ArgumentList '%s' -WorkingDirectory '%s'`, args, workDir)
-		
+		psCmd := fmt.Sprintf(
+			`Start-Process -FilePath 'cmd.exe' -ArgumentList '%s' -WorkingDirectory '%s'`,
+			args, workDir,
+		)
 		cmd := exec.Command(pwshExe, "-NoProfile", "-Command", psCmd)
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 
-		out, err := cmd.CombinedOutput()
-		if err != nil {
+		if err := cmd.Start(); err != nil {
 			return stateUpdateMsg{
 				name:  c.Name,
 				state: StateError,
-				err:   fmt.Sprintf("pwsh error (pixtral): %v | out: %s", err, string(out)),
+				err:   fmt.Sprintf("pwsh start error (pixtral): %v", err),
 			}
 		}
-		
+		go func() { _ = cmd.Wait() }()
 		return stateUpdateMsg{name: c.Name, state: StateStarting}
 	}
 }
