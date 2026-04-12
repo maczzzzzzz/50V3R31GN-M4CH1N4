@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-04-12
+### Added
+- **Sovereign Manifest Engine**: Consolidated 43 historical phases into a unified "Ability Shard" framework. Each phase now has an `audit()` hook for verification and a `manifest()` hook for direct Sovereign Machina control.
+- **Bimodal Vision Integration**: Shards can now leverage Node A (Tactical) and Node B (Aesthetic) vision models for visual truth verification during audits.
+- **Context Resiliency**: Implemented `recursivePageHunt` to ensure the gauntlet runner survives Foundry VTT world reloads and context destructions.
+- **Administrative Control API**: Expanded the shard context with direct VSB packet injection and administrative JS execution via the Foundry Bridge.
+
+### Changed
+- **Unified Audit Entry**: Standardized all live-fire tests into the `npm run gauntlet` master command.
+- **Metadata Alignment**: Updated Knowledge Base and Guides to reflect the v3.1.0 "Sovereign Gauntlet" architecture.
+
+### Fixed
+- **Shard Duplication**: Consolidated block-level phase definitions to eliminate logic overlap between individual files.
+
 ## [3.0.0] - 2026-04-12
 ### Added
 - **Interactive Crush Terminal**: Implemented `crush-cli terminal` REPL for direct two-way narrative communication with Node B (12B Brain).
