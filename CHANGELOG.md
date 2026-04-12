@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0] - 2026-04-11
+### Added
+- **Crush-Proxy Sequence**: Integrated `crush proxy` into the `deck-igniter` WSL layer boot sequence, enabling the terminal orchestrator's neural uplink as a prioritized stage.
+- **Phase 4 Sidecar Ignition**: Re-ordered the global boot protocol to defer Rust sidecars until *after* the gameworld login and dashboard-bridge are fully initialized, reducing canvas initialization collisions.
+- **System State Review**: Generated `test.md` as a persistent log of current Phase 42 blockers and the rebuild strategy.
+
+### Fixed
+- **Pre-existing Env Priority**: Patched `crush/config.go` to respect environment variables that are already set in the shell before `.env` is loaded, resolving chaos-proxy test failures.
+- **Vault Security**: Explicitly sealed all documentation directories via `crush vault seal` as a pre-flight requirement for remote pushes.
+
+### Known Issues
+- **Win-Proxy CDP Timeouts**: The Windows host proxy is dropping CDP packets under heavy load, causing occasional login automation failures in `win-test.cjs`.
+- **CombatBooster PixiJS Deprecation**: Fatal warning in `TurnMarker.js` (PixiJS v7 compatibility) is disrupting canvas hooks; requires a patch or temporary module deactivation.
+- **Theme Leaks**: Standard `SOVEREIGN_THEME_CSS` is failing to penetrate `.journal-page-content` and `.tox-tinymce` iframes in Foundry v12.
+
 ## [2.8.0] - 2026-04-11
 ### Added
 - **Gated Boot Sequence (Phase 42)**: Deck-Igniter now enforces strict dependency ordering via blocking readiness gates — CDP page target before WSL layer, clawlink socket before director, director :3010 before sidecars. Eliminates race conditions that caused silent boot failures.
