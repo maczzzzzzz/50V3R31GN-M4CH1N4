@@ -190,6 +190,23 @@ export class UnifiedOracleClient {
       const palaceSchema = fs.readFileSync('src/db/palace-schema.sql', 'utf8');
       this.db.exec(palaceSchema);
 
+      // ── Phase 47 Migration: district_id columns ──────────────────────────────
+      const phase47Columns: { table: string; column: string }[] = [
+        { table: 'npcs',            column: 'district_id' },
+        { table: 'factions',        column: 'district_id' },
+        { table: 'locations',       column: 'district_id' },
+        { table: 'triplets',        column: 'district_id' },
+        { table: 'chronicle_seeds', column: 'district_id' },
+      ];
+      for (const { table, column } of phase47Columns) {
+        try {
+          const cols = this.db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
+          if (!cols.some(c => c.name === column)) {
+            this.db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} TEXT`);
+          }
+        } catch { /* table may not exist yet — world-schema.sql will create it */ }
+      }
+
       // ── Phase 21 Migration: NPC Life-Path Logs ────────────────────────────────
       this.db.exec(`
         CREATE TABLE IF NOT EXISTS npc_logs (

@@ -1,34 +1,96 @@
 #!/usr/bin/env bash
-# scripts/vault-reconstruct.sh
-# 50V3R31GN-M4CH1N4: High-performance vault reconstruction via shell.
+# scripts/reconstruct-palace.sh
+# 50V3R31GN-M4CH1N4: Phase 47 — UN1V3R54L-C0D3X Palace Reconstruction
+#
+# Organizes the Obsidian vault by: District → Faction → Category
+# Auto-tags entries based on source provenance.
 # Bypasses Node.js OOM by using sqlite3 directly.
+#
+# Usage:
+#   bash scripts/reconstruct-palace.sh              # Full rebuild
+#   bash scripts/reconstruct-palace.sh --palace-only # Skip file write (schema check only)
 
-VAULT_WSL="/home/nixos/50V3R31GN-M4CH1N4/data/vault/RKG"
-VAULT_WIN="/mnt/d/Obsidian_RKG"
-DB="data/Akashik.db"
+set -euo pipefail
 
-mkdir -p "$VAULT_WSL/Items" "$VAULT_WSL/Actors" "$VAULT_WSL/Lore" "$VAULT_WSL/Factions" "$VAULT_WSL/Core_Rules" "$VAULT_WSL/Chronicles"
-mkdir -p "$VAULT_WIN/Items" "$VAULT_WIN/Actors" "$VAULT_WIN/Lore" "$VAULT_WIN/Factions" "$VAULT_WIN/Core_Rules" "$VAULT_WIN/Chronicles"
+VAULT_WSL="${OBSIDIAN_VAULT_PATH:-/home/nixos/50V3R31GN-M4CH1N4/data/vault/RKG}"
+VAULT_WIN="${WINDOWS_VAULT_ROOT:-/mnt/d/Obsidian_RKG}"
+DB="${AKASHIK_DB_PATH:-data/Akashik.db}"
+PALACE_ONLY="${1:-}"
 
-echo ">> RECONSTRUCTING TRIPLET ENTITIES..."
-# Export triplets (basic entities)
-sqlite3 -header -csv "$DB" "SELECT subject_id, predicate, object_literal FROM triplets WHERE predicate NOT LIKE 'PURGED_%';" | tail -n +2 | while IFS=',' read -r sub pred obj; do
-    # Crude sanitization
-    file=$(echo "$sub" | tr -d '"' | tr ' /' '_')
+# ── Ensure base directories exist ─────────────────────────────────────────────
+
+mkdir -p \
+  "$VAULT_WSL/Districts" \
+  "$VAULT_WSL/Global/Items" \
+  "$VAULT_WSL/Global/Actors" \
+  "$VAULT_WSL/Global/Lore" \
+  "$VAULT_WSL/Global/Factions" \
+  "$VAULT_WSL/Global/Knowledge" \
+  "$VAULT_WSL/Chronicles/Global" \
+  "$VAULT_WIN/Districts" \
+  "$VAULT_WIN/Global" \
+  "$VAULT_WIN/Chronicles/Global" 2>/dev/null || true
+
+if [[ "$PALACE_ONLY" == "--palace-only" ]]; then
+  echo ">> PALACE-ONLY mode: skipping file write."
+  exit 0
+fi
+
+# ── Provenance tag mapper ─────────────────────────────────────────────────────
+
+provenance_tag() {
+  local src="${1:-UNKNOWN}"
+  case "${src^^}" in
+    MIRAHEZE)      echo "provenance/miraheze" ;;
+    "Z-TEAM")      echo "provenance/z-team" ;;
+    "WORLD-ANVIL") echo "provenance/world-anvil" ;;
+    AKASHIK_DB)    echo "provenance/akashik" ;;
+    *)             echo "provenance/unknown" ;;
+  esac
+}
+
+# ── TRIPLET ENTITIES ──────────────────────────────────────────────────────────
+
+echo ">> RECONSTRUCTING TRIPLET ENTITIES (District → Category)..."
+
+# Columns: subject_id | predicate | object_literal | district_id (may be empty)
+sqlite3 "$DB" \
+  "SELECT subject_id, predicate, object_literal, COALESCE(district_id,'') FROM triplets WHERE predicate NOT LIKE 'PURGED_%';" \
+| while IFS='|' read -r sub pred obj district; do
+    file=$(echo "$sub" | tr -d '"' | tr ' /' '_' | cut -c1-200)
+
+    # Category detection
     folder="Knowledge"
-    # Basic sorting logic
-    if [[ "$sub" =~ [Mm]aterials || "$sub" =~ [Ss]hard || "$sub" =~ [Ww]eapon ]]; then folder="Items"; fi
-    
-    path_wsl="$VAULT_WSL/$folder/$file.md"
+    sub_lc="${sub,,}"
+    if [[ "$sub_lc" =~ materials|shard|weapon|armor|cyberware ]]; then folder="Items"; fi
+    if [[ "$pred" == "is" && ("$obj" =~ [Nn][Pp][Cc]|[Aa]ctor) ]]; then folder="Actors"; fi
+
+    # District path
+    if [[ -n "$district" ]]; then
+      dir_wsl="$VAULT_WSL/Districts/$district/$folder"
+      dir_win="$VAULT_WIN/Districts/$district/$folder"
+    else
+      dir_wsl="$VAULT_WSL/Global/$folder"
+      dir_win="$VAULT_WIN/Global/$folder"
+    fi
+
+    mkdir -p "$dir_wsl" "$dir_win"
+    path_wsl="$dir_wsl/$file.md"
+    path_win="$dir_win/$file.md"
+
     if [ ! -f "$path_wsl" ]; then
-        cat <<EOF > "$path_wsl"
+      district_tag=""
+      if [[ -n "$district" ]]; then
+        district_tag="district: $district"$'\n'
+      fi
+      cat <<EOF > "$path_wsl"
 ---
 subject: $sub
 type: Entity
-tags: [rkg/$folder]
+tags: [rkg/${folder,,}, provenance/akashik]
 sovereign: true
 source: AKASHIK_DB
----
+${district_tag}---
 
 # $sub
 
@@ -36,29 +98,60 @@ source: AKASHIK_DB
 - **$pred** :: [[$obj]]
 EOF
     else
-        echo "- **$pred** :: [[$obj]]" >> "$path_wsl"
+      echo "- **$pred** :: [[$obj]]" >> "$path_wsl"
     fi
-done
 
-echo ">> RECONSTRUCTING CHRONICLE ENTRIES (3300+)..."
-# Use a more efficient way for chronicles
-sqlite3 "$DB" "SELECT title, category, source, era_grounding, content FROM chronicle_seeds WHERE status = 'approved';" | while IFS='|' read -r title cat src era content; do
-    file=$(echo "$title" | tr ' /' '_')
-    folder="Lore"
-    if [[ "$cat" =~ Gear || "$cat" =~ Technical ]]; then folder="Items"; fi
-    if [[ "$cat" =~ Corporate ]]; then folder="Factions"; fi
-    
-    path_wsl="$VAULT_WSL/Chronicles/$folder/$file.md"
-    mkdir -p "$(dirname "$path_wsl")"
-    
+    # Mirror to Windows vault
+    cp "$path_wsl" "$path_win" 2>/dev/null || true
+  done
+
+echo ">> TRIPLET ENTITIES: done."
+
+# ── CHRONICLE SEEDS ───────────────────────────────────────────────────────────
+
+echo ">> RECONSTRUCTING CHRONICLE ENTRIES (District → Category)..."
+
+# Columns: id | title | category | source | era_grounding | district_id | content
+sqlite3 "$DB" \
+  "SELECT title, category, source, era_grounding, COALESCE(district_id,''), content
+   FROM chronicle_seeds
+   WHERE status = 'approved';" \
+| while IFS='|' read -r title cat src era district content; do
+    file=$(echo "$title" | tr ' /' '_' | tr -d '"' | cut -c1-200)
+    clean_cat="${cat//#/}"
+    prov_tag=$(provenance_tag "$src")
+
+    # Category → folder mapping
+    subfolder="Lore"
+    if [[ "$clean_cat" == "Gear" || "$clean_cat" == "Technical" ]]; then subfolder="Items"; fi
+    if [[ "$clean_cat" == "Corporate" ]]; then subfolder="Factions"; fi
+
+    # District path
+    if [[ -n "$district" ]]; then
+      dir_wsl="$VAULT_WSL/Chronicles/Districts/$district/$subfolder"
+      dir_win="$VAULT_WIN/Chronicles/Districts/$district/$subfolder"
+    else
+      dir_wsl="$VAULT_WSL/Chronicles/Global/$subfolder"
+      dir_win="$VAULT_WIN/Chronicles/Global/$subfolder"
+    fi
+
+    mkdir -p "$dir_wsl" "$dir_win"
+    path_wsl="$dir_wsl/$file.md"
+    path_win="$dir_win/$file.md"
+
+    district_props=""
+    if [[ -n "$district" ]]; then
+      district_props="district: $district"$'\n'
+    fi
+
     cat <<EOF > "$path_wsl"
 ---
 subject: $title
 type: Chronicle
-tags: [rkg/chronicles, ${cat#\#}]
+tags: [rkg/chronicles/${subfolder,,}, $clean_cat, $prov_tag]
 source: $src
 era: $era
-sovereign: true
+${district_props}sovereign: true
 ---
 
 # $title
@@ -68,9 +161,10 @@ $content
 ---
 _Source: $src_
 EOF
-done
 
-echo ">> SYNCING TO WINDOWS MIRROR..."
-cp -r "$VAULT_WSL/"* "$VAULT_WIN/"
+    cp "$path_wsl" "$path_win" 2>/dev/null || true
+  done
 
-echo "✅ RECONSTRUCTION COMPLETE."
+echo ">> CHRONICLES: done."
+
+echo "✅ RECONSTRUCTION COMPLETE. Vault organized by District → Category."

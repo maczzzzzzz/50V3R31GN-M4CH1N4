@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS npcs (
     emp INTEGER DEFAULT 0,
     humanity INTEGER DEFAULT 0,
     faction TEXT,
+    district_id TEXT,
     disposition TEXT CHECK (disposition IN ('friendly', 'neutral', 'hostile')),
     is_alive BOOLEAN DEFAULT 1
 );
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS locations (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     owner_faction TEXT,
+    district_id TEXT,
     is_secured BOOLEAN DEFAULT 0
 );
 
@@ -24,6 +26,7 @@ CREATE TABLE IF NOT EXISTS triplets (
     subject_id TEXT NOT NULL,
     predicate TEXT NOT NULL,
     object_literal TEXT NOT NULL,
+    district_id TEXT,
     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -65,6 +68,7 @@ CREATE TABLE IF NOT EXISTS player_housing (
 CREATE TABLE IF NOT EXISTS factions (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
+    district_id TEXT,
     relationship_score INTEGER DEFAULT 0 CHECK (relationship_score BETWEEN -10 AND 10),
     friction_pool INTEGER DEFAULT 0 CHECK (friction_pool BETWEEN 0 AND 10)
 );
@@ -253,6 +257,34 @@ CREATE TABLE IF NOT EXISTS chronicle_seeds (
     source TEXT NOT NULL, -- 'MIRAHEZE', 'Z-TEAM', 'WORLD-ANVIL'
     category TEXT NOT NULL, -- '#Historical', '#Corporate', '#Gossip', '#Technical'
     era_grounding TEXT DEFAULT '2045',
+    district_id TEXT,
     status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Phase 47: Chronicle FTS5 index for zero-latency cross-source lore retrieval
+CREATE VIRTUAL TABLE IF NOT EXISTS chronicle_fts USING fts5(
+    title,
+    content,
+    category,
+    district_id,
+    content=chronicle_seeds
+);
+
+-- Triggers to keep chronicle_fts in sync
+CREATE TRIGGER IF NOT EXISTS chronicle_ai AFTER INSERT ON chronicle_seeds BEGIN
+  INSERT INTO chronicle_fts(rowid, title, content, category, district_id)
+  VALUES (new.rowid, new.title, new.content, new.category, new.district_id);
+END;
+
+CREATE TRIGGER IF NOT EXISTS chronicle_ad AFTER DELETE ON chronicle_seeds BEGIN
+  INSERT INTO chronicle_fts(chronicle_fts, rowid, title, content, category, district_id)
+  VALUES ('delete', old.rowid, old.title, old.content, old.category, old.district_id);
+END;
+
+CREATE TRIGGER IF NOT EXISTS chronicle_au AFTER UPDATE ON chronicle_seeds BEGIN
+  INSERT INTO chronicle_fts(chronicle_fts, rowid, title, content, category, district_id)
+  VALUES ('delete', old.rowid, old.title, old.content, old.category, old.district_id);
+  INSERT INTO chronicle_fts(rowid, title, content, category, district_id)
+  VALUES (new.rowid, new.title, new.content, new.category, new.district_id);
+END;
