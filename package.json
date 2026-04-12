@@ -43,7 +43,10 @@
     "mcp:test": "tsx scripts/dev/test-mcp-connection.ts",
     "gauntlet": "tsx scripts/gauntlet/engine.ts",
     "gauntlet:no-cdp": "tsx scripts/gauntlet/engine.ts --no-cdp",
-    "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest"
+    "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest",
+    "forge:threats": "tsx scripts/forge/export-threat-library.ts",
+    "forge:threats:akashik": "tsx scripts/forge/export-threat-library.ts --source=akashik",
+    "forge:threats:foundry": "tsx scripts/forge/export-threat-library.ts --source=foundry"
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",

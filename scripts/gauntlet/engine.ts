@@ -170,7 +170,7 @@ async function main() {
   console.log(`[vision] Node B (Aesthetic): ${visionHealth.nodeB ? '✓' : '✗ offline'}`);
 
   // ── SQLite ────────────────────────────────────────────────────────────────
-  const worldDbPath = process.env['WORLD_DB_PATH'] ?? './data/world.db';
+  const worldDbPath = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
   let db: Database.Database | null = null;
   try {
     db = new Database(worldDbPath, { readonly: true });
@@ -321,15 +321,19 @@ async function main() {
   }
 
   // ── Phase 46 Pulse Propagation — run after each gauntlet cycle ───────────
-  if (db) {
+  // Open a separate write-capable connection since the audit db is readonly.
+  if (worldDbPath) {
+    let writeDb: Database.Database | null = null;
     try {
-      // Minimal oracle adapter: propagatePulse() only needs getRawDatabase()
-      const minimalOracle = { getRawDatabase: () => db } as unknown as UnifiedOracleClient;
+      writeDb = new Database(worldDbPath);
+      const minimalOracle = { getRawDatabase: () => writeDb } as unknown as UnifiedOracleClient;
       const pulse = new PulseEngine(minimalOracle, null as unknown as INitroLogicClient);
       pulse.propagatePulse();
       console.log('\n  [pulse] propagatePulse() — sovereignty_depth and faction friction updated');
     } catch (e) {
-      console.warn('\n  [pulse] propagatePulse() skipped (no duel_history yet):', (e as Error).message.slice(0, 80));
+      console.warn('\n  [pulse] propagatePulse() skipped:', (e as Error).message.slice(0, 80));
+    } finally {
+      writeDb?.close();
     }
   }
 
