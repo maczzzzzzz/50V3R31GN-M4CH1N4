@@ -10,7 +10,7 @@
  */
 
 import { PretextOverlayManager } from './scripts/pretext-overlay-manager.js';
-import './scripts/sovereign-dashboard.js';
+// sovereign-dashboard.js decommissioned — absorbed into CL4W Nucleus Deck (:/LOGISTICS //)
 
 /** PIXI v7 Compatibility Patch for legacy modules (CombatBooster) */
 if (typeof PIXI !== 'undefined' && PIXI.filters && !PIXI.filters.ColorMatrixFilter) {
@@ -127,9 +127,8 @@ class FoundryApiBridge {
 
     Hooks.on('renderMainMenu', (app, html) => {
       const jqHtml = $(html);
-      if (jqHtml.find('#sovereign-menu-btn').length) return;
 
-      // Apply leet speak to all existing menu button text nodes
+      // Apply leet speak to all existing menu button text nodes (immersive — retained)
       const leetMap = { a:'4', e:'3', i:'1', o:'0', s:'5', t:'7', g:'6', b:'8', l:'1' };
       jqHtml.find('button, .menu-item').addBack('button, .menu-item').contents().filter(function() {
         return this.nodeType === 3 && this.nodeValue.trim().length > 0;
@@ -144,33 +143,7 @@ class FoundryApiBridge {
 
       $('body').addClass('neural-glitch-active');
       setTimeout(() => $('body').removeClass('neural-glitch-active'), 400);
-
-      const indicator = $(`
-        <li id="sovereign-menu-btn" class="sovereign-menu-item">
-          <button class="sovereign-btn" title="0p3N 5H4D0W_D45HB04RD">
-            ◈ 50V3R31GN BR1DG3
-          </button>
-        </li>
-      `);
-
-      indicator.find('button').on('click', (ev) => {
-        ev.preventDefault();
-        // @ts-ignore
-        if (game.sovereignDashboard) {
-          game.sovereignDashboard.render({ force: true });
-          // Ensure it doesn't block the menu's ability to close via Escape
-          // by making sure the menu remains the top-most focused thing if it was already.
-          if (ui.menu.rendered) ui.menu.element.focus();
-        }
-      });
-
-      const menu = jqHtml.find('ol#menu-items, ol').first();
-      if (menu.length) {
-        menu.prepend(indicator);
-      } else {
-        const nav = jqHtml.find('nav').first();
-        if (nav.length) nav.append(indicator);
-      }
+      // Sovereign Dashboard button removed — control surface moved to CL4W Nucleus Deck
     });
 
     this._connect(wsUrl);
@@ -582,22 +555,7 @@ class FoundryApiBridge {
   }
 }
 
-/**
- * DashboardTab Application
- */
-class DashboardTab extends Application {
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      id: "50v3r31gn-dashboard",
-      template: "modules/50v3r31gn-bridge/templates/dashboard.hbs",
-      title: "Night City Dashboard",
-      width: 320,
-      height: 600,
-      resizable: true,
-      closeOnEscape: false,
-    });
-  }
-}
+// DashboardTab decommissioned — absorbed into CL4W Nucleus Deck (:/LOGISTICS //)
 
 let bridge = null;
 
@@ -609,12 +567,7 @@ Hooks.once('init', () => {
     type: String,
     default: DEFAULT_WS_URL,
   });
-
-  // @ts-ignore
-  if (CONFIG.ui.sidebarTabs) {
-    // @ts-ignore
-    CONFIG.ui.sidebarTabs["50v3r31gn-dashboard"] = DashboardTab;
-  }
+  // sidebarTabs["50v3r31gn-dashboard"] registration removed — Nucleus Deck is the control surface
 });
 
 Hooks.once('ready', () => {
