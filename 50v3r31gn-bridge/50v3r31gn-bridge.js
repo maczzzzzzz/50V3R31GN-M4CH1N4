@@ -185,11 +185,11 @@ class FoundryApiBridge {
     if (!game.modules.get('lib-wrapper')?.active) return;
     const bridge = this;
 
-    const governanceWrapper = async function(wrapped, ...args) {
+    // Actor.prototype.update — governance only (no movement concerns for actors)
+    const actorGovernanceWrapper = async function(wrapped, ...args) {
       const doc = this;
       const [data] = args;
 
-      // Only intercept on sovereign-authority-locked documents
       const isSovereignLocked =
         doc.getFlag?.(MODULE_ID, 'authority') ??
         doc.flags?.sovereign?.authority ??
@@ -213,14 +213,11 @@ class FoundryApiBridge {
           ui.notifications.info(`[GOVERNANCE DUEL] Defer: ${verdict.reason ?? 'Operator granted concession.'}`);
         }
       } catch (err) {
-        // FAIL-LOCKED: governance connection failure BLOCKS the update.
-        // An unsanctioned change on a sovereign-authority object is never permitted
-        // silently — the operator must be notified and the change rejected.
         const reason = err instanceof Error ? err.message : String(err);
         ui.notifications.error(
           `[GOVERNANCE DUEL] Fail-Locked — update BLOCKED (connection lost): ${reason}`
         );
-        this._sendEvent('governance_fail_locked', {
+        bridge._sendEvent('governance_fail_locked', {
           documentType: doc.documentName ?? doc.constructor.name,
           documentId: doc.id,
           error: reason,
@@ -233,9 +230,9 @@ class FoundryApiBridge {
     };
 
     // @ts-ignore
-    libWrapper.register(MODULE_ID, 'TokenDocument.prototype.update', governanceWrapper, 'MIXED');
-    // @ts-ignore
-    libWrapper.register(MODULE_ID, 'Actor.prototype.update', governanceWrapper, 'MIXED');
+    libWrapper.register(MODULE_ID, 'Actor.prototype.update', actorGovernanceWrapper, 'MIXED');
+    // NOTE: TokenDocument.prototype.update is handled by _setupCounterHacks which
+    // consolidates both governance duel and movement validation into a single wrapper.
   }
 
   _setupErrorCapture() {
@@ -260,33 +257,78 @@ class FoundryApiBridge {
   }
 
   _setupCounterHacks() {
+    if (!game.modules.get('lib-wrapper')?.active) return;
     const bridge = this;
-    const wrapper = async function(wrapped, ...args) {
+
+    // Unified TokenDocument.prototype.update interceptor — handles BOTH governance
+    // duel arbitration (sovereign-locked tokens) and movement validation in a single
+    // libWrapper registration, preventing the overwrite conflict from dual registration.
+    const tokenUpdateWrapper = async function(wrapped, ...args) {
+      const doc = this;
       const [data] = args;
+
+      // ── 1. Governance Duel (sovereign-authority-locked documents) ──────────
+      const isSovereignLocked =
+        doc.getFlag?.(MODULE_ID, 'authority') ??
+        doc.flags?.sovereign?.authority ??
+        false;
+
+      if (isSovereignLocked) {
+        try {
+          const verdict = await bridge.sendRequest('conflict_interrupt', {
+            documentType: doc.documentName ?? doc.constructor.name,
+            documentId: doc.id,
+            documentName: doc.name,
+            proposedChanges: data,
+          });
+
+          if (verdict?.result === 'VETO') {
+            ui.notifications.warn(`[GOVERNANCE DUEL] Veto: ${verdict.reason ?? 'Sovereign authority maintained.'}`);
+            return null;
+          }
+          if (verdict?.result === 'DEFER') {
+            ui.notifications.info(`[GOVERNANCE DUEL] Defer: ${verdict.reason ?? 'Operator granted concession.'}`);
+          }
+        } catch (err) {
+          // FAIL-LOCKED: block the update if governance connection is lost.
+          const reason = err instanceof Error ? err.message : String(err);
+          ui.notifications.error(
+            `[GOVERNANCE DUEL] Fail-Locked — update BLOCKED (connection lost): ${reason}`
+          );
+          bridge._sendEvent('governance_fail_locked', {
+            documentType: doc.documentName ?? doc.constructor.name,
+            documentId: doc.id,
+            error: reason,
+            timestamp: Date.now(),
+          });
+          return null;
+        }
+      }
+
+      // ── 2. Movement Validation ────────────────────────────────────────────
       if (data.x !== undefined || data.y !== undefined) {
         try {
-          const isLegal = await bridge.sendRequest('validate_move', { 
-            actorId: this.actor?.id, 
-            tokenId: this.id,
-            x: data.x !== undefined ? data.x : this.x, 
-            y: data.y !== undefined ? data.y : this.y 
+          const isLegal = await bridge.sendRequest('validate_move', {
+            actorId: doc.actor?.id,
+            tokenId: doc.id,
+            x: data.x !== undefined ? data.x : doc.x,
+            y: data.y !== undefined ? data.y : doc.y,
           });
 
           if (isLegal && isLegal.verdict === 'INVALID') {
             ui.notifications.warn(`Movement Blocked: ${isLegal.reason}`);
-            return null; 
+            return null;
           }
         } catch (err) {
           console.error(`[${MODULE_ID}] Move validation failed:`, err);
         }
       }
+
       return wrapped(...args);
     };
 
-    if (game.modules.get('lib-wrapper')?.active) {
-      // @ts-ignore
-      libWrapper.register(MODULE_ID, 'TokenDocument.prototype.update', wrapper, 'MIXED');
-    }
+    // @ts-ignore
+    libWrapper.register(MODULE_ID, 'TokenDocument.prototype.update', tokenUpdateWrapper, 'MIXED');
   }
 
   _setupInterception() {

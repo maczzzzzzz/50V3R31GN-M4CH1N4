@@ -102,7 +102,7 @@ EOF
     fi
 
     # Mirror to Windows vault
-    cp "$path_wsl" "$path_win" 2>/dev/null || true
+    rsync -a --update "$path_wsl" "$path_win" 2>/dev/null || true
   done
 
 echo ">> TRIPLET ENTITIES: done."
@@ -162,7 +162,7 @@ $content
 _Source: $src_
 EOF
 
-    cp "$path_wsl" "$path_win" 2>/dev/null || true
+    rsync -a --update "$path_wsl" "$path_win" 2>/dev/null || true
   done
 
 echo ">> CHRONICLES: done."

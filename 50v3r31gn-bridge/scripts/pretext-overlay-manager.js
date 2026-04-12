@@ -66,15 +66,23 @@ export class PretextOverlayManager {
     console.log('[PretextOverlayManager] Initialized');
     this.activeOverlays = new Map();
 
-    // Defer shroud init until the canvas is fully ready
+    // Defer shroud init until the canvas is fully ready, then register reattach
+    // for all subsequent scene changes.  Registering 'canvasReady' only AFTER the
+    // first init prevents double-initialization (Hooks.once + Hooks.on both firing
+    // on the same event when canvas is not yet ready at module load time).
+    const registerReattach = () => {
+      Hooks.on('canvasReady', () => this._reattachShroud());
+    };
+
     if (typeof canvas !== 'undefined' && canvas.ready) {
       this._initShroud();
+      registerReattach();
     } else {
-      Hooks.once('canvasReady', () => this._initShroud());
+      Hooks.once('canvasReady', () => {
+        this._initShroud();
+        registerReattach();
+      });
     }
-
-    // Re-attach shroud on every subsequent scene change
-    Hooks.on('canvasReady', () => this._reattachShroud());
   }
 
   // ── Shroud Singleton ────────────────────────────────────────────────────────
@@ -290,6 +298,9 @@ export class PretextOverlayManager {
         requestAnimationFrame(animate);
       } else {
         container.removeChild(textObj);
+        // Explicitly release GPU memory — PIXI Text/BitmapText objects accumulate
+        // in VRAM if only removed from the scene graph without being destroyed.
+        textObj.destroy({ texture: false, baseTexture: false });
         if (container.children.length === 0) {
           canvas.interface.removeChild(container);
           this.activeOverlays.delete(payload.targetId);
