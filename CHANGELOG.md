@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.1] - 2026-04-12
+### Added
+- **Phase 49 (Semantic Refinement)**: Upgraded the harmonization engine with TF-IDF scoring and bigram phrase extraction for precise district disambiguation (e.g., "Little China" vs "Kabuki").
+- **Threat Library Export**: Extended the forge CLI to support NPC exports from `Akashik.db` with source-specific filtering.
+- **Gauntlet Shard Filter**: Added `--shard=N` support to the gauntlet engine for targeted auditing.
+
+### Changed
+- **Nix Environment Hardening**: Added `rsync` and `ripgrep` to `flake.nix` and removed aggressive shell-exit traps to allow MCP bridge persistence.
+- **Pulse Automation**: Integrated automated sovereignty depth updates into the gauntlet execution loop.
+
+### Fixed
+- **Foundry libWrapper Conflict**: Consolidated movement and governance wrappers into a single unified interceptor.
+- **VRAM Memory Leak**: Fixed filter/object accumulation in the Pretext overlay cleanup cycle.
+- **RKG Mirroring Performance**: Optimized `reconstruct-palace.sh` to use `rsync` modification checks for the 10,000+ file vault.
+
 ## [3.2.0] - 2026-04-12
 ### Added
 - **Phase 48 (Sovereign Triad Bridge)**: Designed a shared "Codebase Brain" for Gemini CLI and Droid CLI using standard MCP servers over a Unix Domain Socket, integrated with a Nix-native, impure/unfree dev environment.
