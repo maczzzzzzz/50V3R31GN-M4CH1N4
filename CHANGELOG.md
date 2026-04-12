@@ -10,6 +10,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Phase 44.5 (The Sovereign Shroud)**: Designed a high-performance WebGL visual layer using a Master Fragment Shader for ambient CRT scanlines and dynamic glitch distortions.
 - **Ability Shard Mandate**: Established a permanent engineering mandate in CLAUDE.md requiring a corresponding verification shard for every project phase.
 - **Expanded Shard Context**: Added `vsb.send`, `bridge.runScript`, and `cli.execute` hooks to the Gauntlet Engine to enable direct world manipulation.
+- **Unified Observability**: Initiated the logging upgrade to capture live Gauntlet test results and in-game errors into a centralized "Sovereign View" stream.
 
 ### Changed
 - **Roadmap Evolution**: Integrated the Sovereign Shroud into the official implementation plan as a critical visual bridge between Motor Cortex and Governance Duels.
