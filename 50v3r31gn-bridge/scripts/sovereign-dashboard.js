@@ -15,6 +15,7 @@ class SovereignDashboard extends ApplicationV2 {
       title: "◈ 5H4D0W_D45HB04RD [50V3R31GN_MN7R]",
       resizable: true,
       minimizable: true,
+      closeOnEscape: false,
     },
     position: {
       width: 900,
@@ -23,6 +24,27 @@ class SovereignDashboard extends ApplicationV2 {
       left: 60,
     },
   };
+
+  /** Toggle the dashboard state. */
+  toggle() {
+    if (this.rendered) this.close();
+    else this.render({ force: true });
+  }
+
+  /** Prevent Escape from closing the dashboard even if it has focus. */
+  _onKeyDown(event) {
+    if (event.code === "Escape") {
+      // If the Main Menu is open, close it and return to game.
+      // ApplicationV2 windows often stay on top, so we manually close the menu.
+      if (ui.menu?.rendered) {
+        ui.menu.close();
+        // Also unpause the game to return to full interaction
+        game.togglePause(false);
+        return;
+      }
+    }
+    super._onKeyDown(event);
+  }
 
   /** Render the iframe shell directly — no Handlebars template needed. */
   async _renderHTML(_context, _options) {
@@ -87,6 +109,15 @@ function registerDashboard() {
   if (game.sovereignDashboard) return;
   // Expose global instance for console access
   game.sovereignDashboard = new SovereignDashboard();
+
+  // Add keyboard listener for Ctrl+Shift+D
+  window.addEventListener("keydown", (ev) => {
+    if (ev.ctrlKey && ev.shiftKey && ev.code === "KeyD") {
+      ev.preventDefault();
+      game.sovereignDashboard.toggle();
+    }
+  });
+
   console.log("[SOVEREIGN] Dashboard bridge registered — Ctrl+Shift+D to open");
 }
 

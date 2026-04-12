@@ -156,7 +156,12 @@ class FoundryApiBridge {
       indicator.find('button').on('click', (ev) => {
         ev.preventDefault();
         // @ts-ignore
-        if (game.sovereignDashboard) game.sovereignDashboard.render({ force: true });
+        if (game.sovereignDashboard) {
+          game.sovereignDashboard.render({ force: true });
+          // Ensure it doesn't block the menu's ability to close via Escape
+          // by making sure the menu remains the top-most focused thing if it was already.
+          if (ui.menu.rendered) ui.menu.element.focus();
+        }
       });
 
       const menu = jqHtml.find('ol#menu-items, ol').first();
