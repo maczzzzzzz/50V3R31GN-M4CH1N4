@@ -65,6 +65,10 @@
             napi-rs-cli
             protobuf
 
+            # File utilities (required by reconstruct-palace.sh + mcp-daemon)
+            rsync
+            ripgrep
+
             # AI/Inference & GPU (RADV for AMD Vulkan)
             llama-cpp-vulkan
             vulkan-loader
@@ -114,9 +118,6 @@
                 >> "$PROJECT_ROOT/data/logs/mcp-bridge.log" 2>&1 &
               disown $!
             fi
-
-            # Kill daemon on shell exit
-            trap 'if [ -f "$MCP_PID_FILE" ]; then kill "$(cat "$MCP_PID_FILE")" 2>/dev/null || true; fi' EXIT
 
             echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
