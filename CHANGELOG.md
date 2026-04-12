@@ -7,14 +7,23 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [3.2.0] - 2026-04-12
 ### Added
+- **Phase 48 (Sovereign Triad Bridge)**: Designed a shared "Codebase Brain" for Gemini CLI and Droid CLI using standard MCP servers over a Unix Domain Socket, integrated with a Nix-native, impure/unfree dev environment.
 - **Phase 44.5 (The Sovereign Shroud)**: Designed a high-performance WebGL visual layer using a Master Fragment Shader for ambient CRT scanlines and dynamic glitch distortions.
+- **Control Upgrade (COMPLETED)**: Expanded the Gauntlet Engine context with `vsb.send`, `bridge.runScript`, and `cli.execute` hooks. Migrated all "Synthetic Gauntlet" logic into modular manifest() hooks.
+- **Unified Logging (COMPLETED)**: Implemented structured `audit()` and `manifest()` logging in `src/shared/logger.ts`. Enabled bridge-level error capture and reporting.
 - **Ability Shard Mandate**: Established a permanent engineering mandate in CLAUDE.md requiring a corresponding verification shard for every project phase.
-- **Expanded Shard Context**: Added `vsb.send`, `bridge.runScript`, and `cli.execute` hooks to the Gauntlet Engine to enable direct world manipulation.
-- **Unified Observability**: Initiated the logging upgrade to capture live Gauntlet test results and in-game errors into a centralized "Sovereign View" stream.
+- **Phase Shard Groundwork**: Implemented specialized shards for Phase 43 (Stability), Phase 44 (Motor Cortex), Phase 44.5 (Shroud), and Phase 45 (Governance).
 
 ### Changed
-- **Roadmap Evolution**: Integrated the Sovereign Shroud into the official implementation plan as a critical visual bridge between Motor Cortex and Governance Duels.
+- **Roadmap Evolution**: Integrated the Sovereign Shroud and Triad Bridge into the official implementation plan as critical architectural bridges.
 - **Architecture Refinement**: Promoted Pretext rendering from individual DOM/Canvas elements to a single GPU-accelerated WebGL batch.
+
+### Fixed
+- **Phase 42-45 Audit Remediation**: 
+    - Resolved Nix Sovereignty violations by removing hardcoded absolute paths and static IPs.
+    - Implemented Fail-Locked governance in `50v3r31gn-bridge.js` to replace Fail-Open vulnerability.
+    - Fixed Shroud shader scaling for non-1024px displays via new `uResolution` uniform.
+    - Resolved VRAM leak in `PretextOverlayManager` by explicitly destroying filter instances on scene change.
 
 ### Added
 - **Sovereign Manifest Engine**: Consolidated 43 historical phases into a unified "Ability Shard" framework. Each phase now has an `audit()` hook for verification and a `manifest()` hook for direct Sovereign Machina control.
