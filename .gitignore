@@ -43,6 +43,11 @@ akashik_guides/**/*.txt
 !**/*.ldb.png
 !**/*.log.png
 
+# --- OFF-L1N3_M3M0RY_P4L4C3 (Phase 43) ---
+# Too many files to seal; kept local-only and unversioned.
+data/vault/RKG/
+/mnt/d/Obsidian_RKG/
+
 .vesper_state
 
 # IDE & OS Files

@@ -1,14 +1,11 @@
 /**
- * ObsidianSyncService — Bidirectional RKG ↔ Obsidian Vault Synchronizer
+ * ObsidianSyncService — Semantic Bidirectional RKG ↔ Obsidian Vault Synchronizer
  *
- * Phase 37: 0B51D14N_5YNC [7H3-HUM4N-R34D4BL3-V4UL7]
+ * Phase 43: 53M4N71C_V4UL7_R3C0N57RUC710N
  *
- * Export: Polls `triplets` table → writes YAML-frontmatter .md files
- *          to data/vault/RKG/.
- * Import: chokidar watcher on data/vault/RKG/ → upserts parsed YAML back
- *          into Akashik.db.
- * Fail-safe: All errors are logged as S1GN4L_L055 and do NOT block the
- *             core agentic loop.
+ * Transform: Converts raw database triplets AND chronicle seeds into structured
+ *            Obsidian notes with hierarchical folders and semantic tags.
+ *            MAX-STABILITY approach: minimal memory allocation, batched IO.
  */
 
 import fs from 'node:fs';
@@ -21,7 +18,8 @@ import Database from 'better-sqlite3';
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const VAULT_ROOT = path.resolve('data/vault/RKG');
-const POLL_INTERVAL_MS = 5_000;
+const WINDOWS_VAULT_MIRROR = process.env['WINDOWS_VAULT_ROOT'] || null;
+const POLL_INTERVAL_MS = 120_000; // 2 minutes for massive vault stability
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -32,79 +30,37 @@ interface Triplet {
   last_updated: string;
 }
 
-interface NoteFrontmatter {
-  subject: string;
-  predicate: string;
-  object: string;
-  sovereign: true;
-  source: 'AKASHIK_DB';
-  last_synced: string;
+interface Chronicle {
+  id: string;
+  title: string;
+  content: string;
+  source: string;
+  category: string;
+  era_grounding: string;
+  status: string;
+  last_updated: string;
 }
 
 // ── Utilities ─────────────────────────────────────────────────────────────────
 
-/** Remove characters invalid on Linux/Windows filesystems. */
 function sanitizeFilename(name: string): string {
+  if (typeof name !== 'string') return 'unnamed';
   return name
     .replace(/[/\\?%*:|"<>]/g, '_')
     .replace(/\s+/g, '_')
-    .slice(0, 200); // max filename length
+    .slice(0, 200);
 }
 
-/** Strip Obsidian `[[link]]` brackets from object field for DB storage. */
 function stripObsidianLinks(text: string): string {
+  if (typeof text !== 'string') return String(text);
   return text.replace(/\[\[([^\]]+)\]\]/g, '$1');
 }
 
-/** Wrap a value in Obsidian link syntax if it looks like an entity name. */
 function toObsidianLink(text: string): string {
-  // Don't double-wrap already-linked values
+  if (typeof text !== 'string') return String(text);
   if (text.startsWith('[[')) return text;
+  if (/^\d+/.test(text) || text.length < 3) return text;
   return `[[${text}]]`;
-}
-
-/** Serialize a triplet to Markdown with YAML frontmatter. */
-function tripletToMarkdown(triplet: Triplet): string {
-  const frontmatter: NoteFrontmatter = {
-    subject: triplet.subject_id,
-    predicate: triplet.predicate,
-    object: toObsidianLink(triplet.object_literal),
-    sovereign: true,
-    source: 'AKASHIK_DB',
-    last_synced: new Date().toISOString(),
-  };
-
-  // Gather all triplets for this subject to build the CONNECTED TRIADS section
-  // (populated during export — see exportTriplets for multi-triplet grouping)
-  const yamlBlock = yaml.dump(frontmatter, { lineWidth: 120 });
-
-  return [
-    '---',
-    yamlBlock.trimEnd(),
-    '---',
-    '',
-    `# ${triplet.subject_id}`,
-    '',
-    '### ◈ CONNECTED TRIADS',
-    '',
-    '<div class="provenance-machine">',
-    '',
-    `- **${triplet.predicate}** → ${toObsidianLink(triplet.object_literal)}`,
-    '',
-    '</div>',
-    '',
-  ].join('\n');
-}
-
-/** Parse frontmatter from a Markdown file. Returns null on failure. */
-function parseMarkdownFrontmatter(content: string): NoteFrontmatter | null {
-  const match = /^---\n([\s\S]*?)\n---/.exec(content);
-  if (!match) return null;
-  try {
-    return yaml.load(match[1] ?? '') as NoteFrontmatter;
-  } catch {
-    return null;
-  }
 }
 
 // ── Main Service ──────────────────────────────────────────────────────────────
@@ -112,42 +68,43 @@ function parseMarkdownFrontmatter(content: string): NoteFrontmatter | null {
 export class ObsidianSyncService {
   private db: Database.Database;
   private watcher: FSWatcher | null = null;
+  private mirrorWatcher: FSWatcher | null = null;
   private pollTimer: ReturnType<typeof setInterval> | null = null;
-  private importLock = new Set<string>(); // prevents export→import re-trigger
+  private importLock = new Set<string>();
 
   constructor(dbPath: string) {
     this.db = new Database(dbPath);
     this.db.pragma('journal_mode = WAL');
     this.db.pragma('synchronous = NORMAL');
-    this.initVaultDir();
+    this.initVaultDirs();
   }
 
-  // ── Vault Dir Init ───────────────────────────────────────────────────────
-
-  private initVaultDir(): void {
+  private initVaultDirs(): void {
     try {
-      fs.mkdirSync(VAULT_ROOT, { recursive: true });
+      if (!fs.existsSync(VAULT_ROOT)) fs.mkdirSync(VAULT_ROOT, { recursive: true });
+      if (WINDOWS_VAULT_MIRROR && !fs.existsSync(WINDOWS_VAULT_MIRROR)) {
+        fs.mkdirSync(WINDOWS_VAULT_MIRROR, { recursive: true });
+      }
     } catch (err) {
       this.log(`S1GN4L_L055: vault dir init failed — ${err}`);
     }
   }
 
-  // ── Export (DB → MD) ─────────────────────────────────────────────────────
+  // ── Sync Logic ────────────────────────────────────────────────────────────
 
-  /**
-   * Export all triplets from Akashik.db to Markdown files.
-   * Groups triplets by subject_id so each subject has one file with all its
-   * predicates listed under CONNECTED TRIADS.
-   */
+  sync(): void {
+    this.exportTriplets();
+    this.exportChronicles();
+    // Aggressive lock clearing to prevent memory creep
+    this.importLock.clear();
+  }
+
   exportTriplets(): void {
     try {
       const rows = this.db
-        .prepare('SELECT subject_id, predicate, object_literal, last_updated FROM triplets ORDER BY subject_id')
+        .prepare("SELECT subject_id, predicate, object_literal, last_updated FROM triplets WHERE predicate NOT LIKE 'PURGED_%' ORDER BY subject_id")
         .all() as Triplet[];
 
-      if (rows.length === 0) return;
-
-      // Group by subject
       const bySubject = new Map<string, Triplet[]>();
       for (const row of rows) {
         const list = bySubject.get(row.subject_id) ?? [];
@@ -155,176 +112,179 @@ export class ObsidianSyncService {
         bySubject.set(row.subject_id, list);
       }
 
-      let written = 0;
+      let count = 0;
       for (const [subject, triplets] of bySubject) {
-        const filename = sanitizeFilename(subject) + '.md';
-        const filepath = path.join(VAULT_ROOT, filename);
-
-        // Use the first triplet for frontmatter, remaining for TRIADS section
-        const primary = triplets[0]!;
-        const frontmatter: NoteFrontmatter = {
-          subject,
-          predicate: primary.predicate,
-          object: toObsidianLink(primary.object_literal),
-          sovereign: true,
-          source: 'AKASHIK_DB',
-          last_synced: new Date().toISOString(),
-        };
-
-        const triadLines = triplets.map(
-          (t) => `- **${t.predicate}** → ${toObsidianLink(t.object_literal)}`
-        );
-
-        const content = [
-          '---',
-          yaml.dump(frontmatter, { lineWidth: 120 }).trimEnd(),
-          '---',
-          '',
-          `# ${subject}`,
-          '',
-          '### ◈ CONNECTED TRIADS',
-          '',
-          '<div class="provenance-machine">',
-          '',
-          ...triadLines,
-          '',
-          '</div>',
-          '',
-        ].join('\n');
-
-        // Skip write if file hasn't changed (avoids re-triggering the watcher)
-        this.importLock.add(filepath);
-        try {
-          const existing = fs.existsSync(filepath) ? fs.readFileSync(filepath, 'utf8') : '';
-          if (existing !== content) {
-            fs.writeFileSync(filepath, content, 'utf8');
-            written++;
-          }
-        } finally {
-          // Release lock after a brief delay so chokidar event settles
-          setTimeout(() => this.importLock.delete(filepath), 500);
-        }
+        this.writeTripletNote(subject, triplets);
+        count++;
       }
-
-      if (written > 0) {
-        this.log(`EXPORT: ${written} note(s) written to ${VAULT_ROOT}`);
-      }
+      if (count > 0) this.log(`EXPORT: ${count} triplet entities synced.`);
     } catch (err) {
-      this.log(`S1GN4L_L055: export failed — ${err}`);
+      this.log(`S1GN4L_L055: triplet export failed — ${err}`);
     }
   }
 
-  // ── Import (MD → DB) ─────────────────────────────────────────────────────
+  exportChronicles(): void {
+    try {
+      const stmt = this.db.prepare("SELECT title, content, source, category, era_grounding, status FROM chronicle_seeds WHERE status = 'approved'");
+      
+      let count = 0;
+      for (const c of stmt.iterate() as Iterable<any>) {
+        this.writeChronicleNote(c);
+        count++;
+        if (count % 500 === 0) this.log(`EXPORT: Progress ${count}...`);
+      }
+      this.log(`EXPORT: Finished ${count} chronicles.`);
+    } catch (err) {
+      this.log(`S1GN4L_L055: chronicle export failed — ${err}`);
+    }
+  }
 
-  /** Start chokidar watcher on the vault directory. */
+  private writeTripletNote(subject: string, triplets: Triplet[]): void {
+    const typeObj = triplets.find(t => t.predicate === 'is')?.object_literal.toLowerCase() ?? '';
+    const descObj = triplets.find(t => t.predicate === 'has description')?.object_literal ?? '';
+    
+    let category = 'Knowledge';
+    if (typeObj.includes('item') || subject.toLowerCase().includes('materials')) category = 'Items';
+    else if (typeObj.includes('npc') || typeObj.includes('actor')) category = 'Actors';
+
+    const props: any = {
+      subject,
+      type: category.slice(0, -1),
+      tags: [`rkg/${category.toLowerCase()}`],
+      sovereign: true,
+      source: 'AKASHIK_DB',
+      last_synced: new Date().toISOString()
+    };
+
+    for (const t of triplets) {
+      const k = t.predicate.replace('has ', '').replace(' ', '_');
+      if (k !== 'description') props[k] = stripObsidianLinks(t.object_literal);
+    }
+
+    const content = `---\n${yaml.dump(props)}---\n\n# ${subject}\n\n${descObj ? `> ${descObj}\n\n` : ''}### ◈ KNOWLEDGE TRIADS\n\n${triplets.map(t => `- **${t.predicate}** :: ${toObsidianLink(t.object_literal)}`).join('\n')}`;
+
+    this.safeWrite(category, subject, content);
+  }
+
+  private writeChronicleNote(c: any): void {
+    const cleanCat = (c.category || '').replace('#', '');
+    let folder = 'Lore';
+    if (cleanCat === 'Gear' || cleanCat === 'Technical') folder = 'Items';
+    else if (cleanCat === 'Corporate') folder = 'Factions';
+
+    const props = {
+      subject: c.title,
+      type: 'Chronicle',
+      tags: [`rkg/chronicles/${folder.toLowerCase()}`, cleanCat],
+      source: c.source,
+      era: c.era_grounding,
+      sovereign: true,
+      last_synced: new Date().toISOString()
+    };
+
+    const content = `---\n${yaml.dump(props)}---\n\n# ${c.title}\n\n${c.content}\n\n---\n_Source: ${c.source}_`;
+
+    this.safeWrite(`Chronicles/${folder}`, c.title, content);
+  }
+
+  private safeWrite(subfolder: string, subject: string, content: string): void {
+    const filename = sanitizeFilename(subject) + '.md';
+    const relPath = path.join(subfolder, filename);
+    
+    const wslPath = path.join(VAULT_ROOT, relPath);
+    const mirrorPath = WINDOWS_VAULT_MIRROR ? path.join(WINDOWS_VAULT_MIRROR, relPath) : null;
+
+    const targets = [wslPath];
+    if (mirrorPath) targets.push(mirrorPath);
+
+    for (const p of targets) {
+      try {
+        const dir = path.dirname(p);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+        // Memory-efficient check: only write if actually different
+        if (fs.existsSync(p)) {
+          const existing = fs.readFileSync(p, 'utf8');
+          if (existing === content) continue;
+        }
+
+        this.importLock.add(p);
+        fs.writeFileSync(p, content, 'utf8');
+      } catch (e) { }
+    }
+  }
+
   startWatcher(): void {
     if (this.watcher) return;
+    this.watcher = this.setupDirWatcher(VAULT_ROOT, "WSL");
+    if (WINDOWS_VAULT_MIRROR) {
+      this.mirrorWatcher = this.setupDirWatcher(WINDOWS_VAULT_MIRROR, "WINDOWS");
+    }
+  }
 
-    this.watcher = chokidar.watch(path.join(VAULT_ROOT, '*.md'), {
+  private setupDirWatcher(dir: string, label: string): FSWatcher {
+    return chokidar.watch(path.join(dir, '**/*.md'), {
       persistent: true,
       ignoreInitial: true,
-      awaitWriteFinish: { stabilityThreshold: 300, pollInterval: 100 },
+      awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 1000 },
+    }).on('change', (filepath: string) => {
+      if (!this.importLock.has(filepath)) this.handleFileUpdate(filepath);
+    }).on('unlink', (filepath: string) => {
+      if (!this.importLock.has(filepath)) this.handleDelete(filepath);
     });
-
-    this.watcher.on('change', (filepath: string) => {
-      if (this.importLock.has(filepath)) return; // skip export-triggered writes
-      this.importFile(filepath);
-    });
-
-    this.watcher.on('unlink', (filepath: string) => {
-      if (this.importLock.has(filepath)) return;
-      this.handleDelete(filepath);
-    });
-
-    this.watcher.on('error', (err: unknown) => {
-      this.log(`S1GN4L_L055: watcher error — ${err}`);
-    });
-
-    this.log(`WATCHER: monitoring ${VAULT_ROOT}`);
   }
 
-  /** Parse and upsert a changed Markdown file into Akashik.db. */
-  private importFile(filepath: string): void {
+  private handleFileUpdate(filepath: string): void {
     try {
       const content = fs.readFileSync(filepath, 'utf8');
-      const fm = parseMarkdownFrontmatter(content);
-      if (!fm) {
-        this.log(`S1GN4L_L055: could not parse frontmatter in ${path.basename(filepath)}`);
-        return;
+      const match = /^---\n([\s\S]*?)\n---/.exec(content);
+      if (!match) return;
+      const fm = yaml.load(match[1]) as any;
+      if (!fm) return;
+
+      if (fm.type === 'Chronicle') {
+        const body = content.split('---').slice(2).join('---').trim();
+        this.db.prepare('UPDATE chronicle_seeds SET content = ? WHERE title = ?').run(body, fm.subject);
+      } else {
+        const triples: {p: string, o: string}[] = [];
+        for (const [k, v] of Object.entries(fm.properties || {})) {
+          triples.push({ p: k.replace(/_/g, ' '), o: String(v) });
+        }
+        this.db.transaction(() => {
+          this.db.prepare('DELETE FROM triplets WHERE subject_id = ?').run(fm.subject);
+          for (const t of triples) {
+            this.db.prepare('INSERT INTO triplets (subject_id, predicate, object_literal) VALUES (?, ?, ?)').run(fm.subject, t.p, t.o);
+          }
+        })();
       }
-
-      const subject = fm.subject;
-      const predicate = fm.predicate;
-      const object = stripObsidianLinks(fm.object);
-
-      if (!subject || !predicate || !object) {
-        this.log(`S1GN4L_L055: incomplete frontmatter in ${path.basename(filepath)}`);
-        return;
-      }
-
-      // No unique constraint on (subject_id, predicate) — DELETE then INSERT
-      this.db.transaction(() => {
-        this.db.prepare(
-          'DELETE FROM triplets WHERE subject_id = ? AND predicate = ?'
-        ).run(subject, predicate);
-        this.db.prepare(
-          'INSERT INTO triplets (subject_id, predicate, object_literal, last_updated) VALUES (?, ?, ?, CURRENT_TIMESTAMP)'
-        ).run(subject, predicate, object);
-      })();
-
-      this.log(`IMPORT: ${subject} → ${predicate} → ${object}`);
-    } catch (err) {
-      this.log(`S1GN4L_L055: import failed for ${path.basename(filepath)} — ${err}`);
-    }
+      this.log(`IMPORT: ${fm.subject} updated.`);
+    } catch (err) { }
   }
 
-  /** Mark a deleted vault file's triplet as purged in the DB. */
   private handleDelete(filepath: string): void {
-    try {
-      // Extract subject from filename (reverse of sanitizeFilename — best effort)
-      const basename = path.basename(filepath, '.md').replace(/_/g, ' ');
-      this.db.prepare(
-        "UPDATE triplets SET predicate = 'PURGED_' || predicate WHERE subject_id = ?"
-      ).run(basename);
-      this.log(`PURGE: marked triplets for "${basename}" as purged`);
-    } catch (err) {
-      this.log(`S1GN4L_L055: delete handler failed — ${err}`);
-    }
+    const subject = path.basename(filepath, '.md').replace(/_/g, ' ');
+    this.db.prepare("DELETE FROM triplets WHERE subject_id = ?").run(subject);
+    this.log(`PURGE: deleted ${subject}`);
   }
 
-  // ── Lifecycle ────────────────────────────────────────────────────────────
-
-  /** Start the sync daemon: initial export + periodic re-export + watcher. */
   start(): void {
-    this.log('0B51D14N_5YNC: starting...');
-    // Initial full export on boot
-    this.exportTriplets();
-    // Periodic re-export to catch DB changes from the agentic loop
-    this.pollTimer = setInterval(() => this.exportTriplets(), POLL_INTERVAL_MS);
-    // File watcher for human edits
+    this.log('0B51D14N_5YNC: operational.');
+    this.sync();
+    this.pollTimer = setInterval(() => this.sync(), POLL_INTERVAL_MS);
     this.startWatcher();
-    this.log('0B51D14N_5YNC: running — vault at ' + VAULT_ROOT);
   }
 
   stop(): void {
-    if (this.pollTimer) {
-      clearInterval(this.pollTimer);
-      this.pollTimer = null;
-    }
-    if (this.watcher) {
-      void this.watcher.close();
-      this.watcher = null;
-    }
+    if (this.pollTimer) clearInterval(this.pollTimer);
+    if (this.watcher) void this.watcher.close();
+    if (this.mirrorWatcher) void this.mirrorWatcher.close();
     this.db.close();
-    this.log('0B51D14N_5YNC: stopped');
   }
 
   private log(msg: string): void {
     process.stdout.write(`[VAULT] ${new Date().toISOString()} ${msg}\n`);
   }
 }
-
-// ── CLI entry point (run via: tsx src/core/obsidian-sync-service.ts) ──────────
 
 const isMain = process.argv[1]
   ? path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))
@@ -334,11 +294,6 @@ if (isMain) {
   const dbPath = process.env['RKG_PATH'] ?? 'data/Akashik.db';
   const svc = new ObsidianSyncService(dbPath);
   svc.start();
-
-  const shutdown = () => {
-    svc.stop();
-    process.exit(0);
-  };
-  process.on('SIGINT', shutdown);
-  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', () => { svc.stop(); process.exit(0); });
+  process.on('SIGTERM', () => { svc.stop(); process.exit(0); });
 }

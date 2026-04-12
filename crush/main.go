@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"strings"
 	"syscall"
+	"time"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -343,6 +344,13 @@ func main() {
 			runThoughtStream()
 			return
 
+		case "terminal":
+			if err := runTerminal(); err != nil {
+				fmt.Printf("[TERMINAL] fatal: %v\n", err)
+				os.Exit(1)
+			}
+			return
+
 		case "devdom":
 			if len(os.Args) < 3 {
 				fmt.Println("Usage: crush devdom [corrupt-ui|ghost-play <file.ghost>]")
@@ -486,4 +494,82 @@ func runThoughtStream() {
 			fmt.Print(lipgloss.NewStyle().Foreground(colorRed).Italic(true).Render(pkt.Token))
 		}
 	}
+}
+
+func runTerminal() error {
+	conn, err := net.Dial("unix", Cfg.ClawlinkSock)
+	if err != nil {
+		return fmt.Errorf("connect to proxy: %w", err)
+	}
+	defer conn.Close()
+
+	fmt.Println(applyCRTGlow("  ◈ 50V3R31GN-M4CH1N4 // IN73R4C71V3_73RM1N4L  "))
+	fmt.Println(headerStyle.Render("  :/DIR3C7-L1NK // N0D3_B [12B_BR41N]  "))
+	fmt.Println(lipgloss.NewStyle().Foreground(colorDim).Italic(true).Render("  (Type 'exit' to quit, commands start with /)\n"))
+
+	// Background: Read tokens from Node B
+	go func() {
+		sc := bufio.NewScanner(conn)
+		for sc.Scan() {
+			var pkt struct {
+				Type  string `json:"type"`
+				Token string `json:"token"`
+			}
+			if err := json.Unmarshal(sc.Bytes(), &pkt); err != nil {
+				continue
+			}
+			if pkt.Type == "token" {
+				fmt.Print(lipgloss.NewStyle().Foreground(colorRed).Italic(true).Render(pkt.Token))
+			}
+		}
+	}()
+
+	// Main loop: Strategist Input
+	reader := bufio.NewReader(os.Stdin)
+	prompt := lipgloss.NewStyle().Foreground(colorRed).Bold(true).Render("STRATEGIST> ")
+
+	for {
+		fmt.Print(prompt)
+		input, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		input = strings.TrimSpace(input)
+		if input == "" {
+			continue
+		}
+		if input == "exit" || input == "quit" {
+			break
+		}
+
+		// Wrap input in an intent packet
+		payload := map[string]interface{}{
+			"command": "intent",
+			"query":   input,
+		}
+		
+		// If starts with /, treat as raw command
+		if strings.HasPrefix(input, "/") {
+			parts := strings.SplitN(input[1:], " ", 2)
+			payload["command"] = parts[0]
+			if len(parts) > 1 {
+				payload["args"] = parts[1]
+			}
+		}
+
+		packet := clawLinkPacket{
+			TraceID: newTraceID(),
+			Type:    "intent",
+		}
+		jsonPayload, _ := json.Marshal(payload)
+		packet.Payload = string(jsonPayload)
+
+		data, _ := json.Marshal(packet)
+		_, _ = conn.Write(append(data, '\n'))
+		
+		// Small sleep to avoid prompt interleaving with immediate tokens
+		time.Sleep(100 * time.Millisecond)
+	}
+
+	return nil
 }

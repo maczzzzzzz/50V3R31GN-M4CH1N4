@@ -217,7 +217,7 @@ func launchCrushGUI(c *Component) tea.Cmd {
 		// wsl.exe, so bash receives the -c string without any backslash artefacts.
 		psCmd := fmt.Sprintf(
 			`Start-Process -FilePath 'C:\Windows\System32\wsl.exe' `+
-				`-ArgumentList '-d','NixOS','--','bash','-c','cd %s && ./crush-cli thought-stream' `+
+				`-ArgumentList '-d','NixOS','--','bash','-c','cd %s && ./crush-cli terminal' `+
 				`-WindowStyle Normal`,
 			root,
 		)
@@ -338,6 +338,10 @@ func launchVaultSync(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
 		cmd := nixCmd(root, "pnpm", "exec", "tsx", "src/core/obsidian-sync-service.ts")
+		
+		// Configure Windows Mirror to bypass WSL filesystem watcher issues
+		// Point your Windows Obsidian App to D:\Obsidian_RKG
+		cmd.Env = append(os.Environ(), "WINDOWS_VAULT_ROOT=/mnt/d/Obsidian_RKG")
 
 		if err := cmd.Start(); err != nil {
 			return stateUpdateMsg{

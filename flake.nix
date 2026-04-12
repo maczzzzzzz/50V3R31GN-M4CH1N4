@@ -26,6 +26,7 @@
     {
       devShells.${system} = {
         default = pkgs.mkShell {
+          # REQUIRED: Set NIXPKGS_ALLOW_UNFREE=1 and pass --impure to use steam-run/cuda
           buildInputs = with pkgs; [
             # Node.js Stack (Node B Core)
             nodejs_22
@@ -39,6 +40,10 @@
             # CLI Management (Crush CLI)
             go
             
+            # generic linux binary support (for Droid / Factory AI)
+            steam-run
+            xdg-utils
+
             # Sidecar Build Requirements (Rust)
             cargo
             rustc
@@ -94,12 +99,13 @@
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
+
+            # DROID_FACTORY: Wrapped execution via steam-run for NixOS compatibility
+            alias droid="steam-run /home/nixos/.local/bin/droid"
             
             echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
-            echo "◈ Node.js: $(node --version)"
-            echo "◈ Go: $(go version)"
-            echo "◈ GPU Search: $(ls /dev/dxg)"
+            echo "◈ DROID FACTORY: Enabled via 'droid' alias."
           '';
         };
 
@@ -109,6 +115,8 @@
             nodejs_22
             typescript
             pnpm
+            steam-run
+            xdg-utils
             
             # Database
             sqlite
@@ -141,9 +149,13 @@
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
+
+            # DROID_FACTORY: Wrapped execution via steam-run for NixOS compatibility
+            alias droid="steam-run /home/nixos/.local/bin/droid"
             
             echo "◈ 50V3R31GN-M4CH1N4: Node A (NixOS/Ubuntu) Environment Loaded [GPU: CUDA]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
+            echo "◈ DROID FACTORY: Enabled via 'droid' alias."
           '';
         };
       };

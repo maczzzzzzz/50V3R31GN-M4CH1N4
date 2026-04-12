@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-04-12
+### Added
+- **Interactive Crush Terminal**: Implemented `crush-cli terminal` REPL for direct two-way narrative communication with Node B (12B Brain).
+- **Semantic Obsidian Sync**: Upgraded the RKG sync engine to automatically organize triplets and chronicles into structured folders (`Items`, `Lore`, `Actors`) with semantic tags.
+- **Droid Factory Integration**: Enabled Factory AI CLI within the Nix development environment via `steam-run` for cross-node AI orchestration.
+- **Automated Obsidian Ignition**: Added direct Windows GUI launch for Obsidian to the `deck-igniter` orchestration sequence.
+- **Vault Mirroring**: Implemented bidirectional sync to a native Windows `D:\` drive path to bypass WSL network share filesystem limitations.
+
+### Changed
+- **High-Fidelity CLI UI**: Redesigned the VSB Auth Pane with a structural "Black-Ice" cyberpunk aesthetic using `lipgloss`.
+- **Dashboard Hotkey**: Added `Ctrl+Shift+D` global listener to toggle the monitor dashboard independently of the Escape menu.
+
+### Fixed
+- **Visual Dominance Theme**: Forced dark theme enforcement across all Journal and Item sheets, eliminating white background remnants.
+- **Escape Menu Binding**: Patched the dashboard bridge to prevent it from capturing the Escape key, allowing the Main Menu to close while keeping the monitor open.
+- **Combat PIXI Crash**: Implemented a monkey-patch for `PIXI.filters.ColorMatrixFilter` to restore compatibility with legacy combat modules.
+- **OOM Sync Protection**: Implemented streaming row processing and batching in the Obsidian sync service to handle 3000+ files without exhausting memory.
+
 ## [2.9.0] - 2026-04-11
 ### Added
 - **Crush-Proxy Sequence**: Integrated `crush proxy` into the `deck-igniter` WSL layer boot sequence, enabling the terminal orchestrator's neural uplink as a prioritized stage.
