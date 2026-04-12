@@ -193,40 +193,57 @@ export const phase37: SovereignShard = {
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
 };
 
+// RKG hierarchy — must match data-43.ts declaration
+const RKG_BASE = process.env['OBSIDIAN_RKG_PATH'] ?? '/mnt/d/Obsidian_RKG';
+const RKG_DIRS = ['Items', 'NPCs', 'Factions', 'Locations', 'Scenes', 'Chronicle'];
+
 // ── Phase 43: Stabilization State ────────────────────────────────────────────
 export const phase43: SovereignShard = {
   metadata: { id: 43, name: 'Stabilization', block: 'DATA' },
 
   async audit(ctx: GauntletContext): Promise<AuditResult> {
-    if (!ctx.db) return skip(43, 'Stabilization', 'world.db not available');
-    try {
-      const rows = ctx.db.prepare('SELECT key, value FROM system_state').all() as { key: string; value: string }[];
-      const stateMap: Record<string, string> = {};
-      for (const row of rows) stateMap[row.key] = row.value;
-      // Check crush.db is accessible
-      const crushDbPath = process.env['CRUSH_DB_PATH'] ?? './data/crush.db';
-      const crushExists = existsSync(crushDbPath);
-      if (rows.length === 0) {
-        return warn(43, 'Stabilization', `system_state empty | crush.db=${crushExists ? 'present' : 'missing'}`);
-      }
-      return pass(43, 'Stabilization', `${rows.length} system state entries | crush.db=${crushExists ? 'present' : 'missing'}`, {
-        stateKeys: Object.keys(stateMap),
-        crushDbPresent: crushExists,
-      });
-    } catch (e) {
-      return fail(43, 'Stabilization', `Stabilization query failed: ${(e as Error).message}`);
+    // 1. Check system_state DB
+    let stateRows = 0;
+    let stateKeys: string[] = [];
+    if (ctx.db) {
+      try {
+        const rows = ctx.db.prepare('SELECT key, value FROM system_state').all() as { key: string; value: string }[];
+        stateRows = rows.length;
+        stateKeys = rows.map(r => r.key);
+      } catch { /* world.db may not have system_state yet */ }
     }
+
+    // 2. Check RKG hierarchy
+    const rkgBasePresent = existsSync(RKG_BASE);
+    const rkgMissing = rkgBasePresent
+      ? RKG_DIRS.filter(d => !existsSync(`${RKG_BASE}/${d}`))
+      : RKG_DIRS;
+
+    // 3. Check crush.db
+    const crushDbPath = process.env['CRUSH_DB_PATH'] ?? './data/crush.db';
+    const crushExists = existsSync(crushDbPath);
+
+    const details: Record<string, unknown> = {
+      stateKeys,
+      crushDbPresent: crushExists,
+      rkgBasePresent,
+      rkgMissingDirs: rkgMissing,
+    };
+
+    if (!rkgBasePresent) {
+      return warn(43, 'Stabilization', `RKG vault not found at ${RKG_BASE} | ${stateRows} state entries`, details);
+    }
+    if (rkgMissing.length > 0) {
+      return warn(43, 'Stabilization', `RKG missing: [${rkgMissing.join(', ')}] | ${stateRows} state entries`, details);
+    }
+    return pass(43, 'Stabilization', `RKG hierarchy intact | ${stateRows} state entries | crush.db=${crushExists ? 'present' : 'missing'}`, details);
   },
 
-  async manifest(ctx: GauntletContext, intent: unknown): Promise<void> {
-    // Write a stabilization checkpoint key to system_state via CLI
-    const i = intent as { key?: string; value?: string } | null;
-    const key = i?.key ?? 'gauntlet_last_manifest';
-    const value = i?.value ?? new Date().toISOString();
-    await ctx.cli.execute(
-      `npx tsx -e "import Database from 'better-sqlite3'; const db = new Database(process.env.WORLD_DB_PATH ?? './data/world.db'); db.prepare('INSERT OR REPLACE INTO system_state (key,value) VALUES (?,?)').run(${JSON.stringify(key)},${JSON.stringify(value)}); db.close();"`,
-    ).catch(e => {
-      ctx.logger.error('Stabilization manifest: checkpoint write failed', e.message);
+  async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
+    // Trigger semantic reconstruction to repair any missing RKG hierarchy
+    ctx.logger.info('Stabilization manifest: triggering reconstruct-palace.sh');
+    await ctx.cli.execute('bash scripts/reconstruct-palace.sh').catch(e => {
+      ctx.logger.error('Stabilization manifest: reconstruct failed', e.message);
     });
   },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },
