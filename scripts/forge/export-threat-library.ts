@@ -9,9 +9,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import yaml from 'js-yaml';
+import Database from 'better-sqlite3';
 
 const MOOK_DIR = 'docs/raw_data/entities_mooks/night city gang corp mook pack - mooks';
 const OUTPUT_DIR = '/mnt/d/Obsidian_RKG/Actors/NC_GANGS_CORPS';
+const DB_PATH = process.env['AKASHIK_DB_PATH'] ?? 'data/Akashik.db';
 
 interface MookData {
   name: string;
@@ -100,7 +102,113 @@ function walkDir(dir: string): void {
   }
 }
 
-console.log(`◈ NC_GANGS_CORPS: Exporting library to ${OUTPUT_DIR}...`);
-if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-walkDir(MOOK_DIR);
+// ── Akashik.db NPC Export ─────────────────────────────────────────────────────
+
+interface AkashikNpc {
+  id: string;
+  name: string;
+  hp: number;
+  sp: number;
+  emp: number;
+  humanity: number;
+  faction: string | null;
+  district_id: string | null;
+  disposition: 'friendly' | 'neutral' | 'hostile' | null;
+  is_alive: number;
+}
+
+/**
+ * Export all NPCs from Akashik.db as structured Obsidian threat profiles.
+ * Writes to OUTPUT_DIR/Akashik/<faction>/<name>.md
+ */
+function exportAkashikNpcs(dbPath: string, outputDir: string): number {
+  if (!fs.existsSync(dbPath)) {
+    console.warn(`  [akashik] DB not found: ${dbPath} — skipping Akashik export`);
+    return 0;
+  }
+
+  const db = new Database(dbPath, { readonly: true });
+  let npcs: AkashikNpc[] = [];
+  try {
+    npcs = db.prepare(
+      'SELECT id, name, hp, sp, emp, humanity, faction, district_id, disposition, is_alive FROM npcs'
+    ).all() as AkashikNpc[];
+  } catch {
+    console.warn('  [akashik] npcs table not found — skipping');
+    db.close();
+    return 0;
+  }
+  db.close();
+
+  let written = 0;
+  for (const npc of npcs) {
+    const faction = npc.faction ?? 'Unknown';
+    const targetDir = path.join(outputDir, 'Akashik', faction.replace(/[\\/]/g, '_'));
+    fs.mkdirSync(targetDir, { recursive: true });
+
+    const frontmatter = {
+      subject:    npc.name,
+      type:       'NPC',
+      faction,
+      district:   npc.district_id ?? null,
+      disposition: npc.disposition ?? 'neutral',
+      alive:      npc.is_alive === 1,
+      tags:       [
+        'rkg/threat',
+        `rkg/faction/${faction.toLowerCase().replace(/\s+/g, '_')}`,
+        ...(npc.district_id ? [`rkg/district/${npc.district_id.toLowerCase().replace(/\s+/g, '_')}`] : []),
+      ],
+      sovereign:  true,
+      source:     'Akashik_DB',
+    };
+
+    const content = `---
+${yaml.dump(frontmatter)}---
+
+# ${npc.name}
+
+### ◈ TACTICAL INTEL
+- **Faction:** ${faction}
+- **District:** ${npc.district_id ?? '_Unknown_'}
+- **Disposition:** ${npc.disposition ?? 'neutral'}
+- **Status:** ${npc.is_alive ? '🟢 Alive' : '🔴 Deceased'}
+
+### ◈ STATS
+| HP | SP | EMP | Humanity |
+|----|-----|-----|----------|
+| ${npc.hp} | ${npc.sp} | ${npc.emp} | ${npc.humanity} |
+
+---
+_Source: Akashik.db — ID: \`${npc.id}\`_
+`;
+
+    const fileName = npc.name.replace(/[\s/\\:*?"<>|]/g, '_').slice(0, 200) + '.md';
+    fs.writeFileSync(path.join(targetDir, fileName), content, 'utf8');
+    written++;
+  }
+
+  return written;
+}
+
+// ── Entry point ───────────────────────────────────────────────────────────────
+
+const sourceArg = process.argv.find(a => a.startsWith('--source='))?.replace('--source=', '') ?? 'all';
+
+if (sourceArg === 'foundry' || sourceArg === 'all') {
+  if (fs.existsSync(MOOK_DIR)) {
+    console.log(`◈ NC_GANGS_CORPS: Exporting Foundry mooks to ${OUTPUT_DIR}...`);
+    if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    walkDir(MOOK_DIR);
+    console.log('  ✓ Foundry mook export complete.');
+  } else {
+    console.warn(`  [foundry] MOOK_DIR not found: ${MOOK_DIR} — skipping`);
+  }
+}
+
+if (sourceArg === 'akashik' || sourceArg === 'all') {
+  console.log(`◈ AKASHIK: Exporting NPCs from ${DB_PATH} to ${OUTPUT_DIR}/Akashik/...`);
+  const count = exportAkashikNpcs(DB_PATH, OUTPUT_DIR);
+  console.log(`  ✓ Akashik NPC export complete: ${count} profiles written.`);
+}
+
 console.log('✅ EXPORT COMPLETE.');
