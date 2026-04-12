@@ -36,7 +36,9 @@
     "crush": "./crush-cli",
     "terminal": "./crush-cli terminal",
     "dream": "tsx src/scripts/dream-daemon.ts",
-    "dream:once": "tsx src/scripts/dream-daemon.ts --once"
+    "dream:once": "tsx src/scripts/dream-daemon.ts --once",
+    "gauntlet": "tsx scripts/gauntlet/engine.ts",
+    "gauntlet:no-cdp": "tsx scripts/gauntlet/engine.ts --no-cdp"
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",
