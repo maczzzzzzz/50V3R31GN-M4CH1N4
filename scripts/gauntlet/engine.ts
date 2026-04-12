@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { createSocket } from 'node:dgram';
 import { exec } from 'node:child_process';
 import { VisionClient } from './vision-client.js';
+import { Logger } from '../../src/shared/logger.js';
 import type { GauntletContext, SovereignShard, PhaseShard, GauntletReport, AuditResult } from './types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -202,9 +203,12 @@ async function main() {
   }
 
   // ── Context helpers ───────────────────────────────────────────────────────
+  const sovereignLogger = Logger.getInstance();
   const logger = {
-    info: (msg: string, data?: unknown) => console.log(`[GAUNTLET] INFO: ${msg}`, data ?? ''),
-    error: (msg: string, data?: unknown) => console.error(`[GAUNTLET] ERROR: ${msg}`, data ?? ''),
+    info: (msg: string, data?: unknown) =>
+      sovereignLogger.info('GAUNTLET', 'engine', msg, data as Record<string, unknown> | undefined),
+    error: (msg: string, data?: unknown) =>
+      sovereignLogger.error('GAUNTLET', 'engine', msg, data as Record<string, unknown> | undefined),
   };
   const stabilize = (ms = 2000): Promise<void> => new Promise(r => setTimeout(r, ms));
   const manifestError = async (msg: string): Promise<void> => {
@@ -290,18 +294,21 @@ async function main() {
       result.durationMs = Date.now() - ts;
       const icon = result.status === 'PASS' ? '✓' : result.status === 'FAIL' ? '✗' : result.status === 'WARN' ? '⚠' : '-';
       console.log(`${icon} ${result.message} (${result.durationMs}ms)`);
+      sovereignLogger.audit(result);
       results.push(result);
     } catch (e) {
       const durationMs = Date.now() - ts;
       console.log(`✗ EXCEPTION: ${(e as Error).message}`);
-      results.push({
+      const failResult: AuditResult = {
         phaseId: shard.metadata.id,
         phaseName: shard.metadata.name,
         block: shard.metadata.block,
         status: 'FAIL',
         message: `Unhandled: ${(e as Error).message}`,
         durationMs,
-      });
+      };
+      sovereignLogger.audit(failResult);
+      results.push(failResult);
     }
   }
 
