@@ -176,8 +176,53 @@ class FoundryApiBridge {
     this._connect(wsUrl);
     this._setupInterception();
     this._setupCounterHacks();
+    this._setupGovernanceDuel();
     this._setupErrorCapture();
     window.SOVEREIGN_BRIDGE = this;
+  }
+
+  _setupGovernanceDuel() {
+    if (!game.modules.get('lib-wrapper')?.active) return;
+    const bridge = this;
+
+    const governanceWrapper = async function(wrapped, ...args) {
+      const doc = this;
+      const [data] = args;
+
+      // Only intercept on sovereign-authority-locked documents
+      const isSovereignLocked =
+        doc.getFlag?.(MODULE_ID, 'authority') ??
+        doc.flags?.sovereign?.authority ??
+        false;
+
+      if (!isSovereignLocked) return wrapped(...args);
+
+      try {
+        const verdict = await bridge.sendRequest('conflict_interrupt', {
+          documentType: doc.documentName ?? doc.constructor.name,
+          documentId: doc.id,
+          documentName: doc.name,
+          proposedChanges: data,
+        });
+
+        if (verdict?.result === 'VETO') {
+          ui.notifications.warn(`[GOVERNANCE DUEL] Veto: ${verdict.reason ?? 'Sovereign authority maintained.'}`);
+          return null;
+        }
+        if (verdict?.result === 'DEFER') {
+          ui.notifications.info(`[GOVERNANCE DUEL] Defer: ${verdict.reason ?? 'Operator granted concession.'}`);
+        }
+      } catch (err) {
+        console.warn(`[${MODULE_ID}] Governance duel request failed — allowing update:`, err);
+      }
+
+      return wrapped(...args);
+    };
+
+    // @ts-ignore
+    libWrapper.register(MODULE_ID, 'TokenDocument.prototype.update', governanceWrapper, 'MIXED');
+    // @ts-ignore
+    libWrapper.register(MODULE_ID, 'Actor.prototype.update', governanceWrapper, 'MIXED');
   }
 
   _setupErrorCapture() {
@@ -448,6 +493,22 @@ class FoundryApiBridge {
           // Fallback to local eval if socketlib is missing or not GM
           new Function(command.payload.code)();
         }
+        break;
+      case 'create_scene':
+        await Scene.create({
+          name: command.payload.name ?? 'Sovereign Scene',
+          background: { src: command.payload.backgroundSrc ?? '' },
+          grid: { type: command.payload.gridType ?? 1, size: command.payload.gridSize ?? 100 },
+          width: command.payload.width ?? 4000,
+          height: command.payload.height ?? 3000,
+          ...command.payload,
+        });
+        break;
+      case 'pretext_glitch_impulse':
+        PretextOverlayManager.glitchImpulse(
+          command.payload.intensity ?? 0.5,
+          command.payload.duration ?? 500,
+        );
         break;
     }
     this._sendSuccess(command.requestId, null);
