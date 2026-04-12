@@ -68,14 +68,70 @@ function buildDistrictKeywords(dna: DistrictDNA): string[] {
   return [...words];
 }
 
-function scoreChronicleAgainstDistrict(chronicle: Chronicle, keywords: string[]): number {
-  const haystack = `${chronicle.title} ${chronicle.content}`.toLowerCase();
-  let score = 0;
-  for (const kw of keywords) {
-    if (haystack.includes(kw)) score++;
+// ── Phase 49: TF-IDF Semantic Scoring ──────────────────────────────────────────
+//
+// Replaces the raw keyword overlap count with TF-IDF weighting:
+//   IDF(kw) = log(1 + N / (1 + df(kw)))
+//     where N = number of districts, df = number of districts containing kw.
+//   TF(kw, doc) = occurrences(kw) / total_words_in_doc
+//   score(doc, district) = Σ TF(kw) * IDF(kw) for kw in district_keywords
+//
+// Keywords shared across many districts (generic Night City terms) receive low IDF
+// weight; district-unique identifiers (e.g. "heywood", "pacifica") score high.
+// This eliminates false positives for overlapping districts like Watson/Northside.
+
+/**
+ * Build an IDF map across all district keyword sets.
+ * Call once after all district keyword sets are known, before scoring.
+ */
+function buildIdfMap(districtKeywordSets: string[][]): Map<string, number> {
+  const N = districtKeywordSets.length;
+  const df = new Map<string, number>();
+
+  for (const keywords of districtKeywordSets) {
+    // Use a Set to avoid double-counting a keyword that appears twice in one district's set
+    for (const kw of new Set(keywords)) {
+      df.set(kw, (df.get(kw) ?? 0) + 1);
+    }
   }
+
+  const idf = new Map<string, number>();
+  for (const [kw, count] of df) {
+    idf.set(kw, Math.log(1 + N / (1 + count)));
+  }
+  return idf;
+}
+
+/**
+ * Score a pre-lowercased document string against a district's keyword set using TF-IDF.
+ * Returns 0 when no keywords match.
+ */
+function scoreTfIdf(haystack: string, keywords: string[], idfMap: Map<string, number>): number {
+  const totalWords = Math.max(1, haystack.split(/\s+/).length);
+  let score = 0;
+
+  for (const kw of keywords) {
+    const idf = idfMap.get(kw);
+    if (!idf) continue;
+
+    // Count all substring occurrences of the keyword in the haystack
+    let occurrences = 0;
+    let pos = 0;
+    while ((pos = haystack.indexOf(kw, pos)) !== -1) {
+      occurrences++;
+      pos += kw.length;
+    }
+
+    if (occurrences > 0) {
+      score += (occurrences / totalWords) * idf;
+    }
+  }
+
   return score;
 }
+
+// Minimum TF-IDF score to accept an assignment (filters out accidental single-word weak matches)
+const TF_IDF_MIN_SCORE = 1e-6;
 
 // ── Main ───────────────────────────────────────────────────────────────────────
 
@@ -129,11 +185,16 @@ function main() {
     return;
   }
 
-  // Build keyword sets per district
+  // Build keyword sets per district, then compute IDF across the full corpus
   const districtKeywords: Array<{ dna: DistrictDNA; keywords: string[] }> = districtDNA.map(dna => ({
     dna,
     keywords: buildDistrictKeywords(dna),
   }));
+
+  const idfMap = buildIdfMap(districtKeywords.map(d => d.keywords));
+  if (VERBOSE) {
+    console.log(`  [tfidf] IDF map built: ${idfMap.size} unique terms across ${districtDNA.length} districts`);
+  }
 
   // ── Load chronicles ────────────────────────────────────────────────────────
   let chronicles: Chronicle[] = [];
@@ -175,15 +236,16 @@ function main() {
       let bestDistrict: DistrictDNA | null = null;
       let bestScore = 0;
 
+      const haystack = `${chronicle.title} ${chronicle.content}`.toLowerCase();
       for (const { dna, keywords } of districtKeywords) {
-        const score = scoreChronicleAgainstDistrict(chronicle, keywords);
+        const score = scoreTfIdf(haystack, keywords, idfMap);
         if (score > bestScore) {
           bestScore = score;
           bestDistrict = dna;
         }
       }
 
-      if (bestDistrict && bestScore > 0) {
+      if (bestDistrict && bestScore > TF_IDF_MIN_SCORE) {
         updateStmt?.run(bestDistrict.district_name, chronicle.id);
         // Create RKG triplet link
         insertTripletStmt?.run(
@@ -195,7 +257,7 @@ function main() {
         districtCounts[bestDistrict.district_name] = (districtCounts[bestDistrict.district_name] ?? 0) + 1;
         assigned++;
         if (VERBOSE) {
-          console.log(`  [assign] "${chronicle.title.slice(0, 50)}" → ${bestDistrict.district_name} (score=${bestScore})`);
+          console.log(`  [assign] "${chronicle.title.slice(0, 50)}" → ${bestDistrict.district_name} (tfidf=${bestScore.toFixed(6)})`);
         }
       } else {
         unmatched++;
@@ -227,11 +289,12 @@ function main() {
       if (chronicle.district_id) { alreadySet++; continue; }
       let bestScore = 0;
       let bestDistrict: DistrictDNA | null = null;
+      const haystack = `${chronicle.title} ${chronicle.content}`.toLowerCase();
       for (const { dna, keywords } of districtKeywords) {
-        const s = scoreChronicleAgainstDistrict(chronicle, keywords);
+        const s = scoreTfIdf(haystack, keywords, idfMap);
         if (s > bestScore) { bestScore = s; bestDistrict = dna; }
       }
-      if (bestDistrict && bestScore > 0) {
+      if (bestDistrict && bestScore > TF_IDF_MIN_SCORE) {
         dryAssigned++;
         districtCounts[bestDistrict.district_name] = (districtCounts[bestDistrict.district_name] ?? 0) + 1;
       } else {
@@ -270,10 +333,10 @@ function main() {
         let bestScore = 0;
         let bestDistrict: DistrictDNA | null = null;
         for (const { dna, keywords } of districtKeywords) {
-          const s = keywords.filter(kw => text.includes(kw)).length;
+          const s = scoreTfIdf(text, keywords, idfMap);
           if (s > bestScore) { bestScore = s; bestDistrict = dna; }
         }
-        if (bestDistrict && bestScore > 0) {
+        if (bestDistrict && bestScore > TF_IDF_MIN_SCORE) {
           locStmt.run(bestDistrict.district_name, loc.id);
           locAssigned++;
         }
