@@ -1004,4 +1004,21 @@
     body.vtt .chat-message .success-text { color: #00ff99 !important; }
     body.vtt .chat-message .failure,
     body.vtt .chat-message .failure-text { color: #ff003c !important; }
+
+    /* Force dark theme on Journals/Items (Phase 43) */
+    body.vtt .journal-page-content,
+    body.vtt .journal-entry-page .journal-page-content,
+    body.vtt .prosemirror,
+    body.vtt .tox-tinymce,
+    body.vtt .tox-edit-area__iframe,
+    body.vtt .item-sheet .sheet-body,
+    body.vtt .cpr-item-sheet .sheet-body {
+        background-color: #000000 !important;
+        color: #eeeeee !important;
+    }
+
+    /* Force dark theme inside the editor iframes */
+    iframe.tox-edit-area__iframe {
+        filter: invert(1) hue-rotate(180deg); /* Crude but effective for legacy TinyMCE */
+    }
 }

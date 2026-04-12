@@ -212,6 +212,7 @@ func initialModel() Model {
 	allComponents := []*Component{
 		{Name: "foundry-vtt", Layer: LayerWindows},
 		{Name: "pixtral", Layer: LayerWindows},
+		{Name: "obsidian", Layer: LayerWindows},
 		{Name: "crush-proxy", Layer: LayerWSL},
 		{Name: "crush-gui", Layer: LayerWSL},   // thought-stream terminal — primary model comms UI
 		{Name: "director", Layer: LayerWSL},

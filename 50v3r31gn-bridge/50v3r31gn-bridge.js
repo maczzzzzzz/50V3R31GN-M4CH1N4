@@ -10,6 +10,13 @@
  */
 
 import { PretextOverlayManager } from './scripts/pretext-overlay-manager.js';
+import './scripts/sovereign-dashboard.js';
+
+/** PIXI v7 Compatibility Patch for legacy modules (CombatBooster) */
+if (typeof PIXI !== 'undefined' && PIXI.filters && !PIXI.filters.ColorMatrixFilter) {
+  console.log('[50v3r31gn-bridge] Patching PIXI.filters.ColorMatrixFilter for legacy compatibility...');
+  PIXI.filters.ColorMatrixFilter = PIXI.filters.ColorMatrixFilterDeprecated;
+}
 
 const MODULE_ID = '50v3r31gn-bridge';
 const DEFAULT_WS_URL = 'ws://localhost:3010';
@@ -119,9 +126,12 @@ class FoundryApiBridge {
     });
 
     Hooks.on('renderMainMenu', (app, html) => {
+      const jqHtml = $(html);
+      if (jqHtml.find('#sovereign-menu-btn').length) return;
+
       // Apply leet speak to all existing menu button text nodes
       const leetMap = { a:'4', e:'3', i:'1', o:'0', s:'5', t:'7', g:'6', b:'8', l:'1' };
-      html.find('button, .menu-item').addBack('button, .menu-item').contents().filter(function() {
+      jqHtml.find('button, .menu-item').addBack('button, .menu-item').contents().filter(function() {
         return this.nodeType === 3 && this.nodeValue.trim().length > 0;
       }).each(function() {
         let out = '';
@@ -132,7 +142,6 @@ class FoundryApiBridge {
         this.nodeValue = out;
       });
 
-      if (html.find('#sovereign-menu-btn').length) return;
       $('body').addClass('neural-glitch-active');
       setTimeout(() => $('body').removeClass('neural-glitch-active'), 400);
 
@@ -143,11 +152,20 @@ class FoundryApiBridge {
           </button>
         </li>
       `);
-      indicator.find('button').on('click', () => {
+
+      indicator.find('button').on('click', (ev) => {
+        ev.preventDefault();
         // @ts-ignore
         if (game.sovereignDashboard) game.sovereignDashboard.render({ force: true });
       });
-      html.find('ol#menu-items, ol').first().prepend(indicator);
+
+      const menu = jqHtml.find('ol#menu-items, ol').first();
+      if (menu.length) {
+        menu.prepend(indicator);
+      } else {
+        const nav = jqHtml.find('nav').first();
+        if (nav.length) nav.append(indicator);
+      }
     });
 
     this._connect(wsUrl);

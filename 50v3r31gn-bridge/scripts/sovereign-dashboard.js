@@ -83,9 +83,15 @@ window.addEventListener("message", (event) => {
 
 // ── Registration ──────────────────────────────────────────────────────────────
 
-Hooks.once("ready", () => {
+function registerDashboard() {
+  if (game.sovereignDashboard) return;
   // Expose global instance for console access
   game.sovereignDashboard = new SovereignDashboard();
-
   console.log("[SOVEREIGN] Dashboard bridge registered — Ctrl+Shift+D to open");
-});
+}
+
+if (game.ready) {
+  registerDashboard();
+} else {
+  Hooks.once("ready", registerDashboard);
+}

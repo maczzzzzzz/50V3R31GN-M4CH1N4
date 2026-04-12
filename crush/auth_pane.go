@@ -8,6 +8,19 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+var (
+	wsaTitleStyle = lipgloss.NewStyle().
+		Bold(true).
+		Foreground(lipgloss.Color("#ff1a1a")).
+		Border(lipgloss.DoubleBorder()).
+		Padding(0, 1)
+
+	wsaContentStyle = lipgloss.NewStyle().
+		Border(lipgloss.NormalBorder()).
+		BorderForeground(lipgloss.Color("#440000")).
+		Padding(1, 2)
+)
+
 type AuthModel struct {
 	proposal *Proposal
 	choice   ProposalStatus
@@ -22,11 +35,11 @@ func (m AuthModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-		case "enter":
+		case "y", "Y", "enter":
 			m.choice = StatusApproved
 			m.quitting = true
 			return m, tea.Quit
-		case "esc":
+		case "n", "N", "esc":
 			m.choice = StatusRejected
 			m.quitting = true
 			return m, tea.Quit
@@ -38,27 +51,34 @@ func (m AuthModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m AuthModel) View() string {
-	header := headerStyle.Copy().
-		Background(colorAccent).
-		Foreground(colorWhite).
-		Render("⟨ AUTHORIZATION REQUIRED ⟩")
+	title := wsaTitleStyle.Render("⟨ AUTHORIZATION REQUIRED ⟩")
 
 	originStr := "Node B"
 	if m.proposal.Origin == 1 {
 		originStr = "Strategic Atlas"
 	}
 
-	content := fmt.Sprintf(
-		"\n  ORIGIN: %s\n  ACTION: %d\n  ID:     %d\n\n  %s\n",
+	info := fmt.Sprintf(
+		"ORIGIN: %s\nACTION: %d\nID:     %d",
 		lipgloss.NewStyle().Foreground(colorRed).Render(originStr),
 		m.proposal.ActionType,
 		m.proposal.ID,
-		lipgloss.NewStyle().Foreground(colorWhite).Render(strings.Trim(string(m.proposal.Payload[:]), "\x00")),
 	)
 
-	footer := "\n  [ENTER] TO SIGN | [ESC] TO ABORT"
+	payload := strings.Trim(string(m.proposal.Payload[:]), "\x00")
 	
-	return paneStyle.BorderForeground(colorAccent).Render(header + content + footer)
+	content := wsaContentStyle.Render(
+		info + "\n\n" + lipgloss.NewStyle().Foreground(colorWhite).Render(payload),
+	)
+
+	help := lipgloss.NewStyle().
+		Foreground(colorDim).
+		Render("\n  [Y/ENTER] GRANTED | [N/ESC] REJECTED")
+
+	ui := lipgloss.JoinVertical(lipgloss.Center, title, content, help)
+	
+	// Center the entire UI in a fixed-size terminal area (simulated)
+	return lipgloss.Place(80, 20, lipgloss.Center, lipgloss.Center, ui)
 }
 
 // RunAuthPane launches the Bubble Tea loop for a single proposal.

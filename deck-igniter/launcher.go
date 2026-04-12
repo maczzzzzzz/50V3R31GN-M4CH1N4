@@ -144,6 +144,22 @@ func launchPixtral(c *Component) tea.Cmd {
 	}
 }
 
+// launchObsidian fires Obsidian via WSL interop powershell.exe.
+func launchObsidian(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		// Using explorer.exe shell:AppsFolder pattern is the most reliable way to fire 
+		// Windows Store / AppID-based applications from WSL.
+		cmd := exec.Command(cmdExe, "/C", "explorer.exe shell:AppsFolder\\md.obsidian")
+		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
+
+		if err := cmd.Run(); err != nil {
+			// Explorer often returns exit code 1 even on success when launching shell links,
+			// so we only report error if the command itself failed to spawn.
+		}
+		return stateUpdateMsg{name: c.Name, state: StateRunning}
+	}
+}
+
 // ── Layer 2: WSL — Nix-Native Processes ──────────────────────────────────────
 
 // nixCmd builds an exec.Cmd for `nix develop --command <args...>` rooted at dir.
@@ -240,21 +256,20 @@ func launchDirector(c *Component) tea.Cmd {
 }
 
 // launchSidecar starts a Rust sidecar via `nix develop`.
-// It checks if the release binary exists to avoid expensive compilation during boot.
 func launchSidecar(c *Component, subdir string) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
-		dir := fmt.Sprintf("%s/%s", root, subdir)
-		
-		// Optimization: If binary exists, run it directly to avoid "cargo run" overhead
+		dir := filepath.Join(root, subdir)
+
+		// BLOCKING BUILD if missing
 		binPath := filepath.Join(dir, "target/release", subdir)
-		var cmd *exec.Cmd
-		if _, err := os.Stat(binPath); err == nil {
-			cmd = nixCmd(dir, "./target/release/"+subdir)
-		} else {
-			cmd = nixCmd(dir, "cargo", "run", "--release")
+		if _, err := os.Stat(binPath); err != nil {
+			cmd := exec.Command("nix", "develop", "--command", "cargo", "build", "--release")
+			cmd.Dir = dir
+			_ = cmd.Run() // Wait for completion
 		}
 
+		cmd := nixCmd(dir, "./target/release/"+subdir)
 		if err := cmd.Start(); err != nil {
 			return stateUpdateMsg{
 				name:  c.Name,
@@ -385,6 +400,8 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 				cmds = append(cmds, launchFoundry(comp))
 			case "pixtral":
 				cmds = append(cmds, launchPixtral(comp))
+			case "obsidian":
+				cmds = append(cmds, launchObsidian(comp))
 			}
 		}
 	}
