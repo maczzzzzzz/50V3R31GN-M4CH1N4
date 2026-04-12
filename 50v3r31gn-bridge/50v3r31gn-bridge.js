@@ -176,7 +176,29 @@ class FoundryApiBridge {
     this._connect(wsUrl);
     this._setupInterception();
     this._setupCounterHacks();
+    this._setupErrorCapture();
     window.SOVEREIGN_BRIDGE = this;
+  }
+
+  _setupErrorCapture() {
+    // Capture unhandled JS errors and report them back to Node B
+    window.addEventListener('error', (event) => {
+      this._sendEvent('js_error', {
+        message: event.message,
+        source: event.filename,
+        line: event.lineno,
+        col: event.colno,
+        stack: event.error?.stack ?? null,
+        type: 'uncaughtError',
+      });
+    });
+    window.addEventListener('unhandledrejection', (event) => {
+      this._sendEvent('js_error', {
+        message: String(event.reason),
+        stack: event.reason?.stack ?? null,
+        type: 'unhandledRejection',
+      });
+    });
   }
 
   _setupCounterHacks() {
@@ -267,6 +289,38 @@ class FoundryApiBridge {
     });
 
     html.closest('.app').find('.window-header').addClass('neural-glitch-active');
+  }
+
+  /**
+   * Render a critical error as an in-game overlay and report it upstream to Node B.
+   * Called by the Gauntlet Engine's manifestError() hook.
+   * @param {{code: string, message: string, severity: string}} error
+   */
+  showErrorOverlay({ code = 'ERROR', message = 'Unknown error', severity = 'WARN' } = {}) {
+    // Render in-game notification for immediate GM visibility
+    if (ui?.notifications) {
+      const label = `[${code}] ${message}`;
+      if (severity === 'CRITICAL') {
+        ui.notifications.error(label);
+      } else {
+        ui.notifications.warn(label);
+      }
+    }
+
+    // Dispatch to PretextOverlayManager if available
+    PretextOverlayManager.drawOverlay({
+      label: `${code}: ${message}`,
+      type: 'error',
+      duration: severity === 'CRITICAL' ? 8000 : 4000,
+    }).catch(() => { /* non-fatal if overlay engine not ready */ });
+
+    // Stream the error event upstream to Node B for observability
+    this._sendEvent('gauntlet_error', {
+      code,
+      message,
+      severity,
+      timestamp: Date.now(),
+    });
   }
 
   destroy() {
