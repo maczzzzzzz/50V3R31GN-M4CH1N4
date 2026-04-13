@@ -52,6 +52,8 @@
     "gauntlet": "tsx scripts/gauntlet/engine.ts",
     "gauntlet:no-cdp": "tsx scripts/gauntlet/engine.ts --no-cdp",
     "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest",
+    "forge:skills": "tsx scripts/forge/skill-factory.ts --once",
+    "forge:skills:watch": "tsx scripts/forge/skill-factory.ts",
     "forge:threats": "tsx scripts/forge/export-threat-library.ts",
     "forge:threats:akashik": "tsx scripts/forge/export-threat-library.ts --source=akashik",
     "forge:threats:foundry": "tsx scripts/forge/export-threat-library.ts --source=foundry"
