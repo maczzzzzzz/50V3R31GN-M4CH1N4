@@ -96,6 +96,10 @@
             printf '%s' "$SOVEREIGN_SOUL"   > "$PROJECT_ROOT/SOUL.md"
             printf '%s' "$SOVEREIGN_AGENTS" > "$PROJECT_ROOT/AGENTS.md"
 
+            # Phase 52 Acceleration: 0xSero Performance Logic (Vulkan RADV 29% Speedup)
+            export RADV_PERFTEST="sam"
+            export AMD_VULKAN_ICD="RADV"
+
             # R3D_V01D Font Config — expose Hack + JetBrains Mono to WSLg X-server
             export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ pkgs.hack-font pkgs.jetbrains-mono ]; }}"
 

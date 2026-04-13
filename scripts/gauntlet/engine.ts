@@ -6,7 +6,7 @@
 import { chromium } from 'playwright-core';
 import type { Browser, Page } from 'playwright-core';
 import Database from 'better-sqlite3';
-import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, appendFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createSocket } from 'node:dgram';
@@ -405,6 +405,10 @@ async function main() {
   mkdirSync('./data/logs', { recursive: true });
   writeFileSync('./data/logs/gauntlet-report.json', JSON.stringify(report, null, 2));
   writeFileSync('./data/logs/gauntlet-report.md', renderMarkdown(report));
+
+  // Phase 52.5: High-intensity history log
+  const historyLine = `[${report.timestamp}] PASS=${passed} FAIL=${failed} WARN=${warned} SKIP=${skipped} DURATION=${durationMs}ms\n`;
+  appendFileSync('./data/logs/gauntlet-history.log', historyLine);
 
   console.log('\n' + '─'.repeat(60));
   const icon = failed > 0 ? '🔴' : warned > 0 ? '🟡' : '🟢';

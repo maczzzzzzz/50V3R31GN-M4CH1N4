@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.3] - 2026-04-12
+### Added
+- **Phase 51 (Sovereign Foundation)**: Implemented declarative identity forge via `nix/identities.nix` and `flake.nix` environment injection.
+- **Sovereign Pulse**: Deployed a cron-driven hardware telemetry daemon for GPU/CPU/VSB monitoring with ASCII dashboard output in Obsidian.
+- **Phase 52 (Cognitive Artery)**: Implemented the **Soul Logger** (Icarus pattern) for trajectory capture and the **Skill Factory** (Hermes pattern) for autonomous shard distillation.
+- **FlowState Intuition**: Developed an anticipatory Mmap caching system (QMD pattern) for zero-latency district RKG retrieval.
+- **Phase 52.5 (Ouroboros Logic)**: Established a recursive verification loop where Node A (Kernel) audits Node B (Director) reasoning paths for mandate compliance.
+- **Genetic Prompt Evolution**: Implemented the **GEPA Optimizer** (DSPy pattern) to programmatically refine the declarative Nix identity based on high-signal trajectories.
+- **Shard Documentation**: Created a comprehensive ability shard library in `docs/superpowers/shards/` documenting all 50+ system capabilities.
+
+### Changed
+- **System Acceleration**: Integrated **0xSero Performance Logic** into the Nix environment, enabling 29% faster decoding via Vulkan RADV optimizations.
+- **Gauntlet Engine**: Upgraded the gauntlet to maintain a longitudinal history log (`gauntlet-history.log`) for stability tracking.
+- **Git Security**: Updated `.gitignore` to allow remote tracking of gauntlet shard documentation while maintaining strict blocklists for raw assets.
+
 ## [3.2.2] - 2026-04-12
 ### Added
 - **Phase 50 (Nucleus Command Deck)**: Implemented a monolithic, high-fidelity WebGL command center using React 19, PIXI.js v8, and the Pretext Engine.

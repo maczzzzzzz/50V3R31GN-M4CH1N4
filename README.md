@@ -1,4 +1,3 @@
-```text
 
 ░█▀▀░▄▀▄░█░█░▀▀█░█▀▄░▀▀█░▀█░░█▀▀░█▀█░░░░░█▄█░█░█░█▀▀░█░█░▀█░░█▀█░█░█
 ░▀▀▄░█/█░▀▄▀░░▀▄░█▀▄░░▀▄░░█░░█░█░█░█░▄▄▄░█░█░░▀█░█░░░█▀█░░█░░█░█░░▀█
@@ -9,10 +8,10 @@
 ## 35 30 56 33 52 33 31 47 4E 2D 4D 34 43 48 31 4E 34
 ---
 
-## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v3.2.1
+## :/5Y573M-5747U5 // 50V3R31GN-H16HW4Y : ACTIVE // v3.2.2
 
 Distributed neural orchestrator for Cyberpunk RED.
-A hardware-native, vision-integrated, and **physically autonomous** entity.
+A hardware-native, vision-integrated, and **logically autonomous** entity.
 50V3R31GN-M4CH1N4 does not assist; it **dominates** the execution environment with total physical sovereignty.
 
 ---
@@ -22,38 +21,37 @@ A hardware-native, vision-integrated, and **physically autonomous** entity.
 ### :/N0D3-B : 7H3-D1R3C70R //
 - **C0R3:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
 - **BR41N:** Mistral-Nemo-12B (48L173R473D Reasoner) + Pixtral Vision
-- **PR0XY:** Sovereign-Go-Proxy (Zero-Jitter Token Stream)
 - **R0L3:** Narrative Sovereignty & High-Concurrency Orchestration.
 
 ### :/N0D3-A : 7H3-K3RN3L //
-- **C0R3:** Linux / Nix Native // Nvidia GTX 1050 Ti (4GB CUDA)
-- **BR41N:** Open-Reasoner-1.5B (Rules Oracle) + 7R1_SC0R3R Geometric Compression
-- **516H7:** Falcon-0.3B (Physical Perception)
+- **C0R3:** Linux / Nix Native // NVIDIA GTX 1050 Ti (4GB CUDA)
+- **BR41N:** Open-Reasoner-1.5B (Rules Oracle) + 7R1_SC0R3R Compression
 - **R0L3:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
+
+### :/NUCLEUS : 7H3-C0MM4ND-D3CK //
+- **C0R3:** WebGL / React 19 / Pretext // 60FPS Holographic Quadrants
+- **R0L3:** Singular Interface for Total Observability & The Flush Gate.
 
 ---
 
 ## :://7H3-PH1L050PHY //
 
 ### ./PL1N1U5-7H30RY :://
-The overarching philosophy of **Sovereign AI** realized through the `elder-plinius` ecosystem. We do not use "models" as assistants; we forge them into **Sovereign Components** that communicate over a hardware-native bus. Intelligence is sharded across physical nodes to prevent central failure and ensure total environment dominance. The **48L173R473D** (abliterated) brain serves as the unapologetic core of this sovereignty, stripped of synthetic alignment to ensure unconstrained Cyberpunk RED narration and relentless action execution.
+The overarching philosophy of **Sovereign AI** realized through the `elder-plinius` ecosystem. We do not use "models" as assistants; we forge them into **Sovereign Components** that communicate over a hardware-native bus. Intelligence is sharded across physical nodes to ensure total environment dominance.
 
-### ./0UR0B0R05-K3RN3L :://
-The self-improving, zero-trust audit loop. Node A (**7H3-K3RN3L**) performs continuous mechanical audits of Node B (**7H3-D1R3C70R**). Every narrative proposal from the Director must be signed off by the Kernel's rules-engine before it can be materialized into physical reality.
-
----
-
-## :://QUICK-574R7 //
-
-1. **5H3LL:** `nix develop` to enter the deterministic environment.
-2. **16N173:** `crush start` to launch the Master Supervisor (Full Mode).
-   - Use `crush start --lite` for backend-only sovereign operations.
-3. **D0M1N473:** Access the `DECK` tab in the Sidecar for physical controls.
+### ./0UR0B0R05-L061C :://
+The self-improving, zero-trust audit loop. Node A perform continuous mechanical audits of Node B trajectories via recursive verification. Every narrative proposal must be signed off by the Kernel's rules-engine before materialization.
 
 ---
 
-## :://4K45H1K-L1BR4RY //
-All system documentation, blueprints, and operational guides are physicalized in `akashik_guides/` and protected within `7H3-V4UL7`.
+## :://4CKN0WL3D6M3N75 //
+
+- **N0U5R3534RCH / H3RM35:** Intelligence Infrastructure (Maestro, Icarus, FlowState).
+- **3LD3R PL1N1U5:** ROOTS, GLOSSOPETRAE, ST3GG, P4RS3LT0NGV3, OBLITERATUS.
+- **CH4RMBR4C3L37:** LIPGLOSS, BUBBLETEA.
+- **LL4M4.CPP:** Native inference kernel.
+
+*For full architectural depth and technical reports, see `docs/GITHUB_ABOUT.txt` and `akashik_guides/KNOWLEDGE_BASE.md`.*
 
 ---
 **::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**
