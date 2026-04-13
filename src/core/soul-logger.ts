@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { logger } from '../shared/logger.js';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -45,7 +46,6 @@ const PROJECT_ROOT = process.env['PROJECT_ROOT'] ?? process.cwd();
 const SOUL_LOG     = path.join(PROJECT_ROOT, 'data/logs/soul.jsonl');
 
 // ── Training value heuristics ─────────────────────────────────────────────────
-// Higher scores = more "surprising" or high-signal decisions worth learning from.
 
 const HIGH_VALUE_SIGNALS = [
   /critical success/i,
@@ -70,22 +70,13 @@ const LOW_VALUE_SIGNALS = [
 
 function scoreTrainingValue(content: string, reasoning?: string): number {
   const combined = `${content} ${reasoning ?? ''}`;
-
-  // Penalise low-signal entries
   if (LOW_VALUE_SIGNALS.some(r => r.test(combined))) return 0.1;
-
-  let score = 0.4; // baseline
-
-  // Award points for high-signal content
+  let score = 0.4;
   for (const sig of HIGH_VALUE_SIGNALS) {
     if (sig.test(combined)) score += 0.1;
   }
-
-  // Boost for non-trivial reasoning blocks
   if (reasoning && reasoning.length > 200) score += 0.15;
   if (reasoning && reasoning.length > 500) score += 0.1;
-
-  // Cap at 1.0
   return Math.min(1.0, Math.round(score * 100) / 100);
 }
 
@@ -110,7 +101,11 @@ export class SoulLogger {
     this.logPath  = logPath;
     this.enabled  = enabled;
     if (enabled) {
-      fs.mkdirSync(path.dirname(logPath), { recursive: true });
+      try {
+        fs.mkdirSync(path.dirname(logPath), { recursive: true });
+      } catch (e) {
+        logger.error('SOUL_LOGGER', 'init', `Failed to create log directory: ${path.dirname(logPath)}`, { error: (e as Error).message });
+      }
     }
   }
 
@@ -157,9 +152,14 @@ export class SoulLogger {
     decisionType: DecisionType = 'narrative',
     meta: Record<string, unknown> = {},
   ): Promise<T> {
-    const result = await fn();
-    this.capture(result, decisionType, meta);
-    return result;
+    try {
+      const result = await fn();
+      this.capture(result, decisionType, meta);
+      return result;
+    } catch (e) {
+      logger.error('SOUL_LOGGER', 'wrap', `Wrapped function failed: ${(e as Error).message}`, { decisionType, meta });
+      throw e;
+    }
   }
 
   /** Write a pre-constructed entry directly. */
@@ -167,8 +167,8 @@ export class SoulLogger {
     if (!this.enabled) return;
     try {
       fs.appendFileSync(this.logPath, JSON.stringify(entry) + '\n');
-    } catch {
-      // Non-fatal — soul logging must never crash the main path
+    } catch (e) {
+      logger.error('SOUL_LOGGER', 'write', `Failed to append to soul log: ${this.logPath}`, { error: (e as Error).message, entryId: entry.id });
     }
   }
 
@@ -178,12 +178,14 @@ export class SoulLogger {
    */
   readTail(n = 50): SoulEntry[] {
     try {
+      if (!fs.existsSync(this.logPath)) return [];
       const lines = fs.readFileSync(this.logPath, 'utf8')
         .split('\n')
         .filter(Boolean)
         .slice(-n);
       return lines.map(l => JSON.parse(l) as SoulEntry);
-    } catch {
+    } catch (e) {
+      logger.error('SOUL_LOGGER', 'readTail', `Failed to read soul log: ${this.logPath}`, { error: (e as Error).message });
       return [];
     }
   }

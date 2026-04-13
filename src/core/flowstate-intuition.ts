@@ -8,22 +8,13 @@
  * signals on the VSB UDP port. When a district change is detected,
  * pre-warms a dedicated flowstate cache file (data/flowstate-cache.mem)
  * with RKG triplets for that district before any explicit query is issued.
- *
- * Cache layout: data/flowstate-cache.mem
- *   - Magic:     16 bytes ("FLOWSTATE-CACHE\0")
- *   - District:  64 bytes (null-padded UTF-8 string)
- *   - Updated:   8 bytes (u64 LE ms timestamp)
- *   - Count:     4 bytes (u32 LE number of cached triplets)
- *   - Payload:   remaining bytes (JSON-encoded triplet array, null-terminated)
- *
- * The Mmap "slots 5000-6000" are virtualised here as this compact binary
- * structure — the 1000-entry triplet window pre-loaded per district.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import dgram from 'node:dgram';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
+import { logger } from '../shared/logger.js';
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
@@ -59,19 +50,20 @@ export class FlowStateIntuition {
 
   constructor(oracle: UnifiedOracleClient) {
     this.oracle = oracle;
-    fs.mkdirSync(path.dirname(CACHE_PATH), { recursive: true });
+    try {
+      fs.mkdirSync(path.dirname(CACHE_PATH), { recursive: true });
+    } catch (e) {
+      logger.error('FLOWSTATE', 'init', `Failed to create cache directory: ${path.dirname(CACHE_PATH)}`, { error: (e as Error).message });
+    }
   }
 
   /** Start monitoring for district changes. */
   start(): void {
-    // Poll shared memory for district_id annotations
     this.pollTimer = setInterval(() => this.pollDistrict(), POLL_INTERVAL);
-
-    // Also listen on VSB UDP for district_focus packets
     this.bindVsb();
-
-    // Immediate first poll
-    this.pollDistrict().catch(() => { /* non-fatal */ });
+    this.pollDistrict().catch((e) => {
+      logger.error('FLOWSTATE', 'start', `Initial poll failed: ${(e as Error).message}`);
+    });
   }
 
   stop(): void {
@@ -79,14 +71,13 @@ export class FlowStateIntuition {
     if (this.vsbSocket) this.vsbSocket.close();
   }
 
-  /** Return current cached district name (or null). */
   getCachedDistrict(): string | null {
     return this.currentDistrict;
   }
 
-  /** Read the current cache payload (parsed triplets or []). */
   readCache(): RkgTriplet[] {
     try {
+      if (!fs.existsSync(CACHE_PATH)) return [];
       const buf = fs.readFileSync(CACHE_PATH);
       if (buf.length < PAYLOAD_OFFSET) return [];
       if (!buf.subarray(MAGIC_OFFSET, 16).equals(MAGIC)) return [];
@@ -94,33 +85,33 @@ export class FlowStateIntuition {
       if (count === 0) return [];
       const payload = buf.subarray(PAYLOAD_OFFSET).toString('utf8').replace(/\0+$/, '');
       return JSON.parse(payload) as RkgTriplet[];
-    } catch {
+    } catch (e) {
+      logger.error('FLOWSTATE', 'readCache', `Failed to read cache: ${CACHE_PATH}`, { error: (e as Error).message });
       return [];
     }
   }
 
-  /** Force a cache warm for a specific district (useful for testing). */
   async warmDistrict(district: string): Promise<number> {
     return this.warmCache(district);
   }
 
-  // ── Private ─────────────────────────────────────────────────────────────────
-
   private async pollDistrict(): Promise<void> {
-    // Attempt to detect active district from shared memory annotation or
-    // the VSB radar blip data (Watson / Heywood etc. embedded in faction data).
-    const detected = this.detectDistrictFromMem();
-    if (detected && detected !== this.currentDistrict) {
-      this.currentDistrict = detected;
-      await this.warmCache(detected).catch(() => { /* non-fatal */ });
+    try {
+      const detected = this.detectDistrictFromMem();
+      if (detected && detected !== this.currentDistrict) {
+        logger.info('FLOWSTATE', 'poll', `District shift detected: ${detected}`);
+        this.currentDistrict = detected;
+        await this.warmCache(detected).catch((e) => {
+          logger.error('FLOWSTATE', 'warm', `Cache warm failed for ${detected}: ${(e as Error).message}`);
+        });
+      }
+    } catch (e) {
+      logger.error('FLOWSTATE', 'poll', `Poll failed: ${(e as Error).message}`);
     }
   }
 
   private detectDistrictFromMem(): string | null {
     try {
-      // Check if black_ice_state.mem has district annotation at known offsets.
-      // Phase 47 added district_id to radar blips; we probe for a UTF-8 string
-      // at offset 1024 (annotation slot written by the bridge module).
       if (!fs.existsSync(MEM_PATH)) return null;
       const fd = fs.openSync(MEM_PATH, 'r');
       const probe = Buffer.alloc(64);
@@ -128,35 +119,39 @@ export class FlowStateIntuition {
       fs.closeSync(fd);
       const str = probe.toString('utf8').replace(/\0+$/, '').trim();
       if (str.length > 0 && str.length <= 60) return str;
-    } catch { /* file may not exist or be too small */ }
+    } catch { /* non-fatal */ }
     return null;
   }
 
   private bindVsb(): void {
     try {
       this.vsbSocket = dgram.createSocket('udp4');
-      this.vsbSocket.bind(0); // ephemeral port — we only send, not receive here
-      // Listen for broadcast district_focus packets from the bridge
       const recv = dgram.createSocket('udp4');
       recv.bind(VSB_PORT + 1, '127.0.0.1', () => {
+        logger.info('FLOWSTATE', 'bind', `Listening for VSB district packets on 127.0.0.1:${VSB_PORT + 1}`);
         recv.on('message', (msg) => {
           try {
             const obj = JSON.parse(msg.toString()) as { type?: string; district?: string };
             if (obj.type === 'district_focus' && obj.district && obj.district !== this.currentDistrict) {
+              logger.info('FLOWSTATE', 'vsb', `District shift via UDP: ${obj.district}`);
               this.currentDistrict = obj.district;
-              this.warmCache(obj.district).catch(() => { /* non-fatal */ });
+              this.warmCache(obj.district).catch((e) => {
+                logger.error('FLOWSTATE', 'warm', `Cache warm failed for ${obj.district}: ${(e as Error).message}`);
+              });
             }
-          } catch { /* not a JSON district packet */ }
+          } catch { /* skip */ }
         });
       });
-      recv.on('error', () => { /* ignore bind errors if port in use */ });
-    } catch { /* VSB bind failure is non-fatal */ }
+      recv.on('error', (e) => {
+        logger.warn('FLOWSTATE', 'bind', `VSB bind error: ${e.message}`);
+      });
+    } catch (e) {
+      logger.error('FLOWSTATE', 'bind', `Failed to initialize VSB socket: ${(e as Error).message}`);
+    }
   }
 
   private async warmCache(district: string): Promise<number> {
-    // Query oracle for triplets matching this district (max MAX_TRIPLETS)
     let triplets: RkgTriplet[] = [];
-
     try {
       const result = await this.oracle.ragSearch({
         query: district,
@@ -169,37 +164,31 @@ export class FlowStateIntuition {
         predicate:      m.sectionHeading ?? 'RELATED',
         object_literal: m.content,
       }));
-    } catch {
-      // Oracle unavailable — write empty cache entry to signal we tried
+      logger.info('FLOWSTATE', 'warm', `Cached ${triplets.length} triplets for ${district}`);
+    } catch (e) {
+      logger.error('FLOWSTATE', 'warm', `Oracle search failed for ${district}: ${(e as Error).message}`);
     }
 
-    this.writeCacheFile(district, triplets);
+    try {
+      this.writeCacheFile(district, triplets);
+    } catch (e) {
+      logger.error('FLOWSTATE', 'write', `Failed to write cache file: ${(e as Error).message}`);
+    }
     return triplets.length;
   }
 
   private writeCacheFile(district: string, triplets: RkgTriplet[]): void {
     const payload    = Buffer.from(JSON.stringify(triplets), 'utf8');
-    const totalSize  = PAYLOAD_OFFSET + payload.length + 1; // +1 for null terminator
+    const totalSize  = PAYLOAD_OFFSET + payload.length + 1;
     const buf        = Buffer.alloc(totalSize, 0);
 
     MAGIC.copy(buf, MAGIC_OFFSET);
-
-    // Write district name (64-byte null-padded)
     const districtBuf = Buffer.from(district.slice(0, 60), 'utf8');
     districtBuf.copy(buf, DISTRICT_OFFSET);
-
-    // Write u64 LE timestamp
-    const nowMs = BigInt(Date.now());
-    buf.writeBigUInt64LE(nowMs, UPDATED_OFFSET);
-
-    // Write count
+    buf.writeBigUInt64LE(BigInt(Date.now()), UPDATED_OFFSET);
     buf.writeUInt32LE(triplets.length, COUNT_OFFSET);
-
-    // Write payload
     payload.copy(buf, PAYLOAD_OFFSET);
 
-    try {
-      fs.writeFileSync(CACHE_PATH, buf);
-    } catch { /* non-fatal */ }
+    fs.writeFileSync(CACHE_PATH, buf);
   }
 }
