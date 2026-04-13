@@ -25,7 +25,7 @@ const execAsync = promisify(exec);
 
 const PROJECT_ROOT = process.env['PROJECT_ROOT'] ?? process.cwd();
 const VITALS_LOG   = path.join(PROJECT_ROOT, 'data/logs/vitals.log');
-const OBSIDIAN_DIR = path.join(PROJECT_ROOT, 'data/obsidian');
+const OBSIDIAN_DIR = path.join(PROJECT_ROOT, 'data/vault');
 const VITAL_SIGNS  = path.join(OBSIDIAN_DIR, 'VITAL_SIGNS.md');
 const INTERVAL_MS  = 60_000;
 
