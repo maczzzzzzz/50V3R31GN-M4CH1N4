@@ -60,7 +60,13 @@
     "forge:gepa:dry": "tsx scripts/forge/gepa-optimizer.ts --dry-run",
     "forge:threats": "tsx scripts/forge/export-threat-library.ts",
     "forge:threats:akashik": "tsx scripts/forge/export-threat-library.ts --source=akashik",
-    "forge:threats:foundry": "tsx scripts/forge/export-threat-library.ts --source=foundry"
+    "forge:threats:foundry": "tsx scripts/forge/export-threat-library.ts --source=foundry",
+    "forge:atlas": "tsx scripts/forge/atlas-forge.ts",
+    "forge:assembler": "tsx scripts/forge/assembler.ts",
+    "forge:master": "tsx scripts/forge/master-forge.ts",
+    "forge:backup": "tsx scripts/forge/backup-legacy-assets.ts",
+    "forge:ingest": "tsx scripts/forge/ingest-local-assets.ts",
+    "forge:tokens": "tsx scripts/forge/token-forge.ts"
   },
   "devDependencies": {
     "@types/better-sqlite3": "7.6.13",
