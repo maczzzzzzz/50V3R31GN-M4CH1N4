@@ -102,17 +102,14 @@ export const phase512: SovereignShard = {
   },
 
   async manifest(ctx: GauntletContext, _intent: unknown): Promise<void> {
-    ctx.logger.info('Headless-Heartbeat manifest: spawning sidecars in --headless mode');
-    // Spawn atlas
+    ctx.logger.info('Headless-Heartbeat manifest: spawning prebuilt sidecars in --headless mode');
     await execAsync(
-      'nix develop --impure --command bash -c "cd . && cargo run --manifest-path sidecar-atlas/Cargo.toml -- --headless >> data/logs/atlas.log 2>&1 &"',
+      'bash -c "./sidecar-atlas/target/release/sidecar-atlas --headless >> data/logs/atlas.log 2>&1 &"',
     ).catch(e => ctx.logger.error('Atlas spawn failed', e.message));
-    // Spawn cyberdeck
     await execAsync(
-      'nix develop --impure --command bash -c "cd . && cargo run --manifest-path sidecar-cyberdeck/Cargo.toml -- --headless >> data/logs/cyberdeck.log 2>&1 &"',
+      'bash -c "./sidecar-cyberdeck/target/release/sidecar-cyberdeck --headless >> data/logs/cyberdeck.log 2>&1 &"',
     ).catch(e => ctx.logger.error('Cyberdeck spawn failed', e.message));
-    // Allow daemons to start up
-    await new Promise(r => setTimeout(r, 5000));
+    await new Promise(r => setTimeout(r, 2000));
   },
 
   async onDrift(ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> {
@@ -125,7 +122,7 @@ export const phase512: SovereignShard = {
     } catch { /* processes may not exist */ }
     await new Promise(r => setTimeout(r, 2000));
 
-    // Check if repair was successful
+    // Check if Stage 1 resolved the drift
     if (existsSync(HB_FILE)) {
       const buf = readFileSync(HB_FILE);
       if (buf.length >= 16) {
@@ -139,22 +136,21 @@ export const phase512: SovereignShard = {
       }
     }
 
-    // Stage 2: Full restart
-    ctx.logger.warn('Stage 1 failed — Stage 2: full process restart');
+    // Stage 2: kill and restart prebuilt binaries (fast — no compile step)
+    ctx.logger.warn('Stage 1 failed — Stage 2: full process restart via prebuilt binaries');
     try {
       await execAsync("pkill -9 -f 'sidecar-atlas.*--headless' 2>/dev/null; pkill -9 -f 'sidecar-cyberdeck.*--headless' 2>/dev/null");
     } catch { /* processes may not exist */ }
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 500));
 
-    // Re-spawn
     await execAsync(
-      'nix develop --impure --command bash -c "cargo run --manifest-path sidecar-atlas/Cargo.toml -- --headless >> data/logs/atlas.log 2>&1 &"',
+      'bash -c "./sidecar-atlas/target/release/sidecar-atlas --headless >> data/logs/atlas.log 2>&1 &"',
     ).catch(e => ctx.logger.error('Atlas restart failed', e.message));
     await execAsync(
-      'nix develop --impure --command bash -c "cargo run --manifest-path sidecar-cyberdeck/Cargo.toml -- --headless >> data/logs/cyberdeck.log 2>&1 &"',
+      'bash -c "./sidecar-cyberdeck/target/release/sidecar-cyberdeck --headless >> data/logs/cyberdeck.log 2>&1 &"',
     ).catch(e => ctx.logger.error('Cyberdeck restart failed', e.message));
 
-    ctx.logger.info('Stage 2 restart issued — allow 5s for daemons to stabilize');
-    await new Promise(r => setTimeout(r, 5000));
+    ctx.logger.info('Stage 2 restart issued — allowing 2s for daemons to stabilize');
+    await new Promise(r => setTimeout(r, 2000));
   },
 };
