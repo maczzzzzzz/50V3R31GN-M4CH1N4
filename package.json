@@ -54,6 +54,8 @@
     "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest",
     "forge:skills": "tsx scripts/forge/skill-factory.ts --once",
     "forge:skills:watch": "tsx scripts/forge/skill-factory.ts",
+    "forge:gepa": "tsx scripts/forge/gepa-optimizer.ts",
+    "forge:gepa:dry": "tsx scripts/forge/gepa-optimizer.ts --dry-run",
     "forge:threats": "tsx scripts/forge/export-threat-library.ts",
     "forge:threats:akashik": "tsx scripts/forge/export-threat-library.ts --source=akashik",
     "forge:threats:foundry": "tsx scripts/forge/export-threat-library.ts --source=foundry"
