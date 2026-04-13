@@ -1,13 +1,13 @@
 use eframe::egui;
 use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Stroke};
-use memmap2::Mmap;
+use memmap2::{Mmap, MmapMut, MmapOptions};
 use sovereign_sdk::protocol::{
     GhostBlip as GhostBlipProtocol, GHOST_BLIP_SIZE, GHOST_HEADER_SIZE, GHOST_MAGIC, RADAR_BLIP_SIZE,
     RADAR_HEADER_SIZE, RADAR_MAGIC,
 };
-use std::fs::File;
+use std::fs::{File, OpenOptions};
 use std::path::PathBuf;
-use std::time::Duration;
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
 const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
@@ -427,10 +427,34 @@ fn main() -> eframe::Result<()> {
     if headless {
         println!("[CL4W]: Starting Headless Atlas Daemon...");
         let mut app = AtlasApp::new(mem_path.clone());
+
+        // ── Daemon Heartbeat — Mmap slot 4000 (byte offset 0 in heartbeat.mem) ──
+        // heartbeat.mem layout: [slot4000: u64 LE ms][slot4001: u64 LE ms] (16 bytes)
+        let hb_path = PathBuf::from("data/heartbeat.mem");
+        let hb_file = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .open(&hb_path)
+            .expect("[CL4W] Cannot open data/heartbeat.mem");
+        hb_file.set_len(16).expect("[CL4W] Cannot pre-allocate heartbeat.mem");
+        // SAFETY: hb_file is held open for the lifetime of the mmap.
+        let mut hb_mmap: MmapMut = unsafe { MmapOptions::new().map_mut(&hb_file) }
+            .expect("[CL4W] Cannot mmap heartbeat.mem");
+
         loop {
             app.parse_state();
             app.parse_ghost_state();
-            std::thread::sleep(std::time::Duration::from_millis(16));
+
+            // Write current Unix timestamp (ms) at slot 4000 (offset 0)
+            let now_ms = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_millis() as u64;
+            hb_mmap[0..8].copy_from_slice(&now_ms.to_le_bytes());
+            let _ = hb_mmap.flush_range(0, 8);
+
+            std::thread::sleep(Duration::from_millis(16));
         }
     }
 

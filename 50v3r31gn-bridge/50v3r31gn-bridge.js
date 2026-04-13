@@ -560,10 +560,12 @@ class FoundryApiBridge {
 let bridge = null;
 
 Hooks.once('init', () => {
+  // Phase 51 Purge: config:false — removes setting from Foundry module settings UI.
+  // Value still readable via game.settings.get() for internal use.
   game.settings.register(MODULE_ID, 'nodeBWsUrl', {
     name: 'Node B WebSocket URL',
     scope: 'world',
-    config: true,
+    config: false,
     type: String,
     default: DEFAULT_WS_URL,
   });

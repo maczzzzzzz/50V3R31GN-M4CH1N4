@@ -9,6 +9,7 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      identities = import ./nix/identities.nix { lib = pkgs.lib; };
       
       # Hardware-Optimized llama-cpp
       llama-cpp-vulkan = pkgs.llama-cpp.override {
@@ -88,6 +89,12 @@
 
             # Phase 48: Sovereign Triad — Impure/Unfree mandates
             export NIXPKGS_ALLOW_UNFREE=1
+
+            # Phase 51: Declarative Identity Forge — manifest SOUL and AGENTS on shell entry
+            export SOVEREIGN_SOUL=${pkgs.lib.escapeShellArg identities.soul}
+            export SOVEREIGN_AGENTS=${pkgs.lib.escapeShellArg identities.agents}
+            printf '%s' "$SOVEREIGN_SOUL"   > "$PROJECT_ROOT/SOUL.md"
+            printf '%s' "$SOVEREIGN_AGENTS" > "$PROJECT_ROOT/AGENTS.md"
 
             # R3D_V01D Font Config — expose Hack + JetBrains Mono to WSLg X-server
             export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ pkgs.hack-font pkgs.jetbrains-mono ]; }}"
