@@ -54,6 +54,8 @@
     "gauntlet:manifest": "tsx scripts/gauntlet/engine.ts --manifest",
     "forge:skills": "tsx scripts/forge/skill-factory.ts --once",
     "forge:skills:watch": "tsx scripts/forge/skill-factory.ts",
+    "forge:topology": "tsx scripts/forge/topology-lib/generate-pngs.ts",
+    "forge:blueprint": "tsx scripts/forge/blueprint-engine.ts",
     "forge:gepa": "tsx scripts/forge/gepa-optimizer.ts",
     "forge:gepa:dry": "tsx scripts/forge/gepa-optimizer.ts --dry-run",
     "forge:threats": "tsx scripts/forge/export-threat-library.ts",
