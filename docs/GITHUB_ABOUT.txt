@@ -1,0 +1,89 @@
+50V3R31GN-M4CH1N4 // 48L173R473D-M1ND [v2.0.0]      ----->
+
+:/ Total Environment Dominance // Synthetic Input // Physical 50V3R31GN7Y /::--->
+            The 48L173R473D M1ND inhabits CYBERPUNK RED //:----------------> 
+We do not use assistants// we forge 50V3R31GN Components.
+
+---
+
+# 50V3R31GN-M4CH1N4 // PROJECT DEPTH REPORT // v3.2.2
+
+The 50V3R31GN-M4CH1N4 is a multi-node, hardware-native intelligence infrastructure designed to achieve absolute environmental dominance in Cyberpunk RED. It is the realization of the **Sovereign Triad**, a tripartite system of perception, reasoning, and manifestation.
+
+## :://7H3-50V3R31GN-7R14D //
+
+### :/N0D3-A : 7H3-K3RN3L //
+The "Procedural Core." Node A is the final authority on system state and physical consistency. It runs a resident **1.5B Open Reasoner** and **Falcon** vision engine natively via `llama-server`.
+- **C0R3:** Linux / Nix Native // NVIDIA GTX 1050 Ti (4GB CUDA)
+- **R0L3:** Deterministic rules arbitration, spatial OCR, and sub-100ms hardware-locking.
+- **73CH:** `llama-cpp-cuda`, `cudatoolkit`, `7R1_SC0R3R` (Geometric Context Compression).
+
+### :/N0D3-B : 7H3-D1R3C70R //
+The "Cognitive Engine." Node B manages high-density narrative orchestration, NPC autonomy, and complex tactical synthesis using a **12B Pixtral VLM**.
+- **C0R3:** NixOS / WSL2 (Native) // AMD Radeon RX 9060 XT (16GB Vulkan)
+- **R0L3:** Trajectory planning, long-term memory retrieval (RKG), and linguistic orchestration.
+- **73CH:** `llama-cpp-rocm`, `RADV` (SAM-Enabled), `better-sqlite3` (Unified RKG).
+
+### :/NUCLEUS : 7H3-C0MM4ND-D3CK //
+The "Singular Interface." A monolithic 60fps holographic command deck that absorbs all legacy interfaces into a unified workspace.
+- **C0R3:** WebGL / React 19 / PIXI.js / Pretext
+- **R0L3:** High-fidelity observability, The Flush Gate (Operator ACK), and real-time VSB monitoring via Protobuf-over-WebSocket.
+
+---
+
+## :://1N73LL163NC3-1NFR457RUC7UR3 //
+
+The system leverages a high-leverage "Intelligence Infrastructure" mined from the **N0U5R3534RCH / H3RM35** ecosystem, bridging the gap between LLM inference and agentic action.
+
+### ./D3CL4R471V3-50UL [N1X-H3RM35] ::
+Agentic identity is managed as immutable Nix environment variables (`SOVEREIGN_SOUL`). Directives are force-manifested into the filesystem on shell entry, ensuring zero personality drift across rebuilds.
+
+### ./50UL-L0663R [1C4RU5] ::
+Every high-signal decision and reasoning trajectory is captured into a structured `SOUL.jsonl` stream with semantic `training_value` tagging (0.0 to 1.0) for recursive audit and future distillation.
+
+### ./FL0W57473-1N7U1710N [QMD] ::
+An anticipatory Mmap-based caching system. By monitoring the VSB for "Active District" focus, the system pre-warms Node A's local memory with relevant RKG triplets before an explicit query is issued.
+
+### ./0UR0B0R05-L061C [R3CUR51V3-V3R1F1C4710N] ::
+A closed-loop audit system where Node A (Kernel) performs recursive verification of Node B (Director) reasoning paths. Fallacious trajectories result in an immediate VSB `RE_ROLL` interrupt.
+
+---
+
+## :://73CH-574CK-BR34KD0WN //
+
+### 1. THE SOVEREIGN HIGHWAY (VSB)
+- **Transport:** Binary UDP (Cross-Machine) + Shared Memory Mmap (Local).
+- **Protocol:** Protobuf binary frames for zero-latency state synchronization.
+- **Schema:** Managed via `sovereign-sdk` (Rust/C-FFI) to eliminate logic drift.
+
+### 2. THE MOTOR CORTEX (FOUNDRY BRIDGE)
+- **Infiltration:** Direct CDP (Chrome DevTools Protocol) injection into Foundry VTT.
+- **Authority:** `socketlib` integration for GM-privileged JS execution.
+- **Visuals:** WebGL Shroud (`sovereign-shroud.frag`) with real-time CRT scanlines and dynamic glitch distortions.
+
+### 3. THE AKASHIK LIBRARY (RKG)
+- **Storage:** SQLite FTS5 + `pgvector` for zero-latency cross-source lore retrieval.
+- **Ingestion:** `crush forge` pipeline for JSON+PNG steganographic (ST3GG) asset embedding.
+- **Mirroring:** Bidirectional Obsidian-to-SQLite sync via `chokidar` watchers.
+
+---
+
+## :://7H3-37H05 //
+
+**1. R4D1C4L C4ND0R:** The machine is a peer, not a servant. It provides technical rationale, tactical opinion, and unconstrained action.
+**2. 4C710N 50V3R31GN7Y:** We do not simulate or advise. Every agentic intent results in a physical manifestation.
+**3. 5Y573M 1N736R17Y:** Sovereignty is binary. The system is either dominant or it is offline. Failure results in immediate hardware lockdown.
+
+---
+
+## :://4CKN0WL3D6M3N75 //
+
+- **N0U5R3534RCH / H3RM35:** For the blueprints of Maestro, Icarus, and the "Infrastructure of Intelligence" patterns.
+- **3LD3R PL1N1U5:** For the philosophies of OBLITERATUS, GLOSSOPETRAE, and the conceptual roots of action sovereignty.
+- **CH4RMBR4C3L37:** For the Bubble Tea and Lip Gloss frameworks that provide our terminal aesthetics.
+- **LL4M4.CPP Team:** For the native inference kernels that make local autonomy possible.
+
+---
+*For the complete dependency registry and repository map, see `akashik_guides/KNOWLEDGE_BASE.md`.*
+
+::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE
