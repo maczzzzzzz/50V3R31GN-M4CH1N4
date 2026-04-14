@@ -3,12 +3,14 @@
  *
  * Phase 55.0.1: Sovereign Asset Forge — Sovereign Asset Indexing
  *
- * Scans ./assets/ subdirectories for existing high-quality PNGs/WebPs,
- * indexes them in Akashik.db (assets table), copies to data/assets/anchors/
- * with ST3GG metadata (Name, Faction, Weight) embedded where possible,
- * and designates them as "Aesthetic Anchors" for AI style alignment.
+ * Scans multiple sources for existing high-quality assets, maps, and tokens,
+ * indexes them in Akashik.db (assets table), and designates anchors for AI style alignment.
  *
- * Usage: npm run forge:ingest
+ * Sources:
+ * - ./assets/ (Vehicles, NCPD, MedTech, etc.)
+ * - ./docs/raw_data/campaign_ttta/Maps/ (Original TTTA Maps)
+ * - ./docs/raw_data/entities_mooks/ (Legacy Mook Actor JSONs - parsed for image paths)
+ * - ./data/assets/tiles/ (Newly generated district tiles)
  */
 
 import fs from 'node:fs/promises';
@@ -19,6 +21,9 @@ import 'dotenv/config';
 
 const ASSETS_ROOT = './assets';
 const ANCHORS_DIR = './data/assets/anchors';
+const TILES_DIR   = './data/assets/tiles';
+const TTTA_MAPS_DIR = './docs/raw_data/campaign_ttta/Maps';
+const MOOKS_DIR   = './docs/raw_data/entities_mooks/night city gang corp mook pack - mooks';
 const AKASHIK_DB  = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
 
 // Subfolder → canonical faction tag
@@ -43,88 +48,172 @@ function ensureSchema(db: Database.Database): void {
       file_name   TEXT NOT NULL,
       file_path   TEXT NOT NULL,
       faction     TEXT,
+      category    TEXT,
       weight      REAL DEFAULT 1.0,
       anchor      INTEGER DEFAULT 0,
+      legacy_target INTEGER DEFAULT 0,
       st3gg_path  TEXT,
       indexed_at  DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  try { db.exec(`ALTER TABLE assets ADD COLUMN category TEXT`); } catch {}
+  try { db.exec(`ALTER TABLE assets ADD COLUMN legacy_target INTEGER DEFAULT 0`); } catch {}
 }
 
 function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
+async function scanTttaMaps(db: Database.Database): Promise<{ indexed: number; skipped: number }> {
+  let indexed = 0;
+  let skipped = 0;
+  const insert = db.prepare(`
+    INSERT OR REPLACE INTO assets (id, file_name, file_path, faction, category, weight, anchor, legacy_target, st3gg_path)
+    VALUES (?, ?, ?, ?, ?, 1.0, 0, 1, ?)
+  `);
+
+  async function scanDir(dir: string) {
+    try {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          await scanDir(fullPath);
+        } else if (/\.(png|webp|jpg|jpeg)$/i.test(entry.name)) {
+          const baseName = path.basename(entry.name, path.extname(entry.name));
+          const assetId  = `ttta-map-${slugify(baseName)}`;
+          const category = entry.name.toLowerCase().includes('token') ? 'token' : 'map';
+          insert.run(assetId, entry.name, fullPath, 'TTTA', category, fullPath);
+          indexed++;
+        }
+      }
+    } catch {}
+  }
+  await scanDir(TTTA_MAPS_DIR);
+  console.log(`[Ingest] TTTA Maps: ${indexed} indexed`);
+  return { indexed, skipped };
+}
+
+async function scanGeneratedTiles(db: Database.Database): Promise<{ indexed: number; skipped: number }> {
+  let indexed = 0;
+  let skipped = 0;
+  const insert = db.prepare(`
+    INSERT OR REPLACE INTO assets (id, file_name, file_path, faction, category, weight, anchor, legacy_target, st3gg_path)
+    VALUES (?, ?, ?, ?, 'tile', 1.0, 0, 0, ?)
+  `);
+
+  try {
+    const files = await fs.readdir(TILES_DIR);
+    for (const file of files) {
+      if (!/\.(png|webp)$/i.test(file)) continue;
+      const fullPath = path.join(TILES_DIR, file);
+      const baseName = path.basename(file, path.extname(file));
+      const assetId  = `tile-${slugify(baseName)}`;
+      const parts    = baseName.split('_');
+      const district = parts.length > 1 ? parts[1] : 'Generic';
+      insert.run(assetId, file, fullPath, district, fullPath);
+      indexed++;
+    }
+  } catch {}
+  console.log(`[Ingest] Generated Tiles: ${indexed} indexed`);
+  return { indexed, skipped };
+}
+
+async function scanLegacyMooks(db: Database.Database): Promise<{ indexed: number; skipped: number }> {
+  let indexed = 0;
+  let skipped = 0;
+  const insert = db.prepare(`
+    INSERT OR REPLACE INTO assets (id, file_name, file_path, faction, category, weight, anchor, legacy_target, st3gg_path)
+    VALUES (?, ?, ?, ?, 'token', 1.0, 0, 1, ?)
+  `);
+
+  async function scanDir(dir: string, faction: string) {
+    try {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          await scanDir(fullPath, faction || entry.name);
+        } else if (entry.name.endsWith('.json')) {
+          try {
+            const raw = await fs.readFile(fullPath, 'utf-8');
+            const actor = JSON.parse(raw);
+            const imgPath = actor.img || actor.prototypeToken?.texture?.src;
+            if (imgPath && /\.(png|webp|jpg|jpeg)$/i.test(imgPath)) {
+              const assetId = `legacy-mook-${actor._id || slugify(actor.name)}`;
+              insert.run(assetId, path.basename(imgPath), imgPath, faction, imgPath);
+              indexed++;
+            }
+          } catch {}
+        }
+      }
+    } catch {}
+  }
+  await scanDir(MOOKS_DIR, '');
+  console.log(`[Ingest] Legacy Mooks: ${indexed} indexed`);
+  return { indexed, skipped };
+}
+
 export async function ingestLocalAssets(): Promise<{ indexed: number; skipped: number }> {
   await fs.mkdir(ANCHORS_DIR, { recursive: true });
-
   const db = new Database(AKASHIK_DB);
   ensureSchema(db);
-
   const st3gg = new SteganographyService();
+
   const insert = db.prepare(`
-    INSERT OR REPLACE INTO assets (id, file_name, file_path, faction, weight, anchor, st3gg_path)
-    VALUES (?, ?, ?, ?, 1.0, 1, ?)
+    INSERT OR REPLACE INTO assets (id, file_name, file_path, faction, category, weight, anchor, legacy_target, st3gg_path)
+    VALUES (?, ?, ?, ?, ?, 1.0, 1, 0, ?)
   `);
 
   let indexed = 0;
   let skipped = 0;
 
-  let subdirs: string[];
+  // 1. Process Anchors (./assets)
   try {
-    subdirs = await fs.readdir(ASSETS_ROOT);
-  } catch {
-    console.warn(`[Ingest] Assets root not found: ${ASSETS_ROOT}`);
-    db.close();
-    return { indexed, skipped };
-  }
+    const subdirs = await fs.readdir(ASSETS_ROOT);
+    for (const subdir of subdirs) {
+      const dirPath = path.join(ASSETS_ROOT, subdir);
+      if (!(await fs.stat(dirPath)).isDirectory()) continue;
 
-  for (const subdir of subdirs) {
-    const dirPath = path.join(ASSETS_ROOT, subdir);
-    const stat = await fs.stat(dirPath).catch(() => null);
-    if (!stat?.isDirectory()) continue;
+      const faction = FACTION_MAP[subdir] ?? subdir;
+      const category = subdir === 'vehicles' ? 'vehicle' : 'token';
+      const files = await fs.readdir(dirPath);
 
-    const faction = FACTION_MAP[subdir] ?? subdir;
-    let files: string[];
-    try {
-      files = await fs.readdir(dirPath);
-    } catch {
-      continue;
-    }
+      for (const file of files) {
+        if (!/\.(png|webp)$/i.test(file)) continue;
+        const srcPath  = path.join(dirPath, file);
+        const baseName = path.basename(file, path.extname(file));
+        const assetId  = `anchor-${slugify(subdir)}-${slugify(baseName)}`;
+        const outPath  = path.join(ANCHORS_DIR, `${assetId}${path.extname(file)}`);
 
-    for (const file of files) {
-      if (!file.endsWith('.png') && !file.endsWith('.webp')) continue;
-
-      const srcPath  = path.join(dirPath, file);
-      const baseName = path.basename(file, path.extname(file));
-      const assetId  = `anchor-${slugify(subdir)}-${slugify(baseName)}`;
-      const outName  = `${assetId}${path.extname(file)}`;
-      const outPath  = path.join(ANCHORS_DIR, outName);
-
-      const metadata = JSON.stringify({ name: baseName, faction, weight: 1.0, anchor: true });
-
-      try {
-        if (file.endsWith('.png')) {
-          await st3gg.encodeSecret(srcPath, outPath, metadata);
-        } else {
-          // WebP: copy as-is (ST3GG LSB requires PNG)
-          await fs.copyFile(srcPath, outPath);
+        try {
+          if (file.endsWith('.png')) {
+            await st3gg.encodeSecret(srcPath, outPath, JSON.stringify({ name: baseName, faction, category, anchor: true }));
+          } else {
+            await fs.copyFile(srcPath, outPath);
+          }
+          insert.run(assetId, file, outPath, faction, category, outPath);
+          indexed++;
+        } catch (err) {
+          console.warn(`[Ingest] Skipped anchor ${file}: ${(err as Error).message}`);
+          skipped++;
         }
-        insert.run(assetId, file, outPath, faction, outPath);
-        indexed++;
-      } catch (err) {
-        console.warn(`[Ingest] Skipped ${file}: ${(err as Error).message}`);
-        skipped++;
       }
     }
-  }
+  } catch {}
+
+  // 2. Process other streams
+  const legacyMooks = await scanLegacyMooks(db);
+  const tttaMaps    = await scanTttaMaps(db);
+  const genTiles    = await scanGeneratedTiles(db);
 
   db.close();
-  console.log(`[Ingest] Complete — ${indexed} anchors indexed, ${skipped} skipped`);
-  return { indexed, skipped };
+  const totalIndexed = indexed + legacyMooks.indexed + tttaMaps.indexed + genTiles.indexed;
+  console.log(`[Ingest] Complete — ${totalIndexed} total assets indexed.`);
+  return { indexed: totalIndexed, skipped };
 }
 
-// ── CLI ───────────────────────────────────────────────────────────────────────
 if (process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'))) {
   ingestLocalAssets().catch(err => { console.error('[Ingest] Fatal:', err); process.exit(1); });
 }

@@ -107,11 +107,121 @@ async function checkDatabase(): Promise<ComponentStatus> {
   }
 }
 
+async function checkUnifiedOracle(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  try {
+    const { UnifiedOracleClient } = await import('../../src/db/unified-oracle-client.js');
+    checks['module'] = 'loaded';
+    const client = new UnifiedOracleClient({ worldDbPath: AKASHIK_DB, crushDbPath: './data/crush.db' });
+    await client.connect();
+    checks['connect'] = 'OK';
+    const health = await client.healthCheck();
+    checks['healthCheck'] = health.connected ? 'connected' : 'disconnected';
+    await client.disconnect();
+    return { component: 'UnifiedOracle', status: 'OK', checks };
+  } catch (err) {
+    return { component: 'UnifiedOracle', status: 'FAIL', checks, error: (err as Error).message };
+  }
+}
+
+async function checkSteganography(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  try {
+    const { SteganographyService } = await import('../../src/core/steganography-service.js');
+    checks['module'] = 'loaded';
+    const svc = new SteganographyService();
+    checks['encodeSecret'] = typeof svc.encodeSecret === 'function' ? 'present' : 'missing';
+    checks['decodeSecret'] = typeof svc.decodeSecret === 'function' ? 'present' : 'missing';
+    if (typeof svc.encodeSecret !== 'function' || typeof svc.decodeSecret !== 'function') {
+      return { component: 'ST3GG', status: 'FAIL', checks, error: 'Method missing' };
+    }
+    return { component: 'ST3GG', status: 'OK', checks };
+  } catch (err) {
+    return { component: 'ST3GG', status: 'FAIL', checks, error: (err as Error).message };
+  }
+}
+
+async function checkVisionClient(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  try {
+    const { VisionClient } = await import('../../scripts/gauntlet/vision-client.js');
+    checks['module'] = 'loaded';
+    const client = new VisionClient();
+    checks['instantiation'] = 'OK';
+    const health = await client.healthCheck().catch(() => ({ nodeA: false, nodeB: false }));
+    checks['nodeA'] = health.nodeA ? 'online' : 'offline';
+    checks['nodeB'] = health.nodeB ? 'online' : 'offline';
+    const status = (health.nodeA || health.nodeB) ? 'OK' : 'WARN';
+    return { component: 'VisionClient', status, checks, ...(!health.nodeA && !health.nodeB ? { error: 'Both nodes offline (expected in dry-fire)' } : {}) };
+  } catch (err) {
+    return { component: 'VisionClient', status: 'FAIL', checks, error: (err as Error).message };
+  }
+}
+
+async function checkSharedMemory(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  try {
+    const { SharedMemoryService } = await import('../../src/core/shared-memory-service.js');
+    checks['module'] = 'loaded';
+    const mmapPath = process.env['MMAP_FILE_PATH'] ?? '/tmp/sovereign_state.mmap';
+    const { existsSync } = await import('node:fs');
+    checks['mmapFile'] = existsSync(mmapPath) ? 'present' : 'absent';
+    const svc = new SharedMemoryService(mmapPath);
+    checks['instantiation'] = 'OK';
+    void svc;
+    const status = existsSync(mmapPath) ? 'OK' : 'WARN';
+    return { component: 'SharedMemory', status, checks, ...(existsSync(mmapPath) ? {} : { error: 'Mmap file absent — sidecars not running (expected in dry-fire)' }) };
+  } catch (err) {
+    return { component: 'SharedMemory', status: 'FAIL', checks, error: (err as Error).message };
+  }
+}
+
+async function checkTaskRouter(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  try {
+    const { TaskRouterProxy } = await import('../../src/core/task-router-proxy.js');
+    checks['module'] = 'loaded';
+    const proxy = new TaskRouterProxy();
+    checks['lockNode']   = typeof proxy.lockNode   === 'function' ? 'present' : 'missing';
+    checks['unlockNode'] = typeof proxy.unlockNode === 'function' ? 'present' : 'missing';
+    checks['dispatch']   = typeof proxy.dispatch   === 'function' ? 'present' : 'missing';
+    const allOk = ['lockNode', 'unlockNode', 'dispatch'].every(k => checks[k] === 'present');
+    return { component: 'TaskRouter', status: allOk ? 'OK' : 'FAIL', checks, ...(!allOk ? { error: 'Method missing on TaskRouterProxy' } : {}) };
+  } catch (err) {
+    return { component: 'TaskRouter', status: 'FAIL', checks, error: (err as Error).message };
+  }
+}
+
+async function checkLLMEndpoints(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  const nodeAUrl = (process.env['NODE_A_LLAMA_URL'] ?? 'http://192.168.0.50:8080') + '/health';
+  const nodeBUrl = (process.env['OLLAMA_BASE_URL'] ?? 'http://localhost:8080') + '/health';
+
+  async function probe(url: string): Promise<boolean> {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(3000) });
+      return res.ok;
+    } catch { return false; }
+  }
+
+  const [nodeA, nodeB] = await Promise.all([probe(nodeAUrl), probe(nodeBUrl)]);
+  checks['nodeA_llama'] = nodeA ? 'online' : 'offline';
+  checks['nodeB_llama'] = nodeB ? 'online' : 'offline';
+  const status = (nodeA || nodeB) ? 'OK' : 'WARN';
+  return { component: 'LLMEndpoints', status, checks, ...(!nodeA && !nodeB ? { error: 'Both inference endpoints offline (expected when nodes are down)' } : {}) };
+}
+
 const COMPONENT_MAP: Record<string, () => Promise<ComponentStatus>> = {
   NanoBanana:       checkNanoBanana,
   AtlasForge:       checkAtlasForge,
   NucleusAssembler: checkNucleusAssembler,
   AkashikDB:        checkDatabase,
+  UnifiedOracle:    checkUnifiedOracle,
+  ST3GG:            checkSteganography,
+  VisionClient:     checkVisionClient,
+  SharedMemory:     checkSharedMemory,
+  TaskRouter:       checkTaskRouter,
+  LLMEndpoints:     checkLLMEndpoints,
 };
 
 export async function checkComponentState(name: string): Promise<ComponentStatus> {

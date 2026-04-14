@@ -91,9 +91,79 @@ async function verifyNucleusAssembler_MotorCortex(): Promise<InteractionResult> 
   }
 }
 
+async function verifyUnifiedOracle_AkashikDB(): Promise<InteractionResult> {
+  const checks: Record<string, string> = {};
+  const AKASHIK_DB = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
+  try {
+    const { UnifiedOracleClient } = await import('../../src/db/unified-oracle-client.js');
+    checks['module'] = 'loaded';
+    const client = new UnifiedOracleClient({ worldDbPath: AKASHIK_DB, crushDbPath: './data/crush.db' });
+    await client.connect();
+    checks['connect'] = 'OK';
+    const health = await client.healthCheck();
+    checks['healthCheck'] = health.connected ? 'connected' : 'disconnected';
+    if (!health.connected) {
+      await client.disconnect();
+      return { source: 'UnifiedOracle', target: 'AkashikDB', passed: false, checks, error: 'healthCheck reports disconnected' };
+    }
+    const friction = await client.getFactionFriction('Night City').catch(() => -1);
+    checks['queryExecution'] = friction >= 0 ? `friction=${friction.toFixed(2)}` : 'no faction row (OK)';
+    await client.disconnect();
+    return { source: 'UnifiedOracle', target: 'AkashikDB', passed: true, checks };
+  } catch (err) {
+    return { source: 'UnifiedOracle', target: 'AkashikDB', passed: false, checks, error: (err as Error).message };
+  }
+}
+
+async function verifyST3GG_PNGCodec(): Promise<InteractionResult> {
+  const checks: Record<string, string> = {};
+  try {
+    const { SteganographyService } = await import('../../src/core/steganography-service.js');
+    checks['module'] = 'loaded';
+
+    // Use an existing known-good anchor PNG as a round-trip test target
+    const { readdirSync, existsSync } = await import('node:fs');
+    const anchorsDir = './data/assets/anchors';
+    if (!existsSync(anchorsDir)) {
+      return { source: 'ST3GG', target: 'PNGCodec', passed: false, checks, error: 'anchors dir missing — run forge:ingest first' };
+    }
+    const pngs = readdirSync(anchorsDir).filter(f => f.endsWith('.png'));
+    if (pngs.length === 0) {
+      return { source: 'ST3GG', target: 'PNGCodec', passed: false, checks, error: 'No PNG anchors found — run forge:ingest first' };
+    }
+    checks['anchorPNGs'] = `${pngs.length} available`;
+
+    const { tmpdir } = await import('node:os');
+    const { join } = await import('node:path');
+    const src = join(anchorsDir, pngs[0]!);
+    const out = join(tmpdir(), `st3gg-dryfire-${Date.now()}.png`);
+    const secret = JSON.stringify({ test: 'dry-fire', ts: Date.now() });
+
+    const svc = new SteganographyService();
+    await svc.encodeSecret(src, out, secret);
+    checks['encode'] = 'OK';
+
+    const decoded = await svc.decodeSecret(out);
+    checks['decode'] = decoded.includes('dry-fire') ? 'round-trip OK' : 'data mismatch';
+    if (!decoded.includes('dry-fire')) {
+      return { source: 'ST3GG', target: 'PNGCodec', passed: false, checks, error: 'Decoded payload does not match encoded secret' };
+    }
+
+    // Cleanup
+    const { unlink } = await import('node:fs/promises');
+    await unlink(out).catch(() => {});
+
+    return { source: 'ST3GG', target: 'PNGCodec', passed: true, checks };
+  } catch (err) {
+    return { source: 'ST3GG', target: 'PNGCodec', passed: false, checks, error: (err as Error).message };
+  }
+}
+
 const INTERACTION_MAP: Record<string, () => Promise<InteractionResult>> = {
   'AtlasForge→NanoBanana':          verifyAtlasForge_NanoBanana,
   'NucleusAssembler→MotorCortex':   verifyNucleusAssembler_MotorCortex,
+  'UnifiedOracle→AkashikDB':        verifyUnifiedOracle_AkashikDB,
+  'ST3GG→PNGCodec':                 verifyST3GG_PNGCodec,
 };
 
 export async function verifyInteraction(source: string, target: string): Promise<boolean> {

@@ -55,16 +55,29 @@ function harvestFromAkashik(dbPath: string): { actors: LegacyActor[]; worldState
 }
 
 async function harvestTokenPaths(): Promise<string[]> {
-  const dirs = ['./data/assets/tokens', './data/assets/anchors'];
+  const dirs = [
+    './data/assets/tokens', 
+    './data/assets/anchors',
+    './docs/raw_data/entities_mooks/night city gang corp mook pack - mooks'
+  ];
   const paths: string[] = [];
-  for (const dir of dirs) {
+  
+  async function scanDir(dir: string) {
     try {
-      const files = await fs.readdir(dir);
-      paths.push(...files
-        .filter(f => f.endsWith('.png') || f.endsWith('.webp'))
-        .map(f => path.join(dir, f))
-      );
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          await scanDir(fullPath);
+        } else if (entry.name.endsWith('.png') || entry.name.endsWith('.webp')) {
+          paths.push(fullPath);
+        }
+      }
     } catch { /* dir may not exist yet */ }
+  }
+
+  for (const dir of dirs) {
+    await scanDir(dir);
   }
   return paths;
 }

@@ -8,6 +8,11 @@ export interface MissionSwarmConfig {
   oracle: UnifiedOracleClient;
 }
 
+interface AssetRow {
+  file_path: string;
+  category: string;
+}
+
 export class MissionSwarmOrchestrator {
   constructor(private readonly config: MissionSwarmConfig) {}
 
@@ -24,7 +29,20 @@ export class MissionSwarmOrchestrator {
     const tacticalPrompt = `Based on this mission: "${brief}", suggest 3 tactical combat considerations.`;
     const response = await this.config.sovereignNarrative.generateNarrative(tacticalPrompt, brief);
     
-    // 3. Ground against Oracle
+    // 3. Asset Retrieval (New!)
+    // Fetch relevant map tiles or original TTTA maps for this district
+    const maps = this.config.oracle.query(
+      `SELECT file_path, category FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 3`,
+      [`%${district}%`]
+    ) as AssetRow[];
+
+    // Fetch relevant tokens
+    const tokens = this.config.oracle.query(
+      `SELECT file_path, category FROM assets WHERE category = 'token' AND faction LIKE ? LIMIT 5`,
+      [`%${district}%`]
+    ) as AssetRow[];
+
+    // 4. Ground against Oracle session memory
     const rows = this.config.oracle.query<{ content: string }>(
       'SELECT content FROM session_memory.messages WHERE content LIKE ? LIMIT 3',
       [`%${district}%`]
@@ -35,7 +53,13 @@ export class MissionSwarmOrchestrator {
       district,
       brief,
       tacticalAnalysis: response,
-      rulesIntel: { difficulty: 'professional' },
+      rulesIntel: { 
+        difficulty: 'professional',
+        assets: {
+          suggestedMaps: maps.map(m => m.file_path),
+          suggestedTokens: tokens.map(t => t.file_path)
+        }
+      },
       loreAnchors
     };
   }

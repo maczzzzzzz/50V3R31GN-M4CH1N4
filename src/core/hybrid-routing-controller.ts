@@ -507,7 +507,23 @@ export class HybridRoutingController {
       gate:   `⚠️ **Decision Gate** — Heat rising. Roll: ${result.total}`,
       ambush: `🔴 **RIVAL INTERVENTION** — Ambush! Roll: ${result.total}`,
     };
-    await this.foundry.sendChatMessage(messages[result.outcome] || `🌆 *Streets of Night City:* ${result.outcome}`, { alias: 'Friction Engine' });
+    
+    let mapTile: string | undefined;
+    if (result.outcome === 'ambush') {
+      // Fetch a relevant map tile for the district
+      const district = payload.district || 'Watson';
+      const maps = this.unifiedOracle.query(
+        `SELECT file_path FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 1`,
+        [`%${district}%`]
+      ) as Array<{ file_path: string }>;
+      mapTile = maps.length > 0 ? maps[0]!.file_path : undefined;
+    }
+
+    await this.foundry.sendChatMessage(
+      messages[result.outcome] || `🌆 *Streets of Night City:* ${result.outcome}` + 
+      (mapTile ? `\n📍 *Tactical Terrain Detected:* ${path.basename(mapTile)}` : ''), 
+      { alias: 'Friction Engine' }
+    );
     
     // Architect Pass (Phase 12): Materialize ambush tokens directly in the renderer
     if (result.outcome === 'ambush' && this.architect) {
@@ -524,8 +540,15 @@ export class HybridRoutingController {
   private async handleOpenNightMarket(actorId: string, vendorName: string): Promise<void> {
     const traceId = randomUUID();
     this.logger?.info('HRC', traceId, `Opening Night Market for vendor: ${vendorName}`);
-    const items = await this.nightMarketService.getVendorInventory(vendorName);
-    await this.foundry.openNightMarket(actorId, vendorName, items);
+    const inventory = await this.nightMarketService.getVendorInventory(vendorName);
+    
+    // Phase 56: If a suggested map exists for this shop, we could optionally manifest it
+    if (inventory.suggestedMap) {
+      this.logger?.info('HRC', traceId, `Suggested shop map: ${inventory.suggestedMap}`);
+      // In a real live-fire, we'd trigger a scene shift or tile manifestation here
+    }
+
+    await this.foundry.openNightMarket(actorId, vendorName, inventory.items);
   }
 
   private async handleSceneDispatch(payload: { sceneType: string; journalId: string }): Promise<void> {

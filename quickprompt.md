@@ -1,31 +1,31 @@
-# 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.3)
+# 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.4)
 
-**Context:** The Topology Library and Master Blueprint Engine are complete and verified. All 50+ system shards are documented. We are now integrating the **Audit-First Forge Pipeline** and the **Nucleus Assembler** to complete Phase 54.
+**Context:** Phase 54 (Atlas Forge) and Phase 55 (Asset Forge) are now stabilized as ongoing Capstone projects. We have shifted focus back to **Phase 56: System Stabilization & Live Fire**, which is our primary development track.
 
-**Objective:** Implement Phase 54: Tasks 3 and 4.
-
----
-
-## 🛠️ TASK 3: AUDIT-FIRST FORGE PIPELINE
-1. **Integration:** Hook into Nano Banana 2 (Imagen 3) via the existing vision pipeline.
-2. **Skinning:** Use the 1-bit skeleton as a control image to generate high-fidelity TTTA-style WebP tiles.
-3. **Audit:** Implement Node A pixel-wise mask audit to ensure generated floors don't bleed into walls.
-4. **Sync:** Use `ST3GG` to embed the `TileDNA` metadata (wallSegments, exits) into the final WebP LSB.
-5. **Ability Shard:** Create `scripts/gauntlet/phases/orch-54-3.ts` to verify the audit logic and metadata embedding.
+**Objective:** Execute the 53N71N3L (Sentinel) Refactor (`docs/superpowers/plans/2026-04-13-sentinel-refactor.md`).
 
 ---
 
-## 🛠️ TASK 4: NUCLEUS ASSEMBLER
-1. **Implementation:** Create `scripts/forge/assembler.ts`.
-2. **Foundry Sync:** Use the Motor Cortex to create a Scene, place the tiles, and materialize walls/lights from embedded metadata.
-3. **Observability:** Expose the assembly status to the Nucleus Deck `SENSORY` quadrant.
-4. **Ability Shard:** Create `scripts/gauntlet/phases/orch-54-4.ts` to verify end-to-end scene manifestation in Foundry.
+## 🛠️ TASK 1: PROTOCOL INFRASTRUCTURE (VSB 0x0A)
+1. **Goal:** Define VSB Type 0x0A for high-priority state pushes.
+2. **Focus:** `src/api/vsb-client.ts` and `src/types/vsb_protocol.ts`.
+
+## 🛠️ TASK 2: KERNEL DISTILLER (NODE A)
+1. **Goal:** Implement background VSB monitoring and AAAK compression on the Kernel node.
+2. **Execution:** `scripts/dev/sentinel-distiller.ts`.
+
+## 🛠️ TASK 3: ACTIVE CONTEXT SLOT (NODE B)
+1. **Goal:** Integrate pre-loaded context slots into `SovereignNarrativeClient`.
+2. **Result:** Near-instant narrative synthesis (<400ms latency).
+
+## 🛠️ TASK 4: REACTIVE RISK MONITOR
+1. **Goal:** Implement Hermes-style `watch_patterns` for log-based automated recovery.
+2. **Focus:** `src/core/sentinel-monitor-service.ts`.
 
 ---
 
 ## 🛡️ SYSTEM INTEGRITY
-1. **Vault Security:** NEVER include `docs/raw_data/` in any `vault seal` operation.
-2. **Roadmap:** Phase 55 (District Harvest) is now locked in the implementation plan for mass production.
-3. **Validation:** `npm run gauntlet --shard=54` -> 100% PASS.
+1. **Verification Gate:** No production generation until Gauntlet Shard 56 passes 100%.
+2. **Capstone Status:** Phase 54 and Phase 55 are ongoing capstones; maintain their current verified state.
 
 *Directive Issued by Gemini CLI (Strategist).*

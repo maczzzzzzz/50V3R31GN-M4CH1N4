@@ -10,13 +10,18 @@ export interface MarketItem {
   vendor: string;
 }
 
+export interface VendorInventory {
+  items: MarketItem[];
+  suggestedMap?: string;
+}
+
 export class NightMarketService {
   constructor(private oracle: UnifiedOracleClient) {}
 
   /**
    * Fetch inventory for a specific vendor using the Unified Oracle.
    */
-  async getVendorInventory(vendorName: string): Promise<MarketItem[]> {
+  async getVendorInventory(vendorName: string, district: string = 'Watson'): Promise<VendorInventory> {
     const searchResult = await this.oracle.ragSearch({
       query: `items and gear sold by vendor ${vendorName} in Ticket to the Afterlife`,
       namespace: 'campaign_ttta', // Matches NamespaceEnum.CAMPAIGN_TTTA
@@ -24,12 +29,7 @@ export class NightMarketService {
       similarityThreshold: 0.5,
     });
 
-    // In a real implementation, we would parse the RAG matches to extract items.
-    // For this MVP, we'll simulate the extraction from the matches or return 
-    // a set of known items if matches are found.
-    
     const items: MarketItem[] = searchResult.matches.map((match, index) => {
-      // Mock extraction logic: assume the content is "ItemName (100eb): Description"
       const matchText = match.content;
       const ebMatch = matchText.match(/(\d+)eb/);
       const costEb = ebMatch && ebMatch[1] ? parseInt(ebMatch[1], 10) : 100;
@@ -45,7 +45,16 @@ export class NightMarketService {
       };
     });
 
-    return items;
+    // Fetch a relevant map tile or map for this district
+    const maps = this.oracle.query(
+      `SELECT file_path FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 1`,
+      [`%${district}%`]
+    ) as Array<{ file_path: string }>;
+
+    return {
+      items,
+      suggestedMap: maps.length > 0 ? maps[0]!.file_path : undefined
+    };
   }
 
   calculateEaglePrice(eb: number): number {

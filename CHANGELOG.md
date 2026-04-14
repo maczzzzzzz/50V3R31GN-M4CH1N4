@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.5] - 2026-04-13
+### Added
+- **Phase 56 (System Stabilization)**: Initialized the main development track for system hardening and play-testing.
+- **53N71N3L (Sentinel) Design**: Engineered a reactive, event-driven architecture using Hermes v0.9.0 patterns.
+- **Hybrid Context Engine**: Designed a background VSB distillation protocol (0x0A) to offload state processing to Node A.
+- **Reactive Risk Monitor**: Implemented `watch_patterns` for automated, risk-aware system recovery and state snapshots.
+- **Interactive Scene Wiring**: Designed the logical framework (`docs/superpowers/specs/2026-04-13-interactive-scene-wiring.md`) for hackable cameras, terminals, and tactical debris.
+- **Modular Prop Library**: Forged a set of 2D tactical icons (Camera, Terminal, Chair, Mine, Debris) matching the painterly vehicle aesthetic.
+- **Batch District Forge**: Successfully generated 20 distinct lore-accurate district variations (60 tiles total) covering Watson, The Glen, Heywood, Pacifica, etc.
+
+### Changed
+- **Roadmap Re-alignment**: Phase 54 (Atlas Forge) and Phase 55 (Asset Forge) reclassified as ongoing Capstone projects.
+- **Verification Priority**: Shifted GAUNTLET focus to interaction latency and cross-node stability (Shard 56).
+- **Asset Pool Expansion**: Successfully indexed 693+ assets in `Akashik.db`, merging original TTTA maps, vehicles, and generated tiles into a unified mission swarm pool.
+
+## [3.2.4] - 2026-04-13
+### Added
+- **Phase 54 (The Atlas Forge)**: Implemented a modular, blueprint-driven battlemap manufacturing pipeline.
+- **Nano Banana 2 Integration**: Hooked into `gemini-3.1-flash-image-preview` for high-fidelity top-down battlemap generation using Google Pro credits.
+- **Audit-First Forge**: Developed a surgical generation pipeline (`AtlasForge`) featuring high-resolution (512x512) structural skeletons and pixel-wise integrity audits.
+- **Nucleus Assembler**: Implemented the **Foundry Manifestation Engine** to automate scene creation, tile placement, and wall materialization from steganographic metadata.
+- **Sovereign Master Directive**: Engineered a balanced "Artist+Architect" prompt that enforces strict structural compliance to the 1-bit skeleton while achieving high-variety prop population.
+- [x] **Multi-Style Archiving**: Enabled side-by-side generation and storage of multiple aesthetics (e.g., Safehouse, Japantown, Nomad) for the same tactical layout.
+- [x] **Legacy Preservation Protocol**: Established mandatory archival requirement for existing token and actor data before Phase 55 overhauls.
+- [x] **Sovereign Asset Indexing**: Designed the pipeline to index and ingest existing high-quality assets (Vehicles, Police, Medtech) from `./assets` and legacy mooks from `docs/raw_data/` as style and content references.
+
+
+### Changed
+- **High-Res Topology**: Upscaled the logical 16x16 grid to 512x512 high-contrast skeletons with tactical grid overlays to eliminate AI structural drift.
+- **Forge CLI**: Expanded `package.json` with `forge:master`, `forge:atlas`, and `forge:assembler` commands for rapid district production.
+
+### Fixed
+- **WebP Compatibility**: Implemented audit/sync bypasses for WebP assets to ensure stability across varying AI output formats.
+- **Structural Drift**: Eliminated "empty room" hallucinations by injecting light-gray tactical floor grids into the AI vision pipeline.
+
 ## [3.2.3] - 2026-04-12
 ### Added
 - **Phase 51 (Sovereign Foundation)**: Implemented declarative identity forge via `nix/identities.nix` and `flake.nix` environment injection.
