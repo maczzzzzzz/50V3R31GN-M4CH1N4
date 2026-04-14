@@ -64,6 +64,8 @@
     "forge:atlas": "tsx scripts/forge/atlas-forge.ts",
     "forge:assembler": "tsx scripts/forge/assembler.ts",
     "forge:master": "tsx scripts/forge/master-forge.ts",
+    "audit:dry-fire": "tsx scripts/audit/dry-fire.ts",
+    "audit:components": "tsx -e \"import('./scripts/audit/component-auditor.js').then(m => m.auditAllComponents()).then(r => console.log(JSON.stringify(r, null, 2)))\"",
     "forge:backup": "tsx scripts/forge/backup-legacy-assets.ts",
     "forge:ingest": "tsx scripts/forge/ingest-local-assets.ts",
     "forge:tokens": "tsx scripts/forge/token-forge.ts"
