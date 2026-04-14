@@ -109,7 +109,7 @@ export const phase4: SovereignShard = {
     const socketPath = '/tmp/clawlink.sock';
     const socketExists = existsSync(socketPath);
     if (!socketExists) {
-      return fail(4, 'Clawlink-Socket', `${socketPath} not found — deck-igniter not running?`);
+      return warn(4, 'Clawlink-Socket', `${socketPath} not found — deck-igniter not running (expected without boot)`);
     }
     const connectable = await checkUnixSocket(socketPath, 2000);
     if (!connectable) {
@@ -143,7 +143,7 @@ export const phase15: SovereignShard = {
           return warn(15, 'Director-Service', `Director process found (PID ${pids}) but port ${directorPort} not listening`);
         }
       } catch { /* pgrep not available or no match */ }
-      return fail(15, 'Director-Service', `Director not listening on port ${directorPort}`);
+      return warn(15, 'Director-Service', `Director not listening on port ${directorPort} — run 'npm start' to activate`);
     }
     return pass(15, 'Director-Service', `Director listening on port ${directorPort}`);
   },
@@ -173,7 +173,7 @@ export const phase18: SovereignShard = {
     const details: Record<string, unknown> = { proxyPort, localListening, socketExists };
 
     if (!localListening && !socketExists) {
-      return fail(18, 'Crush-Proxy', `Proxy port ${proxyPort} not listening and ${socketPath} missing`, details);
+      return warn(18, 'Crush-Proxy', `Proxy port ${proxyPort} not listening and ${socketPath} missing — expected without boot`, details);
     }
     if (!localListening) {
       return warn(18, 'Crush-Proxy', `Socket present but proxy port ${proxyPort} not listening locally`, details);

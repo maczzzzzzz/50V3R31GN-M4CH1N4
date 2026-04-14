@@ -57,7 +57,7 @@ interface DetectedCycle {
 const PHASE_PATTERNS: Record<CyclePhase, RegExp[]> = {
   research: [
     /searching|analyzing|reviewing|fetching|reading|looking up|discovering|gathering/i,
-    /research|investigate|explore|scan|audit|probe|inspect/i,
+    /research|investigate|explore|\bscan\b|\baudit\b|probe|inspect/i,
     /\bget\b.*\binfo\b|\bfetch\b.*\bdata\b|\bquery\b/i,
   ],
   strategy: [
@@ -85,7 +85,7 @@ function extractCycles(lines: CrushLogLine[]): Map<string, number> {
   const windowSize = 20; // lines to look ahead for a complete R→S→E cycle
   const cycleCounts = new Map<string, number>();
 
-  for (let i = 0; i < lines.length - windowSize; i++) {
+  for (let i = 0; i < lines.length; i++) {
     const window = lines.slice(i, i + windowSize);
     let r: CrushLogLine | null = null;
     let s: CrushLogLine | null = null;

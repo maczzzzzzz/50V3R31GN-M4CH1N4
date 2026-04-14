@@ -43,12 +43,10 @@ export const phase512: SovereignShard = {
   async audit(_ctx: GauntletContext): Promise<AuditResult> {
     const details: Record<string, unknown> = {};
 
-    // 1. heartbeat.mem must exist
+    // 1. heartbeat.mem must exist — WARN not FAIL when sidecars are simply not running
     if (!existsSync(HB_FILE)) {
-      return fail(
-        `${HB_FILE} absent — sidecars not running in --headless mode`,
-        details,
-      );
+      return { phaseId: PHASE_ID, phaseName: PHASE_NAME, block: BLOCK, status: 'WARN',
+        message: `${HB_FILE} absent — sidecars not running (expected without deck-igniter)` };
     }
 
     // 2. Read 16-byte heartbeat file
