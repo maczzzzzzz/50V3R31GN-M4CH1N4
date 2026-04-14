@@ -10,7 +10,9 @@ import {
   IntentPacketCodec,
   IntentType,
   ResultPacketCodec,
+  SovereignContextUpdateCodec,
   type ResultPacketView,
+  type SovereignContextUpdate,
 } from '../shared/vsb_protocol.js';
 import type { ILogger } from '../db/interfaces.js';
 
@@ -18,13 +20,34 @@ export interface VsbConfig {
   host: string;
   port: number;
   timeoutMs: number;
+  /** Optional port to bind a dedicated socket for receiving 0x0A context pushes. */
+  contextReceivePort?: number;
 }
 
 export class VsbClient {
   private readonly socket: dgram.Socket;
+  private contextSocket?: dgram.Socket;
+  private readonly contextHandlers: Array<(update: SovereignContextUpdate) => void> = [];
 
   constructor(private readonly config: VsbConfig, private readonly logger?: ILogger | undefined) {
     this.socket = dgram.createSocket('udp4');
+  }
+
+  /** Register a handler for incoming 0x0A SovereignContextUpdate packets from Node A. */
+  onContextUpdate(handler: (update: SovereignContextUpdate) => void): void {
+    this.contextHandlers.push(handler);
+  }
+
+  private handleContextUpdate(msg: Buffer): void {
+    const bytes = new Uint8Array(msg);
+    const packet = IntentPacketCodec.decode(bytes);
+    if (!packet || packet.intentType !== (IntentType.ContextUpdate as number)) return;
+    const update = SovereignContextUpdateCodec.decode(packet.payload);
+    const traceId = randomUUID();
+    this.logger?.debug('VsbClient', traceId, `Received 0x0A ContextUpdate (hash=${update.context_hash})`);
+    for (const handler of this.contextHandlers) {
+      try { handler(update); } catch { /* non-fatal */ }
+    }
   }
 
   /**
@@ -140,7 +163,7 @@ export class VsbClient {
   /** UDP is connectionless — bind the socket so it can receive replies. */
   async connect(): Promise<void> {
     const traceId = randomUUID();
-    return new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       this.socket.bind(0, (err?: Error) => {
         if (err) {
           this.logger?.error('VsbClient', traceId, `Failed to bind UDP socket: ${err.message}`);
@@ -151,11 +174,29 @@ export class VsbClient {
         }
       });
     });
+
+    // If a dedicated context-receive port is configured, bind a second socket for 0x0A pushes.
+    if (this.config.contextReceivePort) {
+      this.contextSocket = dgram.createSocket('udp4');
+      this.contextSocket.on('message', (msg) => this.handleContextUpdate(msg));
+      await new Promise<void>((resolve, reject) => {
+        this.contextSocket!.bind(this.config.contextReceivePort, (err?: Error) => {
+          if (err) {
+            this.logger?.error('VsbClient', traceId, `Failed to bind context socket on port ${this.config.contextReceivePort}: ${err.message}`);
+            reject(err);
+          } else {
+            this.logger?.info('VsbClient', traceId, `Context receive socket bound on port ${this.config.contextReceivePort}`);
+            resolve();
+          }
+        });
+      });
+    }
   }
 
   close(): void {
     const traceId = randomUUID();
     this.socket.close();
-    this.logger?.info('VsbClient', traceId, 'UDP socket closed');
+    this.contextSocket?.close();
+    this.logger?.info('VsbClient', traceId, 'UDP socket(s) closed');
   }
 }

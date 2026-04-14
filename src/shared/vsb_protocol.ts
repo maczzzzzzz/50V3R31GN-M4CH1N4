@@ -31,11 +31,12 @@ export const enum PacketType {
 }
 
 export const enum IntentType {
-  Roll       = 0x01,
-  Damage     = 0x02,
-  SkillCheck = 0x03,
-  Heal       = 0x04,
-  Friction   = 0x05,
+  Roll          = 0x01,
+  Damage        = 0x02,
+  SkillCheck    = 0x03,
+  Heal          = 0x04,
+  Friction      = 0x05,
+  ContextUpdate = 0x0A,
 }
 
 export const enum ResultStatus {
@@ -277,6 +278,62 @@ export function decodeGhostBlip(buf: DataView, offset: number): GhostBlip {
   const y = buf.getFloat32(offset + 4, true);
   const blipType = buf.getUint8(offset + 8);
   return { x, y, blipType };
+}
+
+// ─── Sovereign Context Update (Type 0x0A) ─────────────────────────────────────
+// High-priority state push from Node A Kernel Distiller to Node B Director.
+// Payload layout inside a 256-byte IntentPacket payload field:
+//   [0..7]   timestamp: u64 LE (Unix epoch ms)
+//   [8..11]  context_hash: u32 LE (FNV-1a of the AAAK payload)
+//   [12..255] UTF-8 AAAK compressed context (null-terminated)
+
+export interface SovereignContextUpdate {
+  readonly type: 0x0A;
+  readonly timestamp: number;
+  readonly context_hash: number;
+  readonly payload: string;
+}
+
+export class SovereignContextUpdateCodec {
+  /** Encode a SovereignContextUpdate into a 256-byte payload buffer. */
+  static encode(timestamp: number, contextHash: number, aaakPayload: string): Uint8Array {
+    const buf = new Uint8Array(256);
+    const view = new DataView(buf.buffer);
+    // [0..7] timestamp as u64 LE (split into two u32 to avoid BigInt)
+    const lo = timestamp >>> 0;
+    const hi = Math.floor(timestamp / 0x1_0000_0000) >>> 0;
+    view.setUint32(0, lo, true);
+    view.setUint32(4, hi, true);
+    // [8..11] context_hash
+    view.setUint32(8, contextHash, true);
+    // [12..255] UTF-8 payload
+    const encoded = new TextEncoder().encode(aaakPayload).subarray(0, 243);
+    buf.set(encoded, 12);
+    return buf;
+  }
+
+  /** Decode a SovereignContextUpdate from a 256-byte IntentPacket payload. */
+  static decode(payload: Uint8Array): SovereignContextUpdate {
+    const view = new DataView(payload.buffer, payload.byteOffset, Math.min(payload.byteLength, 256));
+    const lo = view.getUint32(0, true);
+    const hi = view.getUint32(4, true);
+    const timestamp = hi * 0x1_0000_0000 + lo;
+    const context_hash = view.getUint32(8, true);
+    const nullIdx = payload.indexOf(0, 12);
+    const end = nullIdx === -1 ? payload.length : nullIdx;
+    const text = new TextDecoder().decode(payload.subarray(12, end));
+    return { type: 0x0A, timestamp, context_hash, payload: text };
+  }
+
+  /** FNV-1a 32-bit hash of a string — used for context_hash field. */
+  static hash(s: string): number {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = (h * 0x01000193) >>> 0;
+    }
+    return h;
+  }
 }
 
 // ─── Vitest Tests ─────────────────────────────────────────────────────────────
