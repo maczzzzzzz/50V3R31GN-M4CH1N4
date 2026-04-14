@@ -23,6 +23,7 @@ export interface AuditLogEntry {
 
 export class Logger implements ILogger {
   private static instance: Logger;
+  private readonly patternSubscribers: Array<{ pattern: RegExp; handler: (entry: LogEntry) => void }> = [];
 
   private constructor() {}
 
@@ -31,6 +32,19 @@ export class Logger implements ILogger {
       Logger.instance = new Logger();
     }
     return Logger.instance;
+  }
+
+  /**
+   * Subscribe to log entries matching a pattern.
+   * Returns an unsubscribe function.
+   */
+  subscribe(pattern: RegExp, handler: (entry: LogEntry) => void): () => void {
+    const sub = { pattern, handler };
+    this.patternSubscribers.push(sub);
+    return () => {
+      const idx = this.patternSubscribers.indexOf(sub);
+      if (idx !== -1) this.patternSubscribers.splice(idx, 1);
+    };
   }
 
   private log(severity: LogEntry['severity'], context: string, traceId: string, message: string, data?: Record<string, unknown>): void {
@@ -44,7 +58,7 @@ export class Logger implements ILogger {
     };
 
     const logStr = JSON.stringify(entry);
-    
+
     switch (severity) {
       case 'DEBUG':
         console.debug(logStr);
@@ -58,6 +72,16 @@ export class Logger implements ILogger {
       case 'ERROR':
         console.error(logStr);
         break;
+    }
+
+    // Dispatch to pattern subscribers (non-blocking)
+    if (this.patternSubscribers.length > 0) {
+      const combined = `${context} ${message}`;
+      for (const sub of this.patternSubscribers) {
+        if (sub.pattern.test(combined)) {
+          try { sub.handler(entry); } catch { /* non-fatal */ }
+        }
+      }
     }
   }
 
