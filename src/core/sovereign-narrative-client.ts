@@ -57,6 +57,13 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
   private readonly config: SovereignNarrativeConfig;
   private readonly logger?: ILogger | undefined;
   private rootsInjector?: RootsInjector | undefined;
+  /** Pre-loaded AAAK context from Sentinel Distiller (0x0A push). Empty = not yet primed. */
+  private activeContext: string = '';
+
+  /** Update the pre-loaded context slot (called by VsbClient 0x0A handler). */
+  public updateContext(payload: string): void {
+    this.activeContext = payload;
+  }
 
   constructor(config: SovereignNarrativeConfig, rootsInjector?: RootsInjector, logger?: ILogger) {
     const parsed = SovereignNarrativeConfigSchema.safeParse(config);
@@ -98,8 +105,13 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
     const controller = new AbortController();
     const timeoutHandle = setTimeout(() => controller.abort(), this.config.timeoutMs);
 
-    const userContent = context.length > 0
-      ? `${prompt}\n\nGame State:\n${context}`
+    // Prepend pre-loaded Sentinel context if available (near-zero latency slot)
+    const effectiveContext = this.activeContext.length > 0
+      ? `${this.activeContext}\n${context}`
+      : context;
+
+    const userContent = effectiveContext.length > 0
+      ? `${prompt}\n\nGame State:\n${effectiveContext}`
       : prompt;
 
     let baseSysContent = systemContext

@@ -64,6 +64,7 @@ import { VisualMonitorService } from './core/visual-monitor-service.js';
 import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
 import { VesperService } from './core/vesper-service.js';
 import { SharedMemoryService } from './core/shared-memory-service.js';
+import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
 
 import { RootsInjector } from './core/roots-injector.js';
 import { SOVEREIGN_HIJACK_JS } from '../scripts/theme-sync.js';
@@ -265,6 +266,16 @@ async function main() {
     clawlinkClient.connect(),
   ]);
 
+  // 13. Sentinel: wire 0x0A context pushes from Node A → Active Context Slot
+  vsbClient.onContextUpdate((update) => {
+    sovereignNarrative.updateContext(update.payload);
+    logger.debug('Orchestrator', 'sentinel', `ActiveContextSlot updated (hash=${update.context_hash.toString(16)})`);
+  });
+
+  // 14. Sentinel Monitor — reactive risk observer
+  const sentinel = new SentinelMonitorService(logger);
+  sentinel.start();
+
   logger.info('Orchestrator', bootTraceId, '🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
 
   // 9. Graceful Shutdown
@@ -273,6 +284,8 @@ async function main() {
     logger.info('Orchestrator', shutdownTraceId, `\n[Main] Received ${signal}. Shutting down gracefully...`);
     
     try {
+      sentinel.stop();
+
       // Disconnect Neural Uplink
       await neuralUplink.disconnect().catch(() => {});
 
