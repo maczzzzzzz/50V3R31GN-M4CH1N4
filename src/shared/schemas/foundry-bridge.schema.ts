@@ -607,6 +607,8 @@ export const RedTradeTransitEventSchema = z.object({
     factionId: z.string().min(1),
     /** Current friction_pool value for this faction (0–10). */
     currentFriction: z.number().int().min(0).max(10),
+    /** Night City district for map tile selection during ambush outcomes. */
+    district: z.string().optional(),
   }),
 });
 

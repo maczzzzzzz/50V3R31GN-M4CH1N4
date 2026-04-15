@@ -211,7 +211,7 @@ export class HybridRoutingController {
     // Use TaskRouterProxy to dispatch concurrently
     const [toneTask, intensityTask] = await Promise.all([
       this.taskRouter.dispatch({ destination: 'NodeB', cost: 'HEAVY' }, async () => {
-        return this.sovereignNarrative.generateNarrative('Determine emotional tone (1 word) of:', context);
+        return this.sovereignNarrative.generateNarrative('Determine emotional tone (1 word) of:', context, undefined, undefined, 0.7, 0.9);
       }),
       this.taskRouter.dispatch({ destination: 'NodeA', cost: 'LIGHT' }, async () => {
         const response = await this.nitroLogic.calculateDv({ checkType: 'skill', baseStat: 8, baseSkill: 6, targetDifficulty: 'professional', situationalModifiers: 0 });
@@ -391,6 +391,8 @@ export class HybridRoutingController {
       context,
       this.formatAttackFallback(result),
       spatial,
+      0.9, // High Violence Temperature
+      0.95 // High Predictability TopP
     );
 
     if (payload.targetId && result.hit && result.netDamage > 0) {
@@ -494,6 +496,9 @@ export class HybridRoutingController {
       'Narrate a short transaction in a Cyberpunk night market.',
       context,
       `You purchased an item from ${vendor} for ${costEb}eb.`,
+      undefined,
+      0.6, // Transaction Temperature
+      0.8  // Medium Predictability TopP
     );
     this.evaluateStoryEvent({ type: 'buy_item', payload });
     await this.syncDashboard();
@@ -511,12 +516,12 @@ export class HybridRoutingController {
     let mapTile: string | undefined;
     if (result.outcome === 'ambush') {
       // Fetch a relevant map tile for the district
-      const district = payload.district || 'Watson';
+      const district = payload.district ?? 'Watson';
       const maps = this.unifiedOracle.query(
         `SELECT file_path FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 1`,
         [`%${district}%`]
       ) as Array<{ file_path: string }>;
-      mapTile = maps.length > 0 ? maps[0]!.file_path : undefined;
+      mapTile = maps[0]?.file_path;
     }
 
     await this.foundry.sendChatMessage(
@@ -558,8 +563,8 @@ export class HybridRoutingController {
 
     switch (sceneType) {
       case 'night_market': {
-        const items = await this.nightMarketService.getVendorInventory(journalId);
-        const lines = items.slice(0, 10).map((item) => `• **${item.name}** — ${item.costEb}eb`).join('\n');
+        const inventory = await this.nightMarketService.getVendorInventory(journalId);
+        const lines = inventory.items.slice(0, 10).map((item) => `• **${item.name}** — ${item.costEb}eb`).join('\n');
         await this.foundry.sendChatMessage(`🏪 **Night Market** — ${journalId}\n${lines || '_No stock found._'}`, { alias: 'Night Market' });
         break;
       }
@@ -718,13 +723,13 @@ export class HybridRoutingController {
 
   // ── Helpers ─────────────────────────────────────────────────────────────────
 
-  private async pushNarrativeOrFallback(prompt: string, context: string, fallback: string, spatial?: { sceneId: string, x: number, y: number }): Promise<void> {
+  private async pushNarrativeOrFallback(prompt: string, context: string, fallback: string, spatial?: { sceneId: string, x: number, y: number }, temperature: number = 0.7, topP: number = 0.9): Promise<void> {
     let narrative: string;
     const traceId = randomUUID();
     try {
       const systemContext = await this.applyWorldPulseGrounding(prompt + ' ' + context, spatial);
       // We pass the scene's district name if available, for now undefined.
-      const result = await this.sovereignJudge.evaluateNarrative(prompt, context, systemContext, undefined);
+      const result = await this.sovereignJudge.evaluateNarrative(prompt, context, systemContext, undefined, temperature, topP);
       narrative = result.narrative;
     } catch (e) {
       this.logger?.error('HRC', traceId, 'pushNarrativeOrFallback Error:', { error: (e as Error).message });
@@ -972,7 +977,7 @@ export class HybridRoutingController {
     const traceId = randomUUID();
     // 1. Generate Contextual Secret (Node B GPU)
     const prompt = `Generate a short (max 15 words) secret password, data fragment, or lore clue found in a file related to: ${payload.context}`;
-    const secret = await this.sovereignNarrative.generateNarrative(prompt, payload.context, 'Generate a short Cyberpunk secret.');
+    const secret = await this.sovereignNarrative.generateNarrative(prompt, payload.context, 'Generate a short Cyberpunk secret.', undefined, 0.2, 0.5);
 
     // 2. Select Template & Encode (Node B CPU)
     // We assume templates exist in data/assets/st3gg_templates/

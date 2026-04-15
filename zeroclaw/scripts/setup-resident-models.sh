@@ -7,6 +7,7 @@ set -euo pipefail
 # Node A: NVIDIA 1050 Ti (4GB VRAM)
 # Using Open-Reasoner-Zero-1.5B (Q8_0) for rules validation.
 MODEL_PATH="zeroclaw/models/Open-Reasoner-Zero-1.5B.Q8_0.gguf"
+OCR_MODEL_PATH="zeroclaw/models/falcon-0.3b-ocr.onnx"
 PORT=8080
 
 echo "==> Verifying model availability at $MODEL_PATH..."

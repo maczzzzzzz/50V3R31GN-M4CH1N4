@@ -122,6 +122,7 @@
             alias droid="steam-run /home/nixos/.local/bin/droid"
 
             # Phase 48: Sovereign Triad MCP Bridge — spawn background sidecar
+            mkdir -p /run/crush 2>/dev/null || true
             MCP_PID_FILE="$PROJECT_ROOT/.gemini/tmp/mcp-bridge.pid"
             if [ ! -f "$MCP_PID_FILE" ] || ! kill -0 "$(cat "$MCP_PID_FILE")" 2>/dev/null; then
               mkdir -p "$PROJECT_ROOT/.gemini/tmp" "$PROJECT_ROOT/data/logs"

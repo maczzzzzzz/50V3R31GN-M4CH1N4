@@ -181,6 +181,16 @@ export class PretextOverlayManager {
   }
 
   /**
+   * Set persistent shroud shader parameters from the Narrative Client.
+   * @param {{ scanlineAlpha?: number, glitchIntensity?: number }} params
+   */
+  static setShroudParams({ scanlineAlpha, glitchIntensity } = {}) {
+    if (!this.shroudFilter?.uniforms) return;
+    if (scanlineAlpha    != null) this.shroudFilter.uniforms.uScanlineAlpha    = Math.min(1.0, Math.max(0.0, scanlineAlpha));
+    if (glitchIntensity  != null) this.shroudFilter.uniforms.uGlitchIntensity  = Math.min(1.0, Math.max(0.0, glitchIntensity));
+  }
+
+  /**
    * Trigger a glitch impulse — temporarily spikes uGlitchIntensity and decays back to 0.
    * @param {number} intensity  0.0–1.0
    * @param {number} duration   ms before decay completes

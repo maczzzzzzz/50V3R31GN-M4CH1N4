@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.7] - 2026-04-15
+### Added
+- **Gold Mine Ingestion**: Programmatically harvested and chunked 80+ official and community DLC PDFs into the Akashik Record.
+- **DIRECTOR_SOUL.md**: Established a physical identity manifest for the abliterated Mistral-Nemo model, anchoring its "ego" in the filesystem.
+- **Master Command Manifest**: Created an exhaustive library of all system commands in `akashik_guides/reference-command-manifest.md`.
+- **Sovereign Strategist Skill**: Materialized and installed a specialized Gemini CLI skill to encode strategic mandates and Zero-Trust protocols.
+- **Deterministic Harvester**: Implemented SHA-256 content hashing in `unified_master_harvester.ts` for absolute duplicate detection.
+
+### Changed
+- **HyperTune Integration**: Refactored `HybridRoutingController` to apply dynamic hyperparameter shifting (temp/top_p) based on tactical vs. narrative context.
+- **Ouroboros Loop Expansion**: Updated the verifier to detect and RE_ROLL identity drift (Assistant-speak, moralizing) in Node B output.
+- **Knowledge Base v2**: Realigned the RKG Registry with 2026 industry anchors (GLM-5.1, Foundry v12, Nix Hive Model).
+- **Identity Injection**: Refactored `RootsInjector` to asynchronously load the Director's Soul from disk, enabling real-time identity updates.
+- **Vault Protocol Shift**: Paused automatic vault sealing for the private repository while maintaining the underlying security architecture.
+
+### Fixed
+- **RKG Consistency**: Performed a full data integrity audit of `Akashik.db` and the Obsidian vault, ensuring zero empty or corrupted entries across 11k+ files.
+- **Mirror Synchronization**: Stabilized the bidirectional Windows-WSL sync for the Obsidian Memory Palace.
+
+## [3.2.6] - 2026-04-14
+### Added
+- **Phase 1 Surgical Audit**: Completed a line-by-line inspection of `crush/`, `zeroclaw/`, and `src/mcp/`.
+- **SOVEREIGN_VITAL_SIGNS.md**: Established the definitive "Ground Truth" manifest for the system state.
+- **GLM-5.1 Handover Preparedness**: Created the `sovereign-lead-dev` Droid profile and updated the MCP bridge with Veto tools and Constitution resources.
+- **2026 Orchestration Standard**: Upgraded `AGENTS.md` and `SOUL.md` to the latest "Three-Layer Identity" and "Cascading Context" architectures.
+- **Legacy Recovery Suite**: Developed specialized literal-key decryption tools to restore 130+ legacy documents from the pre-phase-30 archives.
+
+### Changed
+- **Documentation Hierarchy**: Elevated `IMPLEMENTATION_PLAN.md` to the project root for maximum agentic precedence.
+- **Security Protocols**: Purged all cleartext credentials and updated `AGENTS.md` to source keys strictly from `.env`.
+- **Repository Hygiene**: Refactored `.gitignore` to strictly enforce vault boundaries and moved recovery tools to `scripts/recovery/`.
+
+### Fixed
+- **Key Mangle Bug**: Identified and documented the shell-expansion issue with the `$` character in `SOVEREIGN_KEY`.
+- **Vault Access**: Successfully unsealed all legacy subdirectories in `docs/superpowers/`.
+
 ## [3.2.5] - 2026-04-13
 ### Added
 - **Phase 56 (System Stabilization)**: Initialized the main development track for system hardening and play-testing.

@@ -1,11 +1,24 @@
 # ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４ // G1716N0R3
 
-# Dependencies
+# --- SYSTEM & IDE ---
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+.worktrees/
+.direnv/
+.envrc
+flake.lock.bak
+
+# --- DEPENDENCIES ---
 node_modules/
 .venv/
 __pycache__/
 
-# Build & Runtime Output
+# --- BUILD OUTPUTS (GO/RUST/TS) ---
 dist/
 build/
 coverage/
@@ -17,25 +30,32 @@ coverage/
 **/*.so
 **/*.dll
 **/*.dylib
+crush-bin
+crush-cli
+deck-igniter-cli
+crush/crush
+deck-igniter/deck-igniter
+dashboard/.next/
 
-# Environment & Secrets (MANDATORY BLOCK)
+# --- SECRETS & ENV (MANDATORY BLOCK) ---
 .env
 .env.*
 !.env.example
 
-# --- 7H3-V4UL7 (Steganographic Shards) ---
-# We ALLOW shards on the remote so the project is reproduceable from GitHub.
-# We STRICTLY BLOCK the cleartext markdown files.
-docs/archive/**/*.md
-data/vault/**/*.md
+# --- 7H3-V4UL7 (STEGANOGRAPHIC SHARDS) ---
+# Protocol: We ALLOW steganographic shards (*.md.png) but BLOCK cleartext (*.md, *.json, etc.)
+# in sensitive directories. This ensures designs never leave the local environment cleartext.
+
+# 1. Block cleartext in sensitive documentation hierarchies
+docs/superpowers/**/*.md
+docs/raw_data/
+docs/rulebooks_raw/
 akashik_guides/**/*.md
 akashik_guides/**/*.json
 akashik_guides/**/*.txt
-*.md
-!README.md
-!CHANGELOG.md
-!docs/superpowers/shards/*.md
-!*.md.png
+data/vault/**/*.md
+
+# 2. Allow the encrypted shards (The containers)
 !**/*.md.png
 !**/*.json.png
 !**/*.txt.png
@@ -44,78 +64,53 @@ akashik_guides/**/*.txt
 !**/*.ldb.png
 !**/*.log.png
 
-# --- OFF-L1N3_M3M0RY_P4L4C3 (Phase 43) ---
-# Too many files to seal; kept local-only and unversioned.
-data/vault/RKG/
-/mnt/d/Obsidian_RKG/
+# 3. Allow root-level orchestration stubs & directives
+!README.md
+!CHANGELOG.md
+!AGENTS.md
+!SOUL.md
+!IMPLEMENTATION_PLAN.md
+!SOVEREIGN_VITAL_SIGNS.md
+!GEMINI.md
+!CLAUDE.md
+!RED_RULES.md
 
-.vesper_state
-
-# IDE & OS Files
-.vscode/*
-!.vscode/settings.json
-.idea/
-*.swp
-.DS_Store
-Thumbs.db
-
-# Logs
-logs/
-!logs/**/.gitkeep
-*.log
-npm-debug.log*
-
-# --- Local Persistence (Grounded State) ---
+# --- LOCAL RUNTIME DATA (UNVERSIONED) ---
 data/
 !data/assets/
 !data/skillstones/
 !data/vault/
-data/vault/**/*.md
+!data/vault/RKG/
+data/vault/RKG/
+/mnt/d/Obsidian_RKG/
+
 *.db
 *.db-journal
 *.db-wal
 *.mem
 *.ghost
-
-# Claude/Gemini Session Data
-.claude
-.claude/
-.gemini
+*.log
+logs/
+!logs/**/.gitkeep
+npm-debug.log*
+.vesper_state
 .gemini/
+.claude/
 narrative_seed_data/
 
-# Git Infrastructure
-.worktrees/
-.direnv/
-.envrc
-flake.lock.bak
-
-# System & Sidecars
-crush/crush
-deck-igniter/deck-igniter
-crush-bin
-crush-cli
-deck-igniter-cli
-
-# Dashboard build cache
-dashboard/.next/
-
-# Foundry game data exports (runtime operational)
+# --- FOUNDRY OPERATIONAL ---
 fvtt-*.json
 fvtt-*.json:Zone.Identifier
 foundry-baseline.png
 
-# Models
+# --- MODELS (LARGE BINARY) ---
 *.gguf
 *.onnx
 *.onnx.data
 
-# --- OPERATIONAL DATA (LOCAL ONLY) ---
-# Strictly block all raw assets, campaign data, and internal designs.
-# These are unsealed for Node B runtime but MUST NOT be pushed.
-CLAUDE.md
-GEMINI.md
-docs/raw_data/
-docs/superpowers/
-docs/rulebooks_raw/
-*.tsbuildinfo
+# --- TEMPORARY TOOLS ---
+bulk_recovery.go
+recovery_tool.go
+test_decrypt.go
+discussion.md
+quickprompt.md

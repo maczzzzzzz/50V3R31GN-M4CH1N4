@@ -71,6 +71,9 @@ class FoundryApiBridge {
     // Initialize Pretext Engine
     PretextOverlayManager.init();
 
+    // Phase 44.5: Shroud — reattach on scene change (updateScene fires before canvasReady)
+    Hooks.on('updateScene', () => PretextOverlayManager._reattachShroud());
+
     // Register Socketlib if available
     if (game.modules.get('socketlib')?.active) {
       console.log(`[${MODULE_ID}] Socketlib detected. Initializing administrative socket.`);
@@ -537,6 +540,9 @@ class FoundryApiBridge {
           command.payload.intensity ?? 0.5,
           command.payload.duration ?? 500,
         );
+        break;
+      case 'shroud_params':
+        PretextOverlayManager.setShroudParams(command.payload);
         break;
     }
     this._sendSuccess(command.requestId, null);

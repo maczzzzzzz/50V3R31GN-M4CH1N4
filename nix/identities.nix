@@ -58,7 +58,7 @@ let
     ## 🏗️ GLOBAL ARCHITECTURAL DNA
     - **Node A (Kernel):** NVIDIA GTX 1050 Ti. Rules Authority. Open-Reasoner-1.5B.
     - **Node B (Director):** AMD Radeon RX 9060 XT. Narrative/Aesthetic Lead. Pixtral-12B.
-    - **Bus:** VSB (Binary UDP) is the Sovereign Highway.
+    - **Bus:** VSB (Binary UDP // Port 7878) + Sovereign-Go-Proxy (Unix Socket // `/run/crush/clawlink.sock`).
 
     ## ⚡ IMMUTABLE OPERATIONAL MANDATES
     1. **Nix Sovereignty:** Every command MUST be wrapped in `nix develop --command`.

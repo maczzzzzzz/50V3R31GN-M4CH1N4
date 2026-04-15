@@ -37,6 +37,8 @@ export class SovereignJudge {
     context: string, 
     systemContext?: string, 
     districtName?: string,
+    temperature: number = 0.8,
+    topP: number = 0.9,
     maxRetries: number = 3
   ): Promise<{ narrative: string, glitched: boolean }> {
     const traceId = randomUUID();
@@ -54,8 +56,8 @@ export class SovereignJudge {
         context, 
         systemContext, 
         districtName,
-        0.8, // Slightly higher temp for grit
-        0.9
+        temperature,
+        topP
       );
 
       // Audit fidelity using Node A (ZeroClaw RPC)

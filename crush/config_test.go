@@ -19,8 +19,8 @@ func TestConfig_DefaultValues(t *testing.T) {
 	if cfg.ClawlinkPort != "7878" {
 		t.Errorf("ClawlinkPort = %q, want 7878", cfg.ClawlinkPort)
 	}
-	if cfg.ClawlinkSock != "/home/nixos/50V3R31GN-M4CH1N4/.crush/clawlink.sock" {
-		t.Errorf("ClawlinkSock = %q, want /home/nixos/50V3R31GN-M4CH1N4/.crush/clawlink.sock", cfg.ClawlinkSock)
+	if cfg.ClawlinkSock != "/run/crush/clawlink.sock" {
+		t.Errorf("ClawlinkSock = %q, want /run/crush/clawlink.sock", cfg.ClawlinkSock)
 	}
 	if cfg.ClawlinkTimeout != 15000 {
 		t.Errorf("ClawlinkTimeout = %d, want 15000", cfg.ClawlinkTimeout)

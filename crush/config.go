@@ -29,7 +29,7 @@ func loadConfig() Config {
 	return Config{
 		NodeAHost:       getEnv("NODE_A_HOST", "192.168.0.50"),
 		ClawlinkPort:    getEnv("CLAWLINK_PORT", "7878"),
-		ClawlinkSock:    getEnv("CLAWLINK_SOCK", "/tmp/clawlink.sock"),
+		ClawlinkSock:    getEnv("CLAWLINK_SOCK", "/run/crush/clawlink.sock"),
 		ClawlinkTimeout: getEnvInt("CLAWLINK_TIMEOUT", 15000),
 		DashboardPort:   getEnv("DASHBOARD_PORT", "9090"),
 	}

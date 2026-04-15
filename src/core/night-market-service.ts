@@ -12,7 +12,7 @@ export interface MarketItem {
 
 export interface VendorInventory {
   items: MarketItem[];
-  suggestedMap?: string;
+  suggestedMap?: string | null;
 }
 
 export class NightMarketService {
@@ -53,7 +53,7 @@ export class NightMarketService {
 
     return {
       items,
-      suggestedMap: maps.length > 0 ? maps[0]!.file_path : undefined
+      suggestedMap: maps[0]?.file_path ?? null
     };
   }
 

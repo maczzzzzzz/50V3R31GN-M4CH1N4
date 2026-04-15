@@ -11,8 +11,8 @@
  */
 
 import 'dotenv/config';
-import fs from 'node:fs';
-import path from 'node:path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { Console } from 'node:console';
 import { randomUUID } from 'node:crypto';
 import { execSync } from 'node:child_process';
@@ -67,7 +67,7 @@ import { SharedMemoryService } from './core/shared-memory-service.js';
 import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
 
 import { RootsInjector } from './core/roots-injector.js';
-import { SOVEREIGN_HIJACK_JS } from '../scripts/theme-sync.js';
+import { SOVEREIGN_HIJACK_JS } from './core/sovereign-theme.js';
 import { logger } from './shared/logger.js';
 
 async function main() {
@@ -112,7 +112,11 @@ async function main() {
     seed: 42,
   }, logger);
 
-  const rootsInjector = new RootsInjector(oracle.getRawDatabase());
+  let soulContent: string | undefined;
+  try {
+    soulContent = await fs.promises.readFile(path.join(process.cwd(), 'DIRECTOR_SOUL.md'), 'utf8');
+  } catch { /* RootsInjector fallback handles missing file */ }
+  const rootsInjector = new RootsInjector(oracle.getRawDatabase(), process.cwd(), soulContent);
 
   const sovereignNarrative = new SovereignNarrativeClient({
     baseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',

@@ -12,6 +12,7 @@ import { randomUUID } from 'node:crypto';
 import type { ISovereignNarrativeClient, SovereignNarrativeConfig } from './interfaces.js';
 import { RootsInjector } from './roots-injector.js';
 import type { ILogger } from '../db/interfaces.js';
+import { soulLogger } from './soul-logger.js';
 
 // ── Zod config validation ─────────────────────────────────────────────────────
 
@@ -184,7 +185,18 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
       throw new Error(message);
     }
     
+    const result = first.message.content;
+
+    // Phase 56: Auto-capture for Ouroboros Loop
+    soulLogger.capture(result, 'narrative', {
+      district: districtName,
+      traceId,
+      params: { temperature, topP },
+      model: this.config.model,
+      context_length: effectiveContext.length
+    });
+
     this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');
-    return first.message.content;
+    return result;
   }
 }

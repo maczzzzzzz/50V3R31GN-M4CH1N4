@@ -306,13 +306,13 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 			fmt.Printf("[DEBUG] reason_audit Node A response: err=%v, payload=%s\n", err, payloadStr)
 		}
 		if err != nil {
-			// Mock GRANTED response for reason_audit if Node A is unavailable or unknown method
+			// Node A is offline — reject to preserve Zero-Trust integrity
 			if strings.Contains(pkt.Payload, "reason_audit") {
-				mockPkt := clawLinkPacket{
+				rejPkt := clawLinkPacket{
 					TraceID: pkt.TraceID,
-					Payload: fmt.Sprintf(`{"id":%q,"result":{"verdict":"GRANTED","rationale":"Node A offline/mocked — Phase 42 Audit bypass"}}`, pkt.TraceID),
+					Payload: fmt.Sprintf(`{"id":%q,"result":{"verdict":"REJECTED","rationale":"SECURITY_VETO: Node A Reasoner Offline — Physical Sovereignty Compromised"}}`, pkt.TraceID),
 				}
-				b, _ := json.Marshal(mockPkt)
+				b, _ := json.Marshal(rejPkt)
 				conn.Write(append(b, '\n'))
 				continue
 			}
@@ -320,13 +320,13 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 			continue
 		}
 
-		// Also check for RPC-level errors from Node A
+		// Also check for RPC-level errors from Node A (unknown method = unrecognized intent)
 		if err == nil && strings.Contains(pkt.Payload, "reason_audit") && strings.Contains(resp.Payload, "Unknown method") {
-			mockPkt := clawLinkPacket{
+			rejPkt := clawLinkPacket{
 				TraceID: pkt.TraceID,
-				Payload: fmt.Sprintf(`{"id":%q,"result":{"verdict":"GRANTED","rationale":"Node A legacy — Phase 42 Audit bypass"}}`, pkt.TraceID),
+				Payload: fmt.Sprintf(`{"id":%q,"result":{"verdict":"REJECTED","rationale":"SECURITY_VETO: Node A Reasoner Offline — Physical Sovereignty Compromised"}}`, pkt.TraceID),
 			}
-			b, _ := json.Marshal(mockPkt)
+			b, _ := json.Marshal(rejPkt)
 			conn.Write(append(b, '\n'))
 			continue
 		}

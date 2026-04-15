@@ -20,7 +20,7 @@
 import net from 'node:net';
 import fs from 'node:fs';
 import path from 'node:path';
-import { exec } from 'node:child_process';
+import { exec, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -31,7 +31,7 @@ const execAsync = promisify(exec);
 // ── Paths ──────────────────────────────────────────────────────────────────────
 
 const PROJECT_ROOT = process.env['PROJECT_ROOT'] ?? process.cwd();
-const SOCKET_PATH  = path.join(PROJECT_ROOT, '.gemini/tmp/sovereign-mcp.sock');
+const SOCKET_PATH  = '/run/crush/sovereign-mcp.sock';
 const PID_PATH     = path.join(PROJECT_ROOT, '.gemini/tmp/mcp-bridge.pid');
 const LOG_PATH     = path.join(PROJECT_ROOT, 'data/logs/mcp-bridge.log');
 
@@ -51,6 +51,63 @@ function buildMcpServer(): McpServer {
     name: 'sovereign-triad-mcp',
     version: '1.0.0',
   });
+
+  // ── Resources (Phase 2 Handover) ───────────────────────────────────────────
+
+  server.resource(
+    'constitution',
+    'file:///SOVEREIGN_VITAL_SIGNS.md',
+    { description: 'The Atomic Source of Truth for the 50V3R31GN-M4CH1N4 system' },
+    async (uri) => {
+      try {
+        const text = fs.readFileSync(path.join(PROJECT_ROOT, 'SOVEREIGN_VITAL_SIGNS.md'), 'utf8');
+        return { contents: [{ uri: uri.href, text }] };
+      } catch (e) {
+        return { contents: [{ uri: uri.href, text: `ERROR: ${(e as Error).message}` }] };
+      }
+    }
+  );
+
+  server.resource(
+    'rkg_schema',
+    'file:///Akashik.db.schema',
+    { description: 'The SQLite schema for Akashik.db (RKG)' },
+    async (uri) => {
+      try {
+        const { stdout } = await execAsync('sqlite3 data/Akashik.db .schema', { cwd: PROJECT_ROOT, timeout: 5000 });
+        return { contents: [{ uri: uri.href, text: stdout }] };
+      } catch (e) {
+        return { contents: [{ uri: uri.href, text: `ERROR: ${(e as Error).message}` }] };
+      }
+    }
+  );
+
+  // ── Veto Tool ────────────────────────────────────────────────────────────────
+  server.tool(
+    'node_a_veto',
+    'Ask the Node A Reasoner (Open-Reasoner-Zero-1.5B) to validate an intent or code change against the Cyberpunk RED rules.',
+    {
+      intent: z.string().describe('The proposed action, intent, or code snippet to validate'),
+    },
+    async ({ intent }) => {
+      try {
+        const output = await new Promise<string>((resolve) => {
+          const child = spawn('crush', ['scan'], { cwd: PROJECT_ROOT });
+          let buf = '';
+          child.stdout.on('data', (d: Buffer) => { buf += d.toString(); });
+          child.stderr.on('data', (d: Buffer) => { buf += d.toString(); });
+          child.stdin.write(intent, 'utf8');
+          child.stdin.end();
+          const timer = setTimeout(() => { child.kill(); resolve(buf || 'Node A VETO: REJECTED (Timeout)'); }, 15_000);
+          child.on('close', () => { clearTimeout(timer); resolve(buf || 'Node A VETO: REJECTED (No output)'); });
+          child.on('error', (err) => { clearTimeout(timer); resolve(`Node A VETO: REJECTED (${err.message})`); });
+        });
+        return { content: [{ type: 'text', text: output }] };
+      } catch (e) {
+        return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
+      }
+    }
+  );
 
   // ── Filesystem tools ─────────────────────────────────────────────────────────
 
@@ -188,7 +245,7 @@ function buildMcpServer(): McpServer {
 
 async function startDaemon(): Promise<void> {
   // Ensure directories exist
-  fs.mkdirSync(path.dirname(SOCKET_PATH), { recursive: true });
+  fs.mkdirSync('/run/crush', { recursive: true });
   fs.mkdirSync(path.dirname(LOG_PATH), { recursive: true });
 
   // Remove stale socket if it exists
