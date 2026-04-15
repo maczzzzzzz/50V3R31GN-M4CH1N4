@@ -110,9 +110,12 @@ foundry-baseline.png
 *.onnx
 *.onnx.data
 
+# --- HANDOFF & ORCHESTRATION ---
+!quickprompt.md
+!SESSION_HANDOFF.md
+
 # --- TEMPORARY TOOLS ---
 bulk_recovery.go
 recovery_tool.go
 test_decrypt.go
 discussion.md
-quickprompt.md
