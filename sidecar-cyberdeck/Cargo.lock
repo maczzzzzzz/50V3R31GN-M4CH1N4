@@ -3173,14 +3173,14 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "sidecar-cyberdeck"
-version = "3.2.2"
+version = "3.2.3"
 dependencies = [
  "crc32fast",
  "eframe",
  "egui",
  "image",
  "memmap2",
- "rand 0.8.5",
+ "rand 0.9.2",
  "serde_json",
  "sovereign-sdk",
 ]
@@ -3321,7 +3321,7 @@ dependencies = [
 
 [[package]]
 name = "sovereign-sdk"
-version = "3.2.2"
+version = "3.2.3"
 
 [[package]]
 name = "spirv"
