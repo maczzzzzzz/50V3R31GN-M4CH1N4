@@ -47,8 +47,8 @@ dashboard/.next/
 # in sensitive directories. This ensures designs never leave the local environment cleartext.
 
 # 1. Block cleartext in sensitive documentation hierarchies
-docs/superpowers/**/*.md
-!docs/superpowers/plans/2026-04-15-kinetic-dominance-plan.md
+# docs/superpowers/ unblocked for remote backup
+# docs/superpowers/**/*.md
 docs/raw_data/
 docs/rulebooks_raw/
 # akashik_guides/ unblocked for remote mobile review

@@ -1,0 +1,32 @@
+# 🕵️ AUDIT REPORT: DECK-IGNITER TUI (v1.9.0)
+**Date:** 2026-04-05
+**Worktree Location:** `.worktrees/feature/deck-igniter/deck-igniter/`
+**Target Version:** v1.9.0 (Sovereign Highway Stabilization)
+**Status:** 🟢 **PASSED**
+
+---
+
+## 1. Executive Summary
+The `DECK-IGNITER` tool has been successfully remediated to align with the **v1.9.0 (WSL2 Nix-Native)** environment. All hardcoded mismatches have been replaced with dynamic `.env` mapping, and the prober logic now correctly handles VSB Binary UDP heartbeats and PID-based sidecar supervision.
+
+## 2. Technical Findings (Post-Remediation)
+
+### 🟢 Environment Sync (Verified)
+*   **Identity & Network:** `config.go` now correctly maps `192.168.0.50` and `maczz` via `.env` keys.
+*   **Kernel Setup Path:** `ssh.go` targets the correct v1.9.0 path on Node A: `~/50v3r31gn-m4ch1n4-v0.9.1/zeroclaw/scripts/setup-resident-models.sh`.
+*   **Sovereign Highway Port:** VSB UDP is correctly bound to port `7878`.
+
+### 🟢 Probing Strategies (Verified)
+*   **Director Probe:** Corrected to use a TCP Dial on port `3010` (WebSocket), avoiding false HTTP 404s.
+*   **Sidecar Probes:** `sidecar-atlas` and `sidecar-netrunning` are now monitored via **PID Signal 0**, correctly identifying their health as native GUI apps.
+*   **VSB Heartbeat Protocol:** `prober.go` now constructs a protocol-compliant **302-byte IntentPacket** (including XOR checksum). Node A acknowledges these probes, allowing the TUI to confirm a healthy link.
+
+### 🟢 Code Integrity
+*   **Process Isolation:** Maintained via `procRegistry` and `sync.Mutex`.
+*   **Sequential Boot:** `tea.Sequence` correctly manages the Inference → Authority → Sidecar dependency chain.
+
+## 3. Conclusion
+The Deck Igniter is now fully compatible with the v1.9.0 Sovereign Highway. It provides a reliable, single-pane-of-glass orchestration layer for the distributed ASP-GM-AGENT system.
+
+---
+*Verified by Gemini CLI v1.9.0 Strategist.*
