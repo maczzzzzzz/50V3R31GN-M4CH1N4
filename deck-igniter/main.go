@@ -325,6 +325,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 
 	case logMsg:
+		if os.Getenv("HEADLESS") == "1" {
+			fmt.Printf("[LOG] %s\n", msg.text)
+		}
 		m.logs = append(m.logs, msg.text)
 		if len(m.logs) > maxLogLines {
 			m.logs = m.logs[len(m.logs)-maxLogLines:]
@@ -504,6 +507,9 @@ func main() {
 
 	// If running in the background without a TTY (e.g. from a script), disable the UI
 	if os.Getenv("HEADLESS") == "1" {
+		fmt.Printf("://NUCLEUS-ORCH357R470R // 5747U5: 4C71V3 [H34DL355]\n")
+		fmt.Printf("://M0D3: %s\n", os.Getenv("IGNITER_MODE"))
+		os.Stdout.Sync()
 		pr, _ := io.Pipe()
 		opts = []tea.ProgramOption{
 			tea.WithOutput(os.Stdout),

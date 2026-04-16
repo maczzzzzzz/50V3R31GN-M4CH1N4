@@ -245,6 +245,17 @@ impl eframe::App for NetrunApp {
 // ─── Entry Point ─────────────────────────────────────────────────────────────
 
 fn main() -> eframe::Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    let headless = args.iter().any(|a| a == "--headless");
+
+    if headless {
+        println!(":/N37RUN-D43M0N // 5747U5: 4C71V3 [H34DL355]");
+        // In headless mode, we just loop and process state (logic to be expanded)
+        loop {
+            std::thread::sleep(std::time::Duration::from_secs(10));
+        }
+    }
+
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_title(":/50V3R31GN-M4CH1N4 // N37RUN")
@@ -254,7 +265,7 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         ":/50V3R31GN-M4CH1N4 // N37RUN",
         options,
-        Box::new(|_cc| Ok(Box::new(NetrunApp::new()))),
+        Box::new(|_cc| Box::new(NetrunApp::new())),
     )
 }
 

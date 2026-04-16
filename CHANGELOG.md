@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.11] - 2026-04-16
+### Added
+- **Phase 57: Sovereign Mind Rebuild**: Initiated the high-fidelity reconstruction of `Akashik.db` and the Obsidian RKG vault.
+- **Structural Parsing**: Adopted `opendataloader-pdf` for layout-aware PDF extraction (XY-Cut++), preserving multi-column formats and tables.
+- **Semantic Chunking**: Integrated `chunknorris` for header-based splitting with parent context breadcrumb injection.
+- **Polymorphic Ingestion**: Defined the `SovereignIngestService` with specialized handlers for Wiki, Foundry JSON, and high-fidelity PDF sources.
+- **Vault v2 Architecture**: Established a District-first holographic palace hierarchy with mandatory metadata frontmatter.
+
+### Changed
+- **Knowledge Base**: Codified structural parsing and semantic chunking as foundational system patterns.
+- **Asset Forge**: Updated the ingestion guides to prioritize high-fidelity primitives over legacy flattened text.
+
 ## [3.2.10] - 2026-04-16
 ### Changed
 - **WebGL-First Architecture**: Formally transitioned the command surface to the **Nucleus Web Deck**. Deprecated the legacy `deck-igniter` TUI in favor of a headless backend orchestration service.

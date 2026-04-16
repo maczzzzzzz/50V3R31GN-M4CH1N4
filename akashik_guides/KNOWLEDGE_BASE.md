@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
-**Version:** 3.2.9 (The Sovereign Hardening Milestone)
+**Version:** 3.2.11 (The High-Fidelity Mind Milestone)
 **Target:** v3.2.0+ The Sovereign Handover Milestone
 
 ## 🧠 Architectural Patterns (Phase 56+)
@@ -9,6 +9,8 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 | :--- | :--- | :--- | :--- |
 | **Virtual System Bus** | Mmap + UDP | Internal | Lock-free, dual-bus binary state synchronization (FNV-1a). |
 | **Nucleus Command Deck**| React 19 + PIXI | Internal | Monolithic high-fidelity command center (CL4W). |
+| **Structural Parsing** | XY-Cut++ | opendataloader | Layout-aware PDF extraction (Multi-column / Table preservation). |
+| **Semantic Chunking** | Context Injection | chunknorris | Split text by headers (H1-H3) with parent breadcrumb injection. |
 | **Sovereign Triad Bridge**| MCP + Socket | Internal | Shared "Codebase Brain" for Strategist (Gemini) and Architect (Droid). |
 | **Interactive Terminal**| REPL (Go) | Internal | Direct two-way narrative bridge to the 12B Brain. |
 | **Semantic Palace** | Python + TS | Internal | High-speed reconstruction of RKG data via `fast-reconstruct.py`. |
@@ -42,22 +44,14 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 | **deck-igniter** | Go | **Ignition Supervisor:** Headless backend service for lifecycle management of distributed processes. |
 
 
-## 📦 Dependency Registry (Pinned v3.2.9)
+## 📦 Dependency Registry (Pinned v3.2.11)
 
 ### Security Hardening
 - **pnpm.overrides**: Forced `@hono/node-server` to `>=1.19.13` to resolve Path Traversal vulnerabilities in the MCP SDK.
 - **Vite (v7.3.2)**: Patched against Path Traversal in optimized deps `.map` handling.
 - **rand (v0.9.4)**: Updated across all Rust crates for sound RNG initialization.
 
-### Deep Reasoning
-- **llama.cpp / llama-server**: Native C++ inference engine.
-- **GLM-5.1**: Main "Lead Architect" model. Supports interleaved thinking and staircase optimization.
-- **Mistral-Nemo-12B (BP-Abliterated)**: Resident Director model. Managed via `DIRECTOR_SOUL.md`.
-- **Open-Reasoner-1.5B**: Resident Kernel model. Zero-latency rules enforcement on Node A.
-
-### Interop & Performance
-- **NAPI-RS**: Rust native addons for Node.js.
-- **steam-run**: FHS-environment wrapper for generic Linux binaries on NixOS.
+...
 
 ## 📁 Source of Truth: Data Plane
 - **RKG (Relational Knowledge Graph):** `Akashik.db` (Unified World State).
@@ -65,5 +59,5 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 - **Offline Palace:** `data/vault/RKG` (District-based hierarchical RKG mirror).
 
 ---
-*Verified by Gemini CLI v3.2.9.*
+*Verified by Gemini CLI v3.2.11.*
 

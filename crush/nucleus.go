@@ -151,17 +151,24 @@ func startNucleusServer() {
 
 // handleNucleusCommand dispatches a system command received from the Deck UI.
 func handleNucleusCommand(cmd NucleusCommand, w *VsbWatcher) {
+	root := nucleusProjectRoot()
+	crushBin := filepath.Join(root, "crush", "crush")
+	if _, err := os.Stat(crushBin); err != nil {
+		// Fallback to project root if not in crush/
+		crushBin = filepath.Join(root, "crush-cli")
+	}
+
 	switch cmd.Action {
 	case "GHOST_BOOT":
-		_ = exec.Command("crush", "start", "--lite", "--headless").Start()
+		_ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
 	case "FULL_ENGAGE":
-		_ = exec.Command("crush", "start", "--full", "--headless").Start()
+		_ = exec.Command(crushBin, "start", "--full", "--headless").Start()
 	case "LITE_MODE":
-		_ = exec.Command("crush", "start", "--lite", "--headless").Start()
+		_ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
 	case "VAULT_OPEN":
 		key := os.Getenv("SOVEREIGN_KEY")
 		if key != "" {
-			openDirectory("../docs/superpowers/", key)
+			openDirectory(filepath.Join(root, "docs", "superpowers"), key)
 		}
 	case "SOVEREIGN_MODE_ON":
 		if w != nil {
@@ -180,6 +187,6 @@ func handleNucleusCommand(cmd NucleusCommand, w *VsbWatcher) {
 			w.SetStatus(StatusRejected)
 		}
 	case "REBOOT_NODE_A":
-		_ = exec.Command("crush", "shut-down").Start()
+		_ = exec.Command(crushBin, "shut-down").Start()
 	}
 }
