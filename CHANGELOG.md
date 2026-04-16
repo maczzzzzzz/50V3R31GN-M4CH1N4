@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.9] - 2026-04-16
+### Fixed
+- **Sovereign Security Hardening**: Executed a comprehensive dependency audit and remediation pass, achieving a zero-vulnerability state in `pnpm audit`.
+- **NPM Artery Patching**: Updated `vite` (v7.3.2), `hono` (v4.12.14), and `@modelcontextprotocol/sdk` (v1.29.0) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
+- **Transitive Governance**: Implemented `pnpm.overrides` for `@hono/node-server` to force-patch deep-nested vulnerabilities within the MCP SDK.
+- **Rust/Go Audit**: Synchronized `rand` crates (v0.9.4) and `golang.org/x/crypto` (v0.45.0) across all sidecars and kernels.
+
 ## [3.2.8] - 2026-04-16
 ### Added
 - **MCP Toolbox Audit**: Utilized the `mcp-toolbox-for-databases` extension to perform a structural and security audit of `Akashik.db`.

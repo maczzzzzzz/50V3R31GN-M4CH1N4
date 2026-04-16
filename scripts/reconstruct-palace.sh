@@ -105,7 +105,59 @@ EOF
     rsync -a --update "$path_wsl" "$path_win" 2>/dev/null || true
   done
 
-echo ">> TRIPLET ENTITIES: done."
+echo ">> RECONSTRUCTING NPC ENTITIES (District → Actors)..."
+
+# Columns: id | name | faction | disposition | district_id
+sqlite3 "$DB" \
+  "SELECT name, COALESCE(faction,'Independent'), disposition, COALESCE(district_id,''), id FROM npcs;" \
+| while IFS='|' read -r name faction disposition district id; do
+    file=$(echo "$name" | tr ' /' '_' | tr -d '"' | cut -c1-200)
+
+    # District path
+    if [[ -n "$district" ]]; then
+      dir_wsl="$VAULT_WSL/Districts/$district/Actors"
+      dir_win="$VAULT_WIN/Districts/$district/Actors"
+    else
+      dir_wsl="$VAULT_WSL/Global/Actors"
+      dir_win="$VAULT_WIN/Global/Actors"
+    fi
+
+    mkdir -p "$dir_wsl" "$dir_win"
+    path_wsl="$dir_wsl/$file.md"
+    path_win="$dir_win/$file.md"
+
+    district_tag=""
+    if [[ -n "$district" ]]; then
+      district_tag="district: $district"$'\n'
+    fi
+
+    cat <<EOF > "$path_wsl"
+---
+subject: $name
+type: Actor
+tags: [rkg/actors, faction/${faction,,}, status/${disposition,,}]
+sovereign: true
+source: AKASHIK_DB
+${district_tag}npc_id: $id
+---
+
+# $name
+
+- **Faction:** [[$faction]]
+- **Disposition:** $disposition
+- **Status:** Alive
+
+### ◈ BIOMETRICS
+- **Location:** [[$district]]
+- **Grounding:** Physicalized via Phase 58 Audit.
+
+EOF
+
+    # Mirror to Windows vault
+    rsync -a --update "$path_wsl" "$path_win" 2>/dev/null || true
+  done
+
+echo ">> NPC ENTITIES: done."
 
 # ── CHRONICLE SEEDS ───────────────────────────────────────────────────────────
 
