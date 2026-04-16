@@ -1,0 +1,24 @@
+hooks:
+  # 1. Session Start: Inject Ground Truth Manifest
+  SessionStart:
+    - command: cat SOVEREIGN_VITAL_SIGNS.md
+      description: "Loading latest project state and 92% alignment manifest."
+
+  # 2. Post-Tool Use: Auto-reconstruct if vault/db modified
+  PostToolUse:
+    - matcher: "Write|Edit|execute_sql"
+      condition: "[[ $FILES =~ (Akashik.db|data/vault/RKG) ]]"
+      command: npm run reconstruct
+      description: "Auto-materializing Memory Palace due to database/vault modification."
+
+  # 3. Stop Hook: Enforce mandatory Gauntlet audit
+  Stop:
+    - command: npm run gauntlet
+      description: "Final Live-Fire Gauntlet check before session termination."
+      decision: "block"
+      reason: "Gauntlet FAIL detected. Resolve drift or failing shards before detachment."
+      condition: "[[ $COMMAND_STATUS != 0 ]]"
+
+# Submodule override paths
+agentsMdPath: "AGENTS.md"
+soulMdPath: "SOUL.md"

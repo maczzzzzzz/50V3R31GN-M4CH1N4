@@ -31,7 +31,7 @@ const execAsync = promisify(exec);
 // ── Paths ──────────────────────────────────────────────────────────────────────
 
 const PROJECT_ROOT = process.env['PROJECT_ROOT'] ?? process.cwd();
-const SOCKET_PATH  = '/run/crush/sovereign-mcp.sock';
+const SOCKET_PATH  = path.join(PROJECT_ROOT, '.gemini/tmp/sovereign-mcp.sock');
 const PID_PATH     = path.join(PROJECT_ROOT, '.gemini/tmp/mcp-bridge.pid');
 const LOG_PATH     = path.join(PROJECT_ROOT, 'data/logs/mcp-bridge.log');
 
@@ -245,7 +245,7 @@ function buildMcpServer(): McpServer {
 
 async function startDaemon(): Promise<void> {
   // Ensure directories exist
-  fs.mkdirSync('/run/crush', { recursive: true });
+  fs.mkdirSync(path.dirname(SOCKET_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(LOG_PATH), { recursive: true });
 
   // Remove stale socket if it exists

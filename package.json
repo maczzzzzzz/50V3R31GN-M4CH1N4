@@ -42,7 +42,7 @@
     "build:sidecars": "npm run build:sidecar:atlas && npm run build:sidecar:cyberdeck && npm run build:sidecar:netrunning",
     "harmonize": "tsx scripts/harmonize-rkg.ts",
     "harmonize:dry": "tsx scripts/harmonize-rkg.ts --dry-run",
-    "reconstruct": "bash scripts/reconstruct-palace.sh",
+    "reconstruct": "python3 scripts/fast-reconstruct.py",
     "crush": "./crush-cli",
     "terminal": "./crush-cli terminal",
     "dream": "tsx src/scripts/dream-daemon.ts",

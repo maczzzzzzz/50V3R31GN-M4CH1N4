@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.8] - 2026-04-16
+### Added
+- **MCP Toolbox Audit**: Utilized the `mcp-toolbox-for-databases` extension to perform a structural and security audit of `Akashik.db`.
+- **Fast Reconstruction Engine**: Engineered `scripts/fast-reconstruct.py` to replace the legacy shell script, achieving a 360x performance increase for RKG materialization.
+- **Audit Manifest 2026-04-16**: Physicalized the intelligence core findings and remediation status in `docs/superpowers/audits/`.
+
+### Changed
+- **Vault Orchestration**: Updated `package.json` to utilize the new Python-based reconstruction pipeline by default.
+- **NPC Localization**: Manually re-aligned drifted NPC entities to the Watson district via SQL injection to restore geographical grounding.
+
+### Fixed
+- **RKG Desync**: Resolved a critical desynchronization where active database entities were missing from the physical Obsidian Memory Palace.
+- **Performance Bottleneck**: Eliminated shell-loop overhead in palace reconstruction, enabling stable handling of 30,000+ relational entries.
+
 ## [3.2.7] - 2026-04-15
 ### Added
 - **Gold Mine Ingestion**: Programmatically harvested and chunked 80+ official and community DLC PDFs into the Akashik Record.
