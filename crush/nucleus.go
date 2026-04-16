@@ -153,11 +153,11 @@ func startNucleusServer() {
 func handleNucleusCommand(cmd NucleusCommand, w *VsbWatcher) {
 	switch cmd.Action {
 	case "GHOST_BOOT":
-		_ = exec.Command("crush", "start", "--lite").Start()
+		_ = exec.Command("crush", "start", "--lite", "--headless").Start()
 	case "FULL_ENGAGE":
-		_ = exec.Command("crush", "start", "--full").Start()
+		_ = exec.Command("crush", "start", "--full", "--headless").Start()
 	case "LITE_MODE":
-		_ = exec.Command("crush", "start", "--lite").Start()
+		_ = exec.Command("crush", "start", "--lite", "--headless").Start()
 	case "VAULT_OPEN":
 		key := os.Getenv("SOVEREIGN_KEY")
 		if key != "" {

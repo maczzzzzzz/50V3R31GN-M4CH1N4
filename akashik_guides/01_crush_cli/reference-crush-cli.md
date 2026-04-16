@@ -1,31 +1,28 @@
 # User Guide: Crush CLI (The Control Plane)
 
-**Version:** 3.2.6
+**Version:** 3.2.9
 **Role:** Primary Human Interface for 50V3R31GN-M4CH1N4
 
 ---
 
 ## 🏁 Overview
-The **Crush CLI** is your physical cockpit. It provides direct, low-latency control over the Split-Node World Engine, allowing you to trigger rules resolutions, narrative shifts, and physical materializations.
+The **Crush CLI** is your physical cockpit. While the **Nucleus Web Deck** provides high-fidelity visualization, the CLI provides the underlying Artery and surgical command tools for world-state shifts and physical materializations.
 
-## ⚡ Core Commands (Consolidated)
+## ⚡ Core Operations
 
-### 1. System Operations
-- **`npm run boot`**: The primary ignition command (via Deck-Igniter). Starts all components including Foundry VTT and Obsidian.
-- **`npm run hub`**: Launches the main Rust Sidecar EGUI (The Cyberdeck Hub) for tactical radar and hacking overlays.
-- **`npm run terminal`**: Directly opens the interactive Node B narrative link for two-way AI communication.
-- **`npm run harmonize`**: Synchronizes the Obsidian RKG vault with the SQLite Oracle.
-- **`./crush-cli help`**: Displays the full available command set.
+### 1. The Nucleus Artery
+- **`npm run crush nucleus`**: Starts the Protobuf-over-WebSocket bridge. This is the MANDATORY first step for every session.
+- **`http://localhost:3030`**: The URL for the WebGL Command Deck.
 
-### 2. Intelligence Forge (Phase 52+)
+### 2. Sidecar Management (Headless)
+As of Phase 50, sidecars are typically run as headless daemons supervised by the Nucleus Artery:
+- **`npm run hub:headless`**: Starts the Cyberdeck HUD in the background.
+- **`npm run atlas:headless`**: Starts the Atlas Radar in the background.
+
+### 3. Intelligence Forge (Phase 52+)
 - **`npm run forge:skills`**: Starts the **Skill Factory** to scan session logs for successful patterns and propose new `SKILL.md` shards.
-- **`npm run forge:gepa`**: Triggers the **GEPA Optimizer** to programmatically evolve the "Sovereign Soul" based on high-signal trajectories.
+- **`npm run harmonize`**: (High Performance) Uses `fast-reconstruct.py` to synchronize 20k+ Obsidian files in <5 seconds.
 - **`npm run pulse`**: Executes a one-time world heartbeat advance.
-
-### 3. Physical Materialization (The Architect Pass)
-- **`/onboard <name> <role>`**: (In-Game Chat) Triggers conversational characterization and materializes a token.
-- **`/scan`**: (In-Game Chat) Triggers visual perception scan of the active scene.
-- **`./crush-cli crop-scan <x> <y> <size>`**: Captures and analyzes a specific coordinate.
 
 ### 4. Vault Security
 - **`./crush-cli vault seal <path>`**: Encrypts cleartext docs into steganographic PNG shards.
@@ -33,9 +30,9 @@ The **Crush CLI** is your physical cockpit. It provides direct, low-latency cont
 - **`./crush-cli sovereign-mode [on|off]`**: Toggles God-Mode (Bypass Rules Oracle).
 
 ## 🛡️ The 2-of-2 Authorization Gate (Flush Gate)
-No world-state change occurs without your physical `ACK`. When the system attempts to flush a transaction to **`Akashik.db`**, you will be presented with a high-fidelity "Black-Ice" Auth Pane.
-- **`y` / `Enter`**: GRANTED — Commit the changes to the universal record.
-- **`n` / `Esc`**: REJECTED — Rollback the transaction.
+No world-state change occurs without your physical `ACK`. You can approve transactions via the **Nucleus Deck UI** or the CLI Auth Pane.
+- **`[ACKNOWLEDGE]`** / **`y`**: GRANTED — Commit the changes to the universal record.
+- **`[VETO]`** / **`n`**: REJECTED — Rollback the transaction.
 
 ---
-*Command and Control: 50V3R31GN-M4CH1N4 v3.2.6 Hardened.*
+*Command and Control: 50V3R31GN-M4CH1N4 v3.2.9 Hardened.*

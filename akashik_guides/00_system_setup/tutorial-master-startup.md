@@ -18,36 +18,39 @@ This guide details the end-to-end boot sequence for the distributed GM machine.
 
 ## 2. :/5Y573M-16N1710N //
 
-### 2.1 The Purge
-Before starting any session, it is MANDATORY to clear any zombie processes from previous crashes to prevent resource leakage.
-1.  Run **`npm run boot`**.
-2.  Press **`ctrl+p`** to execute the System-Wide Purge.
-3.  Wait for the "PURGE C0MPL373" confirmation in the logs.
+### 2.1 The Nucleus Artery
+The primary command surface for the Machina is the **WebGL Nucleus Deck**. It handles all orchestration, hardware gating, and state observability.
 
-### 2.2 Ignition
-1.  Press **`ctrl+i`** in the `deck-igniter` TUI (launched via `npm run boot`).
-2.  Monitor the sequence:
-    *   **Layer 3 (Remote):** llama-server + zeroclaw start on Node A (Open-Reasoner-1.5B active).
-    *   **Layer 2 (WSL):** sidecar-cyberdeck + Node B Orchestrator (Mistral-Nemo-12B) + Obsidian Sync start.
-    *   **Layer 1 (Windows):** Foundry VTT launches via CDP bridge.
-3.  All components should show **● RUNNING**.
+1.  **Ignite the Artery:** Run **`npm run crush nucleus`** (or use the pre-built `crush-cli nucleus`).
+2.  **Access the Deck:** Navigate to **`http://localhost:3030`** in your browser.
+3.  **Boot the Machina:**
+    *   Click the **◈ NUCLEUS** dropdown.
+    *   Select **[FULL_ENGAGE]** for a standard session.
+    *   Select **[GHOST_BOOT]** for a headless audit.
+
+### 2.2 Ignition Sequence
+Once engaged via the Deck, the Machina executes a multi-tier boot in the background:
+*   **Layer 3 (Remote):** llama-server + zeroclaw start on Node A (Open-Reasoner-1.5B active).
+*   **Layer 2 (WSL):** sidecar-cyberdeck + Node B Orchestrator (Mistral-Nemo-12B) + Obsidian Sync start.
+*   **Layer 1 (Windows):** Foundry VTT launches via CDP bridge.
+
+Monitor the **EVENT LOG** and **THOUGHT STREAM** quadrants in the Deck to verify all components reach **● RUNNING**.
 
 ---
 
 ## 3. :/463N7-UPL1NK //
 
 1.  Start your AI agent (Gemini, Claude, or GLM-5.1).
-2.  **MANDATORY:** If the vault is locked, command the agent: **"Open the Vault."**
-3.  The agent will use your `SOVEREIGN_KEY` from `.env` to restore the plans and specs to cleartext.
-4.  Proceed with development or session dominance.
+2.  **MANDATORY:** If the vault is locked, select **UNSEAL 7H3-V4UL7** from the Nucleus Deck dropdown.
+3.  Proceed with development or session dominance.
 
 ---
 
 ## 4. :/54F3-5HU7D0WN //
 
 1.  Close Foundry VTT.
-2.  The Node B watchdog will detect the disconnect and trigger a graceful shutdown of distributed services within 5 minutes.
-3.  Alternatively, use **Shift+Q** in the `deck-igniter` to force an immediate shutdown.
+2.  Use the **REBOOT NODE_A** or **SHUTDOWN** commands in the Nucleus Deck for an immediate halt.
+3.  The Node B watchdog will otherwise trigger a graceful shutdown within 5 minutes of disconnect.
 
 ---
 **::/5Y573M-N071C3 : TRU7H UN1F13D. 5Y573M V3R1F13D. // 50V3R31GN-M4CH1N4**

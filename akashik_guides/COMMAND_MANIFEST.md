@@ -1,7 +1,19 @@
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Exhaustive Command Manifest (v3.2.6)
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Exhaustive Command Manifest (v3.2.9)
 **Protocol:** Binary UDP/TCP over VSB Sovereign Highway
 
 This document is the definitive library of EVERY command available to the USER. Commands are categorized by the environment in which they are executed.
+
+---
+
+## ◈ 0. THE NUCLEUS (Primary Interface)
+The WebGL Command Deck is the primary surface for all session operations.
+
+| Command | Action | Description |
+| :--- | :--- | :--- |
+| `npm run crush nucleus` | Ignite Artery | Starts the Go-based Protobuf bridge and Web Deck server at `:3030`. |
+| `[FULL_ENGAGE]` | UI Ignition | (In-Deck) Executes the complete multi-tier system boot sequence. |
+| `[GHOST_BOOT]` | UI Ignition | (In-Deck) Executes a headless background ignition for audits. |
+| `[UNSEAL V4UL7]` | UI Security | (In-Deck) Restores steganographic docs to cleartext for the session. |
 
 ---
 
@@ -12,7 +24,6 @@ Executed from the base terminal (Linux/WSL). These commands initialize the hardw
 | :--- | :--- | :--- |
 | `nix develop` | Node B | **Primary Shell**: Activates Node B (AMD/Vulkan) environment. |
 | `nix develop .#cuda` | Node A | **Kernel Shell**: Activates Node A (NVIDIA/CUDA) environment. |
-| `nix-shell` | Both | Legacy fallback for non-flake environments. |
 | `export NIXPKGS_ALLOW_UNFREE=1` | Both | Mandatory for using proprietary drivers (CUDA/RADV). |
 
 ---
@@ -23,12 +34,11 @@ Executed from within a `nix develop` shell in the project root.
 ### 🚀 Boot & Runtime
 | Command | Action |
 | :--- | :--- |
+| `npm run crush nucleus` | Launches the **Nucleus Artery** (Primary UI server). |
+| `npm run boot` | Debug Mode: Launches the **Deck Igniter** TUI (Deprecated for session start). |
 | `npm start` | Launches the Node B Orchestrator (Orchestrates all state). |
-| `npm run boot` | Launches the **Deck Igniter** (Starts AI servers and sidecars). |
-| `npm run boot:ghost` | Launches in **Ghost Mode** (Stealth operation). |
-| `npm run hub` | Launches the **Cyberdeck HUD** (Rust Monolith). |
-| `npm run atlas` | Launches the **Atlas Radar** (Rust Sidecar). |
-| `npm run dream` | Starts the **Dream Daemon** (Lore consolidation). |
+| `npm run hub:headless` | Launches the **Cyberdeck HUD** in daemon mode. |
+| `npm run atlas:headless` | Launches the **Atlas Radar** in daemon mode. |
 | `npm run terminal` | Launches the **Interactive TUI Terminal** (Direct Director link). |
 
 ### 🛠️ Development & Build

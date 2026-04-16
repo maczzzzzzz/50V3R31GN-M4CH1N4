@@ -1,12 +1,14 @@
-# ◈ GHOST BOOT PROTOCOL (v3.2.6)
+# ◈ GHOST BOOT PROTOCOL (v3.2.7)
 
 The **Ghost Boot Protocol** is the automated ignition sequence for the 50V3R31GN-M4CH1N4. It bypasses all manual UI interactions, handling Windows process launching, WSL2 bridging, and Foundry VTT authentication autonomously.
 
-## 🕹️ One-Command Ignition
-To start the entire system in headless mode for audits or background operation:
-```bash
-npm run boot:ghost
-```
+## 🕹️ Nucleus-Driven Ignition
+To start the system in headless mode for audits or background operation:
+
+1.  **Launch Nucleus:** `npm run crush nucleus`
+2.  **Select Mode:** From the **◈ NUCLEUS** dropdown, select **[GHOST_BOOT]**.
+
+The Machina will now execute the background ignition sequence and run automated login and audit scripts.
 
 ---
 
@@ -18,7 +20,7 @@ npm run boot:ghost
 - **Win-Proxy:** Node.js bridge (`scripts/win-proxy.cjs`) listening on `0.0.0.0:9223` on Windows, forwarding to `localhost:9222`.
 
 ### Layer 2: WSL2 (Orchestrator & Bridge)
-Boot sequence is **strictly gated** in `deck-igniter` — each step waits for a confirmed health signal:
+Boot sequence is managed headlessly by `crush start --headless` — each step waits for a confirmed health signal:
 
 1. **Foundry CDP Gate:** Waits for a `"page"` target at `<win-host>:9223/json` before starting WSL processes.
 2. **Crush Proxy:** Unix socket bridge connecting to Node A (Kernel).
@@ -32,9 +34,8 @@ Boot sequence is **strictly gated** in `deck-igniter` — each step waits for a 
 
 ### "ZOMBIE" State
 If the audit reports a "ZOMBIE" state (Foundry connection lost):
-1. Run **`npm run boot`**.
-2. Press **`ctrl+p`** to execute the System-Wide Purge.
-3. This clears stale locks and neutralizes orphaned processes.
+1. Use the **PURGE** function (if implemented in UI) or run `crush shut-down` from terminal.
+2. Restart the Nucleus Artery and attempt a fresh **[GHOST_BOOT]**.
 
 ### Gate Timeouts
 If a gate times out, check `deck-igniter/launcher.go` to adjust durations:

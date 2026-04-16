@@ -174,13 +174,24 @@ func main() {
 		switch os.Args[1] {
 		case "start":
 			mode := "full"
-			if len(os.Args) > 2 && os.Args[2] == "--lite" {
-				mode = "lite"
-			} else if len(os.Args) > 2 && os.Args[2] == "--full" {
-				mode = "full"
+			headless := false
+			
+			// Simple flag parsing
+			for _, arg := range os.Args[2:] {
+				if arg == "--lite" {
+					mode = "lite"
+				} else if arg == "--full" {
+					mode = "full"
+				} else if arg == "--headless" {
+					headless = true
+				}
 			}
 			
-			fmt.Printf("Initiating 50V3R31GN-M4CH1N4 Deck Igniter in %s mode...\n", mode)
+			fmt.Printf("Initiating 50V3R31GN-M4CH1N4 Deck Igniter in %s mode", mode)
+			if headless {
+				fmt.Printf(" (HEADLESS)")
+			}
+			fmt.Println("...")
 
 			// Auto-Unseal for Runtime
 			key := os.Getenv("SOVEREIGN_KEY")
@@ -212,6 +223,9 @@ func main() {
 			// Try to run the igniter directly
 			execCmd := exec.Command(cmdPath)
 			execCmd.Env = append(os.Environ(), "IGNITER_MODE="+mode)
+			if headless {
+				execCmd.Env = append(execCmd.Env, "HEADLESS=1", "AUTO_IGNITE=1")
+			}
 			execCmd.Stdin = os.Stdin
 			execCmd.Stdout = os.Stdout
 			execCmd.Stderr = os.Stderr

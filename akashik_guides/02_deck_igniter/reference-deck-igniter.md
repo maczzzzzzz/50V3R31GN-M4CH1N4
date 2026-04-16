@@ -1,7 +1,9 @@
-# DECK IGNITER: UNIFIED ORCHESTRATION GUIDE
+# DECK IGNITER: HEADLESS ORCHESTRATION ENGINE
 
 ## OVERVIEW
-The **Deck Igniter** is a Go-based TUI (Terminal User Interface) orchestrator designed to synchronize the distributed boot sequence of the 50V3R31GN-M4CH1N4 system. It manages the handshake between Node B (The Director) and Node A (The Kernel) while ensuring all sidecar processes and inference engines are healthy.
+The **Deck Igniter** is a Go-based orchestration engine designed to synchronize the distributed boot sequence of the 50V3R31GN-M4CH1N4 system. While originally a TUI (Terminal User Interface), it has been transitioned to a **Headless Backend Service** triggered primarily by the **WebGL Nucleus Deck**.
+
+It manages the handshake between Node B (The Director) and Node A (The Kernel) while ensuring all sidecar processes and inference engines are healthy.
 
 ## CORE RESPONSIBILITIES
 1. **Node A Handshake**: Executes the remote setup script on Node A via SSH to initialize resident models (`Open-Reasoner-1.5B`, `Falcon-0.3B`).
@@ -10,38 +12,33 @@ The **Deck Igniter** is a Go-based TUI (Terminal User Interface) orchestrator de
 4. **Process Supervision**: Monitors sidecar PIDs (Atlas, Netrunning, Cyberdeck) via Signal 0.
 5. **Inference Health**: Verified `llama-server` availability via OpenAI-compatible health endpoints.
 
-## CONFIGURATION
-Deck Igniter reads the master `.env` file in the project root. Key variables include:
+## ARCHITECTURAL SHIFT: WEBGL FIRST
+As of **Phase 50**, the manual TUI is deprecated. All ignition commands are routed through the **Nucleus Artery** (`crush nucleus`) which executes the Igniter in background mode.
 
-- `NODE_A_HOST`: IP address of Node A (e.g., `192.168.0.50`).
-- `CLAWLINK_USER`: SSH username for Node A.
-- `ZEROCLAW_PORT`: VSB/UDP port (default `7878`).
-- `FOUNDRY_CDP_PORT`: CDP debug port (default `9222`).
+### Triggering Ignition
+The Igniter is invoked by the Nucleus Artery using:
+```bash
+crush start --headless --full
+```
+This sets the following environment variables:
+- `HEADLESS=1`: Disables the Bubble Tea TUI renderer.
+- `AUTO_IGNITE=1`: Immediately initiates the `bootSequenceCmd`.
 
-## USAGE
-To launch the Igniter within the Nix development environment:
+## USAGE (BACKEND)
+The Igniter is typically managed by the **Nucleus Artery** at `http://localhost:3030`.
 
+### MANUAL DEBUG MODE
+If direct terminal observability is required for debugging orchestration failures:
 ```bash
 npm run boot
 ```
+*Note: Using manual boot while a Nucleus-driven boot is active may cause process collisions.*
 
-### INTERFACE CONTROLS
-- **[S] Start All**: Initiates the sequential boot sequence.
-- **[R] Remote Setup**: Triggers only the Node A resident model initialization.
-- **[P] Probe Status**: Refresh health checks for all nodes and sidecars.
-- **[Q] Quit**: Shuts down the Igniter (gracefully terminates sidecars).
-
-## BOOT SEQUENCE LOGIC
-The Igniter follows a strict dependency chain to ensure system integrity:
-1. **Windows Layer**: Foundry VTT + Obsidian (GUI) are fired via WSL interop.
-2. **Director (Node B)**: WebSocket server at `:3010` must be up.
-3. **Node A Setup**: Remote SSH script must exit with Code 0.
-4. **Inference Engines**: Node A (`Open-Reasoner-1.5B`) and Node B (`Mistral-Nemo-12B`) instances must return `200 OK`.
-5. **ZeroClaw (VSB)**: Must respond to a `302-byte` Intent Heartbeat packet.
-6. **Sidecars**: Atlas and Netrunning HUDs must be running.
+---
+**AUTHORITY NOTICE**: THE DECK IGNITER IS THE ENGINE; THE NUCLEUS DECK IS THE PILOT.
 
 ## IMMERSIVE HACKING
-The v3.2.6 release includes **AI-Driven Script Injection**. The Director (Node B) can now inject raw JavaScript into the Foundry client to simulate "Netrunner Attacks":
+The v3.2.9 release includes **AI-Driven Script Injection**. The Director (Node B) can now inject raw JavaScript into the Foundry client to simulate "Netrunner Attacks":
 - **UI Glitches**: Forcing CSS filters and disorientation effects via `SOVEREIGN_HIJACK_JS`.
 - **Biometric Scrambling**: Triggering red critical-state overlays via Pretext.
 - **Black Ice Injection**: Creating dynamic macros to dim lights and spawn hostile entities.
@@ -52,4 +49,4 @@ Every script injected by the AI is first routed through **Node A (The Reasoner)*
 - **Chain-of-Thought Validation**: The Reasoner analyzes the *intent* of the code. If it attempts to escape the Foundry sandbox, the execution is blocked.
 
 ---
-**AUTHORITY NOTICE**: THE DECK IGNITER IS THE SOLE GATEKEEPER TO THE SOVEREIGN HIGHWAY.
+**::/5Y573M-N071C3 : TRU7H UN1F13D. // 50V3R31GN-M4CH1N4**
