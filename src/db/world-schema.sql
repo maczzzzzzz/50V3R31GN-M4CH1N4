@@ -271,10 +271,11 @@ CREATE TABLE IF NOT EXISTS chronicle_seeds (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
-    source TEXT NOT NULL, -- 'MIRAHEZE', 'Z-TEAM', 'WORLD-ANVIL'
+    source TEXT NOT NULL, -- 'MIRAHEZE', 'Z-TEAM', 'WORLD-ANVIL', 'WIKI', 'FOUNDRY', 'PDF', 'COMPENDIUM'
     category TEXT NOT NULL, -- '#Historical', '#Corporate', '#Gossip', '#Technical'
     era_grounding TEXT DEFAULT '2045',
     district_id TEXT,
+    semantic_hash TEXT UNIQUE, -- Phase 57: SHA-256 deduplication guard
     status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
     last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -305,3 +306,17 @@ CREATE TRIGGER IF NOT EXISTS chronicle_au AFTER UPDATE ON chronicle_seeds BEGIN
   INSERT INTO chronicle_fts(rowid, title, content, category, district_id)
   VALUES (new.rowid, new.title, new.content, new.category, new.district_id);
 END;
+
+-- Phase 57: Foundry Items table (mechanical parity with fvtt-Item exports)
+CREATE TABLE IF NOT EXISTS items (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL, -- 'weapon', 'armor', 'cyberware', 'gear', 'program', 'ammo'
+    category TEXT,
+    cost INTEGER DEFAULT 0,
+    weight REAL DEFAULT 0,
+    data_json TEXT NOT NULL DEFAULT '{}', -- full Foundry item data blob
+    district_id TEXT,
+    source TEXT NOT NULL DEFAULT 'FOUNDRY',
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+);

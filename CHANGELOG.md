@@ -3,11 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 
 ## [3.2.11] - 2026-04-16
 ### Added
 - **Phase 57: Sovereign Mind Rebuild**: Initiated the high-fidelity reconstruction of `Akashik.db` and the Obsidian RKG vault.
+- **Materialized Agents**: Deployed the **Sovereign Ingestor** (Hifi Parsing) and **Sovereign Scribe** (Documentation Harmonization) droid profiles.
+- **Scribe Governance**: Established the Sovereign Scribe's total jurisdiction over the `akashik_guides/` library, mandating systematic procedural audits on every major delta.
+- **Diagnostic Artery**: Implemented the `vitals-heartbeat` skill (`npm run audit:vitals`) for 3-quadrant hardware/software validation.
+- **Automation Artery**: Implemented the `manifest-synchronizer` skill (`npm run sync`) for cascading version and documentation alignment.
+- **Agentic Grounding**: Integrated mandatory initialization protocols in `CLAUDE.md` to ensure zero-drift implementation.
 - **Structural Parsing**: Adopted `opendataloader-pdf` for layout-aware PDF extraction (XY-Cut++), preserving multi-column formats and tables.
 - **Semantic Chunking**: Integrated `chunknorris` for header-based splitting with parent context breadcrumb injection.
 - **Polymorphic Ingestion**: Defined the `SovereignIngestService` with specialized handlers for Wiki, Foundry JSON, and high-fidelity PDF sources.
@@ -21,7 +26,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 - **WebGL-First Architecture**: Formally transitioned the command surface to the **Nucleus Web Deck**. Deprecated the legacy `deck-igniter` TUI in favor of a headless backend orchestration service.
 - **Crush CLI Artery**: Implemented the `--headless` flag for `crush start`, enabling seamless background ignition from the Web UI.
-- **Akashik Guides Audit**: Performed a systematic remediation of the entire `akashik_guides/` library to align with Phase 50+ standards (v3.2.9).
+- **Akashik Guides Audit**: Performed a systematic remediation of the entire `akashik_guides/` library to align with Phase 50+ standards (v3.2.11).
 - **Master Startup Pivot**: Updated all onboarding and setup guides to prioritize the Nucleus Artery (`npm run crush nucleus`) over legacy CLI workflows.
 
 ### Fixed
@@ -31,9 +36,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [3.2.9] - 2026-04-16
 ### Fixed
 - **Sovereign Security Hardening**: Executed a comprehensive dependency audit and remediation pass, achieving a zero-vulnerability state in `pnpm audit`.
-- **NPM Artery Patching**: Updated `vite` (v7.3.2), `hono` (v4.12.14), and `@modelcontextprotocol/sdk` (v1.29.0) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
+- **NPM Artery Patching**: Updated `vite` (v3.2.11), `hono` (v3.2.11), and `@modelcontextprotocol/sdk` (v3.2.11) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
 - **Transitive Governance**: Implemented `pnpm.overrides` for `@hono/node-server` to force-patch deep-nested vulnerabilities within the MCP SDK.
-- **Rust/Go Audit**: Synchronized `rand` crates (v0.9.4) and `golang.org/x/crypto` (v0.45.0) across all sidecars and kernels.
+- **Rust/Go Audit**: Synchronized `rand` crates (v3.2.11) and `golang.org/x/crypto` (v3.2.11) across all sidecars and kernels.
 
 ## [3.2.8] - 2026-04-16
 ### Added
@@ -88,7 +93,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [3.2.5] - 2026-04-13
 ### Added
 - **Phase 56 (System Stabilization)**: Initialized the main development track for system hardening and play-testing.
-- **53N71N3L (Sentinel) Design**: Engineered a reactive, event-driven architecture using Hermes v0.9.0 patterns.
+- **53N71N3L (Sentinel) Design**: Engineered a reactive, event-driven architecture using Hermes v3.2.11 patterns.
 - **Hybrid Context Engine**: Designed a background VSB distillation protocol (0x0A) to offload state processing to Node A.
 - **Reactive Risk Monitor**: Implemented `watch_patterns` for automated, risk-aware system recovery and state snapshots.
 - **Interactive Scene Wiring**: Designed the logical framework (`docs/superpowers/specs/2026-04-13-interactive-scene-wiring.md`) for hackable cameras, terminals, and tactical debris.
@@ -200,7 +205,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 - **Unified Audit Entry**: Standardized all live-fire tests into the `npm run gauntlet` master command.
-- **Metadata Alignment**: Updated Knowledge Base and Guides to reflect the v3.1.0 "Sovereign Gauntlet" architecture.
+- **Metadata Alignment**: Updated Knowledge Base and Guides to reflect the v3.2.11 "Sovereign Gauntlet" architecture.
 
 ### Fixed
 - **Shard Duplication**: Consolidated block-level phase definitions to eliminate logic overlap between individual files.
@@ -289,7 +294,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 - **Phase 39: Legacy Remediation (Completed)**: Systematic rebranding of all "Ollama" clients to SovereignNarrativeClient and SovereignEmbeddingService.
 - **Mock Logic Purge**: Replaced all hardcoded mock scoring in Unified Oracle with real vector distance metrics.
-- **System Version**: Bumped core engine to v2.5.0.
+- **System Version**: Bumped core engine to v3.2.11.
 
 ## [2.4.0] - 2026-04-10
 ### Added
@@ -313,7 +318,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Master Theme Artery**: Physicalized `src/shared/sovereign-theme.css` to enforce aesthetic consistency across all monorepo components.
 
 ### Changed
-- **Version Iteration**: Bumped system version to v2.3.0.
+- **Version Iteration**: Bumped system version to v3.2.11.
 - **Context Management**: Shifted Node A memory management from reactive FIFO to proactive Geometric Pruning (7R1_SC0R3R).
 - **Technical Debt Sweep**: Removed unused packages (`cheerio`), dead environments (`fhs.nix`, `shell.nix`, `Modelfile`), and obsolete Python inference scripts.
 
@@ -329,7 +334,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Global Rebranding**: Executed a total sweep of the codebase to replace all "ASP.GM-Agent" references with the official "50V3R31GN-M4CH1N4" identity.
 
 ### Changed
-- **Version Iteration**: Bumped system versions across Go sidecars, Rust SDKs, and Node.js manifests to v2.2.0.
+- **Version Iteration**: Bumped system versions across Go sidecars, Rust SDKs, and Node.js manifests to v3.2.11.
 - **Vault Governance**: Refined `.gitignore` to strictly enforce documentation sovereignty by blocking cleartext blueprints while allowing encrypted shards.
 
 ## [2.1.0] - 2026-04-08
@@ -413,7 +418,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Unified Cyberdeck (Rust)**: Consolidated `sidecar-atlas` and `sidecar-netrunning` into a monolithic Rust/Egui HUD with tabbed navigation, shared memory state, and an integrated **Glitch Engine**.
 - **High-Throughput Partnership Protocol**: Established new guidelines for Claude (Build) and Gemini (Strategy) to optimize development speed and token usage.
 - **Extended WSA Commands**: Added `hack` and `scan` subcommands to `crush` CLI for physical world manipulation.
-- **Smart Asset System (Design Approved)**: Codified v1.12.0 spec for PNG-enforced steganography and atomized token grounding.
+- **Smart Asset System (Design Approved)**: Codified v3.2.11 spec for PNG-enforced steganography and atomized token grounding.
 
 ### Changed
 - **Sidecar Consolidation**: All tactical and network visualization is now handled by a single high-performance binary (`sidecar-cyberdeck`).

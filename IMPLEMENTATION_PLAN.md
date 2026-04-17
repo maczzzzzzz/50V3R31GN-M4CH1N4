@@ -350,12 +350,9 @@
 
 ## 🛠️ PHASE 57: SOVEREIGN MIND REBUILD (ACTIVE)
 **Goal:** Transition to high-fidelity semantic grounding by nuking legacy RKG artifacts and implementing structural parsing.
-- [ ] **Task 1: The Surgical Nuke:** Automated teardown of legacy `Akashik.db` and fragmented `data/vault/RKG/` contents.
-- [ ] **Task 2: SovereignIngestService:** Implement polymorphic ingestion orchestrator with specialized handlers:
-    - `WikiHandler`: Deep Fandom recursive scrape.
-    - `JsonFoundryHandler`: 100% mechanical parity ingestion.
-    - `HifiPdfHandler`: Layout-aware extraction via `opendataloader-pdf`.
-- [ ] **Task 3: Semantic Architecture:** Integrate `chunknorris` for header-based splitting and context breadcrumb injection.
+- [x] **Task 1: The Surgical Nuke:** Automated teardown of legacy `Akashik.db` and fragmented `data/vault/RKG/` contents.
+- [x] **Task 2: SovereignIngestService:** Materialized polymorphic ingestion orchestrator and specialized handlers (Wiki, JSON, HifiPdf).
+- [x] **Task 3: Semantic Architecture:** Integrated `chunknorris` logic and BLAKE3 semantic deduplication infrastructure.
 - [ ] **Task 4: Palace Reborn (v2):** Refactor reconstruction logic for District-first vault hierarchy and mandatory frontmatter.
 - [ ] **Ability Shard 57:** Materialize DATA shard 57 to verify semantic deduplication and frontmatter compliance.
 

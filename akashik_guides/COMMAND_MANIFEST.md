@@ -1,4 +1,4 @@
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Exhaustive Command Manifest (v3.2.9)
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Exhaustive Command Manifest (v3.2.11)
 **Protocol:** Binary UDP/TCP over VSB Sovereign Highway
 
 This document is the definitive library of EVERY command available to the USER. Commands are categorized by the environment in which they are executed.
@@ -49,10 +49,12 @@ Executed from within a `nix develop` shell in the project root.
 | `npm test` | Runs the full Vitest suite within Nix. |
 | `npm run build:sidecars` | Compiles all Rust sidecars (Atlas, Cyberdeck, Netrunning). |
 | `npm run mcp:start` | Manual launch of the **Sovereign Triad MCP Bridge**. |
+| `npm run sync` | Automates the cascading alignment of version headers and guides. |
 
 ### 🔍 Audit & Harmonize
 | Command | Action |
 | :--- | :--- |
+| `npm run audit:vitals` | Executes a 3-quadrant hardware/software health audit. |
 | `npm run audit:dry-fire` | Executes a full system interaction audit. |
 | `npm run audit:theme` | Scans and verifies visual consistency across modules. |
 | `npm run harmonize` | Synchronizes the Obsidian RKG with the SQLite Oracle. |

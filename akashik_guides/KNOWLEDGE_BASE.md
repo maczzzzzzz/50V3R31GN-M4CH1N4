@@ -1,6 +1,6 @@
 # 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
 **Version:** 3.2.11 (The High-Fidelity Mind Milestone)
-**Target:** v3.2.0+ The Sovereign Handover Milestone
+**Target:** v3.2.11+ The Sovereign Handover Milestone
 
 ## 🧠 Architectural Patterns (Phase 56+)
 These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.
@@ -11,6 +11,9 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 | **Nucleus Command Deck**| React 19 + PIXI | Internal | Monolithic high-fidelity command center (CL4W). |
 | **Structural Parsing** | XY-Cut++ | opendataloader | Layout-aware PDF extraction (Multi-column / Table preservation). |
 | **Semantic Chunking** | Context Injection | chunknorris | Split text by headers (H1-H3) with parent breadcrumb injection. |
+| **Manifest Sync** | Automation Tool | Internal | Cascading documentation alignment via `npm run sync`. |
+| **Vitals Heartbeat** | Diagnostic Skill | Internal | 3-quadrant hardware/software health audit via `npm run audit:vitals`. |
+| **Scribe Governance** | Sector Agent | Internal | Systematic audit and synchronization of all `akashik_guides/` and manifests. |
 | **Sovereign Triad Bridge**| MCP + Socket | Internal | Shared "Codebase Brain" for Strategist (Gemini) and Architect (Droid). |
 | **Interactive Terminal**| REPL (Go) | Internal | Direct two-way narrative bridge to the 12B Brain. |
 | **Semantic Palace** | Python + TS | Internal | High-speed reconstruction of RKG data via `fast-reconstruct.py`. |
@@ -48,8 +51,8 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 
 ### Security Hardening
 - **pnpm.overrides**: Forced `@hono/node-server` to `>=1.19.13` to resolve Path Traversal vulnerabilities in the MCP SDK.
-- **Vite (v7.3.2)**: Patched against Path Traversal in optimized deps `.map` handling.
-- **rand (v0.9.4)**: Updated across all Rust crates for sound RNG initialization.
+- **Vite (v3.2.11)**: Patched against Path Traversal in optimized deps `.map` handling.
+- **rand (v3.2.11)**: Updated across all Rust crates for sound RNG initialization.
 
 ...
 
