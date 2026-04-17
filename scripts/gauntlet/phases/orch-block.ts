@@ -106,7 +106,8 @@ export const phase4: SovereignShard = {
   metadata: { id: 4, name: 'Clawlink-Socket', block: 'ORCHESTRATION' },
 
   async audit(_ctx: GauntletContext): Promise<AuditResult> {
-    const socketPath = '/tmp/clawlink.sock';
+    const SOCKET_ROOT = process.env['SOVEREIGN_SOCKET_ROOT'] || './.gemini/tmp';
+    const socketPath = path.join(SOCKET_ROOT, 'clawlink.sock');
     const socketExists = existsSync(socketPath);
     if (!socketExists) {
       return warn(4, 'Clawlink-Socket', `${socketPath} not found — deck-igniter not running (expected without boot)`);
@@ -167,7 +168,8 @@ export const phase18: SovereignShard = {
     // Also check the local proxy port that forwards to Windows
     const localListening = await checkTcpPort('127.0.0.1', proxyPort, 2000);
     // Check clawlink socket (crush-proxy uses this for IPC)
-    const socketPath = '/tmp/clawlink.sock';
+    const SOCKET_ROOT = process.env['SOVEREIGN_SOCKET_ROOT'] || './.gemini/tmp';
+    const socketPath = path.join(SOCKET_ROOT, 'clawlink.sock');
     const socketExists = existsSync(socketPath);
 
     const details: Record<string, unknown> = { proxyPort, localListening, socketExists };

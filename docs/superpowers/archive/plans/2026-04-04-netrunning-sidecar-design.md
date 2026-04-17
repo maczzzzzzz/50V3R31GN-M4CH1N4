@@ -13,7 +13,7 @@ The sidecar is a modular component managed by the **Crush CLI**, synchronized vi
 - **Sidecar Activation:** The Netrunning Sidecar detects the signal and "Powers Up," automatically pulling the `stego_payload` (Net Architecture JSON) from the VSB.
 
 ### 2.2 Isometric Tower HUD (Visual)
-- **TowerHUD Render-Pass:** A custom Egui widget that renders a stack of glowing cyan nodes representing the Net Architecture (File, Control, Password, Black ICE).
+- **TowerHUD Render-Pass:** A custom Egui widget that renders a stack of glowing red nodes representing the Net Architecture (File, Control, Password, Black ICE).
 - **Z-Axis Clipping:** Uses depth-ordering to create a 3D "Tower" feel for level-by-level navigation.
 
 ### 2.3 Net-Bus VSB Protocol (Mechanical)

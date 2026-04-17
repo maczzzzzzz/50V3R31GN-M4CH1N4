@@ -5,7 +5,7 @@ use std::time::Duration;
 // ─── Black-Ice Palette ───────────────────────────────────────────────────────
 const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
 const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
-fn dim_cyan() -> Color32 { Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60) }
+fn dim_red() -> Color32 { Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60) }
 
 // ─── Isometric Math ──────────────────────────────────────────────────────────
 
@@ -115,7 +115,7 @@ impl eframe::App for NetrunApp {
             let tile_w = 64.0_f32;
             let tile_h = 32.0_f32;
             let origin = grid_origin(rect, self.grid_cols, self.grid_rows, tile_w, tile_h);
-            let grid_stroke = Stroke::new(0.5, dim_cyan());
+            let grid_stroke = Stroke::new(0.5, dim_red());
 
             // Draw grid lines along rows (connecting cols across a row)
             for row in 0..=self.grid_rows {
@@ -155,7 +155,7 @@ impl eframe::App for NetrunApp {
                         let right = Pos2::new(cx + r, cy);
                         let bottom = Pos2::new(cx, cy + r);
                         let left = Pos2::new(cx - r, cy);
-                        let color = if active { RED } else { dim_cyan() };
+                        let color = if active { RED } else { dim_red() };
                         let stroke = Stroke::new(1.5, color);
                         painter.line_segment([top, right], stroke);
                         painter.line_segment([right, bottom], stroke);

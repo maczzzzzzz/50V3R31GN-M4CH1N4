@@ -31,8 +31,14 @@ const execAsync = promisify(exec);
 // ── Paths ──────────────────────────────────────────────────────────────────────
 
 const PROJECT_ROOT = process.env['PROJECT_ROOT'] ?? process.cwd();
-const SOCKET_PATH  = path.join(PROJECT_ROOT, '.gemini/tmp/sovereign-mcp.sock');
-const PID_PATH     = path.join(PROJECT_ROOT, '.gemini/tmp/mcp-bridge.pid');
+const SOCKET_ROOT = process.env['SOVEREIGN_SOCKET_ROOT'] || path.join(PROJECT_ROOT, '.gemini/tmp');
+const SOCKET_PATH = path.join(SOCKET_ROOT, 'sovereign-mcp.sock');
+const PID_FILE    = path.join(SOCKET_ROOT, 'mcp-daemon.pid');
+
+if (!fs.existsSync(SOCKET_ROOT)) {
+  fs.mkdirSync(SOCKET_ROOT, { recursive: true });
+}
+
 const LOG_PATH     = path.join(PROJECT_ROOT, 'data/logs/mcp-bridge.log');
 
 // ── Critical-only logger ───────────────────────────────────────────────────────

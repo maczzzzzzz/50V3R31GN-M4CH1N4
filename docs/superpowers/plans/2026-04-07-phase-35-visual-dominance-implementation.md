@@ -67,7 +67,7 @@ Ensure the `toLeet` function maps `A,E,I,O,S,T` and that the engine ignores `inp
 
 - [ ] **Step 1: Purge Cyan Remnants**
 
-Audit and replace any remaining `#00f3ff` or `--cpr-cyan` variables with `#ff003c` and `--cpr-red`.
+Audit and replace any remaining `#ff003c` or `--cpr-red` variables with `#ff003c` and `--cpr-red`.
 
 - [ ] **Step 2: Wire VT323 Font**
 

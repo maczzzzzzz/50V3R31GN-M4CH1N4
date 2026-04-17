@@ -276,7 +276,7 @@ export const phase21: SovereignShard = {
 
   async audit(ctx: GauntletContext): Promise<AuditResult> {
     // Verify Node B narrative client is reachable and has model context capacity
-    const nodeBUrl = process.env['OLLAMA_BASE_URL'] ?? 'http://localhost:8080/v1';
+    const nodeBUrl = process.env['SOVEREIGN_INFERENCE_URL'] ?? 'http://localhost:8080/v1';
     const health = await ctx.vision.healthCheck().catch(() => ({ nodeA: false, nodeB: false }));
 
     if (!health.nodeB) {

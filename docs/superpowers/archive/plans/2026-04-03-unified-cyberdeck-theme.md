@@ -21,14 +21,14 @@
 **Black-Ice palette constants used:**
 ```rust
 // Already defined at top of file:
-const CYAN: Color32 = Color32::from_rgb(0x00, 0xf3, 0xff);
+const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
 // New values inlined:
 // Surface  #050505 → Color32::from_rgb(5, 5, 5)
 // TextMain #eeeeee → Color32::from_rgb(238, 238, 238)
 // TextDim  #888888 → Color32::from_rgb(136, 136, 136)
 // Inactive #222222 → Color32::from_rgb(34, 34, 34)
 // Hover    #1a1a1a → Color32::from_rgb(26, 26, 26)
-// CyanSel  rgba(0,243,255,40) → Color32::from_rgba_unmultiplied(0, 243, 255, 40)
+// CyanSel  rgba(255, 0, 60,40) → Color32::from_rgba_unmultiplied(255, 0, 60, 40)
 ```
 
 - [ ] **Step 1: Add `epaint` to the use statement**
@@ -62,7 +62,7 @@ Replace with:
         visuals.code_bg_color        = Color32::from_rgb(5, 5, 5);
 
         // Window chrome
-        visuals.window_stroke        = Stroke::new(1.0, CYAN);
+        visuals.window_stroke        = Stroke::new(1.0, RED);
         visuals.window_shadow        = epaint::Shadow::NONE;
         visuals.popup_shadow         = epaint::Shadow::NONE;
 
@@ -73,7 +73,7 @@ Replace with:
         visuals.widgets.noninteractive.bg_fill      = Color32::from_rgb(5, 5, 5);
         visuals.widgets.noninteractive.weak_bg_fill = Color32::BLACK;
         visuals.widgets.noninteractive.bg_stroke    = Stroke::new(1.0, Color32::from_rgb(34, 34, 34));
-        visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, CYAN);
+        visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, RED);
 
         // Widgets — inactive (unhovered buttons etc.)
         visuals.widgets.inactive.bg_fill            = Color32::from_rgb(5, 5, 5);
@@ -82,16 +82,16 @@ Replace with:
 
         // Widgets — hovered
         visuals.widgets.hovered.bg_fill             = Color32::from_rgb(26, 26, 26);
-        visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, CYAN);
-        visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, CYAN);
+        visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, RED);
+        visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, RED);
 
         // Widgets — active (clicked)
         visuals.widgets.active.bg_fill              = Color32::BLACK;
-        visuals.widgets.active.fg_stroke            = Stroke::new(2.0, CYAN);
+        visuals.widgets.active.fg_stroke            = Stroke::new(2.0, RED);
 
         // Selection highlight
-        visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(0, 243, 255, 40);
-        visuals.selection.stroke     = Stroke::new(1.0, CYAN);
+        visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(255, 0, 60, 40);
+        visuals.selection.stroke     = Stroke::new(1.0, RED);
 
         ctx.set_visuals(visuals);
 ```

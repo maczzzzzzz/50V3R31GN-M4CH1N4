@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
-const CYAN = '\x1b[36m';
+const RED = '\x1b[36m';
 const RESET = '\x1b[0m';
 
 const VERSION_FILE = 'package.json';
@@ -19,7 +19,7 @@ const SOURCES_OF_TRUTH = [
 const GUIDES_DIR = 'akashik_guides';
 
 async function syncManifest() {
-  console.log(`${CYAN}://50V3R31GN-M4CH1N4 // M4N1F357-5YNC // 1N171473D${RESET}\n`);
+  console.log(`${RED}://50V3R31GN-M4CH1N4 // M4N1F357-5YNC // 1N171473D${RESET}\n`);
 
   const pkg = JSON.parse(fs.readFileSync(VERSION_FILE, 'utf8'));
   const version = pkg.version;
@@ -69,7 +69,7 @@ async function syncManifest() {
     walk(GUIDES_DIR);
   }
 
-  console.log(`\n${CYAN}::/5YNC-C0MPL373 // 4LL-D0C5-4L16N3D-70-V${version}.${RESET}\n`);
+  console.log(`\n${RED}::/5YNC-C0MPL373 // 4LL-D0C5-4L16N3D-70-V${version}.${RESET}\n`);
 }
 
 syncManifest().catch(console.error);

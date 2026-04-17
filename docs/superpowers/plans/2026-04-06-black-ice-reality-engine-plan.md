@@ -27,7 +27,7 @@ Run local benchmarks to ensure reasoning capabilities are preserved.
 Add `district_dna` table for hostility baselines and lore.
 - [ ] **Step 2: Implement RootsInjector**
 Fetch DNA and apply `L1B3RT4S` + `G0DM0D3` constraints.
-- [ ] **Step 3: Update OllamaClient**
+- [ ] **Step 3: Update SovereignInferenceClient**
 Support dynamic adversarial system prompts and sampling parameters.
 
 ---

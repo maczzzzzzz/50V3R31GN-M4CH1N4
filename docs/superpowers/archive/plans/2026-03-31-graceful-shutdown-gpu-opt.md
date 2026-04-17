@@ -6,8 +6,8 @@
 
 **Architecture:**
 - Add signal handlers (SIGINT, SIGTERM) to `src/main.ts`.
-- Add `stop()` method to `IOllamaClient` and `INitroLogicClient` to ensure clean disconnection/unloading.
-- Enhance `OllamaClient` to support `num_gpu` and provide an explicit unload call on shutdown.
+- Add `stop()` method to `ISovereignInferenceClient` and `INitroLogicClient` to ensure clean disconnection/unloading.
+- Enhance `SovereignInferenceClient` to support `num_gpu` and provide an explicit unload call on shutdown.
 - Update `OllamaConfig` to allow tuning for Node B's 16GB VRAM.
 
 **Tech Stack:** Node.js, TypeScript, Ollama API.
@@ -20,9 +20,9 @@
 - Modify: `src/core/interfaces.ts`
 
 **Step 1: Add stop() to client interfaces and num_gpu to config**
-Add `num_gpu` to `OllamaConfig` and `stop(): Promise<void>` to `IOllamaClient` and `INitroLogicClient`.
+Add `num_gpu` to `OllamaConfig` and `stop(): Promise<void>` to `ISovereignInferenceClient` and `INitroLogicClient`.
 
-### Task 2: Implement stop() in OllamaClient
+### Task 2: Implement stop() in SovereignInferenceClient
 
 **Files:**
 - Modify: `src/core/ollama-client.ts`
@@ -57,5 +57,5 @@ Verify logs show "Shutting down..." and clients are stopped.
 - Modify: `.env.example`
 - Modify: `src/main.ts` (to pass new config)
 
-**Step 1: Add OLLAMA_NUM_GPU to .env and use it in OllamaClient**
+**Step 1: Add OLLAMA_NUM_GPU to .env and use it in SovereignInferenceClient**
 This allows the user to force GPU usage (e.g., set to 35 for Mistral-Nemo).

@@ -89,7 +89,7 @@ NODE_B_LOCAL=http://localhost:11434/v1
 MODEL_B_NAME=mistral-nemo:12b-instruct-v1-q8_0
 
 # Ollama Embedding (Phase 1)
-OLLAMA_BASE_URL=http://localhost:11434
+SOVEREIGN_INFERENCE_URL=http://localhost:11434
 OLLAMA_EMBED_MODEL=nomic-embed-text
 ```
 
@@ -443,7 +443,7 @@ export class Embedder {
   private batchSize: number;
 
   constructor(
-    baseUrl: string = process.env['OLLAMA_BASE_URL'] ?? 'http://localhost:11434',
+    baseUrl: string = process.env['SOVEREIGN_INFERENCE_URL'] ?? 'http://localhost:11434',
     model: string = process.env['OLLAMA_EMBED_MODEL'] ?? 'nomic-embed-text',
     batchSize: number = 50,
   ) {

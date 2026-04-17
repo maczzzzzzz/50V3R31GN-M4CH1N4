@@ -10,7 +10,7 @@ Transform the project's public-facing documentation (`README.md` and `docs/GITHU
 ## 2. Visual Style
 - **Headers:** Bold ASCII art using block characters (`█`, `▓`, `▒`).
 - **Color Palette (Markdown Proxies):**
-    - **Cyan (`#00f3ff`):** Primary system color. Proxied via `🔹`, `💎`, and code syntax highlighting.
+    - **Cyan (`#ff003c`):** Primary system color. Proxied via `🔹`, `💎`, and code syntax highlighting.
     - **Red (`#ff003c`):** Accent / Alert color. Proxied via `🔻`, `🩸`, and terminal warning blocks.
 - **Layout:** Terminal-style status banners using box-drawing characters (`╔`, `═`, `╗`).
 

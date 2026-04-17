@@ -7,17 +7,17 @@
 ## 1. Plan Alignment Analysis
 The implementation successfully aligns with Phase 3 of the `IMPLEMENTATION_PLAN.md`.
 - **Foundry API Bridge:** Implemented correctly via WebSocket reverse-proxy to bypass authentication. The 5 MVP commands (`chat_message`, `read_actor`, `simple_phone`, `dice_roll`, `scene_activate`) are correctly dispatched.
-- **Narrative Synthesizer:** `OllamaClient` accurately connects to Mistral-Nemo, enforces the system prompt, and retrieves responses without exposing mechanics.
+- **Narrative Synthesizer:** `SovereignInferenceClient` accurately connects to Mistral-Nemo, enforces the system prompt, and retrieves responses without exposing mechanics.
 - **Hybrid Routing:** `HybridRoutingController` beautifully orchestrates Node A (Mechanics) and Node B (Narrative) and handles the "Immersion Mandate" fallback gracefully when Node B fails.
 
 ## 2. Code Quality Assessment
 - **Zero-Trust Validation:** `src/shared/schemas/foundry-bridge.schema.ts` implements rigorous Zod validation for all bidirectional WebSocket traffic.
-- **Test Coverage:** Excellent. TDD methodology followed strictly. 44 new tests covering `FoundryAdapter`, `OllamaClient`, and `HybridRoutingController`. Total project test suite passes (218 tests). Type checking succeeds with zero errors.
+- **Test Coverage:** Excellent. TDD methodology followed strictly. 44 new tests covering `FoundryAdapter`, `SovereignInferenceClient`, and `HybridRoutingController`. Total project test suite passes (218 tests). Type checking succeeds with zero errors.
 - **Error Handling:** Appropriate error handling observed, especially around network requests to Ollama and WebSocket disconnections. The fallback mechanism in `pushNarrativeOrFallback` is particularly robust.
 
 ## 3. Architecture and Design Review
 - The "Palantiri-style Reverse Proxy" approach using Node B as the server and Foundry as the outbound client is an elegant solution to Foundry's strict auth and CORS barriers.
-- Clear separation of concerns between `OllamaClient`, `NitroLogicClient`, and `FoundryAdapter`, all tied together loosely via interfaces and the `HybridRoutingController`.
+- Clear separation of concerns between `SovereignInferenceClient`, `NitroLogicClient`, and `FoundryAdapter`, all tied together loosely via interfaces and the `HybridRoutingController`.
 
 ## 4. Documentation and Standards
 - High-quality JSDoc headers for all new architectural components.

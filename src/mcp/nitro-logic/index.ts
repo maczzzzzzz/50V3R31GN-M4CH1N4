@@ -51,7 +51,7 @@ const ANSI = {
   green: (s: string) => `\x1b[32m${s}\x1b[0m`,
   red: (s: string) => `\x1b[31m${s}\x1b[0m`,
   yellow: (s: string) => `\x1b[33m${s}\x1b[0m`,
-  cyan: (s: string) => `\x1b[36m${s}\x1b[0m`,
+  red: (s: string) => `\x1b[36m${s}\x1b[0m`,
   bold: (s: string) => `\x1b[1m${s}\x1b[0m`,
   dim: (s: string) => `\x1b[2m${s}\x1b[0m`,
 };
@@ -79,7 +79,7 @@ function formatAttackResult(result: {
     `| Roll Total      | \`${result.rollTotal}\` |`,
     `| DV Target       | \`${result.dvTarget}\` |`,
     `| Raw Damage      | \`${result.rawDamage}\` |`,
-    `| Net Damage      | ${ANSI.cyan(`\`${result.netDamage}\``)} |`,
+    `| Net Damage      | ${ANSI.red(`\`${result.netDamage}\``)} |`,
     '',
     `**Chain of Thought:** ${ANSI.dim(result.reasoning)}`,
   ].join('\n');
@@ -91,7 +91,7 @@ function formatDvResult(result: { dv: number; breakdown: string; reasoning: stri
     '',
     `| Field      | Value |`,
     `|:-----------|------:|`,
-    `| Target DV  | ${ANSI.cyan(ANSI.bold(`\`${result.dv}\``))} |`,
+    `| Target DV  | ${ANSI.red(ANSI.bold(`\`${result.dv}\``))} |`,
     '',
     `**Breakdown:** ${result.breakdown}`,
     '',

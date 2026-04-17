@@ -3,8 +3,9 @@
 // LSB steganography over PNG pixel buffers.
 //
 // Wire format encoded into the image's LSBs:
-//   - Bytes 0..=3 : big-endian u32 payload length (in bytes)
-//   - Bytes 4..   : raw payload bytes
+//   - Bytes 0..=3  : big-endian u32 payload length (in bytes)
+//   - Bytes 4..N+3 : raw payload bytes
+//   - Bytes N+4..  : big-endian u64 FNV-1a checksum
 //
 // Each byte of the wire format occupies 8 consecutive RGBA channels (one bit
 // per channel), reading channels in row-major order: R, G, B, A of pixel 0,
@@ -16,31 +17,37 @@
 use image::{DynamicImage, GenericImageView, ImageBuffer, Rgba};
 use std::io::Cursor;
 
+/// Native FNV-1a 64-bit implementation to match VSB standards.
+fn fnv1a_64(data: &[u8]) -> u64 {
+    let mut hash: u64 = 0xcbf29ce484222325;
+    for &byte in data {
+        hash ^= byte as u64;
+        hash = hash.wrapping_mul(0x100000001b3);
+    }
+    hash
+}
+
 /// Encode `payload` into the LSBs of a PNG image supplied as raw bytes.
 /// Returns the modified PNG as a `Vec<u8>`.
-///
-/// # Errors
-/// Returns an error if `img_bytes` is not a valid PNG, or if the payload
-/// is too large for the image's pixel capacity.
 pub fn encode(img_bytes: &[u8], payload: &[u8]) -> Result<Vec<u8>, Box<dyn std::error::Error + Send + Sync>> {
     let img = image::load_from_memory(img_bytes)?;
     let (width, height) = img.dimensions();
-    let capacity_bytes = (width * height * 4 / 8) as usize; // 4 channels, 1 bit each
+    let capacity_bytes = (width * height * 4 / 8) as usize;
 
     let payload_len = payload.len();
-    let wire_len = 4 + payload_len; // 4-byte length header + payload
+    let wire_len = 4 + payload_len + 8; // 4-byte length header + payload + 8-byte FNV-1a
     if wire_len > capacity_bytes {
         return Err(format!(
-            "ST3GG encode: payload {} bytes + 4 header exceeds image capacity of {} bytes ({}x{} RGBA)",
+            "ST3GG encode: payload {} bytes + 12 header exceeds image capacity of {} bytes ({}x{} RGBA)",
             payload_len, capacity_bytes, width, height
         ).into());
     }
 
-// wire format: [4B length][payload][4B CRC32]
-    let mut wire = Vec::with_capacity(4 + payload_len + 4);
+    // wire format: [4B length][payload][8B FNV-1a]
+    let mut wire = Vec::with_capacity(wire_len);
     wire.extend_from_slice(&(payload_len as u32).to_be_bytes());
     wire.extend_from_slice(payload);
-    let checksum = crc32fast::hash(payload);
+    let checksum = fnv1a_64(payload);
     wire.extend_from_slice(&checksum.to_be_bytes());
 
     // Convert to bit stream (MSB first within each byte)
@@ -49,7 +56,6 @@ pub fn encode(img_bytes: &[u8], payload: &[u8]) -> Result<Vec<u8>, Box<dyn std::
         .flat_map(|byte| (0..8).rev().map(move |i| (byte >> i) & 1))
         .collect();
 
-    // Write bits into RGBA channels, LSB of each channel
     let mut rgba = img.to_rgba8();
     let mut bit_idx = 0usize;
 
@@ -63,7 +69,6 @@ pub fn encode(img_bytes: &[u8], payload: &[u8]) -> Result<Vec<u8>, Box<dyn std::
         }
     }
 
-    // Re-encode as PNG
     let mut out = Cursor::new(Vec::new());
     let out_img = DynamicImage::ImageRgba8(rgba);
     out_img.write_to(&mut out, image::ImageFormat::Png)?;
@@ -71,23 +76,17 @@ pub fn encode(img_bytes: &[u8], payload: &[u8]) -> Result<Vec<u8>, Box<dyn std::
 }
 
 /// Decode a payload previously embedded by `encode` from a PNG's LSBs.
-///
-/// # Errors
-/// Returns an error if `img_bytes` is not a valid PNG, or if the embedded
-/// length header exceeds the image capacity (corrupted / un-encoded image).
 pub fn decode(img_bytes: &[u8]) -> Result<Vec<u8>, Box<dyn std::error::Error + Send + Sync>> {
     let img = image::load_from_memory(img_bytes)?;
     let (width, height) = img.dimensions();
     let capacity_bytes = (width * height * 4 / 8) as usize;
 
     let rgba = img.to_rgba8();
-    // Collect all channel LSBs into a flat bit stream
     let bits: Vec<u8> = rgba
         .pixels()
         .flat_map(|p| p.0.iter().map(|c| c & 1).collect::<Vec<_>>())
         .collect();
 
-    // Read the 32-bit (4-byte) length header
     let len_bits = &bits[..32];
     let mut payload_len: u32 = 0;
     for &b in len_bits {
@@ -95,7 +94,7 @@ pub fn decode(img_bytes: &[u8]) -> Result<Vec<u8>, Box<dyn std::error::Error + S
     }
 
     let payload_len = payload_len as usize;
-    let wire_len = 4 + payload_len;
+    let wire_len = 4 + payload_len + 8;
     if wire_len > capacity_bytes {
         return Err(format!(
             "ST3GG decode: embedded length {} exceeds image capacity {} bytes — not a ST3GG image or corrupted",
@@ -103,8 +102,7 @@ pub fn decode(img_bytes: &[u8]) -> Result<Vec<u8>, Box<dyn std::error::Error + S
         ).into());
     }
 
-    // Read payload + CRC32 (N bytes + 4 bytes)
-    let total_wire_bits = 32 + (payload_len + 4) * 8;
+    let total_wire_bits = 32 + (payload_len + 8) * 8;
     if total_wire_bits > bits.len() {
         return Err(format!(
             "ST3GG decode: embedded length {} requires {} bits, but image only has {} bits",
@@ -119,13 +117,13 @@ pub fn decode(img_bytes: &[u8]) -> Result<Vec<u8>, Box<dyn std::error::Error + S
         .collect();
 
     let payload = &block[..payload_len];
-    let mut crc_bytes = [0u8; 4];
-    crc_bytes.copy_from_slice(&block[payload_len..]);
-    let crc_stored = u32::from_be_bytes(crc_bytes);
-    let crc_actual = crc32fast::hash(payload);
+    let mut sum_bytes = [0u8; 8];
+    sum_bytes.copy_from_slice(&block[payload_len..]);
+    let sum_stored = u64::from_be_bytes(sum_bytes);
+    let sum_actual = fnv1a_64(payload);
 
-    if crc_stored != crc_actual {
-        return Err("st3gg: CRC32 mismatch — payload may be corrupted".into());
+    if sum_stored != sum_actual {
+        return Err("st3gg: integrity mismatch — payload may be corrupted".into());
     }
 
     Ok(payload.to_vec())

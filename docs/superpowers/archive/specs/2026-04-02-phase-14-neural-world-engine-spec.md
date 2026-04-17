@@ -20,7 +20,7 @@ Replaces expensive generative loops with high-speed tactical selection.
 
 ### 2.3 Latent Atmosphere (Persistence Layer)
 Ensures sensory consistency across sessions.
-- **The Vector:** Stores a "Latent State" object for every scene in **`Akashik.db`** (e.g. `{ lighting: "#00f3ff", animation: "flicker", intensity: 0.4 }`).
+- **The Vector:** Stores a "Latent State" object for every scene in **`Akashik.db`** (e.g. `{ lighting: "#ff003c", animation: "flicker", intensity: 0.4 }`).
 - **The Restoration:** Automatically re-injects these parameters via CDP when a map is activated, ensuring the "Soul" of a location remains intact.
 
 ## 3. Technical Constraints

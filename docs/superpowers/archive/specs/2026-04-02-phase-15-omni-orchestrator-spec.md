@@ -14,7 +14,7 @@ Phase 15 collapses the modular "Narrative" and "Vision" services into a single, 
 - **Result:** Fits in the 16GB RX 9060 XT with 1.2 GB of "Hardware Insurance" for Foundry/OS.
 
 ### 2.2 The Omni-Client Interface
-Replaces `OllamaClient` and `TacticalVisionService` with a single `OmniOrchestratorClient`.
+Replaces `SovereignInferenceClient` and `TacticalVisionService` with a single `OmniOrchestratorClient`.
 - **Logic:** Every narrative prompt is automatically enriched with a **Neural Uplink screenshot** and an **Akashik RKG subgraph**.
 - **Inference:** Single-pass multimodal reasoning. The AI "sees" the map and "writes" the story in one atomic GPU cycle.
 

@@ -11,16 +11,21 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 - **Gauntlet orch-57:** Verification test for relational density, normalization, and narrative quarantine.
 - **Narrative Prose Wing:** Dedicated `Global/Narrative_Prose` wing in the Obsidian RKG vault.
 - **Enhanced Logger:** Structured logging now includes `nodeId` and stack trace capture for deep-trace debugging.
+- **Sovereign Socket Artery:** Consolidated all Unix sockets under `SOVEREIGN_SOCKET_ROOT` (`.gemini/tmp/`) to eliminate path fragmentation.
+- **Unified Integrity Hashing:** Standardized on **FNV-1a 64-bit** across Go (Crush) and Rust (ZeroClaw) to align with VSB binary standards.
 
 ### Fixed
+- **Architectural Drift Purge:** Systematic repository-wide removal of legacy `OLLAMA`, `asp-gm`, and `cyan` identifiers.
+- **Visual DNA Alignment:** Purged all legacy cyan remnants in favor of the "Total Red" palette across TS, Rust, and CSS.
 - **Power Outage Recovery:** Successfully restored Akashik Mind from a mid-ignition failure with zero data loss.
 - **Normalization Drift:** Eliminated case-sensitivity ghosts in district folders (e.g., Downtown RED).
-- **Asset Indexing Fallback:** Fixed anchor promotion logic to ensure Phase 551 verification passes even with empty initial asset folders.
+- **Asset Indexing Fallback:** Fixed anchor promotion logic to ensure Phase 551 verification passes.
 - **Node A Cleanup:** Surgically purged legacy `asp-gm-agent` artifacts and consolidated scattered logs on the remote server.
 
 ### Changed
 - **Triad Synchronization:** Aligned Node A and Node B to bit-identical project roots (`50V3R31GN-M4CH1N4`).
 - **Harmonization Artery:** Restored `district_dna` anchors from Fandom DNA and harmonized 3100+ triplets.
+- **Inference Nomenclature:** Transitioned from `OllamaClient` to `SovereignInferenceClient` and `OLLAMA_BASE_URL` to `SOVEREIGN_INFERENCE_URL`.
 
 ## [3.2.11] - 2026-04-16
 ### Added
@@ -364,7 +369,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 - **Phase 35: V15U4L-D0M1N4NC3 (Completed)**: Total UI Hijack and Cyberpunk Red theme enforcement completed.
 
 ### Changed
-- **Node B Orchestrator**: Updated `OLLAMA_BASE_URL` and `VLM_ENDPOINT` defaults to point to the Hyper-V internal gateway (`172.26.208.1`).
+- **Node B Orchestrator**: Updated `SOVEREIGN_INFERENCE_URL` and `VLM_ENDPOINT` defaults to point to the Hyper-V internal gateway (`172.26.208.1`).
 - **Environment Cleanup**: Removed redundant Vulkan/ROCm fallback variables from `.env` to ensure stable network-based inference.
 
 ### Fixed
@@ -474,7 +479,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 - **GPU Passthrough Hardening**: Configured NixOS FHS environment (`fhs.nix`) with CUDA/GL libraries for local inference on Node B.
 
 ### Changed
-- **Inference Standard**: Replaced Ollama-specific endpoints with OpenAI-compatible `/v1/chat/completions` across all services (`OllamaClient`, `SpatialVisionService`, `TacticalVisionService`).
+- **Inference Standard**: Replaced Ollama-specific endpoints with OpenAI-compatible `/v1/chat/completions` across all services (`SovereignInferenceClient`, `SpatialVisionService`, `TacticalVisionService`).
 - **Resident Management**: Shifted VRAM residency enforcement to process-level `--mlock` via `llama-server` native flags.
 - **Network Protocol**: Refactored `zeroclaw` to use `127.0.0.1` binding internally to prevent IPv6 resolution lag.
 - **Orchestration**: Integrated `VsbClient` into `HybridRoutingController` for sub-1ms mechanical validation fast-path.

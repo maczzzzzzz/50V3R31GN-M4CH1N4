@@ -336,7 +336,7 @@
         background-color: #1a1a1a !important;
         box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.45) !important;
     }
-    /* Tint die-face <img> icons to cyan */
+    /* Tint die-face <img> icons to red */
     body.vtt .dice-tray__button img {
         filter: invert(1) sepia(1) saturate(8) hue-rotate(155deg) brightness(1.1) !important;
     }

@@ -19,7 +19,7 @@ We introduce the **Ghost Object Protocol** to move "latent physical facts" from 
 
 ### 2.2 Visualization (Sidecar-Atlas - Scanner HUD)
 - **Scanner Pass:** A dedicated Egui/Rust rendering pass that uses a flickering "Pulse" shader to visualize `GhostBlips`.
-- **Dithered Outlines:** Ghost Objects appear as cyan-dithered outlines, indicating they are "Physically Grounded" but not yet "Revealed" in the Foundry VTT scene.
+- **Dithered Outlines:** Ghost Objects appear as red-dithered outlines, indicating they are "Physically Grounded" but not yet "Revealed" in the Foundry VTT scene.
 
 ### 2.3 Interaction (Node B - Director)
 - **Command Interceptor:** An input listener in the Atlas window allows "Click-to-Generate." Clicking a coordinate or Ghost Object sends a **Radar-Intent** packet to Node B.

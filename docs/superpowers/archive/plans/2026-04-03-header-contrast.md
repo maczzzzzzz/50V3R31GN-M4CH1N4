@@ -24,10 +24,10 @@ In `foundry-module/styles/black-ice-theme.css`, locate the `:root` block (lines 
         --cpr-bg-black: #000000;
         --cpr-bg-dark-grey: #050505;
         --cpr-bg-header: #1a1a1a;
-        --cpr-cyan: #00f3ff;
+        --cpr-red: #ff003c;
         --cpr-white: #ffffff;
         --cpr-text-main: #eeeeee;
-        --black-ice-glow: 0 0 10px rgba(0, 243, 255, 0.8);
+        --black-ice-glow: 0 0 10px rgba(255, 0, 60, 0.8);
         
         /* Neutralize system variables */
         --cpr-red: #000000 !important;
@@ -71,10 +71,10 @@ Locate the `/* 2. HEADER SUPREMACY */` rule block (lines 47–66). Change `backg
     body.vtt .cpr-header,
     body.vtt .title,
     body.vtt th {
-        color: var(--cpr-cyan) !important;
+        color: var(--cpr-red) !important;
         text-shadow: var(--black-ice-glow) !important;
         background: var(--cpr-bg-header) !important;
-        border-bottom: 1px solid var(--cpr-cyan) !important;
+        border-bottom: 1px solid var(--cpr-red) !important;
         text-transform: uppercase !important;
         padding: 4px 8px !important;
     }
@@ -110,10 +110,10 @@ Locate the `/* 2b. HEADER ELEMENT SOVEREIGNTY */` rule block (lines 68–81). Ch
     body.vtt header.playlist-header,
     body.vtt header#ui-top,
     body.vtt header.window-header {
-        color: var(--cpr-cyan) !important;
+        color: var(--cpr-red) !important;
         background-color: var(--cpr-bg-header) !important;
         background-image: none !important;
-        border-bottom: 1px solid var(--cpr-cyan) !important;
+        border-bottom: 1px solid var(--cpr-red) !important;
         text-shadow: var(--black-ice-glow) !important;
     }
 ```

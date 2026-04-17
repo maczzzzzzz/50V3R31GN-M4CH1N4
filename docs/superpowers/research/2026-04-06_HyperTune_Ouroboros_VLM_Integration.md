@@ -41,7 +41,7 @@ We use a recursive feedback loop to fine-tune Pixtral's "eyes":
 4.  **Refine:** If the score is low, the system mutates the `ANALYSIS_PROMPT` (e.g., adding "Increase grit by 20%") and retries.
 
 ## 5. Implementation Roadmap (Node B Re-Tuning)
-1.  **Dynamic VLM Interface:** Update `IOllamaClient` to support `VlmOptions` (modality flags).
+1.  **Dynamic VLM Interface:** Update `ISovereignInferenceClient` to support `VlmOptions` (modality flags).
 2.  **Spatial Scorer:** Implement a Node A RPC method `audit_visual_fidelity` that cross-references Pixtral's narrative against the SQLite `scene_perception` table.
 3.  **Adversarial Persona:** Swap the GM Persona for a **"Black-Ice Reality Engine"** persona.
 

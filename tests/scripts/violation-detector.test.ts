@@ -34,7 +34,7 @@ describe('detectViolations', () => {
     expect(result[0]?.borderColor).toBeUndefined();
   });
 
-  it('flags non-white/cyan text', () => {
+  it('flags non-white/red text', () => {
     const result = detectViolations([
       {
         selector: 'body.vtt .grey-text',
@@ -48,7 +48,7 @@ describe('detectViolations', () => {
     expect(result[0]?.color).toBe('rgb(128, 128, 128)');
   });
 
-  it('flags non-cyan border', () => {
+  it('flags non-red border', () => {
     const result = detectViolations([
       {
         selector: 'body.vtt .red-border',

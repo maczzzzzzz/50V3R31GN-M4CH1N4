@@ -7,7 +7,7 @@
  * Transport:  stdio (process.stdin / process.stdout)
  * Config:     .crush.json → mcp.nitro-db
  * Env vars:   NODE_A_HOST, NODE_A_PORT, NODE_A_DB, NODE_A_USER,
- *             NODE_A_PASSWORD, OLLAMA_BASE_URL, EMBEDDING_MODEL
+ *             NODE_A_PASSWORD, SOVEREIGN_INFERENCE_URL, EMBEDDING_MODEL
  */
 
 import 'dotenv/config';
@@ -62,7 +62,7 @@ const dbClient = new UnifiedOracleClient(oracleConfig);
 const ANSI = {
   green: (s: string) => `\x1b[32m${s}\x1b[0m`,
   yellow: (s: string) => `\x1b[33m${s}\x1b[0m`,
-  cyan: (s: string) => `\x1b[36m${s}\x1b[0m`,
+  red: (s: string) => `\x1b[36m${s}\x1b[0m`,
   dim: (s: string) => `\x1b[2m${s}\x1b[0m`,
   bold: (s: string) => `\x1b[1m${s}\x1b[0m`,
 };
@@ -112,7 +112,7 @@ function formatRagResults(
 
     return [
       `### Match ${i + 1} — Score: ${scoreLabel(m.score)}`,
-      `${ANSI.cyan(`**Source:** \`${m.sourceRef}\``)} | **Type:** \`${m.contextType}\`${pageInfo}`,
+      `${ANSI.red(`**Source:** \`${m.sourceRef}\``)} | **Type:** \`${m.contextType}\`${pageInfo}`,
       `**Section:** ${m.sectionHeading}`,
       ``,
       `> ${excerpt.replace(/\n/g, '\n> ')}`,

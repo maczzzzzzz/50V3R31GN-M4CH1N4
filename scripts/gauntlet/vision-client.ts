@@ -5,7 +5,7 @@ import type { Page } from 'playwright-core';
 import { readFileSync } from 'node:fs';
 
 const NODE_A_URL = process.env['NODE_A_LLAMA_URL'] ?? 'http://192.168.0.50:8080/v1';
-const NODE_B_URL = process.env['OLLAMA_BASE_URL'] ?? 'http://localhost:8080/v1';
+const NODE_B_URL = process.env['SOVEREIGN_INFERENCE_URL'] ?? 'http://localhost:8080/v1';
 const VISION_TIMEOUT_MS = 30_000;
 
 export interface VisionQuery {

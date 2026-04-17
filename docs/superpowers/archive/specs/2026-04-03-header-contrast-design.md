@@ -26,7 +26,7 @@ Every surface in the current theme renders at `#000000`. Headers are visually in
 --cpr-bg-header: #1a1a1a;
 ```
 
-Added alongside the existing palette (`--cpr-bg-black`, `--cpr-bg-dark-grey`, `--cpr-cyan`, etc.).
+Added alongside the existing palette (`--cpr-bg-black`, `--cpr-bg-dark-grey`, `--cpr-red`, etc.).
 
 ### 2. Section 2 — class-based headers
 

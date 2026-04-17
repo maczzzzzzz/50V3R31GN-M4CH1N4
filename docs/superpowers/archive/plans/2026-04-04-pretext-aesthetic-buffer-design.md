@@ -15,7 +15,7 @@ Every "Click-to-Generate" action in the **Atlas Radar** triggers a three-stage P
 3. **The Final Render:** The completed mission brief is rendered as a high-resolution, full-screen **Screamsheet Overlay** directly on the PIXI canvas.
 
 ### 2.2 Aesthetic HUD Modes
-- **Net-AR Tactical HUD:** Anchored spatial labels for **ST3GG Ghost Objects** (Ports, Caches). Flickering, cyan-dithered text that pulses based on Cyberdeck proximity.
+- **Net-AR Tactical HUD:** Anchored spatial labels for **ST3GG Ghost Objects** (Ports, Caches). Flickering, red-dithered text that pulses based on Cyberdeck proximity.
 - **Matrix Diagnostic Stream:** A scrolling sidebar of "Code-Rain" and "Diagnostic Logs" that activates during **Cyberdeck "Deep Dive"** mode.
 - **Glitch-Sync Feedback:** Procedural text distortion (glitches) affecting in-game labels (Token names, District titles) during high **VSB heat_level** or Black ICE attacks.
 

@@ -20,12 +20,12 @@ Derived from `foundry-module/styles/black-ice-theme.css` `:root` variables.
 |---|---|---|
 | Background | `#000000` | `Color32::from_rgb(0, 0, 0)` |
 | Surface | `#050505` | `Color32::from_rgb(5, 5, 5)` |
-| Cyan accent | `#00f3ff` | `Color32::from_rgb(0, 243, 255)` |
+| Cyan accent | `#ff003c` | `Color32::from_rgb(255, 0, 60)` |
 | Text main | `#eeeeee` | `Color32::from_rgb(238, 238, 238)` |
 | Text dim | `#888888` | `Color32::from_rgb(136, 136, 136)` |
 | Border inactive | `#222222` | `Color32::from_rgb(34, 34, 34)` |
 | Hover surface | `#1a1a1a` | `Color32::from_rgb(26, 26, 26)` |
-| Cyan selection | `rgba(0,243,255,40)` | `Color32::from_rgba_unmultiplied(0, 243, 255, 40)` |
+| Cyan selection | `rgba(255, 0, 60,40)` | `Color32::from_rgba_unmultiplied(255, 0, 60, 40)` |
 
 ---
 
@@ -47,7 +47,7 @@ visuals.faint_bg_color       = Color32::from_rgb(5, 5, 5);
 visuals.code_bg_color        = Color32::from_rgb(5, 5, 5);
 
 // Window chrome
-visuals.window_stroke        = Stroke::new(1.0, CYAN);
+visuals.window_stroke        = Stroke::new(1.0, RED);
 visuals.window_shadow        = epaint::Shadow::NONE;
 visuals.popup_shadow         = epaint::Shadow::NONE;
 
@@ -58,7 +58,7 @@ visuals.override_text_color  = Some(Color32::from_rgb(238, 238, 238));
 visuals.widgets.noninteractive.bg_fill      = Color32::from_rgb(5, 5, 5);
 visuals.widgets.noninteractive.weak_bg_fill = Color32::BLACK;
 visuals.widgets.noninteractive.bg_stroke    = Stroke::new(1.0, Color32::from_rgb(34, 34, 34));
-visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, CYAN);
+visuals.widgets.noninteractive.fg_stroke    = Stroke::new(1.0, RED);
 
 // Widgets — inactive
 visuals.widgets.inactive.bg_fill            = Color32::from_rgb(5, 5, 5);
@@ -67,16 +67,16 @@ visuals.widgets.inactive.fg_stroke          = Stroke::new(1.0, Color32::from_rgb
 
 // Widgets — hovered
 visuals.widgets.hovered.bg_fill             = Color32::from_rgb(26, 26, 26);
-visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, CYAN);
-visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, CYAN);
+visuals.widgets.hovered.fg_stroke           = Stroke::new(1.5, RED);
+visuals.widgets.hovered.bg_stroke           = Stroke::new(1.0, RED);
 
 // Widgets — active (clicked)
 visuals.widgets.active.bg_fill              = Color32::BLACK;
-visuals.widgets.active.fg_stroke            = Stroke::new(2.0, CYAN);
+visuals.widgets.active.fg_stroke            = Stroke::new(2.0, RED);
 
 // Selection
-visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(0, 243, 255, 40);
-visuals.selection.stroke     = Stroke::new(1.0, CYAN);
+visuals.selection.bg_fill    = Color32::from_rgba_unmultiplied(255, 0, 60, 40);
+visuals.selection.stroke     = Stroke::new(1.0, RED);
 
 ctx.set_visuals(visuals);
 ```

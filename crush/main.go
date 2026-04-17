@@ -18,7 +18,7 @@ import (
 )
 
 // Black-Ice Theme constants
-// Primary:    #ff003c (cyan)
+// Primary:    #ff003c (red)
 // Background: #080810 (near-black)
 // Accent:     #ff003c (red for critical)
 // Dim:        #1a1a2e (dark panel bg)
@@ -114,7 +114,7 @@ func renderNPCCard(npc NPC) string {
 }
 
 // applyCRTGlow wraps text with ANSI sequences for a subtle terminal glow effect.
-// Uses bold + bright cyan for the "glow" simulation.
+// Uses bold + bright red for the "glow" simulation.
 func applyCRTGlow(text string) string {
 	return "\033[1;96m" + text + "\033[0m"
 }

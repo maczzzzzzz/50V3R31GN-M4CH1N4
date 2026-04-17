@@ -36,7 +36,7 @@ Verify that a single call to `OmniClient` can describe a map and narrate an acti
 Update the narrative loop to automatically capture a CDP screenshot before calling the VLM.
 
 **Step 2: Remove Deprecated Services**
-De-commission `TacticalVisionService` and the legacy `OllamaClient` narrative methods.
+De-commission `TacticalVisionService` and the legacy `SovereignInferenceClient` narrative methods.
 
 **Step 3: Verification**
 Trigger an attack in Foundry and verify the AI GM mentions visual details (e.g. "The light from the neon sign glints off your chrome") without a separate scan command.

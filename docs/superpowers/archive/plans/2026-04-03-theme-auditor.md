@@ -62,14 +62,14 @@ const ALLOWED_BG = new Set([
 const ALLOWED_TEXT = new Set([
   'rgb(255, 255, 255)',
   'rgb(238, 238, 238)',
-  'rgb(0, 243, 255)',
+  'rgb(255, 0, 60)',
   'rgba(0, 0, 0, 0)',
   'transparent',
   '',
 ]);
 
 const ALLOWED_BORDER = new Set([
-  'rgb(0, 243, 255)',
+  'rgb(255, 0, 60)',
   'rgba(0, 0, 0, 0)',
   'transparent',
   '',
@@ -92,7 +92,7 @@ describe('detectViolations', () => {
         styles: {
           backgroundColor: 'rgb(0, 0, 0)',
           color: 'rgb(255, 255, 255)',
-          borderColor: 'rgb(0, 243, 255)',
+          borderColor: 'rgb(255, 0, 60)',
         },
       },
     ]);
@@ -106,7 +106,7 @@ describe('detectViolations', () => {
         styles: {
           backgroundColor: 'rgb(185, 2, 2)',
           color: 'rgb(255, 255, 255)',
-          borderColor: 'rgb(0, 243, 255)',
+          borderColor: 'rgb(255, 0, 60)',
         },
       },
     ]);
@@ -117,7 +117,7 @@ describe('detectViolations', () => {
     expect(result[0]?.borderColor).toBeUndefined();
   });
 
-  it('flags non-white/cyan text', () => {
+  it('flags non-white/red text', () => {
     const result = detectViolations([
       {
         selector: 'body.vtt .grey-text',
@@ -131,7 +131,7 @@ describe('detectViolations', () => {
     expect(result[0]?.color).toBe('rgb(128, 128, 128)');
   });
 
-  it('flags non-cyan border', () => {
+  it('flags non-red border', () => {
     const result = detectViolations([
       {
         selector: 'body.vtt .red-border',
@@ -163,11 +163,11 @@ describe('detectViolations', () => {
     const result = detectViolations([
       {
         selector: 'body.vtt .same-class',
-        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(0, 243, 255)' },
+        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(255, 0, 60)' },
       },
       {
         selector: 'body.vtt .same-class',
-        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(0, 243, 255)' },
+        styles: { backgroundColor: 'rgb(185, 2, 2)', color: 'rgb(0, 0, 0)', borderColor: 'rgb(255, 0, 60)' },
       },
     ]);
     expect(result).toHaveLength(1);
@@ -208,14 +208,14 @@ const ALLOWED_BG = new Set([
 const ALLOWED_TEXT = new Set([
   'rgb(255, 255, 255)',
   'rgb(238, 238, 238)',
-  'rgb(0, 243, 255)',
+  'rgb(255, 0, 60)',
   'rgba(0, 0, 0, 0)',
   'transparent',
   '',
 ]);
 
 const ALLOWED_BORDER = new Set([
-  'rgb(0, 243, 255)',
+  'rgb(255, 0, 60)',
   'rgba(0, 0, 0, 0)',
   'transparent',
   '',
@@ -380,7 +380,7 @@ describe('buildPatchBlock', () => {
 
   it('generates border fix for border violation', () => {
     const block = buildPatchBlock(SAMPLE_VIOLATIONS, '2026-04-03');
-    expect(block).toContain('border-color: var(--cpr-cyan) !important;');
+    expect(block).toContain('border-color: var(--cpr-red) !important;');
   });
 
   it('generates text fix for color violation', () => {
@@ -400,7 +400,7 @@ describe('buildPatchBlock', () => {
 });
 
 describe('applyPatch', () => {
-  const BASE_CSS = `@layer black-ice {\n    :root { --cpr-cyan: #00f3ff; }\n}`;
+  const BASE_CSS = `@layer black-ice {\n    :root { --cpr-red: #ff003c; }\n}`;
 
   it('inserts patch block before closing brace of @layer black-ice', () => {
     const patchBlock = '/* AUTO-PATCH: 2026-04-03 — theme-auditor */\nbody.vtt .x { color: #fff !important; }\n/* END AUTO-PATCH */\n';
@@ -442,7 +442,7 @@ export function buildPatchBlock(violations: ElementViolation[], date: string): s
     lines.push(`    ${v.selector} {`);
     if (v.backgroundColor) lines.push(`        background-color: #000000 !important;`);
     if (v.color)            lines.push(`        color: #ffffff !important;`);
-    if (v.borderColor)      lines.push(`        border-color: var(--cpr-cyan) !important;`);
+    if (v.borderColor)      lines.push(`        border-color: var(--cpr-red) !important;`);
     lines.push(`    }`);
   }
 

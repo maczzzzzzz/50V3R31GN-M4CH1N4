@@ -20,7 +20,7 @@ An exhaustive audit and debug sweep of the Phase 24 ("Sovereign Utility Belt") m
 - **Status:** **VERIFIED & FIXED**
 - **Details:** 
   - `sidecar-atlas`: Successfully compiles and renders `GhostBlips`.
-  - `sidecar-netrunning`: **FIXED a Rust compilation error** (`E0015`). `Color32::from_rgba_unmultiplied` cannot be called in a `const` context in this `egui` version. Refactored `DIMCYAN` into a function (`dim_cyan()`) to resolve the error. Exhaustive tests passing.
+  - `sidecar-netrunning`: **FIXED a Rust compilation error** (`E0015`). `Color32::from_rgba_unmultiplied` cannot be called in a `const` context in this `egui` version. Refactored `DIMRED` into a function (`dim_red()`) to resolve the error. Exhaustive tests passing.
 
 ### Task 4: The Flush Gate Integration (Node B Director)
 - **Status:** **IMPLEMENTED & VERIFIED**

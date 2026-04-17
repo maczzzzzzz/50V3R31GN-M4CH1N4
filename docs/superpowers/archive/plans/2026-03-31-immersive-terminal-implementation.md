@@ -38,7 +38,7 @@
 - Capture `#canvas` and save to local temp buffer.
 
 **Step 2: Implement Llava tactical analysis**
-- Pass buffer to `OllamaClient`.
+- Pass buffer to `SovereignInferenceClient`.
 - Parse resulting JSON into `VisualTacticalContext`.
 
 **Step 3: Commit**

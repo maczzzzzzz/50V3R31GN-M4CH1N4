@@ -35,8 +35,8 @@ Three phases per run:
 | Property | Allowed Values |
 |---|---|
 | `backgroundColor` | `rgb(0, 0, 0)`, `transparent`, `rgba(0,0,0,*)` |
-| `color` | `rgb(255, 255, 255)`, `rgb(238, 238, 238)`, `rgb(0, 243, 255)` |
-| `borderColor` | `rgb(0, 243, 255)`, `transparent` |
+| `color` | `rgb(255, 255, 255)`, `rgb(238, 238, 238)`, `rgb(255, 0, 60)` |
+| `borderColor` | `rgb(255, 0, 60)`, `transparent` |
 
 ### DOM Walk
 - `querySelectorAll('*')` on each open sheet container
@@ -76,7 +76,7 @@ After each `render(true)`, wait for the sheet DOM to stabilize before scanning.
 body.vtt .cpr-some-class {
     background-color: #000000 !important;
     color: #ffffff !important;
-    border-color: var(--cpr-cyan) !important;
+    border-color: var(--cpr-red) !important;
 }
 /* END AUTO-PATCH */
 ```

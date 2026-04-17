@@ -1466,7 +1466,7 @@ Replace that entire `if len(os.Args) > 1 { ... }` block (lines up to and includi
 				case "list":
 					fmt.Println(headerStyle.Render("⟨ UTILITY BELT: ACTIVE SIDECARS ⟩"))
 					for _, s := range registry.List() {
-						statusColor := colorCyan
+						statusColor := colorRed
 						if s.State == StateOffline {
 							statusColor = colorDim
 						}

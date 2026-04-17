@@ -357,8 +357,11 @@
 ---
 
 ## 🛠️ PHASE 58: GLM-5.1 HANDOVER & HARDENING (ACTIVE)
-
 **Goal:** Transition implementation leadership to GLM-5.1 and execute final tactical fixes.
+- [x] **Architectural Drift Audit:** Comprehensive purge of legacy identifiers (OLLAMA, asp-gm, cyan).
+- [x] **LAN Integrity Unification:** Standardized on FNV-1a 64-bit hashing for all binary bridges.
+- [x] **Socket Consolidation:** Centralized Unix sockets in `.gemini/tmp/` via `SOVEREIGN_SOCKET_ROOT`.
+- [x] **Triad Sync:** Aligned Node A and Node B to bit-identical project roots.
 - [ ] **GLM Handover**: Initialize the 8-hour autonomous loops via Droid CLI.
 - [ ] **System Polishing**: Refine gameplay loops and system performance.
 

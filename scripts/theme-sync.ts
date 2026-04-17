@@ -152,20 +152,20 @@ export const SOVEREIGN_HIJACK_JS = `
 
 // Original replacement logic preserved for CLI/Sidecar files
 const REPLACEMENTS = [
-  { regex: /#00f3ff/gi, replacement: '#ff003c' },
+  { regex: /#ff003c/gi, replacement: '#ff003c' },
   { regex: /0x00,\s*0xf3,\s*0xff/gi, replacement: '0xff, 0x00, 0x3c' },
-  { regex: /var\(--cpr-cyan\)/gi, replacement: 'var(--cpr-red)' },
+  { regex: /var\(--cpr-red\)/gi, replacement: 'var(--cpr-red)' },
   { regex: /0,\s*243,\s*255/gi, replacement: '255, 0, 60' },
-  { regex: /colorCyan/g, replacement: 'colorRed' },
-  { regex: /CYAN/g, replacement: 'RED' }
+  { regex: /colorRed/g, replacement: 'colorRed' },
+  { regex: /RED/g, replacement: 'RED' }
 ];
 
 function processFile(filePath: string) {
   let content = readFileSync(filePath, 'utf-8');
   let originalContent = content;
 
-  content = content.replace(/colorCyan\s*=\s*lipgloss\.Color\(".*?"\)/g, 'colorRed = lipgloss.Color("#ff003c")');
-  content = content.replace(/const CYAN:\s*Color32\s*=\s*Color32::from_rgb\(.*?\);/g, 'const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);');
+  content = content.replace(/colorRed\s*=\s*lipgloss\.Color\(".*?"\)/g, 'colorRed = lipgloss.Color("#ff003c")');
+  content = content.replace(/const RED:\s*Color32\s*=\s*Color32::from_rgb\(.*?\);/g, 'const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);');
 
   for (const { regex, replacement } of REPLACEMENTS) {
     content = content.replace(regex, replacement);

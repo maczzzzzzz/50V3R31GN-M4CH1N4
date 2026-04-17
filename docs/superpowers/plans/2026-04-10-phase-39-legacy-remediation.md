@@ -39,7 +39,7 @@ Run: `mv src/core/ollama-client.ts src/core/sovereign-narrative-client.ts`
 Run: `mv src/db/ollama-embedding-service.ts src/db/sovereign-embedding-service.ts`
 Update `src/core/sovereign-narrative-client.ts` to export `SovereignNarrativeClient`.
 Update `src/db/sovereign-embedding-service.ts` to export `SovereignEmbeddingService`.
-Update `.env.example` to replace `OLLAMA_BASE_URL` with `SOVEREIGN_LLAMA_SERVER_URL`.
+Update `.env.example` to replace `SOVEREIGN_INFERENCE_URL` with `SOVEREIGN_LLAMA_SERVER_URL`.
 
 - [x] **Step 4: Run test to verify it passes**
 Run: `npx vitest run tests/core/sovereign-narrative-client.test.ts`

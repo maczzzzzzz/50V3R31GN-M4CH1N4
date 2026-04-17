@@ -27,7 +27,7 @@ The Igniter is a Go-based application built with the **Bubble Tea** framework. I
 - **Authority:** Starts the `zeroclaw` Rust binary.
 
 ## 3. Visual Identity (Black-Ice Theme)
-- **Primary:** Cyan (`#00f3ff`) for active/healthy states.
+- **Primary:** Cyan (`#ff003c`) for active/healthy states.
 - **Accent:** Red (`#ff003c`) for stopped/error states.
 - **UI Components:**
     - ASCII Art Header: `IGNITER`.

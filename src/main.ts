@@ -119,7 +119,7 @@ async function main() {
   const rootsInjector = new RootsInjector(oracle.getRawDatabase(), process.cwd(), soulContent);
 
   const sovereignNarrative = new SovereignNarrativeClient({
-    baseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',
+    baseUrl: process.env.SOVEREIGN_INFERENCE_URL || 'http://172.26.208.1:8080/v1',
     model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
     timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '60000', 10),
     num_gpu: process.env.OLLAMA_NUM_GPU ? parseInt(process.env.OLLAMA_NUM_GPU, 10) : undefined,

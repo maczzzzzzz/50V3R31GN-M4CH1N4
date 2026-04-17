@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"hash/crc32"
+	"hash/fnv"
 	"image"
 	"image/draw"
 	"image/png"
@@ -64,14 +64,14 @@ func DecryptPayload(data []byte, key string) ([]byte, error) {
 	return gcm.Open(nil, nonce, ciphertext, nil)
 }
 
-// ErrCRC32Mismatch is returned by St3ggDecode when the embedded CRC32 does not
-// match the decoded payload. Indicates corruption or an un-encoded image.
-var ErrCRC32Mismatch = errors.New("st3gg: CRC32 mismatch — payload may be corrupted")
+// ErrIntegrityMismatch is returned by St3ggDecode when the embedded FNV-1a
+// checksum does not match the decoded payload. Indicates corruption or an un-encoded image.
+var ErrIntegrityMismatch = errors.New("st3gg: FNV-1a mismatch — payload may be corrupted")
 
 // st3ggCapacity returns the maximum payload bytes embeddable in an image of
-// the given dimensions. Wire overhead = 4-byte length header + 4-byte CRC32.
+// the given dimensions. Wire overhead = 4-byte length header + 8-byte FNV-1a (64-bit).
 func st3ggCapacity(w, h int) int {
-	return (w*h*4)/8 - 8
+	return (w*h*4)/8 - 12
 }
 
 // St3ggEncode embeds payload into the LSBs of img and returns lossless PNG bytes.
@@ -92,11 +92,14 @@ func St3ggEncode(img image.Image, payload []byte) ([]byte, error) {
 		pix[i] = 255
 	}
 
-	checksum := crc32.ChecksumIEEE(payload)
-	wire := make([]byte, 4+len(payload)+4)
+	h64 := fnv.New64a()
+	h64.Write(payload)
+	checksum := h64.Sum64()
+
+	wire := make([]byte, 4+len(payload)+8)
 	binary.BigEndian.PutUint32(wire[0:4], uint32(len(payload)))
 	copy(wire[4:4+len(payload)], payload)
-	binary.BigEndian.PutUint32(wire[4+len(payload):], checksum)
+	binary.BigEndian.PutUint64(wire[4+len(payload):], checksum)
 
 	bitIdx := 0
 	for _, wb := range wire {
@@ -113,7 +116,7 @@ func St3ggEncode(img image.Image, payload []byte) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// St3ggDecode extracts and CRC32-validates the payload from ST3GG-encoded PNG bytes.
+// St3ggDecode extracts and FNV-1a validates the payload from ST3GG-encoded PNG bytes.
 func St3ggDecode(pngBytes []byte) ([]byte, error) {
 	img, err := png.Decode(bytes.NewReader(pngBytes))
 	if err != nil {
@@ -151,17 +154,20 @@ func St3ggDecode(pngBytes []byte) ([]byte, error) {
 	lenHeader := readWireBytes(0, 4)
 	payloadLen := int(binary.BigEndian.Uint32(lenHeader))
 
-	if 4+payloadLen+4 > capBytes {
+	if 4+payloadLen+8 > capBytes {
 		return nil, fmt.Errorf("st3gg: embedded length %d exceeds capacity", payloadLen)
 	}
 
-	block := readWireBytes(32, payloadLen+4)
+	block := readWireBytes(32, payloadLen+8)
 	payload := block[:payloadLen]
-	crcStored := binary.BigEndian.Uint32(block[payloadLen:])
-	crcActual := crc32.ChecksumIEEE(payload)
+	sumStored := binary.BigEndian.Uint64(block[payloadLen:])
 
-	if crcStored != crcActual {
-		return nil, ErrCRC32Mismatch
+	h64 := fnv.New64a()
+	h64.Write(payload)
+	sumActual := h64.Sum64()
+
+	if sumStored != sumActual {
+		return nil, ErrIntegrityMismatch
 	}
 	return payload, nil
 }

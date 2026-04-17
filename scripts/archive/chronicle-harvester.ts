@@ -6,7 +6,7 @@ import 'dotenv/config';
 import { UnifiedOracleClient } from '../src/db/unified-oracle-client.js';
 import { AkashikVisualAuditor } from '../src/core/akashik-visual-auditor.js';
 import { MemoryPalaceService } from '../src/core/memory-palace-service.js';
-import { OllamaClient } from '../src/core/ollama-client.js';
+import { SovereignInferenceClient } from '../src/core/sovereign-inference-client.js';
 
 const require = createRequire(import.meta.url);
 const pdf = require('pdf-parse');
@@ -26,14 +26,14 @@ export class ChronicleHarvester {
   private oracle: UnifiedOracleClient;
   private auditor: AkashikVisualAuditor;
   private palace: MemoryPalaceService;
-  private llm: OllamaClient;
+  private llm: SovereignInferenceClient;
 
   constructor(oracle: UnifiedOracleClient) {
     this.oracle = oracle;
     this.auditor = new AkashikVisualAuditor(oracle);
     this.palace = new MemoryPalaceService(oracle);
-    this.llm = new OllamaClient({
-      baseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',
+    this.llm = new SovereignInferenceClient({
+      baseUrl: process.env.SOVEREIGN_INFERENCE_URL || 'http://172.26.208.1:8080/v1',
       model: process.env.NARRATIVE_MODEL || 'mistral-nemo:latest',
       timeoutMs: 30000,
     });
@@ -148,7 +148,7 @@ export class ChronicleHarvester {
     // Initialize M1ND P4L4C3 Drawer
     await this.palace.initDrawer({
       chromaUrl: process.env.CHROMA_URL || 'http://localhost:8000',
-      embeddingBaseUrl: process.env.OLLAMA_BASE_URL || 'http://172.26.208.1:8080/v1',
+      embeddingBaseUrl: process.env.SOVEREIGN_INFERENCE_URL || 'http://172.26.208.1:8080/v1',
       embeddingModel: process.env.EMBEDDING_MODEL || 'nomic-embed-text',
     });
 

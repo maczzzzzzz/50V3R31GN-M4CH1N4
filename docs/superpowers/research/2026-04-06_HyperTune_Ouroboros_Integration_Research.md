@@ -53,7 +53,7 @@ Instead of manually tweaking `SYSTEM_PROMPT`, we can script an offline "HyperTun
 
 ## 5. Implementation Roadmap
 To achieve this in the current architecture:
-1.  **Phase A (Dynamic Sampling):** Modify `OllamaClient.generateNarrative` to accept an `options` object `(temperature, top_p)` so the `HybridRoutingController` can alter sampling based on the event type (`resolve_attack` vs `oracle_roll`).
+1.  **Phase A (Dynamic Sampling):** Modify `SovereignInferenceClient.generateNarrative` to accept an `options` object `(temperature, top_p)` so the `HybridRoutingController` can alter sampling based on the event type (`resolve_attack` vs `oracle_roll`).
 2.  **Phase B (Adversarial Prompting):** Rewrite the `SYSTEM_PROMPT` in `ollama-client.ts` to use a "DAN-style" aggressive persona constraint.
 3.  **Phase C (The Judge):** Implement a `SemanticScorer` in the Go Proxy or Node A to evaluate prose before returning it to the Foundry VTT socket.
 

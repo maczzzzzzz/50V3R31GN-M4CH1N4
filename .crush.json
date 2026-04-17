@@ -28,7 +28,7 @@
         "NODE_A_PORT": "5432",
         "NODE_A_DB": "nitro_db",
         "NODE_A_USER": "nitro_admin",
-        "OLLAMA_BASE_URL": "http://localhost:11434",
+        "SOVEREIGN_INFERENCE_URL": "http://localhost:11434",
         "EMBEDDING_MODEL": "nomic-embed-text"
       }
     },

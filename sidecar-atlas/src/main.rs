@@ -379,7 +379,7 @@ impl eframe::App for AtlasApp {
                         );
                     }
                     _ => {
-                        // Unknown blip type — draw a small cyan dot
+                        // Unknown blip type — draw a small red dot
                         painter.circle_filled(center, 3.0, RED);
                     }
                 }

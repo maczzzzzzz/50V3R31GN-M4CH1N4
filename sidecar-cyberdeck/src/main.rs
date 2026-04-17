@@ -17,7 +17,7 @@ pub(crate) use glitch::GlitchEngine;
 const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
 const GREEN: Color32 = Color32::from_rgb(0x20, 0xff, 0x60);
 const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
-fn dim_cyan() -> Color32 {
+fn dim_red() -> Color32 {
     Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60)
 }
 
@@ -531,7 +531,7 @@ impl CyberdeckApp {
         let tile_w = 64.0_f32;
         let tile_h = 32.0_f32;
         let origin = grid_origin(rect, self.grid_cols, self.grid_rows, tile_w, tile_h);
-        let grid_stroke = Stroke::new(0.5, dim_cyan());
+        let grid_stroke = Stroke::new(0.5, dim_red());
 
         for row in 0..=self.grid_rows {
             let start = iso_to_screen(0, row, tile_w, tile_h, origin);
@@ -560,7 +560,7 @@ impl CyberdeckApp {
             match ice_type {
                 IceType::Firewall => {
                     let r = 10.0_f32;
-                    let color = if active { RED } else { dim_cyan() };
+                    let color = if active { RED } else { dim_red() };
                     let stroke = Stroke::new(1.5, color);
                     painter.line_segment([Pos2::new(cx, cy - r), Pos2::new(cx + r, cy)], stroke);
                     painter.line_segment([Pos2::new(cx + r, cy), Pos2::new(cx, cy + r)], stroke);

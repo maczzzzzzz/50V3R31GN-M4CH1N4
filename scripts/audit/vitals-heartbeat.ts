@@ -6,7 +6,7 @@ import { execSync } from 'node:child_process';
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
 const YELLOW = '\x1b[33m';
-const CYAN = '\x1b[36m';
+const RED = '\x1b[36m';
 const RESET = '\x1b[0m';
 
 interface Probe {
@@ -56,7 +56,7 @@ function checkFile(filePath: string): boolean {
 }
 
 async function runAudit() {
-  console.log(`\n${CYAN}://50V3R31GN-M4CH1N4 // V174L5-H34R7B347 // 4UD17-1N171473D${RESET}\n`);
+  console.log(`\n${RED}://50V3R31GN-M4CH1N4 // V174L5-H34R7B347 // 4UD17-1N171473D${RESET}\n`);
   
   let allPass = true;
   const results = [];
@@ -86,7 +86,7 @@ async function runAudit() {
   }
 
   console.log(`\n${allPass ? GREEN + '::/4LL-5Y573M5-N0M1N4L' : RED + '::/C0MMP0N3N7-F41LUR3-D373C73D'}${RESET}`);
-  console.log(`${CYAN}::/4UD17-C0MPL373 // 5747U5-P1N-537.${RESET}\n`);
+  console.log(`${RED}::/4UD17-C0MPL373 // 5747U5-P1N-537.${RESET}\n`);
 
   process.exit(allPass ? 0 : 1);
 }
