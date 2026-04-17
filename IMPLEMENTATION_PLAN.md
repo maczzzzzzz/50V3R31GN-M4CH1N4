@@ -362,7 +362,12 @@
 - [x] **LAN Integrity Unification:** Standardized on FNV-1a 64-bit hashing for all binary bridges.
 - [x] **Socket Consolidation:** Centralized Unix sockets in `.gemini/tmp/` via `SOVEREIGN_SOCKET_ROOT`.
 - [x] **Triad Sync:** Aligned Node A and Node B to bit-identical project roots.
-- [ ] **GLM Handover**: Initialize the 8-hour autonomous loops via Droid CLI.
-- [ ] **System Polishing**: Refine gameplay loops and system performance.
+- [ ] **Kinetic Dominance - Asset Sync:** Relocate D: drive weapon sounds to `50v3r31gn-bridge/assets/audio/combat/`.
+- [ ] **Kinetic Dominance - AA Refactor:** Inject custom sound paths into `Automated Animations` JSON.
+- [ ] **Kinetic Dominance - Visuals:** Generate Specular/Normal masks for Atlas maps (Map Shine Advanced).
+- [ ] **Kinetic Dominance - Director:** Wire `animation_type` telemetry to Node B for narrative grit scaling.
+- [ ] **GLM Handover:** Initialize the 8-hour autonomous loops via Droid CLI.
+- [ ] **System Polishing:** Refine gameplay loops and system performance.
+
 
 *Roadmap Managed by Gemini CLI (Strategist).*
