@@ -10,6 +10,7 @@ Hierarchy:
   Global/Core_Rules/
   Global/Factions/
   Global/History/
+  Global/Narrative_Prose/
 
 Metadata Mandate: every .md file MUST have complete YAML frontmatter:
   provenance, type, source, tags, sovereign, generated_at
@@ -36,7 +37,10 @@ def ensure_dir(path: str) -> None:
 
 def district_root(district: str) -> str:
     """Returns the vault-relative folder for a district (or Global)."""
+    if district == 'NARRATIVE-PROSE':
+        return os.path.join(VAULT_WSL, "Global", "Narrative_Prose")
     if district:
+        # Standardize on the casing provided by the DB
         return os.path.join(VAULT_WSL, "Districts", district)
     return os.path.join(VAULT_WSL, "Global")
 
@@ -150,7 +154,6 @@ def reconstruct_npcs(cursor: sqlite3.Cursor) -> int:
 
 def reconstruct_items(cursor: sqlite3.Cursor) -> int:
     print(">> RECONSTRUCTING ITEM ENTITIES...")
-    # items table added in Phase 57; may not exist in older DBs
     try:
         cursor.execute(
             "SELECT name, type, COALESCE(category,''), cost, weight, "
@@ -183,9 +186,11 @@ def reconstruct_items(cursor: sqlite3.Cursor) -> int:
 
 def reconstruct_chronicles(cursor: sqlite3.Cursor) -> int:
     print(">> RECONSTRUCTING CHRONICLE ENTRIES...")
+    # Get approved seeds AND narrative prose
     cursor.execute(
         "SELECT title, category, source, era_grounding, "
-        "COALESCE(district_id,''), content FROM chronicle_seeds WHERE status = 'approved'"
+        "COALESCE(district_id,''), content FROM chronicle_seeds "
+        "WHERE status = 'approved' OR district_id = 'NARRATIVE-PROSE'"
     )
     count = 0
     for title, cat, src, era, district, content in cursor.fetchall():
@@ -193,8 +198,9 @@ def reconstruct_chronicles(cursor: sqlite3.Cursor) -> int:
         clean_cat = str(cat).replace('#', '').strip()
         subfolder = category_to_subfolder(cat)
 
-        # Global Factions/History → Global/Factions or Global/History
-        if not district and clean_cat in ("Corporate", "Faction"):
+        if district == 'NARRATIVE-PROSE':
+             base_dir = os.path.join(VAULT_WSL, "Global", "Narrative_Prose")
+        elif not district and clean_cat in ("Corporate", "Faction"):
             base_dir = os.path.join(VAULT_WSL, "Global", "Factions")
         elif not district and clean_cat in ("Historical", "History"):
             base_dir = os.path.join(VAULT_WSL, "Global", "History")
@@ -213,6 +219,7 @@ def reconstruct_chronicles(cursor: sqlite3.Cursor) -> int:
                     f"rkg/chronicles/{subfolder.lower()}",
                     f"category/{clean_cat.lower()}",
                     f"era/{era}",
+                    "narrative/prose" if district == 'NARRATIVE-PROSE' else "grounding/spatial"
                 ],
                 district=district,
                 extra={"era": era})

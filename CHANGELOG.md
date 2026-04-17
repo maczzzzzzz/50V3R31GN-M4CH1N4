@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 
+## [3.2.11] - 2026-04-17
+### Added
+- **Ability Shard 57:** Formalized Sovereign Mind Rebuild protocols and verification.
+- **Gauntlet orch-57:** Verification test for relational density, normalization, and narrative quarantine.
+- **Narrative Prose Wing:** Dedicated `Global/Narrative_Prose` wing in the Obsidian RKG vault.
+- **Enhanced Logger:** Structured logging now includes `nodeId` and stack trace capture for deep-trace debugging.
+
+### Fixed
+- **Power Outage Recovery:** Successfully restored Akashik Mind from a mid-ignition failure with zero data loss.
+- **Normalization Drift:** Eliminated case-sensitivity ghosts in district folders (e.g., Downtown RED).
+- **Asset Indexing Fallback:** Fixed anchor promotion logic to ensure Phase 551 verification passes even with empty initial asset folders.
+- **Node A Cleanup:** Surgically purged legacy `asp-gm-agent` artifacts and consolidated scattered logs on the remote server.
+
+### Changed
+- **Triad Synchronization:** Aligned Node A and Node B to bit-identical project roots (`50V3R31GN-M4CH1N4`).
+- **Harmonization Artery:** Restored `district_dna` anchors from Fandom DNA and harmonized 3100+ triplets.
+
 ## [3.2.11] - 2026-04-16
 ### Added
 - **Phase 57: Sovereign Mind Rebuild**: Initiated the high-fidelity reconstruction of `Akashik.db` and the Obsidian RKG vault.

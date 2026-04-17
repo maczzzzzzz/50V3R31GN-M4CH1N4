@@ -346,17 +346,18 @@
 - [x] **Vault Restoration**: Successfully unsealed legacy archives using literal-key recovery tools.
 - [x] **Surgical Manifest**: Submitted `docs/superpowers/audits/2026-04-14-surgical-fix-manifest.md` for Claude.
 
----
-
-## 🛠️ PHASE 57: SOVEREIGN MIND REBUILD (ACTIVE)
+## ✅ PHASE 57: SOVEREIGN MIND REBUILD (COMPLETED)
 **Goal:** Transition to high-fidelity semantic grounding by nuking legacy RKG artifacts and implementing structural parsing.
 - [x] **Task 1: The Surgical Nuke:** Automated teardown of legacy `Akashik.db` and fragmented `data/vault/RKG/` contents.
 - [x] **Task 2: SovereignIngestService:** Materialized polymorphic ingestion orchestrator and specialized handlers (Wiki, JSON, HifiPdf).
 - [x] **Task 3: Semantic Architecture:** Integrated `chunknorris` logic and BLAKE3 semantic deduplication infrastructure.
-- [ ] **Task 4: Palace Reborn (v2):** Refactor reconstruction logic for District-first vault hierarchy and mandatory frontmatter.
-- [ ] **Ability Shard 57:** Materialize DATA shard 57 to verify semantic deduplication and frontmatter compliance.
+- [x] **Task 4: Palace Reborn (v2):** Refactor reconstruction logic for District-first vault hierarchy and mandatory frontmatter.
+- [x] **Ability Shard 57:** Materialize DATA shard 57 to verify semantic deduplication and frontmatter compliance.
 
-## 🛠️ PHASE 58: GLM-5.1 HANDOVER & HARDENING (PENDING)
+---
+
+## 🛠️ PHASE 58: GLM-5.1 HANDOVER & HARDENING (ACTIVE)
+
 **Goal:** Transition implementation leadership to GLM-5.1 and execute final tactical fixes.
 - [ ] **GLM Handover**: Initialize the 8-hour autonomous loops via Droid CLI.
 - [ ] **System Polishing**: Refine gameplay loops and system performance.

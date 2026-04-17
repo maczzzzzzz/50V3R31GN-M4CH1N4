@@ -183,6 +183,35 @@ function buildMcpServer(): McpServer {
     },
   );
 
+  server.tool(
+    'query_rkg',
+    'Execute arbitrary SQL queries on Akashik.db (the Sovereign Knowledge Graph)',
+    { sql: z.string().describe('The SQL query to execute') },
+    async ({ sql }) => {
+      try {
+        const { stdout } = await execAsync(`sqlite3 -json data/Akashik.db "${sql.replace(/"/g, '\"')}"`, { cwd: PROJECT_ROOT, timeout: 5000 });
+        return { content: [{ type: 'text', text: stdout || '[]' }] };
+      } catch (e) {
+        return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
+      }
+    }
+  );
+
+  server.tool(
+    'get_district_lore',
+    'Retrieve all RKG triplets anchored to a specific district',
+    { district: z.string().describe('The district name to query (e.g. "Watson", "The Glen")') },
+    async ({ district }) => {
+      const sql = `SELECT subject_id, predicate, object_literal FROM triplets WHERE district_id LIKE "%${district}%" LIMIT 100`;
+      try {
+        const { stdout } = await execAsync(`sqlite3 -json data/Akashik.db "${sql}"`, { cwd: PROJECT_ROOT, timeout: 5000 });
+        return { content: [{ type: 'text', text: stdout || '[]' }] };
+      } catch (e) {
+        return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
+      }
+    }
+  );
+
   // ── Git tools ─────────────────────────────────────────────────────────────────
 
   server.tool(

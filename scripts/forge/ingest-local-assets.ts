@@ -208,8 +208,15 @@ export async function ingestLocalAssets(): Promise<{ indexed: number; skipped: n
   const tttaMaps    = await scanTttaMaps(db);
   const genTiles    = await scanGeneratedTiles(db);
 
-  db.close();
   const totalIndexed = indexed + legacyMooks.indexed + tttaMaps.indexed + genTiles.indexed;
+
+  // Fallback: If no anchors were designated (empty ./assets), promote the first available asset
+  if (indexed === 0 && totalIndexed > 0) {
+    console.log('[Ingest] Fallback: No primary anchors found. Promoting first mook to anchor.');
+    db.exec(`UPDATE assets SET anchor = 1 WHERE id = (SELECT id FROM assets LIMIT 1)`);
+  }
+
+  db.close();
   console.log(`[Ingest] Complete — ${totalIndexed} total assets indexed.`);
   return { indexed: totalIndexed, skipped };
 }

@@ -8,6 +8,8 @@ export interface LogEntry {
   traceId: string;
   message: string;
   data: Record<string, unknown> | undefined;
+  nodeId: string;
+  stack?: string;
 }
 
 /** Structured gauntlet audit result — mirrors AuditResult from gauntlet/types.ts */
@@ -20,6 +22,8 @@ export interface AuditLogEntry {
   details?: Record<string, unknown>;
   durationMs?: number;
 }
+
+const NODE_ID = process.env['NODE_ID'] || (process.env['USER'] === 'maczz' ? 'NODE-A' : 'NODE-B');
 
 export class Logger implements ILogger {
   private static instance: Logger;
@@ -55,7 +59,12 @@ export class Logger implements ILogger {
       traceId: traceId || 'no-trace',
       message,
       data: data,
+      nodeId: NODE_ID,
     };
+
+    if (severity === 'ERROR') {
+      entry.stack = new Error().stack;
+    }
 
     const logStr = JSON.stringify(entry);
 
