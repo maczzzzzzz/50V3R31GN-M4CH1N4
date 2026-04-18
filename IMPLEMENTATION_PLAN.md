@@ -24,7 +24,7 @@
 - [x] **Kinetic Dominance - AA Refactor:** Injected custom sound paths into `Automated Animations` JSON.
 - [x] **Kinetic Dominance - Visuals:** Generated Specular/Normal masks for Atlas maps (Map Shine Advanced).
 - [x] **Kinetic Dominance - Director:** Wired `animation_type` telemetry to Node B for narrative grit scaling.
-- [x] **GLM Handover:** Transitioned to v3.2.14-HARDENED state; ready for 8-hour loops.
+- [x] **GLM Handover:** Transitioned to v3.2.15-HARDENED state; ready for 8-hour loops.
 
 ---
 
@@ -73,7 +73,17 @@
 
 ---
 
-## 🛠️ PHASE 63: COGNITIVE HARDENING & PERFORMANCE (PENDING)
+## 🛠️ PHASE 63: ADVANCED HERMES ORCHESTRATION (PENDING)
+**Goal:** Integrate Hermes dashboards and OpenMAIC logic into Node C, bridging headless compute with the Node B Nucleus Deck.
+- [ ] **Headless Deployment:** Run `hermes-control-interface` headlessly on Node C via Nix.
+- [ ] **Nucleus Proxy:** Embed the Hermes HUD into the main WebGL Nucleus Deck on Node B.
+- [ ] **LangGraph Routing:** Port OpenMAIC's director graph to orchestrate internal Triad communication.
+- [ ] **Playback State Machine:** Adopt OpenMAIC's finite-state machine for complex Sovereign Gig generations.
+- [ ] **Auto-Documentation:** Deploy `Hermes-Wiki` daemon to sync `Akashik.db` RKG changes to Obsidian.
+
+---
+
+## 🛠️ PHASE 64: COGNITIVE HARDENING & PERFORMANCE (PENDING)
 **Goal:** Optimize inference throughput and implement predictive narrative caching.
 - [ ] **Inference Optimization:** Implement KV-cache quantizaton for Node B.
 - [ ] **Predictive Caching:** Implement anticipatory lore retrieval based on player movement vectors.
