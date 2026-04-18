@@ -90,6 +90,18 @@ export interface IFoundryAdapter {
    */
   runScript(code: string, broadcast?: boolean): Promise<void>;
   /**
+   * Phase 60: Spawn a native CPR container vendor token on the canvas.
+   * Accepts pre-fetched inventory from SovereignEconomyService.
+   */
+  spawnVendorToken(params: {
+    marketId: string;
+    vendorName: string;
+    sceneId: string;
+    x: number;
+    y: number;
+    inventory: Array<{ item_id: string; item_name: string; quantity: number; is_contraband: boolean; price: number }>;
+  }): Promise<void>;
+  /**
    * Spawn a Solo-Safe balanced NPC actor into the specified scene with
    * the generated stat block pre-applied as token overrides.
    */
@@ -416,6 +428,58 @@ export class FoundryAdapter implements IFoundryAdapter {
       requestId: this.generateRequestId(),
       payload: { code, broadcast },
     });
+  }
+
+  async spawnVendorToken(params: {
+    marketId: string;
+    vendorName: string;
+    sceneId: string;
+    x: number;
+    y: number;
+    inventory: Array<{ item_id: string; item_name: string; quantity: number; is_contraband: boolean; price: number }>;
+  }): Promise<void> {
+    const { vendorName, sceneId, x, y, inventory } = params;
+    const itemsJson = JSON.stringify(inventory);
+
+    const script = `
+(async () => {
+  // 1. Create container actor (cpr-container type)
+  const containerData = {
+    name: ${JSON.stringify(vendorName)},
+    type: 'container',
+    system: {
+      vendor: {
+        isVendor: true,
+        itemTypes: { weapon: { purchasePercentage: 100 }, gear: { purchasePercentage: 100 } }
+      }
+    }
+  };
+  const actor = await Actor.create(containerData);
+  if (!actor) return;
+
+  // 2. Populate container with inventory items
+  const inventory = ${itemsJson};
+  for (const entry of inventory) {
+    const found = game.items.find(i => i.id === entry.item_id || i.name === entry.item_name);
+    if (found) {
+      await actor.createEmbeddedDocuments('Item', [found.toObject()]);
+    }
+  }
+
+  // 3. Spawn token on canvas
+  const scene = game.scenes.get(${JSON.stringify(sceneId)}) || game.scenes.active;
+  if (scene) {
+    await scene.createEmbeddedDocuments('Token', [{
+      name: ${JSON.stringify(vendorName)},
+      actorId: actor.id,
+      x: ${x},
+      y: ${y},
+      disposition: CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+    }]);
+  }
+})();
+`;
+    await this.runScript(script);
   }
 
   async sendRpc(method: string, payload: unknown): Promise<unknown> {
