@@ -1,0 +1,40 @@
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４ // G17477R1BU735
+# GitHub Linguist Overrides for Language Classification
+
+# --- GENERATED / BUILD ARTIFACTS ---
+# Mark build outputs as generated to hide them from language stats
+dist/** linguist-generated
+build/** linguist-generated
+dashboard/.next/** linguist-generated
+**/target/** linguist-generated
+*.tsbuildinfo linguist-generated
+
+# --- VENDORED / CACHE / TOOLING ---
+# Mark agent caches and vendored code to exclude from stats
+.claude/** linguist-vendored
+.gemini/** linguist-vendored
+node_modules/** linguist-vendored
+.vscode/** linguist-vendored
+.factory/** linguist-vendored
+
+# --- DATA & ASSETS ---
+# Mark data and assets as vendored/documentation
+data/** linguist-vendored
+assets/** linguist-vendored
+docs/** linguist-documentation
+akashik_guides/** linguist-documentation
+
+# --- LOCKFILES ---
+pnpm-lock.yaml linguist-generated
+package-lock.json linguist-generated
+Cargo.lock linguist-generated
+go.sum linguist-generated
+flake.lock linguist-generated
+
+# --- SPECIFIC SCRIPTS ---
+# Some JS files are operational tools, not core logic
+shim.js linguist-vendored
+scrape-fandom.js linguist-vendored
+scripts/win-proxy.cjs linguist-vendored
+scripts/win-test.cjs linguist-vendored
+scripts/wsl-cdp-bridge.cjs linguist-vendored
