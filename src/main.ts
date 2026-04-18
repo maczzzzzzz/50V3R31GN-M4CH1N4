@@ -72,7 +72,7 @@ import { logger } from './shared/logger.js';
 
 async function main() {
   const bootTraceId = 'boot-' + Date.now();
-  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v3.2.16)...');
+  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v3.2.17)...');
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({

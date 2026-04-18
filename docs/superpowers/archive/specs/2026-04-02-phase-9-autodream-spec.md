@@ -1,4 +1,4 @@
-# Design Specification: Phase 9 — autoDream Consolidation (v3.2.16)
+# Design Specification: Phase 9 — autoDream Consolidation (v3.2.17)
 **Subject:** Recursive Context Pruning & Hierarchical Memory
 **Status:** DESIGN FINALIZED
 

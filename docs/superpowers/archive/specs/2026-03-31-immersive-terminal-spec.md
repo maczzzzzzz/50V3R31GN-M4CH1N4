@@ -1,4 +1,4 @@
-# Design Specification: Immersive Terminal Extension (v3.2.16)
+# Design Specification: Immersive Terminal Extension (v3.2.17)
 **Date:** March 31, 2026
 **Subject:** Discord Chronicler, Playwright Optical Bridge, and Multimodal Terminal
 **Status:** FINALIZED

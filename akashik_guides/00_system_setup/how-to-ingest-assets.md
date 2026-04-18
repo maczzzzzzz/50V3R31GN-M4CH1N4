@@ -44,4 +44,4 @@ npm run mind:materialize
 *Structure:* Organised by `District > [Lore | Actors | Items | Locations]` with full YAML frontmatter.
 
 ---
-*Asset Ingestion: High-Fidelity Semantic Grounding Online v3.2.16.*
+*Asset Ingestion: High-Fidelity Semantic Grounding Online v3.2.17.*

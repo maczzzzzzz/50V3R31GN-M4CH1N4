@@ -1,6 +1,6 @@
 # 50V3R31GN-M4CH1N4: External Knowledge Base & Dependency Registry
 **Version:** 3.2.16 (The Canonical Mirror Milestone)
-**Target:** v3.2.16+ Total Sovereignty
+**Target:** v3.2.17+ Total Sovereignty
 
 ## 🧠 Architectural Patterns (Phase 56+)
 These patterns define the "Procedural OS" — the synchronization of hardware perception and agentic logic.
@@ -52,12 +52,12 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 | **deck-igniter** | Go | **Ignition Supervisor:** Headless backend service for lifecycle management of distributed processes. |
 
 
-## 📦 Dependency Registry (Pinned v3.2.16)
+## 📦 Dependency Registry (Pinned v3.2.17)
 
 ### Security Hardening
 - **pnpm.overrides**: Forced `@hono/node-server` to `>=1.19.13` to resolve Path Traversal vulnerabilities in the MCP SDK.
-- **Vite (v3.2.16)**: Patched against Path Traversal in optimized deps `.map` handling.
-- **rand (v3.2.16)**: Updated across all Rust crates for sound RNG initialization.
+- **Vite (v3.2.17)**: Patched against Path Traversal in optimized deps `.map` handling.
+- **rand (v3.2.17)**: Updated across all Rust crates for sound RNG initialization.
 
 ...
 
@@ -67,5 +67,5 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 - **Offline Palace:** `data/vault/RKG` (District-based hierarchical RKG mirror).
 
 ---
-*Verified by Gemini CLI v3.2.16.*
+*Verified by Gemini CLI v3.2.17.*
 

@@ -173,8 +173,49 @@ pub async fn dispatch(
         return;
     }
 
+use crate::rules::rules_oracle::{RulesOracle, Proposal, IntentType, VetoResult};
+
+// ... inside dispatch ...
     let seq = hdr.sequence_id;
     info!("vsb_udp: ← INTENT seq={} from {}", seq, src_addr);
+
+    // ── Phase 64: Ouroboros v2 — Semantic Veto ──────────────────────────────
+    // Intercept intent and perform a deterministic rules check against Akashik.db
+    let db_path = std::env::var("AKASHIK_DB_PATH").unwrap_or_else(|_| "../data/Akashik.db".to_string());
+    let oracle = RulesOracle::with_db(db_path);
+    
+    // Attempt to parse payload into a Proposal (simplistic heuristic for now)
+    let payload_str = std::str::from_utf8(&pkt.payload).unwrap_or("").trim_end_matches('\0');
+    if let Ok(json) = serde_json::from_str::<serde_json::Value>(payload_str) {
+        let actor_id = json.get("actor_id").and_then(|v| v.as_str()).unwrap_or("UNKNOWN").to_string();
+        let intent_type = if json.get("action").and_then(|v| v.as_str()) == Some("spend") {
+            Some(IntentType::SpendEb)
+        } else if json.get("action").and_then(|v| v.as_str()) == Some("equip") {
+            Some(IntentType::EquipCyberware { 
+                item_id: json.get("item_id").and_then(|v| v.as_str()).unwrap_or("").to_string() 
+            })
+        } else {
+            None
+        };
+
+        if let Some(it) = intent_type {
+            let proposal = Proposal {
+                actor_id,
+                intent_type: it,
+                value: json.get("amount").and_then(|v| v.as_i64()).unwrap_or(0),
+                context: payload_str.to_string(),
+            };
+            
+            if let VetoResult::VetoLogicFail(reason) = oracle.evaluate(&proposal) {
+                error!("vsb_udp: [OUROBOROS_V2] VETO_LOGIC_FAIL for seq={}: {}", seq, reason);
+                // Immediately return an ERROR result to Node B
+                let result_pkt = ResultPacket::new(ResultStatus::Error, seq, pkt.session_id, 0x0A0B0C0D, [0u8; 256]);
+                let result_bytes = unsafe { as_bytes(&result_pkt) };
+                socket.send_to(result_bytes, src_addr).await.ok();
+                return;
+            }
+        }
+    }
 
     let (is_valid, result_code) = match query_judge(client, &pkt.payload, seq).await {
         Ok(verdict) => verdict,

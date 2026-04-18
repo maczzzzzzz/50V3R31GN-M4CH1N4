@@ -1,4 +1,4 @@
-# 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.16)
+# 50V3R31GN-M4CH1N4 // ARCHITECT DIRECTIVE: CORE IMPLEMENTATION (v3.2.17)
 
 **Context:** Phase 54 (Atlas Forge) and Phase 55 (Asset Forge) are now stabilized as ongoing Capstone projects. We have shifted focus back to **Phase 56: System Stabilization & Live Fire**, which is our primary development track.
 

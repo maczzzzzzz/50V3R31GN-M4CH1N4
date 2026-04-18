@@ -24,7 +24,7 @@
 - [x] **Kinetic Dominance - AA Refactor:** Injected custom sound paths into `Automated Animations` JSON.
 - [x] **Kinetic Dominance - Visuals:** Generated Specular/Normal masks for Atlas maps (Map Shine Advanced).
 - [x] **Kinetic Dominance - Director:** Wired `animation_type` telemetry to Node B for narrative grit scaling.
-- [x] **GLM Handover:** Transitioned to v3.2.16-HARDENED state; ready for 8-hour loops.
+- [x] **GLM Handover:** Transitioned to v3.2.17-HARDENED state; ready for 8-hour loops.
 
 ---
 
@@ -83,9 +83,13 @@
 
 ---
 
-## 🛠️ PHASE 64: COGNITIVE HARDENING & PERFORMANCE (COMPLETE)
-**Goal:** Maximize inference throughput and implement predictive narrative caching.
-- [x] **Task 1: VRAM Optimization:** `scripts/dev/ignite-director.sh` — KV-cache q4_0 flags (`--cache-type-k q4_0 --cache-type-v q4_0`) wired for Node B llama-server.
-- [x] **Task 2: Predictive Caching:** `SovereignNarrativeClient.preemptiveGrounding()` + `FoundryAdapter.registerTokenMoveHook()` — anticipatory lore seeding on Transition Zone entry.
-- [x] **Task 3: Ouroboros v2:** `zeroclaw/src/rules/rules_oracle.rs` — `RulesOracle::evaluate()` with `SpendEb`, `EquipCyberware`, `ApplyMod` vetoes. `SentinelMonitorService` extended with `VETO` verdict and `VETO_LOGIC_FAIL` pattern.
-- [ ] **Ability Shard 64:** Pending — verify zero-stutter scene transitions and intentional veto of narrative hallucinations.
+## 🛠️ PHASE 65: OPTICAL ARTERY (PENDING)
+**Goal:** Ingest 80+ PDFs via VLM layout analysis to enrich lore and visual context.
+- [ ] **Structural OCR:** Deploy `docling` worker to convert rulebooks to high-fidelity Markdown.
+- [ ] **Visual RAG:** Index visual patches via ColPali on Node A for "Eye-of-the-Oracle" verification.
+- [ ] **Delta Ingestion:** selectively merge extracted PDF lore without polluting canonical stats.
+- [ ] **Ability Shard 65:** Verify visual rules-lookup from a random DLC page via Node B.
+
+---
+
+## 🛠️ PHASE 66: COGNITIVE HARDENING & PERFORMANCE (PENDING)

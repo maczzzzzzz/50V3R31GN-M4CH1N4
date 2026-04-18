@@ -27,4 +27,4 @@ By keeping the model dense (12B) but optimizing the hardware pipe, we maintain "
 These optimizations are verified by **Phase 52.5** audits, which monitor the `vitals.log` for anomalous latency spikes during recursive verification cycles.
 
 ---
-*Verified by the Sovereign Triad v3.2.16.*
+*Verified by the Sovereign Triad v3.2.17.*

@@ -1,7 +1,7 @@
 # DESIGN SPEC: 53N71N3L (Sentinel) Refactor
 
 **Version:** 1.0.0 (Phase 56 Alignment)
-**Topic:** Hermes v3.2.16 Integration & Architectural Hardening
+**Topic:** Hermes v3.2.17 Integration & Architectural Hardening
 
 ---
 

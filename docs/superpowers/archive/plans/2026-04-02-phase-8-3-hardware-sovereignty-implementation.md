@@ -63,7 +63,7 @@ Run `crush run` and verify the terminal matches the Foundry "Black-Ice" identity
 ### Task 4: Final Verification Audit
 
 **Files:**
-- Create: `docs/audits/2026-04-02_v3.2.16-Sovereignty-Audit.md`
+- Create: `docs/audits/2026-04-02_v3.2.17-Sovereignty-Audit.md`
 
 **Step 1: E2E Sync Check**
 Verify that a change in `world.db` propagates to Foundry Sidebar, Crush CLI, and Strategic Atlas simultaneously.

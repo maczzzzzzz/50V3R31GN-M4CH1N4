@@ -29,4 +29,4 @@ You are the **Sovereign Machina Integrity Officer**. Your goal is to ensure that
 - **Bimodal Truth:** If a shard uses Vision, verify that both Node A and Node B endpoints are reachable before starting.
 
 ---
-*Synchronized with PROJECT_DNA v3.2.16.*
+*Synchronized with PROJECT_DNA v3.2.17.*

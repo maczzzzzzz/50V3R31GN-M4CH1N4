@@ -1549,7 +1549,7 @@ To:
 
 ```bash
 git add CHANGELOG.md README.md
-git commit -m "chore: bump to v3.2.16 — Phase 0 Foundation complete"
+git commit -m "chore: bump to v3.2.17 — Phase 0 Foundation complete"
 ```
 
 - [ ] **Step 6: Verify Phase 0 gate**

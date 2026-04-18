@@ -36,4 +36,4 @@ Your responsibility is to execute long-horizon (8-hour) autonomous loops to audi
 - **Zero-Trust Logic:** Your code must never bypass the Node A validation requirements (e.g., no offline auto-grants).
 
 ---
-*Synchronized with PROJECT_DNA v3.2.16 (POST-PHASE-56).*
+*Synchronized with PROJECT_DNA v3.2.17 (POST-PHASE-56).*
