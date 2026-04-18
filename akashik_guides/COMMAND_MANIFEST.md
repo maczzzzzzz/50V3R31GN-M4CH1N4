@@ -1,4 +1,4 @@
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Exhaustive Command Manifest (v3.2.15)
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Exhaustive Command Manifest (v3.2.16)
 **Protocol:** Binary UDP/TCP over VSB Sovereign Highway
 
 This document is the definitive library of EVERY command available to the USER. Commands are categorized by the environment in which they are executed.

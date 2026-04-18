@@ -60,4 +60,4 @@ The Droid (Heavy Architect) must be linked to the shared MCP socket to share the
 3.  **Execution:** The Heavy Architect (Droid / GLM-5.1) executes the implementation missions using the *same* MCP context indexed by the Strategist.
 
 ---
-*Verified by the Sovereign Triad v3.2.15.*
+*Verified by the Sovereign Triad v3.2.16.*

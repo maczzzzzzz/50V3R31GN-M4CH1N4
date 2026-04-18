@@ -24,7 +24,7 @@
 - [x] **Kinetic Dominance - AA Refactor:** Injected custom sound paths into `Automated Animations` JSON.
 - [x] **Kinetic Dominance - Visuals:** Generated Specular/Normal masks for Atlas maps (Map Shine Advanced).
 - [x] **Kinetic Dominance - Director:** Wired `animation_type` telemetry to Node B for narrative grit scaling.
-- [x] **GLM Handover:** Transitioned to v3.2.15-HARDENED state; ready for 8-hour loops.
+- [x] **GLM Handover:** Transitioned to v3.2.16-HARDENED state; ready for 8-hour loops.
 
 ---
 
@@ -84,7 +84,8 @@
 ---
 
 ## 🛠️ PHASE 64: COGNITIVE HARDENING & PERFORMANCE (PENDING)
-**Goal:** Optimize inference throughput and implement predictive narrative caching.
-- [ ] **Inference Optimization:** Implement KV-cache quantizaton for Node B.
-- [ ] **Predictive Caching:** Implement anticipatory lore retrieval based on player movement vectors.
-- [ ] **System Polishing:** Refine gameplay loops and system performance.
+**Goal:** Maximize inference throughput and implement predictive narrative caching.
+- [ ] **Task 1: VRAM Optimization:** Implement KV-cache quantization (`--cache-type-k q4_0`) for Node B to enable ultra-long context windows.
+- [ ] **Task 2: Predictive Caching:** Implement anticipatory lore retrieval based on player movement vectors and boundary proximity.
+- [ ] **Task 3: Ouroboros v2:** Upgrade the audit loop to include semantic logic vetoes (e.g., checking currency/rule feasibility) via Node A.
+- [ ] **Ability Shard 64:** Verify zero-stutter scene transitions and intentional veto of narrative hallucinations.

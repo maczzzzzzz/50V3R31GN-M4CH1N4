@@ -1,4 +1,4 @@
-# SESSION_HANDOFF: v3.2.15 — UI/UX SOVEREIGNTY IGNITION
+# SESSION_HANDOFF: v3.2.16 — UI/UX SOVEREIGNTY IGNITION
 **Target:** GLM-5.1 (Lead Architect)
 **Status:** TRIAD_SYNCED // MIND_REBUILT // ECONOMY_LIVE
 
@@ -12,6 +12,12 @@ Evolve the dashboard to visualize and orchestrate the new Canonical Mirror and E
 - **Task 2: Combat Artery:** Implement `CombatOracleLog.tsx` to visualize Node A's Rust-calculated roll breakdowns in real-time.
 - **Task 3: Economy Command:** Implement `MarketTerminal.tsx` to trigger Night Market generation and manifest vendors via the CDP bridge.
 - **Task 4: Item Lexicon:** Build a fuzzy-search browser for the 1000+ official items stored in Akashik.db v4.
+
+## ◈ TERTIARY OBJECTIVE: PHASE 64 (HARDENING)
+If time permits after Phase 61, initiate hardware-agnostic optimizations:
+- **KV-Cache Quantization:** Reduce Node B VRAM footprint using `--cache-type-k q4_0`.
+- **Predictive Caching:** Implement anticipatory lore pre-fetching based on player position telemetry.
+- **Ouroboros v2:** Transition to semantic logic vetoes in the Node A Rust kernel.
 
 ## ◈ ARCHITECTURAL GROUNDING (MUST READ)
 ### 1. Research & Audits
