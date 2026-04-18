@@ -9,7 +9,7 @@
 
 import { z } from 'zod';
 import { randomUUID } from 'node:crypto';
-import type { ISovereignNarrativeClient, SovereignNarrativeConfig } from './interfaces.js';
+import type { ISovereignNarrativeClient, SovereignNarrativeConfig, CombatAudioMetadata } from './interfaces.js';
 import { RootsInjector } from './roots-injector.js';
 import type { ILogger } from '../db/interfaces.js';
 import { soulLogger } from './soul-logger.js';
@@ -101,7 +101,7 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
 
   // ── generateNarrative ───────────────────────────────────────────────────────
 
-  async generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature: number = 0.7, topP: number = 0.9): Promise<string> {
+  async generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature: number = 0.7, topP: number = 0.9, audioMetadata?: CombatAudioMetadata): Promise<string> {
     const traceId = randomUUID();
     const controller = new AbortController();
     const timeoutHandle = setTimeout(() => controller.abort(), this.config.timeoutMs);
@@ -115,9 +115,19 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
       ? `${prompt}\n\nGame State:\n${effectiveContext}`
       : prompt;
 
+    // Phase 58: Kinetic Dominance — grit multiplier for high-intensity combat audio
+    let effectiveTemperature = temperature;
+    if (audioMetadata?.intensity === 'high') {
+      effectiveTemperature = Math.min(temperature + 0.15, 1.0);
+    }
+
     let baseSysContent = systemContext
       ? `${systemContext}\n\n${SYSTEM_PROMPT}`
       : SYSTEM_PROMPT;
+
+    if (audioMetadata?.intensity === 'high') {
+      baseSysContent = `${baseSysContent}\n\nCOMBAT DIRECTIVE: HIGH-INTENSITY EVENT (${audioMetadata.animation_type}). Maximum grit. Short. Brutal. No mercy.`;
+    }
 
     if (this.rootsInjector) {
       baseSysContent = this.rootsInjector.inject(districtName || null, baseSysContent);
@@ -130,7 +140,7 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
         { role: 'system', content: baseSysContent },
         { role: 'user', content: userContent },
       ],
-      temperature,
+      temperature: effectiveTemperature,
       top_p: topP,
     };
 
@@ -191,9 +201,10 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
     soulLogger.capture(result, 'narrative', {
       district: districtName,
       traceId,
-      params: { temperature, topP },
+      params: { temperature: effectiveTemperature, topP },
       model: this.config.model,
-      context_length: effectiveContext.length
+      context_length: effectiveContext.length,
+      ...(audioMetadata ? { audio_metadata: audioMetadata } : {}),
     });
 
     this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');

@@ -7,7 +7,7 @@ export interface LogEntry {
   context: string;
   traceId: string;
   message: string;
-  data: Record<string, unknown> | undefined;
+  data?: Record<string, unknown>;
   nodeId: string;
   stack?: string;
 }
@@ -58,9 +58,12 @@ export class Logger implements ILogger {
       context,
       traceId: traceId || 'no-trace',
       message,
-      data: data,
       nodeId: NODE_ID,
     };
+
+    if (data) {
+      entry.data = data;
+    }
 
     if (severity === 'ERROR') {
       entry.stack = new Error().stack;
@@ -123,8 +126,8 @@ export class Logger implements ILogger {
     this.log(severity, `GAUNTLET::${result.block}`, traceId, `[${result.status}] ${result.phaseName}: ${result.message}`, {
       phaseId: result.phaseId,
       status: result.status,
-      durationMs: result.durationMs,
-      ...(result.details ?? {}),
+      durationMs: result.durationMs ?? 0,
+      ...(result.details || {}),
     });
   }
 

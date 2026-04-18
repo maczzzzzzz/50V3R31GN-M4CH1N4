@@ -197,12 +197,20 @@ export interface SovereignNarrativeConfig {
   readonly num_gpu?: number | undefined;
 }
 
+/** Phase 58: Kinetic Dominance — audio metadata for narrative grit scaling. */
+export interface CombatAudioMetadata {
+  /** The weapon/animation type that triggered this combat event (e.g. 'minigun', 'shotgun'). */
+  readonly animation_type: string;
+  /** Pre-classified intensity level. High triggers grit multiplier on Node B. */
+  readonly intensity: 'low' | 'medium' | 'high';
+}
+
 export interface ISovereignNarrativeClient {
   /**
    * Generate narrative prose from a directive prompt and an optional
    * math/rules context string (e.g. serialised AttackResult).
    */
-  generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature?: number, topP?: number): Promise<string>;
+  generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature?: number, topP?: number, audioMetadata?: CombatAudioMetadata): Promise<string>;
   /** Checks whether SovereignNarrative is reachable. Does not validate model accuracy. */
   isHealthy(): Promise<boolean>;
   /** 
