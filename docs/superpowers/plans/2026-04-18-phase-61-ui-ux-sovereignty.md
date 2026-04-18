@@ -18,10 +18,10 @@
 - Create: `dashboard/app/economy/page.tsx`
 - Create: `dashboard/app/combat/page.tsx`
 
-- [ ] **Step 1: Implement Side-Navigation**
+- [x] **Step 1: Implement Side-Navigation**
 Add a sidebar to `layout.tsx` to allow switching between Dash, Lexicon, Economy, and Combat views.
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add dashboard/app/
@@ -36,10 +36,10 @@ git commit -m "ui: implement sidebar navigation and route structure"
 - Create: `dashboard/components/CombatOracleLog.tsx`
 - Modify: `dashboard/app/combat/page.tsx`
 
-- [ ] **Step 1: Implement Terminal Component**
+- [x] **Step 1: Implement Terminal Component**
 Create a component that subscribes to the telemetry stream and renders "roll_breakdown" events in a high-fidelity terminal style.
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add dashboard/components/CombatOracleLog.tsx dashboard/app/combat/
@@ -54,13 +54,13 @@ git commit -m "ui: add real-time combat reasoning visualization"
 - Create: `dashboard/components/MarketTerminal.tsx`
 - Modify: `dashboard/app/economy/page.tsx`
 
-- [ ] **Step 1: Implement Market Controls**
+- [x] **Step 1: Implement Market Controls**
 Create buttons to trigger `cmd_generate_market` and a list view to browse the generated results from the `night_markets` table.
 
-- [ ] **Step 2: Implement Deployment Hook**
+- [x] **Step 2: Implement Deployment Hook**
 Add a "Manifest" button that sends the `cmd_deploy_vendor` packet to Node B.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add dashboard/components/MarketTerminal.tsx dashboard/app/economy/
@@ -75,10 +75,10 @@ git commit -m "ui: implement interactive night market generator and deployer"
 - Create: `dashboard/components/ItemBrowser.tsx`
 - Modify: `dashboard/app/lexicon/page.tsx`
 
-- [ ] **Step 1: Implement Fuzzy Search**
+- [x] **Step 1: Implement Fuzzy Search**
 A grid view with a search bar that queries the 1000+ official items via a new Node B API endpoint.
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add dashboard/components/ItemBrowser.tsx dashboard/app/lexicon/
