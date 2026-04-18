@@ -83,12 +83,13 @@
 
 ---
 
-## 🛠️ PHASE 65: OPTICAL ARTERY (PENDING)
+## 🛠️ PHASE 65: OPTICAL ARTERY (COMPLETE)
 **Goal:** Ingest 80+ PDFs via VLM layout analysis to enrich lore and visual context.
-- [ ] **Structural OCR:** Deploy `docling` worker to convert rulebooks to high-fidelity Markdown.
-- [ ] **Visual RAG:** Index visual patches via ColPali on Node A for "Eye-of-the-Oracle" verification.
-- [ ] **Delta Ingestion:** selectively merge extracted PDF lore without polluting canonical stats.
-- [ ] **Ability Shard 65:** Verify visual rules-lookup from a random DLC page via Node B.
+- [x] **Environment:** `flake.nix` `optical` devShell — python312, poppler-utils, pip venv for Docling+ColPali.
+- [x] **Structural OCR:** `scripts/dev/docling-worker.py` — Docling multi-column extraction → JSON shards in `data/ingest/pdf_shards/`. Fallback to pdftotext if Docling unavailable.
+- [x] **Visual RAG:** `src/core/ingest/VisualRAGService.ts` — page patch export (pdftoppm), ColPali HTTP embed via Node A port 8082, DB persistence in `visual_embeddings`. `zeroclaw/src/cv/colpali_bridge.rs` — MaxSim late-interaction reranker with Rust unit tests.
+- [x] **Delta Ingestion:** `src/core/ingest/LoreHarmonizer.ts` — LORE/MECHANICAL/REFERENCE classifier, Tier 1 collision detection, promotes only `lore_fragment` triplets with district grounding.
+- [ ] **Ability Shard 65:** Pending — requires Docling venv activated + at least one PDF processed through full pipeline.
 
 ---
 

@@ -154,6 +154,71 @@
           '';
         };
 
+        # Phase 65: Optical Artery — Docling / ColPali PDF ingestion environment
+        optical = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            # Core runtime
+            python312
+            python312Packages.pip
+            python312Packages.numpy
+            python312Packages.pillow
+            python312Packages.requests
+            python312Packages.tqdm
+            python312Packages.pyyaml
+
+            # PDF utilities (native layer — poppler for page-to-image export)
+            poppler-utils
+
+            # Node.js (for LoreHarmonizer.ts integration)
+            nodejs_22
+            typescript
+
+            # Database
+            sqlite
+
+            # File utilities
+            rsync
+            ripgrep
+          ];
+
+          shellHook = ''
+            export PROJECT_ROOT=$(pwd)
+            export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
+            export NIXPKGS_ALLOW_UNFREE=1
+
+            # ROCm / AMD path for Node B GPU (if available)
+            export ROCM_PATH="${pkgs.rocmPackages.clr or ""}"
+            export AMD_VULKAN_ICD="RADV"
+
+            # PDF shard output directory
+            export PDF_SHARD_DIR="$PROJECT_ROOT/data/ingest/pdf_shards"
+            export PDF_SOURCE_DIR="$PROJECT_ROOT/docs/raw_data/core_rules"
+            mkdir -p "$PDF_SHARD_DIR"
+
+            # Install Docling + ColPali into a local venv if not already present
+            VENV_DIR="$PROJECT_ROOT/.optical-venv"
+            if [ ! -d "$VENV_DIR" ]; then
+              echo "◈ [optical] Creating Python venv and installing Docling + ColPali..."
+              python3 -m venv "$VENV_DIR"
+              "$VENV_DIR/bin/pip" install --quiet --upgrade pip
+              "$VENV_DIR/bin/pip" install --quiet \
+                "docling>=2.0" \
+                "colpali-engine>=0.3" \
+                "chromadb>=0.5" \
+                "torch" \
+                "transformers"
+              echo "◈ [optical] Venv ready."
+            fi
+            export OPTICAL_PYTHON="$VENV_DIR/bin/python"
+            export PATH="$VENV_DIR/bin:$PATH"
+
+            echo "◈ 50V3R31GN-M4CH1N4: OPTICAL ARTERY environment loaded."
+            echo "◈ PDF Source: $PDF_SOURCE_DIR"
+            echo "◈ Shard Output: $PDF_SHARD_DIR"
+            echo "◈ Python: $OPTICAL_PYTHON"
+          '';
+        };
+
         cuda = pkgs.mkShell {
           buildInputs = with pkgs; [
             # Node.js Stack
