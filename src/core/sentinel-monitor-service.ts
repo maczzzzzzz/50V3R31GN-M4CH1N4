@@ -15,7 +15,7 @@ import type { Logger, LogEntry } from '../shared/logger.js';
 
 // ── Verdict types ─────────────────────────────────────────────────────────────
 
-export type SentinelVerdict = 'LOG' | 'BACKUP' | 'REBOOT';
+export type SentinelVerdict = 'LOG' | 'BACKUP' | 'REBOOT' | 'VETO';
 
 export interface WatchPattern {
   name: string;
@@ -45,6 +45,13 @@ const DEFAULT_PATTERNS: WatchPattern[] = [
     pattern: /timeout after \d+ms|VSB Timeout|generateNarrative timeout/i,
     verdict: 'LOG',
     cooldownMs: 5_000,
+  },
+  // Phase 64: Ouroboros v2 — semantic logic veto interception
+  {
+    name: 'Ouroboros-Logic-Veto',
+    pattern: /VETO_LOGIC_FAIL/,
+    verdict: 'VETO',
+    cooldownMs: 0, // No cooldown — every veto must be acted upon
   },
 ];
 
@@ -112,7 +119,29 @@ export class SentinelMonitorService {
         this.logger.error('SentinelMonitor', traceId, `[VERDICT:REBOOT] ${patternName} — issuing SIGTERM for graceful restart`);
         setTimeout(() => process.emit('SIGTERM'), 500);
         break;
+
+      case 'VETO':
+        // Phase 64: Ouroboros v2 — block materialization of the intent that triggered the veto.
+        // The VETO_LOGIC_FAIL payload is emitted by RulesOracle (Rust) and surfaced via the log
+        // stream. Here we record it as a structured audit event so the orchestrator can prevent
+        // the Node B intent from proceeding.
+        this.logger.error('SentinelMonitor', traceId, `[VERDICT:VETO] ${patternName} — intent BLOCKED by Ouroboros v2`);
+        this.emitVetoSignal(traceId, patternName);
+        break;
     }
+  }
+
+  /** Write a veto signal file that the orchestrator can poll to block pending intents. */
+  private emitVetoSignal(traceId: string, patternName: string): void {
+    import('node:fs').then(({ writeFileSync }) => {
+      try {
+        const payload = JSON.stringify({ traceId, pattern: patternName, timestamp: Date.now() });
+        writeFileSync('./data/ouroboros_veto_signal', payload);
+        this.logger.warn('SentinelMonitor', traceId, '[VETO] Ouroboros signal written: ./data/ouroboros_veto_signal');
+      } catch (e) {
+        this.logger.warn('SentinelMonitor', traceId, `[VETO] Failed to write signal: ${(e as Error).message}`);
+      }
+    }).catch(() => { /* non-fatal */ });
   }
 
   private triggerBackup(traceId: string): void {

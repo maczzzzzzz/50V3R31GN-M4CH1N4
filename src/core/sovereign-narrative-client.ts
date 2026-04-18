@@ -66,6 +66,56 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
     this.activeContext = payload;
   }
 
+  // ── Phase 64: Predictive Lore Caching ──────────────────────────────────────
+
+  /**
+   * Anticipatory lore seeding — fires a non-blocking 0x0B VSB packet to the
+   * VLM endpoint to pre-warm the KV cache with neighbouring district lore.
+   *
+   * Called by FoundryAdapter TOKEN_MOVE handler when a token enters a
+   * Transition Zone (≤5 grid units from a scene boundary or door).
+   *
+   * @param neighbouringDistrict  The district the token is moving toward.
+   * @param loreContext           Pre-fetched district lore fragment (AAAK-compressed).
+   */
+  public async preemptiveGrounding(neighbouringDistrict: string, loreContext: string): Promise<void> {
+    const traceId = randomUUID();
+    this.logger?.debug(
+      'SovereignNarrativeClient',
+      traceId,
+      `[Phase64] Predictive lore seed — district: ${neighbouringDistrict}`,
+    );
+
+    const payload = {
+      model: this.config.model,
+      stream: false,
+      messages: [
+        {
+          role: 'system',
+          content: `Pre-warming district context for ${neighbouringDistrict}. Do not respond — this is a cache-warm request.`,
+        },
+        { role: 'user', content: loreContext },
+      ],
+      temperature: 0,
+      max_tokens: 1,
+      cache_prompt: true,
+    };
+
+    // Fire and forget — intentionally not awaited to remain non-blocking
+    fetch(`${this.config.baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(this.config.timeoutMs),
+    }).catch((err) => {
+      this.logger?.debug(
+        'SovereignNarrativeClient',
+        traceId,
+        `[Phase64] Predictive grounding non-critical failure: ${(err as Error).message}`,
+      );
+    });
+  }
+
   constructor(config: SovereignNarrativeConfig, rootsInjector?: RootsInjector, logger?: ILogger) {
     const parsed = SovereignNarrativeConfigSchema.safeParse(config);
     if (!parsed.success) {

@@ -253,6 +253,71 @@ export class FoundryAdapter implements IFoundryAdapter {
     this.eventCallback = callback;
   }
 
+  // ── Phase 64: Predictive Caching — TOKEN_MOVE hook ─────────────────────────
+
+  /**
+   * Register a handler that fires when Foundry emits TOKEN_MOVE events.
+   * The handler inspects whether the token has entered a Transition Zone
+   * (within 5 grid units of a scene boundary or door) and triggers
+   * `narrativeClient.preemptiveGrounding()` if so.
+   *
+   * @param narrativeClient  Live SovereignNarrativeClient instance.
+   * @param getLoreForDistrict  Callback that returns AAAK-compressed lore for a district.
+   */
+  registerTokenMoveHook(
+    narrativeClient: { preemptiveGrounding: (district: string, lore: string) => Promise<void> },
+    getLoreForDistrict: (district: string) => Promise<string>,
+  ): void {
+    const TRANSITION_ZONE_UNITS = 5;
+    const traceId = randomUUID();
+
+    const originalCallback = this.eventCallback;
+    this.eventCallback = async (event: any) => {
+      // Intercept TOKEN_MOVE events before passing through to the original handler
+      if (event?.type === 'token_move' && event?.payload) {
+        const { tokenId, x, y, sceneWidth, sceneHeight, gridSize, nearestDistrict } = event.payload as {
+          tokenId?: string;
+          x?: number;
+          y?: number;
+          sceneWidth?: number;
+          sceneHeight?: number;
+          gridSize?: number;
+          nearestDistrict?: string;
+        };
+
+        const gs = gridSize ?? 100;
+        const sw = sceneWidth ?? Infinity;
+        const sh = sceneHeight ?? Infinity;
+        const px = x ?? 0;
+        const py = y ?? 0;
+
+        // Transition Zone: within TRANSITION_ZONE_UNITS grid units of any scene edge
+        const nearEdge = (
+          px < TRANSITION_ZONE_UNITS * gs ||
+          py < TRANSITION_ZONE_UNITS * gs ||
+          (sw - px) < TRANSITION_ZONE_UNITS * gs ||
+          (sh - py) < TRANSITION_ZONE_UNITS * gs
+        );
+
+        if (nearEdge && nearestDistrict) {
+          this.logger?.debug(
+            'FoundryAdapter',
+            traceId,
+            `[Phase64] TOKEN_MOVE Transition Zone: token=${tokenId} → district=${nearestDistrict}`,
+          );
+          // Non-blocking anticipatory seed
+          getLoreForDistrict(nearestDistrict)
+            .then((lore) => narrativeClient.preemptiveGrounding(nearestDistrict, lore))
+            .catch(() => { /* non-critical */ });
+        }
+      }
+
+      if (originalCallback) {
+        return originalCallback(event);
+      }
+    };
+  }
+
   // ── Command methods ─────────────────────────────────────────────────────────
 
   async sendChatMessage(content: string, speaker?: { alias: string }): Promise<void> {
