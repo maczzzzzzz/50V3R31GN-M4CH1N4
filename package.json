@@ -74,6 +74,7 @@
     "forge:ingest": "tsx scripts/forge/ingest-local-assets.ts",
     "forge:tokens": "tsx scripts/forge/token-forge.ts",
     "forge:props": "tsx scripts/forge/prop-forge.ts",
+    "mind:backup": "tsx scripts/recovery/backup-mind.ts",
     "mind:fresh": "tsx scripts/forge/fresh-db.ts",
     "mind:fresh:dry": "tsx scripts/forge/fresh-db.ts --dry-run",
     "mind:ingest": "tsx src/core/ingest/SovereignIngestService.ts",
