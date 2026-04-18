@@ -29,6 +29,6 @@ The implementation follows the `docs/plans/2026-03-29-phase-4-mvp-assembly.md` a
 - **VRAM/Resources**: Local testing on Node B confirms sub-100ms response times for logic orchestration.
 
 ## 5. Conclusion
-Phase 4 (v0.6.0) is officially **Closed**. The project is now in a high-signal, fully verified state.
+Phase 4 (v3.2.16) is officially **Closed**. The project is now in a high-signal, fully verified state.
 
-**Next Target:** v0.7.0 "Project Black-Ice" (Edge-Compute Migration to ZeroClaw/SQLite-Vec).
+**Next Target:** v3.2.16 "Project Black-Ice" (Edge-Compute Migration to ZeroClaw/SQLite-Vec).

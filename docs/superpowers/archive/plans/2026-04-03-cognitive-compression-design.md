@@ -1,6 +1,6 @@
 # Design: Cognitive Compression & Agentic Pipelining
 **Date:** 2026-04-03
-**Target:** v1.6.0 (Phase 19)
+**Target:** v3.2.16 (Phase 19)
 
 ## 1. Architecture & Data Flow
 

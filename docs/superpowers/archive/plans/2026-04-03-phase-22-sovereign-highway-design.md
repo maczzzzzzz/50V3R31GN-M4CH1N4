@@ -1,4 +1,4 @@
-# Phase 22: Sovereign Highway & Shared Memory Highway (v1.8.0)
+# Phase 22: Sovereign Highway & Shared Memory Highway (v3.2.16)
 **Design Specification**
 
 ## 1. Overview
@@ -8,7 +8,7 @@ Phase 22 transforms the distributed architecture of 50V3R31GN-M4CH1N4 into a "Pr
 
 ---
 
-## 2. Hardware Topology (v1.8.0)
+## 2. Hardware Topology (v3.2.16)
 The system leverages a "Clean Split" to avoid VRAM thrashing on Node A and maximize the 16-core CPU on Node B.
 
 | Node | Component | Hardware | VRAM Usage | Role |

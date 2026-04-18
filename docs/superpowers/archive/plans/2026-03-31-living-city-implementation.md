@@ -1,4 +1,4 @@
-# Living City & Project "Eyes-On" Implementation Plan (v0.9.0)
+# Living City & Project "Eyes-On" Implementation Plan (v3.2.16)
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 

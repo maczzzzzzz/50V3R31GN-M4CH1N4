@@ -1,4 +1,4 @@
-# Design Spec: Phase 15 — The Bridge Evolution (v1.5.0)
+# Design Spec: Phase 15 — The Bridge Evolution (v3.2.16)
 
 **Status:** ✅ FINALIZED  
 **Architecture:** Native Module Hijacking + Resilient Fallbacks  

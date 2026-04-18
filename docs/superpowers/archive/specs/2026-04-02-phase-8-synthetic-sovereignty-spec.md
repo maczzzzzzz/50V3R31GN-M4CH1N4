@@ -1,4 +1,4 @@
-# Design Specification: Phase 8 — Synthetic Sovereignty (v1.0.0)
+# Design Specification: Phase 8 — Synthetic Sovereignty (v3.2.16)
 **Subject:** The Night City Dashboard (Foundry Sidebar) & Autonomous World Engine
 **Status:** DESIGN FINALIZED (Brainstorm Hardened)
 

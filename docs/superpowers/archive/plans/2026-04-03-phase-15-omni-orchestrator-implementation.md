@@ -1,7 +1,7 @@
 # Implementation Plan: Phase 15 — Omni Orchestrator
 
 **Version:** 1.4.0
-**Baseline:** v1.3.9 Resilient
+**Baseline:** v3.2.16 Resilient
 **Goal:** Establish the reactive swarm reasoning and physical execution loop.
 
 ---

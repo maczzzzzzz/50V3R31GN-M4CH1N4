@@ -364,7 +364,7 @@ export class UnifiedOracleClient {
   async executeTransaction(commands: WorldCommand[]): Promise<void> {
     const traceId = randomUUID();
 
-    // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
+    // ── Vitalik's 2-of-2 Authorization Model (v3.2.16) ───────────────────────
     if (this.onAuthorize) {
       const authorized = await this.onAuthorize(commands);
       if (!authorized) {

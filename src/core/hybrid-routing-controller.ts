@@ -132,7 +132,7 @@ export class HybridRoutingController {
       this.redRulesConstitution = 'Rules Constitution Missing.';
     }
 
-    // ── Vitalik's 2-of-2 Authorization Model (v1.0.3) ───────────────────────
+    // ── Vitalik's 2-of-2 Authorization Model (v3.2.16) ───────────────────────
     if (this.unifiedOracle) {
       this.unifiedOracle.onAuthorize = async (commands) => {
         const traceId = randomUUID();
@@ -170,7 +170,7 @@ export class HybridRoutingController {
       };
     }
 
-    // Unified Restore (v1.4.3): Automatically restore world-state on boot
+    // Unified Restore (v3.2.16): Automatically restore world-state on boot
     this.restoreSystemState().catch(err => {
       this.logger?.warn('HRC', 'restore', `System state auto-restore failed: ${err.message}`);
     });
@@ -775,7 +775,7 @@ export class HybridRoutingController {
 
       pulse += `CONSTITUTION: ${this.redRulesConstitution}\n\n`;
 
-      // Unified Cohesion (v1.4.1): Inject Live Radar Telemetry
+      // Unified Cohesion (v3.2.16): Inject Live Radar Telemetry
       if (this.sharedMemory) {
         try {
           const radar = this.sharedMemory.readWorldState();

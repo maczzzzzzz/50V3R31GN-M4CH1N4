@@ -1,6 +1,6 @@
 # Design: ST3GG Immersive Data Caching (Dynamic Screamsheet Drops)
 **Date:** 2026-04-03
-**Target:** v1.5.0 (Phase 17 Integration)
+**Target:** v3.2.16 (Phase 17 Integration)
 
 ## 1. Architecture & Data Flow
 

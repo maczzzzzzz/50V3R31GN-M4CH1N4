@@ -593,7 +593,7 @@ impl CyberdeckApp {
         }
 
         let status = format!(
-            "NETRUNNER HUD v1.10.0 | NODES: {} | INTRUSION: {:.0}%",
+            "NETRUNNER HUD v3.2.16 | NODES: {} | INTRUSION: {:.0}%",
             node_count,
             self.intrusion_level * 100.0
         );

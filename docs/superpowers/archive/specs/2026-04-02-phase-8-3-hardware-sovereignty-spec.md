@@ -1,4 +1,4 @@
-# Design Specification: Phase 8.3 — Hardware Sovereignty (v1.0.0)
+# Design Specification: Phase 8.3 — Hardware Sovereignty (v3.2.16)
 **Subject:** The Strategic Atlas (Sidecar) & Unified Lipgloss CLI
 **Status:** DESIGN FINALIZED (Aesthetic Hardened)
 
@@ -19,7 +19,7 @@ Phase 8.3 completes the visual and architectural unification of the 50V3R31GN-M4
   - Bordered "Terminal Panes" for RKG search results.
   - Scanline/CRT glow emulation via ANSI escape sequences.
 
-## 4. Shared Memory Protocol (v1.0.0)
+## 4. Shared Memory Protocol (v3.2.16)
 - **Header Magic:** `BLACK-ICE-RADAR` (16 bytes).
 - **Atomic Sync:** Lock-free transaction counter for zero-latency blip updates.
 - **Coordinate Space:** Normalized 0-1000 float mapping.

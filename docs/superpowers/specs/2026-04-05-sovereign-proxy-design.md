@@ -1,4 +1,4 @@
-# Design: Sovereign Proxy — Phase 26 Task 1 (v1.10.0)
+# Design: Sovereign Proxy — Phase 26 Task 1 (v3.2.16)
 
 **Date:** 2026-04-05
 **Status:** Approved
@@ -244,4 +244,4 @@ Per `docs/superpowers/specs/2026-04-05-unified-cyberdeck-design.md` Phase 2 alig
 
 ---
 
-*Verified by Gemini CLI v1.10.0 Orchestrator.*
+*Verified by Gemini CLI v3.2.16 Orchestrator.*

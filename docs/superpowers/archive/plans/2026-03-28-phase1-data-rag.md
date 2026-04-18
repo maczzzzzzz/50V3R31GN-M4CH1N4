@@ -1820,7 +1820,7 @@ Note: package.json was left at 0.1.0 in Phase 0 while README/CHANGELOG were bump
 
 ```bash
 git add CHANGELOG.md README.md package.json
-git commit -m "chore: bump to v0.3.0 — Phase 1 Data & RAG complete"
+git commit -m "chore: bump to v3.2.16 — Phase 1 Data & RAG complete"
 ```
 
 - [ ] **Step 7: Verify Phase 1 gate**

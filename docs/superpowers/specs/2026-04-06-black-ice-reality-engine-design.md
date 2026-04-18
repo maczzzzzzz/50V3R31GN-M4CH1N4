@@ -1,6 +1,6 @@
 # Design Spec: 7H3-BL4CK-1C3-R34L17Y-3N61N3 (The Optimization Pass)
 
-**Status:** APPROVED (v1.2.0-SOVEREIGN)
+**Status:** APPROVED (v3.2.16-SOVEREIGN)
 **Date:** 2026-04-06
 **Objective:** Transition 50V3R31GN-M4CH1N4 into an adversarial, self-optimizing "Black-Ice" engine using mechanistic abliteration and recursive auditing.
 
@@ -31,4 +31,4 @@
 - **Counter-Hack:** Active defense (libWrapper) to intercept and validate move/update events.
 
 ---
-*Verified by Gemini CLI v1.14.0 (Strategist).*
+*Verified by Gemini CLI v3.2.16 (Strategist).*

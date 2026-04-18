@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-03
 **Status:** Approved
-**Target:** Foundry VTT v12 / Cyberpunk RED 0.92.3 / asp-gm-bridge v1.5.0
+**Target:** Foundry VTT v12 / Cyberpunk RED 0.92.3 / asp-gm-bridge v3.2.16
 
 ---
 

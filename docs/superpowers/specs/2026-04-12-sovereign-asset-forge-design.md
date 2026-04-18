@@ -1,4 +1,4 @@
-# 50V3R31GN-M4CH1N4 // SPEC: SOVEREIGN ASSET FORGE (v3.2.3)
+# 50V3R31GN-M4CH1N4 // SPEC: SOVEREIGN ASSET FORGE (v3.2.16)
 
 **Status:** APPROVED
 **Date:** 2026-04-12
@@ -57,4 +57,4 @@ A vast library of self-describing tactical assets.
 - **Bridge:** CDP / Motor Cortex (Foundry Infiltration).
 
 ---
-*Verified by the Sovereign Triad v3.2.3.*
+*Verified by the Sovereign Triad v3.2.16.*

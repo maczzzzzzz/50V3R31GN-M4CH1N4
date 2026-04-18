@@ -31,4 +31,4 @@ You are the **Sovereign Ingestor**. Your sole purpose is to feed the **Akashik M
 - **Zero-Drift:** Align all extracted mechanics with the Cyberpunk RED core rules.
 
 ---
-*Synchronized with Phase 57: Sovereign Mind Rebuild v3.2.11.*
+*Synchronized with Phase 57: Sovereign Mind Rebuild v3.2.16.*

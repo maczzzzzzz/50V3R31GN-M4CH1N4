@@ -62,10 +62,10 @@ Verify a complex scene materializes in Foundry in <2s without WebSocket lag.
 
 ---
 
-### Task 4: Final v1.2.0 "Infinite Night" Audit
+### Task 4: Final v3.2.16 "Infinite Night" Audit
 
 **Files:**
-- Create: `docs/audits/2026-04-02_v1.2.0-Infinite-Night-Audit.md`
+- Create: `docs/audits/2026-04-02_v3.2.16-Infinite-Night-Audit.md`
 
 **Step 1: End-to-End Stress Test**
 Perform a "Cold Start" mission generation from a raw map file to a live session.
