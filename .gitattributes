@@ -2,27 +2,50 @@
 # GitHub Linguist Overrides for Language Classification
 
 # --- GENERATED / BUILD ARTIFACTS ---
-# Mark build outputs as generated to hide them from language stats
 dist/** linguist-generated
 build/** linguist-generated
 dashboard/.next/** linguist-generated
 **/target/** linguist-generated
 *.tsbuildinfo linguist-generated
+cl4w-nucleus/dist/** linguist-generated
 
 # --- VENDORED / CACHE / TOOLING ---
-# Mark agent caches and vendored code to exclude from stats
 .claude/** linguist-vendored
 .gemini/** linguist-vendored
 node_modules/** linguist-vendored
+**/node_modules/** linguist-vendored
 .vscode/** linguist-vendored
 .factory/** linguist-vendored
+scripts/archive/** linguist-vendored
+scripts/lib/** linguist-vendored
+
+# --- MODELS & LARGE BINARIES ---
+*.gguf linguist-vendored
+*.onnx linguist-vendored
+*.onnx.data linguist-vendored
+**/models/** linguist-vendored
+*.exe linguist-vendored
+*.dll linguist-vendored
+*-cli linguist-vendored
+crush/crush linguist-vendored
+deck-igniter/deck-igniter linguist-vendored
 
 # --- DATA & ASSETS ---
-# Mark data and assets as vendored/documentation
 data/** linguist-vendored
 assets/** linguist-vendored
+50v3r31gn-bridge/assets/** linguist-vendored
+*.pdf linguist-vendored
+*.webp linguist-vendored
+*.png linguist-vendored
+*.jpg linguist-vendored
+*.svg linguist-vendored
+*.mp3 linguist-vendored
+*.wav linguist-vendored
+
+# --- DOCUMENTATION ---
 docs/** linguist-documentation
 akashik_guides/** linguist-documentation
+*.md linguist-documentation
 
 # --- LOCKFILES ---
 pnpm-lock.yaml linguist-generated
@@ -31,10 +54,11 @@ Cargo.lock linguist-generated
 go.sum linguist-generated
 flake.lock linguist-generated
 
-# --- SPECIFIC SCRIPTS ---
-# Some JS files are operational tools, not core logic
+# --- SPECIFIC SCRIPTS (Marked as vendored to hide from stats) ---
 shim.js linguist-vendored
 scrape-fandom.js linguist-vendored
+recover-ingest.mjs linguist-vendored
 scripts/win-proxy.cjs linguist-vendored
 scripts/win-test.cjs linguist-vendored
 scripts/wsl-cdp-bridge.cjs linguist-vendored
+scripts/fast-reconstruct.py linguist-vendored
