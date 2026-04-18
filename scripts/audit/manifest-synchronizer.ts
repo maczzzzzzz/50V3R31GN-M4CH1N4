@@ -3,7 +3,6 @@ import path from 'node:path';
 
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
-const RED = '\x1b[36m';
 const RESET = '\x1b[0m';
 
 const VERSION_FILE = 'package.json';

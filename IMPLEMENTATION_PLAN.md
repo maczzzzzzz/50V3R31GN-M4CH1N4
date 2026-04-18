@@ -24,14 +24,32 @@
 - [x] **Kinetic Dominance - AA Refactor:** Injected custom sound paths into `Automated Animations` JSON.
 - [x] **Kinetic Dominance - Visuals:** Generated Specular/Normal masks for Atlas maps (Map Shine Advanced).
 - [x] **Kinetic Dominance - Director:** Wired `animation_type` telemetry to Node B for narrative grit scaling.
-- [x] **GLM Handover:** Transitioned to v3.2.11-HARDENED state; ready for 8-hour loops.
+- [x] **GLM Handover:** Transitioned to v3.2.12-HARDENED state; ready for 8-hour loops.
 
 ---
 
-## 🛠️ PHASE 59: COGNITIVE HARDENING & PERFORMANCE (PENDING)
+## 🚨 CRITICAL INFRASTRUCTURE RECOVERY: WSL_CORRUPTION_V3 (ACTIVE)
+**Status:** EMERGENCY_RECOVERY // ARTERY_BLOCKAGE
+- [ ] **Task 1: Model Re-Serialization:** Binary corruption detected in `mistral-12b` and `reasoner-1.5b`. Pointer-mismatch error (14123288431433875456). Restore from D: Drive (Windows) primitives.
+- [ ] **Task 2: Node A Artery Restoration:** SSH bridge alive, but ZeroClaw VSB and Llama-Server are unresponsive. Full kernel reboot and residency lockdown required.
+- [ ] **Task 3: Driver Stabilization:** Eliminate experimental `dzn` Vulkan implementation in favor of stable RADV/Vulkan for Node B VRAM safety.
+
+---
+## 🛠️ PHASE 59: CANONICAL MIRROR (PENDING)
+**Goal:** Achieve 1:1 parity with the official ruleset via systemic repository integration.
+- [ ] **Task 1: The ETL Pipeline:** Implement `CprOfficialIngestor.ts` to parse 1000+ YAML packs and apply canonical migrations (025-040).
+- [ ] **Task 2: Schema v4:** Materialize `dv_tables`, `item_components`, and `situational_modifiers` in Akashik.db for relational depth.
+- [ ] **Task 3: Rules Kernel (Rust):** Port `CPRSkillRoll` and `CPRDamageRoll` math into `zeroclaw` for bit-identical binary resolution.
+- [ ] **Task 4: The Great Nuke v4:** Execute the backup-and-rebuild sequence to manifest the Canonical Mind.
+- [ ] **Ability Shard 59:** Verify canonical DV lookup and modifier stacking via Node A VSB probe.
+
+---
+
+## 🛠️ PHASE 60: COGNITIVE HARDENING & PERFORMANCE (PENDING)
 **Goal:** Optimize inference throughput and implement predictive narrative caching.
 - [ ] **Inference Optimization:** Implement KV-cache quantizaton for Node B.
 - [ ] **Predictive Caching:** Implement anticipatory lore retrieval based on player movement vectors.
 - [ ] **System Polishing:** Refine gameplay loops and system performance.
+
 
 *Roadmap Managed by Gemini CLI (Strategist).*

@@ -123,7 +123,7 @@
 
             # Phase 48: Sovereign Triad MCP Bridge — spawn background sidecar
             mkdir -p /run/crush 2>/dev/null || true
-            MCP_PID_FILE="$PROJECT_ROOT/.gemini/tmp/mcp-bridge.pid"
+            MCP_PID_FILE="$PROJECT_ROOT/.gemini/tmp/mcp-daemon.pid"
             if [ ! -f "$MCP_PID_FILE" ] || ! kill -0 "$(cat "$MCP_PID_FILE")" 2>/dev/null; then
               mkdir -p "$PROJECT_ROOT/.gemini/tmp" "$PROJECT_ROOT/data/logs"
               npx tsx "$PROJECT_ROOT/scripts/dev/mcp-daemon.ts" \

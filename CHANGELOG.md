@@ -3,7 +3,17 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.12.html).
+
+## [3.2.12] - 2026-04-18
+### Added
+- **Phase 59: Canonical Mirror:** Initiated the total rebuild of the Sovereign Mind using the official Cyberpunk RED Core repository as the canonical source of truth.
+- **Rules Kernel (Rust):** Architectural blueprint for porting canonical `CPRSkillRoll` and `CPRDamageRoll` logic into the `zeroclaw` Rust kernel for bit-identical mechanical resolution.
+- **Akashik.db v4 Schema:** Defined a relational expansion to support `dv_tables`, `item_components`, and `situational_modifiers`, bridging the gap between narrative simulation and official mechanics.
+- **Repo Audit Report:** Physicalized exhaustive research into the official CPR repository, mapping 1000+ YAML entities and deep logic arteries.
+
+### Fixed
+- **Infrastructure Recovery Block:** Documented the WSL corruption and GGUF metadata pointer mismatch (Error 14123288431433875456) as a critical blocker in the implementation plan.
 
 ## [3.2.11] - 2026-04-17
 ### Added
@@ -49,7 +59,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 ### Changed
 - **WebGL-First Architecture**: Formally transitioned the command surface to the **Nucleus Web Deck**. Deprecated the legacy `deck-igniter` TUI in favor of a headless backend orchestration service.
 - **Crush CLI Artery**: Implemented the `--headless` flag for `crush start`, enabling seamless background ignition from the Web UI.
-- **Akashik Guides Audit**: Performed a systematic remediation of the entire `akashik_guides/` library to align with Phase 50+ standards (v3.2.11).
+- **Akashik Guides Audit**: Performed a systematic remediation of the entire `akashik_guides/` library to align with Phase 50+ standards (v3.2.12).
 - **Master Startup Pivot**: Updated all onboarding and setup guides to prioritize the Nucleus Artery (`npm run crush nucleus`) over legacy CLI workflows.
 
 ### Fixed
@@ -59,9 +69,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.11.html).
 ## [3.2.9] - 2026-04-16
 ### Fixed
 - **Sovereign Security Hardening**: Executed a comprehensive dependency audit and remediation pass, achieving a zero-vulnerability state in `pnpm audit`.
-- **NPM Artery Patching**: Updated `vite` (v3.2.11), `hono` (v3.2.11), and `@modelcontextprotocol/sdk` (v3.2.11) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
+- **NPM Artery Patching**: Updated `vite` (v3.2.12), `hono` (v3.2.12), and `@modelcontextprotocol/sdk` (v3.2.12) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
 - **Transitive Governance**: Implemented `pnpm.overrides` for `@hono/node-server` to force-patch deep-nested vulnerabilities within the MCP SDK.
-- **Rust/Go Audit**: Synchronized `rand` crates (v3.2.11) and `golang.org/x/crypto` (v3.2.11) across all sidecars and kernels.
+- **Rust/Go Audit**: Synchronized `rand` crates (v3.2.12) and `golang.org/x/crypto` (v3.2.12) across all sidecars and kernels.
 
 ## [3.2.8] - 2026-04-16
 ### Added

@@ -7,6 +7,7 @@ import { existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { createSocket } from 'node:dgram';
 import { createConnection } from 'node:net';
+import { join as pathJoin } from 'node:path';
 
 function pass(id: number, name: string, msg: string, details?: Record<string, unknown>): AuditResult {
   return { phaseId: id, phaseName: name, block: 'ORCHESTRATION', status: 'PASS', message: msg, details };
@@ -107,7 +108,7 @@ export const phase4: SovereignShard = {
 
   async audit(_ctx: GauntletContext): Promise<AuditResult> {
     const SOCKET_ROOT = process.env['SOVEREIGN_SOCKET_ROOT'] || './.gemini/tmp';
-    const socketPath = path.join(SOCKET_ROOT, 'clawlink.sock');
+    const socketPath = pathJoin(SOCKET_ROOT, 'clawlink.sock');
     const socketExists = existsSync(socketPath);
     if (!socketExists) {
       return warn(4, 'Clawlink-Socket', `${socketPath} not found — deck-igniter not running (expected without boot)`);
@@ -169,7 +170,7 @@ export const phase18: SovereignShard = {
     const localListening = await checkTcpPort('127.0.0.1', proxyPort, 2000);
     // Check clawlink socket (crush-proxy uses this for IPC)
     const SOCKET_ROOT = process.env['SOVEREIGN_SOCKET_ROOT'] || './.gemini/tmp';
-    const socketPath = path.join(SOCKET_ROOT, 'clawlink.sock');
+    const socketPath = pathJoin(SOCKET_ROOT, 'clawlink.sock');
     const socketExists = existsSync(socketPath);
 
     const details: Record<string, unknown> = { proxyPort, localListening, socketExists };

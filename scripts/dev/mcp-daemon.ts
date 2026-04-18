@@ -34,6 +34,7 @@ const PROJECT_ROOT = process.env['PROJECT_ROOT'] ?? process.cwd();
 const SOCKET_ROOT = process.env['SOVEREIGN_SOCKET_ROOT'] || path.join(PROJECT_ROOT, '.gemini/tmp');
 const SOCKET_PATH = path.join(SOCKET_ROOT, 'sovereign-mcp.sock');
 const PID_FILE    = path.join(SOCKET_ROOT, 'mcp-daemon.pid');
+const PID_PATH    = PID_FILE;
 
 if (!fs.existsSync(SOCKET_ROOT)) {
   fs.mkdirSync(SOCKET_ROOT, { recursive: true });

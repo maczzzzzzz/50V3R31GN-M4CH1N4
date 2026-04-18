@@ -195,7 +195,7 @@ export const phase37: SovereignShard = {
 
 // RKG hierarchy — must match data-43.ts declaration
 const RKG_BASE = process.env['OBSIDIAN_RKG_PATH'] ?? '/mnt/d/Obsidian_RKG';
-const RKG_DIRS = ['Items', 'NPCs', 'Factions', 'Locations', 'Scenes', 'Chronicle'];
+const RKG_DIRS = ['Items', 'Actors', 'Factions', 'Chronicles', 'Districts', 'Global'];
 
 // ── Phase 43: Stabilization State ────────────────────────────────────────────
 export const phase43: SovereignShard = {

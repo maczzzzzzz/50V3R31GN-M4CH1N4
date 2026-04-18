@@ -1,6 +1,6 @@
 {
   "name": "50v3r31gn-m4ch1n4",
-  "version": "3.2.11",
+  "version": "3.2.12",
   "description": "48L173R473D M1ND // 50V3R31GN-M4CH1N4",
   "type": "module",
   "contributors": [
@@ -81,7 +81,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@hono/node-server": ">=1.19.13"
+      "@hono/node-server": ">=1.19.13",
+      "esbuild": "0.24.2"
     }
   },
   "devDependencies": {
@@ -94,6 +95,7 @@
     "@types/pixelmatch": "^5.2.6",
     "@types/pngjs": "^6.0.5",
     "@types/ws": "8.18.1",
+    "esbuild": "0.24.2",
     "tsx": "4.21.0",
     "typescript": "5.8.3",
     "vite": "^7.3.2",
