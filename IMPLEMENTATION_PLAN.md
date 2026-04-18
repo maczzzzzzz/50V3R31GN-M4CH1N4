@@ -28,11 +28,11 @@
 
 ---
 
-## 🚨 CRITICAL INFRASTRUCTURE RECOVERY: WSL_CORRUPTION_V3 (ACTIVE)
-**Status:** EMERGENCY_RECOVERY // ARTERY_BLOCKAGE
-- [ ] **Task 1: Model Re-Serialization:** Binary corruption detected in `mistral-12b` and `reasoner-1.5b`. Pointer-mismatch error (14123288431433875456). Restore from D: Drive (Windows) primitives.
-- [ ] **Task 2: Node A Artery Restoration:** SSH bridge alive, but ZeroClaw VSB and Llama-Server are unresponsive. Full kernel reboot and residency lockdown required.
-- [ ] **Task 3: Driver Stabilization:** Eliminate experimental `dzn` Vulkan implementation in favor of stable RADV/Vulkan for Node B VRAM safety.
+## ✅ CRITICAL INFRASTRUCTURE RECOVERY: WSL_CORRUPTION_V3 (COMPLETED)
+**Status:** TRIAD_RESTORED // ARTERIES_OPEN
+- [x] **Task 1: Model Re-Serialization:** Binary corruption detected in `mistral-12b` and `reasoner-1.5b`. Pointer-mismatch error (14123288431433875456). Re-downloaded and bit-verified from HF primitives.
+- [x] **Task 2: Node A Artery Restoration:** SSH bridge verified. ZeroClaw VSB and Llama-Server online (CPU-Fallback active while custom sm_61 build backgrounded).
+- [x] **Task 3: Driver Stabilization:** Refactored `flake.nix` with surgical driver paths and sm_61 compilation flags. Node B successfully offloaded to AMD 9060 XT via RADV/Vulkan.
 
 ---
 ## 🛠️ PHASE 59: CANONICAL MIRROR (PENDING)
