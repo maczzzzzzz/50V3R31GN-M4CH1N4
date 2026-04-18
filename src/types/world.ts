@@ -76,3 +76,25 @@ export interface LocalizedEntry {
   key: string;
   value_en: string;
 }
+
+// ---------------------------------------------------------------------------
+// Phase 60: Economy & Gig tables
+// ---------------------------------------------------------------------------
+
+export interface NightMarket {
+  id: string;
+  district_id: string;
+  vendor_npc_id: string;
+  inventory_json: string; // JSON array of { item_id, quantity, is_contraband }
+  status: 'active' | 'cleared';
+}
+
+export interface Gig {
+  id: string;
+  title: string;
+  client_npc_id?: string;
+  target_npc_id?: string;
+  district_id?: string;
+  reward_eb: number;
+  status: 'available' | 'in_progress' | 'completed';
+}

@@ -367,3 +367,23 @@ CREATE TABLE IF NOT EXISTS items (
 
 -- Phase 59: Brownfield migration for npcs/items columns is handled by
 -- scripts/recovery/migrate-v4.ts (ALTER TABLE with PRAGMA table_info guards).
+
+-- Phase 60: Night Markets (Sovereign Economy Engine)
+CREATE TABLE IF NOT EXISTS night_markets (
+  id TEXT PRIMARY KEY,
+  district_id TEXT NOT NULL,
+  vendor_npc_id TEXT NOT NULL,
+  inventory_json TEXT NOT NULL,
+  status TEXT DEFAULT 'active'
+);
+
+-- Phase 60: Gigs / Screamsheets (Procedural Mission Generator)
+CREATE TABLE IF NOT EXISTS gigs (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  client_npc_id TEXT,
+  target_npc_id TEXT,
+  district_id TEXT,
+  reward_eb INTEGER DEFAULT 0,
+  status TEXT DEFAULT 'available'
+);
