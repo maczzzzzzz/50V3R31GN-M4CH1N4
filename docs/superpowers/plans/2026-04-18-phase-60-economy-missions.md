@@ -16,7 +16,7 @@
 - Modify: `src/db/world-schema.sql`
 - Modify: `src/types/world.ts`
 
-- [ ] **Step 1: Add Economy & Gig Tables to Schema**
+- [x] **Step 1: Add Economy & Gig Tables to Schema**
 
 ```sql
 CREATE TABLE IF NOT EXISTS night_markets (
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS gigs (
 );
 ```
 
-- [ ] **Step 2: Update TypeScript Interfaces**
+- [x] **Step 2: Update TypeScript Interfaces**
 
 ```typescript
 export interface NightMarket {
@@ -60,7 +60,7 @@ export interface Gig {
 }
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add src/db/world-schema.sql src/types/world.ts
@@ -75,16 +75,16 @@ git commit -m "db: add economy and gig schemas for phase 60"
 - Create: `src/core/economy/SovereignEconomyService.ts`
 - Create: `src/core/economy/EconomyPulse.ts`
 
-- [ ] **Step 1: Implement the Night Market Generator**
+- [x] **Step 1: Implement the Night Market Generator**
 Implement weighted rolling for 1d10 categories and 1d100 items. Auto-tag `Premium`+ categories as **Contraband** (Fixer-only).
 
-- [ ] **Step 2: Implement the Economy Pulse**
+- [x] **Step 2: Implement the Economy Pulse**
 Create a service that tracks in-game time and automatically calculates the **Monthly Burn** for Lifestyle and Housing rent.
 
-- [ ] **Step 3: Implement Addiction Resolution**
+- [x] **Step 3: Implement Addiction Resolution**
 Integrate Node A Rust logic for "Addiction Checks" and manifest the result as persistent wellbeing triplets in Akashik.db.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/core/economy/
@@ -98,7 +98,7 @@ git commit -m "feat(economy): implement night markets, monthly burn, and addicti
 **Files:**
 - Modify: `src/api/foundry-adapter.ts`
 
-- [ ] **Step 1: Implement Vendor Spawning Logic**
+- [x] **Step 1: Implement Vendor Spawning Logic**
 
 ```typescript
   async spawnVendorToken(marketId: string, sceneId: string, x: number, y: number): Promise<void> {
@@ -124,7 +124,7 @@ git commit -m "feat(economy): implement night markets, monthly burn, and addicti
   }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add src/api/foundry-adapter.ts
@@ -138,7 +138,7 @@ git commit -m "feat(foundry): add cdp hook to spawn official vendor containers"
 **Files:**
 - Create: `src/core/narrative/SovereignGigService.ts`
 
-- [ ] **Step 1: Implement Procedural Gig Generator**
+- [x] **Step 1: Implement Procedural Gig Generator**
 
 ```typescript
 import { Database } from 'better-sqlite3';
@@ -161,7 +161,7 @@ export class SovereignGigService {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add src/core/narrative/SovereignGigService.ts
