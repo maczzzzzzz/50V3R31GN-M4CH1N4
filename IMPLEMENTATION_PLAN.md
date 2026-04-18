@@ -24,7 +24,7 @@
 - [x] **Kinetic Dominance - AA Refactor:** Injected custom sound paths into `Automated Animations` JSON.
 - [x] **Kinetic Dominance - Visuals:** Generated Specular/Normal masks for Atlas maps (Map Shine Advanced).
 - [x] **Kinetic Dominance - Director:** Wired `animation_type` telemetry to Node B for narrative grit scaling.
-- [x] **GLM Handover:** Transitioned to v3.2.12-HARDENED state; ready for 8-hour loops.
+- [x] **GLM Handover:** Transitioned to v3.2.13-HARDENED state; ready for 8-hour loops.
 
 ---
 
@@ -44,12 +44,23 @@
 - [ ] **Ability Shard 59:** Verify canonical DV lookup and modifier stacking via Node A VSB probe.
 
 ---
+## 🛠️ PHASE 60: SOVEREIGN ECONOMY & MISSIONS (PENDING)
+**Goal:** Subsume official vendor logic and build a generative Night Market & Gig engine.
+- [ ] **Economy Pulse:** Implement "Monthly Burn" logic for Lifestyle and Housing rent siphoning.
+- [ ] **Night Market Engine:** Build weighted procedural generator for 1d10 category / 1d100 item rolls.
+- [ ] **CDP Vendor Manifest:** Automate `cpr-container` token spawning via Playwright bridge.
+- [ ] **Screamsheet Engine:** Procedurally generate Gigs using triplet-sourced NPC/Faction/Location data.
+- [ ] **Contraband Logic:** Auto-tag `Premium`+ price categories for Fixer-only availability.
 
-## 🛠️ PHASE 60: COGNITIVE HARDENING & PERFORMANCE (PENDING)
-**Goal:** Optimize inference throughput and implement predictive narrative caching.
-- [ ] **Inference Optimization:** Implement KV-cache quantizaton for Node B.
-- [ ] **Predictive Caching:** Implement anticipatory lore retrieval based on player movement vectors.
-- [ ] **System Polishing:** Refine gameplay loops and system performance.
+---
+
+## 🛠️ PHASE 61: UI/UX SOVEREIGNTY (PENDING)
+**Goal:** Transform the dashboard into an interactive Command-and-Control hub.
+- [ ] **Oracle CoT Log:** Real-time visualization of Node A Rust reasoning (Rolls/DVs/Modifiers).
+- [ ] **Akashik Lexicon:** Searchable 1:1 mirror of the 1000+ official items and actors.
+- [ ] **Command Terminal:** Interactive buttons for Market generation and Gig manifestation.
+- [ ] **State Waveform v2:** High-fidelity visualization of "Friction" vs "Flow" encounter telemetry.
+
 
 
 *Roadmap Managed by Gemini CLI (Strategist).*

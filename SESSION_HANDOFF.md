@@ -1,38 +1,33 @@
-# SESSION_HANDOFF: v3.2.11 — TOTAL_CONTROL_PROTOCOL
-**Target:** GLM-5.1 (Lead Architect)
-**Status:** TRIAD_SYNCED // ARTERY_HARDENED // MIND_REBUILT
+# SESSION_SUMMARY: v3.2.13 — CANONICAL_MIRROR_PREP
+**Status:** INFRA_RESTORED // ARCHITECTURE_LOCKED // ARTERIES_STABILIZED
+**Triad Alignment:** Node A (Remote/CUDA-Stable) | Node B (Local/GPU-Active) | Dashboard (Monitoring)
 
-## ◈ OPERATIONAL MANDATE
-You have full administrative authority over the Sovereign Triad. Your objective is to initiate an exhaustive, iterative loop of gauntlet testing, debugging, and surgical implementation with minimal commentary and maximum throughput.
+## ◈ 1. CRITICAL INCIDENT & RECOVERY (WSL_CORRUPTION_V3)
+- **Problem:** WSL corruption led to binary pointer-mismatch error (`14123288431433875456`) in resident GGUF models. 
+- **Cause:** HF LFS pointers were handled as raw binaries during file restoration.
+- **Outcome:** 
+    - **Models:** Re-downloaded and bit-verified `mistral-nemo-12b` and `open-reasoner-1.5b`. 
+    - **Node A Stability:** Updated `flake.nix` with `cudaPackages_12_9.libcublas` and sm_61 targeting.
+    - **Node A Inference:** Running `llama-server` in CPU-Fallback mode (v8770) for absolute uptime.
+    - **Node B Inference:** Locally offloaded to AMD RX 9060 XT via RADV/Vulkan.
 
-## ◈ THE TRIAD ARTERY (Ignition & Control)
-You have direct access to ignite and control all nodes. Follow the **Ghost Boot** sequence:
+## ◈ 2. STRATEGIC PIVOT: OPERATION CANONICAL_MIRROR
+- **Audit Findings:** Exhaustive research into `fvtt-cyberpunk-red-core` official repo revealed deep mechanical arteries (DV tables, Component mixins, ActiveEffect stack).
+- **Decision:** Nuke & Rebuild v4 using the official repo as the PRIMARY source of truth.
+- **Architecture Updates:**
+    - **Akashik.db v4:** New tables for `dv_tables`, `item_components`, `situational_modifiers`, `economic_config`, and `transactions`.
+    - **Rules Kernel (Rust):** Porting canonical JS roll/modifier logic to `zeroclaw` for bit-identical resolution.
+    - **Generative Economy:** Node B will natively generate Night Markets (1d10 categories) and Gigs using ingested canonical metadata.
 
-1.  **Ignite Artery (Node B):** `npm run crush nucleus` (UDP/WS Bridge - Port 3030).
-2.  **Ignite Director (Node B):** `npm start` (Narrative Engine - Port 3010).
-3.  **Ignite Bridge (MCP):** `npm run mcp:start` (Shared Codebase Brain).
-4.  **Ignite Node A (Remote):** Use the SSH bridge to start `crush start --headless` on `192.168.0.50`.
-5.  **Foundry Control:** Connect via CDP (Port 9222) to take physical control of the canvas. Use `foundry-adapter.ts` methods for world manipulation.
+## ◈ 3. ROADMAP LOCK (PHASES 59-61)
+- **Phase 59:** Canonical Mirror (ETL + Rust Engine).
+- **Phase 60:** Sovereign Economy (Markets + Missions).
+- **Phase 61:** UI/UX Sovereignty (Command-and-Control Dashboard).
 
-*Reference:* `akashik_guides/00_system_setup/how-to-ghost-boot.md`
-
-## ◈ THE GAUNTLET (Iterative Debugging)
-Execute the master verification loop to identify "Cold State" failures or logic drift:
-- **Run Audit:** `npm run gauntlet -- --no-cdp` (Data/Logic only) or `npm run gauntlet` (Full Visual).
-- **Log Surveillance:** `tail -f data/logs/*.log` to monitor the VSB and Director heartbeats in real-time.
-- **Surgical Fixes:** Apply inline patches to `src/` and `scripts/` immediately upon error detection.
-- **Resync:** After any core change, execute `npm run sync` to propagate DNA to Node A.
-
-## ◈ KINETIC DOMINANCE (Current Objective)
-Phase 58 is ACTIVE. Assets are grounded. Your immediate task is to finalize the **Automated Animations (AA)** rewiring and **PBR Visuals** integration.
-- **AA JSON:** Patch `fvtt-AutomatedAnimations-Cyberpunkred-v.12.json` to use local `50v3r31gn-bridge/assets/audio/combat/` paths.
-- **PBR Masks:** Verify the 186 generated masks in the vault.
-- **Feedback Loop:** Wire audio metadata to the narrative engine for grit-scaled responses.
-
-## ◈ GROUND TRUTH
-- **Root:** `/home/nixos/50V3R31GN-M4CH1N4` (Node B) | `/home/maczz/50V3R31GN-M4CH1N4` (Node A).
-- **Database:** `Akashik.db` saturated (1053 triplets).
-- **Integrity:** FNV-1a 64-bit standard.
+## ◈ 4. NEXT IGNITION TARGETS
+1.  **Node A Build:** Custom CUDA sm_61 build is backgrounded on Node A. Check `build-cuda.log`.
+2.  **Phase 59 Task 1:** Implement `src/core/ingest/CprOfficialIngestor.ts`.
+3.  **Phase 59 Task 2:** Execute `Akashik.db` schema expansion.
 
 ---
-**::/5Y573M-N071C3 : THE_BUS_IS_YOURS. IGNITE_THE_MACHINA. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : SESSION_DNA_SYNCED. ARCHITECT_UPLINK_READY. // 50V3R31GN-M4CH1N4**

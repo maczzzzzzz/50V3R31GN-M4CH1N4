@@ -8,7 +8,15 @@
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          cudaSupport = true;
+          # Force compilation for Pascal architecture (GTX 1050 Ti)
+          cudaCapabilities = [ "6.1" ];
+        };
+      };
       identities = import ./nix/identities.nix { lib = pkgs.lib; };
       
       # Hardware-Optimized llama-cpp
@@ -20,9 +28,7 @@
         rocmSupport = true;
       };
       
-      llama-cpp-cuda = pkgs.llama-cpp.override {
-        cudaSupport = true;
-      };
+      llama-cpp-cuda = pkgs.llama-cpp;
     in
     {
       devShells.${system} = {
@@ -161,8 +167,12 @@
             
             # AI/Inference & GPU (CUDA for Node A)
             llama-cpp-cuda
-            cudatoolkit
-            linuxPackages.nvidia_x11
+            cudaPackages.cudatoolkit
+            cudaPackages.libcublas
+            cudaPackages.libcufft
+            cudaPackages.libcurand
+            cudaPackages.libcusolver
+            cudaPackages.libcusparse
             
             # Utilities
             ripgrep
@@ -175,7 +185,18 @@
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
             export CRUSH_DB_PATH="$PROJECT_ROOT/.crush/crush.db"
             export NIXPKGS_ALLOW_UNFREE=1
-            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath (with pkgs; [ openssl linuxPackages.nvidia_x11 cudatoolkit ])}:$LD_LIBRARY_PATH"
+            
+            # Driver-Sovereignty: Use surgical path for host drivers to avoid GLIBC mismatches
+            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath (with pkgs; [ 
+              openssl 
+              cudaPackages.cudatoolkit
+              cudaPackages.libcublas
+              cudaPackages.libcufft
+              cudaPackages.libcurand
+              cudaPackages.libcusolver
+              cudaPackages.libcusparse
+            ])}:/home/maczz/50V3R31GN-M4CH1N4/.gemini/lib/nvidia:/usr/lib/wsl/lib:$LD_LIBRARY_PATH"
+            
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
             export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
@@ -183,9 +204,8 @@
             # DROID_FACTORY: Wrapped execution via steam-run for NixOS compatibility
             alias droid="steam-run /home/nixos/.local/bin/droid"
             
-            echo "◈ 50V3R31GN-M4CH1N4: Node A (NixOS/Ubuntu) Environment Loaded [GPU: CUDA]."
+            echo "◈ 50V3R31GN-M4CH1N4: Node A (NixOS/Ubuntu) Environment Loaded [GPU: AUTO/CUDA]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
-            echo "◈ DROID FACTORY: Enabled via 'droid' alias."
           '';
         };
       };
