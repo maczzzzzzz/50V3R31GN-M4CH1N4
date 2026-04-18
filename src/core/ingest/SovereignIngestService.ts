@@ -19,6 +19,8 @@ import { WikiHandler } from './WikiHandler.js';
 import { JsonFoundryHandler } from './JsonFoundryHandler.js';
 import { HifiPdfHandler } from './HifiPdfHandler.js';
 import { CompendiumDbHandler } from './CompendiumDbHandler.js';
+import { CprOfficialIngestor } from './CprOfficialIngestor.js';
+import { CommunityModuleIngestor } from './CommunityModuleIngestor.js';
 
 const DB_PATH = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
 
@@ -60,6 +62,8 @@ export class SovereignIngestService {
   private readonly jsonHandler: JsonFoundryHandler;
   private readonly pdfHandler: HifiPdfHandler;
   private readonly dbHandler: CompendiumDbHandler;
+  private readonly cprOfficialIngestor: CprOfficialIngestor;
+  private readonly communityModuleIngestor: CommunityModuleIngestor;
 
   constructor(dbPath: string = DB_PATH) {
     this.db = new Database(dbPath);
@@ -69,10 +73,13 @@ export class SovereignIngestService {
     this.jsonHandler = new JsonFoundryHandler(this.db);
     this.pdfHandler = new HifiPdfHandler(this.db);
     this.dbHandler = new CompendiumDbHandler(this.db);
+    this.cprOfficialIngestor = new CprOfficialIngestor(this.db);
+    this.communityModuleIngestor = new CommunityModuleIngestor(this.db);
   }
 
   private resolveHandler(source: string): IIngestHandler | null {
     if (source === 'WIKI' || source.startsWith('https://cyberpunk.fandom.com')) return this.wikiHandler;
+    if (source === '--official') return null; // handled in ingestOfficial()
     if (source.endsWith('.json')) return this.jsonHandler;
     if (source.toLowerCase().endsWith('.pdf')) return this.pdfHandler;
     if (source.endsWith('.db') || source.endsWith('.sqlite') || source.endsWith('.sqlite3')) return this.dbHandler;
@@ -87,8 +94,22 @@ export class SovereignIngestService {
     return null;
   }
 
+  /** Phase 59: Canonical sequence — Official Rules → Community Mooks → Triplets */
+  private async ingestOfficial(): Promise<{ inserted: number; skipped: number; errors: number }> {
+    console.log('  >> [Phase 59] Official canonical sequence: CPR_OFFICIAL → COMMUNITY_MODULES');
+    let inserted = 0, skipped = 0, errors = 0;
+
+    const r1 = await this.cprOfficialIngestor.run('--official');
+    inserted += r1.inserted; skipped += r1.skipped; errors += r1.errors;
+
+    const r2 = await this.communityModuleIngestor.run('--official');
+    inserted += r2.inserted; skipped += r2.skipped; errors += r2.errors;
+
+    return { inserted, skipped, errors };
+  }
+
   async ingest(sources: string[]): Promise<void> {
-    console.log('::/5Y573M-N071C3 : SovereignIngestService — INITIATING PHASE 57 INGESTION...');
+    console.log('::/5Y573M-N071C3 : SovereignIngestService — INITIATING INGESTION...');
     console.log(`  >> Sources: ${sources.join(', ')}`);
 
     let totalInserted = 0;
@@ -96,6 +117,11 @@ export class SovereignIngestService {
     let totalErrors = 0;
 
     for (const source of sources) {
+      if (source === '--official') {
+        const r = await this.ingestOfficial();
+        totalInserted += r.inserted; totalSkipped += r.skipped; totalErrors += r.errors;
+        continue;
+      }
       const handler = this.resolveHandler(source);
       if (!handler) {
         console.warn(`  [SovereignIngestService] No handler for source: ${source}`);
