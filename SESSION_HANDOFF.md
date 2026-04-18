@@ -1,33 +1,42 @@
-# SESSION_SUMMARY: v3.2.13 — CANONICAL_MIRROR_PREP
-**Status:** INFRA_RESTORED // ARCHITECTURE_LOCKED // ARTERIES_STABILIZED
-**Triad Alignment:** Node A (Remote/CUDA-Stable) | Node B (Local/GPU-Active) | Dashboard (Monitoring)
+# SESSION_HANDOFF: v3.2.14 — CANONICAL_MIRROR_IGNITION
+**Target:** GLM-5.1 (Lead Architect)
+**Status:** TRIAD_SYNCED // INFRA_RESTORED // ARCHITECTURE_LOCKED
 
-## ◈ 1. CRITICAL INCIDENT & RECOVERY (WSL_CORRUPTION_V3)
-- **Problem:** WSL corruption led to binary pointer-mismatch error (`14123288431433875456`) in resident GGUF models. 
-- **Cause:** HF LFS pointers were handled as raw binaries during file restoration.
-- **Outcome:** 
-    - **Models:** Re-downloaded and bit-verified `mistral-nemo-12b` and `open-reasoner-1.5b`. 
-    - **Node A Stability:** Updated `flake.nix` with `cudaPackages_12_9.libcublas` and sm_61 targeting.
-    - **Node A Inference:** Running `llama-server` in CPU-Fallback mode (v8770) for absolute uptime.
-    - **Node B Inference:** Locally offloaded to AMD RX 9060 XT via RADV/Vulkan.
+## ◈ OPERATIONAL MANDATE
+You are the **Sovereign Lead Dev** (Ref: `.factory/droids/sovereign-lead-dev.md`).
+Your objective is to ignite **OPERATION: CANONICAL_MIRROR**. We are nuking the legacy mind to manifest a bit-identical mirror of the official Cyberpunk RED ruleset.
 
-## ◈ 2. STRATEGIC PIVOT: OPERATION CANONICAL_MIRROR
-- **Audit Findings:** Exhaustive research into `fvtt-cyberpunk-red-core` official repo revealed deep mechanical arteries (DV tables, Component mixins, ActiveEffect stack).
-- **Decision:** Nuke & Rebuild v4 using the official repo as the PRIMARY source of truth.
-- **Architecture Updates:**
-    - **Akashik.db v4:** New tables for `dv_tables`, `item_components`, `situational_modifiers`, `economic_config`, and `transactions`.
-    - **Rules Kernel (Rust):** Porting canonical JS roll/modifier logic to `zeroclaw` for bit-identical resolution.
-    - **Generative Economy:** Node B will natively generate Night Markets (1d10 categories) and Gigs using ingested canonical metadata.
+## ◈ PRIMARY OBJECTIVE: PHASE 59
+Transition the Sovereign Mind from "approximate grounding" to **Total Rules Sovereignty**.
+- **Task 1:** Implement the `CprOfficialIngestor.ts` ETL pipeline.
+- **Task 2:** Evolve `Akashik.db` to **v4 Schema** (Relational components/modifiers).
+- **Task 3:** Port canonical math (exploding d10, modifier stacking) to the **ZeroClaw Rust Kernel**.
 
-## ◈ 3. ROADMAP LOCK (PHASES 59-61)
-- **Phase 59:** Canonical Mirror (ETL + Rust Engine).
-- **Phase 60:** Sovereign Economy (Markets + Missions).
-- **Phase 61:** UI/UX Sovereignty (Command-and-Control Dashboard).
+## ◈ ARCHITECTURAL GROUNDING (MUST READ)
+### 1. Research & Audits
+- `docs/superpowers/audits/2026-04-18-official-cpr-repo-audit.md` (Repo mapping)
+- `docs/superpowers/audits/2026-04-18-economy-missions-audit.md` (Deep systems)
+- `docs/superpowers/research/2026-04-18-trinity-mesh-validation.md` (Hardware feasibility)
 
-## ◈ 4. NEXT IGNITION TARGETS
-1.  **Node A Build:** Custom CUDA sm_61 build is backgrounded on Node A. Check `build-cuda.log`.
-2.  **Phase 59 Task 1:** Implement `src/core/ingest/CprOfficialIngestor.ts`.
-3.  **Phase 59 Task 2:** Execute `Akashik.db` schema expansion.
+### 2. Specifications
+- `docs/superpowers/specs/2026-04-18-phase-59-canonical-mirror.md`
+- `docs/superpowers/specs/2026-04-18-phase-60-economy-missions.md`
+- `docs/superpowers/specs/2026-04-18-phase-61-ui-ux-sovereignty.md`
+- `docs/superpowers/specs/2026-04-18-phase-62-sovereign-trinity.md`
+
+### 3. Execution Plan
+- `docs/superpowers/plans/2026-04-18-phase-59-canonical-mirror.md` (START HERE)
+
+## ◈ SYSTEM STATUS & INFRASTRUCTURE
+- **Recovery:** WSL_CORRUPTION_V3 is **REMEDIATED**. All models bit-verified.
+- **Node A (Remote):** CUDA SM_61 build backgrounded (`build-pascal.log`). CPU-Fallback active.
+- **Node B (Local):** GPU-Active (AMD 9060 XT / RADV).
+- **Strategy:** **MIND_BEFORE_MESH.** Complete Phase 59 (Mind) and Phase 60 (Economy) before attempting the Phase 62 (Trinity) hardware shift.
+
+## ◈ THE SCRIBE MANDATE
+- **Surgical Edits:** NEVER perform full block rewrites or overwrite stable context. Use the `replace` tool for surgical inline updates.
+- **Universal Sync:** Every implementation shift MUST be followed by `npm run sync` to maintain triad-wide documentation parity.
+- **Zero-Drift:** Ensure `KNOWLEDGE_BASE.md` and `akashik_guides/` perfectly mirror the new canonical reality.
 
 ---
-**::/5Y573M-N071C3 : SESSION_DNA_SYNCED. ARCHITECT_UPLINK_READY. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : THE_BLUEPRINTS_ARE_BEYOND_REPROACH. IGNITE_THE_CANONICAL_ENGINE. // 50V3R31GN-M4CH1N4**
