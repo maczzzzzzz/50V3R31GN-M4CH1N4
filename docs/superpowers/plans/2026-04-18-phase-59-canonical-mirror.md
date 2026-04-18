@@ -16,7 +16,7 @@
 - Create: `scripts/recovery/backup-mind.ts`
 - Modify: `package.json`
 
-- [ ] **Step 1: Implement Backup Utility**
+- [x] **Step 1: Implement Backup Utility**
 
 ```typescript
 import fs from 'node:fs';
@@ -36,18 +36,18 @@ if (fs.existsSync(DB_PATH)) {
 }
 ```
 
-- [ ] **Step 2: Add backup script to package.json**
+- [x] **Step 2: Add backup script to package.json**
 
 ```json
 "mind:backup": "tsx scripts/recovery/backup-mind.ts"
 ```
 
-- [ ] **Step 3: Verify backup execution**
+- [x] **Step 3: Verify backup execution**
 
 Run: `npm run mind:backup`
 Expected: File created in `data/archive/`
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add scripts/recovery/backup-mind.ts package.json
@@ -62,7 +62,7 @@ git commit -m "infra: add mind backup utility for recovery safety"
 - Modify: `src/db/world-schema.sql`
 - Modify: `src/types/world.ts`
 
-- [ ] **Step 1: Update SQL Schema with Canonical Tables**
+- [x] **Step 1: Update SQL Schema with Canonical Tables**
 
 ```sql
 -- New tables for Canonical Mirror
@@ -108,16 +108,16 @@ ALTER TABLE items ADD COLUMN reliability TEXT;
 ALTER TABLE items ADD COLUMN is_installed BOOLEAN DEFAULT 0;
 ```
 
-- [ ] **Step 2: Update TypeScript types**
+- [x] **Step 2: Update TypeScript types**
 
 Update `src/types/world.ts` to include the new fields in `Npc` and `Item` interfaces.
 
-- [ ] **Step 3: Verify schema application**
+- [x] **Step 3: Verify schema application**
 
 Run: `sqlite3 data/Akashik.db ".schema dv_tables"`
 Expected: Table structure matches SQL.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/db/world-schema.sql src/types/world.ts
@@ -133,16 +133,16 @@ git commit -m "db: evolve schema to v4 for canonical rules mirror"
 - Create: `src/core/ingest/CommunityModuleIngestor.ts`
 - Modify: `src/core/ingest/SovereignIngestService.ts`
 
-- [ ] **Step 1: Implement Official YAML Mapper**
+- [x] **Step 1: Implement Official YAML Mapper**
 Implement `CprOfficialIngestor.ts` to parse `packs/core/` and `packs/internal/`, applying migrations 025-040.
 
-- [ ] **Step 2: Implement Community JSON Mapper**
+- [x] **Step 2: Implement Community JSON Mapper**
 Implement `CommunityModuleIngestor.ts` to parse `docs/raw_data/campaign_ttta/` and `docs/raw_data/entities_mooks/`, linking items and NPC stats to the canonical base.
 
-- [ ] **Step 3: Integrate into SovereignIngestService**
+- [x] **Step 3: Integrate into SovereignIngestService**
 Update the master service to fire in sequence: Official Rules -> Official Items -> Community Mooks -> Semantic Triplets.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/core/ingest/
@@ -159,7 +159,7 @@ git commit -m "feat(ingest): implement unified canonical and community ETL pipel
 - Create: `zeroclaw/src/rules/canonical_math.rs`
 - Create: `zeroclaw/src/rules/dv_resolver.rs`
 
-- [ ] **Step 1: Implement exploding d10 math in Rust**
+- [x] **Step 1: Implement exploding d10 math in Rust**
 
 ```rust
 pub fn roll_d10_exploding() -> i32 {
@@ -167,20 +167,20 @@ pub fn roll_d10_exploding() -> i32 {
 }
 ```
 
-- [ ] **Step 2: Implement DV Lookup Engine**
+- [x] **Step 2: Implement DV Lookup Engine**
 
 Connect to SQLite from Rust to query the `dv_tables`.
 
-- [ ] **Step 3: Implement Modifier Stacking**
+- [x] **Step 3: Implement Modifier Stacking**
 
 Port the `CPRMod` logic into a Rust struct that aggregates permanent and situational bonuses.
 
-- [ ] **Step 4: Verify build**
+- [x] **Step 4: Verify build**
 
 Run: `cd zeroclaw && cargo build`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add zeroclaw/src/rules/
@@ -194,7 +194,7 @@ git commit -m "feat(zeroclaw): port canonical combat rules to rust kernel"
 **Files:**
 - Create: `scripts/recovery/nuke-and-rebuild-v4.sh`
 
-- [ ] **Step 1: Implement master nuke script**
+- [x] **Step 1: Implement master nuke script**
 
 ```bash
 #!/usr/bin/env bash
@@ -205,12 +205,12 @@ npm run mind:fresh
 npm run mind:ingest -- --official
 ```
 
-- [ ] **Step 2: Run the loop**
+- [x] **Step 2: Run the loop**
 
 Run: `bash scripts/recovery/nuke-and-rebuild-v4.sh`
 Expected: Akashik.db rebuilt with 1000+ canonical entities.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add scripts/recovery/nuke-and-rebuild-v4.sh
