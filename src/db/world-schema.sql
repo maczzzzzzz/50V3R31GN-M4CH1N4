@@ -9,7 +9,13 @@ CREATE TABLE IF NOT EXISTS npcs (
     faction TEXT,
     district_id TEXT,
     disposition TEXT CHECK (disposition IN ('friendly', 'neutral', 'hostile')),
-    is_alive BOOLEAN DEFAULT 1
+    is_alive BOOLEAN DEFAULT 1,
+    -- Phase 59: Netrunner + Armor fields
+    interface_level INTEGER DEFAULT 0,
+    rez INTEGER DEFAULT 0,
+    deck_slots INTEGER DEFAULT 0,
+    head_sp INTEGER DEFAULT 0,
+    body_sp INTEGER DEFAULT 0
 );
 
 -- Structured Location table
@@ -307,7 +313,40 @@ CREATE TRIGGER IF NOT EXISTS chronicle_au AFTER UPDATE ON chronicle_seeds BEGIN
   VALUES (new.rowid, new.title, new.content, new.category, new.district_id);
 END;
 
--- Phase 57: Foundry Items table (mechanical parity with fvtt-Item exports)
+-- Phase 59: Canonical Mirror — DV lookup tables (weapon category × range bracket)
+CREATE TABLE IF NOT EXISTS dv_tables (
+  weapon_category TEXT NOT NULL,
+  range_bracket TEXT NOT NULL,
+  dv INTEGER NOT NULL,
+  PRIMARY KEY (weapon_category, range_bracket)
+);
+
+-- Phase 59: Relational item components (cyberware slots, attachments)
+CREATE TABLE IF NOT EXISTS item_components (
+  item_id TEXT NOT NULL,
+  component_type TEXT NOT NULL,
+  PRIMARY KEY (item_id, component_type),
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+);
+
+-- Phase 59: Modifier registry (permanent + situational CPRMod stacking)
+CREATE TABLE IF NOT EXISTS item_modifiers (
+  id TEXT PRIMARY KEY,
+  item_id TEXT NOT NULL,
+  key TEXT NOT NULL,
+  value INTEGER NOT NULL,
+  mode TEXT CHECK(mode IN ('permanent', 'situational')) NOT NULL,
+  trigger_tag TEXT,
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+);
+
+-- Phase 59: Localization dictionary (en baseline)
+CREATE TABLE IF NOT EXISTS localized_dictionary (
+  key TEXT PRIMARY KEY,
+  value_en TEXT NOT NULL
+);
+
+-- Phase 57+59: Foundry Items table (mechanical parity with fvtt-Item exports)
 CREATE TABLE IF NOT EXISTS items (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
@@ -318,5 +357,13 @@ CREATE TABLE IF NOT EXISTS items (
     data_json TEXT NOT NULL DEFAULT '{}', -- full Foundry item data blob
     district_id TEXT,
     source TEXT NOT NULL DEFAULT 'FOUNDRY',
-    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- Phase 59: Tactical fields
+    concealable BOOLEAN DEFAULT 0,
+    slots_used INTEGER DEFAULT 0,
+    reliability TEXT,
+    is_installed BOOLEAN DEFAULT 0
 );
+
+-- Phase 59: Brownfield migration for npcs/items columns is handled by
+-- scripts/recovery/migrate-v4.ts (ALTER TABLE with PRAGMA table_info guards).
