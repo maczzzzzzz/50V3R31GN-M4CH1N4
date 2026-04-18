@@ -97,13 +97,17 @@ export class SovereignEconomyService {
   }
 
   private rollItem(category: string): { id: string; name: string; cost: number } | null {
-    // 1d100 weighted sample from items table for the given type
+    // 1d100 weighted sample — try specific category first, then any item (CPR official packs pending)
     const row = this.db.prepare(`
       SELECT id, name, cost FROM items
       WHERE type = @type OR category = @type
       ORDER BY RANDOM() LIMIT 1
     `).get({ type: category }) as { id: string; name: string; cost: number } | undefined;
-    return row ?? null;
+    if (row) return row;
+    // Fallback: any item (fires until canonical weapon/armor packs are ingested)
+    return this.db.prepare(
+      'SELECT id, name, cost FROM items ORDER BY RANDOM() LIMIT 1'
+    ).get() as { id: string; name: string; cost: number } | undefined ?? null;
   }
 
   // ---------------------------------------------------------------------------
