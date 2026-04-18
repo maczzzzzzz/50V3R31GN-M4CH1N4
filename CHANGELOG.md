@@ -8,6 +8,12 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.16.html).
 ## [3.2.16] - 2026-04-18
 ### Added
 - **Phase 64: Cognitive Hardening & Performance:** Formalized the tactical roadmap for VRAM optimization (KV-cache quantization), predictive caching based on player movement, and Ouroboros v2 (semantic logic vetoes).
+- **Kernel Telemetry Stream:** Implemented `zeroclaw/src/server/telemetry.rs` to broadcast real-time roll breakdowns to the dashboard via the Sovereign Bridge.
+- **Logic Integration:** Wired the `canonical_math` and `dv_resolver` shards into the active kernel RPC handlers for bit-identical rules resolution.
+
+### Fixed
+- **Dependency Corruption:** Surgically repaired a duplicate identifier error in the `picocolors` node module that was blocking dashboard builds.
+- **Linguist Classification:** Hardened `.gitattributes` to aggressively hide non-core binaries and assets, restoring accurate TypeScript/Go/Rust repository statistics.
 
 ## [3.2.15] - 2026-04-18
 ### Added
