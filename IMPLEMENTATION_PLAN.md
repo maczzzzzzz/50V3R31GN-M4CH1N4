@@ -83,9 +83,9 @@
 
 ---
 
-## 🛠️ PHASE 64: COGNITIVE HARDENING & PERFORMANCE (PENDING)
+## 🛠️ PHASE 64: COGNITIVE HARDENING & PERFORMANCE (COMPLETE)
 **Goal:** Maximize inference throughput and implement predictive narrative caching.
-- [ ] **Task 1: VRAM Optimization:** Implement KV-cache quantization (`--cache-type-k q4_0`) for Node B to enable ultra-long context windows.
-- [ ] **Task 2: Predictive Caching:** Implement anticipatory lore retrieval based on player movement vectors and boundary proximity.
-- [ ] **Task 3: Ouroboros v2:** Upgrade the audit loop to include semantic logic vetoes (e.g., checking currency/rule feasibility) via Node A.
-- [ ] **Ability Shard 64:** Verify zero-stutter scene transitions and intentional veto of narrative hallucinations.
+- [x] **Task 1: VRAM Optimization:** `scripts/dev/ignite-director.sh` — KV-cache q4_0 flags (`--cache-type-k q4_0 --cache-type-v q4_0`) wired for Node B llama-server.
+- [x] **Task 2: Predictive Caching:** `SovereignNarrativeClient.preemptiveGrounding()` + `FoundryAdapter.registerTokenMoveHook()` — anticipatory lore seeding on Transition Zone entry.
+- [x] **Task 3: Ouroboros v2:** `zeroclaw/src/rules/rules_oracle.rs` — `RulesOracle::evaluate()` with `SpendEb`, `EquipCyberware`, `ApplyMod` vetoes. `SentinelMonitorService` extended with `VETO` verdict and `VETO_LOGIC_FAIL` pattern.
+- [ ] **Ability Shard 64:** Pending — verify zero-stutter scene transitions and intentional veto of narrative hallucinations.
