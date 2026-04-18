@@ -30,6 +30,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 3. Shared HTTP client for Ollama (reused by ClawLink and VSB Judge)
     let http_client = Arc::new(Client::new());
 
+    // 3a. Initialise Telemetry (Phase 61)
+    let proxy_ip = std::env::var("SOVEREIGN_PROXY_IP").unwrap_or_else(|_| "127.0.0.1".to_string());
+    zeroclaw::server::telemetry::init_telemetry(format!("{}:7878", proxy_ip));
+
     // 4. Spawn VSB Sovereign Highway (UDP :7878) — Phase 22.5
     //    Runs concurrently with the TCP ClawLink server. UDP and TCP share
     //    the same port number in different protocol namespaces.

@@ -31,9 +31,10 @@ import (
 )
 
 const (
-	vsbMagic       = 0xC0DE
-	intentPktSize  = 302
-	udpReadBufSize = 512
+	vsbMagic         = 0xC0DE
+	intentPktSize    = 302
+	telemetryPktSize = 269
+	udpReadBufSize   = 512
 )
 
 // TelemetryPacket is the JSON payload broadcast to dashboard clients.
@@ -45,7 +46,7 @@ type TelemetryPacket struct {
 	PayloadLen uint32 `json:"payload_len"`
 	SessionID  string `json:"session_id"`
 	ActorID    string `json:"actor_id"`
-	Payload    string `json:"payload"` // first 64 bytes as hex
+	Payload    string `json:"payload"`
 }
 
 // wsHub manages connected WebSocket clients and fan-out broadcasts.
@@ -83,26 +84,44 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-// decodeIntentPacket parses a 302-byte buffer into a TelemetryPacket.
-// Returns nil if magic bytes are invalid.
-func decodeIntentPacket(buf []byte) *TelemetryPacket {
-	if len(buf) < intentPktSize {
+// decodeVsbPacket parses a buffer into a TelemetryPacket JSON.
+// Handles both Intent (0x01) and Telemetry (0x05) packets.
+func decodeVsbPacket(buf []byte) *TelemetryPacket {
+	if len(buf) < 13 {
 		return nil
 	}
 	magic := binary.LittleEndian.Uint16(buf[0:2])
 	if magic != vsbMagic {
 		return nil
 	}
-	return &TelemetryPacket{
+
+	pktType := buf[3]
+	seqID := binary.LittleEndian.Uint32(buf[4:8])
+	payloadLen := binary.LittleEndian.Uint32(buf[8:12])
+
+	tp := &TelemetryPacket{
 		Timestamp:  time.Now().UTC().Format(time.RFC3339Nano),
-		SeqID:      binary.LittleEndian.Uint32(buf[4:8]),
-		PacketType: buf[3],
-		IntentType: buf[13],
-		PayloadLen: binary.LittleEndian.Uint32(buf[8:12]),
-		SessionID:  hex.EncodeToString(buf[14:30]),
-		ActorID:    hex.EncodeToString(buf[30:46]),
-		Payload:    hex.EncodeToString(buf[46:110]), // first 64 payload bytes
+		SeqID:      seqID,
+		PacketType: pktType,
+		PayloadLen: payloadLen,
 	}
+
+	if pktType == 0x01 && len(buf) >= intentPktSize { // Intent
+		tp.IntentType = buf[13]
+		tp.SessionID = hex.EncodeToString(buf[14:30])
+		tp.ActorID = hex.EncodeToString(buf[30:46])
+		tp.Payload = hex.EncodeToString(buf[46:110])
+	} else if pktType == 0x05 && len(buf) >= telemetryPktSize { // Telemetry
+		rawPayload := buf[13:telemetryPktSize]
+		if payloadLen > 256 {
+			payloadLen = 256
+		}
+		tp.Payload = string(rawPayload[:payloadLen])
+	} else {
+		return nil
+	}
+
+	return tp
 }
 
 // runDashboardBridge starts the VSB→WebSocket telemetry bridge.
@@ -158,7 +177,7 @@ func runDashboardBridge() error {
 			continue
 		}
 
-		pkt := decodeIntentPacket(buf[:n])
+		pkt := decodeVsbPacket(buf[:n])
 		if pkt == nil {
 			continue // drop malformed / non-VSB datagrams
 		}
@@ -170,3 +189,4 @@ func runDashboardBridge() error {
 		hub.broadcast(data)
 	}
 }
+

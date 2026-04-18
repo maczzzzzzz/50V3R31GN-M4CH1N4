@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use crate::rules::canonical_math;
 
 /// A single action submitted by the Node B orchestrator for batch resolution.
 #[derive(Debug, Serialize, Deserialize)]
@@ -6,16 +7,16 @@ use serde::{Deserialize, Serialize};
 pub enum SwarmAction {
     Attack {
         attacker_id: String,
-        /// Pre-rolled d10 values.
-        dice: Vec<u8>,
-        stat: u8,
-        skill: u8,
+        /// Optional: override stat/skill for testing.
+        stat: Option<u8>,
+        skill: Option<u8>,
         dv: u8,
+        /// Context tag for situational modifiers (e.g. "melee", "aimed").
+        context: Option<String>,
     },
     Damage {
         attacker_id: String,
-        /// Pre-rolled damage dice values.
-        dice: Vec<u8>,
+        dice_count: u8, // e.g. 3 for 3d6
         bonus: i16,
         armour_sp: u8,
     },
@@ -25,19 +26,17 @@ pub enum SwarmAction {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct SwarmResult {
     pub attacker_id: String,
-    /// Either `"attack"` or `"damage"`.
     pub action_type: String,
+    pub d10: i32,
+    pub stat: i32,
+    pub skill: i32,
+    pub mods: i32,
     pub total: i32,
-    /// For attacks: `true` if `total >= dv`. For damage: `true` if net damage `> 0`.
+    pub dv: i32,
     pub success: bool,
-    /// Human-readable breakdown string.
     pub detail: String,
 }
 
-/// Resolve an entire NPC swarm batch in a single sequential pass.
-///
-/// This function is pure CPU arithmetic with no global mutable state,
-/// making it trivially thread-safe and suitable for parallel tokio tasks.
 pub fn resolve_swarm(actions: Vec<SwarmAction>) -> Vec<SwarmResult> {
     actions.into_iter().map(resolve_one).collect()
 }
@@ -46,49 +45,62 @@ fn resolve_one(action: SwarmAction) -> SwarmResult {
     match action {
         SwarmAction::Attack {
             attacker_id,
-            dice,
             stat,
             skill,
             dv,
+            context: _,
         } => {
-            let roll_sum: i32 = dice.iter().map(|&d| d as i32).sum();
-            let total = roll_sum + stat as i32 + skill as i32;
+            let d10 = canonical_math::roll_d10_exploding();
+            let s = stat.unwrap_or(5) as i32;
+            let sk = skill.unwrap_or(4) as i32;
+            let total = d10 + s + sk;
             let success = total >= dv as i32;
-            let detail = format!(
-                "roll={total}, dv={dv}, hit={success}"
-            );
+            
             SwarmResult {
                 attacker_id,
                 action_type: "attack".to_string(),
+                d10,
+                stat: s,
+                skill: sk,
+                mods: 0,
                 total,
+                dv: dv as i32,
                 success,
-                detail,
+                detail: format!("roll={}+stat{}+skill{}={}, dv={}, hit={}", d10, s, sk, total, dv, success),
             }
         }
 
         SwarmAction::Damage {
             attacker_id,
-            dice,
+            dice_count,
             bonus,
             armour_sp,
         } => {
-            let raw: i32 = dice.iter().map(|&d| d as i32).sum();
+            let mut rng = rand::thread_rng();
+            use rand::Rng;
+            let mut raw = 0;
+            for _ in 0..dice_count {
+                raw += rng.gen_range(1..=6);
+            }
             let net = raw + bonus as i32 - armour_sp as i32;
             let total = net.max(0);
-            let success = total > 0;
-            let detail = format!(
-                "raw={raw}, bonus={bonus}, sp={armour_sp}, net={total}"
-            );
+            
             SwarmResult {
                 attacker_id,
                 action_type: "damage".to_string(),
+                d10: 0,
+                stat: 0,
+                skill: 0,
+                mods: bonus as i32,
                 total,
-                success,
-                detail,
+                dv: armour_sp as i32,
+                success: total > 0,
+                detail: format!("raw={}, bonus={}, sp={}, net={}", raw, bonus, armour_sp, total),
             }
         }
     }
 }
+
 
 // ── Unit Tests ───────────────────────────────────────────────────────────────
 

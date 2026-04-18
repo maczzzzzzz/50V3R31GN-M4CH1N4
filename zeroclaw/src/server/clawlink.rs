@@ -162,7 +162,37 @@ async fn process_rpc(
     match method.as_str() {
         "ping" => Ok(serde_json::json!({ "pong": true })),
 
+        "resolve_dv" => {
+            use crate::rules::dv_resolver::DvResolver;
+            let db_path = std::env::var("AKASHIK_DB_PATH").unwrap_or_else(|_| "../data/Akashik.db".to_string());
+            let resolver = DvResolver::new(db_path);
+
+            let weapon_category = params.get("weapon_category").and_then(|v| v.as_str()).ok_or("missing weapon_category")?;
+            let range_bracket = params.get("range_bracket").and_then(|v| v.as_str()).ok_or("missing range_bracket")?;
+
+            let dv = resolver.resolve(weapon_category, range_bracket);
+            Ok(serde_json::json!({ "dv": dv }))
+        }
+
         "resolve_math" => {
+            // Phase 59 upgrade: Use canonical Rust math for basic stat/skill checks
+            // Expected params: { stat: N, skill: M, [actor: "name"] }
+            if let (Some(stat), Some(skill)) = (params.get("stat").and_then(|v| v.as_i64()), params.get("skill").and_then(|v| v.as_i64())) {
+                use crate::rules::canonical_math::roll_stat_check;
+                use crate::server::telemetry::emit_roll_breakdown;
+
+                let d10_total = roll_stat_check(stat as i32, skill as i32);
+                // We don't have a DV here, so assume success = true (it's just a check)
+                let actor = params.get("actor").and_then(|v| v.as_str()).unwrap_or("UNKNOWN");
+                
+                // Roll check logic
+                let d10 = d10_total - stat as i32 - skill as i32;
+                emit_roll_breakdown(actor, d10, stat as i32, skill as i32, 0, d10_total, 0, true);
+
+                return Ok(serde_json::json!({ "total": d10_total }));
+            }
+
+            // Fallback to LLM for complex rules reasoning
             let rules = get_red_rules();
             let prompt = build_math_prompt(rules, &params);
             let req = OpenAIRequest {
@@ -204,6 +234,7 @@ async fn process_rpc(
 
         "resolve_swarm" => {
             use crate::rules::swarm_resolver::{SwarmAction, resolve_swarm};
+            use crate::server::telemetry::emit_roll_breakdown;
 
             let raw_actions = params
                 .as_array()
@@ -223,6 +254,14 @@ async fn process_rpc(
                 .collect();
 
             let results = resolve_swarm(actions);
+            
+            // Emit telemetry for each result
+            for r in results.iter() {
+                if r.action_type == "attack" {
+                    emit_roll_breakdown(&r.attacker_id, r.d10, r.stat, r.skill, r.mods, r.total, r.dv, r.success);
+                }
+            }
+
             Ok(serde_json::to_value(results)?)
         }
 

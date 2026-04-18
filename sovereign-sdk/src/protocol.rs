@@ -26,6 +26,7 @@ pub enum PacketType {
     Result    = 0x02,
     Heartbeat = 0x03,
     Ack       = 0x04,
+    Telemetry = 0x05,
 }
 
 // ─── Intent Type Discriminant ────────────────────────────────────────────────
@@ -47,6 +48,32 @@ pub enum ResultStatus {
     Ok      = 0x00,
     Error   = 0x01,
     Pending = 0x02,
+}
+
+// ─── TelemetryPacket (269 bytes) ────────────────────────────────────────────
+//
+//   [0..13]   header:      SovereignHeader (13 bytes)
+//   [13..269] payload:     [u8; 256]
+
+#[repr(C, packed)]
+#[derive(Clone, Copy)]
+pub struct TelemetryPacket {
+    pub header:  SovereignHeader,
+    pub payload: [u8; 256],
+}
+
+const _ASSERT_TELEMETRY_SIZE: () = assert!(
+    std::mem::size_of::<TelemetryPacket>() == 269,
+    "TelemetryPacket must be exactly 269 bytes on the wire"
+);
+
+impl TelemetryPacket {
+    pub fn new(sequence_id: u32, payload: [u8; 256]) -> Self {
+        TelemetryPacket {
+            header: SovereignHeader::new(PacketType::Telemetry, sequence_id, 256),
+            payload,
+        }
+    }
 }
 
 // ─── Radar Mmap Protocol (black_ice_state.mem) ────────────────────────────────
