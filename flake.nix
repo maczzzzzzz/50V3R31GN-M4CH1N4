@@ -28,7 +28,17 @@
         rocmSupport = true;
       };
       
-      llama-cpp-cuda = pkgs.llama-cpp;
+      llama-cpp-cuda = pkgs.llama-cpp.override {
+        cudaSupport = true;
+      };
+
+      # Specialized build for Pascal (GTX 1050 Ti)
+      llama-cpp-pascal = llama-cpp-cuda.overrideAttrs (old: {
+        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+          "-DCMAKE_CUDA_ARCHITECTURES=61"
+          "-DGGML_CUDA_F16=OFF"
+        ];
+      });
     in
     {
       devShells.${system} = {
@@ -166,7 +176,7 @@
             openssl
             
             # AI/Inference & GPU (CUDA for Node A)
-            llama-cpp-cuda
+            llama-cpp-pascal
             cudaPackages.cudatoolkit
             cudaPackages.libcublas
             cudaPackages.libcufft

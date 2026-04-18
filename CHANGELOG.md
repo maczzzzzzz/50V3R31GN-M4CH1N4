@@ -3,7 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.13.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.14.html).
+
+## [3.2.14] - 2026-04-18
+### Added
+- **Phase 62: Sovereign Trinity:** Formalized the architectural shift to a 3-node Cognitive Mesh using Mooncake disaggregated memory and SGLang RadixAttention.
+- **Trinity Research:** Conducted supplementary validation of the Mooncake KVCache Transfer Engine and GEPA Reflective Evolution patterns.
+- **Advanced Hermes Integration:** Mapped the log-step hash verification protocol between Node B (Director) and Node C (Oracle) to ensure mechanical infallibility.
 
 ## [3.2.13] - 2026-04-18
 ### Added
@@ -65,7 +71,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.13.html).
 ### Changed
 - **WebGL-First Architecture**: Formally transitioned the command surface to the **Nucleus Web Deck**. Deprecated the legacy `deck-igniter` TUI in favor of a headless backend orchestration service.
 - **Crush CLI Artery**: Implemented the `--headless` flag for `crush start`, enabling seamless background ignition from the Web UI.
-- **Akashik Guides Audit**: Performed a systematic remediation of the entire `akashik_guides/` library to align with Phase 50+ standards (v3.2.13).
+- **Akashik Guides Audit**: Performed a systematic remediation of the entire `akashik_guides/` library to align with Phase 50+ standards (v3.2.14).
 - **Master Startup Pivot**: Updated all onboarding and setup guides to prioritize the Nucleus Artery (`npm run crush nucleus`) over legacy CLI workflows.
 
 ### Fixed
@@ -75,9 +81,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.13.html).
 ## [3.2.9] - 2026-04-16
 ### Fixed
 - **Sovereign Security Hardening**: Executed a comprehensive dependency audit and remediation pass, achieving a zero-vulnerability state in `pnpm audit`.
-- **NPM Artery Patching**: Updated `vite` (v3.2.13), `hono` (v3.2.13), and `@modelcontextprotocol/sdk` (v3.2.13) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
+- **NPM Artery Patching**: Updated `vite` (v3.2.14), `hono` (v3.2.14), and `@modelcontextprotocol/sdk` (v3.2.14) to resolve multiple Path Traversal and Arbitrary File Read vulnerabilities.
 - **Transitive Governance**: Implemented `pnpm.overrides` for `@hono/node-server` to force-patch deep-nested vulnerabilities within the MCP SDK.
-- **Rust/Go Audit**: Synchronized `rand` crates (v3.2.13) and `golang.org/x/crypto` (v3.2.13) across all sidecars and kernels.
+- **Rust/Go Audit**: Synchronized `rand` crates (v3.2.14) and `golang.org/x/crypto` (v3.2.14) across all sidecars and kernels.
 
 ## [3.2.8] - 2026-04-16
 ### Added
