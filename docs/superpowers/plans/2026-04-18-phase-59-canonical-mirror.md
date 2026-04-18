@@ -130,41 +130,25 @@ git commit -m "db: evolve schema to v4 for canonical rules mirror"
 
 **Files:**
 - Create: `src/core/ingest/CprOfficialIngestor.ts`
+- Create: `src/core/ingest/CommunityModuleIngestor.ts`
 - Modify: `src/core/ingest/SovereignIngestService.ts`
 
-- [ ] **Step 1: Implement YAML-to-SQLite Mapper**
+- [ ] **Step 1: Implement Official YAML Mapper**
+Implement `CprOfficialIngestor.ts` to parse `packs/core/` and `packs/internal/`, applying migrations 025-040.
 
-```typescript
-import fs from 'node:fs';
-import yaml from 'js-yaml';
-import { Database } from 'better-sqlite3';
+- [ ] **Step 2: Implement Community JSON Mapper**
+Implement `CommunityModuleIngestor.ts` to parse `docs/raw_data/campaign_ttta/` and `docs/raw_data/entities_mooks/`, linking items and NPC stats to the canonical base.
 
-export class CprOfficialIngestor {
-  constructor(private db: Database, private repoPath: string) {}
-
-  async ingestPacks() {
-    // 1. Ingest DV Tables from internal packs
-    // 2. Ingest Babele Localization
-    // 3. Ingest Core Items (Weapons, Cyberware, etc)
-    // 4. Map Actor YAMLs to npcs table
-  }
-}
-```
-
-- [ ] **Step 2: Implement "025-040" Migration Logic**
-
-Translate the JS migrations from the official repo into the TS ingestor to ensure data normalization.
-
-- [ ] **Step 3: Integrate into master Ingest service**
-
-Update `SovereignIngestService` to call `CprOfficialIngestor` as the primary layer.
+- [ ] **Step 3: Integrate into SovereignIngestService**
+Update the master service to fire in sequence: Official Rules -> Official Items -> Community Mooks -> Semantic Triplets.
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add src/core/ingest/CprOfficialIngestor.ts src/core/ingest/SovereignIngestService.ts
-git commit -m "feat(ingest): implement official CPR repo ETL pipeline"
+git add src/core/ingest/
+git commit -m "feat(ingest): implement unified canonical and community ETL pipeline"
 ```
+
 
 ---
 

@@ -69,39 +69,26 @@ git commit -m "db: add economy and gig schemas for phase 60"
 
 ---
 
-### Task 2: Sovereign Economy Service (Night Markets)
+### Task 2: Sovereign Economy Service (Deep Systems)
 
 **Files:**
 - Create: `src/core/economy/SovereignEconomyService.ts`
+- Create: `src/core/economy/EconomyPulse.ts`
 
 - [ ] **Step 1: Implement the Night Market Generator**
+Implement weighted rolling for 1d10 categories and 1d100 items. Auto-tag `Premium`+ categories as **Contraband** (Fixer-only).
 
-```typescript
-import { Database } from 'better-sqlite3';
-import { randomUUID } from 'node:crypto';
+- [ ] **Step 2: Implement the Economy Pulse**
+Create a service that tracks in-game time and automatically calculates the **Monthly Burn** for Lifestyle and Housing rent.
 
-export class SovereignEconomyService {
-  constructor(private db: Database) {}
+- [ ] **Step 3: Implement Addiction Resolution**
+Integrate Node A Rust logic for "Addiction Checks" and manifest the result as persistent wellbeing triplets in Akashik.db.
 
-  generateNightMarket(districtId: string, vendorNpcId: string) {
-    // 1. Roll 1d6 twice for categories (Cyberware, Weapons, etc)
-    // 2. Query `items` table for those categories
-    // 3. Randomly select 1d10 items per category
-    // 4. Save to `night_markets` table
-    
-    const marketId = randomUUID();
-    // Implementation of selection logic here...
-    
-    return marketId;
-  }
-}
-```
-
-- [ ] **Step 2: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git add src/core/economy/SovereignEconomyService.ts
-git commit -m "feat(economy): implement procedural night market generator"
+git add src/core/economy/
+git commit -m "feat(economy): implement night markets, monthly burn, and addiction logic"
 ```
 
 ---
