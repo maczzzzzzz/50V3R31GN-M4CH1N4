@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { NucleusDropdown } from './components/NucleusDropdown';
 import { CommandDeck } from './components/CommandDeck';
+import { ChatInput } from './components/ChatInput';
 import { useNucleusWS } from './hooks/useNucleusWS';
 import { useFlushGate } from './hooks/useFlushGate';
 
@@ -25,6 +26,7 @@ export function App() {
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
       <CommandDeck state={state} />
+      <ChatInput send={send} />
       <NucleusDropdown send={send} />
     </div>
   );

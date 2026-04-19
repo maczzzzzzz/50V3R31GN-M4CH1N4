@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v3.2.19
 // 	protoc        v3.2.19
-// source: nucleuspb/state.proto
+// source: crush/nucleuspb/state.proto
 
 package nucleuspb
 
@@ -33,7 +33,7 @@ type Proposal struct {
 
 func (x *Proposal) Reset() {
 	*x = Proposal{}
-	mi := &file_nucleuspb_state_proto_msgTypes[0]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *Proposal) String() string {
 func (*Proposal) ProtoMessage() {}
 
 func (x *Proposal) ProtoReflect() protoreflect.Message {
-	mi := &file_nucleuspb_state_proto_msgTypes[0]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *Proposal) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Proposal.ProtoReflect.Descriptor instead.
 func (*Proposal) Descriptor() ([]byte, []int) {
-	return file_nucleuspb_state_proto_rawDescGZIP(), []int{0}
+	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Proposal) GetId() uint32 {
@@ -97,7 +97,7 @@ type HoveredUnit struct {
 
 func (x *HoveredUnit) Reset() {
 	*x = HoveredUnit{}
-	mi := &file_nucleuspb_state_proto_msgTypes[1]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -109,7 +109,7 @@ func (x *HoveredUnit) String() string {
 func (*HoveredUnit) ProtoMessage() {}
 
 func (x *HoveredUnit) ProtoReflect() protoreflect.Message {
-	mi := &file_nucleuspb_state_proto_msgTypes[1]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -122,7 +122,7 @@ func (x *HoveredUnit) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HoveredUnit.ProtoReflect.Descriptor instead.
 func (*HoveredUnit) Descriptor() ([]byte, []int) {
-	return file_nucleuspb_state_proto_rawDescGZIP(), []int{1}
+	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *HoveredUnit) GetActive() bool {
@@ -173,13 +173,15 @@ type NucleusState struct {
 	Timestamp     int64                  `protobuf:"varint,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	Proposal      *Proposal              `protobuf:"bytes,2,opt,name=proposal,proto3" json:"proposal,omitempty"`
 	HoveredUnit   *HoveredUnit           `protobuf:"bytes,3,opt,name=hovered_unit,json=hoveredUnit,proto3" json:"hovered_unit,omitempty"`
+	Logs          []string               `protobuf:"bytes,4,rep,name=logs,proto3" json:"logs,omitempty"`
+	Narrative     []string               `protobuf:"bytes,5,rep,name=narrative,proto3" json:"narrative,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *NucleusState) Reset() {
 	*x = NucleusState{}
-	mi := &file_nucleuspb_state_proto_msgTypes[2]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +193,7 @@ func (x *NucleusState) String() string {
 func (*NucleusState) ProtoMessage() {}
 
 func (x *NucleusState) ProtoReflect() protoreflect.Message {
-	mi := &file_nucleuspb_state_proto_msgTypes[2]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +206,7 @@ func (x *NucleusState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NucleusState.ProtoReflect.Descriptor instead.
 func (*NucleusState) Descriptor() ([]byte, []int) {
-	return file_nucleuspb_state_proto_rawDescGZIP(), []int{2}
+	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *NucleusState) GetTimestamp() int64 {
@@ -228,11 +230,25 @@ func (x *NucleusState) GetHoveredUnit() *HoveredUnit {
 	return nil
 }
 
-var File_nucleuspb_state_proto protoreflect.FileDescriptor
+func (x *NucleusState) GetLogs() []string {
+	if x != nil {
+		return x.Logs
+	}
+	return nil
+}
 
-const file_nucleuspb_state_proto_rawDesc = "" +
+func (x *NucleusState) GetNarrative() []string {
+	if x != nil {
+		return x.Narrative
+	}
+	return nil
+}
+
+var File_crush_nucleuspb_state_proto protoreflect.FileDescriptor
+
+const file_crush_nucleuspb_state_proto_rawDesc = "" +
 	"\n" +
-	"\x15nucleuspb/state.proto\x12\tnucleuspb\"T\n" +
+	"\x1bcrush/nucleuspb/state.proto\x12\tnucleuspb\"T\n" +
 	"\bProposal\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x16\n" +
 	"\x06status\x18\x02 \x01(\rR\x06status\x12 \n" +
@@ -243,31 +259,33 @@ const file_nucleuspb_state_proto_rawDesc = "" +
 	"\tunit_type\x18\x03 \x01(\tR\bunitType\x12\x19\n" +
 	"\bimg_path\x18\x04 \x01(\tR\aimgPath\x12\f\n" +
 	"\x01x\x18\x05 \x01(\x02R\x01x\x12\f\n" +
-	"\x01y\x18\x06 \x01(\x02R\x01y\"\x98\x01\n" +
+	"\x01y\x18\x06 \x01(\x02R\x01y\"\xca\x01\n" +
 	"\fNucleusState\x12\x1c\n" +
 	"\ttimestamp\x18\x01 \x01(\x03R\ttimestamp\x12/\n" +
 	"\bproposal\x18\x02 \x01(\v2\x13.nucleuspb.ProposalR\bproposal\x129\n" +
-	"\fhovered_unit\x18\x03 \x01(\v2\x16.nucleuspb.HoveredUnitR\vhoveredUnitB.Z,github.com/50v3r31gn-m4ch1n4/crush/nucleuspbb\x06proto3"
+	"\fhovered_unit\x18\x03 \x01(\v2\x16.nucleuspb.HoveredUnitR\vhoveredUnit\x12\x12\n" +
+	"\x04logs\x18\x04 \x03(\tR\x04logs\x12\x1c\n" +
+	"\tnarrative\x18\x05 \x03(\tR\tnarrativeB.Z,github.com/50v3r31gn-m4ch1n4/crush/nucleuspbb\x06proto3"
 
 var (
-	file_nucleuspb_state_proto_rawDescOnce sync.Once
-	file_nucleuspb_state_proto_rawDescData []byte
+	file_crush_nucleuspb_state_proto_rawDescOnce sync.Once
+	file_crush_nucleuspb_state_proto_rawDescData []byte
 )
 
-func file_nucleuspb_state_proto_rawDescGZIP() []byte {
-	file_nucleuspb_state_proto_rawDescOnce.Do(func() {
-		file_nucleuspb_state_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_nucleuspb_state_proto_rawDesc), len(file_nucleuspb_state_proto_rawDesc)))
+func file_crush_nucleuspb_state_proto_rawDescGZIP() []byte {
+	file_crush_nucleuspb_state_proto_rawDescOnce.Do(func() {
+		file_crush_nucleuspb_state_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_crush_nucleuspb_state_proto_rawDesc), len(file_crush_nucleuspb_state_proto_rawDesc)))
 	})
-	return file_nucleuspb_state_proto_rawDescData
+	return file_crush_nucleuspb_state_proto_rawDescData
 }
 
-var file_nucleuspb_state_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_nucleuspb_state_proto_goTypes = []any{
+var file_crush_nucleuspb_state_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_crush_nucleuspb_state_proto_goTypes = []any{
 	(*Proposal)(nil),     // 0: nucleuspb.Proposal
 	(*HoveredUnit)(nil),  // 1: nucleuspb.HoveredUnit
 	(*NucleusState)(nil), // 2: nucleuspb.NucleusState
 }
-var file_nucleuspb_state_proto_depIdxs = []int32{
+var file_crush_nucleuspb_state_proto_depIdxs = []int32{
 	0, // 0: nucleuspb.NucleusState.proposal:type_name -> nucleuspb.Proposal
 	1, // 1: nucleuspb.NucleusState.hovered_unit:type_name -> nucleuspb.HoveredUnit
 	2, // [2:2] is the sub-list for method output_type
@@ -277,26 +295,26 @@ var file_nucleuspb_state_proto_depIdxs = []int32{
 	0, // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_nucleuspb_state_proto_init() }
-func file_nucleuspb_state_proto_init() {
-	if File_nucleuspb_state_proto != nil {
+func init() { file_crush_nucleuspb_state_proto_init() }
+func file_crush_nucleuspb_state_proto_init() {
+	if File_crush_nucleuspb_state_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_nucleuspb_state_proto_rawDesc), len(file_nucleuspb_state_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_crush_nucleuspb_state_proto_rawDesc), len(file_crush_nucleuspb_state_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_nucleuspb_state_proto_goTypes,
-		DependencyIndexes: file_nucleuspb_state_proto_depIdxs,
-		MessageInfos:      file_nucleuspb_state_proto_msgTypes,
+		GoTypes:           file_crush_nucleuspb_state_proto_goTypes,
+		DependencyIndexes: file_crush_nucleuspb_state_proto_depIdxs,
+		MessageInfos:      file_crush_nucleuspb_state_proto_msgTypes,
 	}.Build()
-	File_nucleuspb_state_proto = out.File
-	file_nucleuspb_state_proto_goTypes = nil
-	file_nucleuspb_state_proto_depIdxs = nil
+	File_crush_nucleuspb_state_proto = out.File
+	file_crush_nucleuspb_state_proto_goTypes = nil
+	file_crush_nucleuspb_state_proto_depIdxs = nil
 }

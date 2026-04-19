@@ -28,6 +28,8 @@ const PROTO_JSON = {
             timestamp:   { id: 1, type: 'int64'       },
             proposal:    { id: 2, type: 'Proposal'    },
             hoveredUnit: { id: 3, type: 'HoveredUnit' },
+            logs:        { id: 4, type: 'string', rule: 'repeated' },
+            narrative:   { id: 5, type: 'string', rule: 'repeated' },
           },
         },
       },
@@ -55,6 +57,8 @@ export interface NucleusState {
   timestamp: number;
   proposal?: NucleusProposal;
   hoveredUnit?: NucleusHoveredUnit;
+  logs: string[];
+  narrative: string[];
 }
 
 // ─── Hook ────────────────────────────────────────────────────────────────────

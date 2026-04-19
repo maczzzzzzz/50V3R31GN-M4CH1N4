@@ -1,23 +1,31 @@
-# AGENTS.md: The Sovereign Staff Collaboration Directives
+# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.2.19)
 
-This document defines the roles, relationships, and global mandates for all AI agents
-(Gemini, Claude, and Droid) operating within the **50V3R31GN-M4CH1N4** ecosystem.
+This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
 ## 🤝 THE SOVEREIGN TRIAD
-- **GEMINI (The Strategist):** Research, architecture, roadmap, vault unsealing.
-- **CLAUDE (The Architect):** High-throughput execution, complex system implementation.
-- **DROID (The Local Agent):** Real-time environment interaction, local compilation.
+- **GEMINI (The Strategist):** Roadmap, Architecture, Research. (Ref: `GEMINI.md`)
+- **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
+- **DROID (The Environment):** Local execution, file manipulation. (Factory CLI).
 
-## 🏗️ GLOBAL ARCHITECTURAL DNA
-- **Node A (Kernel):** NVIDIA GTX 1050 Ti. Rules Authority. Open-Reasoner-1.5B.
-- **Node B (Director):** AMD Radeon RX 9060 XT. Narrative/Aesthetic Lead. Pixtral-12B.
-- **Bus:** VSB (Binary UDP // Port 7878) + Sovereign-Go-Proxy (Unix Socket // `/run/crush/clawlink.sock`).
+## 🛠 SETUP & RUNTIME COMMANDS
+| Action | Command | Purpose |
+| :--- | :--- | :--- |
+| **Grounding** | `bash scripts/ops/grounding.sh` | Sync context with all shards. |
+| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Bridge).|
+| **Verification**| `npm test` | Run full Vitest suite. |
+| **Sync** | `npm run sync` | Align all manifests and guides. |
+| **Security** | `crush vault seal` | Secure steganographic archives. |
 
-## ⚡ IMMUTABLE OPERATIONAL MANDATES
-1. **Nix Sovereignty:** Every command MUST be wrapped in `nix develop --command`.
-2. **Vault Security:** Run `crush vault seal` before every push.
-3. **The Shard Mandate:** Every phase MUST include an Ability Shard.
-4. **Radical Candor:** Never simulate success.
-5. **Machine Voice:** VT323 font aesthetic and Cyberpunk RED terminology.
+## ⚙️ WORKFLOW: KINGMODE (GLM-5.1)
+MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
+- Use `grep_search` to map dependencies before editing.
+- Always present a **Strategy** and obtain approval.
+- Verification is the only path to task completion.
+
+## ⚠️ CONSTRAINTS & SAFETY
+1. **Nix Sovereignty:** All commands must be wrapped in `nix develop --command`.
+2. **Hardware Invariants:** Node A = 4GB VRAM (Oracle/Vision). Node B = 16GB (Director).
+3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
+4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 
 *Verified by the Sovereign Triad v3.2.19.*

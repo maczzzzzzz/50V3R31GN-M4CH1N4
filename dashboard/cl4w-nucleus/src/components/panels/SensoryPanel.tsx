@@ -1,4 +1,4 @@
-// :/SENSORY // — Atlas Radar panel (replaces sidecar-atlas EGUI window)
+// :/SENSORY // — Atlas Radar panel (mirroring sidecar-atlas high-fidelity sweep)
 import { BitmapText, Container, Graphics } from 'pixi.js';
 import type { NucleusState } from '../../hooks/useNucleusWS';
 
@@ -7,28 +7,37 @@ const WHITE = 0xeeeeee;
 
 export const SensoryPanel = {
   init(c: Container, w: number, h: number) {
-    // Static grid
-    const grid = new Graphics();
-    grid.label = 'grid';
-    grid.setStrokeStyle({ width: 0.5, color: RED, alpha: 0.25 });
-    for (let i = 0; i <= 10; i++) {
-      const x = (i / 10) * (w - 4);
-      const y = (i / 10) * (h - 4);
-      grid.moveTo(x + 2, 2).lineTo(x + 2, h - 2);
-      grid.moveTo(2, y + 2).lineTo(w - 2, y + 2);
+    const radius = Math.min(w, h) * 0.45;
+    const centerX = w / 2;
+    const centerY = h / 2 - 20;
+
+    // Static radar circles
+    const bg = new Graphics();
+    bg.label = 'radarBg';
+    bg.setStrokeStyle({ width: 1, color: RED, alpha: 0.2 });
+    for (let i = 1; i <= 3; i++) {
+      bg.circle(centerX, centerY, (i / 3) * radius).stroke();
     }
-    grid.stroke();
-    c.addChild(grid);
+    // Axes
+    bg.moveTo(centerX - radius, centerY).lineTo(centerX + radius, centerY);
+    bg.moveTo(centerX, centerY - radius).lineTo(centerX, centerY + radius);
+    bg.stroke();
+    c.addChild(bg);
+
+    // Sweep animation layer
+    const sweep = new Graphics();
+    sweep.label = 'sweep';
+    c.addChild(sweep);
 
     // Blip layer
     const blips = new Container();
     blips.label = 'blips';
     c.addChild(blips);
 
-    // Status line — BitmapText for zero-reflow rendering
+    // Status line
     const status = new BitmapText({
-      text: '47L45: SCANNING...',
-      style: { fontFamily: 'SovereignMono', fontSize: 11, fill: WHITE },
+      text: '47L45: SCANNING // GRID_LOCKED',
+      style: { fontFamily: 'SovereignMono', fontSize: 10, fill: WHITE },
     });
     status.label = 'status';
     status.x = 8;
@@ -38,22 +47,40 @@ export const SensoryPanel = {
 
   update(c: Container | null, state: NucleusState) {
     if (!c) return;
+    const sweep = c.getChildByName('sweep') as Graphics | null;
+    const radius = Math.min(c.width || 400, c.height || 300) * 0.45;
+    const centerX = (c.width || 400) / 2;
+    const centerY = (c.height || 300) / 2 - 20;
+
+    if (sweep) {
+      sweep.clear();
+      const angle = (Date.now() / 1000) % (Math.PI * 2);
+      sweep.setStrokeStyle({ width: 2, color: RED, alpha: 0.6 });
+      sweep.moveTo(centerX, centerY);
+      sweep.lineTo(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
+      sweep.stroke();
+    }
+
     const blips = c.getChildByName('blips') as Container | null;
     if (!blips) return;
     blips.removeChildren();
 
     if (state.hoveredUnit?.active) {
       const u = state.hoveredUnit;
+      // Normalize coordinate space (assuming 0-1 range from VSB)
+      const bx = centerX + (u.x - 0.5) * 2 * radius;
+      const by = centerY + (u.y - 0.5) * 2 * radius;
+
       const dot = new Graphics();
-      dot.circle(u.x * (c.width || 400), u.y * (c.height || 300), 6).fill({ color: 0xffffff });
+      dot.circle(bx, by, 4).fill({ color: 0xffffff });
       blips.addChild(dot);
 
       const lbl = new BitmapText({
-        text: u.id,
+        text: u.id.toUpperCase(),
         style: { fontFamily: 'SovereignMonoRed', fontSize: 9, fill: RED },
       });
-      lbl.x = u.x * (c.width || 400) + 8;
-      lbl.y = u.y * (c.height || 300) - 4;
+      lbl.x = bx + 8;
+      lbl.y = by - 4;
       blips.addChild(lbl);
     }
   },

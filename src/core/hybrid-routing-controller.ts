@@ -841,6 +841,38 @@ export class HybridRoutingController {
     let result: any = { status: 'GRANTED' };
 
     try {
+      if (effectiveMethod === 'chat' || effectiveMethod === 'narrative_query') {
+        const queryText = intent.text || params?.text || '';
+        this.logger?.info('HRC', traceId, `[HRC] Director Query: ${queryText}`);
+
+        // Broadcast to command log first
+        this.clawlink?.publish(JSON.stringify({
+          type: 'broadcast',
+          payload: JSON.stringify({ type: 'log', content: `[query] ${queryText}` })
+        }));
+
+        // Generate narrative completion
+        try {
+          const narrative = await this.sovereignNarrative.generateNarrative(
+            queryText, 
+            'You are responding to a direct query from the operator terminal.', 
+            'Uncensored gritty GM response.'
+          );
+
+          // Broadcast narrative to the dashboard
+          this.clawlink?.publish(JSON.stringify({
+            type: 'broadcast',
+            payload: JSON.stringify({ type: 'narrative', content: narrative })
+          }));
+
+          // Also send to Foundry chat for legacy support
+          await this.foundry.sendChatMessage(narrative, { alias: 'Sovereign Director' });
+        } catch (err) {
+          this.logger?.error('HRC', traceId, `Narrative query failed: ${(err as Error).message}`);
+        }
+        return;
+      }
+
       if (effectiveMethod === 'reason_audit') {
         const { action, target_id } = params;
         if (action === 'friction') {

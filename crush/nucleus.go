@@ -4,6 +4,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -32,8 +33,13 @@ type NucleusCommand struct {
 
 // nucleusHub manages the set of active WebSocket connections.
 type nucleusHub struct {
-	mu      sync.RWMutex
-	clients map[*websocket.Conn]bool
+	mu           sync.RWMutex
+	clients      map[*websocket.Conn]bool
+	logs         []string
+	narrative    []string
+	maxBuffer    int
+	unixConn     net.Conn
+	unixPath     string
 }
 
 func (h *nucleusHub) broadcast(data []byte) {
@@ -56,6 +62,68 @@ func (h *nucleusHub) remove(c *websocket.Conn) {
 	delete(h.clients, c)
 }
 
+func (h *nucleusHub) appendLog(line string) {
+	h.mu.Lock()
+	defer h.mu.Unlock()
+	h.logs = append(h.logs, line)
+	if len(h.logs) > h.maxBuffer {
+		h.logs = h.logs[1:]
+	}
+}
+
+func (h *nucleusHub) appendNarrative(line string) {
+	h.mu.Lock()
+	defer h.mu.Unlock()
+	h.narrative = append(h.narrative, line)
+	if len(h.narrative) > h.maxBuffer {
+		h.narrative = h.narrative[1:]
+	}
+}
+
+func (h *nucleusHub) connectUnix() {
+	for {
+		conn, err := net.Dial("unix", h.unixPath)
+		if err != nil {
+			time.Sleep(2 * time.Second)
+			continue
+		}
+		h.unixConn = conn
+		fmt.Printf("[NUCLEUS] Connected to proxy: %s\n", h.unixPath)
+
+		sc := bufio.NewScanner(conn)
+		for sc.Scan() {
+			var pkt clawLinkPacket
+			if err := json.Unmarshal(sc.Bytes(), &pkt); err == nil {
+				if pkt.Type == "broadcast" {
+					var payload struct {
+						Type    string `json:"type"`
+						Content string `json:"content"`
+					}
+					if json.Unmarshal([]byte(pkt.Payload), &payload) == nil {
+						if payload.Type == "log" {
+							h.appendLog(payload.Content)
+						} else if payload.Type == "narrative" {
+							h.appendNarrative(payload.Content)
+						}
+					}
+				}
+			}
+		}
+		h.unixConn = nil
+		time.Sleep(2 * time.Second)
+	}
+}
+
+func (h *nucleusHub) sendToUnix(pkt clawLinkPacket) {
+	h.mu.RLock()
+	conn := h.unixConn
+	h.mu.RUnlock()
+	if conn != nil {
+		b, _ := json.Marshal(pkt)
+		conn.Write(append(b, '\n'))
+	}
+}
+
 // nucleusProjectRoot resolves the project root directory.
 func nucleusProjectRoot() string {
 	if r := os.Getenv("PROJECT_ROOT"); r != "" {
@@ -71,20 +139,31 @@ func nucleusProjectRoot() string {
 func startNucleusServer() {
 	root := nucleusProjectRoot()
 	memPath := filepath.Join(root, "black_ice_state.mem")
+	unixPath := Cfg.ClawlinkSock
 
 	watcher, err := NewVsbWatcher(memPath)
 	if err != nil {
 		fmt.Printf("[NUCLEUS] VSB watcher unavailable: %v (state stream disabled)\n", err)
 	}
 
-	hub := &nucleusHub{clients: make(map[*websocket.Conn]bool)}
+	hub := &nucleusHub{
+		clients:   make(map[*websocket.Conn]bool),
+		maxBuffer: 50,
+		unixPath:  unixPath,
+	}
+
+	go hub.connectUnix()
 
 	// State broadcast goroutine — ~60fps, Protobuf binary frames
 	go func() {
 		for {
+			hub.mu.RLock()
 			state := &nucleuspb.NucleusState{
 				Timestamp: time.Now().UnixMilli(),
+				Logs:      hub.logs,
+				Narrative: hub.narrative,
 			}
+			hub.mu.RUnlock()
 
 			if watcher != nil {
 				if p := watcher.GetProposal(); p != nil {
@@ -134,7 +213,7 @@ func startNucleusServer() {
 			if jsonErr := json.Unmarshal(msg, &cmd); jsonErr != nil {
 				continue
 			}
-			handleNucleusCommand(cmd, watcher)
+			handleNucleusCommand(hub, cmd, watcher)
 		}
 	})
 
@@ -149,8 +228,7 @@ func startNucleusServer() {
 	}
 }
 
-// handleNucleusCommand dispatches a system command received from the Deck UI.
-func handleNucleusCommand(cmd NucleusCommand, w *VsbWatcher) {
+func handleNucleusCommand(hub *nucleusHub, cmd NucleusCommand, w *VsbWatcher) {
 	root := nucleusProjectRoot()
 	crushBin := filepath.Join(root, "crush", "crush")
 	if _, err := os.Stat(crushBin); err != nil {
@@ -159,6 +237,21 @@ func handleNucleusCommand(cmd NucleusCommand, w *VsbWatcher) {
 	}
 
 	switch cmd.Action {
+	case "CHAT_INPUT":
+		// Wrap the chat input as a broadcast intent for the Orchestrator (Node B)
+		payload, _ := json.Marshal(map[string]interface{}{
+			"command": "chat",
+			"method":  "narrative_query",
+			"text":    cmd.Arg,
+		})
+		pkt := clawLinkPacket{
+			TraceID:  newTraceID(),
+			Payload:  string(payload),
+			Type:     "broadcast",
+		}
+		hub.sendToUnix(pkt)
+		// Add to logs for immediate visual feedback
+		hub.appendLog("> " + cmd.Arg)
 	case "GHOST_BOOT":
 		_ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
 	case "FULL_ENGAGE":

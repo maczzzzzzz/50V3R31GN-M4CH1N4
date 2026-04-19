@@ -23,7 +23,9 @@ message HoveredUnit {
 
 // NucleusState is the VSB snapshot broadcast to all Nucleus Deck clients at ~60fps.
 message NucleusState {
-  int64       timestamp    = 1;
-  Proposal    proposal     = 2;
-  HoveredUnit hovered_unit = 3;
+  int64           timestamp     = 1;
+  Proposal        proposal      = 2;
+  HoveredUnit     hovered_unit  = 3;
+  repeated string logs          = 4;
+  repeated string narrative     = 5;
 }
