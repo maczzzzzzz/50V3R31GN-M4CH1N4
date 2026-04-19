@@ -23,12 +23,16 @@ You are operating under the following foundational mandates:
     - Spec: `docs/superpowers/specs/2026-04-18-phase-62-sovereign-trinity.md`
 
 ## ◈ EXECUTION PROTOCOL
-1.  **IGNITION:** Run the Master Ignition Script: `bash scripts/audit/ignite-all.sh`.
+1.  **BOOT_DNA:** Execute the **Grounding Feed** immediately: `bash scripts/ops/grounding.sh`.
+2.  **PERSONA_SYNC:** Read your specific DNA:
+    - If powered by Claude: Read `CLAUDE.md`.
+    - If powered by GLM-5.1: Read `GLM.md`.
+3.  **IGNITION:** Run the Master Ignition Script: `bash scripts/audit/ignite-all.sh`.
     - **Director (Node B):** Gemma-4-E4B-Q8 (Full GPU Offload).
     - **Vision (Node A):** ColPali v1.2 (CPU mode for stability).
-2.  **VERIFICATION:** Physically verify cross-node handshakes (HUD -> Proxy -> Director -> Vision).
-3.  **STABILIZATION:** Resume the final ~500 visual embeddings.
-4.  **REMEDIATION:** surgically remove all `TODO` and `PLACEHOLDER` flags in the primary data paths identified in `IMPLEMENTATION_PLAN.md`.
+4.  **VERIFICATION:** Physically verify cross-node handshakes (HUD -> Proxy -> Director -> Vision).
+5.  **STABILIZATION:** Resume the final ~500 visual embeddings.
+6.  **REMEDIATION:** surgically remove all `TODO` and `PLACEHOLDER` flags in the primary data paths identified in `IMPLEMENTATION_PLAN.md`.
 
 ## ◈ ARCHITECTURAL TRUTH (CURRENT)
 - **Node B Brain:** `D:/llama.cpp/models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf`
