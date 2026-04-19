@@ -17,8 +17,8 @@
 #   MODEL_PATH=/path/to/model.gguf bash scripts/dev/ignite-director.sh
 set -euo pipefail
 
-MODEL_PATH="${MODEL_PATH:-D:/models/mistralai-Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B.i1-Q4_K_M.gguf}"
-MMPROJ_PATH="${MMPROJ_PATH:-D:/models/pixtral-12b-mmproj.bin}"
+MODEL_PATH="${MODEL_PATH:-/mnt/d/llama.cpp/models/mistralai-Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B.i1-Q4_K_M.gguf}"
+MMPROJ_PATH="${MMPROJ_PATH:-/mnt/d/llama.cpp/models/pixtral-12b.mmproj-f16.gguf}"
 PORT="${DIRECTOR_PORT:-8080}"
 CTX="${DIRECTOR_CTX:-32768}"
 
@@ -41,9 +41,8 @@ llama-server \
     -ngl 999 \
     --cache-type-k q4_0 \
     --cache-type-v q4_0 \
-    --flash-attn \
+    --flash-attn on \
     --mlock \
-    --nobuffer \
     &
 
 DIRECTOR_PID=$!

@@ -16,6 +16,7 @@ flake.lock.bak
 # --- DEPENDENCIES ---
 node_modules/
 .venv/
+.optical-venv/
 __pycache__/
 
 # --- BUILD OUTPUTS (GO/RUST/TS) ---

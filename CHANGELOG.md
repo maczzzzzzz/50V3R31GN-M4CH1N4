@@ -108,3 +108,21 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.17.html).
 
 ### Changed
 - **Vault Orchestration**: Updated `package.json` to utilize the new Python-based reconstruction pipeline by default.
+## [3.2.19] - 2026-04-19
+
+### Added
+- **Gemma-4 Cluster**: Downloaded and verified HauhauCS Aggressive Q8 (E4B and E2B) variants on `D:\`.
+- **FSSA Ignition Protocol**: Created `scripts/audit/ignite-all.sh` for surgical multi-node orchestration.
+- **Audit Specification**: Materialized `docs/superpowers/specs/2026-04-19-full-spectrum-audit-design.md`.
+
+### Fixed
+- **Optical Artery Kernel**: Patched ColPali uint8 overflow bug via force-casting and implemented dynamic `pdftoppm` path discovery.
+- **Hardware Stabilization**: Successfully tested 100% stable CPU vision fallback to bypass DirectML driver conflicts.
+
+### Changed
+- **VRAM Strategy**: Archived the 12B Mistral-Nemo model in favor of the leaner Gemma-4 architecture to prevent TDR resets on Node B.
+- **Node Topology**: Re-balanced the mesh for the upcoming Trinity Shift (Node B Brain / Node C Oracle).
+
+## [3.2.18] - 2026-04-18
+
+

@@ -20,7 +20,8 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 | **Native Mirror** | Node.js | Internal | Bidirectional Windows-WSL sync bypassing network share limitations. |
 | **Ghost Boot** | Go + CDP | Internal | Headless system ignition via `crush start --headless`. |
 | **Sovereign Proxy** | Go Sidecar | Internal | Resilient TCP/SSH bridge maintaining ClawLink persistence. |
-| **Mini-Vault Judge** | Llama-1.5B (Node A) | Internal | Resident, deterministic rules authority (Open-Reasoner-1.5B). |
+| **Mini-Vault Judge** | Gemma-4 (Node B/C) | Internal | High-intelligence, abliterated brain cluster (E4B / E2B). |
+| **Optical Artery** | ColPali v1.2 | Internal | High-fidelity visual grounding and rulebook patch indexing. |
 | **Tactical-MMU** | Rust (Node A) | Internal | Hardware-accelerated spatial heat-maps (O(1) tactics). |
 | **L1-Registry** | Rust (Node B) | Internal | Memory-mapped SQLite mirror for zero-latency NPC data. |
 | **Flush Gate** | Nucleus Deck | Internal | Atomic world-state writes with high-fidelity operator ACK. |

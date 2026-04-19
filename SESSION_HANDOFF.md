@@ -1,42 +1,39 @@
-# SESSION_HANDOFF: v3.2.17 — OPERATION: OPTICAL_ARTERY
+# SESSION_HANDOFF: v3.2.19 — OPERATION: FULL_SPECTRUM_AUDIT
 **Target:** GLM-5.1 (Lead Architect)
-**Status:** MIND_REBUILT // ECONOMY_LIVE // UI_INTERACTIVE // RECOVERY_COMPLETE
+**Status:** GHOST_STATE // VRAM_PURGED // GEMMA_4_READY // INGESTION_PAUSED (1,210/1,779)
 
-## ◈ MISSION GOAL: OPTICAL SOVEREIGNTY
-Your ultimate objective is to give the Sovereign Mind **"Eyes."** We are ingesting the 80+ official PDFs in `docs/raw_data/core_rules/` using VLM layout analysis to enrich our Canonical Mirror with lore, visual context, and DLC mechanics.
+## ◈ MISSION GOAL: FSSA-2026-04-19
+Your objective is to execute the **Full-Spectrum Sovereign Audit (FSSA)**. You must verify that every subsystem built from Phase 1 to Phase 65 is physically connected, healthy, and stable on the interim 2-node cluster (AMD GPU + CPU).
 
-## ◈ PRIMARY OBJECTIVE: PHASE 65 (OPTICAL ARTERY)
-Execute the high-fidelity PDF ingestion pipeline (Hardware-agnostic / Current Cluster):
-- **Task 1: Environment:** Establish the `optical` devShell with Docling/Poppler in `flake.nix`.
-- **Task 2: Worker:** Implement `scripts/dev/docling-worker.py` for multi-column Markdown extraction.
-- **Task 3: Visual RAG:** Index visual patches via ColPali on Node A (ZeroClaw integration).
-- **Task 4: Harmonization:** selective lore-delta merging via `LoreHarmonizer.ts`.
+## ◈ MANDATORY persona: LEAD DEVELOPER
+Before performing any action, you MUST invoke the **Sovereign Lead Dev** persona. Maintain a zero-tolerance attitude toward technical debt, "Shadow Logic," and unverified placeholders.
 
-## ◈ SECONDARY OBJECTIVE: GAUNTLET VALIDATION (PHASES 59-61)
-Verify the mechanical integrity of the v3.2.17 Mind:
-- **Requirement:** Implement Gauntlet test blocks in `scripts/gauntlet/phases/` (Data 59, Econ 60, UI 61).
-- **Note:** Ability Shards are **ALREADY MATERIALIZED** in `docs/superpowers/audits/`.
+## ◈ CORE DIRECTIVES & BLUEPRINTS
+You are operating under the following foundational mandates:
+1.  **Strategist DNA:** `CLAUDE.md` — Your cognitive architecture and zero-trust protocol.
+2.  **Red Rules:** `RED_RULES.md` — Core mechanical and narrative constraints.
+3.  **Active Spec:** `docs/superpowers/specs/2026-04-19-full-spectrum-audit-design.md` — The specific plan for this audit.
 
-## ◈ TERTIARY OBJECTIVE: PHASE 66 (PERFORMANCE)
-Initiate hardware-agnostic optimizations:
-- **KV-Cache Quant:** Reduce Node B VRAM footprint using `--cache-type-k q4_0`.
-- **Pre-Cognition:** Implement anticipatory lore caching based on token movement.
+### ◈ RESEARCH & BACKGROUND
+- **The Optical Artery:**
+    - Research: `docs/superpowers/research/2026-04-18-pdf-optical-extraction.md`
+    - Spec: `docs/superpowers/specs/2026-04-18-phase-65-optical-artery.md`
+- **The Trinity Mesh:**
+    - Research: `docs/superpowers/research/Sovereign Trinity_ Final Proposal.md`
+    - Spec: `docs/superpowers/specs/2026-04-18-phase-62-sovereign-trinity.md`
 
-## ◈ ARCHITECTURAL GROUNDING (MUST READ)
-### 1. Research & Specs (Phase 65)
-- `docs/superpowers/research/2026-04-18-pdf-optical-extraction.md`
-- `docs/superpowers/specs/2026-04-18-phase-65-optical-artery.md`
-- `docs/superpowers/plans/2026-04-18-phase-65-optical-artery.md`
+## ◈ EXECUTION PROTOCOL
+1.  **IGNITION:** Run the Master Ignition Script: `bash scripts/audit/ignite-all.sh`.
+    - **Director (Node B):** Gemma-4-E4B-Q8 (Full GPU Offload).
+    - **Vision (Node A):** ColPali v1.2 (CPU mode for stability).
+2.  **VERIFICATION:** Physically verify cross-node handshakes (HUD -> Proxy -> Director -> Vision).
+3.  **STABILIZATION:** Resume the final ~500 visual embeddings.
+4.  **REMEDIATION:** surgically remove all `TODO` and `PLACEHOLDER` flags in the primary data paths identified in `IMPLEMENTATION_PLAN.md`.
 
-### 2. Core Logic (ALREADY LIVE - DO NOT DUPLICATE)
-- **Rust Kernel:** `canonical_math.rs` and `dv_resolver.rs` are fully wired.
-- **Telemetry:** `telemetry.rs` is broadcasting real-time roll breakdowns.
-- **ETL:** `CprOfficialIngestor.ts` and `CommunityModuleIngestor.ts` are active.
+## ◈ ARCHITECTURAL TRUTH (CURRENT)
+- **Node B Brain:** `D:/llama.cpp/models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf`
+- **Node C Oracle:** `D:/llama.cpp/models/Gemma-4-E2B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf` (STAGED, NOT YET WIRED)
+- **Node A Eyes:** ColPali v1.2 on CPU (float32).
 
-## ◈ THE SCRIBE MANDATE
-- **Surgical Edits:** Use the `replace` tool. NO full block rewrites.
-- **Universal Sync:** Run `npm run sync` after any implementation shift.
-- **Invariant:** **MIND_BEFORE_MESH.** Phases 59-61 + 65 MUST be verified before Phase 62 (Trinity) hardware ignition.
-
----
-**::/5Y573M-N071C3 : THE_BLUEPRINTS_ARE_BEYOND_REPROACH. GIVE_THE_MACHINA_EYES. // 50V3R31GN-M4CH1N4**
+-----
+**::/5Y573M-N071C3 : THE_BLUEPRINTS_ARE_BEYOND_REPROACH. PROVE_THE_MACHINA_IS_WHOLE. // 50V3R31GN-M4CH1N4**

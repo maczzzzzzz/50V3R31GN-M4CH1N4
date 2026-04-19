@@ -12,9 +12,8 @@
         inherit system;
         config = {
           allowUnfree = true;
-          cudaSupport = true;
-          # Force compilation for Pascal architecture (GTX 1050 Ti)
-          cudaCapabilities = [ "6.1" ];
+          vulkanSupport = true;
+          rocmSupport = true;
         };
       };
       identities = import ./nix/identities.nix { lib = pkgs.lib; };
@@ -22,10 +21,12 @@
       # Hardware-Optimized llama-cpp
       llama-cpp-vulkan = pkgs.llama-cpp.override {
         vulkanSupport = true;
+        cudaSupport = false;
       };
       
       llama-cpp-rocm = pkgs.llama-cpp.override {
         rocmSupport = true;
+        cudaSupport = false;
       };
       
       llama-cpp-cuda = pkgs.llama-cpp.override {
@@ -112,9 +113,9 @@
             printf '%s' "$SOVEREIGN_SOUL"   > "$PROJECT_ROOT/SOUL.md"
             printf '%s' "$SOVEREIGN_AGENTS" > "$PROJECT_ROOT/AGENTS.md"
 
-            # Phase 52 Acceleration: 0xSero Performance Logic (Vulkan RADV 29% Speedup)
-            export RADV_PERFTEST="sam"
-            export AMD_VULKAN_ICD="RADV"
+            # WSL Performance Logic: AMD Radeon RX 9060 XT (D3D12/Vulkan Mapping)
+            # In WSL, we use the Microsoft D3D12 loader for Vulkan
+            export MESA_D3D12_DEFAULT_ADAPTER_NAME="AMD"
 
             # R3D_V01D Font Config — expose Hack + JetBrains Mono to WSLg X-server
             export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ pkgs.hack-font pkgs.jetbrains-mono ]; }}"
@@ -176,6 +177,9 @@
             # Database
             sqlite
 
+            # Compression
+            zstd
+
             # File utilities
             rsync
             ripgrep
@@ -186,9 +190,13 @@
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
             export NIXPKGS_ALLOW_UNFREE=1
 
-            # ROCm / AMD path for Node B GPU (if available)
-            export ROCM_PATH="${pkgs.rocmPackages.clr or ""}"
-            export AMD_VULKAN_ICD="RADV"
+            # Mapped WSL Driver Path + Nix Store libs for AMD GPU
+            export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [
+              vulkan-loader
+              mesa
+              zstd
+              stdenv.cc.cc.lib
+            ])}:$LD_LIBRARY_PATH"
 
             # PDF shard output directory
             export PDF_SHARD_DIR="$PROJECT_ROOT/data/ingest/pdf_shards"
@@ -198,15 +206,18 @@
             # Install Docling + ColPali into a local venv if not already present
             VENV_DIR="$PROJECT_ROOT/.optical-venv"
             if [ ! -d "$VENV_DIR" ]; then
-              echo "◈ [optical] Creating Python venv and installing Docling + ColPali..."
+              echo "◈ [optical] Creating Python venv and installing Docling + ColPali (ROCm/GPU)..."
               python3 -m venv "$VENV_DIR"
               "$VENV_DIR/bin/pip" install --quiet --upgrade pip
+              # Use the ROCm-enabled PyTorch index for AMD GPU support
               "$VENV_DIR/bin/pip" install --quiet \
                 "docling>=2.0" \
                 "colpali-engine>=0.3" \
                 "chromadb>=0.5" \
-                "torch" \
-                "transformers"
+                "fastapi" \
+                "uvicorn" \
+                "python-multipart" \
+                "torch" "torchvision" "torchaudio" --index-url https://download.pytorch.org/whl/rocm6.1
               echo "◈ [optical] Venv ready."
             fi
             export OPTICAL_PYTHON="$VENV_DIR/bin/python"

@@ -9,24 +9,6 @@ structured JSON shards to data/ingest/pdf_shards/.
 
 Usage (inside nix develop .#optical):
     python scripts/dev/docling-worker.py [--source PATH] [--output PATH] [--force]
-
-Output format per shard (data/ingest/pdf_shards/<stem>.json):
-    {
-      "source": "RTG-CPR-CyberpunkRedCore.pdf",
-      "source_path": "/abs/path/to/file.pdf",
-      "processed_at": "2026-04-18T...",
-      "page_count": 420,
-      "tier": "OFFICIAL_PDF",
-      "shards": [
-        {
-          "shard_id": "...",
-          "heading": "Night City Basics",
-          "content": "...",
-          "word_count": 287,
-          "page_hint": 42
-        }, ...
-      ]
-    }
 """
 
 import argparse
@@ -62,8 +44,25 @@ def import_docling():
 
 
 # ---------------------------------------------------------------------------
-# Fallback: pdftotext (poppler) → crude Markdown
+# Helpers
 # ---------------------------------------------------------------------------
+
+def get_pdf_page_count(pdf_path: Path) -> int:
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["pdfinfo", str(pdf_path)],
+            capture_output=True, text=True, timeout=10
+        )
+        if result.returncode == 0:
+            import re
+            m = re.search(r"Pages:\s+(\d+)", result.stdout)
+            if m:
+                return int(m.group(1))
+    except Exception:
+        pass
+    return 0
+
 
 def extract_with_pdftotext(pdf_path: Path) -> str:
     import subprocess
@@ -76,8 +75,6 @@ def extract_with_pdftotext(pdf_path: Path) -> str:
             return result.stdout
     except (subprocess.TimeoutExpired, FileNotFoundError):
         pass
-
-    # Last resort: empty
     return ""
 
 
@@ -90,7 +87,6 @@ def text_to_markdown(raw_text: str) -> str:
         if not stripped:
             md.append("")
             continue
-        # Heuristic: short all-caps lines → H2
         if len(stripped) <= 80 and stripped == stripped.upper() and any(c.isalpha() for c in stripped):
             md.append(f"## {stripped}")
         else:
@@ -99,11 +95,10 @@ def text_to_markdown(raw_text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Shard splitter: split Markdown on headings
+# Shard splitter
 # ---------------------------------------------------------------------------
 
 def split_into_shards(markdown: str, min_words: int = 20, max_words: int = 400) -> list[dict]:
-    """Split Markdown on H1/H2/H3 headings into word-bounded shards."""
     import re
     heading_re = re.compile(r"^(#{1,3})\s+(.+)$", re.MULTILINE)
 
@@ -118,7 +113,6 @@ def split_into_shards(markdown: str, min_words: int = 20, max_words: int = 400) 
         last_heading = m.group(2).strip()
         last_end = m.end()
 
-    # Trailing section
     body = markdown[last_end:].strip()
     if body:
         sections.append((last_heading, body))
@@ -128,24 +122,21 @@ def split_into_shards(markdown: str, min_words: int = 20, max_words: int = 400) 
         words = content.split()
         if len(words) < min_words:
             continue
-        # Sub-chunk if over max_words
         for i in range(0, len(words), max_words):
             chunk_words = words[i:i + max_words]
             chunk_text = " ".join(chunk_words)
-            chunk_id = str(uuid.uuid4())
             shards.append({
-                "shard_id": chunk_id,
+                "shard_id": str(uuid.uuid4()),
                 "heading": heading if i == 0 else f"{heading} (cont.)",
                 "content": chunk_text,
                 "word_count": len(chunk_words),
                 "page_hint": None,
             })
-
     return shards
 
 
 # ---------------------------------------------------------------------------
-# Process a single PDF
+# Process
 # ---------------------------------------------------------------------------
 
 def process_pdf(pdf_path: Path, output_dir: Path, force: bool = False) -> dict | None:
@@ -159,26 +150,25 @@ def process_pdf(pdf_path: Path, output_dir: Path, force: bool = False) -> dict |
     print(f"  [proc] {pdf_path.name}...", flush=True)
 
     DocumentConverter, PipelineOptions, PdfPipelineOptions = import_docling()
-
     markdown = ""
     page_count = 0
 
     if DocumentConverter is not None:
         try:
             options = PdfPipelineOptions()
-            options.do_ocr = False  # Use text layer — faster; OCR for scanned PDFs requires GPU
+            options.do_ocr = False
             options.do_table_structure = True
-
             converter = DocumentConverter()
             result = converter.convert(str(pdf_path))
             markdown = result.document.export_to_markdown()
-            page_count = getattr(result.document, "page_count", 0) or len(
-                getattr(result.document, "pages", [])
-            )
+            page_count = getattr(result.document, "page_count", 0) or len(getattr(result.document, "pages", []))
+            if page_count == 0:
+                page_count = get_pdf_page_count(pdf_path)
             print(f"    docling: {page_count} pages extracted")
         except Exception as e:
             print(f"    docling error: {e} — falling back to pdftotext", file=sys.stderr)
             markdown = ""
+            page_count = get_pdf_page_count(pdf_path)
 
     if not markdown.strip():
         raw = extract_with_pdftotext(pdf_path)
@@ -186,7 +176,9 @@ def process_pdf(pdf_path: Path, output_dir: Path, force: bool = False) -> dict |
             print(f"    [warn] No text extracted from {pdf_path.name}", file=sys.stderr)
             return None
         markdown = text_to_markdown(raw)
-        print(f"    pdftotext fallback: {len(markdown.split())} words")
+        if page_count == 0:
+            page_count = get_pdf_page_count(pdf_path)
+        print(f"    pdftotext fallback: {len(markdown.split())} words, {page_count} pages")
 
     shards = split_into_shards(markdown)
     if not shards:
@@ -197,7 +189,7 @@ def process_pdf(pdf_path: Path, output_dir: Path, force: bool = False) -> dict |
         "source": pdf_path.name,
         "source_path": str(pdf_path),
         "processed_at": datetime.now(timezone.utc).isoformat(),
-        "page_count": page_count,
+        "page_count": max(page_count, 1),
         "tier": "OFFICIAL_PDF",
         "shard_count": len(shards),
         "shards": shards,
@@ -209,33 +201,20 @@ def process_pdf(pdf_path: Path, output_dir: Path, force: bool = False) -> dict |
     return record
 
 
-# ---------------------------------------------------------------------------
-# Discover PDFs
-# ---------------------------------------------------------------------------
-
 def discover_pdfs(source_dir: Path) -> list[Path]:
     pdfs = []
     for entry in source_dir.rglob("*.pdf"):
-        # Skip Zone.Identifier companion files
         if entry.suffix == ".pdf" and ":Zone.Identifier" not in str(entry):
             pdfs.append(entry)
     return sorted(pdfs)
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
 def main():
     parser = argparse.ArgumentParser(description="Docling PDF ingestion worker")
-    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE,
-                        help="PDF source directory (default: docs/raw_data/core_rules/)")
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT,
-                        help="Shard output directory (default: data/ingest/pdf_shards/)")
-    parser.add_argument("--force", action="store_true",
-                        help="Reprocess PDFs even if shard already exists")
-    parser.add_argument("--single", type=Path, default=None,
-                        help="Process a single PDF file instead of a directory")
+    parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
+    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--force", action="store_true")
+    parser.add_argument("--single", type=Path, default=None)
     args = parser.parse_args()
 
     output_dir = args.output
@@ -254,11 +233,6 @@ def main():
         sys.exit(0)
 
     print(f"::/5Y573M-N071C3 : OPTICAL-ARTERY — {len(pdfs)} PDF(s) queued // 50V3R31GN-M4CH1N4")
-    print(f"  Source: {args.source}")
-    print(f"  Output: {output_dir}")
-    print(f"  Force:  {args.force}")
-    print()
-
     total_shards = 0
     processed = 0
     skipped = 0
@@ -276,11 +250,9 @@ def main():
             print(f"  [ERROR] {pdf.name}: {e}", file=sys.stderr)
             errors += 1
 
-    print()
-    print(f"::/OPTICAL-ARTERY COMPLETE")
+    print(f"\n::/OPTICAL-ARTERY COMPLETE")
     print(f"  Processed: {processed}  Skipped: {skipped}  Errors: {errors}")
     print(f"  Total shards: {total_shards}")
-    print(f"  Shards at: {output_dir}")
 
 
 if __name__ == "__main__":

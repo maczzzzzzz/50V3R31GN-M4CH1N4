@@ -34,6 +34,7 @@ Executed from within a `nix develop` shell in the project root.
 ### 🚀 Boot & Runtime
 | Command | Action |
 | :--- | :--- |
+| `bash scripts/audit/ignite-all.sh` | **FSSA Ignition**: Surgically boots all nodes for system audit. |
 | `npm run crush nucleus` | Launches the **Nucleus Artery** (Primary UI server). |
 | `npm run boot` | Debug Mode: Launches the **Deck Igniter** TUI (Deprecated for session start). |
 | `npm start` | Launches the Node B Orchestrator (Orchestrates all state). |

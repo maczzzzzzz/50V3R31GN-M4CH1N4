@@ -32,12 +32,44 @@ const execFileAsync = promisify(execFile);
 // Configuration
 // ---------------------------------------------------------------------------
 
-const NODE_A_HOST = process.env['NODE_A_HOST'] ?? '192.168.0.51';
-const COLPALI_PORT = process.env['COLPALI_PORT'] ?? '8082';
-const COLPALI_ENDPOINT = `http://${NODE_A_HOST}:${COLPALI_PORT}/embed_patch`;
+function getColpaliEndpoint(): string {
+  const host = process.env['NODE_A_HOST'] ?? '192.168.0.51';
+  const port = process.env['COLPALI_PORT'] ?? '8082';
+  return `http://${host}:${port}/embed_patch`;
+}
 
 const PDF_SHARD_DIR = process.env['PDF_SHARD_DIR']
   ?? path.join(process.cwd(), 'data', 'ingest', 'pdf_shards');
+
+/**
+ * Attempt to find pdftoppm binary.
+ */
+async function getPdftoppmPath(): Promise<string> {
+  // Check if it's already in PATH
+  try {
+    const { stdout } = await execFileAsync('which', ['pdftoppm']);
+    if (stdout.trim()) return stdout.trim();
+  } catch {
+    // Not in PATH
+  }
+
+  // Common Nix store paths fallback (heuristic)
+  const nixPaths = [
+    '/nix/var/nix/profiles/default/bin/pdftoppm',
+    '/run/current-system/sw/bin/pdftoppm',
+  ];
+
+  for (const p of nixPaths) {
+    try {
+      await fs.access(p);
+      return p;
+    } catch {
+      // ignore
+    }
+  }
+
+  return 'pdftoppm'; // Last resort
+}
 
 // ---------------------------------------------------------------------------
 // DB schema bootstrap (idempotent)
@@ -133,7 +165,8 @@ export class VisualRAGService {
     await fs.mkdir(tmpDir, { recursive: true });
 
     try {
-      await execFileAsync('pdftoppm', [
+      const pdftoppmPath = await getPdftoppmPath();
+      await execFileAsync(pdftoppmPath, [
         '-r', '150',          // 150 DPI — sufficient for ColPali patch extraction
         '-jpeg',
         source_path,
@@ -210,7 +243,8 @@ export class VisualRAGService {
     image_b64: string | null;
     text_hint: string | null;
   }): Promise<{ embedding_id: string; vector_dim: number }> {
-    const res = await fetch(COLPALI_ENDPOINT, {
+    const endpoint = getColpaliEndpoint();
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(params),
@@ -218,7 +252,7 @@ export class VisualRAGService {
     });
 
     if (!res.ok) {
-      throw new Error(`ColPali HTTP ${res.status}: ${res.statusText}`);
+      throw new Error(`ColPali HTTP ${res.status}: ${res.statusText} at ${endpoint}`);
     }
 
     const data = await res.json() as { embedding_id: string; vector_dim: number };
