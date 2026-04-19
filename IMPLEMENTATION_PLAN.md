@@ -24,7 +24,7 @@
 - [x] **Kinetic Dominance - AA Refactor:** Injected custom sound paths into `Automated Animations` JSON.
 - [x] **Kinetic Dominance - Visuals:** Generated Specular/Normal masks for Atlas maps (Map Shine Advanced).
 - [x] **Kinetic Dominance - Director:** Wired `animation_type` telemetry to Node B for narrative grit scaling.
-- [x] **GLM Handover:** Transitioned to v3.2.17-HARDENED state; ready for 8-hour loops.
+- [x] **GLM Handover:** Transitioned to v3.2.19-HARDENED state; ready for 8-hour loops.
 
 ---
 

@@ -1,6 +1,6 @@
 # Design: Context Compression & Entity Attachment
 **Date:** 2026-04-03
-**Target:** v3.2.17+ (Phase 18 Pre-requisites)
+**Target:** v3.2.19+ (Phase 18 Pre-requisites)
 
 ## 1. Architecture & Data Flow
 

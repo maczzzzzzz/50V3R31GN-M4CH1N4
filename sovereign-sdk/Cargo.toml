@@ -1,6 +1,6 @@
 [package]
 name = "sovereign-sdk"
-version = "3.2.17"
+version = "3.2.19"
 edition = "2021"
 
 [lib]

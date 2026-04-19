@@ -1,4 +1,4 @@
-# Design: The Forge — Smart Asset Ingestion Engine (v3.2.17)
+# Design: The Forge — Smart Asset Ingestion Engine (v3.2.19)
 
 **Date:** 2026-04-05
 **Status:** Approved

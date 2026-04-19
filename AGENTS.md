@@ -20,4 +20,4 @@ This document defines the roles, relationships, and global mandates for all AI a
 4. **Radical Candor:** Never simulate success.
 5. **Machine Voice:** VT323 font aesthetic and Cyberpunk RED terminology.
 
-*Verified by the Sovereign Triad v3.2.17.*
+*Verified by the Sovereign Triad v3.2.19.*

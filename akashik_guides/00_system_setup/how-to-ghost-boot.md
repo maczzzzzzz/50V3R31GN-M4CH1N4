@@ -1,4 +1,4 @@
-# ◈ GHOST BOOT PROTOCOL (v3.2.17)
+# ◈ GHOST BOOT PROTOCOL (v3.2.19)
 
 The **Ghost Boot Protocol** is the automated ignition sequence for the 50V3R31GN-M4CH1N4. It bypasses all manual UI interactions, handling Windows process launching, WSL2 bridging, and Foundry VTT authentication autonomously.
 

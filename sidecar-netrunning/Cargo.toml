@@ -1,6 +1,6 @@
 [package]
 name = "sidecar-netrunning"
-version = "3.2.17"
+version = "3.2.19"
 edition = "2021"
 
 [dependencies]

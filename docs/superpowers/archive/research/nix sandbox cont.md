@@ -30,7 +30,7 @@ While you are right that I (and Claude) can generate Nix expressions, there is o
 * **The Catch:** Nix is designed for "pure" builds, but NVIDIA drivers are "unfree" and "impure."  
 * **The Fix:** You must use **Nix Flakes**. This allows you to pull in specific "hardware-optimization" libraries that AI sometimes hallucinates. You won't be writing the code, but you will be the "Systems Integrator" responsible for running the nixos-rebuild switch.
 
-### **Final Verdict: v3.2.17 "Black-Ice" Alignment**
+### **Final Verdict: v3.2.19 "Black-Ice" Alignment**
 
 | Feature | Without Nix | With Nix (Black-Ice) |
 | :---- | :---- | :---- |

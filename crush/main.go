@@ -447,7 +447,7 @@ func main() {
 	}
 
 	// Demo: render the 50V3R31GN-M4CH1N4 theme
-	fmt.Println(applyCRTGlow("  ◈ 50V3R31GN-M4CH1N4 // CRU5H v3.2.17  "))
+	fmt.Println(applyCRTGlow("  ◈ 50V3R31GN-M4CH1N4 // CRU5H v3.2.19  "))
 	fmt.Println(headerStyle.Render("  :/N16H7-C17Y-1N73RF4C3 // 50V3R31GN-H16HW4Y  "))
 	fmt.Println()
 

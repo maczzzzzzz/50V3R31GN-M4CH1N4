@@ -18,7 +18,7 @@ The implementation has reached a significant milestone, completing the core of P
 *   **Defensive Programming:**
     *   **Zero-Trust:** All boundary data crossing from Node A is Zod-validated.
     *   **Metadata Mandate:** Every chunk produced now contains mandatory `source_ref`, `context_type`, and `capability_req` fields.
-*   **Version Integrity:** The project has been uniformly bumped to `v3.2.17` across all metadata and documentation.
+*   **Version Integrity:** The project has been uniformly bumped to `v3.2.19` across all metadata and documentation.
 
 ## 3. Architecture and Design Review
 *   **SOLID Compliance:** 

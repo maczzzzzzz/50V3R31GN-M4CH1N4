@@ -191,7 +191,7 @@ export class FoundryAdapter implements IFoundryAdapter {
         this.clientSocket = ws;
 
         // Notify Foundry UI that the bridge is connected
-        this.sendChatMessage('🟢 **Link Established** — 50V3R31GN-M4CH1N4 Orchestrator (v3.2.17) is now online.', { alias: 'System' }).catch(() => {});
+        this.sendChatMessage('🟢 **Link Established** — 50V3R31GN-M4CH1N4 Orchestrator (v3.2.19) is now online.', { alias: 'System' }).catch(() => {});
 
         ws.on('message', (raw) => {
           this.handleIncomingMessage(raw.toString());

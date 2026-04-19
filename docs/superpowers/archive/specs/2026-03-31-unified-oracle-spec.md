@@ -1,4 +1,4 @@
-# Design Specification: Unified Oracle & Hybrid RKG (v3.2.17)
+# Design Specification: Unified Oracle & Hybrid RKG (v3.2.19)
 **Date:** March 31, 2026
 **Subject:** Narrative Grounding & World State Persistence
 **Status:** FINALIZED

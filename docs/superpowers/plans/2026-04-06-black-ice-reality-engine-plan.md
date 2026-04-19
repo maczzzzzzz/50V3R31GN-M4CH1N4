@@ -67,4 +67,4 @@ Persist high-scoring prompt fragments to `district_dna`.
 - [ ] **Step 3: Map Token Capabilities to VSB/Mmap.**
 
 ---
-*Verified by Gemini CLI v3.2.17 (Strategist).*
+*Verified by Gemini CLI v3.2.19 (Strategist).*
