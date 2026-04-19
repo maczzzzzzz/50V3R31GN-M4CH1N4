@@ -7,7 +7,8 @@
 ## 🚀 MANDATORY INITIALIZATION PROTOCOL (KINGMODE)
 Before processing any request, you MUST execute the following "Grounding Routine":
 
-1. **Map:** Read `AGENTS.md` and `SOUL.md` to align with identity and mandates.
+1. **Context Feed:** Run `bash scripts/ops/grounding.sh` to synchronize with all current shards.
+2. **Map:** Read `AGENTS.md` and `SOUL.md` to align with identity and mandates.
 2. **Sync:** Read `SOVEREIGN_VITAL_SIGNS.md` and the `SESSION_HANDOFF.md`.
 3. **Plan:** Present a high-level strategy and obtain approval before making changes.
 4. **Verify:** Execute tests or verification scripts (`npm test`, `ignite-all.sh`) after every implementation block.

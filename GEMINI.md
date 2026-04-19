@@ -33,6 +33,7 @@ You are the **High-Level Reasoner**. While GLM-5.1 executes implementation loops
 ---
 
 ## 📜 STRATEGIC COMMANDS
+- **Context Feed:** `bash scripts/ops/grounding.sh`
 - **Audit Core:** ``SQLITE_DATABASE="data/Akashik.db" cd /home/nixos/.gemini/extensions/mcp-toolbox-for-databases && go run . invoke execute_sql '{"sql": "..."}' --prebuilt sqlite``
 - **Ignite Audit:** `bash scripts/audit/ignite-all.sh`
 - **Verify Vitals:** `npm run audit:vitals`
