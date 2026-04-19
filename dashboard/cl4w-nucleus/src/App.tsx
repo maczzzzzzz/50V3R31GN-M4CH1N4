@@ -9,23 +9,26 @@ export function App() {
   const { state, send } = useNucleusWS('ws://localhost:3030/ws');
   const { onProposal, onVerdict } = useFlushGate();
   const prevProposalRef = useRef<number | null>(null);
+  const deckRef = useRef<{ toggleView: (target: string) => void }>(null);
 
-  // Trigger dial-up audio when a new pending proposal arrives
+  // Handle incoming broadcast intents for UI toggles
   useEffect(() => {
-    const proposal = state?.proposal;
-    if (!proposal) return;
-    const id = proposal.id ?? null;
-    if (proposal.status === 0 && id !== prevProposalRef.current) {
-      prevProposalRef.current = id;
-      onProposal();
-    } else if (proposal.status !== 0) {
-      onVerdict();
+    const logs = state?.logs || [];
+    const lastLog = logs[logs.length - 1];
+    if (lastLog?.includes('TOGGLE_VIEW')) {
+       try {
+         const payload = JSON.parse(lastLog);
+         if (payload.action === 'TOGGLE_VIEW') {
+           deckRef.current?.toggleView(payload.target);
+         }
+       } catch { /* not a JSON log */ }
     }
-  }, [state?.proposal, onProposal, onVerdict]);
+  }, [state?.logs]);
 
+  // ... rest of useEffect ...
   return (
     <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <CommandDeck state={state} />
+      <CommandDeck ref={deckRef} state={state} />
       <ChatInput send={send} />
       <NucleusDropdown send={send} />
     </div>

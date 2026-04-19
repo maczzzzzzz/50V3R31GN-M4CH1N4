@@ -21,11 +21,27 @@ message HoveredUnit {
   float  y         = 6;
 }
 
+message Market {
+  string id          = 1;
+  string district_id = 2;
+  string vendor_name = 3;
+  uint32 item_count  = 4;
+}
+
+message Item {
+  string id   = 1;
+  string name = 2;
+  uint32 cost = 3;
+  string type = 4;
+}
+
 // NucleusState is the VSB snapshot broadcast to all Nucleus Deck clients at ~60fps.
 message NucleusState {
-  int64           timestamp     = 1;
-  Proposal        proposal      = 2;
-  HoveredUnit     hovered_unit  = 3;
-  repeated string logs          = 4;
-  repeated string narrative     = 5;
+  int64           timestamp      = 1;
+  Proposal        proposal       = 2;
+  HoveredUnit     hovered_unit   = 3;
+  repeated string logs           = 4;
+  repeated string narrative      = 5;
+  repeated Market recent_markets = 6;
+  repeated Item   lexicon_items  = 7;
 }

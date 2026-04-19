@@ -167,6 +167,142 @@ func (x *HoveredUnit) GetY() float32 {
 	return 0
 }
 
+type Market struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	DistrictId    string                 `protobuf:"bytes,2,opt,name=district_id,json=districtId,proto3" json:"district_id,omitempty"`
+	VendorName    string                 `protobuf:"bytes,3,opt,name=vendor_name,json=vendorName,proto3" json:"vendor_name,omitempty"`
+	ItemCount     uint32                 `protobuf:"varint,4,opt,name=item_count,json=itemCount,proto3" json:"item_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Market) Reset() {
+	*x = Market{}
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Market) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Market) ProtoMessage() {}
+
+func (x *Market) ProtoReflect() protoreflect.Message {
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Market.ProtoReflect.Descriptor instead.
+func (*Market) Descriptor() ([]byte, []int) {
+	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Market) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Market) GetDistrictId() string {
+	if x != nil {
+		return x.DistrictId
+	}
+	return ""
+}
+
+func (x *Market) GetVendorName() string {
+	if x != nil {
+		return x.VendorName
+	}
+	return ""
+}
+
+func (x *Market) GetItemCount() uint32 {
+	if x != nil {
+		return x.ItemCount
+	}
+	return 0
+}
+
+type Item struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Cost          uint32                 `protobuf:"varint,3,opt,name=cost,proto3" json:"cost,omitempty"`
+	Type          string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Item) Reset() {
+	*x = Item{}
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Item) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Item) ProtoMessage() {}
+
+func (x *Item) ProtoReflect() protoreflect.Message {
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Item.ProtoReflect.Descriptor instead.
+func (*Item) Descriptor() ([]byte, []int) {
+	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Item) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Item) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Item) GetCost() uint32 {
+	if x != nil {
+		return x.Cost
+	}
+	return 0
+}
+
+func (x *Item) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
 // NucleusState is the VSB snapshot broadcast to all Nucleus Deck clients at ~60fps.
 type NucleusState struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -175,13 +311,15 @@ type NucleusState struct {
 	HoveredUnit   *HoveredUnit           `protobuf:"bytes,3,opt,name=hovered_unit,json=hoveredUnit,proto3" json:"hovered_unit,omitempty"`
 	Logs          []string               `protobuf:"bytes,4,rep,name=logs,proto3" json:"logs,omitempty"`
 	Narrative     []string               `protobuf:"bytes,5,rep,name=narrative,proto3" json:"narrative,omitempty"`
+	RecentMarkets []*Market              `protobuf:"bytes,6,rep,name=recent_markets,json=recentMarkets,proto3" json:"recent_markets,omitempty"`
+	LexiconItems  []*Item                `protobuf:"bytes,7,rep,name=lexicon_items,json=lexiconItems,proto3" json:"lexicon_items,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *NucleusState) Reset() {
 	*x = NucleusState{}
-	mi := &file_crush_nucleuspb_state_proto_msgTypes[2]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -193,7 +331,7 @@ func (x *NucleusState) String() string {
 func (*NucleusState) ProtoMessage() {}
 
 func (x *NucleusState) ProtoReflect() protoreflect.Message {
-	mi := &file_crush_nucleuspb_state_proto_msgTypes[2]
+	mi := &file_crush_nucleuspb_state_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -206,7 +344,7 @@ func (x *NucleusState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NucleusState.ProtoReflect.Descriptor instead.
 func (*NucleusState) Descriptor() ([]byte, []int) {
-	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{2}
+	return file_crush_nucleuspb_state_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *NucleusState) GetTimestamp() int64 {
@@ -244,6 +382,20 @@ func (x *NucleusState) GetNarrative() []string {
 	return nil
 }
 
+func (x *NucleusState) GetRecentMarkets() []*Market {
+	if x != nil {
+		return x.RecentMarkets
+	}
+	return nil
+}
+
+func (x *NucleusState) GetLexiconItems() []*Item {
+	if x != nil {
+		return x.LexiconItems
+	}
+	return nil
+}
+
 var File_crush_nucleuspb_state_proto protoreflect.FileDescriptor
 
 const file_crush_nucleuspb_state_proto_rawDesc = "" +
@@ -259,13 +411,28 @@ const file_crush_nucleuspb_state_proto_rawDesc = "" +
 	"\tunit_type\x18\x03 \x01(\tR\bunitType\x12\x19\n" +
 	"\bimg_path\x18\x04 \x01(\tR\aimgPath\x12\f\n" +
 	"\x01x\x18\x05 \x01(\x02R\x01x\x12\f\n" +
-	"\x01y\x18\x06 \x01(\x02R\x01y\"\xca\x01\n" +
+	"\x01y\x18\x06 \x01(\x02R\x01y\"y\n" +
+	"\x06Market\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
+	"\vdistrict_id\x18\x02 \x01(\tR\n" +
+	"districtId\x12\x1f\n" +
+	"\vvendor_name\x18\x03 \x01(\tR\n" +
+	"vendorName\x12\x1d\n" +
+	"\n" +
+	"item_count\x18\x04 \x01(\rR\titemCount\"R\n" +
+	"\x04Item\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04cost\x18\x03 \x01(\rR\x04cost\x12\x12\n" +
+	"\x04type\x18\x04 \x01(\tR\x04type\"\xba\x02\n" +
 	"\fNucleusState\x12\x1c\n" +
 	"\ttimestamp\x18\x01 \x01(\x03R\ttimestamp\x12/\n" +
 	"\bproposal\x18\x02 \x01(\v2\x13.nucleuspb.ProposalR\bproposal\x129\n" +
 	"\fhovered_unit\x18\x03 \x01(\v2\x16.nucleuspb.HoveredUnitR\vhoveredUnit\x12\x12\n" +
 	"\x04logs\x18\x04 \x03(\tR\x04logs\x12\x1c\n" +
-	"\tnarrative\x18\x05 \x03(\tR\tnarrativeB.Z,github.com/50v3r31gn-m4ch1n4/crush/nucleuspbb\x06proto3"
+	"\tnarrative\x18\x05 \x03(\tR\tnarrative\x128\n" +
+	"\x0erecent_markets\x18\x06 \x03(\v2\x11.nucleuspb.MarketR\rrecentMarkets\x124\n" +
+	"\rlexicon_items\x18\a \x03(\v2\x0f.nucleuspb.ItemR\flexiconItemsB.Z,github.com/50v3r31gn-m4ch1n4/crush/nucleuspbb\x06proto3"
 
 var (
 	file_crush_nucleuspb_state_proto_rawDescOnce sync.Once
@@ -279,20 +446,24 @@ func file_crush_nucleuspb_state_proto_rawDescGZIP() []byte {
 	return file_crush_nucleuspb_state_proto_rawDescData
 }
 
-var file_crush_nucleuspb_state_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_crush_nucleuspb_state_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_crush_nucleuspb_state_proto_goTypes = []any{
 	(*Proposal)(nil),     // 0: nucleuspb.Proposal
 	(*HoveredUnit)(nil),  // 1: nucleuspb.HoveredUnit
-	(*NucleusState)(nil), // 2: nucleuspb.NucleusState
+	(*Market)(nil),       // 2: nucleuspb.Market
+	(*Item)(nil),         // 3: nucleuspb.Item
+	(*NucleusState)(nil), // 4: nucleuspb.NucleusState
 }
 var file_crush_nucleuspb_state_proto_depIdxs = []int32{
 	0, // 0: nucleuspb.NucleusState.proposal:type_name -> nucleuspb.Proposal
 	1, // 1: nucleuspb.NucleusState.hovered_unit:type_name -> nucleuspb.HoveredUnit
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 2: nucleuspb.NucleusState.recent_markets:type_name -> nucleuspb.Market
+	3, // 3: nucleuspb.NucleusState.lexicon_items:type_name -> nucleuspb.Item
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_crush_nucleuspb_state_proto_init() }
@@ -306,7 +477,7 @@ func file_crush_nucleuspb_state_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_crush_nucleuspb_state_proto_rawDesc), len(file_crush_nucleuspb_state_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

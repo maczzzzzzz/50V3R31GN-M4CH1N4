@@ -2,17 +2,19 @@
 // Phase 50: Nucleus Artery — Protobuf-over-WebSocket bridge for the CL4W Command Deck.
 // Streams VSB Mmap state as Protobuf binary frames at ~60fps; receives JSON commands.
 package main
-
 import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
+
 
 	"github.com/gorilla/websocket"
 	"google.golang.org/protobuf/proto"
@@ -165,6 +167,53 @@ func startNucleusServer() {
 			}
 			hub.mu.RUnlock()
 
+			// Fetch live data from SQLite (High-speed pulse every 5 seconds)
+			if time.Now().Unix()%5 == 0 {
+				dbPath := filepath.Join(root, "data", "Akashik.db")
+
+				// Fetch Markets
+				out, err := exec.Command("sqlite3", dbPath, "-json", "SELECT id, district_id, vendor_npc_id, json_array_length(inventory_json) FROM night_markets ORDER BY rowid DESC LIMIT 5;").Output()
+				if err == nil {
+					var markets []struct {
+						ID         string `json:"id"`
+						DistrictID string `json:"district_id"`
+						VendorID   string `json:"vendor_npc_id"`
+						Length     uint32 `json:"json_array_length(inventory_json)"`
+					}
+					if json.Unmarshal(out, &markets) == nil {
+						for _, m := range markets {
+							state.RecentMarkets = append(state.RecentMarkets, &nucleuspb.Market{
+								Id:         m.ID,
+								DistrictId: m.DistrictID,
+								VendorName: m.VendorID,
+								ItemCount:  m.Length,
+							})
+						}
+					}
+				}
+
+				// Fetch Items
+				out, err = exec.Command("sqlite3", dbPath, "-json", "SELECT id, name, cost, type FROM items ORDER BY RANDOM() LIMIT 5;").Output()
+				if err == nil {
+					var items []struct {
+						ID   string `json:"id" `
+						Name string `json:"name"`
+						Cost uint32 `json:"cost"`
+						Type string `json:"type"`
+					}
+					if json.Unmarshal(out, &items) == nil {
+						for _, item := range items {
+							state.LexiconItems = append(state.LexiconItems, &nucleuspb.Item{
+								Id:   item.ID,
+								Name: item.Name,
+								Cost: item.Cost,
+								Type: item.Type,
+							})
+						}
+					}
+				}
+			}
+
 			if watcher != nil {
 				if p := watcher.GetProposal(); p != nil {
 					state.Proposal = &nucleuspb.Proposal{
@@ -252,6 +301,12 @@ func handleNucleusCommand(hub *nucleusHub, cmd NucleusCommand, w *VsbWatcher) {
 		hub.sendToUnix(pkt)
 		// Add to logs for immediate visual feedback
 		hub.appendLog("> " + cmd.Arg)
+	case "VIEW_LEXICON":
+		pkt := clawLinkPacket{TraceID: newTraceID(), Type: "broadcast", Payload: `{"action":"TOGGLE_VIEW","target":"LEXICON"}`}
+		hub.sendToUnix(pkt)
+	case "VIEW_ECONOMY":
+		pkt := clawLinkPacket{TraceID: newTraceID(), Type: "broadcast", Payload: `{"action":"TOGGLE_VIEW","target":"ECONOMY"}`}
+		hub.sendToUnix(pkt)
 	case "GHOST_BOOT":
 		_ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
 	case "FULL_ENGAGE":

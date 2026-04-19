@@ -54,6 +54,12 @@ export function NucleusDropdown({ send }: Props) {
           <button style={BTN} onClick={() => dispatch('LITE_MODE')}>   [LITE_MODE]</button>
 
           <strong style={{ color: '#ff003c', fontFamily: 'monospace', fontSize: 10, margin: '8px 0 4px' }}>
+            ── VIEWPORT ──
+          </strong>
+          <button style={BTN} onClick={() => dispatch('VIEW_LEXICON')}>  TOGGLE LEXICON</button>
+          <button style={BTN} onClick={() => dispatch('VIEW_ECONOMY')}>  TOGGLE ECONOMY</button>
+
+          <strong style={{ color: '#ff003c', fontFamily: 'monospace', fontSize: 10, margin: '8px 0 4px' }}>
             ── HARDWARE ──
           </strong>
           <button style={BTN} onClick={() => dispatch('REBOOT_NODE_A')}>  REBOOT NODE_A</button>

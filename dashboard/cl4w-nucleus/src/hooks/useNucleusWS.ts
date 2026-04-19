@@ -25,11 +25,29 @@ const PROTO_JSON = {
         },
         NucleusState: {
           fields: {
-            timestamp:   { id: 1, type: 'int64'       },
-            proposal:    { id: 2, type: 'Proposal'    },
-            hoveredUnit: { id: 3, type: 'HoveredUnit' },
-            logs:        { id: 4, type: 'string', rule: 'repeated' },
-            narrative:   { id: 5, type: 'string', rule: 'repeated' },
+            timestamp:     { id: 1, type: 'int64'       },
+            proposal:      { id: 2, type: 'Proposal'    },
+            hoveredUnit:   { id: 3, type: 'HoveredUnit' },
+            logs:          { id: 4, type: 'string', rule: 'repeated' },
+            narrative:     { id: 5, type: 'string', rule: 'repeated' },
+            recentMarkets: { id: 6, type: 'Market',  rule: 'repeated' },
+            lexiconItems:  { id: 7, type: 'Item',    rule: 'repeated' },
+          },
+        },
+        Market: {
+          fields: {
+            id:         { id: 1, type: 'string' },
+            districtId: { id: 2, type: 'string' },
+            vendorName: { id: 3, type: 'string' },
+            itemCount:  { id: 4, type: 'uint32' },
+          },
+        },
+        Item: {
+          fields: {
+            id:   { id: 1, type: 'string' },
+            name: { id: 2, type: 'string' },
+            cost: { id: 3, type: 'uint32' },
+            type: { id: 4, type: 'string' },
           },
         },
       },
@@ -53,12 +71,28 @@ export interface NucleusHoveredUnit {
   y: number;
 }
 
+export interface NucleusMarket {
+  id: string;
+  districtId: string;
+  vendorName: string;
+  itemCount: number;
+}
+
+export interface NucleusItem {
+  id: string;
+  name: string;
+  cost: number;
+  type: string;
+}
+
 export interface NucleusState {
   timestamp: number;
   proposal?: NucleusProposal;
   hoveredUnit?: NucleusHoveredUnit;
   logs: string[];
   narrative: string[];
+  recentMarkets: NucleusMarket[];
+  lexiconItems: NucleusItem[];
 }
 
 // ─── Hook ────────────────────────────────────────────────────────────────────

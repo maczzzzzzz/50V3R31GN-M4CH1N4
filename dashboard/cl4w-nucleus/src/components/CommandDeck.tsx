@@ -1,10 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { Application, BitmapFont, BitmapText, Container, Graphics } from 'pixi.js';
 import type { NucleusState } from '../hooks/useNucleusWS';
 import { CommandPanel } from './panels/CommandPanel';
 import { SensoryPanel } from './panels/SensoryPanel';
 import { IntrusionPanel } from './panels/IntrusionPanel';
 import { LogisticsPanel } from './panels/LogisticsPanel';
+import { EconomyPanel } from './panels/EconomyPanel';
+import { LexiconPanel } from './panels/LexiconPanel';
 
 interface Props {
   state: NucleusState | null;
@@ -15,9 +17,29 @@ const RED   = 0xff003c;
 const BG    = 0x080810;
 const DIM   = 0x1a1a2e;
 
-export function CommandDeck({ state }: Props) {
+export const CommandDeck = forwardRef(({ state }: Props, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const appRef    = useRef<Application | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    toggleView(target: string) {
+      if (!appRef.current) return;
+      const panels = appRef.current.stage.getChildByName('panels') as Container | null;
+      if (!panels) return;
+
+      if (target === 'LEXICON') {
+        const lex = panels.getChildByName('LEXICON') as Container;
+        const log = panels.getChildByName('LOGISTICS') as Container;
+        lex.visible = !lex.visible;
+        log.visible = !lex.visible;
+      } else if (target === 'ECONOMY') {
+        const eco = panels.getChildByName('ECONOMY') as Container;
+        const int = panels.getChildByName('INTRUSION') as Container;
+        eco.visible = !eco.visible;
+        int.visible = !eco.visible;
+      }
+    }
+  }));
 
   // Bootstrap PIXI Application once
   useEffect(() => {
@@ -72,8 +94,9 @@ export function CommandDeck({ state }: Props) {
 
     CommandPanel.update(panels.getChildByName('COMMAND') as Container, state);
     SensoryPanel.update(panels.getChildByName('SENSORY') as Container, state);
-    IntrusionPanel.update(panels.getChildByName('INTRUSION') as Container, state);
+    EconomyPanel.update(panels.getChildByName('ECONOMY') as Container, state);
     LogisticsPanel.update(panels.getChildByName('LOGISTICS') as Container, state);
+    LexiconPanel.update(panels.getChildByName('LEXICON') as Container, state);
   }, [state]);
 
   return (
@@ -103,12 +126,14 @@ function buildLayout(app: Application) {
   grid.stroke();
   app.stage.addChild(grid);
 
-  // Four quadrant containers
+  // Quadrant containers
   const quads: [string, number, number][] = [
     ['COMMAND',   0,      0],
     ['SENSORY',   half_w, 0],
-    ['INTRUSION', 0,      half_h],
-    ['LOGISTICS', half_w, half_h],
+    ['ECONOMY',   0,      half_h], // Bottom-Left
+    ['INTRUSION', 0,      half_h], // Bottom-Left Overlay
+    ['LOGISTICS', half_w, half_h], // Bottom-Right
+    ['LEXICON',   half_w, half_h], // Bottom-Right Overlay
   ];
 
   for (const [name, x, y] of quads) {
@@ -122,7 +147,7 @@ function buildLayout(app: Application) {
     bg.rect(2, 2, half_w - 4, half_h - 4).fill({ color: DIM, alpha: 0.6 });
     c.addChild(bg);
 
-    // Panel label — BitmapText for zero-reflow GPU rendering
+    // Panel label
     const label = new BitmapText({
       text: `://${name} //`,
       style: { fontFamily: 'SovereignMonoRed', fontSize: 11, fill: RED },
@@ -137,8 +162,14 @@ function buildLayout(app: Application) {
   // Init each panel's static elements
   CommandPanel.init(panels.getChildByName('COMMAND') as Container, half_w, half_h);
   SensoryPanel.init(panels.getChildByName('SENSORY') as Container, half_w, half_h);
+  EconomyPanel.init(panels.getChildByName('ECONOMY') as Container, half_w, half_h);
   IntrusionPanel.init(panels.getChildByName('INTRUSION') as Container, half_w, half_h);
   LogisticsPanel.init(panels.getChildByName('LOGISTICS') as Container, half_w, half_h);
+  LexiconPanel.init(panels.getChildByName('LEXICON') as Container, half_w, half_h);
+  
+  // Visibility defaults
+  (panels.getChildByName('ECONOMY') as Container).visible = false;
+  (panels.getChildByName('LEXICON') as Container).visible = false;
 }
 
 function applySovereignShroud(app: Application) {
