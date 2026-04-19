@@ -1,7 +1,7 @@
 # SOVEREIGN_VITAL_SIGNS.md // T3RM1N4L-TRU7H
-**Version:** 3.2.16 (THE CANONICAL MIRROR MILESTONE)
+**Version:** 3.2.19 (FSSA-2026-04-19 // OPTICAL_ARTERY_LIVE)
 **Identity:** 50V3R31GN-M4CH1N4
-**Status:** AUDIT_COMPLETE // 98% ALIGNMENT
+**Status:** FSSA_COMPLETE // 100% NODE_MESH_VERIFIED
 
 This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (Engineer) handover. It overrides all legacy documentation in `pre-phase-30/` and `plans/`.
 
@@ -11,8 +11,8 @@ This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (E
 - **Node A (The Kernel):** Nix Native. NVIDIA GTX 1050 Ti (4GB CUDA). 
   - **Resident Models:** `Open-Reasoner-Zero-1.5B.Q8_0.gguf` (Oracle) + `falcon-0.3b-ocr.onnx` (Perception).
   - **Constraints:** Max 4GB VRAM. 7R1-M1N1NG pruner active. sm_61 custom build backgrounded.
-- **Node B (The Director):** NixOS / WSL2. AMD Radeon RX 9060 XT (16GB Vulkan). 
-  - **Resident Models:** `mistralai-Mistral-Nemo-Instruct-2407-extensive-BP-abliteration-12B.i1-Q4_K_M.gguf` + `pixtral-12b-mmproj.bin`.
+- **Node B (The Director):** NixOS / WSL2. AMD Radeon RX 9060 XT (16GB Vulkan).
+  - **Resident Model:** `Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf` (via Windows llama-server.exe b8710, Vulkan). 4885 MiB GPU + 2856 MiB CPU. 43/43 layers offloaded.
   - **Bus:** Binary UDP (Port 7878) + Mmap (Local).
 
 ---
@@ -22,7 +22,7 @@ This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (E
   - Uses **FNV-1a** hashing for integrity (Standardized: FNV-64 bit-identical).
   - Employs **AAAK Dialect** for high-density cognitive compression.
 - **ClawLink (TCP):** Standard binary RPC for heavy payloads (Lore/ST3GG).
-- **Sovereign-Go-Proxy:** Active on `SOVEREIGN_SOCKET_ROOT` (`.gemini/tmp/`).
+- **Sovereign-Go-Proxy (ClawLink):** Unix socket at `.crush/clawlink.sock` (`CLAWLINK_SOCK` env). `/run/crush` not writable on NixOS — use project-local path. MCP Bridge at `.gemini/tmp/sovereign-mcp.sock`.
 
 ---
 

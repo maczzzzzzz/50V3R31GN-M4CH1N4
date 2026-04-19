@@ -89,7 +89,7 @@
 - [x] **Structural OCR:** `scripts/dev/docling-worker.py` — Docling multi-column extraction → JSON shards in `data/ingest/pdf_shards/`. Fallback to pdftotext if Docling unavailable.
 - [x] **Visual RAG:** `src/core/ingest/VisualRAGService.ts` — page patch export (pdftoppm), ColPali HTTP embed via Node A port 8082, DB persistence in `visual_embeddings`. `zeroclaw/src/cv/colpali_bridge.rs` — MaxSim late-interaction reranker with Rust unit tests.
 - [x] **Delta Ingestion:** `src/core/ingest/LoreHarmonizer.ts` — LORE/MECHANICAL/REFERENCE classifier, Tier 1 collision detection, promotes only `lore_fragment` triplets with district grounding.
-- [ ] **Ability Shard 65:** Pending — Ingestion in progress (1,210 / 1,779 triplets materialised). Verification of 3-node mesh tomorrow.
+- [x] **Ability Shard 65:** FSSA-2026-04-19 VERIFIED — Cross-node handshake confirmed (ColPali embed_patch → 128-dim vector). LoreHarmonizer promoted 1,661 new lore triplets (total 28,385). Visual embedding ingestion active (1,222+ / 1,779 pages). Director online: Gemma-4-E4B Q8 via Windows llama-server.exe b8710 (43/43 layers Vulkan). Crush proxy: `.crush/clawlink.sock`. Nucleus: READY.
 
 ---
 

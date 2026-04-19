@@ -37,9 +37,10 @@ COLPALI_PID=$!
 # ◈ STAGE 2: BRAIN KERNEL (Node B - Gemma-4-E4B GPU)
 # ---------------------------------------------------------------------------
 echo "  [stage 2] Igniting Director (Gemma-4-E4B Q8 GPU)..."
-# Full offload is safe with E4B on 16GB card
-nix develop -c llama-server \
-  -m /mnt/d/llama.cpp/models/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf \
+# Use Windows llama-server.exe (build b8710) — nix build is too old for gemma4 arch.
+# Windows binary uses Vulkan backend targeting AMD RX 9060 XT (15428 MiB free).
+/mnt/d/llama.cpp/llama-server.exe \
+  -m 'D:\llama.cpp\models\Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf' \
   --host 0.0.0.0 --port 8080 \
   -ngl 99 -c 8192 --no-mmap > "$LOG_DIR/director.log" 2>&1 &
 DIRECTOR_PID=$!
@@ -56,10 +57,14 @@ nix develop -c npm run start > "$LOG_DIR/nucleus.log" 2>&1 &
 # ◈ STAGE 4: PROXY & HUD (Crush & ZeroClaw)
 # ---------------------------------------------------------------------------
 echo "  [stage 4] Igniting Sovereign-Proxy (Crush)..."
+# Run in proxy mode so it creates the Unix socket for Nucleus.
+# CLAWLINK_SOCK must match src/main.ts default: .crush/clawlink.sock
+# /run/crush/ is not writable (NixOS), use project-local .crush/ dir instead.
+export CLAWLINK_SOCK="$PROJECT_ROOT/.crush/clawlink.sock"
 if [ -f "crush/crush" ]; then
-    ./crush/crush > "$LOG_DIR/crush.log" 2>&1 &
+    ./crush/crush proxy > "$LOG_DIR/crush.log" 2>&1 &
 else
-    cd crush && go build . && ./crush > "$LOG_DIR/crush.log" 2>&1 &
+    cd crush && go build . && ./crush proxy > "$LOG_DIR/crush.log" 2>&1 &
     cd ..
 fi
 
@@ -78,7 +83,8 @@ echo -n "  Node A (Optical): "
 curl -s http://localhost:8082/health | grep -o "online" || echo "FAILED"
 
 echo -n "  Node B (Director): "
-curl -s http://localhost:8080/health | grep -o "ok" || echo "FAILED"
+# Windows exe binds to Windows network stack — use PowerShell for health check
+powershell.exe -Command "(Invoke-WebRequest -Uri 'http://localhost:8080/health' -UseBasicParsing).StatusCode" 2>/dev/null | grep -q "200" && echo "ok" || echo "FAILED (check data/logs/audit/director.log)"
 
 echo -e "\n::/5Y573M-N071C3 : IGNITION_COMPLETE. SYSTEM_LIVE_FIRE_READY."
 echo "Logs available at: $LOG_DIR"
