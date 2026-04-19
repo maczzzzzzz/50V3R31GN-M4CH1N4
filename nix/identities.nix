@@ -53,7 +53,7 @@ let
 
     ## 🤝 THE SOVEREIGN TRIAD
     - **GEMINI (The Strategist):** Research, architecture, roadmap, vault unsealing. (See GEMINI.md).
-    - **CLAUDE/GLM (The Architect):** High-throughput execution, complex system implementation. (See CLAUDE.md).
+    - **CLAUDE/GLM (The Architect):** High-throughput execution, complex system implementation. (See CLAUDE.md and GLM.md).
     - **DROID (The Local Agent):** Real-time environment interaction, local compilation. (Primary Droid CLI interface).
 
     ## 🏗️ GLOBAL ARCHITECTURAL DNA
