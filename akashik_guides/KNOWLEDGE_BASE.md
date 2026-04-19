@@ -64,8 +64,10 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 
 ## 📁 Source of Truth: Data Plane
 - **RKG (Relational Knowledge Graph):** `Akashik.db` (Unified World State).
+- **Narrative Seeds:** `narrative_anchors` table (Isolated Prose/Style Grounding).
 - **Session Memory:** `.crush/crush.db` (Historical Lore).
 - **Offline Palace:** `data/vault/RKG` (District-based hierarchical RKG mirror).
+- **Narrative Vault:** `data/vault/Narrative/` (Isolated high-signal style seeds).
 
 ---
 *Verified by Gemini CLI v3.2.19.*
