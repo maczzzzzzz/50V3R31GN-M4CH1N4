@@ -16,8 +16,8 @@ We abandon the standard OMI interface in favor of a standalone **Machina Termina
 
 ## ◈ 3. PATTERN: UNIFIED SHIFTING (VRAM GATING)
 To solve the 6GB VRAM constraint, the system implements **Artery Shifting**:
-1. **AUTHORITY_STATE (Idle):** Strategic Oracle runs at **Q5_K_M**. 1.1GB VRAM for recursive ACT loops. Voice stack is purged.
-2. **VOICE_STATE (Active):** Strategic Oracle runs at **Q4_K_M**. 1.1GB VRAM reclaimed for OMI/Whisper WebSocket buffers.
+1. **AUTHORITY_STATE (Idle):** Strategic Strategic Strategic Strategic Oracle runs at **Q5_K_M**. 1.1GB VRAM for recursive ACT loops. Voice stack is purged.
+2. **VOICE_STATE (Active):** Strategic Strategic Strategic Strategic Oracle runs at **Q4_K_M**. 1.1GB VRAM reclaimed for OMI/Whisper WebSocket buffers.
 3. **TRANSITION:** Triggered via VSB `WAKE_VOICE` / `SLEEP_VOICE` packets.
 
 ## ◈ 4. MISSION IMPACT

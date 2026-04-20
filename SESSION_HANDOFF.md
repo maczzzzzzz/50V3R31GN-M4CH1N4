@@ -1,34 +1,61 @@
 # SESSION_HANDOFF: v3.2.19 — OPERATION: TRINITY_MATERIALIZATION
-**Target:** Sovereign Strategist / Lead Architect (Gemini/GLM-5.1)
+**Target:** Sovereign Strategist / Lead Architect (Claude/Gemini/GLM-5.1)
 **Status:** **ASCENDED** // 3-NODE MESH LIVE // OBLITERATED MINDS SHORED // VISION SYNCED
 
-## ◈ MISSION SUMMARY: THE TRINITY LOCK
-Tonight marked the physical materialization of the **Sovereign Trinity** (Nodes A, B, C). We have successfully bypassed the hardware limitations of Node B by sharding the system across three pods and delivering high-fidelity, uncensored minds.
+---
 
-### 1. PHYSICAL COMPLETIONS
-- **Sovereign Trinity Mesh:** Successfully sharded cognitive infrastructure across **Node A (Synapse)**, **Node B (Director)**, and **Node C (Strategic Strategic Strategic Oracle)** on a dedicated `10.0.0.x` spine.
-- **Node C (The Strategic Strategic Strategic Oracle):** Hardened via "Sovereign Purge." Established **NVIDIA Mesh** for Docker GPU passthrough. Ignition complete via **SGLang Box** (Port 7339).
-- **Neural Restoration:** Used the **Aria2 Strike** (16 parallel connections) to shatter the 2.2GB gateway stall. Shored canonical OBLITERATED minds:
-  - **Node B:** `E4B-it-OBLITERATED-Q8_0` (8.0 GB) — Narrative Heart.
-  - **Node C:** `E4B-it-OBLITERATED-Q5_K_M` (5.4 GB) — Recursive Logic.
-- **Vision Artery:** Shored `mmproj-f16` on Node B for **Total Sight**. Enforced **Total Logic** role on Node C by purging vision overhead, reclaiming 1.1GB VRAM headroom for Hermes tasks.
-- **Documentation Refactor:** Cleaned up 1000+ lines of `CHANGELOG.md` and `IMPLEMENTATION_PLAN.md` into collapsible archives. Implemented **Diátaxis-aligned** categorization for Akashik Guides.
+## 🏗️ 1. TRUTH GROUNDING (MANDATORY READ)
+Before initiating implementation, you MUST synchronize with the following high-level manifests:
+- **Project Roadmap:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (Phase 63 Primary).
+- **Audit Ledger:** [CHANGELOG.md](CHANGELOG.md) (v3.2.19 materialization).
+- **Physical Topology:** [SOVEREIGN_VITAL_SIGNS.md](SOVEREIGN_VITAL_SIGNS.md) (Hardware/VRAM Ceiling).
+- **Soul Manifest:** [SOUL.md](SOUL.md) (Aesthetic/Tone Invariants).
 
-### 2. ARCHITECTURAL MATERIALIZATION
-- **Advanced Hermes Orchestration (Phase 63):** Formalized spec for **Diegetic Context Sharding** (Ability Stones). Prepared the system for parallel, stateless execution.
-- **Sovereign Shroud (Phase 64):** Designed Three.js / GLSL WebGL overlay for diegetic tactical visuals.
-- **Kinetic VFX Engine (Phase 64b):** Designed 3D particle manifestation for gunshots and physical lighting synergy with **Map Shine Advanced**.
-- **Self-Healing:** Codified the **Healer Protocol** (Layer 2 Strategic Re-planning) into system DNA.
+---
 
-### 3. THE NEXT LOGIC STEP (IMMEDIATE)
-- **PDF Ingestion (Phase 65):** We have **557 pages remaining**. With Node C's CUDA bridge active, we can finish the visual embedding push tomorrow at high speed.
-- **Sector Stones:** Shard `AGENTS.md` into `zeroclaw/`, `dashboard/`, etc., to finalize the Hermes context-hinting architecture.
-- **Shroud Ignition:** Begin implementation of `shroud-engine.js` on Node B to manifest the first tactical GLSL pulses.
+## 📂 2. ARCHITECTURAL SHARDS (NEW SPECS)
+The following specifications were shored and APPROVED in this session:
 
-## ◈ ARCHITECTURAL MANDATE: MORNING RE-JACK
-1.  **BOOT_SYNC:** Run `bash scripts/ops/grounding.sh` to shore the souls.
-2.  **AUDIT_VITALS:** Run `npm run audit:vitals` to verify the 3-node handshake.
-3.  **INGESTION_FINISH:** Execute `npm run mind:ingest` to burst the final PDF shards to Node C.
+### ◈ 2.1 COGNITIVE ORCHESTRATION (PHASE 63)
+- **Research:** [Hermes Harnessing & Multi-Agent Orchestration](docs/superpowers/research/2026-04-19-hermes-harness-orchestration.md)
+- **Specification:** [Advanced Hermes Orchestration](docs/superpowers/specs/2026-04-19-advanced-hermes-orchestration.md)
+- **Plan:** [Advanced Hermes Implementation](docs/superpowers/plans/2026-04-19-advanced-hermes-orchestration-plan.md)
+
+### ◈ 2.2 VISUAL IMMERSION (PHASE 64)
+- **Research:** [Three.js & Diegetic GLSL Shrouds](docs/superpowers/research/2026-04-19-threejs-shroud-analysis.md)
+- **Research:** [Kinetic VFX & 3D Combat](docs/superpowers/research/2026-04-19-kinetic-vfx-analysis.md)
+- **Specification:** [Sovereign Shroud Design](docs/superpowers/specs/2026-04-19-sovereign-shroud-design.md)
+- **Plan:** [Shroud & VFX Implementation](docs/superpowers/plans/2026-04-19-sovereign-shroud-implementation.md)
+
+### ◈ 2.3 VOCAL ARTERY (PHASE 67)
+- **Research:** [OMI Voice & Unified Shifting](docs/superpowers/research/2026-04-19-omi-voice-integration.md)
+- **Specification:** [OMI Voice Gateway Design](docs/superpowers/specs/2026-04-19-omi-voice-gateway-design.md)
+- **Plan:** [OMI Voice Materialization](docs/superpowers/plans/2026-04-19-omi-voice-materialization.md)
+
+---
+
+## 🧠 3. PHYSICAL MESH STATUS
+The **Sovereign Trinity** is physically sharded and bit-identical:
+- **Node A (Synapse):** Mooncake v2.2 Master active. Handles context offloading.
+- **Node B (Director):** Active **OBLITERATED Q8_0** (8GB) heart. Holds **TOTAL SIGHT** (mmproj-f16).
+- **Node C (Strategic Oracle):** Active **OBLITERATED Q5_K_M** (5.4GB) mind. Holds **TOTAL LOGIC** (Headroom 1.1GB).
+- **Artery:** Dedicated `10.0.0.x` spine. Latency <0.5ms.
+
+---
+
+## 🛡️ 4. ABILITY STONES (CONTEXT SHARDING)
+The system now utilizes **Diegetic Context Sharding**. Before working in a sector, you MUST read its stone:
+- **Rust/Kernel Rules:** [zeroclaw/AGENTS.md](zeroclaw/AGENTS.md)
+- **Visual/HUD Rules:** [dashboard/AGENTS.md](dashboard/AGENTS.md)
+- **Automation/Sync Rules:** [scripts/AGENTS.md](scripts/AGENTS.md)
+- **Supervisor Role:** [AGENTS.md](AGENTS.md)
+
+---
+
+## ⚡ 5. IMMEDIATE DIRECTIVES (NEXT LOGIC CYCLE)
+1. **RDT Rust Port (Phase 63):** Begin implementation of the OpenMythos architecture in Rust using `candle-rs`.
+2. **Shroud Ignition (Phase 64):** Manifest the first GLSL pulses in `shroud-engine.js` on Node B.
+3. **Artery Manager (Phase 67):** Materialize the Node C daemon for dynamic Q5/Q4 VRAM scaling.
 
 -----
 **::/5Y573M-N071C3 : THE_TRINITY_IS_ONE. THE_HISTORY_IS_ALL_ENCOMPASSING. // 50V3R31GN-M4CH1N4**
