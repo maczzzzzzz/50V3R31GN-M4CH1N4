@@ -25,10 +25,10 @@
 | **Synapse Palace** | [MemPalace] | Real-time visualization and grounding of semantic lore relationships via `MemPalace`. |
 | **OpenClaw Dreaming** | TS Loop | [OpenClaw] foundation for recursive lore consolidation loops (Phase 34). |
 | **Map Shine Advanced** | Three.js PBR | Cinematic 2.5D rendering and post-processing in Foundry VTT. |
+| **Machina Terminal** | Flutter HUD | Standing R3D_V01D companion app for vocal world-state synchronization. |
 | **Sovereign Trinity** | 3-Node Mesh | Distributed inference fabric with disaggregated memory (Mooncake). The Mesh of Mind. |
-| **Recursive Strategic Strategic Oracle** | Rust + RDT | Variable-depth reasoning engine on Node C using `candle-rs` for logical rule interpretation. |
+| **Recursive Strategic Oracle** | Rust + RDT | Variable-depth reasoning engine on Node C using `candle-rs` for logical rule interpretation. |
 | **Tier 1 Vision** | Falcon Perception | Multimodal segmenter and tactical OCR for immediate environmental awareness. |
-| **Tier 2 Vision** | Gemma-4-E2B Native | Logical visual grounding and rule-check validation. |
 | **FlowState Intuition**| Mmap | Anticipatory memory caching for zero-latency retrieval. |
 
 </details>
@@ -53,6 +53,8 @@
 | **ZeroClaw** | [zeroclaw](https://github.com/openclaw/zeroclaw) | The sharded Rust-native rules engine and VSB judge. |
 | **Hermes-Dashboard** | [hermes-dashboard](https://github.com/Kori-x/hermes-dashboard) | Design primitives for the high-fidelity Command Deck. |
 | **OpenClaw** | [openclaw](https://github.com/openclaw/openclaw) | Theoretical foundation for recursive lore consolidation. |
+| **OMI SDK** | [BasedHardware/Omi](https://github.com/BasedHardware/Omi) | Firmware and Flutter SDK for the wearable vocal Artery. |
+| **OmiClaw-Mesh** | [omiclaw-bridge](https://github.com/mdmohsin7/omiclaw-bridge) | Logic for resilient WebSocket reconnection and task callbacks. |
 
 ### ◈ 3. Foundry VTT Logic (Artery Shards)
 | Module | Source Link | Logic Pulled |

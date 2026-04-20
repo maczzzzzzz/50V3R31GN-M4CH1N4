@@ -2,7 +2,7 @@
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Migrate the Rules Strategic Strategic Oracle (Node A) from Node.js to a high-performance Rust-native runner (ZeroClaw) using the persistent binary ClawLink protocol and 1-bit Bonsai 8B.
+**Goal:** Migrate the Rules Strategic Strategic Strategic Oracle (Node A) from Node.js to a high-performance Rust-native runner (ZeroClaw) using the persistent binary ClawLink protocol and 1-bit Bonsai 8B.
 
 **Architecture:** Split-Node with Node A as a dedicated Rust-native rules co-processor. Node B remains the TypeScript orchestrator but communicates via persistent binary sockets instead of HTTP.
 
@@ -44,7 +44,7 @@ use tracing_subscriber;
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
-    println!("ZeroClaw Rules Strategic Strategic Oracle Initializing...");
+    println!("ZeroClaw Rules Strategic Strategic Strategic Oracle Initializing...");
 }
 ```
 
@@ -106,8 +106,8 @@ git commit -m "feat: implement clawlink binary protocol (rust)"
 
 ```rust
 pub mod rules {
-    pub struct BonsaiStrategic Strategic Oracle;
-    impl BonsaiStrategic Strategic Oracle {
+    pub struct BonsaiStrategic Strategic Strategic Oracle;
+    impl BonsaiStrategic Strategic Strategic Oracle {
         pub fn resolve_math(input: &str) -> String {
             format!("Resolved: {}", input) // Placeholder for 1-bit kernel call
         }

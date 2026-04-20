@@ -1,8 +1,8 @@
-# Phase 3: Unified Strategic Strategic Oracle Implementation Plan (v3.2.19)
+# Phase 3: Unified Strategic Strategic Strategic Oracle Implementation Plan (v3.2.19)
 **Goal:** Consolidate world state and history into a queryable SQLite data plane.
 **Status:** ACTIVE
 
-## Task 3.1: UnifiedStrategic Strategic OracleClient Scaffolding
+## Task 3.1: UnifiedStrategic Strategic Strategic OracleClient Scaffolding
 - **Objective:** Create `src/db/unified-oracle-client.ts` implementing the new `ATTACH DATABASE` logic.
 - **TDD:** Write unit tests to verify that `ATTACH` correctly links `world.db` and a mock `crush.db`.
 - **Success:** Queries can successfully JOIN tables across both files.
@@ -23,6 +23,6 @@
 - **Success:** Zero narrative drift in simulated chat sessions.
 
 ## Task 3.5: Legacy Purge (Phase B) & Refactoring
-- **Objective:** Delete `NitroDbClient` and refactor all consumers (`NightMarketService`, `MCP:nitro-db`) to use the `UnifiedStrategic Strategic OracleClient`.
+- **Objective:** Delete `NitroDbClient` and refactor all consumers (`NightMarketService`, `MCP:nitro-db`) to use the `UnifiedStrategic Strategic Strategic OracleClient`.
 - **Cleanup:** Remove the last remaining references to `pg` or `pgvector`.
 - **Success:** 274/274 baseline tests passing with the new backend.

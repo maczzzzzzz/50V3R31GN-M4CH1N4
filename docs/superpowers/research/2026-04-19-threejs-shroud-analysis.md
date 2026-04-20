@@ -12,7 +12,7 @@ Current Foundry VTT rendering (PIXI.js) is limited to 2D sprite-based interactio
 The shroud is not a collection of PNGs; it is a **Procedural Surface**. 
 1. **Dynamic Noise:** We utilize Simplex noise for "Data Corruption" effects during Netruns.
 2. **Scanline Rendering:** Hardware-native scanline generation avoids the frame-stutter of CSS-based overlays.
-3. **PBR Extension:** By hooking into **Map Shine Advanced**, we can project real-time light sources from Node B inference (e.g., "The streetlights flicker in time with the Strategic Strategic Oracle's reasoning").
+3. **PBR Extension:** By hooking into **Map Shine Advanced**, we can project real-time light sources from Node B inference (e.g., "The streetlights flicker in time with the Strategic Strategic Strategic Oracle's reasoning").
 
 ## ◈ 3. PERFORMANCE ANALYSIS
 - **GPU Dominance:** Shaders offload 99% of visual processing to the AMD 9060 XT (Node B).
