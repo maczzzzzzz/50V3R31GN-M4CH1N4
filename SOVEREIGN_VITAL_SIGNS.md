@@ -15,12 +15,13 @@ The system is harnessed as three physical pods synchronized over the `10.0.0.x` 
   - **Role:** **Mooncake v2.2 Master**. Disaggregated memory Artery.
   - **Function:** Manages L2 lore caching and VSB metadata offloading for the mesh.
 - **Node B (The Director):** NixOS Native. AMD Radeon RX 9060 XT (16GB Vulkan).
-  - **Role:** **Narrative Heart**. High-fidelity scene orchestration.
-  - **Intelligence:** **Gemma-4-E4B [48L173R473D]**. Uncensored aggressive variant.
-  - **Vision:** Native Gemma Vision for environment awareness.
-- **Node C (The Strategic Oracle):** Ubuntu Server / Nix-Hardened. NVIDIA RTX 2060 (6GB CUDA).
-  - **Role:** **Recursive Logic AUTHORITY**. Rule arbitration and Tier 2 Vision.
-  - **Intelligence:** **Gemma-4-E2B [48L173R473D]**. 
+  - **Role:** **Narrative Heart // TOTAL SIGHT**. High-fidelity scene orchestration.
+  - **Intelligence:** **Gemma-4-E4B [48L173R473D]**. Uncensored `Q8_K_P` aggressive variant.
+  - **Vision:** Native Gemma Vision + `mmproj-f16` projector for total scene awareness.
+- **Node C (The Strategic Strategic Strategic Oracle):** Ubuntu Server / Nix-Hardened. NVIDIA RTX 2060 (6GB CUDA).
+  - **Role:** **Recursive Logic AUTHORITY // TOTAL LOGIC**. Rule arbitration.
+  - **Intelligence:** **Gemma-4-E2B [48L173R473D]**. Uncensored `Q8_K_P` aggressive variant.
+  - **Vision:** Tier 1 Falcon Perception for tactical awarenes. No Tier 2 vision overhead.
   - **Architecture:** Rust-native RDT with **Adaptive Computation Time (ACT)** loops.
   - **Backplane:** Dockerized **SGLang Box** (v3.2.19) on port 7339.
 
@@ -45,7 +46,7 @@ The system is harnessed as three physical pods synchronized over the `10.0.0.x` 
 ## 🛡️ 4. THE TRINITY CONSTITUTION
 1. **Physical Sovereignty:** All intelligence is hardware-sharded. No external inference dependency.
 2. **Bit-Identical Parity:** All nodes MUST be synchronized via **`npm run scribe`** before any mission ignition.
-3. **Recursive Veto:** Node C (Strategic Oracle) holds total authority over rule-interpretation; Node B MUST accept Strategic Oracle verdicts.
+3. **Recursive Veto:** Node C (Strategic Strategic Strategic Strategic Strategic Strategic Oracle) holds total authority over rule-interpretation; Node B MUST accept Strategic Strategic Strategic Strategic Strategic Strategic Oracle verdicts.
 4. **VRAM Safety:** Node B ceiling: 14.5GB. Node C ceiling: 5.8GB. Node A ceiling: 3.8GB.
 
 ---

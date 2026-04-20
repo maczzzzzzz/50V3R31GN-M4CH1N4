@@ -26,7 +26,7 @@
 | **OpenClaw Dreaming** | TS Loop | [OpenClaw] foundation for recursive lore consolidation loops (Phase 34). |
 | **Map Shine Advanced** | Three.js PBR | Cinematic 2.5D rendering and post-processing in Foundry VTT. |
 | **Sovereign Trinity** | 3-Node Mesh | Distributed inference fabric with disaggregated memory (Mooncake). The Mesh of Mind. |
-| **Recursive Strategic Strategic Oracle** | Rust + RDT | Variable-depth reasoning engine on Node C using `candle-rs` for logical rule interpretation. |
+| **Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** | Rust + RDT | Variable-depth reasoning engine on Node C using `candle-rs` for logical rule interpretation. |
 | **Tier 1 Vision** | Falcon Perception | Multimodal segmenter and tactical OCR for immediate environmental awareness. |
 | **Tier 2 Vision** | Gemma-4-E2B Native | Logical visual grounding and rule-check validation. |
 | **FlowState Intuition**| Mmap | Anticipatory memory caching for zero-latency retrieval. |
@@ -101,9 +101,10 @@
 
 | Model | Variant | Source | Role |
 | :--- | :--- | :--- | :--- |
-| **Gemma-4-E4B** | Uncensored | [HauhauCS/E4B](https://huggingface.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive) | Narrative Heart (Node B). |
-| **Gemma-4-E2B** | Uncensored | [HauhauCS/E2B](https://huggingface.co/HauhauCS/Gemma-4-E2B-Uncensored-HauhauCS-Aggressive) | Recursive Strategic Strategic Strategic Oracle (Node C). |
-| **Falcon Perception**| [Tier 1 Vision] | [Tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | Tactical Multimodal Segmenter. |
+| **Gemma-4-E4B** | Uncensored | [HauhauCS/E4B](https://huggingface.co/HauhauCS/Gemma-4-E4B-Uncensored-HauhauCS-Aggressive) | Narrative Heart // Total Sight (Node B). |
+| **Gemma-4-E2B** | Uncensored | [HauhauCS/E2B](https://huggingface.co/HauhauCS/Gemma-4-E2B-Uncensored-HauhauCS-Aggressive) | Recursive Strategic Strategic Strategic Strategic Oracle // Total Logic (Node C). |
+| **Gemma-4-mmproj**| F16 Vision  | [OBLITERATUS/mmproj](https://huggingface.co/OBLITERATUS/gemma-4-E4B-it-OBLITERATED) | Vision Projector (Node B). |
+| **Falcon Perception**| [Tier 1 Vision] | [Tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | Tactical Multimodal Segmenter (Node B/C). |
 
 </details>
 
