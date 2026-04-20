@@ -3,30 +3,29 @@
 **Goal:** Materialize the Vocal Gateway on Node C using the OMI SDK and implement a dynamic Artery Manager for VRAM scaling.
 
 ## ◈ 1. THE ARTERY MANAGER (NODE C)
-A specialized daemon running on the Node C host to manage the SGLang life-cycle.
+A specialized daemon running on the Node C host to manage the Llama-Server life-cycle.
 
-### ◈ 1.1 STATE_MACHINE
-- **IDLE_AUTHORITY:** 
+### ◈ 1.1 MANUAL STATE_MACHINE
+- **IDLE_AUTHORITY (Default):** 
   - Model: `E4B-OBLITERATED-Q5_K_M.gguf`.
   - Voice: OFF.
-  - VRAM: 5.4GB used / 600MB free.
-- **ACTIVE_VOICE:** 
+- **ACTIVE_VOICE (Manual):** 
   - Model: `E4B-OBLITERATED-Q4_K_M.gguf`.
   - Voice: ON (Whisper + OMI WebSocket).
-  - VRAM: 4.8GB (Mind) + 1.1GB (Voice) = 5.9GB used.
 
-### ◈ 1.2 THE SHIFT PROTOCOL
-1. **Trigger:** Receive `WAKE_VOICE` via VSB (UDP 9090).
-2. **Execute:** `docker restart oracle` with updated `--model-path`.
-3. **Ignite:** `npm run voice:ignite` (Start Whisper Mesh).
+### ◈ 1.2 THE MANUAL SHIFT PROTOCOL
+1. **Activation:** Upon app launch, if `AUTHORITY_MODE` is active, user is prompted to "Ignite Vocal Artery."
+2. **Shift:** User confirms -> Machina Hub sends `WAKE_VOICE` via VSB -> Node C restarts Llama-Server with Q4 weights + OMI backend.
+3. **Restoration:** A persistent "KILL VOICE / RESTORE Q5" button on the Hub allows the user to manually return Node C to the high-fidelity logical state at any time.
 
-## ◈ 2. MACHINA TERMINAL (HUD)
-A Flutter-based companion application for high-fidelity interaction.
+## ◈ 2. MACHINA HUB (SIDECAR)
+A Flutter-based communication interface focused on Vocal materialization.
 
-### ◈ 2.1 HUD ARTERIES
-- **Transcription Pane:** Real-time display of vocal inputs with VT323 styling.
-- **Enrichment Feed:** Displays RKG context shored from Hermes (Node B).
-- **Artery Sync:** Background service that pushes encrypted JSON transcripts to Node C over 10.0.0.x.
+### ◈ 2.1 CORE FEATURES
+- **Live Stream:** Real-time VT323 transcription feed.
+- **Historical Archive:** Navigation buttons to browse and search archived session transcripts.
+- **Resting State:** Lightweight telemetry header (Node A/B/C) with manual shift controls.
+
 
 ## ◈ 3. DATA FLOW (VOICE)
 1. **Capture:** OMI Wearable/Phone -> Machina Terminal.

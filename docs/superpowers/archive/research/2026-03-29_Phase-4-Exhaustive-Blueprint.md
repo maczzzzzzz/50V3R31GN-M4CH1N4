@@ -67,7 +67,7 @@ While fully automated "chatbots" exist, the mandate specifies the **Phils AI Ass
 To clear Phase 4 and declare the MVP complete, we must successfully run this exact sequence without errors or "meta-text" breaking the Immersion Mandate:
 
 1.  **Generate Gig:** Node B synthesizes a Fixer text message (using TttA data) and pushes it to the player via the `simple-phone` module.
-2.  **Roll Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle / Math:** The player attempts a task. Node A (`nitro-logic`) resolves the DV and returns the JSON result.
+2.  **Roll Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle / Math:** The player attempts a task. Node A (`nitro-logic`) resolves the DV and returns the JSON result.
 3.  **Update Beat:** The Story Engine evaluates the success, advances the Beat, and outputs the narrative consequence to the Foundry chat.
 4.  **Buy Item:** The player opens the Afterlife Night Market UI and purchases an item. Node B validates the Eagle cost and updates the character sheet.
 5.  **GM Approval:** A major arc transition is proposed, intercepted by the Queue, and manually approved by the human GM.

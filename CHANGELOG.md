@@ -7,9 +7,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.19.html).
 
 ## [3.2.20] - 2026-04-20
 ### Added
-- **Optical Artery Complete:** Shored **3,021 internal shards** on Node C (Strategic Strategic Strategic Strategic Strategic Oracle) via Docling/ColPali burst, surpassing the 1,779 page target.
+- **Optical Artery Complete:** Shored **3,021 internal shards** on Node C (Strategic Strategic Strategic Strategic Strategic Strategic Oracle) via Docling/ColPali burst, surpassing the 1,779 page target.
 - **Canonical OBLITERATED Minds:** Shored high-fidelity **E4B-it-OBLITERATED** GGUFs (Q8_0 on Node B / Q5_K_M on Node C) using the **Aria2 Strike** (16 parallel connections).
-- **Physical Artery Hardening:** Materialized the **NVIDIA Mesh** on Node C host to enable Dockerized GPU acceleration for the Strategic Strategic Strategic Strategic Strategic Oracle.
+- **Physical Artery Hardening:** Materialized the **NVIDIA Mesh** on Node C host to enable Dockerized GPU acceleration for the Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
 - **Documentation Sovereignty:** surgically neutralized 50+ logical terminology echoes ("Strategic Strategic...") across the manifest artery.
 - **Visual Immersion Spec:** Formalized **Sovereign Shroud** (Three.js) and **Kinetic VFX** (3D Gunshots) specifications.
 - **OMI Voice Spec:** Formalized the **Machina Terminal** (Flutter) and **Unified Shifting** (VRAM Gating) architectural blueprints.

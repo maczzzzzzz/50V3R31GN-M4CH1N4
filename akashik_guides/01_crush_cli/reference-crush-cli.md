@@ -27,7 +27,7 @@ As of Phase 50, sidecars are typically run as headless daemons supervised by the
 ### 4. Vault Security
 - **`./crush-cli vault seal <path>`**: Encrypts cleartext docs into steganographic PNG shards.
 - **`./crush-cli vault open <path>`**: Decrypts shards back into cleartext.
-- **`./crush-cli sovereign-mode [on|off]`**: Toggles God-Mode (Bypass Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
+- **`./crush-cli sovereign-mode [on|off]`**: Toggles God-Mode (Bypass Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
 
 ## 🛡️ The 2-of-2 Authorization Gate (Flush Gate)
 No world-state change occurs without your physical `ACK`. You can approve transactions via the **Nucleus Deck UI** or the CLI Auth Pane.

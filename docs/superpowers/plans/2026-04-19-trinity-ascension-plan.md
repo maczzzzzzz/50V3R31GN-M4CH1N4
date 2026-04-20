@@ -7,7 +7,7 @@
 **Architecture:**
 - **Node A (Synapse):** Nitro 5 | 1050 Ti. Hosts **Mooncake Master v2.2** (KV-Cache Store).
 - **Node B (Director):** Main Rig | 9060 XT. Hosts **Gemma-4-E4B-Q8** (Narrative Lead).
-- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Server Rig | RTX 2060. Hosts **Gemma-4-E2B-Q8** (Tactical Gate) + **ColPali v1.2** (Interim Vision).
+- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Server Rig | RTX 2060. Hosts **Gemma-4-E2B-Q8** (Tactical Gate) + **ColPali v1.2** (Interim Vision).
 
 ---
 
@@ -80,11 +80,11 @@ Verify the TCP/RDMA handshake between Node B (Director) and Node A (Synapse).
 - [ ] **Step 1: Ignite Director (Node B)**
 Start `llama-server` with `Gemma-4-E4B-Aggressive-Q8_K_P.gguf`. offload 100% layers to Vulkan.
 
-- [ ] **Step 2: Ignite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C)**
+- [ ] **Step 2: Ignite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C)**
 Start `llama-server` with `Gemma-4-E2B-Aggressive-Q8_K_P.gguf` + Falcon-OCR. Offload to CUDA.
 
 - [ ] **Step 3: Wire Hermes Master**
-Deploy the LangGraph router on Node C to coordinate sub-task routing between the Director and Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
+Deploy the LangGraph router on Node C to coordinate sub-task routing between the Director and Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
 
 ---
 
