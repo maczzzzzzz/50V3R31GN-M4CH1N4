@@ -17,7 +17,7 @@ Verifies the health of the FlowState cache (QMD Pattern). It ensures that the sy
 5. Warns if the cache is stale or the magic bytes are corrupt.
 
 ## Manifest Logic
-Forces a cache warm for the "Watson" district to verify that the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle-to-Mmap pipeline is functional.
+Forces a cache warm for the "Watson" district to verify that the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle-to-Mmap pipeline is functional.
 
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/orch-52-2.ts`

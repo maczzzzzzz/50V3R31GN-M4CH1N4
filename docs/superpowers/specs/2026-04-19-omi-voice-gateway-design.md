@@ -5,18 +5,15 @@
 ## ◈ 1. THE ARTERY MANAGER (NODE C)
 A specialized daemon running on the Node C host to manage the Llama-Server life-cycle.
 
-### ◈ 1.1 MANUAL STATE_MACHINE
-- **IDLE_AUTHORITY (Default):** 
-  - Model: `E4B-OBLITERATED-Q5_K_M.gguf`.
-  - Voice: OFF.
-- **ACTIVE_VOICE (Manual):** 
-  - Model: `E4B-OBLITERATED-Q4_K_M.gguf`.
-  - Voice: ON (Whisper + OMI WebSocket).
+### ◈ 1.1 POLYMORPHIC STATE_MACHINE
+- **IDLE_AUTHORITY (Q5_K_M):** 5.4GB used. Max reasoning fidelity. Default state.
+- **COMM_VOICE (Q4_K_M):** 4.9GB used + 300MB Voice. 1.0GB local headroom. Optimized for Vocal HUD interaction.
+- **BERSERKER_SWARM (Q3_K_M):** 3.9GB used + 300MB Voice. 1.8GB local headroom. Optimized for 20+ NPC parallel swarms.
 
 ### ◈ 1.2 THE MANUAL SHIFT PROTOCOL
-1. **Activation:** Upon app launch, if `AUTHORITY_MODE` is active, user is prompted to "Ignite Vocal Artery."
-2. **Shift:** User confirms -> Machina Hub sends `WAKE_VOICE` via VSB -> Node C restarts Llama-Server with Q4 weights + OMI backend.
-3. **Restoration:** A persistent "KILL VOICE / RESTORE Q5" button on the Hub allows the user to manually return Node C to the high-fidelity logical state at any time.
+1. **Activation:** Machina Hub prompts for "Cognitive Profile" (Authority/Comm/Berserker).
+2. **Shift:** User selection -> `WAKE_STATE_<TYPE>` VSB packet -> Node C restarts Artery with target quantization.
+3. **Restoration:** Persistent "RESTORE AUTHORITY" button returns Node C to Q5 state.
 
 ## ◈ 2. MACHINA HUB (SIDECAR)
 A Flutter-based communication interface focused on Vocal materialization.
