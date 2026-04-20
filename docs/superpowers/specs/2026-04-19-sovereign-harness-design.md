@@ -5,7 +5,7 @@
 
 ## ◈ 1. ARCHITECTURAL TOPOLOGY
 
-The Sovereign Harness is a Go sub-package within the `crush` CLI. It operates as a headless daemon on Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) while interacting with the browser on Node B via the `10.0.0.11:9223` bridge.
+The Sovereign Harness is a Go sub-package within the `crush` CLI. It operates as a headless daemon on Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) while interacting with the browser on Node B via the `10.0.0.11:9223` bridge.
 
 ### ◈ 1.1 COMPONENT MAP
 - **`crush/harness/kernel/`**: Core CDP Transport (`gobwas/ws`) and Protocol (`cdproto`).
@@ -18,7 +18,7 @@ The Sovereign Harness is a Go sub-package within the `crush` CLI. It operates as
 When a "Skill Shard" fails to locate a DOM element or hits a logic wall, the Harness triggers the **Healer Protocol**:
 
 1.  **Freeze:** The harness pauses interaction and captures the **Accessibility Tree (AXTree)**.
-2.  **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Query:** The AXTree is sent to Node C (Gemma-4) via a local IPC or VSB packet.
+2.  **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Query:** The AXTree is sent to Node C (Gemma-4) via a local IPC or VSB packet.
 3.  **Repair Shard:** Gemma-4 generates a surgical Go patch or a new JSON "Repair Shard."
 4.  **Re-Ignition:** The harness applies the repair and continues the task.
 
