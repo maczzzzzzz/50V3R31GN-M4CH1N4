@@ -22,7 +22,7 @@
 ---
 
 ## 🛠️ PHASE 63: ADVANCED HERMES ORCHESTRATION & RDT ORACLE (PRIMARY_TASK)
-**Goal:** Deepen the Node C Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and integrate the Rust-native Recurrent-Depth Transformer (RDT) engine.
+**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and integrate the Rust-native Recurrent-Depth Transformer (RDT) engine.
 - [ ] **Task 1: Context Sharding:** Shard `AGENTS.md` into sector-specific Ability Stones (`zeroclaw/`, `dashboard/`).
 - [ ] **Task 2: RDT Rust Port:** Implement OpenMythos architecture in Rust using `candle-rs` for sub-10ms recursion.
 - [ ] **Task 3: OpenMAIC Pipeline Port:** Port the Outline-to-Scene generation pipeline to the Node B Campaign Builder.
@@ -38,7 +38,7 @@
 ---
 
 ## ✅ PHASE 65: OPTICAL ARTERY FINALIZATION (COMPLETED)
-**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Oracle) GPU-acceleration.
+**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Strategic Strategic Oracle) GPU-acceleration.
 - [x] **Success:** 3,021 shards shored in `data/ingest/pdf_shards/`.
 
 ---
@@ -48,7 +48,7 @@
 
 ---
 
-## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA TERMINAL (PENDING)
+## 🛠️ PHASE 67: OMI VOICE GATEWAY ## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA TERMINAL (PENDING) MACHINA HUB LITE (STAGED)
 **Goal:** Implement diegetic vocal control and the Flutter HUD companion.
 - [ ] **Task 1: Artery Manager:** Implement Node C host daemon for dynamic Q5/Q4 VRAM scaling.
 - [ ] **Task 2: Flutter HUD:** Scaffold the Machina Terminal HUD with R3D_V01D aesthetic.

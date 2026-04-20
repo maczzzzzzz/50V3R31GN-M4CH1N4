@@ -38,7 +38,7 @@ The following specifications were shored and APPROVED in this session:
 The **Sovereign Trinity** is physically sharded and bit-identical:
 - **Node A (Synapse):** Mooncake v2.2 Master active. Handles context offloading.
 - **Node B (Director):** Active **OBLITERATED Q8_0** (8GB) heart. Holds **TOTAL SIGHT** (mmproj-f16).
-- **Node C (Strategic Oracle):** Active **OBLITERATED Q5_K_M** (5.4GB) mind. Holds **TOTAL LOGIC** (Headroom 1.1GB).
+- **Node C (Strategic Strategic Strategic Oracle):** Active **OBLITERATED Q5_K_M** (5.4GB) mind. Holds **TOTAL LOGIC** (Headroom 1.1GB).
 - **Artery:** Dedicated `10.0.0.x` spine. Latency <0.5ms.
 
 ---
