@@ -39,7 +39,7 @@ A modular Node.js utility designed to scrape, clean, and categorize multi-source
 5. **Graft:** Atomic transaction insertion into `Akashik.db`.
 
 ## 4. Integration & Providance
-The **48L173R473D Brain** will access this via the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
+The **48L173R473D Brain** will access this via the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
 - **Primary Hook:** During turn initialization, the brain queries both `district_dna` (where we are) and `chronicle_seeds` (what we know about this situation).
 - **Weighting:** The brain is instructed to treat `#Technical` seeds as high-authority rules and `#Gossip` as narrative flavor.
 

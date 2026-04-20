@@ -1,7 +1,7 @@
 # SPEC: 2026-04-19 — Mooncake Cluster (Distributed KV-Cache)
 **Date:** 2026-04-19
 **Status:** DRAFT // ARCHITECT_LOCK
-**Goal:** Implement a distributed inference mesh using Mooncake v2.2 to share KV-cache between Node B (Director) and Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle), hosted on Node A (Synapse Synapse).
+**Goal:** Implement a distributed inference mesh using Mooncake v2.2 to share KV-cache between Node B (Director) and Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle), hosted on Node A (Synapse Synapse).
 
 ## ◈ 1. CLUSTER ARCHITECTURE
 
@@ -11,7 +11,7 @@ The Trinity Mesh utilizes disaggregated memory to achieve sub-200ms TTFT (Time t
 | :--- | :--- | :--- | :--- |
 | **Node A** | **Synapse** | Nitro 5 / 1050 Ti | Metadata Master + Data Worker (L2 Cache) |
 | **Node B** | **Director** | Main Rig / 9060 XT | Narrative Client (L1 Cache) |
-| **Node C** | **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** | Server / 2060 | Logic Client (L1 Cache) |
+| **Node C** | **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** | Server / 2060 | Logic Client (L1 Cache) |
 
 ## ◈ 2. MEMORY PRIORITIZATION (WEIGHT-BASED)
 
