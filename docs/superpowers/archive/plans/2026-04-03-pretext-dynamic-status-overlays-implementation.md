@@ -71,7 +71,7 @@ export const PretextOverlayPayloadSchema = z.object({
   })
 });
 
-// Add to any exported union if necessary, e.g., BridgeMessageSchema
+// Add to any exported union if necessary, e.g., MeshMessageSchema
 ```
 
 **Step 4: Run test to verify it passes**
@@ -100,7 +100,7 @@ git commit -m "feat(bridge): define PretextOverlay payload schema"
 // tests/core/hybrid-routing-controller.test.ts
 describe('HybridRoutingController - Damage Thresholds', () => {
   it('triggers a pretext overlay for netDamage >= 15', async () => {
-    // Mock dependencies: unifiedOracle, foundryAdapter, nitroLogic, etc.
+    // Mock dependencies: unifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle, foundryAdapter, nitroLogic, etc.
     const hrc = new HybridRoutingController(/* mocks */);
     const result = await hrc['handleResolveAttack']({ /* mock payload */ });
     
@@ -240,7 +240,7 @@ export class PretextOverlayManager {
 }
 ```
 
-**Step 2: Wire up Foundry API Bridge**
+**Step 2: Wire up Foundry API Mesh**
 
 ```javascript
 // foundry-module/foundry-api-bridge.js

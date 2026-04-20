@@ -33,7 +33,7 @@ const execFileAsync = promisify(execFile);
 // ---------------------------------------------------------------------------
 
 function getColpaliEndpoint(): string {
-  const host = process.env['NODE_A_HOST'] ?? '192.168.0.51';
+  const host = process.env['NODE_A_HOST'] ?? '10.0.0.11';
   const port = process.env['COLPALI_PORT'] ?? '8082';
   return `http://${host}:${port}/embed_patch`;
 }

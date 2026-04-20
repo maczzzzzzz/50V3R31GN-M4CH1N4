@@ -50,7 +50,7 @@ The shroud remains as an immersive visual feedback layer during heavy vision pas
 - Flow:
   1. Check `crush.db` for existing perception.
   2. If empty:
-     - Dispatch **Neural Shroud** to Bridge.
+     - Dispatch **Neural Shroud** to Mesh.
      - Capture 1080p CDP screenshot.
      - Call Node A `ocr_analyze`.
      - Write results to `crush.db`.

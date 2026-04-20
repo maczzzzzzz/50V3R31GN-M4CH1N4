@@ -27,7 +27,7 @@ Vitalik emphasizes **NixOS** and local sandboxing to prevent AI agents from modi
 Vitalik’s hardware testing (specifically his preference for 128GB unified memory setups and 5090-class laptops) mirrors your struggle with **Node A's 4GB VRAM**.
 
 * **Insight for asp.gm:** Vitalik admits that "running local models full-time has practical costs." He mitigates this by using **Llama-Server** as a persistent background daemon rather than a reactive process.  
-* **The Upgrade:** This reinforces our decision to keep **Ollama (CUDA)** as a persistent service on the Nitro 5\. We should optimize the **ClawLink** binary socket to use **mmap (Memory Mapping)** for your RKG triplets—allowing the Judge to access the spatial wall data without traditional I/O overhead, keeping the Nitro 5's CPU usage low while the GPU handles the 3.1 3B inference.
+* **The Upgrade:** This reinforces our decision to keep **Ollama (CUDA)** as a persistent service on the Nitro 5\. We should optimize the **ClawLink** binary socket to use **mmap (Synapse Mapping)** for your RKG triplets—allowing the Judge to access the spatial wall data without traditional I/O overhead, keeping the Nitro 5's CPU usage low while the GPU handles the 3.1 3B inference.
 
 ### **Senior Developer's Critical Honest Review**
 

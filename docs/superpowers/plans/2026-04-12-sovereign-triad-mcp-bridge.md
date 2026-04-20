@@ -1,4 +1,4 @@
-# Sovereign Triad MCP Bridge Implementation Plan
+# Sovereign Trinity MCP Mesh Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -97,7 +97,7 @@ SOCKET_PATH=".gemini/tmp/sovereign-mcp.sock"
 PID_PATH=".gemini/tmp/mcp-bridge.pid"
 
 if [ ! -S "$SOCKET_PATH" ]; then
-    echo "[Sovereign-Bridge]: STARTING_IMPURE_BRAIN..."
+    echo "[Sovereign-Mesh]: STARTING_IMPURE_BRAIN..."
     node scripts/dev/mcp-daemon.js --socket "$SOCKET_PATH" > /dev/null 2>&1 &
     echo $! > "$PID_PATH"
     disown
@@ -106,7 +106,7 @@ fi
 
 - [ ] **Step 2: Verify environment**
 Run: `nix develop --impure`
-Expected: See `[Sovereign-Bridge]: STARTING_IMPURE_BRAIN...`
+Expected: See `[Sovereign-Mesh]: STARTING_IMPURE_BRAIN...`
 
 - [ ] **Step 3: Commit**
 ```bash
@@ -164,5 +164,5 @@ Expected: List of standard filesystem/git tools returned.
 
 - [ ] **Step 3: Final Commit**
 ```bash
-git commit -m "test: verify Sovereign Triad Bridge connectivity"
+git commit -m "test: verify Sovereign Trinity Mesh connectivity"
 ```

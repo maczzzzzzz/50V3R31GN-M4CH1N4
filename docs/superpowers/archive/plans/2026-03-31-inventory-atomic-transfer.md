@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS inventory (
 
 ```typescript
   transferItem(itemId: string, fromId: string, toId: string): void {
-    if (!this.db) throw new Error('Database not connected');
+    if (!this.db) throw new Error('Artery of Truth not connected');
 
     const transaction = this.db.transaction(() => {
       // 1. Verify existence and current ownership

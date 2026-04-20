@@ -75,7 +75,7 @@ export const phase2: SovereignShard = {
 
   async audit(_ctx: GauntletContext): Promise<AuditResult> {
     const vsbPort = parseInt(process.env['ZEROCLAW_PORT'] ?? '7878', 10);
-    const nodeAHost = process.env['NODE_A_HOST'] ?? '192.168.0.50';
+    const nodeAHost = process.env['NODE_A_HOST'] ?? '10.0.0.10';
     // Try VSB UDP on Node A
     const udpReachable = await checkVsbUdp(nodeAHost, vsbPort, 3000).catch(() => false);
     // Also check if the local VSB listener port is open
@@ -200,7 +200,7 @@ export const phase22: SovereignShard = {
   async audit(_ctx: GauntletContext): Promise<AuditResult> {
     const sshPort = parseInt(process.env['CLAWLINK_SSH_PORT'] ?? '22', 10);
     const sshUser = process.env['CLAWLINK_USER'] ?? 'maczz';
-    const nodeAHost = process.env['NODE_A_HOST'] ?? '192.168.0.50';
+    const nodeAHost = process.env['NODE_A_HOST'] ?? '10.0.0.10';
     // Check SSH port is reachable on Node A
     const sshReachable = await checkTcpPort(nodeAHost, sshPort, 3000);
     if (!sshReachable) {
@@ -220,7 +220,7 @@ export const phase22: SovereignShard = {
     // Re-establish SSH tunnel to Node A
     const i = intent as { user?: string; host?: string; port?: number } | null;
     const user = i?.user ?? process.env['CLAWLINK_USER'] ?? 'maczz';
-    const host = i?.host ?? process.env['NODE_A_HOST'] ?? '192.168.0.50';
+    const host = i?.host ?? process.env['NODE_A_HOST'] ?? '10.0.0.10';
     const port = i?.port ?? parseInt(process.env['CLAWLINK_SSH_PORT'] ?? '22', 10);
     await ctx.cli.execute(
       `ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 -fNT ${user}@${host} -p ${port}`,

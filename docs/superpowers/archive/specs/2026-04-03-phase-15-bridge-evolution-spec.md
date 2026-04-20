@@ -1,4 +1,4 @@
-# Design Spec: Phase 15 — The Bridge Evolution (v3.2.19)
+# Design Spec: Phase 15 — The Mesh Evolution (v3.2.19)
 
 **Status:** ✅ FINALIZED  
 **Architecture:** Native Module Hijacking + Resilient Fallbacks  
@@ -7,7 +7,7 @@
 ---
 
 ## 1. Overview
-The **Bridge Evolution** transforms the `asp-gm-bridge` from a simple WebSocket forwarder into a high-performance orchestration layer. It leverages 8 pre-installed Foundry modules to execute complex visual and physical world-shifts with GPU-accelerated performance, bypassing the overhead of raw CDP/DOM manipulation.
+The **Mesh Evolution** transforms the `asp-gm-bridge` from a simple WebSocket forwarder into a high-performance orchestration layer. It leverages 8 pre-installed Foundry modules to execute complex visual and physical world-shifts with GPU-accelerated performance, bypassing the overhead of raw CDP/DOM manipulation.
 
 ## 2. Core Components
 
@@ -30,7 +30,7 @@ The **Bridge Evolution** transforms the `asp-gm-bridge` from a simple WebSocket 
 The bridge MUST implementation a **Feature Detection** heartbeat:
 1. **Tier 1 (Elite):** All modules active → Full Sequencer/FXMaster orchestration.
 2. **Tier 2 (Baseline):** Modules missing → Fallback to raw `VisualMonitorService` (CDP/CSS).
-3. **Tier 3 (Degraded):** WebSocket fail → Fallback to Strategic Atlas (Shared Memory) only.
+3. **Tier 3 (Degraded):** WebSocket fail → Fallback to Strategic Atlas (Shared Synapse) only.
 
 ---
-*The Bridge Evolution: Physical Hands Hardened.*
+*The Mesh Evolution: Physical Hands Hardened.*

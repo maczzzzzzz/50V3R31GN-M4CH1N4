@@ -13,7 +13,7 @@ import {
   VSB_MAGIC,
 } from '../../src/shared/vsb_protocol.js';
 
-const NODE_A_IP = '192.168.0.50';
+const NODE_A_IP = '10.0.0.10';
 const VSB_PORT = 7878;
 const TIMEOUT_MS = 2000;
 

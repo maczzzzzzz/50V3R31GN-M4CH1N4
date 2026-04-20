@@ -1,4 +1,4 @@
-# Phase 22: Sovereign Highway & Shared Memory Highway (v3.2.19)
+# Phase 22: Sovereign Highway & Shared Synapse Highway (v3.2.19)
 **Design Specification**
 
 ## 1. Overview
@@ -46,7 +46,7 @@ A lock-free, dual-file binary memory bridge synchronized over the local network 
 - **Efficiency:** Offloads all "Math" from the LLMs. The 1B Judge and 12B Brain perform "O(1) lookups" for tactical moves.
 
 ### 4.2. `NEURAL-COMPOSITOR` (Node B)
-- **Engine:** Rust `egui` / Bridge CDP.
+- **Engine:** Rust `egui` / Mesh CDP.
 - **Function:** Monitors the VSB heartbeat. If `TX_COUNT` on the judge/narrator stalls, it triggers a "System Interrupted" visual glitch in Foundry to mask latency.
 - **Efficiency:** Leverages 16-core parallelism to ensure visual continuity.
 

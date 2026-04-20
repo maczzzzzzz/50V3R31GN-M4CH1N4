@@ -3,7 +3,7 @@
 **Status:** DESIGN FINALIZED (Aesthetic Hardened)
 
 ## 1. Executive Summary
-Phase 8.3 completes the visual and architectural unification of the 50V3R31GN-M4CH1N4. It introduces the **Strategic Atlas**, a zero-latency Rust Sidecar powered by Shared Memory (Option C), and overhauls the **Crush CLI** using the Charmbracelet **Lipgloss** ecosystem to match the "Black-Ice" Cyan/Black aesthetic established in Foundry.
+Phase 8.3 completes the visual and architectural unification of the 50V3R31GN-M4CH1N4. It introduces the **Strategic Atlas**, a zero-latency Rust Sidecar powered by Shared Synapse (Option C), and overhauls the **Crush CLI** using the Charmbracelet **Lipgloss** ecosystem to match the "Black-Ice" Cyan/Black aesthetic established in Foundry.
 
 ## 2. Technical Architecture: Strategic Atlas (Rust)
 - **Engine:** Rust + `egui` + `eframe`.
@@ -19,7 +19,7 @@ Phase 8.3 completes the visual and architectural unification of the 50V3R31GN-M4
   - Bordered "Terminal Panes" for RKG search results.
   - Scanline/CRT glow emulation via ANSI escape sequences.
 
-## 4. Shared Memory Protocol (v3.2.19)
+## 4. Shared Synapse Protocol (v3.2.19)
 - **Header Magic:** `BLACK-ICE-RADAR` (16 bytes).
 - **Atomic Sync:** Lock-free transaction counter for zero-latency blip updates.
 - **Coordinate Space:** Normalized 0-1000 float mapping.

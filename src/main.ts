@@ -106,8 +106,8 @@ async function main() {
 
   // 3. Initialise Hardware Clients
   const nitroLogic = new NitroLogicClient({
-    baseUrl: process.env.NODE_A_LLAMA_URL || 'http://192.168.0.50:8080/v1',
-    model: process.env.NODE_A_LLAMA_MODEL || 'local-llama',
+    baseUrl: process.env.ORACLE_URL || 'http://10.0.0.12:7339/v1',
+    model: process.env.NODE_C_MODEL || 'gemma-4-abliterated:e2b',
     timeoutMs: 30000,
     seed: 42,
   }, logger);
@@ -126,7 +126,7 @@ async function main() {
   }, rootsInjector);
 
   const vsbClient = new VsbClient({
-    host: process.env.NODE_A_HOST || '192.168.0.50',
+    host: process.env.NODE_C_HOST || '10.0.0.12',
     port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
     timeoutMs: 2000,
   }, logger);
@@ -212,7 +212,7 @@ async function main() {
   // 8. Assemble Orchestration Loop
   const auditor = new AkashikVisualAuditor(
     oracle,
-    process.env.VLM_ENDPOINT,
+    process.env.ORACLE_URL ? `${process.env.ORACLE_URL}/chat/completions` : 'http://10.0.0.12:7339/v1/chat/completions',
   );
 
   const controller = new HybridRoutingController({

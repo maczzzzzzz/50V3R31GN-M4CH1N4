@@ -5,7 +5,7 @@
 
 ## ◈ 1. MOONCAKE (Disaggregated KVCache)
 - **Source:** [KVCache-AI / Moonshot AI]
-- **Validation:** Confirmed as the optimal solution for "Memory Wall" constraints. By offloading the KV-cache to Node A (1050 Ti / 16GB RAM), we free up VRAM on Node B (9060 XT) for the high-density Mistral-Nemo 12B weights.
+- **Validation:** Confirmed as the optimal solution for "Synapse Wall" constraints. By offloading the KV-cache to Node A (1050 Ti / 16GB RAM), we free up VRAM on Node B (9060 XT) for the high-density Mistral-Nemo 12B weights.
 - **Transfer Engine:** Supports RDMA and TCP. My 1GbE Cat6 floor run research confirms sub-1ms intra-cluster latency is required for bursty cache transfers.
 
 ## ◈ 2. SGLANG & RADIXATTENTION (Node C Logic)
@@ -19,7 +19,7 @@
 
 ## ◈ 4. ARCHITECTURAL SYNERGY
 - **The Anchor:** Phase 59 (Canonical Mirror) provides the deterministic truth for GEPA to evolve against.
-- **The Mesh:** Node A (Total Memory) + Node B (Narrative Mouth) + Node C (Cognitive Brain).
+- **The Mesh:** Node A (Total Synapse) + Node B (Narrative Mouth) + Node C (Cognitive Brain).
 - **The Result:** Zero narrative stutter and infinite lore recall across the 10,000 file RKG.
 
 ---

@@ -26,7 +26,7 @@ An exhaustive audit and debug sweep of the Phase 24 ("Sovereign Utility Belt") m
 - **Status:** **IMPLEMENTED & VERIFIED**
 - **Details:** 
   - Replaced the legacy terminal-based (readline) `onAuthorize` model in `src/core/hybrid-routing-controller.ts`.
-  - Extended `SharedMemoryService` to support VSB `writeProposal` and `checkProposalStatus` loops.
+  - Extended `SharedSynapseService` to support VSB `writeProposal` and `checkProposalStatus` loops.
   - Node B now pushes a `PENDING` proposal to VSB offset `1024` and polls at 100ms intervals, awaiting the Go watcher's `APPROVED` or `REJECTED` state shift.
 
 ## ◈ VERDICT

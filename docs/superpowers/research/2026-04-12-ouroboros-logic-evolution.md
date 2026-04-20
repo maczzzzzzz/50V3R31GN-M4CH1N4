@@ -5,7 +5,7 @@
 **Context:** Phase 53 "Ouroboros Kernel" Architecture
 
 ## 1. Core Logic: Autoreason (NousResearch)
-Autoreason provides the framework for "subjective domain" reasoning. For the Sovereign Triad, this means:
+Autoreason provides the framework for "subjective domain" reasoning. For the Sovereign Trinity, this means:
 - **Trajectory Capture:** Logging the step-by-step `<think>` streams from Node B.
 - **Recursive Audit:** Node A verifies the internal consistency of Node B's logic before the VSB Flush Gate opens.
 

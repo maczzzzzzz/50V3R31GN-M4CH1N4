@@ -15,7 +15,7 @@ This audit covers the implementation of the **Sidecar Registry** and the **Physi
 - **Verification:** `TestSidecarRegistry` passed in Nix environment using `os.Executable` as a mock binary.
 
 ### 2.2 Physical ACK & VSB Watcher (`crush/watcher.go`, `crush/auth_pane.go`)
-- **Success:** Established Go-native `mmap` bridge to the VSB Shared Memory block.
+- **Success:** Established Go-native `mmap` bridge to the VSB Shared Synapse block.
 - **Success:** Built a high-contrast **Authorization Pane** using Bubble Tea and Lipgloss.
 - **Hardening:** Implemented infinite loop prevention by explicitly clearing `Proposal.ID` to `0` upon user commitment/rejection.
 - **Verification:** `TestVsbWatcher` verified byte-perfect mapping of the C-style `Proposal` struct.

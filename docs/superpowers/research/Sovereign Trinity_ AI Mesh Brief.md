@@ -6,7 +6,7 @@ This is the **Master Mission Brief** for **Project Black-Ice** under the **SOVER
 
 **Objective:** To unify heterogeneous consumer hardware into a single "Cognitive Mesh" that provides an infallible, unfiltered (Abliterated) narrative experience. By disaggregating memory (KV-cache) from compute, we maximize the utility of legacy and modern silicon to run high-density AI models in real-time.
 
-**The Medium:** A hardened, local-first instance of FoundryVTT where the AI acts as both the **Director** (Narrative/World) and the **Oracle** (Rules/Vision).
+**The Medium:** A hardened, local-first instance of FoundryVTT where the AI acts as both the **Director** (Narrative/World) and the **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Rules/Vision).
 
 ## ---
 
@@ -27,11 +27,11 @@ The "Sovereign" identity is secured through a physical **Network Perimeter**.
 
 **III. NODE SPECIFICATIONS & ARCHITECTURE**
 
-### **Node A: The Memory Synapse (NEW ROLE)**
+### **Node A: The Synapse Synapse (NEW ROLE)**
 
 * **Hardware:** Acer Nitro 5 (Laptop) | GTX 1050 Ti (4GB VRAM) | 16GB DRAM.  
 * **Software:** Mooncake Master v2.2.  
-* **Function:** Act as the **L2 Unified Memory Store**. Instead of running a model, Node A hosts the **Disaggregated KV-Cache**.  
+* **Function:** Act as the **L2 Unified Synapse Store**. Instead of running a model, Node A hosts the **Disaggregated KV-Cache**.  
 * **Logic:** It stores the pre-computed "thoughts" of the 10,000 Obsidian RKG files. When Node B or C needs lore, they "fetch" rather than "re-think."
 
 ### **Node B: The Apex Director**
@@ -41,7 +41,7 @@ The "Sovereign" identity is secured through a physical **Network Perimeter**.
 * **Function:** The **Narrative Heart**. It manages the FoundryVTT scene state, NPC dialogue, and high-level plot progression.  
 * **Interaction:** It acts as the **Verifier**, auditing Node C’s rule verdicts using the **Log-Step Hash** method.
 
-### **Node C: The Strategic Oracle (INTRODUCTION)**
+### **Node C: The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (INTRODUCTION)**
 
 * **Hardware:** Server | RTX 2060 (6GB VRAM).  
 * **Software:** **Gemma 4 E2B (Abliterated)** \+ **Falcon Perception (600M)** | CUDA 12.8.  
@@ -54,8 +54,8 @@ The "Sovereign" identity is secured through a physical **Network Perimeter**.
 
 The cluster operates using the **POD (Portable Operation Descriptor)** logic extracted from current decentralized inference research.
 
-1. **Disaggregated Inference:** Using **Mooncake**, we split the "Prefill" (Logic) from the "Decode" (Generation). Node B/C computes the prompt once; Node A holds it forever.  
-2. **The Oracle-Director Loop:**  
+1. **Disaggregated Cognition:** Using **Mooncake**, we split the "Prefill" (Logic) from the "Decode" (Generation). Node B/C computes the prompt once; Node A holds it forever.  
+2. **The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle-Director Loop:**  
    * **Vision:** Node C "sees" a player move in Foundry via Falcon.  
    * **Logic:** Gemma 4 E2B calculates the CPR rule-check.  
    * **Audit:** Node C sends a "Trace" to Node B. Node B confirms the logic is sound.  
@@ -69,13 +69,13 @@ The cluster operates using the **POD (Portable Operation Descriptor)** logic ext
 ### **Core Frameworks**
 
 * **Mooncake Store (KV-Cache):** [github.com/kwai/Mooncake](https://www.google.com/search?q=https://github.com/kwai/Mooncake) \- The engine for Node A's synapse role.  
-* **SGLang (Inference):** [github.com/sgl-project/sglang](https://github.com/sgl-project/sglang) \- Used on Node C for vision/logic fusion.  
+* **SGLang (Cognition):** [github.com/sgl-project/sglang](https://github.com/sgl-project/sglang) \- Used on Node C for vision/logic fusion.  
 * **vLLM (Director):** [github.com/vllm-project/vllm](https://github.com/vllm-project/vllm) \- The backbone for Node B's 16GB narrative engine.
 
 ### **Logic Foundations**
 
 * **Hyperspace AGI (Pods/Verifiers):** [github.com/hyperspaceai/agi](https://www.google.com/search?q=https://github.com/hyperspaceai/agi/blob/main/docs/PODS.md) \- Source for the "Mineable Logic" and Pod disaggregation patterns.  
-* **VeriLLM (Verification):** \[Reference to 2026 Whitepaper\] \- The "Log-Step" verification protocol for the Oracle.
+* **VeriLLM (Verification):** \[Reference to 2026 Whitepaper\] \- The "Log-Step" verification protocol for the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
 
 ### **Abliterated Weights**
 

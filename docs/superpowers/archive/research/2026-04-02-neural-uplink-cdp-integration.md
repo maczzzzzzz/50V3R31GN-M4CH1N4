@@ -4,7 +4,7 @@
 **Status:** 🟢 RESEARCH VERIFIED
 
 ## 1. Executive Summary
-Traditional "Bridge" modules are limited by the security sandbox of the Foundry VTT application. To achieve true "God-Mode" and "Eyes-On" parity, we must bypass the application layer and interact with the **Chromium Renderer** via the **Chrome DevTools Protocol (CDP)**. This allows for raw pixel perception, real-time CSS injection, and direct DOM manipulation without refreshing the world.
+Traditional "Mesh" modules are limited by the security sandbox of the Foundry VTT application. To achieve true "God-Mode" and "Eyes-On" parity, we must bypass the application layer and interact with the **Chromium Renderer** via the **Chrome DevTools Protocol (CDP)**. This allows for raw pixel perception, real-time CSS injection, and direct DOM manipulation without refreshing the world.
 
 ## 2. Technical Findings: The CDP Advantage
 
@@ -14,7 +14,7 @@ Traditional "Bridge" modules are limited by the security sandbox of the Foundry 
 - **Impact:** 1:1 visual grounding. The AI "sees" exactly what the GM sees, including 3D dice animations and active lighting shaders.
 
 ### 2.2 Direct UI Manipulation
-- **Current Limitation:** Bridge commands must be pre-coded in `foundry-api-bridge.js`.
+- **Current Limitation:** Mesh commands must be pre-coded in `foundry-api-bridge.js`.
 - **CDP Solution:** `Runtime.evaluate` can execute arbitrary JavaScript in the context of the Foundry window, bypassing internal security barriers.
 - **Impact:** The AI can autonomously toggle module settings, fix UI glitches, or navigate compendiums without explicit bridge implementation.
 

@@ -17,8 +17,8 @@ A live logic conflict triggered when manual operator actions contradict the Sove
     *   **CLI:** Renders the "Red Flare" duel HUD using Lipgloss.
 
 ### 1.2 Resolution & Enforcement
-- **Veto (Agent Win):** The Bridge reverts the element to the RKG-mandated state.
-- **Deference (Operator Win):** The Bridge commits the manual change and applies a temporary "Authority Silence" to the Machina for that object.
+- **Veto (Agent Win):** The Mesh reverts the element to the RKG-mandated state.
+- **Deference (Operator Win):** The Mesh commits the manual change and applies a temporary "Authority Silence" to the Machina for that object.
 
 ## 2. Pulse Propagation (Phase 46)
 The results of these duels are not isolated; they influence the system's long-term behavior.

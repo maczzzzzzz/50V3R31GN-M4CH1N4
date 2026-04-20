@@ -22,7 +22,7 @@ The existing Node B ST3GG logic is ported to ZeroClaw (Rust) for 100x performanc
 - **Resilience:** If the database entry for a scene is lost, Node B requests a `st3gg_decode` from Node A to instantly recover the physical layout from the image file itself.
 
 ### 2.3 Latent Seeding (R00TS Pattern)
-- **Database (Node A):** `conceptual_seeds` table in PostgreSQL with `pgvector` support.
+- **Artery of Truth (Node A):** `conceptual_seeds` table in PostgreSQL with `pgvector` support.
 - **Structure:** `{ id, word, weight, vector, category }`.
 - **Bias Engine:** When generating narrative for an NPC, Node B queries Node A for the "Dominant Seeds" in the current district. These seeds are injected into the LLM system prompt to influence the "consciousness" of the AI (e.g., if "Despair" has a high weight in Watson, NPCs will default to gloomier dialogue).
 

@@ -7,18 +7,18 @@
 **Status: COMPLETED**
 
 **Architecture:**
-- **Foundry Bridge:** Monkey-patch PIXI for combat stability, fix ESC menu hook, and enforce theme on Journals/Items.
+- **Foundry Mesh:** Monkey-patch PIXI for combat stability, fix ESC menu hook, and enforce theme on Journals/Items.
 - **Crush CLI:** Redesign the VSB Auth Pane UI using `lipgloss` for a high-fidelity "Black-Ice" aesthetic.
 - **Deck-Igniter:** Implement blocking sidecar compilation gates and automated Obsidian GUI ignition.
 
 ---
 
-### Task 1: Visual Dominance & Bridge Fixes
+### Task 1: Visual Dominance & Mesh Fixes
 
 - [x] **Step 1: Fix CombatBooster PIXI Crash**
 Add PIXI v7 compatibility patch to `50v3r31gn-bridge.js`.
 - [x] **Step 2: Robust Escape Menu Hook**
-Update `renderMainMenu` to ensure the "Sovereign Bridge" button injects reliably in v12.
+Update `renderMainMenu` to ensure the "Sovereign Mesh" button injects reliably in v12.
 - [x] **Step 3: Enforce Dark Theme on Journals/Items**
 Update `black-ice-theme.css` to override white backgrounds in Journal/Item sheets.
 - [x] **Step 4: Verify in Live Session**

@@ -22,7 +22,7 @@ The `StoryEngine` is a deterministic state machine responsible for preventing na
   - **State:** Includes an `eagleBalance` (number) and a `worldState` record.
 - **Persistence:** Bound to the Crush CLI SQLite session memory.
 - **Workflow & Wiring:** 
-  1. Ingest event from Foundry Bridge.
+  1. Ingest event from Foundry Mesh.
   2. Validate Math via `nitro-logic` (Node A).
   3. `HybridRoutingController` pushes the result to `StoryEngine.evaluateEvent()`.
   4. StoryEngine evaluates "Transition Guards" to determine if the Beat should advance.
@@ -40,7 +40,7 @@ A Foundry-native HTML Dialog extending the `cpr-night-market.js` macro to suppor
   - `≤ 1000eb` = 6-9 Eagles.
 - **Event Dispatch:** A UI `buy` button emits a `buy_item` WebSocket event upstream.
 
-### 2.3 The Bridge Protocol Extension (`src/shared/schemas/foundry-bridge.schema.ts`)
+### 2.3 The Mesh Protocol Extension (`src/shared/schemas/foundry-bridge.schema.ts`)
 The Zod contract representing Node B to Foundry communication is extended.
 - **Event:** `BuyItemEventSchema` containing `itemId`, `costEb`, `costEagles`, and `vendor`.
 - **Event:** `ApprovalResponseEventSchema` containing `proposalId`, `status`, and `editedData`.

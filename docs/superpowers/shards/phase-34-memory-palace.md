@@ -1,13 +1,13 @@
-# Shard: Phase 34 — Memory Palace
+# Shard: Phase 34 — Synapse Palace
 
 ## Metadata
 - **ID:** 34
-- **Name:** Memory-Palace
+- **Name:** Synapse-Palace
 - **Block:** DATA
 - **Status:** Verified
 
 ## Overview
-Verifies the hierarchical structure of the Memory Palace (Wings, Halls, Rooms, Tunnels) and ensures the system's "spatial memory" is initialized.
+Verifies the hierarchical structure of the Synapse Palace (Wings, Halls, Rooms, Tunnels) and ensures the system's "spatial memory" is initialized.
 
 ## Audit Logic
 1. Checks for the existence of `palace_wings`, `palace_halls`, `palace_rooms`, `palace_closets`, and `palace_tunnels`.

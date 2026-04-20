@@ -16,7 +16,7 @@ This document serves as the **Long-Horizon Reference** for the transition from C
 - **Node A (Kernel/Reasoner):** NVIDIA GTX 1050 Ti. **Rules Authority.** Uses `Open-Reasoner-1.5B`. Enforces Cyberpunk RED mechanics via the `node_a_veto` tool.
 - **Node B (Director/Narrative):** AMD Radeon RX 9060 XT. **Aesthetic Lead.** Uses `Mistral-Nemo-12B` (Abliterated). Controlled via `DIRECTOR_SOUL.md`.
 
-### **2.2. The Triad Brain (MCP Bridge)**
+### **2.2. The Triad Brain (MCP Mesh)**
 - **Server:** `sovereign-triad-mcp` (NodeJS/TSX daemon).
 - **Socket:** `.gemini/tmp/sovereign-mcp.sock` (Unix Domain Socket).
 - **Ignition:** `` `npm run mcp:start` ``.
@@ -58,7 +58,7 @@ This document serves as the **Long-Horizon Reference** for the transition from C
 ## 📜 5. THE STRATEGIST'S CONCRETE COMMANDS
 GLM-5.1 and Gemini should use these specific patterns to maintain sovereignty:
 
-- **Database Direct Query:**
+- **Artery of Truth Direct Query:**
   `` `SQLITE_DATABASE="data/Akashik.db" cd /home/nixos/.gemini/extensions/mcp-toolbox-for-databases && go run . invoke execute_sql '{"sql": "SELECT * FROM ...;"}' --prebuilt sqlite` ``
 - **Gauntlet Audit:**
   `` `npm run gauntlet` `` (Mandatory before PR/Handoff).

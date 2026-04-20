@@ -18,7 +18,7 @@ The **NomadPR** system provides a collection of 17+ high-fidelity radio broadcas
 ---
 
 ## 🛠️ How to Trigger
-Atmospheric audio can be triggered via the **Dashboard Bridge** or programmatically by the **Director** based on narrative triggers.
+Atmospheric audio can be triggered via the **Dashboard Mesh** or programmatically by the **Director** based on narrative triggers.
 
 ### ◈ Manual Trigger (Dashboard)
 Navigate to the `AUDIO` tab in the Nucleus Deck and select a broadcast from the `NomadPR` library.

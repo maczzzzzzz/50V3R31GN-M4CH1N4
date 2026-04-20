@@ -23,7 +23,7 @@ As the player answers narrative questions, the orchestrator triggers `nitro-logi
 ### 3.1 The "Contract" Tool
 Once the interview concludes, the AI generates a "Contract Summary" (Stats, Role, Gear). Upon player confirmation, the backend triggers the `foundry:create_actor` tool.
 
-### 3.2 Foundry Bridge Payload
+### 3.2 Foundry Mesh Payload
 The payload includes:
 - **Base Stats/Skills:** Validated by ZeroClaw traits.
 - **Role-Based Items:** Seeded from the `entities_mooks` items directory.
@@ -35,4 +35,4 @@ The payload includes:
 
 ## 5. Verification Plan
 - **Rule Compliance:** Verify that all generated characters follow the 62-point (Standard) or 80-point (Major League) stat distribution.
-- **Bridge Reliability:** Ensure `create_actor` successfully populates all fields in Foundry v12 without manual GM intervention.
+- **Mesh Reliability:** Ensure `create_actor` successfully populates all fields in Foundry v12 without manual GM intervention.

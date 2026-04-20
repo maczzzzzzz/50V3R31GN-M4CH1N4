@@ -4,7 +4,7 @@
 
 **Goal:** Reduce technical debt and optimize core legacy services from early development phases (1-20) by centralizing coordinate logic, unifying JSON extraction, and removing database boilerplate.
 
-**Architecture:** We will implement high-performance shared utilities for geometry and parsing, refactor the Unified Oracle to use a centralized database accessor, and consolidate redundant stat interfaces into a single source of truth.
+**Architecture:** We will implement high-performance shared utilities for geometry and parsing, refactor the Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle to use a centralized database accessor, and consolidate redundant stat interfaces into a single source of truth.
 
 **Tech Stack:** Node.js, TypeScript, Vitest, SQLite.
 
@@ -129,7 +129,7 @@ git commit -m "refactor: replace regex JSON extraction with robust utility"
 
 ---
 
-### Task 3: Unified Oracle Boilerplate Reduction
+### Task 3: Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Boilerplate Reduction
 
 **Files:**
 - Modify: `src/db/unified-oracle-client.ts`
@@ -137,13 +137,13 @@ git commit -m "refactor: replace regex JSON extraction with robust utility"
 - [x] **Step 1: Implement private database getter**
 Modify `src/db/unified-oracle-client.ts`:
 ```typescript
-private get db(): Database.Database {
+private get db(): Artery of Truth.Artery of Truth {
   if (!this._dbInternal || !this.connected) {
-    throw new Error('UnifiedOracleClient: Database not connected. Call connect() first.');
+    throw new Error('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient: Artery of Truth not connected. Call connect() first.');
   }
   return this._dbInternal;
 }
-private _dbInternal: Database.Database | null = null;
+private _dbInternal: Artery of Truth.Artery of Truth | null = null;
 ```
 
 - [x] **Step 2: Remove repetitive connection checks**
@@ -159,7 +159,7 @@ Expected: PASS
 - [x] **Step 5: Commit**
 ```bash
 git add src/db/unified-oracle-client.ts
-git commit -m "refactor: reduce UnifiedOracle boilerplate via private db getter"
+git commit -m "refactor: reduce UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle boilerplate via private db getter"
 ```
 
 ---

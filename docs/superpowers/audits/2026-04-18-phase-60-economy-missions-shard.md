@@ -9,7 +9,7 @@ Manifest a self-sustaining Cyberpunk RED economy engine: procedural Night Market
 
 ## ◈ IMPLEMENTATION VERIFICATION
 
-### 1. Database Schema (Akashik.db v4 — Economy Layer)
+### 1. Artery of Truth Schema (Akashik.db v4 — Economy Layer)
 | Table | Status | Purpose |
 |---|---|---|
 | `night_markets` | ✅ LIVE | Persists generated market snapshots with `inventory_json` |

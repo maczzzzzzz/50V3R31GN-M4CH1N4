@@ -9,7 +9,7 @@
 
 `ClawLinkClient` is a TypeScript class embedded inside the Director process. It maintains a persistent TCP socket to ZeroClaw on Node A (port 7878), serialising all requests through a single-event-loop promise queue to prevent VRAM bandwidth exhaustion. This design leaks Node.js GC pressure into the hot path and limits concurrency to Node.js's cooperative scheduling model.
 
-Phase 26 replaces this with a persistent Go binary (`crush proxy`) that owns the Node A connection. TypeScript becomes a pure Visual Bridge (Foundry WebSocket only). Go handles all Node A RPC and World State Authority (WSA) gating.
+Phase 26 replaces this with a persistent Go binary (`crush proxy`) that owns the Node A connection. TypeScript becomes a pure Visual Mesh (Foundry WebSocket only). Go handles all Node A RPC and World State Authority (WSA) gating.
 
 ---
 

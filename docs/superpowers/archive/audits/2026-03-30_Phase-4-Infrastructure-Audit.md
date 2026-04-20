@@ -10,7 +10,7 @@ The implementation has successfully transitioned from scaffolding to a functiona
 - The **Pre-flight Audit** has been stabilized and verified across the network bridge.
 
 ## 2. Technical Integrity Audit
-- **Zero-Trust Bridge:** Hardened the `nitro-db` MCP server with explicit manual Zod validation to prevent payload corruption over SSH/stdio.
+- **Zero-Trust Mesh:** Hardened the `nitro-db` MCP server with explicit manual Zod validation to prevent payload corruption over SSH/stdio.
 - **Hardware Isolation:** Verified that all rules-heavy logic and data reside on Node A, while narrative synthesis and state management reside on Node B.
 - **TDD Rigor:** Maintained 100% pass rate across 224 unit and integration tests.
 

@@ -34,7 +34,7 @@ This manifest details the critical logical drifts and security vulnerabilities i
 **Risk:** LOW (Feature Inactivity)
 **Description:** Phase 44.5 (The Shroud) has physical shaders and resolution logic, but the `PretextOverlayManager` lacks the lifecycle hooks to actually initialize the WebGL container.
 **Directive:**
-- Wire the `SovereignShroud` into the `onInit` and `onSceneUpdate` hooks of the Bridge.
+- Wire the `SovereignShroud` into the `onInit` and `onSceneUpdate` hooks of the Mesh.
 - Ensure the CRT scanline and glitch intensity parameters are correctly piped from the Narrative Client.
 
 ---

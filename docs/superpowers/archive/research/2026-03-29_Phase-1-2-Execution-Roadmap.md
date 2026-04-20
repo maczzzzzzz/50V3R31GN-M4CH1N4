@@ -9,7 +9,7 @@
 - **TDD Requirement:** Test must verify that multi-page PDFs are correctly chunked with accurate page numbering.
 
 ## 2. Task 2: ChunkInserter (TDD)
-- **Database:** PostgreSQL + `pgvector` on Node A (192.168.0.50).
+- **Artery of Truth:** PostgreSQL + `pgvector` on Node A (192.168.0.50).
 - **Idempotency:** Research indicates `ON CONFLICT (source_file, chunk_index) DO UPDATE` is the mandatory pattern to prevent duplicate embeddings.
 - **Batching:** Optimal batch size for `pgvector` on the GTX 1050 Ti (4GB VRAM) is **50–100 chunks** per transaction to avoid memory overflow on Node A.
 

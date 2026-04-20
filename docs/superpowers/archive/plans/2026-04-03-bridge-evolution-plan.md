@@ -1,4 +1,4 @@
-# Bridge Evolution Implementation Plan
+# Mesh Evolution Implementation Plan
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
@@ -50,7 +50,7 @@ if (game.modules.get('socketlib')?.active) {
 
 **Files:**
 - Modify: `foundry-module/foundry-api-bridge.js`
-- Create: `docs/audits/2026-04-03_v3.2.19-Bridge-Evolution-Audit.md`
+- Create: `docs/audits/2026-04-03_v3.2.19-Mesh-Evolution-Audit.md`
 
 **Step 1: Implement the `system_heartbeat` event to report active modules back to Node B.**
 **Step 2: Version bump to 1.5.0.**

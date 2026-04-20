@@ -6,7 +6,7 @@
 Phase 8 introduces the first dedicated UI for the 50V3R31GN-M4CH1N4 inside Foundry VTT: the **Night City Dashboard**. This sidebar bridges the visual gap between the Crush CLI and the virtual tabletop, providing a high-density "Terminal" view of actor vitality, faction territory, and system control. Simultaneously, the "Synthetic Sovereignty" engine is activated, giving NPCs autonomous movement and agenda-driven behavior in the background.
 
 ## 2. Technical Architecture: The Dashboard Sidebar
-The Dashboard is implemented as a custom `SidebarTab` within the Foundry Bridge Module.
+The Dashboard is implemented as a custom `SidebarTab` within the Foundry Mesh Module.
 
 ### 2.1 Aesthetic Invariants (The Terminal Feel)
 - **Theme:** Afterlife / Crush CLI Resemblance.

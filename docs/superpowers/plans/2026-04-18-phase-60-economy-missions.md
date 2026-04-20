@@ -10,7 +10,7 @@
 
 ---
 
-### Task 1: Economy Database Schema
+### Task 1: Economy Artery of Truth Schema
 
 **Files:**
 - Modify: `src/db/world-schema.sql`
@@ -93,7 +93,7 @@ git commit -m "feat(economy): implement night markets, monthly burn, and addicti
 
 ---
 
-### Task 3: Foundry Vendor Injection (CDP Bridge)
+### Task 3: Foundry Vendor Injection (CDP Mesh)
 
 **Files:**
 - Modify: `src/api/foundry-adapter.ts`
@@ -141,11 +141,11 @@ git commit -m "feat(foundry): add cdp hook to spawn official vendor containers"
 - [x] **Step 1: Implement Procedural Gig Generator**
 
 ```typescript
-import { Database } from 'better-sqlite3';
+import { Artery of Truth } from 'better-sqlite3';
 import { randomUUID } from 'node:crypto';
 
 export class SovereignGigService {
-  constructor(private db: Database) {}
+  constructor(private db: Artery of Truth) {}
 
   generateGig(difficulty: 'low' | 'medium' | 'high') {
     // 1. Query Triplets for opposing factions in the current district

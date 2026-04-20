@@ -1,11 +1,11 @@
 # :/U53R-6U1D3 : 7H3-0B51D14N-V4UL7 //
-**Subject:** Steganographic Document Encryption & Memory Palace
+**Subject:** Steganographic Document Encryption & Synapse Palace
 **Version:** 3.2.6
 
 ## 1. OVERVIEW
 The **Obsidian Vault** is the final layer of project security and the physicalization of the machine's memory. It serves two purposes:
 1.  **Steganography:** Encrypts sensitive blueprints into noise-map PNGs.
-2.  **Memory Palace:** Generates a 3D Relational Knowledge Graph (RKG) from the `Akashik.db`.
+2.  **Synapse Palace:** Generates a 3D Relational Knowledge Graph (RKG) from the `Akashik.db`.
 
 ---
 

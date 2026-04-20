@@ -19,7 +19,7 @@ The Machina will now execute the background ignition sequence and run automated 
 - **Obsidian:** Launched via Windows AppID (`md.obsidian`) using `explorer.exe`.
 - **Win-Proxy:** Node.js bridge (`scripts/win-proxy.cjs`) listening on `0.0.0.0:9223` on Windows, forwarding to `localhost:9222`.
 
-### Layer 2: WSL2 (Orchestrator & Bridge)
+### Layer 2: WSL2 (Orchestrator & Mesh)
 Boot sequence is managed headlessly by `crush start --headless` — each step waits for a confirmed health signal:
 
 1. **Foundry CDP Gate:** Waits for a `"page"` target at `<win-host>:9223/json` before starting WSL processes.

@@ -1,14 +1,14 @@
-# Design Spec: Bridge Sovereignty & Motor Cortex
+# Design Spec: Mesh Sovereignty & Motor Cortex
 **Version:** 1.0.0
 **Date:** 2026-04-12
 **Phase:** 44
-**Goal:** Implement the "Motor Cortex" within the Foundry Bridge to allow the Sovereign Machina to execute high-privilege administrative actions.
+**Goal:** Implement the "Motor Cortex" within the Foundry Mesh to allow the Sovereign Machina to execute high-privilege administrative actions.
 
 ## 1. Overview
-The **Motor Cortex** is the active counterpart to the Bridge's existing sensory layers (hovers, events). It provides a hardened command pipe for the AI to manipulate the Foundry environment directly, enabling automated campaign materialization.
+The **Motor Cortex** is the active counterpart to the Mesh's existing sensory layers (hovers, events). It provides a hardened command pipe for the AI to manipulate the Foundry environment directly, enabling automated campaign materialization.
 
 ## 2. Command Pipeline
-The Bridge's `_dispatch` method is expanded to handle three primary "Motor" command types:
+The Mesh's `_dispatch` method is expanded to handle three primary "Motor" command types:
 
 ### 2.1 `create_actor`
 - **Payload:** Raw Foundry Actor JSON data (Stats, Items, Images).

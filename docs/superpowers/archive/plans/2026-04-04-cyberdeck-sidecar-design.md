@@ -3,7 +3,7 @@
 **Target:** Phase 23 (Neural World Engine)
 
 ## 1. Overview
-The Cyberdeck Sidecar is a high-performance **Tactical Interface** (Egui/Rust) that acts as the "Hardware Mirror" for the Netrunner. It introduces a **Dual-Mode Interface** with a **Deep Dive (Program Hotbar)** and a **Ghost Protocol (Quick-Hack HUD)**, synchronized via the **Deck-Bus (VSB Shared Memory)**.
+The Cyberdeck Sidecar is a high-performance **Tactical Interface** (Egui/Rust) that acts as the "Hardware Mirror" for the Netrunner. It introduces a **Dual-Mode Interface** with a **Deep Dive (Program Hotbar)** and a **Ghost Protocol (Quick-Hack HUD)**, synchronized via the **Deck-Bus (VSB Shared Synapse)**.
 
 ## 2. Architecture: The Dual-Mode HUD
 The sidecar is a modular component managed by the **Crush CLI**, integrated into the **Netrunning Ecosystem** (Node A Rules Judge + Netrunning Sidecar).

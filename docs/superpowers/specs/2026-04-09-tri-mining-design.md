@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: 7R1-M1N1NG [VRAM_50V3R31GN7Y]
-**Version:** 1.0.0 (The Geometric Memory Milestone)
+**Version:** 1.0.0 (The Geometric Synapse Milestone)
 **Status:** DESIGN_APPROVED
 **Phase:** 38
 
@@ -32,11 +32,11 @@ Data is clustered into four tiers for weighted retention:
 1.  **Ingest:** `ZeroClaw` receives an `IntentPacket` from the Sovereign Highway.
 2.  **Scoring:** `7R1_SC0R3R` identifies the relevant #PHY51C5 and #57473 centers.
 3.  **Pruning:** `M3M0RY_1NC1N3R4710N` wipes low-relevance tokens from the history buffer.
-4.  **Inference:** The `H1GH_D3N517Y_F33D` is passed to `llama-server`.
+4.  **Cognition:** The `H1GH_D3N517Y_F33D` is passed to `llama-server`.
 5.  **Audit:** Node A returns a reasoning block with zero memory-induced hallucinations.
 
 ## ◈ SUCCESS CRITERIA
-- Zero OOM (Out of Memory) crashes on Node A during 32k-token stress tests.
+- Zero OOM (Out of Synapse) crashes on Node A during 32k-token stress tests.
 - Sub-50ms overhead for the `7R1_SC0R3R` pass.
 - Maintenance of sub-500ms reasoning latency.
 - Accurate retrieval of #PHY51C5 mechanics even when the buffer is > 90% pruned.

@@ -4,9 +4,9 @@
 
 **Goal:** Implement a high-performance campaign generation engine using the **Gemini AI (Imagen 3)** "Nano Banana 2" pipeline and a comprehensive Obsidian "NC_GANGS_CORPS" tactical library.
 
-**Prerequisite:** **Phase 44: Bridge Sovereignty** (Motor Cortex handlers) must be operational.
+**Prerequisite:** **Phase 44: Mesh Sovereignty** (Motor Cortex handlers) must be operational.
 
-**Architecture:** A modular suite in `scripts/forge/` that leverages Gemini 1.5 Pro for narrative, Imagen 3 for high-fidelity visuals, and the Phase 44 Bridge Motor Cortex. Uses a SQLite registry for idempotency and St3gg for data-baking into map PNGs.
+**Architecture:** A modular suite in `scripts/forge/` that leverages Gemini 1.5 Pro for narrative, Imagen 3 for high-fidelity visuals, and the Phase 44 Mesh Motor Cortex. Uses a SQLite registry for idempotency and St3gg for data-baking into map PNGs.
 
 **Tech Stack:** TypeScript, @google/generative-ai, Playwright (CDP), better-sqlite3, js-yaml, St3gg (Go).
 
@@ -22,7 +22,7 @@
 Extract `system.stats`, `items`, and `img` from the mook pack JSONs.
 
 - [ ] **Step 2: Generate Obsidian Markdown with Spawn Hook**
-Include a "Materialize" button in the note body that calls the Phase 44 `create_actor` Bridge handler.
+Include a "Materialize" button in the note body that calls the Phase 44 `create_actor` Mesh handler.
 
 - [ ] **Step 3: Add `npm run forge:library` and verify**
 Run: `npm run forge:library`
@@ -76,7 +76,7 @@ Implement the Imagen 3 pipe via `@google/generative-ai` with Style-DNA locking.
 Use Gemini 1.5 Pro (Vision) to audit the generated map against the spec.
 
 - [ ] **Step 2: REMEMBER — Semantic Finalization**
-Write the Obsidian "Memory" note with St3gg-embedded map and materialization hooks.
+Write the Obsidian "Synapse" note with St3gg-embedded map and materialization hooks.
 
 - [ ] **Step 3: Commit**
 `git add scripts/forge/awaken.ts scripts/forge/remember.ts && git commit -m "feat: implement AWAKEN and REMEMBER stages"`

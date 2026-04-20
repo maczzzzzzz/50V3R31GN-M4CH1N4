@@ -2,7 +2,7 @@
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Implement Phase 5.2 (v3.2.19), including the Discord Chronicler and the Playwright Optical Bridge.
+**Goal:** Implement Phase 5.2 (v3.2.19), including the Discord Chronicler and the Playwright Optical Mesh.
 
 **Architecture:** Discord posts are handled via an MCP tool dispatcher. Visual spatial awareness uses the Playwright MCP server to capture the Foundry canvas and pipes it to Node B's local Llava model for analysis.
 
@@ -21,13 +21,13 @@
 - Support `ENV: DISCORD_SCREAMSHEET_WEBHOOK`.
 
 **Step 2: Wire into State Mutation events**
-- Update HRC to call `screamsheet_post` after successful `UnifiedOracle` updates.
+- Update HRC to call `screamsheet_post` after successful `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` updates.
 
 **Step 3: Commit**
 
 ---
 
-### Task 2: The Optical Bridge (Browser Vision)
+### Task 2: The Optical Mesh (Browser Vision)
 
 **Files:**
 - Create: `src/core/spatial-vision-service.ts`
@@ -38,7 +38,7 @@
 - Capture `#canvas` and save to local temp buffer.
 
 **Step 2: Implement Llava tactical analysis**
-- Pass buffer to `SovereignInferenceClient`.
+- Pass buffer to `SovereignCognitionClient`.
 - Parse resulting JSON into `VisualTacticalContext`.
 
 **Step 3: Commit**

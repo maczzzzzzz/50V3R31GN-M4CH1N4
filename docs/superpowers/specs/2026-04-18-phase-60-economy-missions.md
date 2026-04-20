@@ -24,7 +24,7 @@ Implement `SovereignGigService.ts`:
 
 ## ◈ 4. DEPENDENCIES
 - Requires the completion of **Phase 59: Canonical Mirror** (so that we have the official weapons, gear, and actors to populate the markets and gigs).
-- Requires the CDP Bridge (Foundry integration) to be fully operational for token spawning.
+- Requires the CDP Mesh (Foundry integration) to be fully operational for token spawning.
 
 ---
 **::/5Y573M-N071C3 : SPEC_V4_ECONOMY_STAGED. // 50V3R31GN-M4CH1N4**

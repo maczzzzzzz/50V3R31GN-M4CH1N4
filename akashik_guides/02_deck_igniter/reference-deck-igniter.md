@@ -10,7 +10,7 @@ It manages the handshake between Node B (The Director) and Node A (The Kernel) w
 2. **VSB Heartbeat**: Probes the `zeroclaw` service using the Virtual System Bus (Binary UDP) protocol to verify mechanical rules readiness.
 3. **CDP Probe**: Connects to Foundry VTT's Chrome DevTools Protocol (CDP) port (9222) to verify the visual bridge.
 4. **Process Supervision**: Monitors sidecar PIDs (Atlas, Netrunning, Cyberdeck) via Signal 0.
-5. **Inference Health**: Verified `llama-server` availability via OpenAI-compatible health endpoints.
+5. **Cognition Health**: Verified `llama-server` availability via OpenAI-compatible health endpoints.
 
 ## ARCHITECTURAL SHIFT: WEBGL FIRST
 As of **Phase 50**, the manual TUI is deprecated. All ignition commands are routed through the **Nucleus Artery** (`crush nucleus`) which executes the Igniter in background mode.

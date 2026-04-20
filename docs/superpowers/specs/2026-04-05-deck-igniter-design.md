@@ -23,7 +23,7 @@ The Igniter is a Go-based application built with the **Bubble Tea** framework. I
 
 ### 2.3 Layer 3: Remote (Node A Kernel)
 - **Handshake:** Uses SSH with the confirmed key (`~/win_id_ed25519`).
-- **Inference:** Starts `llama-server` with the 1.5B Reasoner via `setup-resident-models.sh`.
+- **Cognition:** Starts `llama-server` with the 1.5B Reasoner via `setup-resident-models.sh`.
 - **Authority:** Starts the `zeroclaw` Rust binary.
 
 ## 3. Visual Identity (Black-Ice Theme)

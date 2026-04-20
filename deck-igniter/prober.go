@@ -60,6 +60,14 @@ func vsbUDPAddr() string {
 	return net.JoinHostPort(Cfg.NodeAHost, Cfg.ClawlinkPort)
 }
 
+func oracleHealthURL() string {
+	return fmt.Sprintf("http://%s:%s/health", Cfg.NodeCHost, Cfg.NodeCPort)
+}
+
+func mooncakeHealthURL() string {
+	return fmt.Sprintf("http://%s:6789/health", Cfg.NodeAHost)
+}
+
 var httpProber = &http.Client{Timeout: probeTimeout}
 
 // ── Probe Dispatch ─────────────────────────────────────────────────────────────
@@ -98,6 +106,10 @@ func probeComponent(c *Component) tea.Cmd {
 		return probeHTTP(c.Name, llamaHealthURL())
 	case "zeroclaw":
 		return probeVSBUDP(c.Name)
+	case "mooncake-synapse":
+		return probeHTTP(c.Name, mooncakeHealthURL())
+	case "oracle-logic":
+		return probeHTTP(c.Name, oracleHealthURL())
 	default:
 		return nil
 	}

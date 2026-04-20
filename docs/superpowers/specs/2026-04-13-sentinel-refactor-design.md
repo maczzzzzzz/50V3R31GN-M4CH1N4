@@ -19,7 +19,7 @@ The **53N71N3L (Sentinel)** refactor transitions the 50V3R31GN-M4CH1N4 from a po
 - **Pattern Observers:** Implement `watch_patterns` for:
     - `[ERROR] 503 Service Unavailable` (Google API)
     - `[CRITICAL] VRAM ≥ 90%` (Hardware)
-    - `[WARN] Heartbeat Timeout` (Foundry Bridge)
+    - `[WARN] Heartbeat Timeout` (Foundry Mesh)
 - **Sovereign Judgment:** Log patterns are sent to Node A's Reasoner for severity classification (LOW, MEDIUM, CRITICAL).
 - **Automated Recovery:**
     - **MEDIUM:** Trigger `crush vault seal` and state backup to `Akashik.db`.

@@ -79,9 +79,10 @@ func St3ggEncode(img image.Image, payload []byte) ([]byte, error) {
 	bounds := img.Bounds()
 	w, h := bounds.Dx(), bounds.Dy()
 
-	if len(payload) > st3ggCapacity(w, h) {
+	cap := st3ggCapacity(w, h)
+	if cap < 0 || len(payload) > cap {
 		return nil, fmt.Errorf("st3gg: payload %d bytes exceeds image capacity %d bytes (%dx%d)",
-			len(payload), st3ggCapacity(w, h), w, h)
+			len(payload), cap, w, h)
 	}
 
 	nrgba := image.NewNRGBA(image.Rect(0, 0, w, h))

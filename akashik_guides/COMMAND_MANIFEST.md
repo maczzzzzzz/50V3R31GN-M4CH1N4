@@ -49,7 +49,7 @@ Executed from within a `nix develop` shell in the project root.
 | `npm run typecheck` | Validates type safety across the TS codebase. |
 | `npm test` | Runs the full Vitest suite within Nix. |
 | `npm run build:sidecars` | Compiles all Rust sidecars (Atlas, Cyberdeck, Netrunning). |
-| `npm run mcp:start` | Manual launch of the **Sovereign Triad MCP Bridge**. |
+| `npm run mcp:start` | Manual launch of the **Sovereign Trinity MCP Mesh**. |
 | `npm run sync` | Automates the cascading alignment of version headers and guides. |
 
 ### 🔍 Audit & Harmonize
@@ -58,7 +58,7 @@ Executed from within a `nix develop` shell in the project root.
 | `npm run audit:vitals` | Executes a 3-quadrant hardware/software health audit. |
 | `npm run audit:dry-fire` | Executes a full system interaction audit. |
 | `npm run audit:theme` | Scans and verifies visual consistency across modules. |
-| `npm run harmonize` | Synchronizes the Obsidian RKG with the SQLite Oracle. |
+| `npm run harmonize` | Synchronizes the Obsidian RKG with the SQLite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. |
 | `npm run gauntlet` | Executes the **Sovereign Gauntlet** validation shards. |
 
 ### 🔨 Forge (Asset Generation)
@@ -125,7 +125,7 @@ Executed from the Windows terminal to bridge into the Nix environment.
 | :--- | :--- |
 | `wsl -e nix develop` | Boots the Node B environment from Windows. |
 | `.\crush-cli.exe` | Windows-native build of the control plane (if compiled). |
-| `npm run test:live` | Bridges Linux logs to Windows-native test runners. |
+| `npm run test:live` | Meshs Linux logs to Windows-native test runners. |
 
 ---
 **::/5Y573M-N071C3 : TRU7H UN1F13D. C0MM4ND5 V3R1F13D. // 50V3R31GN-M4CH1N4**

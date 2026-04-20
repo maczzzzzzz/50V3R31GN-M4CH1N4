@@ -32,7 +32,7 @@ Build the full data ingestion pipeline and RAG query interface for the 50V3R31GN
 
 ---
 
-## 2. Database Schema (Node A — PostgreSQL + pgvector)
+## 2. Artery of Truth Schema (Node A — PostgreSQL + pgvector)
 
 Single table with namespace column for isolation:
 
@@ -265,7 +265,7 @@ OLLAMA_EMBED_MODEL=nomic-embed-text
 ## 9. Scope Boundaries (No Creep)
 
 Phase 1 produces ONLY:
-- Database migration script and schema
+- Artery of Truth migration script and schema
 - Ingestion pipeline (PDF + JSON + TXT)
 - Embedder client (Ollama)
 - `nitro-db` MCP server with 3 tools

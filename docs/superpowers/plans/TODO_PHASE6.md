@@ -20,11 +20,11 @@
 - [x] Extend `world-schema.sql` with `district_grid`
 - [x] Implement recursive Chebyshev influence triggers
 - [x] Implement NPC state transition triggers
-- [x] Add grid seeding logic to `UnifiedOracleClient`
+- [x] Add grid seeding logic to `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`
 - **Result:** Night City state now advances deterministically via SQLite triggers.
 
 ### Task 4: Spatial Context Fusion
-- [x] Extend Foundry Bridge schemas with spatial context
+- [x] Extend Foundry Mesh schemas with spatial context
 - [x] Update HRC to ingest token coordinates
 - [x] Implement proximity-based tactical grounding in narrative
 - [x] Verify no regressions in global test suite

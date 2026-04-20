@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Implement a hierarchical, high-fidelity memory architecture (Memory Palace) that provides the 48L173R473D M1ND with infinite, consistent context across sessions.
+**Goal:** Implement a hierarchical, high-fidelity memory architecture (Synapse Palace) that provides the 48L173R473D M1ND with infinite, consistent context across sessions.
 
 **Architecture:** We will deploy local **ChromaDB** on Node B for verbatim session storage, a temporal SQLite graph for entity relationships, and a 3-phase **Dreaming Loop** on Node A for background lore consolidation and identity promotion.
 
@@ -49,16 +49,16 @@ CREATE TABLE IF NOT EXISTS palace_tunnels (
 );
 ```
 
-- [ ] **Step 2: Initialize Palace in Oracle**
+- [ ] **Step 2: Initialize Palace in Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle**
 
-Modify `UnifiedOracleClient` to execute the palace schema on startup.
+Modify `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient` to execute the palace schema on startup.
 
-- [ ] **Step 3: Implement MemoryPalaceService Scaffold**
+- [ ] **Step 3: Implement SynapsePalaceService Scaffold**
 
 Create the base class that manages the hierarchical navigation.
 
 ```typescript
-export class MemoryPalaceService {
+export class SynapsePalaceService {
     async enterRoom(roomId: string): Promise<void> {
         // Update Mmap with current RoomID
         // Load room-specific context from ChromaDB
@@ -76,7 +76,7 @@ export class MemoryPalaceService {
 
 - [ ] **Step 1: Integrate Local ChromaDB**
 
-Initialize ChromaDB client in `MemoryPalaceService`. Configure it to use a local persistent directory (`data/chroma`).
+Initialize ChromaDB client in `SynapsePalaceService`. Configure it to use a local persistent directory (`data/chroma`).
 
 - [ ] **Step 2: Implement Verbatim "Mining"**
 

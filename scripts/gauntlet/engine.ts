@@ -34,7 +34,7 @@ function getWslGateway(): string {
 }
 
 async function fetchCdpWsUrl(): Promise<string> {
-  const bridgeHost = process.env['CDP_BRIDGE_HOST'] ?? '192.168.0.51';
+  const bridgeHost = process.env['CDP_BRIDGE_HOST'] ?? '10.0.0.11';
   const bridgePort = process.env['CDP_BRIDGE_PORT'] ?? '9223';
   const wslGw = getWslGateway();
 
@@ -243,7 +243,7 @@ async function main() {
   const vsbSend = (pkt: Buffer): Promise<void> =>
     new Promise((resolve, reject) => {
       const vsbPort = parseInt(process.env['ZEROCLAW_PORT'] ?? '7878', 10);
-      const nodeAHost = process.env['NODE_A_HOST'] ?? '192.168.0.50';
+      const nodeAHost = process.env['NODE_A_HOST'] ?? '10.0.0.10';
       const sock = createSocket('udp4');
       sock.send(pkt, vsbPort, nodeAHost, (err) => {
         sock.close();

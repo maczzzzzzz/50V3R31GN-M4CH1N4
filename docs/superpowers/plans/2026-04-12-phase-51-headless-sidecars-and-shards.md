@@ -26,7 +26,7 @@ git commit -m "feat: convert Rust sidecars into headless daemons"
 
 ### Task 2: The UI Purge (Foundry Restoration)
 
-- [ ] **Step 1: Remove `Sovereign Bridge` button and Monitor iframe**
+- [ ] **Step 1: Remove `Sovereign Mesh` button and Monitor iframe**
 Clean up `50v3r31gn-bridge.js` to remove all non-environmental UI elements.
 
 - [ ] **Step 2: Commit**
@@ -40,7 +40,7 @@ git commit -m "chore: purge intrusive Machina UI from Foundry VTT"
 ### Task 3: Shard Evolution (Headless Audits)
 
 - [ ] **Step 1: Create `scripts/gauntlet/phases/purge-audit.ts` (Phase 52)**
-Implement an audit that fails if it detects the `Sovereign Bridge` button via CDP.
+Implement an audit that fails if it detects the `Sovereign Mesh` button via CDP.
 
 - [ ] **Step 2: Refactor `orch-block.ts` for Headless Heartbeats**
 Update Phase 4 and 24 to check Mmap slots instead of window handles.

@@ -81,7 +81,7 @@ func startNucleusServer() {
 - [ ] **Step 2: Commit**
 ```bash
 git add crush/nucleus.go
-git commit -m "feat: scaffold Go Nucleus Artery (Protobuf Bridge)"
+git commit -m "feat: scaffold Go Nucleus Artery (Protobuf Mesh)"
 ```
 
 ---

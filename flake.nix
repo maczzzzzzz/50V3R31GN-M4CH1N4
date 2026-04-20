@@ -231,67 +231,44 @@
         };
 
         cuda = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            # Node.js Stack
-            nodejs_22
-            typescript
-            pnpm
-            steam-run
-            xdg-utils
-            
-            # Database
-            sqlite
-            
-            # CLI Management
-            go
-            
-            # Sidecar Build Requirements (Rust)
-            cargo
-            rustc
-            pkg-config
-            openssl
-            
-            # AI/Inference & GPU (CUDA for Node A)
-            llama-cpp-pascal
+          nativeBuildInputs = with pkgs; [
+            python312
+            python312Packages.pip
+            python312Packages.setuptools
+            python312Packages.wheel
             cudaPackages.cudatoolkit
             cudaPackages.libcublas
-            cudaPackages.libcufft
-            cudaPackages.libcurand
             cudaPackages.libcusolver
             cudaPackages.libcusparse
-            
-            # Utilities
-            ripgrep
-            fd
             git
+            go
+            cmake
+            ninja
+            mpich
+            gcc
           ];
 
           shellHook = ''
             export PROJECT_ROOT=$(pwd)
             export AKASHIK_DB_PATH="$PROJECT_ROOT/data/Akashik.db"
-            export CRUSH_DB_PATH="$PROJECT_ROOT/.crush/crush.db"
             export NIXPKGS_ALLOW_UNFREE=1
             
-            # Driver-Sovereignty: Use surgical path for host drivers to avoid GLIBC mismatches
-            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath (with pkgs; [ 
-              openssl 
+            # Absolute Python Artery
+            export PATH="${pkgs.python312}/bin:${pkgs.python312Packages.pip}/bin:$PATH"
+            alias python="python3"
+            alias pip="python3 -m pip"
+            
+            # CUDA Invariants
+            export CUDA_HOME="${pkgs.cudaPackages.cudatoolkit}"
+            export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [ 
               cudaPackages.cudatoolkit
               cudaPackages.libcublas
-              cudaPackages.libcufft
-              cudaPackages.libcurand
               cudaPackages.libcusolver
               cudaPackages.libcusparse
-            ])}:/home/maczz/50V3R31GN-M4CH1N4/.gemini/lib/nvidia:/usr/lib/wsl/lib:$LD_LIBRARY_PATH"
+              stdenv.cc.cc.lib
+            ])}:$LD_LIBRARY_PATH"
             
-            export OPENSSL_DIR="${pkgs.openssl.dev}"
-            export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
-            export OPENSSL_INCLUDE_DIR="${pkgs.openssl.dev}/include"
-
-            # DROID_FACTORY: Wrapped execution via steam-run for NixOS compatibility
-            alias droid="steam-run /home/nixos/.local/bin/droid"
-            
-            echo "◈ 50V3R31GN-M4CH1N4: Node A (NixOS/Ubuntu) Environment Loaded [GPU: AUTO/CUDA]."
-            echo "◈ RKG Path: $AKASHIK_DB_PATH"
+            echo "◈ 50V3R31GN-M4CH1N4: Node C (HARDENED_ORACLE) Environment Loaded."
           '';
         };
       };

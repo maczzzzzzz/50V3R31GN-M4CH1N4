@@ -5,7 +5,7 @@
 **Goal:** Transform the machine into an active infiltration engine with transient biometric scanning, integrated netrunning hacks, and automated smart-asset ingestion.
 
 **Architecture:** 
-- **Bridge Layer:** Socket hooks for hover events.
+- **Mesh Layer:** Socket hooks for hover events.
 - **Mmap Layer:** Expansion of `black_ice_state.mem` for transient data.
 - **HUD Layer:** Reactive scanner and hacking menu in Egui.
 - **Judge Layer:** Rules-bypass toggle for GM Sovereign Mode.
@@ -14,7 +14,7 @@
 
 ---
 
-### Task 1: Bridge Perception Hooks
+### Task 1: Mesh Perception Hooks
 
 **Files:**
 - Modify: `foundry-module/foundry-api-bridge.js`

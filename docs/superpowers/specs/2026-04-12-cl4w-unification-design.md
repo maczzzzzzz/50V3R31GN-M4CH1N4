@@ -40,7 +40,7 @@ Every capability is a modular **Ability Shard** evolved through the **Hermes Ski
 - **Identity Shroud (Icarus):** A persistent "Soul" layer that logs high-quality decision tagging into `SOUL.jsonl`. This ensures the project's "Identity" remains constant even during LLM model swaps.
 
 ## 7. Success Criteria
-- [ ] Workspace reduction to exactly 3 windows: Foundry (World), Nucleus (Mind), Obsidian (Memory).
+- [ ] Workspace reduction to exactly 3 windows: Foundry (World), Nucleus (Mind), Obsidian (Synapse).
 - [ ] Zero-latency (60fps) rendering of log streams and radar data via Pretext.
 - [ ] Autonomous pattern detection generating valid Ability Shards with >90% success rate.
 - [ ] Automated vault sync and sealing triggered by Infrastructure Risk monitors.

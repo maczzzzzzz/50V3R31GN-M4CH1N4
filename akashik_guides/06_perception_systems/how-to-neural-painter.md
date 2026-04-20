@@ -9,7 +9,7 @@
 The **Neural Uplink** provides the AI with "Physical Eyes" by establishing a native connection to the Foundry VTT GPU buffer via the **Chrome DevTools Protocol (CDP)** on Port 9222.
 
 ### 👁️ Capabilities:
-- **Visual Grounding**: The AI captures raw rendering buffers via the `CDP-Bridge` to see exactly what you see on the canvas.
+- **Visual Grounding**: The AI captures raw rendering buffers via the `CDP-Mesh` to see exactly what you see on the canvas.
 - **Ghost-Refresh**: Programmatically reloads the Foundry window to apply module or CSS updates without human intervention.
 - **Sovereign Hijack**: Injects real-time CSS/JS "glitch" or narrative FX directly into the Foundry renderer via `SOVEREIGN_HIJACK_JS`.
 
@@ -28,7 +28,7 @@ The **Neural Painter** allows the AI to "draw" the game world with sub-microseco
 ## 🛠️ Operational Requirements
 1.  **Foundry Launch**: Ensure Foundry VTT is launched with the `--remote-debugging-port=9222` flag.
 2.  **Scene ID**: The system must have an active `sceneId` registered in **`Akashik.db`** to target materializations.
-3.  **Bridge Link**: The `win-proxy` service must be active on Windows to forward CDP requests to WSL.
+3.  **Mesh Link**: The `win-proxy` service must be active on Windows to forward CDP requests to WSL.
 
 ---
 *Neural Uplink: Native CDP Engine Active v3.2.19.*

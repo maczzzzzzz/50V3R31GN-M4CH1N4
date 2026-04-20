@@ -3,7 +3,7 @@
 ## 1. Goal
 Finalize the stability of the 50V3R31GN-M4CH1N4 system by remediating all remaining bugs in the Ghost Boot sequence, Visual Dominance theme, and CLI interfaces.
 
-## 2. Architecture: Foundry Bridge Remediation
+## 2. Architecture: Foundry Mesh Remediation
 *   **CombatBooster Monkey-Patch (Combat Stability):**
     *   Target: `50v3r31gn-bridge/50v3r31gn-bridge.js`
     *   Fix: Before any other module initializes, inject `PIXI.filters.ColorMatrixFilter = PIXI.filters.ColorMatrixFilterDeprecated` (mapping v7 deprecation) into the global scope. This prevents fatal canvas errors.
@@ -34,7 +34,7 @@ Finalize the stability of the 50V3R31GN-M4CH1N4 system by remediating all remain
     *   Fix: Add `launchObsidian(c *Component)` using the PowerShell WSL interop pattern: `Start-Process -FilePath 'Obsidian.exe'`. Integrate into the sequential boot flow.
 
 ## 5. Logical Order of Operation
-1.  **Foundry Bridge (JS/CSS):** Fix theme leaks, ESC button, and PIXI deprecation.
+1.  **Foundry Mesh (JS/CSS):** Fix theme leaks, ESC button, and PIXI deprecation.
 2.  **Crush CLI (Go):** Redesign the VSB Auth Pane UI.
 3.  **Deck-Igniter (Go):** Implement sidecar gating and Obsidian GUI launch.
 

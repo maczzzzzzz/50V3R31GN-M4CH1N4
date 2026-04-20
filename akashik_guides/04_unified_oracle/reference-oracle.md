@@ -1,7 +1,7 @@
-# User Guide: The Unified Oracle (Akashik Record)
+# User Guide: The Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Akashik Record)
 
 **Version:** 3.2.6
-**Role:** Universal Memory and Atomic Persistence
+**Role:** Universal Synapse and Atomic Persistence
 
 ---
 
@@ -26,4 +26,4 @@ To prevent world-state drift, every update to the Akashik Record passes through 
 The AI uses **RulesGrep** to surgically extract facts from the record during mission generation. You can query the history directly via the Crush CLI or the **`rkg_schema`** MCP resource.
 
 ---
-*Akashik Memory: The Permanent Record is Locked.*
+*Akashik Synapse: The Permanent Record is Locked.*

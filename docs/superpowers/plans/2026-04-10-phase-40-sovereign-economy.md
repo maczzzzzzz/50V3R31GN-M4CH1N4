@@ -71,7 +71,7 @@ Implement a check in the `TurnDaemon` to trigger hostile manifestation.
 Background-bake inventory data into vendor token portraits.
 
 - [x] **Step 2: Hover Ingestion**
-Update the Bridge to support `hoverVendor` events that trigger the HUD shop display.
+Update the Mesh to support `hoverVendor` events that trigger the HUD shop display.
 
 ---
 

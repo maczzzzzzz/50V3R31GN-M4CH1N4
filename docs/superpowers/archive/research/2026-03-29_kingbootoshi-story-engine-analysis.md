@@ -15,7 +15,7 @@ The `story-engine` framework by kingbootoshi (Bootoshi) provides a hierarchical 
 
 ### 1.3 The Micro Layer: Event (Immediate Action)
 - **TttA Mapping:** Atomic occurrences within a scene: a specific D10 roll, a dialogue choice, or a Fixer call payload.
-- **Orchestrator Role:** Triggers specific MCP calls to `nitro-logic` (Node A) for math or pushes prose to Foundry VTT (Phase 3 Bridge).
+- **Orchestrator Role:** Triggers specific MCP calls to `nitro-logic` (Node A) for math or pushes prose to Foundry VTT (Phase 3 Mesh).
 
 ---
 

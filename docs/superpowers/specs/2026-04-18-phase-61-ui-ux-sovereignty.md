@@ -29,7 +29,7 @@
 
 ## ◈ 4. TESTING STRATEGY
 - **Component Unit Tests:** Vitest for individual UI components.
-- **Bridge Integration Tests:** Verifying that a button click in the UI successfully manifests an actor in the local Foundry test-scene.
+- **Mesh Integration Tests:** Verifying that a button click in the UI successfully manifests an actor in the local Foundry test-scene.
 
 ---
 **::/5Y573M-N071C3 : SPEC_V4_UI_STAGED. // 50V3R31GN-M4CH1N4**

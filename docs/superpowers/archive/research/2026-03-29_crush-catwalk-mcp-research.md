@@ -12,7 +12,7 @@ Crush is designed with a native **Model Context Protocol (MCP)** implementation 
 ### 1.2 Configuration (crush.json)
 Crush searches for configuration in `~/.config/crush/crush.json` or a local `.crush.json` in the project root. MCP servers are defined in a top-level `mcp` object.
 
-### 1.3 Session & Memory Management
+### 1.3 Session & Synapse Management
 - **Persistent Sessions:** Sessions are stored in a local SQLite database, allowing the GM console to maintain context across restarts.
 - **Project-Specific Context:** Crush automatically ingest `CLAUDE.md`, `GEMINI.md`, or `CRUSH.md` to establish project-level constraints and roles.
 

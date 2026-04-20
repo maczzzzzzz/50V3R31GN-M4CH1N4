@@ -45,7 +45,7 @@ git add src/core/spatial-vision-service.ts src/core/hybrid-routing-controller.ts
 git commit -m "feat: sentinel: implement security camera vision logic"
 ```
 
-### Task 3: Intrusion Quadrant (Web UI Bridge)
+### Task 3: Intrusion Quadrant (Web UI Mesh)
 
 **Files:**
 - Modify: `dashboard/components/IntrusionQuadrant.tsx`

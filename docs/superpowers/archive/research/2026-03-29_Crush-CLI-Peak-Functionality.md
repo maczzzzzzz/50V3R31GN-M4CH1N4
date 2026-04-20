@@ -19,7 +19,7 @@ While Crush supports SSE and HTTP, the **`stdio` transport** is the gold standar
 
 ---
 
-## 3. Session & Memory Management
+## 3. Session & Synapse Management
 Crush maintains persistent SQLite sessions. To achieve peak multi-agent context, we must map our TRPG state into the Crush session metadata.
 
 ### 3.1 Session Persistence
@@ -28,7 +28,7 @@ Crush maintains persistent SQLite sessions. To achieve peak multi-agent context,
 
 ---
 
-## 4. Foundry VTT v12 Bridge (The "Reverse Proxy" Pattern)
+## 4. Foundry VTT v12 Mesh (The "Reverse Proxy" Pattern)
 Research into the Foundry v12 API confirms that direct terminal-to-VTT WebSocket connection is fragile due to session cookie requirements and private API changes.
 
 ### 4.1 The Palantiri Proxy

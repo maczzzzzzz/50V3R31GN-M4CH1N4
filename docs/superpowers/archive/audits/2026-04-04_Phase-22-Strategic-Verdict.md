@@ -32,7 +32,7 @@ After an exhaustive research phase into the `claw-code` Rust-native harness, Pre
 The architecture is **Surgical, Fast, and Factually Grounded**. It leverages the hardware map to its absolute limit while maintaining 100% rules integrity and immersive continuity.
 
 **Phase 22 Initiation: AUTHORIZED.**
-**Strategy:** Distributed Rust-native Harness + VSB Shared Memory.
+**Strategy:** Distributed Rust-native Harness + VSB Shared Synapse.
 
 ---
 *Verified by Gemini CLI v3.2.19.*

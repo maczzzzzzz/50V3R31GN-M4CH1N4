@@ -12,7 +12,7 @@ Ensures that all legacy "Machina" UI elements have been systemically purged from
 ## Audit Logic
 1. Performs a static analysis of the bridge module's `settings.ts`.
 2. Verifies that `config: true` has been removed from all Sovereign settings.
-3. Probes the active Foundry page via CDP to confirm no "Sovereign Bridge" buttons are present in the escape menu or sidebar.
+3. Probes the active Foundry page via CDP to confirm no "Sovereign Mesh" buttons are present in the escape menu or sidebar.
 4. Fails if any intrusive UI remnants are detected.
 
 ## Manifest Logic

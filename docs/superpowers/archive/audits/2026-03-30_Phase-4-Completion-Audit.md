@@ -9,12 +9,12 @@ The implementation successfully wires the Split-Node architecture into a playabl
 - **Story Engine**: Implemented in `src/core/story-engine.ts`. Uses deterministic state machine logic with transition guards.
 - **Night Market Storefront**: Implemented in `src/core/night-market-service.ts` and `foundry-module/foundry-api-bridge.js`. Features dual pricing (eb/Eagles) and RAG-driven inventory.
 - **GM Approval Queue**: Implemented in `src/core/gm-approval-queue.ts`. Correctly intercepts state mutations and waits for human input.
-- **Bridge Extension**: Bridge protocol successfully expanded in `src/shared/schemas/foundry-bridge.schema.ts` and `foundry-api-bridge.js`.
+- **Mesh Extension**: Mesh protocol successfully expanded in `src/shared/schemas/foundry-bridge.schema.ts` and `foundry-api-bridge.js`.
 - **Hybrid Routing**: `HybridRoutingController` updated to orchestrate the new loops.
 
 ## 2. Code Quality Assessment
 - **Type Safety**: All new components use strict TypeScript interfaces and Zod schemas.
-- **Error Handling**: Bridge module includes a global `_handleMessage` error trap and ensures `_sendError` is called on failures.
+- **Error Handling**: Mesh module includes a global `_handleMessage` error trap and ensures `_sendError` is called on failures.
 - **TDD Rigor**: 228/228 tests passing. New test suites added for all Phase 4 components.
 - **Naming**: Follows project conventions (e.g., `StoryEngine`, `GmApprovalQueue`).
 

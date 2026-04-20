@@ -5,7 +5,7 @@
 **Topic:** Hierarchical memory architecture and background consolidation (The Infinite Mind).
 
 ## 1. Executive Summary
-Phase 34 replaces the flat "context window" limitation with a structured **Memory Palace** architecture. This allows the Sovereign Machina to maintain narrative consistency across thousands of turns by organizing data into spatial and temporal hierarchies (Wings, Rooms, Tunnels) and utilizing a background "Dreaming" cycle to promote short-term signals into durable world-state facts.
+Phase 34 replaces the flat "context window" limitation with a structured **Synapse Palace** architecture. This allows the Sovereign Machina to maintain narrative consistency across thousands of turns by organizing data into spatial and temporal hierarchies (Wings, Rooms, Tunnels) and utilizing a background "Dreaming" cycle to promote short-term signals into durable world-state facts.
 
 ## 2. Architecture: Tiered Context
 Intelligence is managed across three distinct latency tiers:
@@ -28,7 +28,7 @@ A background process on Node A that continuously consolidates raw data:
 3.  **Deep Phase:** Committing "True Facts" to `Akashik.db` and generating `DREAMS.md`.
 
 ## 3. Integration & Hardware
-- **Node B:** Hosts the Memory Palace (ChromaDB + SDK Bindings).
+- **Node B:** Hosts the Synapse Palace (ChromaDB + SDK Bindings).
 - **Node A:** Executes the Dreaming Loop during idle GPU cycles.
 - **Bus:** The **VSB Mmap** synchronizes high-frequency tactical facts (e.g., "Room ID", "Active Combatant") to ensure Node B always knows which wing/room context to load.
 

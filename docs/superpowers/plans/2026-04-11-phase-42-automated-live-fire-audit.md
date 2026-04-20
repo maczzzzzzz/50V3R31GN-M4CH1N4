@@ -7,7 +7,7 @@
 **Status: COMPLETE**
 
 **Architecture:**
-- **Inspection:** Utilize Chrome DevTools CDP to verify Bridge module presence, CSS injection state, and console error parity.
+- **Inspection:** Utilize Chrome DevTools CDP to verify Mesh module presence, CSS injection state, and console error parity.
 - **Telemetry:** Automated grepping of `data/logs/orchestrator.log` and `data/logs/crush.log` during test execution.
 - **Validation:** Injection of synthetic combat and movement events to verify the rules-authority loop (Node A -> VSB -> Node B -> Foundry).
 
@@ -24,7 +24,7 @@
 - [x] **Step 1: Verify CDP Connectivity**
 Use `mcp_chrome-devtools_list_pages` to find the Foundry target and verify the debug port is open.
 
-- [x] **Step 2: Inspect Bridge Module State**
+- [x] **Step 2: Inspect Mesh Module State**
 Execute `mcp_chrome-devtools_evaluate_script` to check `game.modules.get('foundry-api-bridge')?.active` and verify the WebSocket status in the Foundry console.
 
 - [x] **Step 3: Log Initial State**

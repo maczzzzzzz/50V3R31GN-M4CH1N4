@@ -1,13 +1,13 @@
-# Design Spec: Sovereign Memory Palace & Visual Dominance
+# Design Spec: Sovereign Synapse Palace & Visual Dominance
 
 **Date:** 2026-04-07
 **Status:** Approved
 **Topic:** Integration of MemPalace architecture, OpenClaw dreaming, and "Total Red" UI hijacking.
 
 ## 1. Executive Summary
-This design transforms 50V3R31GN-M4CH1N4 into a truly persistent entity with "infinite" context and physical UI dominance. We are migrating from a flat prompt-injection model to a hierarchical **Memory Palace** (Wings/Rooms/Tunnels) and implementing a high-intensity **Hard Overwrite** visual glitch that establishes the "48L173R473D M1ND" as the dominant process over Foundry VTT.
+This design transforms 50V3R31GN-M4CH1N4 into a truly persistent entity with "infinite" context and physical UI dominance. We are migrating from a flat prompt-injection model to a hierarchical **Synapse Palace** (Wings/Rooms/Tunnels) and implementing a high-intensity **Hard Overwrite** visual glitch that establishes the "48L173R473D M1ND" as the dominant process over Foundry VTT.
 
-## 2. Memory Architecture: The Palace & The Dream
+## 2. Synapse Architecture: The Palace & The Dream
 We will deploy a tiered memory system on Node B (WSL NixOS) to ensure narrative consistency across sessions.
 
 ### 2.1 The Palace Hierarchy (MemPalace Integration)

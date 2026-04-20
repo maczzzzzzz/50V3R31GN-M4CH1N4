@@ -6,7 +6,7 @@
 The Netrunning Sidecar is a high-performance **Isometric Interface** (Egui/Rust) designed for sub-1ms Net Architecture combat. It introduces a **ST3GG Port Handshake** that only activates the HUD when the character is physically near a hidden map port, and an **Isometric Tower HUD** for visualizing and navigating Net nodes.
 
 ## 2. Architecture: The "Jack-In" Handshake
-The sidecar is a modular component managed by the **Crush CLI**, synchronized via the **Net-Bus (VSB Shared Memory)**.
+The sidecar is a modular component managed by the **Crush CLI**, synchronized via the **Net-Bus (VSB Shared Synapse)**.
 
 ### 2.1 ST3GG Port Integration (Node A - ZeroClaw)
 - **Physical Trigger:** The `Tactical-MMU` on Node A monitors character coordinates. When within 2m of a `PORT_*` Ghost Object (embedded via ST3GG), it broadcasts an `ACCESS_PORT_AVAILABLE` signal.
@@ -28,7 +28,7 @@ The sidecar is a modular component managed by the **Crush CLI**, synchronized vi
 - **id**: Current node being accessed.
 - **node_path**: Bitmask of architecture levels.
 - **interface_dv**: Difficulty Value enforced by the 1B Judge.
-- **hacker_stats**: Interface, Cyberdeck Memory, Active Programs.
+- **hacker_stats**: Interface, Cyberdeck Synapse, Active Programs.
 - **ice_state**: HP and Status Effects of active Black ICE.
 
 ## 4. Metadata

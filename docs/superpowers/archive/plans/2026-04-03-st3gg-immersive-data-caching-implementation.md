@@ -299,7 +299,7 @@ async function runDecryption() {
                     const imageUrl = html.find("#st3gg-url").val();
                     if (!imageUrl) return;
 
-                    // Send RPC to Node B Bridge
+                    // Send RPC to Node B Mesh
                     const response = await window.ASP_BRIDGE.sendRequest('decrypt_st3gg', { imagePath: imageUrl });
                     
                     // Whisper result to the player

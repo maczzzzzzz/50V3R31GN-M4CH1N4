@@ -12,7 +12,7 @@
 
 ---
 
-### Task 2: Expanded Bridge Schemas
+### Task 2: Expanded Mesh Schemas
 **Files:** `src/shared/schemas/foundry-bridge.schema.ts`
 
 **Additions:**
@@ -23,11 +23,11 @@
    - `update_actor`: `{ actorId, updates }`
    - `queue_approval`: `{ proposalId, type, data, schema? }` (Triggers a Foundry Dialog)
 
-**Validation:** Ensure `FoundryEventSchema` and `BridgeCommandSchema` discriminated unions are updated.
+**Validation:** Ensure `FoundryEventSchema` and `MeshCommandSchema` discriminated unions are updated.
 
 ---
 
-### Task 3: FoundryAdapter updateActor & Bridge Module
+### Task 3: FoundryAdapter updateActor & Mesh Module
 **Files:** 
 - `src/api/foundry-adapter.ts`
 - `foundry-module/foundry-api-bridge.js`
@@ -111,4 +111,4 @@ export class StoryEngine {
 
 **Implementation:**
 - Update `handleFoundryEvent` switch case.
-- Wire `storyEngine` into `handleResolveAttack` and `handleOracleRoll`.
+- Wire `storyEngine` into `handleResolveAttack` and `handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll`.

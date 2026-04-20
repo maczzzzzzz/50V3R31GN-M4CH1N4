@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Deploy a Recurrent-Depth Transformer (RDT) engine on Node C to serve as the "Recursive Oracle," replacing static layer-depth inference with variable-depth iteration.
+**Goal:** Deploy a Recurrent-Depth Transformer (RDT) engine on Node C to serve as the "Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle," replacing static layer-depth inference with variable-depth iteration.
 
 **Architecture:** The RDT runs on Node C using the PyTorch-based `OpenMythos` engine, with KV-cache states offloaded to Node A via Mooncake.
 
@@ -16,7 +16,7 @@
 - Modify: `crush/harness/experimental/open-mythos/requirements.txt`
 - Action: Install torch/torchvision/torchaudio on Node C
 
-- [ ] **Step 1: Provision Oracle Environment**
+- [ ] **Step 1: Provision Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Environment**
   - SSH into `maczz@10.0.0.12`
   - Run: `cd ~/50V3R31GN-M4CH1N4/crush/harness/experimental/open-mythos && pip install -r requirements.txt`
 
@@ -28,7 +28,7 @@
 
 ---
 
-### Task 2: Oracle Loop Implementation
+### Task 2: Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Loop Implementation
 
 **Files:**
 - Create: `scripts/ops/node-c-rdt-loop.py`
@@ -49,7 +49,7 @@ def infer(prompt):
     return model.generate(input_ids)
 ```
 
-- [ ] **Step 2: Verify Inference**
+- [ ] **Step 2: Verify Cognition**
   - Run: `python3 scripts/ops/node-c-rdt-loop.py`
   - Expected: Model initializes and logic loop engages.
 

@@ -27,7 +27,7 @@ The codebase successfully aligns with the foundational requirements defined in `
 ## 4. Issue Identification and Recommendations
 
 ### Minor Suggestions (Phase 2/3)
-*   **Suggestion 1 (DI Container):** As the project moves into Phase 2 (`nitro-logic`) and Phase 3 (Foundry Bridge), consider a lightweight DI container (e.g., `awilix` or a singleton registry in `src/core/container.ts`) to manage service instances.
+*   **Suggestion 1 (DI Container):** As the project moves into Phase 2 (`nitro-logic`) and Phase 3 (Foundry Mesh), consider a lightweight DI container (e.g., `awilix` or a singleton registry in `src/core/container.ts`) to manage service instances.
 *   **Suggestion 2 (Token Estimation):** Consider integrating a local tokenizer (like `tiktoken`) during ingestion to replace the rough character-based estimation, ensuring strict context window adherence for Mistral/Llama.
 
 ## Conclusion

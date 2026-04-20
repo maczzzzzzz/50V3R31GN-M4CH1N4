@@ -18,6 +18,8 @@ type Config struct {
 	NodeAUser       string // NODE_A_USER  (SSH login)
 	NodeASSHPort    string // NODE_A_SSH_PORT (default "22")
 	NodeALlamaURL   string // NODE_A_LLAMA_URL
+	NodeCHost       string // NODE_C_HOST
+	NodeCPort       string // NODE_C_PORT
 	ClawlinkPort    string // CLAWLINK_PORT (VSB UDP port)
 	SetupScriptPath string // full path to setup-resident-models.sh on Node A
 	WindowsHostIP   string // WINDOWS_HOST_IP — override WSL2 auto-detection (default: empty = auto)
@@ -25,12 +27,14 @@ type Config struct {
 
 // defaults are the fallback values if the .env key is absent.
 var defaultConfig = Config{
-	NodeAHost:       "192.168.0.50",
+	NodeAHost:       "10.0.0.10",
 	NodeAUser:       "maczz",
 	NodeASSHPort:    "22",
-	NodeALlamaURL:   "http://192.168.0.50:8080/v1",
+	NodeALlamaURL:   "http://10.0.0.10:8080/v1",
+	NodeCHost:       "10.0.0.12",
+	NodeCPort:       "7339",
 	ClawlinkPort:    "7878",
-	SetupScriptPath: "~/50v3r31gn-m4ch1n4-v0.9.1/zeroclaw/scripts/setup-resident-models.sh",
+	SetupScriptPath: "~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh",
 	WindowsHostIP:   "",
 }
 
@@ -64,6 +68,12 @@ func LoadConfig() {
 	}
 	if v, ok := env["NODE_A_LLAMA_URL"]; ok && v != "" {
 		Cfg.NodeALlamaURL = v
+	}
+	if v, ok := env["NODE_C_HOST"]; ok && v != "" {
+		Cfg.NodeCHost = v
+	}
+	if v, ok := env["NODE_C_PORT"]; ok && v != "" {
+		Cfg.NodeCPort = v
 	}
 	if v, ok := env["CLAWLINK_PORT"]; ok && v != "" {
 		Cfg.ClawlinkPort = v

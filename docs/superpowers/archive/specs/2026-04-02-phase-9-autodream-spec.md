@@ -1,5 +1,5 @@
 # Design Specification: Phase 9 — autoDream Consolidation (v3.2.19)
-**Subject:** Recursive Context Pruning & Hierarchical Memory
+**Subject:** Recursive Context Pruning & Hierarchical Synapse
 **Status:** DESIGN FINALIZED
 
 ## 1. Executive Summary
@@ -7,14 +7,14 @@ autoDream is the system's "Self-Cleaning" mechanism. It solves "Context Rot" by 
 
 ## 2. Technical Architecture
 
-### 2.1 The 3-Tier Memory Cache
+### 2.1 The 3-Tier Synapse Cache
 - **L1 (Working):** Last 10 turns in full (High-fidelity).
 - **L2 (Dream):** Summaries of the current session (Narrative).
 - **L3 (Akashik):** Permanent lore triplets in `Akashik.db` (The Grounded Truth).
 
 ### 2.2 The Consolidation Loop
 - **Trigger:** Every 50 message turns or on `/pulse`.
-- **Inference:** Mistral-Nemo extracts entities and relationships (e.g. "Vido [subject] -> killed -> Maelstromer [object]").
+- **Cognition:** Mistral-Nemo extracts entities and relationships (e.g. "Vido [subject] -> killed -> Maelstromer [object]").
 - **Pruning:** Deletes the processed L1 logs after L3 verification.
 
 ## 3. Implementation Requirements

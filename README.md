@@ -30,7 +30,7 @@ A hardware-native, vision-integrated, and **logically autonomous** entity.
 
 ### :/N0D3-A : 7H3-K3RN3L //
 - **C0R3:** Linux / Nix Native // NVIDIA GTX 1050 Ti (4GB CUDA)
-- **BR41N:** Open-Reasoner-1.5B (Rules Oracle) + 7R1_SC0R3R Compression
+- **BR41N:** Open-Reasoner-1.5B (Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) + 7R1_SC0R3R Compression
 - **R0L3:** Mechanical Reality Enforcement & Zero-Trust Logic Audit.
 
 ### :/NUCLEUS : 7H3-C0MM4ND-D3CK //

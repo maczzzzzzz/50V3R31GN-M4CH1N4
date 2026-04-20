@@ -4,7 +4,7 @@
 
 **Goal:** Establish the reactive "Central Nervous System" of the living city by implementing concurrent event classification, automated profile mapping, and strict state-loop mechanics for total autonomy.
 
-**Architecture:** Node B will act as the master traffic controller using a `TaskRouterProxy` to manage hardware constraints (VRAM swapping on Node A). The Foundry Client will implement a `SensoryFilter` to provide strict, hallucination-free line-of-sight data to the LLM. The system will use an `Intent Swarm` to classify events concurrently and map them to physical Bridge sequences.
+**Architecture:** Node B will act as the master traffic controller using a `TaskRouterProxy` to manage hardware constraints (VRAM swapping on Node A). The Foundry Client will implement a `SensoryFilter` to provide strict, hallucination-free line-of-sight data to the LLM. The system will use an `Intent Swarm` to classify events concurrently and map them to physical Mesh sequences.
 
 **Tech Stack:** TypeScript, Node.js (Orchestrator), Foundry VTT (PIXI/Canvas APIs).
 

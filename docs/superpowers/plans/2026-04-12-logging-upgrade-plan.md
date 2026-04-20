@@ -10,7 +10,7 @@
   - Integrate with the main `logger` instance to stream results during the run.
   - Add a flag to "Upload" results to the running Orchestrator via WebSocket.
 
-## Task 2: Bridge Error Capture
+## Task 2: Mesh Error Capture
 - [ ] **Phase 1: Implement `showErrorOverlay` in `50v3r31gn-bridge.js`**
   - Capture JS errors in Foundry and report them back to Node B via WebSocket.
   - Render critical gauntlet failures as in-game "S1GN4L_L055" overlays.

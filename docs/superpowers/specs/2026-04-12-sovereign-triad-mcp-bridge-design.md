@@ -1,4 +1,4 @@
-# Sovereign Triad MCP Bridge: Design Specification
+# Sovereign Trinity MCP Mesh: Design Specification
 
 **Status:** DRAFT (Awaiting User Review)
 **Date:** 2026-04-12
@@ -6,7 +6,7 @@
 **Context:** 50V3R31GN-M4CH1N4 / Phase 45+
 
 ## 1. Vision & Purpose
-The **Sovereign Triad MCP Bridge** provides a "Shared Brain" between the Strategist (Gemini CLI) and the Heavy Architect (Droid CLI / GLM-5). It ensures both agents possess a synchronized, real-time map of the codebase while operating within a **Nix-Native, Impure, and Unfree** development environment.
+The **Sovereign Trinity MCP Mesh** provides a "Shared Brain" between the Strategist (Gemini CLI) and the Heavy Architect (Droid CLI / GLM-5). It ensures both agents possess a synchronized, real-time map of the codebase while operating within a **Nix-Native, Impure, and Unfree** development environment.
 
 ## 2. Core Architecture: The Impure Sidecar
 The bridge is a lightweight background service implemented using standard Model Context Protocol (MCP) servers.
@@ -43,11 +43,11 @@ The bridge strictly adheres to the project's **Sovereignty Rules**:
 ## 5. Observability & Security
 - **Logging:** "Critical-Only" filtering. No startup logs or heartbeat pings. Only `ERROR` or `FATAL` events logged to `data/logs/mcp-bridge.log`.
 - **Security:** Access is restricted to the local Unix Domain Socket; no network ports are exposed.
-- **Visual:** Single terminal notification on shell entry: `[Sovereign-Bridge]: IMPURE_UNFREE_ACTIVE`.
+- **Visual:** Single terminal notification on shell entry: `[Sovereign-Mesh]: IMPURE_UNFREE_ACTIVE`.
 
 ## 6. Testing & Validation
 - **Connectivity:** `scripts/dev/test-mcp-connection.ts` will verify socket availability.
 - **Tool Integrity:** Automated check of `read_file` and `git status` via the MCP bridge before the first mission start.
 
 ---
-*Verified by the Sovereign Triad v3.2.19.*
+*Verified by the Sovereign Trinity v3.2.19.*

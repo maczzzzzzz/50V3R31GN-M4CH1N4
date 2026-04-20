@@ -14,7 +14,7 @@ Mapping the hardware architecture against the visual requirements of Phase 35 (V
 - **Tactical Layer (Node A - Reasoner):** Bypasses high-level UI to audit the raw grid. Used for `verify()` of NPC coordinates and wall geometry.
 - **Aesthetic Layer (Node B - Pixtral):** Analyzes the frame buffer for "Theme Leaks." Confirmed that Node B can detect white backgrounds in Journals that automated DOM-parsing might miss due to iframe isolation.
 
-## 3. VSB Dominance & Shared Memory
+## 3. VSB Dominance & Shared Synapse
 Analysis of `sovereign-sdk/src/protocol.rs` and `crush/watcher.go` identified the exact memory offsets for tactical "Heat."
 
 - **Discovery:** The `FRICTION_INTENT` (0x05) packet can be injected via raw UDP to Node A.
@@ -24,7 +24,7 @@ Analysis of `sovereign-sdk/src/protocol.rs` and `crush/watcher.go` identified th
 A deep scan of the unsealed RKG chronicles (Phase 33/34) identified "Soulkiller" as an active narrative element in the project's lore (RTG-CPR-Street-Stories Part 36).
 
 **Strategic Alignment:** 
-- The Machina can leverage the **Memory Palace** (SQLite hierarchy) to persist "Engram" states for NPCs.
+- The Machina can leverage the **Synapse Palace** (SQLite hierarchy) to persist "Engram" states for NPCs.
 - By using the **Pretext Overlay Manager**, the Machina can "project" these engrams into the operator's visuals, physically manifesting lore-critical entities over the game canvas.
 
 ## 5. Administrative Socket (Socketlib)

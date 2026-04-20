@@ -8,23 +8,23 @@
 Implement a reactive, reflow-free overlay system for dynamic health status (damage numbers, critical state warnings) and lore-accurate drug/alcohol effects. The system leverages **Pretext** for layout and text rendering on a dedicated HTML5 `<canvas>` to ensure zero DOM reflows, enabling smooth 60fps glitch and drug shader effects.
 
 **Data Flow:**
-1.  **Trigger (Foundry/Bridge):** The Foundry module detects an update via the `updateActor` hook (e.g., HP drops by 15+, or a drug item is consumed).
+1.  **Trigger (Foundry/Mesh):** The Foundry module detects an update via the `updateActor` hook (e.g., HP drops by 15+, or a drug item is consumed).
 2.  **Event Dispatch (Hybrid Routing Controller):** The event is dispatched to the `HybridRoutingController` on Node B.
 3.  **LLM Generation (Node B):** Mistral-Nemo evaluates the context (damage amount, drug type, HP threshold) and generates lore-accurate display text (e.g., "CRITICAL: SPINAL TRAUMA DETECTED" or "WARNING: SYNTHCOKE TOXICITY") along with visual parameters (glitch intensity, RGB split, shader type).
-4.  **Rendering (Pretext Canvas Layer):** Node B sends the payload back to the Bridge. A dedicated `PretextCanvasLayer` sitting above the Foundry grid intercepts it. Pretext calculates the text layout instantly, and PIXI/FXMaster applies the shaders to the canvas at 60fps, entirely bypassing the DOM.
+4.  **Rendering (Pretext Canvas Layer):** Node B sends the payload back to the Mesh. A dedicated `PretextCanvasLayer` sitting above the Foundry grid intercepts it. Pretext calculates the text layout instantly, and PIXI/FXMaster applies the shaders to the canvas at 60fps, entirely bypassing the DOM.
 
 ## 2. Components & Physics Integration
 
-**Physics Oracle Alignment (`RED_RULES.md`):**
+**Physics Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Alignment (`RED_RULES.md`):**
 The glitch logic strictly aligns with the D10 mechanics. Triggers are based on the *Net Damage* calculated by Node A (after SP ablation and AP calculations).
 
 **Components:**
-1.  **Node B Interceptor (`hybrid-routing-controller.ts`):** Expands the `handleCalculateDv` and `handleOracleRoll` pipeline.
+1.  **Node B Interceptor (`hybrid-routing-controller.ts`):** Expands the `handleCalculateDv` and `handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll` pipeline.
     *   **Threshold Trigger (Damage):** If `netDamage >= 15` in a single attack, a critical glitch sequence fires.
     *   **Threshold Trigger (Death State):** If `newHp <= 1`, a persistent, low-level screen tear effect applies.
     *   **Event Trigger (Drugs):** If an item classified as a drug/toxin is consumed, a drug-shader payload generates.
 2.  **LLM Prompting Engine (Node B):** Injects context (entity name, damage/drug type) into Mistral-Nemo to generate a 1-2 sentence lore-accurate warning and numeric FX parameters.
-3.  **Foundry Bridge Dispatcher:** Packages the LLM's text and FX parameters into a standardized JSON payload and pushes it to the Foundry module via WebSocket.
+3.  **Foundry Mesh Dispatcher:** Packages the LLM's text and FX parameters into a standardized JSON payload and pushes it to the Foundry module via WebSocket.
 4.  **Pretext Renderer (Foundry Client):** Instantiates a Pretext canvas overlay. Pretext handles sub-pixel text rendering; PIXI.js/FXMaster applies shaders (e.g., Chromatic Aberration) to the canvas layer.
 
 ## 3. API Payload & Pretext Rendering

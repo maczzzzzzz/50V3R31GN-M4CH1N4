@@ -19,7 +19,7 @@ A new TypeScript service in `src/core/ingest/` responsible for identifying and d
 - **Context Injection:** Every chunk extracted from a PDF or Wiki must be prefixed with its parent breadcrumbs (e.g. `Night City > Watson > Little China`).
 - **Atomic Entities:** Items, NPCs, and Factions must be extracted as atomic records with strict Zod validation before database insertion.
 
-### 3. Database Schema Refresh
+### 3. Artery of Truth Schema Refresh
 - **`chronicle_seeds` (Lore):** Store rich Markdown chunks with source metadata and semantic hashes for deduplication.
 - **`npcs`, `items`, `factions`:** Populated from Foundry JSONs to ensure 100% parity with game mechanics.
 

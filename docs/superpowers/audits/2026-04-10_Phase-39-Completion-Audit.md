@@ -9,7 +9,7 @@ The objective of Phase 39 was to transform the machine into an active infiltrati
 
 ## 2. Component Audit
 
-### 2.1 Bridge Perception Hooks (Foundry)
+### 2.1 Mesh Perception Hooks (Foundry)
 - **Status:** **PASS**
 - **Findings:** `foundry-module/foundry-api-bridge.js` successfully implements `Hooks.on('hoverToken')`, `hoverDrawing`, and `hoverNote`. It emits the required `perception_hover` and `perception_hover_out` WebSocket payloads to Node B, enabling seamless hover detection.
 

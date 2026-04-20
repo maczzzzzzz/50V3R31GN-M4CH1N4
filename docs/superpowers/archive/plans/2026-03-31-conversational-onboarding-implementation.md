@@ -6,7 +6,7 @@
 
 **Architecture:** Use an stateful interview controller on Node B that dispatches rolls to Node A and finalizes the build via the Foundry WebSocket bridge.
 
-**Tech Stack:** TypeScript, Zod, Vitest, ClawLink (Node A Bridge).
+**Tech Stack:** TypeScript, Zod, Vitest, ClawLink (Node A Mesh).
 
 ---
 

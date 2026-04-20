@@ -224,6 +224,8 @@ func initialModel() Model {
 		{Name: "vault-sync", Layer: LayerWSL},
 		{Name: "llama-server", Layer: LayerRemote},
 		{Name: "zeroclaw", Layer: LayerRemote},
+		{Name: "mooncake-synapse", Layer: LayerRemote},
+		{Name: "oracle-logic", Layer: LayerRemote},
 	}
 
 	var activeComponents []*Component

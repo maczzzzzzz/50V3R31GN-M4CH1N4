@@ -4,17 +4,17 @@
 
 **Goal:** Implement a distributed `claw-code` Rust harness for sub-1ms state synchronization between Node A (Rules) and Node B (Director).
 
-**Architecture:** Split-node distributed runtime using Binary UDP + Memory-Mapped Files (Mmap) for the Virtual System Bus (VSB). Node B handles Narrative Intent (12B), while Node A enforces Mechanical Reality (1B + Rules).
+**Architecture:** Split-node distributed runtime using Binary UDP + Synapse-Mapped Files (Mmap) for the Virtual System Bus (VSB). Node B handles Narrative Intent (12B), while Node A enforces Mechanical Reality (1B + Rules).
 
 **Tech Stack:** Rust (Tokio), `shared_memory` crate, UDP, Nix (Bubblewrap).
 
 ---
 
-### Task 1: Virtual System Bus (VSB) Shared Memory Scaffold (Node A/B)
+### Task 1: Virtual System Bus (VSB) Shared Synapse Scaffold (Node A/B)
 
 **Files:**
 - Create: `zeroclaw/src/vsb/mmap.rs`
-- Create: `src/core/vsb-bridge.rs` (Node B Rust Bridge)
+- Create: `src/core/vsb-bridge.rs` (Node B Rust Mesh)
 - Test: `zeroclaw/tests/vsb_mmap_test.rs`
 
 **Step 1: Write the failing test**

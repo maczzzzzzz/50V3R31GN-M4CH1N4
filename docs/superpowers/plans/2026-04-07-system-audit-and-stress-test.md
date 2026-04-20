@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Systematically debug, audit, and safely stress-test the entire 50V3R31GN-M4CH1N4 distributed architecture (TS Orchestrator, Go Crush Proxy, Rust Sidecars, and Native Llama Inference) to uncover edge cases and failure modes before live Foundry integration.
+**Goal:** Systematically debug, audit, and safely stress-test the entire 50V3R31GN-M4CH1N4 distributed architecture (TS Orchestrator, Go Crush Proxy, Rust Sidecars, and Native Llama Cognition) to uncover edge cases and failure modes before live Foundry integration.
 
 **Architecture:** We will build targeted, innovative test scripts that isolate and challenge specific integration boundaries: VSB Mmap concurrency, Binary UDP packet integrity, Llama-server context exhaustion, and WebSocket/CDP resilience. These tests will be designed to fail gracefully without crashing the core services.
 
@@ -52,12 +52,12 @@ Run the chaos script. Check the logs to ensure "invalid magic", "payload too lar
 
 - [ ] **Step 4: Commit**
 
-### Task 3: Native Inference Engine (48L173R473D) Edge Cases
+### Task 3: Native Cognition Engine (48L173R473D) Edge Cases
 
 **Files:**
 - Create: `tests/integration/inference-edge-test.ts`
 
-- [ ] **Step 1: Write Inference Stress Cases**
+- [ ] **Step 1: Write Cognition Stress Cases**
 
 Create tests that send the following to the `llama-server` (`VLM_ENDPOINT`):
 - A prompt exactly at the edge of the context window (32768 tokens).

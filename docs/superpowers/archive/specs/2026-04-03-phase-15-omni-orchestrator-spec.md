@@ -17,7 +17,7 @@ The **Omni Orchestrator** now incorporates **Pretext** for "Layout Sovereignty."
 - **Latency:** ~0.09ms per 500 blocks.
 - **Use Case:** Flowing text around map geometry or node icons.
 
-### 2.2 The Narrative Overlay Engine (Bridge)
+### 2.2 The Narrative Overlay Engine (Mesh)
 - **Role:** Receives Pretext coordinates via WebSocket and draws directly to a single High-Priority Canvas layer.
 - **Synergy:** Uses **Sequencer** to animate the transitions between layout states.
 

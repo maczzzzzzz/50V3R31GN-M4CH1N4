@@ -1,4 +1,4 @@
-# Sovereign Triad Audit Report: Phase 50 — CL4W Nucleus
+# Sovereign Trinity Audit Report: Phase 50 — CL4W Nucleus
 
 **Date:** 2026-04-12
 **Status:** ACTION_REQUIRED

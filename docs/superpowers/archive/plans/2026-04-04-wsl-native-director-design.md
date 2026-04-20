@@ -18,9 +18,9 @@ The system is partitioned into three specialized clusters linked via sub-1ms UDP
 - **UDP-Relay:** A tiny Node.js sidecar that proxies Foundry's WebSockets into **Binary UDP Packets** for the VSB.
 - **Visuals:** Receives state-sync from WSL to trigger **Pretext Overlays** and **Neural-Compositor** glitches.
 
-### 2.3 The Inference Backend (Windows Host)
+### 2.3 The Cognition Backend (Windows Host)
 - **Ollama:** Windows-native service providing zero-overhead AMD GPU access (16GB VRAM).
-- **Bridge:** The WSL Director communicates with the Windows Ollama instance via a mapped localhost HTTP/REST bridge.
+- **Mesh:** The WSL Director communicates with the Windows Ollama instance via a mapped localhost HTTP/REST bridge.
 
 ## 3. Data Flow & Subsystem Discovery
 - **Discovery Protocol:** Windows-side components broadcast a "Presence" beacon; the WSL Director listens and automatically updates its VSB routing table with the current host IP.

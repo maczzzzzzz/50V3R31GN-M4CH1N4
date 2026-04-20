@@ -4,12 +4,12 @@ This final report consolidates the **v3.2.19 "Black-Ice"** architectural bluepri
 
 The system physically decouples narrative creativity from mechanical truth to ensure sub-50ms latency and 100% rule compliance.
 
-* **Node A (The Judge/Oracle):** \* **Hardware:** Nitro 5 (GTX 1050 Ti, 4GB VRAM).  
-  * **Inference:** Llama 3.1 3B via **Ollama (CUDA)**.  
+* **Node A (The Judge/Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** \* **Hardware:** Nitro 5 (GTX 1050 Ti, 4GB VRAM).  
+  * **Cognition:** Llama 3.1 3B via **Ollama (CUDA)**.  
   * **State:** 100% SQLite (RKG) with **R\*Tree** spatial indexing for tactical geometry.  
 * **Node B (The Director/Host):**  
   * **Hardware:** Main Rig (Radeon 9060XT, 16GB VRAM).  
-  * **Inference:** Mistral-Nemo (FP8).  
+  * **Cognition:** Mistral-Nemo (FP8).  
   * **Host:** **Foundry VTT v12** \+ **Crush CLI**.  
 * **The Link:** **ClawLink** (Persistent Binary Socket). Superior to SSH/TTY due to zero-handshake overhead and non-blocking Rust-native listeners.
 
@@ -34,7 +34,7 @@ A unified visual identity across all windows to create a singular terminal exper
 
 We are strip-mining the **Nous Research Hermes-Agent** codebase for its production-grade orchestration logic.
 
-* **SKILL.md (Procedural Memory):** Instead of rules in the prompt, the Judge loads markdown "Skills" (e.g., skills/autofire.md) into context only when needed.  
+* **SKILL.md (Procedural Synapse):** Instead of rules in the prompt, the Judge loads markdown "Skills" (e.g., skills/autofire.md) into context only when needed.  
 * **RPC Macro Collapse:** Consolidates multi-step combat rolls into a single Python/Rust macro. Node B sends the macro; Node A executes the rule-chain locally and returns a single transaction signature.  
 * **SQLite WAL & FTS5:** Activation of **Write-Ahead Logging** for concurrent Node A/B access and **FTS5 Full-Text Search** for sub-10ms session recall.
 
@@ -52,7 +52,7 @@ We are strip-mining the **Nous Research Hermes-Agent** codebase for its producti
 | **Agent Logic** | [hermes-agent](https://github.com/nousresearch/hermes-agent) | SKILL.md logic, RPC macros, and WAL patterns. |
 | **Spatial Seeds** | [solutionmaps-freebies](https://github.com/SolutionMaps/solutionmaps-freebies) | Tactical JSON data for wall/light extraction. |
 | **TUI Base** | [charm-bracelet/lipgloss](https://github.com/charmbracelet/lipgloss) | The styling engine for the Crush CLI theme. |
-| **Inference Core** | [ollama/ollama](https://github.com/ollama/ollama) | Hosting Llama 3.1 3B on Node A (CUDA). |
+| **Cognition Core** | [ollama/ollama](https://github.com/ollama/ollama) | Hosting Llama 3.1 3B on Node A (CUDA). |
 
 ### **Immediate Execution Priority**
 

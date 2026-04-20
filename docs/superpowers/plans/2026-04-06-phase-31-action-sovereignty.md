@@ -6,11 +6,11 @@
 
 **Architecture:** Transition from arbitrary JS injection to a structured capability-based RPC model. The machine "harvests" available actions from the Foundry world and exposes them through a secure, audited API.
 
-**Tech Stack:** TypeScript (Node B), JavaScript (Foundry Bridge), libWrapper, VSB (Shared Memory).
+**Tech Stack:** TypeScript (Node B), JavaScript (Foundry Mesh), libWrapper, VSB (Shared Synapse).
 
 ---
 
-### Task 1: Capability Harvesting (Foundry Bridge)
+### Task 1: Capability Harvesting (Foundry Mesh)
 
 **Files:**
 - Modify: `foundry-module/foundry-api-bridge.js`
@@ -63,7 +63,7 @@ Hook into `controlToken` to send updates to Node B.
 
 ---
 
-### Task 2: Physical Trigger API (Node B & Bridge)
+### Task 2: Physical Trigger API (Node B & Mesh)
 
 **Files:**
 - Modify: `src/api/foundry-adapter.ts`
@@ -147,7 +147,7 @@ Check movement against fog-of-war or restricted regions.
 - [ ] **Step 1: Define Capability structure in SDK**
 Update Rust SDK to include capability blips.
 
-- [ ] **Step 2: Implement `writeCapabilities` in `SharedMemoryService`**
+- [ ] **Step 2: Implement `writeCapabilities` in `SharedSynapseService`**
 Map harvested items into VSB for HUD consumption.
 
 - [ ] **Step 3: Commit**

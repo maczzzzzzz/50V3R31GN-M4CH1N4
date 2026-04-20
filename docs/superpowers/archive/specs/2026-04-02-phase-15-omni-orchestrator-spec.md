@@ -10,13 +10,13 @@ Phase 15 collapses the modular "Narrative" and "Vision" services into a single, 
 ### 2.1 Neural Consolidation (Node B)
 - **Engine:** Gemma-4-VLM (31B parameters).
 - **Quantization:** IQ3_M (High-density 3-bit weights).
-- **Memory Footprint:** ~11.6 GB Weights + ~3.2 GB KV-Cache (128k context) = **14.8 GB Total**.
+- **Synapse Footprint:** ~11.6 GB Weights + ~3.2 GB KV-Cache (128k context) = **14.8 GB Total**.
 - **Result:** Fits in the 16GB RX 9060 XT with 1.2 GB of "Hardware Insurance" for Foundry/OS.
 
 ### 2.2 The Omni-Client Interface
-Replaces `SovereignInferenceClient` and `TacticalVisionService` with a single `OmniOrchestratorClient`.
+Replaces `SovereignCognitionClient` and `TacticalVisionService` with a single `OmniOrchestratorClient`.
 - **Logic:** Every narrative prompt is automatically enriched with a **Neural Uplink screenshot** and an **Akashik RKG subgraph**.
-- **Inference:** Single-pass multimodal reasoning. The AI "sees" the map and "writes" the story in one atomic GPU cycle.
+- **Cognition:** Single-pass multimodal reasoning. The AI "sees" the map and "writes" the story in one atomic GPU cycle.
 
 ## 3. Deployment Protocol (v3.2.19)
 - **Model Registry:** `hf.co/mlx-community/gemma-4-vlm-31b-iq3_m`.

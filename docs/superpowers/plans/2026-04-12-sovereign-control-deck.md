@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Transform the `deck-igniter` CLI into a high-fidelity, tabbed "Control Deck" with a purpose-driven glitch engine matching the Sovereign Triad aesthetic.
+**Goal:** Transform the `deck-igniter` CLI into a high-fidelity, tabbed "Control Deck" with a purpose-driven glitch engine matching the Sovereign Trinity aesthetic.
 
 **Architecture:** Refactor the Go/Bubble Tea application into a tabbed state machine. Implement a centralized UI style library and a glitch engine that maps visual corruption to system state (errors/conflicts).
 

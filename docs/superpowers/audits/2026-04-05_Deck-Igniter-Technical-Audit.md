@@ -23,7 +23,7 @@ The `DECK-IGNITER` tool has been successfully remediated to align with the **v3.
 
 ### 🟢 Code Integrity
 *   **Process Isolation:** Maintained via `procRegistry` and `sync.Mutex`.
-*   **Sequential Boot:** `tea.Sequence` correctly manages the Inference → Authority → Sidecar dependency chain.
+*   **Sequential Boot:** `tea.Sequence` correctly manages the Cognition → Authority → Sidecar dependency chain.
 
 ## 3. Conclusion
 The Deck Igniter is now fully compatible with the v3.2.19 Sovereign Highway. It provides a reliable, single-pane-of-glass orchestration layer for the distributed ASP-GM-AGENT system.

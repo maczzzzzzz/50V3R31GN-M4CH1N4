@@ -33,7 +33,7 @@ Update the `StoryEngine` to fetch the faction's conlang seed from `Akashik.db` a
 **Step 1: Implement the Unicode Tag Block (U+E0000) Codec**
 Create an encoder/decoder that hides/reveals JSON strings as invisible Unicode tags within benign text.
 
-**Step 2: Narrative Bridge Integration**
+**Step 2: Narrative Mesh Integration**
 Update the `ClawLink` client to scan incoming narrative strings for these invisible tags and automatically execute the world-state mutations they contain.
 
 ---

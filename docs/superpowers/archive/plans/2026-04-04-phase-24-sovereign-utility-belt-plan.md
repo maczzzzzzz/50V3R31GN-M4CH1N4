@@ -43,7 +43,7 @@ git commit -m "feat(crush): implement Sidecar Registry and 'belt' command"
 - Create: `crush/auth_pane.go` [DONE]
 - Modify: `crush/main.go` [DONE]
 
-**Step 1: Go-native VSB Bridge** [DONE]
+**Step 1: Go-native VSB Mesh** [DONE]
 Implement a Go-native `mmap` watcher for the Virtual System Bus.
 - Read `ProposedActions` ring buffer.
 - Detect `PENDING` status changes.

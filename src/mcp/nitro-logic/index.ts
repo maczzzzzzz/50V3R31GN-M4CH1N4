@@ -7,7 +7,7 @@
  *
  * Transport:  stdio (process.stdin / process.stdout)
  * Config:     .crush.json → mcp.nitro-logic
- * Env vars:   NODE_A_LLAMA_URL (default: http://192.168.0.50:8080/v1)
+ * Env vars:   NODE_A_LLAMA_URL (default: http://10.0.0.10:8080/v1)
  *             NODE_A_LLAMA_MODEL (default: local-llama)
  *             NODE_A_LLAMA_TIMEOUT_MS (default: 30000)
  *             NODE_A_LLAMA_SEED (default: 42)
@@ -137,7 +137,7 @@ function formatError(toolName: string, message: string): { content: Array<{ type
 
 // ── Configuration ─────────────────────────────────────────────────────────────
 
-const llamaBaseUrl = process.env.NODE_A_LLAMA_URL ?? 'http://192.168.0.50:8080/v1';
+const llamaBaseUrl = process.env.NODE_A_LLAMA_URL ?? 'http://10.0.0.10:8080/v1';
 
 const logicClient = new NitroLogicClient({
   baseUrl: llamaBaseUrl,

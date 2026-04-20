@@ -112,7 +112,7 @@ func TestSt3ggCapacityExceeded(t *testing.T) {
 	}
 }
 
-func TestSt3ggCRC32Corruption(t *testing.T) {
+func TestSt3ggIntegrityCorruption(t *testing.T) {
 	img := makeTestImage(64, 64)
 	payload := []byte(`{"name":"Johnny Silverhand"}`)
 
@@ -122,7 +122,7 @@ func TestSt3ggCRC32Corruption(t *testing.T) {
 	}
 	corrupted := corruptOnePayloadBit(t, pngBytes)
 	_, err = St3ggDecode(corrupted)
-	if !errors.Is(err, ErrCRC32Mismatch) {
-		t.Errorf("expected ErrCRC32Mismatch, got: %v", err)
+	if !errors.Is(err, ErrIntegrityMismatch) {
+		t.Errorf("expected ErrIntegrityMismatch, got: %v", err)
 	}
 }

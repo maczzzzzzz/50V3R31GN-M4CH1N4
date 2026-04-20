@@ -10,7 +10,7 @@ The "Unified Lore Mind" strategy shifts the 50V3R31GN-M4CH1N4 from a district-ce
 ## 2. Architecture: The Unified Graph
 We will maintain the high-speed `district_dna` table for atmosphere while introducing a new `chronicle_seeds` table for long-term world memory.
 
-### 2.1 Database Schema (`Akashik.db`)
+### 2.1 Artery of Truth Schema (`Akashik.db`)
 ```sql
 CREATE TABLE IF NOT EXISTS chronicle_seeds (
     id TEXT PRIMARY KEY,
@@ -39,7 +39,7 @@ A modular Node.js utility designed to scrape, clean, and categorize multi-source
 5. **Graft:** Atomic transaction insertion into `Akashik.db`.
 
 ## 4. Integration & Providance
-The **48L173R473D Brain** will access this via the `UnifiedOracleClient`.
+The **48L173R473D Brain** will access this via the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
 - **Primary Hook:** During turn initialization, the brain queries both `district_dna` (where we are) and `chronicle_seeds` (what we know about this situation).
 - **Weighting:** The brain is instructed to treat `#Technical` seeds as high-authority rules and `#Gossip` as narrative flavor.
 

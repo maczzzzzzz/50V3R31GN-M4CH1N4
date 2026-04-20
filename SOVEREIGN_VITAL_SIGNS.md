@@ -9,7 +9,7 @@ This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (E
 
 ## 🏗️ 1. PHYSICAL TOPOLOGY (INVARIANTS)
 - **Node A (The Kernel):** Nix Native. NVIDIA GTX 1050 Ti (4GB CUDA). 
-  - **Resident Models:** `Open-Reasoner-Zero-1.5B.Q8_0.gguf` (Oracle) + `falcon-0.3b-ocr.onnx` (Perception).
+  - **Resident Models:** `Open-Reasoner-Zero-1.5B.Q8_0.gguf` (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) + `falcon-0.3b-ocr.onnx` (Perception).
   - **Constraints:** Max 4GB VRAM. 7R1-M1N1NG pruner active. sm_61 custom build backgrounded.
 - **Node B (The Director):** NixOS / WSL2. AMD Radeon RX 9060 XT (16GB Vulkan).
   - **Resident Model:** `Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf` (via Windows llama-server.exe b8710, Vulkan). 4885 MiB GPU + 2856 MiB CPU. 43/43 layers offloaded.
@@ -22,13 +22,13 @@ This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (E
   - Uses **FNV-1a** hashing for integrity (Standardized: FNV-64 bit-identical).
   - Employs **AAAK Dialect** for high-density cognitive compression.
 - **ClawLink (TCP):** Standard binary RPC for heavy payloads (Lore/ST3GG).
-- **Sovereign-Go-Proxy (ClawLink):** Unix socket at `.crush/clawlink.sock` (`CLAWLINK_SOCK` env). `/run/crush` not writable on NixOS — use project-local path. MCP Bridge at `.gemini/tmp/sovereign-mcp.sock`.
+- **Sovereign-Go-Proxy (ClawLink):** Unix socket at `.crush/clawlink.sock` (`CLAWLINK_SOCK` env). `/run/crush` not writable on NixOS — use project-local path. MCP Mesh at `.gemini/tmp/sovereign-mcp.sock`.
 
 ---
 
 ## 🔍 3. SHADOW LOGIC (DRIFT_REMEDIATED)
 - **Auto-Grant Bypass:** `crush/proxy.go` — PATCHED. Returns `REJECTED` with SECURITY_VETO if Node A is offline.
-- **MCP Bridge Injection:** `scripts/dev/mcp-daemon.ts` — PATCHED. Refactored `node_a_veto` to use safe `spawn`.
+- **MCP Mesh Injection:** `scripts/dev/mcp-daemon.ts` — PATCHED. Refactored `node_a_veto` to use safe `spawn`.
 - **Socket Synchronization:** All components unified under `.gemini/tmp/` hierarchy. Legacy `/run/crush` deprecated.
 - **Shroud (Phase 44.5):** Shader + lifecycle hooks wired in `50v3r31gn-bridge`. `updateScene` dispatch active.
 - **Canonical Mirror (Phase 59):** Accomplished. Replaced approximate PDF data with bit-identical rules engine mirror from official `fvtt-cyberpunk-red-core` repo.

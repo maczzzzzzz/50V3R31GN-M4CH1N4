@@ -30,7 +30,7 @@ export interface ILogger {
  * All numeric inference params are mandatory to prevent non-deterministic output.
  */
 export interface NitroLogicConfig {
-  /** Base URL of Node A's OpenAI-compatible server. e.g. http://192.168.0.50:8080/v1 */
+  /** Base URL of Node A's OpenAI-compatible server. e.g. http://10.0.0.10:8080/v1 */
   readonly baseUrl: string;
   /** Model identifier passed to the /v1/chat/completions endpoint. */
   readonly model: string;
@@ -56,6 +56,21 @@ export interface NitroLogicConfig {
    * the KV state for this common prefix (0ms latency on subsequent calls).
    */
   readonly aaakPrefix?: string | undefined;
+}
+
+/**
+ * Node C: Strategic Oracle (Gemma-4 / SGLang).
+ * Handles high-speed rule-checking and vision tasks.
+ */
+export interface StrategicOracleConfig {
+  /** Base URL of Node C's SGLang/OpenAI-compatible server. e.g. http://10.0.0.12:7339/v1 */
+  readonly baseUrl: string;
+  /** The specific model path or alias. */
+  readonly model: string;
+  /** Default timeout for rule-check resolution. */
+  readonly timeoutMs: number;
+  /** Node C host IP (10.0.0.12). */
+  readonly host: string;
 }
 
 // ── Input parameter types ─────────────────────────────────────────────────────

@@ -24,7 +24,7 @@
 
 ## 2. Tactical Heat Radar (Cyberdeck HUD)
 
-### 2.1 Shared Memory Slots
+### 2.1 Shared Synapse Slots
 - **Offset 3072:** `DISTRICT_HEAT` (uint8).
 - **Offset 3073:** `AMBUSH_PROBABILITY` (uint8).
 - **Offset 3074:** `RADAR_LOCK` (bitmask: 0x01 = Encrypted, 0x02 = Scanned).

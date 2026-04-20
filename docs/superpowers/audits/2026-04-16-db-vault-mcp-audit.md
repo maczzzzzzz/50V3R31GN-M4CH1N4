@@ -40,13 +40,13 @@ The audit utilized the newly installed `mcp-toolbox` extension as a direct inter
 | **Semantic Linkage** | Files retain `source: AKASHIK_DB` metadata headers | **[PASS]** |
 | **Sync State (Actors)** | `Actors/` directory is physically empty | **[FAIL]** |
 
-**FINDING 02 (DESYNC):** The physical Memory Palace is out of sync with the Intelligence Core. NPCs present in the database have not been materialized as Markdown files in the vault.
+**FINDING 02 (DESYNC):** The physical Synapse Palace is out of sync with the Intelligence Core. NPCs present in the database have not been materialized as Markdown files in the vault.
 
 ---
 
 ## 5. :/R3M3D14710N-PL4N //
 
-1.  **Immediate Action:** Execute `npm run reconstruct` to re-materialize the Memory Palace.
+1.  **Immediate Action:** Execute `npm run reconstruct` to re-materialize the Synapse Palace.
 2.  **Next Step:** Verify NPC files exist in `data/vault/RKG/Actors/`.
 3.  **Next Step:** Manually re-localize the 4 NPCs to their respective districts via SQL.
 
@@ -61,7 +61,7 @@ The audit utilized the newly installed `mcp-toolbox` extension as a direct inter
 | **03** | Materialize RKG Vault (30,000+ files) | **[COMPLETE]** |
 | **04** | Verify NPC Presence in `Watson/Actors/` | **[COMPLETE]** |
 
-**FINAL VERDICT:** System is fully synchronized and localized. Memory Palace (21,704 files) matches Intelligence Core.
+**FINAL VERDICT:** System is fully synchronized and localized. Synapse Palace (21,704 files) matches Intelligence Core.
 
 ---
 **::/5Y573M-N071C3 : 4UD17_CL053D. 5Y573M_H34L7HY. // 50V3R31GN-M4CH1N4**

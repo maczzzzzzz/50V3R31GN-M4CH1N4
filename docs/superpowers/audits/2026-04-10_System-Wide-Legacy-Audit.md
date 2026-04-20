@@ -11,7 +11,7 @@
 ### 1.1 "Ollama" vs. "Sovereign/llama-server"
 - **Findings:** Despite the migration to a host-native OpenAI-compatible `llama-server` (Phase 25), the codebase is still riddled with "Ollama" branding.
 - **Locations:**
-  - `src/core/ollama-client.ts`: Class still named `SovereignInferenceClient`.
+  - `src/core/ollama-client.ts`: Class still named `SovereignCognitionClient`.
   - `src/db/ollama-embedding-service.ts`: Class still named `OllamaEmbeddingService`.
   - `.env.example`: Variables like `SOVEREIGN_INFERENCE_URL` are outdated.
 - **Impact:** Misrepresents the architecture as dependent on the Ollama daemon rather than the high-performance `llama-server` currently in use.
@@ -29,7 +29,7 @@
 - **Impact:** Brittle. If the RAG output format shifts, inventory generation fails. 
 - **Target for Phase 40:** Replace with real semantic extraction via Node A/B structured output.
 
-### 2.2 Unified Oracle (`src/db/unified-oracle-client.ts`)
+### 2.2 Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (`src/db/unified-oracle-client.ts`)
 - **Findings:** Contains `score: 1.0 - (index * 0.05) // Mock score for baseline compliance`.
 - **Impact:** Artificially inflates similarity scores, bypassing real vector relevance.
 
@@ -58,6 +58,6 @@
 ## ◈ Verdict: Phase 40 Pre-Flight Audit
 The system is functionally sovereign, but **Identity Debt** (Ollama branding) and **Logic Residue** (Mock scores/Regex parsers) remain. 
 
-**Recommended Action:** Proceed with Phase 40 (Sovereign Economy) but include a surgical refactor of `SovereignInferenceClient` -> `SovereignNarrativeClient` to finalize the system's evolution.
+**Recommended Action:** Proceed with Phase 40 (Sovereign Economy) but include a surgical refactor of `SovereignCognitionClient` -> `SovereignNarrativeClient` to finalize the system's evolution.
 
 **AUDIT STATUS: COMPLETE (ACTION REQUIRED)**

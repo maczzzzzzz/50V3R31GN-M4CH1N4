@@ -1,8 +1,8 @@
-# Phase 47: Universal Codex & Memory Consolidation Implementation Plan
+# Phase 47: Universal Codex & Synapse Consolidation Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Harmonize all fragmented lore (Fandom Scrapes, 16+ PDFs, RKG Triplets) into a unified, high-performance District-based Memory Palace.
+**Goal:** Harmonize all fragmented lore (Fandom Scrapes, 16+ PDFs, RKG Triplets) into a unified, high-performance District-based Synapse Palace.
 
 **Architecture:** Upgrades `Akashik.db` with relational district keys and implements a multi-source harmonization engine. Updates the shell-based reconstruction script to organize the Obsidian vault into a semantic tactical atlas.
 

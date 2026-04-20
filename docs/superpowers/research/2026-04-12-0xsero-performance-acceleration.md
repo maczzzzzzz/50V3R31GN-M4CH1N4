@@ -12,7 +12,7 @@ To support high-density deep reasoning using the **48L173R473D-M1ND** (Mistral-N
 ### 2.1 Vulkan RADV Speedup (29%)
 The primary bottleneck in local LLM inference on AMD hardware is often the decoding phase. By leveraging the **RADV (Vulkan)** driver with specific performance flags, we achieve a measured 29% increase in token-per-second throughput.
 - **Implementation:** 
-    - `RADV_PERFTEST=sam`: Enables Smart Access Memory (SAM) / Resizable BAR optimizations at the driver level.
+    - `RADV_PERFTEST=sam`: Enables Smart Access Synapse (SAM) / Resizable BAR optimizations at the driver level.
     - `AMD_VULKAN_ICD=RADV`: Forces the use of the high-performance RADV driver over the standard AMDVLK.
 
 ### 2.2 GTT (Graphics Translation Table) Resize
@@ -27,4 +27,4 @@ By keeping the model dense (12B) but optimizing the hardware pipe, we maintain "
 These optimizations are verified by **Phase 52.5** audits, which monitor the `vitals.log` for anomalous latency spikes during recursive verification cycles.
 
 ---
-*Verified by the Sovereign Triad v3.2.19.*
+*Verified by the Sovereign Trinity v3.2.19.*

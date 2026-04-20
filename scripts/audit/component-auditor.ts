@@ -194,7 +194,7 @@ async function checkTaskRouter(): Promise<ComponentStatus> {
 
 async function checkLLMEndpoints(): Promise<ComponentStatus> {
   const checks: Record<string, string> = {};
-  const nodeAUrl = (process.env['NODE_A_LLAMA_URL'] ?? 'http://192.168.0.50:8080') + '/health';
+  const nodeAUrl = (process.env['NODE_A_LLAMA_URL'] ?? 'http://10.0.0.10:8080') + '/health';
   const nodeBUrl = (process.env['SOVEREIGN_INFERENCE_URL'] ?? 'http://localhost:8080') + '/health';
 
   async function probe(url: string): Promise<boolean> {

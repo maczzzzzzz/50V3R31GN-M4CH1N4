@@ -25,7 +25,7 @@ Phase 6 is physically complete. The AI now possesses "Spatial Eyes" through a du
 
 ## 3. Verification Metrics
 - **Unit Tests:** 237/237 Passing (100% baseline stability).
-- **Inference Speed:** <500ms (Node B) | <200ms (Node A).
+- **Cognition Speed:** <500ms (Node B) | <200ms (Node A).
 - **VRAM Footprint:** 12.8 GB / 16 GB (Node B) | 1.8 GB / 4 GB (Node A).
 
 ## 4. Next Phase: Phase 7 "Automated Mastery"

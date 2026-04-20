@@ -26,7 +26,7 @@ The dashboard is organized into four primary holographic quadrants, all using ze
 A persistent top-center menu providing system-wide "Hard Switches":
 - **Ignition:** `[GHOST_BOOT]`, `[FULL_ENGAGE]`, `[LITE_MODE]`.
 - **Hardware:** Force Reboot Node A, Toggle CUDA Shells, Unseal 7H3-V4UL7.
-- **Bridge:** Physical re-injection of the Foundry Bridge token via CDP.
+- **Mesh:** Physical re-injection of the Foundry Mesh token via CDP.
 - **Flush Gate:** Integrated VSB Approval modal with `[ACKNOWLEDGE] / [VETO]` controls.
 
 ## 5. Technical Implementation
@@ -36,7 +36,7 @@ A persistent top-center menu providing system-wide "Hard Switches":
 - **Immersion:** Total removal of all intrusive "Machina" UI from the Foundry VTT interface.
 
 ## 6. Success Criteria
-- [ ] Workspace reduction to exactly 3 windows: Foundry (World), Nucleus (Mind), Obsidian (Memory).
+- [ ] Workspace reduction to exactly 3 windows: Foundry (World), Nucleus (Mind), Obsidian (Synapse).
 - [ ] Zero-latency (60fps) rendering of log streams and radar data via Pretext.
 - [ ] Functional dial-up audio trigger during VSB governance events.
 

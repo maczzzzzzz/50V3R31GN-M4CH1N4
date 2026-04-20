@@ -5,7 +5,7 @@
 ## 1. Core Discoveries (AirLLM / Prima.cpp)
 Research into the latest agentic infrastructure reveals two high-impact patterns for Node B (16GB VRAM) and Node A (4GB VRAM).
 
-### 1.1 Sequential Layer-wise Inference (AirLLM)
+### 1.1 Sequential Layer-wise Cognition (AirLLM)
 - **Mechanism:** Decomposes massive models (70B+) into individual layers and loads them into VRAM one-by-one.
 - **Fact:** 70B models can execute on a single 4GB GPU (Node A Pascal) using this method.
 - **Constraint:** Primary bottleneck is Disk/RAM-to-VRAM I/O latency.

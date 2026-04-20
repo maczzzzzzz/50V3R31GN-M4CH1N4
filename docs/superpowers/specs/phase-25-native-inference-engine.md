@@ -1,4 +1,4 @@
-# Phase 25: Native Inference Engine (llama.cpp Migration) Spec
+# Phase 25: Native Cognition Engine (llama.cpp Migration) Spec
 
 **Goal:** Migrate both Node A and Node B from Ollama to raw `llama.cpp` (`llama-server`) to eliminate Go runtime overhead, enable precise VRAM allocation, and prepare for multimodal (VLM) workloads.
 

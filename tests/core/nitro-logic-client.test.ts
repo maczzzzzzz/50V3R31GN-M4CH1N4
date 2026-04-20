@@ -5,7 +5,7 @@ import type { NitroLogicConfig } from '../../src/core/interfaces.js';
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const VALID_CONFIG: NitroLogicConfig = {
-  baseUrl: 'http://192.168.0.50:8080/v1',
+  baseUrl: 'http://10.0.0.10:8080/v1',
   model: 'local-llama',
   timeoutMs: 5000,
   seed: 42,

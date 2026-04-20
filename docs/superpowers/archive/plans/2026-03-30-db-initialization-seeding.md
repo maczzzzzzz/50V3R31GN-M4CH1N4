@@ -1,4 +1,4 @@
-# Node A Database Initialization & Seeding Implementation Plan
+# Node A Artery of Truth Initialization & Seeding Implementation Plan
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 

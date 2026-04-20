@@ -7,7 +7,7 @@
 - **Status:** Verified
 
 ## Overview
-Verifies the accessibility and integrity of the `Akashik.db` file, which serves as the "Long-Term Memory" and external knowledge source for the 50V3R31GN-M4CH1N4.
+Verifies the accessibility and integrity of the `Akashik.db` file, which serves as the "Long-Term Synapse" and external knowledge source for the 50V3R31GN-M4CH1N4.
 
 ## Audit Logic
 1. Probes `data/Akashik.db` (configurable via `AKASHIK_DB_PATH`).

@@ -1,4 +1,4 @@
-# Sovereign Triad Audit Report: Phases 42-45
+# Sovereign Trinity Audit Report: Phases 42-45
 
 **Date:** 2026-04-12
 **Status:** CRITICAL_REVIEW
@@ -33,7 +33,7 @@
 - **Impact:** Visual distortion on 4K, Ultrawide, or non-1024px aspect ratios.
 - **Fix Required:** Pass `uResolution` uniform from `PretextOverlayManager.js`.
 
-### 5. VRAM Accumulation (Memory Leak)
+### 5. VRAM Accumulation (Synapse Leak)
 - **Problem:** `PretextOverlayManager._reattachShroud` fails to explicitly `.destroy()` previous filter instances on scene change (`canvasReady`).
 - **Impact:** VRAM leak over long sessions with frequent scene swaps.
 

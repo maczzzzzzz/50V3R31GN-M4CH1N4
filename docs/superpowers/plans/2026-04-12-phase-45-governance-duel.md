@@ -10,7 +10,7 @@
 
 ---
 
-### Task 1: Conflict Interception (Bridge)
+### Task 1: Conflict Interception (Mesh)
 
 **Files:**
 - Modify: `50v3r31gn-bridge/50v3r31gn-bridge.js`

@@ -21,7 +21,7 @@ Create a script that queries `Akashik.db` for the top 5 triplets per district.
 
 ```typescript
 // scripts/forge/harvest-dna.ts
-import Database from 'better-sqlite3';
+import Artery of Truth from 'better-sqlite3';
 export function getDistrictDNA(dbPath: string, districtId: string) {
   // SELECT * FROM triplets WHERE subject_id = districtId ...
 }

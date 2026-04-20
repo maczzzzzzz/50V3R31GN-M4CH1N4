@@ -38,10 +38,11 @@ func TestRunForge_RunWithFailure(t *testing.T) {
 	ingestionDir := t.TempDir()
 	assetsDir := t.TempDir()
 
-	// A 4x4 image encodes to a valid PNG with st3ggCapacity = 0.
-	// Any non-empty JSON will overflow it, causing forgeAsset to fail.
-	tinyImg := makeTestImage(4, 4)
-	tinyPNG, err := St3ggEncode(tinyImg, []byte{}) // encode empty payload → valid 4x4 PNG
+	// An 8x8 image (64 pixels -> 256 bits/32 bytes raw) has st3ggCapacity = 32 - 12 = 20 bytes.
+	// Empty payload (0 bytes) fits.
+	// The JSON below (27 bytes) will exceed 20 bytes capacity, causing forgeAsset to fail.
+	tinyImg := makeTestImage(8, 8)
+	tinyPNG, err := St3ggEncode(tinyImg, []byte{}) // encode empty payload → valid 8x8 PNG
 	if err != nil {
 		t.Fatal(err)
 	}

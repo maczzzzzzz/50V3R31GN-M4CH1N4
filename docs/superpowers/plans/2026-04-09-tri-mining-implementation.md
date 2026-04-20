@@ -64,7 +64,7 @@ git commit -m "feat(zeroclaw): Implement harmonic scoring and weighted priority"
 
 ---
 
-### Task 3: Memory Incineration Layer (M3M0RY_1NC1N3R4710N)
+### Task 3: Synapse Incineration Layer (M3M0RY_1NC1N3R4710N)
 
 **Files:**
 - Create: `zeroclaw/src/linguistics/pruner.rs`
@@ -89,7 +89,7 @@ git commit -m "feat(zeroclaw): Implement M3M0RY_1NC1N3R4710N pruning logic"
 **Files:**
 - Modify: `zeroclaw/src/server/vsb_udp.rs` (or your primary request handler)
 
-- [ ] **Step 1: Intercept Inference Requests**
+- [ ] **Step 1: Intercept Cognition Requests**
 Hook the `7R1_SC0R3R` into the incoming request stream before the payload is sent to `llama-server`.
 
 - [ ] **Step 2: Inject H1GH_D3N517Y_F33D**

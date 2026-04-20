@@ -73,7 +73,7 @@ Purge settings and escape menu buttons from `50v3r31gn-bridge.js`.
 
 - [ ] **Step 2: Create Shard 51.4: Purge-Verification**
 Implement `scripts/gauntlet/phases/purge-audit.ts`.
-**Audit:** Fail if `Sovereign Bridge` settings are detected via CDP.
+**Audit:** Fail if `Sovereign Mesh` settings are detected via CDP.
 
 - [ ] **Step 3: Final Commit & Gauntlet Run**
 ```bash

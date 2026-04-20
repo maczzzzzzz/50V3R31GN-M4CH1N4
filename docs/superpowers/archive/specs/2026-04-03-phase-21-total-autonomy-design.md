@@ -12,7 +12,7 @@ Phase 21 finalizes the Neural Hive by implementing the **AutoStoryGen** agentic 
 A multi-step state machine that drives NPC decisions:
 1. **Brainstorm (Reasoning):** NPC analyzes its `SensoryFilter` (what it sees) and `Latent Seeds` (how it feels).
 2. **Outline (Intent):** NPC generates a high-level goal (e.g., "Secure the perimeter").
-3. **Draft (Action):** NPC generates a strict JSON command for the Bridge (e.g., `move`, `attack`, `interact`).
+3. **Draft (Action):** NPC generates a strict JSON command for the Mesh (e.g., `move`, `attack`, `interact`).
 4. **Refine (Validation):** Node B validates the action against the `Rules Vault` (Node A) before execution.
 
 ### 2.2 Tactical Swarm Simulation (Node A)
@@ -26,7 +26,7 @@ A multi-step state machine that drives NPC decisions:
 ## 3. Data Flow
 1. **Loop Initiation:** `Foundry (Turn Start)` -> `Node B (Turn Daemon)`.
 2. **Decisioning:** `Node B` <-> `Node A (Rules + Seeds)` <-> `LLM (Mistral-Nemo)`.
-3. **Execution:** `Node B` -> `Foundry (Bridge)`.
+3. **Execution:** `Node B` -> `Foundry (Mesh)`.
 
 ## 4. Success Criteria
 - [ ] NPCs execute tactical turns in <5 seconds.

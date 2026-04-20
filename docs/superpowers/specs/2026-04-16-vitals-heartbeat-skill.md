@@ -16,7 +16,7 @@ The skill will execute a sequence of probes across the following quadrants:
 - **Quadrant 2 (Hardware Bus):**
     - VSB Mmap (`black_ice_state.mem`) existence and permissions (0600).
     - Unix Socket (`.gemini/tmp/sovereign-mcp.sock`) availability.
-- **Quadrant 3 (Inference):**
+- **Quadrant 3 (Cognition):**
     - Node A Health (`http://localhost:8080/health`)
     - Node B Health (`http://localhost:3010/health`)
 

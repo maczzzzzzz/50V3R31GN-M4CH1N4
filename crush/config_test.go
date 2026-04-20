@@ -13,8 +13,8 @@ func TestConfig_DefaultValues(t *testing.T) {
 
 	cfg := loadConfig()
 
-	if cfg.NodeAHost != "192.168.0.50" {
-		t.Errorf("NodeAHost = %q, want 192.168.0.50", cfg.NodeAHost)
+	if cfg.NodeAHost != "10.0.0.10" {
+		t.Errorf("NodeAHost = %q, want 10.0.0.10", cfg.NodeAHost)
 	}
 	if cfg.ClawlinkPort != "7878" {
 		t.Errorf("ClawlinkPort = %q, want 7878", cfg.ClawlinkPort)

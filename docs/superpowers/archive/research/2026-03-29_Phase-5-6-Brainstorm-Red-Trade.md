@@ -9,7 +9,7 @@ In the deprecated `openclaw-cpr`, the "Red Trade" system was effectively an "Eph
 - **Old Implementation:** Heat was often just a narrative tag or a simple counter in Supabase.
 - **Phase 5 Design:** We will implement **Mechanical Heat**. 
     - **Node A (Rules):** Calculates "Heat Growth" based on mission noise (e.g., loud guns, corpo deaths). 
-    - **Node B (Narrative):** Triggers "Police Intercepts" or "Bounty Hunters" via the Foundry Bridge when Heat thresholds are crossed.
+    - **Node B (Narrative):** Triggers "Police Intercepts" or "Bounty Hunters" via the Foundry Mesh when Heat thresholds are crossed.
 - **Contraband:** Trade items will be tagged with a `legality` score. Selling `Illegal` items in Sublevel 2 (Afterlife) is safe, but carrying them in "High-Sec" scenes (Node B detected) increases Heat.
 
 ### 1.2 Persistant Economic Simulation

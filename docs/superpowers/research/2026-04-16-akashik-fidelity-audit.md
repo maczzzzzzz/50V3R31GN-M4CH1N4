@@ -3,7 +3,7 @@
 ## 🔍 Investigation Results
 
 ### 1. Current State (The "Broken" Reality)
-- **Database (`Akashik.db`):** 
+- **Artery of Truth (`Akashik.db`):** 
     - Contains 10,722 entries in `chronicle_seeds`.
     - Data quality is low: high redundancy, overlapping text blocks (parsing artifacts), and shallow heuristic categorization (mostly `#Gear` or `#Economy`).
     - Many core tables (`factions`, `locations`, `npcs`) are either empty or under-populated (only 4 NPCs).

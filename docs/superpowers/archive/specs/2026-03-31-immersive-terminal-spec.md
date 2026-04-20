@@ -1,16 +1,16 @@
 # Design Specification: Immersive Terminal Extension (v3.2.19)
 **Date:** March 31, 2026
-**Subject:** Discord Chronicler, Playwright Optical Bridge, and Multimodal Terminal
+**Subject:** Discord Chronicler, Playwright Optical Mesh, and Multimodal Terminal
 **Status:** FINALIZED
 
 ## 1. Executive Summary
-This extension turns the Crush CLI into a "High-Fidelity Deck" for solo play. It introduces the **Chronicler** (Discord-based screamsheet logging) and the **Optical Bridge** (Real-time spatial awareness via Playwright/Llava). These systems bridge the gap between the terminal, the browser (Foundry), and external narrative logs.
+This extension turns the Crush CLI into a "High-Fidelity Deck" for solo play. It introduces the **Chronicler** (Discord-based screamsheet logging) and the **Optical Mesh** (Real-time spatial awareness via Playwright/Llava). These systems bridge the gap between the terminal, the browser (Foundry), and external narrative logs.
 
 ## 2. The Chronicler (Screamsheet Engine)
 
 ### 2.1 Architecture
 - **Transport:** Official Discord MCP Server or Direct Webhook.
-- **Trigger:** Any "State Mutation Event" from the `UnifiedOracle` (Faction shifts, Rent payments, Gig completion).
+- **Trigger:** Any "State Mutation Event" from the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` (Faction shifts, Rent payments, Gig completion).
 - **Tool:** `screamsheet_post(content: string, persona: string)`.
 
 ### 2.2 Persona Logic
@@ -19,7 +19,7 @@ The AI selects a narrative voice based on the context:
 - **NCPD Scanner:** For combat/illegal trade events.
 - **Street Rumor:** For faction standings and NPC movement.
 
-## 3. The Optical Bridge (Spatial Vision)
+## 3. The Optical Mesh (Spatial Vision)
 
 ### 3.1 Architecture
 - **Capture:** Playwright MCP `screenshot` tool targeting the Foundry VTT `#canvas` element.
@@ -34,7 +34,7 @@ The AI selects a narrative voice based on the context:
 
 ## 4. Multimodal Command Deck (Crush)
 Implemented as **Z-Commands** for precise solo control:
-- `/scan`: Trigger Optical Bridge.
+- `/scan`: Trigger Optical Mesh.
 - `/news <text>`: Manually post a Screamsheet bark.
 - `/vitals`: Join `npcs` (stats) and `crush.db` (history) for a quick status check.
 

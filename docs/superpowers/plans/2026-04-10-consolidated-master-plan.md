@@ -8,7 +8,7 @@
 **Document:** `docs/superpowers/plans/2026-04-10-phase-39-legacy-remediation.md`
 **Status:** Ready for execution.
 **Key Objectives:**
-- Strip "Ollama" identity from all core and DB clients, replacing with Native Inference Engine semantics.
+- Strip "Ollama" identity from all core and DB clients, replacing with Native Cognition Engine semantics.
 - Purge mock logic from `night-market-service` and `unified-oracle-client`.
 - Delete obsolete integration tests (`zeroclaw_handshake.test.ts`) and add `*.tsbuildinfo` to `.gitignore`.
 - Set stage for `HybridRoutingController.ts` decomposition.

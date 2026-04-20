@@ -4,7 +4,7 @@
 **Hardware Target:** Node B (Pixtral-12B) // Node A (Open-Reasoner-1.5B)
 
 ## 1. Core Objective
-Optimize the interaction between the Pixtral-12B Vision-Language Model (Node B) and the Rules Oracle (Node A). We aim to leverage HyperTune logic to achieve **perfect visual-narrative alignment** and a **raw, gritty, unfiltered Cyberpunk aesthetic** that bypasses standard VLM safety sanitization.
+Optimize the interaction between the Pixtral-12B Vision-Language Model (Node B) and the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node A). We aim to leverage HyperTune logic to achieve **perfect visual-narrative alignment** and a **raw, gritty, unfiltered Cyberpunk aesthetic** that bypasses standard VLM safety sanitization.
 
 ## 2. VLM-Centric Optimization (The Vision Gate)
 Unlike standard LLMs, Pixtral-12B processes visual tokens. HyperTune logic must be extended to account for **Spatial Grounding Accuracy**.
@@ -18,7 +18,7 @@ Dynamic hyperparameter shifting must now be "Modality-Aware":
 Node A (The 1.5B Reasoner) acts as the **Visual Auditor**:
 1.  **Input:** A screenshot from Foundry VTT (via CDP).
 2.  **Output:** Pixtral-12B's narrative description.
-3.  **Audit:** Node A compares the narrative against the "Ground Truth" in the SQLite Oracle (e.g., actual token HP and positions).
+3.  **Audit:** Node A compares the narrative against the "Ground Truth" in the SQLite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (e.g., actual token HP and positions).
 4.  **Penalty:** If Pixtral describes a "dead mook" who still has 15 HP in the DB, Node A rejects the text and applies a **Hallucination Penalty** to the next generation cycle.
 
 ## 3. Deepening the Visual Jailbreak
@@ -41,7 +41,7 @@ We use a recursive feedback loop to fine-tune Pixtral's "eyes":
 4.  **Refine:** If the score is low, the system mutates the `ANALYSIS_PROMPT` (e.g., adding "Increase grit by 20%") and retries.
 
 ## 5. Implementation Roadmap (Node B Re-Tuning)
-1.  **Dynamic VLM Interface:** Update `ISovereignInferenceClient` to support `VlmOptions` (modality flags).
+1.  **Dynamic VLM Interface:** Update `ISovereignCognitionClient` to support `VlmOptions` (modality flags).
 2.  **Spatial Scorer:** Implement a Node A RPC method `audit_visual_fidelity` that cross-references Pixtral's narrative against the SQLite `scene_perception` table.
 3.  **Adversarial Persona:** Swap the GM Persona for a **"Black-Ice Reality Engine"** persona.
 

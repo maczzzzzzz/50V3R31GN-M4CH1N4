@@ -7,7 +7,7 @@
 - **Status:** Verified
 
 ## Overview
-Verifies connectivity to the Virtual System Bus (VSB) on Node A. This is the primary binary communication highway for the Sovereign Triad.
+Verifies connectivity to the Virtual System Bus (VSB) on Node A. This is the primary binary communication highway for the Sovereign Trinity.
 
 ## Audit Logic
 1. Probes the VSB UDP port (default 7878) on Node A.

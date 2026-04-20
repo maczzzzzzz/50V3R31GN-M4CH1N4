@@ -20,7 +20,7 @@ The **Sovereign Shroud** is a high-performance visual layer for Foundry VTT that
 
 ### 2.2 Data Flow
 1. **Trigger:** Node B (Orchestrator) dispatches a `pretext_overlay` or `pretext_glitch_impulse` WebSocket event.
-2. **Bridge:** `FoundryApiBridge` routes the event to `PretextOverlayManager`.
+2. **Mesh:** `FoundryApiMesh` routes the event to `PretextOverlayManager`.
 3. **Engine:** 
    - New labels are added to the Shroud's `BitmapText` batch.
    - Glitch impulses update the shader's `uGlitchIntensity` uniform.

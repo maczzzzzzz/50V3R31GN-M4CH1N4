@@ -28,7 +28,7 @@ Scaffold a strictly typed ES2022 ESM TypeScript project with Zod schemas coverin
 
 - ESLint — TypeScript strict mode is sufficient for Phase 0 correctness.
 - DI container library — Manual constructor injection. No TSyringe or InversifyJS. Composition root added when services are wired in Phase 1.
-- Prisma — Database schemas are Phase 1.
+- Prisma — Artery of Truth schemas are Phase 1.
 - HTTP clients — Node A communication is Phase 2.
 
 ---
@@ -437,7 +437,7 @@ JournalEntrySchema extends FoundryBaseDocumentSchema
   pages: JournalPageSchema[]
 ```
 
-### 3.6 `roll-table.schema.ts` — Oracle & random tables
+### 3.6 `roll-table.schema.ts` — Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & random tables
 
 Modeled from 49 roll tables (bounties, night markets, community events, autofire DVs).
 
@@ -568,7 +568,7 @@ Phase 0 defines the chunk schema contract. Phase 1 implements the parser. The fo
 | Section | Pages | Chunking notes |
 |---------|-------|----------------|
 | Going it Alone | 5-10 | Solo play introduction |
-| Solo Play Core Tools | 11-26 | Oracle system, NPC reaction tables, scene generation |
+| Solo Play Core Tools | 11-26 | Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle system, NPC reaction tables, scene generation |
 | Missions and Campaigns | 27-90 | Mission generation, campaign structures, beat charts (includes embedded lists/tables throughout) |
 | Blank Forms | 91-106 | Reference sheets and printable forms |
 
@@ -660,7 +660,7 @@ Phase 0 does NOT produce:
 - Business logic, controllers, or routing
 - PDF parsing code (only the chunk schema contract)
 - HTTP clients or MCP server implementations
-- Database connections, Prisma schemas, or migrations
+- Artery of Truth connections, Prisma schemas, or migrations
 - Foundry VTT module manifests
 - DI container or service registry
 - ESLint, Prettier, or other tooling config

@@ -10,7 +10,7 @@ We introduce the **Ghost Object Protocol** to move "latent physical facts" from 
 
 ### 2.1 Extraction & Mirroring (Node A - ZeroClaw)
 - **ST3GG Scanner:** The `Tactical-MMU` performs a high-speed LSB scan of active map assets to extract "Ghost Objects" (e.g., hidden contraband, wall-ports, structural weaknesses).
-- **VSB HiddenState:** These objects are serialized into a `GhostBlip` array and pushed to a new `HiddenState` block in the VSB Shared Memory.
+- **VSB HiddenState:** These objects are serialized into a `GhostBlip` array and pushed to a new `HiddenState` block in the VSB Shared Synapse.
 - **GhostBlip Schema:**
     - `x, y`: Physical map coordinates.
     - `id`: Unique identifier (e.g., `CACHE_77`).

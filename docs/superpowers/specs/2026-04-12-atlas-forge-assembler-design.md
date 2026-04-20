@@ -59,10 +59,10 @@ Provides real-time observability of the assembly:
 
 ## 5. TECHNICAL STACK
 - **Generation:** Nano Banana 2 (Imagen 3).
-- **Inference:** Llama-server (Node A / Node B).
+- **Cognition:** Llama-server (Node A / Node B).
 - **Metadata:** LSB Steganography (ST3GG).
 - **Engine:** PIXI.js / WebGL (Nucleus).
 - **Transport:** VSB (Protobuf over WebSocket).
 
 ---
-*Verified by the Sovereign Triad v3.2.19.*
+*Verified by the Sovereign Trinity v3.2.19.*

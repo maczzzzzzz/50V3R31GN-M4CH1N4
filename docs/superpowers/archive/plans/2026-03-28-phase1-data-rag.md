@@ -18,7 +18,7 @@
 - Modify: `package.json`
 - Create: `.env.example`
 
-### Database (Tasks 2-3)
+### Artery of Truth (Tasks 2-3)
 - Create: `src/db/client.ts`
 - Create: `src/db/migrate.ts`
 - Modify: `src/db/index.ts`
@@ -108,7 +108,7 @@ git commit -m "chore: add pg, pdf-parse dependencies and env config for Phase 1"
 
 ---
 
-## Task 2: Database Client (TDD)
+## Task 2: Artery of Truth Client (TDD)
 
 **Files:**
 - Create: `src/db/client.ts`
@@ -121,7 +121,7 @@ import pg from 'pg';
 
 const { Pool } = pg;
 
-export class DatabaseClient {
+export class Artery of TruthClient {
   private pool: pg.Pool;
 
   constructor(connectionConfig?: pg.PoolConfig) {
@@ -151,7 +151,7 @@ export class DatabaseClient {
 - [ ] **Step 2: Update `src/db/index.ts` barrel**
 
 ```typescript
-export { DatabaseClient } from './client.js';
+export { Artery of TruthClient } from './client.js';
 ```
 
 - [ ] **Step 3: Verify TypeScript compiles**
@@ -176,7 +176,7 @@ git commit -m "feat: add PostgreSQL client wrapper for Node A connection"
 - [ ] **Step 1: Write `src/db/migrate.ts`**
 
 ```typescript
-import { DatabaseClient } from './client.js';
+import { Artery of TruthClient } from './client.js';
 
 const MIGRATION_SQL = `
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -206,7 +206,7 @@ CREATE INDEX idx_chunks_embedding ON chunks
 `;
 
 async function main(): Promise<void> {
-  const db = new DatabaseClient();
+  const db = new Artery of TruthClient();
   try {
     console.log('[migrate] Connecting to Node A PostgreSQL...');
     await db.query(MIGRATION_SQL);
@@ -1017,7 +1017,7 @@ git commit -m "feat: add JSON serializers for all Foundry VTT document types"
 ```typescript
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, extname, basename } from 'node:path';
-import { DatabaseClient } from '../client.js';
+import { Artery of TruthClient } from '../client.js';
 import { Embedder } from './embedder.js';
 import { parsePdf } from './pdf-parser.js';
 import { chunkText } from './chunker.js';
@@ -1155,7 +1155,7 @@ function ingestTextFiles(dir: string, namespace: string): IngestChunk[] {
 async function embedAndInsert(
   chunks: IngestChunk[],
   embedder: Embedder,
-  db: DatabaseClient,
+  db: Artery of TruthClient,
   namespace: string,
 ): Promise<void> {
   const nsChunks = chunks.filter((c) => c.namespace === namespace);
@@ -1199,7 +1199,7 @@ async function embedAndInsert(
 
 async function main(): Promise<void> {
   const baseDir = 'docs/raw_data';
-  const db = new DatabaseClient();
+  const db = new Artery of TruthClient();
   const embedder = new Embedder();
 
   try {
@@ -1329,7 +1329,7 @@ git commit -m "feat: add ingestion orchestrator (PDF + JSON + TXT pipeline)"
 
 ```typescript
 import { z } from 'zod';
-import { DatabaseClient } from '../../db/client.js';
+import { Artery of TruthClient } from '../../db/client.js';
 import { Embedder } from '../../db/ingest/embedder.js';
 import { NamespaceEnum, RagMatchSchema, RagQueryResultSchema } from '../../shared/schemas/index.js';
 
@@ -1361,7 +1361,7 @@ function rowToMatch(row: ChunkRow): z.infer<typeof RagMatchSchema> {
 
 export async function handleQueryLore(
   params: { query: string; namespace: string; limit?: number; threshold?: number },
-  db: DatabaseClient,
+  db: Artery of TruthClient,
   embedder: Embedder,
 ): Promise<z.infer<typeof RagQueryResultSchema>> {
   const limit = params.limit ?? 5;
@@ -1386,7 +1386,7 @@ export async function handleQueryLore(
 
 export async function handleQueryMultiNamespace(
   params: { query: string; namespaces: string[]; limit?: number },
-  db: DatabaseClient,
+  db: Artery of TruthClient,
   embedder: Embedder,
 ): Promise<z.infer<typeof RagQueryResultSchema>> {
   const limit = params.limit ?? 5;
@@ -1410,7 +1410,7 @@ export async function handleQueryMultiNamespace(
 
 export async function handleGetChunkById(
   params: { id: number },
-  db: DatabaseClient,
+  db: Artery of TruthClient,
 ): Promise<z.infer<typeof RagMatchSchema> | null> {
   const result = await db.query<ChunkRow & { score: number }>(
     `SELECT *, 1.0 AS score FROM chunks WHERE id = $1`,
@@ -1428,7 +1428,7 @@ export async function handleGetChunkById(
 ```typescript
 import { z } from 'zod';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { DatabaseClient } from '../../db/client.js';
+import { Artery of TruthClient } from '../../db/client.js';
 import { Embedder } from '../../db/ingest/embedder.js';
 import {
   handleQueryLore,
@@ -1437,7 +1437,7 @@ import {
 } from './handlers.js';
 
 export function createNitroDbServer(
-  db: DatabaseClient,
+  db: Artery of TruthClient,
   embedder: Embedder,
 ): McpServer {
   const server = new McpServer({
@@ -1544,12 +1544,12 @@ export function createNitroDbServer(
 
 ```typescript
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { DatabaseClient } from '../../db/client.js';
+import { Artery of TruthClient } from '../../db/client.js';
 import { Embedder } from '../../db/ingest/embedder.js';
 import { createNitroDbServer } from './server.js';
 
 async function main(): Promise<void> {
-  const db = new DatabaseClient();
+  const db = new Artery of TruthClient();
   const embedder = new Embedder();
   const server = createNitroDbServer(db, embedder);
 
@@ -1596,7 +1596,7 @@ Note: File name includes `integration` so it is matched by `--testPathPattern=in
 
 ```typescript
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { DatabaseClient } from '../../src/db/client.js';
+import { Artery of TruthClient } from '../../src/db/client.js';
 import { Embedder } from '../../src/db/ingest/embedder.js';
 import {
   handleQueryLore,
@@ -1605,11 +1605,11 @@ import {
 } from '../../src/mcp/nitro-db/handlers.js';
 
 describe('nitro-db integration', () => {
-  let db: DatabaseClient;
+  let db: Artery of TruthClient;
   let embedder: Embedder;
 
   beforeAll(async () => {
-    db = new DatabaseClient();
+    db = new Artery of TruthClient();
     embedder = new Embedder();
 
     await db.query(`
@@ -1788,7 +1788,7 @@ Add new entry above `[0.2.0]`:
 ### Added
 
 - PostgreSQL client wrapper for Node A connection (`src/db/client.ts`)
-- Database migration script with pgvector chunks table and HNSW index
+- Artery of Truth migration script with pgvector chunks table and HNSW index
 - Text chunker with configurable target size and overlap
 - Ollama embedding client with batch support (nomic-embed-text, 768d)
 - PDF parser with section heading detection
@@ -1837,7 +1837,7 @@ Phase 1 is complete. Ready for Lead Architect (user) approval before proceeding 
 | Task | Description | Unit Tests |
 |------|-------------|------------|
 | 1 | Dependencies + environment config | - |
-| 2 | Database client | - |
+| 2 | Artery of Truth client | - |
 | 3 | Migration script | - |
 | 4 | Chunker (TDD) | 7 |
 | 5 | Embedder (TDD) | 4 |

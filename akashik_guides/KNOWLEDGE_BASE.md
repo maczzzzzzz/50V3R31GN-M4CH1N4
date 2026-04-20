@@ -7,23 +7,16 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 
 | Pattern | Implementation | Source | Role |
 | :--- | :--- | :--- | :--- |
-| **Virtual System Bus** | Mmap + UDP | Internal | Lock-free, dual-bus binary state synchronization (FNV-1a). |
-| **Nucleus Command Deck**| React 19 + PIXI | Internal | Monolithic high-fidelity command center (CL4W). |
-| **Structural Parsing** | XY-Cut++ | opendataloader | Layout-aware PDF extraction (Multi-column / Table preservation). |
-| **Semantic Chunking** | Context Injection | chunknorris | Split text by headers (H1-H3) with parent breadcrumb injection. |
-| **Manifest Sync** | Automation Tool | Internal | Cascading documentation alignment via `npm run sync`. |
-| **Vitals Heartbeat** | Diagnostic Skill | Internal | 3-quadrant hardware/software health audit via `npm run audit:vitals`. |
-| **Scribe Governance** | Sector Agent | Internal | Systematic audit and synchronization of all `akashik_guides/` and manifests. |
-| **Sovereign Triad Bridge**| MCP + Socket | Internal | Shared "Codebase Brain" for Strategist (Gemini) and Architect (Droid). |
-| **Interactive Terminal**| REPL (Go) | Internal | Direct two-way narrative bridge to the 12B Brain. |
-| **Semantic Palace** | Python + TS | Internal | High-speed reconstruction of RKG data via `fast-reconstruct.py`. |
-| **Native Mirror** | Node.js | Internal | Bidirectional Windows-WSL sync bypassing network share limitations. |
-| **Ghost Boot** | Go + CDP | Internal | Headless system ignition via `crush start --headless`. |
-| **Sovereign Proxy** | Go Sidecar | Internal | Resilient TCP/SSH bridge maintaining ClawLink persistence. |
-| **Mini-Vault Judge** | Gemma-4 (Node B/C) | Internal | High-intelligence, abliterated brain cluster (E4B / E2B). |
-| **Optical Artery** | ColPali v1.2 | Internal | High-fidelity visual grounding and rulebook patch indexing. |
+| **Virtual System Bus** | Mmap + UDP | Internal | Lock-free, dual-bus binary state synchronization (FNV-1a). The Artery of Truth. |
+| **Nucleus Deck** | React 19 + PIXI | Internal | Monolithic high-fidelity holographic control surface (CL4W). |
+| **Structural Parsing** | XY-Cut++ | opendataloader | Layout-aware PDF extraction for high-fidelity lore ingestion. |
+| **Scribe Governance** | History Guardian | Internal | Systematic audit of all `akashik_guides/` via VT323 persona. Zero-Drift Mandate. |
+| **Sovereign Trinity** | 3-Node Mesh | Internal | Distributed inference fabric with disaggregated memory (Mooncake). The Mesh of Mind. |
+| **RDT Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** | OpenMythos | Internal | Variable-depth reasoning engine on Node C for logical rule interpretaton. |
+| **Optical Artery** | ColPali v1.2 | Internal | High-fidelity visual grounding and patch-indexed Lore retrieval. |
+
 | **Tactical-MMU** | Rust (Node A) | Internal | Hardware-accelerated spatial heat-maps (O(1) tactics). |
-| **L1-Registry** | Rust (Node B) | Internal | Memory-mapped SQLite mirror for zero-latency NPC data. |
+| **L1-Registry** | Rust (Node B) | Internal | Synapse-mapped SQLite mirror for zero-latency NPC data. |
 | **Flush Gate** | Nucleus Deck | Internal | Atomic world-state writes with high-fidelity operator ACK. |
 | **Declarative Soul** | Nix | Internal | Nix-managed immutable agentic identity strings (Zero-Drift). |
 | **Soul Logger** | TS | Internal | Trajectory capture with semantic `training_value` tagging. |
@@ -33,7 +26,7 @@ These patterns define the "Procedural OS" — the synchronization of hardware pe
 | **Acceleration (0xSero)**| Nix + Vulkan | Internal | RADV_PERFTEST=sam and GTT resize for 29% faster decode. |
 | **Canonical Mirror** | Rust + TS | Internal | 1:1 bit-identical rules engine mirror of the official CPR core. |
 | **Sovereign Trinity** | 3-Node Mesh | Internal | Distributed inference fabric with disaggregated memory (Mooncake). |
-| **Hermes Master** | LangGraph | Internal | Strategic Oracle (Node C) orchestrating sub-task routing across the mesh. |
+| **Hermes Master** | LangGraph | Internal | Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C) orchestrating sub-task routing across the mesh. |
 | **Reflective Evolution**| GEPA | Internal | Self-evolving prompt strategies on Node C based on log-step verification. |
 | **Pre-Cognitive Buffer**| TS Telemetry | Internal | Anticipatory context seeding based on real-time token movement vectors. |
 
@@ -51,6 +44,9 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 | **sidecar-netrunning**| Rust | **Netrun Simulation:** Logic for deep-net intrusions and tactical intrusion state sync. |
 | **sovereign-sdk** | Rust/C | **Protocol SDK:** Unified C-FFI exports for Mmap/VSB structures to eliminate logic drift. |
 | **deck-igniter** | Go | **Ignition Supervisor:** Headless backend service for lifecycle management of distributed processes. |
+| **Mooncake** | Go/C++ | **Synapse Synapse:** Distributed KV-cache store offloading context between Director and Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. |
+| **browser-harness** | Python/Go | **Physical Hands:** Direct CDP-level browser interaction and self-healing interaction shards. |
+| **OpenMythos** | Python | **Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle:** RDT-based reasoning engine for variable-depth rule interpretation. |
 
 
 ## 📦 Dependency Registry (Pinned v3.2.19)
@@ -65,7 +61,7 @@ The Sovereign architecture is distributed across specialized sub-repositories wi
 ## 📁 Source of Truth: Data Plane
 - **RKG (Relational Knowledge Graph):** `Akashik.db` (Unified World State).
 - **Narrative Seeds:** `narrative_anchors` table (Isolated Prose/Style Grounding).
-- **Session Memory:** `.crush/crush.db` (Historical Lore).
+- **Session Synapse:** `.crush/crush.db` (Historical Lore).
 - **Offline Palace:** `data/vault/RKG` (District-based hierarchical RKG mirror).
 - **Narrative Vault:** `data/vault/Narrative/` (Isolated high-signal style seeds).
 

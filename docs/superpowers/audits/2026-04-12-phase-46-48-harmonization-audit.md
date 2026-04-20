@@ -1,4 +1,4 @@
-# Sovereign Triad Audit Report: Phases 46-48 & Harmonization Engine
+# Sovereign Trinity Audit Report: Phases 46-48 & Harmonization Engine
 
 **Date:** 2026-04-12
 **Status:** ACTION_REQUIRED
@@ -17,7 +17,7 @@
 - **Status:** PASS
 - **Verdict:** `sovereignty_depth` tracking is implemented and correctly influences faction stability and linguistic drift. The narrative link between Machina authority and environment presentation is robust.
 
-### 3. Fail-Locked Bridge & Shard Mandate
+### 3. Fail-Locked Mesh & Shard Mandate
 - **Status:** PASS
 - **Verdict:** libWrapper consolidation in `50v3r31gn-bridge.js` successfully unified Governance Duel and Movement Validation. The "Fail-Locked" security strategy is verified.
 
@@ -30,7 +30,7 @@
 - **Impact:** `reconstruct-palace.sh` (which uses `rsync`) and `mcp-daemon.ts` (which prefers `rg`) will fail or underperform in a fresh Nix shell environment.
 - **Fix Required:** Add `pkgs.rsync` and `pkgs.ripgrep` to `flake.nix`.
 
-### 5. MCP Bridge Lifecycle Race Condition
+### 5. MCP Mesh Lifecycle Race Condition
 - **Problem:** The `trap` hook in `flake.nix` kills the `mcp-daemon` whenever *any* shell session exits.
 - **Impact:** Closing one terminal kills the bridge for all other active developer sessions.
 - **Fix Required:** Remove the `trap` from `flake.nix` and rely on the existing PID guard in the startup logic to handle stale processes.

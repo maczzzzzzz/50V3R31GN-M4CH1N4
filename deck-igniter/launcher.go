@@ -443,7 +443,18 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 		}
 	}
 
-	// 2b: director next, then wait for its WebSocket port
+	// 2b: Node A Orchestration (Mooncake + Artery)
+	// Mooncake (Node A) must boot BEFORE the Director (Node B).
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2b — Node A Orchestration (Mooncake)"))
+	for _, c := range components {
+		comp := c
+		if comp.Layer == LayerRemote && (comp.Name == "llama-server" || comp.Name == "zeroclaw" || comp.Name == "mooncake-synapse") {
+			cmds = append(cmds, nodeABootCmd(comp))
+		}
+	}
+
+	// 2c: director next, then wait for its WebSocket port
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2c — Director Orchestration"))
 	for _, c := range components {
 		comp := c
 		if comp.Layer == LayerWSL && comp.Name == "director" {
@@ -454,10 +465,10 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 		}
 	}
 
-	// 2c: all remaining WSL services — dashboard, vault, AND sidecars.
+	// 2d: all remaining WSL services — dashboard, vault, AND sidecars.
 	// Sidecars (egui GUIs) are WSL-native and only need the director; they MUST
 	// NOT be deferred to Phase 4 (after SSH) or they never appear during boot.
-	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2c — GUI Layer (Sidecars + Dashboard)"))
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2d — GUI Layer (Sidecars + Dashboard)"))
 	for _, c := range components {
 		comp := c
 		if comp.Layer != LayerWSL {
@@ -474,18 +485,18 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 			cmds = append(cmds, launchVaultSync(comp))
 		default:
 			if subdir, ok := sidecarSubdir[comp.Name]; ok {
-				// Launch in Phase 2c — no Phase 4 deferral.
+				// Launch in Phase 2d — no Phase 4 deferral.
 				cmds = append(cmds, launchSidecar(comp, subdir))
 			}
 		}
 	}
 
-	// Phase 3: Node A SSH — runs concurrently with sidecars warming up.
-	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 3 — Remote Orchestration (Node A)"))
-
+	// 2e: Node C Orchestration (Oracle)
+	// Oracle (Node C) boots after the sidecars.
+	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2e — Node C Orchestration (Oracle)"))
 	for _, c := range components {
-		comp := c // capture
-		if comp.Layer == LayerRemote {
+		comp := c
+		if comp.Name == "oracle-logic" {
 			cmds = append(cmds, nodeABootCmd(comp))
 		}
 	}
@@ -536,6 +547,9 @@ func shutdownCmd(components []*Component) tea.Cmd {
 		for i := len(components) - 1; i >= 0; i-- {
 			_ = killProc(components[i].Name)
 		}
+		// Explicit pkill for stubborn components
+		_ = exec.Command("pkill", "-f", "mooncake").Run()
+		_ = exec.Command("pkill", "-f", "sglang").Run()
 		return tea.Quit()
 	}
 }
@@ -548,6 +562,8 @@ func performPurge() tea.Cmd {
 			"sidecar-atlas",
 			"sidecar-netrunning",
 			"llama-server",
+			"mooncake",
+			"sglang",
 			"obsidian-sync-service", // instead of tsx, targeting the specific daemon
 			"next dev",              // instead of pnpm, targeting the specific server
 		}

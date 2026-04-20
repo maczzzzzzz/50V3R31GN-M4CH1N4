@@ -1,13 +1,13 @@
-# Shard: Phase 48 — MCP Bridge
+# Shard: Phase 48 — MCP Mesh
 
 ## Metadata
 - **ID:** 48
-- **Name:** MCP-Bridge
+- **Name:** MCP-Mesh
 - **Block:** ORCHESTRATION
 - **Status:** Verified
 
 ## Overview
-Ensures that the Model Context Protocol (MCP) Bridge is active and shared between Gemini (Strategist) and Droid (Architect). This daemon provides a unified "Codebase Brain" for multi-agent collaboration.
+Ensures that the Model Context Protocol (MCP) Mesh is active and shared between Gemini (Strategist) and Droid (Architect). This daemon provides a unified "Codebase Brain" for multi-agent collaboration.
 
 ## Audit Logic
 1. Checks for the MCP daemon source file (`scripts/dev/mcp-daemon.ts`).

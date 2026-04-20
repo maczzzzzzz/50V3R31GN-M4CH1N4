@@ -11,10 +11,10 @@
 
 - **Step 1:** Implement `OmniOrchestratorService` in `src/core/`.
 - **Step 2:** Integrate `Promise.all` logic to dispatch "Intensity" (Node A) and "Tone" (Node B) prompts.
-- **Step 3:** Create the `ProfileMapper` to translate (Scalar, Tone) → Bridge Command.
+- **Step 3:** Create the `ProfileMapper` to translate (Scalar, Tone) → Mesh Command.
 
-## Task 2: Profile Physicalization (Bridge)
-**Goal:** Implement the high-fidelity response profiles in the Foundry Bridge.
+## Task 2: Profile Physicalization (Mesh)
+**Goal:** Implement the high-fidelity response profiles in the Foundry Mesh.
 
 - **Step 1:** Update `foundry-api-bridge.js` to support named `ResponseProfiles`.
 - **Step 2:** Implement the `HEAVY_COMBAT` profile using **Sequencer** and **FXMaster**.

@@ -8,7 +8,7 @@
 
 ### 1.1 The Unified Sidecar (Rust/Egui)
 - **Binary:** `sidecar-cyberdeck` (Consolidates `sidecar-atlas` and `sidecar-netrunning`).
-- **Memory:** Single `black_ice_state.mem` Mmap handle for all tactical data (Actors, Ghost Blips, Network Nodes).
+- **Synapse:** Single `black_ice_state.mem` Mmap handle for all tactical data (Actors, Ghost Blips, Network Nodes).
 - **Interface:** Tabbed navigation ([ATLAS], [NETRUN], [DECK/HACKS]).
 
 ### 1.2 The Sovereign Control Plane (Node B/Node A)

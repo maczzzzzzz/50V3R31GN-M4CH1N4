@@ -4,7 +4,7 @@
 
 **Goal:** Establish sub-1ms state synchronization between Node A (Physical) and Node B (WSL) via a Binary UDP Intent-Ack protocol.
 
-**Architecture:** A Rust-native VSB Server on Node A (ZeroClaw) and a VSB Bridge on Node B (Director). Communication uses raw C-style binary structs over UDP to minimize serialization overhead.
+**Architecture:** A Rust-native VSB Server on Node A (ZeroClaw) and a VSB Mesh on Node B (Director). Communication uses raw C-style binary structs over UDP to minimize serialization overhead.
 
 **Tech Stack:** Rust (Tokio), UDP, Open-Reasoner-Zero-1.5B (GGUF), NixOS.
 

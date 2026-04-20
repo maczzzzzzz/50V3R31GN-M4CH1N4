@@ -20,7 +20,7 @@
 Add `vsb.send`, `bridge.runScript`, `bridge.injectCSS`, and `cli.execute` to the context.
 
 - [ ] **Step 2: Implement Implementation Hooks**
-Implement the UDP socket for VSB and the `page.evaluate` wrappers for Bridge injection.
+Implement the UDP socket for VSB and the `page.evaluate` wrappers for Mesh injection.
 
 - [ ] **Step 3: Commit**
 `git add . && git commit -m "feat: expand gauntlet context with write-capable control hooks"`

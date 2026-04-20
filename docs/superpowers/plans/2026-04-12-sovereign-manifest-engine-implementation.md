@@ -19,12 +19,12 @@
 
 ```typescript
 import { Page } from 'playwright-core';
-import Database from 'better-sqlite3';
+import Artery of Truth from 'better-sqlite3';
 import pg from 'pg';
 
 export interface GauntletContext {
   page: Page;
-  db: Database.Database;
+  db: Artery of Truth.Artery of Truth;
   pg: pg.Client;
   logger: {
     info: (msg: string, data?: any) => void;
@@ -66,7 +66,7 @@ git commit -m "feat: define gauntlet core types and shard contract"
 
 ```typescript
 import { chromium } from 'playwright-core';
-import Database from 'better-sqlite3';
+import Artery of Truth from 'better-sqlite3';
 import pg from 'pg';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -96,7 +96,7 @@ class ManifestEngine {
     const browser = await chromium.connectOverCDP(wsUrl);
     const page = browser.contexts()[0].pages().find(p => p.url().includes('/game')) || browser.contexts()[0].pages()[0];
 
-    const db = new Database('./data/Akashik.db');
+    const db = new Artery of Truth('./data/Akashik.db');
     
     const pgClient = new pg.Client({
       host: process.env['PGHOST'] || '192.168.0.50',
@@ -244,13 +244,13 @@ git commit -m "feat: add first three data block shards (0, 1, 30)"
 - Create: `scripts/gauntlet/phases/data-37.ts`
 - Create: `scripts/gauntlet/phases/data-43.ts`
 
-- [ ] **Step 1: Implement Shard 34 (Memory Palace)**
+- [ ] **Step 1: Implement Shard 34 (Synapse Palace)**
 
 ```typescript
 import { PhaseShard } from '../types.js';
 
 export const shard: PhaseShard = {
-  metadata: { id: 34, name: "Memory Palace Hierarchy", block: "DATA" },
+  metadata: { id: 34, name: "Synapse Palace Hierarchy", block: "DATA" },
   verify: async (ctx) => {
     const tables = ctx.db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'palace_%'").all();
     return tables.length >= 2;
@@ -268,7 +268,7 @@ import { PhaseShard } from '../types.js';
 import fs from 'node:fs';
 
 export const shard: PhaseShard = {
-  metadata: { id: 37, name: "Obsidian Sync Bridge", block: "DATA" },
+  metadata: { id: 37, name: "Obsidian Sync Mesh", block: "DATA" },
   verify: async (ctx) => {
     return fs.existsSync('./data/vault/RKG');
   },

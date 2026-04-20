@@ -12,7 +12,7 @@ This audit identifies four critical vulnerability vectors and mandates immediate
 
 ## 2. CRITICAL VULNERABILITIES & REMEDIATION
 
-### VULNERABILITY 1: Unauthenticated WebSocket Bridge (RCE Risk)
+### VULNERABILITY 1: Unauthenticated WebSocket Mesh (RCE Risk)
 **Vector:** Node B's `FoundryAdapter` runs a WebSocket server (default port 3010) that accepts connections without authentication. Any local process—and potentially network processes if bound to `0.0.0.0`—can connect and dispatch `run_script` payloads.
 **Impact:** Arbitrary JavaScript execution (RCE) inside the Foundry VTT client of the GM.
 **Remediation (Phase 30):**
@@ -26,7 +26,7 @@ This audit identifies four critical vulnerability vectors and mandates immediate
 - **Deprecation of `runScript`:** Action Sovereignty (Phase 31) must completely eliminate arbitrary JS injection.
 - **Whitelisted Trigger API:** Transition entirely to structured, predefined commands (e.g., `executeAction`, `triggerTile`, `playSequence`). If the AI wants to move a token, it must use the physical `GhostInputService` or a structured bridge command, never raw JS.
 
-### VULNERABILITY 3: VSB Memory & UDP Spoofing
+### VULNERABILITY 3: VSB Synapse & UDP Spoofing
 **Vector:** `crush/watcher.go` blindly trusts the `Proposal` struct mapped in `black_ice_state.mem`. The UDP listener on Port 7878 may accept unverified packets.
 **Impact:** Local privilege escalation or network-based intent injection. A malicious local process could auto-approve proposals by writing `0x01` to the status byte.
 **Remediation (Phase 30):**

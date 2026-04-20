@@ -46,7 +46,7 @@ The engine provides high-level vision hooks to the shards:
 ## 4. Block Ability Sets (Command & Control)
 
 ### 4.1 DATA Block
-- **Verify:** Database schema integrity, pgvector health, sync status.
+- **Verify:** Artery of Truth schema integrity, pgvector health, sync status.
 - **Execute:** `queryLore()`, `reconstructVault()`, `navigatePalace()`.
 
 ### 4.2 MECHANICAL Block
@@ -66,7 +66,7 @@ The engine provides high-level vision hooks to the shards:
 - **Execute:** `onboardNPC()`, `advanceBeat()`, `injectLatentSeed()`.
 
 ## 5. Error Handling: The Pretext Fallback
-If an `execute()` hook fails after 3 self-healing retry attempts, the engine will dispatch a "Signal Loss" event to the Foundry Bridge via `window.SOVEREIGN_BRIDGE.showErrorOverlay()`.
+If an `execute()` hook fails after 3 self-healing retry attempts, the engine will dispatch a "Signal Loss" event to the Foundry Mesh via `window.SOVEREIGN_BRIDGE.showErrorOverlay()`.
 
 ## 6. Execution Pipeline
 1. **Ignition:** `npm run gauntlet` boots the engine via `scripts/gauntlet/engine.ts`.

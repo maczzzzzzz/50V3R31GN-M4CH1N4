@@ -1,5 +1,5 @@
 This is a critical distinction for the **v3.2.19 "Black-Ice"** sync logic. If Node A is your "Truth" node, it needs the ability to pull repository updates to maintain parity with Node B.  
-However, from a security standpoint (and following Vitalik's **d/acc** logic), we must separate the **System-Level Sync** (Git) from the **Inference-Level Execution** (The Judge). We don't want the LLM process itself to have an open socket to the internet—we only want the git binary to have it.  
+However, from a security standpoint (and following Vitalik's **d/acc** logic), we must separate the **System-Level Sync** (Git) from the **Cognition-Level Execution** (The Judge). We don't want the LLM process itself to have an open socket to the internet—we only want the git binary to have it.  
 Here is the "Senior Dev" approach to solving this within a Nix-based sandbox:
 
 ### **1\. The Solution: Network Namespacing (User-Space Isolation)**
@@ -29,7 +29,7 @@ Since you are using Nix, we can actually move the "Pull" into the **Nix Flake** 
 | **Repo Parity** | Conflict between A/B state. | **Atomic Commits:** Use Nix Flake locking to ensure both nodes are on the exact same commit hash. |
 | **Security** | Prompt Injection exfiltrating data. | **\--unshare-net:** Hard-kill the LLM's network access at the kernel level. |
 
-### **4\. Tactical Recommendation: The "Local Mirror" Bridge**
+### **4\. Tactical Recommendation: The "Local Mirror" Mesh**
 
 If you want to be truly "Hard-Line Cyberpunk," we can leverage **Node B (The Director)** as the "Gateway."
 

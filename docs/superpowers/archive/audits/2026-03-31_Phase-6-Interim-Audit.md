@@ -22,7 +22,7 @@ This audit confirms the successful implementation of the first half of **Phase 6
 ## 3. Stability & Baseline
 - **Vitest Baseline:** **267/267 tests passing**.
 - **Rust Unit Tests:** 10/10 internal CV tests passing.
-- **Memory Management:** Verified LLava load/unload cycle to protect VRAM for narrative tasks.
+- **Synapse Management:** Verified LLava load/unload cycle to protect VRAM for narrative tasks.
 
 ## 4. Conclusion
 The "Eyes" of the system are functional. The system is ready for **Task 3: The Pulse Engine** to provide the "Heartbeat" of the world.

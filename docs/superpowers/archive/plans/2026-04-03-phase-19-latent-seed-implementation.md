@@ -48,7 +48,7 @@ Add `AssetIndexService.recoverWalls(assetPath)` which uses Node A to decode pixe
 - Create: `src/core/seed-controller.ts`
 - Modify: `src/db/unified-oracle-client.ts`
 
-**Step 1: Database Migration**
+**Step 1: Artery of Truth Migration**
 Add `conceptual_seeds` table with vector column.
 
 **Step 2: Implement Seed Biasing**

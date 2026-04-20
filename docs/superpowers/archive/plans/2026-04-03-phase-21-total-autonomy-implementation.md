@@ -6,7 +6,7 @@
 
 **Architecture:** Node B runs the agentic state machine (Turn Daemon). Node A provides the rules resolution and swarm batching.
 
-**Tech Stack:** TypeScript (XState or similar), Rust (Tokio), Foundry Bridge.
+**Tech Stack:** TypeScript (XState or similar), Rust (Tokio), Foundry Mesh.
 
 ---
 

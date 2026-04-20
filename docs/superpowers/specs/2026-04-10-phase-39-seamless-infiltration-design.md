@@ -3,7 +3,7 @@
 **Goal:** Transform the machine from a passive observer into an active, high-fidelity infiltration engine. This phase enables transient biometric scanning, integrated netrunning hacks, and automated smart-asset ingestion during scene materialization.
 
 **Architecture:** 
-- **Transient Memory:** Shared memory slots in `black_ice_state.mem` for real-time hover/selection data.
+- **Transient Synapse:** Shared memory slots in `black_ice_state.mem` for real-time hover/selection data.
 - **Rules Overrides:** A "Sovereign Mode" bit in Mmap to bypass Judge validation for GM actions.
 - **Auto-Forge:** Hooking the Architect's materialization loop to background-encrypt assets via ST3GG.
 
@@ -11,7 +11,7 @@
 
 ## 1. Biometric Hover Protocol (Transient Grounding)
 
-### 1.1 Bridge Layer (Foundry)
+### 1.1 Mesh Layer (Foundry)
 - **Hooks:** Add `hoverToken`, `hoverDrawing`, and `hoverNote`.
 - **Payload:** Emit `{ id, type, imgPath, x, y }` to Node B.
 - **Cleanup:** Clear data on `hoverOut`.
@@ -60,8 +60,8 @@
 
 ## 5. Components & Data Flow
 
-1. **Foundry (Bridge)** -> `perception_hover` -> **Node B (Director)**
-2. **Node B** -> `ST3GG Extract` -> **Mmap (Shared Memory)**
+1. **Foundry (Mesh)** -> `perception_hover` -> **Node B (Director)**
+2. **Node B** -> `ST3GG Extract` -> **Mmap (Shared Synapse)**
 3. **Mmap** -> Reactive Detect -> **Sidecar HUD (Rust)**
 4. **Sidecar HUD** -> Click Hack -> **Crush CLI**
 5. **Crush CLI** -> `audit_intent` -> **Node A (Kernel Judge)**

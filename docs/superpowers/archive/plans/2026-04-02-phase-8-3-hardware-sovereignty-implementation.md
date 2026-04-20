@@ -2,15 +2,15 @@
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Implement the Rust Strategic Atlas (Shared Memory) and refit the Crush CLI with Lipgloss styling.
+**Goal:** Implement the Rust Strategic Atlas (Shared Synapse) and refit the Crush CLI with Lipgloss styling.
 
-**Architecture:** Shared Memory (Memory-mapped file) bridge between Node.js (Writer) and Rust (Reader). Go-based Lipgloss styling for unified CLI identity.
+**Architecture:** Shared Synapse (Synapse-mapped file) bridge between Node.js (Writer) and Rust (Reader). Go-based Lipgloss styling for unified CLI identity.
 
 **Tech Stack:** Rust (egui, shared_memory), Go (Lipgloss), TypeScript (node-shared-mem).
 
 ---
 
-### Task 1: Shared Memory Bridge (Node B)
+### Task 1: Shared Synapse Mesh (Node B)
 
 **Files:**
 - Modify: `package.json` (Add `node-shared-mem` or similar)

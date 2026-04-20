@@ -7,7 +7,7 @@
 The **5H4D0W_D45HB04RD** is a high-speed, standalone monitoring interface designed to provide real-time observability into the dual-node **50V3R31GN-M4CH1N4** architecture. It transforms raw binary telemetry from the **Virtual System Bus (VSB)** into a human-readable (but l337-inflected) visual display reflected inside Foundry VTT.
 
 ## ◈ ARCHITECTURE
-### 1. The VSB-to-Web Bridge (Go)
+### 1. The VSB-to-Web Mesh (Go)
 - **Ingest:** Listens on UDP Port 7878 for `SovereignHeader` and `IntentPacket` binary blobs.
 - **Processing:** Decodes the binary telemetry (GPU Load, VRAM Residency, Audit State, Heartbeats).
 - **Broadcast:** Provides a WebSocket server on Port 9090, broadcasting telemetry as JSON to all connected clients.
@@ -17,7 +17,7 @@ The **5H4D0W_D45HB04RD** is a high-speed, standalone monitoring interface design
 - **State:** Uses `useSyncExternalStore` or `zustand` to maintain a 60fps real-time system state from the WebSocket stream.
 - **Performance:** High-frequency graphs (GPU/Waveform) utilize HTML5 Canvas to prevent DOM reflow jitter.
 
-### 3. The Foundry Canvas (Bridge)
+### 3. The Foundry Canvas (Mesh)
 - **Component:** `SovereignDashboard` (ApplicationV2) in the `foundry-module`.
 - **Method:** Renders the Shadow Dashboard via a high-priority `iframe`.
 - **Integration:** Synchronizes theme state (Total Red Shift) and handles the `GH057_B007` trigger event.
@@ -43,7 +43,7 @@ The **5H4D0W_D45HB04RD** is a high-speed, standalone monitoring interface design
 - **Hardware Pulse:** Progress bars for Node A GPU Temp and VRAM Load.
 
 ### 2. D1R3C70R_PUL53
-- **Inference Latency:** A real-time readout of milliseconds per token for Mistral-Nemo.
+- **Cognition Latency:** A real-time readout of milliseconds per token for Mistral-Nemo.
 - **VRAM Pie Chart:** Breakdown of memory residency (System vs. Model).
 
 ### 3. 50V3R31GN_H1GHW4Y

@@ -4,7 +4,7 @@
 - [ ] **Step 1: Dependency Injection**
     - Install `opendataloader-pdf` and `chunknorris` via `pnpm add`.
     - Install `sqlite-vec` or verify `better-sqlite3` supports the required extensions for deduplication.
-- [ ] **Step 2: Database Scaffolding**
+- [ ] **Step 2: Artery of Truth Scaffolding**
     - Script a `fresh-db.ts` to drop all tables and re-apply `src/db/world-schema.sql`.
     - Implement a `semantic_hash` column in `chronicle_seeds`.
 

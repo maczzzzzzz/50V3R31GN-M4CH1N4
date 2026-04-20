@@ -1,8 +1,8 @@
-# Research Report: Phase 2 (nitro-logic) & Phase 3 (Foundry Bridge)
+# Research Report: Phase 2 (nitro-logic) & Phase 3 (Foundry Mesh)
 **Date:** Sunday, March 29, 2026
 **Subject:** Deterministic Rule Resolution and Foundry VTT v12 WebSocket Handshake
 
-## 1. Phase 2: Rules Authority Bridge (nitro-logic)
+## 1. Phase 2: Rules Authority Mesh (nitro-logic)
 ### 1.1 Llama.cpp OpenAI-Compatible API (v1)
 Node A (Nitro 5) runs `llama-server` exposing a standard `/v1/chat/completions` endpoint.
 - **Base URL:** `http://192.168.0.50:8080/v1`
@@ -21,7 +21,7 @@ Small models (3B) require explicit guidance to prevent arithmetic hallucination:
 
 ---
 
-## 2. Phase 3: Foundry Bridge & Immersion UI
+## 2. Phase 3: Foundry Mesh & Immersion UI
 ### 2.1 Foundry VTT v12 Chat Injection
 Foundry v12 utilizes a standard socket-based document creation system. 
 - **Endpoint:** `ChatMessage.create()` (via `game.socket` or the `foundry-api-bridge-module`).

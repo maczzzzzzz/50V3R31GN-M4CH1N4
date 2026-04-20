@@ -5,15 +5,15 @@
 **Goal:** Build a high-speed real-time monitoring dashboard for the 50V3R31GN-M4CH1N4 system, bridging binary VSB telemetry to a Next.js UI reflected inside Foundry VTT.
 
 **Architecture:**
-1.  **VSB Bridge (Go):** A new component in `crush` that listens to UDP Port 7878 and broadcasts decoded JSON telemetry via WebSocket on Port 9090.
+1.  **VSB Mesh (Go):** A new component in `crush` that listens to UDP Port 7878 and broadcasts decoded JSON telemetry via WebSocket on Port 9090.
 2.  **Shadow Dashboard (Next.js):** A standalone React application (Node B) that renders 60fps system metrics (GPU, VRAM, Audit logs) using L337_5P34K styling.
-3.  **Foundry Bridge (TS):** A custom `ApplicationV2` window in the Foundry module that iframes the dashboard and enables the `GH057_B007` trigger.
+3.  **Foundry Mesh (TS):** A custom `ApplicationV2` window in the Foundry module that iframes the dashboard and enables the `GH057_B007` trigger.
 
 **Tech Stack:** Go (WebSockets), Next.js 15, Tailwind CSS, VT323 Font, Foundry VTT API v12.
 
 ---
 
-### Task 1: VSB-to-WebSocket Bridge (Go)
+### Task 1: VSB-to-WebSocket Mesh (Go)
 
 **Files:**
 - Modify: `crush/config.go`
@@ -37,7 +37,7 @@ func loadConfig() Config {
 }
 ```
 
-- [ ] **Step 2: Implement the WebSocket Bridge**
+- [ ] **Step 2: Implement the WebSocket Mesh**
 Create `crush/dashboard_bridge.go`. This should listen on UDP 7878, decode the binary packets (matching `SovereignHeader` size 302), and broadcast via `gorilla/websocket`.
 
 - [ ] **Step 3: Register subcommand in main**
@@ -49,7 +49,7 @@ Run the bridge and send a dummy UDP packet to 7878; verify JSON is broadcast on 
 - [ ] **Step 5: Commit**
 ```bash
 git add crush/
-git commit -m "feat(crush): Implement VSB-to-WebSocket Telemetry Bridge"
+git commit -m "feat(crush): Implement VSB-to-WebSocket Telemetry Mesh"
 ```
 
 ---
@@ -147,14 +147,14 @@ git commit -m "feat(foundry): Integrate Sovereign Dashboard via ApplicationV2 if
 - Modify: `deck-igniter/launcher.go`
 
 - [ ] **Step 1: Add Dashboard Components to Igniter**
-Add `dashboard-bridge` (WS Bridge) and `shadow-dashboard` (Next.js dev server) to the supervised components list.
+Add `dashboard-bridge` (WS Mesh) and `shadow-dashboard` (Next.js dev server) to the supervised components list.
 
 - [ ] **Step 2: Implement Launch Logic**
 Update `launcher.go` to handle `npm run dev` for the dashboard and `./crush dashboard-bridge` for the telemetry artery.
 
 - [ ] **Step 3: Final System Integration Test**
 Run `ctrl+i` in `deck-igniter`. Verify:
-1. VSB Bridge is running.
+1. VSB Mesh is running.
 2. Next.js Dashboard is live.
 3. Foundry window shows real-time Node A/B telemetry.
 4. `GH057_B007` button forces a system-wide glitch.
