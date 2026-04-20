@@ -1,9 +1,9 @@
 # SPEC: 2026-04-19 — OpenMythos RDT Integration (Rust-Native)
 **Status:** DRAFT // ARCHITECT_LOCK
-**Goal:** Deploy a high-performance Recurrent-Depth Transformer (RDT) engine on Node C using Rust to serve as the "Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle."
+**Goal:** Deploy a high-performance Recurrent-Depth Transformer (RDT) engine on Node C using Rust to serve as the "Recursive Strategic Strategic Oracle."
 
 ## ◈ 1. ARCHITECTURAL PRIMITIVES (RUST)
-The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C) will switch from standard SGLang inference to a custom Rust-native RDT loop implemented via **candle-rs**:
+The Strategic Strategic Oracle (Node C) will switch from standard SGLang inference to a custom Rust-native RDT loop implemented via **candle-rs**:
 1. **Prelude:** 2 Static Layers (Rust/Candle).
 2. **Recurrent Block:** 1 Recurrent Block (Looped T times).
 3. **Coda:** 2 Static Layers (Rust/Candle).

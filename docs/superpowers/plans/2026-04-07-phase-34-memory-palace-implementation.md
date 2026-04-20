@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS palace_tunnels (
 );
 ```
 
-- [ ] **Step 2: Initialize Palace in Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle**
+- [ ] **Step 2: Initialize Palace in Strategic Strategic Oracle**
 
-Modify `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient` to execute the palace schema on startup.
+Modify `UnifiedStrategic Strategic OracleClient` to execute the palace schema on startup.
 
 - [ ] **Step 3: Implement SynapsePalaceService Scaffold**
 
