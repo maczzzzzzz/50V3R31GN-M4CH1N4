@@ -4,12 +4,12 @@ Date: April 1, 2026
 Status: Architecture Locked & Fully Aligned with https://github.com/maczzzzzzz/-50v3r31gn-m4ch1n4 (current repo state, Phase 6 active)
 1. Executive Summary
 50V3R31GN-M4CH1N4 is a fully local, air-gapped, dual-node AI Game Master for Cyberpunk RED (Foundry VTT v12).
-It uses 1-bit Bonsai 8B on the Nitro 5 for deterministic Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle duties and Mistral-Nemo 12B (FP8) on the main rig for rich narrative, linked by ClawLink.
+It uses 1-bit Bonsai 8B on the Nitro 5 for deterministic Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle duties and Mistral-Nemo 12B (FP8) on the main rig for rich narrative, linked by ClawLink.
 All output routes exclusively to Foundry chat/AR HUD. Zero cloud, zero latency, deterministic via SQLite RKG + Ralph Auditor.
 This spec locks the production-grade design and provides the exact 22-day roadmap Claude will follow directly from the live repository.
 2. Hardware & Node Mapping (Current Repo State)
 
-Node A (Nitro 5 – headless): Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle
+Node A (Nitro 5 – headless): Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle
 – Bonsai 8B (1-bit Q1_0_g128, 1.15 GB)
 – ZeroClaw Rust runtime + SQLite RKG
 Node B (Main rig – 9060XT + 48 GB): Narrative Director
@@ -20,7 +20,7 @@ Storage: Single SQLite world_state.db with Relational Knowledge Graph (triplet s
 3. Core Design Principles (Locked from Repo)
 
 100% local, zero telemetry
-Rules/math always resolved by 1-bit Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle before narrative
+Rules/math always resolved by 1-bit Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle before narrative
 Narrative is prose-only and routed exclusively through Foundry chat/AR HUD
 RKG triplet grounding + Ralph Auditor prevents hallucinations
 AutoDream background consolidation for long-term persistence

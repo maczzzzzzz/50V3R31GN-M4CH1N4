@@ -34,8 +34,8 @@ Current research (Reddit/GitHub 2026) confirms that full DOM parsing is too expe
 ### ◈ 3.1 THE HEALER WORKFLOW
 1.  **Locator Failure:** Harness fails to find a selector.
 2.  **AXTree Extraction:** Harness fetches the raw AXTree via `Accessibility.getFullAXTree`.
-3.  **Semantic Mapping:** Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) maps the user's intent (e.g., "Open Market") to the AXTree node (e.g., `role: "button", name: "Night Market"`).
-4.  **Shard Generation:** Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle generates a surgical Go patch or JSON repair.
+3.  **Semantic Mapping:** Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) maps the user's intent (e.g., "Open Market") to the AXTree node (e.g., `role: "button", name: "Night Market"`).
+4.  **Shard Generation:** Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle generates a surgical Go patch or JSON repair.
 
 ---
 

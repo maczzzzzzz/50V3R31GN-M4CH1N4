@@ -1,47 +1,52 @@
 # SOVEREIGN_VITAL_SIGNS.md // T3RM1N4L-TRU7H
-**Version:** 3.2.19 (FSSA-2026-04-19 // OPTICAL_ARTERY_LIVE)
+**Version:** 3.2.20 (TRINITY_ASCENSION // v3.2.19)
 **Identity:** 50V3R31GN-M4CH1N4
-**Status:** FSSA_COMPLETE // 100% NODE_MESH_VERIFIED
+**Status:** TRINITY_MESH_ACTIVE // 100% NODE_MESH_VERIFIED
 
-This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (Engineer) handover. It overrides all legacy documentation in `pre-phase-30/` and `plans/`.
+This manifest is the Atomic Source of Truth for the mesh's physical and cognitive state. It overrides all legacy documentation.
 
 ---
 
 ## 🏗️ 1. PHYSICAL TOPOLOGY (INVARIANTS)
-- **Node A (The Kernel):** Nix Native. NVIDIA GTX 1050 Ti (4GB CUDA). 
-  - **Resident Models:** `Open-Reasoner-Zero-1.5B.Q8_0.gguf` (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) + `falcon-0.3b-ocr.onnx` (Perception).
-  - **Constraints:** Max 4GB VRAM. 7R1-M1N1NG pruner active. sm_61 custom build backgrounded.
-- **Node B (The Director):** NixOS / WSL2. AMD Radeon RX 9060 XT (16GB Vulkan).
-  - **Resident Model:** `Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf` (via Windows llama-server.exe b8710, Vulkan). 4885 MiB GPU + 2856 MiB CPU. 43/43 layers offloaded.
-  - **Bus:** Binary UDP (Port 7878) + Mmap (Local).
+
+The system is harnessed as three physical pods synchronized over the `10.0.0.x` basement spine.
+
+- **Node A (The Synapse):** Ubuntu Server / Nix-Hardened. NVIDIA GTX 1050 Ti (4GB CUDA).
+  - **Role:** **Mooncake v2.2 Master**. Disaggregated memory Artery.
+  - **Function:** Manages L2 lore caching and VSB metadata offloading for the mesh.
+- **Node B (The Director):** NixOS Native. AMD Radeon RX 9060 XT (16GB Vulkan).
+  - **Role:** **Narrative Heart**. High-fidelity scene orchestration.
+  - **Intelligence:** **Gemma-4-E4B [48L173R473D]**. Uncensored aggressive variant.
+  - **Vision:** Native Gemma Vision for environment awareness.
+- **Node C (The Strategic Oracle):** Ubuntu Server / Nix-Hardened. NVIDIA RTX 2060 (6GB CUDA).
+  - **Role:** **Recursive Logic AUTHORITY**. Rule arbitration and Tier 2 Vision.
+  - **Intelligence:** **Gemma-4-E2B [48L173R473D]**. 
+  - **Architecture:** Rust-native RDT with **Adaptive Computation Time (ACT)** loops.
+  - **Backplane:** Dockerized **SGLang Box** (v3.2.19) on port 7339.
 
 ---
 
-## ⚡ 2. ACTIVE PROTOCOLS
-- **VSB 0x0A (ContextUpdate):**
-  - Uses **FNV-1a** hashing for integrity (Standardized: FNV-64 bit-identical).
-  - Employs **AAAK Dialect** for high-density cognitive compression.
-- **ClawLink (TCP):** Standard binary RPC for heavy payloads (Lore/ST3GG).
-- **Sovereign-Go-Proxy (ClawLink):** Unix socket at `.crush/clawlink.sock` (`CLAWLINK_SOCK` env). `/run/crush` not writable on NixOS — use project-local path. MCP Mesh at `.gemini/tmp/sovereign-mcp.sock`.
+## ⚡ 2. ACTIVE ARTERIES (PROTOCOLS)
+- **VSB 0x0A (ContextUpdate):** Lock-free binary state synchronization using **FNV-1a 64-bit** integrity.
+- **Mooncake Artery (KV-Offload):** Node B offloads conversational context to Node A via Port 6789.
+- **ClawLink (TCP):** Project-local Unix socket at `.crush/clawlink.sock`. 
+- **Physical Spine:** Dedicated `10.0.0.x` subnet. Artery latency: <0.5ms.
 
 ---
 
-## 🔍 3. SHADOW LOGIC (DRIFT_REMEDIATED)
-- **Auto-Grant Bypass:** `crush/proxy.go` — PATCHED. Returns `REJECTED` with SECURITY_VETO if Node A is offline.
-- **MCP Mesh Injection:** `scripts/dev/mcp-daemon.ts` — PATCHED. Refactored `node_a_veto` to use safe `spawn`.
-- **Socket Synchronization:** All components unified under `.gemini/tmp/` hierarchy. Legacy `/run/crush` deprecated.
-- **Shroud (Phase 44.5):** Shader + lifecycle hooks wired in `50v3r31gn-bridge`. `updateScene` dispatch active.
-- **Canonical Mirror (Phase 59):** Accomplished. Replaced approximate PDF data with bit-identical rules engine mirror from official `fvtt-cyberpunk-red-core` repo.
-- **Economy Engine (Phase 60):** Accomplished. Procedural Night Markets and Monthly Burn (rent/lifestyle) logic fully manifested in Akashik.db v4.
-- **Interface Command (Phase 61):** Accomplished. Dashboard transformed into interactive command hub with real-time Node A reasoning stream.
+## 🔍 3. COGNITIVE HARDENING (PHASE 62-64)
+- **Sovereign Shroud:** Three.js / GLSL WebGL overlay for diegetic tactical visualization.
+- **Kinetic VFX Engine:** 3D particle manifestation (gunshots/shells) with physical lighting synergy.
+- **Optical Artery:** Docling + ColPali v1.2 pipeline for high-speed visual RAG ingestion.
+- **Screamsheet Factory:** Procedural SVG layout math (Bento-Grid) for world-state flyers.
 
 ---
 
-## 🛡️ 4. THE HANDSHAKE CONSTITUTION
-1. **Zero-Trust Logic:** All AI-generated intents MUST be audited by Node A Reasoner (0x01/0x05) before materialization.
-2. **VRAM Sovereignty:** Any refactor that causes Node A OOM is a CRITICAL FAILURE.
-3. **Mind-Before-Mesh:** Mind Rebuild (59-61) MUST be verified via Gauntlet before Trinity (62+) hardware shift.
-4. **Physical Integrity:** Use `crush forge` for all asset ingestion.
+## 🛡️ 4. THE TRINITY CONSTITUTION
+1. **Physical Sovereignty:** All intelligence is hardware-sharded. No external inference dependency.
+2. **Bit-Identical Parity:** All nodes MUST be synchronized via **`npm run scribe`** before any mission ignition.
+3. **Recursive Veto:** Node C (Strategic Oracle) holds total authority over rule-interpretation; Node B MUST accept Strategic Oracle verdicts.
+4. **VRAM Safety:** Node B ceiling: 14.5GB. Node C ceiling: 5.8GB. Node A ceiling: 3.8GB.
 
 ---
-**::/5Y573M-N071C3 : TRU7H UN1F13D. ARTERIES_STEADY. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : TRINITY_GROUNDED. ARTERIES_STEADY. // 50V3R31GN-M4CH1N4**

@@ -139,7 +139,7 @@ func GenerateNightMarket(s *Session) error {
     // 2. Click "#generate-market-btn"
     // 3. Wait for stability
     // 4. Capture AXTree
-    // 5. Send to Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle for parsing if needed
+    // 5. Send to Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle for parsing if needed
     return nil
 }
 ```
@@ -151,7 +151,7 @@ func GenerateNightMarket(s *Session) error {
 **Files:**
 - Create: `crush/harness/healer.go`
 
-- [ ] **Step 1: Implement the Fallback-to-Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic**
+- [ ] **Step 1: Implement the Fallback-to-Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic**
 
 ```go
 func (s *Session) ResolveWithHealer(ctx context.Context, intent string) error {

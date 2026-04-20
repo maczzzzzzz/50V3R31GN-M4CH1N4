@@ -16,7 +16,7 @@ The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed 
 - **Neural Mesh:** 3-node localized fabric harnessed via binary VSB synchronicity and **Mooncake v2.2** disaggregated memory.
 - **Akashik Artery:** Multi-dimensional world-state synchronized via **Akashik.db** (SQLite) and high-fidelity **Obsidian RKG Vault**.
 - **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**.
-- **Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
+- **Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
 - **Physical Hands:** Go-native **Sovereign Harness** for sub-10ms self-healing browser control.
 
 ---
@@ -26,7 +26,7 @@ The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed 
 The system is harnessed as three physical pods synchronized over the `10.0.0.x` artery.
 
 ### :/P0D-B : 7H3-D1R3C70R //
-- **C0R3:** NixOS Native // AMD Radeon RX 9060 XT (16GB VRAM)
+- **C0R3:** WSL2 NixOS // AMD Radeon RX 9060 XT (16GB VRAM)
 - **BR41N:** **Gemma-4-E4B [48L173R473D]** // Vision-Capable Narrative Heart.
 - **V1510N:** Native Gemma Vision // High-Fidelity Scene Awareness.
 - **R0L3:** Master Orchestration Pod // Narrative Sovereignty.

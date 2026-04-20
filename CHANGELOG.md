@@ -9,7 +9,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.19.html).
 ### Added
 - **Sovereign Trinity Mesh:** Successfully sharded the cognitive infrastructure across three physical pods (Nodes A, B, C) on a dedicated `10.0.0.x` basement subnet.
 - **Node A (Synapse):** Decommissioned legacy Rules Authority role and provisioned Node A as the bit-identical **Mooncake v2.2 Master** for disaggregated KV-cache storage.
-- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Hardened Node C (RTX 2060) via the **Sovereign Purge** (Ubuntu bloat removal) and established a persistent neural pathway (`.venv-oracle`) using the **Nix Store Scalpel**.
+- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Hardened Node C (RTX 2060) via the **Sovereign Purge** (Ubuntu bloat removal) and established a persistent neural pathway (`.venv-oracle`) using the **Nix Store Scalpel**.
 - **Rust RDT Core:** Shifted **OpenMythos** from Python to a high-performance **Rust-native implementation** using `candle-rs` and the `sovereign-sdk` for sub-10ms recursive reasoning.
 - **Go-Native Semantic Scanner:** Ported Firecrawl's "Markdown-first" extraction logic into a 100% Go-native driver in `crush/harness/driver/semantic/` for high-fidelity lore ingestion.
 - **Master Boot Protocol:** Hard-coded graceful shutdown (`SIGTERM`) and sequential startup logic for Mooncake and SGLang into the `deck-igniter` orchestration layer.
@@ -37,7 +37,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.19.html).
 
 ### Changed
 - **VRAM Strategy:** Archived the 12B Mistral-Nemo model in favor of the leaner Gemma-4 architecture to prevent TDR resets on Node B.
-- **Node Topology:** Re-balanced the mesh for the upcoming Trinity Shift (Node B Brain / Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
+- **Node Topology:** Re-balanced the mesh for the upcoming Trinity Shift (Node B Brain / Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
 
 ## [3.2.16] - 2026-04-18
 ### Added
@@ -58,7 +58,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.19.html).
 ### Added
 - **Phase 62: Sovereign Trinity:** Formalized the architectural shift to a 3-node Cognitive Mesh using Mooncake disaggregated memory and SGLang RadixAttention.
 - **Trinity Research:** Conducted supplementary validation of the Mooncake KVCache Transfer Engine and GEPA Reflective Evolution patterns.
-- **Advanced Hermes Integration:** Mapped the log-step hash verification protocol between Node B (Director) and Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) to ensure mechanical infallibility.
+- **Advanced Hermes Integration:** Mapped the log-step hash verification protocol between Node B (Director) and Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) to ensure mechanical infallibility.
 
 <details>
 <summary>Historical Archive (Older Versions)</summary>

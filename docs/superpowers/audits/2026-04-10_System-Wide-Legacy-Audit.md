@@ -29,7 +29,7 @@
 - **Impact:** Brittle. If the RAG output format shifts, inventory generation fails. 
 - **Target for Phase 40:** Replace with real semantic extraction via Node A/B structured output.
 
-### 2.2 Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (`src/db/unified-oracle-client.ts`)
+### 2.2 Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (`src/db/unified-oracle-client.ts`)
 - **Findings:** Contains `score: 1.0 - (index * 0.05) // Mock score for baseline compliance`.
 - **Impact:** Artificially inflates similarity scores, bypassing real vector relevance.
 

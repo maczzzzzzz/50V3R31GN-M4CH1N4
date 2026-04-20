@@ -39,7 +39,7 @@ anyhow = "1.0"
 - [ ] **Step 3: Commit**
   ```bash
   git add crush/harness/experimental/rdt-oracle/
-  git commit -m "infra: initialize Rust-native RDT Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle project on Node C"
+  git commit -m "infra: initialize Rust-native RDT Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle project on Node C"
   ```
 
 ---
