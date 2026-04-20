@@ -33,7 +33,7 @@ The "Recursive Logic Pod." Node C is the final authority on logical rule-checkin
 ### :/P0D-A : 7H3-5YN4P53 //
 The "Synapse Persistence Pod." Node A is the high-performance memory reservoir.
 - **Hardware:** NVIDIA GTX 1050 Ti (4GB VRAM) // Ubuntu Server / Nix-Hardened.
-- **Architecture:** **Mooncake v2.2 Master**. Manages a disaggregated KV-cache cluster, offloading context between the Director and Strategic Strategic Oracle pods.
+- **Architecture:** **Mooncake v2.2 Master**. Manages a disaggregated KV-cache cluster, offloading context between the Director and Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle pods.
 - **Role:** L2 lore storage, VSB Metadata server, and bit-identical state synchronization.
 
 ---

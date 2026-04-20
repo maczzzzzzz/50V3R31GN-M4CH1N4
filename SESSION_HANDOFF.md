@@ -9,7 +9,7 @@ We have successfully completed a total system realignment (FSSA-2026-04-19). The
 - **Vision Artery:** Patched the `uint8 overflow` bug in the ColPali DirectML kernel. Established a 100% stable CPU fallback for mass ingestion on Node A to prevent driver TDR resets.
 - **Model Migration:** Staged **HauhauCS Aggressive Q8** variants on `D:/llama.cpp/models/`:
   - **E4B (Node B Brain):** 7.6GB GGUF + Projector.
-  - **E2B (Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** 4.7GB GGUF + Projector.
+  - **E2B (Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** 4.7GB GGUF + Projector.
 - **Data Ingestion:** **1,254 / 1,779** high-fidelity visual triplets materialized in `Akashik.db`. Integrity verified (2.8MB/page).
 - **Core Artery of Truth:** **28,385 Triplets** promoted. The Canonical Mind (Phase 59-61) is whole.
 - **Narrative Artery:** Established the `narrative_anchors` table and `data/vault/Narrative/` tier for isolated prose seeds.
@@ -27,7 +27,7 @@ We have successfully completed a total system realignment (FSSA-2026-04-19). The
 1.  **BOOT_SYNC:** Run `bash scripts/ops/grounding.sh` immediately upon session start.
 2.  **TRINITY_IGNITION:** Once Node C is wired, ignite the 3-node mesh:
     - **Node B (Director):** Gemma-4-E4B-Q8 on Vulkan (Full Offload).
-    - **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Gemma-4-E2B-Q8 on CUDA + ColPali v1.2 on CUDA.
+    - **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Gemma-4-E2B-Q8 on CUDA + ColPali v1.2 on CUDA.
 3.  **INGESTION_FINISH:** Resume the final ~500 visual embeddings at GPU-accelerated speeds.
 4.  **NARRATIVE_INGEST:** Ingest `docs/raw_data/narrative_seed_data/` into the isolated `narrative_anchors` tier.
 5.  **FSSA_AUDIT:** Execute `bash scripts/audit/ignite-all.sh` to prove system-wide logic connectivity.

@@ -22,14 +22,14 @@ The system decomposes the single-process `claw-code` harness into a "Soul & Body
 - **Hardware:** NVIDIA GTX 1050 Ti (4GB VRAM) / Nix-Sandboxed.
 - **Components:**
     - `zeroclaw-core`: Fork of `claw-code::tools` runner managing the 1B Judge and Falcon Perception.
-    - `mechanical-plugin`: Maps Abstract Intents to physical rule-checks (Tactical-MMU, D10 Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
+    - `mechanical-plugin`: Maps Abstract Intents to physical rule-checks (Tactical-MMU, D10 Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
     - `vsb-server`: The authority on the Sovereign Highway; serializes reality into binary packets.
     - `task-router-proxy`: Manages VRAM swapping between Open-Reasoner-Zero-1.5B and Falcon models.
 
 ## 3. The Sovereign Loop
 1. **Intent Generation (Node B):** 12B Brain generates an action; `director-rs` captures and serializes it as an Abstract Intent.
 2. **Rules Validation (Node A):** `zeroclaw` receives the intent and triggers the 1B Judge and Tactical-MMU (LOS/Cover).
-3. **The Flush Gate (Node A):** If valid, the D10 Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle calculates the outcome and commits it to the local `Akashik.db` (Mmap mirror).
+3. **The Flush Gate (Node A):** If valid, the D10 Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle calculates the outcome and commits it to the local `Akashik.db` (Mmap mirror).
 4. **World State Sync (Node B):** `director-rs` receives the result, updates the session context, and pushes the change to Foundry VTT via Port 9222.
 
 ## 4. Resilience & Error Handling

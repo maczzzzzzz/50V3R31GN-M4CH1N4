@@ -1,56 +1,48 @@
-# :/U53R-6U1D3 : 7H3-0B51D14N-V4UL7 //
-**Subject:** Steganographic Document Encryption & Synapse Palace
-**Version:** 3.2.6
+# :/U53R-6U1D3 : 7H3-0B51D14N-V4UL7 // THE_RK6_AR73RY
+**Subject:** High-Fidelity Lore Synchronization & Synapse Palace Visualization
+**Version:** 3.2.20
+
+---
 
 ## 1. OVERVIEW
-The **Obsidian Vault** is the final layer of project security and the physicalization of the machine's memory. It serves two purposes:
-1.  **Steganography:** Encrypts sensitive blueprints into noise-map PNGs.
-2.  **Synapse Palace:** Generates a 3D Relational Knowledge Graph (RKG) from the `Akashik.db`.
+The **Obsidian Vault** is the physicalization of the machine's memory. It acts as the **Relational Knowledge Graph (RKG)**, mirroring the atomic state of the **Artery of Truth** (Akashik.db).
+
+1.  **Semantic Symmetry:** Every triplet in the database is manifested as a high-fidelity Markdown node.
+2.  **MemPalace Integration:** Real-time 3D reconstruction and visualization of lore hierarchies via the [MemPalace] engine.
 
 ---
 
-## 2. :/537-UP //
+## 2. :/RK6-M3MP4L4C3 //
 
-### 2.1 The Master Key
-The vault requires a 256-bit key for AES-GCM encryption. 
-1.  Open your local `.env` file.
-2.  Add: `SOVEREIGN_KEY=your-complex-secret-password`
+### 2.1 The Visualization Artery
+The **MemPalace** engine enables operators to "walk through" the relational graph of the world state. It bypasses traditional file-browsing for a high-speed, holographic view of character connections and faction turf.
 
-⚠️ **CRITICAL WARNING:** Avoid using the dollar sign (`$`) in your key if you plan to export it via shell commands (e.g., `export $(cat .env)`). The shell will attempt to expand it as a variable, mangling your key and making decryption impossible.
-
-### 2.2 Windows Mirroring
-To bypass WSL filesystem limitations, the RKG is mirrored to your native Windows drive.
-- **Default Path:** `D:\Obsidian_RKG`
-- **WSL Path:** `data/vault/RKG/`
-
----
-
-## 3. :/0P3R4710N5 //
-
-### 3.1 Sealing the Vault
-`./crush-cli vault seal <directory_path>`
-*Encodes markdown into PNG shards and nukes cleartext.*
-
-### 3.2 Opening the Vault
-`./crush-cli vault open <directory_path>`
-*Restores documentation for active development sessions.*
-
-### 3.3 Legacy Recovery
-If you encounter "Authentication Failed" errors on older archives (Pre-Phase 30), use the recovery suite:
+### 2.2 Reconstructing the Artery
+If the vault structure becomes desynced from the database, trigger a full semantic reconstruction:
 ```bash
-nix develop --impure --command go run scripts/recovery/bulk_recovery.go <path>
+npm run forge:master
+```
+This command nukes the existing RKG and rebuilds the bit-identical hierarchy from the SQLite primitives.
+
+---
+
+## 3. :/53CVR17Y //
+
+### 3.1 Steganographic Sealing
+Sensitive blueprints are encrypted into noise-map PNGs using **R00TS** and **GLOSSOPETRAE** patterns.
+```bash
+crush vault seal <directory_path>
 ```
 
----
-
-## 4. :/RK6-M3M0RY-P4L4C3 //
-The **RKG** is your direct window into the AI's world-state.
-
-### 4.1 Reconstructing the Palace
-If the vault structure becomes desynced or flat, trigger a full semantic reconstruction:
-```bash
-npm run reconstruct
-```
+### 3.2 The Master Key
+The vault requires a 256-bit key for AES-GCM encryption. Ensure your `.env` contains the `SOVEREIGN_KEY` without variable-conflict characters (`$`).
 
 ---
-**::/5Y573M-N071C3 : L055 0F 7H3 50V3R31GN_K3Y R3ND3R5 4LL BLU3PR1N75 UNAV41L4BL3 // 50V3R31GN-M4CH1N4**
+
+## 4. :/W1ND0W5-M1RR0R1N6 //
+To ensure zero-latency retrieval for Node B (Windows), the RKG is bit-identically mirrored across the WSL/Windows boundary.
+- **Node B Registry:** `D:\Obsidian_RKG`
+- **WSL Synapse:** `data/vault/RKG/`
+
+---
+**::/5Y573M-N071C3 : THE_HISTORY_IS_SELF_HEALING. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4**

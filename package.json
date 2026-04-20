@@ -46,6 +46,7 @@
     "harmonize:dry": "tsx scripts/harmonize-rkg.ts --dry-run",
     "reconstruct": "python3 scripts/fast-reconstruct.py",
     "crush": "./crush-cli",
+    "crush:nucleus": "./crush-cli nucleus",
     "terminal": "./crush-cli terminal",
     "dream": "tsx src/scripts/dream-daemon.ts",
     "dream:once": "tsx src/scripts/dream-daemon.ts --once",
