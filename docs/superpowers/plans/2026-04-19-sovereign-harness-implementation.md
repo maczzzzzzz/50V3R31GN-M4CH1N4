@@ -10,11 +10,12 @@
 
 ---
 
-### Task 1: Harness Kernel (Transport & Handshake)
+### Task 1: Harness Kernel (Transport & VSB Handshake)
 
 **Files:**
 - Create: `crush/harness/kernel/transport.go`
 - Create: `crush/harness/kernel/session.go`
+- Create: `crush/harness/kernel/vsb_listener.go`
 - Test: `crush/harness/kernel/kernel_test.go`
 
 - [ ] **Step 1: Write the failing test for CDP connection**
@@ -38,7 +39,31 @@ func TestConnect(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Implement minimal `Connect` via `gobwas/ws`**
+- [ ] **Step 2: Implement VSB Listener using 'harness/protocol'**
+
+```go
+package kernel
+
+import (
+    "net"
+    "github.com/50v3r31gn-m4ch1n4/crush/harness/protocol"
+)
+
+func ListenForIntents(port string) error {
+    addr, _ := net.ResolveUDPAddr("udp", ":"+port)
+    conn, _ := net.ListenUDP("udp", addr)
+    buf := make([]byte, 1024)
+    for {
+        n, _, _ := conn.ReadFromUDP(buf)
+        pkt, err := protocol.DecodeIntent(buf[:n])
+        if err == nil {
+            // Dispatch to Driver
+        }
+    }
+}
+```
+
+- [ ] **Step 3: Implement minimal `Connect` via `gobwas/ws`**
 
 ```go
 package kernel
@@ -114,7 +139,7 @@ func GenerateNightMarket(s *Session) error {
     // 2. Click "#generate-market-btn"
     // 3. Wait for stability
     // 4. Capture AXTree
-    // 5. Send to Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle for parsing if needed
+    // 5. Send to Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle for parsing if needed
     return nil
 }
 ```
@@ -126,7 +151,7 @@ func GenerateNightMarket(s *Session) error {
 **Files:**
 - Create: `crush/harness/healer.go`
 
-- [ ] **Step 1: Implement the Fallback-to-Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic**
+- [ ] **Step 1: Implement the Fallback-to-Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic**
 
 ```go
 func (s *Session) ResolveWithHealer(ctx context.Context, intent string) error {

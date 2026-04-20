@@ -42,7 +42,7 @@ Process management and zombie-process pruning.
 Event routing and state reconciliation logic.
 - `explanation-orchestrator.md`
 
-### 04. Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle
+### 04. Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle
 The Akashik.db (SQLite + Vector) relational datastore.
 - `reference-oracle.md`
 

@@ -58,7 +58,7 @@ Executed from within a `nix develop` shell in the project root.
 | `npm run audit:vitals` | Executes a 3-quadrant hardware/software health audit. |
 | `npm run audit:dry-fire` | Executes a full system interaction audit. |
 | `npm run audit:theme` | Scans and verifies visual consistency across modules. |
-| `npm run harmonize` | Synchronizes the Obsidian RKG with the SQLite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. |
+| `npm run harmonize` | Synchronizes the Obsidian RKG with the SQLite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. |
 | `npm run gauntlet` | Executes the **Sovereign Gauntlet** validation shards. |
 
 ### 🔨 Forge (Asset Generation)

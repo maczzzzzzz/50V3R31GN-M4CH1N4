@@ -1,34 +1,42 @@
-# SPEC: 2026-04-19 — OpenMythos RDT Integration
-**Status:** DRAFT // ARCHITECT_REVIEW
-**Goal:** Deploy a Recurrent-Depth Transformer (RDT) engine on Node C to serve as the "Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle," capable of variable-depth reasoning.
+# SPEC: 2026-04-19 — OpenMythos RDT Integration (Rust-Native)
+**Status:** DRAFT // ARCHITECT_LOCK
+**Goal:** Deploy a high-performance Recurrent-Depth Transformer (RDT) engine on Node C using Rust to serve as the "Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle."
 
-## ◈ 1. ARCHITECTURAL PRIMITIVES
-The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C) will switch from standard inference to an OpenMythos-compliant RDT loop:
-1. **Prelude:** 2 Transformer Layers (Static).
-2. **Recurrent Block:** 1 Recurrent Block (Looped T times, where T is dictated by ACT confidence).
-3. **Coda:** 2 Transformer Layers (Static).
+## ◈ 1. ARCHITECTURAL PRIMITIVES (RUST)
+The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C) will switch from standard SGLang inference to a custom Rust-native RDT loop implemented via **candle-rs**:
+1. **Prelude:** 2 Static Layers (Rust/Candle).
+2. **Recurrent Block:** 1 Recurrent Block (Looped T times).
+3. **Coda:** 2 Static Layers (Rust/Candle).
+
+### 1.1 TECH STACK
+- **Language:** Rust 1.75+.
+- **Backend:** `candle-core`, `candle-nn` (CUDA-accelerated).
+- **Protocol:** VSB 0x0C (Direct binary state sync).
 
 ## ◈ 2. PROTOCOL: ACT HALTING (ADAPTIVE COMPUTATION TIME)
-The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle implements the Graves (2016) ACT mechanism to dynamically adjust thinking depth per rule-check.
+The Rust implementation strictly enforces the Graves (2016) mechanism.
 
-### 2.1 CONFIGURATION PARAMETERS
-- **`act_threshold`**: `0.99` (High-confidence lock for rule verdicts).
-- **`max_loop_iters`**: `16` (Logical ceiling).
-- **`ponder_penalty`**: `0.01` (Incentivize minimal effective thinking).
+### 2.1 THE RUST 'REMAINDER' LOOP
+```rust
+// Logic flow for each position in the sequence
+while !all_halted && loop_t < max_iters {
+    let p = model.predict_halt_prob(&h)?;
+    if (cumulative_p + p) >= threshold {
+        let remainder = 1.0 - cumulative_p;
+        h_out += remainder * h;
+        halted = true;
+    } else {
+        h_out += p * h;
+        cumulative_p += p;
+    }
+}
+```
 
-### 2.2 THE REMAINDER TRICK
-To ensure a valid probability distribution across iterations:
-1. At each loop $t$, predict halting probability $p_t$.
-2. Accumulate $p_{sum} = \sum p_t$.
-3. If $p_{sum} + p_{t+1} \ge act\_threshold$, the final weight $w_{final} = 1 - p_{sum}$.
-4. Break the loop and return the weighted hidden state sum.
-
-## ◈ 3. TACTICAL DEPTH SCALING
-- **Shallow Reason (1-2 loops):** Binary truth checks (e.g., "Does NPC have ammo?").
-- **Deep Reason (8-16 loops):** Interpretive logical conflicts (e.g., "Faction reaction to collateral damage").
+## ◈ 3. MULTI-LATENT ATTENTION (MLA) PORT
+To satisfy the **14.5GB VRAM ceiling** (and Node C's 6GB limit), we port the DeepSeek-V2 MLA logic. This reduces the KV-cache footprint by ~10x by storing compressed latents ($c_{kv}$) instead of full heads.
 
 ## ◈ 4. DISTRIBUTED SYNC
-Node A will store the iterative `kv_cache` per `cache_key="recurrent_loop_{t}"`. Node B receives the final weighted output after Node C breaks the loop.
+Node A (Synapse) will provide the physical storage for the RDT's iterative `kv_cache` shards. Node B (Director) triggers the loop via a high-priority VSB packet.
 
 ---
-**::/5Y573M-N071C3 : ORACLE_LOGIC_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : RUST_ORACLE_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**

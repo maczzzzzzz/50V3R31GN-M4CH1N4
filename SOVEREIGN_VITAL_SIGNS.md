@@ -9,7 +9,7 @@ This manifest is the Atomic Source of Truth for the Gemini (Strategist) + GLM (E
 
 ## 🏗️ 1. PHYSICAL TOPOLOGY (INVARIANTS)
 - **Node A (The Kernel):** Nix Native. NVIDIA GTX 1050 Ti (4GB CUDA). 
-  - **Resident Models:** `Open-Reasoner-Zero-1.5B.Q8_0.gguf` (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) + `falcon-0.3b-ocr.onnx` (Perception).
+  - **Resident Models:** `Open-Reasoner-Zero-1.5B.Q8_0.gguf` (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) + `falcon-0.3b-ocr.onnx` (Perception).
   - **Constraints:** Max 4GB VRAM. 7R1-M1N1NG pruner active. sm_61 custom build backgrounded.
 - **Node B (The Director):** NixOS / WSL2. AMD Radeon RX 9060 XT (16GB Vulkan).
   - **Resident Model:** `Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf` (via Windows llama-server.exe b8710, Vulkan). 4885 MiB GPU + 2856 MiB CPU. 43/43 layers offloaded.

@@ -15,11 +15,11 @@ Implement a reactive, reflow-free overlay system for dynamic health status (dama
 
 ## 2. Components & Physics Integration
 
-**Physics Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Alignment (`RED_RULES.md`):**
+**Physics Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Alignment (`RED_RULES.md`):**
 The glitch logic strictly aligns with the D10 mechanics. Triggers are based on the *Net Damage* calculated by Node A (after SP ablation and AP calculations).
 
 **Components:**
-1.  **Node B Interceptor (`hybrid-routing-controller.ts`):** Expands the `handleCalculateDv` and `handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll` pipeline.
+1.  **Node B Interceptor (`hybrid-routing-controller.ts`):** Expands the `handleCalculateDv` and `handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll` pipeline.
     *   **Threshold Trigger (Damage):** If `netDamage >= 15` in a single attack, a critical glitch sequence fires.
     *   **Threshold Trigger (Death State):** If `newHp <= 1`, a persistent, low-level screen tear effect applies.
     *   **Event Trigger (Drugs):** If an item classified as a drug/toxin is consumed, a drug-shader payload generates.

@@ -49,14 +49,14 @@
 - [x] **Economy Pulse:** Implemented "Monthly Burn" logic for Lifestyle and Housing rent siphoning.
 - [x] **Night Market Engine:** Built weighted procedural generator for 1d10 category / 1d100 item rolls.
 - [x] **CDP Vendor Manifest:** Automated `cpr-container` token spawning via Playwright bridge.
-- [x] **Screamsheet Engine:** Procedurally generated Gigs using triplet-sourced NPC/Faction/Location data.
+- [x] **Screamsheet Engine:** Built using procedural SVG generation (Screamsheet Architect).
 - [x] **Contraband Logic:** Auto-tagged `Premium`+ price categories for Fixer-only availability.
 
 ---
 
 ## ✅ PHASE 61: UI/UX SOVEREIGNTY (COMPLETED)
 **Goal:** Transform the dashboard into an interactive Command-and-Control hub.
-- [x] **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle CoT Log:** Real-time visualization of Node A Rust reasoning (Rolls/DVs/Modifiers).
+- [x] **Strategic Strategic Strategic Oracle CoT Log:** Real-time visualization of Node A Rust reasoning (Rolls/DVs/Modifiers).
 - [x] **Akashik Lexicon:** Searchable 1:1 mirror of the 1000+ official items and actors.
 - [x] **Command Terminal:** Interactive buttons for Market generation and Gig manifestation.
 - [x] **State Waveform v2:** High-fidelity visualization of "Friction" vs "Flow" encounter telemetry.
@@ -66,19 +66,19 @@
 ## ✅ PHASE 62: SOVEREIGN TRINITY (COMPLETED)
 **Goal:** Transition to a 3-node Cognitive Mesh using Mooncake disaggregated memory.
 - [x] **Artery Ignition:** Cat6 floor run established; subnet 10.0.0.x routed via Archer AP/Router.
-- [x] **Synapse Synapse:** Node A (1050 Ti) decommissioned; configured as Mooncake KV-Store.
-- [x] **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Ignition:** Node C (2060) provisioned; drivers hardened; SGLang v3.0 + Gemma-4 deployed.
+- [x] **Synapse:** Node A (1050 Ti) decommissioned; configured as Mooncake KV-Store.
+- [x] **Strategic Strategic Strategic Oracle Ignition:** Node C (2060) provisioned; drivers hardened; SGLang v3.0 + Gemma-4 deployed.
 - [x] **Trinity Mesh:** Handshake verified; latency sub-1ms; Trinity Mesh active.
 
 ---
 
 ## 🛠️ PHASE 63: ADVANCED HERMES ORCHESTRATION & RDT ORACLE (IN-PROGRESS)
-**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and integrate the Recurrent-Depth Transformer (RDT) harness.
+**Goal:** Deepen the Node C Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and integrate the Rust-native Recurrent-Depth Transformer (RDT) engine.
 - [ ] **Sovereign Harness:** Deploy Go-native CDP driver (Kernel/Driver) on Node C to replace legacy Gauntlet.
-- [ ] **Night Market Steel-Thread:** Automate Night Market generation UI using the new Sovereign Harness.
-- [ ] **RDT Cognition Loop:** Migrate Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic to OpenMythos RDT architecture for variable-depth reasoning.
-- [ ] **Hermes HUD:** Deploy `hermes-control-interface` as headless background service on Node C.
-- [ ] **Nucleus Integration:** Embed Hermes visual streams into Node B WebGL surface.
+- [ ] **RDT Rust Port:** Implement OpenMythos architecture in Rust using `candle-rs` for sub-10ms recursion.
+- [ ] **ACT Logic:** Port the Graves (2016) halting loop and 'Remainder Trick' to the Rust RDT core.
+- [ ] **MLA Integration:** Implement Multi-Latent Attention in Rust to satisfy Node C VRAM constraints.
+- [ ] **VSB Handshake:** Wire the log-step hash verification between Director and Rust Strategic Strategic Strategic Strategic Strategic Oracle.
 - [ ] **Self-Healing Loop:** Implement the Healer Protocol (AXTree-to-Gemma-4 Repair Shards).
 
 ---
@@ -93,10 +93,10 @@
 ---
 
 ## 🛠️ PHASE 65: OPTICAL ARTERY FINALIZATION (IN-PROGRESS)
-**Goal:** Ingest the final 557 pages via Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) GPU-acceleration.
+**Goal:** Ingest the final 557 pages via Node C (Strategic Strategic Strategic Oracle) GPU-acceleration.
 - [x] **Environment:** `flake.nix` `optical` devShell — python312, poppler-utils, pip venv for Docling+ColPali.
 - [x] **Structural OCR:** `scripts/dev/docling-worker.py` — Docling multi-column extraction → JSON shards in `data/ingest/pdf_shards/`.
-- [ ] **Task 1: Node C Ingestor Deployment:** Deploy `scripts/dev/docling-worker.py` to Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
+- [ ] **Task 1: Node C Ingestor Deployment:** Deploy `scripts/dev/docling-worker.py` to Node C (Strategic Strategic Strategic Oracle).
 - [ ] **Task 2: Final Embedding Burst:** Offload 557 remaining pages to Node C (CUDA-accelerated) for embedding push.
 - [ ] **Task 3: Integrity Audit:** Verify all 1,779 pages are indexed in `visual_embeddings` and `Akashik.db`.
 
