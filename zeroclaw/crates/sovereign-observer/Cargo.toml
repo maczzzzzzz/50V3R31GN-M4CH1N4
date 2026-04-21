@@ -1,0 +1,12 @@
+[package]
+name = "sovereign-observer"
+version = "3.2.21"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.36", features = ["full"] }
+xcap = "0.0.10"
+image = "0.25"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+anyhow = "1.0"
