@@ -4313,6 +4313,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "zeroclaw-api"
+version = "3.2.21"
+
+[[package]]
+name = "zeroclaw-runtime"
+version = "3.2.21"
+
+[[package]]
 name = "zerocopy"
 version = "0.8.48"
 source = "registry+https://github.com/rust-lang/crates.io-index"
