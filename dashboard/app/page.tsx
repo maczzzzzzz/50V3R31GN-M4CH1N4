@@ -4,6 +4,7 @@ import KernelMonitor from "@/components/KernelMonitor";
 import DirectorPulse from "@/components/DirectorPulse";
 import VsbWaveform from "@/components/VsbWaveform";
 import GhostBootTrigger from "@/components/GhostBootTrigger";
+import HermesProxy from "@/components/HermesProxy";
 import { useSovereignTelemetry } from "@/hooks/useSovereignTelemetry";
 
 export default function Dashboard() {
@@ -37,6 +38,11 @@ export default function Dashboard() {
       {/* Ghost Boot trigger */}
       <div className="lg:col-span-2 flex justify-center">
         <GhostBootTrigger />
+      </div>
+
+      {/* Hermes Control Interface — Node C proxy (collapsible) */}
+      <div className="lg:col-span-2">
+        <HermesProxy />
       </div>
     </main>
   );

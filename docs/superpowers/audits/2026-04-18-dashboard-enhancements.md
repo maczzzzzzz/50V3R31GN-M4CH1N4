@@ -9,9 +9,9 @@ The current dashboard is an excellent telemetry monitor but lacks interaction wi
 
 ## ◈ PROPOSED ENHANCEMENTS
 
-### 1. Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle: Reasoning Visualization
+### 1. Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle: Reasoning Visualization
 - **Context:** Node A (Rust) now calculates rolls with bit-identical accuracy.
-- **UI Component:** `CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog.tsx`.
+- **UI Component:** `CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog.tsx`.
 - **Feature:** Displays the "Chain-of-Thought" (CoT) for every mechanical resolution. Users can see the exact DV lookup and the modifier stack summation in real-time.
 
 ### 2. Akashik Browser: The Canonical Lexicon

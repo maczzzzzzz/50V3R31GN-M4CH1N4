@@ -32,7 +32,7 @@
 
 ---
 
-### Task 2: OMI Real-Time Bridge (The Ear)
+### Task 2: OMI Real-Time Mesh (The Ear)
 
 **Files:**
 - Modify: `zeroclaw/crates/zeroclaw-kernel/src/bin/artery_manager.rs`

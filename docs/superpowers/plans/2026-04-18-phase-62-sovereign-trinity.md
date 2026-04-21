@@ -48,7 +48,7 @@ git commit -m "feat(trinity): deploy mooncake metadata server on node a"
 
 ---
 
-### Task 4: SGLang Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C)
+### Task 4: SGLang Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C)
 
 **Files:**
 - Modify: `flake.nix`
@@ -57,7 +57,7 @@ git commit -m "feat(trinity): deploy mooncake metadata server on node a"
 - [ ] **Step 1: Add SGLang to Nix environment**
 Update `flake.nix` to include `sglang` with RadixAttention support.
 
-- [ ] **Step 2: Implement Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Ignition Script**
+- [ ] **Step 2: Implement Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Ignition Script**
 Configure the `ignite-oracle.sh` script to load Gemma-4 E2B and Falcon Perception with speculative decoding.
 
 - [ ] **Step 3: Commit**

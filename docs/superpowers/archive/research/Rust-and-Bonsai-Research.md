@@ -18,12 +18,12 @@ The inference gains are derived from the reduction in memory bandwidth requireme
 | **Intelligence Density** | 1.062 (1/GB) | 0.098 (1/GB) |
 | **Energy Consumption** | 0.276 mWh/tok | 1.134 mWh/tok |
 
-This efficiency profile allows Project Black-Ice to deploy a highly capable "Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" on legacy hardware. Node A, a Nitro 5 laptop equipped with a 4GB NVIDIA GTX 1050 Ti, previously struggled with 3.2B models in 4-bit quantization. The 1-bit Bonsai architecture allows the 8B model to reside entirely in VRAM with over 2 GB of headroom for KV cache management and driver overhead, effectively moving rule-math resolution from "human speed" to "machine speed".
+This efficiency profile allows Project Black-Ice to deploy a highly capable "Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" on legacy hardware. Node A, a Nitro 5 laptop equipped with a 4GB NVIDIA GTX 1050 Ti, previously struggled with 3.2B models in 4-bit quantization. The 1-bit Bonsai architecture allows the 8B model to reside entirely in VRAM with over 2 GB of headroom for KV cache management and driver overhead, effectively moving rule-math resolution from "human speed" to "machine speed".
 
 ### **1.2 Intelligence Density and Performance Benchmarks**
 
 The concept of Intelligence Density (\\alpha) is introduced to measure the ratio of a model’s reasoning capability to its deployment footprint. It is defined as:  
-Bonsai 8B achieves an intelligence density of 1.062, which is nearly 11x higher than its full-precision counterpart, Qwen 3 8B. On standard benchmarks such as GSM8K (Math) and IFEval (Instruction Following), the 1-bit model retains approximately 90-95% of the reasoning capability of leading 8B instruct models while operating at a fraction of the cost. This retention is critical for Project Black-Ice's "Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle," which must interpret complex prompt-based combat DV tables and Netrunning mechanics without the hallucinations common in smaller 1B-3B models.
+Bonsai 8B achieves an intelligence density of 1.062, which is nearly 11x higher than its full-precision counterpart, Qwen 3 8B. On standard benchmarks such as GSM8K (Math) and IFEval (Instruction Following), the 1-bit model retains approximately 90-95% of the reasoning capability of leading 8B instruct models while operating at a fraction of the cost. This retention is critical for Project Black-Ice's "Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle," which must interpret complex prompt-based combat DV tables and Netrunning mechanics without the hallucinations common in smaller 1B-3B models.
 
 ## **2\. Architectural Revelations from the Claude Code Source Leak**
 
@@ -32,7 +32,7 @@ The accidental exposure of the Claude Code 2.1.88 source map provided the develo
 ### **2.1 Synchronization Primitives: Flush Gates**
 
 A critical finding in the bridge/ directory was the flushGate.ts utility (72 lines), which manages data synchronization across the agentic bridge. In a high-agency environment, an agent frequently interacts with terminal environments, file systems, and remote resources. The Flush Gate serves as a transactional barrier, ensuring that all pending terminal outputs, file writes, and state updates are fully committed before the system allows the next turn to proceed.  
-In Project Black-Ice v3.2.21, this pattern is essential for maintaining consistency between the Narrative Orchestrator (Node B) and the Relational Knowledge Graph (RKG). When a "Night Market" event triggers an inventory update, the Flush Gate blocks rule-math resolution until the SQLite transaction in the state.db is confirmed, preventing race conditions where the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle attempts to calculate damage based on an item that has not yet been "flushed" to the character sheet.
+In Project Black-Ice v3.2.21, this pattern is essential for maintaining consistency between the Narrative Orchestrator (Node B) and the Relational Knowledge Graph (RKG). When a "Night Market" event triggers an inventory update, the Flush Gate blocks rule-math resolution until the SQLite transaction in the state.db is confirmed, preventing race conditions where the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle attempts to calculate damage based on an item that has not yet been "flushed" to the character sheet.
 
 ### **2.2 LLM-Aware Backpressure: Capacity Management**
 
@@ -70,7 +70,7 @@ The Claw RS architecture decomposes the agentic harness into a series of single-
 
 ### **3.2 Traits over Runtime Reflection**
 
-Rust’s ownership model and trait system are used to enforce structural boundaries that are impossible in TypeScript. For example, the ModelProvider trait abstracts differences between Anthropic, OpenAI, and local Ollama backends. This allows Project Black-Ice to swap the high-precision "Brain" on Node B with a local 1-bit Bonsai "Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" on Node A simply by implementing a different version of the streaming logic.  
+Rust’s ownership model and trait system are used to enforce structural boundaries that are impossible in TypeScript. For example, the ModelProvider trait abstracts differences between Anthropic, OpenAI, and local Ollama backends. This allows Project Black-Ice to swap the high-precision "Brain" on Node B with a local 1-bit Bonsai "Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" on Node A simply by implementing a different version of the streaming logic.  
 The transition to a native Rust binary results in radical resource efficiency. ZeroClaw runtimes achieve startup times under 10ms and maintain a peak RSS usage of less than 5 MB. This efficiency is the "Lead Engineer's" primary defense against VRAM spillover on Node A, where every kilobyte of system RAM preserved is critical for the Vulkan-based LLM backend.
 
 ## **4\. 100% SQLite Distributed Architecture for Project Black-Ice**
@@ -79,7 +79,7 @@ The implementation of Project Black-Ice v3.2.21 relies on architectural symmetry
 
 ### **4.1 The Relational Knowledge Graph (RKG) Triplet Schema**
 
-The "Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" MCP server implements a Relational Knowledge Graph directly within a project-local state.db file. This graph uses a Triplet Schema to stop the LLM from suffering "narrative drift," a common failure where probabilistic context windows fail to retain specific world facts.
+The "Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" MCP server implements a Relational Knowledge Graph directly within a project-local state.db file. This graph uses a Triplet Schema to stop the LLM from suffering "narrative drift," a common failure where probabilistic context windows fail to retain specific world facts.
 
 | Table Name | Content Type | Narrative Purpose |
 | :---- | :---- | :---- |
@@ -103,7 +103,7 @@ The adaptation of Project Black-Ice v3.2.21 into a production-grade AI GM for Cy
 Narrative advancement is driven by a 5-part framework (Setup, Rising, Climax, Falling, Resolution) mapped 1:1 from the Cyberpunk RED core rules. These beats are stored in the story\_beats table and advanced via specialized MCP tools.
 
 * **Setup**: The Narrative Orchestrator (Node B) queries the RKG for current scene context and entities.  
-* **Rising/Climax**: The Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node A) resolves tactical challenges, Netrunning beats, and Black ICE combat.  
+* **Rising/Climax**: The Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node A) resolves tactical challenges, Netrunning beats, and Black ICE combat.  
 * **Resolution**: The Resident Auditor (init-verifiers.ts) validates the turn outcome and "flushes" changes to the SQLite database.
 
 ### **5.2 Black ICE Combat Resolution Logic**
@@ -216,7 +216,7 @@ The successful integration of these findings requires a phased rollout that stab
 
 ### **13.1 Phase 0: Distributed Crate Stabilization**
 
-The transition to a Rust-native workspace begins with the migration of core patterns from claw-cli/claw-code-rust. This involves implementing the trait-based model abstractions and the zero-copy SSE parser. The target is a sub-10ms cold start time for the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle on Node A.
+The transition to a Rust-native workspace begins with the migration of core patterns from claw-cli/claw-code-rust. This involves implementing the trait-based model abstractions and the zero-copy SSE parser. The target is a sub-10ms cold start time for the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle on Node A.
 
 ### **13.2 Phase 1: Relational Knowledge Graph Ingestion**
 
@@ -264,7 +264,7 @@ The sidebar and persistent UI in Project Black-Ice are built using the new Appli
     `id: "[span_31](start_span)[span_31](end_span)[span_33](start_span)[span_33](end_span)black-ice-sidebar",`  
     `window: { title: "Narrative Director Console" },`  
     `actions: {`  
-      `rollStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle: GM_AgentSidebar.prototype.handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll,`  
+      `rollStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle: GM_AgentSidebar.prototype.handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll,`  
       `advanceBeat: GM_AgentSidebar.prototype.handleBeatAdvancement`  
     `}`  
   `}`  
@@ -299,7 +299,7 @@ The claw-cli/claw-code-rust project includes a Python metadata layer that serves
 ### **16.1 Dataclass-Based Schemas for Parity Tracking**
 
 The Python layer utilizes dataclasses to house schemas for model outputs, tool definitions, and session state. This layer includes a parity\_audit.py script that explicitly tracks gaps between the reverse-engineered Rust implementation and the original Claude Code TypeScript.  
-This dual-language approach allows developers to rapidly prototype new agent behaviors in Python before committing the "hot paths" (SSE parsing, tool execution, networking) to the high-performance Rust runtime. For Project Black-Ice, this enables the "GM-Partner" team to test new Cyberpunk RED homebrew rules in the Python orchestrator before the Rust Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle is updated to handle the mathematical complexity.
+This dual-language approach allows developers to rapidly prototype new agent behaviors in Python before committing the "hot paths" (SSE parsing, tool execution, networking) to the high-performance Rust runtime. For Project Black-Ice, this enables the "GM-Partner" team to test new Cyberpunk RED homebrew rules in the Python orchestrator before the Rust Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle is updated to handle the mathematical complexity.
 
 ### **16.2 Runtime Session Management**
 
@@ -339,9 +339,9 @@ Project Black-Ice v3.2.21 sets realistic performance targets for its distributed
 | **Search Latency (P95)** | \< 200ms | Instant lookup of rulebook pages |
 | **State Sync (Node A to B)** | \< 10ms | Real-time update of tokens on the map |
 | **Document Ingestion** | \< 500ms/file | Rapid onboarding of new gang packs |
-| **Synapse RSS (Node A)** | \< 100MB | Stable Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle on Nitro 5 |
+| **Synapse RSS (Node A)** | \< 100MB | Stable Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle on Nitro 5 |
 
-These targets are achieved through the use of connection pooling and optimized vector indexes in the claw-mcp crate. By serving user queries through a dedicated lightweight server (Node B) while offloading the heavy reasoning to the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node A), the system maintains a balanced load across the network.
+These targets are achieved through the use of connection pooling and optimized vector indexes in the claw-mcp crate. By serving user queries through a dedicated lightweight server (Node B) while offloading the heavy reasoning to the Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node A), the system maintains a balanced load across the network.
 
 ## **20\. Conclusion and the Roadmap to Stage 8 Autonomy**
 
@@ -373,7 +373,7 @@ Based on technical summaries, the capacityWake.ts utility likely implements a We
   `}`  
 `}`
 
-This logic ensures that Node B (Main Rig) does not overwhelm Node A (Nitro 5\) with requests, effectively managing the "cognitive bandwidth" of the distributed Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. By integrating this into the ClawLink protocol, Black-Ice v3.2.21 achieves a level of operational stability previously reserved for enterprise-grade distributed systems.
+This logic ensures that Node B (Main Rig) does not overwhelm Node A (Nitro 5\) with requests, effectively managing the "cognitive bandwidth" of the distributed Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. By integrating this into the ClawLink protocol, Black-Ice v3.2.21 achieves a level of operational stability previously reserved for enterprise-grade distributed systems.
 
 ### **Technical Appendix: Logic of commands/init-verifiers.ts (Presumed Source Logic)**
 
@@ -407,7 +407,7 @@ The 1-bit Bonsai architecture represents a "Pareto Solution" that breaks the mon
 | **Pipeline** | Sequencer | Transformer | Sequential Chaining | Context Window |
 | **Research Council** | Facilitator | Debate Agent | Adversarial Debate | Shared MEMORY.md |
 | **Factory Swarm** | Project Manager | Coder/Tester | shared TaskQueue | SQLite / Git Worktrees |
-| **Black-Ice ND** | Narrative Director | Lore/Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle | Persistent RKG | Distributed RKG / autoDream |
+| **Black-Ice ND** | Narrative Director | Lore/Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle | Persistent RKG | Distributed RKG / autoDream |
 
 The "Black-Ice ND" pattern is the most advanced, combining the factory swarm's task management with a relational persistence model that survives across sessions. This ensures that the Living City continues to grow even when the main terminal is attached to a different project or session.
 
@@ -421,7 +421,7 @@ The system follows a structured turn-based interacted loop:
 
 1. **GM Input**: The user provides a narrative direction (e.g., "The Scavs breach the Afterlife lobby").  
 2. **Perception Query**: The ND agent calls get\_scene\_context, retrieving all actors and walls from Foundry VTT v12.  
-3. **Mechanical Resolution**: If combat is initiated, Node A (Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) uses the 1-bit Bonsai model to roll initiative and resolve attacks using the cyberpunk-red-core logic.  
+3. **Mechanical Resolution**: If combat is initiated, Node A (Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) uses the 1-bit Bonsai model to roll initiative and resolve attacks using the cyberpunk-red-core logic.  
 4. **Narrative Generation**: The "Brain" (Node B) synthesizes the results into descriptive prose, adhering to the "Undercover" narrative preservation filters.  
 5. **Audit & Flush**: The Resident Auditor validates the result against the RKG, ensuring no NPC stats were hallucinated, and commits the turn to state.db.
 

@@ -27,7 +27,7 @@ The raw frame buffer from the ported OMI Desktop harness will be split into two 
 To maintain our strict physical sovereignty and Linux/NixOS environment, we cannot simply run the macOS binary. We must extract the core Rust capture loop from OMI Desktop:
 
 1.  **X11/Wayland Frame Grabber:** Port the macOS `CGWindowListCreateImage` logic to a Linux-native frame buffer capture (e.g., using `xcap` or `wayland-protocols` in Rust).
-2.  **Shared Memory (Mmap):** To prevent network overhead, the OMI capture loop should write the frames to a shared memory segment (`/dev/shm`) accessible by both Node B and Node C's inference engines.
+2.  **Shared Synapse (Mmap):** To prevent network overhead, the OMI capture loop should write the frames to a shared memory segment (`/dev/shm`) accessible by both Node B and Node C's inference engines.
 3.  **The "Observer" Daemon:** A lightweight Rust daemon (`sovereign-observer.rs`) that manages the capture rate and delegates frames based on tension/combat state.
 
 ## ◈ 4. CONCLUSION

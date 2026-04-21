@@ -544,6 +544,36 @@ class FoundryApiBridge {
       case 'shroud_params':
         PretextOverlayManager.setShroudParams(command.payload);
         break;
+      case 'render_screamsheet': {
+        // Phase 64: Screamsheet Factory — inject Night Market SVG as JournalEntry
+        try {
+          const svgData   = command.payload.svg ?? '';
+          const title     = command.payload.title ?? 'NIGHT_MARKET_BROADCAST';
+          const dataUri   = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svgData)))}`;
+          const htmlBody  = `<div class="screamsheet-wrapper" style="background:#0d0d0d;padding:8px;"><img src="${dataUri}" style="width:100%;image-rendering:pixelated;" alt="${title}"/></div>`;
+          
+          // Create or update the journal entry
+          const existing = game.journal.getName(title);
+          if (existing) {
+            const page = existing.pages.contents[0];
+            if (page) await page.update({ text: { content: htmlBody } });
+          } else {
+            await JournalEntry.create({
+              name: title,
+              pages: [{ name: title, type: 'text', text: { content: htmlBody, format: 1 } }],
+            });
+          }
+          
+          if (ui?.notifications) ui.notifications.info(`◈ SOVEREIGN_MSG: Screamsheet [${title}] materialized.`);
+          console.log(`[${MODULE_ID}] Screamsheet '${title}' injected into Foundry journal.`);
+          this._sendSuccess(command.requestId, null);
+        } catch (err) {
+          console.error("::/ARTERY_ERROR : SCREAMSHEET_MATERIALIZATION_FAILED", err);
+          if (ui?.notifications) ui.notifications.error(`::/ARTERY_ERROR : Screamsheet materialization failed.`);
+          this._sendError(command.requestId, err.message ?? String(err));
+        }
+        return; // Early return because we handled our own ACK
+      }
     }
     this._sendSuccess(command.requestId, null);
   }
