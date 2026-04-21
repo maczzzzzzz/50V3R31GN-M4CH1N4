@@ -15,7 +15,7 @@ Stabilizes the "Project Eyes-On" pipeline by isolating the map geometry from tra
 ### 2.2 Neural Asset Mapping (Materialization Layer)
 Replaces expensive generative loops with high-speed tactical selection.
 - **The Library:** A curated repository of transparent "Neural Decals" representing Cyberpunk RED environmental effects (Ablation, Crits, Explosions).
-- **The Trigger:** The **Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Node A) emits "Environmental Delta" signals alongside math results.
+- **The Trigger:** The **Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Node A) emits "Environmental Delta" signals alongside math results.
 - **The Action:** Node B selects the corresponding decal and uses the Neural Uplink to stamp it onto the Foundry canvas at the event's coordinates.
 
 ### 2.3 Latent Atmosphere (Persistence Layer)

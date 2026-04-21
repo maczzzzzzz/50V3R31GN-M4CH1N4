@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Optimize Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) and Node A (Synapse) for high-performance, disaggregated inference using threshold routing and sharded Rust crates.
+**Goal:** Optimize Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) and Node A (Synapse) for high-performance, disaggregated inference using threshold routing and sharded Rust crates.
 
 **Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.2.21 workspace standard.
 

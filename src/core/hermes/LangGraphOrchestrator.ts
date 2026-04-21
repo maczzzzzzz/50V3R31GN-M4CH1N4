@@ -17,6 +17,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 
 // ---------------------------------------------------------------------------
 // State schema
@@ -178,17 +179,15 @@ export class LangGraphOrchestrator {
 
         state = { ...state, ...delta, error: undefined };
       } catch (err) {
-        // Healer Protocol: retry up to maxRetries, then surface error
-        if (state.retries < this.cfg.maxRetries) {
-          state = { ...state, retries: state.retries + 1 };
-          // Re-route from entry on retry (self-correction)
-          state = { ...state, activeNode: routeEntry(state, this.cfg), response: '' };
-        } else {
-          state = {
-            ...state,
-            error: err instanceof Error ? err.message : String(err),
-            activeNode: 'done',
-          };
+        state = { ...state, error: err instanceof Error ? err.message : String(err) };
+        
+        const diagnosis = HealerProtocol.diagnose(state, this.cfg);
+        console.warn(`::/HEALER_DIAGNOSIS : ${diagnosis.reason} [Strategy: ${diagnosis.strategy}]`);
+
+        if (diagnosis.strategy === RepairStrategy.ABORT_MISSION) {
+          state = { ...state, activeNode: 'done' };
+        } else if (diagnosis.suggestedState) {
+          state = { ...state, ...diagnosis.suggestedState };
         }
       }
     }

@@ -22,12 +22,9 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 - Always present a **Strategy** and obtain approval.
 - Verification is the only path to task completion.
 
-## ✍️ SCRIBE MANDATE
-The command **`npm run scribe`** is the primary signal for ledger synchronization. Upon execution, all agentic workers MUST invoke the **`manifest-scribe`** skill to formally update the `CHANGELOG.md`, `IMPLEMENTATION_PLAN.md`, and lock the history via a git commit.
-
 ## ⚠️ CONSTRAINTS & SAFETY
 1. **Nix Sovereignty:** All commands must be wrapped in `nix develop --command`.
-2. **Hardware Invariants:** Node A = 4GB VRAM (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle/Vision). Node B = 16GB (Director).
+2. **Hardware Invariants:** Node A = 4GB VRAM (Strategic Oracle/Vision). Node B = 16GB (Director).
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 

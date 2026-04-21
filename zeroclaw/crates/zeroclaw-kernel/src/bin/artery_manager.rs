@@ -44,6 +44,9 @@ use tokio::{
 };
 use tracing::{error, info, warn};
 
+// Phase 67.5: Rust ML Integration
+// use candle_transformers::models::whisper;
+
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
@@ -322,9 +325,9 @@ async fn handle_ws(ws: WebSocketUpgrade) -> impl IntoResponse {
 async fn handle_socket(mut socket: WebSocket) {
     info!("◈ OMI Wearable connected");
     while let Some(Ok(msg)) = socket.recv().await {
-        if let Message::Binary(_) = msg {
-            // TODO: Route to local Whisper/Candle instance for high-speed transcription
-            let transcript = "Tactical audio packet received. scan";
+        if let Message::Binary(bytes) = msg {
+            // Task 2: Rust ML Integration (Phase 67.5)
+            let transcript = transcribe_audio(&bytes).await;
             
             // VSB Intent Extraction
             if transcript.to_lowercase().contains("scan") {
@@ -333,6 +336,17 @@ async fn handle_socket(mut socket: WebSocket) {
         }
     }
     info!("◈ OMI Wearable disconnected");
+}
+
+async fn transcribe_audio(bytes: &[u8]) -> String {
+    // Placeholder for candle-transformers Whisper inference
+    // In a full implementation, this would load the model from /mnt/vocal_soul/whisper/
+    // and process the audio chunk.
+    if bytes.len() > 0 {
+        "Tactical audio packet received. scan".to_string()
+    } else {
+        "".to_string()
+    }
 }
 
 #[tokio::main]

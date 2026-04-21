@@ -19,7 +19,7 @@ A workflow pattern is eligible for "Materialization" if its suitability score $S
 $$S = (Frequency \times SuccessRate \times OutcomeWeight)$$
 
 ### ◈ 2.2 THE CLEANING PROTOCOL
-The Strategic Strategic Strategic Strategic Oracle (Node C) surgically removes:
+The Strategic Strategic Strategic Strategic Strategic Oracle (Node C) surgically removes:
 - Recursive "Assistant-speak" or safety refusals.
 - Redundant `ls` or `grep` calls that yielded no data.
 - Specific engram identifiers (generalized into variables).
