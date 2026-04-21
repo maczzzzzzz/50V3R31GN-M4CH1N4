@@ -4,7 +4,7 @@ This final report consolidates the **v3.2.21 "Black-Ice"** architectural bluepri
 
 The system physically decouples narrative creativity from mechanical truth to ensure sub-50ms latency and 100% rule compliance.
 
-* **Node A (The Judge/Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** \* **Hardware:** Nitro 5 (GTX 1050 Ti, 4GB VRAM).  
+* **Node A (The Judge/Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** \* **Hardware:** Nitro 5 (GTX 1050 Ti, 4GB VRAM).  
   * **Cognition:** Llama 3.1 3B via **Ollama (CUDA)**.  
   * **State:** 100% SQLite (RKG) with **R\*Tree** spatial indexing for tactical geometry.  
 * **Node B (The Director/Host):**  

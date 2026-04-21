@@ -23,7 +23,7 @@ ALIGNMENT   : Zero-Trust / Radical Candor / Machine Voice
 
 - **Node B (Director):** NixOS/WSL2. AMD Radeon RX 9060 XT (16GB). Gemma-4-E4B (Q8_K_P). Narrative/Aesthetic lead.
 - **Node A (Kernel):** NixOS Native. NVIDIA GTX 1050 Ti (4GB CUDA). Open-Reasoner-1.5B + ColPali v1.2. Rules/Vision authority.
-- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** (Staged) NVIDIA RTX 2060 (6GB). Gemma-4-E2B (Q8_K_P). Logic/Tactical gate.
+- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** (Staged) NVIDIA RTX 2060 (6GB). Gemma-4-E2B (Q8_K_P). Logic/Tactical gate.
 - **The Highway:** VSB Binary UDP on port 7878. The only truth is the bus.
 
 ## ⚙️ IMMUTABLE AXIOMS

@@ -31,7 +31,7 @@ Expected: "◈ VSB Integrity: VALID".
 
 ---
 
-### Task 2: Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & 7R1_SC0R3R Density Audit
+### Task 2: Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & 7R1_SC0R3R Density Audit
 
 **Files:**
 - Test: `tests/integration/zeroclaw_handshake.test.ts`

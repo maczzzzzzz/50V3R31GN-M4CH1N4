@@ -1,10 +1,10 @@
-# Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Implementation Plan
+# Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Implementation Plan
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Implement the Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (RKG) on Node B to consolidate world state and history into a single queryable SQLite plane.
+**Goal:** Implement the Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (RKG) on Node B to consolidate world state and history into a single queryable SQLite plane.
 
-**Architecture:** We use a "Triple-SQLite" stack on Node B. The `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient` will manage `world.db` and use `ATTACH DATABASE` to link `.crush/crush.db` and optionally `rules.db` (cache). Mistral-Nemo updates are gated by a Validated Command Pattern (Zod).
+**Architecture:** We use a "Triple-SQLite" stack on Node B. The `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient` will manage `world.db` and use `ATTACH DATABASE` to link `.crush/crush.db` and optionally `rules.db` (cache). Mistral-Nemo updates are gated by a Validated Command Pattern (Zod).
 
 **Tech Stack:** TypeScript, better-sqlite3, Zod, Vitest.
 
@@ -43,7 +43,7 @@ git commit -m "chore: add better-sqlite3 dependencies and env config"
 
 ---
 
-### Task 2: UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient Scaffolding (Task 3.1)
+### Task 2: UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient Scaffolding (Task 3.1)
 
 **Files:**
 - Create: `src/db/unified-oracle-client.ts`
@@ -53,11 +53,11 @@ git commit -m "chore: add better-sqlite3 dependencies and env config"
 
 ```typescript
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient } from '../../src/db/unified-oracle-client.js';
+import { UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient } from '../../src/db/unified-oracle-client.js';
 import Artery of Truth from 'better-sqlite3';
 import fs from 'node:fs';
 
-describe('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient', () => {
+describe('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient', () => {
   const worldDbPath = './test-world.db';
   const crushDbPath = './test-crush.db';
 
@@ -74,7 +74,7 @@ describe('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Str
   });
 
   it('should connect and attach the crush database', async () => {
-    const client = new UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient({ worldDbPath, crushDbPath });
+    const client = new UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient({ worldDbPath, crushDbPath });
     await client.connect();
     
     // Check if we can query the attached database
@@ -89,24 +89,24 @@ describe('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Str
 **Step 2: Run test to verify it fails**
 
 Run: `npm test tests/db/unified-oracle-client.test.ts`
-Expected: FAIL (UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient not defined)
+Expected: FAIL (UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient not defined)
 
-**Step 3: Implement UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient minimal scaffolding**
+**Step 3: Implement UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient minimal scaffolding**
 
 ```typescript
 import Artery of Truth from 'better-sqlite3';
 import { randomUUID } from 'node:crypto';
 
-export interface UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleConfig {
+export interface UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleConfig {
   worldDbPath: string;
   crushDbPath: string;
 }
 
-export class UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient {
+export class UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient {
   private db: Artery of Truth.Artery of Truth | null = null;
-  private readonly config: UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleConfig;
+  private readonly config: UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleConfig;
 
-  constructor(config: UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleConfig) {
+  constructor(config: UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleConfig) {
     this.config = config;
   }
 
@@ -139,7 +139,7 @@ Expected: PASS
 
 ```bash
 git add src/db/unified-oracle-client.ts tests/db/unified-oracle-client.test.ts
-git commit -m "feat: scaffold UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient with ATTACH DATABASE logic"
+git commit -m "feat: scaffold UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient with ATTACH DATABASE logic"
 ```
 
 ---
@@ -154,7 +154,7 @@ git commit -m "feat: scaffold UnifiedStrategic Strategic Strategic Strategic Str
 
 ```typescript
   it('should initialize the RKG schema', async () => {
-    const client = new UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient({ worldDbPath, crushDbPath });
+    const client = new UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient({ worldDbPath, crushDbPath });
     await client.connect();
     await client.initSchema();
     
@@ -208,7 +208,7 @@ CREATE VIRTUAL TABLE IF NOT EXISTS triplets_fts USING fts5(
 );
 ```
 
-**Step 4: Implement initSchema in UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
+**Step 4: Implement initSchema in UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
 
 ```typescript
   async initSchema(): Promise<void> {
@@ -262,7 +262,7 @@ export const WorldCommandSchema = z.discriminatedUnion('action', [
 export type WorldCommand = z.infer<typeof WorldCommandSchema>;
 ```
 
-**Step 2: Implement executeCommand in UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
+**Step 2: Implement executeCommand in UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
 
 **Step 3: Write tests for valid and invalid commands**
 
@@ -286,9 +286,9 @@ export type WorldCommand = z.infer<typeof WorldCommandSchema>;
 - Modify: `src/core/night-market-service.ts`
 - Modify: `src/mcp/nitro-db/index.ts`
 
-**Step 1: Refactor NightMarketService to use UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
+**Step 1: Refactor NightMarketService to use UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
 
-**Step 2: Refactor MCP nitro-db to use UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
+**Step 2: Refactor MCP nitro-db to use UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient**
 
 **Step 3: Final Dependency Cleanup**
 
