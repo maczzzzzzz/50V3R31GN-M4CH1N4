@@ -16,10 +16,15 @@ Transform the Sovereign Trinity into an autonomous, self-improving metacognitive
 2.  Implement the visual `SWE-RL` loop: The worker requests a live frame from `sovereign-observer`, feeds it to Node A for OCR/bounding-box analysis, and dynamically identifies the new target location.
 3.  Upon successful interaction with the new target, the worker utilizes the Crystallization Pipeline to overwrite and fix the broken skill.
 
-### Task 3: Dynamic Fitness Weighting (Vocal/CLI Feedback)
-1.  Update the `Darwinian Skill Induction` logic to ingest a new parameter: `Operator Sentiment`.
-2.  Wire the VSB payload from the Artery Manager (Phase 67.8) to extract explicit corrective commands.
-3.  Apply dynamic scaling to $W_{soul}$, $W_{pulse}$, and $W_{cost}$ based on this real-time feedback loop.
+### Task 4: Akashik Knowledge MCP
+1.  Implement an MCP tool (`query_akashik`) that allows Hermes to search `akashik_guides/` and the `DEV_SCRIPTS_MANIFEST`.
+2.  Bind the tool to the Director's system prompt to enforce zero-hallucination policy.
+
+### Task 5: Agentic Audit Trails & Ouroboros Feedback
+1.  Initialize a `forensics` table in `Akashik.db` (or a JSONL ledger) to track `file_path`, `diff`, `reasoning_trace`, and `outcome`.
+2.  Implement an interceptor in the tool-execution pipeline that logs all disk writes to this ledger.
+3.  Modify `LangGraphOrchestrator.ts` to query the ledger for `FATAL` outcomes related to the current task context.
+4.  Inject these historical failures into the agent's prompt as dynamic negative constraints prior to execution.
 
 ## 🛡️ Verification
 - Generate a test scenario where a synthetic "complex task" is completed via zero-shot reasoning.

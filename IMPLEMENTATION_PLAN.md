@@ -92,6 +92,7 @@
 - [ ] **Task 2:** Shadow Mode Self-Healing Daemon.
 - [ ] **Task 3:** Dynamic Fitness Weighting (Human-as-Loss-Function).
 - [x] **Task 4:** Akashik Knowledge MCP (Expose `akashik_guides/` and `DEV_SCRIPTS_MANIFEST` to Hermes, and strictly mandate agents to query `Akashik.db` / Node B / Node C instead of hallucinating logic).
+- [ ] **Task 5:** Agentic Audit Trails & Ouroboros Feedback (Forensic logging of all agent code changes and dynamic negative prompting based on failure history).
 
 ---
 
