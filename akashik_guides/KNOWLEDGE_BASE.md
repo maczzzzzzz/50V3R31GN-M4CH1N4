@@ -19,10 +19,15 @@
 | **Maestro (Nous)** | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | **Orchestration:** Tactical turn-taking and trajectory evaluation (Atropos). |
 | **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |
 | **GEPA** | [gepa-ai/gepa](https://github.com/gepa-ai/gepa) | **Reflective Evolution:** Prompt optimization via genetic parent-child mutation. |
+| **Git AI (Forensics)**| [git-ai/git-ai](https://github.com/git-ai/git-ai) | **Agentic Audit Trails:** Forensic logging for LLM code generation and tracking. |
+| **DevMemory** | [ai-dev-memory/ai-dev-memory](https://github.com/ai-dev-memory/ai-dev-memory) | **Ouroboros Ledger:** Local SQLite storage for agent failure history and prompt origins. |
 
-### ◈ SENSORY & AUTOMATION (VISION CLUSTER)
+### ◈ VOCAL & SENSORY (PERCEPTION CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
+| **HermeSpecs** | [radfordben/hermespecs-app](https://github.com/radfordben/hermespecs-app) | **Command Router:** Decoupled vocal intent mapping for 80+ tools and HEVC streaming. |
+| **Voice-Daemon** | [18458235609/voice-daemon](https://github.com/18458235609/voice-daemon) | **Local VAD:** Barge-in detection, state-machine audio routing, and UDS IPC. |
+| **Voice-Agent-Hermes**| [paaloeye/voice-agent-hermes](https://github.com/paaloeye/voice-agent-hermes) | **Logic Decoupling:** MCP-driven tool execution offloaded from the core voice loop. |
 | **Falcon Perception** | [tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | **Vision Heart:** Multimodal segmenter and tactical OCR for immediate awareness. |
 | **Browser-Harness** | [browser-use/harness](https://github.com/browser-use/browser-harness) | **Control Artery:** Self-healing CDP automation and "Agent-Authored Skills." |
 | **Firecrawl Web-Agent**| [firecrawl/web-agent](https://github.com/firecrawl/web-agent) | **Environment:** Clean Markdown conversion and autonomous web navigation. |
