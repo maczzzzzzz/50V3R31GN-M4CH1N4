@@ -3,7 +3,7 @@
 **Status:** DESIGN FINALIZED
 
 ## 1. Executive Summary
-The Netrunning Engine provides a dedicated high-fidelity simulation layer for virtual hacking. It utilizes the **Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** to isolate rules-reasoning per architecture floor and the **Neural Uplink** to physically alter the Foundry VTT environment, creating an immersive "Matrix" interface.
+The Netrunning Engine provides a dedicated high-fidelity simulation layer for virtual hacking. It utilizes the **Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** to isolate rules-reasoning per architecture floor and the **Neural Uplink** to physically alter the Foundry VTT environment, creating an immersive "Matrix" interface.
 
 ## 2. Technical Architecture
 

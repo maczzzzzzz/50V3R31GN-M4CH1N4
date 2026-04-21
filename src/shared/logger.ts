@@ -56,7 +56,7 @@ export class Logger implements ILogger {
       timestamp: new Date().toISOString(),
       severity,
       context,
-      traceId: traceId || 'no-trace',
+      traceId: traceId ?? 'no-trace',
       message,
       nodeId: NODE_ID,
     };
@@ -66,7 +66,8 @@ export class Logger implements ILogger {
     }
 
     if (severity === 'ERROR') {
-      entry.stack = new Error().stack;
+      const stack = new Error().stack;
+      if (stack) entry.stack = stack;
     }
 
     const logStr = JSON.stringify(entry);

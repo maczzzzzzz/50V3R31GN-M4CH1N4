@@ -33,7 +33,7 @@ git commit -m "ui: implement sidebar navigation and route structure"
 ### Task 2: Combat Artery (Node A reasoning)
 
 **Files:**
-- Create: `dashboard/components/CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog.tsx`
+- Create: `dashboard/components/CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog.tsx`
 - Modify: `dashboard/app/combat/page.tsx`
 
 - [x] **Step 1: Implement Terminal Component**
@@ -42,7 +42,7 @@ Create a component that subscribes to the telemetry stream and renders "roll_bre
 - [x] **Step 2: Commit**
 
 ```bash
-git add dashboard/components/CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog.tsx dashboard/app/combat/
+git add dashboard/components/CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog.tsx dashboard/app/combat/
 git commit -m "ui: add real-time combat reasoning visualization"
 ```
 

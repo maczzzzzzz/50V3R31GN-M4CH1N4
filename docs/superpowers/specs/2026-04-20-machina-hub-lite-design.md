@@ -11,7 +11,7 @@ The app is sharded into three atomic views:
 
 ### ◈ 1.2 THE NARRATIVE STREAM
 - **Terminal Feed:** A minimalist VT323 log showing the Director's latest output.
-- **Thought Visualization:** Displays a "Logic Glitch" (pre-rendered asset) when the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle is performing deep ACT loops.
+- **Thought Visualization:** Displays a "Logic Glitch" (pre-rendered asset) when the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle is performing deep ACT loops.
 
 ### ◈ 1.3 THE VOCAL RELAY
 - **Ear Status:** Shows "LISTENING" when the OMI stream is active.

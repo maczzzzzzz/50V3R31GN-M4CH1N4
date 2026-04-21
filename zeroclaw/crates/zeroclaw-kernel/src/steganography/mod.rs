@@ -14,7 +14,7 @@
 // Only the least-significant bit of each channel is touched.  The visual
 // change is imperceptible (±1 per channel).
 
-use image::{DynamicImage, GenericImageView, ImageBuffer, Rgba};
+use image::{DynamicImage, GenericImageView};
 use std::io::Cursor;
 
 /// Native FNV-1a 64-bit implementation to match VSB standards.

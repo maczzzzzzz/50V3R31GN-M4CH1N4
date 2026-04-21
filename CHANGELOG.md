@@ -7,6 +7,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
+- **Systematic Audit:** Performed exhaustive code audit and type-hardening of the Sovereign Trinity materialization.
 - **Sovereign Observer:** Materialized the **Rust-native** screen capture daemon (`sovereign-observer`) for 100% screen awareness on WSL2.
 - **Vocal Soul Materialized:** Consolidated the OMI WebSocket bridge and real-time audio ingestion into the Rust **Artery Manager**.
 - **Machina Terminal HUD:** Shored a functional **Flutter companion app** with R3D_V01D CRT aesthetic and real-time VSB/Artery handshaking.
@@ -23,6 +24,8 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 - **Artery Scripts:** Wired `npm run sync` and `npm run scribe:lock` in `package.json` for historical shriving.
 
 ### Fixed
+- **Type Artery Hardening:** Repaired critical TypeScript blockers in `HealerProtocol.ts`, `LangGraphOrchestrator.ts`, and `logger.ts` (strict type compliance).
+- **Rust Hygiene:** Neutralized dead code and unused imports in `artery_manager.rs`, `perception`, and `steganography` crates.
 - **Blocker Neutralization:** Repaired 4+ tactical gaps identified in the `claudeReport.md` audit.
 - **VRAM Buffer:** Restored the 1GB safety margin on Node C via host-native Llama-Server (Q5 Authority).
 

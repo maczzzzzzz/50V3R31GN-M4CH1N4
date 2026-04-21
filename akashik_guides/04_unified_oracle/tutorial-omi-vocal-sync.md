@@ -8,7 +8,7 @@ This guide defines the materialization of the **Vocal Artery** using the OMI wea
 ---
 
 ## 🏗️ 1. ARCHITECTURE OVERVIEW
-The OMI integration transforms the **Strategic Strategic Strategic Strategic Oracle (Node C)** into a listener.
+The OMI integration transforms the **Strategic Strategic Strategic Strategic Strategic Oracle (Node C)** into a listener.
 - **The Ear:** OMI Wearable (or Phone) captures audio.
 - **The Artery:** Real-time bytes are streamed via WebSocket to Node C (Port 7340).
 - **The Brain:** Node C transcribes audio and extracts tactical intent (e.g., "Scan target").

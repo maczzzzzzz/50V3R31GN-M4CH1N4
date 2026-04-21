@@ -33,11 +33,11 @@ export interface OrchestratorState {
   /** Accumulated response from the active node */
   response: string;
   /** Structured rule result from Node C (if applicable) */
-  ruleResult?: Record<string, unknown>;
+  ruleResult?: Record<string, unknown> | undefined;
   /** Narrative synthesis from Node B (if applicable) */
-  narrative?: string;
+  narrative?: string | undefined;
   /** Error captured during a node execution */
-  error?: string;
+  error?: string | undefined;
   /** Retry counter for self-correction (Healer Protocol) */
   retries: number;
 }
@@ -164,6 +164,9 @@ export class LangGraphOrchestrator {
       activeNode: routeEntry({ ...({} as OrchestratorState), tokens: input.tokens ?? 0 }, this.cfg),
       response:   '',
       retries:    0,
+      error:      undefined,
+      ruleResult: undefined,
+      narrative:  undefined,
     };
 
     while (state.activeNode !== 'done') {

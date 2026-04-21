@@ -216,12 +216,6 @@ struct OkResponse {
     message: String,
 }
 
-#[derive(Serialize)]
-struct ErrResponse {
-    status: &'static str,
-    error: String,
-}
-
 #[derive(Deserialize)]
 struct ShiftRequest {
     quantization: Quantization,

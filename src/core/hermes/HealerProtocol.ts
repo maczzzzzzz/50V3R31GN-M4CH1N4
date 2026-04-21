@@ -8,7 +8,7 @@
  * or alternative routing to maintain mission continuity.
  */
 
-import { OrchestratorState, OrchestratorConfig } from './LangGraphOrchestrator.js';
+import type { OrchestratorState, OrchestratorConfig } from './LangGraphOrchestrator.js';
 
 export enum RepairStrategy {
   RETRY_SAME_NODE = 'RETRY_SAME_NODE',
