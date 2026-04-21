@@ -6,7 +6,7 @@ This is the **Master Mission Brief** for **Project Black-Ice** under the **SOVER
 
 **Objective:** To unify heterogeneous consumer hardware into a single "Cognitive Mesh" that provides an infallible, unfiltered (Abliterated) narrative experience. By disaggregating memory (KV-cache) from compute, we maximize the utility of legacy and modern silicon to run high-density AI models in real-time.
 
-**The Medium:** A hardened, local-first instance of FoundryVTT where the AI acts as both the **Director** (Narrative/World) and the **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Rules/Vision).
+**The Medium:** A hardened, local-first instance of FoundryVTT where the AI acts as both the **Director** (Narrative/World) and the **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Rules/Vision).
 
 ## ---
 
@@ -41,7 +41,7 @@ The "Sovereign" identity is secured through a physical **Network Perimeter**.
 * **Function:** The **Narrative Heart**. It manages the FoundryVTT scene state, NPC dialogue, and high-level plot progression.  
 * **Interaction:** It acts as the **Verifier**, auditing Node C’s rule verdicts using the **Log-Step Hash** method.
 
-### **Node C: The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (INTRODUCTION)**
+### **Node C: The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (INTRODUCTION)**
 
 * **Hardware:** Server | RTX 2060 (6GB VRAM).  
 * **Software:** **Gemma 4 E2B (Abliterated)** \+ **Falcon Perception (600M)** | CUDA 12.8.  
@@ -55,7 +55,7 @@ The "Sovereign" identity is secured through a physical **Network Perimeter**.
 The cluster operates using the **POD (Portable Operation Descriptor)** logic extracted from current decentralized inference research.
 
 1. **Disaggregated Cognition:** Using **Mooncake**, we split the "Prefill" (Logic) from the "Decode" (Generation). Node B/C computes the prompt once; Node A holds it forever.  
-2. **The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle-Director Loop:**  
+2. **The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle-Director Loop:**  
    * **Vision:** Node C "sees" a player move in Foundry via Falcon.  
    * **Logic:** Gemma 4 E2B calculates the CPR rule-check.  
    * **Audit:** Node C sends a "Trace" to Node B. Node B confirms the logic is sound.  
@@ -75,7 +75,7 @@ The cluster operates using the **POD (Portable Operation Descriptor)** logic ext
 ### **Logic Foundations**
 
 * **Hyperspace AGI (Pods/Verifiers):** [github.com/hyperspaceai/agi](https://www.google.com/search?q=https://github.com/hyperspaceai/agi/blob/main/docs/PODS.md) \- Source for the "Mineable Logic" and Pod disaggregation patterns.  
-* **VeriLLM (Verification):** \[Reference to 2026 Whitepaper\] \- The "Log-Step" verification protocol for the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
+* **VeriLLM (Verification):** \[Reference to 2026 Whitepaper\] \- The "Log-Step" verification protocol for the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
 
 ### **Abliterated Weights**
 
