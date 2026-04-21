@@ -56,7 +56,7 @@
 
 ---
 
-## 🛠️ PHASE 66: COGNITIVE HARDENING & PERFORMANCE (IN-PROGRESS)
+## 🛠️ PHASE 66: COGNITIVE HARDENING & PERFORMANCE (COMPLETED)
 **Goal:** Implement VRAM optimization (KV-cache quantization) and predictive caching.
 - [x] **Migration:** Decomposed `zeroclaw` into a 3-crate workspace.
 - [x] **Threshold Routing:** Shored $L > 4000$ routing logic in `artery_manager.rs`.
@@ -75,6 +75,14 @@
 **Goal:** Port the Artery Manager to Rust for sub-10ms mind-swapping and finalize the real-time vocal artery.
 - [x] **OMI Mesh:** Consolidated OMI WebSocket bridge into the Rust `artery_manager.rs`.
 - [x] **Rust ML:** Implement `candle-transformers` Whisper transcription for Node C.
+
+---
+
+## ✅ PHASE 67.8: VOICE CONTROL HARDENING & SYNERGY (COMPLETED)
+**Goal:** Implement VAD, decouple intent routing, and inject visual context to achieve peak operational efficiency on Node C.
+- [x] **Task 1:** Implement VAD (Voice Activity Detection) Gate.
+- [x] **Task 2:** Decouple Intent Routing (VSB Payload).
+- [x] **Task 3:** Visual Context Injection scaffolding.
 
 ---
 

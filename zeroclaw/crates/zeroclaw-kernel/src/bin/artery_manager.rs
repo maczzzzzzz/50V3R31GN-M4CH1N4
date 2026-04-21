@@ -176,6 +176,7 @@ struct ArteryState {
     llama_server_bin: PathBuf,
     n_gpu_layers: i32,
     whisper_core: Option<Arc<WhisperCore>>,
+    latest_frame_hash: Option<String>,
 }
 
 impl ArteryState {
@@ -352,6 +353,20 @@ async fn handle_start(State(state): State<SharedState>) -> (StatusCode, Json<ser
     }
 }
 
+#[derive(Deserialize)]
+struct HashRequest {
+    hash: String,
+}
+
+async fn handle_hash_update(
+    State(state): State<SharedState>,
+    Json(req): Json<HashRequest>,
+) -> StatusCode {
+    let mut s = state.lock().await;
+    s.latest_frame_hash = Some(req.hash);
+    StatusCode::OK
+}
+
 // ---------------------------------------------------------------------------
 // Entry point
 // ---------------------------------------------------------------------------
@@ -362,22 +377,66 @@ async fn handle_ws(State(state): State<SharedState>, ws: WebSocketUpgrade) -> im
 
 async fn handle_socket(mut socket: WebSocket, state: SharedState) {
     info!("◈ OMI Wearable connected");
+    
+    let mut audio_buffer = Vec::new();
+    let mut is_speaking = false;
+    let mut silence_chunks = 0;
+    const VAD_THRESHOLD: f32 = 0.015;
+    const MAX_SILENCE_CHUNKS: usize = 20;
+
     while let Some(Ok(msg)) = socket.recv().await {
         if let Message::Binary(bytes) = msg {
-            // Task 2: Rust ML Integration (Phase 67.5)
-            let whisper_core = {
-                let s = state.lock().await;
-                s.whisper_core.clone()
-            };
-
-            let transcript = transcribe_audio(&bytes, whisper_core).await;
-            
-            // VSB Intent Extraction
-            if transcript.to_lowercase().contains("scan") {
-                info!("::/VSB_INJECT : TACTICAL_SCAN | {{\"source\":\"omi\",\"confidence\":0.95}}");
+            // Task 1: VAD (Voice Activity Detection) Gate using RMS Energy
+            let mut energy = 0.0;
+            let mut sample_count = 0;
+            let mut chunks = bytes.chunks_exact(2);
+            while let Some(chunk) = chunks.next() {
+                let sample = i16::from_le_bytes([chunk[0], chunk[1]]) as f32 / 32768.0;
+                energy += sample * sample;
+                sample_count += 1;
             }
-            if transcript.to_lowercase().contains("market") {
-                info!("::/VSB_INJECT : NIGHT_MARKET | {{\"source\":\"omi\",\"confidence\":0.95}}");
+            let rms = if sample_count > 0 { (energy / sample_count as f32).sqrt() } else { 0.0 };
+
+            if rms > VAD_THRESHOLD {
+                is_speaking = true;
+                silence_chunks = 0;
+                audio_buffer.extend_from_slice(&bytes);
+            } else if is_speaking {
+                silence_chunks += 1;
+                audio_buffer.extend_from_slice(&bytes); // Retain brief pauses
+                
+                if silence_chunks > MAX_SILENCE_CHUNKS {
+                    // Trigger Inference
+                    let whisper_core = {
+                        let s = state.lock().await;
+                        s.whisper_core.clone()
+                    };
+
+                    let transcript = transcribe_audio(&audio_buffer, whisper_core).await;
+                    
+                    if !transcript.is_empty() {
+                        // Tasks 2 & 3: Decoupled Intent Routing & Visual Context Injection
+                        let frame_hash = {
+                            let s = state.lock().await;
+                            s.latest_frame_hash.clone().unwrap_or_else(|| "null".to_string())
+                        };
+
+                        let payload = serde_json::json!({
+                            "type": "VOCAL_INTENT",
+                            "transcript": transcript,
+                            "confidence": 0.95,
+                            "timestamp": std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs(),
+                            "visual_context": frame_hash
+                        });
+
+                        info!("::/VSB_INJECT : VOCAL_INTENT | {}", payload.to_string());
+                    }
+
+                    // Reset VAD state
+                    is_speaking = false;
+                    silence_chunks = 0;
+                    audio_buffer.clear();
+                }
             }
         }
     }
@@ -595,6 +654,7 @@ async fn main() {
         llama_server_bin,
         n_gpu_layers,
         whisper_core,
+        latest_frame_hash: None,
     };
 
     let shared = Arc::new(Mutex::new(initial_state));
@@ -605,6 +665,7 @@ async fn main() {
         .route("/shift", post(handle_shift))
         .route("/stop", post(handle_stop))
         .route("/start", post(handle_start))
+        .route("/observer/hash", post(handle_hash_update))
         .route("/ws/audio", get(handle_ws))
         .with_state(shared);
 

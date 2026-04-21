@@ -7,6 +7,9 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
+- **Vocal Hardening & Synergy (Phase 67.8):** Implemented an RMS-based Voice Activity Detection (VAD) gate in the Rust Artery Daemon to prevent VRAM waste on background noise.
+- **Contextual Intent Routing:** Replaced hardcoded keyword matching with a decoupled JSON payload (`VOCAL_INTENT`) for infinite LLM-based tool scalability via Node B (MCP).
+- **Visual Synergy:** Added optical context injection logic (`/observer/hash`) to append the latest screen hash to vocal intents, granting the voice interface spatial awareness.
 - **Sovereign Transcription:** Materialized a Rust-native `candle-transformers` Whisper inference loop inside the Node C Artery Manager, achieving zero-latency raw PCM decoding and diegetic intent extraction.
 - **Systematic Audit:** Performed exhaustive code audit and type-hardening of the Sovereign Trinity materialization.
 - **Sovereign Observer:** Materialized the **Rust-native** screen capture daemon (`sovereign-observer`) for 100% screen awareness on WSL2.
