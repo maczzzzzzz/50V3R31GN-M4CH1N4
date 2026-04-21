@@ -83,6 +83,11 @@
             napi-rs-cli
             protobuf
 
+            # Machina Hub HUD (Flutter SDK)
+            flutter
+            android-tools
+            jdk17
+
             # File utilities (required by reconstruct-palace.sh + mcp-daemon)
             rsync
             ripgrep

@@ -25,7 +25,7 @@
 ---
 
 ## ✅ PHASE 63: ADVANCED HERMES ORCHESTRATION & RDT ORACLE (COMPLETED)
-**Goal:** Deepen the Node C Strategic Oracle with OpenMAIC orchestration logic and integrate the Rust-native Recurrent-Depth Transformer (RDT) engine.
+**Goal:** Deepen the Node C Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and integrate the Rust-native Recurrent-Depth Transformer (RDT) engine.
 - [x] **Task 1: Context Sharding:** Shard `AGENTS.md` into sector-specific Ability Stones (`zeroclaw/`, `dashboard/`, `scripts/`).
 - [x] **Task 2: RDT Rust Port:** `zeroclaw/src/rdt/mod.rs` — MLA + ACT loop via `candle-core`/`candle-nn`. Node C CUDA-gated via `--features cuda`.
 - [x] **Task 3: OpenMAIC Pipeline Port:** `src/core/outline-scene-builder.ts` + `build_scene_from_outline` MCP tool in nitro-logic server.
@@ -40,7 +40,7 @@
 ---
 
 ## ✅ PHASE 65: OPTICAL ARTERY FINALIZATION (COMPLETED)
-**Goal:** Ingest the final lore shards via Node C (Strategic Oracle) GPU-acceleration.
+**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Oracle) GPU-acceleration.
 - [x] **Success:** 3,021 shards shored in `data/ingest/pdf_shards/`.
 
 ---

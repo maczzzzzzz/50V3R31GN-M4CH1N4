@@ -12,7 +12,7 @@ The basement cluster is logically isolated from the house network via the Archer
 | **Archer Router** | Private Backplane (Router Mode) | `10.0.0.1` | **GATEWAY** |
 | **Node A (Kernel)** | Nitro 5 / 1050 Ti | `10.0.0.10` | **MEMORY SYNAPSE** |
 | **Node B (Director)** | Main Rig / 9060 XT | `10.0.0.11` | **NARRATIVE VOICE** |
-| **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle)** | Server / 2060 | `10.0.0.12` | **STRATEGIC MIND** |
+| **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle)** | Server / 2060 | `10.0.0.12` | **STRATEGIC MIND** |
 
 ### ◈ 1.1 CONFIGURATION PARAMETERS
 - **Subnet Mask:** `255.255.255.0`
