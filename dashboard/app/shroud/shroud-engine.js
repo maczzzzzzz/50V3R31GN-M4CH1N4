@@ -134,6 +134,7 @@ const PULSE_LIFE = {
   combat:  2.0,
   economy: 1.6,
   alert:   1.8,
+  kinetic: 1.0,
 };
 
 // ---------------------------------------------------------------------------
@@ -152,6 +153,7 @@ export class ShroudEngine {
     this._clock     = new THREE.Clock();
     this._raf       = null;
     this._pulses    = []; // Array of { mesh, uniforms, born, life }
+    this._particles = []; // Array of { group, born, life }
     this._scanMesh  = null;
     this._scanUniforms = null;
     this._disposed  = false;
@@ -225,13 +227,19 @@ export class ShroudEngine {
   /**
    * Fire a tactical pulse at the given NDC origin.
    *
-   * @param {{ type?: PulseType, origin?: [number,number], intensity?: number }} opts
+   * @param {{ type?: PulseType | 'kinetic', origin?: [number,number], intensity?: number }} opts
    */
   pulse(opts = {}) {
     const type      = opts.type ?? 'vsb';
     const origin    = opts.origin ?? [0.5, 0.5];
     const intensity = opts.intensity ?? 1.0;
     const born      = this._clock.getElapsedTime();
+
+    if (type === 'kinetic') {
+      this._createKineticBurst(origin, intensity);
+      return this;
+    }
+
     const life      = PULSE_LIFE[type] ?? 1.5;
     const color     = PULSE_COLORS[type] ?? new THREE.Color(0xffffff);
 
@@ -256,6 +264,48 @@ export class ShroudEngine {
     this._scene.add(mesh);
     this._pulses.push({ mesh, uniforms, born, life });
     return this;
+  }
+
+  /**
+   * Create a 3D particle burst (gunshots/sparks) at the given NDC origin.
+   * @param {[number,number]} origin
+   * @param {number} intensity
+   */
+  _createKineticBurst(origin, intensity) {
+    const count = Math.floor(20 * intensity);
+    const born  = this._clock.getElapsedTime();
+    const life  = PULSE_LIFE.kinetic;
+    
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(count * 3);
+    const vel = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      // Start at origin (NDC translated to orthographic space)
+      pos[i * 3 + 0] = origin[0] - 0.5;
+      pos[i * 3 + 1] = origin[1] - 0.5;
+      pos[i * 3 + 2] = 0;
+
+      // Random explosive velocity
+      const angle = Math.random() * Math.PI * 2;
+      const speed = (0.01 + Math.random() * 0.04) * intensity;
+      vel[i * 3 + 0] = Math.cos(angle) * speed;
+      vel[i * 3 + 1] = Math.sin(angle) * speed;
+      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.01;
+    }
+
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const mat = new THREE.PointsMaterial({
+      color: 0xffaa44,
+      size: 0.005,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const points = new THREE.Points(geo, mat);
+    points.renderOrder = 2;
+    this._scene.add(points);
+    this._particles.push({ mesh: points, vel, born, life });
   }
 
   /**
@@ -301,6 +351,30 @@ export class ShroudEngine {
       }
     }
     this._pulses = alive;
+
+    // Update and cull dead particles
+    const aliveParticles = [];
+    for (const p of this._particles) {
+      const age = t - p.born;
+      if (age >= p.life) {
+        this._scene.remove(p.mesh);
+        p.mesh.geometry.dispose();
+        p.mesh.material.dispose();
+      } else {
+        // Move particles
+        const pos = p.mesh.geometry.attributes.position.array;
+        for (let i = 0; i < pos.length / 3; i++) {
+          pos[i * 3 + 0] += p.vel[i * 3 + 0];
+          pos[i * 3 + 1] += p.vel[i * 3 + 1];
+          pos[i * 3 + 2] += p.vel[i * 3 + 2];
+        }
+        p.mesh.geometry.attributes.position.needsUpdate = true;
+        // Fade out
+        p.mesh.material.opacity = 1.0 - (age / p.life);
+        aliveParticles.push(p);
+      }
+    }
+    this._particles = aliveParticles;
 
     this._renderer.render(this._scene, this._camera);
   }
