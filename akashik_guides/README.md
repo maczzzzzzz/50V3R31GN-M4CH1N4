@@ -62,7 +62,7 @@ Event routing and state reconciliation logic.
 </details>
 
 <details>
-<summary>04. Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle</summary>
+<summary>04. Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle</summary>
 
 The Akashik Artery (SQLite + Vector) relational datastore.
 - `reference-oracle.md`
