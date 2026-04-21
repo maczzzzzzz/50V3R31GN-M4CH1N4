@@ -1,34 +1,51 @@
-# 50V3R31GN-M4CH1N4 // KNOWLEDGE_BASE
+# ◈ 50V3R31GN-M4CH1N4 // KNOWLEDGE_BASE
 **Version:** 3.2.21
 **Status:** ARCH1V3_LOCK (v3.2.21)
 
 ---
 
-## 📂 EXTERNAL REPOSITORY REGISTRY (SENSORY SHARDS)
+## 📂 EXTERNAL REPOSITORY REGISTRY (LOGIC SHARDS)
 
-### ◈ THE SENSORY CORE (VISION CLUSTER)
+### ◈ THE AGENTIC CORE (CLAW CLUSTER)
+| Repository | Source Link | Role |
+| :--- | :--- | :--- |
+| **Claw-Code (Rust)** | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | High-performance Rust rewrite of the foundational IPC bridge. |
+| **Zeroclaw (v3.2.21)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
+| **0xKarl-dev/claw** | [0xKarl-dev/claw-codes](https://github.com/0xKarl-dev/claw-codes) | Workspace summarization and porting utilities (`port_manifest.py`). |
+
+### ◈ THE COGNITIVE HARNESS (EVOLUTION CLUSTER)
+| Repository | Source Link | Role |
+| :--- | :--- | :--- |
+| **Maestro (Nous)** | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | **Orchestration:** Tactical turn-taking and trajectory evaluation (Atropos). |
+| **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |
+| **GEPA** | [gepa-ai/gepa](https://github.com/gepa-ai/gepa) | **Reflective Evolution:** Prompt optimization via genetic parent-child mutation. |
+
+### ◈ SENSORY & AUTOMATION (VISION CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **Falcon Perception** | [tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | **Vision Heart:** Multimodal segmenter and tactical OCR for immediate awareness. |
 | **Browser-Harness** | [browser-use/harness](https://github.com/browser-use/browser-harness) | **Control Artery:** Self-healing CDP automation and "Agent-Authored Skills." |
-| **Pre-Text Overlay** | [50v3r31gn/pretext](https://github.com/50v3r31gn-m4ch1n4/pretext) | **Anticipation:** VSB context injection and VTT overlay management. |
+| **Firecrawl Web-Agent**| [firecrawl/web-agent](https://github.com/firecrawl/web-agent) | **Environment:** Clean Markdown conversion and autonomous web navigation. |
+| **xcap (Rust)** | [f-sh/xcap](https://github.com/f-sh/xcap) | **Optic Nerve:** Cross-platform (WSL2-aware) screen capture primitives. |
 
-### ◈ THE VISUAL RECONSTRUCTION (PALACE CLUSTER)
+### ◈ THE DATA BACKPLANE (VECTOR CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
-| **MemPalace** | [MemPalace/mempalace](https://github.com/MemPalace/mempalace) | **Visual Soul:** Real-time semantic reconstruction of RKG world-state. |
-| **Map Shine Advanced** | [foundry-shine](https://foundryvtt.com/packages/map-shine-advanced) | Cinematic 2.5D rendering and post-processing in Foundry VTT. |
+| **Mooncake** | [kvcache-ai/Mooncake](https://github.com/kvcache-ai/Mooncake) | **Synapse:** Disaggregated KV-cache backbone with SGLang transfer support. |
+| **sqlite-vec** | [asg017/sqlite-vec](https://github.com/asg017/sqlite-vec) | **RKG Backbone:** ANN/IVF vector search for sub-10ms lore retrieval. |
+| **BitNet (Microsoft)** | [microsoft/BitNet](https://github.com/microsoft/BitNet) | **Node A Strategy:** 1.58-bit ternary inference for massive CPU scaling. |
 
 ---
 
-## 🧠 ARCHITECTURAL PATTERNS (SENSORY WAVE)
+## 🧠 ARCHITECTURAL PATTERNS (v3.2.21)
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
-| **Self-Healing Skills** | Browser-Harness | Automated generation of deterministic interaction skills for VTT control. |
-| **Anticipatory Injection**| Pre-Text + Vocal | Pre-fetching lore shards (Afterlife, NPCs) based on vocal intent triggers. |
-| **Semantic Sharding** | MemPalace | Partitioning visual HUD pulses based on district tension levels. |
-| **Native Vision OCR** | Falcon Perception | sub-100ms real-time tactical text capture from the active browser window. |
+| **Self-Healing Skills** | Skill Forge | Automated generation of deterministic interaction skills from failed traces. |
+| **Threshold Routing** | Node C Artery Mgr | Routes long-context ($L > 4000$) to Node A; tactical tasks stay local. |
+| **Layer-wise Pipelining**| Node C -> Node A | Parallel streaming of KV-cache layers during prefill to cut TTFT by 60%+. |
+| **Polymorphic Authority**| Node C Rust | Dynamic quantization (Q5/Q4/Q3) manual shifting based on mission type. |
+| **Kinetic VFX** | Three.js | 3D particle manifestation (gunshots/sparks) in the tactical shroud. |
 
 ---
 *Verified by Gemini CLI v3.2.21.*

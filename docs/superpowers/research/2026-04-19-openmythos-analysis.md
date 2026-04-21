@@ -1,5 +1,5 @@
 # RESEARCH: 2026-04-19 — OpenMythos (RDT) Architectural Integration
-**Topic:** Recursive-Depth Transformer (RDT) implementation as a "Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" for the 50V3R31GN-M4CH1N4 engine.
+**Topic:** Recursive-Depth Transformer (RDT) implementation as a "Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" for the 50V3R31GN-M4CH1N4 engine.
 **Status:** CANONICAL // ARCHITECT_LOCK
 **Goal:** Evaluate the feasibility of replacing static layer-depth Transformers with RDTs on Node C (RTX 2060) to enhance logical reasoning through iterative computation.
 
@@ -10,8 +10,8 @@ OpenMythos introduces the Recurrent-Depth Transformer (RDT). Unlike traditional 
 
 ## ◈ 2. ARCHITECTURAL SYNERGY (THE TRINITY MESH)
 - **Node A (Synapse Synapse):** Stores intermediate KV-cache states of the recurrent loop.
-- **Node B (Director):** Manages narrative flow; calls the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
-- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Executes the RDT loop. It "thinks" on a rule until convergence is reached.
+- **Node B (Director):** Manages narrative flow; calls the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
+- **Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle):** Executes the RDT loop. It "thinks" on a rule until convergence is reached.
 
 ## ◈ 3. KEY INNOVATIONS
 1. **Loop Index Embedding:** The model tracks its iteration count (`loop_t`), allowing it to differentiate between "initial observation" and "deep logical refinement."

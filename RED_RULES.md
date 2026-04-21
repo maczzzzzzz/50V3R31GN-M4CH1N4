@@ -1,5 +1,5 @@
 # RED_RULES.md: The Physics Constitution (v3.2.21)
-### Global Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Invariants
+### Global Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Invariants
 
 This file serves as the "System Constitution" for the ZeroClaw Rules Authority. All mathematical resolutions and rule interpretations must align with these hard-coded physical constraints. Hallucination outside these bounds is a critical failure.
 

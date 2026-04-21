@@ -14,10 +14,12 @@
 The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed via **PODS (Portable Operation Descriptors)**. It is a bit-identical cognitive infrastructure sharded across the `10.0.0.x` spine for zero-trust physical sovereignty.
 
 - **Neural Mesh:** 3-node localized fabric harnessed via binary VSB synchronicity and **Mooncake v2.2** disaggregated memory.
-- **Akashik Artery:** Multi-dimensional world-state synchronized via **Akashik.db** (SQLite) and high-fidelity **Obsidian RKG Vault**.
+- **Vocal Artery:** Real-time speech-to-intent bridge via **OMI** wearable and the **Machina Terminal** HUD.
+- **Optic Nerve:** Continuous 100% screen awareness on WSL2 via the **Sovereign Observer** (Rust).
+- **Akashik Artery:** Multi-dimensional world-state synchronized via **Akashik.db** (SQLite) and **Obsidian RKG Vault**.
 - **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**.
-- **Recursive Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
-- **Physical Hands:** Go-native **Sovereign Harness** for sub-10ms self-healing browser control.
+- **Recursive Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
+- **Physical Hands:** Go-native **Sovereign Harness** and self-healing **Skill Forge** for automated browser control.
 
 ---
 
@@ -28,42 +30,37 @@ The system is harnessed as three physical pods synchronized over the `10.0.0.x` 
 ### :/P0D-B : 7H3-D1R3C70R //
 - **C0R3:** WSL2 NixOS // AMD Radeon RX 9060 XT (16GB VRAM)
 - **BR41N:** **Gemma-4-E4B [48L173R473D]** // Vision-Capable Narrative Heart.
-- **V1510N:** Native Gemma Vision // High-Fidelity Scene Awareness.
-- **R0L3:** Master Orchestration Pod // Narrative Sovereignty.
+- **R0L3:** Master Orchestration Pod // Narrative Sovereignty // **Total Sight**.
 
 ### :/P0D-C : 7H3-0R4CL3 //
-- **C0R3:** Ubuntu Server / Nix-Hardened // NVIDIA RTX 2060 (6GB CUDA)
-- **BR41N:** **Gemma-4-E2B [48L173R473D]** // Recursive Logic + **Tier 2 Vision**.
-- **V1510N:** **Falcon Perception** (Tier 1 Vision Protocol) // Tactical Segmenting & OCR.
-- **R0L3:** Recursive Reasoning Pod // Tactical Rule-Checking.
+- **C0R3:** Ubuntu Server / Nix-Hardened // NVIDIA RTX 2060 (6GB CUDA) + **500GB SSD**.
+- **BR41N:** **Polymorphic OBLITERATED Mind** (Q5/Q4/Q3) // Recursive Logic + **Vocal Artery**.
+- **R0L3:** Recursive Reasoning Pod // Tactical Rule-Checking // **Total Logic**.
 
 ### :/P0D-A : 7H3-5YN4P53 //
 - **C0R3:** Ubuntu Server / Nix-Hardened // NVIDIA GTX 1050 Ti (4GB CUDA)
 - **4RCH:** **Mooncake v2.2 Master** // Unified L2 KV-Cache Synapse.
-- **R0L3:** Synapse Persistence Pod // Metadata Artery of Truth.
+- **R0L3:** Synapse Persistence Pod // Metadata Artery of Truth // **Synapse**.
 
 ---
 
 ## :://7H3-4R53N4L //
 
-### ./MEMPALACE-VISUALIZATION ::
-Holographic memory mapping. The **MemPalace** integration allows for real-time reconstruction of complex lore relationships, physically grounding the Director's narrative choices.
+### ./MACHINA-TERMINAL-HUD ::
+Standalone Android companion app. Provides pocket-level authority over VRAM quantization and real-time VT323 transcription of the Vocal Artery.
 
-### ./OBLITERATUS-NARRATIVE ::
-The mind is a tuned instrument, abliterated and balanced for "Gritty Unsafe Compliance" using the **OBLITERATUS** and **L1B3RT4S** protocols.
+### ./KINETIC-VFX-ENGINE ::
+Tactical visual manifestation. The **Sovereign Shroud** utilizes Three.js particle systems for 3D gunshot flashes and kinetic sparks.
 
-### ./P4RS3LT0NGV3-L1N6U1571C5 ::
-Anticpitory VSB context injection and weight-tuning for direct environmental manipulation via the **P4RS3LT0NGV3** framework.
-
-### ./0UR0B0PU5-L061C ::
-Recursive trajectory audit and genetic prompt evolution. We utilize **HyperTune** for dynamic weighting to ensure 100% logical convergence.
+### ./SELF-HEALING-SKILL-FORGE ::
+Autonomous capability evolution. The machine observes its own interaction traces and "forges" new, deterministic skills for environment control.
 
 ---
 
 ## :://7H3-PH1L050PHY //
 
 ### ./H3RM35-1N736R4710N :://
-Deep orchestration via the **NousResearch/Hermes** ecosystem (Maestro, Icarus, FlowState patterns). Sovereignty is not an assistant; it is a physical, bit-identical alliance.
+Deep orchestration via the **NousResearch/Hermes** ecosystem. Sovereignty is not an assistant; it is a physical, bit-identical alliance.
 
 ---
 **::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**

@@ -21,7 +21,7 @@ This repository contains the canonical tutorials, references, and architectural 
 ## 🧠 3. Omni Orchestrator (Hermes)
 - [Explanation: The Hermes Artery](03_omni_orchestrator/explanation-orchestrator.md)
 
-## 🔮 4. Unified Strategic Strategic Oracle (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle)
+## 🔮 4. Unified Strategic Strategic Strategic Oracle (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle)
 - [Reference: RDT Kernel & Rules](04_unified_oracle/reference-oracle.md)
 - [Tutorial: OMI Vocal Sync & Machina Terminal](04_unified_oracle/tutorial-omi-vocal-sync.md)
 

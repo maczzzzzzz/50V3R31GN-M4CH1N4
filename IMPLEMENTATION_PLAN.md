@@ -22,7 +22,7 @@
 ---
 
 ## ✅ PHASE 63: HERMES CORE & RDT ORACLE (COMPLETED)
-**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Oracle with basic OpenMAIC logic and the Rust-native RDT engine.
+**Goal:** Deepen the Node C Strategic Oracle with basic OpenMAIC logic and the Rust-native RDT engine.
 
 ---
 
@@ -35,11 +35,11 @@
 
 ---
 
-## 🛠️ PHASE 64: VISUAL IMMERSION & SCREAMSHEET FACTORY (IN-PROGRESS)
+## ✅ PHASE 64: VISUAL IMMERSION & SCREAMSHEET FACTORY (COMPLETED)
 **Goal:** Materialize the Sovereign Shroud and automate high-fidelity SVG generation.
 - [x] **Shroud Ignition:** Live Three.js engine in `dashboard/app/shroud/`.
 - [x] **Screamsheet Factory:** Initial SVG pipeline shored in `ScreamsheetService.ts`.
-- [ ] **Task 2: Kinetic VFX Engine:** Implement 3D particle manifestation (gunshots/shells) using Three.js.
+- [x] **Task 2: Kinetic VFX Engine:** Materialized 3D particle system in `shroud-engine.js`.
 
 ---
 
@@ -51,7 +51,7 @@
 ---
 
 ## ✅ PHASE 65: OPTICAL ARTERY FINALIZATION (COMPLETED)
-**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Strategic Oracle) GPU-acceleration.
+**Goal:** Ingest the final lore shards via Node C (Strategic Oracle) GPU-acceleration.
 - [x] **Success:** 3,021 shards shored in `data/ingest/pdf_shards/`.
 
 ---
@@ -63,11 +63,11 @@
 
 ---
 
-## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (IN-PROGRESS)
+## ✅ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (COMPLETED)
 **Goal:** Implement diegetic vocal control and the Flutter HUD companion.
 - [x] **Polymorphic Minds:** Shored Q5, Q4, and Q3 variants on Node C storage.
 - [x] **Task 1: Artery Manager:** Materialized Rust-native daemon on Node C (port 7340).
-- [ ] **Task 2: Flutter HUD:** Scaffold the Machina Terminal HUD with R3D_V01D aesthetic.
+- [x] **Task 2: Flutter HUD:** Scaffolded and wired functional Machina Terminal HUD.
 
 ---
 

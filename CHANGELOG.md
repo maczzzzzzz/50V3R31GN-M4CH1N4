@@ -7,13 +7,16 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
-- **Sovereign Observer:** Formalized the port of **OMI Desktop** for 100% screen awareness on WSL2, feeding the dual-tier vision array (Falcon/Gemma-4).
+- **Sovereign Observer:** Materialized the **Rust-native** screen capture daemon (`sovereign-observer`) for 100% screen awareness on WSL2.
+- **Vocal Soul Materialized:** Consolidated the OMI WebSocket bridge and real-time audio ingestion into the Rust **Artery Manager**.
+- **Machina Terminal HUD:** Shored a functional **Flutter companion app** with R3D_V01D CRT aesthetic and real-time VSB/Artery handshaking.
+- **Kinetic VFX Engine:** Implemented a **Three.js particle system** in the Shroud for tactical 3D gunshot and spark manifestation.
+- **Healer Protocol:** Shored Layer 2 Re-planning and self-correction logic in the Hermes orchestrator to maintain mission continuity.
 - **Self-Healing Skill Forge:** Codified the **Maestro** pattern for autonomous workflow induction and agent-authored skill generation.
 - **Darwinian Induction:** Materialized the weighted trajectory evaluation spec ($F > 0.85$) for learning priority.
-- **Sovereign Weighting:** Codified the **Identity Grounding ($W_i$)** gating protocol to prevent identity drift via force-activation of Ouroboros-Reset.
-- **Phase 67.5: Rust Artery Daemon:** Materialized the Node C Artery Manager in **Rust** (`artery_manager.rs`) via Axum (port 7340) for sub-10ms mind-swapping.
+- **Sovereign Weighting:** Codified the **Identity Grounding ($W_i$)** gating protocol to prevent identity drift.
+- **Phase 67.5: Rust Artery Daemon:** Materialized the Node C Artery Manager in **Rust** (`artery_manager.rs`) via Axum (port 7340).
 - **RDT Rust Port:** Bit-identically ported the OpenMythos architecture to `zeroclaw/src/rdt/mod.rs` for recursive strategic depth.
-- **Shroud Ignition:** Initialized the **Sovereign Shroud** (Three.js/GLSL) in the dashboard for tactical visual overlays.
 - **OpenMAIC Pipeline:** Materialized the "Outline -> Scene" generation pipeline in `src/core/outline-scene-builder.ts`.
 - **Flutter Unblocked:** Surgically injected **Flutter SDK**, **Android Tools**, and **JDK 17** into `flake.nix`.
 - **Manifest Governance:** Created the reusable **`manifest-scribe`** skill to automate bit-identical ledger synchronization.

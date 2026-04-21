@@ -19,7 +19,7 @@ This document defines the primary commands required to ignite and maintain the *
 | :--- | :--- | :--- |
 | `npm run synapse:ignite` | **Node A** | Starts the Mooncake Master KV-cache artery. |
 | `npm run director:ignite` | **Node B** | Ignites the Narrative Heart (OBLITERATED Q8). |
-| `nix-shell -p llama-cpp ...` | **Node C** | (Host) Starts the host-native Llama.cpp Strategic Strategic Oracle. |
+| `nix-shell -p llama-cpp ...` | **Node C** | (Host) Starts the host-native Llama.cpp Strategic Strategic Strategic Oracle. |
 | `npm run oracle:ignite` | **Node C** | Starts the Rust Artery Manager (Port 7340). |
 
 ## 👁️ 2. Perception & VLM
