@@ -20,7 +20,7 @@ The **0B51D14N_5YNC** engine provides a human-readable interface for the machine
 - **Logic:**
     - Listens for `change` events in the `data/vault/` directory.
     - On save, parses the YAML frontmatter.
-    - Executes an `INSERT OR REPLACE` into `Akashik.db` using the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
+    - Executes an `INSERT OR REPLACE` into `Akashik.db` using the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
 - **Conflict Resolution:** The `Akashik.db` timestamp acts as the source of truth for the latest version.
 
 ### 3. Optionality & Sovereignty

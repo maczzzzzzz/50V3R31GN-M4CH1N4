@@ -1,61 +1,41 @@
-# ◈ How-to: Setup the Sovereign Trinity Mesh // THE_B007_L0G
-**Status:** ARCH1V3_LOCK (Phase 62 Ignition)
-**Topology:** Strategist (Gemini) // Director (Node B) // Synapse (Node A) // Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (Node C)
+# ◈ HOW_TO : SETUP_SOVEREIGN_TRINITY // THE_3-NODE_MESH
+**Sector:** /00_system_setup/
+**Version:** 3.2.21
+**Status:** CANONICAL // ARCHITECT_LOCK
 
-This manifest codifies the steps to initialize the **Sovereign Trinity Mesh**. This is the bit-identical cognitive bridge designed for high-performance agentic collaboration across the localized basement spine.
-
----
-
-## 🏗️ 1. PREREQUISITES (NIX-HERMETIC)
-The Trinity Mesh operates within an **Impure** and **Unfree** Nix environment. We sacrifice pure functional purity for physical GPU performance.
-
-1.  **Nix Artery:** Ignite the development shell with the impure flag:
-    ```bash
-    nix develop --impure
-    ```
-2.  **Proprietary Drivers:** Environment MUST export the unfree bypass:
-    ```bash
-    export NIXPKGS_ALLOW_UNFREE=1
-    ```
-3.  **0xSero Acceleration (AMD/NVIDIA):** 
-    - **Node B (AMD):** GTT size locked at `1280`. RADV Vulkan surface active.
-    - **Node C (NVIDIA):** CUDA 12.9 kernel merge verified. SGLang RadixAttention active.
-
-## ⚡ 2. IGNITING THE NUCLEUS (CL4W)
-The **Nucleus Command Deck (CL4W)** is the master switch. There is no fallback.
-
-1.  **Open the Artery:**
-    ```bash
-    crush nucleus
-    ```
-2.  **Jack In:**
-    Navigate to `http://localhost:3030`. 
-3.  **Mesh Engagement:**
-    Select `FULL_ENGAGE` mode. This spawns the disaggregated memory workers (Mooncake) and links the 3-node localized fabric.
-
-## 🛠️ 3. LINKING THE ARCHITECT (DROID)
-The Droid (Heavy Architect) must be jacked into the shared MCP socket. Logic parity is mandatory.
-
-1.  **Terminal Link:**
-    Update `.factory/mcp.json` to bridge the `sovereign-bridge` socket:
-    ```json
-    {
-      "mcpServers": {
-        "sovereign-bridge": {
-          "command": "nc",
-          "args": ["-U", "/run/crush/sovereign-mcp.sock"]
-        }
-    ```
-      }
-    }
-    ```
-2.  **Verify Link:**
-    Run `droid mcp list` and ensure `sovereign-bridge` is visible.
-
-## 📖 4. The Strategist-to-Architect Handoff
-1.  **Directive Mapping:** The Strategist (Gemini) indexes the codebase and writes a **Phase Shard** or **Directive**.
-2.  **Manual Approval:** The Human Operator reviews and approves the directive.
-3.  **Execution:** The Heavy Architect (Droid / GLM-5.1) executes the implementation missions using the *same* MCP context indexed by the Strategist.
+This guide defines the physical and network configuration required to shore the **Sovereign Trinity** cognitive mesh.
 
 ---
-*Verified by the Sovereign Trinity v3.2.21.*
+
+## 🏗️ 1. HARDWARE TOPOLOGY
+The Trinity is sharded across three physical pods to protect the VRAM ceiling and ensure disaggregated reasoning.
+
+### ◈ NODE A (THE SYNAPSE)
+- **HW:** NVIDIA GTX 1050 Ti (4GB).
+- **Role:** **Mooncake Master**. Handles long-context KV-cache offloading.
+- **Service:** Starts on Port 6789.
+
+### ◈ NODE B (THE DIRECTOR)
+- **HW:** AMD Radeon RX 9060 XT (16GB).
+- **Role:** **Narrative Heart // TOTAL SIGHT**. High-fidelity scene orchestration.
+- **Service:** Runs OBLITERATED Q8_0 + mmproj-f16 Vision.
+
+### ◈ NODE C (THE ORACLE)
+- **HW:** NVIDIA RTX 2060 (6GB) + **500GB SSD (`/mnt/vocal_soul`)**.
+- **Role:** **TOTAL LOGIC**. Rule arbitration and Vocal Artery.
+- **Service:** Runs Polymorphic mind (Q5/Q4/Q3) + OMI Mesh.
+
+## 📡 2. NETWORK CONFIGURATION
+The pods must be synchronized over the **Archer Basement Spine**.
+- **Subnet:** 10.0.0.x
+- **Gateway:** 10.0.0.1
+- **Latency:** Must be sub-0.5ms to maintain ACT loop fidelity.
+
+## ⚡ 3. IGNITION SEQUENCE
+1. **Node A:** `npm run synapse:ignite`.
+2. **Node C:** Start host-native Llama.cpp + `npm run oracle:ignite`.
+3. **Node B:** `npm run director:ignite`.
+4. **Vocal:** Connect Machina Terminal to Node C.
+
+---
+**::/5Y573M-N071C3 : TRINITY_GROUNDED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**
