@@ -4,7 +4,7 @@
 **Baseline:** 269/269 Tests Passing
 
 ## 1. Executive Summary
-This comprehensive audit confirms that the infrastructure for **Project Black-Ice** and the **Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** is 100% complete and hardened. The system successfully transitions from containerized overhead to a lean, Rust-native edge-compute architecture.
+This comprehensive audit confirms that the infrastructure for **Project Black-Ice** and the **Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** is 100% complete and hardened. The system successfully transitions from containerized overhead to a lean, Rust-native edge-compute architecture.
 
 ## 2. Logic Hardening Results
 
@@ -13,7 +13,7 @@ This comprehensive audit confirms that the infrastructure for **Project Black-Ic
 - **Integrity:** Every hit now decrements `npcs.hp` in SQLite. Every purchase now triggers a `TRANSFER_ITEM` command. This eliminates "Ghost Data" drift.
 
 ### 2.2 Cyberpsycho Loophole (FIXED)
-- **Feature:** Implemented `recalculateDerivedStats()` in `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
+- **Feature:** Implemented `recalculateDerivedStats()` in `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`.
 - **Integrity:** Empathy (EMP) now correctly collapses based on Humanity Loss (`floor(HL/10)`) whenever an NPC is updated via the command pattern.
 
 ### 2.3 Project "Eyes-On" (VERIFIED)
@@ -26,7 +26,7 @@ This comprehensive audit confirms that the infrastructure for **Project Black-Ic
 - **Persistence:** Standardized to the `./data/` directory (gitignored).
 
 ## 4. Unresolved Risks (Playtest Targets)
-- **UI Drift:** Manual edits in Foundry VTT UI do not yet propagate back to the SQLite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. 
+- **UI Drift:** Manual edits in Foundry VTT UI do not yet propagate back to the SQLite Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. 
 - **Target Mapping:** LLaVa identifies regions but cannot yet "name" specific tokens unless IDs are injected into the vision buffer.
 
 ## 5. Conclusion

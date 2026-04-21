@@ -21,7 +21,7 @@
 - Support `ENV: DISCORD_SCREAMSHEET_WEBHOOK`.
 
 **Step 2: Wire into State Mutation events**
-- Update HRC to call `screamsheet_post` after successful `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` updates.
+- Update HRC to call `screamsheet_post` after successful `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` updates.
 
 **Step 3: Commit**
 

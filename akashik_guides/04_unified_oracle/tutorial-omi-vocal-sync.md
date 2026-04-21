@@ -8,7 +8,7 @@ This guide defines the materialization of the **Vocal Artery** using the OMI wea
 ---
 
 ## 🏗️ 1. ARCHITECTURE OVERVIEW
-The OMI integration transforms the **Strategic Strategic Oracle (Node C)** into a listener.
+The OMI integration transforms the **Strategic Strategic Strategic Oracle (Node C)** into a listener.
 - **The Ear:** OMI Wearable (or Phone) captures audio.
 - **The Artery:** Real-time bytes are streamed via WebSocket to Node C (Port 7340).
 - **The Brain:** Node C transcribes audio and extracts tactical intent (e.g., "Scan target").
@@ -28,6 +28,16 @@ The machine's physical resolution is in your hands.
 - **Q5 (Authority):** Default state. Maximum reasoning fidelity.
 - **Q4 (Comm):** Optimized for active voice sessions.
 - **Q3 (Berserker):** High-speed swarm logic for 20+ NPCs.
+
+### ◈ 2.3 INSTALLATION (SHORING THE APK)
+To materialize the HUD on your phone:
+1. **Developer Mode:** Enable `USB Debugging` on your Android device.
+2. **Connect Artery:** Plug the device into the Node B host.
+3. **Ignite Deploy:** Run the following command from the project root:
+   ```bash
+   cd terminal-app && flutter run --release
+   ```
+4. **Persistent Sync:** The app is now shored. Future launches can be done directly from the app drawer while connected to the `10.0.0.x` spine.
 
 ## 🎙️ 3. TACTICAL VOCAL COMMANDS
 The machine extracts intent from natural speech.

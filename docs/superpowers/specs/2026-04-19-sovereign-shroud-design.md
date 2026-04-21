@@ -4,7 +4,7 @@
 
 ## ◈ 1. ARCHITECTURAL TOPOLOGY
 
-The **Sovereign Shroud** is a bit-identical visual layer sharded across Node B. It acts as the physical interface for Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic.
+The **Sovereign Shroud** is a bit-identical visual layer sharded across Node B. It acts as the physical interface for Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle logic.
 
 ### ◈ 1.1 COMPONENT MAP
 - **`three.js/Scene`**: Holds the global orthographic camera and the Shroud Plane.
