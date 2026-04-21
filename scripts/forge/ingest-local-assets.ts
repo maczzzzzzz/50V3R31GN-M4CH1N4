@@ -15,6 +15,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import Database from 'better-sqlite3';
 import { SteganographyService } from '../../src/core/steganography-service.js';
 import 'dotenv/config';
@@ -137,15 +138,19 @@ async function scanLegacyMooks(db: Database.Database): Promise<{ indexed: number
           await scanDir(fullPath, faction || entry.name);
         } else if (entry.name.endsWith('.json')) {
           try {
-            const raw = await fs.readFile(fullPath, 'utf-8');
-            const actor = JSON.parse(raw);
-            const imgPath = actor.img || actor.prototypeToken?.texture?.src;
+            // Task 3: Ingest Engine Hardening (gojq Integration)
+            const rawId = execFileSync('./crush-cli', ['jq', '-r', '._id // .name', fullPath], { encoding: 'utf-8' }).trim();
+            const rawImg = execFileSync('./crush-cli', ['jq', '-r', '.img // .prototypeToken.texture.src', fullPath], { encoding: 'utf-8' }).trim();
+            
+            const imgPath = (rawImg && rawImg !== 'null') ? rawImg : null;
             if (imgPath && /\.(png|webp|jpg|jpeg)$/i.test(imgPath)) {
-              const assetId = `legacy-mook-${actor._id || slugify(actor.name)}`;
+              const assetId = `legacy-mook-${slugify(rawId || path.basename(entry.name, '.json'))}`;
               insert.run(assetId, path.basename(imgPath), imgPath, faction, imgPath);
               indexed++;
             }
-          } catch {}
+          } catch (e) {
+            console.warn(`[Ingest] Error processing ${entry.name}:`, e);
+          }
         }
       }
     } catch {}

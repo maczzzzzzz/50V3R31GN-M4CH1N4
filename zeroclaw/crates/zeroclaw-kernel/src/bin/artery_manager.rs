@@ -67,6 +67,20 @@ pub enum Quantization {
     Q3,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum NodeTarget {
+    NodeA,
+    NodeC,
+}
+
+pub fn determine_route(tokens: usize) -> NodeTarget {
+    if tokens > 4000 {
+        NodeTarget::NodeA
+    } else {
+        NodeTarget::NodeC
+    }
+}
+
 impl Quantization {
     fn gguf_filename(self) -> &'static str {
         match self {
