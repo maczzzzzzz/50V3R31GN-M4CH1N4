@@ -4,7 +4,7 @@
 
 ## ◈ 1. LOGIC ARTERIES
 
-The Screamsheet Architect is a specialized Skill Shard running on Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
+The Screamsheet Architect is a specialized Skill Shard running on Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle).
 
 ### ◈ 1.1 DATA INPUT (GEPA FLOW)
 1. **Source:** `gepa-optimizer.ts` emits a `WORLD_EVENT` packet.
