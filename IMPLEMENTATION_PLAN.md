@@ -91,7 +91,7 @@
 - [ ] **Task 1:** Skill Crystallization Pipeline (Dynamic Tool Generation).
 - [ ] **Task 2:** Shadow Mode Self-Healing Daemon.
 - [ ] **Task 3:** Dynamic Fitness Weighting (Human-as-Loss-Function).
-- [ ] **Task 4:** Akashik Knowledge MCP (Expose `akashik_guides/` and `DEV_SCRIPTS_MANIFEST` to Hermes for zero-hallucination system awareness).
+- [x] **Task 4:** Akashik Knowledge MCP (Expose `akashik_guides/` and `DEV_SCRIPTS_MANIFEST` to Hermes, and strictly mandate agents to query `Akashik.db` / Node B / Node C instead of hallucinating logic).
 
 ---
 
