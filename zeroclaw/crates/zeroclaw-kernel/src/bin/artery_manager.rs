@@ -45,7 +45,11 @@ use tokio::{
 use tracing::{error, info, warn};
 
 // Phase 67.5: Rust ML Integration
-// use candle_transformers::models::whisper;
+use candle_core::{Device, Tensor};
+use candle_nn::VarBuilder;
+use candle_transformers::models::whisper::{self as m, Config, audio};
+use candle_transformers::generation::LogitsProcessor;
+use tokenizers::Tokenizer;
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -57,6 +61,45 @@ const VOCAL_SOUL: &str = "/mnt/vocal_soul";
 
 /// Startup grace period — wait for llama-server to bind before returning
 const STARTUP_GRACE_MS: u64 = 3_000;
+
+// ---------------------------------------------------------------------------
+// Whisper State
+// ---------------------------------------------------------------------------
+
+pub struct WhisperCore {
+    model: m::model::Whisper,
+    tokenizer: Tokenizer,
+    mel_filters: Vec<f32>,
+    device: Device,
+}
+
+impl WhisperCore {
+    pub fn new(vocal_soul: &PathBuf) -> anyhow::Result<Self> {
+        let whisper_dir = vocal_soul.join("whisper");
+        let model_path = whisper_dir.join("model.safetensors");
+        let tokenizer_path = whisper_dir.join("tokenizer.json");
+        let config_path = whisper_dir.join("config.json");
+        
+        // Let's assume Node C CUDA usage, fallback to CPU if failed.
+        let device = Device::new_cuda(0).unwrap_or(Device::Cpu);
+
+        if !model_path.exists() {
+            anyhow::bail!("Whisper model missing at: {}", model_path.display());
+        }
+
+        let config: Config = serde_json::from_reader(std::fs::File::open(config_path)?)?;
+        let vb = unsafe { VarBuilder::from_mmaped_safetensors(&[model_path], m::DTYPE, &device)? };
+        let model = m::model::Whisper::load(&vb, config.clone())?;
+        
+        let tokenizer = Tokenizer::from_file(tokenizer_path).map_err(anyhow::Error::msg)?;
+        let mel_bytes = include_bytes!("melfilters.bytes");
+        let mut mel_filters = vec![0f32; mel_bytes.len() / 4];
+        <byteorder::LittleEndian as byteorder::ByteOrder>::read_f32_into(mel_bytes, &mut mel_filters);
+
+        Ok(Self { model, tokenizer, mel_filters, device })
+    }
+}
+
 
 // ---------------------------------------------------------------------------
 // Quantization variant
@@ -132,6 +175,7 @@ struct ArteryState {
     vocal_soul: PathBuf,
     llama_server_bin: PathBuf,
     n_gpu_layers: i32,
+    whisper_core: Option<Arc<WhisperCore>>,
 }
 
 impl ArteryState {
@@ -312,35 +356,192 @@ async fn handle_start(State(state): State<SharedState>) -> (StatusCode, Json<ser
 // Entry point
 // ---------------------------------------------------------------------------
 
-async fn handle_ws(ws: WebSocketUpgrade) -> impl IntoResponse {
-    ws.on_upgrade(handle_socket)
+async fn handle_ws(State(state): State<SharedState>, ws: WebSocketUpgrade) -> impl IntoResponse {
+    ws.on_upgrade(|socket| handle_socket(socket, state))
 }
 
-async fn handle_socket(mut socket: WebSocket) {
+async fn handle_socket(mut socket: WebSocket, state: SharedState) {
     info!("◈ OMI Wearable connected");
     while let Some(Ok(msg)) = socket.recv().await {
         if let Message::Binary(bytes) = msg {
             // Task 2: Rust ML Integration (Phase 67.5)
-            let transcript = transcribe_audio(&bytes).await;
+            let whisper_core = {
+                let s = state.lock().await;
+                s.whisper_core.clone()
+            };
+
+            let transcript = transcribe_audio(&bytes, whisper_core).await;
             
             // VSB Intent Extraction
             if transcript.to_lowercase().contains("scan") {
                 info!("::/VSB_INJECT : TACTICAL_SCAN | {{\"source\":\"omi\",\"confidence\":0.95}}");
+            }
+            if transcript.to_lowercase().contains("market") {
+                info!("::/VSB_INJECT : NIGHT_MARKET | {{\"source\":\"omi\",\"confidence\":0.95}}");
             }
         }
     }
     info!("◈ OMI Wearable disconnected");
 }
 
-async fn transcribe_audio(bytes: &[u8]) -> String {
-    // Placeholder for candle-transformers Whisper inference
-    // In a full implementation, this would load the model from /mnt/vocal_soul/whisper/
-    // and process the audio chunk.
-    if bytes.len() > 0 {
-        "Tactical audio packet received. scan".to_string()
-    } else {
-        "".to_string()
+async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> String {
+    let core = match core_opt {
+        Some(c) => c,
+        None => return "".to_string(),
+    };
+
+    if bytes.is_empty() {
+        return "".to_string();
     }
+
+    // Assuming raw 16-bit PCM at 16kHz from OMI stream. 
+    // Convert bytes to f32 samples normalized to [-1.0, 1.0]
+    let mut pcm_data = Vec::with_capacity(bytes.len() / 2);
+    let mut chunks = bytes.chunks_exact(2);
+    while let Some(chunk) = chunks.next() {
+        let sample = i16::from_le_bytes([chunk[0], chunk[1]]);
+        pcm_data.push(sample as f32 / 32768.0);
+    }
+
+    // Process audio into mel spectrogram using the loaded filters
+    let mel = audio::pcm_to_mel(&core.model.config, &pcm_data, &core.mel_filters);
+    
+    let mel_len = mel.len();
+    let num_mel_bins = core.model.config.num_mel_bins;
+    let mel = match candle_core::Tensor::from_vec(
+        mel,
+        (1, num_mel_bins, mel_len / num_mel_bins),
+        &core.device,
+    ) {
+        Ok(m) => m,
+        Err(e) => {
+            error!("ARTERY: Failed to create mel tensor: {e}");
+            return "".to_string();
+        }
+    };
+
+    // Construct the decoder for Whisper
+    let mut dc = LogitsProcessor::new(
+        299792458, /* random seed */
+        None,      /* temp */
+        None,      /* top_p */
+    );
+    
+    let language_token = match core.tokenizer.token_to_id("<|en|>") {
+        Some(token) => token,
+        None => {
+            error!("ARTERY: English token missing in Whisper tokenizer");
+            return "".to_string();
+        }
+    };
+    
+    let transcribe_token = match core.tokenizer.token_to_id("<|transcribe|>") {
+        Some(token) => token,
+        None => {
+            error!("ARTERY: Transcribe token missing in Whisper tokenizer");
+            return "".to_string();
+        }
+    };
+    
+    let sot_token = match core.tokenizer.token_to_id("<|startoftranscript|>") {
+        Some(token) => token,
+        None => {
+            error!("ARTERY: SOT token missing in Whisper tokenizer");
+            return "".to_string();
+        }
+    };
+    
+    let eot_token = match core.tokenizer.token_to_id("<|endoftext|>") {
+        Some(token) => token,
+        None => {
+            error!("ARTERY: EOT token missing in Whisper tokenizer");
+            return "".to_string();
+        }
+    };
+    
+    let no_timestamps_token = match core.tokenizer.token_to_id("<|notimestamps|>") {
+        Some(token) => token,
+        None => {
+            error!("ARTERY: No timestamps token missing in Whisper tokenizer");
+            return "".to_string();
+        }
+    };
+    
+    let mut tokens = vec![sot_token, language_token, transcribe_token, no_timestamps_token];
+    
+    // We clone the model here to gain mutable access to its cache during inference
+    let mut model = core.model.clone();
+
+    // 1. Get audio features from encoder
+    let audio_features = match model.encoder.forward(&mel, false) {
+        Ok(f) => f,
+        Err(e) => {
+            error!("ARTERY: Whisper encoder forward failed: {e}");
+            return "".to_string();
+        }
+    };
+
+    for _ in 0..100 {
+        let tokens_t = match candle_core::Tensor::new(tokens.as_slice(), &core.device) {
+            Ok(t) => t.unsqueeze(0).unwrap_or(t),
+            Err(e) => {
+                error!("ARTERY: Token tensor creation failed: {e}");
+                break;
+            }
+        };
+
+        // 2. Pass features to decoder
+        let logits = match model.decoder.forward(&tokens_t, &audio_features, false) {
+            Ok(l) => l,
+            Err(e) => {
+                error!("ARTERY: Whisper decoder forward failed: {e}");
+                break;
+            }
+        };
+
+        // Get the logits for the last generated token
+        let logits = match logits.squeeze(0) {
+            Ok(l) => l,
+            Err(e) => {
+                error!("ARTERY: Logits squeeze failed: {e}");
+                break;
+            }
+        };
+        
+        let seq_len = logits.dim(0).unwrap_or(0);
+        if seq_len == 0 { break; }
+        
+        let last_logits = match logits.get(seq_len - 1) {
+             Ok(l) => l,
+             Err(e) => {
+                 error!("ARTERY: Logits get failed: {e}");
+                 break;
+             }
+        };
+
+        let next_token = match dc.sample(&last_logits) {
+            Ok(t) => t,
+            Err(e) => {
+                error!("ARTERY: Logits sampling failed: {e}");
+                break;
+            }
+        };
+
+        tokens.push(next_token);
+        if next_token == eot_token {
+            break;
+        }
+    }
+
+    let text = match core.tokenizer.decode(&tokens, true) {
+        Ok(t) => t.trim().to_string(),
+        Err(e) => {
+            error!("ARTERY: Decoding failed: {e}");
+            "".to_string()
+        }
+    };
+    
+    text
 }
 
 #[tokio::main]
@@ -376,12 +577,24 @@ async fn main() {
         );
     }
 
+    let whisper_core = match WhisperCore::new(&vocal_soul) {
+        Ok(core) => {
+            info!("◈ VOCAL_SOUL: Whisper Core initialized.");
+            Some(Arc::new(core))
+        },
+        Err(e) => {
+            warn!("◈ VOCAL_SOUL: Whisper Core failed to initialize: {e}");
+            None
+        }
+    };
+
     let initial_state = ArteryState {
         current_quant: Quantization::Q5,
         child: None,
         vocal_soul,
         llama_server_bin,
         n_gpu_layers,
+        whisper_core,
     };
 
     let shared = Arc::new(Mutex::new(initial_state));

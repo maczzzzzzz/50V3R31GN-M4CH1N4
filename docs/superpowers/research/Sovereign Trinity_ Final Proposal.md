@@ -7,7 +7,7 @@ This research report codifies the architectural finalization of the **SOVEREIGN 
 The transition to a basement-localized cluster is the critical performance multiplier.
 
 * **Backplane:** 1GbE Unmanaged Switch (Archer in AP Mode).  
-* **Physical:** Cat6 (CMR/Riser Rated). **Research Alert:** Research (April 2026\) warns that Powerline Ethernet (G.hn Wave 2\) jitter spikes under AFCI breaker interference (e.g., HVAC or appliances) will cause **TCP Re-transmission timeouts** in the Mooncake KV-stream. The hardwired Cat6 floor run is mandatory for sub-1ms "Director-to-Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" latency.  
+* **Physical:** Cat6 (CMR/Riser Rated). **Research Alert:** Research (April 2026\) warns that Powerline Ethernet (G.hn Wave 2\) jitter spikes under AFCI breaker interference (e.g., HVAC or appliances) will cause **TCP Re-transmission timeouts** in the Mooncake KV-stream. The hardwired Cat6 floor run is mandatory for sub-1ms "Director-to-Strategic Oracle" latency.  
 * **Network Optimization:** MTU 9000 (Jumbo Frames) enabled on all nodes. This reduces CPU interrupt overhead on Node A (Nitro 5\) by \~15% during heavy context streaming.
 
 ### ---
@@ -30,7 +30,7 @@ The transition to a basement-localized cluster is the critical performance multi
   * Pixtral Vision Module: \~2GB.  
   * **Total:** \~15GB. It fits, but the 128k context window *must* be offloaded to Node A to prevent OOM during heavy VTT map-parsing.
 
-#### **Node C: The Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle (NEW)**
+#### **Node C: The Strategic Oracle (NEW)**
 
 * **Hardware:** RTX 2060 (6GB) | 32GB RAM | CUDA 12.8.  
 * **Stack:** **SGLang v3.0** with **RadixAttention**.  
@@ -51,7 +51,7 @@ The cluster now uses **Reflective Text Evolution** (GEPA) for "Infallible" promp
 * **GEPA Logic:** Verified (April 2026 ICLR Paper). GEPA is **35x faster than RL** and requires only 20-100 samples to optimize.  
 * **Node C Supervision:** Hermes Master on Node C manages the **Log-Step Hash** verification.  
   * Node C generates rule verdicts (Gemma-4).  
-  * Node B (Director) audits the **Trace hashes** (from the PODS logic) to ensure the Rule Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle didn't hallucinate.  
+  * Node B (Director) audits the **Trace hashes** (from the PODS logic) to ensure the Rule Strategic Oracle didn't hallucinate.  
 * **Culling Strategy:** Aggressive trajectory culling (Age/Fitness) is confirmed as necessary in the gepa\_config.yaml to prevent memory bloat on Node C’s NVMe.
 
 ### ---

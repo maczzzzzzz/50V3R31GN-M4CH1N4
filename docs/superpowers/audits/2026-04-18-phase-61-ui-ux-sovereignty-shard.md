@@ -13,14 +13,14 @@ Transform the Sovereign Dashboard from passive telemetry monitor into an active 
 | Route | Component | Status |
 |---|---|---|
 | `/` | Dashboard (KernelMonitor, DirectorPulse, VsbWaveform) | ✅ LIVE |
-| `/combat` | CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog | ✅ LIVE |
+| `/combat` | CombatStrategic OracleLog | ✅ LIVE |
 | `/economy` | MarketTerminal | ✅ LIVE |
 | `/lexicon` | ItemBrowser | ✅ LIVE |
 
 - `SideNav.tsx`: Persistent sidebar with active route highlighting across all four routes.
 - `layout.tsx`: Modified to flex container with sidebar + content pane.
 
-### 2. Combat Artery — CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog (`app/combat/`)
+### 2. Combat Artery — CombatStrategic OracleLog (`app/combat/`)
 | Feature | Status |
 |---|---|
 | WebSocket subscription via `useSovereignTelemetry` | ✅ LIVE |

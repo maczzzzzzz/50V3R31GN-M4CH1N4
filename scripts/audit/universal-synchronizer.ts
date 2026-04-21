@@ -93,10 +93,18 @@ async function universalSync() {
         // 2. Scribe Harmonization (Only for Markdown)
         if (filePath.endsWith('.md')) {
             for (const [legacy, canonical] of Object.entries(CANONICAL_TERMS)) {
-                const regex = new RegExp(legacy, 'g');
-                if (regex.test(updated)) {
-                    updated = updated.replace(regex, canonical);
-                }
+                // Use word boundaries and ensure we don't replace if already canonical
+                const regex = new RegExp(`\\b${legacy}\\b`, 'g');
+                updated = updated.replace(regex, (match) => {
+                    // If the match is part of a larger canonical string, skip it
+                    // e.g., if we are looking for 'Oracle' and it's already 'Strategic Oracle'
+                    const index = updated.indexOf(match);
+                    const precedingText = updated.substring(Math.max(0, index - 20), index);
+                    if (canonical.includes(match) && precedingText.includes(canonical.replace(match, '').trim())) {
+                        return match;
+                    }
+                    return canonical;
+                });
             }
         }
 

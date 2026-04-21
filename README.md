@@ -18,7 +18,7 @@ The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed 
 - **Optic Nerve:** Continuous 100% screen awareness on WSL2 via the **Sovereign Observer** (Rust).
 - **Akashik Artery:** Multi-dimensional world-state synchronized via **Akashik.db** (SQLite) and **Obsidian RKG Vault**.
 - **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**.
-- **Recursive Strategic Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
+- **Recursive Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
 - **Physical Hands:** Go-native **Sovereign Harness** and self-healing **Skill Forge** for automated browser control.
 
 ---

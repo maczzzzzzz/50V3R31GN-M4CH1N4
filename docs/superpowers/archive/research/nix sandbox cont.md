@@ -6,7 +6,7 @@ Using an AI collaborator to navigate Nix's syntax turns its greatest weakness (t
 The \#1 killer of local AI setups on older NVIDIA hardware (GTX 1050 Ti) is **Driver/Kernel Drift**.
 
 * **The Problem:** On Windows or Ubuntu, an automatic update to the NVIDIA driver or Linux kernel can break the CUDA-Ollama link, requiring hours of troubleshooting.  
-* **The Nix Solution:** Nix uses **declarative configuration**. If your "Rules Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" works today, you can lock that exact combination of kernel, driver, and Ollama version. It will never break unless you explicitly change the code.  
+* **The Nix Solution:** Nix uses **declarative configuration**. If your "Rules Strategic Oracle" works today, you can lock that exact combination of kernel, driver, and Ollama version. It will never break unless you explicitly change the code.  
 * **Vitalik’s Insight:** This is why Vitalik uses it—it creates a "reproducible environment" where the OS is a reflection of your config file, not a messy history of manual installs.
 
 ### **2\. Fact: VRAM Recovery & Resource Efficiency**

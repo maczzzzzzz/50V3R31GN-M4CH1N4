@@ -32,6 +32,10 @@ anyhow = "1.0"
 candle-core = { version = "0.8" }
 candle-nn = { version = "0.8" }
 candle-transformers = { version = "0.8" }
+hound = "3.5.1"
+rubato = "2.0.0"
+byteorder = "1.5.0"
+tokenizers = "0.22.2"
 
 [features]
 cuda = ["candle-core/cuda"]

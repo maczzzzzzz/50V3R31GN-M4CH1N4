@@ -19,7 +19,7 @@ Once a recovery is successful, the **Skill Forge** generates a new skill artifac
 
 ## ◈ 2. FIRE-CRAWL INTEGRATION (NODE C)
 We utilize the Firecrawl pattern to achieve "LLM-Ready" environment awareness.
-- **Clean MD:** Raw HTML from the VTT is converted to minimal Markdown before being fed to the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle.
+- **Clean MD:** Raw HTML from the VTT is converted to minimal Markdown before being fed to the Strategic Oracle.
 - **Token Efficiency:** Reduces the sensory context window by 80%, allowing for deeper reasoning on Node C.
 
 ---

@@ -24,11 +24,11 @@ Before any sync, you MUST:
 - **No Fluff:** Maintain the VT323/RED aesthetic.
 - **Unified Sync:** The `npm run scribe` command performs simultaneous version synchronization and terminology harmonization.
 - **Terminology Alignment:**
-    - "Mesh" instead of "Mesh" (Nodes A/B/C are a localized fabric).
-    - "Artery of Truth" instead of "Artery of Truth".
-    - "Cognition" instead of "Cognition".
-    - "Synapse" instead of "Synapse".
-    - "Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" instead of "Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle" (Node C).
+    - "Mesh" (Nodes A/B/C localized fabric).
+    - "Artery of Truth" (VSB/UDP bridge).
+    - "Cognition" (Cognition pipeline).
+    - "Synapse" (Node A Rules Authority).
+    - "Strategic Oracle" (Node C Logic Gate).
 - **Surgical Precision:** Touch only the required blocks. Preserve historical metadata.
 - **Zero-Drift:** Documentation must NEVER describe a feature that does not exist in the code.
 

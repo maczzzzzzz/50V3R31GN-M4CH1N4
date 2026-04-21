@@ -7,6 +7,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
+- **Sovereign Transcription:** Materialized a Rust-native `candle-transformers` Whisper inference loop inside the Node C Artery Manager, achieving zero-latency raw PCM decoding and diegetic intent extraction.
 - **Systematic Audit:** Performed exhaustive code audit and type-hardening of the Sovereign Trinity materialization.
 - **Sovereign Observer:** Materialized the **Rust-native** screen capture daemon (`sovereign-observer`) for 100% screen awareness on WSL2.
 - **Vocal Soul Materialized:** Consolidated the OMI WebSocket bridge and real-time audio ingestion into the Rust **Artery Manager**.
