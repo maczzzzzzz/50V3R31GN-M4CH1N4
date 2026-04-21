@@ -5,15 +5,15 @@ Phase 67.9 bridges our existing `Skill Forge`, `Maestro Orchestration`, and `Dar
 
 ## 2. Architecture Updates
 
-### 2.1 The Skill Crystallization Engine (Node B)
-- **Mechanism:** An upgrade to the `Skill Forge` that automatically generates MCP-compliant tools based on successful reasoning trajectories.
-- **Logic:** When the `Hermes Orchestrator` completes a high-complexity task (tracked via `Maestro` beads) with a high `Fitness Score`, the engine "crystallizes" the trajectory. It dynamically writes a new `.ts` tool file to `.factory/skills/autogen-[name]/`, registers it with the MCP server, and hot-reloads the tool registry.
-- **Benefit:** 6x token reduction on subsequent executions of similar tasks.
+### 2.1 Visual Skill Crystallization (Node B + Observer)
+- **Mechanism:** An upgrade to the `Skill Forge` that automatically generates MCP-compliant tools based on successful reasoning trajectories, heavily augmented by continuous screen capture.
+- **Logic:** When the `Hermes Orchestrator` completes a high-complexity task, the engine "crystallizes" the trajectory. It cross-references the `Maestro` bead chain with the historical frame hashes from the `sovereign-observer`. It dynamically writes a new `.ts` tool file to `.factory/skills/autogen-[name]/` that includes visual assertions (e.g., waiting for specific OCR text to appear), registers it with the MCP server, and hot-reloads the registry.
+- **Benefit:** 6x token reduction on subsequent runs, producing highly robust, visually-aware automation rather than brittle DOM/CLI scripts.
 
-### 2.2 Shadow Mode Self-Healing (SWE-RL Loop)
-- **Mechanism:** A background daemon that tests and repairs broken skills autonomously.
-- **Logic:** If an execution fails (e.g., a visual selector changes or a macro breaks), the system flags the skill as `DEGRADED`. A detached Node C process (Shadow Mode) attempts to accomplish the goal using trial-and-error visual scanning. Upon success, it overwrites the original skill file (the `FIX` mode) and restores its status to `CANONICAL`.
-- **Benefit:** Zero human intervention required for maintenance of UI-bound or dynamic tasks.
+### 2.2 Shadow Mode Self-Healing (Visual Re-Targeting)
+- **Mechanism:** A background daemon that tests and repairs broken skills autonomously using 100% screen awareness.
+- **Logic:** If an execution fails (e.g., UI layout changes), the skill is flagged as `DEGRADED`. A detached Node C process (Shadow Mode) triggers the `sovereign-observer` to capture the live visual state. Using Node A's Vision/OCR capabilities, it visually scans for the missing target, finds its new coordinates or structural selector, and overwrites the original skill file (the `FIX` mode) to restore it to `CANONICAL`.
+- **Benefit:** Zero human intervention required for maintenance of UI-bound or dynamic tasks. The machine literally looks at the screen to fix its own code.
 
 ### 2.3 Human-as-Loss-Function Integration
 - **Mechanism:** Tight integration with the Phase 67.8 Voice Control VAD and Intent Router.

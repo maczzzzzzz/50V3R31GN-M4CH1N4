@@ -5,15 +5,16 @@ Transform the Sovereign Trinity into an autonomous, self-improving metacognitive
 
 ## 📋 Step-by-Step Execution
 
-### Task 1: Skill Crystallization Pipeline
+### Task 1: Visual Skill Crystallization Pipeline
 1.  Extend `LangGraphOrchestrator.ts` to monitor the `Maestro` Bead chain for high-complexity, high-success trajectories.
-2.  Implement a code-generation prompt template in `HealerProtocol.ts` that takes a bead trajectory and outputs a valid TypeScript MCP tool.
-3.  Implement a safe file-writer that saves the tool to `.factory/skills/autogen/` and triggers a dynamic import/hot-reload of the MCP tool registry.
+2.  Implement an API bridge to the `sovereign-observer` daemon to fetch historical screen hashes corresponding to the trajectory timestamps.
+3.  Implement a code-generation prompt template in `HealerProtocol.ts` that takes the bead trajectory AND the visual context, outputting a valid TypeScript MCP tool with visual assertions.
+4.  Implement a safe file-writer that saves the tool to `.factory/skills/autogen/` and triggers a dynamic import/hot-reload of the MCP tool registry.
 
-### Task 2: Shadow Mode Self-Healing Daemon
+### Task 2: Shadow Mode Self-Healing (Visual Re-Targeting)
 1.  Create a background worker queue in Node B (Director) for `DEGRADED` skills.
-2.  Implement the `SWE-RL` loop: The worker spawns a headless browser or isolated terminal, attempts alternative actions, and validates the result against `Akashik.db` state changes.
-3.  Upon success, the worker utilizes the Crystallization Pipeline to overwrite the broken skill.
+2.  Implement the visual `SWE-RL` loop: The worker requests a live frame from `sovereign-observer`, feeds it to Node A for OCR/bounding-box analysis, and dynamically identifies the new target location.
+3.  Upon successful interaction with the new target, the worker utilizes the Crystallization Pipeline to overwrite and fix the broken skill.
 
 ### Task 3: Dynamic Fitness Weighting (Vocal/CLI Feedback)
 1.  Update the `Darwinian Skill Induction` logic to ingest a new parameter: `Operator Sentiment`.
