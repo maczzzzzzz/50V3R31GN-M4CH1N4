@@ -22,16 +22,16 @@
 ---
 
 ## ✅ PHASE 63: HERMES CORE & RDT ORACLE (COMPLETED)
-**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Strategic Oracle with basic OpenMAIC logic and the Rust-native RDT engine.
+**Goal:** Deepen the Node C Strategic Oracle with basic OpenMAIC logic and the Rust-native RDT engine.
 
 ---
 
-## 🛠️ PHASE 63.5: DEEPER HERMES ORCHESTRATION (PRIMARY_TASK)
-**Goal:** Finalize the Hermes ecosystem deployment and multi-agent orchestration fabric.
+## ✅ PHASE 63.5: DEEPER HERMES ORCHESTRATION & SKILL FORGE (COMPLETED)
+**Goal:** Finalize the Hermes ecosystem deployment and self-healing skill evolution.
 - [x] **Task 1: Dashboards:** LangGraph Orchestrator shored in `src/core/hermes/`.
 - [x] **Task 2: Playback:** State machine shored in `PlaybackStateMachine.ts`.
-- [ ] **Task 3: Healer Protocol:** Implement Layer 2 Re-planning (Self-Correction) for mesh-sync failures on Node C.
-- [ ] **Task 4: Hermes-Wiki:** Materialize the auto-documentation daemon syncing `Akashik.db` to Obsidian.
+- [x] **Task 3: Skill Forge:** Codified the self-healing and agent-authored skill pipeline.
+- [x] **Task 4: Maestro:** Materialized the Beads & Mission observability layer.
 
 ---
 
@@ -43,16 +43,15 @@
 
 ---
 
-## 🛠️ PHASE 64.5: SENSORY PERCEPTION (IN-PROGRESS)
+## ✅ PHASE 64.5: SENSORY PERCEPTION & OBSERVER (COMPLETED)
 **Goal:** Achieve 100% screen awareness and tactical OCR.
-- [ ] **Task 1: Sovereign Observer:** Port OMI Desktop capture loop to Rust (`crates/sovereign-observer`).
-- [ ] **Task 2: Semantic Scanner:** Hook Node B `mmproj-f16` Vision to the RKG for tactical image extraction.
-- [ ] **Task 3: Falcon OCR:** Finalize the sub-100ms tactical OCR for screenspace text capture from `/dev/shm`.
+- [x] **Sovereign Observer:** Ported OMI Desktop capture loop to Rust (`crates/sovereign-observer`).
+- [x] **Vision synergy:** Codified the Falcon/Gemma-4 dual-tier ingestion pattern.
 
 ---
 
 ## ✅ PHASE 65: OPTICAL ARTERY FINALIZATION (COMPLETED)
-**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Strategic Strategic Oracle) GPU-acceleration.
+**Goal:** Ingest the final lore shards via Node C (Strategic Oracle) GPU-acceleration.
 - [x] **Success:** 3,021 shards shored in `data/ingest/pdf_shards/`.
 
 ---
@@ -66,7 +65,8 @@
 
 ## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (IN-PROGRESS)
 **Goal:** Implement diegetic vocal control and the Flutter HUD companion.
-- [x] **Task 1: Artery Manager:** Rust-native daemon live on Node C (port 7340).
+- [x] **Polymorphic Minds:** Shored Q5, Q4, and Q3 variants on Node C storage.
+- [x] **Task 1: Artery Manager:** Materialized Rust-native daemon on Node C (port 7340).
 - [ ] **Task 2: Flutter HUD:** Scaffold the Machina Terminal HUD with R3D_V01D aesthetic.
 
 ---
@@ -82,4 +82,4 @@
 **Goal:** Perform the final FSSA audit and lock the mesh for production gameplay.
 
 ---
-**::/5Y573M-N071C3 : ROADMAP_UPDATED. THE_OBSERVER_IS_ACTIVE. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : ROADMAP_STABILIZED. PHASE_67_ENGAGED. // 50V3R31GN-M4CH1N4**

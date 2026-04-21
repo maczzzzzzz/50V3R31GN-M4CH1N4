@@ -7,16 +7,20 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
+- **Sovereign Observer:** Formalized the port of **OMI Desktop** for 100% screen awareness on WSL2, feeding the dual-tier vision array (Falcon/Gemma-4).
+- **Self-Healing Skill Forge:** Codified the **Maestro** pattern for autonomous workflow induction and agent-authored skill generation.
+- **Darwinian Induction:** Materialized the weighted trajectory evaluation spec ($F > 0.85$) for learning priority.
+- **Sovereign Weighting:** Codified the **Identity Grounding ($W_i$)** gating protocol to prevent identity drift via force-activation of Ouroboros-Reset.
 - **Phase 67.5: Rust Artery Daemon:** Materialized the Node C Artery Manager in **Rust** (`artery_manager.rs`) via Axum (port 7340) for sub-10ms mind-swapping.
 - **RDT Rust Port:** Bit-identically ported the OpenMythos architecture to `zeroclaw/src/rdt/mod.rs` for recursive strategic depth.
 - **Shroud Ignition:** Initialized the **Sovereign Shroud** (Three.js/GLSL) in the dashboard for tactical visual overlays.
 - **OpenMAIC Pipeline:** Materialized the "Outline -> Scene" generation pipeline in `src/core/outline-scene-builder.ts`.
-- **Flutter Unblocked:** Surgically injected **Flutter SDK**, **Android Tools**, and **JDK 17** into `flake.nix` to enable Machina Terminal development.
+- **Flutter Unblocked:** Surgically injected **Flutter SDK**, **Android Tools**, and **JDK 17** into `flake.nix`.
 - **Manifest Governance:** Created the reusable **`manifest-scribe`** skill to automate bit-identical ledger synchronization.
 - **Artery Scripts:** Wired `npm run sync` and `npm run scribe:lock` in `package.json` for historical shriving.
 
 ### Fixed
-- **Blocker Neutralization:** Repaired 4+ tactical gaps identified in the `claudeReport.md` audit, including environment and script ghosts.
+- **Blocker Neutralization:** Repaired 4+ tactical gaps identified in the `claudeReport.md` audit.
 - **VRAM Buffer:** Restored the 1GB safety margin on Node C via host-native Llama-Server (Q5 Authority).
 
 ## [3.2.20] - 2026-04-20

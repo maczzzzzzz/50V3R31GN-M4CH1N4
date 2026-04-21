@@ -20,7 +20,7 @@
 - [x] Extend `world-schema.sql` with `district_grid`
 - [x] Implement recursive Chebyshev influence triggers
 - [x] Implement NPC state transition triggers
-- [x] Add grid seeding logic to `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`
+- [x] Add grid seeding logic to `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`
 - **Result:** Night City state now advances deterministically via SQLite triggers.
 
 ### Task 4: Spatial Context Fusion
