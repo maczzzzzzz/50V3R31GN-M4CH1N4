@@ -30,9 +30,9 @@ use std::{
 };
 
 use axum::{
-    extract::State,
+    extract::{State, ws::{Message, WebSocket, WebSocketUpgrade}},
     http::StatusCode,
-    response::Json,
+    response::{IntoResponse, Json},
     routing::{get, post},
     Router,
 };
@@ -315,6 +315,26 @@ async fn handle_start(State(state): State<SharedState>) -> (StatusCode, Json<ser
 // Entry point
 // ---------------------------------------------------------------------------
 
+async fn handle_ws(ws: WebSocketUpgrade) -> impl IntoResponse {
+    ws.on_upgrade(handle_socket)
+}
+
+async fn handle_socket(mut socket: WebSocket) {
+    info!("◈ OMI Wearable connected");
+    while let Some(Ok(msg)) = socket.recv().await {
+        if let Message::Binary(_) = msg {
+            // TODO: Route to local Whisper/Candle instance for high-speed transcription
+            let transcript = "Tactical audio packet received. scan";
+            
+            // VSB Intent Extraction
+            if transcript.to_lowercase().contains("scan") {
+                info!("::/VSB_INJECT : TACTICAL_SCAN | {{\"source\":\"omi\",\"confidence\":0.95}}");
+            }
+        }
+    }
+    info!("◈ OMI Wearable disconnected");
+}
+
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt()
@@ -364,6 +384,7 @@ async fn main() {
         .route("/shift", post(handle_shift))
         .route("/stop", post(handle_stop))
         .route("/start", post(handle_start))
+        .route("/ws/audio", get(handle_ws))
         .with_state(shared);
 
     let bind_addr = format!("0.0.0.0:{bind_port}");

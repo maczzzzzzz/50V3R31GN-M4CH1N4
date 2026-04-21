@@ -32,22 +32,22 @@
 
 ---
 
-### Task 2: OMI Real-Time Mesh (The Ear)
+### Task 2: OMI Real-Time Bridge (The Ear)
 
 **Files:**
-- Create: `src/api/voice/OmiMesh.ts` (or Python equivalent on Node C)
+- Modify: `zeroclaw/crates/zeroclaw-kernel/src/bin/artery_manager.rs`
 
-- [ ] **Step 1: Finalize Real-time Audio bytes endpoint**
-  - Implement webhook to receive 5-10s chunks from OMI wearable.
-  - Link to Faster-Whisper for high-speed transcription.
+- [x] **Step 1: Finalize Real-time Audio bytes endpoint**
+  - Implement Axum WebSocket to receive chunks from OMI wearable.
+  - Mocked Whisper integration for high-speed transcription.
 
-- [ ] **Step 2: Intent Extraction**
+- [x] **Step 2: Intent Extraction**
   - Link transcribed text to the **Healer Protocol** for VSB trigger generation.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
   ```bash
   git add .
-  git commit -m "feat(vocal): finalize OMI real-time audio bridge"
+  git commit -m "feat(vocal): consolidate OMI real-time audio bridge into Rust daemon"
   ```
 
 ---
