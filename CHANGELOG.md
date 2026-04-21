@@ -7,6 +7,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
+- **Dynamically Learning Control System (Phase 67.9):** Shored research, specs, and implementation plans for Metacognitive Skill Crystallization and Shadow Mode Self-Healing.
 - **Vocal Hardening & Synergy (Phase 67.8):** Implemented an RMS-based Voice Activity Detection (VAD) gate in the Rust Artery Daemon to prevent VRAM waste on background noise.
 - **Contextual Intent Routing:** Replaced hardcoded keyword matching with a decoupled JSON payload (`VOCAL_INTENT`) for infinite LLM-based tool scalability via Node B (MCP).
 - **Visual Synergy:** Added optical context injection logic (`/observer/hash`) to append the latest screen hash to vocal intents, granting the voice interface spatial awareness.

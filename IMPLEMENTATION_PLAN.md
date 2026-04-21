@@ -86,7 +86,15 @@
 
 ---
 
-## 🛠️ PHASE 68: MASTER SYSTEM AUDIT & SOVEREIGN LOCK (PRIMARY_TASK)
+## 🛠️ PHASE 67.9: DYNAMICALLY LEARNING CONTROL SYSTEM (IN-PROGRESS)
+**Goal:** Transform the Trinity into an autonomous, self-improving metacognitive entity through Skill Crystallization and Shadow Mode Self-Healing.
+- [ ] **Task 1:** Skill Crystallization Pipeline (Dynamic Tool Generation).
+- [ ] **Task 2:** Shadow Mode Self-Healing Daemon.
+- [ ] **Task 3:** Dynamic Fitness Weighting (Human-as-Loss-Function).
+
+---
+
+## 🛠️ PHASE 68: MASTER SYSTEM AUDIT & SOVEREIGN LOCK (PENDING)
 **Goal:** Perform the final FSSA audit and lock the mesh for production gameplay.
 
 ---
