@@ -1,4 +1,4 @@
-# Design: Crush Sidecar Mesh & Physical Confirmation (v3.2.19)
+# Design: Crush Sidecar Mesh & Physical Confirmation (v3.2.21)
 **Date:** 2026-04-04
 **Target:** Phase 23 (Neural World Engine)
 

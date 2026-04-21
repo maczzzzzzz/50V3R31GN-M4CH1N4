@@ -1,9 +1,9 @@
-# Design Specification: Phase 14 — Neural World Engine (v3.2.19)
+# Design Specification: Phase 14 — Neural World Engine (v3.2.21)
 **Subject:** Reactive Environments, Visual Diffing, and Latent Persistence
 **Status:** DESIGN FINALIZED (Hardware Hardened)
 
 ## 1. Executive Summary
-Phase 14 introduces physical reactivity to the TRPG environment. It establishes a "Visual Diff" engine to stabilize AI perception and an "Action-Conditioned" materialization loop that applies environmental damage based on mechanical outcomes. By pivoting from on-the-fly diffusion to intelligent asset-mapping, we maintain the v3.2.19 performance baseline while achieving high-fidelity environmental persistence.
+Phase 14 introduces physical reactivity to the TRPG environment. It establishes a "Visual Diff" engine to stabilize AI perception and an "Action-Conditioned" materialization loop that applies environmental damage based on mechanical outcomes. By pivoting from on-the-fly diffusion to intelligent asset-mapping, we maintain the v3.2.21 performance baseline while achieving high-fidelity environmental persistence.
 
 ## 2. Component Architecture
 
@@ -15,7 +15,7 @@ Stabilizes the "Project Eyes-On" pipeline by isolating the map geometry from tra
 ### 2.2 Neural Asset Mapping (Materialization Layer)
 Replaces expensive generative loops with high-speed tactical selection.
 - **The Library:** A curated repository of transparent "Neural Decals" representing Cyberpunk RED environmental effects (Ablation, Crits, Explosions).
-- **The Trigger:** The **Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Node A) emits "Environmental Delta" signals alongside math results.
+- **The Trigger:** The **Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle** (Node A) emits "Environmental Delta" signals alongside math results.
 - **The Action:** Node B selects the corresponding decal and uses the Neural Uplink to stamp it onto the Foundry canvas at the event's coordinates.
 
 ### 2.3 Latent Atmosphere (Persistence Layer)

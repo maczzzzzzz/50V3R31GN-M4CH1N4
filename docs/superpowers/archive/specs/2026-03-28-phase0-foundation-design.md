@@ -85,7 +85,7 @@ Scaffold a strictly typed ES2022 ESM TypeScript project with Zod schemas coverin
 
 ## 3. Data Models (Zod Schemas)
 
-All schemas are derived from direct inspection of actual seed data in `docs/raw_data/`. Field optionality reflects what was observed in the real Foundry VTT v12 exports from `cyberpunk-red-core` v3.2.19.
+All schemas are derived from direct inspection of actual seed data in `docs/raw_data/`. Field optionality reflects what was observed in the real Foundry VTT v12 exports from `cyberpunk-red-core` v3.2.21.
 
 ### 3.1 `common.schema.ts` — Shared sub-structures
 
@@ -437,7 +437,7 @@ JournalEntrySchema extends FoundryBaseDocumentSchema
   pages: JournalPageSchema[]
 ```
 
-### 3.6 `roll-table.schema.ts` — Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & random tables
+### 3.6 `roll-table.schema.ts` — Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & random tables
 
 Modeled from 49 roll tables (bounties, night markets, community events, autofire DVs).
 
@@ -568,7 +568,7 @@ Phase 0 defines the chunk schema contract. Phase 1 implements the parser. The fo
 | Section | Pages | Chunking notes |
 |---------|-------|----------------|
 | Going it Alone | 5-10 | Solo play introduction |
-| Solo Play Core Tools | 11-26 | Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle system, NPC reaction tables, scene generation |
+| Solo Play Core Tools | 11-26 | Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle system, NPC reaction tables, scene generation |
 | Missions and Campaigns | 27-90 | Mission generation, campaign structures, beat charts (includes embedded lists/tables throughout) |
 | Blank Forms | 91-106 | Reference sheets and printable forms |
 

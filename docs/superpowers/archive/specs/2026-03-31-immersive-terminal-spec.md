@@ -1,4 +1,4 @@
-# Design Specification: Immersive Terminal Extension (v3.2.19)
+# Design Specification: Immersive Terminal Extension (v3.2.21)
 **Date:** March 31, 2026
 **Subject:** Discord Chronicler, Playwright Optical Mesh, and Multimodal Terminal
 **Status:** FINALIZED
@@ -10,7 +10,7 @@ This extension turns the Crush CLI into a "High-Fidelity Deck" for solo play. It
 
 ### 2.1 Architecture
 - **Transport:** Official Discord MCP Server or Direct Webhook.
-- **Trigger:** Any "State Mutation Event" from the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` (Faction shifts, Rent payments, Gig completion).
+- **Trigger:** Any "State Mutation Event" from the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` (Faction shifts, Rent payments, Gig completion).
 - **Tool:** `screamsheet_post(content: string, persona: string)`.
 
 ### 2.2 Persona Logic

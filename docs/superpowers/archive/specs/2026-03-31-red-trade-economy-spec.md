@@ -1,4 +1,4 @@
-# Design Specification: Red Trade Economy & Faction Matrix (v3.2.19)
+# Design Specification: Red Trade Economy & Faction Matrix (v3.2.21)
 **Date:** March 31, 2026
 **Subject:** Smuggling Mechanics, Faction Standing, and Immersion Loops
 **Status:** FINALIZED
@@ -38,7 +38,7 @@ As the player moves, the backend executes "Friction Ticks."
     - **High:** Rival Intervention (Ambush/Tax/Combat).
 
 ### 3.3 The Handoff & Standing Update
-Delivery is verified via the **Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle**.
+Delivery is verified via the **Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle**.
 - **Success:** `UPDATE npcs SET disposition = 'friendly' WHERE name = ?`. Payout in `eb`.
 - **Failure:** Standing with Buyer (--) and Fixer (--) drops.
 

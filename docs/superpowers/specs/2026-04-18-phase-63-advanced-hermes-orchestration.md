@@ -1,7 +1,7 @@
 # SPEC: Phase 63 — Advanced Hermes Orchestration
 **Date:** 2026-04-18
 **Status:** DRAFT // ARCHITECT_REVIEW
-**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and Hermes ecosystem dashboards, bridging headless computation with the Node B Nucleus Command Deck.
+**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle with OpenMAIC orchestration logic and Hermes ecosystem dashboards, bridging headless computation with the Node B Nucleus Command Deck.
 
 ## ◈ 1. ARCHITECTURAL OBJECTIVES
 - **Headless Dashboards (Node C):** Deploy `hermes-control-interface` and `hermes-hud` as headless background web services on Node C (RTX 2060).
@@ -12,7 +12,7 @@
 ## ◈ 2. COMPONENT DEPLOYMENT (NODE C)
 ### Hermes Ecosystem
 - `hermes-control-interface`: Run via Nix on port 8080 (headless).
-- `hermes-hud`: Real-time visualization of Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle state and Monte Carlo simulations.
+- `hermes-hud`: Real-time visualization of Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle state and Monte Carlo simulations.
 - `Hermes-Wiki`: Auto-documentation daemon syncing `Akashik.db` RKG changes back to Obsidian format.
 
 ### OpenMAIC Logic Porting

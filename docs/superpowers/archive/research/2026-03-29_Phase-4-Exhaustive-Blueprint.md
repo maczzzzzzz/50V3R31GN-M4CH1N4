@@ -67,7 +67,7 @@ While fully automated "chatbots" exist, the mandate specifies the **Phils AI Ass
 To clear Phase 4 and declare the MVP complete, we must successfully run this exact sequence without errors or "meta-text" breaking the Immersion Mandate:
 
 1.  **Generate Gig:** Node B synthesizes a Fixer text message (using TttA data) and pushes it to the player via the `simple-phone` module.
-2.  **Roll Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle / Math:** The player attempts a task. Node A (`nitro-logic`) resolves the DV and returns the JSON result.
+2.  **Roll Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle / Math:** The player attempts a task. Node A (`nitro-logic`) resolves the DV and returns the JSON result.
 3.  **Update Beat:** The Story Engine evaluates the success, advances the Beat, and outputs the narrative consequence to the Foundry chat.
 4.  **Buy Item:** The player opens the Afterlife Night Market UI and purchases an item. Node B validates the Eagle cost and updates the character sheet.
 5.  **GM Approval:** A major arc transition is proposed, intercepted by the Queue, and manually approved by the human GM.
@@ -77,15 +77,15 @@ To ensure absolute adherence to the "No Creep" contract and prevent hallucinated
 
 ### 6.1 Core Foundry VTT Environment
 - **Foundry VTT Version:** v12 Stable (Do not architect for v13)
-- **Cyberpunk RED Core System:** v3.2.19 (Pinned per `KNOWLEDGE_BASE.md`)
+- **Cyberpunk RED Core System:** v3.2.21 (Pinned per `KNOWLEDGE_BASE.md`)
 
 ### 6.2 Mandatory Phase 4 Modules
 | Module | Version | Compatibility | Source / Manifest URL |
 | :--- | :--- | :--- | :--- |
-| **simple-phone** (Odd-Kaiju) | v3.2.19 | Min: v12, Verified: v13 | `https://github.com/Odd-Kaiju/simple-phone/releases/latest/download/module.json` |
-| **Ticket-To-The-Afterlife** (TheInvaderZim) | v3.2.19 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/Ticket-To-The-Afterlife/releases/latest/download/module.json` |
+| **simple-phone** (Odd-Kaiju) | v3.2.21 | Min: v12, Verified: v13 | `https://github.com/Odd-Kaiju/simple-phone/releases/latest/download/module.json` |
+| **Ticket-To-The-Afterlife** (TheInvaderZim) | v3.2.21 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/Ticket-To-The-Afterlife/releases/latest/download/module.json` |
 | **night-city-gang-and-corp-mook-pack** | v2.8 | Min: v12, Verified: v12.343 | `https://github.com/TheInvaderZim/night-city-gang-and-corp-mook-pack/releases/latest/download/module.json` |
-| **foundry-api-bridge-module** | v3.2.19 (Local) | Min: v12, Verified: v12 | *(Local Manifest - Node B WebSocket Mesh)* |
+| **foundry-api-bridge-module** | v3.2.21 (Local) | Min: v12, Verified: v12 | *(Local Manifest - Node B WebSocket Mesh)* |
 
 ### 6.3 Technical Implementation: Night Market Macro Raw Data
 The `cpr-night-market.js` macro is extended with the following raw logic to map to TTTA vendor structures:

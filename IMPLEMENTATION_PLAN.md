@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.2.20
+**Version:** 3.2.21
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
 <details>
@@ -45,11 +45,29 @@
 
 ---
 
-## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (STAGED)
+## 🛠️ PHASE 66: COGNITIVE HARDENING & PERFORMANCE (PENDING)
+**Goal:** Implement VRAM optimization (KV-cache quantization) and predictive caching.
+
+---
+
+## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (IN-PROGRESS)
 **Goal:** Implement diegetic vocal control and the Flutter HUD companion.
 - [x] **Polymorphic Minds:** Shored Q5, Q4, and Q3 variants on Node C storage.
 - [ ] **Task 1: Artery Manager:** Implement Node C host daemon for dynamic Q5/Q4 VRAM scaling.
 - [ ] **Task 2: Flutter HUD:** Scaffold the Machina Terminal HUD with R3D_V01D aesthetic.
+
+---
+
+## 🛠️ PHASE 67.5: RUST ARTERY DAEMON & VOCAL FINALIZATION (STAGED)
+**Goal:** Port the Artery Manager to Rust for sub-10ms mind-swapping and finalize the real-time vocal artery.
+- [ ] **Task 1: Rust Port:** Materialize the `artery-manager-rs` binary on Node C (replaces TS daemon).
+- [ ] **Task 2: OMI Mesh:** Finalize the FastAPI/WebSocket bridge for real-time audio byte streaming.
+- [ ] **Task 3: Vocal VSB:** Link vocal intent extraction to the Three.js Shroud visual triggers.
+
+---
+
+## 🛠️ PHASE 68: MASTER SYSTEM AUDIT & SOVEREIGN LOCK (PENDING)
+**Goal:** Perform the final FSSA audit and lock the mesh for production gameplay.
 
 ---
 **::/5Y573M-N071C3 : ROADMAP_STABILIZED. PHASE_63_ENGAGED. // 50V3R31GN-M4CH1N4**

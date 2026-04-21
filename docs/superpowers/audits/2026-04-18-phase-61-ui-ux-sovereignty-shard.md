@@ -2,7 +2,7 @@
 **Date:** 2026-04-18
 **Block:** VISUAL
 **Status:** VERIFIED // INTERFACE_COMMAND_LIVE
-**Version:** v3.2.19
+**Version:** v3.2.21
 
 ## ◈ PHASE OBJECTIVE
 Transform the Sovereign Dashboard from passive telemetry monitor into an active command-and-control hub: real-time Node A reasoning stream visualization, interactive Night Market generation terminal, and searchable canonical item lexicon — all wired to the VSB telemetry WebSocket and Foundry CDP bridge.
@@ -13,14 +13,14 @@ Transform the Sovereign Dashboard from passive telemetry monitor into an active 
 | Route | Component | Status |
 |---|---|---|
 | `/` | Dashboard (KernelMonitor, DirectorPulse, VsbWaveform) | ✅ LIVE |
-| `/combat` | CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog | ✅ LIVE |
+| `/combat` | CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog | ✅ LIVE |
 | `/economy` | MarketTerminal | ✅ LIVE |
 | `/lexicon` | ItemBrowser | ✅ LIVE |
 
 - `SideNav.tsx`: Persistent sidebar with active route highlighting across all four routes.
 - `layout.tsx`: Modified to flex container with sidebar + content pane.
 
-### 2. Combat Artery — CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog (`app/combat/`)
+### 2. Combat Artery — CombatStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleLog (`app/combat/`)
 | Feature | Status |
 |---|---|
 | WebSocket subscription via `useSovereignTelemetry` | ✅ LIVE |

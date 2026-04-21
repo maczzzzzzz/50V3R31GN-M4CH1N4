@@ -58,4 +58,4 @@ A queueing system ensuring AI does not unilaterally mutate the Foundry database 
 ## 3. Strict Boundary Constraints (No Creep)
 - Do not implement Phase 5 features (Red Trade, Braindance therapy).
 - Do not implement Simulacrum cross-session NPC deep memory.
-- Depend strictly on `simple-phone v3.2.19`, `Ticket-To-The-Afterlife v3.2.19`, and `night-city-gang-and-corp-mook-pack v2.8` on Foundry v12.
+- Depend strictly on `simple-phone v3.2.21`, `Ticket-To-The-Afterlife v3.2.21`, and `night-city-gang-and-corp-mook-pack v2.8` on Foundry v12.

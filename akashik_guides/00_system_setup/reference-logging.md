@@ -1,4 +1,4 @@
-# High-Signal Logging & Observability Guide (v3.2.19)
+# High-Signal Logging & Observability Guide (v3.2.21)
 
 This document defines the persistent logging strategy for the **50V3R31GN-M4CH1N4** Split-Node stack. Use these logs to debug the binary bridge, swarm concurrency, and world state mutations.
 
@@ -31,11 +31,11 @@ tail -f zeroclaw/zeroclaw.log
 
 ---
 
-## Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Debugging
+## Swarm Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Debugging
 When **Task-Isolated Reasoning** is active, Node A dispatches mechanical intents to the **Open-Reasoner-1.5B** judge. Look for the following trace markers:
 - `vsb_udp: ← INTENT`
 - `vsb_udp: → RESULT`
-- `[Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle] Math check grounding against RED_RULES.md`
+- `[Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle] Math check grounding against RED_RULES.md`
 
 ## ⚠️ Log Rotation Invariant
 To prevent VRAM/Disk exhaustion, logs are limited to 50MB per file with a 5-file rotation policy enforced by the orchestrator lifecycle.

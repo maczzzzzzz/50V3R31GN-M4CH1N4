@@ -48,10 +48,10 @@ Change map lighting to "Neon Cyan," switch scenes, switch back, and verify the l
 
 ---
 
-### Task 4: Final v3.2.19 "World Engine" Audit
+### Task 4: Final v3.2.21 "World Engine" Audit
 
 **Files:**
-- Create: `docs/audits/2026-04-02_v3.2.19-World-Engine-Audit.md`
+- Create: `docs/audits/2026-04-02_v3.2.21-World-Engine-Audit.md`
 
 **Step 1: Stability Stress Test**
 Verify that multiple concurrent decals do not impact narrative performance.

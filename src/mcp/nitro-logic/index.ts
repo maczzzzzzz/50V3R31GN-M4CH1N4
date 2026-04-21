@@ -24,6 +24,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 import { NitroLogicClient } from '../../core/nitro-logic-client.js';
+import { getOutlineSceneBuilder, CampaignOutlineSchema } from '../../core/outline-scene-builder.js';
 
 // ── MCP-safe logger (stderr only) ─────────────────────────────────────────────
 
@@ -253,6 +254,60 @@ server.tool(
   },
 );
 
+// ── Tool: build_scene_from_outline ────────────────────────────────────────────
+
+server.tool(
+  'build_scene_from_outline',
+  'Phase 63 — OpenMAIC: Build Foundry VTT scene configs from a campaign outline. Groups beats into scenes and calls the Director (Node B, port 7339) to generate lighting, positioning, and narrative notes for each scene.',
+  {
+    title: z.string().min(1).describe('Campaign arc title'),
+    actNumber: z.number().int().min(1).describe('Act number for this outline slice'),
+    beats: z.array(z.object({
+      id: z.string().min(1).describe('Narrative beat ID'),
+      description: z.string().min(1).describe('What occurs at this beat'),
+      location: z.string().default('Night City').describe('CPR district / location'),
+      npcCount: z.number().int().min(0).default(0).describe('Estimated NPC count'),
+      tension: z.enum(['low', 'medium', 'high', 'critical']).default('medium').describe('Narrative tension level'),
+    })).min(1).describe('Ordered sequence of narrative beats'),
+    gmNotes: z.string().optional().describe('Optional GM notes injected into the Director prompt'),
+  },
+  async (args) => {
+    const traceId = randomUUID();
+    logger.info('nitro-logic:build_scene_from_outline', traceId, 'Tool called', { title: args.title, actNumber: args.actNumber, beatCount: args.beats.length });
+
+    const builder = getOutlineSceneBuilder();
+    try {
+      const result = await builder.build(CampaignOutlineSchema.parse(args));
+      const text = [
+        ANSI.bold(`## nitro-logic · OpenMAIC Scene Builder — ${result.outlineTitle} (Act ${result.actNumber})`),
+        '',
+        `**Scenes Generated:** ${result.scenes.length}`,
+        '',
+        ...result.scenes.map((s, i) => [
+          `### Scene ${i + 1}: ${s.name}`,
+          `| Field | Value |`,
+          `|:------|------:|`,
+          `| Darkness | \`${s.darkness.toFixed(2)}\` |`,
+          `| Canvas | \`${s.width}×${s.height}\` |`,
+          `| Lights | \`${s.lights.length}\` |`,
+          `| Beats | ${s.sourceBeatIds.join(', ')} |`,
+          '',
+          `**GM Notes:** ${ANSI.dim(s.narrativeNotes)}`,
+        ].join('\n')),
+        '',
+        ANSI.dim(`**Director Reasoning:** ${result.reasoning.slice(0, 500)}${result.reasoning.length > 500 ? '…' : ''}`),
+      ].join('\n');
+
+      logger.info('nitro-logic:build_scene_from_outline', traceId, `Built ${result.scenes.length} scenes`);
+      return { content: [{ type: 'text' as const, text }] };
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      logger.error('nitro-logic:build_scene_from_outline', traceId, `Failed: ${message}`);
+      return formatError('build_scene_from_outline', message);
+    }
+  },
+);
+
 // ── Startup ───────────────────────────────────────────────────────────────────
 
 async function main(): Promise<void> {
@@ -260,7 +315,7 @@ async function main(): Promise<void> {
 
   logger.info('nitro-logic', traceId, 'nitro-logic MCP server starting', {
     llamaBaseUrl,
-    tools: ['resolve_attack', 'calculate_dv', 'oracle_roll'],
+    tools: ['resolve_attack', 'calculate_dv', 'oracle_roll', 'build_scene_from_outline'],
   });
 
   // Non-fatal health check on startup — tools handle connection errors per-call

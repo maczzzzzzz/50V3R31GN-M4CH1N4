@@ -1,5 +1,5 @@
 # ◈ 50V3R31GN-M4CH1N4 // COMMAND_MANIFEST
-**Status:** ARCH1V3_LOCK (v3.2.19)
+**Status:** ARCH1V3_LOCK (v3.2.21)
 **Role:** Total Command Reference
 
 ---
@@ -22,7 +22,7 @@
 | `npm run boot` | **Total Mesh Ignition:** Sequences the startup of all 3 pods. | Physical Artery |
 | `npm run director:ignite` | **Director Node:** Starts the narrative engine with KV-offloading. | Node B |
 | `npm run synapse:ignite` | **Synapse Node:** Starts the Mooncake master on Node A. | Node A |
-| `npm run oracle:ignite` | **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Node:** Starts the SGLang/RDT box on Node C. | Node C |
+| `npm run oracle:ignite` | **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Node:** Starts the SGLang/RDT box on Node C. | Node C |
 | `npm run crush nucleus` | **Artery Proxy:** Starts the binary state sync proxy. | VSB |
 
 </details>

@@ -3,7 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.19.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
+
+## [3.2.21] - 2026-04-20
+### Added
+- **Phase 67.5: Rust Artery Daemon:** Pivoted the Node C Artery Manager from TypeScript/Bash to a **Rust-native implementation** (`artery-manager-rs`) for sub-10ms mind-swapping.
+- **Machina Terminal Integration:** Finalized the Flutter-to-Node-C vocal artery specification for diegetic world-state synchronization.
 
 ## [3.2.20] - 2026-04-20
 ### Added

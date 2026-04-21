@@ -1,6 +1,7 @@
 // ZeroClaw library crate
 pub mod server;
 pub mod rules;
+pub mod rdt;
 pub mod cv;
 pub mod perception;
 pub mod steganography;

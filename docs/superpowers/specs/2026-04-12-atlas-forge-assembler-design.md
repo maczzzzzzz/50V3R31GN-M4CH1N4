@@ -1,4 +1,4 @@
-# 50V3R31GN-M4CH1N4 // SPEC: ATLAS FORGE ASSEMBLER (v3.2.19)
+# 50V3R31GN-M4CH1N4 // SPEC: ATLAS FORGE ASSEMBLER (v3.2.21)
 
 **Status:** APPROVED
 **Date:** 2026-04-12
@@ -65,4 +65,4 @@ Provides real-time observability of the assembly:
 - **Transport:** VSB (Protobuf over WebSocket).
 
 ---
-*Verified by the Sovereign Trinity v3.2.19.*
+*Verified by the Sovereign Trinity v3.2.21.*

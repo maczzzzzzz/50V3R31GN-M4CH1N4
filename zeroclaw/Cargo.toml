@@ -1,6 +1,6 @@
 [package]
 name = "zeroclaw"
-version = "3.2.19"
+version = "3.2.21"
 edition = "2021"
 
 [dependencies]
@@ -24,3 +24,12 @@ sovereign-sdk = { path = "../sovereign-sdk" }
 # Phase 59: Canonical Rules Kernel
 rand = "0.8"
 rusqlite = { version = "0.31", features = ["bundled"] }
+# Phase 67: Artery Manager binary
+anyhow = "1.0"
+# Phase 63: RDT Oracle — Recurrent-Depth Transformer (OpenMythos ACT loop)
+candle-core = { version = "0.8", features = ["cuda"] }
+candle-nn = { version = "0.8" }
+
+[[bin]]
+name = "artery_manager"
+path = "src/bin/artery_manager.rs"
