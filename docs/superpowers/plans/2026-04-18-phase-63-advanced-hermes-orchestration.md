@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Integrate the Hermes ecosystem and OpenMAIC orchestration logic into Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle), bridging its headless compute with the Node B Nucleus Command Deck.
+**Goal:** Integrate the Hermes ecosystem and OpenMAIC orchestration logic into Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle), bridging its headless compute with the Node B Nucleus Command Deck.
 
 **Architecture:** Node C runs `hermes-control-interface` headlessly. Node B integrates these visual feeds via WebGL. Node C leverages LangGraph patterns for sub-task routing across the Trinity cluster.
 
@@ -15,7 +15,7 @@
 **Files:**
 - Modify: `flake.nix`
 
-- [ ] **Step 1: Add Hermes Tooling to the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Shell**
+- [ ] **Step 1: Add Hermes Tooling to the Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Shell**
 Update `flake.nix` to include dependencies necessary to run the `hermes-control-interface` within the `oracle` shell. Include an environment variable `HERMES_HEADLESS=true` and a port configuration (`8080`).
 
 - [ ] **Step 2: Commit**
@@ -37,7 +37,7 @@ git commit -m "infra: add headless hermes-control-interface to node c devShell"
 Create a new React component (`HermesProxy.tsx`) that embeds an iframe pointing to `http://node-c-ip:8080` (or the respective local proxy endpoint). Ensure this component matches the cyberpunk HUD aesthetic.
 
 - [ ] **Step 2: Integrate into Dashboard Layout**
-Mount the `HermesProxy` within the main `page.tsx` layout to ensure the GM has immediate visibility of the Hermes Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle state.
+Mount the `HermesProxy` within the main `page.tsx` layout to ensure the GM has immediate visibility of the Hermes Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle state.
 
 - [ ] **Step 3: Commit**
 

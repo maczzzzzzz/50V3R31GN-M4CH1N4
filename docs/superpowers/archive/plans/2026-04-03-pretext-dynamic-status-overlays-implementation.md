@@ -100,7 +100,7 @@ git commit -m "feat(bridge): define PretextOverlay payload schema"
 // tests/core/hybrid-routing-controller.test.ts
 describe('HybridRoutingController - Damage Thresholds', () => {
   it('triggers a pretext overlay for netDamage >= 15', async () => {
-    // Mock dependencies: unifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle, foundryAdapter, nitroLogic, etc.
+    // Mock dependencies: unifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle, foundryAdapter, nitroLogic, etc.
     const hrc = new HybridRoutingController(/* mocks */);
     const result = await hrc['handleResolveAttack']({ /* mock payload */ });
     

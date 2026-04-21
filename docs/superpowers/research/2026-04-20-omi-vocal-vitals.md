@@ -10,7 +10,7 @@ Research into the **OMI Developer Mode** reveals the capability to stream real-t
 
 ## ◈ 2. PATTERN: VOCAL VSB INJECTION
 We move beyond static voice notes to **Actionable Intent**.
-- **The Filter:** Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) performs high-frequency extraction.
+- **The Filter:** Node C (Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle) performs high-frequency extraction.
 - **Immediate Action:** Phrases like "Scan that port" trigger immediate **`TACTICAL_SCAN`** VSB packets, manifesting visually in the Shroud.
 - **Artery Sync:** Transcribed text is shored into **Node A (Synapse)** for session-end "Dreaming" (lore consolidation), bypassing heavy audio storage.
 

@@ -111,4 +111,4 @@ export class StoryEngine {
 
 **Implementation:**
 - Update `handleFoundryEvent` switch case.
-- Wire `storyEngine` into `handleResolveAttack` and `handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll`.
+- Wire `storyEngine` into `handleResolveAttack` and `handleStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleRoll`.
