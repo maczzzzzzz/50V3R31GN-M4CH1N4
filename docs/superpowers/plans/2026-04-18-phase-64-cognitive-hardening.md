@@ -58,7 +58,7 @@ git commit -m "feat: implement predictive lore caching based on player movement"
 - Modify: `src/core/sentinel-monitor-service.ts`
 
 - [ ] **Step 1: Implement Logic Veto Logic in Rust**
-Expand the Node A `RulesStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` to accept `Proposal` packets containing mechanical intents (e.g., "Spend 500eb"). Add checks against the SQLite `Akashik.db` state.
+Expand the Node A `RulesStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle` to accept `Proposal` packets containing mechanical intents (e.g., "Spend 500eb"). Add checks against the SQLite `Akashik.db` state.
 
 - [ ] **Step 2: Implement Intent Interception**
 Update `SentinelMonitorService.ts` to block the materialization of any Node B intent that receives a `VETO_LOGIC_FAIL` result from Node A.
