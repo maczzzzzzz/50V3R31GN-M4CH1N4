@@ -1,15 +1,15 @@
-# Design Specification: Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & Hybrid RKG (v3.2.21)
+# Design Specification: Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle & Hybrid RKG (v3.2.21)
 **Date:** March 31, 2026
 **Subject:** Narrative Grounding & World State Persistence
 **Status:** FINALIZED
 
 ## 1. Executive Summary
-The Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle consolidates all mechanical and narrative truth onto Node B. By leveraging SQLite's `ATTACH DATABASE` capability, the system performs cross-database joins between the **Knowledge Graph (world.db)** and the **Session History (crush.db)**. This architecture eliminates "Narrative Drift" and fulfills the **100% Local Integrity** mandate.
+The Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle consolidates all mechanical and narrative truth onto Node B. By leveraging SQLite's `ATTACH DATABASE` capability, the system performs cross-database joins between the **Knowledge Graph (world.db)** and the **Session History (crush.db)**. This architecture eliminates "Narrative Drift" and fulfills the **100% Local Integrity** mandate.
 
 ## 2. Technical Architecture
 
 ### 2.1 The "Triple-SQLite" Data Plane
-All data operations on Node B route through the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`, which manages the following local files:
+All data operations on Node B route through the `UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient`, which manages the following local files:
 - **`world.db`**: Stores the Hybrid RKG (NPC stats + Triplet-based Lore).
 - **`.crush/crush.db`**: Attached at runtime to provide historical context grounding.
 - **`rules.db`**: (Read-Only Cache) Stores high-frequency items/gear fetched from Node A.
@@ -64,7 +64,7 @@ Mistral-Nemo updates the world state by emitting structured JSON events. These e
 ## 4. Grounding Flow: "The World Pulse"
 Before every response, the `HybridRoutingController` (HRC) executes the following grounding sequence:
 1.  **Entity Extraction:** Identify NPCs/Locations mentioned in the user prompt.
-2.  **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Join:** Fetch current stats from `world.db` + last 5 chat messages from `crush.db`.
+2.  **Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Join:** Fetch current stats from `world.db` + last 5 chat messages from `crush.db`.
 3.  **Context Injection:** Prepend the "World Pulse" (Status + History) to the System Prompt.
 4.  **Verification:** Force the AI to acknowledge the "World Pulse" before generating prose.
 

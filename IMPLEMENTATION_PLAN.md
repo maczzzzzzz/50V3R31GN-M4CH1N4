@@ -22,7 +22,7 @@
 ---
 
 ## ✅ PHASE 63: HERMES CORE & RDT ORACLE (COMPLETED)
-**Goal:** Deepen the Node C Strategic Strategic Strategic Oracle with basic OpenMAIC logic and the Rust-native RDT engine.
+**Goal:** Deepen the Node C Strategic Strategic Strategic Strategic Oracle with basic OpenMAIC logic and the Rust-native RDT engine.
 
 ---
 
@@ -52,7 +52,7 @@
 ---
 
 ## ✅ PHASE 65: OPTICAL ARTERY FINALIZATION (COMPLETED)
-**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Oracle) GPU-acceleration.
+**Goal:** Ingest the final lore shards via Node C (Strategic Strategic Strategic Strategic Oracle) GPU-acceleration.
 - [x] **Success:** 3,021 shards shored in `data/ingest/pdf_shards/`.
 
 ---

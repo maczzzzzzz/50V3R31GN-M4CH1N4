@@ -51,7 +51,7 @@ git add src/core/ src/db/ tests/core/ .env.example
 git commit -m "refactor: replace Ollama identity with SovereignNarrativeClient and SovereignEmbeddingService"
 ```
 
-### Task 2: Remove Mock Logic from Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle
+### Task 2: Remove Mock Logic from Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle
 
 **Files:**
 - Modify: `src/db/unified-oracle-client.ts`
@@ -60,10 +60,10 @@ git commit -m "refactor: replace Ollama identity with SovereignNarrativeClient a
 - [x] **Step 1: Write the failing test for real scoring**
 ```typescript
 import { expect, test } from 'vitest';
-import { UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient } from '../../src/db/unified-oracle-client';
+import { UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient } from '../../src/db/unified-oracle-client';
 
-test('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient should calculate real vector distance', async () => {
-  const client = new UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient();
+test('UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient should calculate real vector distance', async () => {
+  const client = new UnifiedStrategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic OracleClient();
   const result = await client.query('test_query');
   // Assuming a mock result would return exactly 1.0, we want it to map to true distance
   expect(result.score).not.toBe(1.0); 
@@ -87,7 +87,7 @@ Expected: PASS
 - [x] **Step 5: Commit**
 ```bash
 git add src/db/unified-oracle-client.ts tests/db/unified-oracle-client.test.ts
-git commit -m "fix: replace mock score logic in Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle with real distance metrics"
+git commit -m "fix: replace mock score logic in Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle with real distance metrics"
 ```
 
 ### Task 3: Environmental Cleanup
