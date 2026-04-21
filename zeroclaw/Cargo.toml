@@ -27,8 +27,13 @@ rusqlite = { version = "0.31", features = ["bundled"] }
 # Phase 67: Artery Manager binary
 anyhow = "1.0"
 # Phase 63: RDT Oracle — Recurrent-Depth Transformer (OpenMythos ACT loop)
-candle-core = { version = "0.8", features = ["cuda"] }
+# Compile without cuda feature on Node B (AMD/Vulkan) — enable cuda on Node C with:
+# cargo build --features candle-core/cuda
+candle-core = { version = "0.8" }
 candle-nn = { version = "0.8" }
+
+[features]
+cuda = ["candle-core/cuda"]
 
 [[bin]]
 name = "artery_manager"

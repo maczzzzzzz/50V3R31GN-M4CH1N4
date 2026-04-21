@@ -140,7 +140,8 @@ impl RecurrentBlock {
     /// Returns (updated_hidden, halt_logit_per_token).
     pub fn step(&self, h: &Tensor) -> CandleResult<(Tensor, Tensor)> {
         // Attention sublayer with residual
-        let h = (self.norm1.forward(h)?.apply(&self.attn)? + h)?;
+        let normed = self.norm1.forward(h)?;
+        let h = (self.attn.forward(&normed)? + h)?;
         // Feed-forward sublayer with residual
         let ff = self.norm2.forward(&h)?
             .apply(&self.ff1)?

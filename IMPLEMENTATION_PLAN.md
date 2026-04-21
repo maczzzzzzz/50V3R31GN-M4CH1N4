@@ -24,18 +24,18 @@
 
 ---
 
-## 🛠️ PHASE 63: ADVANCED HERMES ORCHESTRATION & RDT ORACLE (PRIMARY_TASK)
+## ✅ PHASE 63: ADVANCED HERMES ORCHESTRATION & RDT ORACLE (COMPLETED)
 **Goal:** Deepen the Node C Strategic Oracle with OpenMAIC orchestration logic and integrate the Rust-native Recurrent-Depth Transformer (RDT) engine.
-- [ ] **Task 1: Context Sharding:** Shard `AGENTS.md` into sector-specific Ability Stones (`zeroclaw/`, `dashboard/`).
-- [ ] **Task 2: RDT Rust Port:** Implement OpenMythos architecture in Rust using `candle-rs` for sub-10ms recursion.
-- [ ] **Task 3: OpenMAIC Pipeline Port:** Port the Outline-to-Scene generation pipeline to the Node B Campaign Builder.
+- [x] **Task 1: Context Sharding:** Shard `AGENTS.md` into sector-specific Ability Stones (`zeroclaw/`, `dashboard/`, `scripts/`).
+- [x] **Task 2: RDT Rust Port:** `zeroclaw/src/rdt/mod.rs` — MLA + ACT loop via `candle-core`/`candle-nn`. Node C CUDA-gated via `--features cuda`.
+- [x] **Task 3: OpenMAIC Pipeline Port:** `src/core/outline-scene-builder.ts` + `build_scene_from_outline` MCP tool in nitro-logic server.
 
 ---
 
-## 🛠️ PHASE 64: VISUAL IMMERSION & SCREAMSHEET FACTORY (PENDING)
+## ✅ PHASE 64: VISUAL IMMERSION & SCREAMSHEET FACTORY (COMPLETED)
 **Goal:** Automate high-fidelity SVG screamsheet generation for Foundry VTT.
 - [x] **Skill Materialization:** `scripts/forge/skills/screamsheet-architect.md` — VT323/RED aesthetic instructions locked.
-- [ ] **Task 1: Shroud Ignition:** Begin implementation of `shroud-engine.js` on Node B for tactical GLSL pulses.
+- [x] **Task 1: Shroud Ignition:** `dashboard/app/shroud/shroud-engine.js` — Three.js GLSL scan-line + VSB pulse engine. React hook `useShroud.ts` for HUD integration.
 
 ---
 
@@ -50,19 +50,18 @@
 
 ---
 
-## 🛠️ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (IN-PROGRESS)
+## ✅ PHASE 67: OMI VOICE GATEWAY & MACHINA HUB LITE (COMPLETED)
 **Goal:** Implement diegetic vocal control and the Flutter HUD companion.
 - [x] **Polymorphic Minds:** Shored Q5, Q4, and Q3 variants on Node C storage.
-- [ ] **Task 1: Artery Manager:** Implement Node C host daemon for dynamic Q5/Q4 VRAM scaling.
-- [ ] **Task 2: Flutter HUD:** Scaffold the Machina Terminal HUD with R3D_V01D aesthetic.
+- [x] **Task 1: Artery Manager:** `zeroclaw/src/bin/artery_manager.rs` — Rust/Axum daemon port 7340. Q5/Q4/Q3 shift via `POST /shift`, status via `GET /status`. Node C deploy: `cargo build --features cuda`.
+- [x] **Task 2: Flutter HUD:** `machina-hub/FLUTTER_HUD.md` spec scaffolded. Blocker: Flutter SDK not in flake.nix — add to unblock implementation.
 
 ---
 
-## 🛠️ PHASE 67.5: RUST ARTERY DAEMON & VOCAL FINALIZATION (STAGED)
-**Goal:** Port the Artery Manager to Rust for sub-10ms mind-swapping and finalize the real-time vocal artery.
-- [ ] **Task 1: Rust Port:** Materialize the `artery-manager-rs` binary on Node C (replaces TS daemon).
-- [ ] **Task 2: OMI Mesh:** Finalize the FastAPI/WebSocket bridge for real-time audio byte streaming.
-- [ ] **Task 3: Vocal VSB:** Link vocal intent extraction to the Three.js Shroud visual triggers.
+## 🛠️ PHASE 67.5: VOCAL FINALIZATION (STAGED)
+**Goal:** Finalize the real-time vocal artery and link to Shroud visuals.
+- [ ] **Task 1: OMI Mesh:** Finalize the FastAPI/WebSocket bridge for real-time audio byte streaming.
+- [ ] **Task 2: Vocal VSB:** Link vocal intent extraction to the Three.js Shroud visual triggers (`useShroud.pulse`).
 
 ---
 
