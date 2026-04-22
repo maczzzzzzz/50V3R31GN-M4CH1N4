@@ -14,7 +14,8 @@ const SOVEREIGN_BLACK = '#000000';
 
 export const SOVEREIGN_THEME_CSS = `
 /* SOVEREIGN DOMINANCE LAYER */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+/* Phase 69: Local font sovereignty - Removed Google Fonts telemetry import */
+const FONT_CSS = '@font-face { font-family: "VT323"; src: url("/assets/fonts/VT323-Regular.ttf"); }';
 
 :root {
     --cpr-red: ${SOVEREIGN_RED};

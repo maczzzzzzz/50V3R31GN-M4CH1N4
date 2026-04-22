@@ -32,12 +32,17 @@ The machine's physical resolution is in your hands.
 ### ◈ 2.3 INSTALLATION (SHORING THE APK)
 To materialize the HUD on your phone:
 1. **Developer Mode:** Enable `USB Debugging` on your Android device.
-2. **Connect Artery:** Plug the device into the Node B host.
-3. **Ignite Deploy:** Run the following command from the project root:
+2. **Build APK (NixOS):** If you are on the Nix-Native spine, execute the following to compile the release binary:
+   ```bash
+   cd terminal-app && nix-shell --run 'flutter build apk --release'
+   ```
+   *Target Path: `terminal-app/build/app/outputs/flutter-apk/app-release.apk`*
+3. **Connect Artery:** Plug the device into the Node B host.
+4. **Ignite Deploy:** Or run directly via:
    ```bash
    cd terminal-app && flutter run --release
    ```
-4. **Persistent Sync:** The app is now shored. Future launches can be done directly from the app drawer while connected to the `10.0.0.x` spine.
+5. **Persistent Sync:** The app is now shored. Future launches can be done directly from the app drawer while connected to the `10.0.0.x` spine.
 
 ## 🎙️ 3. TACTICAL VOCAL COMMANDS
 The machine extracts intent from natural speech.
