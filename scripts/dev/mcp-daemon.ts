@@ -207,6 +207,21 @@ function buildMcpServer(): McpServer {
   );
 
   server.tool(
+    'query_memory_palace',
+    'Retrieve the Memory Palace hierarchy (Wings -> Rooms -> Halls -> Closets) from Akashik.db for deep contextual awareness of user preferences and system history.',
+    {},
+    async () => {
+      const sql = 'SELECT w.name as Wing, r.name as Room, h.hall_type as Hall, c.summary as Fact FROM palace_wings w LEFT JOIN palace_rooms r ON w.id = r.wing_id LEFT JOIN palace_halls h ON r.id = h.room_id LEFT JOIN palace_closets c ON h.id = c.hall_id ORDER BY w.last_accessed DESC LIMIT 100;';
+      try {
+        const { stdout } = await execAsync(`sqlite3 -json data/Akashik.db "${sql}"`, { cwd: PROJECT_ROOT, timeout: 5000 });
+        return { content: [{ type: 'text', text: stdout || '[]' }] };
+      } catch (e) {
+        return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
+      }
+    }
+  );
+
+  server.tool(
     'query_rkg',
     'Execute arbitrary SQL queries on Akashik.db (the Sovereign Knowledge Graph)',
     { sql: z.string().describe('The SQL query to execute') },
