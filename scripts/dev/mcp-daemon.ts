@@ -213,7 +213,7 @@ function buildMcpServer(): McpServer {
     async () => {
       const sql = 'SELECT w.name as Wing, r.name as Room, h.hall_type as Hall, c.summary as Fact FROM palace_wings w LEFT JOIN palace_rooms r ON w.id = r.wing_id LEFT JOIN palace_halls h ON r.id = h.room_id LEFT JOIN palace_closets c ON h.id = c.hall_id ORDER BY w.last_accessed DESC LIMIT 100;';
       try {
-        const { stdout } = await execAsync(`sqlite3 -json data/Akashik.db "${sql}"`, { cwd: PROJECT_ROOT, timeout: 5000 });
+        const { stdout } = await execFileAsync('sqlite3', ['-json', 'data/Akashik.db', sql], { cwd: PROJECT_ROOT, timeout: 5000 });
         return { content: [{ type: 'text', text: stdout || '[]' }] };
       } catch (e) {
         return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
@@ -227,7 +227,7 @@ function buildMcpServer(): McpServer {
     { sql: z.string().describe('The SQL query to execute') },
     async ({ sql }) => {
       try {
-        const { stdout } = await execAsync(`sqlite3 -json data/Akashik.db "${sql.replace(/"/g, '\"')}"`, { cwd: PROJECT_ROOT, timeout: 5000 });
+        const { stdout } = await execFileAsync('sqlite3', ['-json', 'data/Akashik.db', sql], { cwd: PROJECT_ROOT, timeout: 5000 });
         return { content: [{ type: 'text', text: stdout || '[]' }] };
       } catch (e) {
         return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
@@ -242,7 +242,7 @@ function buildMcpServer(): McpServer {
     async ({ district }) => {
       const sql = `SELECT subject_id, predicate, object_literal FROM triplets WHERE district_id LIKE "%${district}%" LIMIT 100`;
       try {
-        const { stdout } = await execAsync(`sqlite3 -json data/Akashik.db "${sql}"`, { cwd: PROJECT_ROOT, timeout: 5000 });
+        const { stdout } = await execFileAsync('sqlite3', ['-json', 'data/Akashik.db', sql], { cwd: PROJECT_ROOT, timeout: 5000 });
         return { content: [{ type: 'text', text: stdout || '[]' }] };
       } catch (e) {
         return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
