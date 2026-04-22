@@ -265,7 +265,7 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         ":/50V3R31GN-M4CH1N4 // N37RUN",
         options,
-        Box::new(|_cc| Box::new(NetrunApp::new())),
+        Box::new(|_cc| Ok(Box::new(NetrunApp::new()))),
     )
 }
 

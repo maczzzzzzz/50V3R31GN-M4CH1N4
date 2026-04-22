@@ -10,7 +10,9 @@ This repository contains the canonical tutorials, references, and architectural 
 - [Tutorial: Master Trinity Startup](00_system_setup/tutorial-master-startup.md)
 - [How to Setup Sovereign Trinity](00_system_setup/how-to-setup-sovereign-trinity.md)
 - [How to Ingest Lore Assets](00_system_setup/how-to-ingest-assets.md)
+- [How to Setup Secure Tunneling (Tailscale)](00_system_setup/how-to-setup-tailscale.md)
 - [Reference: Terminal Logging](00_system_setup/reference-logging.md)
+- [Reference: Developer Scripts Manifest](DEV_SCRIPTS_MANIFEST.md)
 
 ## 🖥️ 1. CRUSH CLI Orchestration
 - [Reference: CRUSH Command Set](01_crush_cli/reference-crush-cli.md)
