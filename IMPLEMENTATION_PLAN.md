@@ -106,9 +106,9 @@
 
 ## 🛠️ PHASE 68.5: AGENTIC CRASH RECOVERY & STATE PERSISTENCE (IN-PROGRESS)
 **Goal:** Make the system's brain a "Virtual Stronghold" by implementing real-time SQLite auto-saving and crash recovery.
-- [ ] **Task 1:** Checkpoint Infrastructure (`SqliteSaver`).
-- [ ] **Task 2:** Orchestrator Integration & Thread Partitioning.
-- [ ] **Task 3:** Auto-Resume Boot Daemon.
+- [x] **Task 1:** Checkpoint Infrastructure (`SqliteSaver`).
+- [x] **Task 2:** Orchestrator Integration & Thread Partitioning.
+- [x] **Task 3:** Auto-Resume Boot Daemon.
 - [x] **Task 4:** Synapse Palace Integration (Materialized `MemoryObserver.ts` and `query_memory_palace` tool).
 
 ---

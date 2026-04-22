@@ -17,8 +17,21 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import Database from 'better-sqlite3';
 import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
+
+// ---------------------------------------------------------------------------
+// Checkpoints Database Setup
+// ---------------------------------------------------------------------------
+const checkpointDb = new Database('data/Akashik_Checkpoints.db');
+checkpointDb.exec(`
+  CREATE TABLE IF NOT EXISTS orchestrator_checkpoints (
+    thread_id TEXT PRIMARY KEY,
+    state TEXT,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
 
 // ---------------------------------------------------------------------------
 // State schema
@@ -157,28 +170,61 @@ export class LangGraphOrchestrator {
     this.cfg = { ...DEFAULT_CONFIG, ...cfg };
   }
 
+  private saveCheckpoint(threadId: string, state: OrchestratorState) {
+    const stmt = checkpointDb.prepare(`
+      INSERT INTO orchestrator_checkpoints (thread_id, state, updated_at) 
+      VALUES (?, ?, CURRENT_TIMESTAMP)
+      ON CONFLICT(thread_id) DO UPDATE SET 
+        state = excluded.state, 
+        updated_at = CURRENT_TIMESTAMP
+    `);
+    stmt.run(threadId, JSON.stringify(state));
+  }
+
+  private loadCheckpoint(threadId: string): OrchestratorState | null {
+    const stmt = checkpointDb.prepare('SELECT state FROM orchestrator_checkpoints WHERE thread_id = ?');
+    const row = stmt.get(threadId) as { state: string } | undefined;
+    if (row && row.state) {
+      return JSON.parse(row.state) as OrchestratorState;
+    }
+    return null;
+  }
+
   /**
    * Invoke the orchestration graph.
    * Returns the final state after all nodes have executed.
    */
-  async invoke(input: { prompt: string; tokens?: number; file_path?: string; diff?: string }): Promise<OrchestratorState> {
-    const negativeConstraints = await HealerProtocol.getNegativeConstraints(input.prompt);
-    const enrichedPrompt = negativeConstraints ? input.prompt + negativeConstraints : input.prompt;
+  async invoke(input: { prompt: string; tokens?: number | undefined; file_path?: string | undefined; diff?: string | undefined; thread_id?: string | undefined }): Promise<OrchestratorState> {
+    const threadId = input.thread_id ?? randomUUID();
+    let state: OrchestratorState | null = null;
 
-    let state: OrchestratorState = {
-      traceId:    randomUUID(),
-      prompt:     enrichedPrompt,
-      tokens:     input.tokens ?? 0,
-      activeNode: routeEntry({ ...({} as OrchestratorState), tokens: input.tokens ?? 0 }, this.cfg),
-      response:   '',
-      retries:    0,
-      error:      undefined,
-      ruleResult: undefined,
-      narrative:  undefined,
-      file_path:  input.file_path,
-      diff:       input.diff,
-      outcome:    undefined,
-    };
+    if (input.thread_id) {
+      const existingState = this.loadCheckpoint(threadId);
+      if (existingState && existingState.activeNode !== 'done') {
+        state = existingState;
+      }
+    }
+
+    if (!state) {
+      const negativeConstraints = await HealerProtocol.getNegativeConstraints(input.prompt);
+      const enrichedPrompt = negativeConstraints ? input.prompt + negativeConstraints : input.prompt;
+
+      state = {
+        traceId:    threadId,
+        prompt:     enrichedPrompt,
+        tokens:     input.tokens ?? 0,
+        activeNode: routeEntry({ ...({} as OrchestratorState), tokens: input.tokens ?? 0 }, this.cfg),
+        response:   '',
+        retries:    0,
+        error:      undefined,
+        ruleResult: undefined,
+        narrative:  undefined,
+        file_path:  input.file_path,
+        diff:       input.diff,
+        outcome:    undefined,
+      };
+      this.saveCheckpoint(threadId, state);
+    }
 
     while (state.activeNode !== 'done') {
       try {
@@ -188,7 +234,7 @@ export class LangGraphOrchestrator {
           case 'node-a': delta = await nodeAFetch(state, this.cfg); break;
           case 'node-c': delta = await nodeCReason(state, this.cfg); break;
           case 'node-b': delta = await nodeBSynthesize(state, this.cfg); break;
-          default: state = { ...state, activeNode: 'done' }; continue;
+          default: state = { ...state, activeNode: 'done' }; this.saveCheckpoint(threadId, state); continue;
         }
 
         state = { ...state, ...delta, error: undefined };
@@ -204,6 +250,8 @@ export class LangGraphOrchestrator {
           state = { ...state, ...diagnosis.suggestedState };
         }
       }
+
+      this.saveCheckpoint(threadId, state);
     }
 
     if (!state.outcome && !state.error) {
@@ -211,6 +259,8 @@ export class LangGraphOrchestrator {
     } else if (!state.outcome && state.error) {
       state.outcome = 'FATAL';
     }
+    
+    this.saveCheckpoint(threadId, state); // Final checkpoint for the final outcome
 
     await HealerProtocol.logAudit({
       file_path: state.file_path,
