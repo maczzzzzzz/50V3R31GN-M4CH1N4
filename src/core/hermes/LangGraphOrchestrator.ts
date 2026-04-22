@@ -18,6 +18,7 @@
 
 import { randomUUID } from 'node:crypto';
 import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
+import { MemoryObserver } from './MemoryObserver.js';
 
 // ---------------------------------------------------------------------------
 // State schema
@@ -217,6 +218,9 @@ export class LangGraphOrchestrator {
       reasoning_trace: `Prompt: ${state.prompt}\nResponse: ${state.response}\nError: ${state.error || 'None'}`,
       outcome: state.outcome as 'SUCCESS' | 'FATAL'
     });
+
+    // Phase 68.5: Trigger the asynchronous Memory Palace Observer to distill long-term facts
+    MemoryObserver.observeAndDistill(state).catch((e: unknown) => console.error(e));
 
     return state;
   }
