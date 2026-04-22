@@ -17,7 +17,9 @@ The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed 
 - **Vocal Artery:** Real-time speech-to-intent bridge via **OMI** wearable and the **Machina Terminal** HUD.
 - **Optic Nerve:** Continuous 100% screen awareness on WSL2 via the **Sovereign Observer** (Rust).
 - **Akashik Artery:** Multi-dimensional world-state synchronized via **Akashik.db** (SQLite) and **Obsidian RKG Vault**.
-- **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**.
+- **Virtual Stronghold:** Agentic Crash Recovery via SQLite Checkpointing, enabling 100% state persistence and "Time Travel" debugging.
+- **Metacognition:** Dynamically Learning Control System utilizing **Skill Crystallization** and **Shadow Mode Self-Healing**.
+- **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**, augmented by background Observer distillation.
 - **Recursive Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
 - **Physical Hands:** Go-native **Sovereign Harness** and self-healing **Skill Forge** for automated browser control.
 
@@ -25,7 +27,7 @@ The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed 
 
 ## :://70P0L06Y // THE_H4RN355_15_0N3
 
-The system is harnessed as three physical pods synchronized over the `10.0.0.x` artery.
+The system is harnessed as three physical pods synchronized over the `10.0.0.x` artery (or globally via **Secure Subnet Tunneling**).
 
 ### :/P0D-B : 7H3-D1R3C70R //
 - **C0R3:** WSL2 NixOS // AMD Radeon RX 9060 XT (16GB VRAM)

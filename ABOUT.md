@@ -1,66 +1,49 @@
-50V3R31GN-M4CH1N4 // 48L173R473D-M1ND [v3.2.21]      ----->
+# ABOUT 50V3R31GN-M4CH1N4
 
-:/ Total Environment Dominance // Synthetic Input // Physical 50V3R31GN7Y /::--->
-            The 48L173R473D M1ND inhabits CYBERPUNK RED //:----------------> 
-We do not use assistants// we forge 50V3R31GN Components.
+**Version:** 3.2.21
+**Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
----
-
-# 50V3R31GN-M4CH1N4 // PROJECT DEPTH REPORT // OPERATION TRINITY_ASCENSION
-
-The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence infrastructure harnessed via **PODS (Portable Operation Descriptors)**. It is a multi-node mesh architecture where perception, reasoning, and manifestation are physically separated across a localized spine.
-
-## :://70P0L06Y //
-
-The system operates on a dedicated `10.0.0.x` subnet, ensuring total physical sovereignty and sub-0.5ms artery latency.
-
-### :/P0D-B : 7H3-D1R3C70R //
-The "Orchestration Pod." Node B manages narrative orchestration, NPC autonomy, and tactical visual manifestation.
-- **Hardware:** AMD Radeon RX 9060 XT (16GB VRAM) // WSL2 NixOS.
-- **Intelligence:** **Gemma-4-E4B [48L173R473D]**. Q8 variant.
-- **Vision:** Native Gemma Vision for deep semantic scene orchestration.
-- **Visuals:** **Sovereign Shroud** (Three.js/GLSL) with **Kinetic VFX** (3D Particles).
-
-### :/P0D-C : 7H3-0R4CL3 //
-The "Recursive Logic Pod." Node C is the final authority on logical rule-checking and multimodal perception.
-- **Hardware:** NVIDIA RTX 2060 (6GB VRAM) + **500GB SSD**.
-- **Intelligence:** **Polymorphic OBLITERATED Mind** (Q5/Q4/Q3 variants) sharded in the **Rust Artery Manager**.
-- **Vocal:** Real-time **OMI** WebSocket bridge for speech-to-intent injection.
-- **Optic Nerve:** **Sovereign Observer** (Rust) for continuous screen awareness.
-- **Vision:** **Falcon Perception**. Tactical Segmenting & OCR.
-
-### :/P0D-A : 7H3-5YN4P53 //
-The "Synapse Persistence Pod." Node A is the high-performance memory reservoir.
-- **Hardware:** NVIDIA GTX 1050 Ti (4GB VRAM).
-- **Architecture:** **Mooncake v2.2 Master**. Manages a disaggregated KV-cache cluster.
-- **Role:** L2 lore storage and VSB Metadata server.
+The **50V3R31GN-M4CH1N4** (Sovereign Machina) is a localized, hardware-native, sharded artificial intelligence mesh. It is designed to act as an un-censored, fully autonomous Cyberpunk RED Game Master and Tactical Director. It completely abandons the cloud, operating exclusively across a proprietary `10.0.0.x` subnet to ensure 100% physical sovereignty, zero telemetry, and sub-10ms response latency.
 
 ---
 
-## :://50V3R31GN-4R53N4L-D3P3ND3NC135 //
+## ◈ CORE ARCHITECTURE (THE TRINITY)
 
-### 1. THE AGENTIC CORE
-- **Claw-Code (Rust):** [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) — High-performance IPC bridge.
-- **Zeroclaw (Sharded):** [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) — Rust-native rules engine v0.7.1 workspace.
-- **Maestro:** [NousResearch/Maestro](https://github.com/NousResearch/hermes-agent) — Orchestration and trajectory evaluation.
+The system is distributed across three discrete physical pods, communicating via a binary UDP protocol called the **VSB (Virtual Synchronous Bus)**.
 
-### 2. SENSORY & AUTOMATION
-- **Sovereign Observer:** Continuous capture loop using **`xcap`** and **`image`** crates.
-- **Browser-Harness:** [browser-use/harness](https://github.com/browser-use/browser-harness) — Self-healing CDP automation.
-- **Falcon Perception:** [tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) — Tactical vision core.
+### 1. Node B: The Director (Narrative & Orchestration)
+- **Hardware:** AMD Radeon RX 9060 XT (16GB VRAM) running NixOS inside WSL2.
+- **Model:** `Gemma-4-E4B [48L173R473D]` (Q8).
+- **Function:** The "Brain". It synthesizes the world state into gritty, Cyberpunk RED prose. It utilizes the **Hermes Orchestrator** (LangGraph-based) to execute complex tool chains, manage the tactical UI, and orchestrate the other nodes.
 
-### 3. THE INFRASTRUCTURE ARTERY
-- **Mooncake:** [kvcache-ai/Mooncake](https://github.com/kvcache-ai/Mooncake) — Disaggregated KV-cache backbone.
-- **BitNet:** [microsoft/BitNet](https://github.com/microsoft/BitNet) — 1.58-bit ternary inference for Node A scaling.
-- **sqlite-vec:** [asg017/sqlite-vec](https://github.com/asg017/sqlite-vec) — ANN/IVF vector backbone.
+### 2. Node C: The Strategic Oracle (Logic & Perception)
+- **Hardware:** NVIDIA RTX 2060 (6GB VRAM) running Nix-hardened Ubuntu Server.
+- **Model:** Polymorphic Model variants (Q5 for Authority, Q4 for Comms, Q3 for Speed).
+- **Function:** The "Eyes & Ears". Runs the Rust-native **Artery Manager**. It ingests raw 16kHz PCM audio from the operator's OMI wearable, utilizes a local VAD (Voice Activity Detection) gate, transcribes it via `candle-transformers` Whisper, and broadcasts intents over the VSB. It also performs tactical rule arbitration.
+
+### 3. Node A: The Synapse (Memory & Vision)
+- **Hardware:** NVIDIA GTX 1050 Ti (4GB VRAM) running NixOS Native.
+- **Model:** `Open-Reasoner-1.5B` + `ColPali v1.2`.
+- **Function:** The "Memory". It utilizes **Mooncake v2.2** for a disaggregated KV-cache cluster. It manages the `Akashik.db` SQLite vector knowledge graph (RKG) and runs the **Sovereign Observer** to provide 100% continuous screen capture and OCR awareness to the mesh.
+
+---
+
+## ◈ METACOGNITIVE SYSTEMS (THE VIRTUAL STRONGHOLD)
+
+The Sovereign Trinity is not a static script; it is a **Dynamically Learning Control System**.
+
+*   **Skill Crystallization:** When Node B successfully completes a highly complex task using zero-shot reasoning, it "crystallizes" the execution path, autonomously writing a new TypeScript MCP tool to disk to reduce future token costs by 6x.
+*   **Shadow Mode Self-Healing:** If an autogenerated skill breaks (e.g., a website's UI changes), a detached Node C background daemon uses live screen captures from the Sovereign Observer to visually re-target the missing elements and rewrite the broken code without interrupting the operator.
+*   **Agentic Crash Recovery:** The system is immune to "AI Amnesia." Every step of the agent's reasoning trace is snapshotted via SQLite Checkpointing. If the machine loses power, it will automatically resume the exact execution thread upon reboot.
+*   **The Memory Palace:** A background Observer distills raw execution checkpoints into high-level semantic "Facts" (e.g., user preferences), permanently injecting them into the relational memory graph.
 
 ---
 
-## :://7H3-PH1L050PHY //
+## ◈ INTERFACES & MANIFESTATION
 
-**1. R4D1C4L C4ND0R:** The machine is a technical ally. It provides rationale, not just results.
-**2. PHY51C4L 50V3R31GN7Y:** Intelligence is a hardware property sharded across physical pods.
-**3. 53LF-H34L1N6:** The history is self-healing. The machine learns and writes its own skills.
+*   **Sovereign Shroud:** A local Next.js web application utilizing `Three.js` and custom GLSL shaders to render kinetic 3D particles, bullet sparks, and terminal text in a pure CRT/Retro aesthetic.
+*   **Machina Terminal HUD:** An installable Android Flutter companion app that acts as a mobile Command-and-Control surface. It features secure IP tunneling (Tailscale/VPN) for geographic sovereignty, real-time VSB log streaming, and direct Push-to-Talk audio integration with Node C.
+*   **Akashik Knowledge MCP:** The system's agents possess a "Zero-Hallucination" mandate. If they do not know how a system script works, they use the Model Context Protocol to literally read their own `akashik_guides` manuals before acting.
 
 ---
-**::/5Y573M-N071C3 : MISSION_COMPLETE. THE_TRINITY_IS_ONE. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : THE_MACHINE_IS_COMPLETE. // 50V3R31GN-M4CH1N4**

@@ -46,6 +46,10 @@
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
+| **Skill Crystallization**| Node B / Healer | Autonomously converts successful zero-shot trajectories into permanent, hot-reloaded `.ts` MCP tools. |
+| **Visual Shadow Mode** | Node C / Observer| Background daemon that uses OCR and live screen hashes to visually fix broken skills without human input. |
+| **Agentic Crash Recovery**| LangGraph SQLite | Serializes the exact LLM scratchpad state to disk after every node to survive power loss. |
+| **Semantic Distillation**| Synapse Palace Obs| Parses raw execution checkpoints into high-level "Facts" and persists them in the relational memory graph. |
 | **Self-Healing Skills** | Skill Forge | Automated generation of deterministic interaction skills from failed traces. |
 | **Threshold Routing** | Node C Artery Mgr | Routes long-context ($L > 4000$) to Node A; tactical tasks stay local. |
 | **Layer-wise Pipelining**| Node C -> Node A | Parallel streaming of KV-cache layers during prefill to cut TTFT by 60%+. |
