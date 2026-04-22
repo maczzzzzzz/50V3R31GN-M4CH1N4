@@ -18,6 +18,12 @@ Make the system's brain a "Virtual Stronghold" by implementing real-time SQLite 
 2.  The script queries the SQLite DB for "dangling threads" (executions that were interrupted by power loss).
 3.  If found, the script automatically resumes the `LangGraphOrchestrator` using the dangling `thread_id`.
 
+### Task 4: Synapse Palace Integration (The Observer)
+1.  Extend the orchestrator to emit lifecycle events upon task completion.
+2.  Implement an Observer process that runs `MemoryPalaceService` to evaluate completed checkpoint traces.
+3.  Format and store distilled facts as `Closet` entries mapped to `hall_facts` or `hall_preferences` in the active `Room`.
+4.  Ensure the Machina Terminal HUD "Synapse" tab accurately reads from these `palace_closets` via Node C.
+
 ## 🛡️ Verification
 - Start a multi-step agent task (e.g., writing a 5-part file).
 - Physically `kill -9` the Node B process during step 3.
