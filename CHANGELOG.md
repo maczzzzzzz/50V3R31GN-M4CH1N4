@@ -7,6 +7,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
+- **Agentic Crash Recovery & Persistence (Phase 68.5):** Synthesized 2026 research on "AI Amnesia" and generated specs/plans for implementing a LangGraph `SqliteSaver` checkpointing system to provide 100% protection against power loss and process crashes.
 - **Secure Subnet Tunneling & Alpha Build (Phase 68):** Shored research and specs for encapsulating the mesh within a zero-config VPN and compiling the mobile deployment binary.
 - **Machina Terminal HUD Overhaul:** Achieved complete feature parity with the official OMI companion app. Transformed the read-only HUD into an interactive 4-tab dashboard (Artery, Tasks, Synapse, Settings) equipped with dynamic IP tunneling, real-time Agent Chat, and a direct Push-To-Talk Mic interface, all rendered through an optimized VT323 CRT Scanline aesthetic.
 - **Agentic Audit Trails & Ouroboros Feedback:** Implemented an immutable JSONL forensic ledger (`agentic_audit_trail.jsonl`) that logs all disk writes and reasoning traces, injecting past FATAL failures into current tasks as dynamic negative constraints.

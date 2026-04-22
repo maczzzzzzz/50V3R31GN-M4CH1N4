@@ -104,6 +104,14 @@
 
 ---
 
+## 🛠️ PHASE 68.5: AGENTIC CRASH RECOVERY & STATE PERSISTENCE (PENDING)
+**Goal:** Make the system's brain a "Virtual Stronghold" by implementing real-time SQLite auto-saving and crash recovery.
+- [ ] **Task 1:** Checkpoint Infrastructure (`SqliteSaver`).
+- [ ] **Task 2:** Orchestrator Integration & Thread Partitioning.
+- [ ] **Task 3:** Auto-Resume Boot Daemon.
+
+---
+
 ## 🛠️ PHASE 69: MASTER SYSTEM AUDIT & SOVEREIGN LOCK (PENDING)
 **Goal:** Perform the final FSSA audit and lock the mesh for production gameplay.
 
