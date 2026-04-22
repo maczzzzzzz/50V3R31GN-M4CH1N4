@@ -70,6 +70,7 @@
     "forge:assembler": "tsx scripts/forge/assembler.ts",
     "forge:master": "tsx scripts/forge/master-forge.ts",
     "audit:vitals": "tsx scripts/audit/vitals-heartbeat.ts",
+    "audit:repos": "tsx scripts/audit/repo-update-scanner.ts",
     "scribe": "tsx scripts/audit/universal-synchronizer.ts",
     "sync": "npm run scribe",
     "scribe:lock": "npm run scribe && git add . && git commit -m 'chore: universal scribe sync' && git push origin master",
