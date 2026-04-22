@@ -1,8 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required to connect to the Sovereign Trinity over local subnet or Tailscale -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    
+    <!-- Anticipatory permission for Phase 69 Audio Streaming -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:label="terminal_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".MainActivity"
             android:exported="true"

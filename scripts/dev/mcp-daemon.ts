@@ -123,8 +123,8 @@ function buildMcpServer(): McpServer {
     async ({ query }) => {
       try {
         const abs = path.resolve(PROJECT_ROOT, 'akashik_guides');
-        const cmd = `rg --line-number --no-heading -C 2 '${query.replace(/'/g, "'\\''")}' '${abs}' 2>/dev/null || grep -rn -C 2 '${query.replace(/'/g, "'\\''")}' '${abs}' 2>/dev/null`;
-        const { stdout } = await execAsync(cmd, { cwd: PROJECT_ROOT, timeout: 10_000 });
+        // Use execFileAsync with grep to safely pass arguments
+        const { stdout } = await execFileAsync('grep', ['-rn', '-C', '2', query, abs], { cwd: PROJECT_ROOT, timeout: 10_000 });
         return { content: [{ type: 'text', text: stdout.slice(0, 50_000) || '(no matches)' }] };
       } catch (e) {
         return { content: [{ type: 'text', text: '(no matches)' }] };
@@ -268,15 +268,16 @@ function buildMcpServer(): McpServer {
 
   server.tool(
     'git_log',
-    'Show recent git commit history',
+    'Show the git commit log',
     {
-      n: z.number().int().min(1).max(100).optional().describe('Number of commits to show (default 20)'),
+      n: z.number().optional().describe('Number of commits to show (default 20)'),
       oneline: z.boolean().optional().describe('One-line format (default true)'),
     },
     async ({ n = 20, oneline = true }) => {
-      const format = oneline ? '--oneline' : '';
+      const args = ['log', `-${n}`];
+      if (oneline) args.push('--oneline');
       try {
-        const { stdout } = await execAsync(`git log -${n} ${format}`, { cwd: PROJECT_ROOT, timeout: 10_000 });
+        const { stdout } = await execFileAsync('git', args, { cwd: PROJECT_ROOT, timeout: 10_000 });
         return { content: [{ type: 'text', text: stdout }] };
       } catch (e) {
         return { content: [{ type: 'text', text: `ERROR: ${(e as Error).message}` }], isError: true };
@@ -367,3 +368,6 @@ startDaemon().catch(e => {
   logError(`startup: ${(e as Error).message}`);
   process.exit(1);
 });
+ess.exit(1);
+});
+);

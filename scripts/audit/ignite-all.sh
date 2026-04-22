@@ -57,9 +57,6 @@ nix develop -c npm run start > "$LOG_DIR/nucleus.log" 2>&1 &
 # ◈ STAGE 4: PROXY & HUD (Crush & ZeroClaw)
 # ---------------------------------------------------------------------------
 echo "  [stage 4] Igniting Sovereign-Proxy (Crush)..."
-# Run in proxy mode so it creates the Unix socket for Nucleus.
-# CLAWLINK_SOCK must match src/main.ts default: .crush/clawlink.sock
-# /run/crush/ is not writable (NixOS), use project-local .crush/ dir instead.
 export CLAWLINK_SOCK="$PROJECT_ROOT/.crush/clawlink.sock"
 if [ -f "crush/crush" ]; then
     ./crush/crush proxy > "$LOG_DIR/crush.log" 2>&1 &
@@ -68,23 +65,29 @@ else
     cd ..
 fi
 
-echo "  [stage 5] Igniting Unified-HUD (ZeroClaw)..."
-# cd zeroclaw && cargo run --release > "$LOG_DIR/zeroclaw.log" 2>&1 &
-# cd ..
+# ---------------------------------------------------------------------------
+# ◈ STAGE 5: THE STRATEGIC ORACLE (Node C - Logic & Voice)
+# ---------------------------------------------------------------------------
+echo "  [stage 5] Igniting Node C Artery Manager (Rust)..."
+# The Artery Manager will autonomously spawn Node C's llama-server.
+cd zeroclaw && cargo run --release --bin artery_manager > "$LOG_DIR/node-c-artery.log" 2>&1 &
+cd ..
 
 # ---------------------------------------------------------------------------
 # ◈ VERIFICATION
 # ---------------------------------------------------------------------------
-echo -e "\n◈ WAITING FOR STABILIZATION (30s)..."
-sleep 30
+echo -e "\n◈ WAITING FOR STABILIZATION (45s)..."
+sleep 45
 
 echo -e "\n◈ SYSTEM STATUS AUDIT:"
 echo -n "  Node A (Optical): "
 curl -s http://localhost:8082/health | grep -o "online" || echo "FAILED"
 
 echo -n "  Node B (Director): "
-# Windows exe binds to Windows network stack — use PowerShell for health check
-powershell.exe -Command "(Invoke-WebRequest -Uri 'http://localhost:8080/health' -UseBasicParsing).StatusCode" 2>/dev/null | grep -q "200" && echo "ok" || echo "FAILED (check data/logs/audit/director.log)"
+powershell.exe -Command "(Invoke-WebRequest -Uri 'http://localhost:8080/health' -UseBasicParsing).StatusCode" 2>/dev/null | grep -q "200" && echo "ok" || echo "FAILED"
+
+echo -n "  Node C (Oracle): "
+curl -s http://localhost:7340/status | grep -q "quantization" && echo "ok" || echo "FAILED (Artery Manager)"
 
 echo -e "\n::/5Y573M-N071C3 : IGNITION_COMPLETE. SYSTEM_LIVE_FIRE_READY."
 echo "Logs available at: $LOG_DIR"
