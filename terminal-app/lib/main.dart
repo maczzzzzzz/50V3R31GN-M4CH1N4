@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'screens/terminal_screen.dart';
+import 'screens/main_layout.dart';
 import 'services/artery_client.dart';
 import 'services/vsb_listener.dart';
 
@@ -34,7 +34,7 @@ class MachinaTerminalApp extends StatelessWidget {
           displayColor: const Color(0xFF00FF88),
         ),
       ),
-      home: const TerminalScreen(),
+      home: const MainLayout(),
     );
   }
 }
