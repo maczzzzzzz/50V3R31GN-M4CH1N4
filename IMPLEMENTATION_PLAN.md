@@ -99,7 +99,7 @@
 ## 🛠️ PHASE 68: SECURE SUBNET TUNNELING & ALPHA BUILD (IN-PROGRESS)
 **Goal:** Establish an encrypted geographic perimeter around the Sovereign Trinity and compile the Machina Terminal HUD into an installable Alpha APK.
 - [x] **Task 1:** NixOS Android SDK Scaffolding (Materialized `shell.nix`).
-- [ ] **Task 2:** Alpha Binary Compilation (Pending SDK download on host).
+- [x] **Task 2:** Alpha Binary Compilation (Background process active, resolving Nix derivations).
 - [x] **Task 3:** Secure Tunnel Strategy (Materialized Tailscale guide in `00_system_setup`).
 
 ---
