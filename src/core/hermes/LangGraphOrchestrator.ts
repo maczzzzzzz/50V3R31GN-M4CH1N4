@@ -40,6 +40,10 @@ export interface OrchestratorState {
   error?: string | undefined;
   /** Retry counter for self-correction (Healer Protocol) */
   retries: number;
+  /** Agentic Audit Trail properties */
+  file_path?: string | undefined;
+  diff?: string | undefined;
+  outcome?: 'SUCCESS' | 'FATAL' | undefined;
 }
 
 // ---------------------------------------------------------------------------
@@ -156,10 +160,13 @@ export class LangGraphOrchestrator {
    * Invoke the orchestration graph.
    * Returns the final state after all nodes have executed.
    */
-  async invoke(input: { prompt: string; tokens?: number }): Promise<OrchestratorState> {
+  async invoke(input: { prompt: string; tokens?: number; file_path?: string; diff?: string }): Promise<OrchestratorState> {
+    const negativeConstraints = await HealerProtocol.getNegativeConstraints(input.prompt);
+    const enrichedPrompt = negativeConstraints ? input.prompt + negativeConstraints : input.prompt;
+
     let state: OrchestratorState = {
       traceId:    randomUUID(),
-      prompt:     input.prompt,
+      prompt:     enrichedPrompt,
       tokens:     input.tokens ?? 0,
       activeNode: routeEntry({ ...({} as OrchestratorState), tokens: input.tokens ?? 0 }, this.cfg),
       response:   '',
@@ -167,6 +174,9 @@ export class LangGraphOrchestrator {
       error:      undefined,
       ruleResult: undefined,
       narrative:  undefined,
+      file_path:  input.file_path,
+      diff:       input.diff,
+      outcome:    undefined,
     };
 
     while (state.activeNode !== 'done') {
@@ -188,12 +198,25 @@ export class LangGraphOrchestrator {
         console.warn(`::/HEALER_DIAGNOSIS : ${diagnosis.reason} [Strategy: ${diagnosis.strategy}]`);
 
         if (diagnosis.strategy === RepairStrategy.ABORT_MISSION) {
-          state = { ...state, activeNode: 'done' };
+          state = { ...state, activeNode: 'done', outcome: 'FATAL' };
         } else if (diagnosis.suggestedState) {
           state = { ...state, ...diagnosis.suggestedState };
         }
       }
     }
+
+    if (!state.outcome && !state.error) {
+      state.outcome = 'SUCCESS';
+    } else if (!state.outcome && state.error) {
+      state.outcome = 'FATAL';
+    }
+
+    await HealerProtocol.logAudit({
+      file_path: state.file_path,
+      diff: state.diff,
+      reasoning_trace: `Prompt: ${state.prompt}\nResponse: ${state.response}\nError: ${state.error || 'None'}`,
+      outcome: state.outcome as 'SUCCESS' | 'FATAL'
+    });
 
     return state;
   }

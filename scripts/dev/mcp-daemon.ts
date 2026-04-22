@@ -116,6 +116,22 @@ function buildMcpServer(): McpServer {
     }
   );
 
+  server.tool(
+    'query_akashik',
+    'Search the akashik_guides directory for the query string and return relevant content',
+    { query: z.string().describe('The query string to search for') },
+    async ({ query }) => {
+      try {
+        const abs = path.resolve(PROJECT_ROOT, 'akashik_guides');
+        const cmd = `rg --line-number --no-heading -C 2 '${query.replace(/'/g, "'\\''")}' '${abs}' 2>/dev/null || grep -rn -C 2 '${query.replace(/'/g, "'\\''")}' '${abs}' 2>/dev/null`;
+        const { stdout } = await execAsync(cmd, { cwd: PROJECT_ROOT, timeout: 10_000 });
+        return { content: [{ type: 'text', text: stdout.slice(0, 50_000) || '(no matches)' }] };
+      } catch (e) {
+        return { content: [{ type: 'text', text: '(no matches)' }] };
+      }
+    }
+  );
+
   // ── Filesystem tools ─────────────────────────────────────────────────────────
 
   server.tool(
