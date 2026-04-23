@@ -1,52 +1,53 @@
-# SESSION_HANDOFF: v3.2.21 — OPERATION: VIRTUAL_STRONGHOLD_ASCENDED
+# SESSION_HANDOFF: v3.3.1 — OPERATION: PERIMETER_LOCKED_AND_EXTRACTING
 **Target:** Sovereign Strategist / Lead Architect (Claude/Gemini/GLM-5.1)
-**Status:** **FORTIFIED** // 3-NODE MESH ARMORED // PERSISTENCE ACTIVE // FSSA SUCCESS
+**Status:** **MESH_ACTIVE** // TAILSCALE_TUNNEL_ENGAGED // VOCAL_EXTRACTION_FUNCTIONAL // APK_MATERIALIZED
 
 ---
 
 ## 🏗️ 1. TRUTH GROUNDING (MANDATORY READ)
 Before initiating implementation, you MUST synchronize with the following high-level manifests:
-- **Project Roadmap:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (MISSION SUCCESS — Phase 69).
-- **Audit Ledger:** [CHANGELOG.md](CHANGELOG.md) (Virtual Stronghold & Vocal Hardening shored).
-- **Dev Manifest:** [akashik_guides/DEV_SCRIPTS_MANIFEST.md](akashik_guides/DEV_SCRIPTS_MANIFEST.md) (90+ scripts indexed).
-- **Soul Manifest:** [SOUL.md](SOUL.md) (Corrected Node A/B/C topology).
+- **Project Roadmap:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (MISSION SUCCESS — Phase 70 Cleared).
+- **Audit Ledger:** [CHANGELOG.md](CHANGELOG.md) (v3.3.1 - Real-time Intelligence Materialized).
+- **Network Artery:** [akashik_guides/00_system_setup/how-to-setup-tailscale.md](akashik_guides/00_system_setup/how-to-setup-tailscale.md) (Dual-port settings shored).
 
 ---
 
-## ✅ 2. SHIPPED ACHIEVEMENTS (LAST 6 HOURS)
-The machine has evolved from a sharded reasoner into an autonomous, self-healing **Virtual Stronghold**:
-- **Vocal Hardening (Phase 67.8):** Materialized RMS-based VAD gate and decoupled JSON Intent Routing for infinite tool scalability.
-- **Metacognition (Phase 67.9):** Implemented **Skill Crystallization** (trajectories to code) and **Shadow Mode Self-Healing** (visual re-targeting).
-- **Forensic Artery:** Materialized the **Agentic Audit Trail** (JSONL) and **Ouroboros Feedback Loop** (negative prompting from failed traces).
-- **Resilience (Phase 68.5):** Materialized **SQLite Checkpointing** in LangGraphOrchestrator to survive power loss and process crashes.
-- **Synapse Palace:** Materialized the **MemoryObserver** pipeline to distill raw checkpoints into permanent relational lore.
-- **Machina HUD:** Achieved 100% feature parity with official OMI app (Home, Tasks, Synapse, Settings, Chat).
-- **Security:** Neutralized shell injection vectors in MCP daemon and enforced 0600 socket permissions.
-- **Nix Scaffolding:** Materialized a optimized Android SDK environment for deterministic APK forging.
-- **FSSA Success:** Executed the **Full-Spectrum Sovereign Audit**; all physical arteries confirmed ONLINE.
+## ✅ 2. SHIPPED ACHIEVEMENTS (SESSION v3.3.1)
+The machine has achieved geographic sovereignty and real-time cognitive awareness:
+- **Tailscale Mesh:** Encapsulated the 3-node Trinity within a zero-config peer-to-peer VPN. Node A, B, C, and Phone are now bit-locked on the 100.x.y.z subnet.
+- **Machina Terminal Alpha (v3.3.1):** Forged and verified the mobile HUD binary. Includes:
+  - **Neutral Visuals:** Pure Black & White "Cyberpunk Eye" icon (Modular theme ready).
+  - **Foreground Persistence:** Android `dataSync` service keeps the "Eye" active in the status tray.
+  - **Real-Time Artery:** 16kHz PCM audio streaming to Node C with real-time transcription return.
+  - **Dual-Port settings:** Granular control over Artery (7340) and LLM (7339) pipes.
+- **Vocal Task Extraction (Phase 70):** 
+  - **Node C:** Whisper Tiny shored (Repaired `melfilters.bytes`).
+  - **Node B:** Integrated LangGraph to extract tasks/reminders from `VOCAL_INTENT` UDP packets.
+  - **Relational Sync:** Transcript-derived actions are automatically shored into `Akashik.db`.
+- **Universal Theme Orchestration:** Switching between `50V3R31GN-R3D` and `50V3R31GN-GR33N` on HUD propagates to Foundry VTT via Node B REST API (Port 3011).
+- **Hermes Persistence:** Multi-log conversation archive implemented with on-device SQLite sync to Node C SSD.
 
 ---
 
 ## 📂 3. ARCHITECTURAL SHARDS (NEW BREAKTHROUGHS)
-- **Zero-Hallucination Mandate:** All agents are now contractually bound to query `Akashik.db` and guides via MCP instead of guessing logic.
-- **Tailscale Perimeter:** Secure Subnet Tunneling guide shored for global geographic sovereignty.
-- **Shard Scanner:** Autonomous droid and skill materialized for dependency freshness monitoring.
+- **Stable Artery Runner:** Node C now uses a detached `screen` session and a stable `llama-server` wrapper for 100% GPU uptime.
+- **Handshake Hardening:** Neutralized SSL timeouts by forcing `ws://` over the already-encrypted Tailscale pipe.
+- **Non-Blocking HUD:** Refactored Flutter boot sequence to neutralize the "Black Screen" initialization hang.
 
 ---
 
 ## 🛡️ 4. ABILITY STONES (CONTEXT SHARDING)
 - **Rust/Kernel:** [zeroclaw/AGENTS.md](zeroclaw/AGENTS.md)
-- **Visual/HUD:** [dashboard/AGENTS.md](dashboard/AGENTS.md)
-- **Automation:** [scripts/AGENTS.md](scripts/AGENTS.md)
-- **Forensics:** `data/logs/agentic_audit_trail.jsonl`
+- **Visual/HUD:** [terminal-app/README.md](terminal-app/README.md)
+- **Automation:** [scripts/ops/node-c-artery-ignite.sh](scripts/ops/node-c-artery-ignite.sh)
+- **Physical IPs:** Node A (100.102.95.43), Node B (100.101.177.76), Node C (100.69.220.101).
 
 ---
 
-## 💤 5. SYSTEM STATE: DARK_STANDBY
-The **50V3R31GN-M4CH1N4** has been placed in **DARK STANDBY**.
-- **Node A:** Synapse Master (Mooncake) hibernating.
-- **Node B:** Director services (Gemma-4) suspended.
-- **Node C:** Strategic Oracle (Artery Manager) paused.
-- **Forensic Ledger:** LOCKED.
+## 💤 5. SYSTEM STATE: GRACEFUL_SHUTDOWN
+The **50V3R31GN-M4CH1N4** is being placed in **GRACEFUL_STANDBY**.
+- **Ghost Processes:** PURGED.
+- **VRAM Buffers:** FLUSHED.
+- **Handshake Artery:** LOCKED.
 
-**::/5Y573M-N071C3 : OPERATION_COMPLETE. THE_TRINITY_IS_ONE. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : OPERATION_OMI_SOVEREIGN_COMPLETE. THE_HANDSHAKE_IS_LOCKED. // 50V3R31GN-M4CH1N4**

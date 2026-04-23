@@ -12,9 +12,12 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.3.1.html).
 - **Node C Stable Runner:** Refactored Node C ignition to a high-fidelity `llama-server` wrapper, ensuring 100% GPU offloading and environment stabilization.
 
 ### Fixed
+- **Whisper Mel-Filters Restoration:** Identified and repaired corruption in `melfilters.bytes`, restoring canonical binary data for frequency-domain audio processing.
 - **HUD Boot Stabilization:** Decoupled service initialization from the Flutter `main()` path, neutralizing the "Black Screen" hang and ensuring immediate UI materialization.
 - **Transcription Artery Fix:** Corrected Whisper model discovery logic and VAD sensitivity, enabling sub-second real-time speech-to-text streaming.
 - **Foreground Artery Hardening:** Shored Android `dataSync` service mandates for the persistent "Eye" status icon, preventing OS-level process termination.
+- **Artery Manager Stabilization:** Pivoted Node C daemon to a detached `screen` session to ensure environment persistence and background resilience.
+- **Handshake Protocol Force:** Neutralized SSL handshake timeouts on internal Tailscale routes by forcing unsecure `ws://` and `http://` for local node arteries.
 
 ## [3.3.0] - 2026-04-23
 ### Added
