@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/chat_service.dart';
 import '../models/chat_message.dart';
+import '../models/conversation.dart';
 import 'main_layout.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -40,32 +41,23 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final chatService = context.watch<ChatService>();
     final primaryColor = Theme.of(context).primaryColor;
+    final currentConversation = chatService.currentConversation;
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            const Text('HERMES // CHAT'),
-            const Spacer(),
-            if (chatService.isSyncing)
-              const SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-              ),
-          ],
-        ),
+        title: Text(currentConversation?.title ?? 'HERMES // CHAT'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.add_comment),
+            onPressed: () => chatService.createNewConversation(),
+          ),
           IconButton(
             icon: const Icon(Icons.sync),
             onPressed: chatService.syncWithNodeC,
           ),
-          IconButton(
-            icon: const Icon(Icons.delete_sweep),
-            onPressed: chatService.clearHistory,
-          ),
         ],
       ),
+      drawer: _buildConversationDrawer(context, chatService),
       body: Stack(
         children: [
           Positioned.fill(child: IgnorePointer(child: CustomPaint(painter: ScanLinePainter(color: primaryColor)))),
@@ -118,6 +110,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   },
                 ),
               ),
+              if (chatService.isSyncing)
+                const LinearProgressIndicator(minHeight: 2),
               Container(
                 padding: const EdgeInsets.all(8.0),
                 color: Colors.black,
@@ -142,6 +136,52 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildConversationDrawer(BuildContext context, ChatService chatService) {
+    final primaryColor = Theme.of(context).primaryColor;
+    return Drawer(
+      backgroundColor: Colors.black,
+      child: Column(
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: primaryColor.withValues(alpha: 0.1)),
+            child: Center(
+              child: Text('LOG_ARCHIVE', style: TextStyle(color: primaryColor, fontSize: 24)),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: chatService.conversations.length,
+              itemBuilder: (context, index) {
+                final conv = chatService.conversations[index];
+                final isSelected = conv.id == chatService.currentConversation?.id;
+                return ListTile(
+                  title: Text(conv.title, style: TextStyle(color: isSelected ? primaryColor : Colors.white)),
+                  subtitle: Text(
+                    '${conv.messages.length} ENTRIES',
+                    style: const TextStyle(fontSize: 10, color: Colors.white24),
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete_outline, size: 18),
+                    onPressed: () => chatService.deleteConversation(conv.id),
+                  ),
+                  onTap: () {
+                    chatService.selectConversation(conv.id);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.delete_sweep, color: primaryColor),
+            title: const Text('PURGE_ALL_LOGS'),
+            onTap: chatService.clearHistory,
           ),
         ],
       ),

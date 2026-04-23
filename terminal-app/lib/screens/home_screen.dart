@@ -37,6 +37,22 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          if (artery.isRecording)
+            Container(
+              padding: const EdgeInsets.all(12),
+              color: Colors.red.withValues(alpha: 0.1),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('⟨ TRANSCRIPTION_STREAM ⟩', style: TextStyle(color: Colors.red, fontSize: 10)),
+                  Text(
+                    artery.currentTranscription.isEmpty ? 'LISTENING...' : artery.currentTranscription,
+                    style: const TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+                  ),
+                ],
+              ),
+            ),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16.0),
@@ -61,12 +77,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 FloatingActionButton.large(
                   heroTag: 'mic_btn',
                   onPressed: () {
-                    // Simulate push to talk
-                    artery.addLog("::/USER : [AUDIO_STREAM_STARTED]");
+                    if (artery.isRecording) {
+                      artery.stopVoiceStream();
+                    } else {
+                      artery.startVoiceStream();
+                    }
                   },
-                  backgroundColor: primaryColor.withValues(alpha: 0.2),
-                  foregroundColor: primaryColor,
-                  child: const Icon(Icons.mic),
+                  backgroundColor: artery.isRecording ? Colors.red.withValues(alpha: 0.6) : primaryColor.withValues(alpha: 0.2),
+                  foregroundColor: artery.isRecording ? Colors.white : primaryColor,
+                  child: Icon(artery.isRecording ? Icons.stop : Icons.mic),
                 ),
                 ElevatedButton.icon(
                   onPressed: () {

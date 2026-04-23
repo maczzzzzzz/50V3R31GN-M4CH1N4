@@ -4,6 +4,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:record/record.dart';
 import 'notification_service.dart';
 
 class ArteryClient extends ChangeNotifier {
@@ -11,15 +12,24 @@ class ArteryClient extends ChangeNotifier {
   final List<String> _logs = [];
   bool _isConnected = false;
   final NotificationService _notificationService = NotificationService();
+  
+  final _audioRecorder = AudioRecorder();
+  bool _isRecording = false;
+  String _currentTranscription = "";
+  StreamSubscription<Uint8List>? _audioSubscription;
 
   List<String> get logs => List.unmodifiable(_logs);
   bool get isConnected => _isConnected;
+  bool get isRecording => _isRecording;
+  String get currentTranscription => _currentTranscription;
 
   Future<void> connectFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     final ip = prefs.getString('node_c_ip') ?? '10.0.0.30';
     final port = prefs.getString('node_c_port') ?? '7340';
     final secure = prefs.getBool('secure_tunnel') ?? false;
+    
+    // ◈ Handshake protocol: ws (standard) or wss (encrypted)
     final protocol = secure ? 'wss' : 'ws';
     final url = '$protocol://$ip:$port/ws/audio';
     
@@ -55,8 +65,6 @@ class ArteryClient extends ChangeNotifier {
   }
 
   void _handleIncomingMessage(dynamic message) {
-    addLog("::/WS_RECEIVE : $message");
-    
     // Command Parsing
     if (message is String) {
       if (message.startsWith("::/REMINDER|")) {
@@ -78,6 +86,19 @@ class ArteryClient extends ChangeNotifier {
         } catch (e) {
           addLog("::/REMINDER_ERROR : Failed to parse reminder command");
         }
+      } else if (message.startsWith("{")) {
+        try {
+          final data = jsonDecode(message);
+          if (data['type'] == 'TRANSCRIPTION') {
+            _currentTranscription = data['text'] ?? "";
+            addLog("::/TRANSCRIPT : $_currentTranscription");
+            notifyListeners();
+          }
+        } catch (e) {
+          addLog("::/WS_RECEIVE : $message");
+        }
+      } else {
+        addLog("::/WS_RECEIVE : $message");
       }
     }
   }
@@ -86,6 +107,48 @@ class ArteryClient extends ChangeNotifier {
     _logs.insert(0, msg);
     if (_logs.length > 50) _logs.removeLast();
     notifyListeners();
+  }
+
+  Future<void> startVoiceStream() async {
+    if (!_isConnected) {
+      addLog("::/ERROR : NOT_CONNECTED");
+      return;
+    }
+
+    try {
+      if (await _audioRecorder.hasPermission()) {
+        const config = RecordConfig(
+          encoder: AudioEncoder.pcm16bits,
+          sampleRate: 16000,
+          numChannels: 1,
+        );
+
+        final stream = await _audioRecorder.startStream(config);
+        _isRecording = true;
+        _currentTranscription = "";
+        notifyListeners();
+        addLog("::/USER : [AUDIO_STREAM_STARTED]");
+        
+        _notificationService.showPersistentEye(status: 'TRANSCRIBING_ACTIVE');
+
+        _audioSubscription = stream.listen((data) {
+          _channel?.sink.add(data);
+        });
+      } else {
+        addLog("::/ERROR : MIC_PERMISSION_DENIED");
+      }
+    } catch (e) {
+      addLog("::/ERROR : RECORDER_FAIL : $e");
+    }
+  }
+
+  Future<void> stopVoiceStream() async {
+    await _audioSubscription?.cancel();
+    await _audioRecorder.stop();
+    _isRecording = false;
+    notifyListeners();
+    addLog("::/USER : [AUDIO_STREAM_STOPPED]");
+    _notificationService.showPersistentEye(status: 'MONITORING_ACTIVE');
   }
 
   void sendAudioChunk(Uint8List data) {
@@ -98,14 +161,15 @@ class ArteryClient extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final ip = prefs.getString('node_c_ip') ?? '10.0.0.30';
     final port = prefs.getString('node_c_port') ?? '7340';
-    final secure = prefs.getBool('secure_tunnel') ?? false;
-    final protocol = secure ? 'https' : 'http';
+    const protocol = 'http';
     
     try {
       final response = await http.post(
         Uri.parse('$protocol://$ip:$port/shift'),
-        body: {"quantization": quant},
-      );
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({"quantization": quant}),
+      ).timeout(const Duration(seconds: 10));
+      
       if (response.statusCode == 200) {
         addLog("::/SHIFT_SUCCESS : $quant");
       } else {
@@ -118,6 +182,8 @@ class ArteryClient extends ChangeNotifier {
 
   @override
   void dispose() {
+    _audioSubscription?.cancel();
+    _audioRecorder.dispose();
     _channel?.sink.close();
     super.dispose();
   }

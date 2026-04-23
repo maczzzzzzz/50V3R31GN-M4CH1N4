@@ -37,6 +37,7 @@ export const enum IntentType {
   Heal          = 0x04,
   Friction      = 0x05,
   ContextUpdate = 0x0A,
+  VocalIntent   = 0x0B,
 }
 
 export const enum ResultStatus {

@@ -38,6 +38,7 @@ pub enum IntentType {
     Damage     = 0x02,
     SkillCheck = 0x03,
     Heal       = 0x04,
+    VocalIntent = 0x0B,
 }
 
 // ─── Result Status ───────────────────────────────────────────────────────────

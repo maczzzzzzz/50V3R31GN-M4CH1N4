@@ -130,7 +130,46 @@ async function main() {
     host: process.env.NODE_C_HOST || '10.0.0.12',
     port: parseInt(process.env.CLAWLINK_PORT || '7878', 10),
     timeoutMs: 2000,
+    contextReceivePort: 9090, // Listen for pushes from Node A/C
   }, logger);
+
+  const orchestrator = new LangGraphOrchestrator({
+    nodeAUrl: process.env.NODE_A_LLAMA_URL || 'http://100.102.95.43:8080/v1',
+    nodeBUrl: process.env.SOVEREIGN_INFERENCE_URL || 'http://localhost:8080/v1',
+    nodeCUrl: process.env.NODE_C_LLAMA_URL || 'http://100.69.220.101:7339/v1',
+  });
+
+  vsbClient.onVocalIntent(async (transcript) => {
+    const traceId = randomUUID();
+    logger.info('Orchestrator', traceId, `Processing Vocal Intent: ${transcript}`);
+    
+    // Task Extraction Logic
+    const extractionPrompt = [
+      `You are the Sovereign Director. Analyze the following transcript from the Operative's wearable.`,
+      `Transcript: "${transcript}"`,
+      `TASK: Extract any clear tasks, reminders, or intent to spend Eurodollars.`,
+      `Reply with a JSON object: { "tasks": ["task1", ...], "reminders": [{"note": "...", "time": "ISO8601"}], "spend": {"amount": 0, "target": "..."} }`,
+      `If no intent found, return empty lists. Be precise.`,
+    ].join('\n');
+
+    try {
+      const result = await orchestrator.invoke({ prompt: extractionPrompt, tokens: 100, thread_id: traceId });
+      if (result.ruleResult) {
+        logger.info('Orchestrator', traceId, 'Materialized Vocal Action Items:', result.ruleResult);
+        
+        // Push tasks to Akashik.db
+        if (Array.isArray(result.ruleResult.tasks)) {
+          for (const task of result.ruleResult.tasks) {
+            oracle.getRawDatabase().prepare(
+              "INSERT INTO tasks (id, title, status) VALUES (?, ?, 'pending')"
+            ).run(randomUUID(), task);
+          }
+        }
+      }
+    } catch (e) {
+      logger.error('Orchestrator', traceId, `Failed to extract vocal intent: ${(e as Error).message}`);
+    }
+  });
 
   const clawlinkClient = new ClawLinkClient({
     socketPath: process.env.CLAWLINK_SOCK || '/home/nixos/50V3R31GN-M4CH1N4/.crush/clawlink.sock',

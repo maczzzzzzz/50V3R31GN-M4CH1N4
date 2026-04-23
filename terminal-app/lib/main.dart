@@ -12,11 +12,6 @@ import 'services/notification_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize notifications
-  final notifications = NotificationService();
-  await notifications.init();
-  await notifications.showPersistentEye();
-
   runApp(
     MultiProvider(
       providers: [
@@ -31,8 +26,29 @@ void main() async {
   );
 }
 
-class MachinaTerminalApp extends StatelessWidget {
+class MachinaTerminalApp extends StatefulWidget {
   const MachinaTerminalApp({super.key});
+
+  @override
+  State<MachinaTerminalApp> createState() => _MachinaTerminalAppState();
+}
+
+class _MachinaTerminalAppState extends State<MachinaTerminalApp> {
+  @override
+  void initState() {
+    super.initState();
+    _initServices();
+  }
+
+  Future<void> _initServices() async {
+    try {
+      final notifications = NotificationService();
+      await notifications.init();
+      await notifications.showPersistentEye();
+    } catch (e) {
+      debugPrint('◈ Service initialization failed: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,8 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final _ipController = TextEditingController();
-  final _portController = TextEditingController();
+  final _arteryPortController = TextEditingController();
+  final _llmPortController = TextEditingController();
   final _directorIpController = TextEditingController();
   bool _secureTunnel = false;
 
@@ -26,7 +27,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _ipController.text = prefs.getString('node_c_ip') ?? '10.0.0.30';
-      _portController.text = prefs.getString('node_c_port') ?? '7340';
+      _arteryPortController.text = prefs.getString('node_c_port') ?? '7340';
+      _llmPortController.text = prefs.getString('node_c_llm_port') ?? '7339';
       _directorIpController.text = prefs.getString('node_b_ip') ?? '10.0.0.10';
       _secureTunnel = prefs.getBool('secure_tunnel') ?? false;
     });
@@ -35,7 +37,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('node_c_ip', _ipController.text.trim());
-    await prefs.setString('node_c_port', _portController.text.trim());
+    await prefs.setString('node_c_port', _arteryPortController.text.trim());
+    await prefs.setString('node_c_llm_port', _llmPortController.text.trim());
     await prefs.setString('node_b_ip', _directorIpController.text.trim());
     await prefs.setBool('secure_tunnel', _secureTunnel);
     
@@ -76,15 +79,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 16),
-          TextField(
-            controller: _portController,
-            decoration: const InputDecoration(
-              labelText: 'NODE C PORT',
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _arteryPortController,
+                  decoration: const InputDecoration(
+                    labelText: 'ARTERY PORT',
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: TextField(
+                  controller: _llmPortController,
+                  decoration: const InputDecoration(
+                    labelText: 'LLM PORT',
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
           SwitchListTile(
-            title: Text('SECURE TUNNEL (VPN)', style: TextStyle(color: primaryColor)),
+            title: Text('REMOTE_ENCRYPTION (SSL)', style: TextStyle(color: primaryColor)),
+            subtitle: const Text('ENABLE ONLY IF NODES HAVE SSL CERTS. TAILSCALE IS SECURE BY DEFAULT.', style: TextStyle(fontSize: 10, color: Colors.white54)),
             value: _secureTunnel,
             onChanged: (value) {
               setState(() {

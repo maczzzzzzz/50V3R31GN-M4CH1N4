@@ -28,6 +28,7 @@ export class VsbClient {
   private readonly socket: dgram.Socket;
   private contextSocket?: dgram.Socket;
   private readonly contextHandlers: Array<(update: SovereignContextUpdate) => void> = [];
+  private readonly vocalIntentHandlers: Array<(transcript: string) => void> = [];
 
   constructor(private readonly config: VsbConfig, private readonly logger?: ILogger | undefined) {
     this.socket = dgram.createSocket('udp4');
@@ -38,15 +39,33 @@ export class VsbClient {
     this.contextHandlers.push(handler);
   }
 
-  private handleContextUpdate(msg: Buffer): void {
+  /** Register a handler for incoming 0x0B VocalIntent packets from Node C. */
+  onVocalIntent(handler: (transcript: string) => void): void {
+    this.vocalIntentHandlers.push(handler);
+  }
+
+  private handleVsbPacket(msg: Buffer): void {
     const bytes = new Uint8Array(msg);
     const packet = IntentPacketCodec.decode(bytes);
-    if (!packet || packet.intentType !== (IntentType.ContextUpdate as number)) return;
-    const update = SovereignContextUpdateCodec.decode(packet.payload);
-    const traceId = randomUUID();
-    this.logger?.debug('VsbClient', traceId, `Received 0x0A ContextUpdate (hash=${update.context_hash})`);
-    for (const handler of this.contextHandlers) {
-      try { handler(update); } catch { /* non-fatal */ }
+    if (!packet) return;
+
+    if (packet.intentType === IntentType.ContextUpdate) {
+      const update = SovereignContextUpdateCodec.decode(packet.payload);
+      const traceId = randomUUID();
+      this.logger?.debug('VsbClient', traceId, `Received 0x0A ContextUpdate (hash=${update.context_hash})`);
+      for (const handler of this.contextHandlers) {
+        try { handler(update); } catch { /* non-fatal */ }
+      }
+    } else if (packet.intentType === IntentType.VocalIntent) {
+      const decoder = new TextDecoder();
+      const nullIdx = packet.payload.indexOf(0);
+      const end = nullIdx === -1 ? packet.payload.length : nullIdx;
+      const transcript = decoder.decode(packet.payload.subarray(0, end));
+      const traceId = randomUUID();
+      this.logger?.info('VsbClient', traceId, `Received 0x0B VocalIntent: ${transcript}`);
+      for (const handler of this.vocalIntentHandlers) {
+        try { handler(transcript); } catch { /* non-fatal */ }
+      }
     }
   }
 
@@ -175,10 +194,10 @@ export class VsbClient {
       });
     });
 
-    // If a dedicated context-receive port is configured, bind a second socket for 0x0A pushes.
+    // If a dedicated context-receive port is configured, bind a second socket for 0x0A/0x0B pushes.
     if (this.config.contextReceivePort) {
       this.contextSocket = dgram.createSocket('udp4');
-      this.contextSocket.on('message', (msg) => this.handleContextUpdate(msg));
+      this.contextSocket.on('message', (msg) => this.handleVsbPacket(msg));
       await new Promise<void>((resolve, reject) => {
         this.contextSocket!.bind(this.config.contextReceivePort, (err?: Error) => {
           if (err) {

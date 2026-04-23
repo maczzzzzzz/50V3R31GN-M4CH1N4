@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
@@ -12,9 +13,14 @@ class NotificationService {
   NotificationService._internal();
 
   Future<void> init() async {
-    tz_data.initializeTimeZones();
-    final String timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timeZoneName));
+    try {
+      tz_data.initializeTimeZones();
+      final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(timeZoneName));
+    } catch (e) {
+      debugPrint('◈ Timezone initialization failed, falling back to UTC: $e');
+      tz.setLocalLocation(tz.UTC);
+    }
     
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -41,28 +47,31 @@ class NotificationService {
         ?.requestExactAlarmsPermission();
   }
 
-  Future<void> showPersistentEye() async {
+  Future<void> showPersistentEye({String status = 'MONITORING_ACTIVE'}) async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
       'sovereign_status',
       'Sovereign Status',
       channelDescription: 'Persistent monitoring status',
-      importance: Importance.low,
-      priority: Priority.low,
+      importance: Importance.max,
+      priority: Priority.high,
       ongoing: true,
       autoCancel: false,
-      icon: 'ic_eye_stat', // Using our custom eye drawable
+      icon: 'ic_eye_stat',
+      styleInformation: BigTextStyleInformation(''),
+      showWhen: false,
+      onlyAlertOnce: true,
     );
 
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
-
-    await _notificationsPlugin.show(
-      0, // Static ID for persistent notification
-      '50V3R31GN-M4CH1N4',
-      'MONITORING_ACTIVE',
-      notificationDetails,
-    );
+    await _notificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.startForegroundService(
+          0,
+          '50V3R31GN-M4CH1N4',
+          status,
+          notificationDetails: androidNotificationDetails,
+          payload: 'persistent_eye',
+        );
   }
 
   Future<void> scheduleNotification(int id, String title, String body, DateTime scheduledTime) async {

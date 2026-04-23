@@ -57,7 +57,7 @@ use tokenizers::Tokenizer;
 
 const DEFAULT_PORT: u16 = 7340;
 const LLAMA_SERVER_PORT: u16 = 7339;
-const VOCAL_SOUL: &str = "/mnt/vocal_soul";
+const VOCAL_SOUL: &str = "/home/maczz/50V3R31GN-M4CH1N4/models";
 
 /// Startup grace period — wait for llama-server to bind before returning
 const STARTUP_GRACE_MS: u64 = 3_000;
@@ -130,9 +130,9 @@ pub fn determine_route(tokens: usize) -> NodeTarget {
 impl Quantization {
     fn gguf_filename(self) -> &'static str {
         match self {
-            Quantization::Q5 => "E4B-it-OBLITERATED-Q5_K_M.gguf",
-            Quantization::Q4 => "E4B-it-OBLITERATED-Q4_K_M.gguf",
-            Quantization::Q3 => "E4B-it-OBLITERATED-Q3_K_M.gguf",
+            Quantization::Q5 => "gemma-4-E4B-it-OBLITERATED-Q5_K_M.gguf",
+            Quantization::Q4 => "gemma-4-E4B-it-OBLITERATED-Q4_K_M.gguf",
+            Quantization::Q3 => "gemma-4-E4B-it-OBLITERATED-Q3_K_M.gguf",
         }
     }
 
@@ -177,66 +177,38 @@ struct ArteryState {
     n_gpu_layers: i32,
     whisper_core: Option<Arc<WhisperCore>>,
     latest_frame_hash: Option<String>,
+    udp_socket: Arc<tokio::net::UdpSocket>,
+    director_addr: String,
 }
 
 impl ArteryState {
-    fn gguf_path(&self, q: Quantization) -> PathBuf {
-        self.vocal_soul.join(q.gguf_filename())
-    }
-
-    async fn stop_server(&mut self) {
-        if let Some(mut child) = self.child.take() {
-            info!("ARTERY: Killing llama-server (PID {:?})", child.id());
-            let _ = child.kill().await;
-            let _ = child.wait().await;
-            info!("ARTERY: llama-server terminated");
-        }
-    }
-
+...
     async fn start_server(&mut self, q: Quantization) -> anyhow::Result<()> {
-        self.stop_server().await;
-
-        let model_path = self.gguf_path(q);
-        if !model_path.exists() {
-            anyhow::bail!(
-                "ARTERY_FAIL: GGUF not found at {} — run ingestor to shore the model",
-                model_path.display()
-            );
-        }
-
-        info!(
-            "ARTERY: Igniting llama-server with {} ({})",
-            q,
-            q.vram_label()
+...
+    }
+    
+    async fn broadcast_vocal_intent(&self, transcript: &str) {
+        use zeroclaw::vsb_protocol::{IntentPacket, IntentType, as_bytes};
+        
+        let mut payload = [0u8; 256];
+        let bytes = transcript.as_bytes();
+        let len = std::cmp::min(bytes.len(), 255);
+        payload[..len].copy_from_slice(&bytes[..len]);
+        
+        let pkt = IntentPacket::new(
+            IntentType::VocalIntent,
+            0, // sequence doesn't matter for async pushes
+            [0u8; 16], // session
+            [0u8; 16], // actor
+            payload,
         );
-
-        let child = Command::new(&self.llama_server_bin)
-            .args([
-                "--model",
-                model_path.to_str().unwrap_or_default(),
-                "--port",
-                &LLAMA_SERVER_PORT.to_string(),
-                "--host",
-                "0.0.0.0",
-                "--ctx-size",
-                &q.ctx_size().to_string(),
-                "--n-gpu-layers",
-                &self.n_gpu_layers.to_string(),
-                "--parallel",
-                "2",
-                "--cont-batching",
-                "--log-disable",
-            ])
-            .spawn()?;
-
-        self.child = Some(child);
-        self.current_quant = q;
-
-        // Grace period — let the server bind
-        sleep(Duration::from_millis(STARTUP_GRACE_MS)).await;
-        info!("ARTERY: llama-server online on port {}", LLAMA_SERVER_PORT);
-
-        Ok(())
+        
+        let bytes = unsafe { as_bytes(&pkt) };
+        if let Err(e) = self.udp_socket.send_to(bytes, &self.director_addr).await {
+            warn!("ARTERY: Failed to broadcast VOCAL_INTENT to {}: {}", self.director_addr, e);
+        } else {
+            info!("ARTERY: Broadcasted VOCAL_INTENT to {}", self.director_addr);
+        }
     }
 }
 
@@ -279,11 +251,10 @@ struct ShiftRequest {
 // ---------------------------------------------------------------------------
 
 async fn handle_chat_sync(
-    State(state): State<SharedState>,
+    State(_state): State<SharedState>,
     Json(req): Json<Vec<ChatMessage>>,
-) -> StatusCode {
-    let s = state.lock().await;
-    let db_path = s.vocal_soul.join("artery_history.db");
+) -> (StatusCode, Json<serde_json::Value>) {
+    let db_path = PathBuf::from("/home/maczz/50V3R31GN-M4CH1N4/data/artery_history.db");
     
     match rusqlite::Connection::open(&db_path) {
         Ok(conn) => {
@@ -291,18 +262,21 @@ async fn handle_chat_sync(
                 "CREATE TABLE IF NOT EXISTS chat_history (id TEXT PRIMARY KEY, sender TEXT, text TEXT, timestamp TEXT)",
                 [],
             );
-            for msg in req {
-                let _ = conn.execute(
+            let mut count = 0;
+            for msg in &req {
+                if let Ok(_) = conn.execute(
                     "INSERT OR IGNORE INTO chat_history (id, sender, text, timestamp) VALUES (?1, ?2, ?3, ?4)",
                     [&msg.id, &msg.sender, &msg.text, &msg.timestamp],
-                );
+                ) {
+                    count += 1;
+                }
             }
-            info!("ARTERY: Chat sync complete. {} records shored.", 0); // req.len() would be better but I'm being terse
-            StatusCode::OK
+            info!("ARTERY: Chat sync complete. {} records shored in {}.", count, db_path.display());
+            (StatusCode::OK, Json(serde_json::json!({ "status": "ok", "synced": count })))
         }
         Err(e) => {
             error!("ARTERY: DB sync failed: {e}");
-            StatusCode::INTERNAL_SERVER_ERROR
+            (StatusCode::INTERNAL_SERVER_ERROR, Json(serde_json::json!({ "status": "error", "error": e.to_string() })))
         }
     }
 }
@@ -430,8 +404,8 @@ async fn handle_socket(mut socket: WebSocket, state: SharedState) {
     let mut audio_buffer = Vec::new();
     let mut is_speaking = false;
     let mut silence_chunks = 0;
-    const VAD_THRESHOLD: f32 = 0.015;
-    const MAX_SILENCE_CHUNKS: usize = 20;
+    const VAD_THRESHOLD: f32 = 0.010; // More sensitive
+    const MAX_SILENCE_CHUNKS: usize = 12; // Faster trigger (approx 0.6s at 20fps)
 
     while let Some(Ok(msg)) = socket.recv().await {
         if let Message::Binary(bytes) = msg {
@@ -455,41 +429,62 @@ async fn handle_socket(mut socket: WebSocket, state: SharedState) {
                 audio_buffer.extend_from_slice(&bytes); // Retain brief pauses
                 
                 if silence_chunks > MAX_SILENCE_CHUNKS {
-                    // Trigger Inference
-                    let whisper_core = {
-                        let s = state.lock().await;
-                        s.whisper_core.clone()
-                    };
-
-                    let transcript = transcribe_audio(&audio_buffer, whisper_core).await;
-                    
-                    if !transcript.is_empty() {
-                        // Tasks 2 & 3: Decoupled Intent Routing & Visual Context Injection
-                        let frame_hash = {
-                            let s = state.lock().await;
-                            s.latest_frame_hash.clone().unwrap_or_else(|| "null".to_string())
-                        };
-
-                        let payload = serde_json::json!({
-                            "type": "VOCAL_INTENT",
-                            "transcript": transcript,
-                            "confidence": 0.95,
-                            "timestamp": std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs(),
-                            "visual_context": frame_hash
-                        });
-
-                        info!("::/VSB_INJECT : VOCAL_INTENT | {}", payload.to_string());
-                    }
-
-                    // Reset VAD state
+                    trigger_transcription(&mut socket, &mut audio_buffer, &state).await;
                     is_speaking = false;
                     silence_chunks = 0;
-                    audio_buffer.clear();
                 }
             }
         }
     }
+    
+    if is_speaking && !audio_buffer.is_empty() {
+        trigger_transcription(&mut socket, &mut audio_buffer, &state).await;
+    }
+    
     info!("◈ OMI Wearable disconnected");
+}
+
+async fn trigger_transcription(socket: &mut WebSocket, audio_buffer: &mut Vec<u8>, state: &SharedState) {
+    // Trigger Inference
+    let whisper_core = {
+        let s = state.lock().await;
+        s.whisper_core.clone()
+    };
+
+    let transcript = transcribe_audio(&audio_buffer, whisper_core).await;
+    
+    if !transcript.is_empty() {
+        // Send back to client
+        let response = Message::Text(serde_json::json!({
+            "type": "TRANSCRIPTION",
+            "text": transcript
+        }).to_string());
+        
+        let _ = socket.send(response).await;
+
+        // Broadcast to Director (Node B)
+        {
+            let s = state.lock().await;
+            s.broadcast_vocal_intent(transcript).await;
+        }
+
+        // Tasks 2 & 3: Decoupled Intent Routing & Visual Context Injection
+        let frame_hash = {
+            let s = state.lock().await;
+            s.latest_frame_hash.clone().unwrap_or_else(|| "null".to_string())
+        };
+
+        let payload = serde_json::json!({
+            "type": "VOCAL_INTENT",
+            "transcript": transcript,
+            "confidence": 0.95,
+            "timestamp": std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs(),
+            "visual_context": frame_hash
+        });
+
+        info!("::/VSB_INJECT : VOCAL_INTENT | {}", payload.to_string());
+    }
+    audio_buffer.clear();
 }
 
 async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> String {
@@ -678,6 +673,11 @@ async fn main() {
         .and_then(|v| v.parse().ok())
         .unwrap_or(DEFAULT_PORT);
 
+    let director_addr = env::var("DIRECTOR_VSB_ADDR")
+        .unwrap_or_else(|_| "100.101.177.76:9090".to_string());
+
+    let udp_socket = Arc::new(tokio::net::UdpSocket::bind("0.0.0.0:0").await.expect("Failed to bind ephemeral UDP socket"));
+
     if !vocal_soul.exists() {
         warn!(
             "ARTERY: {} does not exist — GGUF paths will fail until Node C storage is mounted",
@@ -704,9 +704,18 @@ async fn main() {
         n_gpu_layers,
         whisper_core,
         latest_frame_hash: None,
+        udp_socket,
+        director_addr,
     };
 
     let shared = Arc::new(Mutex::new(initial_state));
+
+    // ◈ AUTO_IGNITION: Ensure llama-server is online on port 7339
+    {
+        let mut s = shared.lock().await;
+        let q = s.current_quant;
+        let _ = s.start_server(q).await;
+    }
 
     let app = Router::new()
         .route("/health", get(handle_health))

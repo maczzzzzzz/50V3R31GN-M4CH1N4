@@ -265,13 +265,22 @@
             
             # CUDA Invariants
             export CUDA_HOME="${pkgs.cudaPackages.cudatoolkit}"
-            export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${pkgs.lib.makeLibraryPath (with pkgs; [ 
+            
+            # ◈ HARDENED_ARTERY: Support both WSL and Native Linux CUDA paths
+            WSL_LIB="/usr/lib/wsl/lib"
+            NIX_LIBS="${pkgs.lib.makeLibraryPath (with pkgs; [ 
               cudaPackages.cudatoolkit
               cudaPackages.libcublas
               cudaPackages.libcusolver
               cudaPackages.libcusparse
               stdenv.cc.cc.lib
-            ])}:$LD_LIBRARY_PATH"
+            ])}"
+            
+            if [ -d "$WSL_LIB" ]; then
+                export LD_LIBRARY_PATH="$WSL_LIB:$NIX_LIBS:$LD_LIBRARY_PATH"
+            else
+                export LD_LIBRARY_PATH="$NIX_LIBS:$LD_LIBRARY_PATH"
+            fi
             
             echo "◈ 50V3R31GN-M4CH1N4: Node C (HARDENED_ORACLE) Environment Loaded."
           '';
