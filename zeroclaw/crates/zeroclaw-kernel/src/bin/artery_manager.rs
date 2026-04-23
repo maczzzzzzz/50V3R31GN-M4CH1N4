@@ -3,28 +3,10 @@
 //! Axum HTTP daemon running on port 7340 (Node C host).
 //! Manages dynamic VRAM gating by restarting `llama-server` with the correct
 //! GGUF quantization variant: Q5 (Authority), Q4 (Comm), Q3 (Berserker).
-//!
-//! ## Endpoints
-//! | Method | Path        | Description                        |
-//! |--------|-------------|------------------------------------|
-//! | GET    | /status     | Current quantization and PID       |
-//! | POST   | /shift      | Swap to a different quantization   |
-//! | POST   | /stop       | Kill the current llama-server      |
-//! | POST   | /start      | (Re)start with the current quant   |
-//! | GET    | /health     | Liveness probe                     |
-//!
-//! ## VRAM Safety (SOVEREIGN_VITAL_SIGNS.md)
-//! Node C ceiling: 5.1GB (Logic) / 5.9GB (Voice).
-//! Q5 is the default — highest fidelity within the safety envelope.
-//!
-//! GGUF paths on `/mnt/vocal_soul` (Node C storage):
-//!   - Q5: `E4B-it-OBLITERATED-Q5_K_M.gguf`   ← Authority  (~5.1GB)
-//!   - Q4: `E4B-it-OBLITERATED-Q4_K_M.gguf`   ← Comm       (~4.2GB)
-//!   - Q3: `E4B-it-OBLITERATED-Q3_K_M.gguf`   ← Berserker  (~3.3GB)
 
 use std::{
     env,
-    path::PathBuf,
+    path::{PathBuf},
     sync::Arc,
     time::Duration,
 };
@@ -80,7 +62,6 @@ impl WhisperCore {
         let tokenizer_path = whisper_dir.join("tokenizer.json");
         let config_path = whisper_dir.join("config.json");
         
-        // Let's assume Node C CUDA usage, fallback to CPU if failed.
         let device = Device::new_cuda(0).unwrap_or(Device::Cpu);
 
         if !model_path.exists() {
@@ -113,20 +94,6 @@ pub enum Quantization {
     Q3,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-pub enum NodeTarget {
-    NodeA,
-    NodeC,
-}
-
-pub fn determine_route(tokens: usize) -> NodeTarget {
-    if tokens > 4000 {
-        NodeTarget::NodeA
-    } else {
-        NodeTarget::NodeC
-    }
-}
-
 impl Quantization {
     fn gguf_filename(self) -> &'static str {
         match self {
@@ -144,7 +111,6 @@ impl Quantization {
         }
     }
 
-    /// Context length tuned per VRAM headroom
     fn ctx_size(self) -> u32 {
         match self {
             Quantization::Q5 => 4096,
@@ -173,8 +139,6 @@ struct ArteryState {
     current_quant: Quantization,
     child: Option<Child>,
     vocal_soul: PathBuf,
-    llama_server_bin: PathBuf,
-    n_gpu_layers: i32,
     whisper_core: Option<Arc<WhisperCore>>,
     latest_frame_hash: Option<String>,
     udp_socket: Arc<tokio::net::UdpSocket>,
@@ -182,9 +146,44 @@ struct ArteryState {
 }
 
 impl ArteryState {
-...
+    fn gguf_path(&self, q: Quantization) -> PathBuf {
+        self.vocal_soul.join("gemma-4-e2b").join(q.gguf_filename())
+    }
+
+    async fn stop_server(&mut self) {
+        if let Some(mut child) = self.child.take() {
+            info!("ARTERY: Killing llama-server (PID {:?})", child.id());
+            let _ = child.kill().await;
+            let _ = child.wait().await;
+            info!("ARTERY: llama-server terminated");
+        }
+    }
+
     async fn start_server(&mut self, q: Quantization) -> anyhow::Result<()> {
-...
+        self.stop_server().await;
+
+        let quant_arg = match q {
+            Quantization::Q5 => "q5",
+            Quantization::Q4 => "q4",
+            Quantization::Q3 => "q3",
+        };
+
+        info!("ARTERY: Igniting Oracle via bash script wrapper (mode={})", quant_arg);
+
+        let child = Command::new("bash")
+            .arg("/home/maczz/50V3R31GN-M4CH1N4/scripts/ops/node-c-ignition.sh")
+            .arg(quant_arg)
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .spawn()?;
+
+        self.child = Some(child);
+        self.current_quant = q;
+
+        sleep(Duration::from_millis(STARTUP_GRACE_MS)).await;
+        info!("ARTERY: llama-server online on port {}", LLAMA_SERVER_PORT);
+
+        Ok(())
     }
     
     async fn broadcast_vocal_intent(&self, transcript: &str) {
@@ -197,9 +196,9 @@ impl ArteryState {
         
         let pkt = IntentPacket::new(
             IntentType::VocalIntent,
-            0, // sequence doesn't matter for async pushes
-            [0u8; 16], // session
-            [0u8; 16], // actor
+            0,
+            [0u8; 16],
+            [0u8; 16],
             payload,
         );
         
@@ -271,12 +270,13 @@ async fn handle_chat_sync(
                     count += 1;
                 }
             }
-            info!("ARTERY: Chat sync complete. {} records shored in {}.", count, db_path.display());
+            info!("ARTERY: Chat sync complete. {} records shored.", count);
             (StatusCode::OK, Json(serde_json::json!({ "status": "ok", "synced": count })))
         }
         Err(e) => {
-            error!("ARTERY: DB sync failed: {e}");
-            (StatusCode::INTERNAL_SERVER_ERROR, Json(serde_json::json!({ "status": "error", "error": e.to_string() })))
+            error!("ARTERY: DB sync failed: {}", e);
+            let err_msg = e.to_string();
+            (StatusCode::INTERNAL_SERVER_ERROR, Json(serde_json::json!({ "status": "error", "error": err_msg })))
         }
     }
 }
@@ -340,10 +340,11 @@ async fn handle_shift(
             })),
         ),
         Err(e) => {
-            error!("ARTERY: Shift failed: {e}");
+            error!("ARTERY: Shift failed: {}", e);
+            let err_msg = e.to_string();
             (
                 StatusCode::INTERNAL_SERVER_ERROR,
-                Json(serde_json::json!({ "status": "error", "error": e.to_string() })),
+                Json(serde_json::json!({ "status": "error", "error": err_msg })),
             )
         }
     }
@@ -367,10 +368,11 @@ async fn handle_start(State(state): State<SharedState>) -> (StatusCode, Json<ser
             })),
         ),
         Err(e) => {
-            error!("ARTERY: Start failed: {e}");
+            error!("ARTERY: Start failed: {}", e);
+            let err_msg = e.to_string();
             (
                 StatusCode::INTERNAL_SERVER_ERROR,
-                Json(serde_json::json!({ "status": "error", "error": e.to_string() })),
+                Json(serde_json::json!({ "status": "error", "error": err_msg })),
             )
         }
     }
@@ -390,10 +392,6 @@ async fn handle_hash_update(
     StatusCode::OK
 }
 
-// ---------------------------------------------------------------------------
-// Entry point
-// ---------------------------------------------------------------------------
-
 async fn handle_ws(State(state): State<SharedState>, ws: WebSocketUpgrade) -> impl IntoResponse {
     ws.on_upgrade(|socket| handle_socket(socket, state))
 }
@@ -404,12 +402,11 @@ async fn handle_socket(mut socket: WebSocket, state: SharedState) {
     let mut audio_buffer = Vec::new();
     let mut is_speaking = false;
     let mut silence_chunks = 0;
-    const VAD_THRESHOLD: f32 = 0.010; // More sensitive
-    const MAX_SILENCE_CHUNKS: usize = 12; // Faster trigger (approx 0.6s at 20fps)
+    const VAD_THRESHOLD: f32 = 0.010;
+    const MAX_SILENCE_CHUNKS: usize = 12;
 
     while let Some(Ok(msg)) = socket.recv().await {
         if let Message::Binary(bytes) = msg {
-            // Task 1: VAD (Voice Activity Detection) Gate using RMS Energy
             let mut energy = 0.0;
             let mut sample_count = 0;
             let mut chunks = bytes.chunks_exact(2);
@@ -426,7 +423,7 @@ async fn handle_socket(mut socket: WebSocket, state: SharedState) {
                 audio_buffer.extend_from_slice(&bytes);
             } else if is_speaking {
                 silence_chunks += 1;
-                audio_buffer.extend_from_slice(&bytes); // Retain brief pauses
+                audio_buffer.extend_from_slice(&bytes);
                 
                 if silence_chunks > MAX_SILENCE_CHUNKS {
                     trigger_transcription(&mut socket, &mut audio_buffer, &state).await;
@@ -445,7 +442,6 @@ async fn handle_socket(mut socket: WebSocket, state: SharedState) {
 }
 
 async fn trigger_transcription(socket: &mut WebSocket, audio_buffer: &mut Vec<u8>, state: &SharedState) {
-    // Trigger Inference
     let whisper_core = {
         let s = state.lock().await;
         s.whisper_core.clone()
@@ -454,7 +450,6 @@ async fn trigger_transcription(socket: &mut WebSocket, audio_buffer: &mut Vec<u8
     let transcript = transcribe_audio(&audio_buffer, whisper_core).await;
     
     if !transcript.is_empty() {
-        // Send back to client
         let response = Message::Text(serde_json::json!({
             "type": "TRANSCRIPTION",
             "text": transcript
@@ -462,13 +457,11 @@ async fn trigger_transcription(socket: &mut WebSocket, audio_buffer: &mut Vec<u8
         
         let _ = socket.send(response).await;
 
-        // Broadcast to Director (Node B)
         {
             let s = state.lock().await;
-            s.broadcast_vocal_intent(transcript).await;
+            s.broadcast_vocal_intent(&transcript).await;
         }
 
-        // Tasks 2 & 3: Decoupled Intent Routing & Visual Context Injection
         let frame_hash = {
             let s = state.lock().await;
             s.latest_frame_hash.clone().unwrap_or_else(|| "null".to_string())
@@ -497,8 +490,6 @@ async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> S
         return "".to_string();
     }
 
-    // Assuming raw 16-bit PCM at 16kHz from OMI stream. 
-    // Convert bytes to f32 samples normalized to [-1.0, 1.0]
     let mut pcm_data = Vec::with_capacity(bytes.len() / 2);
     let mut chunks = bytes.chunks_exact(2);
     while let Some(chunk) = chunks.next() {
@@ -506,12 +497,10 @@ async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> S
         pcm_data.push(sample as f32 / 32768.0);
     }
 
-    // Process audio into mel spectrogram using the loaded filters
     let mel = audio::pcm_to_mel(&core.model.config, &pcm_data, &core.mel_filters);
-    
     let mel_len = mel.len();
     let num_mel_bins = core.model.config.num_mel_bins;
-    let mel = match candle_core::Tensor::from_vec(
+    let mel = match Tensor::from_vec(
         mel,
         (1, num_mel_bins, mel_len / num_mel_bins),
         &core.device,
@@ -523,59 +512,17 @@ async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> S
         }
     };
 
-    // Construct the decoder for Whisper
-    let mut dc = LogitsProcessor::new(
-        299792458, /* random seed */
-        None,      /* temp */
-        None,      /* top_p */
-    );
+    let mut dc = LogitsProcessor::new(299792458, None, None);
     
-    let language_token = match core.tokenizer.token_to_id("<|en|>") {
-        Some(token) => token,
-        None => {
-            error!("ARTERY: English token missing in Whisper tokenizer");
-            return "".to_string();
-        }
-    };
-    
-    let transcribe_token = match core.tokenizer.token_to_id("<|transcribe|>") {
-        Some(token) => token,
-        None => {
-            error!("ARTERY: Transcribe token missing in Whisper tokenizer");
-            return "".to_string();
-        }
-    };
-    
-    let sot_token = match core.tokenizer.token_to_id("<|startoftranscript|>") {
-        Some(token) => token,
-        None => {
-            error!("ARTERY: SOT token missing in Whisper tokenizer");
-            return "".to_string();
-        }
-    };
-    
-    let eot_token = match core.tokenizer.token_to_id("<|endoftext|>") {
-        Some(token) => token,
-        None => {
-            error!("ARTERY: EOT token missing in Whisper tokenizer");
-            return "".to_string();
-        }
-    };
-    
-    let no_timestamps_token = match core.tokenizer.token_to_id("<|notimestamps|>") {
-        Some(token) => token,
-        None => {
-            error!("ARTERY: No timestamps token missing in Whisper tokenizer");
-            return "".to_string();
-        }
-    };
+    let language_token = core.tokenizer.token_to_id("<|en|>").unwrap_or(0);
+    let transcribe_token = core.tokenizer.token_to_id("<|transcribe|>").unwrap_or(0);
+    let sot_token = core.tokenizer.token_to_id("<|startoftranscript|>").unwrap_or(0);
+    let eot_token = core.tokenizer.token_to_id("<|endoftext|>").unwrap_or(0);
+    let no_timestamps_token = core.tokenizer.token_to_id("<|notimestamps|>").unwrap_or(0);
     
     let mut tokens = vec![sot_token, language_token, transcribe_token, no_timestamps_token];
-    
-    // We clone the model here to gain mutable access to its cache during inference
     let mut model = core.model.clone();
 
-    // 1. Get audio features from encoder
     let audio_features = match model.encoder.forward(&mel, false) {
         Ok(f) => f,
         Err(e) => {
@@ -585,30 +532,19 @@ async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> S
     };
 
     for _ in 0..100 {
-        let tokens_t = match candle_core::Tensor::new(tokens.as_slice(), &core.device) {
+        let tokens_t = match Tensor::new(tokens.as_slice(), &core.device) {
             Ok(t) => t.unsqueeze(0).unwrap_or(t),
-            Err(e) => {
-                error!("ARTERY: Token tensor creation failed: {e}");
-                break;
-            }
+            Err(_) => break,
         };
 
-        // 2. Pass features to decoder
         let logits = match model.decoder.forward(&tokens_t, &audio_features, false) {
             Ok(l) => l,
-            Err(e) => {
-                error!("ARTERY: Whisper decoder forward failed: {e}");
-                break;
-            }
+            Err(_) => break,
         };
 
-        // Get the logits for the last generated token
         let logits = match logits.squeeze(0) {
             Ok(l) => l,
-            Err(e) => {
-                error!("ARTERY: Logits squeeze failed: {e}");
-                break;
-            }
+            Err(_) => break,
         };
         
         let seq_len = logits.dim(0).unwrap_or(0);
@@ -616,18 +552,12 @@ async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> S
         
         let last_logits = match logits.get(seq_len - 1) {
              Ok(l) => l,
-             Err(e) => {
-                 error!("ARTERY: Logits get failed: {e}");
-                 break;
-             }
+             Err(_) => break,
         };
 
         let next_token = match dc.sample(&last_logits) {
             Ok(t) => t,
-            Err(e) => {
-                error!("ARTERY: Logits sampling failed: {e}");
-                break;
-            }
+            Err(_) => break,
         };
 
         tokens.push(next_token);
@@ -636,54 +566,18 @@ async fn transcribe_audio(bytes: &[u8], core_opt: Option<Arc<WhisperCore>>) -> S
         }
     }
 
-    let text = match core.tokenizer.decode(&tokens, true) {
-        Ok(t) => t.trim().to_string(),
-        Err(e) => {
-            error!("ARTERY: Decoding failed: {e}");
-            "".to_string()
-        }
-    };
-    
-    text
+    core.tokenizer.decode(&tokens, true).unwrap_or_default().trim().to_string()
 }
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt()
-        .with_target(false)
-        .with_level(true)
-        .init();
-
+    tracing_subscriber::fmt().with_target(false).with_level(true).init();
     info!("◈ ARTERY_MANAGER: Phase 67 // 50V3R31GN-M4CH1N4");
 
-    // Config from environment
-    let vocal_soul = PathBuf::from(
-        env::var("VOCAL_SOUL_PATH").unwrap_or_else(|_| VOCAL_SOUL.to_string()),
-    );
-    let llama_server_bin = PathBuf::from(
-        env::var("LLAMA_SERVER_BIN").unwrap_or_else(|_| "llama-server".to_string()),
-    );
-    let n_gpu_layers: i32 = env::var("N_GPU_LAYERS")
-        .ok()
-        .and_then(|v| v.parse().ok())
-        .unwrap_or(99); // load all layers to CUDA by default
-
-    let bind_port: u16 = env::var("ARTERY_PORT")
-        .ok()
-        .and_then(|v| v.parse().ok())
-        .unwrap_or(DEFAULT_PORT);
-
-    let director_addr = env::var("DIRECTOR_VSB_ADDR")
-        .unwrap_or_else(|_| "100.101.177.76:9090".to_string());
-
+    let vocal_soul = PathBuf::from(env::var("VOCAL_SOUL_PATH").unwrap_or_else(|_| VOCAL_SOUL.to_string()));
+    let bind_port: u16 = env::var("ARTERY_PORT").ok().and_then(|v| v.parse().ok()).unwrap_or(DEFAULT_PORT);
+    let director_addr = env::var("DIRECTOR_VSB_ADDR").unwrap_or_else(|_| "100.101.177.76:9090".to_string());
     let udp_socket = Arc::new(tokio::net::UdpSocket::bind("0.0.0.0:0").await.expect("Failed to bind ephemeral UDP socket"));
-
-    if !vocal_soul.exists() {
-        warn!(
-            "ARTERY: {} does not exist — GGUF paths will fail until Node C storage is mounted",
-            vocal_soul.display()
-        );
-    }
 
     let whisper_core = match WhisperCore::new(&vocal_soul) {
         Ok(core) => {
@@ -700,8 +594,6 @@ async fn main() {
         current_quant: Quantization::Q5,
         child: None,
         vocal_soul,
-        llama_server_bin,
-        n_gpu_layers,
         whisper_core,
         latest_frame_hash: None,
         udp_socket,
@@ -710,7 +602,6 @@ async fn main() {
 
     let shared = Arc::new(Mutex::new(initial_state));
 
-    // ◈ AUTO_IGNITION: Ensure llama-server is online on port 7339
     {
         let mut s = shared.lock().await;
         let q = s.current_quant;
@@ -731,12 +622,6 @@ async fn main() {
 
     let bind_addr = format!("0.0.0.0:{bind_port}");
     info!("ARTERY: Listening on {bind_addr}");
-
-    let listener = tokio::net::TcpListener::bind(&bind_addr)
-        .await
-        .expect("Failed to bind Artery Manager port");
-
-    axum::serve(listener, app)
-        .await
-        .expect("Artery Manager server error");
+    let listener = tokio::net::TcpListener::bind(&bind_addr).await.expect("Failed to bind Artery Manager port");
+    axum::serve(listener, app).await.expect("Artery Manager server error");
 }
