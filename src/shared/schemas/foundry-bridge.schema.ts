@@ -371,6 +371,14 @@ export const AdvancePhaseCommandSchema = z.object({
   payload: AdvancePhasePayloadSchema,
 });
 
+export const ThemeUpdateCommandSchema = z.object({
+  type: z.literal('theme_update'),
+  requestId: RequestIdSchema,
+  payload: z.object({
+    theme: z.string(),
+  }),
+});
+
 export const UpdateActorCommandSchema = z.object({
   type: z.literal('update_actor'),
   requestId: RequestIdSchema,
@@ -475,6 +483,7 @@ export const BridgeCommandSchema = z.discriminatedUnion('type', [
   ExecuteActionCommandSchema,
   TriggerTileCommandSchema,
   PlaySequenceCommandSchema,
+  ThemeUpdateCommandSchema,
   z.object({ type: z.literal('query_scenes'), requestId: RequestIdSchema, payload: z.object({ filter: z.string().optional() }) }),
   z.object({ type: z.literal('dashboard_sync'), requestId: RequestIdSchema, payload: DashboardSyncPayloadSchema }),
   SpawnSoloSafeNpcCommandSchema,

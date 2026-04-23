@@ -25,12 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final artery = context.watch<ArteryClient>();
     final vsb = context.watch<VsbListener>();
+    final primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('MACHINA_TERMINAL // HOME'),
-        backgroundColor: Colors.black,
         actions: [
           _StatusDot(connected: artery.isConnected),
         ],
@@ -64,8 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Simulate push to talk
                     artery.addLog("::/USER : [AUDIO_STREAM_STARTED]");
                   },
-                  backgroundColor: const Color(0xFF00FF88).withValues(alpha: 0.2),
-                  foregroundColor: const Color(0xFF00FF88),
+                  backgroundColor: primaryColor.withValues(alpha: 0.2),
+                  foregroundColor: primaryColor,
                   child: const Icon(Icons.mic),
                 ),
                 ElevatedButton.icon(
@@ -78,8 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   label: const Text("ASK HERMES"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
-                    foregroundColor: const Color(0xFF00FF88),
-                    side: const BorderSide(color: Color(0xFF00FF88)),
+                    foregroundColor: primaryColor,
+                    side: BorderSide(color: primaryColor),
                   ),
                 ),
               ],
@@ -97,17 +97,18 @@ class _StatusDot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
     return Container(
       width: 12,
       height: 12,
       margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: connected ? const Color(0xFF00FF88) : Colors.red,
+        color: connected ? primaryColor : Colors.red,
         boxShadow: [
           if (connected)
             BoxShadow(
-              color: const Color(0xFF00FF88).withValues(alpha: 0.5),
+              color: primaryColor.withValues(alpha: 0.5),
               blurRadius: 8,
               spreadRadius: 2,
             ),

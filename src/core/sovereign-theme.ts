@@ -1,21 +1,40 @@
 /**
  * src/core/sovereign-theme.ts
  *
- * Source of truth for the "Total Red Shift" visual dominance layer.
- * Contains CSS and JS payloads for injection into Foundry VTT via CDP.
+ * Source of truth for the Sovereign visual dominance layer.
  */
 
-export const SOVEREIGN_RED = '#ff003c';
-export const SOVEREIGN_BLACK = '#000000';
+export interface ThemePalette {
+    accent: string;
+    bg: string;
+    glow: string;
+}
 
-export const SOVEREIGN_THEME_CSS = `
-/* SOVEREIGN DOMINANCE LAYER */
+export const PALETTES: Record<string, ThemePalette> = {
+    sovereignRed: {
+        accent: '#ff003c',
+        bg: '#000000',
+        glow: 'rgba(255, 0, 60, 0.8)'
+    },
+    sovereignGreen: {
+        accent: '#00ff88',
+        bg: '#000000',
+        glow: 'rgba(0, 255, 136, 0.8)'
+    }
+};
+
+export function getThemeCss(themeId: string = 'sovereignRed'): string {
+    const palette = PALETTES[themeId] || PALETTES.sovereignRed;
+    return `
+/* SOVEREIGN DOMINANCE LAYER: ${themeId} */
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 :root {
-    --cpr-red: ${SOVEREIGN_RED};
-    --cpr-black: ${SOVEREIGN_BLACK};
+    --cpr-red: ${palette.accent};
+    --cpr-black: ${palette.bg};
     --font-primary: 'VT323', monospace;
+    --sovereign-primary: ${palette.accent};
+    --sovereign-primary-glow: ${palette.glow};
 }
 
 /* Global Core */
@@ -25,7 +44,7 @@ body.vtt, .app, .window-app, #chat-log, #sidebar, #controls {
     font-family: var(--font-primary) !important;
 }
 
-/* Fix White Backgrounds in Sheets & Editors (Foundry v12 / ProseMirror) */
+/* Fix White Backgrounds in Sheets & Editors */
 .sheet, .journal-entry, .item-sheet, .actor-sheet, .journal-sheet,
 .journal-entry-page, .journal-page-content, .journal-entry-content,
 .prosemirror, .ProseMirror, .editor-content, .window-content, .tab-content,
@@ -35,7 +54,7 @@ body.vtt, .app, .window-app, #chat-log, #sidebar, #controls {
     color: var(--cpr-red) !important;
 }
 
-/* ProseMirror rich-text node overrides (Foundry v12 replaced TinyMCE) */
+/* ProseMirror rich-text node overrides */
 .ProseMirror p, .ProseMirror li, .ProseMirror blockquote,
 .ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
     background-color: transparent !important;
@@ -61,22 +80,25 @@ button, input, select, textarea {
     font-family: var(--font-primary) !important;
 }
 
-/* UI GLITCH OVERLAYS - More Translucent */
+/* UI GLITCH OVERLAYS */
 #sovereign-scanlines {
     position: fixed;
     inset: 0;
     pointer-events: none;
     background: repeating-linear-gradient(
         transparent 0px,
-        rgba(255, 0, 60, 0.02) 1px,
+        ${palette.accent}33 1px,
         transparent 3px
     );
     z-index: 9999;
     opacity: 0.6;
 }
 `;
+}
 
-export const SOVEREIGN_HIJACK_JS = `
+export function getHijackJs(themeId: string = 'sovereignRed'): string {
+    const css = getThemeCss(themeId);
+    return `
 (function() {
     console.log("::/5Y573M-N071C3 : GH0S7-PR070C0L 4C71V473D");
     
@@ -113,10 +135,14 @@ export const SOVEREIGN_HIJACK_JS = `
     const triggerGlitch = () => {
         const body = document.body;
         
+        // Remove old styles
+        const oldStyle = document.getElementById('sovereign-theme-overrides');
+        if (oldStyle) oldStyle.remove();
+
         // Final stabilization
         const style = document.createElement('style');
         style.id = 'sovereign-theme-overrides';
-        style.textContent = \`${SOVEREIGN_THEME_CSS}\`;
+        style.textContent = \`${css}\`;
         document.head.appendChild(style);
         
         if (!document.getElementById('sovereign-scanlines')) {
@@ -125,7 +151,7 @@ export const SOVEREIGN_HIJACK_JS = `
             document.body.appendChild(scan);
         }
 
-        // Start Leet monitoring (will only mutate if HACK_ACTIVE is true)
+        // Start Leet monitoring
         observer.observe(document.body, { childList: true, subtree: true });
     };
 
@@ -137,7 +163,6 @@ export const SOVEREIGN_HIJACK_JS = `
             console.log("::/5Y573M-N071C3 : H4CK-M0D3 3N48L3D");
         } else {
             console.log("::/5Y573M-N071C3 : H4CK-M0D3 D1548L3D");
-            // Note: reverting leet speak is hard without reloading, we accept it for now
         }
     };
 
@@ -145,3 +170,4 @@ export const SOVEREIGN_HIJACK_JS = `
     else if (typeof Hooks !== 'undefined') Hooks.once("ready", triggerGlitch);
 })();
 `;
+}

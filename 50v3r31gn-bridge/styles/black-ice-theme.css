@@ -12,10 +12,10 @@
     :root {
         --cpr-bg-black: #000000;
         --cpr-bg-dark-grey: #050505;
-        --cpr-red: #ff003c;
+        --cpr-red: var(--sovereign-primary, #ff003c);
         --cpr-white: #ffffff;
         --cpr-text-main: #eeeeee;
-        --black-ice-glow: 0 0 10px rgba(255, 0, 60, 0.8);
+        --black-ice-glow: 0 0 10px var(--sovereign-primary-glow, rgba(255, 0, 60, 0.8));
         --font-primary: 'VT323', monospace;
         
         /* Neutralize CPR system background/fill reds only — NOT the text/border color var.

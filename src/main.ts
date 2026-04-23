@@ -47,6 +47,7 @@ console.info = (...args) => {
 };
 
 import { FoundryAdapter } from './api/foundry-adapter.js';
+import { DirectorApi } from './api/director-api.js';
 import { ClawLinkClient } from './api/clawlink-client.js';
 import { NitroLogicClient } from './core/nitro-logic-client.js';
 import { SovereignNarrativeClient } from './core/sovereign-narrative-client.js';
@@ -67,7 +68,7 @@ import { SharedMemoryService } from './core/shared-memory-service.js';
 import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
 
 import { RootsInjector } from './core/roots-injector.js';
-import { SOVEREIGN_HIJACK_JS } from './core/sovereign-theme.js';
+import { getHijackJs } from './core/sovereign-theme.js';
 import { logger } from './shared/logger.js';
 
 async function main() {
@@ -143,6 +144,7 @@ async function main() {
 
   // 5. Build Foundry Adapter
   const foundry = new FoundryAdapter({ logger });
+  const directorApi = new DirectorApi(foundry, logger);
 
   const getWslHostIp = () => {
     try {
@@ -188,7 +190,7 @@ async function main() {
     });
 
     await client.Runtime.evaluate({
-      expression: SOVEREIGN_HIJACK_JS,
+      expression: getHijackJs(),
       awaitPromise: true,
     });
     logger.info('Orchestrator', bootTraceId, '💉 SOVEREIGN_HIJACK_JS Payload Injected.');
@@ -269,6 +271,8 @@ async function main() {
     vsbClient.connect(),
     clawlinkClient.connect(),
   ]);
+
+  directorApi.start(3011);
 
   // 13. Sentinel: wire 0x0A context pushes from Node A → Active Context Slot
   vsbClient.onContextUpdate((update) => {

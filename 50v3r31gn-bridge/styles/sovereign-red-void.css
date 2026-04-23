@@ -1,50 +1,22 @@
 /**
  * THE_M4573R_7H3M3 — R3D_V01D Sovereign Variables for Foundry VTT
  * Phase 37: 0B51D14N_V1510N [R3D_V01D_SY573M]
- *
- * Injects the canonical R3D_V01D CSS variables into the Foundry VTT
- * document root so all sovereign styles (black-ice-theme.css, bridge-layers.css)
- * can reference --sovereign-* tokens alongside --cpr-* variables.
- *
- * Load order: This file is listed before black-ice-theme.css in module.json
- * so that --sovereign-* vars are available when consumed.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-
-:root {
+:root.theme-sovereign-red {
   /* ── R3D_V01D Master Palette ──────────────────────────────────────────── */
+  --sovereign-primary: #ff1a1a;
+  --sovereign-primary-glow: rgba(255, 26, 26, 0.8);
   --sovereign-void:   #0a0a0a;
   --sovereign-red:    #ff1a1a;
   --sovereign-blood:  #440000;
   --sovereign-panel:  #0f0f1a;
   --sovereign-dim:    #1a1a2e;
-  --sovereign-text:   #e0e0e0;
+  --sovereign-text:   #ffffff;
   --sovereign-muted:  #888888;
 
   /* ── Glow Effects ─────────────────────────────────────────────────────── */
   --sovereign-glow-sm: 0 0 6px  rgba(255, 26, 26, 0.6);
   --sovereign-glow-md: 0 0 10px rgba(255, 26, 26, 0.8);
   --sovereign-glow-lg: 0 0 18px rgba(255, 26, 26, 1.0);
-
-  /* ── Font Families ────────────────────────────────────────────────────── */
-  --font-machine: 'VT323', monospace;
-  --font-human:   'JetBrains Mono', 'Hack', monospace;
-}
-
-/* ── Provenance Classes (also available in Foundry journal/chat context) ── */
-.provenance-machine {
-  font-family: var(--font-machine) !important;
-  color: var(--sovereign-red) !important;
-  text-shadow: var(--sovereign-glow-sm);
-  letter-spacing: 0.05em;
-  border-left: 2px solid var(--sovereign-blood);
-  padding-left: 0.5em;
-}
-
-.provenance-human {
-  font-family: var(--font-human) !important;
-  color: var(--sovereign-text);
-  text-shadow: none;
 }

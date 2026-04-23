@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'notification_service.dart';
 
 class ArteryClient extends ChangeNotifier {
   WebSocketChannel? _channel;
   final List<String> _logs = [];
   bool _isConnected = false;
+  final NotificationService _notificationService = NotificationService();
 
   List<String> get logs => List.unmodifiable(_logs);
   bool get isConnected => _isConnected;
@@ -33,7 +36,7 @@ class ArteryClient extends ChangeNotifier {
 
       _channel!.stream.listen(
         (message) {
-          addLog("::/WS_RECEIVE : $message");
+          _handleIncomingMessage(message);
         },
         onDone: () {
           _isConnected = false;
@@ -48,6 +51,34 @@ class ArteryClient extends ChangeNotifier {
       );
     } catch (e) {
       addLog("::/WS_FATAL : $e");
+    }
+  }
+
+  void _handleIncomingMessage(dynamic message) {
+    addLog("::/WS_RECEIVE : $message");
+    
+    // Command Parsing
+    if (message is String) {
+      if (message.startsWith("::/REMINDER|")) {
+        try {
+          final parts = message.split('|');
+          if (parts.length >= 3) {
+            final timeStr = parts[1];
+            final note = parts[2];
+            final time = DateTime.parse(timeStr);
+            
+            _notificationService.scheduleNotification(
+              message.hashCode,
+              'HERMES_REMINDER',
+              note,
+              time,
+            );
+            addLog("::/REMINDER_SCHEDULED : $note at $timeStr");
+          }
+        } catch (e) {
+          addLog("::/REMINDER_ERROR : Failed to parse reminder command");
+        }
+      }
     }
   }
 

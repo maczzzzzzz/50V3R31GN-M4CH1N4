@@ -146,8 +146,11 @@ class FoundryApiBridge {
 
       $('body').addClass('neural-glitch-active');
       setTimeout(() => $('body').removeClass('neural-glitch-active'), 400);
-      // Sovereign Dashboard button removed — control surface moved to CL4W Nucleus Deck
+      // sidebarTabs["50v3r31gn-dashboard"] registration removed — Nucleus Deck is the control surface
     });
+
+    const systemTheme = game.settings.get(MODULE_ID, 'systemTheme') ?? 'sovereignRed';
+    this._applyTheme(systemTheme);
 
     this._connect(wsUrl);
     this._setupInterception();
@@ -155,6 +158,19 @@ class FoundryApiBridge {
     this._setupGovernanceDuel();
     this._setupErrorCapture();
     window.SOVEREIGN_BRIDGE = this;
+  }
+
+  _applyTheme(theme) {
+    // theme: 'neonGreen' or 'sovereignRed'
+    console.log(`[${MODULE_ID}] Applying System Theme: ${theme}`);
+    const root = document.documentElement;
+    root.classList.remove('theme-sovereign-green', 'theme-sovereign-red');
+    
+    if (theme === 'neonGreen' || theme === 'sovereignGreen') {
+      root.classList.add('theme-sovereign-green');
+    } else {
+      root.classList.add('theme-sovereign-red');
+    }
   }
 
   _setupGovernanceDuel() {
@@ -544,6 +560,9 @@ class FoundryApiBridge {
       case 'shroud_params':
         PretextOverlayManager.setShroudParams(command.payload);
         break;
+      case 'theme_update':
+        this._applyTheme(command.payload.theme);
+        break;
       case 'render_screamsheet': {
         // Phase 64: Screamsheet Factory — inject Night Market SVG as JournalEntry
         try {
@@ -604,6 +623,21 @@ Hooks.once('init', () => {
     config: false,
     type: String,
     default: DEFAULT_WS_URL,
+  });
+
+  game.settings.register(MODULE_ID, 'systemTheme', {
+    name: 'System Theme',
+    scope: 'world',
+    config: true,
+    type: String,
+    default: 'sovereignRed',
+    choices: {
+      'sovereignRed': '50V3R31GN-R3D',
+      'sovereignGreen': '50V3R31GN-GR33N'
+    },
+    onChange: (value) => {
+      if (window.SOVEREIGN_BRIDGE) window.SOVEREIGN_BRIDGE._applyTheme(value);
+    }
   });
   // sidebarTabs["50v3r31gn-dashboard"] registration removed — Nucleus Deck is the control surface
 });

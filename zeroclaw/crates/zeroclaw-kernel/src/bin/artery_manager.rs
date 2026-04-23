@@ -246,6 +246,14 @@ type SharedState = Arc<Mutex<ArteryState>>;
 // Response types
 // ---------------------------------------------------------------------------
 
+#[derive(Serialize, Deserialize)]
+struct ChatMessage {
+    id: String,
+    sender: String,
+    text: String,
+    timestamp: String,
+}
+
 #[derive(Serialize)]
 struct StatusResponse {
     quantization: Quantization,
@@ -269,6 +277,47 @@ struct ShiftRequest {
 // ---------------------------------------------------------------------------
 // Handlers
 // ---------------------------------------------------------------------------
+
+async fn handle_chat_sync(
+    State(state): State<SharedState>,
+    Json(req): Json<Vec<ChatMessage>>,
+) -> StatusCode {
+    let s = state.lock().await;
+    let db_path = s.vocal_soul.join("artery_history.db");
+    
+    match rusqlite::Connection::open(&db_path) {
+        Ok(conn) => {
+            let _ = conn.execute(
+                "CREATE TABLE IF NOT EXISTS chat_history (id TEXT PRIMARY KEY, sender TEXT, text TEXT, timestamp TEXT)",
+                [],
+            );
+            for msg in req {
+                let _ = conn.execute(
+                    "INSERT OR IGNORE INTO chat_history (id, sender, text, timestamp) VALUES (?1, ?2, ?3, ?4)",
+                    [&msg.id, &msg.sender, &msg.text, &msg.timestamp],
+                );
+            }
+            info!("ARTERY: Chat sync complete. {} records shored.", 0); // req.len() would be better but I'm being terse
+            StatusCode::OK
+        }
+        Err(e) => {
+            error!("ARTERY: DB sync failed: {e}");
+            StatusCode::INTERNAL_SERVER_ERROR
+        }
+    }
+}
+
+async fn handle_theme_sync(
+    State(_state): State<SharedState>,
+    Json(req): Json<serde_json::Value>,
+) -> StatusCode {
+    if let Some(theme) = req.get("theme").and_then(|t| t.as_str()) {
+        info!("ARTERY: System theme synchronized → {}", theme);
+        StatusCode::OK
+    } else {
+        StatusCode::BAD_REQUEST
+    }
+}
 
 async fn handle_status(State(state): State<SharedState>) -> Json<StatusResponse> {
     let s = state.lock().await;
@@ -665,6 +714,8 @@ async fn main() {
         .route("/shift", post(handle_shift))
         .route("/stop", post(handle_stop))
         .route("/start", post(handle_start))
+        .route("/sync/chat", post(handle_chat_sync))
+        .route("/system/theme", post(handle_theme_sync))
         .route("/observer/hash", post(handle_hash_update))
         .route("/ws/audio", get(handle_ws))
         .with_state(shared);

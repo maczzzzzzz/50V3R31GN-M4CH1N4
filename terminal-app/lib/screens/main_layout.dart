@@ -23,11 +23,13 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       body: Stack(
         children: [
           _screens[_currentIndex],
-          Positioned.fill(child: IgnorePointer(child: CustomPaint(painter: ScanLinePainter()))),
+          Positioned.fill(child: IgnorePointer(child: CustomPaint(painter: ScanLinePainter(color: primaryColor)))),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -39,7 +41,7 @@ class _MainLayoutState extends State<MainLayout> {
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
-        selectedItemColor: const Color(0xFF00FF88),
+        selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
@@ -53,10 +55,13 @@ class _MainLayoutState extends State<MainLayout> {
 }
 
 class ScanLinePainter extends CustomPainter {
+  final Color color;
+  ScanLinePainter({required this.color});
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = const Color(0xFF00FF88).withValues(alpha: 0.05)
+      ..color = color.withValues(alpha: 0.05)
       ..strokeWidth = 1.0;
 
     for (double i = 0; i < size.height; i += 4) {
@@ -65,5 +70,5 @@ class ScanLinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant ScanLinePainter oldDelegate) => color != oldDelegate.color;
 }

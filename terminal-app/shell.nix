@@ -5,6 +5,7 @@ let
     buildToolsVersions = [ "34.0.0" "33.0.1" "30.0.3" ];
     platformVersions = [ "34" "33" "31" "28" ];
     abiVersions = [ "armeabi-v7a" "arm64-v8a" ];
+    ndkVersions = [ "27.0.12077973" "28.2.13676358" ];
     includeSystemImages = false;
     includeEmulator = false;
   };

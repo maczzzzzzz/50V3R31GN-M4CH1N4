@@ -2,7 +2,7 @@ name: terminal_app
 description: 50V3R31GN-M4CH1N4 Machina Terminal HUD
 publish_to: 'none'
 
-version: 3.2.21+1
+version: 3.3.0+1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -15,6 +15,11 @@ dependencies:
   provider: ^6.1.2
   web_socket_channel: ^3.0.1
   shared_preferences: ^2.2.3
+  flutter_local_notifications: ^17.1.2
+  timezone: ^0.9.2
+  flutter_timezone: ^3.0.1
+  intl: ^0.19.0
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:

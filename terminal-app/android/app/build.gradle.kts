@@ -8,15 +8,16 @@ plugins {
 android {
     namespace = "com.example.terminal_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -26,8 +27,12 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        
+        val flutterVersionCode = project.findProperty("flutter.versionCode") as? String
+        val flutterVersionName = project.findProperty("flutter.versionName") as? String
+        
+        versionCode = flutterVersionCode?.toInt() ?: 1
+        versionName = flutterVersionName ?: "1.0"
     }
 
     buildTypes {
@@ -37,6 +42,10 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
 
 flutter {

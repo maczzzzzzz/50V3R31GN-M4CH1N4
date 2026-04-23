@@ -3,7 +3,26 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.2.21.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.3.0.html).
+
+## [3.3.0] - 2026-04-23
+### Added
+- **Phase 68: Alpha APK Materialization:** Full Android HUD APK successfully forged with high-fidelity icons and notification logic.
+- **Universal Theme Orchestration:** Implemented a modular theme system supporting `50V3R31GN-GR33N` and `50V3R31GN-R3D` with real-time propagation from Mobile HUD to Foundry VTT.
+- **Director REST API:** Materialized Node B REST interface on port `3011` for system-wide orchestration.
+- **Hermes Chat Persistence:** On-device local storage for chat history with auto-sync capability to Node C's `artery_history.db`.
+- **Sovereign Reminder System:** Integrated exact alarm notifications triggered by voice or manual task entry.
+- **Persistent Eye Status:** Mandatory background status icon shored in the Android notification bar.
+
+### Changed
+- **Neutral Visual Identity:** Purged red accents from the master logo for theme-agnostic deployment.
+- **Artery Manager Evolution:** Added `/sync/chat` and `/system/theme` endpoints to the Rust-native daemon.
+- **Foundry Bridge v12:** Enhanced CSS injection to support dynamic theme class switching.
+
+### Fixed
+- **Nano Banana 2 Pipeline:** Corrected model targeting to `gemini-3.1-flash-image-preview` and neutralized spending cap blockers.
+- **Node B Handshake:** Resolved ClawLink ECONNREFUSED issues via Crush Proxy 'proxy' mode activation.
+- **Reminders Fix:** Shored Android notification permissions and synchronized physical device timezones.
 
 ## [3.2.21] - 2026-04-21
 ### Added

@@ -35,6 +35,7 @@
   ],
   "styles": [
     "styles/sovereign-red-void.css",
+    "styles/sovereign-green-void.css",
     "styles/bridge-layers.css",
     "styles/black-ice-theme.css"
   ],

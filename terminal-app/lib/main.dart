@@ -4,13 +4,27 @@ import 'package:provider/provider.dart';
 import 'screens/main_layout.dart';
 import 'services/artery_client.dart';
 import 'services/vsb_listener.dart';
+import 'services/theme_service.dart';
+import 'services/task_service.dart';
+import 'services/chat_service.dart';
+import 'services/notification_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize notifications
+  final notifications = NotificationService();
+  await notifications.init();
+  await notifications.showPersistentEye();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ArteryClient()),
         ChangeNotifierProvider(create: (_) => VsbListener()),
+        ChangeNotifierProvider(create: (_) => ThemeService()..setTheme(ThemeModePreset.sovereignRed)),
+        ChangeNotifierProvider(create: (_) => TaskService()),
+        ChangeNotifierProvider(create: (_) => ChatService()),
       ],
       child: const MachinaTerminalApp(),
     ),
@@ -22,19 +36,15 @@ class MachinaTerminalApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Machina Terminal',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF0D0D0D),
-        primaryColor: const Color(0xFF00FF88),
-        textTheme: GoogleFonts.vt323TextTheme(Theme.of(context).textTheme).apply(
-          bodyColor: const Color(0xFF00FF88),
-          displayColor: const Color(0xFF00FF88),
-        ),
-      ),
-      home: const MainLayout(),
+    return Consumer<ThemeService>(
+      builder: (context, themeService, child) {
+        return MaterialApp(
+          title: 'Machina Terminal',
+          debugShowCheckedModeBanner: false,
+          theme: themeService.currentPreset.themeData,
+          home: const MainLayout(),
+        );
+      },
     );
   }
 }

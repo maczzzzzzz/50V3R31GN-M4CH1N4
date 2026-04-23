@@ -116,6 +116,7 @@ export interface IFoundryAdapter {
    * Triggers a visual/ambient phase transition in Foundry via the bridge module.
    */
   advancePhase(sceneId: string | null, phaseIndex: number): Promise<void>;
+  updateTheme(theme: string): Promise<void>;
   /**
    * Stream <think> tokens from the VLM endpoint, calling onToken for each
    * content token received in the SSE stream.
@@ -561,6 +562,15 @@ export class FoundryAdapter implements IFoundryAdapter {
       type: 'advance_phase',
       requestId,
       payload: { sceneId, phaseIndex },
+    } as BridgeCommand);
+  }
+
+  async updateTheme(theme: string): Promise<void> {
+    const requestId = this.generateRequestId();
+    await this.sendCommand({
+      type: 'theme_update',
+      requestId,
+      payload: { theme },
     } as BridgeCommand);
   }
 

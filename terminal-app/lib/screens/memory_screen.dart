@@ -28,11 +28,12 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('MACHINA_TERMINAL // MEMORY'),
-        backgroundColor: Colors.black,
       ),
       body: Column(
         children: [
@@ -43,16 +44,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    style: const TextStyle(color: Color(0xFF00FF88)),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'ADD NEW FACT...',
-                      hintStyle: TextStyle(color: const Color(0xFF00FF88).withValues(alpha: 0.5)),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF00FF88)),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF00FF88)),
-                      ),
                     ),
                     onSubmitted: (_) => _addMemory(),
                   ),
@@ -60,7 +53,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
                 const SizedBox(width: 8),
                 IconButton(
                   icon: const Icon(Icons.add),
-                  color: const Color(0xFF00FF88),
+                  color: primaryColor,
                   onPressed: _addMemory,
                 ),
               ],
@@ -72,13 +65,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
               itemCount: _memories.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Colors.black54,
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Color(0xFF00FF88)),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
                   child: ListTile(
-                    leading: const Icon(Icons.memory, color: Color(0xFF00FF88)),
+                    leading: Icon(Icons.memory, color: primaryColor),
                     title: Text(_memories[index], style: const TextStyle(fontSize: 16)),
                   ),
                 );
