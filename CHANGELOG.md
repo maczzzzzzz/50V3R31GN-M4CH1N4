@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.3.0.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.3.1.html).
+
+## [3.3.1] - 2026-04-23
+### Added
+- **Vocal Task Extraction:** Integrated `LangGraphOrchestrator` on Node B to autonomously extract tasks, reminders, and spending intent from real-time transcripts via the VSB (`VOCAL_INTENT` payload).
+- **Dynamic Conversation Archive:** Implemented a multi-log system in the Hermes HUD, allowing users to manage, switch, and purge multiple tactical conversation threads.
+- **Node C Stable Runner:** Refactored Node C ignition to a high-fidelity `llama-server` wrapper, ensuring 100% GPU offloading and environment stabilization.
+
+### Fixed
+- **HUD Boot Stabilization:** Decoupled service initialization from the Flutter `main()` path, neutralizing the "Black Screen" hang and ensuring immediate UI materialization.
+- **Transcription Artery Fix:** Corrected Whisper model discovery logic and VAD sensitivity, enabling sub-second real-time speech-to-text streaming.
+- **Foreground Artery Hardening:** Shored Android `dataSync` service mandates for the persistent "Eye" status icon, preventing OS-level process termination.
 
 ## [3.3.0] - 2026-04-23
 ### Added
