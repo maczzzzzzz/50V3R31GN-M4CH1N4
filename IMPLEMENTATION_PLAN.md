@@ -167,3 +167,43 @@
 - [ ] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure.
 - [ ] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop.
 - [ ] **Task 7: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
+
+---
+
+## 🛠️ PHASE 73: PHYSICAL SOVEREIGNTY & STEALTH INGRESS (PRIMARY_TASK)
+**Goal:** Optimize the physical footprint of the Trinity and achieve stealth web ingress.
+- [ ] **Task 1: Vault Sociotomy:** Execute the physical split of data/vault/RKG/ into Hot/Cold shards. Update .obsidian/app.json to exclude the archive.
+- [ ] **Task 2: Obscura Sidecar:** Deploy the Obscura stealth browser as a Nix-managed systemd daemon on Node C. Replace heavy Chromium dependencies.
+- [ ] **Task 3: Hermes-Kanban Sync:** Implement the API bridge between IMPLEMENTATION_PLAN.md and the Hermes Kanban board. Enable auto-card movement on manifest commit.
+- [ ] **Task 4: Semantic Retrieval Bridge:** Materialize the query_cold_lore tool for on-demand injection of archive shards into the active vault.
+
+---
+
+## 🌐 PHASE 74: THE SOVEREIGN ORACLE (EXA INTEGRATION)
+**Goal:** Deploy memory-safe, zero-trust semantic search and hallucination detection via Exa-Labs.
+- [ ] **Task 0: Alacritty Terminal Hardening:** Adopt GPU-accelerated Alacritty with a strict VT323 + R3D_V01D configuration as the primary NixOS terminal for all Droid/Gemini CLI sessions.
+- [ ] **Task 1: exa-rs / exa-go SDK:** Port the Exa-Labs Python/JS SDKs to native Rust and Go for high-performance ingestion.
+- [ ] **Task 2: Exa-Native MCP:** Rewrite the Exa MCP server in Go/Rust, integrating it directly into the machina-hub routing layer.
+- [ ] **Task 3: The Shield Gate:** Deploy the Rust-based Hallucination Detector as a mandatory verification layer for all external data ingestion.
+
+---
+
+## 🧠 PHASE 75: AGENTIC SELF-HEALING & EVOLUTION (GEPA)
+**Goal:** Achieve autonomous prompt optimization and error-loop resiliency.
+- [ ] **Task 1: Synapse Traceback:** Implement vector-weighted self-healing that queries SovereignIntelligence.db for previous failure patterns before applying code fixes.
+- [ ] **Task 2: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
+- [ ] **Task 3: Deterministic Hardgate:** Lock the profile permissionPolicy in SOVEREIGN-IDENTITY.md with immutable Rust-level invariants to prevent identity drift.
+
+---
+
+## ⚡ PHASE 76: SOVEREIGN ARTERY & INFERENCE FABRIC
+**Goal:** Transform static manifests into an atomic context engine and deploy the Hermes Inference Router.
+- [ ] **Task 1: Atomic Profile Engine:** Transform static identity manifests into a "living" engine synchronized across all nodes via Mooncake-KV.
+- [ ] **Task 2: Hermes Inference Router:** Deploy a lightweight Rust daemon to intelligently route requests based on task complexity.
+
+---
+
+## 🛡️ PHASE 77: MANAGED AGENTS & RESONANT GOVERNANCE
+**Goal:** Deploy high-resilience agent primitives and the deterministic Resonant Logic Gate.
+- [ ] **Task 1: OpenClaw Managed Agents:** Suite of Rust-native primitives for agentic crash recovery and warm pools.
+- [ ] **Task 2: Resonant Logic Gate:** Deterministic logic layer to ensure absolute system governance.
