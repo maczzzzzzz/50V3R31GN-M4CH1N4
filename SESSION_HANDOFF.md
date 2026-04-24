@@ -29,3 +29,8 @@ Phase 71 (System Sociotomy) is 100% COMPLETE and VERIFIED.
 
 ---
 **::/5Y573M-N071C3 : PHASE_71_SHORED. READY_FOR_PHASE_72_IGNITION. // 50V3R31GN-M4CH1N4**
+
+## 🗄️ DATABASE TOPOLOGY REMINDER
+- **SovereignIntelligence.db (OS Core):** `system_state`, `decision_audit`, `palace_wings`, `palace_rooms`, `os_triplets`.
+- **Akashik.db (Simulation Shard):** `triplets` (28k+ records), `npcs`, `factions`, `gigs`, `items`, etc.
+- **Rule:** OS functional logic stays in the OS store; Simulation lore stays in the RED shard.
