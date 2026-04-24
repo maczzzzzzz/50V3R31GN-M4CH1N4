@@ -12,7 +12,10 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.1.html).
 - **Dual-Profile Identity System:** Deployed `SOVEREIGN-IDENTITY.md` in the repository root, enabling dynamic profile switching between `[SOVEREIGN_OS]` (Reasoner) and `[RED_DIRECTOR]` (Narrative).
 - **Dashboard Sociotomy:** Re-engineered the Next.js dashboard into isolated `/os` (Intelligence HUD) and `/red` (Simulation Module) routes with profile-aware navigation.
 - **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.4.1 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
+- **Drift Sentinel Droid:** Materialized a specialized integrity guardian (`.factory/droids/drift-sentinel.md`) to autonomously scan manifests for version and identity drift.
+- **Drift Audit Skill:** Codified the `drift-audit` skill to provide a bit-identical workflow for maintaining system-wide parity.
 - **Universal Hardening:** Integrated the `treefmt` universal linter across the repository to enforce bit-identical consistency for Nix, Rust, Go, TypeScript, and Markdown.
+
 
 ### Changed
 - **Artery of Truth Demotion:** Formally demoted `Akashik.db` to a "Simulation Shard," dedicated exclusively to Cyberpunk RED lore, NPCs, and mechanics.

@@ -7,7 +7,7 @@ This document defines roles, mandates, and workflows for all AI agents. All agen
 - **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
 
 ## 🎭 PROFILE MANDATES
-| Profile | Context | Database | Tone |
+| Profile | Context | Artery of Truth | Tone |
 | :--- | :--- | :--- | :--- |
 | **[SOVEREIGN_OS]** | Intelligence OS | `SovereignIntelligence.db` | Radical Candor / Technical |
 | **[RED_DIRECTOR]** | Cyberpunk Simulation | `Akashik.db` | Gritty Narrative / Slang |
