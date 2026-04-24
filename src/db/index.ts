@@ -2,6 +2,8 @@ export { UnifiedOracleClient } from './unified-oracle-client.js';
 export { SovereignEmbeddingService } from './sovereign-embedding-service.js';
 export { SynapseStore, EMBEDDING_DIM } from './synapse-store.js';
 export type { OsTriplet, SynapseCapture, SynapseBrief, VecSearchResult } from './synapse-store.js';
+export { OsTripletService } from './os-triplets-service.js';
+export type { TripletWithDistance, UpsertTripletResult } from './os-triplets-service.js';
 export type {
   NitroDbConfig,
   EmbeddingServiceConfig,
