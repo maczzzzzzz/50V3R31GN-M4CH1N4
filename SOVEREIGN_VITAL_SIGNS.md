@@ -1,9 +1,7 @@
 # SOVEREIGN_VITAL_SIGNS.md // T3RM1N4L-TRU7H
-**Version:** 3.2.20 (TRINITY_ASCENSION // v3.4.1)
+**Version:** 3.4.1 (INTELLIGENCE_OS_EVOLUTION)
 **Identity:** 50V3R31GN-M4CH1N4
 **Status:** TRINITY_MESH_ACTIVE // 100% NODE_MESH_VERIFIED
-
-This manifest is the Atomic Source of Truth for the mesh's physical and cognitive state. It overrides all legacy documentation.
 
 ---
 
@@ -14,13 +12,15 @@ The system is harnessed as three physical pods synchronized over the `10.0.0.x` 
 - **Node A (The Synapse):** NVIDIA GTX 1050 Ti (4GB CUDA).
   - **Role:** **Mooncake v2.2 Master**. Disaggregated memory Artery.
 - **Node B (The Director):** AMD Radeon RX 9060 XT (16GB Vulkan).
-  - **Role:** **Narrative Heart // TOTAL SIGHT**. High-fidelity scene orchestration.
+  - **Role:** **Narrative Heart // TOTAL SIGHT**. Master Orchestration.
   - **Intelligence:** **OBLITERATED Q8_0** + `mmproj-f16` Vision.
-- **Node C (The Strategic Oracle):** NVIDIA RTX 2060 (6GB CUDA) + **500GB SSD (`/mnt/vocal_soul`)**.
+- **Node C (The Strategic Oracle):** NVIDIA RTX 2060 (6GB CUDA).
   - **Role:** **Recursive Logic AUTHORITY // TOTAL LOGIC**. Rule arbitration.
-  - **Intelligence:** **Polymorphic OBLITERATED Mind** (Q5/Q4/Q3 variants).
-  - **Vision:** Tier 1 Falcon Perception (ONNX).
-  - **Backplane:** Host-native **Llama-Server** on port 7339.
+
+## 🧠 2. COGNITIVE MEMORY (SOCIOTOMY)
+- **Sovereign Intelligence Store (`data/SovereignIntelligence.db`):** Primary functional memory (OS State, Audit Trails, Relational Graph).
+- **RED Simulation Shard (`data/Akashik.db`):** Modular lore shard (NPCs, Factions, Gigs). Active only in [RED_DIRECTOR] mode.
+- **Relational Knowledge Graph:** Vectorized memory shored in `data/vault/RKG`.
 
 ---
 

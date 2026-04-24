@@ -1,7 +1,7 @@
-# RED_RULES.md: The Physics Constitution (v3.4.1)
-### Global Rules Strategic Oracle Invariants
+# RED_RULES.md: The Simulation Physics Constitution (v3.4.1)
+### [RED_DIRECTOR] Profile Invariants
 
-This file serves as the "System Constitution" for the ZeroClaw Rules Authority. All mathematical resolutions and rule interpretations must align with these hard-coded physical constraints. Hallucination outside these bounds is a critical failure.
+This file defines the mathematical physics for the Cyberpunk RED simulation shard. These rules are active ONLY when the system is in **[RED_DIRECTOR]** mode. Hallucination or leakage of these rules into [SOVEREIGN_OS] tasks is a critical logic drift.
 
 ---
 

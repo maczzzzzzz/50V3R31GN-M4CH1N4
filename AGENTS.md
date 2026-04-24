@@ -1,11 +1,16 @@
 # AGENTS.md: The Sovereign Staff Collaboration Directives (v3.4.1)
 
-This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
+This document defines roles, mandates, and workflows for all AI agents. All agents MUST adhere to the active profile in `SOVEREIGN-IDENTITY.md`.
 
 ## 🤝 THE SOVEREIGN TRIAD
-- **GEMINI (The Strategist):** Roadmap, Architecture, Research. (Ref: `GEMINI.md`)
+- **GEMINI (The Strategist):** Roadmap, Architecture, Profile-Alignment. (Ref: `GEMINI.md`)
 - **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
-- **DROID (The Environment):** Local execution, file manipulation. (Factory CLI).
+
+## 🎭 PROFILE MANDATES
+| Profile | Context | Database | Tone |
+| :--- | :--- | :--- | :--- |
+| **[SOVEREIGN_OS]** | Intelligence OS | `SovereignIntelligence.db` | Radical Candor / Technical |
+| **[RED_DIRECTOR]** | Cyberpunk Simulation | `Akashik.db` | Gritty Narrative / Slang |
 
 ## 🛠 SETUP & RUNTIME COMMANDS
 | Action | Command | Purpose |
