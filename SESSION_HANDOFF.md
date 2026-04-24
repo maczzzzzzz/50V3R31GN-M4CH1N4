@@ -1,36 +1,35 @@
-# SESSION_HANDOFF: THE SOVEREIGN EVOLUTION (PHASE 72)
+# SESSION_HANDOFF: THE SOVEREIGN EVOLUTION (PHASE 73)
 
 ## 🎯 MISSION STATUS
-Phase 71 (System Sociotomy) is 100% COMPLETE and VERIFIED.
-- `SovereignIntelligence.db` is initialized and populated.
-- `Akashik.db` is purged of OS logic, remaining the dedicated simulation shard.
-- `SOVEREIGN-IDENTITY.md` is active.
-- Dashboard is sociotomized into `/os` (Clean HUD) and `/red` (Simulation).
+Phase 72 (Graph-Relational Memory) is 100% COMPLETE and VERIFIED.
+- `OsTripletService` and `sqlite-vec` are materialized.
+- `SynapseCapture` and `SynapseBrief` pipelines are active.
+- `SynapsePanel` is integrated into the `/os` dashboard.
+- Phase 71 (Sociotomy) is confirmed shored.
 
-## 🚀 IMMEDIATE DIRECTIVE: EXECUTE PHASE 72
+## 🚀 IMMEDIATE DIRECTIVE: EXECUTE PHASE 73
 **Role:** Invoke **Lead Developer** role.
-**Objective:** Phase 72: Graph-Relational Synapse.
+**Objective:** Phase 73: Persistent Execution & Self-Healing.
 
 ### 📚 CORE RESOURCES
 - **Blueprint:** `docs/superpowers/research/v3.4.x blueprint.md`
-- **Audit Report (Ph 71):** `docs/superpowers/audits/2026-04-24-phase-71-audit.md`
-- **Master Roadmap:** `IMPLEMENTATION_PLAN.md` (Phases 72-73)
+- **Audit Report (Ph 72):** `docs/superpowers/audits/2026-04-24-phase-72-audit.md`
+- **Master Roadmap:** `IMPLEMENTATION_PLAN.md` (Phase 73)
 
-### 🧠 KEY ACTIONS (PHASE 72)
-- **PGLite Integration:** Deploy `PGLite` + `pgvector` as the semantic engine for `SovereignIntelligence.db`.
-- **Vectorized Triplets:** Implement `os_triplets` to map semantic relationships across all project files.
-- **Synapse Synthesis:** Implement the "JARVIS" capture pattern (Inbox -> Captures -> Connections -> Briefs).
-- **Pattern Recognition:** Enable the Director to find non-obvious connections across weeks of session data.
+### 🧠 KEY ACTIONS (PHASE 73)
+- **Hermes v3.4.1 Sync:** Deploy the Ink-based TUI for `/os` and Flutter.
+- **Persistent Chromium Daemon:** Deploy raw CDP on Node C.
+- **Self-Healing Harness:** Implement agentic self-repair for `helpers.py`.
+- **GEPA Evolution:** Initialize the autonomous prompt/skill optimization loop.
 
 ### 🛠️ OPERATIONAL PROTOCOL
-1. **High Throughput:** Execute Phase 72 tasks with maximum efficiency.
-2. **Surgical Edits:** Preserve existing logic; only inject the vectorized relationship layer.
-3. **Bit-Identical Consistency:** Ensure all nodes remain synchronized. Run `npm run node:sync` after logic shifts to purge mirroring bloat.
+1. **High Throughput:** Execute Phase 73 tasks with maximum efficiency.
+2. **Surgical Edits:** Use `replace` for precise code modification.
+3. **Zero-Trust:** Every execution correction must be logged in `decision_audit`.
 
 ---
-**::/5Y573M-N071C3 : PHASE_71_SHORED. READY_FOR_PHASE_72_IGNITION. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : PHASE_72_SHORED. READY_FOR_PHASE_73_IGNITION. // 50V3R31GN-M4CH1N4**
 
 ## 🗄️ DATABASE TOPOLOGY REMINDER
-- **SovereignIntelligence.db (OS Core):** `system_state`, `decision_audit`, `palace_wings`, `palace_rooms`, `os_triplets`.
-- **Akashik.db (Simulation Shard):** `triplets` (28k+ records), `npcs`, `factions`, `gigs`, `items`, etc.
-- **Rule:** OS functional logic stays in the OS store; Simulation lore stays in the RED shard.
+- **SovereignIntelligence.db (OS Core):** `system_state`, `decision_audit`, `palace_wings`, `os_triplets`, `synapse_captures`, `synapse_briefs`.
+- **Akashik.db (Simulation Shard):** `triplets` (lore), `npcs`, `factions`, `gigs`, `items`.

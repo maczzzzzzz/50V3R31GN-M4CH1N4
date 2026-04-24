@@ -148,12 +148,12 @@
 
 ---
 
-## 🛠️ PHASE 72: GRAPH-RELATIONAL MEMORY (THE MEMORY REVOLUTION)
+## ✅ PHASE 72: GRAPH-RELATIONAL MEMORY (COMPLETED)
 **Goal:** Transform the flat documentation and session logs into a vectorized knowledge graph.
-- [ ] **Task 1: PGLite Integration:** Deploy `PGLite` + `pgvector` as the semantic engine for `SovereignIntelligence.db`.
-- [ ] **Task 2: Vectorized Triplets:** Implement `os_triplets` to map semantic relationships across all project files.
-- [ ] **Task 3: Synapse Synthesis:** Implement the "JARVIS" capture pattern (Inbox -> Captures -> Connections -> Briefs).
-- [ ] **Task 4: Pattern Recognition:** Enable the Director to find non-obvious connections across weeks of session data.
+- [x] **Task 1: PGLite Integration:** Deploy `sqlite-vec` as the semantic engine for `SovereignIntelligence.db`.
+- [x] **Task 2: Vectorized Triplets:** Implement `OsTripletService` to map semantic relationships across all project files.
+- [x] **Task 3: Synapse Synthesis:** Implement the "JARVIS" capture pipeline (`SynapseCapture`) and Brief generation (`SynapseBrief`).
+- [x] **Task 4: Pattern Recognition:** Enable the Director HUD to surface non-obvious connections via `SynapsePanel`.
 
 ---
 
