@@ -47,7 +47,7 @@ export interface VecSearchResult {
 export class SynapseStore {
   private _db: Database.Database | null = null;
   private readonly dbPath: string;
-  private readonly logger?: ILogger;
+  private readonly logger?: ILogger | undefined;
 
   private get db(): Database.Database {
     if (!this._db) throw new Error('SynapseStore: not connected — call open() first');

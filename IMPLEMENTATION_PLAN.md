@@ -166,3 +166,4 @@
 - [ ] **Task 4: A11y Tree Navigation:** Shifting browser interaction to Accessibility Tree numbered references (@e1, @e2).
 - [ ] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure.
 - [ ] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop.
+- [ ] **Task 7: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
