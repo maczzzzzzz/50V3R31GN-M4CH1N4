@@ -5,6 +5,7 @@ import DirectorPulse from "@/components/DirectorPulse";
 import VsbWaveform from "@/components/VsbWaveform";
 import GhostBootTrigger from "@/components/GhostBootTrigger";
 import HermesProxy from "@/components/HermesProxy";
+import SynapsePanel from "@/components/SynapsePanel";
 import { useSovereignTelemetry } from "@/hooks/useSovereignTelemetry";
 
 export default function Dashboard() {
@@ -43,6 +44,11 @@ export default function Dashboard() {
       {/* Hermes Control Interface — Node C proxy (collapsible) */}
       <div className="lg:col-span-2">
         <HermesProxy />
+      </div>
+
+      {/* Phase 72: Synapse Graph — triplet search + brief */}
+      <div className="lg:col-span-2">
+        <SynapsePanel />
       </div>
     </main>
   );
