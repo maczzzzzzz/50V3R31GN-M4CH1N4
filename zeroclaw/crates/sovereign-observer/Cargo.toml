@@ -1,6 +1,6 @@
 [package]
 name = "sovereign-observer"
-version = "3.2.21"
+version = "3.4.1"
 edition = "2021"
 
 [dependencies]

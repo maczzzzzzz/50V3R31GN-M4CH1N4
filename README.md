@@ -8,20 +8,22 @@
 ## 35 30 56 33 52 33 31 47 4E 2D 4D 34 43 48 31 4E 34
 ---
 
-## :://5Y573M-5747U5 // 50V3R31GN-H16HW4Y : 16N173D // v3.2.21
+## :://5Y573M-5747U5 // 50V3R31GN-H16HW4Y : 16N173D // v3.4.1
 
-### ◈ 7R1N17Y_45C3N510N: 100% OPERATIONAL
-The 50V3R31GN-M4CH1N4 is a sharded, hardware-native intelligence mesh harnessed via **PODS (Portable Operation Descriptors)**. It is a bit-identical cognitive infrastructure sharded across the `10.0.0.x` spine for zero-trust physical sovereignty.
+### ◈ 7R1N17Y_45C3N510N: 100% OPERATIONAL // INTELLIGENCE_OS_ERA
+The 50V3R31GN-M4CH1N4 has evolved from a Cyberpunk simulation engine into a sharded, hardware-native **Intelligence Operating System**. It is a bit-identical cognitive infrastructure sharded across the `10.0.0.x` spine for zero-trust physical sovereignty.
 
 - **Neural Mesh:** 3-node localized fabric harnessed via binary VSB synchronicity and **Mooncake v2.2** disaggregated memory.
 - **Vocal Artery:** Real-time speech-to-intent bridge via **OMI** wearable and the **Machina Terminal** HUD.
+- **System Sociotomy:** Physical separation of functional OS logic (`SovereignIntelligence.db`) from lore-based shards (`Akashik.db`).
+- **Dual-Profile HUD:** High-throughput OS Intelligence HUD (`/os`) and isolated RED Simulation Module (`/red`).
 - **Optic Nerve:** Continuous 100% screen awareness on WSL2 via the **Sovereign Observer** (Rust).
-- **Akashik Artery:** Multi-dimensional world-state synchronized via **Akashik.db** (SQLite) and **Obsidian RKG Vault**.
-- **Virtual Stronghold:** Agentic Crash Recovery via SQLite Checkpointing, enabling 100% state persistence and "Time Travel" debugging.
+- **Identity Guard:** Profile-based behavior management via `SOVEREIGN-IDENTITY.md` ([OS] vs [RED]).
+- **Virtual Stronghold:** Agentic Crash Recovery via SQLite Checkpointing, enabling 100% state persistence.
 - **Metacognition:** Dynamically Learning Control System utilizing **Skill Crystallization** and **Shadow Mode Self-Healing**.
-- **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**, augmented by background Observer distillation.
-- **Recursive Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT (Adaptive Computation Time).
-- **Physical Hands:** Go-native **Sovereign Harness** and self-healing **Skill Forge** for automated browser control.
+- **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**.
+- **Recursive Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT.
+- **Physical Hands:** Go-native **Sovereign Harness** and Hermes v3.4.1 TUI for automated system control.
 
 ---
 

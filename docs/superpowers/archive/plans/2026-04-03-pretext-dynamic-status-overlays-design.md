@@ -1,6 +1,6 @@
 # Design: Dynamic Status Overlays via Pretext Engine
 **Date:** 2026-04-03
-**Target:** v3.2.21 (Phase 17: Layout Sovereignty - Pretext Engine)
+**Target:** v3.4.1 (Phase 17: Layout Sovereignty - Pretext Engine)
 
 ## 1. Architecture & Data Flow
 

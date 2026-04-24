@@ -1,30 +1,40 @@
 # ABOUT 50V3R31GN-M4CH1N4
 
-**Version:** 3.2.21
-**Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
+**Version:** 3.4.1
+**Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL) + Sovereign OS Core (v3.4.1)
 
-The **50V3R31GN-M4CH1N4** (Sovereign Machina) is a localized, hardware-native, sharded artificial intelligence mesh. It is designed to act as an un-censored, fully autonomous Cyberpunk RED Game Master and Tactical Director. It completely abandons the cloud, operating exclusively across a proprietary `10.0.0.x` subnet to ensure 100% physical sovereignty, zero telemetry, and sub-10ms response latency.
+The **50V3R31GN-M4CH1N4** (Sovereign Machina) is a localized, hardware-native, sharded **Intelligence Operating System**. While initially designed as a Cyberpunk RED simulation engine, it has evolved into a high-level cognitive infrastructure that manages personal intelligence, autonomous execution, and zero-trust physical sovereignty. It completely abandons the cloud, operating exclusively across a proprietary `10.0.0.x` subnet to ensure 100% data ownership, zero telemetry, and sub-10ms response latency.
 
 ---
 
-## ◈ CORE ARCHITECTURE (THE TRINITY)
+## ◈ CORE ARCHITECTURE (THE SOVEREIGN OS)
 
 The system is distributed across three discrete physical pods, communicating via a binary UDP protocol called the **VSB (Virtual Synchronous Bus)**.
 
 ### 1. Node B: The Director (Narrative & Orchestration)
 - **Hardware:** AMD Radeon RX 9060 XT (16GB VRAM) running NixOS inside WSL2.
 - **Model:** `Gemma-4-E4B [48L173R473D]` (Q8).
-- **Function:** The "Brain" and "Eyes". It synthesizes the world state into gritty Cyberpunk RED prose. It runs the **Sovereign Observer** for 100% continuous screen awareness and utilizes the **Hermes Orchestrator** to manage the tactical UI.
+- **Function:** The "Brain" and "Eyes". It acts as the master reasoner and high-fidelity scene orchestrator. It runs the **Sovereign Observer** for 100% continuous screen awareness and the **Hermes v2026.4.23 TUI** as the primary OS shell.
 
 ### 2. Node C: The Strategic Oracle (Logic & Perception)
 - **Hardware:** NVIDIA RTX 2060 (6GB VRAM) running Nix-hardened Ubuntu Server.
 - **Model:** `Gemma-4-E4B` Polymorphic (Q5 for Authority, Q4 for Comms, Q3 for Speed).
-- **Function:** The "Ears" and "Rules". Runs the Rust-native **Artery Manager**. It performs Whisper-native vocal ingestion and tactical rule arbitration.
+- **Function:** The "Ears" and "Rules". Runs the Rust-native **Artery Manager**. It performs Whisper-native vocal ingestion and tactical rule arbitration for both the OS and simulation shards.
 
 ### 3. Node A: The Synapse (Memory & KV-Cache)
 - **Hardware:** NVIDIA GTX 1050 Ti (4GB VRAM) running NixOS Native.
 - **Architecture:** **Mooncake v2.2 Master**. 
-- **Function:** The "Disaggregated Artery". It manages the disaggregated KV-cache cluster, offloading context between the Director and Strategic Oracle pods to ensure 100% narrative continuity without VRAM starvation. It serves as the physical memory buffer for the mesh.
+- **Function:** The "Disaggregated Artery". It manages the disaggregated KV-cache cluster, offloading context between the Director and Strategic Oracle pods to ensure 100% cognitive continuity.
+
+---
+
+## ◈ SYSTEM SOCIOTOMY (THE DUAL-BRAIN MODEL)
+
+Version 3.4.1 introduces the **Architectural Cut**, physically separating functional intelligence from simulation lore:
+
+*   **Sovereign Intelligence Store (`SovereignIntelligence.db`):** The persistent "Clean Brain" containing system state, zero-trust audit trails, and the high-level relational memory graph.
+*   **RED Simulation Shard (`Akashik.db`):** A modular domain shard containing NPCs, Factions, Gigs, and gritty mechanics, loaded only when the `[RED_DIRECTOR]` profile is active.
+*   **Profile-Based Routing:** Managed via `SOVEREIGN-IDENTITY.md`, allowing the system to toggle between **Radical Candor (OS Mode)** and **Gritty Narrative (Simulation Mode)**.
 
 ---
 

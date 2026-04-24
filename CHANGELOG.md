@@ -3,7 +3,20 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.3.1.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.1.html).
+
+## [3.4.1] - 2026-04-24
+### Added
+- **System Sociotomy (Phase 71):** Successfully performed the architectural "Cut," physically separating the Sovereign Intelligence OS from the Cyberpunk RED simulation.
+- **Sovereign Intelligence Store:** Materialized `SovereignIntelligence.db` as the primary repository for OS-level functional logic, system state, and zero-trust audit trails.
+- **Dual-Profile Identity System:** Deployed `SOVEREIGN-IDENTITY.md` in the repository root, enabling dynamic profile switching between `[SOVEREIGN_OS]` (Reasoner) and `[RED_DIRECTOR]` (Narrative).
+- **Dashboard Sociotomy:** Re-engineered the Next.js dashboard into isolated `/os` (Intelligence HUD) and `/red` (Simulation Module) routes with profile-aware navigation.
+- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.4.1 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
+- **Universal Hardening:** Integrated the `treefmt` universal linter across the repository to enforce bit-identical consistency for Nix, Rust, Go, TypeScript, and Markdown.
+
+### Changed
+- **Artery of Truth Demotion:** Formally demoted `Akashik.db` to a "Simulation Shard," dedicated exclusively to Cyberpunk RED lore, NPCs, and mechanics.
+- **Communicator Roles:** Designated the Go-native Crush CLI as the primary tactical communicator for RED Director mode, while the Hermes TUI handles OS orchestration.
 
 ## [3.3.1] - 2026-04-23
 ### Added
@@ -31,7 +44,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.3.1.html).
 ### Changed
 - **Neutral Visual Identity:** Purged red accents from the master logo for theme-agnostic deployment.
 - **Artery Manager Evolution:** Added `/sync/chat` and `/system/theme` endpoints to the Rust-native daemon.
-- **Foundry Bridge v12:** Enhanced CSS injection to support dynamic theme class switching.
+- **Foundry Mesh v12:** Enhanced CSS injection to support dynamic theme class switching.
 
 ### Fixed
 - **Nano Banana 2 Pipeline:** Corrected model targeting to `gemini-3.1-flash-image-preview` and neutralized spending cap blockers.

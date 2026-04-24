@@ -134,3 +134,35 @@
 
 ---
 **::/5Y573M-N071C3 : MISSION_SUCCESS. THE_TRINITY_IS_ONE. // 50V3R31GN-M4CH1N4**
+
+---
+
+## ✅ PHASE 71: SYSTEM SOCIOTOMY & CLEAN BRAIN (COMPLETED)
+**Goal:** Physically and logically separate the "Intelligence OS" from the "Simulation Feature."
+- [x] **Task 1: System Hardening:** Deploy `treefmt` universal linter across the repo.
+- [x] **Task 2: The Cut (Sociotomy):** Initialize `SovereignIntelligence.db` and migrate `system_state`, `decision_audit`, and `palace_core` from `Akashik.db`.
+- [x] **Task 3: Identity Guard:** Deploy `SOVEREIGN-IDENTITY.md` and implement profile-based resource routing (OS vs. RED).
+- [x] **Task 4: Clean State:** Purge `Akashik.db` of functional OS data, officially demoting it to a "Simulation Shard."
+- [x] **Task 5: Dashboard Sociotomy:** Re-route the Next.js dashboard into `/os` and `/red`, making the UI profile-aware.
+- [x] **Task 6: Zero-Trust Audit:** Refactor `duel_history` into the immutable `decision_audit` ledger.
+
+---
+
+## 🛠️ PHASE 72: GRAPH-RELATIONAL MEMORY (THE MEMORY REVOLUTION)
+**Goal:** Transform the flat documentation and session logs into a vectorized knowledge graph.
+- [ ] **Task 1: PGLite Integration:** Deploy `PGLite` + `pgvector` as the semantic engine for `SovereignIntelligence.db`.
+- [ ] **Task 2: Vectorized Triplets:** Implement `os_triplets` to map semantic relationships across all project files.
+- [ ] **Task 3: Synapse Synthesis:** Implement the "JARVIS" capture pattern (Inbox -> Captures -> Connections -> Briefs).
+- [ ] **Task 4: Pattern Recognition:** Enable the Director to find non-obvious connections across weeks of session data.
+
+---
+
+## 🛠️ PHASE 73: PERSISTENT EXECUTION & SELF-HEALING (THE SOVEREIGN AGENT)
+**Goal:** Achieve browser persistence and the ability for agents to self-correct their execution harness.
+- [ ] **Task 0: Hermes v3.4.1 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
+- [ ] **Task 1: Persistent Chromium Daemon:** Deploy the raw CDP browser daemon on Node C for long-lived sessions.
+- [ ] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs.
+- [ ] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys.
+- [ ] **Task 4: A11y Tree Navigation:** Shifting browser interaction to Accessibility Tree numbered references (@e1, @e2).
+- [ ] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure.
+- [ ] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop.

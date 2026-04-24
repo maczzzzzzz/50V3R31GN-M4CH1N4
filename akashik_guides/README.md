@@ -1,27 +1,31 @@
 # ◈ AKASHIK_GUIDES // THE_SOVEREIGN_LEDGER
-**Version:** 3.3.1
+**Version:** 3.4.1
 **Identity:** 50V3R31GN-M4CH1N4
 
-This repository contains the canonical tutorials, references, and architectural shards required to operate the **Sovereign Trinity** cognitive mesh.
+This repository contains the canonical tutorials, references, and architectural shards required to operate the **Sovereign Intelligence OS** and the **Trinity** cognitive mesh.
 
 ---
 
 ## 🏗️ 0. System Setup & Onboarding
 - [Tutorial: Master Trinity Startup](00_system_setup/tutorial-master-startup.md)
+- [Reference: Sovereign Identity & Profiles](00_system_setup/reference-identity-profiles.md)
 - [How to Setup Sovereign Trinity](00_system_setup/how-to-setup-sovereign-trinity.md)
 - [How to Ingest Lore Assets](00_system_setup/how-to-ingest-assets.md)
+- [Reference: Intelligence OS vs Simulation Shard](00_system_setup/reference-sociotomy.md)
 - [How to Setup Secure Tunneling (Tailscale)](00_system_setup/how-to-setup-tailscale.md)
 - [Reference: Terminal Logging](00_system_setup/reference-logging.md)
 - [Reference: Developer Scripts Manifest](DEV_SCRIPTS_MANIFEST.md)
 
 ## 🖥️ 1. CRUSH CLI Orchestration
 - [Reference: CRUSH Command Set](01_crush_cli/reference-crush-cli.md)
+- [Explanation: The Tactical RED Communicator](01_crush_cli/explanation-red-communicator.md)
 
 ## ⚡ 2. Infrastructure & Igniters
 - [Reference: Deck Igniter Logic](02_deck_igniter/reference-deck-igniter.md)
 
 ## 🧠 3. Omni Orchestrator (Hermes)
 - [Explanation: The Hermes Artery](03_omni_orchestrator/explanation-orchestrator.md)
+- [Tutorial: Hermes v2026 TUI Integration](03_omni_orchestrator/tutorial-hermes-tui.md)
 
 ## 🔮 4. Unified Strategic Oracle (Strategic Oracle)
 - [Reference: RDT Kernel & Rules](04_unified_oracle/reference-oracle.md)

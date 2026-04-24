@@ -1,4 +1,4 @@
-# Design: Phase 28 — Total Environment Dominance (v3.2.21)
+# Design: Phase 28 — Total Environment Dominance (v3.4.1)
 
 **Date:** 2026-04-05
 **Status:** Approved
@@ -34,4 +34,4 @@
 - **Node A Audit:** All synthetic mouse/keyboard sequences must be audited by Node A to ensure they don't perform "OS-level" escapes (e.g., trying to click the 'Close' button of the browser or access system menus).
 
 ---
-*Verified by Gemini CLI v3.2.21 Orchestrator.*
+*Verified by Gemini CLI v3.4.1 Orchestrator.*

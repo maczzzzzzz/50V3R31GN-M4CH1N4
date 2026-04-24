@@ -1,4 +1,4 @@
-# High-Signal Logging & Observability Guide (v3.2.21)
+# High-Signal Logging & Observability Guide (v3.4.1)
 
 This document defines the persistent logging strategy for the **50V3R31GN-M4CH1N4** Split-Node stack. Use these logs to debug the binary bridge, swarm concurrency, and world state mutations.
 

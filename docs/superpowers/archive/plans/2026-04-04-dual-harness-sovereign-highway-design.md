@@ -1,4 +1,4 @@
-# Design: Dual-Harness Sovereign Highway (v3.2.21)
+# Design: Dual-Harness Sovereign Highway (v3.4.1)
 **Date:** 2026-04-04
 **Target:** Phase 22 (Sovereign Highway Milestone)
 

@@ -1,8 +1,8 @@
 # ◈ COMMAND_MANIFEST // THE_SOVEREIGN_ACTIONS
-**Version:** 3.2.21
+**Version:** 3.4.1
 **Identity:** 50V3R31GN-M4CH1N4
 
-This document defines the primary commands required to ignite and maintain the **Sovereign Trinity** mesh.
+This document defines the primary commands required to ignite and maintain the **Sovereign Intelligence OS** and the **Trinity** cognitive mesh.
 
 ---
 
@@ -29,10 +29,11 @@ This document defines the primary commands required to ignite and maintain the *
 | `npm run audit:vitals` | **Heartbeat** | Performs a 3-node latency and VRAM audit. |
 | `npm run observer:ignite` | **Sensory** | Starts the `sovereign-observer` screen capture loop. |
 
-## 🎙️ 3. Vocal Artery (OMI)
+## 🎙️ 🎙️ 3. Vocal & TUI Interfaces
 | Command | Role | Description |
 | :--- | :--- | :--- |
-| `npm run hub` | **Desktop** | Launches the Machina Terminal (Flutter) in desktop mode. |
+| `npm run hub` | **OS TUI** | Launches the Hermes v2026 TUI as the primary OS shell. |
+| `npm run terminal` | **RED CLI** | Launches the Go-native Crush CLI for tactical RED simulation. |
 | `flutter run` | **Mobile** | Launches the Machina Hub Lite on connected Android device. |
 
 ---
