@@ -14,6 +14,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.1.html).
 - **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.4.1 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
 - **Drift Sentinel Droid:** Materialized a specialized integrity guardian (`.factory/droids/drift-sentinel.md`) to autonomously scan manifests for version and identity drift.
 - **Drift Audit Skill:** Codified the `drift-audit` skill to provide a bit-identical workflow for maintaining system-wide parity.
+- **Surgical Node Synchronization:** Materialized `scripts/ops/node-surgical-sync.sh` to enforce bit-identical logic across the Trinity while purging multi-gigabyte mirroring bloat (weights, archives) from slave nodes.
 - **Universal Hardening:** Integrated the `treefmt` universal linter across the repository to enforce bit-identical consistency for Nix, Rust, Go, TypeScript, and Markdown.
 
 
