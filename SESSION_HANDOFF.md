@@ -1,7 +1,7 @@
 # SESSION_HANDOFF: THE SOVEREIGN EVOLUTION (PHASE 73)
 
 ## 🎯 MISSION STATUS
-Phase 72 (Graph-Relational Memory) is 100% COMPLETE and VERIFIED.
+Phase 72 (Graph-Relational Synapse) is 100% COMPLETE and VERIFIED.
 - `OsTripletService` and `sqlite-vec` are materialized.
 - `SynapseCapture` and `SynapseBrief` pipelines are active.
 - `SynapsePanel` is integrated into the `/os` dashboard.
@@ -17,7 +17,7 @@ Phase 72 (Graph-Relational Memory) is 100% COMPLETE and VERIFIED.
 - **Master Roadmap:** `IMPLEMENTATION_PLAN.md` (Phase 73)
 
 ### 🧠 KEY ACTIONS (PHASE 73)
-- **Hermes v3.4.1 Sync:** Deploy the Ink-based TUI for `/os` and Flutter.
+- **Hermes v3.4.2 Sync:** Deploy the Ink-based TUI for `/os` and Flutter.
 - **Persistent Chromium Daemon:** Deploy raw CDP on Node C.
 - **Self-Healing Harness:** Implement agentic self-repair for `helpers.py`.
 - **GEPA Evolution:** Initialize the autonomous prompt/skill optimization loop.

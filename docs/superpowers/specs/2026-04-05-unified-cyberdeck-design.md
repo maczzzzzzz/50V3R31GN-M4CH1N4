@@ -1,4 +1,4 @@
-# Design: Unified Cyberdeck & Tactical Scanner (v3.4.1)
+# Design: Unified Cyberdeck & Tactical Scanner (v3.4.2)
 
 **Date:** 2026-04-05
 **Status:** Approved
@@ -41,4 +41,4 @@
 - **Phase 3 (TS):** Implement the `runScript` security gate in `FoundryAdapter`.
 
 ---
-*Verified by Gemini CLI v3.4.1 Orchestrator.*
+*Verified by Gemini CLI v3.4.2 Orchestrator.*

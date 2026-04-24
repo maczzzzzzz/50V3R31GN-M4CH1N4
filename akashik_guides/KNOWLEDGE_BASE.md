@@ -1,6 +1,6 @@
 # ◈ 50V3R31GN-M4CH1N4 // KNOWLEDGE_BASE
 **Version:** 3.4.1
-**Status:** ARCH1V3_LOCK (v3.4.1)
+**Status:** ARCH1V3_LOCK (v3.4.2)
 
 ---
 
@@ -12,7 +12,7 @@
 | **GStack (Garry Tan)** | [garrytan/gstack](https://github.com/garrytan/gstack) | **Workflow:** Opinionated "Think → Plan → Build" loop and specialized roles. |
 | **GBrain (Garry Tan)** | [garrytan/gbrain](https://github.com/garrytan/gbrain) | **Synapse:** PGLite + pgvector for local knowledge graphs. |
 | **Claw-Code (Rust)** | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | High-performance Rust rewrite of the foundational IPC bridge. |
-| **Zeroclaw (v3.4.1)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
+| **Zeroclaw (v3.4.2)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
 
 ### ◈ THE COGNITIVE HARNESS (EVOLUTION CLUSTER)
 | Repository | Source Link | Role |
@@ -43,7 +43,7 @@
 
 ---
 
-## 🧠 ARCHITECTURAL PATTERNS (v3.4.1)
+## 🧠 ARCHITECTURAL PATTERNS (v3.4.2)
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
@@ -59,4 +59,4 @@
 | **Kinetic VFX** | Three.js | 3D particle manifestation (gunshots/sparks) in the tactical shroud. |
 
 ---
-*Verified by Gemini CLI v3.4.1.*
+*Verified by Gemini CLI v3.4.2.*

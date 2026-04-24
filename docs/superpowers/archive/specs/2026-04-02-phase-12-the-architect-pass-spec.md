@@ -1,4 +1,4 @@
-# Design Specification: Phase 12 — The Architect Pass (v3.4.1)
+# Design Specification: Phase 12 — The Architect Pass (v3.4.2)
 **Subject:** Automated Scene Materialisation & Direct Canvas Manipulation
 **Status:** DESIGN FINALIZED (Omniscience Hardened)
 

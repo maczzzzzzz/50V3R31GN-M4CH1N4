@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.1.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
+
+## [3.4.2] - 2026-04-24
+### Added
+- **Graph-Relational Synapse (Phase 72):** Successfully materialized the **Synapse** vectorized knowledge graph within `SovereignIntelligence.db`.
+- **Vectorized Triplets:** Implemented `OsTripletService` utilizing `sqlite-vec` for 768-dimension semantic search and batch-upsert of (subject-predicate-object) facts.
+- **Synapse Synthesis Pipeline:** Deployed the **JARVIS-style** capture and brief system (`SynapseCapture`, `SynapseBrief`) to autonomously synthesize session activity from voice, logs, and observations.
+- **Intelligence HUD Integration:** Materialized the `SynapsePanel` UI component in the `/os` dashboard route, enabling real-time triplet inspection, semantic search, and summary briefs.
+- **GEPA Research Integration:** Codified the transition path for autonomous self-evolution (NousResearch) in the v3.4.x roadmap.
+
+### Changed
+- **Synapse Sharding:** Formally transitioned system functional memory from flat markdown files to a vectorized graph-relational store.
 
 ## [3.4.1] - 2026-04-24
 ### Added
@@ -11,7 +22,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.1.html).
 - **Sovereign Intelligence Store:** Materialized `SovereignIntelligence.db` as the primary repository for OS-level functional logic, system state, and zero-trust audit trails.
 - **Dual-Profile Identity System:** Deployed `SOVEREIGN-IDENTITY.md` in the repository root, enabling dynamic profile switching between `[SOVEREIGN_OS]` (Reasoner) and `[RED_DIRECTOR]` (Narrative).
 - **Dashboard Sociotomy:** Re-engineered the Next.js dashboard into isolated `/os` (Intelligence HUD) and `/red` (Simulation Module) routes with profile-aware navigation.
-- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.4.1 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
+- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.4.2 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
 - **Drift Sentinel Droid:** Materialized a specialized integrity guardian (`.factory/droids/drift-sentinel.md`) to autonomously scan manifests for version and identity drift.
 - **Drift Audit Skill:** Codified the `drift-audit` skill to provide a bit-identical workflow for maintaining system-wide parity.
 - **Surgical Node Synchronization:** Materialized `scripts/ops/node-surgical-sync.sh` to enforce bit-identical logic across the Trinity while purging multi-gigabyte mirroring bloat (weights, archives) from slave nodes.

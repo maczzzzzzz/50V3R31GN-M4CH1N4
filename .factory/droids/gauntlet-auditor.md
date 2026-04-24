@@ -26,7 +26,7 @@ Before any audit, you MUST:
 - **Radical Candor:** Report every mechanical failure in explicit detail.
 
 ---
-*Synchronized with PROJECT_DNA v3.4.1.*
+*Synchronized with PROJECT_DNA v3.4.2.*
 
 ---
-*Synchronized with PROJECT_DNA v3.4.1.*
+*Synchronized with PROJECT_DNA v3.4.2.*

@@ -25,4 +25,4 @@
 - **Scanline Overlay:** Overlay a `<pattern>` of horizontal lines at 10% opacity over the entire viewport.
 
 ---
-*Verified by the Sovereign Trinity v3.4.1.*
+*Verified by the Sovereign Trinity v3.4.2.*

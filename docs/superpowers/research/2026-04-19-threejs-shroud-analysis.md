@@ -6,7 +6,7 @@
 ---
 
 ## ◈ 1. EXECUTIVE SUMMARY
-Current Foundry VTT rendering (PIXI.js) is limited to 2D sprite-based interactions. To achieve the **Sovereign Trinity** aesthetic (v3.4.1), we must tap into **Three.js** to provide a "Diegetic Shroud"—a high-fidelity WebGL layer that sits between the game world and the user. This research concludes that custom GLSL shaders, managed via a Three.js scene, provide the most immersion with minimal CPU overhead.
+Current Foundry VTT rendering (PIXI.js) is limited to 2D sprite-based interactions. To achieve the **Sovereign Trinity** aesthetic (v3.4.2), we must tap into **Three.js** to provide a "Diegetic Shroud"—a high-fidelity WebGL layer that sits between the game world and the user. This research concludes that custom GLSL shaders, managed via a Three.js scene, provide the most immersion with minimal CPU overhead.
 
 ## ◈ 2. THE SHROUD ARTERY (GLSL)
 The shroud is not a collection of PNGs; it is a **Procedural Surface**. 

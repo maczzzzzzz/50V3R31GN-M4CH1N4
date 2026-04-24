@@ -159,7 +159,7 @@
 
 ## 🛠️ PHASE 73: PERSISTENT EXECUTION & SELF-HEALING (THE SOVEREIGN AGENT)
 **Goal:** Achieve browser persistence and the ability for agents to self-correct their execution harness.
-- [ ] **Task 0: Hermes v3.4.1 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
+- [ ] **Task 0: Hermes v3.4.2 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
 - [ ] **Task 1: Persistent Chromium Daemon:** Deploy the raw CDP browser daemon on Node C for long-lived sessions.
 - [ ] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs.
 - [ ] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys.

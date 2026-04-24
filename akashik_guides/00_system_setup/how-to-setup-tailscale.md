@@ -9,7 +9,7 @@ Tailscale must be installed and authenticated on all physical nodes (A, B, C).
 
 **NixOS Configuration (`configuration.nix`):**
 ```nix
-services.tailscale.enable = true; # (Materialized v3.4.1)
+services.tailscale.enable = true; # (Materialized v3.4.2)
 ```
 
 **Activation:**
@@ -33,4 +33,4 @@ sudo tailscale up
 The app will now route all WebSocket (`/ws/audio`) and HTTP (`/shift`) traffic through the encrypted subnet, ensuring complete geographic sovereignty and preventing any raw port exposure to the public internet.
 
 ---
-**::/5Y573M-N071C3 : TAILSCALE_TUNNEL_DOCUMENTED. // 50V3R31GN-M4CH1N4**\n## ◈ v3.4.1 MESH UPDATES\n- **DIRECTOR_IP:** Ensure `NODE_B_IP` is shored in app settings for theme orchestration.\n- **TUNNEL_SYNC:** Chat history auto-syncs via port `7340` over the Tailscale pipe.
+**::/5Y573M-N071C3 : TAILSCALE_TUNNEL_DOCUMENTED. // 50V3R31GN-M4CH1N4**\n## ◈ v3.4.2 MESH UPDATES\n- **DIRECTOR_IP:** Ensure `NODE_B_IP` is shored in app settings for theme orchestration.\n- **TUNNEL_SYNC:** Chat history auto-syncs via port `7340` over the Tailscale pipe.
