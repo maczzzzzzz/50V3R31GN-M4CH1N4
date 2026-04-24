@@ -4,32 +4,30 @@
 Phase 72 (Graph-Relational Synapse) is 100% COMPLETE and VERIFIED.
 - `OsTripletService` and `sqlite-vec` are materialized.
 - `SynapseCapture` and `SynapseBrief` pipelines are active.
-- `SynapsePanel` is integrated into the `/os` dashboard.
-- Phase 71 (Sociotomy) is confirmed shored.
+- Research breakthrough integration (Obscura, Exa, Hermes-Kanban, GEPA, ResonantOS) is SPECIFIED and PLANNED.
 
 ## 🚀 IMMEDIATE DIRECTIVE: EXECUTE PHASE 73
 **Role:** Invoke **Lead Developer** role.
-**Objective:** Phase 73: Persistent Execution & Self-Healing.
+**Objective:** Phase 73: Physical Sovereignty & Stealth Ingress.
 
-### 📚 CORE RESOURCES
-- **Blueprint:** `docs/superpowers/research/v3.4.x blueprint.md`
-- **Audit Report (Ph 72):** `docs/superpowers/audits/2026-04-24-phase-72-audit.md`
-- **Master Roadmap:** `IMPLEMENTATION_PLAN.md` (Phase 73)
+### 📚 NEW BREAKTHROUGH SUMMARY
+- **Obscura (Rust):** Lightweight (30MB) stealth browser replaces heavy Chromium for sensory ingress.
+- **Exa Oracle:** Semantic web-fetcher and hallucination detection gate (Rust/Go) shored.
+- **Vault Sociotomy:** Physical split of the 3,000+ RKG shards into Hot/Cold layers for <2s boot.
+- **Hermes-Kanban Sync:** API-driven manifest governance to automate roadmap updates.
+- **Atomic Profiles:** Real-time profile engine with deterministic safety hardgates (GEPA).
+- **ResonantOS:** Deterministic logic gate for absolute system governance and lossless memory.
 
-### 🧠 KEY ACTIONS (PHASE 73)
-- **Hermes v3.4.2 Sync:** Deploy the Ink-based TUI for `/os` and Flutter.
-- **Persistent Chromium Daemon:** Deploy raw CDP on Node C.
-- **Self-Healing Harness:** Implement agentic self-repair for `helpers.py`.
-- **GEPA Evolution:** Initialize the autonomous prompt/skill optimization loop.
+### 🧠 KEY ACTIONS (PHASE 73 - IGNITION)
+- **Task 1: Vault Sociotomy:** Execute the physical migration of lore shards to the cold archive.
+- **Task 2: Obscura Sidecar:** Deploy the Nix-managed stealth browser on Node C.
+- **Task 3: Hermes-Kanban Sync:** Implement the Go-based manifest sync daemon.
+- **Task 4: Semantic Retrieval Bridge:** Materialize the `query_cold_lore` tool.
 
 ### 🛠️ OPERATIONAL PROTOCOL
-1. **High Throughput:** Execute Phase 73 tasks with maximum efficiency.
+1. **High Throughput:** Execute Phase 73 tasks task-by-task.
 2. **Surgical Edits:** Use `replace` for precise code modification.
 3. **Zero-Trust:** Every execution correction must be logged in `decision_audit`.
 
 ---
-**::/5Y573M-N071C3 : PHASE_72_SHORED. READY_FOR_PHASE_73_IGNITION. // 50V3R31GN-M4CH1N4**
-
-## 🗄️ DATABASE TOPOLOGY REMINDER
-- **SovereignIntelligence.db (OS Core):** `system_state`, `decision_audit`, `palace_wings`, `os_triplets`, `synapse_captures`, `synapse_briefs`.
-- **Akashik.db (Simulation Shard):** `triplets` (lore), `npcs`, `factions`, `gigs`, `items`.
+**::/5Y573M-N071C3 : BREAKTHROUGHS_SHORED. READY_FOR_PHASE_73_IGNITION. // 50V3R31GN-M4CH1N4**

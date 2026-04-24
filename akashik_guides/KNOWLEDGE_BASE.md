@@ -13,20 +13,24 @@
 | **GBrain (Garry Tan)** | [garrytan/gbrain](https://github.com/garrytan/gbrain) | **Synapse:** PGLite + pgvector for local knowledge graphs. |
 | **Claw-Code (Rust)** | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | High-performance Rust rewrite of the foundational IPC bridge. |
 | **Zeroclaw (v3.4.2)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
+| **Obscura (Rust)** | [h4ckf0r0day/obscura](https://github.com/h4ckf0r0day/obscura) | **Ingress:** Headless stealth browser for agentic sensory input (30MB RAM). |
 
 ### ◈ THE COGNITIVE HARNESS (EVOLUTION CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **Hermes Agent (v2026)**| [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | **Interface:** React/Ink TUI and persistent cross-session memory (FTS5). |
+| **Hermes-Kanban** | [GumbyEnder/hermes-kanban](https://github.com/GumbyEnder/hermes-kanban) | **Governance:** API-driven task management and Obsidian board sync. |
 | **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |
 | **GEPA** | [gepa-ai/gepa](https://github.com/gepa-ai/gepa) | **Reflective Evolution:** Prompt optimization via genetic parent-child mutation. |
 | **Git AI (Forensics)**| [git-ai/git-ai](https://github.com/git-ai/git-ai) | **Agentic Audit Trails:** Forensic logging for LLM code generation and tracking. |
-| **DevMemory** | [ai-dev-memory/ai-dev-memory](https://github.com/ai-dev-memory/ai-dev-memory) | **Ouroboros Ledger:** Local SQLite storage for agent failure history and prompt origins. |
+| **ResonantOS** | [ResonantOS/ResonantOS](https://github.com/ResonantOS/ResonantOS) | **Governance:** Deterministic logic gate and lossless memory architecture. |
 
 ### ◈ VOCAL & SENSORY (PERCEPTION CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **HermeSpecs** | [radfordben/hermespecs-app](https://github.com/radfordben/hermespecs-app) | **Command Router:** Decoupled vocal intent mapping for 80+ tools and HEVC streaming. |
+| **Exa-Labs (Core)** | [exa-labs/exa-py](https://github.com/exa-labs) | **Oracle:** Semantic search and clean content extraction for LLM context. |
+| **Exa-Hallucination** | [exa-labs/exa-hallucination-detector](https://github.com/exa-labs/exa-hallucination-detector) | **Verification:** Zero-trust claim verification and factual scoring. |
 | **Voice-Daemon** | [18458235609/voice-daemon](https://github.com/18458235609/voice-daemon) | **Local VAD:** Barge-in detection, state-machine audio routing, and UDS IPC. |
 | **Voice-Agent-Hermes**| [paaloeye/voice-agent-hermes](https://github.com/paaloeye/voice-agent-hermes) | **Logic Decoupling:** MCP-driven tool execution offloaded from the core voice loop. |
 | **Falcon Perception** | [tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | **Vision Heart:** Multimodal segmenter and tactical OCR for immediate awareness. |
