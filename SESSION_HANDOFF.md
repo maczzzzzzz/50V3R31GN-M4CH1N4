@@ -25,7 +25,7 @@ Phase 71 (System Sociotomy) is 100% COMPLETE and VERIFIED.
 ### 🛠️ OPERATIONAL PROTOCOL
 1. **High Throughput:** Execute Phase 72 tasks with maximum efficiency.
 2. **Surgical Edits:** Preserve existing logic; only inject the vectorized relationship layer.
-3. **Bit-Identical Consistency:** Ensure all nodes remain synchronized.
+3. **Bit-Identical Consistency:** Ensure all nodes remain synchronized. Run `npm run node:sync` after logic shifts to purge mirroring bloat.
 
 ---
 **::/5Y573M-N071C3 : PHASE_71_SHORED. READY_FOR_PHASE_72_IGNITION. // 50V3R31GN-M4CH1N4**
