@@ -29,7 +29,3 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 
 *Verified by the Sovereign Trinity v3.4.2.*
-
-
----
-**LINKS:** [[OS_CORE]]

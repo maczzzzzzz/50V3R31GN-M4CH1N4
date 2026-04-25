@@ -35,7 +35,3 @@ ALIGNMENT   : Zero-Trust / Radical Candor / Machine Voice
 5. The Gauntlet is the final authority on system integrity.
 
 *Sealed by the Sovereign Trinity v3.4.2.*
-
-
----
-**LINKS:** [[OS_CORE]]

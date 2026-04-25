@@ -16,8 +16,10 @@ Select a vector to begin navigation.
 ### 2. [USER_GUIDES] (Akashik Shards)
 - **[SETUP]** :: [[akashik_guides/00_system_setup/README.md]]
 - **[INTERFACE]** :: [[akashik_guides/03_omni_orchestrator/tutorial-hermes-tui.md]]
-- **[PROFILES]** :: [[akashik_guides/08_sovereign_identity/profiles-and-identity.md]]
-- **[VAULT]** :: [[akashik_guides/07_obsidian_vault/how-to-use-vault.md]]
+- [PROFILES] :: [[akashik_guides/08_sovereign_identity/profiles-and-identity.md]]
+- [APPFLOWY] :: [[akashik_guides/09_appflowy_hub/setup-appflowy.md]]
+- [VAULT] :: [[akashik_guides/07_obsidian_vault/how-to-use-vault.md]]
+
 
 ### 3. [TECHNICAL_BLUEPRINTS]
 - **[SPECS]** :: [[docs/superpowers/specs/]]
