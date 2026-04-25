@@ -8,18 +8,17 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
 ## [3.4.5] - 2026-04-24
 ### Added
 - **Aesthetic Sovereignty (Phase 74):** Implemented the **Gruvbox** (morhetz/gruvbox) palette as the canonical system-wide visual protocol.
-- **Gruvbox Alacritty:** Hardened `config/alacritty/alacritty.toml` with the Dark (Medium) palette and VT323 rendering.
+- **Gruvbox Interface:** Hardened Windows Terminal with the official Gruvbox JSON scheme and VT323 typography.
 - **Gruvbox Obsidian:** Materialized `config/obsidian/gruvbox.css` supporting both Dark and Light modes across all sharded vaults.
 - **Identity Alignment:** Updated `SOVEREIGN-IDENTITY.md` to include the `AESTHETIC_STANDARD: GRUVB0X_V1.0` constraint.
 
 ## [3.4.3] - 2026-04-24
-
 ### Added
 - **Physical Sovereignty (Phase 73):** Executed the **Vault Sociotomy**, physically sharding the 3,000+ RKG knowledge graph into Hot (Active) and Cold (Archive) layers to achieve <2s Obsidian boot times.
 - **Obscura Stealth Sidecar:** Materialized the **Obscura** Rust-based browser (30MB RAM) as a Nix-managed sidecar service on Node C.
 - **A11y Tree Navigation:** Rewrote the `sovereign-observer` as a CDP-native Accessibility Tree navigator, enabling stealthy @element-based interaction.
 - **Hermes-Kanban Manifest Sync:** Deployed a Go-based sync daemon and git `post-commit` hook to autonomously align `IMPLEMENTATION_PLAN.md` with the Hermes Kanban board.
-- **Alacritty Terminal Hardening:** (SPECIFIED) Codified the transition path for GPU-accelerated VT323 terminal hosting in Phase 74.
+
 
 ### Changed
 - **Vault Governance:** Updated `reconstruct-palace.sh` and Obsidian config to explicitly exclude the `RKG_Archive` from the hot index.

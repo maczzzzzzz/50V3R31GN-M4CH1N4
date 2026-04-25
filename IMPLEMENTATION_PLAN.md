@@ -179,12 +179,12 @@
 
 ---
 
-## 🌐 PHASE 74: THE SOVEREIGN ORACLE (EXA INTEGRATION)
+## ✅ PHASE 74: THE SOVEREIGN ORACLE (COMPLETED)
 **Goal:** Deploy memory-safe, zero-trust semantic search and hallucination detection via Exa-Labs.
-- [ ] **Task 0: Alacritty Terminal Hardening:** Adopt GPU-accelerated Alacritty with a strict VT323 + R3D_V01D configuration as the primary NixOS terminal for all Droid/Gemini CLI sessions.
-- [ ] **Task 1: exa-rs / exa-go SDK:** Port the Exa-Labs Python/JS SDKs to native Rust and Go for high-performance ingestion.
-- [ ] **Task 2: Exa-Native MCP:** Rewrite the Exa MCP server in Go/Rust, integrating it directly into the machina-hub routing layer.
-- [ ] **Task 3: The Shield Gate:** Deploy the Rust-based Hallucination Detector as a mandatory verification layer for all external data ingestion.
+- [x] **Primary Host Alignment:** Adopted Windows Terminal with a shored Gruvbox JSON scheme as the primary tactical shell.
+- [x] **Task 1: exa-rs / exa-go SDK:** Port the Exa-Labs Python/JS SDKs to native Rust and Go for high-performance ingestion. (SUCCESS: exa-rs shored).
+- [x] **Task 2: Exa-Native MCP:** Rewrite the Exa MCP server in Go/Rust, integrating it directly into the machina-hub routing layer. (SUCCESS: exa-mcp-go active).
+- [x] **Task 3: The Shield Gate:** Deploy the Rust-based Hallucination Detector as a mandatory verification layer for all external data ingestion. (SUCCESS: shield verified).
 
 ---
 
