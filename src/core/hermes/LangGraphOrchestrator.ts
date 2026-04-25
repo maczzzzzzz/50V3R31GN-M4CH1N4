@@ -17,7 +17,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import { execSync } from 'node:child_process';
+import { execSync, spawnSync } from 'node:child_process';
 import Database from 'better-sqlite3';
 import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
@@ -26,9 +26,22 @@ import { MemoryObserver } from './MemoryObserver.js';
 // Phase 76 Task 3 — Hermes System Command Registry
 // Slash commands are dispatched BEFORE LLM routing — no token cost.
 // Crush is the canonical executor; Hermes is the routing layer.
+//
+// Security: all crush invocations use spawnSync array form (no shell expansion).
+// User-supplied args are validated against an allowlist before use.
 // ---------------------------------------------------------------------------
 
 const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault']);
+
+// Known profile names from SOVEREIGN-IDENTITY.md — allowlist for /profile <name>
+const KNOWN_PROFILES = new Set(['daily-use', 'researcher', 'sovereign-red-game-master']);
+
+// Safe wrapper: runs crush with argv array (no shell, no injection surface).
+function runCrush(args: string[]): string {
+  const result = spawnSync('crush', args, { encoding: 'utf8' });
+  const out = ((result.stdout ?? '') + (result.stderr ?? '')).trim();
+  return out || 'crush: no output';
+}
 
 function dispatchSystemCommand(prompt: string): string | null {
   const trimmed = prompt.trim();
@@ -40,30 +53,31 @@ function dispatchSystemCommand(prompt: string): string | null {
     switch (cmd) {
       case '/profile': {
         if (args) {
-          // Switch active profile via crush — respects Hardgate invariants
-          const result = execSync(`crush profile ${args} 2>&1 || true`, {
-            encoding: 'utf8', shell: '/bin/bash',
-          }).trim();
-          return `◈ PROFILE SWITCH:\n${result}`;
+          // Validate profile name against allowlist — blocks injection attempts
+          const profileName = args.split(/\s+/)[0] ?? '';
+          const extraFlags = args.split(/\s+/).slice(1).filter(f => f === '--override-policy');
+          if (!KNOWN_PROFILES.has(profileName)) {
+            return `◈ PROFILE ERROR: unknown profile '${profileName}'. Known: ${[...KNOWN_PROFILES].join(', ')}`;
+          }
+          const crushArgs = ['profile', profileName, ...extraFlags];
+          return `◈ PROFILE SWITCH:\n${runCrush(crushArgs)}`;
         }
-        // No args — read current active profile
+        // No args — read current active profile (read-only, no injection risk)
         const identity = execSync('grep "ACTIVE_PROFILE" SOVEREIGN-IDENTITY.md', { encoding: 'utf8' }).trim();
         return `◈ PROFILE: ${identity}`;
       }
       case '/status': {
-        // Delegate to crush belt list
-        const belt = execSync('crush belt list 2>/dev/null || echo "crush: belt unavailable"', {
-          encoding: 'utf8', shell: '/bin/bash',
-        }).trim();
-        return `◈ BELT STATUS:\n${belt}`;
+        return `◈ BELT STATUS:\n${runCrush(['belt', 'list'])}`;
       }
       case '/vault': {
-        // Delegate to crush vault with any trailing args
-        const vaultCmd = args ? `crush vault ${args}` : 'crush vault status';
-        const vault = execSync(`${vaultCmd} 2>/dev/null || echo "crush: vault unavailable"`, {
-          encoding: 'utf8', shell: '/bin/bash',
-        }).trim();
-        return `◈ VAULT:\n${vault}`;
+        // Validate vault subcommand: allow only known safe operations
+        const vaultSub = args.split(/\s+/)[0] ?? 'status';
+        const VAULT_OPS = new Set(['status', 'seal', 'open']);
+        if (args && !VAULT_OPS.has(vaultSub)) {
+          return `◈ VAULT ERROR: unknown operation '${vaultSub}'. Allowed: ${[...VAULT_OPS].join(', ')}`;
+        }
+        const vaultArgs = args ? ['vault', ...args.split(/\s+/)] : ['vault', 'status'];
+        return `◈ VAULT:\n${runCrush(vaultArgs)}`;
       }
     }
   } catch (e) {

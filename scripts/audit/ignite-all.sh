@@ -89,7 +89,17 @@ cd ..
 # ---------------------------------------------------------------------------
 # ◈ STAGE 6: HERMES TUI (Primary OS Shell)
 # ---------------------------------------------------------------------------
-echo "  [stage 6] Igniting Hermes TUI (hub)..."
+echo "  [stage 6] Enforcing SOVEREIGN_OS default boot profile..."
+# Actively enforce the boot invariant — not just a log statement.
+# crush profile will no-op if SOVEREIGN_OS is already the active boot label;
+# profile switching from boot state is always permitted (no Hardgate check).
+if [ -f "crush/crush" ]; then
+    ACTIVE=$(grep "ACTIVE_PROFILE" SOVEREIGN-IDENTITY.md 2>/dev/null | head -1 || echo "")
+    if echo "$ACTIVE" | grep -qv "SOVEREIGN_OS"; then
+        echo "  [stage 6] WARNING: non-default profile detected — resetting to SOVEREIGN_OS..."
+        sed -i 's/^ACTIVE_PROFILE: \[.*\]/ACTIVE_PROFILE: [SOVEREIGN_OS] # [BOOT_INVARIANT] — do not change without explicit Strategist approval/' SOVEREIGN-IDENTITY.md
+    fi
+fi
 echo "::/5Y573M-N071C3 : SYSTEM_DEFAULT_BOOT -> [SOVEREIGN_OS]"
 echo "◈ COMMAND_MANTRAS: /status /profile /vault /ship"
 nix develop -c npm run hub

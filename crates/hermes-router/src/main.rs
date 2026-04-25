@@ -95,7 +95,11 @@ async fn handle_route(
         }
     };
 
-    // 5. Stream Response Back
+    // 5. Proxy response back to caller.
+    // TODO(Phase 77): implement SSE pass-through for `stream: true` requests.
+    // Currently the full response is buffered — callers using streaming inference
+    // will receive no tokens until generation is complete. For L > 4000 on Node B
+    // this can block for tens of seconds.
     let status = response.status();
     let body = response.bytes().await.unwrap_or_default();
     (status, body).into_response()

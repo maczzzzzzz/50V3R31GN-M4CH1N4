@@ -102,6 +102,13 @@ func runProfileSwitch(args []string) error {
 }
 
 // parseActiveProfile extracts the current ACTIVE_PROFILE name from the manifest.
+//
+// Note on SOVEREIGN_OS: this is a boot-label, not a named profile section.
+// When ACTIVE_PROFILE is [SOVEREIGN_OS], parseProfileFromManifest will fail for
+// it (no ### SOVEREIGN_OS section exists), so the Hardgate check in
+// runProfileSwitch is intentionally skipped — switching FROM the boot state to
+// any named profile is always permitted. The Hardgate only fires when switching
+// BETWEEN two named profiles whose permission_policy values differ.
 func parseActiveProfile(content string) string {
 	for _, line := range strings.Split(content, "\n") {
 		trimmed := strings.TrimSpace(line)
@@ -113,9 +120,9 @@ func parseActiveProfile(content string) string {
 		if idx := strings.Index(val, "#"); idx >= 0 {
 			val = val[:idx]
 		}
-		val = strings.TrimSpace(val)
-		val = strings.Trim(val, "[]")
-		return strings.ToLower(strings.TrimSpace(val))
+		// Preserve original casing — profile section names are case-sensitive
+		// (e.g., "### daily-use" not "### DAILY-USE").
+		return strings.Trim(strings.TrimSpace(val), "[]")
 	}
 	return ""
 }
@@ -213,7 +220,10 @@ func pushProfileToMooncake(p *Profile) error {
 	defer conn.Close()
 	conn.SetDeadline(time.Now().Add(5 * time.Second)) //nolint:errcheck
 
-	payload, _ := json.Marshal(p)
+	payload, err := json.Marshal(p)
+	if err != nil {
+		return fmt.Errorf("marshal profile: %w", err)
+	}
 
 	// Protocol: [4-byte LE LEN] [JSON PAYLOAD]
 	jsonLen := uint32(len(payload))

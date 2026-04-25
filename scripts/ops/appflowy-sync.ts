@@ -46,7 +46,7 @@ function parsePlan(markdown: string): Task[] {
       tasks.push({
         phase:   currentPhase,
         taskNum: taskMatch[2],
-        title:   taskMatch[3].trim(),
+        title:   taskMatch[3].trim().replace(/:$/, ''), // strip trailing colon artifact
         done:    taskMatch[1] === 'x',
         detail:  (taskMatch[4] ?? '').trim(),
       });
