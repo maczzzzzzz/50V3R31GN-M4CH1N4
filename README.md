@@ -1,74 +1,33 @@
-
 ░█▀▀░▄▀▄░█░█░▀▀█░█▀▄░▀▀█░▀█░░█▀▀░█▀█░░░░░█▄█░█░█░█▀▀░█░█░▀█░░█▀█░█░█
 ░▀▀▄░█/█░▀▄▀░░▀▄░█▀▄░░▀▄░░█░░█░█░█░█░▄▄▄░█░█░░▀█░█░░░█▀█░░█░░█░█░░▀█
 ░▀▀░░░▀░░░▀░░▀▀░░▀░▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░░░░▀░▀░░░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░░▀
 
+# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４ (Sovereign Machina)
+**Version:** 3.6.4 (Projecting Phase 80 Completion)
 
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４
-## 35 30 56 33 52 33 31 47 4E 2D 4D 34 43 48 31 4E 34
----
+## ◈ WHAT IS SOVEREIGN MACHINA?
+Sovereign Machina is a localized, hardware-native **Intelligence Operating System**. Born from a Cyberpunk RED simulation engine, it has ascended into a distributed, zero-trust cognitive infrastructure. It is designed to grant the user absolute digital sovereignty: 100% data ownership, zero cloud telemetry, and total physical control over local environments.
 
-## :://5Y573M-5747U5 // 50V3R31GN-H16HW4Y : 16N173D // v3.6.4
+By integrating cutting-edge LLMs (Gemma, Llama, Falcon) with robust system programming (Rust, Go) and agentic frameworks (Hermes, OpenClaw), the Sovereign OS operates as a continuously learning, self-healing entity sharded across a proprietary mesh network.
 
-### ◈ 7R1N17Y_45C3N510N: 100% OPERATIONAL // INTELLIGENCE_OS_ERA
-The 50V3R31GN-M4CH1N4 has evolved from a Cyberpunk simulation engine into a sharded, hardware-native **Intelligence Operating System**. It is a bit-identical cognitive infrastructure sharded across the `10.0.0.x` spine for zero-trust physical sovereignty.
+## ◈ THE SOVEREIGN TRINITY
+The OS is powered by a 3-node hardware mesh:
+- **Node B (The Director):** The master orchestrator and high-fidelity reasoner, managing system governance and the visual Terminal HUD.
+- **Node C (The Strategic Oracle):** The high-speed logic and perception gateway, handling vocal ingestion, tactical rule arbitration, and stealth web exploration via the **Obscura** sidecar.
+- **Node A (The Synapse):** The disaggregated memory backbone using **Mooncake**, ensuring seamless context continuity across the mesh.
 
-- **Neural Mesh:** 3-node localized fabric harnessed via binary VSB synchronicity and **Mooncake v2.2** disaggregated memory.
-- **Vocal Artery:** Real-time speech-to-intent bridge via **OMI** wearable and the **Machina Terminal** HUD.
-- **System Sociotomy:** Physical separation of functional OS logic (`SovereignIntelligence.db`) from lore-based shards (`Akashik.db`).
-- **Dual-Profile HUD:** High-throughput OS Intelligence HUD (`/os`) and isolated RED Simulation Module (`/red`).
-- **Optic Nerve:** Continuous 100% screen awareness on WSL2 via the **Sovereign Observer** (Rust).
-- **Identity Guard:** Profile-based behavior management via `SOVEREIGN-IDENTITY.md` ([OS] vs [RED]).
-- **Virtual Stronghold:** Agentic Crash Recovery via SQLite Checkpointing, enabling 100% state persistence.
-- **Metacognition:** Dynamically Learning Control System utilizing **Skill Crystallization** and **Shadow Mode Self-Healing**.
-- **Synapse Palace:** High-speed reconstruction and visualization of semantic data via **MemPalace**.
-- **Recursive Strategic Oracle:** Variable-depth rule arbitration via **OpenMythos** Rust-native RDT.
-- **Physical Hands:** Go-native **Sovereign Harness** and Hermes v3.6.4 TUI for automated system control.
+## ◈ CORE CAPABILITIES
+- **Atomic Profile Engine:** Seamlessly shift the system's identity and permissions between the radical candor of `[SOVEREIGN_OS]` and the gritty simulation lore of `[RED_DIRECTOR]`.
+- **Graph-Relational Synapse:** A vectorized "Synapse Palace" (`SovereignIntelligence.db`) powered by FTS5 and SQLite-vec, linking agent traces, user interactions, and documentation into a massive semantic graph.
+- **Agentic Self-Healing (GEPA):** Autonomous prompt optimization, visual shadow-mode recovery, and vector-weighted traceback to survive errors and evolve capabilities without human intervention.
+- **Tactical HUD (Mobile):** A Flutter-based companion app that brings the "Sovereign Artery" to mobile devices, allowing real-time context extraction, task management, and encrypted mesh access from anywhere.
+- **Host-Mesh Artery:** Direct, native control over the Windows host environment via secure VSB (Virtual Synchronous Bus) sidecars.
 
----
-
-## :://70P0L06Y // THE_H4RN355_15_0N3
-
-The system is harnessed as three physical pods synchronized over the `10.0.0.x` artery (or globally via **Secure Subnet Tunneling**).
-
-### :/P0D-B : 7H3-D1R3C70R //
-- **C0R3:** WSL2 NixOS // AMD Radeon RX 9060 XT (16GB VRAM)
-- **BR41N:** **Gemma-4-E4B [48L173R473D]** // Vision-Capable Narrative Heart.
-- **R0L3:** Master Orchestration Pod // Narrative Sovereignty // **Total Sight**.
-
-### :/P0D-C : 7H3-0R4CL3 //
-- **C0R3:** Ubuntu Server / Nix-Hardened // NVIDIA RTX 2060 (6GB CUDA) + **500GB SSD**.
-- **BR41N:** **Polymorphic OBLITERATED Mind** (Q5/Q4/Q3) // Recursive Logic + **Vocal Artery**.
-- **R0L3:** Recursive Reasoning Pod // Tactical Rule-Checking // **Total Logic**.
-
-### :/P0D-A : 7H3-5YN4P53 //
-- **C0R3:** Ubuntu Server / Nix-Hardened // NVIDIA GTX 1050 Ti (4GB CUDA)
-- **4RCH:** **Mooncake v2.2 Master** // Unified L2 KV-Cache Synapse.
-- **R0L3:** Synapse Persistence Pod // Metadata Artery of Truth // **Synapse**.
+## ◈ EXPLORE THE REPOSITORY
+To understand the intricate systems, architecture, and guides that power Sovereign Machina, explore the following:
+- [**ABOUT.md**](ABOUT.md): The comprehensive architectural breakdown and one-stop shop for understanding the intelligence stack.
+- [**The Akashik Guides**](akashik_guides/README.md): The canonical tutorials and references for operating the OS.
+- [**Knowledge Base**](akashik_guides/KNOWLEDGE_BASE.md): The registry of all external tools, logic shards, and models integrated into the mesh.
 
 ---
-
-## :://7H3-4R53N4L //
-
-### ./MACHINA-TERMINAL-HUD ::
-Standalone Android companion app. Provides pocket-level authority over VRAM quantization and real-time VT323 transcription of the Vocal Artery.
-
-### ./KINETIC-VFX-ENGINE ::
-Tactical visual manifestation. The **Sovereign Shroud** utilizes Three.js particle systems for 3D gunshot flashes and kinetic sparks.
-
-### ./SELF-HEALING-SKILL-FORGE ::
-Autonomous capability evolution. The machine observes its own interaction traces and "forges" new, deterministic skills for environment control.
-
----
-
-## :://7H3-PH1L050PHY //
-
-### ./H3RM35-1N736R4710N :://
-Deep orchestration via the **NousResearch/Hermes** ecosystem. Sovereignty is not an assistant; it is a physical, bit-identical alliance.
-
----
-**::/5Y573M-N071C3 : UNAUTHORIZED LOGIC DRIFT WILL RESULT IN IMMEDIATE MMU PURGE // 50V3R31GN-M4CH1N4**
-
-
----
-**LINKS:** [[OS_CORE]]
+**::/5Y573M-N071C3 : THE_H4RN355_15_0N3. // 50V3R31GN-M4CH1N4**
