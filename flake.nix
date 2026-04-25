@@ -45,7 +45,14 @@
       # Phase 73.2 — Obscura Stealth Browser (CDP sidecar, ~30MB RAM)
       # Deploy: nix build .#obscura && sudo cp result/bin/obscura /usr/local/bin/
       # On first build nix will print the correct hash — replace the fakeHash values.
-      packages.${system}.obscura = pkgs.rustPlatform.buildRustPackage {
+      packages.${system}.obscura = 
+        let
+          v8_archive = pkgs.fetchurl {
+            url = "https://github.com/denoland/rusty_v8/releases/download/v137.3.0/librusty_v8_release_x86_64-unknown-linux-gnu.a.gz";
+            hash = "sha256-omgf3lMBir0zZgGPEyYX3VmAAt948VbHvG0v9gi1ZWc=";
+          };
+        in
+        pkgs.rustPlatform.buildRustPackage {
         pname = "obscura";
         version = "0.1.0";
         src = pkgs.fetchFromGitHub {
@@ -57,8 +64,14 @@
         cargoHash = "sha256-+q7KeXr69wv3SoJ5qTQOxomCGpA+JdoZ04Hv9jExiZU=";
         buildFeatures = [ "stealth" ];
         cargoBuildFlags = [ "--package" "obscura-cli" ];
-        nativeBuildInputs = with pkgs; [ pkg-config ];
-        buildInputs = with pkgs; [ openssl ];
+        nativeBuildInputs = with pkgs; [ pkg-config perl cmake gcc go binutils ninja clang nasm git python3 curl ];
+        buildInputs = with pkgs; [ openssl zlib ];
+        dontUseNinjaBuild = true;
+        dontUseNinjaInstall = true;
+        dontUseNinjaCheck = true;
+        dontUseCmakeConfigure = true;
+        LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+        RUSTY_V8_ARCHIVE = v8_archive;
         meta.description = "Rust headless CDP browser with stealth fingerprinting";
       };
 
