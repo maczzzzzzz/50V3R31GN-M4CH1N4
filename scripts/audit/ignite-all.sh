@@ -24,6 +24,17 @@ pkill -9 -f "tsx src/main.ts" || true
 pkill -9 -f crush || true
 pkill -9 -f zeroclaw || true
 
+# ◈ ZOMBIE_CHECK
+echo "  [stage 0.5] Verifying port sovereignty..."
+CHECK_PORTS=(8080 3030 7878 3012)
+for port in "${CHECK_PORTS[@]}"; do
+    if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null; then
+        echo "❌ [GHOST_DETECTED] Process still holding port $port. Manual intervention required."
+        exit 1
+    fi
+done
+echo "● [PORTS_CLEAR]"
+
 # ---------------------------------------------------------------------------
 # ◈ STAGE 1: VISION KERNEL (Node A - CPU Mode for interim stability)
 # ---------------------------------------------------------------------------

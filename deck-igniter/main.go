@@ -209,12 +209,10 @@ func initialModel() Model {
 		ghost = true
 	}
 
-	allComponents := []*Component{
-		{Name: "foundry-vtt", Layer: LayerWindows},
-		{Name: "pixtral", Layer: LayerWindows},
+	osComponents := []*Component{
 		{Name: "obsidian", Layer: LayerWindows},
 		{Name: "crush-proxy", Layer: LayerWSL},
-		{Name: "crush-gui", Layer: LayerWSL},   // thought-stream terminal — primary model comms UI
+		{Name: "crush-gui", Layer: LayerWSL},
 		{Name: "director", Layer: LayerWSL},
 		{Name: "sidecar-atlas", Layer: LayerWSL},
 		{Name: "sidecar-cyberdeck", Layer: LayerWSL},
@@ -228,15 +226,22 @@ func initialModel() Model {
 		{Name: "oracle-logic", Layer: LayerRemote},
 	}
 
+	cprComponents := []*Component{
+		{Name: "foundry-vtt", Layer: LayerWindows},
+		{Name: "pixtral", Layer: LayerWindows},
+	}
+
 	var activeComponents []*Component
 	if mode == "lite" {
-		for _, c := range allComponents {
-			if c.Name != "foundry-vtt" && c.Name != "vault-sync" && c.Name != "shadow-dashboard" {
+		for _, c := range osComponents {
+			if c.Name != "vault-sync" && c.Name != "shadow-dashboard" {
 				activeComponents = append(activeComponents, c)
 			}
 		}
+	} else if mode == "cpr" {
+		activeComponents = append(osComponents, cprComponents...)
 	} else {
-		activeComponents = allComponents
+		activeComponents = osComponents
 	}
 
 	return Model{
