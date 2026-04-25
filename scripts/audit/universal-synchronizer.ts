@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
@@ -132,6 +133,14 @@ async function universalSync() {
     
     // Sync Tree
     for (const dir of SCAN_DIRS) walk(dir);
+
+    // 3. OS MemPalace Reconstruction
+    try {
+        console.log(`\n>> RECONSTRUCTING SOVEREIGN OS PALACE...`);
+        execSync('bash scripts/ops/reconstruct-os-palace.sh', { stdio: 'inherit' });
+    } catch (error) {
+        console.error(`${RED}ERROR: OS Palace reconstruction failed.${RESET}`);
+    }
 
     console.log(`\n${RED}::/UN1V3R54L-5YNC-C0MPL373 // 4LL-P4R17Y-4CH13V3D-V${version}.${RESET}\n`);
     
