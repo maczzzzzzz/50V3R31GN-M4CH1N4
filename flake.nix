@@ -52,9 +52,9 @@
           owner = "h4ckf0r0day";
           repo = "obscura";
           rev = "main";
-          hash = pkgs.lib.fakeHash;
+          hash = "sha256-aqhZ7nVOdcGNfKjRTDyzpYfqMrVA4KbK4XyAvyPUPj0=";
         };
-        cargoHash = pkgs.lib.fakeHash;
+        cargoHash = "sha256-+q7KeXr69wv3SoJ5qTQOxomCGpA+JdoZ04Hv9jExiZU=";
         buildFeatures = [ "stealth" ];
         cargoBuildFlags = [ "--package" "obscura-cli" ];
         nativeBuildInputs = with pkgs; [ pkg-config ];
