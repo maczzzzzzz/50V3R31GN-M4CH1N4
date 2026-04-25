@@ -6,12 +6,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 
 ## [3.7.1] - 2026-04-25
+
 ### Added
-- **Vesper Daemon — Heartbeat Watchdog (Phase 78, Task 1):** Materialized `scripts/ops/vesper-daemon/` Go module. `Watchdog` monitors `data/logs/vsb-traffic.log` mtime; sends `SIGTERM` to self when user activity is detected within the 30-minute idle threshold — surrendering VRAM headroom to the primary session. Poll interval: 60s.
-- **Vesper Daemon — Flush Gate Client (Phase 78, Task 1):** `FlushGateClient` polls `SovereignIntelligence.db` every 5 minutes for `PASS`-verdicted `decision_audit` rows. Seeds approved proposals as SPO triplets (`vesper:proposal:<hash>`) into `os_triplets` for Synapse ingestion. Auto-migrates `executed_at` column.
-- **Sovereign Vesper Eye (Phase 78, Task 2):** Materialized `crates/sovereign-vesper-eye`. `PatternMatcher` — 6-rule regex engine for Scribe drift, version desync, Mooncake failure, Hardgate violation, VSB magic mismatch, and router offline signals. `LogDistiller` — `notify`-based file watcher tailing `data/logs/*.log`, extracting SPO triplets from new lines in real time. `scan_existing()` for cold-start drift detection. 4 tests pass.
-- **Vesper Emergence Gateway (Phase 78, Task 3):** Added `/vesper` to `LangGraphOrchestrator.ts` system command registry. Sub-commands: `status` (daemon health), `drain` (trigger flush cycle), `hibernate` (SIGTERM daemon), `wake` (respawn daemon). All sub-commands allowlist-validated.
-- **Vesper Glitch CSS (Phase 78, Task 3):** Added `vesper-glitch`, `vesper-siphon-active`, and `vesper-emergence-flash` keyframe animations to `dashboard/app/globals.css`. Applied to Dashboard panels to signal background Vesper data siphoning events.
+- **Node C Model Farm Orchestration:** Refactored `hermes-router` to dynamically select between Q3 (8081), Q4 (8082), and Q5 (8083) model shards based on profile `inference_preference`.
+- **OpenClaw v3.7.0 Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening in Phase 80.
+- **Tactical Terminal:** Materialized a dedicated **[TERM]** navigation tab in the Flutter HUD for real-time passive VSB monitoring.
+- **Command Priming:** Implemented structured JSON command dispatch in the Artery Client, preparing the mesh for Windows Host Control (Phase 81).
+
+### Fixed
+- **VSB Port Desync:** Corrected VSB frequency from 9090 (WebSocket) to 7878 (UDP Binary) in the mobile HUD.
+- **Ignition Hardening:** Implemented `ZOMBIE_CHECK` in `ignite-all.sh` to ensure port sovereignty before daemon startup.
 
 ## [3.7.0] - 2026-04-25
 ### Added

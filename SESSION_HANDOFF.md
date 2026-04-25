@@ -1,32 +1,33 @@
-# SESSION_HANDOFF: PHASE 78 IGNITION (v3.7.0)
+# SESSION_HANDOFF: PHASE 80 IGNITION (v3.7.0)
 
 ## 🎯 CURRENT OBJECTIVE
-**Phase 78: Vesper Mesh Integration.**
-Establish a persistent background agency layer that integrates Vesper Shadow Mode with the Hermes Mesh.
+**Phase 80: Sovereign Hall & Resilience Forge.**
+Establish the high-fidelity agent collaboration space and harden the mesh against deadlocks using Tiered Reasoning and Vesper enforcement.
 
 ## 🚀 DIRECTIVES FOR LEAD ARCHITECT (CLAUDE/GLM)
 
-### 1. Phase 78: Vesper Mesh Integration
-- **Status:** Spec and Plan materialized.
-- **Task 1: Vesper Orchestrator (Go)**
-    - Initialize `scripts/ops/vesper-daemon/`.
-    - Implement the **30-minute Heartbeat Watchdog** monitoring `data/logs/vsb-traffic.log`.
-    - Implement **Flush Gate Client** polling approved background proposals from `SovereignIntelligence.db`.
-- **Task 2: Perception Sidecar (Rust)**
-    - Scaffold `crates/sovereign-vesper-eye`.
-    - Implement terminal canvas OCR pattern matching for "Scribe" drift.
-- **Task 3: Emergence Gateway (TS)**
-    - Update `LangGraphOrchestrator.ts` to include the `vesper_emergence` tool.
-    - Implement CSS "glitch" animations in the Hermes HUD for background data siphoning.
+### 1. Phase 80: Sovereign Hall & Resilience Forge
+- **Status:** Blueprints shored and approved.
+- **Task 1: Sovereign Hall Artery (Go/TS)**
+    - Implement `crush meeting` subcommand to manually trigger or inspect Hall sessions.
+    - Update `HealerProtocol.ts` to emit `SOVEREIGN_HALL_CALL` VSB packets on 3-failure cycles.
+- **Task 2: The Sovereign Hall WebGL (TS/React)**
+    - Materialize `SovereignHall.tsx` using Three.js / React-Three-Fiber.
+    - Implement the **2.5D Isometric Grid** with pulsing Thought Nodes.
+- **Task 3: Vesper Enforcer (Rust)**
+    - Implement `FailureTracker` in `sovereign-vesper-eye` to monitor real-time audit trails.
+    - Force mandatory Hall meetings and offboard defective agents via VSB hardgates.
+- **Task 4: OpenClaw Ports**
+    - Implement Hybrid Search Transparency (Vector vs. Lexical) in `SovereignIntelligence.db`.
 
 ## 🔗 SHORED BLUEPRINTS
-- **Strategic Spec:** [[docs/superpowers/specs/2026-04-25-vesper-mesh-integration-design.md]]
-- **Implementation Plan:** [[docs/superpowers/plans/2026-04-25-phase-78-vesper-mesh-integration.md]]
-- **Master Roadmap:** [[IMPLEMENTATION_PLAN.md]] (Phase 78)
+- **Sovereign Hall Spec:** [[docs/superpowers/specs/2026-04-25-sovereign-hall-design.md]]
+- **Implementation Plan:** [[docs/superpowers/plans/2026-04-25-phase-80-sovereign-hall.md]]
+- **Master Roadmap:** [[IMPLEMENTATION_PLAN.md]] (Phase 80)
 
 ## 🛡️ HARDWARE INVARIANTS
-- **VRAM Gating:** Vesper restricted to < 10% VRAM on Node C (512MB limit).
-- **Security:** No `MEDIUM/HIGH` risk actions without HMAC User Token.
+- **Model Farm:** Use Node C ports 8081 (Q3), 8082 (Q4), or 8083 (Q5) based on mission intensity.
+- **Resident Arbiter:** Node B (Gemma-4-E4B) is the final local authority for Hall deadlocks.
 
 ---
-**::/5Y573M-N071C3 : STRATEGIST_HANDOFF_COMPLETE. PHASE_78_ACTIVE. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : STRATEGIST_HANDOFF_COMPLETE. PHASE_80_IGNITED. // 50V3R31GN-M4CH1N4**
