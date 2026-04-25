@@ -35,6 +35,14 @@ message Item {
   string type = 4;
 }
 
+message AgentStatus {
+  string id      = 1;
+  string name    = 2; // e.g. "CLAUDE-3.5-SONNET"
+  string status  = 3; // IDLE | WORKING | SUCCESS | FATAL
+  string intent  = 4; // Current task description
+  uint32 progress = 5; // 0-100
+}
+
 // NucleusState is the VSB snapshot broadcast to all Nucleus Deck clients at ~60fps.
 message NucleusState {
   int64           timestamp      = 1;
@@ -44,4 +52,5 @@ message NucleusState {
   repeated string narrative      = 5;
   repeated Market recent_markets = 6;
   repeated Item   lexicon_items  = 7;
+  repeated AgentStatus active_agents = 8;
 }

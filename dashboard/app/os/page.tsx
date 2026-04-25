@@ -12,9 +12,12 @@ export default function Dashboard() {
   const { telemetry, connected, packetRate } = useSovereignTelemetry(
     "ws://localhost:9090/ws"
   );
+  
+  const { state: nucleusState } = useNucleusWS("ws://localhost:3030/ws");
 
   return (
     <main className="min-h-screen bg-background p-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <AgentSwarm agents={nucleusState?.activeAgents || []} />
       {/* Header */}
       <div className="lg:col-span-2 border border-primary rounded p-3 bg-panel flex items-center justify-between">
         <span className="text-primary text-2xl tracking-widest">

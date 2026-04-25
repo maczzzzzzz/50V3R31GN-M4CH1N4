@@ -168,10 +168,11 @@ func startNucleusServer() {
 
 			// Fetch live data from SQLite (High-speed pulse every 5 seconds)
 			if time.Now().Unix()%5 == 0 {
-				dbPath := filepath.Join(root, "data", "Akashik.db")
+				akashikPath := filepath.Join(root, "data", "Akashik.db")
+				sovPath := filepath.Join(root, "data", "SovereignIntelligence.db")
 
-				// Fetch Markets
-				out, err := exec.Command("sqlite3", dbPath, "-json", "SELECT id, district_id, vendor_npc_id, json_array_length(inventory_json) FROM night_markets ORDER BY rowid DESC LIMIT 5;").Output()
+				// Fetch Markets (Akashik)
+				out, err := exec.Command("sqlite3", akashikPath, "-json", "SELECT id, district_id, vendor_npc_id, json_array_length(inventory_json) FROM night_markets ORDER BY rowid DESC LIMIT 5;").Output()
 				if err == nil {
 					var markets []struct {
 						ID         string `json:"id"`
@@ -186,6 +187,28 @@ func startNucleusServer() {
 								DistrictId: m.DistrictID,
 								VendorName: m.VendorID,
 								ItemCount:  m.Length,
+							})
+						}
+					}
+				}
+
+				// Fetch Active Agents (SovereignIntelligence)
+				// We look for recent decision audits that haven't been resolved or are explicitly marked WORKING.
+				out, err = exec.Command("sqlite3", sovPath, "-json", "SELECT id, model, verdict, intent FROM decision_audit WHERE verdict = 'PENDING' OR verdict = 'WORKING' ORDER BY timestamp DESC LIMIT 10;").Output()
+				if err == nil {
+					var agents []struct {
+						ID      string `json:"id"`
+						Model   string `json:"model"`
+						Verdict string `json:"verdict"`
+						Intent  string `json:"intent"`
+					}
+					if json.Unmarshal(out, &agents) == nil {
+						for _, a := range agents {
+							state.ActiveAgents = append(state.ActiveAgents, &nucleuspb.AgentStatus{
+								Id:     a.ID,
+								Name:   a.Model,
+								Status: a.Verdict,
+								Intent: a.Intent,
 							})
 						}
 					}

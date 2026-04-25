@@ -85,6 +85,14 @@ export interface NucleusItem {
   type: string;
 }
 
+export interface NucleusAgentStatus {
+  id: string;
+  name: string;
+  status: string;
+  intent: string;
+  progress: number;
+}
+
 export interface NucleusState {
   timestamp: number;
   proposal?: NucleusProposal;
@@ -93,6 +101,7 @@ export interface NucleusState {
   narrative: string[];
   recentMarkets: NucleusMarket[];
   lexiconItems: NucleusItem[];
+  activeAgents: NucleusAgentStatus[];
 }
 
 // ─── Hook ────────────────────────────────────────────────────────────────────
@@ -143,6 +152,19 @@ export function useNucleusWS(url: string) {
     return () => {
       clearTimeout(reconnectTimer);
       ws.current?.close();
+    };
+  }, [url]);
+
+  const send = useCallback((action: string, arg?: string) => {
+    if (ws.current?.readyState === WebSocket.OPEN) {
+      // Commands flow as JSON text — server decodes with json.Unmarshal
+      ws.current.send(JSON.stringify({ action, arg }));
+    }
+  }, []);
+
+  return { state, send };
+}
+.close();
     };
   }, [url]);
 
