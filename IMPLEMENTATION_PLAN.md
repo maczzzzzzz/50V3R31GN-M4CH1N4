@@ -239,12 +239,13 @@
 
 ---
 
-## 🌘 PHASE 80: SOVEREIGN_HALL & MULTI-AGENT COLLABORATION (UNAPPROVED_PHASE)
-**Goal:** Research the feasibility of a shared "Meeting Space" for agents to resolve deadlocks.
-- [ ] **Research Note:** Investigate Claw3D logic for spatial presence.
-- [ ] **Theory:** If an agent fails a task 3 times, a mandatory meeting is called in the "Sovereign Hall" (WebGL Dashboard fixture).
-- [ ] **Consensus:** Research the role of Node B (Gemma-4-E4B) as the local arbiter for deadlocked agents.
-- [ ] **Persistence:** Research how meeting transcripts and thought fragments should be sharded (OS vs RED) and engraved into Obsidian.
+## 🌘 PHASE 80: SOVEREIGN_HALL & RESILIENCE_FORGE (PRIMARY_TASK)
+**Goal:** Establish a high-fidelity collaboration space and harden the mesh against deadlocks.
+- [ ] **Task 1: Sovereign Hall Artery:** Implement `crush meeting` and wire `HealerProtocol` to force meetings on 3rd failure.
+- [ ] **Task 2: WebGL Hall:** Materialize the `SovereignHall.tsx` 2.5D Isometric visualization.
+- [ ] **Task 3: Vesper Enforcer:** Implement the `FailureTracker` and mandatory Artery Hardgate in `sovereign-vesper-eye`.
+- [ ] **Task 4: Ouroboros Loop:** Update `dream-daemon.ts` to ingest meeting transcripts and generate "Logic Vaccinations."
+- [ ] **Task 5: Resilience Forge:** Materialize Gauntlet tests for Phases 77-79 and implement `crush gauntlet stress`.
 
 ---
 

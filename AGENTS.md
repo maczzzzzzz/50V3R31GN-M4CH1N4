@@ -5,6 +5,12 @@ This document defines roles, mandates, and workflows for all AI agents (Gemini, 
 ## 🤝 THE SOVEREIGN TRIAD
 - **GEMINI (The Strategist):** Roadmap, Architecture, Research. (Ref: `GEMINI.md`)
 - **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
+- **NODE B / GEMMA (The Director):** Resident Intelligence & Hall Arbiter.
+    - **Mandate:** Resolve Sovereign Hall deadlocks when the Strategist is offline.
+    - **Logic:** Parses agent `.thought` fragments and issues the "Director's Verdict" via local inference.
+- **VESPER (The Enforcer):** The All-Seeing Eye.
+    - **Mandate:** Monitor VSB for agent loops/failures. Force Sovereign Hall meetings on 3rd failure.
+    - **Authority:** Power to offboard defective agents and commit patterns to the Ouroboros loop.
 - **DROID (The Environment):** Local execution, file manipulation. (Factory CLI).
 
 ## 🛠 SETUP & RUNTIME COMMANDS
