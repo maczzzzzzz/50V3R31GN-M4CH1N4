@@ -124,6 +124,7 @@
             # File utilities (required by reconstruct-palace.sh + mcp-daemon)
             rsync
             ripgrep
+            oh-my-posh
 
             # AI/Inference & GPU (RADV for AMD Vulkan)
             llama-cpp-vulkan
@@ -185,6 +186,9 @@
                 >> "$PROJECT_ROOT/data/logs/mcp-bridge.log" 2>&1 &
               disown $!
             fi
+
+            # Phase 74: Aesthetic Sovereignty — initialize oh-my-posh
+            eval "$(oh-my-posh init bash --config /mnt/d/terminal-1.24.10921.0/gruvbox.omp.json)"
 
             echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
