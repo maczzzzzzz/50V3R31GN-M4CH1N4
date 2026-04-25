@@ -120,3 +120,4 @@ bulk_recovery.go
 recovery_tool.go
 test_decrypt.go
 discussion.md
+scripts/ops/hermes-sync/hermes-sync
