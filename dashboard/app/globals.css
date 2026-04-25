@@ -6,14 +6,15 @@
 @tailwind utilities;
 
 :root {
-  /* Gruvbox Dark (Medium) Standard */
-  --gruvbox-bg: #282828;
-  --gruvbox-fg: #ebdbb2;
-  --gruvbox-red: #cc241d;
-  --gruvbox-bg1: #3c3836;
-  
+  /* Gruvbox Dark (Medium) Standard — morhetz/gruvbox canonical */
+  --gruvbox-bg:     #282828;
+  --gruvbox-fg:     #ebdbb2;
+  --gruvbox-red:    #cc241d;
+  --gruvbox-yellow: #fabd2f; /* bright yellow — Phase 76 primary */
+  --gruvbox-bg1:    #3c3836;
+
   /* Dashboard aliases mapping to GRUVB0X palette */
-  --primary:    var(--gruvbox-red);
+  --primary:    var(--gruvbox-yellow);
   --background: var(--gruvbox-bg);
   --panel:      var(--gruvbox-bg1);
 }

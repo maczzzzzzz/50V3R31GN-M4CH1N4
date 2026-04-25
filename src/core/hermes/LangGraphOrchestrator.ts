@@ -17,9 +17,53 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import { execSync } from 'node:child_process';
 import Database from 'better-sqlite3';
 import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
+
+// ---------------------------------------------------------------------------
+// Phase 76 Task 3 — Hermes System Command Registry
+// Slash commands are dispatched BEFORE LLM routing — no token cost.
+// Crush is the canonical executor; Hermes is the routing layer.
+// ---------------------------------------------------------------------------
+
+const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault']);
+
+function dispatchSystemCommand(prompt: string): string | null {
+  const trimmed = prompt.trim();
+  const cmd = trimmed.split(/\s+/)[0]?.toLowerCase() ?? '';
+  if (!SYSTEM_COMMANDS.has(cmd)) return null;
+
+  const args = trimmed.slice(cmd.length).trim();
+  try {
+    switch (cmd) {
+      case '/profile': {
+        // Read active profile from SOVEREIGN-IDENTITY.md
+        const identity = execSync('grep "ACTIVE_PROFILE" SOVEREIGN-IDENTITY.md', { encoding: 'utf8' }).trim();
+        return `◈ PROFILE: ${identity}`;
+      }
+      case '/status': {
+        // Delegate to crush belt list
+        const belt = execSync('crush belt list 2>/dev/null || echo "crush: belt unavailable"', {
+          encoding: 'utf8', shell: '/bin/bash',
+        }).trim();
+        return `◈ BELT STATUS:\n${belt}`;
+      }
+      case '/vault': {
+        // Delegate to crush vault with any trailing args
+        const vaultCmd = args ? `crush vault ${args}` : 'crush vault status';
+        const vault = execSync(`${vaultCmd} 2>/dev/null || echo "crush: vault unavailable"`, {
+          encoding: 'utf8', shell: '/bin/bash',
+        }).trim();
+        return `◈ VAULT:\n${vault}`;
+      }
+    }
+  } catch (e) {
+    return `◈ SYSTEM COMMAND ERROR [${cmd}]: ${e instanceof Error ? e.message : String(e)}`;
+  }
+  return null;
+}
 
 // ---------------------------------------------------------------------------
 // Checkpoints Database Setup
@@ -195,6 +239,19 @@ export class LangGraphOrchestrator {
    * Returns the final state after all nodes have executed.
    */
   async invoke(input: { prompt: string; tokens?: number | undefined; file_path?: string | undefined; diff?: string | undefined; thread_id?: string | undefined }): Promise<OrchestratorState> {
+    // Phase 76 Task 3: Pre-dispatch system commands — no LLM roundtrip.
+    const sysResult = dispatchSystemCommand(input.prompt);
+    if (sysResult !== null) {
+      const tid = input.thread_id ?? randomUUID();
+      const fastState: OrchestratorState = {
+        traceId: tid, prompt: input.prompt, tokens: 0,
+        activeNode: 'done', response: sysResult, retries: 0,
+        outcome: 'SUCCESS',
+      };
+      await HealerProtocol.logAudit({ reasoning_trace: `SYS_CMD: ${input.prompt}`, outcome: 'SUCCESS' });
+      return fastState;
+    }
+
     const threadId = input.thread_id ?? randomUUID();
     let state: OrchestratorState | null = null;
 

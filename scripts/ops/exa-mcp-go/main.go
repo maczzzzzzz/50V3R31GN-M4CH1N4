@@ -73,7 +73,10 @@ func handleCallTool(enc *json.Encoder, id interface{}, params json.RawMessage, c
 		Name      string          `json:"name"`
 		Arguments json.RawMessage `json:"arguments"`
 	}
-	json.Unmarshal(params, &callParams)
+	if err := json.Unmarshal(params, &callParams); err != nil {
+		enc.Encode(JSONRPCMessage{JSONRPC: "2.0", ID: id, Result: mustMarshal(map[string]string{"error": "invalid params: " + err.Error()})})
+		return
+	}
 
 	var result interface{}
 	var err error
@@ -83,10 +86,17 @@ func handleCallTool(enc *json.Encoder, id interface{}, params json.RawMessage, c
 			Query      string `json:"query"`
 			NumResults int    `json:"num_results"`
 		}
-		json.Unmarshal(callParams.Arguments, &args)
-		
+		if err := json.Unmarshal(callParams.Arguments, &args); err != nil {
+			enc.Encode(JSONRPCMessage{JSONRPC: "2.0", ID: id, Result: mustMarshal(map[string]string{"error": "invalid arguments: " + err.Error()})})
+			return
+		}
+		// Zero-trust: block empty queries before they reach the Exa API
+		if args.Query == "" {
+			enc.Encode(JSONRPCMessage{JSONRPC: "2.0", ID: id, Result: mustMarshal(map[string]string{"error": "query must not be empty"})})
+			return
+		}
 		if args.NumResults == 0 { args.NumResults = 5 }
-		
+
 		result, err = client.Search(args.Query, exa.SearchOptions{
 			NumResults: args.NumResults,
 			Type:       "neural",

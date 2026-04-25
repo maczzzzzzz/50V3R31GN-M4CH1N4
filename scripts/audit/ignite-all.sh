@@ -74,6 +74,12 @@ cd zeroclaw && cargo run --release --bin artery_manager > "$LOG_DIR/node-c-arter
 cd ..
 
 # ---------------------------------------------------------------------------
+# ◈ STAGE 6: HERMES TUI (Primary OS Shell)
+# ---------------------------------------------------------------------------
+echo "  [stage 6] Igniting Hermes TUI (hub)..."
+nix develop -c npm run hub > "$LOG_DIR/hermes-hub.log" 2>&1 &
+
+# ---------------------------------------------------------------------------
 # ◈ VERIFICATION
 # ---------------------------------------------------------------------------
 echo -e "\n◈ WAITING FOR STABILIZATION (45s)..."

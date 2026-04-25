@@ -28,12 +28,13 @@ npm run hub
 
 ---
 
-## 🎨 3. AESTHETIC PROTOCOL (VT323)
-The TUI adheres to the **R3D_V01D** design language:
-- **Primary:** Phosphor Green (#55FF55)
-- **Warning:** Acid Yellow (#FFFF55)
-- **Background:** Jet Black (#000000)
-- **Pattern:** Horizontal Scanlines at 10% opacity.
+## 🎨 3. AESTHETIC PROTOCOL (VT323 // GRUVB0X_V1.0)
+The TUI adheres to the **Gruvbox Dark (Medium)** standard as defined in `SOVEREIGN-IDENTITY.md`:
+- **Primary:** Gruvbox Bright Yellow (#FABD2F)
+- **Background:** Gruvbox Dark BG (#282828)
+- **Foreground:** Gruvbox FG (#EBDBB2)
+- **Panel:** Gruvbox BG1 (#3C3836)
+- **Pattern:** Horizontal Scanlines at 5% opacity.
 
 ---
 
