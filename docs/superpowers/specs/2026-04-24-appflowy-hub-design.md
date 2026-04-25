@@ -24,3 +24,7 @@ To provide a structured, database-driven documentation and roadmap system that i
 
 ---
 **::/5Y573M-N071C3 : APPFLOWY_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

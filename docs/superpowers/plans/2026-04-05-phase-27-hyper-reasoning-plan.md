@@ -133,3 +133,7 @@ git commit -m "feat(akashik): implement visual lore extraction for campaign PDFs
 git add .
 git commit -m "chore: finalize Phase 27 Hyper-Reasoning Orchestrator"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

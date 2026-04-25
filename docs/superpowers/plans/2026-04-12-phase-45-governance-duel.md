@@ -52,3 +52,7 @@ Expected: CLI flares red, shows the duel, and (if Agent wins) the token glides b
 
 - [ ] **Step 2: Commit**
 `git add . && git commit -m "feat: verify governance duel loop"`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

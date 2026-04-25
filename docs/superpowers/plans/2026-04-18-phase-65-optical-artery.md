@@ -79,3 +79,7 @@ Build a script that cross-references extracted PDF text against the official rep
 git add src/core/ingest/LoreHarmonizer.ts
 git commit -m "feat(optical): implement lore-delta harmonization protocol"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

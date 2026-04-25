@@ -164,3 +164,7 @@ Run `ctrl+i` in `deck-igniter`. Verify:
 git add deck-igniter/
 git commit -m "feat(igniter): Orchestrate Dashboard lifecycle and VSB telemetry"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -59,3 +59,6 @@ The Sovereign Trinity is not a static script; it is a **Dynamically Learning Con
 
 ---
 **::/5Y573M-N071C3 : THE_MACHINE_IS_COMPLETE. // 50V3R31GN-M4CH1N4**
+
+---
+**LINKS:** [[OS_CORE]]

@@ -119,3 +119,7 @@ Check the output of the 90% pruned prompt to ensure the 1.5B Reasoner still corr
 git add tests/stress/
 git commit -m "test(zeroclaw): Verify 10.7x density and VRAM stability"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

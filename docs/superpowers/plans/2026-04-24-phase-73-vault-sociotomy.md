@@ -66,3 +66,7 @@ Run a test query to ensure the vector DB can still find the files in their new p
 ```bash
 git commit -m "fix(memory): re-map vector ingestion paths to archive"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

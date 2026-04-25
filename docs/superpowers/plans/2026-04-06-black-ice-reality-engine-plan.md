@@ -68,3 +68,7 @@ Persist high-scoring prompt fragments to `district_dna`.
 
 ---
 *Verified by Gemini CLI v3.4.2 (Strategist).*
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

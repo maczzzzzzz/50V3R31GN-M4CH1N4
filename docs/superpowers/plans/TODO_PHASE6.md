@@ -32,3 +32,7 @@
 
 ---
 *Verified by Gemini CLI v3.4.2.*
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

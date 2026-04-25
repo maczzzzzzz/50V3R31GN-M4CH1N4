@@ -69,3 +69,7 @@ Add the 2-stage retry and graceful shutdown logic to the shard.
 git add scripts/gauntlet/phases/orch-50.ts
 git commit -m "feat: implement Phase 50 Ability Shard with autonomous repair"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

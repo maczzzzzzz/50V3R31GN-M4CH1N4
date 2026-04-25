@@ -36,3 +36,7 @@ The entire `entities_mooks` dataset is physicalized within the Obsidian vault to
 - **Aesthetic Unity:** Generated maps match the project's "Black-Ice" art style.
 - **Zero-Friction Replay:** An old mission can be re-run in a fresh Foundry world with 100% data extraction from the PNG.
 - **Total Visibility:** Every faction and unit from the pack is searchable and interactable within the Obsidian vault.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

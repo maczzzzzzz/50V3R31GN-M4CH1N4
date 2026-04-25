@@ -62,3 +62,7 @@ Verify the integrity of the campaign generator and the accuracy of hardware tele
 ```bash
 git commit -m "chore: finalize Phase 52 integration"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

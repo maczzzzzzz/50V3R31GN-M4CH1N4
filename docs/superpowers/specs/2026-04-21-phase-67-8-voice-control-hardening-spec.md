@@ -34,3 +34,6 @@ Phase 67.8 introduces critical efficiency and contextual upgrades to the Rust-na
 - Must remain purely within Rust (`zeroclaw-kernel`) for Node C components.
 - Must not increase TTFT (Time To First Token) latency.
 - Must maintain the 6GB VRAM ceiling.
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

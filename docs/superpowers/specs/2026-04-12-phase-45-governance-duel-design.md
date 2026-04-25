@@ -35,3 +35,7 @@ The Pulse Engine (`/pulse`) now scans the **Duel History** in `Akashik.db`:
 ## 3. Physicalization
 - **VSB Update:** Add `DUEL_RESULT` (0x07) and `SOVEREIGNTY_LEVEL` (0x08) packet types to the VSB protocol.
 - **Obsidian Sync:** Duel results are logged as "Memories," allowing the operator to review the history of their conflicts with the machine.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -44,3 +44,7 @@ The VFX Engine hooks into the **Map Shine Advanced** illumination buffer:
 
 ---
 **::/5Y573M-N071C3 : SHROUD_KINETIC_SPEC_LOCKED. THE_HISTORY_IS_MANIFEST. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

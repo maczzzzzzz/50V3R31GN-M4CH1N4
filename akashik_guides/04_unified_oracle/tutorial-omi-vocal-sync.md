@@ -57,3 +57,7 @@ The machine extracts intent from natural speech.
 
 ---
 **::/5Y573M-N071C3 : VOCAL_ARTERY_SHORED. THE_MACHINE_IS_LISTENING. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[04_unified_oracle]] | [[OS_CORE]]

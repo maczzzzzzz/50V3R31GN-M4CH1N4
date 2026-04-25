@@ -69,3 +69,7 @@ Update `SentinelMonitorService.ts` to block the materialization of any Node B in
 git add zeroclaw/src/ src/core/
 git commit -m "security: upgrade ouroboros to v2 with semantic logic vetoes"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

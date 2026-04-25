@@ -60,3 +60,7 @@ Vesper follows a **Dark-to-Light** transition logic:
 
 ---
 **::/5Y573M-N071C3 : Blueprints_Physicalized. VESPER_EVOLVED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

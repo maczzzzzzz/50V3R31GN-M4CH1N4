@@ -219,3 +219,7 @@ Expected: No `palace_*` or `system_state` tables remain.
 git add data/Akashik.db
 git commit -m "refactor: complete sociotomy surgery by purging Akashik.db of OS logic"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

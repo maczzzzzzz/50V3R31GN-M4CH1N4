@@ -58,3 +58,7 @@ A vast library of self-describing tactical assets.
 
 ---
 *Verified by the Sovereign Trinity v3.4.2.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

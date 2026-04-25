@@ -55,3 +55,7 @@ npm run scribe
 git add .
 git commit -m "feat(vesper): materialize Phase 78 Mesh Integration blueprints"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

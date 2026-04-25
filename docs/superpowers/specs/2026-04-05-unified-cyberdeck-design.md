@@ -42,3 +42,7 @@
 
 ---
 *Verified by Gemini CLI v3.4.2 Orchestrator.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

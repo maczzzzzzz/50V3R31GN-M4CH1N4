@@ -56,3 +56,7 @@ Implement `scripts/gauntlet/phases/orch-52-3.ts`.
 git add scripts/forge/skill-factory.ts scripts/gauntlet/phases/orch-52-3.ts
 git commit -m "chore: finalize Phase 52 Cognitive Artery"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

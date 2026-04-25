@@ -83,3 +83,7 @@ Create a background script that polls `Akashik.db` and utilizes the `hermes-wiki
 git add scripts/dev/hermes-wiki-sync.ts
 git commit -m "feat(ops): implement hermes-wiki daemon for auto-documenting rkg state"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

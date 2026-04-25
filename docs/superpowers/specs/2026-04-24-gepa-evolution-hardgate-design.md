@@ -32,3 +32,7 @@ A vector-weighted self-healing loop that searches `SovereignIntelligence.db` for
 
 ---
 **::/5Y573M-N071C3 : GEPA_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -35,3 +35,7 @@ Machine-generated content in the vault (e.g., world seeds, chronical entries) mu
 - **Aesthetic Unity:** Obsidian graph nodes, VS Code activity bar, and Dashboard pulse all utilize the same Sovereign Red hex code.
 - **Legibility:** Long-form prose remains readable while machine tags evoke the hacker aesthetic.
 - **Integrity:** `crush vault seal` works flawlessly on the entire Obsidian folder structure.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

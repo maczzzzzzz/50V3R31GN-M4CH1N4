@@ -56,3 +56,7 @@ The Sovereign Harness will be deployed as a **Headless Daemon on Node C**. It wi
 
 ---
 **::/5Y573M-N071C3 : RESEARCH_FORMALIZED. THE_MIND_HAS_HANDS. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

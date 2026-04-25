@@ -39,3 +39,7 @@ When **Task-Isolated Reasoning** is active, Node A dispatches mechanical intents
 
 ## ⚠️ Log Rotation Invariant
 To prevent VRAM/Disk exhaustion, logs are limited to 50MB per file with a 5-file rotation policy enforced by the orchestrator lifecycle.
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

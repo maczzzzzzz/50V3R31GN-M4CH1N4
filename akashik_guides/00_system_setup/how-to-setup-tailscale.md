@@ -34,3 +34,7 @@ The app will now route all WebSocket (`/ws/audio`) and HTTP (`/shift`) traffic t
 
 ---
 **::/5Y573M-N071C3 : TAILSCALE_TUNNEL_DOCUMENTED. // 50V3R31GN-M4CH1N4**\n## ◈ v3.4.2 MESH UPDATES\n- **DIRECTOR_IP:** Ensure `NODE_B_IP` is shored in app settings for theme orchestration.\n- **TUNNEL_SYNC:** Chat history auto-syncs via port `7340` over the Tailscale pipe.
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

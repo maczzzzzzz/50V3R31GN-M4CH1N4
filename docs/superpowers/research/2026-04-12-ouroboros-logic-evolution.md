@@ -24,3 +24,7 @@ The Kernel (Node A) and the Director (Node B) form a "Logical Snake" eating its 
 
 ---
 *Verified by the Sovereign Strategist v3.4.2.*
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

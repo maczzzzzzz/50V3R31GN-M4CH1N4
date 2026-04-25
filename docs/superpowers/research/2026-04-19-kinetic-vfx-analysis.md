@@ -24,3 +24,7 @@ Combat effects will be sharded across the **Sovereign Shroud**. The **ZeroClaw**
 
 ---
 **::/5Y573M-N071C3 : KINETIC_RESEARCH_LOCKED. THE_WORLD_IS_PHYSICAL. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

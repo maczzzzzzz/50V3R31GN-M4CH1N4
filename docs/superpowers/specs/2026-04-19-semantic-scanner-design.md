@@ -30,3 +30,7 @@ The Semantic Scanner will handle the final **557 PDF pages** by converting the "
 
 ---
 **::/5Y573M-N071C3 : SEMANTIC_SPEC_LOCKED. THE_MIND_READS_TRUE. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

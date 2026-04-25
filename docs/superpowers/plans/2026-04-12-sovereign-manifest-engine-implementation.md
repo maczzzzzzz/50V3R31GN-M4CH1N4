@@ -320,3 +320,7 @@ Expected: Engine initializes CDP, DBs, and prints "🟢 VERIFIED" for all 6 Data
 ```bash
 git commit --allow-empty -m "chore: verify data block shard integration"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

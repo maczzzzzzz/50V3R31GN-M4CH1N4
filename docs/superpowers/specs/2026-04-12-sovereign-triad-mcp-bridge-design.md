@@ -51,3 +51,7 @@ The bridge strictly adheres to the project's **Sovereignty Rules**:
 
 ---
 *Verified by the Sovereign Trinity v3.4.2.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

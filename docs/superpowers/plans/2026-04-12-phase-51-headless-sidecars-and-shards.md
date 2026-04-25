@@ -94,3 +94,7 @@ Verify that all shards pass in the new headless state.
 ```bash
 git commit -m "chore: finalize Phase 51 Headless Transition"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

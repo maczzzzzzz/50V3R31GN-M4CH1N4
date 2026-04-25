@@ -44,3 +44,7 @@
   ```bash
   git commit -m "feat(sensory): link Falcon perception to observer frame buffer"
   ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

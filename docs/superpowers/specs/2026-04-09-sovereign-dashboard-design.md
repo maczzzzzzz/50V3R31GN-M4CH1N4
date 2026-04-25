@@ -63,3 +63,7 @@ The **5H4D0W_D45HB04RD** is a high-speed, standalone monitoring interface design
 - 60fps fluid rendering of the VSB Waveform.
 - Zero "Cyan" remnants in the UI.
 - Successful triggering of the Ghost Boot sequence from within the iframe.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -41,3 +41,7 @@ Implement `CprOfficialIngestor.ts`:
 
 ---
 **::/5Y573M-N071C3 : SPEC_V4_STAGED. READY_FOR_IMPLEMENTATION_PLAN. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

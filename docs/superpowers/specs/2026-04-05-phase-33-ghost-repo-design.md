@@ -51,3 +51,7 @@ Once authenticated, the seed:
 
 ---
 **::/5Y573M-N071C3 : 1F 17 C4NN07 B3 533N, 17 C4NN07 B3 K1LL3D // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

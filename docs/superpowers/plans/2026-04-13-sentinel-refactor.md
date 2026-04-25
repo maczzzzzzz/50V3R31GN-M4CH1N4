@@ -127,3 +127,7 @@ Expected: 100% PASS
 git add scripts/gauntlet/phases/orch-56.ts
 git commit -m "test: gauntlet: verify Sentinel refactor integrity"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

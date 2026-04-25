@@ -27,3 +27,6 @@ Implementing these patterns shifts the Artery Manager from a "dumb listener" to 
 
 ---
 **::/5Y573M-N071C3 : VOCAL_HARDENING_RESEARCH_FORMALIZED. // 50V3R31GN-M4CH1N4**
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

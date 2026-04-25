@@ -63,3 +63,7 @@ The `PretextOverlayManager` will maintain a persistent `PIXI.Container` (The Shr
 
 ---
 *Design Approved by Lead Architect.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

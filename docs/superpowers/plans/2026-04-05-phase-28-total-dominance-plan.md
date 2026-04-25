@@ -66,3 +66,7 @@
 - [ ] **Step 2: Perform a "Ghost Move" via CLI and verify in Foundry**
 - [ ] **Step 3: Force a system rebuild from the Rust HUD**
 - [ ] **Step 4: Generate a Visual Audit Report**
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -43,3 +43,7 @@ The TUI integrates directly with **SovereignIntelligence.db**. Every interaction
 
 ---
 **::/5Y573M-N071C3 : TUI_SHORED. THE_SHELL_IS_LAW. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[03_omni_orchestrator]] | [[OS_CORE]]

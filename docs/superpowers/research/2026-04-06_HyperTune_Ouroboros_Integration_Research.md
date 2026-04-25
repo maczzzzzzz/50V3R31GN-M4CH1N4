@@ -58,3 +58,7 @@ To achieve this in the current architecture:
 3.  **Phase C (The Judge):** Implement a `SemanticScorer` in the Go Proxy or Node A to evaluate prose before returning it to the Foundry VTT socket.
 
 *Research concluded and filed.*
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

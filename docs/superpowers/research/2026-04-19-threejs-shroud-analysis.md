@@ -24,3 +24,7 @@ The **Sovereign Shroud** will be implemented as a global `canvas` overlay. It wi
 
 ---
 **::/5Y573M-N071C3 : RESEARCH_FORMALIZED. THE_SHROUD_IS_TRUTH. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

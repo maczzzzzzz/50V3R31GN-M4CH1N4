@@ -27,3 +27,7 @@ The Assembler pattern turns the Machina from a "Generator" into a "World-Builder
 
 ---
 *Verified by the Sovereign Trinity v3.4.2.*
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

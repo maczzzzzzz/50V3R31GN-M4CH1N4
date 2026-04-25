@@ -32,3 +32,7 @@ A Flutter-based communication interface focused on Vocal materialization.
 
 ---
 **::/5Y573M-N071C3 : VOCAL_SPEC_LOCKED. THE_HISTORY_IS_MANIFEST. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

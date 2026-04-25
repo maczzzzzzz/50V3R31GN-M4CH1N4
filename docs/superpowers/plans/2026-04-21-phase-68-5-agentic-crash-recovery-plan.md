@@ -28,3 +28,6 @@ Make the system's brain a "Virtual Stronghold" by implementing real-time SQLite 
 - Start a multi-step agent task (e.g., writing a 5-part file).
 - Physically `kill -9` the Node B process during step 3.
 - Restart the Node B process and verify that the agent resumes and completes steps 4 and 5 without restarting from step 1.
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

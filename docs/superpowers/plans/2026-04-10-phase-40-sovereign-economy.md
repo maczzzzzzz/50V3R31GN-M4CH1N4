@@ -80,3 +80,7 @@ Update the Mesh to support `hoverVendor` events that trigger the HUD shop displa
 2. The Cyberdeck HUD displays a "CAUTION" radar that reveals exact heat when scanned.
 3. Architect auto-spawns rival gang tokens during a Red Trade ambush.
 4. Hovering over a materialized vendor displays their full inventory in the HUD.
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

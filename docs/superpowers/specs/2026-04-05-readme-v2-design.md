@@ -44,3 +44,7 @@ Transform the project's public-facing documentation (`README.md` and `docs/GITHU
 ## 5. Verification
 - Markdown rendering check on common viewers (GitHub, VS Code).
 - Consistency check for model names and technical specs.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

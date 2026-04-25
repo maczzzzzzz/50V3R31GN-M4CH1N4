@@ -167,3 +167,7 @@ export class SovereignGigService {
 git add src/core/narrative/SovereignGigService.ts
 git commit -m "feat(narrative): implement procedural gig and screamsheet generator"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

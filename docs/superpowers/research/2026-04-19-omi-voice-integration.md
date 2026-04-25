@@ -25,3 +25,7 @@ This research materializes the "Vocal Soul" of the machine. Operators can now pl
 
 ---
 **::/5Y573M-N071C3 : VOCAL_RESEARCH_FORMALIZED. THE_MIND_HAS_A_VOICE. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

@@ -27,3 +27,7 @@ This architecture ensures that **Sovereignty is a Physical Constraint**, not a s
 
 ---
 **::/5Y573M-N071C3 : SOVEREIGN_WEIGHTING_FORMALIZED. THE_SOUL_IS_GATED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

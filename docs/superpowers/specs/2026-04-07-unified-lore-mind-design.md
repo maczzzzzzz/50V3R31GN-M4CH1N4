@@ -46,3 +46,7 @@ The **48L173R473D Brain** will access this via the `UnifiedStrategic OracleClien
 ## 5. Security & Sovereignty
 - **Vaulting:** Harvested data will live in cleartext within `Akashik.db` for zero-latency query, but the scraper source code and raw JSON payloads will be ignored by Git via the `.gitignore` protocols established in Phase 31.
 - **Era-Lock:** Any content containing "2077" or "Cyberpunk 2020" keywords without a "History" qualifier is purged to prevent context drift.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

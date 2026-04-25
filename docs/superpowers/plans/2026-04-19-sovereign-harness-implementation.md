@@ -162,3 +162,7 @@ func (s *Session) ResolveWithHealer(ctx context.Context, intent string) error {
     return nil
 }
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

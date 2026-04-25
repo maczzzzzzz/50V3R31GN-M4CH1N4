@@ -21,3 +21,6 @@ Implementing Phase 68.5: **Agentic Crash Recovery** will transform our volatile 
 
 ---
 **::/5Y573M-N071C3 : CRASH_RECOVERY_RESEARCH_FORMALIZED. // 50V3R31GN-M4CH1N4**
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

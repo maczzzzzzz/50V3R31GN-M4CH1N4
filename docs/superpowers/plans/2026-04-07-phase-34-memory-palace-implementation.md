@@ -133,3 +133,7 @@ Update `NitroLogicClient` to use the `llama-server` prefix caching feature. Ensu
 Run a turn simulation and verify the 48L173R473D brain responds with perfect consistency regarding facts from the "Palace."
 
 - [ ] **Step 4: Commit**
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

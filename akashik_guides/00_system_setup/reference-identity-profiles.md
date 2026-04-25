@@ -43,3 +43,7 @@ Profile changes are manually triggered by editing the `ACTIVE_PROFILE` key in `S
 
 ---
 **::/5Y573M-N071C3 : IDENTITY_SHORED. THE_MASKS_ARE_LAW. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

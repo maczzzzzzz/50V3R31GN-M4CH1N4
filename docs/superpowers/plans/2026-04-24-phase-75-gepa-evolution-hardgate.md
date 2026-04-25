@@ -40,3 +40,7 @@ Update the evolution loop to perform a semantic search over previous failures be
 ```bash
 git commit -m "feat(evo): deploy GEPA loop and deterministic hardgate"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

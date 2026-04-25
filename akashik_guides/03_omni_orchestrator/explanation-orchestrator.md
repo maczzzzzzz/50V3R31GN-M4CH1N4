@@ -32,3 +32,7 @@ All orchestration telemetry is streamed at 60fps via the **Nucleus Artery** to t
 
 ---
 *Omni Orchestrator: Deterministic Reactivity for the Neural Hive v3.4.2.*
+
+
+---
+**LINKS:** [[03_omni_orchestrator]] | [[OS_CORE]]

@@ -100,3 +100,7 @@ Expected: 🟢 Full Watson memory generated, organized, and baked.
 
 - [ ] **Step 4: Commit**
 `git add . && git commit -m "feat: finalize Atlas Forge master CLI with resilient slow-burn automation"`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

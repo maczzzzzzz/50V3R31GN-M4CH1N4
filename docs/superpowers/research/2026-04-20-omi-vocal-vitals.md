@@ -25,3 +25,7 @@ The **Unified Shifting** engine ensures that the voice stack is only active duri
 
 ---
 **::/5Y573M-N071C3 : VOCAL_RESEARCH_FORMALIZED. THE_MIND_HAS_A_VOICE. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

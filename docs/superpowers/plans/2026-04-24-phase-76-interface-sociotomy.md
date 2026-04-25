@@ -52,3 +52,7 @@ npm run scribe
 ```bash
 git commit -m "feat(interface): enforce OS-default boot and migrate command registry"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -45,3 +45,7 @@ npm run scribe
 git add .
 git commit -m "feat(host): materialize Phase 79 Host-Mesh Artery blueprints"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

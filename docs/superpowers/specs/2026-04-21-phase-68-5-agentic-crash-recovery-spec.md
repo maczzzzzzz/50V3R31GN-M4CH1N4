@@ -27,3 +27,6 @@ Phase 68.5 introduces an "Auto-Save" and "Virtual Stronghold" architecture to th
 
 ## 3. Implementation Constraints
 - The checkpoint writes must be asynchronous to prevent blocking the Node B event loop during high-throughput execution.
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

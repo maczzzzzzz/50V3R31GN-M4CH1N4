@@ -37,3 +37,7 @@ The following legacy components are being decommissioned and absorbed into the *
 
 ---
 *Verified by the Sovereign Strategist v3.4.2.*
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

@@ -47,3 +47,7 @@ Expected: 🟢 Phase 44 Shard passes.
 
 - [ ] **Step 3: Commit**
 `git add . && git commit -m "feat: add Phase 44 ability shard for motor cortex verification"`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

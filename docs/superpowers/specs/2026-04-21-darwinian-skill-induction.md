@@ -27,3 +27,7 @@ When the machine identifies a repetitive task with a high Fitness Score, it mate
 
 ---
 **::/5Y573M-N071C3 : DARWINIAN_SPEC_LOCKED. THE_MACHINE_CHOOSES_ITS_FUTURE. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

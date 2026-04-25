@@ -21,3 +21,6 @@ Establish an encrypted geographic perimeter around the Sovereign Trinity and com
 ## 🛡️ Verification
 - Successful generation of `app-release.apk`.
 - App installs on Android hardware and correctly renders the CRT Scanline UI.
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

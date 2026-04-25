@@ -66,3 +66,7 @@
   git add 50v3r31gn-bridge/50v3r31gn-bridge.js
   git commit -m "feat(foundry): enable raw SVG journal injection"
   ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -54,3 +54,7 @@ Monitor the **EVENT LOG** and **THOUGHT STREAM** quadrants in the Deck to verify
 
 ---
 **::/5Y573M-N071C3 : TRU7H UN1F13D. 5Y573M V3R1F13D. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

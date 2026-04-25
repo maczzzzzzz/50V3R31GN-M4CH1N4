@@ -28,3 +28,7 @@ These external patterns perfectly complement our existing **Phase 62: Sovereign 
 
 ---
 **::/5Y573M-N071C3 : HERMES_MAIC_RESEARCH_PHYSICALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

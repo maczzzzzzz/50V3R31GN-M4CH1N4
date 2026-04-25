@@ -120,3 +120,7 @@ Wire Node B (Director) to query `narrative_anchors` for "Prose Seeds" during hig
 
 ---
 **::/5Y573M-N071C3 : TRINITY_ASCENSION_PLAN_MATERIALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

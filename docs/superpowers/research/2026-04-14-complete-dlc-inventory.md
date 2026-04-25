@@ -70,3 +70,7 @@
 | **RTG-CPR-RedChromeCargo-RED.pdf** | Augmentations | 1 red chrome cargored chrome cargo a cyberpunk red screamsheeta cyberpunk red screamsheet BY SANTIAGO BETANCUR Writing and Design by Cody Pondsmith Ar... |
 | **RTG-CPR-Single_Shot_Pack.pdf** | Missions / Hooks | 1 single shot packsingle shot pack pregen characters and net architecturespregen characters and net architectures BY NEIL BRANQUINHO Writing and Desig... |
 | **RTG-CPR-TwelveDaysofGunmasv1.3.pdf** | Augmentations | BY ANSELM ZIELONKA the 12 Days of gunmasthe 12 Days of gunmas a cyberpunk red holiday speciala cyberpunk red holiday special 1 Writing and Design by J... |
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

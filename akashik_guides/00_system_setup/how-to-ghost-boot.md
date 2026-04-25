@@ -44,3 +44,7 @@ If a gate times out, check `deck-igniter/launcher.go` to adjust durations:
 
 ## 🛡️ Security Mandate
 **NEVER** push to remote while the Obsidian Vault is unsealed. The Ghost Boot automatically triggers a health audit; if the audit fails, the system will initiate a graceful shutdown to prevent state drift.
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

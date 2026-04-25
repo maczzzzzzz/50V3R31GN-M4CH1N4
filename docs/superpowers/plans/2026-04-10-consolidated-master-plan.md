@@ -27,3 +27,7 @@
 2. **Validation:** Ensure all legacy artifacts are stripped and tests pass without mock interference.
 3. **Vault Validation:** Ensure Obsidian Vault checks are respected via `crush vault seal` before remote pushes.
 4. **Phase 40 Initiation:** Dispatch subagent for Phase 40 implementation.
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

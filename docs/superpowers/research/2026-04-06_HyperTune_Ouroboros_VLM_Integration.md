@@ -46,3 +46,7 @@ We use a recursive feedback loop to fine-tune Pixtral's "eyes":
 3.  **Adversarial Persona:** Swap the GM Persona for a **"Black-Ice Reality Engine"** persona.
 
 *Research concluded and filed.*
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

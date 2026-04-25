@@ -169,3 +169,7 @@ Launch Nucleus Deck -> Click [GHOST_BOOT] -> Verify Foundry launches headless an
 ```bash
 git commit -m "chore: purge intrusive Foundry UI and finalize Nucleus Deck"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

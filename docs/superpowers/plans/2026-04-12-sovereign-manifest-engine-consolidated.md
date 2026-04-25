@@ -86,3 +86,7 @@ Verify that Node B can import a shard and call `manifest()` to alter the game st
 
 - [ ] **Step 3: Commit**
 `git commit --allow-empty -m "feat: complete sovereign manifest engine implementation"`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

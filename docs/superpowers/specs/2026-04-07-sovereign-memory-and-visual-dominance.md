@@ -50,3 +50,7 @@ The system-wide accent color is exclusively **Cyberpunk Red (#ff003c)** on **Abs
 ## 5. Security & Sovereignty
 - **Local-Only:** MemPalace storage (ChromaDB/SQLite) remains strictly on-node to maintain the Sovereign Highway.
 - **Reasoning Audit:** Every memory promotion in the "Dreaming" phase is vetted by the 1.5B Kernel before being committed to the world state.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

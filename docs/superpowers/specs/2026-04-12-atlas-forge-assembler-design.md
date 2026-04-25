@@ -66,3 +66,7 @@ Provides real-time observability of the assembly:
 
 ---
 *Verified by the Sovereign Trinity v3.4.2.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

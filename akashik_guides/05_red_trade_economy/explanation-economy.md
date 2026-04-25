@@ -24,3 +24,7 @@ The **Red Market** uses dynamic pricing. Items in insecure districts are cheaper
 
 ---
 *Red Trade: Economic Sovereignty Online.*
+
+
+---
+**LINKS:** [[05_red_trade_economy]] | [[OS_CORE]]

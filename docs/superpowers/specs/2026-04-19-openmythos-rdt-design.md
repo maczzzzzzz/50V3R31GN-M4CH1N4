@@ -40,3 +40,7 @@ Node A (Synapse) will provide the physical storage for the RDT's iterative `kv_c
 
 ---
 **::/5Y573M-N071C3 : RUST_ORACLE_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

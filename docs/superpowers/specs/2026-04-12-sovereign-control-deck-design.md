@@ -40,3 +40,7 @@ The UI state is managed by a `GlitchIntensity` float (0.0–1.0).
 
 ---
 *Verified by the Sovereign Strategist v3.4.2.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -32,3 +32,7 @@ Players cannot "see" these payloads without advanced Netrunning or Cryptography 
 - **Node A (Rust):** Handles high-performance linguistic permutation and stego encoding.
 - **Node B (TS):** Manages the Skillstone Registry and LLM orchestration.
 - **Resident Synapse:** Large conlang dictionaries and the **Open-Reasoner-1.5B** model are permanently resident on Node A, ensuring zero-latency linguistic processing.
+
+
+---
+**LINKS:** [[06_perception_systems]] | [[OS_CORE]]

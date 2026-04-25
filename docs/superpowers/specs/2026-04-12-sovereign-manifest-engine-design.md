@@ -74,3 +74,7 @@ If an `execute()` hook fails after 3 self-healing retry attempts, the engine wil
 3. **Resiliency:** Handles "Target page closed" errors during world transitions.
 4. **Discovery:** Dynamically imports all Shards.
 5. **Reporting:** Generates a unified JSON/Markdown health report.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

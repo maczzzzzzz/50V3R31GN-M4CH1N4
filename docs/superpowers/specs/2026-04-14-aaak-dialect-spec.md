@@ -73,3 +73,7 @@ AAAK is the **Standard Cognitive Wire-Format** for inter-node state transfer. Wh
 ---
 
 *Spec ratified Phase 56 Stabilization. Source of truth: `src/shared/vsb_protocol.ts` `SovereignContextUpdateCodec`.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

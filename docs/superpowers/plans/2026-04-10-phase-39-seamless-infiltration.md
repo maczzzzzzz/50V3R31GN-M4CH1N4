@@ -69,3 +69,7 @@ Update `materializeTokens` to call the Forge RPC, background-baking biometrics i
 2. Clicking "SY573M-5H0CK" in the HUD applies damage via Node A Judge.
 3. `crush start --lite` successfully suppresses GUI components.
 4. All 565 tests pass.
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

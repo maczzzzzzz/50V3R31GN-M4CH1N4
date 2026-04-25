@@ -36,3 +36,7 @@ Profiles are protected by a **Rust-native Hardgate**. The `permission_policy` of
 
 ---
 **::/5Y573M-N071C3 : IDENTITY_SHORED. THE_PROFILE_IS_LAW. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[08_sovereign_identity]] | [[OS_CORE]]

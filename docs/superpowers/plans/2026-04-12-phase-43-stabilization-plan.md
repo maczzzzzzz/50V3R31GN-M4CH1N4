@@ -63,3 +63,7 @@ Run: `git push origin master`
 - [x] **Interactive Terminal:** Implemented `crush-cli terminal` for direct 12B Brain comms.
 - [x] **Semantic RKG Sync:** Reconstructed the Obsidian vault with hierarchical folders and semantic tags.
 - [x] **Droid Factory:** Integrated `factory.ai` CLI via `steam-run` for NixOS compatibility.
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

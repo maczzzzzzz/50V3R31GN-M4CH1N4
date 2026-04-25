@@ -262,3 +262,6 @@ That is the real product of this system.
 Not the notes. Not the productivity. The compounding intelligence that emerges from consistent capture, consistent connection, and consistent feedback over time.
 Most people are starting from zero every day.
 JARVIS makes sure you never do.
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

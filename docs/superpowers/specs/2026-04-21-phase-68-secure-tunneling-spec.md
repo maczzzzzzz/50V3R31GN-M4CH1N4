@@ -18,3 +18,6 @@ Phase 68 aims to decouple the Sovereign Trinity from the physical local network 
 ## 3. Implementation Constraints
 - The tunnel must introduce less than <20ms of overhead latency to maintain the sub-50ms response requirement of the OMI interface.
 - The NixOS build environment must be hermetic to preserve reproducibility.
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

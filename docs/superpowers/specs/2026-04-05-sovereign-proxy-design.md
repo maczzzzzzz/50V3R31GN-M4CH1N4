@@ -245,3 +245,7 @@ Per `docs/superpowers/specs/2026-04-05-unified-cyberdeck-design.md` Phase 2 alig
 ---
 
 *Verified by Gemini CLI v3.4.2 Orchestrator.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

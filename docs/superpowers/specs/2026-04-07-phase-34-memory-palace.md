@@ -35,3 +35,7 @@ A background process on Node A that continuously consolidates raw data:
 ## 4. Security & Sovereignty
 - **Sanitization:** The **OBLITERATUS** protocol is applied to all incoming session logs before they are "mined" into the Palace to prevent prompt injection or logic drift.
 - **Air-Gap Integrity:** All memory storage is strictly local; zero cloud RAG.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

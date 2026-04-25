@@ -44,3 +44,7 @@ Scaffold `scripts/ops/appflowy-sync.ts` to push `IMPLEMENTATION_PLAN.md` tasks t
 git add .
 git commit -m "feat(docs): materialize AppFlowy hub integration blueprints"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -29,3 +29,7 @@ Deploy three separate vLLM instances on Node C:
 
 ---
 **::/5Y573M-N071C3 : INFERENCE_ROUTER_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -31,3 +31,7 @@ The existing `theme-sync.ts` utility is expanded into a **Theme State Machine**:
 
 ## 6. Security & Sovereignty
 - **UI Sanitization:** The hijack is applied via direct DOM injection through the CDP bridge, ensuring that even if a Foundry module attempts to reset styles, the **Sovereign Interceptor** will re-apply the Total Red theme within 1 frame.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

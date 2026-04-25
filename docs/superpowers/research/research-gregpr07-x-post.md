@@ -35,3 +35,6 @@ Upload. We forgot to add upload_file(). Mid-task, the agent hit a file input, gr
 Chunked upload. After writing upload_file, the agent tried to upload a 12MB file. CDP websocket payloads cap around 10MB. It hit the limit, read the error, switched to a chunked upload pattern.
 Gusto to calendar. Task: put every employee's birthday in our shared calendar. Required navigating Gusto's employee tab, extracting dates from the DOM, then creating Google Calendar events.
 Azure admin roles. Azure's admin portal is a pile of blades inside iframes. Raw CDP, via coordinate-level Input.dispatchMouseEvent, passes through at the compositor level.
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

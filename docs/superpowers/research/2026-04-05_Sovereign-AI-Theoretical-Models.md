@@ -43,3 +43,7 @@ Sovereignty without containment is a system failure. The **V3SP3R Risk Engine** 
 
 ---
 **::/5Y573M-N071C3 : COGNITIVE LIBERTY IS THE PRIMARY OPERATING STATE // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

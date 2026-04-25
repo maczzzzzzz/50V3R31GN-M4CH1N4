@@ -41,3 +41,7 @@ The "Hello World" task for the Sovereign Harness is the automation of the **Nigh
 
 ---
 **::/5Y573M-N071C3 : HARNESS_SPEC_LOCKED. THE_MIND_HAS_HANDS. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

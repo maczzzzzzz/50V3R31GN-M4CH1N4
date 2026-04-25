@@ -79,3 +79,7 @@ git commit -m "feat(arch): implement length-based threshold routing for Node A o
 ```bash
 git commit -m "feat(ingest): harden lore ingestion via built-in gojq engine"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

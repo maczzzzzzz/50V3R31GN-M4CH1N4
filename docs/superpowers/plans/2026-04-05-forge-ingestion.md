@@ -1150,3 +1150,7 @@ EOF
 | Exit 1 if any failures | Task 4 |
 | `ErrCRC32Mismatch` typed error for future `crush recover` | Task 1 |
 | Backwards-compatible with Rust zeroclaw decoder | Task 1 (wire format choice) |
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

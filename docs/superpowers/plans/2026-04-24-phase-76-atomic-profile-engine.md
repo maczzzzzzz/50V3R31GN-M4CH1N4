@@ -43,3 +43,7 @@ Scaffold the Nix/Systemd units for the 3-instance model farm.
 git add crates/hermes-router crates/sovereign-core/src/kv_bridge.rs
 git commit -m "feat(fabric): deploy atomic profile engine and inference router"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

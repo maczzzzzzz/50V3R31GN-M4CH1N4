@@ -28,3 +28,7 @@ The machine is authorized to evolve skills for:
 
 ---
 **::/5Y573M-N071C3 : MAESTRO_SPEC_LOCKED. THE_HISTORY_IS_EVOLVING. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

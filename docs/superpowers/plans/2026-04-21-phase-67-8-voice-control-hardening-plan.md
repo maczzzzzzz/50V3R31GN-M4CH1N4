@@ -23,3 +23,6 @@ Achieve peak operational power and efficiency in the OMI voice integration befor
 ## 🛡️ Verification
 - Build `zeroclaw-kernel` with `cargo check --features cuda`.
 - Ensure no VRAM leaks occur during continuous silent audio streaming (VAD should block inference).
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

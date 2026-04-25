@@ -36,3 +36,7 @@ No world-state change occurs without your physical `ACK`. You can approve transa
 
 ---
 *Command and Control: 50V3R31GN-M4CH1N4 v3.4.2 Hardened.*
+
+
+---
+**LINKS:** [[01_crush_cli]] | [[OS_CORE]]

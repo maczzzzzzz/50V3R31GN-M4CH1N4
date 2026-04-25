@@ -111,3 +111,7 @@ Launch the entire system via `deck-igniter`. Verify that the vault is populated 
 git add deck-igniter/
 git commit -m "feat(igniter): Orchestrate Obsidian Vault Sync lifecycle"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

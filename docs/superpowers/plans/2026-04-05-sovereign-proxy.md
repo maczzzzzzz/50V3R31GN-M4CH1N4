@@ -1874,3 +1874,7 @@ Gemini must verify:
 3. `crush proxy` starts without error and creates the Unix socket
 4. `crush wsa unlock test-door` correctly returns exit 1 ("proxy not running") when proxy is not started
 5. Node A ZeroClaw `reason_audit` RPC handler is queued for implementation (Node A Gemini domain)
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

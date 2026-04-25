@@ -20,3 +20,6 @@
 ### 2.3 The "Thought Stream" (Crush CLI)
 - Since Node A now uses `Open-Reasoner-Zero`, capture its `<think>` tokens.
 - Display these tokens in real-time within the Crush CLI interface to give the GM transparency into the AI's tactical reasoning.
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

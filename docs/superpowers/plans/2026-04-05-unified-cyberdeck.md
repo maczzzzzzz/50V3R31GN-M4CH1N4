@@ -183,3 +183,7 @@ git commit -m "feat: expand crush CLI with hack and scan commands"
 git add .
 git commit -m "chore: finalize v3.4.2 unified cyberdeck integration"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

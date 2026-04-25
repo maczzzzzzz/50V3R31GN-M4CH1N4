@@ -42,3 +42,7 @@ A persistent top-center menu providing system-wide "Hard Switches":
 
 ---
 *Verified by the Sovereign Strategist v3.4.2.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

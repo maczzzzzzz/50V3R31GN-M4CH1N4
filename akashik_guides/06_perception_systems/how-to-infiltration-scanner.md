@@ -40,3 +40,7 @@ The ingestion of "Smart Assets" is now fully automated. When the **Architect** m
 
 ---
 *Status: Infiltration Protocol Active. v3.4.2 Stabilized.*
+
+
+---
+**LINKS:** [[06_perception_systems]] | [[OS_CORE]]

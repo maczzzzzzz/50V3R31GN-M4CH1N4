@@ -44,3 +44,7 @@ Commit a test change to `IMPLEMENTATION_PLAN.md` and check if the Kanban card mo
 git add scripts/ops/hermes-sync
 git commit -m "feat(gov): implement auto-sync between manifest and Kanban"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

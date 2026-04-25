@@ -44,3 +44,7 @@ Every capability is a modular **Ability Shard** evolved through the **Hermes Ski
 - [ ] Zero-latency (60fps) rendering of log streams and radar data via Pretext.
 - [ ] Autonomous pattern detection generating valid Ability Shards with >90% success rate.
 - [ ] Automated vault sync and sealing triggered by Infrastructure Risk monitors.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

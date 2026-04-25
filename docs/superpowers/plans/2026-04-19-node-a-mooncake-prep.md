@@ -90,3 +90,7 @@ echo "◈ Provisions Node A for Mooncake..."
 - [ ] **Step 3: Verify Handshake**
   - Run: `curl http://10.0.0.10:6789/health`
   - Expected: `{"status": "READY"}`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

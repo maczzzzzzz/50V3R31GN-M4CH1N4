@@ -35,3 +35,6 @@ Combining OMI Desktop's continuous capture with our dual-tier vision models crea
 
 ---
 **::/5Y573M-N071C3 : VISION_SYNERGY_RESEARCHED. THE_EYES_NEVER_BLINK. // 50V3R31GN-M4CH1N4**
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

@@ -23,3 +23,7 @@ Actors onboarded this way are automatically linked to the **Mission Swarm** and 
 
 ---
 *Onboarding: Narrative-Physical Fusion Active.*
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

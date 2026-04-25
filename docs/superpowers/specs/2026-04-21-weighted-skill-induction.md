@@ -31,3 +31,7 @@ Induced workflows are filed as **Agent-Authored Skills**.
 
 ---
 **::/5Y573M-N071C3 : INDUCTION_SPEC_LOCKED. THE_HISTORY_IS_SELF_WRITING. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

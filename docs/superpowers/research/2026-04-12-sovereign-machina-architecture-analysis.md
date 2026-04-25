@@ -32,3 +32,7 @@ Research in `50v3r31gn-bridge/50v3r31gn-bridge.js` identified an unused `execute
 
 **Capability:** This grants the Machina direct, un-sandboxed execution of arbitrary JS on the GM's machine.
 **Integration:** Mapped to the `bridge.runScript()` hook in the `GauntletContext`.
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

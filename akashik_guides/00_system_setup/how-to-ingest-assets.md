@@ -45,3 +45,7 @@ npm run mind:materialize
 
 ---
 *Asset Ingestion: High-Fidelity Semantic Grounding Online v3.4.2.*
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

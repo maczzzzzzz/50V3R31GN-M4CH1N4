@@ -22,3 +22,6 @@
 ### 2.3 Cleanup
 - Remove all remaining Ollama installation references from Nix configuration and startup scripts.
 - Ensure `NitroLogicClient` correctly interfaces with the new `llama-server` endpoints (no code changes expected, just URL/port validation).
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

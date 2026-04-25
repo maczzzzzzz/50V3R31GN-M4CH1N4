@@ -35,3 +35,7 @@ A new TypeScript service in `src/core/ingest/` responsible for identifying and d
 
 ---
 **::/50V3R31GN-M4CH1N4 : 5P3C-D3F1N1710N-537. // 57R4736157_D0N3.**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

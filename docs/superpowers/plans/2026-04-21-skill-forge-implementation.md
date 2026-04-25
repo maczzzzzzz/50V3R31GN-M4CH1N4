@@ -40,3 +40,7 @@
   ```bash
   git commit -m "feat(hermes): implement skill forge for automated skill generation"
   ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

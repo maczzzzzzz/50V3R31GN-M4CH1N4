@@ -32,3 +32,7 @@ The **Neural Painter** allows the AI to "draw" the game world with sub-microseco
 
 ---
 *Neural Uplink: Native CDP Engine Active v3.4.2.*
+
+
+---
+**LINKS:** [[06_perception_systems]] | [[OS_CORE]]

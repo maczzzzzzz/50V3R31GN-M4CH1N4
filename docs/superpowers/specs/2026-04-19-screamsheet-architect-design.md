@@ -26,3 +26,7 @@ The Architect utilizes the following bento-box coordinates for its 1200x1600 vie
 
 ---
 **::/5Y573M-N071C3 : VISUAL_SPEC_LOCKED. THE_HISTORY_IS_MANIFEST. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

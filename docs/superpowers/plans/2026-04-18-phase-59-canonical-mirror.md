@@ -216,3 +216,7 @@ Expected: Akashik.db rebuilt with 1000+ canonical entities.
 git add scripts/recovery/nuke-and-rebuild-v4.sh
 git commit -m "ops: finalize canonical reconstruction sequence"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

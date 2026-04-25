@@ -84,3 +84,7 @@ A grid view with a search bar that queries the 1000+ official items via a new No
 git add dashboard/components/ItemBrowser.tsx dashboard/app/lexicon/
 git commit -m "ui: implement canonical item browser for akashik lexicon"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

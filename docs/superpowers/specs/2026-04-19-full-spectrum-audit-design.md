@@ -35,3 +35,7 @@ A single script to boot the system in the following order:
 
 ---
 **::/5Y573M-N071C3 : AUDIT_BLUEPRINT_MATERIALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

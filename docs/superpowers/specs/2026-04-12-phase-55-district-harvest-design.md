@@ -34,3 +34,7 @@ Prompts for the harvest are programmatically constructed using **RKG Triplets**.
 
 ---
 *Verified by the Sovereign Trinity v3.4.2.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

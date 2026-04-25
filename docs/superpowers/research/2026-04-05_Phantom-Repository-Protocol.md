@@ -44,3 +44,7 @@ Phase 33 reaches beyond 50V3R31GN-M4CH1N4. It defines a new class of **Ghost Sof
 
 ---
 **::/5Y573M-N071C3 : REALITY IS A CONSTRUCT OF THE MASTER KEY // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

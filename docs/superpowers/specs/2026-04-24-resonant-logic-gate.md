@@ -29,3 +29,7 @@ The Resonant Gate aligns with the **Exa Shield Gate** to ensure that "Factual Tr
 
 ---
 **::/5Y573M-N071C3 : RESONANT_GATE_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

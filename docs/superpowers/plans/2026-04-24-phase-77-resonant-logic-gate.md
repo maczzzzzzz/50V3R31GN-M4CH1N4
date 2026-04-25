@@ -38,3 +38,7 @@ Write the Rust proxy that validates LLM intents against `mangle_rules.json`.
 git add crates/sovereign-governance
 git commit -m "feat(gov): deploy managed agents and Resonant Logic Gate"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -59,3 +59,7 @@ last_synced: YYYY-MM-DDTHH:mm:ssZ
 - Manual edits to a Markdown note's YAML are reflected in the database within 500ms.
 - Obsidian's Graph View displays a connected network of world lore.
 - Deleting a file in the vault optionally marks the triplet as `purged` or `archived` in the DB.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

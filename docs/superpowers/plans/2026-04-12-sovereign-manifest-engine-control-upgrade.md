@@ -79,3 +79,7 @@ Expected: 🟢 SUCCESS — Sovereign control established.
 
 - [ ] **Step 4: Commit**
 `git add . && git commit -m "feat: complete sovereign control upgrade and machina integration"`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

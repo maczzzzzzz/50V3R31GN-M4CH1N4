@@ -25,3 +25,7 @@ To enable the Sovereign OS to interact directly with the Windows host environmen
 
 ---
 **::/5Y573M-N071C3 : HOST_BRIDGE_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -76,3 +76,7 @@ git add deck-igniter/
 git commit -m "feat: implement DECK-IGNITER TUI master supervisor"
 git push origin master
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

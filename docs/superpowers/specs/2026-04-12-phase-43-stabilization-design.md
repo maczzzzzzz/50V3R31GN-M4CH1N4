@@ -43,3 +43,7 @@ Finalize the stability of the 50V3R31GN-M4CH1N4 system by remediating all remain
 *   ESC menu reliably opens the dashboard.
 *   Crush CLI Auth Pane matches the Black-Ice theme.
 *   Ghost Boot fires Obsidian GUI and sidecars without compile-time health-probe failures.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

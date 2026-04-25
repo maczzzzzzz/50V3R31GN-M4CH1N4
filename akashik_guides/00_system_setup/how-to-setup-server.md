@@ -46,3 +46,7 @@ sudo systemctl enable --now zeroclaw
 - **Physics Constitution:** Ensure `RED_RULES.md` is present in the `zeroclaw/` directory.
 - **Port:** ZeroClaw listens on `0.0.0.0:7878` for binary RPC calls.
 Process Group PGID: 580679
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

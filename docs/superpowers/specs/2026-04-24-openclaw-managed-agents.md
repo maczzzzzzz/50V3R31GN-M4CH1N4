@@ -23,3 +23,7 @@ Agents run as `User=nixos` ephemeral services, managed by a central supervisor d
 
 ---
 **::/5Y573M-N071C3 : MANAGED_AGENTS_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

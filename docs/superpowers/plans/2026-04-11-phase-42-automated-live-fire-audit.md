@@ -83,3 +83,7 @@ Re-run the Synthetic Gauntlet (Task 3) to ensure the fixes are effective and no 
 1. Full pass of the "Synthetic Gauntlet" without a single `ERROR` entry in `orchestrator.log`.
 2. Verified physical injection of Pretext overlays and CSS filters via CDP.
 3. 100% automated report generated showing system health across all communication layers (VSB, CDP, RPC).
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

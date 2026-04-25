@@ -47,3 +47,7 @@ The system is harnessed as three physical pods synchronized over the `10.0.0.x` 
 
 ---
 **::/5Y573M-N071C3 : TRINITY_GROUNDED. ARTERIES_STEADY. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

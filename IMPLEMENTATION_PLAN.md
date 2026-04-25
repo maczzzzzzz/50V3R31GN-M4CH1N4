@@ -223,3 +223,7 @@
 - [ ] **Task 1: Machina-Host Scaffolding (Go/Windows):** Scaffold the native Windows sidecar and VSB listener.
 - [ ] **Task 2: Native Capability Forge:** Implement process management and window control primitives.
 - [ ] **Task 3: WSL Client Integration:** Wire the Hermes HUD to trigger host-scoped commands via VSB.
+
+
+---
+**LINKS:** [[OS_CORE]]

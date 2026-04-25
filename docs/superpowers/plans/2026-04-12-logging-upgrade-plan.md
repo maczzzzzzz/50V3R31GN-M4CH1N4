@@ -27,3 +27,7 @@
 
 ---
 *Plan Issued by Gemini CLI (Strategist).*
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

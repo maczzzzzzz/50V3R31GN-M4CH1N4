@@ -47,3 +47,7 @@ The "Cold" lore is accessed via the **Shadow Search Interface**:
 
 ---
 **::/5Y573M-N071C3 : SPEC_V1_LOCKED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

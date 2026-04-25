@@ -24,3 +24,7 @@ This research enables the transition from text-only logs to **Tactical Screamshe
 
 ---
 **::/5Y573M-N071C3 : RESEARCH_FORMALIZED. THE_EYES_ARE_OPEN. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

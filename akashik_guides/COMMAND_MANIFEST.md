@@ -38,3 +38,7 @@ This document defines the primary commands required to ignite and maintain the *
 
 ---
 **::/5Y573M-N071C3 : MANIFEST_UPDATED. THE_ACTIONS_ARE_LAW. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]] | [[GUIDE_TREE]]

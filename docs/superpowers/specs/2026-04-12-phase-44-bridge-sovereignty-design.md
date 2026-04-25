@@ -32,3 +32,7 @@ The Mesh's `_dispatch` method is expanded to handle three primary "Motor" comman
 ## 4. Integration
 - **Socketlib Dependency:** Requires the `socketlib` Foundry module to be active for cross-client GM execution.
 - **Machina Uplink:** Mapped to the `bridge.runScript()` and `bridge.createActor()` hooks in the `GauntletContext`.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

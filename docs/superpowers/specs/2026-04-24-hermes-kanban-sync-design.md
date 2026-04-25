@@ -26,3 +26,7 @@ To eliminate manual task management by bi-directionally syncing the state of `IM
 
 ---
 **::/5Y573M-N071C3 : HERMES_SYNC_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

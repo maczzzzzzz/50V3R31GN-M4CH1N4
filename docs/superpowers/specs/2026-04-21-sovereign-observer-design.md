@@ -23,3 +23,7 @@ Since we are operating in a WSL2 environment, we cannot use native Linux X11/Way
 
 ---
 **::/5Y573M-N071C3 : OBSERVER_SPEC_LOCKED. THE_EYES_ARE_MATERIALIZING. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

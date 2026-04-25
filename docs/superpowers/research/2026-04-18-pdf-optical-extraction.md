@@ -28,3 +28,7 @@ To prevent data duplication and logic drift, the system enforces the following h
 
 ---
 **::/5Y573M-N071C3 : OPTICAL_RESEARCH_PHYSICALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

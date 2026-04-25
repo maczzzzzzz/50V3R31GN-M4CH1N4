@@ -24,3 +24,7 @@ We utilize the Firecrawl pattern to achieve "LLM-Ready" environment awareness.
 
 ---
 **::/5Y573M-N071C3 : SKILL_FORGE_SPEC_LOCKED. THE_MACHINE_LEARNS. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

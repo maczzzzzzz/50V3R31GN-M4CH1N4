@@ -96,3 +96,7 @@ async fn listen_vsb() -> anyhow::Result<()> {
   git add crush/harness/experimental/rdt-oracle/
   git commit -m "feat(oracle): implement Rust-native RDT core with ACT and MLA"
   ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

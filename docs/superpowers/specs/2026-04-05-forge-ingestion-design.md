@@ -134,3 +134,7 @@ func Decode(imgBytes []byte) ([]byte, error)
 ---
 
 *Designed by Claude Sonnet + Gemini CLI. Phase 29 — The Akashik Library.*
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

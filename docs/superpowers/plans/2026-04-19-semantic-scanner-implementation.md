@@ -85,3 +85,7 @@ func Distill(html string, url string) (string, error) {
   git add crush/harness/kernel/vsb_listener.go
   git commit -m "feat(vsb): link semantic scanner to VSB intent loop"
   ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

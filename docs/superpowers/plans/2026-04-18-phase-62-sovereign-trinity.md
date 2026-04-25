@@ -83,3 +83,7 @@ Create the Hermes Master service to compare Node B narrative outputs against the
 git add src/core/hermes/LogStepVerifier.ts
 git commit -m "feat(hermes): implement log-step hash verification for triad-wide auditing"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -61,3 +61,7 @@
   ```bash
   git commit -m "feat(vocal): full trinity vocal handshake verified"
   ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -186,3 +186,7 @@ Launch CLI and simulate an error (e.g. stop a required service). Verify visual c
 ```bash
 git commit -m "chore: finalize Sovereign Control Deck revision"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

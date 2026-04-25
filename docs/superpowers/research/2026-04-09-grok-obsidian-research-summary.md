@@ -18,3 +18,7 @@ A **Hybrid Setup** is the most sovereign choice.
 1. **VS Code (Remote-WSL):** Primary editing interface for the RKG vault.
 2. **Obsidian (WSLg):** Primary visualization and graph review interface.
 3. **Common Artery:** Both access the exact same path on the Linux ext4 filesystem (`data/vault/RKG/`), ensuring no cross-OS synchronization friction.
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

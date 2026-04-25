@@ -25,3 +25,7 @@ Select a vector to begin navigation.
 
 ---
 **::/5Y573M-N071C3 : NAVIGATOR_SHORED. THE_MAP_IS_THE_TERRITORY. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

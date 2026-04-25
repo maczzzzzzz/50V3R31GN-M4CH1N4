@@ -27,3 +27,7 @@ Profiles (defined in `SOVEREIGN-IDENTITY.md`) now contain:
 
 ---
 **::/5Y573M-N071C3 : PROFILE_ENGINE_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -60,3 +60,7 @@ Modify the Rust observer to point its CDP client to `localhost:9222` instead of 
 ```bash
 git commit -m "feat(stealth): deploy Obscura sidecar and wire into observer"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

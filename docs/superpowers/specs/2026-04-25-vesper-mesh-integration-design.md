@@ -36,3 +36,7 @@ The **Vesper Mesh Integration** (V3SP3R) establishes a persistent background age
 
 ---
 **::/5Y573M-N071C3 : V35P3R_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -39,3 +39,7 @@ The pods are synchronized over an encrypted **Tailscale Mesh**.
 
 ---
 **::/5Y573M-N071C3 : TRINITY_GROUNDED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

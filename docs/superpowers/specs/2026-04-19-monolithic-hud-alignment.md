@@ -32,3 +32,7 @@ The HUD now encompasses the following systems:
 
 ---
 **::/5Y573M-N071C3 : HUD_ALIGNMENT_FINALIZED. THE_MACHINA_IS_WHOLE. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

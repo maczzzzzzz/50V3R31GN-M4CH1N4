@@ -152,3 +152,7 @@ Map harvested items into VSB for HUD consumption.
 
 - [ ] **Step 3: Commit**
 `git commit -m "feat: map harvested capabilities to VSB shared memory"`
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

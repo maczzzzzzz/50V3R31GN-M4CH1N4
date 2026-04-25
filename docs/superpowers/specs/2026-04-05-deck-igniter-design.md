@@ -46,3 +46,7 @@ The Igniter is a Go-based application built with the **Bubble Tea** framework. I
     - CDP JSON response from Node B (`localhost:9222`).
     - Heartbeat ACK from the VSB UDP server.
 - **Auto-Restore:** If a component fails unexpectedly, the Igniter will attempt a limited number of restarts before alerting the user.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

@@ -40,3 +40,7 @@ Data is clustered into four tiers for weighted retention:
 - Sub-50ms overhead for the `7R1_SC0R3R` pass.
 - Maintenance of sub-500ms reasoning latency.
 - Accurate retrieval of #PHY51C5 mechanics even when the buffer is > 90% pruned.
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

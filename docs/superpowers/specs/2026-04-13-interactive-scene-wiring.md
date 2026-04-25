@@ -76,3 +76,7 @@ git add scripts/forge/assembler.ts scripts/dev/test-debris-roll.ts
 git commit -m "feat: tactical: implement dynamic debris/pathway obstruction"
 ```
 ---
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

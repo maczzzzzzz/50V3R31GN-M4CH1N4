@@ -50,3 +50,7 @@ Every script injected by the AI is first routed through **Node A (The Reasoner)*
 
 ---
 **::/5Y573M-N071C3 : TRU7H UN1F13D. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[02_deck_igniter]] | [[OS_CORE]]

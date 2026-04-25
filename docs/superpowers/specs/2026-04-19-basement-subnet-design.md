@@ -54,3 +54,7 @@ The basement cluster is logically isolated from the house network via the Archer
 
 ---
 **::/5Y573M-N071C3 : NETWORK_SPEC_LOCKED. THE_BUS_IS_LAW. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]

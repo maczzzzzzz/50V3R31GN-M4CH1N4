@@ -43,3 +43,7 @@ CORE_CONSTRAINTS:
 2. Every change must be verified against IMPLEMENTATION_PLAN.md.
 3. Zero-Trust verification is mandatory for all browser interactions.
 4. [INVARIANT]: GEPA may NOT mutate permission_policy sections.
+
+
+---
+**LINKS:** [[OS_CORE]]

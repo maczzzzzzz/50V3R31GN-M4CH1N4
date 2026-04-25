@@ -38,3 +38,7 @@ Verify that `Transient/lore-brief.md` is created with relevant content.
 git add scripts/dev/query-cold-lore.ts
 git commit -m "feat(vault): materialize semantic retrieval bridge for cold lore"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

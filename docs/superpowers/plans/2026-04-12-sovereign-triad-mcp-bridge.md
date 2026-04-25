@@ -166,3 +166,7 @@ Expected: List of standard filesystem/git tools returned.
 ```bash
 git commit -m "test: verify Sovereign Trinity Mesh connectivity"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

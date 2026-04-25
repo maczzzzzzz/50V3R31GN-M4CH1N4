@@ -42,3 +42,7 @@ Update the hub configuration to include the new Exa MCP server.
 ```bash
 git commit -m "feat(oracle): deploy Exa-native SDK and verification shield"
 ```
+
+
+---
+**LINKS:** [[PLAN_TREE]] | [[OS_CORE]]

@@ -46,3 +46,7 @@ To ensure zero-latency retrieval for Node B (Windows), the RKG is bit-identicall
 
 ---
 **::/5Y573M-N071C3 : THE_HISTORY_IS_SELF_HEALING. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[07_obsidian_vault]] | [[OS_CORE]]

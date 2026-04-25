@@ -20,3 +20,7 @@ OpenMythos introduces the Recurrent-Depth Transformer (RDT). Unlike traditional 
 
 ---
 **::/5Y573M-N071C3 : RESEARCH_FORMALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[RESEARCH_TREE]] | [[OS_CORE]]

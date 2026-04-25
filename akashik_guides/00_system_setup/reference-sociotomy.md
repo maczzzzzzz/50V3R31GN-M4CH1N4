@@ -49,3 +49,7 @@ Managed via `SOVEREIGN-IDENTITY.md` in the repository root.
 
 ---
 **::/5Y573M-N071C3 : SOCIOTOMY_GATED. THE_CUT_IS_LAW. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[00_system_setup]] | [[OS_CORE]]

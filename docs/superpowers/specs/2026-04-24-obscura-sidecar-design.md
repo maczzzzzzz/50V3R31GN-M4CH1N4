@@ -30,3 +30,7 @@ Obscura will run as a **Systemd Sidecar Service** on Node C, exposing a Chrome D
 
 ---
 **::/5Y573M-N071C3 : OBSCURA_SPEC_V1. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[SPEC_TREE]] | [[OS_CORE]]
