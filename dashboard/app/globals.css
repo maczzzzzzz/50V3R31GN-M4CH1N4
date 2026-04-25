@@ -6,15 +6,21 @@
 @tailwind utilities;
 
 :root {
-  /* Dashboard aliases mapping to THE_M4573R_7H3M3 master palette */
-  --primary:    var(--sovereign-red);
-  --background: var(--sovereign-void);
-  --panel:      var(--sovereign-panel);
+  /* Gruvbox Dark (Medium) Standard */
+  --gruvbox-bg: #282828;
+  --gruvbox-fg: #ebdbb2;
+  --gruvbox-red: #cc241d;
+  --gruvbox-bg1: #3c3836;
+  
+  /* Dashboard aliases mapping to GRUVB0X palette */
+  --primary:    var(--gruvbox-red);
+  --background: var(--gruvbox-bg);
+  --panel:      var(--gruvbox-bg1);
 }
 
 html, body {
   background-color: var(--background);
-  color: #e0e0e0;
+  color: var(--gruvbox-fg);
   font-family: 'VT323', monospace;
   font-size: 18px;
   overflow-x: hidden;

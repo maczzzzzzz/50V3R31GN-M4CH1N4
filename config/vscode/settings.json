@@ -1,0 +1,17 @@
+{
+    "workbench.colorTheme": "Gruvbox Dark Soft",
+    "editor.fontFamily": "'VT323', 'JetBrains Mono', 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "editor.lineHeight": 22,
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontFamily": "'VT323'",
+    "workbench.colorCustomizations": {
+        "[Gruvbox Dark Soft]": {
+            "editor.background": "#282828",
+            "sideBar.background": "#1d2021",
+            "activityBar.background": "#1d2021",
+            "statusBar.background": "#282828",
+            "statusBar.foreground": "#ebdbb2"
+        }
+    }
+}
