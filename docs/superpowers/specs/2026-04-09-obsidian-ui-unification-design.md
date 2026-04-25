@@ -1,9 +1,9 @@
-# 50V3R31GN-M4CH1N4: 0B51D14N_V1510N [R3D_V01D_SY573M]
+# 50V3R31GN-M4CH1N4: 0B51D14N_V1510N [Gruvbox_SY573M]
 **Version:** 2.0.0 (The Total Red Observability Milestone)
 **Phase:** 37 (Consolidated)
 
 ## ◈ OVERVIEW
-The **0B51D14N_V1510N** spec defines a unified machine-human interface. It bridges the **Recursive Knowledge Graph (RKG)** in `Akashik.db` with a high-fidelity Markdown vault while enforcing a project-wide **R3D_V01D** aesthetic across all tools (Obsidian, VS Code, Dashboard, and Foundry).
+The **0B51D14N_V1510N** spec defines a unified machine-human interface. It bridges the **Recursive Knowledge Graph (RKG)** in `Akashik.db` with a high-fidelity Markdown vault while enforcing a project-wide **Gruvbox** aesthetic across all tools (Obsidian, VS Code, Dashboard, and Foundry).
 
 ## ◈ ARCHITECTURE: [HYBR1D_50V3R31GN7Y]
 ### 1. The Human-Machine Loop
@@ -11,7 +11,7 @@ The **0B51D14N_V1510N** spec defines a unified machine-human interface. It bridg
 - **Visual Monitor:** Obsidian (WSLg) for graph visualization and narrative review.
 - **Sync Artery:** `Akashik-Sync-Engine` (Node.js) watches `data/vault/RKG/` for changes, updating the SQLite DB in real-time.
 
-### 2. THE_M4573R_7H3M3 (R3D_V01D)
+### 2. THE_M4573R_7H3M3 (Gruvbox)
 - **Base Color:** `#0a0a0a` (Deep Void Black).
 - **Accent Color:** `#ff1a1a` (Sovereign Red).
 - **Secondary Accent:** `#440000` (Dried Blood).

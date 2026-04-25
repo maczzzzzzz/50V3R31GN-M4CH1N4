@@ -1,8 +1,8 @@
-# Implementation Plan: 0B51D14N_V1510N & R3D_V01D Unification
+# Implementation Plan: 0B51D14N_V1510N & Gruvbox Unification
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans to implement this task-by-task.
 
-**Goal:** Finalize the Phase 37 Obsidian Vault integration and unify all project UI themes (Obsidian, VS Code, Dashboard, Foundry) into the **R3D_V01D** aesthetic.
+**Goal:** Finalize the Phase 37 Obsidian Vault integration and unify all project UI themes (Obsidian, VS Code, Dashboard, Foundry) into the **Gruvbox** aesthetic.
 
 ---
 
@@ -16,7 +16,7 @@ Update `flake.nix` or the dev shell to ensure `VT323`, `Hack`, and `JetBrains Mo
 - [ ] **Step 3: Commit**
 ```bash
 git add src/shared/ flake.nix
-git commit -m "feat(theme): Initialize THE_M4573R_7H3M3 [R3D_V01D] and font-scaffolding"
+git commit -m "feat(theme): Initialize THE_M4573R_7H3M3 [Gruvbox] and font-scaffolding"
 ```
 
 ---
@@ -31,7 +31,7 @@ Configure VS Code to prefer `JetBrains Mono` for standard code and `VT323` for M
 - [ ] **Step 3: Commit**
 ```bash
 git add .vscode/settings.json
-git commit -m "feat(vscode): Align workspace UI with R3D_V01D theme"
+git commit -m "feat(vscode): Align workspace UI with Gruvbox theme"
 ```
 
 ---
@@ -61,7 +61,7 @@ Inject the Sovereign Red variables into the Foundry module's `styles/` directory
 - [ ] **Step 3: Commit**
 ```bash
 git add dashboard/ foundry-module/
-git commit -m "feat(ui): Unify Dashboard and Foundry with R3D_V01D artery"
+git commit -m "feat(ui): Unify Dashboard and Foundry with Gruvbox artery"
 ```
 
 ---
