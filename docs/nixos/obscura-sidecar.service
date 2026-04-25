@@ -4,18 +4,18 @@ After=network.target
 
 [Service]
 Type=simple
-User=nixos
-WorkingDirectory=/home/nixos/50V3R31GN-M4CH1N4
+User=maczz
+WorkingDirectory=/home/maczz/50V3R31GN-M4CH1N4
 
 # Obscura serve exposes a CDP WebSocket on --port 9222.
 # Compiled with --features stealth for TLS fingerprint spoofing +
 # canvas/GPU randomization + 3,520 tracker domain blocking.
-ExecStart=/home/nixos/50V3R31GN-M4CH1N4/result/bin/obscura serve --port 9222
+ExecStart=/home/maczz/50V3R31GN-M4CH1N4/result/bin/obscura serve --port 9222
 
 Restart=always
 RestartSec=5
-StandardOutput=append:/home/nixos/50V3R31GN-M4CH1N4/data/logs/obscura-sidecar.log
-StandardError=append:/home/nixos/50V3R31GN-M4CH1N4/data/logs/obscura-sidecar.log
+StandardOutput=append:/home/maczz/50V3R31GN-M4CH1N4/data/logs/obscura-sidecar.log
+StandardError=append:/home/maczz/50V3R31GN-M4CH1N4/data/logs/obscura-sidecar.log
 
 [Install]
 WantedBy=multi-user.target
