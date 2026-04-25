@@ -77,23 +77,6 @@ cd ..
 # ◈ STAGE 6: HERMES TUI (Primary OS Shell)
 # ---------------------------------------------------------------------------
 echo "  [stage 6] Igniting Hermes TUI (hub)..."
-nix develop -c npm run hub > "$LOG_DIR/hermes-hub.log" 2>&1 &
-
-# ---------------------------------------------------------------------------
-# ◈ VERIFICATION
-# ---------------------------------------------------------------------------
-echo -e "\n◈ WAITING FOR STABILIZATION (45s)..."
-sleep 45
-
-echo -e "\n◈ SYSTEM STATUS AUDIT:"
-echo -n "  Node A (Optical): "
-curl -s http://localhost:8082/health | grep -o "online" || echo "FAILED"
-
-echo -n "  Node B (Director): "
-powershell.exe -Command "(Invoke-WebRequest -Uri 'http://localhost:8080/health' -UseBasicParsing).StatusCode" 2>/dev/null | grep -q "200" && echo "ok" || echo "FAILED"
-
-echo -n "  Node C (Oracle): "
-curl -s http://localhost:7340/status | grep -q "quantization" && echo "ok" || echo "FAILED (Artery Manager)"
-
-echo -e "\n::/5Y573M-N071C3 : IGNITION_COMPLETE. SYSTEM_LIVE_FIRE_READY."
-echo "Logs available at: $LOG_DIR"
+echo "::/5Y573M-N071C3 : SYSTEM_DEFAULT_BOOT -> [SOVEREIGN_OS]"
+echo "◈ COMMAND_MANTRAS: /status /profile /vault /ship"
+nix develop -c npm run hub
