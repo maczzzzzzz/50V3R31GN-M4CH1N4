@@ -45,3 +45,7 @@ The deprecated build featured a 7-step guided wizard with deep Foundry integrati
 2. **Asynchronous Narrative:** Node B (Orchestrator) must handle prose generation *outside* the critical path of mechanical roll resolution.
 3. **Zod Validation:** All data crossing the node boundary must be strictly typed to prevent the "Narrative Drift" seen in the previous build.
 4. **Local-First Verification:** Avoid all cloud dependencies (Supabase/OpenRouter) to maintain 100% local runtime stability.
+
+
+---
+**LINKS:** [[OS_CORE]]

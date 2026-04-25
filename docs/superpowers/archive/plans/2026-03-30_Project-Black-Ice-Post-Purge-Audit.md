@@ -38,3 +38,7 @@ The infrastructure transition is **Physically Complete** (Postgres is gone), but
 **Action Required:** Proceed to fix the FTS5 population logic in ZeroClaw to restore RAG capabilities.
 
 **I have NOT pushed these changes to the remote repository.** 
+
+
+---
+**LINKS:** [[OS_CORE]]

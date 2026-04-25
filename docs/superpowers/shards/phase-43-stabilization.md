@@ -21,3 +21,7 @@ Triggers `bash scripts/reconstruct-palace.sh` to semanticly reconstruct the RKG 
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/data-block.ts`
 - **Path:** `D:\Obsidian_RKG` (Default)
+
+
+---
+**LINKS:** [[OS_CORE]]

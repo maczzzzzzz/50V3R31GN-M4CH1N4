@@ -172,3 +172,7 @@ Expected: PASS
 git add tests/integration/
 git commit -m "test: add zeroclaw e2e integration test"
 ```
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -27,3 +27,6 @@ Standard RAG retrieval injects too much noise into the system prompt.
 *   **`AgenticPipelineController` (Node B):** An upgrade to the `HybridRoutingController`. It manages the Producer-Consumer queues, ensuring Node A's outlines are smoothly handed off to Node B's rendering engine.
 *   **`LinguisticCompressionService` (Shared):** A lightweight utility that generates and decodes deterministic linguistic seeds for node-to-node communication.
 *   **`HyperstitionalSeeder` (Node B):** Hooks into the `UnifiedStrategic OracleClient` to track term frequency and calculate latent weights for RAG injections.
+
+---
+**LINKS:** [[OS_CORE]]

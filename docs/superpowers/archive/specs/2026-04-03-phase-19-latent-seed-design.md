@@ -34,3 +34,7 @@ The existing Node B ST3GG logic is ported to ZeroClaw (Rust) for 100x performanc
 - [ ] ST3GG Rust can encode/decode 1KB of data in <10ms.
 - [ ] Maps can be reconstructed solely from their image pixels.
 - [ ] NPC dialogue tone shifts measurably based on active conceptual seeds.
+
+
+---
+**LINKS:** [[OS_CORE]]

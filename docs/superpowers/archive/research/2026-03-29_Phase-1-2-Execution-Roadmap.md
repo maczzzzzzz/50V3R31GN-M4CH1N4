@@ -41,3 +41,7 @@
 2.  **Green Phase:** Implement the parsers and verified Node A handshake.
 3.  **Refactor Phase:** Ensure all metadata fields (`source_ref`, `context_type`, `capability_req`) are populated according to the **Metadata Mandate**.
 4.  **Final Integration:** Verify the `stdio` MCP connection within the Crush CLI.
+
+
+---
+**LINKS:** [[OS_CORE]]

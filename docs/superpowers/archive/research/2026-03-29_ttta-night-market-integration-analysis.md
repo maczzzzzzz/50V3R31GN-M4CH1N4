@@ -67,3 +67,7 @@ The TTTA module specifies a +1 Reputation bonus for purchasing clothing. The tra
 This UI proposal perfectly aligns with the **Immersion Mandate**. It offloads the complex conversion math to the engine while providing a highly tactile experience for the players.
 
 **Implementation Goal:** Scaffold the `FoundryAdapter` in Phase 3 to listen for these specific UI purchase events.
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -53,3 +53,7 @@ If the player is reduced to 0 HP or surrenders during a Red Trade run:
 ## 5. Implementation Boundaries
 - **No Meta-Menus:** All choices must be native to Foundry chat or standard Dialogs.
 - **No Cloud:** All cargo and faction data must remain in local SQLite files.
+
+
+---
+**LINKS:** [[OS_CORE]]

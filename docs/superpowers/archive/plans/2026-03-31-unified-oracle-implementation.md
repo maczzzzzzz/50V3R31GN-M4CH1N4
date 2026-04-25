@@ -26,3 +26,7 @@
 - **Objective:** Delete `NitroDbClient` and refactor all consumers (`NightMarketService`, `MCP:nitro-db`) to use the `UnifiedStrategic OracleClient`.
 - **Cleanup:** Remove the last remaining references to `pg` or `pgvector`.
 - **Success:** 274/274 baseline tests passing with the new backend.
+
+
+---
+**LINKS:** [[OS_CORE]]

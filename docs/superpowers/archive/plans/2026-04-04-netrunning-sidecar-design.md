@@ -34,3 +34,7 @@ The sidecar is a modular component managed by the **Crush CLI**, synchronized vi
 ## 4. Metadata
 - **Co-Authored-By:** Claude Sonnet <noreply@anthropic.com>
 - **Co-Authored-By:** Gemini CLI <gemini-cli@google.com>
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -59,3 +59,7 @@ This manifest details the critical logical drifts and security vulnerabilities i
 
 ---
 **::/5Y573M-N071C3 : FIXED_TRU7H_M4N1F357_5UBM1773D. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

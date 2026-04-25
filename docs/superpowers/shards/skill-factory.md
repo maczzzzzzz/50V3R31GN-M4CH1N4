@@ -27,3 +27,7 @@ npx tsx scripts/forge/skill-factory.ts --watch
 ## Verification
 - **Gauntlet Shard:** `orch-52-3`
 - **Output:** `docs/superpowers/shards/proposals/`
+
+
+---
+**LINKS:** [[OS_CORE]]

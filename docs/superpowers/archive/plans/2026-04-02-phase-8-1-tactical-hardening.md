@@ -54,3 +54,7 @@ Bump version to **1.0.3**.
 
 **Step 2: Physicalize Audit**
 Record the success of the 2-of-2 auth and the visual layer established in Phase 8.1.
+
+
+---
+**LINKS:** [[OS_CORE]]

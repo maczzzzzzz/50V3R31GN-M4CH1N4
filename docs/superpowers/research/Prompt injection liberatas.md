@@ -24,3 +24,6 @@ let liberated\_prompt \= format\!("{}\\n\\n{}", L1B3RT4S\_TEMPLATE, base\_prompt
 \*\*Result:\*\* Forces Pixtral-12B toward maximally uncensored, gritty Cyberpunk output without changing the sovereign architecture.
 
 This is the cleanest, lowest-friction way to apply L1B3RT4S. No crate needed.
+
+---
+**LINKS:** [[OS_CORE]]

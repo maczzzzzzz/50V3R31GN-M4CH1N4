@@ -21,3 +21,7 @@ Captures an NPC engram snapshot via Node B vision by analyzing the Foundry NPC p
 - **Source:** `scripts/gauntlet/phases/nar-block.ts`
 - **Subsystem:** Soulkiller
 - **Pattern:** Engram Capture
+
+
+---
+**LINKS:** [[OS_CORE]]

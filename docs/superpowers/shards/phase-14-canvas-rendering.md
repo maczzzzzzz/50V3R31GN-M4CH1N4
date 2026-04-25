@@ -22,3 +22,7 @@ Forces a canvas redraw by triggering a `canvas.draw()` call via the bridge.
 - **Source:** `scripts/gauntlet/phases/vis-block.ts`
 - **Engine:** PIXI.js
 - **Context:** Foundry VTT (CDP)
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -31,3 +31,7 @@ Phase 29: "The Forge" has been successfully implemented and verified. The system
 
 ---
 *Verified by Gemini CLI v3.4.2 Strategist.*
+
+
+---
+**LINKS:** [[OS_CORE]]

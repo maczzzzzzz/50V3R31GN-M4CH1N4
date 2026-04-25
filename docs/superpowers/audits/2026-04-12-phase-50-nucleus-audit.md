@@ -45,3 +45,7 @@
 
 ---
 *Signed by the Sovereign Strategist v3.4.2.*
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -86,3 +86,7 @@
 - Run `/scan`.
 - Start combat.
 - Verify AI narrates using grounded tactical regions (e.g. "The gangers hide behind the concrete barrier").
+
+
+---
+**LINKS:** [[OS_CORE]]

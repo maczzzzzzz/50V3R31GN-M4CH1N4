@@ -41,3 +41,6 @@ While you are right that I (and Claude) can generate Nix expressions, there is o
 
 **Grounded Assessment:** You have reached the "Senior Dev" stage of the project where you stop fighting the OS and start commanding it. Moving Node A to a Nix sandbox is the only way to guarantee that the "Judge" remains a deterministic, immutable rules-oracle.  
 Should we begin the **flake.nix** architecture to define the CUDA environment and the **Bubblewrap** sandbox for your Node A?
+
+---
+**LINKS:** [[OS_CORE]]

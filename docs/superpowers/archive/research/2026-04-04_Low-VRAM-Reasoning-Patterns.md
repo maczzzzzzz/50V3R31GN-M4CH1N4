@@ -30,3 +30,7 @@ Based on hardware constraints, we are adopting a three-tier execution model:
 - **AirLLM Repo:** https://github.com/0xSojalSec/airllm
 - **Open-Reasoner-Zero:** https://github.com/Open-Reasoner-Zero/Open-Reasoner-Zero
 - **Prima.cpp Paper:** https://arxiv.org/abs/2504.08791
+
+
+---
+**LINKS:** [[OS_CORE]]

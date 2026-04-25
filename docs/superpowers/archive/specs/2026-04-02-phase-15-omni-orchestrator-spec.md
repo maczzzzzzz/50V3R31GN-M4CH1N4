@@ -26,3 +26,7 @@ Replaces `SovereignCognitionClient` and `TacticalVisionService` with a single `O
 ## 4. Continuity & Fallback
 - **Rules Sync:** Continues to use **Node A (ZeroClaw)** for deterministic math via the binary bridge.
 - **Safe Mode:** Reverts to the modular v3.4.2 stack if VRAM saturation exceeds 98%.
+
+
+---
+**LINKS:** [[OS_CORE]]

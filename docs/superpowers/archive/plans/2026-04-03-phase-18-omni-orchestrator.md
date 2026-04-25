@@ -244,3 +244,6 @@ Expected: PASS
 git add src/core/hybrid-routing-controller.ts src/shared/schemas/foundry-bridge.schema.ts
 git commit -m "feat(orchestrator): implement Intent Swarm evaluation and TaskRouterProxy integration"
 ```
+
+---
+**LINKS:** [[OS_CORE]]

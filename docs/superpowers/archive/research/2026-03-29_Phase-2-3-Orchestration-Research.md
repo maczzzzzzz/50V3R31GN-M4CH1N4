@@ -58,3 +58,7 @@ All responses from **Node A (nitro-logic)** must be validated via Zod on **Node 
 - [ ] Scaffold `src/core/rules-engine.ts` to handle the Llama.cpp CoT prompt generation.
 - [ ] Implement `src/api/foundry-adapter.ts` for WebSocket communication.
 - [ ] Ensure all Node A prompts are injected with `temperature: 0.0`.
+
+
+---
+**LINKS:** [[OS_CORE]]

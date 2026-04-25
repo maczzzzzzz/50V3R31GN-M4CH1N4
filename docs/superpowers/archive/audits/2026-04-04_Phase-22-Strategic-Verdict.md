@@ -38,3 +38,7 @@ The architecture is **Surgical, Fast, and Factually Grounded**. It leverages the
 *Verified by Gemini CLI v3.4.2.*
 *Co-Authored-By: Claude Sonnet <noreply@anthropic.com>*
 *Co-Authored-By: Gemini CLI <gemini-cli@google.com>*
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -59,3 +59,6 @@ The glitch logic strictly aligns with the D10 mechanics. Triggers are based on t
 1.  **Node B Unit Tests:** Verify `hybrid-routing-controller` formatting and payload generation for `netDamage >= 15` and drug consumption.
 2.  **Mistral-Nemo Validation:** Ensure LLM generates valid JSON with lore text and FX parameters.
 3.  **Foundry Integration Tests:** Verify `PretextOverlayManager` rendering, confirm 0 DOM reflows via Chrome DevTools, and ensure FXMaster shaders apply correctly to the canvas.
+
+---
+**LINKS:** [[OS_CORE]]

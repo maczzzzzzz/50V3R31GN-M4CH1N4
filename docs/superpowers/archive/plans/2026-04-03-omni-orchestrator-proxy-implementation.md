@@ -98,3 +98,6 @@ export class SensoryFilter {
 git add foundry-module/scripts/sensory-filter.js
 git commit -m "feat(foundry): implement SensoryFilter to cull invisible entities for AI state loop"
 ```
+
+---
+**LINKS:** [[OS_CORE]]

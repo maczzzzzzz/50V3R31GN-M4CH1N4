@@ -107,3 +107,6 @@ The cluster operates using the **POD (Portable Operation Descriptor)** logic ext
 3. **Capsule Snapshots:** Nightly zips of the KV-store are mandatory for world-state persistence.
 
 **This concludes the Black-Ice Mission Brief. Initialization begins with the floor run tomorrow.**
+
+---
+**LINKS:** [[OS_CORE]]

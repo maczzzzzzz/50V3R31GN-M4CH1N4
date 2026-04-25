@@ -21,3 +21,7 @@ Seeds a test duel record and executes a simulated pulse propagation to verify th
 - **Source:** `scripts/gauntlet/phases/data-46.ts`
 - **Metric:** `sovereignty_depth` (0.0 to 1.0)
 - **Dependency:** `duel_history` table
+
+
+---
+**LINKS:** [[OS_CORE]]

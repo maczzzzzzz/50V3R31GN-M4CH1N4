@@ -174,3 +174,7 @@ Expected: PASS
 ```bash
 git commit -m "feat(sovereign): implement full end-to-end Sovereign Loop"
 ```
+
+
+---
+**LINKS:** [[OS_CORE]]

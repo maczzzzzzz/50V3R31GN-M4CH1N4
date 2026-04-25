@@ -22,3 +22,7 @@ Forces an assembly of the `megabuilding-3x3` preset and renders an ASCII schemat
 - **Source:** `scripts/gauntlet/phases/orch-54-2.ts`
 - **Logic:** Greedy Compatible Selection
 - **Output:** `Blueprint` JSON Object
+
+
+---
+**LINKS:** [[OS_CORE]]

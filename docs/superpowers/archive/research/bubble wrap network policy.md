@@ -41,3 +41,6 @@ If you want to be truly "Hard-Line Cyberpunk," we can leverage **Node B (The Dir
 
 Using **Nix Flakes** is the best way to handle this. It allows you to "fetch" the repository updates in a secure, isolated build-step, while keeping the **Llama 3.1 3B** process in a network-less jail.  
 Shall we include the **GitHub repository input** in the flake.nix draft to ensure Node A stays synced without exposing the "Judge" to the open web?
+
+---
+**LINKS:** [[OS_CORE]]

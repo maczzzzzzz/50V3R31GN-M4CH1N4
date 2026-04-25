@@ -25,3 +25,7 @@
 
 ---
 *Roadmap Managed by Gemini CLI.*
+
+
+---
+**LINKS:** [[OS_CORE]]

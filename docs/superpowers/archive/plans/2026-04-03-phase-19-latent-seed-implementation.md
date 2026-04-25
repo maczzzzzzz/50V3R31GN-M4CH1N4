@@ -56,3 +56,7 @@ Create `SeedController.getPromptBias(district)` which performs a similarity sear
 
 **Step 3: Integrate with Story Engine**
 Inject the bias string into Mistral-Nemo's narrative generation loop.
+
+
+---
+**LINKS:** [[OS_CORE]]

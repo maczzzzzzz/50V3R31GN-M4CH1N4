@@ -22,3 +22,7 @@ Manually triggers a genetic optimization pass on the current `SOUL.jsonl` datase
 - **Source:** `scripts/gauntlet/phases/orch-53-2.ts`
 - **Pattern:** DSPy / GEPA (Genetic Prompt Optimization)
 - **Target:** `nix/identities.nix`
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -26,3 +26,7 @@ The Architect uses the `Runtime.evaluate` domain to call internal Foundry v12 cl
 - `materialize_token(actor_id, x, y)`
 - `materialize_geometry(coordinates[])`
 - `sync_atmosphere(hex_code, intensity)`
+
+
+---
+**LINKS:** [[OS_CORE]]

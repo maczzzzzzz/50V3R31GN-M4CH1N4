@@ -48,3 +48,7 @@ To achieve "Bulletproof" connectivity, we will adopt the **JSON-RPC Reverse Prox
 Peak functionality in Crush CLI is achieved by treating the terminal not just as a text logger, but as a **High-Fidelity Dashboard**. By returning styled Markdown and leveraging the persistent session SQLite, we fulfill the **Immersion Mandate** for the GM while maintaining the **100% Local** and **Split-Node** requirements.
 
 **Actionable:** Update the `nitro-db` and `nitro-logic` implementation specs to prioritize **Markdown-wrapped results**.
+
+
+---
+**LINKS:** [[OS_CORE]]

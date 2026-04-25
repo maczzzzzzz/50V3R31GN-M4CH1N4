@@ -48,3 +48,7 @@ This audit identifies four critical vulnerability vectors and mandates immediate
 **The Sovereign Highway is powerful but brittle.** To safely deploy **Vesper Shadow Mode**, we must first harden the protocol boundaries. Phase 30 will now include the "Vesper Protocol" alongside critical security hardening. 
 
 *Audit performed by Gemini CLI (Strategist).*
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -22,3 +22,7 @@ Triggers a manual aesthetic analysis of the current page to verify the vision pi
 - **Source:** `scripts/gauntlet/phases/vis-block.ts`
 - **Engine:** Pixtral-12B (VLM)
 - **Signal:** `THEME_CLEAN` vs `THEME_LEAK`
+
+
+---
+**LINKS:** [[OS_CORE]]

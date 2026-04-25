@@ -27,3 +27,7 @@ The project has successfully exited Phase 2 (Rules Authority MCP Mesh).
 Phase 2 is a massive success. We now have a "Distributed GM Command Center" that can correctly and deterministically calculate Cyberpunk RED combat math using an LLM on a different machine.
 
 **Recommendation:** Proceed to Phase 3: Foundry Mesh & Immersion UI. Focus on the `FoundryAdapter` (Palantiri-style reverse proxy) and mapping the MCP tool results to the VTT chat.
+
+
+---
+**LINKS:** [[OS_CORE]]

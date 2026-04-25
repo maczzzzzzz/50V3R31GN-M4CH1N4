@@ -41,3 +41,7 @@ The legacy PostgreSQL stack has been completely decommissioned, and Node A now o
 The 50V3R31GN-M4CH1N4 is now in its most stable and performant state since inception. The infrastructure is primed for the massive simulation tasks of Phase 5 (Red Trade) and Phase 6 (Living City).
 
 **Final Status:** ALL SYSTEMS GO. 🟢
+
+
+---
+**LINKS:** [[OS_CORE]]

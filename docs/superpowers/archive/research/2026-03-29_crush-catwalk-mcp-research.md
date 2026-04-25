@@ -58,3 +58,7 @@ For reliable tool invocation, the following parameters must be set in the orches
 
 ## 4. Conclusion & Actionable Items
 The **`nitro-db`** and **`nitro-logic`** MCP servers must be built as `stdio` transport servers to be compatible with Crush. The orchestrator must enforce the Mistral-Nemo handshake logic to ensure the "No Creep" contract is maintained across the split-node architecture.
+
+
+---
+**LINKS:** [[OS_CORE]]

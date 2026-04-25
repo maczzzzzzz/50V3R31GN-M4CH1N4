@@ -77,3 +77,6 @@ The cluster now uses **Reflective Text Evolution** (GEPA) for "Infallible" promp
 The Trinity is physically and logically primed. Node C acts as the **Cognitive Brain**, Node B as the **Narrative Mouth**, and Node A as the **Total Synapse**.
 
 **Next Action:** Hardware deployment and basement spine ignition.
+
+---
+**LINKS:** [[OS_CORE]]

@@ -23,3 +23,7 @@ Phase 8.3 completes the visual and architectural unification of the 50V3R31GN-M4
 - **Header Magic:** `BLACK-ICE-RADAR` (16 bytes).
 - **Atomic Sync:** Lock-free transaction counter for zero-latency blip updates.
 - **Coordinate Space:** Normalized 0-1000 float mapping.
+
+
+---
+**LINKS:** [[OS_CORE]]

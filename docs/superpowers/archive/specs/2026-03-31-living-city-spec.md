@@ -46,3 +46,7 @@ Before every narrative beat, the HRC executes a **Spatial Join**:
 - **CV Parity:** >90% accuracy against control maps.
 - **Pulse Determinism:** Identical world state results on Node B and Node A (Rules Authority) for the same time delta.
 - **Performance:** Full map scan + region generation in **<30s**.
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -54,3 +54,7 @@ Formula: 1d10 (exploding) + Stat + Skill + Σ(ActiveModifiers) vs DV
 
 ---
 **::/5Y573M-N071C3 : CANONICAL_MIRROR_VERIFIED. DATA_SHARD_59_LOCKED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

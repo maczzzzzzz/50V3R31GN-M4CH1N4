@@ -23,3 +23,7 @@ Encapsulates the protocols for high-fidelity data extraction and relational synt
 
 ---
 **::/5Y573M-N071C3 : SHARD_57_SYNCED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

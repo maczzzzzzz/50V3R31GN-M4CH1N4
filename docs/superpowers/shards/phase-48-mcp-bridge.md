@@ -22,3 +22,7 @@ Restarts the MCP daemon using `tsx scripts/dev/mcp-daemon.ts` to re-establish th
 - **Source:** `scripts/gauntlet/phases/orch-48.ts`
 - **Port:** 3030
 - **Pattern:** Shared Agentic Awareness
+
+
+---
+**LINKS:** [[OS_CORE]]

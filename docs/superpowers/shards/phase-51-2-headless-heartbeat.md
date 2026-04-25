@@ -23,3 +23,7 @@ Attempts a 2-stage autonomous repair:
 - **Source:** `scripts/gauntlet/phases/orch-51-2.ts`
 - **Mechanism:** Mmap / Heartbeat
 - **Target Latency:** <33ms (30Hz)
+
+
+---
+**LINKS:** [[OS_CORE]]

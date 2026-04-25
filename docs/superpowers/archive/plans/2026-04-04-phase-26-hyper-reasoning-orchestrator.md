@@ -38,3 +38,6 @@ Update `NitroLogicClient` to parse `<think>` tokens from the response stream (or
 
 - [ ] **Step 2: Crush CLI Display**
 Send the reasoning text via VSB or IPC to the Crush `auth_pane.go` to render it in real-time or as an expanding markdown block.
+
+---
+**LINKS:** [[OS_CORE]]

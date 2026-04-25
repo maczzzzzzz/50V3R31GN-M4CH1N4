@@ -20,3 +20,7 @@ Onboards a new NPC into the story engine via the Foundry bridge, setting the `la
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/nar-block.ts`
 - **Context:** Narrative Arc Tracking
+
+
+---
+**LINKS:** [[OS_CORE]]

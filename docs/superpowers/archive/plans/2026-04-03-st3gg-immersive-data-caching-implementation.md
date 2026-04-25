@@ -325,3 +325,6 @@ runDecryption();
 git add foundry-module/scripts/macros/decrypt-st3gg.js
 git commit -m "feat(foundry): add client macro for ST3GG decryption"
 ```
+
+---
+**LINKS:** [[OS_CORE]]

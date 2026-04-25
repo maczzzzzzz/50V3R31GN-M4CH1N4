@@ -58,3 +58,7 @@ The current implementation of `server.tool` in the SDK might not be throwing an 
 
 Run: `$env:NODE_A_HOST='192.168.0.50'; $env:NODE_A_PASSWORD='ch00m'; npx tsx tests/db/phase4-preflight.ts`
 Expected: 🟢 PASS on all three tests.
+
+
+---
+**LINKS:** [[OS_CORE]]

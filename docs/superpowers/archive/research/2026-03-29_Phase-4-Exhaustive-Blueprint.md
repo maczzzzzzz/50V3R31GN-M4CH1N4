@@ -147,3 +147,6 @@ export const StoryStateSchema = z.object({
 
 ## 7. Conclusion
 Phase 4 is strictly an orchestration phase. It requires no new machine learning models or vector databases. The success of this phase relies entirely on the robustness of the TypeScript logic in `src/core/story-engine.ts`, `src/api/foundry-adapter.ts`, and the strict enforcement of Zod schemas crossing the Node A/B boundary, integrating the precise modules listed above.
+
+---
+**LINKS:** [[OS_CORE]]

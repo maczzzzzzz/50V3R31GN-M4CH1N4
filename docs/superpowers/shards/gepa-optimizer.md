@@ -36,3 +36,7 @@ npm run forge:gepa:dry    # preview without writing
 ## Verification
 - **Gauntlet Shard:** `orch-53-2` (Evolution-Verification)
 - **Test:** Generates evolved soul from synthetic patterns, validates Nix syntax, patches fixture file.
+
+
+---
+**LINKS:** [[OS_CORE]]

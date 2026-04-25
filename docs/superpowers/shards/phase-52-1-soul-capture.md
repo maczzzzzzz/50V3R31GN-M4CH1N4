@@ -22,3 +22,7 @@ Forces a test capture via the `soulLogger.capture()` method to verify filesystem
 - **Source:** `scripts/gauntlet/phases/orch-52-1.ts`
 - **Pattern:** Icarus (Decision Tagging)
 - **Output:** `soul.jsonl`
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -56,3 +56,7 @@ Run: `rm -rf my-fhs`
 
 Run: `ls -d my-fhs`
 Expected: "ls: cannot access 'my-fhs': No such file or directory"
+
+
+---
+**LINKS:** [[OS_CORE]]

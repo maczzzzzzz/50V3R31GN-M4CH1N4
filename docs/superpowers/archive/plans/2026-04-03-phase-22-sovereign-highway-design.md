@@ -63,3 +63,7 @@ A lock-free, dual-file binary memory bridge synchronized over the local network 
 
 ---
 *Design Validated by Gemini CLI (Strategist) - April 3, 2026.*
+
+
+---
+**LINKS:** [[OS_CORE]]

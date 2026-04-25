@@ -57,3 +57,7 @@
 - Verify that a new Actor appears in the Foundry sidebar with correct stats and gear.
 
 **Step 3: Commit**
+
+
+---
+**LINKS:** [[OS_CORE]]

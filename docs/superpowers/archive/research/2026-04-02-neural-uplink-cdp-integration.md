@@ -29,3 +29,7 @@ Traditional "Mesh" modules are limited by the security sandbox of the Foundry VT
 
 ## 4. Conclusion
 The Neural Uplink is the "Final Layer" of TRPG immersion. It enables the AI to transition from a chat assistant to the **Operating System of the Game.**
+
+
+---
+**LINKS:** [[OS_CORE]]

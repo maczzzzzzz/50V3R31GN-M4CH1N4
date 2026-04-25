@@ -22,3 +22,7 @@ The NARRATIVE block ensures the integrity of the system's "mind." It verifies th
 - **Engine:** Pixtral-12B (Node B)
 - **Artery of Truth:** SQLite (Akashik.db)
 - **Pattern:** AAAK Dialect
+
+
+---
+**LINKS:** [[OS_CORE]]

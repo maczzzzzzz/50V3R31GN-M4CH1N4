@@ -46,3 +46,7 @@ Phase 6 leverages the **Foundry VTT v12 Scene Regions API** for territory manage
 Phases 5 and 6 shift the project from a "Game Assistant" to a "World Simulator." By grounding the economy in Tap-Sink math and the city in Scene Regions, we fulfill the **Immersion Mandate** while maintaining 100% local stability.
 
 **Quarantine Status:** These systems remain quarantined. Implementation starts only after Phase 4 MVP Sign-off.
+
+
+---
+**LINKS:** [[OS_CORE]]

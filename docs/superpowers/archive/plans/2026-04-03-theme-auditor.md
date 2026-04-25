@@ -746,3 +746,7 @@ npm run audit:theme:dry
 ## Hand-off Note (CLAUDE.md Protocol)
 
 Per partnership protocol: after Tasks 1–5 are coded, **HALT and hand off to Gemini for Audit/Verification**. Gemini runs `vitest run` and `tsx scripts/theme-auditor.ts --dry-run` against the live Foundry window. Do not assume success until Gemini returns a passing audit report.
+
+
+---
+**LINKS:** [[OS_CORE]]

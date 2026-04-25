@@ -59,3 +59,7 @@
 - Trigger a `/scan`; verify AI describes the map tokens correctly.
 
 **Step 3: Commit**
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -23,3 +23,7 @@ Dispatches a test `pretext_overlay` and `pretext_glitch_impulse` through the bri
 - **Source:** `scripts/gauntlet/phases/vis-block.ts`
 - **Shader:** `sovereign-shroud.frag`
 - **Font:** VT323 (Bitmap Atlas)
+
+
+---
+**LINKS:** [[OS_CORE]]

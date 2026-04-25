@@ -27,3 +27,7 @@ Every "Click-to-Generate" action in the **Atlas Radar** triggers a three-stage P
 ## 4. Metadata
 - **Co-Authored-By:** Claude Sonnet <noreply@anthropic.com>
 - **Co-Authored-By:** Gemini CLI <gemini-cli@google.com>
+
+
+---
+**LINKS:** [[OS_CORE]]

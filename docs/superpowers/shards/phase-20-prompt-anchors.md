@@ -21,3 +21,7 @@ Forces a context rebuild by triggering `reconstruct-palace.sh --context-only`.
 - **Source:** `scripts/gauntlet/phases/nar-block.ts`
 - **Dialect:** AAAK (170-token Identity)
 - **Dependency:** `scripts/reconstruct-palace.sh`
+
+
+---
+**LINKS:** [[OS_CORE]]

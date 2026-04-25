@@ -141,3 +141,6 @@ export class AgenticPipelineController {
 git add src/core/agentic-pipeline-controller.ts
 git commit -m "feat(core): implement AgenticPipelineController for asynchronous task routing"
 ```
+
+---
+**LINKS:** [[OS_CORE]]

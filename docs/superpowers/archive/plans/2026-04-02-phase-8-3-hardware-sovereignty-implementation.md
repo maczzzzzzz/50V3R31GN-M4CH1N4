@@ -70,3 +70,7 @@ Verify that a change in `world.db` propagates to Foundry Sidebar, Crush CLI, and
 
 **Step 2: Version Bump**
 Iterate version to **1.1.0** (Unified World Engine).
+
+
+---
+**LINKS:** [[OS_CORE]]

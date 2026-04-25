@@ -20,3 +20,7 @@ Triggers `bash scripts/reconstruct-palace.sh` to rebuild the semantic vault from
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/data-block.ts`
 - **Related Phase:** Phase 47 (Universal Codex)
+
+
+---
+**LINKS:** [[OS_CORE]]

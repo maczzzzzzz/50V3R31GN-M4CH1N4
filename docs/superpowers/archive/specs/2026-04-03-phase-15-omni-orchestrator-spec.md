@@ -38,3 +38,7 @@ The **Omni Orchestrator** now incorporates **Pretext** for "Layout Sovereignty."
 
 ---
 *Omni Orchestrator: The Living City is Physically Defined.*
+
+
+---
+**LINKS:** [[OS_CORE]]

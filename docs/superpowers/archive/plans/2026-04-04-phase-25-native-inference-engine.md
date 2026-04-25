@@ -42,3 +42,6 @@ Reflect the change from Ollama to `llama.cpp` in the build and run instructions 
 
 - [x] **Step 1: Verify and update API URLs** [DONE]
 Ensure `NODE_A_LLAMA_URL` and `SOVEREIGN_INFERENCE_URL` point to the correct `llama-server` default ports (usually 8080).
+
+---
+**LINKS:** [[OS_CORE]]

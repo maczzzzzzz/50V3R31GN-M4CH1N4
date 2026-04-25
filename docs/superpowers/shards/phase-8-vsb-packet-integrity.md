@@ -20,3 +20,7 @@ Triggers a VSB self-ping to verify that the packet path from the CLI to the Kern
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Binary:** `crush-cli` (Go)
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -20,3 +20,7 @@ Triggers `bash scripts/reconstruct-palace.sh --palace-only` to force-sync the sp
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/data-block.ts`
 - **Pattern:** Hierarchical Knowledge Graph
+
+
+---
+**LINKS:** [[OS_CORE]]

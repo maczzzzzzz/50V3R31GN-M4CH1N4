@@ -16,3 +16,7 @@ Every line of code must align with the `IMPLEMENTATION_PLAN.md`. Any drift into 
 
 ---
 **::/5Y573M-N071C3 : ARCHITECT_DNA_V3_4_1_SYNCED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -64,3 +64,7 @@ Ensure both Open-Reasoner-Zero-1.5B (via --mlock) and Falcon (via persistent ONN
 git add zeroclaw/src/perception/mod.rs zeroclaw/src/main.rs
 git commit -m "feat(node-a): lock Open-Reasoner-Zero-1.5B and Falcon into resident VRAM (Phase 22.5)"
 ```
+
+
+---
+**LINKS:** [[OS_CORE]]

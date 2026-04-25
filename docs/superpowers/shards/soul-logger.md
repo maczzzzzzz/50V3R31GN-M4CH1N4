@@ -33,3 +33,7 @@ const response = await soulLogger.wrap(
 ## Verification
 - **Gauntlet Shard:** `orch-52-1`
 - **Output File:** `data/logs/soul.jsonl`
+
+
+---
+**LINKS:** [[OS_CORE]]

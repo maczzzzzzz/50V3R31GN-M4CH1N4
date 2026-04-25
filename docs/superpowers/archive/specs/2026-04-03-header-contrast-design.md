@@ -52,3 +52,7 @@ Change: `background-color: #000000` → `background-color: var(--cpr-bg-header)`
 
 Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
 Co-Authored-By: Gemini CLI <gemini-cli@google.com>
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -21,3 +21,7 @@ Ensures the log directory exists and prepares the environment for high-intensity
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/vis-block.ts`
 - **Output:** `gauntlet-report.md`, `gauntlet-report.json`
+
+
+---
+**LINKS:** [[OS_CORE]]

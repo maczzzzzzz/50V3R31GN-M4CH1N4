@@ -67,3 +67,7 @@ The shroud remains as an immersive visual feedback layer during heavy vision pas
 
 *Co-Authored-By: Claude Sonnet <noreply@anthropic.com>*  
 *Co-Authored-By: Gemini CLI <gemini-cli@google.com>*
+
+
+---
+**LINKS:** [[OS_CORE]]

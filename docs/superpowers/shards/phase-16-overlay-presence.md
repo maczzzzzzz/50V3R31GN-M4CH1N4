@@ -22,3 +22,7 @@ Triggers a high-intensity "Neural Shroud" pulse via the `crush-cli intent` comma
 - **Source:** `scripts/gauntlet/phases/vis-block.ts`
 - **Subsystem:** Pretext Overlay Manager
 - **Context:** Foundry VTT (CDP)
+
+
+---
+**LINKS:** [[OS_CORE]]

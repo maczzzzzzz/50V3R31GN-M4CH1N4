@@ -49,3 +49,7 @@ Add `npc_logs` table to Akashik.db.
 
 **Step 2: History Integration**
 Update the `Turn Daemon` to fetch the last 5 relevant logs from `npc_logs` during the "Reasoning" stage to provide continuity.
+
+
+---
+**LINKS:** [[OS_CORE]]

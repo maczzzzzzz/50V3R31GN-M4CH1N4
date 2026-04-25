@@ -59,3 +59,7 @@ A queueing system ensuring AI does not unilaterally mutate the Foundry database 
 - Do not implement Phase 5 features (Red Trade, Braindance therapy).
 - Do not implement Simulacrum cross-session NPC deep memory.
 - Depend strictly on `simple-phone v3.4.2`, `Ticket-To-The-Afterlife v3.4.2`, and `night-city-gang-and-corp-mook-pack v2.8` on Foundry v12.
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -23,3 +23,7 @@ Executes a safe test script through the `run_script` handler to verify end-to-en
 - **Source:** `scripts/gauntlet/phases/motor-cortex.ts`
 - **Dependencies:** `socketlib`, `SOVEREIGN_BRIDGE`
 - **Handlers:** `create_actor`, `run_script`, `create_scene`
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -38,3 +38,7 @@ Phase 6 shifts the game from a "Mission-Based" loop to a "Living World" simulati
 The monolithic `openclaw-cpr` tried to do all of this in one process, which caused it to crash. Our **Split-Node Architecture** allows Node B to run these heavy "Simulation Cycles" (Pulse/Trade) in the background while the player is busy playing, with Node A handling all the heavy math.
 
 **Quarantine Status:** These designs remain in the Phase 5/6 Quarantine Zone. No active code will be written for these until Phase 4 is verified.
+
+
+---
+**LINKS:** [[OS_CORE]]

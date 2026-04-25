@@ -87,3 +87,7 @@ Fetch regions within 10m of the active token and inject into the narrative promp
 
 **Step 2: Final E2E Audit**
 Verify that Mistral-Nemo mentions tactical regions in combat narrative (e.g. "Taking cover behind the hazard barrels").
+
+
+---
+**LINKS:** [[OS_CORE]]

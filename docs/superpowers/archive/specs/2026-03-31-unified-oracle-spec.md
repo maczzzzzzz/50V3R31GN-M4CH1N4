@@ -72,3 +72,7 @@ Before every response, the `HybridRoutingController` (HRC) executes the followin
 - **Integrity Test:** Simulate 50 conflicting world updates; verify Zero-Trust rejection of malformed data.
 - **Drift Test:** Verify that AI acknowledges NPC health/disposition changes correctly in prose.
 - **Latency Check:** Cross-database joins must execute in **<5ms**.
+
+
+---
+**LINKS:** [[OS_CORE]]

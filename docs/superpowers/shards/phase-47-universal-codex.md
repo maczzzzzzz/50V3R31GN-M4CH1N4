@@ -22,3 +22,7 @@ Triggers the `harmonize-rkg.ts` script to scan the library and create formal sem
 - **Source:** `scripts/gauntlet/phases/data-47.ts`
 - **Pattern:** Universal Codex
 - **Dependency:** FTS5 / pgvector
+
+
+---
+**LINKS:** [[OS_CORE]]

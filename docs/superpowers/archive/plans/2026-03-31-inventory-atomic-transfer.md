@@ -116,3 +116,7 @@ Add `TRANSFER_ITEM` to the discriminated union:
 - Ensure the Narrative Engine (Mistral-Nemo) is grounded in the new ownership state before describing the loot.
 
 **Step 2: Commit**
+
+
+---
+**LINKS:** [[OS_CORE]]

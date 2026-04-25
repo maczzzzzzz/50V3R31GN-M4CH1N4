@@ -41,3 +41,7 @@ Implemented as **Z-Commands** for precise solo control:
 ## 5. Verification Plan
 - **Latency:** Screenshot-to-Analysis loop must complete in **<10s**.
 - **Parity:** Screamsheet log entries must match the `world.db` state history with 100% factual accuracy.
+
+
+---
+**LINKS:** [[OS_CORE]]

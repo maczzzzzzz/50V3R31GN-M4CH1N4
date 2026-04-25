@@ -22,3 +22,7 @@ The VISUAL block verifies the system's "eyes" and its ability to hijack and mani
 - **Engine:** PIXI.js / WebGL
 - **VLM:** Pixtral-12B
 - **Shaders:** GLSL
+
+
+---
+**LINKS:** [[OS_CORE]]

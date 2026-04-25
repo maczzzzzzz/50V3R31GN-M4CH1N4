@@ -304,3 +304,6 @@ export class PretextOverlayManager {
 git add foundry-module/scripts/pretext-overlay-manager.js
 git commit -m "feat(foundry): implement PIXI rendering and FXMaster shader application for Pretext overlays"
 ```
+
+---
+**LINKS:** [[OS_CORE]]

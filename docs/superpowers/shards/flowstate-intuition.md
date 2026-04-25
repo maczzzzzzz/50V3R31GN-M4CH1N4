@@ -30,3 +30,7 @@ const triplets = intuition.readCache();
 ## Verification
 - **Gauntlet Shard:** `orch-52-2`
 - **Signals:** Watch for `District shift detected` in system logs.
+
+
+---
+**LINKS:** [[OS_CORE]]

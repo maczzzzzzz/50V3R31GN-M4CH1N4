@@ -34,3 +34,7 @@ The infrastructure for the **Utility Belt** is stable and memory-safe. The syste
 ## 5. Metadata
 - **Co-Authored-By:** Claude Sonnet <noreply@anthropic.com>
 - **Co-Authored-By:** Gemini CLI <gemini-cli@google.com>
+
+
+---
+**LINKS:** [[OS_CORE]]

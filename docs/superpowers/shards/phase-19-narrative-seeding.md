@@ -21,3 +21,7 @@ Injects a new chronicle seed (e.g., `sovereign-manifest-engine-active`) via `cru
 - **Source:** `scripts/gauntlet/phases/nar-block.ts`
 - **Related Phase:** Phase 30 (RKG Chronicles)
 - **Dependency:** `crush-cli`
+
+
+---
+**LINKS:** [[OS_CORE]]

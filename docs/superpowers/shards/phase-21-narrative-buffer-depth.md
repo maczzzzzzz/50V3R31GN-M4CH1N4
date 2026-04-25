@@ -21,3 +21,7 @@ Sends a "buffer warm-up" prompt to the narrative engine to verify that it is rea
 - **Source:** `scripts/gauntlet/phases/nar-block.ts`
 - **Node:** Node B (Ryzen 5950X / RX 9060 XT)
 - **Target Context:** 32,768 tokens
+
+
+---
+**LINKS:** [[OS_CORE]]

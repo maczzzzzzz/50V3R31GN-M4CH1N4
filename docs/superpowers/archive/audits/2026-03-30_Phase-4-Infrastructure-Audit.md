@@ -21,3 +21,7 @@ Project has been iterated to **v3.4.2**. All DNA documentation (README, CLAUDE.m
 The backend infrastructure and core logic for Phase 4 are **Complete and Hardened**. The system is now ready for the final UI-layer assembly (Foundry storefront rendering).
 
 **Recommendation:** Proceed to the final Phase 4 tasks: Night Market UI components and E2E simulation.
+
+
+---
+**LINKS:** [[OS_CORE]]

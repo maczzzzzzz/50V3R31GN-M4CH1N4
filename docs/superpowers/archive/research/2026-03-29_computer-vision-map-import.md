@@ -48,3 +48,7 @@ This capability—while highly immersive—is a heavy development lift that fall
 **Directive:** I am moving "Computer Vision Map Generation" into the **Phase 6 Quarantine Zone (Living City / World Expansion)**. 
 
 During Phase 4, GMs will manually prep maps or use the existing "Auto Wall" community tool. In Phase 6, we can explore integrating a headless OpenCV Python script into Node B to automate the UVTT generation pipeline for dynamically spawned "Gig" locations.
+
+
+---
+**LINKS:** [[OS_CORE]]

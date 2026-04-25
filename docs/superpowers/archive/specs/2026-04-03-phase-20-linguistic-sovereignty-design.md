@@ -30,3 +30,7 @@ Phase 20 integrates the **GLOSSOPETRAE** and **P4RS3LT0NGV3** patterns to establ
 - [ ] NPCs consistently use their faction-assigned dialects.
 - [ ] Invisible commands (U+E0000) are successfully transmitted and executed via narrative text.
 - [ ] High-entropy linguistic steganography achieved with zero semantic drift.
+
+
+---
+**LINKS:** [[OS_CORE]]

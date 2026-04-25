@@ -21,3 +21,7 @@ Injects a synthetic `resolveAttack` call into Foundry to verify that the combat 
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Hook:** `sub rosa.resolveAttack`
 - **Context:** Foundry VTT (CDP)
+
+
+---
+**LINKS:** [[OS_CORE]]

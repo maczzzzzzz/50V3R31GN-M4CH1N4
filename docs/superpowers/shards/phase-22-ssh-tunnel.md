@@ -20,3 +20,7 @@ Re-establishes the background SSH tunnel with automatic host key acceptance and 
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/orch-block.ts`
 - **Default Port:** 22
+
+
+---
+**LINKS:** [[OS_CORE]]

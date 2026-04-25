@@ -21,3 +21,7 @@ Starts the pulse daemon using `tsx scripts/dev/sovereign-pulse.ts` to begin metr
 - **Source:** `scripts/gauntlet/phases/orch-51-3.ts`
 - **Output:** `data/logs/vitals.log`, `VITAL_SIGNS.md`
 - **Interval:** 60s
+
+
+---
+**LINKS:** [[OS_CORE]]

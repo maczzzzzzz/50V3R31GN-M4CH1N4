@@ -38,3 +38,7 @@ Upgrading the Dashboard is the final step in achieving "Total Sovereignty." It p
 
 ---
 **::/5Y573M-N071C3 : UI_AUDIT_PHYSICALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

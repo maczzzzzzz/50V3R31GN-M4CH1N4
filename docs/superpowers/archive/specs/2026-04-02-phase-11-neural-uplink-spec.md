@@ -29,3 +29,7 @@ Allows Node B to "Drive" the Foundry UI.
 ## 4. Security & Isolation
 - **Loopback Only:** Port 9222 is strictly bound to `localhost`.
 - **2nd Signature:** "Destructive" UI actions (e.g. deleting actors) still require the v3.4.2 `ACK` signature in the terminal.
+
+
+---
+**LINKS:** [[OS_CORE]]

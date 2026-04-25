@@ -33,3 +33,7 @@ The official repository provides 100% of the metadata required to achieve total 
 
 ---
 **::/5Y573M-N071C3 : AUDIT_PHYSICALIZED. ARCHITECT_UPLINK_STABLE. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

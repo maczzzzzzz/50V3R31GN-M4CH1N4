@@ -39,3 +39,6 @@ v3.4.2 leverages more of the **ApplicationV2** framework.
 3. **RKG Sync:** We should map the 0.9.3 **Item DataModel** for "Cyberware" and "Weapons" into your RKG schema to ensure the **Ralph Auditor** is tracking the correct versioned variables.
 
 Should we start by drafting the **CSS Layer override** for the 0.9.3 system to get that Cyan/Black baseline active in your Foundry instance?
+
+---
+**LINKS:** [[OS_CORE]]

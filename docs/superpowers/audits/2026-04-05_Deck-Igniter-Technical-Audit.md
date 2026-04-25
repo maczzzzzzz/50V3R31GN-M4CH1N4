@@ -30,3 +30,7 @@ The Deck Igniter is now fully compatible with the v3.4.2 Sovereign Highway. It p
 
 ---
 *Verified by Gemini CLI v3.4.2 Strategist.*
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -22,3 +22,7 @@ The MECHANICAL block verifies the integrity of the system's rules engine, physic
 - **Engine:** Llama-server (Node A)
 - **Transport:** VSB (UDP/Mmap)
 - **Context:** Foundry VTT (CDP)
+
+
+---
+**LINKS:** [[OS_CORE]]

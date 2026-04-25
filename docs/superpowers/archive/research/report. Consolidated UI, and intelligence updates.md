@@ -61,3 +61,6 @@ We are strip-mining the **Nous Research Hermes-Agent** codebase for its producti
 3. Implement the **ClawLink Binary Handshake** for the RPC Macro pipeline.
 
 **System ready. Command?**
+
+---
+**LINKS:** [[OS_CORE]]

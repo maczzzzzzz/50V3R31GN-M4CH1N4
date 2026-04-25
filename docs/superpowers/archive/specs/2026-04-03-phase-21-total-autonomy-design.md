@@ -32,3 +32,7 @@ A multi-step state machine that drives NPC decisions:
 - [ ] NPCs execute tactical turns in <5 seconds.
 - [ ] NPCs demonstrate behavioral consistency over multiple sessions (Life-Paths).
 - [ ] The "Swarm" can resolve 10+ concurrent combat actions without desync.
+
+
+---
+**LINKS:** [[OS_CORE]]

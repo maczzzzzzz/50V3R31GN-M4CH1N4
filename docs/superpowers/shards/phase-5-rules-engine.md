@@ -21,3 +21,7 @@ Forces a tactical query to confirm Node A is acceptably accepting and processing
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Node:** Node A (GTX 1050 Ti)
 - **Model:** Open-Reasoner-1.5B
+
+
+---
+**LINKS:** [[OS_CORE]]

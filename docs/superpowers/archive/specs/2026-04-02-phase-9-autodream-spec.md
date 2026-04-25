@@ -20,3 +20,7 @@ autoDream is the system's "Self-Cleaning" mechanism. It solves "Context Rot" by 
 ## 3. Implementation Requirements
 - **Storage:** Uses the `triplets_fts` table for sub-10ms retrieval of "Dreamed" facts.
 - **Verification:** Uses the **Flush Gate** to ensure no data loss during consolidation.
+
+
+---
+**LINKS:** [[OS_CORE]]

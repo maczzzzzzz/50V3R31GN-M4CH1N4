@@ -21,3 +21,7 @@ Triggers a test `conflict_interrupt` event on an authority-locked actor to verif
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/orch-block.ts`
 - **Dependencies:** `libWrapper`, `SOVEREIGN_BRIDGE`
+
+
+---
+**LINKS:** [[OS_CORE]]

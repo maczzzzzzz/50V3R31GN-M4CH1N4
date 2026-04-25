@@ -58,3 +58,7 @@ Verify that multiple concurrent decals do not impact narrative performance.
 
 **Step 2: Version Bump**
 Iterate version to **1.3.0**.
+
+
+---
+**LINKS:** [[OS_CORE]]

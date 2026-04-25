@@ -20,3 +20,7 @@ Restarts the `deck-igniter` supervisor to re-establish the socket and associated
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/orch-block.ts`
 - **Path:** `/tmp/clawlink.sock`
+
+
+---
+**LINKS:** [[OS_CORE]]

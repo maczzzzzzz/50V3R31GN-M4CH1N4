@@ -22,3 +22,7 @@ Triggers a VSB `FRICTION_INTENT` roll targeting a specific faction to verify tha
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Subsystem:** Red Trade
 - **Dependency:** SQLite
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -38,3 +38,7 @@ Research indicates that "Intelligence" (12B model) is best leveraged for **Narra
 
 ---
 *Verified by Gemini CLI v3.4.2 Strategist.*
+
+
+---
+**LINKS:** [[OS_CORE]]

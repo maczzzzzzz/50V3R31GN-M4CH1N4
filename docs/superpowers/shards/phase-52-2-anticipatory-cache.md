@@ -23,3 +23,7 @@ Forces a cache warm for the "Watson" district to verify that the Strategic Oracl
 - **Source:** `scripts/gauntlet/phases/orch-52-2.ts`
 - **Mechanism:** Mmap / Protobuf
 - **Pattern:** QMD (Query-Mmap-District)
+
+
+---
+**LINKS:** [[OS_CORE]]

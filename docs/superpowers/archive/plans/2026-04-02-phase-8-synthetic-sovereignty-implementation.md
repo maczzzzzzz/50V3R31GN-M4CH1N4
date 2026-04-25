@@ -79,3 +79,7 @@ Apply deep void background, scanlines, and neon glow effects.
 
 **Step 2: Final Verification**
 Verify the Sidebar feels like an extension of the Afterlife terminal.
+
+
+---
+**LINKS:** [[OS_CORE]]

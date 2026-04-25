@@ -38,3 +38,6 @@ Utilize ST3GG's Least Significant Bit (LSB) steganography logic to hide dynamica
 1.  **Steganography Service Unit Tests (Node B):** Verify that `steganography-service.ts` can take a known PNG, encode a 256-character string into its LSBs, save it, read it back, and decode the exact string without data loss. Ensure execution time is < 50ms.
 2.  **LLM Generation Pipeline Test (Node B):** Verify the `HybridRoutingController` correctly requests a contextual secret from Mistral-Nemo when triggered by a mock "file_extraction" event.
 3.  **Foundry Macro Integration:** Test the end-to-end loop: The Macro sends a request to the Mesh, the Mesh forwards to Node B, Node B decodes the file, and the text is whispered back to the specific Foundry user.
+
+---
+**LINKS:** [[OS_CORE]]

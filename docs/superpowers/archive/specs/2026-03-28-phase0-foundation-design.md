@@ -676,3 +676,7 @@ Phase 0 does NOT produce:
 | DI composition root | Phase 1 | Wire service instantiation when first real services exist. |
 | ESLint + Prettier | Phase 1 | Add once there is code to lint. |
 | Foundry VTT module manifest | Phase 3 | Required when building the Foundry integration. |
+
+
+---
+**LINKS:** [[OS_CORE]]

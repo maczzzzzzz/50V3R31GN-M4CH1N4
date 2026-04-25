@@ -22,3 +22,7 @@ Executes a one-time scan of the active session logs to propose new system capabi
 - **Source:** `scripts/gauntlet/phases/orch-52-3.ts`
 - **Output:** `docs/superpowers/shards/proposals/`
 - **Pattern:** Hermes (Skill Distillation)
+
+
+---
+**LINKS:** [[OS_CORE]]

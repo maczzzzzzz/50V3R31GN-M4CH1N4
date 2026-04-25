@@ -18,3 +18,7 @@ All four directives from the original `SURGICAL_FIX_MANIFEST` have now been succ
 4. **Command Injection:** `mcp-daemon.ts` safely streams inputs via `spawn`.
 
 The system is now fully hardened, structurally aligned with the 2026 Three-Layer Identity standards, and completely prepared for the GLM-5.1 "Lead Architect" handover.
+
+
+---
+**LINKS:** [[OS_CORE]]

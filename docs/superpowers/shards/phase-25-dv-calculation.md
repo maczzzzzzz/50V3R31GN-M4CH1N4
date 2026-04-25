@@ -21,3 +21,7 @@ Forces a DV lookup query to verify that the Kernel's rules data is resident and 
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Node:** Node A (GTX 1050 Ti)
 - **Reference:** Cyberpunk RED Ranged Attack Table
+
+
+---
+**LINKS:** [[OS_CORE]]

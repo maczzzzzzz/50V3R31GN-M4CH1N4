@@ -21,3 +21,7 @@ Executes `VACUUM` to rebuild the database and resolve minor structural fragmenta
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/data-block.ts`
 - **Dependency:** Better-SQLite3
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -26,3 +26,7 @@ The Dashboard is implemented as a custom `SidebarTab` within the Foundry Mesh Mo
 ## 4. Communication Protocol
 - **Dashboard Sync Frame:** A new binary frame type `{ type: 'dashboard_sync', payload: { actors, factions, systemStatus } }`.
 - **Latency Target:** Dashboard updates must complete in `<100ms` after any `world.db` mutation.
+
+
+---
+**LINKS:** [[OS_CORE]]

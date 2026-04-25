@@ -58,3 +58,7 @@ Expected: PASS.
 - [x] **Step 3: Verify with Live Canary** [DONE]
 Ready for hardware test.
 
+
+
+---
+**LINKS:** [[OS_CORE]]

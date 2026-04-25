@@ -21,3 +21,7 @@ Directly sets the radar heat level via the VSB, verifying that tension state can
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Opcode:** 0x05 (FRICTION_INTENT)
 - **Transport:** UDP
+
+
+---
+**LINKS:** [[OS_CORE]]

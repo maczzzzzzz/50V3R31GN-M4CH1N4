@@ -22,3 +22,7 @@ Force-writes the environment variable content to the local `.md` files to synchr
 - **Source:** `scripts/gauntlet/phases/orch-51-1.ts`
 - **Pattern:** Declarative Sovereignty
 - **Environment:** Nix / WSL
+
+
+---
+**LINKS:** [[OS_CORE]]

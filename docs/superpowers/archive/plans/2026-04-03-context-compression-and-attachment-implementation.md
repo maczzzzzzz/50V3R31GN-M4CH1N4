@@ -88,3 +88,6 @@ export class TokenAttachmentManager {
 git add foundry-module/scripts/token-attachment-manager.js
 git commit -m "feat(foundry): implement TokenAttachmentManager for vehicle hierarchy sync"
 ```
+
+---
+**LINKS:** [[OS_CORE]]

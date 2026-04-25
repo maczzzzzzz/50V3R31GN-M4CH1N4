@@ -39,3 +39,7 @@ A high-contrast Lipgloss component in the Crush CLI:
 ## 5. Metadata
 - **Co-Authored-By:** Claude Sonnet <noreply@anthropic.com>
 - **Co-Authored-By:** Gemini CLI <gemini-cli@google.com>
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -49,3 +49,7 @@ Create a Rust module that takes a "Cleartext Conlang" and a "Binary Payload" and
 
 **Step 2: RPC Exposition**
 Expose `linguistic_encode` and `linguistic_decode` variants to the ClawLink protocol for high-performance data smuggling.
+
+
+---
+**LINKS:** [[OS_CORE]]

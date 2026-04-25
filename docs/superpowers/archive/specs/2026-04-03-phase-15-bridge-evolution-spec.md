@@ -34,3 +34,7 @@ The bridge MUST implementation a **Feature Detection** heartbeat:
 
 ---
 *The Mesh Evolution: Physical Hands Hardened.*
+
+
+---
+**LINKS:** [[OS_CORE]]

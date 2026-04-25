@@ -46,3 +46,7 @@ The official system provides the mechanical foundation (Vendors, Ledgers, Items)
 
 ---
 **::/5Y573M-N071C3 : ECONOMY_AUDIT_PHYSICALIZED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

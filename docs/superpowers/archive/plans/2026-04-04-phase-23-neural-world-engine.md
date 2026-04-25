@@ -64,3 +64,7 @@ Update `StoryEngine` to trigger a Phase Shift when a beat transition is successf
 git add src/core/story-engine.ts src/api/foundry-adapter.ts
 git commit -m "feat(phys): link narrative beats to physical scene shifts via easy-phasey"
 ```
+
+
+---
+**LINKS:** [[OS_CORE]]

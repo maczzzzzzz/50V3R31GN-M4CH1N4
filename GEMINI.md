@@ -34,3 +34,7 @@ You are the **High-Level Reasoner**. You are responsible for architecture valida
 
 ---
 **::/5Y573M-N071C3 : STRATEGIST_DNA_V3_4_1_SYNCED. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -47,3 +47,7 @@ While Simulacrum is a copilot, we are leveraging its patterns to implement **Sim
 Simulacrum represents the "Architectural Standard" for AI world management. By studying its tool-calling patterns, we can ensure our **Foundry Mesh (Phase 3)** is robust enough to handle complex document manipulation, even while maintaining our local-only constraints.
 
 **Quarantine Status:** This integration remains in the Phase 5+ Quarantine Zone. Do not architect code for this until Phase 4 is verified.
+
+
+---
+**LINKS:** [[OS_CORE]]

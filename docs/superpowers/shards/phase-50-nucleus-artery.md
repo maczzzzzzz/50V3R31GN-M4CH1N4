@@ -22,3 +22,7 @@ Restarts the Nucleus Artery via `crush nucleus` to restore high-fidelity telemet
 - **Source:** `scripts/gauntlet/phases/orch-50.ts`
 - **Port:** 9090
 - **Protocol:** Protobuf / WebSocket
+
+
+---
+**LINKS:** [[OS_CORE]]

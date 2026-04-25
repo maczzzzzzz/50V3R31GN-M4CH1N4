@@ -102,3 +102,7 @@ Implement the VSB watcher in Node B to catch `APPROVED` flags and finally commit
 git add src/
 git commit -m "feat(director): implement the Flush Gate (AI Proposal -> Human ACK -> Execution)"
 ```
+
+
+---
+**LINKS:** [[OS_CORE]]

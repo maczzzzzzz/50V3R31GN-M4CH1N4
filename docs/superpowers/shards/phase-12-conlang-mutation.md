@@ -21,3 +21,7 @@ Toggles the leet-speak / journal corruption state via the bridge and calls the `
 - **Source:** `scripts/gauntlet/phases/nar-block.ts`
 - **Subsystem:** Linguistic Steganography
 - **Dialect:** L337-5P34K
+
+
+---
+**LINKS:** [[OS_CORE]]

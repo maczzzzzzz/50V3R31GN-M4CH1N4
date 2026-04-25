@@ -55,3 +55,7 @@ if (game.modules.get('socketlib')?.active) {
 **Step 1: Implement the `system_heartbeat` event to report active modules back to Node B.**
 **Step 2: Version bump to 1.5.0.**
 **Step 3: Commit.**
+
+
+---
+**LINKS:** [[OS_CORE]]

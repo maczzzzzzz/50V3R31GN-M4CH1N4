@@ -29,3 +29,7 @@ The `Hooks.on('updateScene', () => PretextOverlayManager._reattachShroud())` lif
 
 ### Summary
 Three out of the four points were successfully addressed. The fix for the **Command Injection vulnerability** is inadequate and still leaves the system open to arbitrary shell execution. Claude needs to rewrite the subprocess execution in `mcp-daemon.ts` to pass arguments safely (e.g., writing the intent directly to the spawned process's `stdin` via Node.js streams).
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -22,3 +22,7 @@ Triggers a `reconnect_uplink` event through the bridge to verify that the synthe
 - **Source:** `scripts/gauntlet/phases/mech-block.ts`
 - **Mechanism:** WebSocket (Synthetic Input)
 - **Context:** Foundry VTT (CDP)
+
+
+---
+**LINKS:** [[OS_CORE]]

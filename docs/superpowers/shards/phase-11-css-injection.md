@@ -22,3 +22,7 @@ Enforces the Sovereign CSS theme by directly injecting core variables and body s
 - **Source:** `scripts/gauntlet/phases/vis-block.ts`
 - **Theme:** Black Ice
 - **Requirement:** Dark Mode (Absolute)
+
+
+---
+**LINKS:** [[OS_CORE]]

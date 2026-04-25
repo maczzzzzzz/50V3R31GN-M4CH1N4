@@ -20,3 +20,6 @@ Establish parent-child hierarchies directly within Foundry's canvas. When a vehi
 ## 2. Components
 *   **`ActionCompressionService` (Foundry Client):** A JavaScript class that scans a `cpred` actor and outputs a sanitized string array of available combat/netrunning options.
 *   **`TokenAttachmentManager` (Foundry Client):** A manager that listens to `preUpdateToken` and `updateToken` hooks. It reads a custom `flags.asp.attached` array on the parent token to synchronize transforms.
+
+---
+**LINKS:** [[OS_CORE]]

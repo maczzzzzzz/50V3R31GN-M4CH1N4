@@ -112,3 +112,7 @@ export class StoryEngine {
 **Implementation:**
 - Update `handleFoundryEvent` switch case.
 - Wire `storyEngine` into `handleResolveAttack` and `handleStrategic OracleRoll`.
+
+
+---
+**LINKS:** [[OS_CORE]]

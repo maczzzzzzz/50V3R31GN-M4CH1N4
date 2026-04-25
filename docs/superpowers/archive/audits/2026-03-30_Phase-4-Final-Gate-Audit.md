@@ -32,3 +32,7 @@ The implementation follows the `docs/plans/2026-03-29-phase-4-mvp-assembly.md` a
 Phase 4 (v3.4.2) is officially **Closed**. The project is now in a high-signal, fully verified state.
 
 **Next Target:** v3.4.2 "Project Black-Ice" (Edge-Compute Migration to ZeroClaw/SQLite-Vec).
+
+
+---
+**LINKS:** [[OS_CORE]]

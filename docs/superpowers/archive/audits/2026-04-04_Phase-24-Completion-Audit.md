@@ -33,3 +33,6 @@ An exhaustive audit and debug sweep of the Phase 24 ("Sovereign Utility Belt") m
 Phase 24 is mechanically sound and fully integrated into the Sovereign Highway. The VSB Proposal/ACK flow now safely bridges Node B's orchestration logic to human oversight.
 
 **Standing by for further instructions.**
+
+---
+**LINKS:** [[OS_CORE]]

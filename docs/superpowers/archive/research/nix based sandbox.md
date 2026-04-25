@@ -53,3 +53,6 @@ Vitalik's most significant insight is the **2-of-2 Authorization Model**. We can
 
 **Senior Architect Recommendation:** Proceed with a **Nix Flake** for the ZeroClaw harness first (the "DevShell" approach) before committing to a full NixOS wipe of the Nitro 5\. This allows you to test the CUDA/Ollama stability within the sandbox before committing to the immutable OS.  
 **Shall we draft the flake.nix configuration to manage the SQLite R\*Tree and Ollama-CUDA dependencies for Node A?**
+
+---
+**LINKS:** [[OS_CORE]]

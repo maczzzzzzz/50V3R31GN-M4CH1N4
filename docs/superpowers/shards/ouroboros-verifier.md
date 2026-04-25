@@ -38,3 +38,7 @@ verifier.start(30_000); // poll every 30s
 ## Verification
 - **Gauntlet Shard:** `orch-53-1` (Logic-Consistency)
 - **Test:** Injects 3 mock violations + 1 clean entry; expects 3/3 detections, 0 false positives.
+
+
+---
+**LINKS:** [[OS_CORE]]

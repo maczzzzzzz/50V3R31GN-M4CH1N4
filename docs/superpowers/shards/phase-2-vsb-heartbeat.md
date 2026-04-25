@@ -21,3 +21,7 @@ Sends a minimal VSB heartbeat packet (opcode 0x00 PING) to verify two-way commun
 - **Source:** `scripts/gauntlet/phases/orch-block.ts`
 - **Transport:** UDP / TCP
 - **Default Port:** 7878
+
+
+---
+**LINKS:** [[OS_CORE]]

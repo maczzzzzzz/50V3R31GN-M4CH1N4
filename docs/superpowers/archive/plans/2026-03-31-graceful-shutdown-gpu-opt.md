@@ -59,3 +59,7 @@ Verify logs show "Shutting down..." and clients are stopped.
 
 **Step 1: Add OLLAMA_NUM_GPU to .env and use it in SovereignCognitionClient**
 This allows the user to force GPU usage (e.g., set to 35 for Mistral-Nemo).
+
+
+---
+**LINKS:** [[OS_CORE]]

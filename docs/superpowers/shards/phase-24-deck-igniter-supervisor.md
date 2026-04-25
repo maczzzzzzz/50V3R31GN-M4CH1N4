@@ -20,3 +20,7 @@ Starts the supervisor via `./deck-igniter-cli start`.
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/orch-block.ts`
 - **Dependency:** Go binary
+
+
+---
+**LINKS:** [[OS_CORE]]

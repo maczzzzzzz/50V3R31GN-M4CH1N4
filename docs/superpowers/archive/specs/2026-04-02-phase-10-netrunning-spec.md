@@ -22,3 +22,7 @@ The Netrunning Engine provides a dedicated high-fidelity simulation layer for vi
 ## 3. Implementation Requirements
 - **Integration:** Binds to the `district_grid` to identify physical Access Points.
 - **Governance:** All hacking outcomes are recorded in the **Akashik Record**.
+
+
+---
+**LINKS:** [[OS_CORE]]

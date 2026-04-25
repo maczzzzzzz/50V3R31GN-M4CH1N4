@@ -20,3 +20,7 @@ Restarts the Director service via `npm run start`.
 ## Technical Details
 - **Source:** `scripts/gauntlet/phases/orch-block.ts`
 - **Default Port:** 3010
+
+
+---
+**LINKS:** [[OS_CORE]]

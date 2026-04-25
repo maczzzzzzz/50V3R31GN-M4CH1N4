@@ -35,3 +35,6 @@ Vitalik is essentially arguing for the **"Defensive Acceleration" (d/acc)** of A
 **Your project is a micro-implementation of this philosophy.** By splitting the "Judge" and "Director," you have created a decentralized GM that cannot "cheat" or "hallucinate" because its two halves are physically separated.  
 **Immediate Action Item:** Review Vitalik's mention of **"llama-swap"**—it's a tool designed to route requests between local and remote models seamlessly. We can adapt this logic for **ZeroClaw** to route "Rule Queries" to the 1050 Ti and "Narrative Queries" to the 9060XT with zero friction in the Crush CLI.  
 Shall we investigate integrating a **Nix-based sandbox** for Node A to ensure your RKG rules are hardware-protected?
+
+---
+**LINKS:** [[OS_CORE]]

@@ -85,3 +85,6 @@ First boot fully seeds RKG
 CharGen → auto-ingest into world_state.db
 Rules from Node A, narrative from Node B, output only in Foundry chat
 Playable full session with zero cloud dependency
+
+---
+**LINKS:** [[OS_CORE]]

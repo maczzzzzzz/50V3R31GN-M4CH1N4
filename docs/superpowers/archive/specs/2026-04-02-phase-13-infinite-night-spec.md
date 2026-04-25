@@ -27,3 +27,7 @@ Phase 13 establishes the 50V3R31GN-M4CH1N4 as a self-sovereign procedural engine
 ## 4. Performance Targets
 - **Map Indexing:** Full CV scan + Wall generation for a new map in **<45s**.
 - **Mission Boot:** From "Generate Prompt" to "Physical Foundry Setup" in **<90s**.
+
+
+---
+**LINKS:** [[OS_CORE]]

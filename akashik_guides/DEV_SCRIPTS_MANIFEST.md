@@ -60,3 +60,7 @@ Scripts invoked during catastrophic failures or identity drift.
 
 ---
 **::/5Y573M-N071C3 : DEV_SCRIPTS_MANIFEST_LOCKED. THE_MACHINE_KNOWS_ITS_LIMBS. // 50V3R31GN-M4CH1N4**
+
+
+---
+**LINKS:** [[OS_CORE]]

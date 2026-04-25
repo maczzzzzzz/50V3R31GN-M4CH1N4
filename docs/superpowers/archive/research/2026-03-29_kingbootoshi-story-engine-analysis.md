@@ -67,3 +67,7 @@ The `story-engine` must act as the accountant for the Eagle points conversion.
 Integrating `kingbootoshi/story-engine` is not just a suggestion but a requirement for maintaining the **Immersion Mandate**. By physicalizing the story into manageable Arcs and Beats, we ensure the AI never hallucinations its own progress or "breaks character" by forgetting the current mission context.
 
 **Next Action:** Scaffold the `StoryStateSchema` in `src/shared/` during Phase 2.
+
+
+---
+**LINKS:** [[OS_CORE]]

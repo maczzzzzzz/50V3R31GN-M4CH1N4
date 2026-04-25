@@ -289,3 +289,7 @@ Phase 1 does NOT produce:
 | DI composition root | Phase 2 | Wire service instantiation when real services exist |
 | `nitro-logic` MCP server | Phase 2 | HTTP client for llama-server + CoT prompt injection |
 | Custom Foundry VTT v12 bridge module | Phase 3 | Option C — minimal custom module (decision logged 2026-03-28) |
+
+
+---
+**LINKS:** [[OS_CORE]]

@@ -71,3 +71,7 @@ Bump version to **1.1.0** (Synthetic Sovereignty + Neural Uplink).
 
 **Step 2: Physicalize Final Audit**
 Document the successful bypass of the API sandbox.
+
+
+---
+**LINKS:** [[OS_CORE]]

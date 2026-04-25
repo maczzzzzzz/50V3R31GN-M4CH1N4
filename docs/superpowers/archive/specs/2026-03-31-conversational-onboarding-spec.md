@@ -36,3 +36,7 @@ The payload includes:
 ## 5. Verification Plan
 - **Rule Compliance:** Verify that all generated characters follow the 62-point (Standard) or 80-point (Major League) stat distribution.
 - **Mesh Reliability:** Ensure `create_actor` successfully populates all fields in Foundry v12 without manual GM intervention.
+
+
+---
+**LINKS:** [[OS_CORE]]

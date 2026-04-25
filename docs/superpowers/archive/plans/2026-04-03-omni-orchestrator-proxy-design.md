@@ -22,3 +22,6 @@ To run an Autonomous NPC, we cannot feed it the entire Foundry map.
 ## 2. Components
 *   **`TaskRouterProxy` (Node B):** Wraps `nitroLogic` and `storyEngine`. Inspects incoming payloads and dispatches them based on a `HardwareCost` enum. Implements an async queue.
 *   **`SensoryFilter` (Foundry Client):** Uses `canvas.walls.computePolygon()` to filter the `Scene` data before generating the JSON state payload for the LLM.
+
+---
+**LINKS:** [[OS_CORE]]

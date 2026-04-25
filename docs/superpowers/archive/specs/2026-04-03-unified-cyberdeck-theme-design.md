@@ -127,3 +127,7 @@ Fixes two bugs: wrong directory (`crush/` doesn't exist), wrong mode (`run` is n
 
 Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
 Co-Authored-By: Gemini CLI <gemini-cli@google.com>
+
+
+---
+**LINKS:** [[OS_CORE]]
