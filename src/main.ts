@@ -66,6 +66,7 @@ import { AkashikVisualAuditor } from './core/akashik-visual-auditor.js';
 import { VesperService } from './core/vesper-service.js';
 import { SharedMemoryService } from './core/shared-memory-service.js';
 import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
+import { LangGraphOrchestrator } from './core/hermes/LangGraphOrchestrator.js';
 
 import { RootsInjector } from './core/roots-injector.js';
 import { getHijackJs } from './core/sovereign-theme.js';
