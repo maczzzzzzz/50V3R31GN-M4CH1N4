@@ -1,0 +1,13 @@
+[package]
+name = "sovereign-vesper-eye"
+version = "0.1.0"
+edition = "2021"
+description = "Phase 78: Vesper Perception Sidecar — log distillation and Scribe-drift pattern matching"
+
+[dependencies]
+notify    = "6.1"
+anyhow    = "1.0"
+serde     = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing   = "0.1"
+regex     = "1.10"

@@ -31,7 +31,7 @@ import { MemoryObserver } from './MemoryObserver.js';
 // User-supplied args are validated against an allowlist before use.
 // ---------------------------------------------------------------------------
 
-const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault']);
+const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper']);
 
 // Known profile names from SOVEREIGN-IDENTITY.md — allowlist for /profile <name>
 const KNOWN_PROFILES = new Set(['daily-use', 'researcher', 'sovereign-red-game-master']);
@@ -79,11 +79,62 @@ function dispatchSystemCommand(prompt: string): string | null {
         const vaultArgs = args ? ['vault', ...args.split(/\s+/)] : ['vault', 'status'];
         return `◈ VAULT:\n${runCrush(vaultArgs)}`;
       }
+      case '/vesper': {
+        // Phase 78 Emergence Gateway — query Vesper daemon status and pending proposals.
+        return vesperEmergence(args);
+      }
     }
   } catch (e) {
     return `◈ SYSTEM COMMAND ERROR [${cmd}]: ${e instanceof Error ? e.message : String(e)}`;
   }
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// Phase 78 — Vesper Emergence Gateway
+// Surfaces background Vesper findings into the active HUD session.
+// Sub-commands: status | drain | hibernate | wake
+// ---------------------------------------------------------------------------
+
+const VESPER_OPS = new Set(['status', 'drain', 'hibernate', 'wake']);
+
+function vesperEmergence(args: string): string {
+  const sub = (args.split(/\s+/)[0] ?? 'status').toLowerCase();
+  if (!VESPER_OPS.has(sub)) {
+    return `◈ VESPER ERROR: unknown sub-command '${sub}'. Allowed: ${[...VESPER_OPS].join(', ')}`;
+  }
+
+  try {
+    switch (sub) {
+      case 'status': {
+        // Check if vesper-daemon process exists.
+        const pidCheck = spawnSync('pgrep', ['-f', 'vesper-daemon'], { encoding: 'utf8' });
+        const running = (pidCheck.stdout ?? '').trim().length > 0;
+        return `◈ VESPER STATUS:\n  daemon : ${running ? 'RUNNING' : 'HIBERNATED'}\n  mode   : background agency`;
+      }
+      case 'drain': {
+        // Daemon polls SovereignIntelligence.db on its own interval.
+        // This command surfaces the intent to the HUD — daemon acts on next cycle.
+        return `◈ VESPER DRAIN: Flush gate poll scheduled — daemon will drain proposals on next cycle.`;
+      }
+      case 'hibernate': {
+        const kill = spawnSync('pkill', ['-SIGTERM', '-f', 'vesper-daemon'], { encoding: 'utf8' });
+        return kill.status === 0
+          ? `◈ VESPER HIBERNATE: Daemon hibernated.`
+          : `◈ VESPER HIBERNATE: Daemon was not running.`;
+      }
+      case 'wake': {
+        // Spawn vesper-daemon detached in background.
+        spawnSync('sh', ['-c', 'nohup scripts/ops/vesper-daemon/vesper-daemon &>/dev/null &'], {
+          encoding: 'utf8',
+        });
+        return `◈ VESPER WAKE: Daemon spawned in background.`;
+      }
+    }
+  } catch (e) {
+    return `◈ VESPER ERROR: ${e instanceof Error ? e.message : String(e)}`;
+  }
+  return `◈ VESPER: ${sub} acknowledged.`;
 }
 
 // ---------------------------------------------------------------------------

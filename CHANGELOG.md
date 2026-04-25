@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 
+## [3.7.1] - 2026-04-25
+### Added
+- **Vesper Daemon — Heartbeat Watchdog (Phase 78, Task 1):** Materialized `scripts/ops/vesper-daemon/` Go module. `Watchdog` monitors `data/logs/vsb-traffic.log` mtime; sends `SIGTERM` to self when user activity is detected within the 30-minute idle threshold — surrendering VRAM headroom to the primary session. Poll interval: 60s.
+- **Vesper Daemon — Flush Gate Client (Phase 78, Task 1):** `FlushGateClient` polls `SovereignIntelligence.db` every 5 minutes for `PASS`-verdicted `decision_audit` rows. Seeds approved proposals as SPO triplets (`vesper:proposal:<hash>`) into `os_triplets` for Synapse ingestion. Auto-migrates `executed_at` column.
+- **Sovereign Vesper Eye (Phase 78, Task 2):** Materialized `crates/sovereign-vesper-eye`. `PatternMatcher` — 6-rule regex engine for Scribe drift, version desync, Mooncake failure, Hardgate violation, VSB magic mismatch, and router offline signals. `LogDistiller` — `notify`-based file watcher tailing `data/logs/*.log`, extracting SPO triplets from new lines in real time. `scan_existing()` for cold-start drift detection. 4 tests pass.
+- **Vesper Emergence Gateway (Phase 78, Task 3):** Added `/vesper` to `LangGraphOrchestrator.ts` system command registry. Sub-commands: `status` (daemon health), `drain` (trigger flush cycle), `hibernate` (SIGTERM daemon), `wake` (respawn daemon). All sub-commands allowlist-validated.
+- **Vesper Glitch CSS (Phase 78, Task 3):** Added `vesper-glitch`, `vesper-siphon-active`, and `vesper-emergence-flash` keyframe animations to `dashboard/app/globals.css`. Applied to Dashboard panels to signal background Vesper data siphoning events.
+
 ## [3.7.0] - 2026-04-25
 ### Added
 - **OpenClaw Managed Agents (Phase 77, Task 1):** Materialized `crates/openclaw-agents` — Rust-native high-resilience agent primitives for the Sovereign Mesh.

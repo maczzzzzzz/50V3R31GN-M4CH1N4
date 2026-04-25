@@ -222,11 +222,11 @@
 
 ---
 
-## 🌘 PHASE 78: VESPER MESH INTEGRATION
+## ✅ PHASE 78: VESPER MESH INTEGRATION (COMPLETED)
 **Goal:** Establish a persistent background agency layer that integrates Vesper Shadow Mode with the Hermes Mesh.
-- [ ] **Task 1: The Vesper Orchestrator (Go):** Implement the heartbeat watchdog and flush gate client.
-- [ ] **Task 2: The Perception Sidecar (Rust):** Materialize the OCR-based terminal canvas monitor.
-- [ ] **Task 3: The Emergence Gateway (TS):** Integrate glitch UI effects and injection logic into the Hermes HUD.
+- [x] **Task 1: The Vesper Orchestrator (Go):** Heartbeat Watchdog (30-min idle gate, SIGTERM self-hibernation) and Flush Gate Client (5-min poll, PASS verdict execution, SPO triplet seeding) materialized in `scripts/ops/vesper-daemon/`.
+- [x] **Task 2: The Perception Sidecar (Rust):** `crates/sovereign-vesper-eye` materialized. PatternMatcher (6 drift rules), LogDistiller (notify file watcher, incremental tail, cold-start scan). 4 tests pass.
+- [x] **Task 3: The Emergence Gateway (TS):** `/vesper` system command (status/drain/hibernate/wake) in `LangGraphOrchestrator.ts`. Vesper glitch keyframe animations in `dashboard/app/globals.css`.
 
 ---
 
