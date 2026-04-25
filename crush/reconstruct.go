@@ -13,7 +13,7 @@ import (
 )
 
 /**
- * CRUSH_RECONSTRUCT : v3.7.0
+ * CRUSH_RECONSTRUCT : v3.8.0
  *
  * Full Go port of fast-reconstruct.py with complete parity.
  * Reconstructs the Obsidian Vault (RKG) from Akashik.db.

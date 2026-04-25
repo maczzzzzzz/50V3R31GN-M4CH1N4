@@ -29,7 +29,7 @@ export class ArchitectPassService implements IArchitectService {
 
   /**
    * Spawns a token in the Foundry renderer.
-   * Resiliency Tier (v3.7.0):
+   * Resiliency Tier (v3.8.0):
    * 1. Try Bridge run_sequence command (Sequencer high-fidelity, Phase 15).
    * 2. Fallback to direct CDP TokenDocument.createDocuments (Neural Uplink baseline).
    */
@@ -106,7 +106,7 @@ export class ArchitectPassService implements IArchitectService {
 
   /**
    * Batch creates tokens on the specified scene (or active scene if null).
-   * Resiliency Tier (v3.7.0):
+   * Resiliency Tier (v3.8.0):
    * 1. Try Bridge run_sequence (Sequencer high-fidelity, Phase 15).
    * 2. Fallback to direct CDP TokenDocument.createDocuments batch.
    */

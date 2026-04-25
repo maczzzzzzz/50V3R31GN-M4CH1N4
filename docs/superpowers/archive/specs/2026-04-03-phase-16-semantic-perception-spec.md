@@ -1,7 +1,7 @@
 # Design Spec: Phase 16 — Semantic Perception
 
 **Date:** 2026-04-03  
-**Version:** 3.7.0 (Sovereign Highway Stabilization)  
+**Version:** 3.8.0 (Sovereign Highway Stabilization)  
 **Target:** Node A (GTX 1050 Ti) & Node B (AMD 9060 XT)
 
 ## 1. Overview

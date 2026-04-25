@@ -1,4 +1,4 @@
-This research report codifies the architectural finalization of the **SOVEREIGN TRINITY v3.7.0**. All specifications have been verified against April 2026 technical documentation, distributed inference benchmarks, and cross-vendor hardware protocols.
+This research report codifies the architectural finalization of the **SOVEREIGN TRINITY v3.8.0**. All specifications have been verified against April 2026 technical documentation, distributed inference benchmarks, and cross-vendor hardware protocols.
 
 ### ---
 

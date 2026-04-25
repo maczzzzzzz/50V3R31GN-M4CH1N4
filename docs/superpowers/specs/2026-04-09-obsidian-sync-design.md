@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: 0B51D14N_5YNC [7H3-HUM4N-R34D4BL3-V4UL7]
-**Version:** 3.7.0 (The Human-Readable Synapse Milestone)
+**Version:** 3.8.0 (The Human-Readable Synapse Milestone)
 **Status:** DESIGN_APPROVED
 **Sub-Project:** B (The Human-Readable Vault)
 

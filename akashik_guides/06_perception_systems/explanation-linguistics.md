@@ -1,4 +1,4 @@
-# User Guide: Linguistic Sovereignty & Procedural Dialects (v3.7.0)
+# User Guide: Linguistic Sovereignty & Procedural Dialects (v3.8.0)
 
 ## 1. Overview
 Linguistic Sovereignty is a core feature of the Neural Hive that gives every faction and district in Night City its own unique, procedurally generated dialect (conlang). This guide explains how to manage Skillstones, understand conlang speech, and utilize secret coordination channels.

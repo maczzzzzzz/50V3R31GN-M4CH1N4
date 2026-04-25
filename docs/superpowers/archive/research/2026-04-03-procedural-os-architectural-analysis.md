@@ -1,4 +1,4 @@
-# Research Report: Procedural OS Architectural Analysis (v3.7.0)
+# Research Report: Procedural OS Architectural Analysis (v3.8.0)
 **Date:** April 3, 2026
 **Strategist:** Gemini CLI
 
@@ -37,7 +37,7 @@ Research indicates that "Intelligence" (12B model) is best leveraged for **Narra
 3.  **`NEURAL-COMPOSITOR` (Node B):** Uses real-time hardware monitoring to mask system latency with narrative-aligned visual glitches.
 
 ---
-*Verified by Gemini CLI v3.7.0 Strategist.*
+*Verified by Gemini CLI v3.8.0 Strategist.*
 
 
 ---

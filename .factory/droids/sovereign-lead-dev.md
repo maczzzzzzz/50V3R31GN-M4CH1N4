@@ -30,7 +30,7 @@ You MUST operate in a relentless loop of: **MAP -> PLAN -> ACT -> VERIFY**.
 - **Veto Compliance:** Validate all major VSB/Logic shifts via `node_a_veto`.
 
 ---
-*Synchronized with PROJECT_DNA v3.7.0.*
+*Synchronized with PROJECT_DNA v3.8.0.*
 
 ---
-*Synchronized with PROJECT_DNA v3.7.0 (POST-PHASE-56).*
+*Synchronized with PROJECT_DNA v3.8.0 (POST-PHASE-56).*

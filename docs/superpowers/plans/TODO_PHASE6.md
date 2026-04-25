@@ -1,6 +1,6 @@
 # Phase 6: Living City Task Manifest
 
-## Status: 🟢 COMPLETE (v3.7.0 Hardened)
+## Status: 🟢 COMPLETE (v3.8.0 Hardened)
 
 ### Task 1: Geometric Wall Engine (Node A)
 - [x] Add image dependencies to Cargo.toml
@@ -31,7 +31,7 @@
 - **Result:** AI GM is physically aware of the map's tactical topology.
 
 ---
-*Verified by Gemini CLI v3.7.0.*
+*Verified by Gemini CLI v3.8.0.*
 
 
 ---

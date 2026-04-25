@@ -1,19 +1,19 @@
-# 🕵️ AUDIT REPORT: DECK-IGNITER TUI (v3.7.0)
+# 🕵️ AUDIT REPORT: DECK-IGNITER TUI (v3.8.0)
 **Date:** 2026-04-05
 **Worktree Location:** `.worktrees/feature/deck-igniter/deck-igniter/`
-**Target Version:** v3.7.0 (Sovereign Highway Stabilization)
+**Target Version:** v3.8.0 (Sovereign Highway Stabilization)
 **Status:** 🟢 **PASSED**
 
 ---
 
 ## 1. Executive Summary
-The `DECK-IGNITER` tool has been successfully remediated to align with the **v3.7.0 (WSL2 Nix-Native)** environment. All hardcoded mismatches have been replaced with dynamic `.env` mapping, and the prober logic now correctly handles VSB Binary UDP heartbeats and PID-based sidecar supervision.
+The `DECK-IGNITER` tool has been successfully remediated to align with the **v3.8.0 (WSL2 Nix-Native)** environment. All hardcoded mismatches have been replaced with dynamic `.env` mapping, and the prober logic now correctly handles VSB Binary UDP heartbeats and PID-based sidecar supervision.
 
 ## 2. Technical Findings (Post-Remediation)
 
 ### 🟢 Environment Sync (Verified)
 *   **Identity & Network:** `config.go` now correctly maps `192.168.0.50` and `maczz` via `.env` keys.
-*   **Kernel Setup Path:** `ssh.go` targets the correct v3.7.0 path on Node A: `~/50v3r31gn-m4ch1n4-v3.7.0/zeroclaw/scripts/setup-resident-models.sh`.
+*   **Kernel Setup Path:** `ssh.go` targets the correct v3.8.0 path on Node A: `~/50v3r31gn-m4ch1n4-v3.8.0/zeroclaw/scripts/setup-resident-models.sh`.
 *   **Sovereign Highway Port:** VSB UDP is correctly bound to port `7878`.
 
 ### 🟢 Probing Strategies (Verified)
@@ -26,10 +26,10 @@ The `DECK-IGNITER` tool has been successfully remediated to align with the **v3.
 *   **Sequential Boot:** `tea.Sequence` correctly manages the Cognition → Authority → Sidecar dependency chain.
 
 ## 3. Conclusion
-The Deck Igniter is now fully compatible with the v3.7.0 Sovereign Highway. It provides a reliable, single-pane-of-glass orchestration layer for the distributed ASP-GM-AGENT system.
+The Deck Igniter is now fully compatible with the v3.8.0 Sovereign Highway. It provides a reliable, single-pane-of-glass orchestration layer for the distributed ASP-GM-AGENT system.
 
 ---
-*Verified by Gemini CLI v3.7.0 Strategist.*
+*Verified by Gemini CLI v3.8.0 Strategist.*
 
 
 ---

@@ -1,4 +1,4 @@
-# Design Spec: Phase 15 — Omni Orchestrator (v3.7.0)
+# Design Spec: Phase 15 — Omni Orchestrator (v3.8.0)
 
 **Status:** ✅ HARDENED  
 **Architecture:** Distributed Swarm Intelligence + Layout Sovereignty  

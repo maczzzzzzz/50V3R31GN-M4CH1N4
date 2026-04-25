@@ -102,7 +102,7 @@ Co-Authored-By: Gemini CLI <gemini-cli@google.com>"
 Locate the `/* 2b. HEADER ELEMENT SOVEREIGNTY */` rule block (lines 68–81). Change `background-color: #000000` to `background-color: var(--cpr-bg-header)`:
 
 ```css
-    /* 2b. HEADER ELEMENT SOVEREIGNTY (Live Audit v3.7.0)
+    /* 2b. HEADER ELEMENT SOVEREIGNTY (Live Audit v3.8.0)
        <header> HTML elements — directory panels, combat tracker, playlists,
        window titlebars — are not covered by class selectors above. */
     body.vtt header.directory-header,

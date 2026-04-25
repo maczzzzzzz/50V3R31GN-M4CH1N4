@@ -1,5 +1,5 @@
 # ◈ COMMAND_MANIFEST // THE_SOVEREIGN_ACTIONS
-**Version:** 3.7.0
+**Version:** 3.8.0
 **Identity:** 50V3R31GN-M4CH1N4
 
 This document defines the primary commands required to ignite and maintain the **Sovereign Intelligence OS** and the **Trinity** cognitive mesh.

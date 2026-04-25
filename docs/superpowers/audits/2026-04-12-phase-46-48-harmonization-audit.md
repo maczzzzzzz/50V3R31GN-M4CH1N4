@@ -44,7 +44,7 @@
 - **Recommendation:** Integrate the pulse trigger into the `Synthetic Gauntlet` manifest hook or provide a `crush pulse` command.
 
 ---
-*Signed by the Sovereign Strategist v3.7.0.*
+*Signed by the Sovereign Strategist v3.8.0.*
 
 
 ---
