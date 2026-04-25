@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ArteryClient>().connectFromPrefs();
-      context.read<VsbListener>().start(9090);
+      context.read<VsbListener>().start(7878);
     });
   }
 

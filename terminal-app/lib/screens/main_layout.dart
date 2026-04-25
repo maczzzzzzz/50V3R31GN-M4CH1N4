@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'tasks_screen.dart';
 import 'memory_screen.dart';
+import 'terminal_screen.dart';
 import 'settings_screen.dart';
 
 class MainLayout extends StatefulWidget {
@@ -18,6 +19,7 @@ class _MainLayoutState extends State<MainLayout> {
     const HomeScreen(),
     const TasksScreen(),
     const MemoryScreen(),
+    const TerminalScreen(),
     const SettingsScreen(),
   ];
 
@@ -47,6 +49,7 @@ class _MainLayoutState extends State<MainLayout> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HOME'),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'TASKS'),
           BottomNavigationBarItem(icon: Icon(Icons.memory), label: 'MEMORY'),
+          BottomNavigationBarItem(icon: Icon(Icons.terminal), label: 'TERM'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'SETTINGS'),
         ],
       ),
