@@ -2,6 +2,7 @@
   "name": "50v3r31gn-m4ch1n4",
   "version": "3.7.0",
   "description": "48L173R473D M1ND // 50V3R31GN-M4CH1N4",
+  "icon": "terminal-app/assets/app_icon.png",
   "type": "module",
   "contributors": [
     {
@@ -71,7 +72,7 @@
     "forge:master": "tsx scripts/forge/master-forge.ts",
     "audit:vitals": "tsx scripts/audit/vitals-heartbeat.ts",
     "audit:repos": "tsx scripts/audit/repo-update-scanner.ts",
-    "scribe": "tsx scripts/audit/universal-synchronizer.ts",
+    "scribe": "tsx scripts/ops/sdk-forge.ts && tsx scripts/audit/universal-synchronizer.ts",
     "sync": "npm run scribe",
     "node:sync": "bash scripts/ops/node-surgical-sync.sh",
     "scribe:lock": "npm run scribe && git add . && git commit -m 'chore: universal scribe sync' && git push origin master",

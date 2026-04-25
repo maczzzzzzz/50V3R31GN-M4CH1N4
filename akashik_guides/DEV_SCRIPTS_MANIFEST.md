@@ -4,7 +4,7 @@
 
 This document indexes the vast array of developer utilities, operational scripts, and maintenance protocols hardcoded into the Sovereign Trinity. 
 
-When a coding agent (e.g., Gemma, Claude) is dispatched by the Hermes Orchestrator to repair a system, fix a style, or optimize logic, it MUST consult this manifest before writing any custom bash or python scripts from scratch.
+When a coding agent (e.g., Gemma, Claude) is dispatched by the Hermes Orchestrator to repair a system, fix a style, or optimize logic, it MUST consult this manifest before writing any custom logic. **MANDATE: All core logic must be Trinity-native (Rust/Go/TS). Legacy Python logic is shriven.**
 
 ---
 

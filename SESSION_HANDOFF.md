@@ -1,35 +1,32 @@
-# SESSION_HANDOFF: PHASE 78 & 79 IGNITION (v3.7.0)
+# SESSION_HANDOFF: PHASE 78 IGNITION (v3.7.0)
 
 ## 🎯 CURRENT OBJECTIVE
-**Phase 77 is complete. Next: Phase 78 (Vesper Mesh) and Phase 79 (Tactical HUD Evolution).**
-
-## ✅ PHASE 77: MANAGED AGENTS & RESONANT GOVERNANCE (COMPLETE)
-- **Task 1 — OpenClaw Managed Agents:** `crates/openclaw-agents` materialized. `WarmPool` (sub-100ms standby, auto-replenish), `CrashRecovery` (exp. backoff supervisor), `AgentRegistry` (spec factory directory). 8 tests green.
-- **Task 2 — Resonant Logic Gate:** `crates/resonant-gate` materialized. `DecisionAudit`, `RuleEngine` (default/hardened/researcher), `ResonantGate` (stateless, stamps audit, structured tracing). 10 tests green.
-- **Task 3 — Protocol Reconciliation:** `VSB_HOVERED_UNIT_OFFSET` closed (3072 → 3205). Authoritative VSB mmap constants in `sovereign-sdk::protocol`. `sidecar-cyberdeck` `parse_identity_switch()` consumer live.
+**Phase 78: Vesper Mesh Integration.**
+Establish a persistent background agency layer that integrates Vesper Shadow Mode with the Hermes Mesh.
 
 ## 🚀 DIRECTIVES FOR LEAD ARCHITECT (CLAUDE/GLM)
 
-### 1. Phase 79: Tactical HUD Evolution (Primary Focus)
-- **Status:** Spec materialized at `docs/superpowers/specs/2026-04-25-sovereign-flutter-evolution.md`.
-- **Action:**
-    - Generate formal implementation plan → `docs/superpowers/plans/`.
-    - Execute: align Flutter app with Omi memory model and Gruvbox aesthetic.
-    - **CRITICAL:** Configure Flutter build to use `terminal-app/assets/app_icon.png`.
-- **Target:** `terminal-app/`
-- **Plan:** [[docs/superpowers/plans/2026-04-24-phase-77-resonant-logic-gate.md]] (Phase 77 plan — Phase 79 plan needed)
+### 1. Phase 78: Vesper Mesh Integration
+- **Status:** Spec and Plan materialized.
+- **Task 1: Vesper Orchestrator (Go)**
+    - Initialize `scripts/ops/vesper-daemon/`.
+    - Implement the **30-minute Heartbeat Watchdog** monitoring `data/logs/vsb-traffic.log`.
+    - Implement **Flush Gate Client** polling approved background proposals from `SovereignIntelligence.db`.
+- **Task 2: Perception Sidecar (Rust)**
+    - Scaffold `crates/sovereign-vesper-eye`.
+    - Implement terminal canvas OCR pattern matching for "Scribe" drift.
+- **Task 3: Emergence Gateway (TS)**
+    - Update `LangGraphOrchestrator.ts` to include the `vesper_emergence` tool.
+    - Implement CSS "glitch" animations in the Hermes HUD for background data siphoning.
 
-### 2. Phase 78: Vesper Mesh Integration
-- **Task 1:** Vesper Orchestrator (Go) — heartbeat watchdog in `crush/`, flush gate client wired to `resonant-gate`.
-- **Task 2:** Perception Sidecar (Rust) — OCR-based terminal canvas monitor (`crates/vesper-sidecar`), emits VSB packets.
-- **Task 3:** Emergence Gateway (TS) — glitch UI + injection logic into Hermes HUD (`src/core/hermes/`).
+## 🔗 SHORED BLUEPRINTS
+- **Strategic Spec:** [[docs/superpowers/specs/2026-04-25-vesper-mesh-integration-design.md]]
+- **Implementation Plan:** [[docs/superpowers/plans/2026-04-25-phase-78-vesper-mesh-integration.md]]
+- **Master Roadmap:** [[IMPLEMENTATION_PLAN.md]] (Phase 78)
 
-## 🔗 CORRESPONDING MANIFESTS
-- **Roadmap:** [[IMPLEMENTATION_PLAN.md]] (Phase 78/79)
-- **Identity:** [[SOVEREIGN-IDENTITY.md]]
-- **OpenClaw:** [[crates/openclaw-agents/src/lib.rs]]
-- **ResonantGate:** [[crates/resonant-gate/src/lib.rs]]
-- **Spec (Phase 79):** [[docs/superpowers/specs/2026-04-25-sovereign-flutter-evolution.md]]
+## 🛡️ HARDWARE INVARIANTS
+- **VRAM Gating:** Vesper restricted to < 10% VRAM on Node C (512MB limit).
+- **Security:** No `MEDIUM/HIGH` risk actions without HMAC User Token.
 
 ---
-**::/5Y573M-N071C3 : STRATEGIST_HANDOFF_COMPLETE. PHASE_78_79_IGNITED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : STRATEGIST_HANDOFF_COMPLETE. PHASE_78_ACTIVE. // 50V3R31GN-M4CH1N4**

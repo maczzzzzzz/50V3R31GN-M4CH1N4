@@ -14,6 +14,7 @@
 
 pub mod log_distiller;
 pub mod pattern_matcher;
+pub mod screen_scanner;
 
 pub use log_distiller::LogDistiller;
 pub use pattern_matcher::{PatternMatcher, TripletProposal};

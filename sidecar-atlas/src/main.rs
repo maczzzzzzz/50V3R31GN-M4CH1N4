@@ -458,12 +458,27 @@ fn main() -> eframe::Result<()> {
         }
     }
 
-    let options = eframe::NativeOptions {
+    let mut options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_title(":/50V3R31GN-M4CH1N4 // 47L45")
             .with_inner_size([800.0, 600.0]),
         ..Default::default()
     };
+
+    // Load custom app icon from terminal-app/assets
+    if let Ok(icon_bytes) = std::fs::read("../terminal-app/assets/app_icon.png") {
+        if let Ok(image) = image::load_from_memory(&icon_bytes) {
+            let image = image.to_rgba8();
+            let (width, height) = image.dimensions();
+            let rgba = image.into_raw();
+            options.viewport.icon = Some(std::sync::Arc::new(egui::IconData {
+                rgba,
+                width,
+                height,
+            }));
+        }
+    }
+
     eframe::run_native(
         ":/50V3R31GN-M4CH1N4 // 47L45",
         options,

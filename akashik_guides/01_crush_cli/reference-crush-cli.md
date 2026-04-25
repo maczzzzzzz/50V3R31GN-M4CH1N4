@@ -21,7 +21,7 @@ As of Phase 50, sidecars are typically run as headless daemons supervised by the
 
 ### 3. Intelligence Forge (Phase 52+)
 - **`npm run forge:skills`**: Starts the **Skill Factory** to scan session logs for successful patterns and propose new `SKILL.md` shards.
-- **`npm run harmonize`**: (High Performance) Uses `fast-reconstruct.py` to synchronize 20k+ Obsidian files in <5 seconds.
+- **`npm run harmonize`**: (High Performance) Uses the **Crush Reconstruct (Go)** binary to synchronize 20k+ Obsidian files in <5 seconds.
 - **`npm run pulse`**: Executes a one-time world heartbeat advance.
 
 ### 4. Vault Security

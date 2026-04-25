@@ -124,11 +124,12 @@ function vesperEmergence(args: string): string {
           : `◈ VESPER HIBERNATE: Daemon was not running.`;
       }
       case 'wake': {
-        // Spawn vesper-daemon detached in background.
-        spawnSync('sh', ['-c', 'nohup scripts/ops/vesper-daemon/vesper-daemon &>/dev/null &'], {
+        // Spawn vesper-daemon detached in background via Nix Sovereignty wrap.
+        spawnSync('sh', ['-c', 'nohup nix develop --command scripts/ops/vesper-daemon/vesper-daemon &>/dev/null &'], {
           encoding: 'utf8',
         });
-        return `◈ VESPER WAKE: Daemon spawned in background.`;
+        // Trigger visual glitch protocol (Phase 78 UI Emergence)
+        return `◈ VESPER WAKE: Daemon spawned via Nix. [EMERGENCE_GLITCH_INITIATED]`;
       }
     }
   } catch (e) {

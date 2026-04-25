@@ -139,8 +139,17 @@ func (f *FlushGateClient) poll() {
 
 // execute processes an approved proposal and seeds a triplet.
 func (f *FlushGateClient) execute(db *sql.DB, p Proposal) {
-	fmt.Printf("  ◦ [VESPER/FLUSH] Executing proposal id=%d hash=%s\n", p.ID, p.LogicHash)
+	// Security: Fetch risk level (assumed added to decision_audit in Phase 77)
+	var risk string
+	_ = db.QueryRow("SELECT risk_level FROM decision_audit WHERE id = ?", p.ID).Scan(&risk)
 
+	if risk != "LOW" && risk != "" {
+		fmt.Printf("⚠️  [VESPER/FLUSH] HMAC REQUIRED: Proposal %d has risk '%s'. Skipping auto-execution.\n", p.ID, risk)
+		return
+	}
+
+	fmt.Printf("  ◦ [VESPER/FLUSH] Executing proposal id=%d hash=%s\n", p.ID, p.LogicHash)
+    ...
 	// Seed finding as a SPO triplet for Synapse ingestion.
 	subject := fmt.Sprintf("vesper:proposal:%s", p.LogicHash)
 	_, err := db.Exec(insertTriplet, subject, "was_approved_at", p.Timestamp)

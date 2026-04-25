@@ -99,7 +99,7 @@ impl PatternMatcher {
                 proposals.push(TripletProposal {
                     subject:   rule.subject.to_string(),
                     predicate: rule.predicate.to_string(),
-                    object:    line.chars().take(200).collect(),
+                    object:    line.chars().take(500).collect(),
                     source:    source.to_string(),
                 });
             }

@@ -33,7 +33,24 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 ### Changed
 - **sidecar-cyberdeck IDENTITY_SWITCH Consumer (Phase 77, Task 3):** Materialized `parse_identity_switch()` method and `active_profile: Option<String>` field. IDENTITY_SWITCH VSB slot is now read every frame — completing the Go `EmitIdentitySwitch` → Rust HUD theme-gate chain initiated in Phase 76.
 
-## [3.6.4] - 2026-04-25
+## [3.7.0] - 2026-04-25
+
+### Added
+- **Ability Stone Expansion:** Materialized 5 new geographic hardgates in `sovereign-sdk`, `resonant-gate`, `sidecar-netrunning`, `scripts/ops`, and `crates/openclaw-agents`.
+- **Unified Sovereign SDK:** Implemented `scripts/ops/sdk-forge.ts` for automated TS/Go bit-parity with the Rust Source of Truth.
+- **The Refinery (Phase 1):** Ported `fast-reconstruct.py` to `crush/reconstruct.go` (Standlone Go) and `gepa_loop.py` to `GepaOrchestrator.ts` (TS Native).
+- **V3SP3R Mesh Persistence:** Finalized Phase 78 with HMAC risk hardgates and native `ScreenScanner` (OCR architectural shell).
+- **Universal Icon Propagation:** `app_icon.png` deployed to Dashboard and all sidecars (`atlas`, `cyberdeck`, `netrun`).
+
+### Fixed
+- **Systemic Drift Audit (SDA):** Purged 4 legacy Python shards and corrected hardcoded Windows paths in `SOVEREIGN-IDENTITY.md`.
+- **SSOT Alignment:** Enforced root `AGENTS.md` authority while maintaining sector-specific Ability Stones.
+- **Artery Hardening:** wrapped Vesper daemon in `nix develop` for total environment sovereignty.
+
+### Changed
+- **Version Lock:** Universal synchronization of all manifests, guides, and source files to v3.7.0.
+
+## [3.6.4] - 2026-04-19
 ### Added
 - **Sovereign Flutter Evolution (Phase 76):** Materialized the spec for the next-gen Flutter HUD, aligning with the Omi memory model and Gruvbox aesthetic.
 - **Synapse Palace V2:** Optimized the `SovereignIntelligence.db` schema with spatial scoping (`room_id`) and **AAAK distillation** for extreme context efficiency.
