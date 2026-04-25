@@ -45,4 +45,37 @@ PARENT :: [[NAVIGATOR]]
 - [[GUIDE_TREE]]
 EOP
 
-echo ">> KNOWLEDGE TREES WOVEN. WINDOWS PATHS SANITIZED."
+# 8. Dynamic Kanban Roadmap Sync
+echo ">> SYNCHRONIZING KANBAN ROADMAP..."
+KANBAN_FILE="$OS_VAULT/Sovereign-Roadmap.md"
+
+cat <<EOF > "$KANBAN_FILE"
+---
+
+kanban-plugin: basic
+
+---
+
+## DONE
+
+$(grep -E "^- \[x\]" IMPLEMENTATION_PLAN.md | head -n 20)
+
+## IN-PROGRESS
+
+$(grep -E "^## .* (IN-PROGRESS|PRIMARY_TASK)" IMPLEMENTATION_PLAN.md -A 5 | grep -E "^- \[" | head -n 10)
+
+## BACKLOG
+
+$(grep -E "^## " IMPLEMENTATION_PLAN.md -A 10 | grep -E "^- \[ \]" | grep -v "(COMPLETED)" | head -n 20)
+
+%% kanban:settings
+\`\`\`
+{"kanban-plugin":"basic"}
+\`\`\`
+%%
+EOF
+
+# 9. Shard Kanban state to DB
+sqlite3 "$DB" "INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal) VALUES ('Sovereign-Roadmap.md', 'VISUALIZES', 'ROADMAP_STATE');"
+
+echo ">> KNOWLEDGE TREES WOVEN. KANBAN AUTOMATED."
