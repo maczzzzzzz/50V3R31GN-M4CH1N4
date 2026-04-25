@@ -42,6 +42,26 @@
       });
     in
     {
+      # Phase 73.2 — Obscura Stealth Browser (CDP sidecar, ~30MB RAM)
+      # Deploy: nix build .#obscura && sudo cp result/bin/obscura /usr/local/bin/
+      # On first build nix will print the correct hash — replace the fakeHash values.
+      packages.${system}.obscura = pkgs.rustPlatform.buildRustPackage {
+        pname = "obscura";
+        version = "0.1.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "h4ckf0r0day";
+          repo = "obscura";
+          rev = "main";
+          hash = pkgs.lib.fakeHash;
+        };
+        cargoHash = pkgs.lib.fakeHash;
+        buildFeatures = [ "stealth" ];
+        cargoBuildFlags = [ "--package" "obscura-cli" ];
+        nativeBuildInputs = with pkgs; [ pkg-config ];
+        buildInputs = with pkgs; [ openssl ];
+        meta.description = "Rust headless CDP browser with stealth fingerprinting";
+      };
+
       devShells.${system} = {
         default = pkgs.mkShell {
           # REQUIRED: Set NIXPKGS_ALLOW_UNFREE=1 and pass --impure to use steam-run/cuda
