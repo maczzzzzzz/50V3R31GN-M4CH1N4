@@ -7,9 +7,9 @@
   "markdown.preview.fontFamily": "'VT323', monospace",
   "markdown.preview.fontSize": 18,
 
-  "workbench.colorTheme": "Dark 2026",
+  "workbench.colorTheme": "Gruvbox Material Dark",
   "workbench.colorCustomizations": {
-    "[Gruvbox Dark Soft]": {
+    "[Gruvbox Material Dark]": {
       "activityBar.background":             "#1d2021",
       "activityBar.foreground":             "#ebdbb2",
       "sideBar.background":                 "#1d2021",
