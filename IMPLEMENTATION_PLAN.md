@@ -207,3 +207,19 @@
 **Goal:** Deploy high-resilience agent primitives and the deterministic Resonant Logic Gate.
 - [ ] **Task 1: OpenClaw Managed Agents:** Suite of Rust-native primitives for agentic crash recovery and warm pools.
 - [ ] **Task 2: Resonant Logic Gate:** Deterministic logic layer to ensure absolute system governance.
+
+---
+
+## 🌘 PHASE 78: VESPER MESH INTEGRATION
+**Goal:** Establish a persistent background agency layer that integrates Vesper Shadow Mode with the Hermes Mesh.
+- [ ] **Task 1: The Vesper Orchestrator (Go):** Implement the heartbeat watchdog and flush gate client.
+- [ ] **Task 2: The Perception Sidecar (Rust):** Materialize the OCR-based terminal canvas monitor.
+- [ ] **Task 3: The Emergence Gateway (TS):** Integrate glitch UI effects and injection logic into the Hermes HUD.
+
+---
+
+## 🚀 PHASE 79: HOST-BRIDGE ARTERY (LOGICAL_ESCALATION)
+**Goal:** Establish direct control of the Windows host environment via a secure VSB sidecar.
+- [ ] **Task 1: Machina-Host Scaffolding (Go/Windows):** Scaffold the native Windows sidecar and VSB listener.
+- [ ] **Task 2: Native Capability Forge:** Implement process management and window control primitives.
+- [ ] **Task 3: WSL Client Integration:** Wire the Hermes HUD to trigger host-scoped commands via VSB.
