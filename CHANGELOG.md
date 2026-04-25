@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 
+## [3.6.3] - 2026-04-25
+### Fixed
+- **Hardgate Case-Sensitivity (Phase 76, Critical):** Removed `strings.ToLower` from `parseActiveProfile` — profile names are case-sensitive section headers. Added inline documentation clarifying that `SOVEREIGN_OS` is a boot-label (not a named profile section), so the Hardgate is intentionally bypassed from boot state; it fires only when switching between two named profiles with differing `permission_policy`.
+- **Shell Injection Surface (Phase 76, Critical):** Replaced all `execSync` shell-interpolated invocations in `LangGraphOrchestrator.ts` dispatch with `spawnSync` array form. Added allowlist validation: `/profile` checks against `KNOWN_PROFILES`; `/vault` restricts to `{status, seal, open}`. Closes RCE surface on the orchestrator's command registry.
+- **Boot Invariant Enforcement (Phase 76, Important):** `ignite-all.sh` Stage 6 now actively resets `ACTIVE_PROFILE` to `[SOVEREIGN_OS]` via `sed` if a non-default profile is detected at boot — no longer a log-statement-only assertion.
+- **json.Marshal Error Discarded (Phase 76, Minor):** `pushProfileToMooncake` now propagates serialization errors instead of silently writing a nil payload to the TCP connection.
+- **AppFlowy Title Trailing Colon (Phase 76, Minor):** `appflowy-sync.ts` strips the trailing colon artifact from task titles captured by the markdown parser regex.
+
+### Added
+- **Streaming TODO (Phase 76, Backlog):** Documented SSE pass-through limitation in `hermes-router/src/main.rs` — full response buffering blocks streaming callers; deferred to Phase 77.
+
 ## [3.6.2] - 2026-04-25
 ### Added
 - **Hermes Cognition Router (Phase 76, Task 2):** Verified clean release build of `crates/hermes-router`. Excised unused `tokio::sync::Mutex` import. Integrated into `scripts/audit/ignite-all.sh` as Stage 4.5 — boots before the Node C Artery Manager on every ignition cycle.
