@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.4.html).
 
+## [3.7.0] - 2026-04-25
+### Added
+- **OpenClaw Managed Agents (Phase 77, Task 1):** Materialized `crates/openclaw-agents` — Rust-native high-resilience agent primitives for the Sovereign Mesh.
+  - `AgentRegistry`: Central directory mapping agent names to `AgentSpec` factories.
+  - `WarmPool`: Pre-spawned standby pool (configurable size) enabling sub-100ms agent acquisition. Atomic replenish on acquire — pool headroom always maintained.
+  - `CrashRecovery`: Supervised restart harness with exponential backoff (`base_ms * 2^n`, capped at 30s). `run()` for single-shot recovery, `supervise()` for long-running task loops.
+  - 8 unit tests covering prime/acquire/release cycle, cold-spawn fallback, backoff cap, and max-restart exhaustion.
+- **Resonant Logic Gate (Phase 77, Task 2):** Materialized `crates/resonant-gate` — deterministic governance layer between LLM output and system execution.
+  - `DecisionAudit`: Structured action proposal record (JSON-serializable) with request_id, policy, action_type, agent_id, payload, timestamp_ms. Stamped with `Verdict` after evaluation.
+  - `RuleEngine`: Zero-ML deterministic policy evaluator. Evaluation order: DENY → ESCALATE → ALLOW → (default). Built-in policies: `default`, `hardened`, `researcher`.
+  - `ResonantGate`: Stateless entry-point wrapping `RuleEngine`; stamps audit in-place and emits structured tracing logs on every Approved / Denied / Escalate verdict.
+  - 10 unit tests covering all verdict paths, policy precedence, unknown-policy escalation, and audit JSON round-trip.
+- **VSB Protocol Constants (Phase 77, Task 3):** Added authoritative VSB mmap layout constants to `sovereign-sdk/src/protocol.rs` — `VSB_MAP_SIZE`, `VSB_MMAP_MAGIC_OFFSET`, `VSB_SOVEREIGN_MODE_OFFSET`, `VSB_RADAR_OFFSET`, `VSB_HOVERED_UNIT_OFFSET`, `VSB_HOVERED_UNIT_SIZE`, `VSB_IDENTITY_SWITCH_OFFSET`, `VSB_IDENTITY_SWITCH_SIZE`. All consumers MUST reference these constants.
+
+### Fixed
+- **VSB HOVERED_UNIT_OFFSET Mismatch (Phase 77, Task 3, Critical):** `sidecar-cyberdeck` had `HOVERED_UNIT_OFFSET = 3072` — which is the Radar slot. Correct value is **3205**. Fixed by importing `VSB_HOVERED_UNIT_OFFSET` from `sovereign-sdk::protocol`; replaced inline `133` magic number with `VSB_HOVERED_UNIT_SIZE`. Cross-component protocol desync eliminated.
+
+### Changed
+- **sidecar-cyberdeck IDENTITY_SWITCH Consumer (Phase 77, Task 3):** Materialized `parse_identity_switch()` method and `active_profile: Option<String>` field. IDENTITY_SWITCH VSB slot is now read every frame — completing the Go `EmitIdentitySwitch` → Rust HUD theme-gate chain initiated in Phase 76.
+
 ## [3.6.4] - 2026-04-25
 ### Added
 - **Sovereign Flutter Evolution (Phase 76):** Materialized the spec for the next-gen Flutter HUD, aligning with the Omi memory model and Gruvbox aesthetic.

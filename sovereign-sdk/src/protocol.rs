@@ -117,6 +117,28 @@ pub struct GhostHeader {
     pub ghost_count: u32,
 }
 
+// ─── VSB Shared Memory Map (black_ice_state.mem, 4096 bytes) ─────────────────
+//
+// Authoritative layout — all consumers MUST reference these constants.
+// Go-side mirror: crush/watcher.go. Any divergence is a PROTOCOL VIOLATION.
+//
+//   [0..16]        magic:              "BLACK-ICE-RADAR\0" (16 bytes)
+//   [1024..1326]   proposal:           IntentPacket / Proposal struct (302 bytes)
+//   [2048]         sovereign_mode:     u8  — 0x00 off | 0x01 on
+//   [3072..3075]   radar:              active(1) | heat(1) | public(1)
+//   [3205..3338]   hovered_unit:       active(1) | id(16) | type(8) | x_f32(4) | y_f32(4) | imgPath(100)
+//   [3338..3403]   identity_switch:    active(1) | profile_name(64)
+
+pub const VSB_MAP_SIZE: usize             = 4096;
+pub const VSB_MMAP_MAGIC_OFFSET: usize    = 0;
+pub const VSB_SOVEREIGN_MODE_OFFSET: usize = 2048;
+pub const VSB_RADAR_OFFSET: usize         = 3072;
+pub const VSB_RADAR_SIZE: usize           = 3;    // active(1)|heat(1)|public(1)
+pub const VSB_HOVERED_UNIT_OFFSET: usize  = 3205;
+pub const VSB_HOVERED_UNIT_SIZE: usize    = 133;  // active(1)|id(16)|type(8)|x_f32(4)|y_f32(4)|imgPath(100)
+pub const VSB_IDENTITY_SWITCH_OFFSET: usize = 3338;
+pub const VSB_IDENTITY_SWITCH_SIZE: usize   = 65; // active(1)|profile_name(64)
+
 // ─── Flush Gate Proposal (VSB Shared Memory) ─────────────────────────────────
 
 pub const PROPOSAL_OFFSET: usize = 1024;

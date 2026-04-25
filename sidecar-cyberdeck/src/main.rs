@@ -3,7 +3,8 @@ use egui::{epaint, CentralPanel, Color32, FontId, Pos2, Rect, Stroke};
 use memmap2::{Mmap, MmapMut, MmapOptions};
 use sovereign_sdk::protocol::{
     GhostBlip as GhostBlipProtocol, GHOST_BLIP_SIZE, GHOST_HEADER_SIZE, GHOST_MAGIC, RADAR_BLIP_SIZE,
-    RADAR_HEADER_SIZE, RADAR_MAGIC,
+    RADAR_HEADER_SIZE, RADAR_MAGIC, VSB_HOVERED_UNIT_OFFSET, VSB_HOVERED_UNIT_SIZE,
+    VSB_IDENTITY_SWITCH_OFFSET, VSB_IDENTITY_SWITCH_SIZE,
 };
 use std::fs::{File, OpenOptions};
 use std::path::PathBuf;
@@ -87,9 +88,11 @@ pub(crate) struct ScannedItem {
 
 // ─── Phase 39: HoveredUnit ────────────────────────────────────────────────────
 
-/// Phase 39 transient biometric hover data from Mmap offset 3072.
+/// Phase 39 transient biometric hover data.
 /// Layout: active(1) | id(16) | type(8) | x_f32(4) | y_f32(4) | imgPath(100)
-const HOVERED_UNIT_OFFSET: usize = 3072;
+/// Canonical offset defined in sovereign-sdk::protocol::VSB_HOVERED_UNIT_OFFSET.
+const HOVERED_UNIT_OFFSET: usize = VSB_HOVERED_UNIT_OFFSET; // 3205
+const HOVERED_UNIT_SIZE: usize   = VSB_HOVERED_UNIT_SIZE;   // 133
 
 #[derive(Debug, Clone)]
 struct HoveredUnit {
@@ -218,6 +221,9 @@ struct CyberdeckApp {
 
     // ── Phase 39: Infiltration Scanner ────────────────────────────────────────
     hovered_unit: Option<HoveredUnit>,
+
+    // ── Phase 76/77: Identity Switch (Gruvbox vs. Red theme gate) ─────────────
+    active_profile: Option<String>,
 }
 
 impl CyberdeckApp {
@@ -254,6 +260,7 @@ impl CyberdeckApp {
             radar_heat: 0,
             radar_public: false,
             hovered_unit: None,
+            active_profile: None,
         };
 
         // Map the radar file
@@ -338,7 +345,7 @@ impl CyberdeckApp {
             None => { self.hovered_unit = None; return; }
         };
         let data = &mmap[..];
-        if data.len() < HOVERED_UNIT_OFFSET + 133 {
+        if data.len() < HOVERED_UNIT_OFFSET + HOVERED_UNIT_SIZE {
             self.hovered_unit = None;
             return;
         }
@@ -354,6 +361,26 @@ impl CyberdeckApp {
             y:         f32::from_le_bytes(data[base + 29 .. base + 33].try_into().unwrap_or([0; 4])),
             img_path:  parse_null_str(&data[base + 33 .. base + 133]),
         });
+    }
+
+    /// Phase 77: Read IDENTITY_SWITCH slot from VSB mmap.
+    /// When active, updates active_profile — which gates Gruvbox vs. Red theme.
+    fn parse_identity_switch(&mut self) {
+        let mmap = match &self.radar_mmap {
+            Some(m) => m,
+            None => return,
+        };
+        let data = &mmap[..];
+        if data.len() < VSB_IDENTITY_SWITCH_OFFSET + VSB_IDENTITY_SWITCH_SIZE {
+            return;
+        }
+        let base = VSB_IDENTITY_SWITCH_OFFSET;
+        if data[base] == 0x01 {
+            let name = parse_null_str(&data[base + 1 .. base + VSB_IDENTITY_SWITCH_SIZE]);
+            if !name.is_empty() {
+                self.active_profile = Some(name);
+            }
+        }
     }
 
     fn parse_ghost_state(&mut self) {
@@ -832,6 +859,7 @@ impl eframe::App for CyberdeckApp {
         self.parse_radar_state();
         self.parse_ghost_state();
         self.parse_hovered_unit();
+        self.parse_identity_switch();
 
         // Sync intrusion_level into glitch engine
         let il = self.intrusion_level;

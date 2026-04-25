@@ -214,11 +214,11 @@
 
 ---
 
-## 🛡️ PHASE 77: MANAGED AGENTS & RESONANT GOVERNANCE (IN-PROGRESS)
+## ✅ PHASE 77: MANAGED AGENTS & RESONANT GOVERNANCE (COMPLETED)
 **Goal:** Deploy high-resilience agent primitives and the deterministic Resonant Logic Gate.
-- [ ] **Task 1: OpenClaw Managed Agents:** Suite of Rust-native primitives for agentic crash recovery and warm pools in `crates/openclaw-agents`.
-- [ ] **Task 2: Resonant Logic Gate:** Deterministic logic layer to ensure absolute system governance via `decision_audit`.
-- [ ] **Task 3: Protocol Reconciliation:** Resolve VSB `HOVERED_UNIT_OFFSET` mismatch and shore up `sovereign-sdk` bit-fidelity.
+- [x] **Task 1: OpenClaw Managed Agents:** Suite of Rust-native primitives for agentic crash recovery and warm pools in `crates/openclaw-agents`. WarmPool (sub-100ms standby), CrashRecovery (exp. backoff supervisor), AgentRegistry (spec directory). 8 tests pass.
+- [x] **Task 2: Resonant Logic Gate:** Deterministic logic layer in `crates/resonant-gate` — DecisionAudit, RuleEngine (default/hardened/researcher policies), ResonantGate entry-point. 10 tests pass.
+- [x] **Task 3: Protocol Reconciliation:** VSB HOVERED_UNIT_OFFSET mismatch fixed (3072 → 3205). Authoritative mmap layout constants materialized in `sovereign-sdk::protocol`. IDENTITY_SWITCH consumer chain completed in `sidecar-cyberdeck`.
 
 ---
 
