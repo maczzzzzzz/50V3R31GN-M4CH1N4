@@ -161,6 +161,21 @@ class ArteryClient extends ChangeNotifier {
     }
   }
 
+  /// Sends a structured JSON command through the Artery.
+  void sendJsonCommand(String action, String payload) {
+    if (_isConnected && _channel != null) {
+      final cmd = jsonEncode({
+        "action": action,
+        "payload": payload,
+        "timestamp": DateTime.now().toIso8601String(),
+      });
+      _channel!.sink.add(cmd);
+      addLog("::/USER_CMD : $action");
+    } else {
+      addLog("::/ERROR : ARTERY_OFFLINE");
+    }
+  }
+
   Future<void> shiftQuantization(String quant) async {
     final prefs = await SharedPreferences.getInstance();
     final ip = prefs.getString('node_c_ip') ?? '10.0.0.30';

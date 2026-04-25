@@ -23,7 +23,8 @@ class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage() {
     final text = _controller.text.trim();
     if (text.isNotEmpty) {
-      context.read<ChatService>().sendMessage(text);
+      final artery = context.read<ArteryClient>();
+      context.read<ChatService>().sendMessage(text, artery);
       _controller.clear();
       _scrollToBottom();
     }

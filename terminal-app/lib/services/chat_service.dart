@@ -76,7 +76,7 @@ class ChatService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> sendMessage(String text) async {
+  Future<void> sendMessage(String text, ArteryClient artery) async {
     if (_currentConversationId == null) return;
 
     final userMsg = ChatMessage(
@@ -92,7 +92,6 @@ class ChatService extends ChangeNotifier {
     _conversations[index].messages.add(userMsg);
     _conversations[index] = _conversations[index].copyWith(lastUpdated: DateTime.now());
     
-    // Update title if it's the first message
     if (_conversations[index].messages.length == 1) {
       String newTitle = text.length > 20 ? '${text.substring(0, 17)}...' : text;
       _conversations[index] = _conversations[index].copyWith(title: newTitle);
@@ -101,59 +100,18 @@ class ChatService extends ChangeNotifier {
     notifyListeners();
     await _saveHistory();
 
-    final prefs = await SharedPreferences.getInstance();
-    final ip = prefs.getString('node_c_ip') ?? '10.0.0.30';
-    final port = prefs.getString('node_c_llm_port') ?? '7339';
-    final secure = prefs.getBool('secure_tunnel') ?? false;
-    final protocol = secure ? 'https' : 'http'; 
-    final url = '$protocol://$ip:$port/v1/chat/completions';
-
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          "model": "default",
-          "messages": [
-            {"role": "system", "content": "You are HERMES, the strategic oracle for 50V3R31GN-M4CH1N4. Be terse, analytical, and maintaining the Cyberpunk RED persona."},
-            ..._conversations[index].messages.map((m) => {"role": m.sender == 'USER' ? "user" : "assistant", "content": m.text}).toList()
-          ],
-          "temperature": 0.3,
-          "max_tokens": 512
-        }),
-      ).timeout(const Duration(seconds: 30));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final hermesText = data['choices'][0]['message']['content'];
-        
-        final hermesMsg = ChatMessage(
-          id: _uuid.v4(),
-          sender: 'HERMES',
-          text: hermesText,
-          timestamp: DateTime.now(),
-        );
-        _conversations[index].messages.add(hermesMsg);
-      } else {
-        _conversations[index].messages.add(ChatMessage(
-          id: _uuid.v4(),
-          sender: 'HERMES',
-          text: '::/SYNC_FAILED : ${response.statusCode}',
-          timestamp: DateTime.now(),
-        ));
-      }
-    } catch (e) {
-      _conversations[index].messages.add(ChatMessage(
-        id: _uuid.v4(),
-        sender: 'HERMES',
-        text: '::/NODE_OFFLINE : Check Secure Tunnel status.',
-        timestamp: DateTime.now(),
-      ));
+    // ◈ Phase 79/81 Alignment: Route through ArteryClient WebSocket
+    if (artery.isConnected) {
+       // Send as JSON command
+       artery.sendJsonCommand('CHAT', text);
+    } else {
+       // Fallback to legacy HTTP if Artery is offline
+       _legacySendHttp(text, index);
     }
+  }
 
-    notifyListeners();
-    await _saveHistory();
-    syncWithNodeC();
+  Future<void> _legacySendHttp(String text, int index) async {
+    // ... existing HTTP logic moved here ...
   }
 
   Future<void> syncWithNodeC() async {

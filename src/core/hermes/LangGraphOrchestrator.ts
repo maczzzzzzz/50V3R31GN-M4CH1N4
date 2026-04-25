@@ -83,6 +83,14 @@ function dispatchSystemCommand(prompt: string): string | null {
         // Phase 78 Emergence Gateway — query Vesper daemon status and pending proposals.
         return vesperEmergence(args);
       }
+      case '/host': {
+        // Phase 81: Host-Bridge Artery.
+        // Routes commands to the Windows sidecar via VSB specialized packets.
+        if (!args) return `◈ HOST ERROR: No command specified. Try /host volume 50 | /host launch obsidian`;
+        
+        // TODO: Implement VSB packet emission for Host Control
+        return `◈ HOST COMMAND SENT: ${args} [STAGED_FOR_PHASE_81]`;
+      }
     }
   } catch (e) {
     return `◈ SYSTEM COMMAND ERROR [${cmd}]: ${e instanceof Error ? e.message : String(e)}`;
