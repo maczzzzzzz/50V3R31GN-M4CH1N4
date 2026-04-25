@@ -46,9 +46,10 @@ echo "  [stage 2] Igniting Director (Gemma-4-E4B Q8 GPU)..."
 DIRECTOR_PID=$!
 
 # ---------------------------------------------------------------------------
-# ◈ STAGE 3: MCP BRIDGE & NUCLEUS
+# ◈ STAGE 3: MCP BRIDGE & NUCLEUS (Infrastructure)
 # ---------------------------------------------------------------------------
-echo "  [stage 3] Igniting MCP Bridge & Nucleus..."
+echo "  [stage 3] Igniting MCP Bridge, Nucleus & Flowy..."
+systemctl --user start sovereign-flowy
 nix develop -c npm run mcp:start > "$LOG_DIR/mcp.log" 2>&1 &
 sleep 5
 nix develop -c npm run start > "$LOG_DIR/nucleus.log" 2>&1 &

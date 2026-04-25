@@ -11,6 +11,7 @@ Select a vector to begin navigation.
 - **[ROADMAP]** :: [[IMPLEMENTATION_PLAN.md]] — Active mission phases.
 - **[IDENTITY]** :: [[SOVEREIGN-IDENTITY.md]] — Active mission profile and constraints.
 - **[VITAL_SIGNS]** :: [[SOVEREIGN_VITAL_SIGNS.md]] — Hardware health and node telemetry.
+- **[STRUTURED_HUB]** :: [AppFlowy Hub](http://10.0.0.12:3000) — Project management and databases.
 
 ### 2. [USER_GUIDES] (Akashik Shards)
 - **[SETUP]** :: [[akashik_guides/00_system_setup/README.md]]

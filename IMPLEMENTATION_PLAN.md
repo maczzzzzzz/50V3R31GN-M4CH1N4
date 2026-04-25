@@ -227,3 +227,12 @@
 
 ---
 **LINKS:** [[OS_CORE]]
+
+---
+
+## ✅ PHASE 76.5: THE NAVIGATION ARTERY (APPFLOWY & DOCS) (COMPLETED)
+**Goal:** Establish a structured documentation hub and a central navigation entry point for the user.
+- [x] **Task 1: Navigator Hub:** Materialize NAVIGATOR.md as the central loom for all shored manifests. (SUCCESS: v3.4.2).
+- [x] **Task 2: Identity Guide:** Materialize akashik_guides/08_sovereign_identity/ to explain atomic profile switching. (SUCCESS: shored).
+- [x] **Task 3: Aesthetic Purge:** Surgically remove all legacy "Red Void" references from 100% of user guides. (SUCCESS: bit-identical Gruvbox).
+- [x] **Task 4: AppFlowy Integration:** Deploy a Go-native/Rust API bridge to integrate AppFlowy block-storage with the OS SQLite DB. (SUCCESS: sovereign-flowy active).

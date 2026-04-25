@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
 
+## [3.5.4] - 2026-04-25
+### Added
+- **Sovereign-Flowy Port (Phase 76.5):** Materialized the **sovereign-flowy** Rust backend, porting AppFlowy block-storage logic to a local-first, SQLite-backed architecture.
+- **Flowy API Server:** Deployed an Axum-based API server (`sovereign-flowy` bin) to serve shored workspace and page data to the Desktop client.
+- **SQLite Flowy Schema:** Initialized relational tables for workspaces, pages, and content blocks within `SovereignIntelligence.db`.
+- **Ignition Integration:** Added `sovereign-flowy` to the global ignition sequence (Stage 3).
+
 ## [3.4.8] - 2026-04-24
 ### Added
 - **Sovereign Strategic Oracle (Phase 74):** Deployed the **Exa-rs** (Rust) and **Exa-go** (Go) SDKs for high-performance semantic web perception.
