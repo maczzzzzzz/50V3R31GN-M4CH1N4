@@ -82,8 +82,10 @@ async fn handle_route(
         info!("ROUTER: [DEEP_SYNTHESIS] L={} Profile={} -> Node B", l_length, profile.name);
         NODE_B_URL
     } else {
-        info!("ROUTER: [FAST_PARSING] L={} Profile={} -> Node C", l_length, profile.name);
-        NODE_C_URL
+        let endpoint = get_node_c_endpoint(&profile.inference_preference);
+        info!("ROUTER: [FAST_PARSING] L={} Profile={} Preference={} -> {}", 
+            l_length, profile.name, profile.inference_preference, endpoint);
+        endpoint
     };
 
     // 4. Proxy Request
@@ -100,6 +102,11 @@ async fn handle_route(
     // Currently the full response is buffered — callers using streaming inference
     // will receive no tokens until generation is complete. For L > 4000 on Node B
     // this can block for tens of seconds.
+    let status = response.status();
+    let body = response.bytes().await.unwrap_or_default();
+    (status, body).into_response()
+}
+is can block for tens of seconds.
     let status = response.status();
     let body = response.bytes().await.unwrap_or_default();
     (status, body).into_response()
