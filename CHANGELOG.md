@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
 
+## [3.4.5] - 2026-04-24
+### Added
+- **Aesthetic Sovereignty (Phase 74):** Implemented the **Gruvbox** (morhetz/gruvbox) palette as the canonical system-wide visual protocol.
+- **Gruvbox Alacritty:** Hardened `config/alacritty/alacritty.toml` with the Dark (Medium) palette and VT323 rendering.
+- **Gruvbox Obsidian:** Materialized `config/obsidian/gruvbox.css` supporting both Dark and Light modes across all sharded vaults.
+- **Identity Alignment:** Updated `SOVEREIGN-IDENTITY.md` to include the `AESTHETIC_STANDARD: GRUVB0X_V1.0` constraint.
+
 ## [3.4.3] - 2026-04-24
+
 ### Added
 - **Physical Sovereignty (Phase 73):** Executed the **Vault Sociotomy**, physically sharding the 3,000+ RKG knowledge graph into Hot (Active) and Cold (Archive) layers to achieve <2s Obsidian boot times.
 - **Obscura Stealth Sidecar:** Materialized the **Obscura** Rust-based browser (30MB RAM) as a Nix-managed sidecar service on Node C.

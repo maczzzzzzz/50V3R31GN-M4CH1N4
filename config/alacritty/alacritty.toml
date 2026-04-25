@@ -10,28 +10,28 @@ bold = { family = "VT323", style = "Bold" }
 size = 14.0
 
 [colors.primary]
-background = "#000000"
-foreground = "#ff0000"
+background = "#282828"
+foreground = "#ebdbb2"
 
 [colors.normal]
-black   = "#000000"
-red     = "#ff0000"
-green   = "#00ff00"
-yellow  = "#ffff00"
-blue    = "#0000ff"
-magenta = "#ff00ff"
-cyan    = "#00ffff"
-white   = "#ffffff"
+black   = "#282828"
+red     = "#cc241d"
+green   = "#98971a"
+yellow  = "#d79921"
+blue    = "#458588"
+magenta = "#b16286"
+cyan    = "#689d6a"
+white   = "#a89984"
 
 [colors.bright]
-black   = "#808080"
-red     = "#ff4d4d"
-green   = "#4dff4d"
-yellow  = "#ffff4d"
-blue    = "#4d4dff"
-magenta = "#ff4df7"
-cyan    = "#4dffff"
-white   = "#ffffff"
+black   = "#928374"
+red     = "#fb4934"
+green   = "#b8bb26"
+yellow  = "#fabd2f"
+blue    = "#83a598"
+magenta = "#d3869b"
+cyan    = "#8ec07c"
+white   = "#ebdbb2"
 
 [cursor]
 style = { shape = "Block", blinking = "Always" }
