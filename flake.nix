@@ -94,6 +94,7 @@
             # generic linux binary support (for Droid / Factory AI)
             steam-run
             xdg-utils
+            alacritty
 
             # Sidecar Build Requirements (Rust)
             cargo
