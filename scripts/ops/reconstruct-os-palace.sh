@@ -78,4 +78,10 @@ find docs/superpowers/plans/ -name "*.md" | while read -r plan_path; do
     cp "$plan_path" "$OS_VAULT/Plans/$plan_name.md"
 done
 
+# 6. Finalize Kanban State
+echo ">> SYNCHRONIZING ROADMAP KANBAN..."
+# (Placeholder for future more complex parsing logic)
+# For now, we ensure the board file is detectable by the sync-daemon
+sqlite3 "$DB" "INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal) VALUES ('Sovereign-Roadmap.md', 'GOVERNS', 'KANBAN_VIEW');"
+
 echo ">> OS MEMPALACE RECONSTRUCTION COMPLETE."
