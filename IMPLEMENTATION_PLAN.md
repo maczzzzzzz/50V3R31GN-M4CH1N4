@@ -245,7 +245,11 @@
 - [ ] **Task 2: WebGL Hall:** Materialize the `SovereignHall.tsx` 2.5D Isometric visualization.
 - [ ] **Task 3: Vesper Enforcer:** Implement the `FailureTracker` and mandatory Artery Hardgate in `sovereign-vesper-eye`.
 - [ ] **Task 4: Ouroboros Loop:** Update `dream-daemon.ts` to ingest meeting transcripts and generate "Logic Vaccinations."
-- [ ] **Task 5: Resilience Forge:** Materialize Gauntlet tests for Phases 77-79 and implement `crush gauntlet stress`.
+- [ ] **Task 5: OpenClaw v3.7.0 Ports:**
+    - [ ] **Hybrid Search:** Implement `vectorScore` vs `textScore` transparency in `SovereignIntelligence.db`.
+    - [ ] **Trace Carrier:** Implement lightweight diagnostic trace-context for the Trinity nodes.
+    - [ ] **Loopback Policy:** Enforce owner-auth gating on local MCP ports to harden the Sociotomy.
+- [ ] **Task 6: Resilience Forge:** Materialize Gauntlet tests for Phases 77-79 and implement `crush gauntlet stress`.
 
 ---
 
