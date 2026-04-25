@@ -1,0 +1,19 @@
+{
+  "theme_name": "Sovereign Gruvbox Light",
+  "colors": {
+    "primary": "#b57614",
+    "surface": "#fbf1c7",
+    "on_surface": "#3c3836",
+    "secondary": "#076678",
+    "error": "#9d0006",
+    "hover": "#ebdbb2",
+    "selector": "#d5c4a1"
+  },
+  "editor": {
+    "cursor": "#b57614",
+    "selection": "#d5c4a1",
+    "text": "#3c3836",
+    "code": "#076678",
+    "href": "#076678"
+  }
+}
