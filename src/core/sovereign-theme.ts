@@ -12,19 +12,29 @@ export interface ThemePalette {
 
 export const PALETTES: Record<string, ThemePalette> = {
     sovereignRed: {
-        accent: '#ff003c',
-        bg: '#000000',
-        glow: 'rgba(255, 0, 60, 0.8)'
+        accent: '#cc241d', // Gruvbox Red
+        bg: '#1d2021',     // Gruvbox Dark Hard
+        glow: 'rgba(204, 36, 29, 0.8)'
     },
     sovereignGreen: {
-        accent: '#00ff88',
-        bg: '#000000',
-        glow: 'rgba(0, 255, 136, 0.8)'
+        accent: '#98971a', // Gruvbox Green
+        bg: '#1d2021',
+        glow: 'rgba(152, 151, 26, 0.8)'
+    },
+    gruvboxDark: {
+        accent: '#fabd2f', // Gruvbox Yellow
+        bg: '#282828',     // Gruvbox Dark Medium
+        glow: 'rgba(250, 189, 47, 0.8)'
+    },
+    gruvboxLight: {
+        accent: '#af3a03', // Gruvbox Light Orange
+        bg: '#fbf1c7',     // Gruvbox Light Medium
+        glow: 'rgba(175, 58, 3, 0.8)'
     }
 };
 
-export function getThemeCss(themeId: string = 'sovereignRed'): string {
-    const palette = PALETTES[themeId] || PALETTES.sovereignRed;
+export function getThemeCss(themeId: string = 'gruvboxDark'): string {
+    const palette = PALETTES[themeId] || PALETTES.gruvboxDark;
     return `
 /* SOVEREIGN DOMINANCE LAYER: ${themeId} */
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');

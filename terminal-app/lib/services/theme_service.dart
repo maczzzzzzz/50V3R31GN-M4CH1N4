@@ -53,27 +53,42 @@ class ThemePreset {
           borderSide: BorderSide(color: primaryColor, width: 2.0),
         ),
       ),
-    );
-  }
-}
+    enum ThemeModePreset { neonGreen, sovereignRed, gruvboxDark, gruvboxLight }
 
-class ThemeService extends ChangeNotifier {
-  static final Map<ThemeModePreset, ThemePreset> presets = {
-    ThemeModePreset.neonGreen: ThemePreset(
-      scaffoldBackgroundColor: const Color(0xFF0D0D0D),
-      primaryColor: const Color(0xFF00FF88),
-      accentColor: const Color(0xFF00FF88),
-      textColor: const Color(0xFF00FF88),
-      name: '50V3R31GN-GR33N',
-    ),
-    ThemeModePreset.sovereignRed: ThemePreset(
-      scaffoldBackgroundColor: const Color(0xFF0D0000),
-      primaryColor: const Color(0xFFFF1A1A),
-      accentColor: const Color(0xFFFF1A1A),
-      textColor: Colors.white,
-      name: '50V3R31GN-R3D',
-    ),
-  };
+    ...
+
+    class ThemeService extends ChangeNotifier {
+      static final Map<ThemeModePreset, ThemePreset> presets = {
+        ThemeModePreset.neonGreen: ThemePreset(
+          scaffoldBackgroundColor: const Color(0xFF1D2021),
+          primaryColor: const Color(0xFF98971A),
+          accentColor: const Color(0xFFB8BB26),
+          textColor: const Color(0xFFEBDBB2),
+          name: 'GRUVB0X-GR33N',
+        ),
+        ThemeModePreset.sovereignRed: ThemePreset(
+          scaffoldBackgroundColor: const Color(0xFF1D2021),
+          primaryColor: const Color(0xFFCC241D),
+          accentColor: const Color(0xFFFB4934),
+          textColor: const Color(0xFFEBDBB2),
+          name: 'GRUVB0X-R3D',
+        ),
+        ThemeModePreset.gruvboxDark: ThemePreset(
+          scaffoldBackgroundColor: const Color(0xFF282828),
+          primaryColor: const Color(0xFFFABD2F),
+          accentColor: const Color(0xFFFE8019),
+          textColor: const Color(0xFFEBDBB2),
+          name: 'GRUVB0X-D4RK',
+        ),
+        ThemeModePreset.gruvboxLight: ThemePreset(
+          scaffoldBackgroundColor: const Color(0xFFFBF1C7),
+          primaryColor: const Color(0xFFAF3A03),
+          accentColor: const Color(0xFFD65D0E),
+          textColor: const Color(0xFF3C3836),
+          name: 'GRUVB0X-L16H7',
+        ),
+      };
+
 
   ThemeModePreset _currentMode = ThemeModePreset.neonGreen;
 
