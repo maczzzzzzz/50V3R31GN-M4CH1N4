@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 
 ## [3.5.4] - 2026-04-25
 ### Added
@@ -53,7 +53,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
 - **Sovereign Intelligence Store:** Materialized `SovereignIntelligence.db` as the primary repository for OS-level functional logic, system state, and zero-trust audit trails.
 - **Dual-Profile Identity System:** Deployed `SOVEREIGN-IDENTITY.md` in the repository root, enabling dynamic profile switching between `[SOVEREIGN_OS]` (Reasoner) and `[RED_DIRECTOR]` (Narrative).
 - **Dashboard Sociotomy:** Re-engineered the Next.js dashboard into isolated `/os` (Intelligence HUD) and `/red` (Simulation Module) routes with profile-aware navigation.
-- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.4.2 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
+- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.6.0 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
 - **Drift Sentinel Droid:** Materialized a specialized integrity guardian (`.factory/droids/drift-sentinel.md`) to autonomously scan manifests for version and identity drift.
 - **Drift Audit Skill:** Codified the `drift-audit` skill to provide a bit-identical workflow for maintaining system-wide parity.
 - **Surgical Node Synchronization:** Materialized `scripts/ops/node-surgical-sync.sh` to enforce bit-identical logic across the Trinity while purging multi-gigabyte mirroring bloat (weights, archives) from slave nodes.

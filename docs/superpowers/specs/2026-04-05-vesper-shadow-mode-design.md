@@ -29,7 +29,7 @@
 - **Action:** Immediately sends `pkill -9` to all background reasoning processes and clears the VSB proposal queue.
 
 ---
-*Verified by Gemini CLI v3.4.2 Orchestrator.*
+*Verified by Gemini CLI v3.6.0 Orchestrator.*
 
 
 ---

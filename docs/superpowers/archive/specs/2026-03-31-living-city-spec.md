@@ -1,4 +1,4 @@
-# Design Specification: The Living City & Project "Eyes-On" (v3.4.2)
+# Design Specification: The Living City & Project "Eyes-On" (v3.6.0)
 **Date:** March 31, 2026
 **Subject:** Computer Vision, Pulse Engine, and Spatial Tactical Intelligence
 **Status:** FINALIZED (Research Hardened)

@@ -1,4 +1,4 @@
-# Design: Netrunning Sidecar & Isometric Tower (v3.4.2)
+# Design: Netrunning Sidecar & Isometric Tower (v3.6.0)
 **Date:** 2026-04-04
 **Target:** Phase 23 (Neural World Engine)
 

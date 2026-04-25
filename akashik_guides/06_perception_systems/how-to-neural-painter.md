@@ -31,7 +31,7 @@ The **Neural Painter** allows the AI to "draw" the game world with sub-microseco
 3.  **Mesh Link**: The `win-proxy` service must be active on Windows to forward CDP requests to WSL.
 
 ---
-*Neural Uplink: Native CDP Engine Active v3.4.2.*
+*Neural Uplink: Native CDP Engine Active v3.6.0.*
 
 
 ---

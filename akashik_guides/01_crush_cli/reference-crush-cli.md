@@ -35,7 +35,7 @@ No world-state change occurs without your physical `ACK`. You can approve transa
 - **`[VETO]`** / **`n`**: REJECTED — Rollback the transaction.
 
 ---
-*Command and Control: 50V3R31GN-M4CH1N4 v3.4.2 Hardened.*
+*Command and Control: 50V3R31GN-M4CH1N4 v3.6.0 Hardened.*
 
 
 ---

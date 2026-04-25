@@ -1,5 +1,5 @@
 # Local Setup: Node B (NixOS/WSL Orchestrator)
-### 50V3R31GN-M4CH1N4 v3.4.2 | Hardened Security Milestone
+### 50V3R31GN-M4CH1N4 v3.6.0 | Hardened Security Milestone
 
 This document details the configuration for **Node B**, the primary narrative and vision orchestrator, unified on **NixOS (WSL 2)**.
 

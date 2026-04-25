@@ -1,4 +1,4 @@
-# 50V3R31GN-M4CH1N4 // SPEC: SOVEREIGN ASSET FORGE (v3.4.2)
+# 50V3R31GN-M4CH1N4 // SPEC: SOVEREIGN ASSET FORGE (v3.6.0)
 
 **Status:** APPROVED
 **Date:** 2026-04-12
@@ -57,7 +57,7 @@ A vast library of self-describing tactical assets.
 - **Mesh:** CDP / Motor Cortex (Foundry Infiltration).
 
 ---
-*Verified by the Sovereign Trinity v3.4.2.*
+*Verified by the Sovereign Trinity v3.6.0.*
 
 
 ---

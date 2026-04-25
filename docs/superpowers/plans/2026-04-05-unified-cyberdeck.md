@@ -181,7 +181,7 @@ git commit -m "feat: expand crush CLI with hack and scan commands"
 
 ```bash
 git add .
-git commit -m "chore: finalize v3.4.2 unified cyberdeck integration"
+git commit -m "chore: finalize v3.6.0 unified cyberdeck integration"
 ```
 
 

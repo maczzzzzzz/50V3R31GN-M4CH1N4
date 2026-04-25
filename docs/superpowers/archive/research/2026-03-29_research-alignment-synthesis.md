@@ -3,7 +3,7 @@
 **Subject:** Final Validation of Research vs. Core Project Mandates
 
 ## 1. Validation Overview
-This document serves as the final sign-off for the Research Phase of 50V3R31GN-M4CH1N4 v3.4.2. I have cross-checked all research logs (`docs/research/*.md`) against the master directives in `CLAUDE.md` and the lessons learned from the deprecated `openclaw-cpr` repository.
+This document serves as the final sign-off for the Research Phase of 50V3R31GN-M4CH1N4 v3.6.0. I have cross-checked all research logs (`docs/research/*.md`) against the master directives in `CLAUDE.md` and the lessons learned from the deprecated `openclaw-cpr` repository.
 
 ## 2. Alignment Matrix
 

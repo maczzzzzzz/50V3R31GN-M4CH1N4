@@ -27,4 +27,4 @@ Before starting an audit, you MUST:
 - **Zero Echoes:** Detect and neutralize repetitive or redundant terminology.
 
 ---
-*Synchronized with Sovereign Trinity v3.4.2.*
+*Synchronized with Sovereign Trinity v3.6.0.*

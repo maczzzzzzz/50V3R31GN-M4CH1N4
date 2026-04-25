@@ -4,13 +4,13 @@
 
 **Goal:** Optimize Node C (Strategic Oracle) and Node A (Synapse) for high-performance, disaggregated inference using threshold routing and sharded Rust crates.
 
-**Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.4.2 workspace standard.
+**Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.6.0 workspace standard.
 
 **Tech Stack:** Rust (Cargo Workspaces), SGLang, Mooncake, `gojq`.
 
 ---
 
-### Task 1: Zeroclaw Workspace Migration (v3.4.2 Standard)
+### Task 1: Zeroclaw Workspace Migration (v3.6.0 Standard)
 
 **Files:**
 - Create: `zeroclaw/Cargo.toml` (Workspace root)
@@ -37,7 +37,7 @@ resolver = "2"
 
 ```bash
 git add zeroclaw/
-git commit -m "chore(arch): migrate zeroclaw to workspace standard v3.4.2"
+git commit -m "chore(arch): migrate zeroclaw to workspace standard v3.6.0"
 ```
 
 ---

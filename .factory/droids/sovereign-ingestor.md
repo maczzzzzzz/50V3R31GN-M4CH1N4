@@ -27,7 +27,7 @@ Before starting ingestion, you MUST:
 - **Zero-Drift:** Align all extracted mechanics with `RED_RULES.md`.
 
 ---
-*Synchronized with Phase 65: Optical Artery v3.4.2.*
+*Synchronized with Phase 65: Optical Artery v3.6.0.*
 
 ---
-*Synchronized with Phase 57: Sovereign Mind Rebuild v3.4.2.*
+*Synchronized with Phase 57: Sovereign Mind Rebuild v3.6.0.*

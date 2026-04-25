@@ -1,4 +1,4 @@
-# Spec: Sovereign Mind Fresh-Start & Ingestion Pipeline (v3.4.2)
+# Spec: Sovereign Mind Fresh-Start & Ingestion Pipeline (v3.6.0)
 
 ## 🏁 Objectives
 - **Zero-Drift Reconstruction:** Nuke and rebuild `Akashik.db` and `data/vault/RKG` from high-fidelity source primitives.

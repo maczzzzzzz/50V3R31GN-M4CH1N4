@@ -3,7 +3,7 @@
 **Identity:** 50V3R31GN-M4CH1N4
 
 ## 🎯 OBJECTIVE
-The **Hermes v3.4.2 TUI** (Ink-based) is the primary interactive shell for the **[SOVEREIGN_OS]** profile. It provides a real-time, streaming interface for agentic reasoning, tool execution, and self-healing logs.
+The **Hermes v3.6.0 TUI** (Ink-based) is the primary interactive shell for the **[SOVEREIGN_OS]** profile. It provides a real-time, streaming interface for agentic reasoning, tool execution, and self-healing logs.
 
 ---
 

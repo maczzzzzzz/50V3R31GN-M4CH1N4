@@ -168,7 +168,7 @@
 
 ## 🛠️ PHASE 73.5: PERSISTENT EXECUTION & SELF-HEALING (IN-PROGRESS)
 **Goal:** Achieve browser persistence and the ability for agents to self-correct their execution harness.
-- [ ] **Task 0: Hermes v3.4.2 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
+- [ ] **Task 0: Hermes v3.6.0 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
 - [ ] **Task 1: Persistent Chromium Daemon:** (SUBSRUMED by Obscura Sidecar).
 - [ ] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs.
 - [ ] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys.
@@ -232,7 +232,7 @@
 
 ## ✅ PHASE 76.5: THE NAVIGATION ARTERY (APPFLOWY & DOCS) (COMPLETED)
 **Goal:** Establish a structured documentation hub and a central navigation entry point for the user.
-- [x] **Task 1: Navigator Hub:** Materialize NAVIGATOR.md as the central loom for all shored manifests. (SUCCESS: v3.4.2).
+- [x] **Task 1: Navigator Hub:** Materialize NAVIGATOR.md as the central loom for all shored manifests. (SUCCESS: v3.6.0).
 - [x] **Task 2: Identity Guide:** Materialize akashik_guides/08_sovereign_identity/ to explain atomic profile switching. (SUCCESS: shored).
 - [x] **Task 3: Aesthetic Purge:** Surgically remove all legacy "Red Void" references from 100% of user guides. (SUCCESS: bit-identical Gruvbox).
 - [x] **Task 4: AppFlowy Integration:** Deploy a Go-native/Rust API bridge to integrate AppFlowy block-storage with the OS SQLite DB. (SUCCESS: sovereign-flowy active).

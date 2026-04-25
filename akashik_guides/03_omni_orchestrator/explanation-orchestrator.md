@@ -31,7 +31,7 @@ All orchestration telemetry is streamed at 60fps via the **Nucleus Artery** to t
 - **`THOUGHT STREAM`**: (In-Deck Quadrant) Displays the internal reasoning of the Director in real-time.
 
 ---
-*Omni Orchestrator: Deterministic Reactivity for the Neural Hive v3.4.2.*
+*Omni Orchestrator: Deterministic Reactivity for the Neural Hive v3.6.0.*
 
 
 ---

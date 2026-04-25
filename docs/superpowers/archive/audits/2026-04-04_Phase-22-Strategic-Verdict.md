@@ -1,10 +1,10 @@
-# Audit: Phase 22 Strategic & Technical Verdict (v3.4.2)
+# Audit: Phase 22 Strategic & Technical Verdict (v3.6.0)
 **Date:** 2026-04-04
 **Auditor:** Gemini CLI (Strategist)
 **Status:** 100% PASS / READY FOR EXECUTION
 
 ## 1. Executive Summary
-After an exhaustive research phase into the `claw-code` Rust-native harness, Pretext's layout engine, and Foundry VTT v12's PIXI architecture, the **Sovereign Highway (v3.4.2)** is verified as the optimal architectural path for ASP-GM-AGENT. The system successfully partitions "Narrative Soul" (Node B) from "Mechanical Body" (Node A) via a high-speed, distributed Rust runtime.
+After an exhaustive research phase into the `claw-code` Rust-native harness, Pretext's layout engine, and Foundry VTT v12's PIXI architecture, the **Sovereign Highway (v3.6.0)** is verified as the optimal architectural path for ASP-GM-AGENT. The system successfully partitions "Narrative Soul" (Node B) from "Mechanical Body" (Node A) via a high-speed, distributed Rust runtime.
 
 ## 2. Technical Facts & Validation
 
@@ -35,7 +35,7 @@ The architecture is **Surgical, Fast, and Factually Grounded**. It leverages the
 **Strategy:** Distributed Rust-native Harness + VSB Shared Synapse.
 
 ---
-*Verified by Gemini CLI v3.4.2.*
+*Verified by Gemini CLI v3.6.0.*
 *Co-Authored-By: Claude Sonnet <noreply@anthropic.com>*
 *Co-Authored-By: Gemini CLI <gemini-cli@google.com>*
 

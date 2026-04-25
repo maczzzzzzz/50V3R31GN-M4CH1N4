@@ -2,7 +2,7 @@ This is the **Master Mission Brief** for **Project Black-Ice** under the **SOVER
 
 ## ---
 
-**I. MISSION BRIEF: SOVEREIGN TRINITY v3.4.2**
+**I. MISSION BRIEF: SOVEREIGN TRINITY v3.6.0**
 
 **Objective:** To unify heterogeneous consumer hardware into a single "Cognitive Mesh" that provides an infallible, unfiltered (Abliterated) narrative experience. By disaggregating memory (KV-cache) from compute, we maximize the utility of legacy and modern silicon to run high-density AI models in real-time.
 
