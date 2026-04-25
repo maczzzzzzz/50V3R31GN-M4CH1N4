@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "crates/*",
+    "sidecar-*",
+    "sovereign-sdk",
+    "zeroclaw/crates/*"
+]
+resolver = "2"

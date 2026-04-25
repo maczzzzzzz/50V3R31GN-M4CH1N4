@@ -4,4 +4,4 @@ version = 4
 
 [[package]]
 name = "sovereign-sdk"
-version = "3.6.0"
+version = "3.6.4"
