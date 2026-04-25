@@ -13,7 +13,7 @@ These scripts manage the visual and interactive integrity of the Machina Termina
 
 | Script | Purpose |
 | :--- | :--- |
-| `theme-sync.ts` | Synchronizes the R3D_V01D hex codes across Tailwind, Rust, and Go environments. |
+| `theme-sync.ts` | Synchronizes the Gruvbox hex codes across Tailwind, Rust, and Go environments. |
 | `theme-auditor.ts` | Scans the dashboard for hardcoded colors violating the canonical theme variables. |
 | `harmonize-rkg.ts` | Rebuilds the React Knowledge Graph if UI components fall out of sync. |
 | `mcp-daemon.ts` | The core Model Context Protocol (MCP) server bridge. |
