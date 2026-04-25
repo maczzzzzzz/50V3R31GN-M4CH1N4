@@ -12,12 +12,29 @@ import 'services/notification_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  final themeService = ThemeService()..setTheme(ThemeModePreset.gruvboxDark);
+  final vsbListener = VsbListener();
+  
+  // Start VSB listener on canonical port 7878
+  vsbListener.start(7878);
+
+  // Wire identity shifts to visual theme
+  vsbListener.addListener(() {
+    if (vsbListener.activeProfile == '[SOVEREIGN_OS]') {
+      themeService.setTheme(ThemeModePreset.gruvboxDark);
+    } else if (vsbListener.activeProfile == '[RED_DIRECTOR]') {
+      themeService.setTheme(ThemeModePreset.sovereignRed);
+    }
+  });
+  
   runApp(
     MultiProvider(
       providers: [
+        Provider(create: (_) => DatabaseService()),
+        ChangeNotifierProvider(create: (_) => MemoryProvider()),
         ChangeNotifierProvider(create: (_) => ArteryClient()),
-        ChangeNotifierProvider(create: (_) => VsbListener()),
-        ChangeNotifierProvider(create: (_) => ThemeService()..setTheme(ThemeModePreset.sovereignRed)),
+        ChangeNotifierProvider.value(value: vsbListener),
+        ChangeNotifierProvider.value(value: themeService),
         ChangeNotifierProvider(create: (_) => TaskService()),
         ChangeNotifierProvider(create: (_) => ChatService()),
       ],

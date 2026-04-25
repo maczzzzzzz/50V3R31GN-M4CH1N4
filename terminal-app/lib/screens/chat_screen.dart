@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/chat_service.dart';
+import '../services/artery_client.dart';
+import '../services/database_service.dart';
 import '../models/chat_message.dart';
 import '../models/conversation.dart';
+import '../widgets/artery_pulse.dart';
+import '../widgets/refinement_slate.dart';
 import 'main_layout.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -23,6 +27,29 @@ class _ChatScreenState extends State<ChatScreen> {
       _controller.clear();
       _scrollToBottom();
     }
+  }
+
+  void _showRefinementSlate(String content) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: RefinementSlate(
+          initialContent: content,
+          onEngrave: (refined) async {
+            await DatabaseService().engraveTriplet(
+              'MEM_EXTRACT',
+              'CONTAINS',
+              refined,
+              'ARTERY_PULSE',
+            );
+            if (mounted) context.read<ArteryClient>().clearProposal();
+          },
+        ),
+      ),
+    );
   }
 
   void _scrollToBottom() {
@@ -117,6 +144,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 color: Colors.black,
                 child: Row(
                   children: [
+                    Consumer<ArteryClient>(
+                      builder: (context, artery, child) {
+                        return ArteryPulse(
+                          isActive: artery.currentProposal != null,
+                          onTap: () => _showRefinementSlate(artery.currentProposal!),
+                        );
+                      },
+                    ),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: TextField(
                         controller: _controller,

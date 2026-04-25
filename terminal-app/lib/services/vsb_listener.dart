@@ -1,13 +1,17 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
+import 'vsb_protocol.dart';
 
 class VsbListener extends ChangeNotifier {
   RawDatagramSocket? _socket;
   final List<String> _packets = [];
   bool _isListening = false;
+  String? _activeProfile;
 
   List<String> get packets => List.unmodifiable(_packets);
   bool get isListening => _isListening;
+  String? get activeProfile => _activeProfile;
 
   Future<void> start(int port) async {
     try {
@@ -19,13 +23,29 @@ class VsbListener extends ChangeNotifier {
         if (event == RawSocketEvent.read) {
           Datagram? dg = _socket!.receive();
           if (dg != null) {
-            String msg = String.fromCharCodes(dg.data);
-            _addPacket("::/VSB_PACKET : $msg");
+            _handlePacket(dg.data);
           }
         }
       });
     } catch (e) {
       _addPacket("::/VSB_ERROR : $e");
+    }
+  }
+
+  void _handlePacket(Uint8List data) {
+    if (VsbProtocol.verifyMagic(data)) {
+      final profile = VsbProtocol.parseIdentitySwitch(data);
+      if (profile != null && profile != _activeProfile) {
+        _activeProfile = profile;
+        _addPacket("::/IDENTITY_SWITCH : $profile");
+        notifyListeners();
+      } else {
+        _addPacket("::/VSB_PULSE : [HEALTHY]");
+      }
+    } else {
+      // Fallback for text-based packets
+      String msg = String.fromCharCodes(data);
+      _addPacket("::/VSB_RAW : $msg");
     }
   }
 

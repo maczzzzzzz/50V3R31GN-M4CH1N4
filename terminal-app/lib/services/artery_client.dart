@@ -93,6 +93,10 @@ class ArteryClient extends ChangeNotifier {
             _currentTranscription = data['text'] ?? "";
             addLog("::/TRANSCRIPT : $_currentTranscription");
             notifyListeners();
+          } else if (data['type'] == 'CONTEXT_PROPOSAL') {
+            _currentProposal = data['content'];
+            addLog("::/CONTEXT_PROPOSAL : [GLOW_ACTIVE]");
+            notifyListeners();
           }
         } catch (e) {
           addLog("::/WS_RECEIVE : $message");
