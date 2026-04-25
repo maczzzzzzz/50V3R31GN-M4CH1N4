@@ -12,7 +12,7 @@ Phase 72 (Graph-Relational Synapse) is 100% COMPLETE and VERIFIED.
 
 ### 📚 NEW BREAKTHROUGH SUMMARY
 - **Obscura (Rust):** Lightweight (30MB) stealth browser replaces heavy Chromium for sensory ingress.
-- **Exa Oracle:** Semantic web-fetcher and hallucination detection gate (Rust/Go) shored.
+- **Exa Strategic Oracle:** Semantic web-fetcher and hallucination detection gate (Rust/Go) shored.
 - **Vault Sociotomy:** Physical split of the 3,000+ RKG shards into Hot/Cold layers for <2s boot.
 - **Hermes-Kanban Sync:** API-driven manifest governance to automate roadmap updates.
 - **Atomic Profiles:** Real-time profile engine with deterministic safety hardgates (GEPA).
@@ -22,7 +22,7 @@ Phase 72 (Graph-Relational Synapse) is 100% COMPLETE and VERIFIED.
 - **Task 1: Vault Sociotomy:** Execute the physical migration of lore shards to the cold archive.
 - **Task 2: Obscura Sidecar:** Deploy the Nix-managed stealth browser on Node C.
 - **Task 3: Hermes-Kanban Sync:** Implement the Go-based manifest sync daemon.
-- **Task 4: Semantic Retrieval Bridge:** Materialize the `query_cold_lore` tool.
+- **Task 4: Semantic Retrieval Mesh:** Materialize the `query_cold_lore` tool.
 
 ### 🛠️ OPERATIONAL PROTOCOL
 1. **High Throughput:** Execute Phase 73 tasks task-by-task.

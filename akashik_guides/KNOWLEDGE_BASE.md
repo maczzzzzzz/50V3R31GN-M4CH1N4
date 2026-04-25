@@ -29,7 +29,7 @@
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **HermeSpecs** | [radfordben/hermespecs-app](https://github.com/radfordben/hermespecs-app) | **Command Router:** Decoupled vocal intent mapping for 80+ tools and HEVC streaming. |
-| **Exa-Labs (Core)** | [exa-labs/exa-py](https://github.com/exa-labs) | **Oracle:** Semantic search and clean content extraction for LLM context. |
+| **Exa-Labs (Core)** | [exa-labs/exa-py](https://github.com/exa-labs) | **Strategic Oracle:** Semantic search and clean content extraction for LLM context. |
 | **Exa-Hallucination** | [exa-labs/exa-hallucination-detector](https://github.com/exa-labs/exa-hallucination-detector) | **Verification:** Zero-trust claim verification and factual scoring. |
 | **Voice-Daemon** | [18458235609/voice-daemon](https://github.com/18458235609/voice-daemon) | **Local VAD:** Barge-in detection, state-machine audio routing, and UDS IPC. |
 | **Voice-Agent-Hermes**| [paaloeye/voice-agent-hermes](https://github.com/paaloeye/voice-agent-hermes) | **Logic Decoupling:** MCP-driven tool execution offloaded from the core voice loop. |

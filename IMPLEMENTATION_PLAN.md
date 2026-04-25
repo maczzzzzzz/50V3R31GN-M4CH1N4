@@ -157,25 +157,25 @@
 
 ---
 
-## 🛠️ PHASE 73: PERSISTENT EXECUTION & SELF-HEALING (THE SOVEREIGN AGENT)
-**Goal:** Achieve browser persistence and the ability for agents to self-correct their execution harness.
-- [ ] **Task 0: Hermes v3.4.2 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
-- [ ] **Task 1: Persistent Chromium Daemon:** Deploy the raw CDP browser daemon on Node C for long-lived sessions.
-- [ ] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs.
-- [ ] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys.
-- [ ] **Task 4: A11y Tree Navigation:** Shifting browser interaction to Accessibility Tree numbered references (@e1, @e2).
-- [ ] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure.
-- [ ] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop.
-- [ ] **Task 7: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
+## ✅ PHASE 73: PHYSICAL SOVEREIGNTY & STEALTH INGRESS (COMPLETED)
+**Goal:** Optimize the physical footprint of the Trinity and achieve stealth web ingress.
+- [x] **Task 1: Vault Sociotomy:** Execute the physical split of data/vault/RKG/ into Hot/Cold shards. Update .obsidian/app.json to exclude the archive. (SUCCESS: 148 shards migrated).
+- [x] **Task 2: Obscura Sidecar:** Deploy the Obscura stealth browser as a Nix-managed systemd daemon on Node C. Replace heavy Chromium dependencies. (SUCCESS: CDP A11y navigator materialized).
+- [x] **Task 3: Hermes-Kanban Sync:** Implement the API bridge between IMPLEMENTATION_PLAN.md and the Hermes Kanban board. Enable auto-card movement on manifest commit. (SUCCESS: Go-based sync active).
+- [ ] **Task 4: Semantic Retrieval Mesh:** Materialize the query_cold_lore tool for on-demand injection of archive shards into the active vault.
 
 ---
 
-## 🛠️ PHASE 73: PHYSICAL SOVEREIGNTY & STEALTH INGRESS (PRIMARY_TASK)
-**Goal:** Optimize the physical footprint of the Trinity and achieve stealth web ingress.
-- [ ] **Task 1: Vault Sociotomy:** Execute the physical split of data/vault/RKG/ into Hot/Cold shards. Update .obsidian/app.json to exclude the archive.
-- [ ] **Task 2: Obscura Sidecar:** Deploy the Obscura stealth browser as a Nix-managed systemd daemon on Node C. Replace heavy Chromium dependencies.
-- [ ] **Task 3: Hermes-Kanban Sync:** Implement the API bridge between IMPLEMENTATION_PLAN.md and the Hermes Kanban board. Enable auto-card movement on manifest commit.
-- [ ] **Task 4: Semantic Retrieval Bridge:** Materialize the query_cold_lore tool for on-demand injection of archive shards into the active vault.
+## 🛠️ PHASE 73.5: PERSISTENT EXECUTION & SELF-HEALING (IN-PROGRESS)
+**Goal:** Achieve browser persistence and the ability for agents to self-correct their execution harness.
+- [ ] **Task 0: Hermes v3.4.2 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
+- [ ] **Task 1: Persistent Chromium Daemon:** (SUBSRUMED by Obscura Sidecar).
+- [ ] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs.
+- [ ] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys.
+- [ ] **Task 4: A11y Tree Navigation:** (SHORED in Obscura Sidecar).
+- [ ] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure.
+- [ ] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop.
+- [ ] **Task 7: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
 
 ---
 
@@ -197,9 +197,9 @@
 ---
 
 ## ⚡ PHASE 76: SOVEREIGN ARTERY & INFERENCE FABRIC
-**Goal:** Transform static manifests into an atomic context engine and deploy the Hermes Inference Router.
+**Goal:** Transform static manifests into an atomic context engine and deploy the Hermes Cognition Router.
 - [ ] **Task 1: Atomic Profile Engine:** Transform static identity manifests into a "living" engine synchronized across all nodes via Mooncake-KV.
-- [ ] **Task 2: Hermes Inference Router:** Deploy a lightweight Rust daemon to intelligently route requests based on task complexity.
+- [ ] **Task 2: Hermes Cognition Router:** Deploy a lightweight Rust daemon to intelligently route requests based on task complexity.
 
 ---
 

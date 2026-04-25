@@ -14,7 +14,7 @@ To implement the **ResonantOS** pattern: a deterministic logic layer ("Mangle Ru
 - **Role:** A rule-based engine (Prolog-style or strict JSON Schema) that validates LLM intents.
 - **Mangle Rules:** If an LLM proposes a change that violates a core mandate (e.g., "disable security"), the Logic Gate intercepts and REJECTS before execution.
 
-### 2.2 4-Layer Lossless Memory
+### 2.2 4-Layer Lossless Synapse
 - **L1 (Transient):** In-memory context (Mooncake).
 - **L2 (Hot):** Recent session checkpoints (SQLite).
 - **L3 (Semantic):** Vectorized lore/RKG (sqlite-vec).

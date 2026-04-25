@@ -20,7 +20,7 @@ Obscura will run as a **Systemd Sidecar Service** on Node C, exposing a Chrome D
   - `--proxy-server`: Routed through the Sovereign VPN tunnel.
 
 ## 3. INTEGRATION (THE OPTIC NERVE)
-- **Rust Bridge:** The `sovereign-observer` crate will be updated to communicate with Obscura via CDP.
+- **Rust Mesh:** The `sovereign-observer` crate will be updated to communicate with Obscura via CDP.
 - **Fail-Open/Closed:** If Obscura is detected by a target, it automatically rotates its fingerprint and retries via a different geographic exit node.
 
 ## 4. SUCCESS CRITERIA

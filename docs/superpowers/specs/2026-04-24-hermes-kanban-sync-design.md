@@ -17,7 +17,7 @@ To eliminate manual task management by bi-directionally syncing the state of `IM
 4. **Sync:** The Kanban board visually reflects the "Physical Ground Truth" of the codebase.
 
 ## 3. TECH STACK
-- **Backend:** `hermes-kanban` v1.5.0 (Node.js API).
+- **Backend:** `hermes-kanban` v3.4.2 (Node.js API).
 - **Client:** A lightweight Go-based sync daemon (`hermes-sync-go`).
 
 ## 4. SUCCESS CRITERIA

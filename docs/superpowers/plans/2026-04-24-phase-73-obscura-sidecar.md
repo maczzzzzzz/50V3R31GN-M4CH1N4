@@ -51,7 +51,7 @@ Expected: 200 OK with browser metadata.
 
 ---
 
-### Task 3: Bridge Integration
+### Task 3: Mesh Integration
 
 - [ ] **Step 1: Update sovereign-observer**
 Modify the Rust observer to point its CDP client to `localhost:9222` instead of a local Chromium instance.

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.4.2.html).
 
+## [3.4.3] - 2026-04-24
+### Added
+- **Physical Sovereignty (Phase 73):** Executed the **Vault Sociotomy**, physically sharding the 3,000+ RKG knowledge graph into Hot (Active) and Cold (Archive) layers to achieve <2s Obsidian boot times.
+- **Obscura Stealth Sidecar:** Materialized the **Obscura** Rust-based browser (30MB RAM) as a Nix-managed sidecar service on Node C.
+- **A11y Tree Navigation:** Rewrote the `sovereign-observer` as a CDP-native Accessibility Tree navigator, enabling stealthy @element-based interaction.
+- **Hermes-Kanban Manifest Sync:** Deployed a Go-based sync daemon and git `post-commit` hook to autonomously align `IMPLEMENTATION_PLAN.md` with the Hermes Kanban board.
+- **Alacritty Terminal Hardening:** (SPECIFIED) Codified the transition path for GPU-accelerated VT323 terminal hosting in Phase 74.
+
+### Changed
+- **Vault Governance:** Updated `reconstruct-palace.sh` and Obsidian config to explicitly exclude the `RKG_Archive` from the hot index.
+- **Observer Architecture:** Pivoted from raw screen capture to structured CDP/A11y tree interaction for increased reliability and stealth.
+
 ## [3.4.2] - 2026-04-24
 ### Added
 - **Graph-Relational Synapse (Phase 72):** Successfully materialized the **Synapse** vectorized knowledge graph within `SovereignIntelligence.db`.

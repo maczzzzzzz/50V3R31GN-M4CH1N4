@@ -1,8 +1,8 @@
-# Phase 76: Sovereign Artery & Inference Fabric Implementation Plan
+# Phase 76: Sovereign Artery & Cognition Fabric Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Transform static manifests into an atomic context engine and deploy the Hermes Inference Router.
+**Goal:** Transform static manifests into an atomic context engine and deploy the Hermes Cognition Router.
 
 **Architecture:** Rust-based router sidecar and Mooncake-KV profile synchronization.
 
@@ -12,7 +12,7 @@
 
 ### Task 1: Atomic Profile Engine (Rust)
 
-- [ ] **Step 1: Implement Mooncake-KV Bridge**
+- [ ] **Step 1: Implement Mooncake-KV Mesh**
 Create `crates/sovereign-core/src/kv_bridge.rs` to sync `SOVEREIGN-IDENTITY.md` state.
 
 - [ ] **Step 2: Implement Signal Handler**
@@ -23,7 +23,7 @@ Run: `/profile researcher` and verify triad-wide synchronization.
 
 ---
 
-### Task 2: Hermes Inference Router (Rust)
+### Task 2: Hermes Cognition Router (Rust)
 
 - [ ] **Step 1: Scaffold hermes-router**
 Create `crates/hermes-router`.
