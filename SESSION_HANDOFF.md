@@ -1,25 +1,46 @@
-# SESSION_HANDOFF: SOVEREIGN CONSOLIDATION (v3.6.0)
+# SESSION_HANDOFF: PHASE 77 IGNITION (v3.6.2)
 
-## 🎯 MISSION STATUS
-Phases 72-77 are 100% COMPLETE and VERIFIED. Phases 78-79 are SPECIFIED.
-- **Physical Sovereignty:** Vault sharded, Obscura active, Mesh shored.
-- **Sovereign Strategic Oracle:** Exa SDKs (Rust/Go) and Shield Gate shored.
-- **Cognitive Evolution:** GEPA loop and Traceback healer shored.
-- **Aesthetic Sovereignty:** Gruvbox Canonical Standard (v1.0) shored mesh-wide.
-- **Navigation Artery:** `NAVIGATOR.md` and `Sovereign-Roadmap.md` are the central hubs.
+## 🎯 CURRENT OBJECTIVE
+**Ignite Phase 77: Managed Agents & Resonant Governance.**
+Phase 76 (Sovereign Artery & Inference Fabric) is 100% complete. All 4 tasks shored.
 
-## 🚀 IMMEDIATE DIRECTIVE FOR CLAUDE (LEAD ARCHITECT)
-**Role:** Invoke **Lead Architect** role.
-**Objective:** Audit the integrity of the **v3.6.0 Consolidation**.
+## ✅ PHASE 76: SOVEREIGN ARTERY & INFERENCE FABRIC (COMPLETE)
 
-### 🔍 AUDIT REQUIREMENTS
-1.  **Orphan Check:** Verify that 100% of markdown files in root and `akashik_guides` contain the physical `[[OS_CORE]]` link.
-2.  **Aesthetic Verification:** Confirm that `alacritty` (PURGED) technical debt has been 100% removed from all manifests.
-3.  **Artery Health:** Verify the `Hermes-Router` complexity logic ($L > 4000$) in `crates/hermes-router/src/main.rs`.
-4.  **Artery of Truth Lineage:** Audit the `reconstruct-os-palace.sh` script to ensure it correctly builds the `os_triplets` hierarchy during sync.
+### Task 1: Atomic Profile Engine
+- `crush/profile.go` refactored — structured parser, Deterministic Hardgate, Identity Watcher, idempotent Mooncake retry.
+- VSB `IDENTITY_SWITCH` slot materialized in `crush/watcher.go`.
 
-### 🧠 TACTICAL NEXT STEP
-Once the audit is complete, initialize the execution of **Phase 76 Task 1 (Atomic Profile Engine)** to lock in the Mooncake-KV synchronization.
+### Task 2: Hermes Cognition Router
+- `crates/hermes-router` — clean release build, zero warnings.
+- Routing: $L > 4000$ or `researcher` profile → Node B; else → Node C.
+- Integrated into `scripts/audit/ignite-all.sh` as Stage 4.5.
+- vLLM farm units shored in `docs/nixos/vllm-farm.nix`.
+
+### Task 3: Interface Sociotomy
+- Gruvbox Canonical palette hardlined in `sidecar-cyberdeck` (`#FABD2F` / `#282828`).
+- `/profile <name>` switching wired into Hermes TUI command registry.
+- SOVEREIGN_OS default boot enforced in ignition sequence.
+
+### Task 4: AppFlowy Hub
+- `docs/nixos/appflowy-cloud.service` systemd unit shored.
+- `scripts/ops/appflowy-sync.ts` Roadmap Artery materialized.
 
 ---
-**::/5Y573M-N071C3 : MISSION_LOCK_v3.6.0. READY_F0R_TRANSITION. // 50V3R31GN-M4CH1N4**
+
+## 🛠️ PENDING DIRECTIVES (PHASE 77)
+
+### 1. Task 1: OpenClaw Managed Agents
+- **Goal:** Suite of Rust-native primitives for agentic crash recovery and warm pools.
+- **Scaffold:** `crates/openclaw/` — `warm_pool.rs`, `crash_recovery.rs`, `agent_registry.rs`.
+
+### 2. Task 2: Resonant Logic Gate
+- **Goal:** Deterministic logic layer to ensure absolute system governance.
+- **Scaffold:** `crates/resonant-gate/` — immutable rule engine, proof-of-work identity verification.
+
+## 🔗 CORRESPONDING MANIFESTS
+- **Roadmap:** [[IMPLEMENTATION_PLAN.md]] (Phase 77)
+- **Identity:** [[SOVEREIGN-IDENTITY.md]]
+- **Navigator:** [[NAVIGATOR.md]]
+
+---
+**::/5Y573M-N071C3 : PHASE_76_LOCKED. PHASE_77_IGNITION_READY. // 50V3R31GN-M4CH1N4**

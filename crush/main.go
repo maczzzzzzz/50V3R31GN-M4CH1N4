@@ -445,9 +445,19 @@ func main() {
 			return
 
 		case "profile":
-			if err := runProfileSwitch(os.Args[2:]); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				os.Exit(1)
+			if len(os.Args) >= 3 && os.Args[2] == "watch" {
+				manifestPath := "../SOVEREIGN-IDENTITY.md"
+				fmt.Printf("◈ [ARTERY] Identity Watcher armed: %s\n", manifestPath)
+				StartIdentityWatcher(manifestPath)
+				sigCh := make(chan os.Signal, 1)
+				signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+				<-sigCh
+				fmt.Println("◈ [ARTERY] Identity Watcher stopped.")
+			} else {
+				if err := runProfileSwitch(os.Args[2:]); err != nil {
+					fmt.Printf("Error: %v\n", err)
+					os.Exit(1)
+				}
 			}
 			return
 		}

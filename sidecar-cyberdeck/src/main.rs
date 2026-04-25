@@ -13,12 +13,12 @@ mod glitch;
 mod st3gg;
 pub(crate) use glitch::GlitchEngine;
 
-// ─── Black-Ice Palette ───────────────────────────────────────────────────────
-const RED: Color32 = Color32::from_rgb(0xff, 0x00, 0x3c);
-const GREEN: Color32 = Color32::from_rgb(0x20, 0xff, 0x60);
-const BLACK: Color32 = Color32::from_rgb(0x00, 0x00, 0x00);
+// ─── Gruvbox Canonical Palette (Phase 76, Task 3) ────────────────────────────
+const RED: Color32   = Color32::from_rgb(0xFA, 0xBD, 0x2F); // Gruvbox Yellow — primary accent
+const GREEN: Color32 = Color32::from_rgb(0xB8, 0xBB, 0x26); // Gruvbox Green
+const BLACK: Color32 = Color32::from_rgb(0x28, 0x28, 0x28); // Gruvbox BG Hard
 fn dim_red() -> Color32 {
-    Color32::from_rgba_unmultiplied(0xff, 0x00, 0x3c, 60)
+    Color32::from_rgba_unmultiplied(0xFA, 0xBD, 0x2F, 60)
 }
 
 // ─── GhostBlip type constants ─────────────────────────────────────────────────

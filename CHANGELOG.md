@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 
+## [3.6.2] - 2026-04-25
+### Added
+- **Hermes Cognition Router (Phase 76, Task 2):** Verified clean release build of `crates/hermes-router`. Excised unused `tokio::sync::Mutex` import. Integrated into `scripts/audit/ignite-all.sh` as Stage 4.5 — boots before the Node C Artery Manager on every ignition cycle.
+- **Interface Sociotomy (Phase 76, Task 3):** Hardlined Gruvbox Canonical palette (`#FABD2F` primary, `#282828` BG) into `sidecar-cyberdeck` egui renderer. Extended `/profile <name>` dispatch in `LangGraphOrchestrator.ts` to delegate atomic switching to `crush profile` — full Hardgate enforcement preserved.
+- **AppFlowy Hub (Phase 76, Task 4):** Materialized `docs/nixos/appflowy-cloud.service` systemd user unit for Node C deployment. Shored `scripts/ops/appflowy-sync.ts` — Roadmap Artery that parses `IMPLEMENTATION_PLAN.md` and pushes all phase tasks to the AppFlowy REST API with `--dry-run` support.
+
+## [3.6.1] - 2026-04-25
+### Added
+- **Atomic Profile Engine (Phase 76, Task 1):** Refactored `crush/profile.go` from a fragile regex-based parser into a structured, deterministic Artery Engine.
+- **Structured Manifest Parser:** Replaced all `regexp` parsing with a clean line-by-line structured parser for SOVEREIGN-IDENTITY.md frontmatter and profile sections.
+- **Deterministic Hardgate:** Materialized the `permission_policy` invariant gate — blocks cross-profile policy mutations unless `--override-policy` flag is explicitly passed by the Strategist.
+- **Identity Watcher Daemon:** Implemented `StartIdentityWatcher` polling daemon and `crush profile watch` subcommand; auto-syncs Mooncake-KV on any manual edit to SOVEREIGN-IDENTITY.md.
+- **Idempotent Mooncake-KV Sync:** Hardened `pushProfileToMooncake` with exponential backoff retry (3 attempts, 200ms/400ms/600ms) and TCP deadline enforcement.
+- **VSB IDENTITY_SWITCH Signal:** Added `IdentitySwitchOffset` (0xD0A) slot to VSB mmap layout; `EmitIdentitySwitch` / `ReadIdentitySwitch` methods materialize HUD Gruvbox vs. Red theme transitions.
+
+## [3.6.0] - 2026-04-25
+### Added
+- **Sovereign Artery Finalization (Phases 72-77):** 100% completion and verification of the Graph-Relational Synapse, Physical Sovereignty, Sovereign Strategic Oracle, and Agentic Self-Healing layers.
+- **Hermes v3.6.0 "Interface Release":** Deployed the Ink-based TUI and standardized the Gruvbox Canonical aesthetic across the mesh.
+- **Atomic Profile Engine:** Initialized the Mooncake-KV synchronized identity engine.
+- **Custom Command Restoration:** Fixed critical parsing errors in `.gemini/commands/` by surgically removing UTF-8 BOM and normalizing CRLF line endings in `plan.toml` and `execute.toml`.
+
+### Fixed
+- **Files App Recovery:** Mitigated a major system corruption incident caused by improper use of Linux string-replacement tools on Windows UWP AppData containers. Restored native Windows Explorer by surgically deleting broken registry hooks (`Folder\shell\open`) and corrupted App Execution Aliases.
+- **Orphan Link Mitigation:** Synchronized the `[[OS_CORE]]` manifest link across all root-level Markdown files.
+
 ## [3.5.4] - 2026-04-25
 ### Added
 - **Sovereign-Flowy Port (Phase 76.5):** Materialized the **sovereign-flowy** Rust backend, porting AppFlowy block-storage logic to a local-first, SQLite-backed architecture.
@@ -14,7 +40,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 
 ## [3.4.8] - 2026-04-24
 ### Added
-- **Sovereign Strategic Oracle (Phase 74):** Deployed the **Exa-rs** (Rust) and **Exa-go** (Go) SDKs for high-performance semantic web perception.
+- **Sovereign Strategic Strategic Oracle (Phase 74):** Deployed the **Exa-rs** (Rust) and **Exa-go** (Go) SDKs for high-performance semantic web perception.
 - **Shield Gate:** Materialized the zero-trust hallucination detector in Rust to verify all incoming external data.
 - **Synapse Traceback (Phase 75):** Shored the **sovereign-healer** crate for vector-weighted self-healing and regression prevention.
 - **GEPA Evolution:** Initialized the Genetic-Pareto Prompt Evolution loop for autonomous skill and identity refinement.
@@ -99,7 +125,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 
 ## [3.2.21] - 2026-04-21
 ### Added
-- **Mission Success (Phase 69):** Ignited the **Full-Spectrum Sovereign Audit (FSSA)**. Verified Node A (Optical), Node B (Director), and Node C (Strategic Strategic Oracle) status as **ONLINE**. Completed 100% cross-shard verification.
+- **Mission Success (Phase 69):** Ignited the **Full-Spectrum Sovereign Audit (FSSA)**. Verified Node A (Optical), Node B (Director), and Node C (Strategic Strategic Strategic Oracle) status as **ONLINE**. Completed 100% cross-shard verification.
 - **Agentic Crash Recovery & Persistence Implementation (Phase 68.5):** Materialized real-time SQLite auto-saving in `LangGraphOrchestrator` using `better-sqlite3` and implemented the `AutoResumeDaemon` to autonomously resume dangling threads upon boot, ensuring 100% state persistence against power loss and process crashes.
 - **Agentic Crash Recovery & Persistence (Phase 68.5):** Synthesized 2026 research on "AI Amnesia" and generated specs/plans for implementing a LangGraph `SqliteSaver` checkpointing system to provide 100% protection against power loss and process crashes.
 - **Secure Subnet Tunneling & Alpha Build (Phase 68):** Shored research and specs for encapsulating the mesh within a zero-config VPN and compiling the mobile deployment binary.

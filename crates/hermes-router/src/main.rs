@@ -6,7 +6,6 @@ use axum::{
 };
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
-use tokio::sync::Mutex;
 use tracing::{info, error};
 use reqwest::Client;
 use sovereign_core::kv_bridge::{KvMesh, ProfileState};

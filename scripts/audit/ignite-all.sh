@@ -67,6 +67,18 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# ◈ STAGE 4.5: HERMES COGNITION ROUTER (Phase 76, Task 2)
+# ---------------------------------------------------------------------------
+echo "  [stage 4.5] Igniting Hermes Cognition Router (port 3012)..."
+if [ -f "crates/hermes-router/target/release/hermes-router" ]; then
+    ./crates/hermes-router/target/release/hermes-router > "$LOG_DIR/hermes-router.log" 2>&1 &
+else
+    (cd crates/hermes-router && cargo build --release 2>/dev/null && ./target/release/hermes-router) > "$LOG_DIR/hermes-router.log" 2>&1 &
+fi
+HERMES_ROUTER_PID=$!
+sleep 1
+
+# ---------------------------------------------------------------------------
 # ◈ STAGE 5: THE STRATEGIC ORACLE (Node C - Logic & Voice)
 # ---------------------------------------------------------------------------
 echo "  [stage 5] Igniting Node C Artery Manager (Rust)..."

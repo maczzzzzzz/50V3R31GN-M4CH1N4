@@ -1,0 +1,28 @@
+# AppFlowy Cloud — Sovereign Documentation Hub
+# Unit: docs/nixos/appflowy-cloud.service
+# Deploy: cp docs/nixos/appflowy-cloud.service ~/.config/systemd/user/
+#         systemctl --user daemon-reload && systemctl --user enable --now appflowy-cloud
+
+[Unit]
+Description=AppFlowy Cloud — Sovereign Documentation Hub (Node C)
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/50V3R31GN-M4CH1N4/scripts/ops/appflowy-cloud
+EnvironmentFile=%h/50V3R31GN-M4CH1N4/scripts/ops/appflowy-cloud/deploy.env
+
+# AppFlowy Cloud binary — built via `cargo build --release` in the repo
+ExecStartPre=/bin/sh -c 'createdb appflowy 2>/dev/null || true'
+ExecStart=%h/50V3R31GN-M4CH1N4/scripts/ops/appflowy-cloud/target/release/appflowy-cloud
+
+Restart=on-failure
+RestartSec=5s
+
+# Logging
+StandardOutput=append:%h/50V3R31GN-M4CH1N4/data/logs/audit/appflowy-cloud.log
+StandardError=append:%h/50V3R31GN-M4CH1N4/data/logs/audit/appflowy-cloud.log
+
+[Install]
+WantedBy=default.target

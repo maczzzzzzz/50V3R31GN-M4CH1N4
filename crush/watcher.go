@@ -23,6 +23,11 @@ const (
 	// Layout: active(1) | id(16) | type(8) | x_f32(4) | y_f32(4) | imgPath(100) = 133 bytes
 	HoveredUnitOffset = 3205
 	HoveredUnitSize   = 133
+
+	// Phase 76: Atomic Profile Engine — IDENTITY_SWITCH signal slot.
+	// Layout: active(1) | profile_name(64) = 65 bytes
+	IdentitySwitchOffset = 3338
+	IdentitySwitchSize   = 65
 )
 
 // ProposalStatus mirrors the VSB schema.
@@ -160,6 +165,30 @@ func nullStr(b []byte) string {
 
 func float32FromBits(bits uint32) float32 {
 	return *(*float32)(unsafe.Pointer(&bits))
+}
+
+// EmitIdentitySwitch writes an IDENTITY_SWITCH signal for the Dashboard HUD.
+// Triggers a Gruvbox vs. Red theme change based on the active profile name.
+func (w *VsbWatcher) EmitIdentitySwitch(profileName string) {
+	if int(IdentitySwitchOffset+IdentitySwitchSize) > len(w.mmap) {
+		return
+	}
+	w.mmap[IdentitySwitchOffset] = 0x01
+	nameBytes := make([]byte, 64)
+	copy(nameBytes, []byte(profileName))
+	copy(w.mmap[IdentitySwitchOffset+1:IdentitySwitchOffset+65], nameBytes)
+}
+
+// ReadIdentitySwitch reads the current IDENTITY_SWITCH signal.
+func (w *VsbWatcher) ReadIdentitySwitch() (active bool, profileName string) {
+	if int(IdentitySwitchOffset+IdentitySwitchSize) > len(w.mmap) {
+		return
+	}
+	active = w.mmap[IdentitySwitchOffset] == 0x01
+	if active {
+		profileName = nullStr(w.mmap[IdentitySwitchOffset+1 : IdentitySwitchOffset+65])
+	}
+	return
 }
 
 // Watch runs a background loop to detect PENDING proposals.

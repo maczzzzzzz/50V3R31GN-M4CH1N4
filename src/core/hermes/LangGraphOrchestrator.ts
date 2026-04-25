@@ -39,7 +39,14 @@ function dispatchSystemCommand(prompt: string): string | null {
   try {
     switch (cmd) {
       case '/profile': {
-        // Read active profile from SOVEREIGN-IDENTITY.md
+        if (args) {
+          // Switch active profile via crush — respects Hardgate invariants
+          const result = execSync(`crush profile ${args} 2>&1 || true`, {
+            encoding: 'utf8', shell: '/bin/bash',
+          }).trim();
+          return `◈ PROFILE SWITCH:\n${result}`;
+        }
+        // No args — read current active profile
         const identity = execSync('grep "ACTIVE_PROFILE" SOVEREIGN-IDENTITY.md', { encoding: 'utf8' }).trim();
         return `◈ PROFILE: ${identity}`;
       }
