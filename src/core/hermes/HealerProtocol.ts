@@ -9,7 +9,7 @@
  * or alternative routing to maintain mission continuity.
  */
 
-import { appendFile, readFile, mkdir } from 'node:fs/promises';
+import { appendFile, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import type { OrchestratorState, OrchestratorConfig } from './LangGraphOrchestrator.js';
 import { VisualSkillCrystallizationPipeline, type DetectedCycle } from '../../../scripts/forge/skill-factory.js';
@@ -91,14 +91,64 @@ export class ShadowModeHealerDaemon {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Phase 80 — Sovereign Hall Failure Tracker
+// Tracks consecutive FATAL outcomes per trace ID.
+// On 3rd failure, emits SOVEREIGN_HALL_CALL to data/meetings/<traceId>/.
+// ---------------------------------------------------------------------------
+
+const failureCounts = new Map<string, number>();
+const HALL_THRESHOLD = 3;
+const MEETINGS_DIR = join(process.cwd(), 'data/meetings');
+
+async function emitSovereignHallCall(traceId: string, reason: string): Promise<void> {
+  const meetDir = join(MEETINGS_DIR, traceId);
+  await mkdir(meetDir, { recursive: true });
+
+  const manifest = {
+    trace_id: traceId,
+    called_at: new Date().toISOString(),
+    called_by: 'healer:3-failure-gate',
+    status: 'open',
+    agents: [] as string[],
+  };
+  await writeFile(join(meetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
+
+  const thought = [
+    `## THOUGHT_FRAGMENT : healer:system`,
+    `- **Assumed Context:** 3-failure threshold crossed for trace ${traceId}`,
+    `- **Failed Approach:** ${reason}`,
+    `- **Proposed Resolution:** Awaiting agent fragments`,
+    `- **Confidence Score:** 0.0`,
+  ].join('\n') + '\n';
+  await writeFile(join(meetDir, 'healer.thought'), thought);
+
+  process.stdout.write(`[HEALER] ◈ SOVEREIGN_HALL_CALL emitted → ${meetDir}\n`);
+}
+
 export class HealerProtocol {
   private static AUDIT_LEDGER = join(process.cwd(), 'data/logs/agentic_audit_trail.jsonl');
 
-  static async logAudit(entry: { file_path?: string | undefined; diff?: string | undefined; reasoning_trace: string; outcome: 'SUCCESS' | 'FATAL' }) {
+  static async logAudit(entry: { file_path?: string | undefined; diff?: string | undefined; reasoning_trace: string; outcome: 'SUCCESS' | 'FATAL'; traceId?: string | undefined }) {
     try {
       await mkdir(dirname(this.AUDIT_LEDGER), { recursive: true });
       await appendFile(this.AUDIT_LEDGER, JSON.stringify(entry) + '\n');
     } catch (e) { /* ignore */ }
+
+    // Phase 80 — 3-failure Hall Gate
+    const traceId = entry.traceId ?? 'unknown';
+    if (entry.outcome === 'FATAL') {
+      const count = (failureCounts.get(traceId) ?? 0) + 1;
+      failureCounts.set(traceId, count);
+      if (count >= HALL_THRESHOLD) {
+        failureCounts.delete(traceId); // reset after gate fires
+        emitSovereignHallCall(traceId, entry.reasoning_trace.slice(0, 500)).catch(
+          e => process.stderr.write(`[HEALER] Hall call emit failed: ${e}\n`)
+        );
+      }
+    } else if (entry.outcome === 'SUCCESS') {
+      failureCounts.delete(traceId); // reset on success
+    }
   }
 
   static async getNegativeConstraints(prompt: string): Promise<string> {

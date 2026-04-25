@@ -3,13 +3,28 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.0.html).
+
+## [3.8.0] - 2026-04-25
+
+### Added
+- **Sovereign Hall Artery (Phase 80, Task 1):** Materialized `crush meeting` subcommand — `call <trace_id>` forces a Hall session, `status` lists active meetings. Thought-fragment vault initialized at `data/meetings/<trace_id>/` with `manifest.json` + `*.thought` stubs.
+- **HealerProtocol 3-Failure Hall Gate (Phase 80, Task 1):** `HealerProtocol.ts` now tracks consecutive FATAL outcomes per `traceId`. On the 3rd failure, `emitSovereignHallCall()` materializes a meeting manifest and `healer.thought` fragment — no LLM roundtrip. Streak resets on SUCCESS.
+- **SovereignHall.tsx WebGL (Phase 80, Task 2):** 2.5D Isometric agent visualization materialized in `dashboard/app/os/SovereignHall.tsx`. Pure Canvas 2D API — zero new dependencies. Pulsing Thought Nodes (Gruvbox status-colored), animated Data Arteries between adjacent cells, live Thought Stream panel on node click.
+- **Vesper FailureTracker (Phase 80, Task 3):** `crates/sovereign-vesper-eye/src/failure_tracker.rs` — polls `decision_audit` table for consecutive CRASH/RE_ROLL/FATAL verdicts. Emits `manifest.json` + `vsb.lock` hardgate file at threshold. `release_lock()` removes the artery suspension on resolution. 4 tests: 4/4 passing.
+- **Ouroboros Reflection Phase (Phase 80, Task 4):** `dream-daemon.ts` Phase 4 OUROBOROS ingests unprocessed `data/meetings/` vaults, dispatches `.thought` fragments to Node A for synthesis, writes `LogicVaccination` directives to `data/logic_vaccinations.jsonl`. `processed.stamp` prevents double-ingestion.
+- **Resilience Forge Gauntlet (Phase 80, Task 6):** Scaffolded `gauntlet/phases/`. `gov-77.ts` — 16 Resonant Gate policy precedence tests (all passing). `ves-78.ts` — 26 Vesper Mesh resilience tests covering Watchdog idle-gate logic, PatternMatcher drift signals, /vesper allowlist, Ouroboros deduplication, and meeting manifest I/O.
+
+### Changed
+- **`LangGraphOrchestrator.ts`:** `traceId` now passed through to `HealerProtocol.logAudit()` — enables per-trace failure streak tracking for the Hall Gate.
+- **`sovereign-vesper-eye` Cargo.toml:** Added `rusqlite = { version = "0.31", features = ["bundled"] }` and `tempfile` dev-dependency for FailureTracker.
+- **`sovereign-vesper-eye` lib.rs:** `FailureTracker` exported as top-level public API alongside `PatternMatcher`, `LogDistiller`.
 
 ## [3.7.1] - 2026-04-25
 
 ### Added
 - **Node C Model Farm Orchestration:** Refactored `hermes-router` to dynamically select between Q3 (8081), Q4 (8082), and Q5 (8083) model shards based on profile `inference_preference`.
-- **OpenClaw v3.7.0 Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening in Phase 80.
+- **OpenClaw v3.8.0 Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening in Phase 80.
 - **Tactical Terminal:** Materialized a dedicated **[TERM]** navigation tab in the Flutter HUD for real-time passive VSB monitoring.
 - **Command Priming:** Implemented structured JSON command dispatch in the Artery Client, preparing the mesh for Windows Host Control (Phase 81).
 
@@ -52,7 +67,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 - **Artery Hardening:** wrapped Vesper daemon in `nix develop` for total environment sovereignty.
 
 ### Changed
-- **Version Lock:** Universal synchronization of all manifests, guides, and source files to v3.7.0.
+- **Version Lock:** Universal synchronization of all manifests, guides, and source files to v3.8.0.
 
 ## [3.6.4] - 2026-04-19
 ### Added
@@ -61,7 +76,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 - **Hermes Agent Ingestion:** Integrated `MemoryObserver` to extract semantic triplets from agent traces and "engrave" them into the relational graph.
 
 ### Fixed
-- **Phase 76 Hardening:** Finalized the v3.7.0 post-mortem audit, closing shell injection surfaces and shoring up the Atomic Profile Hardgate.
+- **Phase 76 Hardening:** Finalized the v3.8.0 post-mortem audit, closing shell injection surfaces and shoring up the Atomic Profile Hardgate.
 
 ## [3.6.3] - 2026-04-25
 ### Fixed
@@ -92,7 +107,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 ## [3.6.0] - 2026-04-25
 ### Added
 - **Sovereign Artery Finalization (Phases 72-77):** 100% completion and verification of the Graph-Relational Synapse, Physical Sovereignty, Sovereign Strategic Oracle, and Agentic Self-Healing layers.
-- **Hermes v3.7.0 "Interface Release":** Deployed the Ink-based TUI and standardized the Gruvbox Canonical aesthetic across the mesh.
+- **Hermes v3.8.0 "Interface Release":** Deployed the Ink-based TUI and standardized the Gruvbox Canonical aesthetic across the mesh.
 - **Atomic Profile Engine:** Initialized the Mooncake-KV synchronized identity engine.
 - **Custom Command Restoration:** Fixed critical parsing errors in `.gemini/commands/` by surgically removing UTF-8 BOM and normalizing CRLF line endings in `plan.toml` and `execute.toml`.
 
@@ -148,7 +163,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.7.0.html).
 - **Sovereign Intelligence Store:** Materialized `SovereignIntelligence.db` as the primary repository for OS-level functional logic, system state, and zero-trust audit trails.
 - **Dual-Profile Identity System:** Deployed `SOVEREIGN-IDENTITY.md` in the repository root, enabling dynamic profile switching between `[SOVEREIGN_OS]` (Reasoner) and `[RED_DIRECTOR]` (Narrative).
 - **Dashboard Sociotomy:** Re-engineered the Next.js dashboard into isolated `/os` (Intelligence HUD) and `/red` (Simulation Module) routes with profile-aware navigation.
-- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.7.0 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
+- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.8.0 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
 - **Drift Sentinel Droid:** Materialized a specialized integrity guardian (`.factory/droids/drift-sentinel.md`) to autonomously scan manifests for version and identity drift.
 - **Drift Audit Skill:** Codified the `drift-audit` skill to provide a bit-identical workflow for maintaining system-wide parity.
 - **Surgical Node Synchronization:** Materialized `scripts/ops/node-surgical-sync.sh` to enforce bit-identical logic across the Trinity while purging multi-gigabyte mirroring bloat (weights, archives) from slave nodes.

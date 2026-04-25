@@ -329,7 +329,7 @@ export class LangGraphOrchestrator {
         activeNode: 'done', response: sysResult, retries: 0,
         outcome: 'SUCCESS',
       };
-      await HealerProtocol.logAudit({ reasoning_trace: `SYS_CMD: ${input.prompt}`, outcome: 'SUCCESS' });
+      await HealerProtocol.logAudit({ reasoning_trace: `SYS_CMD: ${input.prompt}`, outcome: 'SUCCESS', traceId: tid });
       return fastState;
     }
 
@@ -404,7 +404,8 @@ export class LangGraphOrchestrator {
       file_path: state.file_path,
       diff: state.diff,
       reasoning_trace: `Prompt: ${state.prompt}\nResponse: ${state.response}\nError: ${state.error || 'None'}`,
-      outcome: state.outcome as 'SUCCESS' | 'FATAL'
+      outcome: state.outcome as 'SUCCESS' | 'FATAL',
+      traceId: threadId,
     });
 
     // Phase 68.5: Trigger the asynchronous Memory Palace Observer to distill long-term facts

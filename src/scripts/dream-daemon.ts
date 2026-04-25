@@ -1,20 +1,22 @@
 /**
- * dream-daemon.ts — Phase 34: OpenClaw Dreaming Loop
+ * dream-daemon.ts — Phase 34 / Phase 80 Ouroboros Extension
  *
  * A background consolidation process that runs on Node A during idle GPU cycles.
- * It cycles through three phases to promote short-term lore signals into durable
+ * It cycles through four phases to promote short-term lore signals into durable
  * world-state facts stored in Akashik.db and summarized in docs/DREAMS.md.
  *
  * Phases:
- *   1. LIGHT  — Tally recency/frequency of lore signals from npc_logs and triplets.
- *   2. REM    — Dispatch top signals to Node A 1.5B Reasoner for association/contradiction audit.
- *   3. DEEP   — Commit "True Facts" to Akashik.db and append to docs/DREAMS.md.
+ *   1. LIGHT     — Tally recency/frequency of lore signals from npc_logs and triplets.
+ *   2. REM       — Dispatch top signals to Node A 1.5B Reasoner for association/contradiction audit.
+ *   3. DEEP      — Commit "True Facts" to Akashik.db and append to docs/DREAMS.md.
+ *   4. OUROBOROS — Ingest unprocessed Sovereign Hall meeting transcripts and generate
+ *                  "Logic Vaccinations" — constraint directives prepended to future prompts.
  *
  * Usage:
- *   tsx src/scripts/dream-daemon.ts [--once] [--interval-ms=<ms>]
+ *   tsx src/scripts/dream-daemon.ts [--once] [--schedule=<cron>]
  *
- *   --once         Run a single dream cycle and exit (default: loop indefinitely).
- *   --interval-ms  Sleep between cycles in ms (default: 300000 = 5 minutes).
+ *   --once              Run a single dream cycle and exit (default: loop indefinitely).
+ *   --schedule=<cron>   Cron expression for auto scheduling (default: '0 3 * * *').
  */
 
 import fs from 'node:fs';
@@ -33,6 +35,8 @@ const AKASHIK_DB_PATH = process.env['AKASHIK_DB_PATH'] ?? 'data/Akashik.db';
 const DREAMS_MD_PATH  = process.env['DREAMS_MD_PATH'] ?? 'docs/DREAMS.md';
 const SIGNAL_LIMIT    = parseInt(process.env['DREAM_SIGNAL_LIMIT'] ?? '20', 10);
 const MIN_SCORE       = parseFloat(process.env['DREAM_MIN_SCORE'] ?? '0.7');
+const MEETINGS_DIR    = process.env['MEETINGS_DIR'] ?? 'data/meetings';
+const VACCINES_PATH   = process.env['VACCINES_PATH'] ?? 'data/logic_vaccinations.jsonl';
 
 const args = process.argv.slice(2);
 const runOnce = args.includes('--once');
@@ -212,6 +216,120 @@ function deepPhase(db: Database.Database, audit: RemAudit, cycleId: string): voi
   process.stdout.write(`[Dream:DEEP] ${audit.true_facts.length} facts committed. DREAMS.md updated.\n`);
 }
 
+// ── Phase 4: OUROBOROS — Meeting Transcript Ingestion & Logic Vaccinations ────
+//
+// Scans data/meetings/ for unprocessed meeting vaults (those without
+// a processed.stamp file). Reads all .thought fragments, dispatches them
+// to Node A for synthesis, and writes "Logic Vaccination" directives to
+// data/logic_vaccinations.jsonl for injection into future prompts.
+
+interface LogicVaccination {
+  id: string;
+  trace_id: string;
+  cycle_id: string;
+  directive: string;
+  source_agents: string[];
+  created_at: string;
+}
+
+async function ouroborosPhase(cycleId: string): Promise<void> {
+  process.stdout.write('[Dream:OUROBOROS] Scanning meeting vaults...\n');
+
+  let vaultCount = 0;
+  let vaccinationCount = 0;
+
+  // Read all meeting directories
+  let entries: string[] = [];
+  try {
+    entries = fs.readdirSync(MEETINGS_DIR);
+  } catch {
+    process.stdout.write('[Dream:OUROBOROS] No meetings dir found — skipping.\n');
+    return;
+  }
+
+  for (const traceId of entries) {
+    const meetDir = path.join(MEETINGS_DIR, traceId);
+    const stat = fs.statSync(meetDir);
+    if (!stat.isDirectory()) continue;
+
+    const stampPath = path.join(meetDir, 'processed.stamp');
+    if (fs.existsSync(stampPath)) continue; // already processed
+
+    // Collect all .thought fragments
+    const thoughtFiles = fs.readdirSync(meetDir).filter(f => f.endsWith('.thought'));
+    if (thoughtFiles.length === 0) continue;
+
+    const fragments = thoughtFiles
+      .map(f => {
+        try { return { agent: f.replace('.thought', ''), content: fs.readFileSync(path.join(meetDir, f), 'utf-8') }; }
+        catch { return null; }
+      })
+      .filter((x): x is { agent: string; content: string } => x !== null);
+
+    if (fragments.length === 0) continue;
+
+    vaultCount++;
+
+    // Synthesize Logic Vaccination via Node A
+    try {
+      const fragmentText = fragments
+        .map(f => `### Agent: ${f.agent}\n${f.content}`)
+        .join('\n\n---\n\n');
+
+      const systemPrompt = `You are the Ouroboros Reflection Engine. You receive thought fragments from a Sovereign Hall meeting and must extract a single concise "Logic Vaccination" — a directive constraint that prevents the same class of deadlock from recurring.
+
+Output ONLY valid JSON: {"directive":"<one-sentence constraint>","confidence":0.0-1.0,"reasoning":"<brief>"}`;
+
+      const userMessage = `Meeting trace_id: ${traceId}\n\nThought Fragments:\n\n${fragmentText}`;
+
+      const response = await fetch(`${NODE_A_BASE_URL}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: NODE_A_MODEL,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userMessage },
+          ],
+          temperature: 0.1,
+          response_format: { type: 'json_object' },
+        }),
+        signal: AbortSignal.timeout(60_000),
+      });
+
+      if (!response.ok) throw new Error(`Node A HTTP ${response.status}`);
+
+      const json = await response.json() as { choices: Array<{ message: { content: string } }> };
+      const content = json.choices[0]?.message?.content ?? '';
+      const parsed = JSON.parse(content) as { directive: string; confidence: number; reasoning: string };
+
+      const vaccination: LogicVaccination = {
+        id: randomUUID(),
+        trace_id: traceId,
+        cycle_id: cycleId,
+        directive: parsed.directive,
+        source_agents: fragments.map(f => f.agent),
+        created_at: new Date().toISOString(),
+      };
+
+      // Ensure vaccines file exists
+      const vaccinesDir = path.dirname(VACCINES_PATH);
+      if (!fs.existsSync(vaccinesDir)) fs.mkdirSync(vaccinesDir, { recursive: true });
+      fs.appendFileSync(VACCINES_PATH, JSON.stringify(vaccination) + '\n', 'utf-8');
+
+      vaccinationCount++;
+      process.stdout.write(`[Dream:OUROBOROS] Vaccination generated for trace=${traceId}: "${parsed.directive.slice(0, 80)}..."\n`);
+    } catch (err) {
+      process.stderr.write(`[Dream:OUROBOROS] Synthesis failed for ${traceId}: ${err}\n`);
+    }
+
+    // Write processed stamp regardless — prevents infinite reprocessing on error
+    fs.writeFileSync(stampPath, new Date().toISOString() + '\n', 'utf-8');
+  }
+
+  process.stdout.write(`[Dream:OUROBOROS] ${vaultCount} vaults scanned, ${vaccinationCount} vaccinations generated.\n`);
+}
+
 // ── Main Loop ─────────────────────────────────────────────────────────────────
 
 async function dreamCycle(): Promise<void> {
@@ -232,6 +350,9 @@ async function dreamCycle(): Promise<void> {
 
     // Phase 3: DEEP
     deepPhase(db, audit, cycleId);
+
+    // Phase 4: OUROBOROS — meeting transcript ingestion + Logic Vaccinations
+    await ouroborosPhase(cycleId);
 
     process.stdout.write(`[DreamDaemon] ===== CYCLE ${cycleId} COMPLETE =====\n`);
   } finally {

@@ -5,9 +5,13 @@ edition = "2021"
 description = "Phase 78: Vesper Perception Sidecar — log distillation and Scribe-drift pattern matching"
 
 [dependencies]
-notify    = "6.1"
-anyhow    = "1.0"
-serde     = { version = "1.0", features = ["derive"] }
+notify     = "6.1"
+anyhow     = "1.0"
+serde      = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-tracing   = "0.1"
-regex     = "1.10"
+tracing    = "0.1"
+regex      = "1.10"
+rusqlite   = { version = "0.31", features = ["bundled"] }
+
+[dev-dependencies]
+tempfile = "3"
