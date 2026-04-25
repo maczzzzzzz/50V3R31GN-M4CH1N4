@@ -17,7 +17,7 @@ Phases 73-75 are 100% COMPLETE and VERIFIED. Phase 76 (Artery & Fabric) is MATER
 2.  **Obscura Build:** Verify the `flake.nix` build inputs (nasm, clang, perl, etc.) against the `boring-sys` compilation requirements.
 3.  **Exa Strategic Oracle:** Audit the `crates/exa-rs` and `scripts/ops/exa-mcp-go` code for memory safety and zero-trust verification logic.
 4.  **Interface Sociotomy:** Review the **Phase 76 Task 3** plan. Ensure the migration of `/status` and `/vault` to the Hermes TUI does not create redundant logic in the `crush` layer.
-5.  **Aesthetic Unity:** Verify that the **Gruvbox** hex codes shored in `alacritty.toml`, `settings.json`, and `globals.css` are bit-identical to the `morhetz/gruvbox` source.
+5.  **Aesthetic Unity:** Verify that the **Gruvbox** hex codes shored in `settings.json` and `globals.css` are bit-identical to the `morhetz/gruvbox` source.
 
 ### 🧠 TACTICAL NEXT STEP
 Once the audit is complete, initialize the execution of **Phase 76 Task 3** to lock in the OS-Default boot sequence.
