@@ -443,6 +443,13 @@ func main() {
 				os.Exit(1)
 			}
 			return
+
+		case "profile":
+			if err := runProfileSwitch(os.Args[2:]); err != nil {
+				fmt.Printf("Error: %v\n", err)
+				os.Exit(1)
+			}
+			return
 		}
 	}
 

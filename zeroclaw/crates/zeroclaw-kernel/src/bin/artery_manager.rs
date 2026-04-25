@@ -23,7 +23,9 @@ use tokio::{
     process::{Child, Command},
     sync::Mutex,
     time::sleep,
+    signal::unix::{signal, SignalKind},
 };
+use sovereign_core::kv_bridge::{KvMesh, ProfileState};
 use tracing::{error, info, warn};
 
 // Phase 67.5: Rust ML Integration
@@ -143,9 +145,31 @@ struct ArteryState {
     latest_frame_hash: Option<String>,
     udp_socket: Arc<tokio::net::UdpSocket>,
     director_addr: String,
+    kv_mesh: Arc<KvMesh>,
 }
 
 impl ArteryState {
+    async fn reload_profile(&mut self) -> anyhow::Result<()> {
+        info!("ARTERY: Pulling latest profile from Mooncake...");
+        let profile = self.kv_mesh.pull_profile().await?;
+        info!("ARTERY: Profile pulled: {}", profile.name);
+
+        let target_quant = match profile.name.as_str() {
+            "researcher" => Quantization::Q5,
+            "daily-use" => Quantization::Q4,
+            _ => Quantization::Q3,
+        };
+
+        if self.current_quant != target_quant {
+            info!("ARTERY: Atomic switch required: {} -> {}", self.current_quant, target_quant);
+            self.start_server(target_quant).await?;
+        } else {
+            info!("ARTERY: Profile matches current state. No switch needed.");
+        }
+
+        Ok(())
+    }
+
     fn gguf_path(&self, q: Quantization) -> PathBuf {
         self.vocal_soul.join("gemma-4-e2b").join(q.gguf_filename())
     }
@@ -590,6 +614,9 @@ async fn main() {
         }
     };
 
+    let kv_master = env::var("MOONCAKE_MASTER").unwrap_or_else(|_| "10.0.0.10:6789".to_string());
+    let kv_mesh = Arc::new(KvMesh::new(&kv_master));
+
     let initial_state = ArteryState {
         current_quant: Quantization::Q5,
         child: None,
@@ -598,9 +625,33 @@ async fn main() {
         latest_frame_hash: None,
         udp_socket,
         director_addr,
+        kv_mesh: kv_mesh.clone(),
     };
 
     let shared = Arc::new(Mutex::new(initial_state));
+
+    // Spawn SIGUSR1 reload listener
+    let shared_reload = shared.clone();
+    tokio::spawn(async move {
+        let mut stream = match signal(SignalKind::user_defined1()) {
+            Ok(s) => s,
+            Err(e) => {
+                error!("ARTERY: Failed to bind SIGUSR1 listener: {}", e);
+                return;
+            }
+        };
+
+        info!("ARTERY: SIGUSR1 listener active (Atomic Profile Reload)");
+
+        loop {
+            stream.recv().await;
+            info!("::/5Y573M-N071C3 : SIGUSR1_RECOGNIZED. ATOMIC_RELOAD_START.");
+            let mut s = shared_reload.lock().await;
+            if let Err(e) = s.reload_profile().await {
+                error!("ARTERY: Atomic reload failed: {}", e);
+            }
+        }
+    });
 
     {
         let mut s = shared.lock().await;
