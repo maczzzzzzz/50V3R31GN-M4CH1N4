@@ -1,5 +1,5 @@
 # Server Setup: Node A (Rules Vault)
-### 50V3R31GN-M4CH1N4 v3.6.4 | Node A (Linux) Setup Guide
+### 50V3R31GN-M4CH1N4 v3.7.0 | Node A (Linux) Setup Guide
 
 This document details the configuration for **Node A**, the secondary rules and geometry vault.
 

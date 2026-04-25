@@ -14,18 +14,18 @@ CORE_CONSTRAINTS:
 ### daily-use
 - inference_preference: "node_b_heavy"
 - permission_policy: "always_allow_quick"
-- vault_target: "D:\\Obsidian_Sovereign_OS"
+- vault_target: "/home/nixos/50V3R31GN-M4CH1N4/data/vault/Sovereign_OS"
 
 ### researcher
 - inference_preference: "balanced"
 - permission_policy: "always_ask_web"
-- vault_target: "D:\\Obsidian_Sovereign_OS"
+- vault_target: "/home/nixos/50V3R31GN-M4CH1N4/data/vault/Sovereign_OS"
 
 ### sovereign-red-game-master
 - inference_preference: "balanced"
 - permission_policy: "deny_external"
-- vault_target: "D:\\Obsidian_RKG"
-- cold_storage: "D:\\Obsidian_CPR_ColdStorage"
+- vault_target: "/home/nixos/50V3R31GN-M4CH1N4/data/vault/RKG"
+- cold_storage: "/home/nixos/50V3R31GN-M4CH1N4/data/vault/CPR_ColdStorage"
 ---
 
 ## Identity: Sovereign Intelligence OS

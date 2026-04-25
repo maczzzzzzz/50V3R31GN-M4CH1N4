@@ -1,7 +1,7 @@
 # ABOUT 50V3R31GN-M4CH1N4 (Sovereign Machina)
 
-**Version:** 3.6.4 (Projecting Phase 80 Completion)
-**Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Motor Cortex (JS) + OpenClaw Agents (Rust) + Hermes Inference (Rust)
+**Version:** 3.7.0 (Projecting Phase 80 Completion)
+**Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Motor Cortex (JS) + OpenClaw Agents (Rust) + Hermes Cognition (Rust)
 
 ## ◈ THE INTELLIGENCE OPERATING SYSTEM
 
@@ -34,7 +34,7 @@ Sovereign Machina processes reality through a highly structured cognitive loop, 
 ### The Atomic Profile Engine
 The system operates on declarative identities (e.g., `[SOVEREIGN_OS]` for system management, `[RED_DIRECTOR]` for simulation). The **Atomic Profile Engine** (`crush profile`) dynamically shifts the system's logic gates, permissions, and UI themes (like the Canonical Gruvbox aesthetic) in real-time, ensuring AI behavior never drifts from its assigned role.
 
-### The Memory Palace V2 (Graph-Relational Memory)
+### The Synapse Palace V2 (Graph-Relational Synapse)
 All information—from codebase files to passing chat conversations—is ingested into `SovereignIntelligence.db`. 
 - **Triplets & FTS5:** Information is distilled into Subject-Predicate-Object triplets and indexed via SQLite FTS5 for instant keyword retrieval.
 - **Vector Search (`sqlite-vec`):** Triplets are embedded for semantic similarity, allowing the system to cross-reference concepts autonomously.
@@ -57,7 +57,7 @@ A physical and logical "Cut" separates the operating system from the simulation.
 Before any LLM-generated action is executed on the host, it passes through a Rust-native **Resonant Logic Gate**. This gate checks the proposed action against the immutable invariants defined in the active profile's `permissionPolicy`. If an action violates physical sovereignty (e.g., exceeding VRAM ceilings) or identity bounds, it triggers an absolute **VETO**.
 
 ### The Shield Gate (Exa-Oracle)
-All data ingested from the outside web (via the Exa MCP server or Obscura sidecar) is subjected to a zero-trust hallucination detector before entering the Memory Palace.
+All data ingested from the outside web (via the Exa MCP server or Obscura sidecar) is subjected to a zero-trust hallucination detector before entering the Synapse Palace.
 
 ---
 
@@ -66,7 +66,7 @@ All data ingested from the outside web (via the Exa MCP server or Obscura sideca
 Sovereign Machina is a **Dynamically Learning Control System**. It does not just execute; it evolves.
 
 ### Shadow Mode & Vector-Weighted Traceback
-When an agent encounters a failure, the **Sovereign Healer** (`crates/sovereign-healer`) queries the Memory Palace for previous failure patterns. It uses live OCR screen-captures (via the Sovereign Observer) to visually locate missing UI elements and autonomously rewrite its own integration scripts.
+When an agent encounters a failure, the **Sovereign Healer** (`crates/sovereign-healer`) queries the Synapse Palace for previous failure patterns. It uses live OCR screen-captures (via the Sovereign Observer) to visually locate missing UI elements and autonomously rewrite its own integration scripts.
 
 ### The GEPA Loop
 During the system's "Nightly Dream Cycle", the **Genetic-Pareto Prompt Evolution** (GEPA) loop activates. It tests generations of agent prompts against a programmatic Gauntlet, genetically mutating the most successful ones to permanently optimize the system's intelligence without human input.
@@ -85,7 +85,7 @@ The primary desktop interface features a high-fidelity **Sovereign Shroud**—a 
 Project governance and the `IMPLEMENTATION_PLAN.md` roadmap are bidirectionally synchronized with a self-hosted **AppFlowy Cloud** instance on Node C, providing a robust, visual Kanban interface for system orchestration.
 
 ### Tactical HUD (Flutter Mobile)
-The capstone of Phase 80 is the **Tactical HUD**. This mobile companion app acts as an extension of the Sovereign Artery. It uses the Omi-inspired "Memory Model" to listen to conversational streams, extract actionable Tasks and Vault entries in real-time, and enforce the system's Canonical Gruvbox aesthetic—granting full control over the Trinity from anywhere in the world.
+The capstone of Phase 80 is the **Tactical HUD**. This mobile companion app acts as an extension of the Sovereign Artery. It uses the Omi-inspired "Synapse Model" to listen to conversational streams, extract actionable Tasks and Vault entries in real-time, and enforce the system's Canonical Gruvbox aesthetic—granting full control over the Trinity from anywhere in the world.
 
 ---
 

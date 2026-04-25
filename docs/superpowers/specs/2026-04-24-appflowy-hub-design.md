@@ -1,5 +1,5 @@
 # SPECIFICATION: APPFLOWY SOVEREIGN HUB
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Status:** DRAFT
 **Topic:** Integration of AppFlowy as the structured project management hub for 50V3R31GN-M4CH1N4.
 

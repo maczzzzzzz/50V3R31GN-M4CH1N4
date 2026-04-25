@@ -1,6 +1,6 @@
 # User Guide: Sovereign Asset Forge — Ingestion
 
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Role:** High-Fidelity World State Grounding
 
 ---
@@ -44,7 +44,7 @@ npm run mind:materialize
 *Structure:* Organised by `District > [Lore | Actors | Items | Locations]` with full YAML frontmatter.
 
 ---
-*Asset Ingestion: High-Fidelity Semantic Grounding Online v3.6.4.*
+*Asset Ingestion: High-Fidelity Semantic Grounding Online v3.7.0.*
 
 
 ---

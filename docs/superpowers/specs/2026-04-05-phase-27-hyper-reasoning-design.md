@@ -1,4 +1,4 @@
-# Design: Phase 27 — Hyper-Reasoning Orchestrator (v3.6.4)
+# Design: Phase 27 — Hyper-Reasoning Orchestrator (v3.7.0)
 
 **Date:** 2026-04-05
 **Status:** Approved
@@ -39,7 +39,7 @@
 - **VRAM:** Pixtral-12B must fit within Node B's 16GB VRAM alongside the Narrative Engine. Use Q5_K_M quantization.
 
 ---
-*Verified by Gemini CLI v3.6.4 Orchestrator.*
+*Verified by Gemini CLI v3.7.0 Orchestrator.*
 
 
 ---

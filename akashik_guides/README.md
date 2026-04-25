@@ -1,5 +1,5 @@
 # ◈ AKASHIK_GUIDES // THE_SOVEREIGN_LEDGER
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Identity:** 50V3R31GN-M4CH1N4
 
 This repository contains the canonical tutorials, references, and architectural shards required to operate the **Sovereign Intelligence OS** and the **Trinity** cognitive mesh.

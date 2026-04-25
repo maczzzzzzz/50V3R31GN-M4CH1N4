@@ -50,7 +50,7 @@ The bridge strictly adheres to the project's **Sovereignty Rules**:
 - **Tool Integrity:** Automated check of `read_file` and `git status` via the MCP bridge before the first mission start.
 
 ---
-*Verified by the Sovereign Trinity v3.6.4.*
+*Verified by the Sovereign Trinity v3.7.0.*
 
 
 ---

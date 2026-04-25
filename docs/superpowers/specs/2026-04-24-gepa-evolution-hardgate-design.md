@@ -1,5 +1,5 @@
 # SPECIFICATION: GEPA EVOLUTION & DETERMINISTIC HARDGATE
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Status:** DRAFT
 **Topic:** Autonomous prompt optimization and identity protection.
 

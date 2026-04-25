@@ -1,5 +1,5 @@
 # SPECIFICATION: RESONANT LOGIC GATE
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Status:** DRAFT
 **Topic:** Deterministic governance and lossless memory patterns.
 

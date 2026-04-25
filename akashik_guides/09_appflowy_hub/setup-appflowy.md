@@ -1,5 +1,5 @@
 # ◈ SETUP: APPFLOWY SOVEREIGN HUB
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Aesthetic:** Gruvbox (Canonical)
 
 ## 🎯 OBJECTIVE

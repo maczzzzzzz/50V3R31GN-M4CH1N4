@@ -50,7 +50,7 @@ if (game.modules.get('socketlib')?.active) {
 
 **Files:**
 - Modify: `foundry-module/foundry-api-bridge.js`
-- Create: `docs/audits/2026-04-03_v3.6.4-Mesh-Evolution-Audit.md`
+- Create: `docs/audits/2026-04-03_v3.7.0-Mesh-Evolution-Audit.md`
 
 **Step 1: Implement the `system_heartbeat` event to report active modules back to Node B.**
 **Step 2: Version bump to 1.5.0.**

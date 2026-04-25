@@ -1,6 +1,6 @@
 # User Guide: Atmospheric Immersion (NomadPR)
 
-**Version:** 3.6.4
+**Version:** 3.7.0
 **Role:** Narrative Depth and Background Ambience
 
 ---
