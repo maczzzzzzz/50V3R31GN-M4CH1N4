@@ -1,4 +1,4 @@
-# Phase 73: Task 4 - Semantic Retrieval Bridge Implementation Plan
+# Phase 73: Task 4 - Semantic Retrieval Mesh Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
