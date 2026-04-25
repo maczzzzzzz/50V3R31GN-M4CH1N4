@@ -23,7 +23,6 @@ mkdir -p \
   "$VAULT_WSL/Districts" \
   "$VAULT_WSL/Global/Items" \
   "$VAULT_WSL/Global/Actors" \
-  "$VAULT_WSL/Global/Lore" \
   "$VAULT_WSL/Global/Factions" \
   "$VAULT_WSL/Global/Knowledge" \
   "$VAULT_WSL/Chronicles/Global" \
