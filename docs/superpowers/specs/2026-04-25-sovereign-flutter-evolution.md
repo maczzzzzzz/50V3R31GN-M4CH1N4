@@ -69,6 +69,7 @@ The app moves from "Simple Chat" to "Contextual Synapse."
 2.  **`RefinementSlate` Overlay:** A lite-weight modal for editing proposals.
 3.  **`TemporalTabBar`:** A custom Gruvbox-themed top navigation.
 4.  **`MemoryProvider`:** A new state management service to handle the Omi-style data lifecycle.
+5.  **App Icon Update:** Configure `flutter_launcher_icons` (or similar) to use the new Sovereign app icon located at `terminal-app/assets/app_icon.png`.
 
 ## 6. 🧪 SUCCESS CRITERIA
 - [ ] App switches to Gruvbox Yellow/Dark on `IDENTITY_SWITCH`.
