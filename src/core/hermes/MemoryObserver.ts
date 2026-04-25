@@ -1,5 +1,8 @@
 import { MemoryPalaceService } from '../memory-palace-service.js';
 import { UnifiedOracleClient } from '../../db/unified-oracle-client.js';
+import { SynapseStore } from '../../db/synapse-store.js';
+import { OsTripletService } from '../../db/os-triplets-service.js';
+import { SovereignEmbeddingService } from '../../db/sovereign-embedding-service.js';
 import type { OrchestratorState } from './LangGraphOrchestrator.js';
 
 /**
@@ -18,7 +21,16 @@ export class MemoryObserver {
       crushDbPath: 'data/crush.db',
     });
     await oracle.connect();
-    this.service = new MemoryPalaceService(oracle);
+
+    const store = new SynapseStore('data/SovereignIntelligence.db');
+    store.open();
+    const embedder = new SovereignEmbeddingService({
+      baseUrl: process.env.NODE_A_URL ?? 'http://10.0.0.10:8080/v1',
+      model: 'nomic-embed-text',
+    });
+    const tripletService = new OsTripletService(store, embedder);
+
+    this.service = new MemoryPalaceService(oracle, tripletService);
   }
 
   static async observeAndDistill(state: OrchestratorState) {
@@ -49,6 +61,16 @@ export class MemoryObserver {
       
       // Inject the semantic fact into the Memory Palace
       this.service.addCloset(hall.id, summary, state.traceId);
+
+      // Extract and store a task triplet for the active room (Spatial Scoping)
+      if (this.service.tripletService) {
+        await this.service.tripletService.upsert(
+          'Agent',
+          'executed_task',
+          state.prompt.substring(0, 40).replace(/\s+/g, '_'),
+          activeCtx.roomId
+        );
+      }
       
       // Also mine the exact verbatim exchange into the ChromaDB Drawer (if initialized)
       await this.service.mineExchange(state.prompt, state.response);

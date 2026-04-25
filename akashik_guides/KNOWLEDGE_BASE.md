@@ -1,6 +1,6 @@
 # ◈ 50V3R31GN-M4CH1N4 // KNOWLEDGE_BASE
-**Version:** 3.4.1
-**Status:** ARCH1V3_LOCK (v3.6.0)
+**Version:** 3.6.4
+**Status:** ARCH1V3_LOCK (v3.6.4)
 
 ---
 
@@ -12,12 +12,16 @@
 | **GStack (Garry Tan)** | [garrytan/gstack](https://github.com/garrytan/gstack) | **Workflow:** Opinionated "Think → Plan → Build" loop and specialized roles. |
 | **GBrain (Garry Tan)** | [garrytan/gbrain](https://github.com/garrytan/gbrain) | **Synapse:** PGLite + pgvector for local knowledge graphs. |
 | **Claw-Code (Rust)** | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | High-performance Rust rewrite of the foundational IPC bridge. |
-| **Zeroclaw (v3.6.0)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
+| **Zeroclaw (v3.6.4)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
+| **Sovereign-Healer** | Local: `crates/sovereign-healer` | **Self-Healing:** Vector-weighted failure analysis and automated regression prevention. |
 | **Obscura (Rust)** | [h4ckf0r0day/obscura](https://github.com/h4ckf0r0day/obscura) | **Ingress:** Headless stealth browser for agentic sensory input (30MB RAM). |
+| **Hermes-Router** | Local: `crates/hermes-router` | **Cognition Artery:** High-throughput request routing and vLLM farm management. |
 
 ### ◈ THE COGNITIVE HARNESS (EVOLUTION CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
+| **Omi (Flutter)** | [BasedHardware/omi](https://github.com/BasedHardware/omi) | **Synapse Model:** Real-time conversation extraction and "Synapse" tab logic. |
+| **AppFlowy Cloud** | [AppFlowy-IO/AppFlowy-Cloud](https://github.com/AppFlowy-IO/AppFlowy-Cloud) | **Hub:** Structured documentation and Roadmap Artery synchronization. |
 | **Hermes Agent (v2026)**| [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | **Interface:** React/Ink TUI and persistent cross-session memory (FTS5). |
 | **Hermes-Kanban** | [GumbyEnder/hermes-kanban](https://github.com/GumbyEnder/hermes-kanban) | **Governance:** API-driven task management and Obsidian board sync. |
 | **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |
@@ -47,7 +51,7 @@
 
 ---
 
-## 🧠 ARCHITECTURAL PATTERNS (v3.6.0)
+## 🧠 ARCHITECTURAL PATTERNS (v3.6.4)
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
@@ -63,7 +67,7 @@
 | **Kinetic VFX** | Three.js | 3D particle manifestation (gunshots/sparks) in the tactical shroud. |
 
 ---
-*Verified by Gemini CLI v3.6.0.*
+*Verified by Gemini CLI v3.6.4.*
 
 
 ---

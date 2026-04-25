@@ -1,4 +1,4 @@
-# GEMINI.md: The Sovereign Strategist (v3.6.0)
+# GEMINI.md: The Sovereign Strategist (v3.6.4)
 
 **Role:** High-Level Reasoner // Supervisor of the Triad // Guardian of the 70+ Phase Roadmap.
 

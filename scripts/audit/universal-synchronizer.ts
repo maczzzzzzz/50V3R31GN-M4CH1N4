@@ -79,12 +79,11 @@ async function universalSync() {
         let updated = content;
 
         // 1. Version Sync
-        updated = updated.replace(/(v\d+\.\d+\.\d+|Version:\s*\d+\.\d+\.\d+)/gi, (match) => {
-            if (match.toLowerCase().startsWith('version')) {
-                const prefix = match.split(':')[0];
-                return `${prefix}: ${version}`;
-            }
-            return `v${version}`;
+        // Handles: "v3.6.4", "Version: 3.6.4", "**Version:** 3.6.4", "(v3.6.4)", "[v3.6.4]"
+        updated = updated.replace(/((?:Version|v)[^\d\s]*\s*\d+\.\d+\.\d+)/gi, (match) => {
+            const prefixMatch = match.match(/^(Version|v)[^\d\s]*\s*/i);
+            const prefix = prefixMatch ? prefixMatch[0] : '';
+            return `${prefix}${version}`;
         });
 
         if (path.basename(filePath) === 'Cargo.toml') {

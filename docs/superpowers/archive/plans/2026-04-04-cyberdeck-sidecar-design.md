@@ -1,4 +1,4 @@
-# Design: Cyberdeck Sidecar & Quick-Hack HUD (v3.6.0)
+# Design: Cyberdeck Sidecar & Quick-Hack HUD (v3.6.4)
 **Date:** 2026-04-04
 **Target:** Phase 23 (Neural World Engine)
 

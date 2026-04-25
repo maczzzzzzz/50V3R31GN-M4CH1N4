@@ -1,5 +1,5 @@
 # SPECIFICATION: OBSCURA STEALH SIDECAR
-**Version:** 1.0.0
+**Version:** 3.6.4
 **Status:** DRAFT
 **Topic:** Implementation of the Rust-based Obscura browser as a lightweight, stealthy sensory ingress.
 

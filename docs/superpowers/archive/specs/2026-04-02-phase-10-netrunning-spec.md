@@ -1,4 +1,4 @@
-# Design Specification: Phase 10 — Deep-Dive Netrunning Engine (v3.6.0)
+# Design Specification: Phase 10 — Deep-Dive Netrunning Engine (v3.6.4)
 **Subject:** Virtual Reality Simulation & Concurrent Floor Partitioning
 **Status:** DESIGN FINALIZED
 

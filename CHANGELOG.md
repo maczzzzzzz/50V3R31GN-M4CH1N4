@@ -3,7 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.4.html).
+
+## [3.6.4] - 2026-04-25
+### Added
+- **Sovereign Flutter Evolution (Phase 76):** Materialized the spec for the next-gen Flutter HUD, aligning with the Omi memory model and Gruvbox aesthetic.
+- **Synapse Palace V2:** Optimized the `SovereignIntelligence.db` schema with spatial scoping (`room_id`) and **AAAK distillation** for extreme context efficiency.
+- **Hermes Agent Ingestion:** Integrated `MemoryObserver` to extract semantic triplets from agent traces and "engrave" them into the relational graph.
+
+### Fixed
+- **Phase 76 Hardening:** Finalized the v3.6.4 post-mortem audit, closing shell injection surfaces and shoring up the Atomic Profile Hardgate.
 
 ## [3.6.3] - 2026-04-25
 ### Fixed
@@ -34,7 +43,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 ## [3.6.0] - 2026-04-25
 ### Added
 - **Sovereign Artery Finalization (Phases 72-77):** 100% completion and verification of the Graph-Relational Synapse, Physical Sovereignty, Sovereign Strategic Oracle, and Agentic Self-Healing layers.
-- **Hermes v3.6.0 "Interface Release":** Deployed the Ink-based TUI and standardized the Gruvbox Canonical aesthetic across the mesh.
+- **Hermes v3.6.4 "Interface Release":** Deployed the Ink-based TUI and standardized the Gruvbox Canonical aesthetic across the mesh.
 - **Atomic Profile Engine:** Initialized the Mooncake-KV synchronized identity engine.
 - **Custom Command Restoration:** Fixed critical parsing errors in `.gemini/commands/` by surgically removing UTF-8 BOM and normalizing CRLF line endings in `plan.toml` and `execute.toml`.
 
@@ -90,7 +99,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.6.0.html).
 - **Sovereign Intelligence Store:** Materialized `SovereignIntelligence.db` as the primary repository for OS-level functional logic, system state, and zero-trust audit trails.
 - **Dual-Profile Identity System:** Deployed `SOVEREIGN-IDENTITY.md` in the repository root, enabling dynamic profile switching between `[SOVEREIGN_OS]` (Reasoner) and `[RED_DIRECTOR]` (Narrative).
 - **Dashboard Sociotomy:** Re-engineered the Next.js dashboard into isolated `/os` (Intelligence HUD) and `/red` (Simulation Module) routes with profile-aware navigation.
-- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.6.0 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
+- **Hermes TUI Integration:** Synchronized VSB payloads with the Hermes v3.6.4 "Interface Release," designating the React/Ink TUI as the primary shell for the AI OS.
 - **Drift Sentinel Droid:** Materialized a specialized integrity guardian (`.factory/droids/drift-sentinel.md`) to autonomously scan manifests for version and identity drift.
 - **Drift Audit Skill:** Codified the `drift-audit` skill to provide a bit-identical workflow for maintaining system-wide parity.
 - **Surgical Node Synchronization:** Materialized `scripts/ops/node-surgical-sync.sh` to enforce bit-identical logic across the Trinity while purging multi-gigabyte mirroring bloat (weights, archives) from slave nodes.

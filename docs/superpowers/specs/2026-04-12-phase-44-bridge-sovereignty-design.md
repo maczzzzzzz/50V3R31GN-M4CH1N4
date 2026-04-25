@@ -1,5 +1,5 @@
 # Design Spec: Mesh Sovereignty & Motor Cortex
-**Version:** 1.0.0
+**Version:** 3.6.4
 **Date:** 2026-04-12
 **Phase:** 44
 **Goal:** Implement the "Motor Cortex" within the Foundry Mesh to allow the Sovereign Machina to execute high-privilege administrative actions.

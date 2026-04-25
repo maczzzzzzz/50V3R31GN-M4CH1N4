@@ -9,7 +9,7 @@ const OUTPUT_FILE = 'docs/superpowers/research/2026-04-14-complete-dlc-inventory
 
 async function processBatch() {
     const files = fs.readdirSync(DLC_DIR).filter(f => f.endsWith('.pdf'));
-    let masterCatalog = `# MASTER DLC CATALOG // 7H3-G0LD-M1N3\n**Version:** 1.0.0\n**Total PDFs Indexed:** ${files.length}\n\n| DLC Name | Category | Key Intel Summary |\n| :--- | :--- | :--- |\n`;
+    let masterCatalog = `# MASTER DLC CATALOG // 7H3-G0LD-M1N3\n**Version:** 3.6.4\n**Total PDFs Indexed:** ${files.length}\n\n| DLC Name | Category | Key Intel Summary |\n| :--- | :--- | :--- |\n`;
 
     console.log(`◈ Starting Batch Process: ${files.length} PDFs...`);
 

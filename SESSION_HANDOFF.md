@@ -1,46 +1,34 @@
-# SESSION_HANDOFF: PHASE 77 IGNITION (v3.6.0)
+# SESSION_HANDOFF: PHASE 77 IGNITION (v3.6.4)
 
 ## 🎯 CURRENT OBJECTIVE
 **Ignite Phase 77: Managed Agents & Resonant Governance.**
-Phase 76 (Sovereign Artery & Cognition Fabric) is 100% complete. All 4 tasks shored.
+Transition the mesh from simple task execution to high-resilience, crash-recovery-capable agent primitives.
 
-## ✅ PHASE 76: SOVEREIGN ARTERY & INFERENCE FABRIC (COMPLETE)
+## ✅ PHASE 76: SOVEREIGN ARTERY (COMPLETE)
+- **Engine:** `crush profile` engine hardened and verified. Atomic context switching active.
+- **Security:** v3.6.4 audit complete. Shell injection surface in Hermes command registry closed. Hardgate case-sensitivity fixed.
+- **Cognition:** `hermes-router` (Rust) deployed. Synapse Palace V2 optimized with spatial scoping and AAAK distillation.
+- **Docs:** AppFlowy Hub online. Navigator v3.6.4 shored.
 
-### Task 1: Atomic Profile Engine
-- `crush/profile.go` refactored — structured parser, Deterministic Hardgate, Identity Watcher, idempotent Mooncake retry.
-- VSB `IDENTITY_SWITCH` slot materialized in `crush/watcher.go`.
+## 🚀 DIRECTIVES FOR LEAD ARCHITECT (CLAUDE/GLM)
+**Objective:** Deploy the Resonant Logic Gate and OpenClaw Managed Agents.
 
-### Task 2: Hermes Cognition Router
-- `crates/hermes-router` — clean release build, zero warnings.
-- Routing: $L > 4000$ or `researcher` profile → Node B; else → Node C.
-- Integrated into `scripts/audit/ignite-all.sh` as Stage 4.5.
-- vLLM farm units shored in `docs/nixos/vllm-farm.nix`.
-
-### Task 3: Interface Sociotomy
-- Gruvbox Canonical palette hardlined in `sidecar-cyberdeck` (`#FABD2F` / `#282828`).
-- `/profile <name>` switching wired into Hermes TUI command registry.
-- SOVEREIGN_OS default boot enforced in ignition sequence.
-
-### Task 4: AppFlowy Hub
-- `docs/nixos/appflowy-cloud.service` systemd unit shored.
-- `scripts/ops/appflowy-sync.ts` Roadmap Artery materialized.
-
----
-
-## 🛠️ PENDING DIRECTIVES (PHASE 77)
-
-### 1. Task 1: OpenClaw Managed Agents
-- **Goal:** Suite of Rust-native primitives for agentic crash recovery and warm pools.
-- **Scaffold:** `crates/openclaw/` — `warm_pool.rs`, `crash_recovery.rs`, `agent_registry.rs`.
-
-### 2. Task 2: Resonant Logic Gate
-- **Goal:** Deterministic logic layer to ensure absolute system governance.
-- **Scaffold:** `crates/resonant-gate/` — immutable rule engine, proof-of-work identity verification.
+1.  **Task 1: OpenClaw Managed Agents (Rust):**
+    - Materialize the suite of Rust-native primitives in `crates/openclaw-agents`.
+    - Implement the `WarmPool` manager to keep agent runtimes in standby for sub-100ms response times.
+    - Implement the `CrashRecovery` harness to auto-restart failed agent threads with backoff logic.
+2.  **Task 2: Resonant Logic Gate:**
+    - Develop the deterministic logic layer that sits between the LLM output and system execution.
+    - Ensure absolute system governance by verifying all `decision_audit` entries against the `SOVEREIGN-IDENTITY.md` permission_policy.
+3.  **Task 3: Protocol Reconciliation:**
+    - Fix the VSB `HOVERED_UNIT_OFFSET` mismatch (3205 vs 3072) between the Go sidecar and Rust HUD.
+    - Shore up the `sovereign-sdk` protocol to prevent future VRAM/logic desyncs.
 
 ## 🔗 CORRESPONDING MANIFESTS
 - **Roadmap:** [[IMPLEMENTATION_PLAN.md]] (Phase 77)
 - **Identity:** [[SOVEREIGN-IDENTITY.md]]
-- **Navigator:** [[NAVIGATOR.md]]
+- **Guide:** [[akashik_guides/07_obsidian_vault/how-to-use-vault.md]]
+- **Specs:** [[docs/superpowers/specs/2026-04-25-sovereign-flutter-evolution.md]]
 
 ---
-**::/5Y573M-N071C3 : PHASE_76_LOCKED. PHASE_77_IGNITION_READY. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : STRATEGIST_HANDOFF_COMPLETE. PHASE_77_IGNITED. // 50V3R31GN-M4CH1N4**

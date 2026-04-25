@@ -44,10 +44,12 @@ export class OsTripletService {
     subject: string,
     predicate: string,
     object: string,
+    roomId?: string,
+    clusterId?: string,
   ): Promise<UpsertTripletResult> {
     const traceId = randomUUID();
 
-    const id = this.store.upsertTripletText(subject, predicate, object);
+    const id = this.store.upsertTripletText(subject, predicate, object, roomId, clusterId);
 
     const text = `${subject} ${predicate} ${object}`;
     let vectorized = false;
@@ -75,12 +77,12 @@ export class OsTripletService {
    * minimize round-trips to llama-server.
    */
   async upsertBatch(
-    triplets: Array<{ subject: string; predicate: string; object: string }>,
+    triplets: Array<{ subject: string; predicate: string; object: string; roomId?: string; clusterId?: string }>,
   ): Promise<UpsertTripletResult[]> {
     const traceId = randomUUID();
 
-    const ids = triplets.map(({ subject, predicate, object }) =>
-      this.store.upsertTripletText(subject, predicate, object),
+    const ids = triplets.map(({ subject, predicate, object, roomId, clusterId }) =>
+      this.store.upsertTripletText(subject, predicate, object, roomId, clusterId),
     );
 
     try {
@@ -108,10 +110,13 @@ export class OsTripletService {
   /**
    * Semantic search: embed the query text, find the k nearest triplets by
    * cosine distance, hydrate the full text rows from os_triplets.
+   * 
+   * If roomId is provided, results are filtered to that room (Spatial Scoping).
    */
   async semanticSearch(
     query: string,
     topK = 5,
+    roomId?: string,
   ): Promise<TripletWithDistance[]> {
     const traceId = randomUUID();
 
@@ -133,13 +138,16 @@ export class OsTripletService {
     const results: TripletWithDistance[] = [];
     for (const { triplet_id, distance } of vecResults) {
       const triplet = this.store.getTripletById(triplet_id);
-      if (triplet) results.push({ ...triplet, distance });
+      if (triplet) {
+        if (roomId && triplet.room_id !== roomId) continue;
+        results.push({ ...triplet, distance });
+      }
     }
 
     this.logger?.debug(
       'OsTripletService',
       traceId,
-      `Semantic search "${query}" → ${results.length} results`,
+      `Semantic search "${query}" [Room: ${roomId ?? 'Global'}] → ${results.length} results`,
       { topK },
     );
 
@@ -153,6 +161,8 @@ export class OsTripletService {
     subject?: string;
     predicate?: string;
     object?: string;
+    roomId?: string;
+    clusterId?: string;
   }): OsTriplet[] {
     const db = this.store.getRawDb();
     const clauses: string[] = [];
@@ -169,6 +179,14 @@ export class OsTripletService {
     if (params.object) {
       clauses.push('object_literal = ?');
       args.push(params.object);
+    }
+    if (params.roomId) {
+      clauses.push('room_id = ?');
+      args.push(params.roomId);
+    }
+    if (params.clusterId) {
+      clauses.push('cluster_id = ?');
+      args.push(params.clusterId);
     }
 
     const where = clauses.length > 0 ? `WHERE ${clauses.join(' AND ')}` : '';

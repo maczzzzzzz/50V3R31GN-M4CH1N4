@@ -1,5 +1,5 @@
 # ◈ AKASHIK_GUIDES // THE_SOVEREIGN_LEDGER
-**Version:** 3.4.1
+**Version:** 3.6.4
 **Identity:** 50V3R31GN-M4CH1N4
 
 This repository contains the canonical tutorials, references, and architectural shards required to operate the **Sovereign Intelligence OS** and the **Trinity** cognitive mesh.
@@ -41,6 +41,12 @@ This repository contains the canonical tutorials, references, and architectural 
 
 ## 📂 7. Obsidian Vault
 - [How to Use the Lore Vault](07_obsidian_vault/how-to-use-vault.md)
+
+## 🆔 8. Sovereign Identity
+- [Reference: Profiles and Atomic Switching](08_sovereign_identity/profiles-and-identity.md)
+
+## 🗃️ 9. AppFlowy Hub
+- [Tutorial: AppFlowy Cloud Usage](09_appflowy_hub/appflowy-hub-usage.md)
 
 ---
 **::/5Y573M-N071C3 : GUIDES_SYNCHRONIZED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**

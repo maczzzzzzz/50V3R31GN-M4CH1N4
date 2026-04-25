@@ -1,5 +1,5 @@
 # RESEARCH: VESPER SHADOW MODE (V3SP3R) EVOLUTION
-**Version:** 1.0.0
+**Version:** 3.6.4
 **Status:** DRAFT
 **Project:** 50V3R31GN-M4CH1N4
 **Source Inspiration:** elder-plinius/V3SP3R (AI Flipper Control)

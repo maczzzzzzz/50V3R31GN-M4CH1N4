@@ -1,5 +1,5 @@
 # ◈ REFERENCE: SYSTEM_SOCIOTOMY // THE_ARCHITECTURAL_CUT
-**Version:** 3.4.2
+**Version:** 3.6.4
 **Identity:** 50V3R31GN-M4CH1N4
 
 ## 🎯 OBJECTIVE

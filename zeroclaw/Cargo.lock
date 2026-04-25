@@ -3567,7 +3567,7 @@ dependencies = [
 
 [[package]]
 name = "sovereign-sdk"
-version = "3.4.2"
+version = "3.6.0"
 
 [[package]]
 name = "spm_precompiled"
@@ -4919,7 +4919,7 @@ dependencies = [
 
 [[package]]
 name = "zeroclaw"
-version = "3.4.2"
+version = "3.6.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -4952,11 +4952,11 @@ dependencies = [
 
 [[package]]
 name = "zeroclaw-api"
-version = "3.4.2"
+version = "3.6.0"
 
 [[package]]
 name = "zeroclaw-runtime"
-version = "3.4.2"
+version = "3.6.0"
 
 [[package]]
 name = "zerocopy"

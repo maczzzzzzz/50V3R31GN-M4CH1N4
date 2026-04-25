@@ -1,7 +1,7 @@
 # Phase 4 Final Audit (Phase Gate Completion)
 **Date:** Monday, March 30, 2026
 **Status:** ✅ FINALIZED
-**Version:** 0.6.0 (Phase 4 MVP Ready)
+**Version:** 3.6.4 (Phase 4 MVP Ready)
 
 ## 1. Executive Summary
 The Phase 4 MVP (MVP Assembly) is now 100% complete. The final objective — verifying the end-to-end (E2E) solo session loop via the StoryEngine and a bootstrapped campaign registry — has been achieved. 
@@ -29,9 +29,9 @@ The implementation follows the `docs/plans/2026-03-29-phase-4-mvp-assembly.md` a
 - **VRAM/Resources**: Local testing on Node B confirms sub-100ms response times for logic orchestration.
 
 ## 5. Conclusion
-Phase 4 (v3.6.0) is officially **Closed**. The project is now in a high-signal, fully verified state.
+Phase 4 (v3.6.4) is officially **Closed**. The project is now in a high-signal, fully verified state.
 
-**Next Target:** v3.6.0 "Project Black-Ice" (Edge-Compute Migration to ZeroClaw/SQLite-Vec).
+**Next Target:** v3.6.4 "Project Black-Ice" (Edge-Compute Migration to ZeroClaw/SQLite-Vec).
 
 
 ---

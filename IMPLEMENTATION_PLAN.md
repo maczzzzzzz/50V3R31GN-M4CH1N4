@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.6.0
+**Version:** 3.6.4
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
 <details>
@@ -162,20 +162,20 @@
 - [x] **Task 1: Vault Sociotomy:** Execute the physical split of data/vault/RKG/ into Hot/Cold shards. Update .obsidian/app.json to exclude the archive. (SUCCESS: 148 shards migrated).
 - [x] **Task 2: Obscura Sidecar:** Deploy the Obscura stealth browser as a Nix-managed systemd daemon on Node C. Replace heavy Chromium dependencies. (SUCCESS: CDP A11y navigator materialized).
 - [x] **Task 3: Hermes-Kanban Sync:** Implement the API bridge between IMPLEMENTATION_PLAN.md and the Hermes Kanban board. Enable auto-card movement on manifest commit. (SUCCESS: Go-based sync active).
-- [ ] **Task 4: Semantic Retrieval Mesh:** Materialize the query_cold_lore tool for on-demand injection of archive shards into the active vault.
+- [x] **Task 4: Semantic Retrieval Mesh:** Materialize the `query_cold_lore` tool for on-demand injection of archive shards into the active vault. (SUCCESS: scripts/dev/query-cold-lore.ts).
 
 ---
 
-## 🛠️ PHASE 73.5: PERSISTENT EXECUTION & SELF-HEALING (IN-PROGRESS)
+## ✅ PHASE 73.5: PERSISTENT EXECUTION & SELF-HEALING (COMPLETED)
 **Goal:** Achieve browser persistence and the ability for agents to self-correct their execution harness.
-- [ ] **Task 0: Hermes v3.6.0 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD.
-- [ ] **Task 1: Persistent Chromium Daemon:** (SUBSRUMED by Obscura Sidecar).
-- [ ] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs.
-- [ ] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys.
-- [ ] **Task 4: A11y Tree Navigation:** (SHORED in Obscura Sidecar).
-- [ ] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure.
-- [ ] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop.
-- [ ] **Task 7: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
+- [x] **Task 0: Hermes v3.6.4 Sync:** Align VSB payloads with the new "Interface Release" TUI. Deploy the Ink-based TUI as the primary interface for `/os` dashboard and Flutter HUD. (SUCCESS: Phase 76).
+- [x] **Task 1: Persistent Chromium Daemon:** (SUBSRUMED by Obscura Sidecar).
+- [x] **Task 2: Execution Mesh:** Deploy the Headless Droid CLI as a systemd daemon on Node C for basic background jobs. (SUCCESS: zeroclaw daemon).
+- [x] **Task 3: Security Buffer:** Implement the lightweight Agent-Vault + Steganography proxy to secure incoming Webhooks and API keys. (SUCCESS: sidecar-netrunning).
+- [x] **Task 4: A11y Tree Navigation:** (SHORED in Obscura Sidecar).
+- [x] **Task 5: Self-Healing Harness:** Grant agents the ability to inspect and edit helpers.py / daemon.py upon execution failure. (SUCCESS: HealerProtocol.ts).
+- [x] **Task 6: GStack Workflow:** Integrate the opinionated "/ship", "/cso", and "/qa" specialized roles into the core loop. (SUCCESS: AGENTS.md v3.6.4).
+- [x] **Task 7: GEPA Evolution Loop:** (MOVED to Phase 75).
 
 ---
 
@@ -188,11 +188,11 @@
 
 ---
 
-## 🧠 PHASE 75: AGENTIC SELF-HEALING & EVOLUTION (GEPA)
+## ✅ PHASE 75: AGENTIC SELF-HEALING & EVOLUTION (GEPA) (COMPLETED)
 **Goal:** Achieve autonomous prompt optimization and error-loop resiliency.
-- [ ] **Task 1: Synapse Traceback:** Implement vector-weighted self-healing that queries SovereignIntelligence.db for previous failure patterns before applying code fixes.
-- [ ] **Task 2: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle to autonomously optimize system prompts and agent-authored skills.
-- [ ] **Task 3: Deterministic Hardgate:** Lock the profile permissionPolicy in SOVEREIGN-IDENTITY.md with immutable Rust-level invariants to prevent identity drift.
+- [x] **Task 1: Synapse Traceback:** Implement vector-weighted self-healing that queries SovereignIntelligence.db for previous failure patterns. (SUCCESS: crates/sovereign-healer).
+- [x] **Task 2: GEPA Evolution Loop:** Initialize the Genetic-Pareto Prompt Evolution loop (NousResearch) during the Nightly Dream Cycle. (SUCCESS: scripts/evolution/gepa_loop.py).
+- [x] **Task 3: Deterministic Hardgate:** Lock the profile permissionPolicy in SOVEREIGN-IDENTITY.md with immutable Rust-level invariants. (SUCCESS: Phase 76 Artery Engine).
 
 ---
 
@@ -205,10 +205,20 @@
 
 ---
 
-## 🛡️ PHASE 77: MANAGED AGENTS & RESONANT GOVERNANCE
+## ✅ PHASE 76.5: THE NAVIGATION ARTERY (APPFLOWY & DOCS) (COMPLETED)
+**Goal:** Establish a structured documentation hub and a central navigation entry point for the user.
+- [x] **Task 1: Navigator Hub:** Materialize NAVIGATOR.md as the central loom for all shored manifests. (SUCCESS: v3.6.4).
+- [x] **Task 2: Identity Guide:** Materialize akashik_guides/08_sovereign_identity/ to explain atomic profile switching. (SUCCESS: shored).
+- [x] **Task 3: Aesthetic Purge:** Surgically remove all legacy "Red Void" references from 100% of user guides. (SUCCESS: bit-identical Gruvbox).
+- [x] **Task 4: AppFlowy Integration:** Deploy a Go-native/Rust API bridge to integrate AppFlowy block-storage with the OS SQLite DB. (SUCCESS: sovereign-flowy active).
+
+---
+
+## 🛡️ PHASE 77: MANAGED AGENTS & RESONANT GOVERNANCE (IN-PROGRESS)
 **Goal:** Deploy high-resilience agent primitives and the deterministic Resonant Logic Gate.
-- [ ] **Task 1: OpenClaw Managed Agents:** Suite of Rust-native primitives for agentic crash recovery and warm pools.
-- [ ] **Task 2: Resonant Logic Gate:** Deterministic logic layer to ensure absolute system governance.
+- [ ] **Task 1: OpenClaw Managed Agents:** Suite of Rust-native primitives for agentic crash recovery and warm pools in `crates/openclaw-agents`.
+- [ ] **Task 2: Resonant Logic Gate:** Deterministic logic layer to ensure absolute system governance via `decision_audit`.
+- [ ] **Task 3: Protocol Reconciliation:** Resolve VSB `HOVERED_UNIT_OFFSET` mismatch and shore up `sovereign-sdk` bit-fidelity.
 
 ---
 
@@ -220,7 +230,16 @@
 
 ---
 
-## 🚀 PHASE 79: HOST-BRIDGE ARTERY (LOGICAL_ESCALATION)
+## 📱 PHASE 79: TACTICAL HUD EVOLUTION (MOBILE) (IN-PROGRESS)
+**Goal:** Implementation of the next-gen Flutter HUD aligning with the Omi memory model and Gruvbox aesthetic.
+- [ ] **Task 1: The Context Artery:** Implement `ArteryPulse` and `RefinementSlate` for real-time `CONTEXT_PROPOSAL` extraction.
+- [ ] **Task 2: Temporal Interface:** Materialize the [LIVE] / [ARCHIVE] / [CONTEXT] dynamic tab navigation.
+- [ ] **Task 3: Synapse Integration:** Migrate local storage to `sqflite` and wire the Triple-Helix sync to `SovereignIntelligence.db`.
+- [ ] **Task 4: Identity Hardgate:** Wire `IDENTITY_SWITCH` VSB packets to hard-lock Gruvbox/VT323 theme based on active profile.
+
+---
+
+## 🚀 PHASE 80: HOST-BRIDGE ARTERY (LOGICAL_ESCALATION)
 **Goal:** Establish direct control of the Windows host environment via a secure VSB sidecar.
 - [ ] **Task 1: Machina-Host Scaffolding (Go/Windows):** Scaffold the native Windows sidecar and VSB listener.
 - [ ] **Task 2: Native Capability Forge:** Implement process management and window control primitives.
@@ -232,9 +251,3 @@
 
 ---
 
-## ✅ PHASE 76.5: THE NAVIGATION ARTERY (APPFLOWY & DOCS) (COMPLETED)
-**Goal:** Establish a structured documentation hub and a central navigation entry point for the user.
-- [x] **Task 1: Navigator Hub:** Materialize NAVIGATOR.md as the central loom for all shored manifests. (SUCCESS: v3.6.0).
-- [x] **Task 2: Identity Guide:** Materialize akashik_guides/08_sovereign_identity/ to explain atomic profile switching. (SUCCESS: shored).
-- [x] **Task 3: Aesthetic Purge:** Surgically remove all legacy "Red Void" references from 100% of user guides. (SUCCESS: bit-identical Gruvbox).
-- [x] **Task 4: AppFlowy Integration:** Deploy a Go-native/Rust API bridge to integrate AppFlowy block-storage with the OS SQLite DB. (SUCCESS: sovereign-flowy active).

@@ -1,5 +1,5 @@
 # ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４: Master Ignition Protocol
-**Version:** 3.2.6
+**Version:** 3.6.4
 **Status:** GEOMETRIC MEMORY ACTIVE (TOTAL RED OBSERVABILITY)
 
 This guide details the end-to-end boot sequence for the distributed GM machine.

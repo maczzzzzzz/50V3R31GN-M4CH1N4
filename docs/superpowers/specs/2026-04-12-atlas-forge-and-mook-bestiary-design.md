@@ -1,5 +1,5 @@
 # Design Spec: Atlas Forge & NC_GANGS_CORPS Library
-**Version:** 1.1.0
+**Version:** 3.6.4
 **Date:** 2026-04-12
 **Goal:** A side-loaded campaign generation engine and a comprehensive Obsidian "NC_GANGS_CORPS" archive, leveraging 4,000 seed points and the Night City Gang pack.
 

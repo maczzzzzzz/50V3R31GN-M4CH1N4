@@ -1,7 +1,7 @@
 # Design Spec: ASP-GM-AGENT Documentation v2 (Cyberpunk Edition)
 
 **Date:** 2026-04-05
-**Version:** 1.9.0
+**Version:** 3.6.4
 **Aesthetic:** Netrunner / Cyberdeck / Black-Ice Theme (Cyan/Red)
 
 ## 1. Objective
@@ -18,7 +18,7 @@ Transform the project's public-facing documentation (`README.md` and `docs/GITHU
 
 ### 3.1. The Header (The "Deck" Identity)
 - Massive ASCII title: `ASP-GM-AGENT v2`.
-- Version tag: `[ STATUS: SOVEREIGN HIGHWAY ACTIVE // v3.6.0 ]`.
+- Version tag: `[ STATUS: SOVEREIGN HIGHWAY ACTIVE // v3.6.4 ]`.
 
 ### 3.2. System Map (The Dual-Node Architecture)
 - A visual representation of **Node A (The Kernel)** and **Node B (The Director)**.

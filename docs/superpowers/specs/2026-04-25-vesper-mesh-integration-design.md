@@ -1,5 +1,5 @@
 # SPECIFICATION: VESPER MESH INTEGRATION
-**Version:** 1.0.0
+**Version:** 3.6.4
 **Status:** DRAFT
 **Topic:** Background Agency, Persistence, and Mesh Integration.
 

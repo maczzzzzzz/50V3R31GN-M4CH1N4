@@ -1,6 +1,6 @@
 # User Guide: Conversational Onboarding
 
-**Version:** 3.2.6
+**Version:** 3.6.4
 **Role:** Actor Characterization and Rapid Deployment
 
 ---

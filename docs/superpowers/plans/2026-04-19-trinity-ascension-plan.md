@@ -1,4 +1,4 @@
-# Trinity Ascension & Synapse Evolution Plan (v3.6.0)
+# Trinity Ascension & Synapse Evolution Plan (v3.6.4)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.
 

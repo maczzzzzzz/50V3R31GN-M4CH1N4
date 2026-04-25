@@ -1,5 +1,5 @@
 # SPECIFICATION: OPENCLAW MANAGED AGENTS
-**Version:** 1.0.0
+**Version:** 3.6.4
 **Status:** DRAFT
 **Topic:** High-resilience, restart-safe background agent primitives.
 

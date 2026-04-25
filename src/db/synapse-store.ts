@@ -30,6 +30,8 @@ export interface OsTriplet {
   subject_id: string;
   predicate: string;
   object_literal: string;
+  room_id: string | null;
+  cluster_id: string | null;
   last_updated: string;
 }
 
@@ -114,6 +116,8 @@ export class SynapseStore {
         subject_id     TEXT NOT NULL,
         predicate      TEXT NOT NULL,
         object_literal TEXT NOT NULL,
+        room_id        TEXT,
+        cluster_id     TEXT,
         last_updated   DATETIME DEFAULT CURRENT_TIMESTAMP,
         UNIQUE (subject_id, predicate, object_literal)
       );
@@ -149,15 +153,18 @@ export class SynapseStore {
 
   // ── os_triplets (text layer) ─────────────────────────────────────────────
 
-  upsertTripletText(subject: string, predicate: string, object: string): string {
+  upsertTripletText(subject: string, predicate: string, object: string, roomId?: string, clusterId?: string): string {
     const stmt = this.db.prepare(`
-      INSERT INTO os_triplets (subject_id, predicate, object_literal)
-      VALUES (?, ?, ?)
+      INSERT INTO os_triplets (subject_id, predicate, object_literal, room_id, cluster_id)
+      VALUES (?, ?, ?, ?, ?)
       ON CONFLICT (subject_id, predicate, object_literal)
-        DO UPDATE SET last_updated = CURRENT_TIMESTAMP
+        DO UPDATE SET 
+          last_updated = CURRENT_TIMESTAMP,
+          room_id = COALESCE(excluded.room_id, os_triplets.room_id),
+          cluster_id = COALESCE(excluded.cluster_id, os_triplets.cluster_id)
       RETURNING id
     `);
-    const row = stmt.get(subject, predicate, object) as { id: string };
+    const row = stmt.get(subject, predicate, object, roomId ?? null, clusterId ?? null) as { id: string };
     return row.id;
   }
 

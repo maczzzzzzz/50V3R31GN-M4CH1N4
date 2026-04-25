@@ -1,5 +1,5 @@
 # ◈ SETUP: APPFLOWY SOVEREIGN HUB
-**Version:** 1.0.0
+**Version:** 3.6.4
 **Aesthetic:** Gruvbox (Canonical)
 
 ## 🎯 OBJECTIVE
@@ -40,3 +40,6 @@ To use the Sovereign local-first backend (Task 76.4):
 ---
 **::/5Y573M-N071C3 : HUB_GUIDE_SHORED. THE_HUB_IS_READY. // 50V3R31GN-M4CH1N4**
 EOF
+
+---
+**LINKS:** [[OS_CORE]]

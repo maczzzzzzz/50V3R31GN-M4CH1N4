@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : ZEROCLAW // RDT_KERNEL
-**Version:** 3.4.1
+**Version:** 3.6.4
 **Sector:** /zeroclaw/
 **Role:** Bit-Identical Rules Arbitration & Recursive Intelligence.
 

@@ -17,6 +17,8 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { ChromaClient, type Collection } from 'chromadb';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
+import type { OsTripletService } from '../db/os-triplets-service.js';
+import { compress as aaakCompress } from './aaak-compressor.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -145,6 +147,7 @@ const DRAWER_COLLECTION = 'sovereign_drawer';
 
 export class MemoryPalaceService {
   private readonly oracle: UnifiedOracleClient;
+  public readonly tripletService?: OsTripletService;
   private activeContext: PalaceContext = {
     wingId: null,
     wingName: null,
@@ -158,8 +161,9 @@ export class MemoryPalaceService {
   private drawer: Collection | null = null;
   private embedFn: LlamaEmbeddingFunction | null = null;
 
-  constructor(oracle: UnifiedOracleClient) {
+  constructor(oracle: UnifiedOracleClient, tripletService?: OsTripletService) {
     this.oracle = oracle;
+    this.tripletService = tripletService;
   }
 
   /**
@@ -320,13 +324,19 @@ export class MemoryPalaceService {
 
   // ── Closets ───────────────────────────────────────────────────────────────
 
-  addCloset(hallId: string, summary: string, drawerRef: string): Closet {
+  /**
+   * Add a Closet (summary) to a Hall.
+   * If compress is true, the summary is compressed using the AAAK dialect.
+   */
+  addCloset(hallId: string, summary: string, drawerRef: string, compress = true): Closet {
     const db = this.oracle.getRawDatabase();
     const id = randomUUID();
+    const finalSummary = compress ? aaakCompress(summary) : summary;
+
     db.prepare(`
       INSERT INTO palace_closets (id, hall_id, summary, drawer_ref)
       VALUES (?, ?, ?, ?)
-    `).run(id, hallId, summary, drawerRef);
+    `).run(id, hallId, finalSummary, drawerRef);
 
     return db.prepare('SELECT * FROM palace_closets WHERE id = ?').get(id) as Closet;
   }

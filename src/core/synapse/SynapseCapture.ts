@@ -15,6 +15,8 @@ export interface CaptureInput {
   source: CaptureSource;
   content: string;
   metadata?: Record<string, unknown>;
+  roomId?: string;
+  clusterId?: string;
 }
 
 export interface CaptureResult {
@@ -65,7 +67,12 @@ export class SynapseCapture {
     const rawTriplets = this.extractTriplets(input.content, input.source);
 
     if (rawTriplets.length > 0) {
-      await this.tripletService.upsertBatch(rawTriplets);
+      const enrichedTriplets = rawTriplets.map(t => ({
+        ...t,
+        roomId: input.roomId,
+        clusterId: input.clusterId,
+      }));
+      await this.tripletService.upsertBatch(enrichedTriplets);
       this.logger?.info(
         'SynapseCapture',
         traceId,

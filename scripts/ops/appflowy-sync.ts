@@ -22,33 +22,51 @@ const DRY_RUN        = process.argv.includes('--dry-run');
 // ---------------------------------------------------------------------------
 
 interface Task {
-  phase:    string;
-  taskNum:  string;
-  title:    string;
-  done:     boolean;
-  detail:   string;
+  phase:      string;
+  phaseState: 'COMPLETED' | 'IN-PROGRESS' | 'STAGED';
+  taskNum:    string;
+  title:      string;
+  done:       boolean;
+  detail:     string;
 }
 
 function parsePlan(markdown: string): Task[] {
   const tasks: Task[] = [];
   let currentPhase = '';
+  let currentPhaseState: 'COMPLETED' | 'IN-PROGRESS' | 'STAGED' = 'STAGED';
 
   for (const line of markdown.split('\n')) {
-    // Phase header: "## ✅ PHASE 76: ..." or "## ⚡ PHASE 76: ..."
-    const phaseMatch = line.match(/^##\s+[^\s]+\s+(PHASE\s+[\d.]+[^(]*)/);
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+
+    // Phase header
+    const phaseMatch = trimmed.match(/^##\s+([^\s]+)\s+(PHASE\s+[\d.]+[^(]*)(?:\((.*?)\))?/i);
     if (phaseMatch) {
-      currentPhase = phaseMatch[1].trim();
+      currentPhase = phaseMatch[2].trim().replace(/:$/, '');
+      const statusText = (phaseMatch[3] ?? '').toUpperCase();
+      const emoji = phaseMatch[1];
+
+      if (statusText.includes('COMPLETED') || emoji === '✅') {
+        currentPhaseState = 'COMPLETED';
+      } else if (statusText.includes('IN-PROGRESS') || ['🛠️', '🛡️', '🧠', '📱'].includes(emoji)) {
+        currentPhaseState = 'IN-PROGRESS';
+      } else {
+        currentPhaseState = 'STAGED';
+      }
+      // console.log(`[DEBUG] Phase: ${currentPhase} | State: ${currentPhaseState}`);
       continue;
     }
-    // Task line: "- [x] **Task 1: ...**" or "- [ ] **Task 1: ...**"
-    const taskMatch = line.match(/^- \[(x| )\]\s+\*\*(Task\s+\d+):\s+(.*?)\*\*(?::?\s*(.*))?$/);
+
+    // Task line
+    const taskMatch = trimmed.match(/^- \[(x| )\]\s+\*\*(Task\s+\d+):\s+(.*?)\*\*(.*)$/i);
     if (taskMatch && currentPhase) {
       tasks.push({
-        phase:   currentPhase,
-        taskNum: taskMatch[2],
-        title:   taskMatch[3].trim().replace(/:$/, ''), // strip trailing colon artifact
-        done:    taskMatch[1] === 'x',
-        detail:  (taskMatch[4] ?? '').trim(),
+        phase:      currentPhase,
+        phaseState: currentPhaseState,
+        taskNum:    taskMatch[2],
+        title:      taskMatch[3].trim().replace(/:$/, ''),
+        done:       taskMatch[1].toLowerCase() === 'x',
+        detail:     taskMatch[4].trim().replace(/^[:\s]+/, ''),
       });
     }
   }
@@ -60,9 +78,16 @@ function parsePlan(markdown: string): Task[] {
 // ---------------------------------------------------------------------------
 
 async function upsertTask(task: Task): Promise<void> {
+  let status = 'To Do';
+  if (task.done) {
+    status = 'Done';
+  } else if (task.phaseState === 'IN-PROGRESS') {
+    status = 'In Progress';
+  }
+
   const body = {
     name:   `[${task.phase}] ${task.taskNum}: ${task.title}`,
-    status: task.done ? 'Done' : 'In Progress',
+    status,
     notes:  task.detail || undefined,
   };
 

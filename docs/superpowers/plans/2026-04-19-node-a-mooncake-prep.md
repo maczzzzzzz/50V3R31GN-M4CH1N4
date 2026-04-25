@@ -22,8 +22,8 @@
   - Run: `echo 'ch00m' | sudo -S systemctl disable zeroclaw.service postgresql.service 2>/dev/null`
 
 - [ ] **Step 2: Clean up legacy binaries and weights**
-  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.6.0/zeroclaw/models/*.gguf`
-  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.6.0/zeroclaw/models/*.onnx`
+  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.6.4/zeroclaw/models/*.gguf`
+  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.6.4/zeroclaw/models/*.onnx`
 
 - [ ] **Step 3: Commit Documentation Update**
   ```bash

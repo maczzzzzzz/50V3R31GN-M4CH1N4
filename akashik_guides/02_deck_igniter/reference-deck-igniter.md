@@ -38,7 +38,7 @@ npm run boot
 **AUTHORITY NOTICE**: THE DECK IGNITER IS THE ENGINE; THE NUCLEUS DECK IS THE PILOT.
 
 ## IMMERSIVE HACKING
-The v3.6.0 release includes **AI-Driven Script Injection**. The Director (Node B) can now inject raw JavaScript into the Foundry client to simulate "Netrunner Attacks":
+The v3.6.4 release includes **AI-Driven Script Injection**. The Director (Node B) can now inject raw JavaScript into the Foundry client to simulate "Netrunner Attacks":
 - **UI Glitches**: Forcing CSS filters and disorientation effects via `SOVEREIGN_HIJACK_JS`.
 - **Biometric Scrambling**: Triggering red critical-state overlays via Pretext.
 - **Black Ice Injection**: Creating dynamic macros to dim lights and spawn hostile entities.

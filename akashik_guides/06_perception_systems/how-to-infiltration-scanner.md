@@ -2,7 +2,7 @@
 
 **Subject:** Transient Biometric Scanning & Quick Hacks
 **Level:** Operational Tactical
-**Version:** 3.2.6
+**Version:** 3.6.4
 
 ## 1. Overview
 Phase 39 transforms the machine from a passive monitor into an active infiltration engine. By simply hovering over tokens or objects in Foundry VTT, the operator receives real-time intelligence directly in the Cyberdeck HUD.
@@ -39,7 +39,7 @@ The ingestion of "Smart Assets" is now fully automated. When the **Architect** m
 **Result:** Any token placed by the machine is instantly scan-ready for the Infiltration HUD.
 
 ---
-*Status: Infiltration Protocol Active. v3.6.0 Stabilized.*
+*Status: Infiltration Protocol Active. v3.6.4 Stabilized.*
 
 
 ---

@@ -1,6 +1,6 @@
 # Design: Phase 20 — Linguistic Sovereignty & Parseltongue Integration
 **Date:** 2026-04-03
-**Version:** 1.7.0
+**Version:** 3.6.4
 **Target:** NPC Identity & Invisible Command Infrastructure
 
 ## 1. Overview

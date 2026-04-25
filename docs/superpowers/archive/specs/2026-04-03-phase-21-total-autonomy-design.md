@@ -1,6 +1,6 @@
 # Design: Phase 21 — Total Autonomy & Agentic Loops
 **Date:** 2026-04-03
-**Version:** 1.6.0
+**Version:** 3.6.4
 **Target:** The Autonomous NPC
 
 ## 1. Overview
