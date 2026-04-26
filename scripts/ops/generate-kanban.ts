@@ -18,8 +18,8 @@ function generateKanban() {
     const trimmed = line.trim();
     if (!trimmed) continue;
 
-    // Phase header
-    const phaseMatch = trimmed.match(/^##\s+([^\s]+)\s+(PHASE\s+[\d.]+[^(]*)(?:\((.*?)\))?/i);
+    // Phase header - matches ## <emoji> PHASE <number>: <title> (<status>)
+    const phaseMatch = trimmed.match(/^##\s+([^\s]+)\s+(PHASE\s+[\d.]+.*?)(?:\((.*?)\))?$/i);
     if (phaseMatch) {
       currentPhase = phaseMatch[2].trim().replace(/:$/, '');
       const statusText = (phaseMatch[3] ?? '').toUpperCase();
@@ -27,7 +27,7 @@ function generateKanban() {
 
       if (statusText.includes('COMPLETED') || emoji === '✅') {
         currentPhaseState = 'COMPLETED';
-      } else if (statusText.includes('IN-PROGRESS') || ['🛠️', '🛡️', '🧠', '📱'].includes(emoji)) {
+      } else if (statusText.includes('IN-PROGRESS') || statusText.includes('PRIMARY') || ['🛠️', '🛡️', '🧠', '📱', '🌘'].includes(emoji)) {
         currentPhaseState = 'IN-PROGRESS';
       } else {
         currentPhaseState = 'STAGED';

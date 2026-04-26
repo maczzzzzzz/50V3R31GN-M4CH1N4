@@ -141,6 +141,15 @@ async function universalSync() {
         console.error(`${RED}ERROR: OS Palace reconstruction failed.${RESET}`);
     }
 
+    // 4. Kanban Roadmap Generation
+    try {
+        console.log(`>> SYNCHRONIZING KANBAN ROADMAP...`);
+        // Import generateKanban directly if possible, or use tsx
+        execSync('npx tsx scripts/ops/generate-kanban.ts > data/vault/RKG/Roadmap_Kanban.md', { stdio: 'inherit' });
+    } catch (error) {
+        console.error(`${RED}ERROR: Kanban Roadmap synchronization failed.${RESET}`);
+    }
+
     console.log(`\n${RED}::/UN1V3R54L-5YNC-C0MPL373 // 4LL-P4R17Y-4CH13V3D-V${version}.${RESET}\n`);
     
     console.log(`${YELLOW}◈ SOVEREIGN_STRATEGIC_NOTICE: If an agentic worker is present, you MUST now invoke the 'manifest-scribe' skill to finalize the ledger and commit the history.${RESET}\n`);
