@@ -141,13 +141,23 @@ async function universalSync() {
         console.error(`${RED}ERROR: OS Palace reconstruction failed.${RESET}`);
     }
 
-    // 4. Kanban Roadmap Generation
+    // 5. Intelligence Shard Consolidation
     try {
-        console.log(`>> SYNCHRONIZING KANBAN ROADMAP...`);
-        // Import generateKanban directly if possible, or use tsx
-        execSync('npx tsx scripts/ops/generate-kanban.ts > data/vault/RKG/Roadmap_Kanban.md', { stdio: 'inherit' });
+        console.log(`>> CONSOLIDATING INTELLIGENCE SHARDS...`);
+        const shardVault = 'docs/superpowers/shards';
+        if (!fs.existsSync(shardVault)) fs.mkdirSync(shardVault, { recursive: true });
+
+        // Find all local AGENTS.md (excluding root)
+        const agentFiles = execSync('find . -name "AGENTS.md" -not -path "./AGENTS.md" -not -path "./node_modules/*"', { encoding: 'utf8' }).split('\n').filter(Boolean);
+        
+        for (const file of agentFiles) {
+            const dirName = path.dirname(file).replace('./', '').replace(/\//g, '_');
+            const targetName = `AbilityStone_${dirName}.md`;
+            fs.copyFileSync(file, path.join(shardVault, targetName));
+            console.log(`${GREEN}● SHORED SHARD:${RESET} ${targetName}`);
+        }
     } catch (error) {
-        console.error(`${RED}ERROR: Kanban Roadmap synchronization failed.${RESET}`);
+        console.error(`${RED}ERROR: Shard consolidation failed.${RESET}`);
     }
 
     console.log(`\n${RED}::/UN1V3R54L-5YNC-C0MPL373 // 4LL-P4R17Y-4CH13V3D-V${version}.${RESET}\n`);
