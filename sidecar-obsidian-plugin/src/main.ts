@@ -34,14 +34,33 @@ export default class SovereignBridge extends Plugin {
 			}
 		});
 
-		// 2. Add Ribbon Icon
+		// 2. Add Ribbon Icons
 		this.addRibbonIcon('skull', 'Sovereign Sync', () => {
 			this.checkSystemStatus();
+		});
+
+		this.addRibbonIcon('star', 'Sovereign Highlights', () => {
+			this.openHighlights();
 		});
 
 		// 3. Status Bar Notification
 		const statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setText('◈ SOVEREIGN_ACTIVE');
+	}
+
+	async openHighlights() {
+		console.log(">> [SOVEREIGN] Fetching Highlight Reel...");
+		try {
+			const response = await fetch(`${this.settings.nodeBUrl.replace('ws', 'http')}/api/social/highlights`);
+			if (response.ok) {
+				const highlights = await response.json();
+				// Logic to render highlights in a side-pane
+				// @ts-ignore
+				new Notice(`◈ HIGHLIGHT_REEL: ${highlights.length} shards featured.`);
+			}
+		} catch (e) {
+			console.error("::/ARTERY_ERROR : HIGHLIGHT_FETCH_FAILED", e);
+		}
 	}
 
 	async sendToHall(file: string | undefined, content: string) {

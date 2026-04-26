@@ -26,16 +26,25 @@ async function main() {
         }
     });
 
-    // 3. UI Overlay (Optional: pulsing icon in the header)
+    // 3. UI Overlay (Vitals + Highlights)
     logseq.provideUI({
-        key: 'sovereign-vitals',
+        key: 'sovereign-dashboard',
         path: '#head .right',
         template: `
-            <div style="font-family: monospace; color: #ff003c; margin-right: 10px;">
-                ◈ 50V
+            <div style="display: flex; align-items: center; font-family: monospace;">
+                <div style="color: #ff003c; margin-right: 15px; cursor: pointer;" onclick="window.fetchHighlights()">◈ 50V</div>
+                <div style="color: #fabd2f; font-size: 10px;">[REPUTATION_MODE]</div>
             </div>
         `
     });
+
+    // 4. Highlight Fetch Relay
+    window.fetchHighlights = async () => {
+        console.log(">> [SOVEREIGN] Fetching Logseq Highlights...");
+        const res = await fetch('http://localhost:3010/api/social/highlights');
+        const data = await res.json();
+        logseq.UI.showMsg(`◈ SOCIAL_HIGHLIGHTS: ${data.map(h => h.label).join(', ')}`, 'info');
+    };
 }
 
 logseq.ready(main).catch(console.error);

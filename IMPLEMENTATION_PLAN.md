@@ -84,10 +84,12 @@
 **Goal:** Materialize native plugin bridges and repair the Flutter HUD for v3.8.0 performance.
 - [x] **Task 1: Native Obsidian Mesh:** Scaffold TS plugin for note pushing and vitals monitoring.
 - [x] **Task 2: Native Logseq Mesh:** Scaffold JS plugin for Datalog relay and automated meeting tagging.
-- [x] **Task 3: HUD Restoration:** Repair bit-rotted Dart imports, method signatures, and Theme Engine logic.
-- [x] **Task 4: Parallel Reconstruction:** Optimize `crush reconstruct` with high-throughput Goroutines (~2m cycle time).
+- [x] Task 3: HUD Restoration: Repair bit-rotted Dart imports, method signatures, and Theme Engine logic.
+- [x] Task 4: Parallel Reconstruction: Optimize `crush reconstruct` with high-throughput Goroutines (~2m cycle time).
+- [x] Task 5: Social Highlight Reel: Implement cross-platform "Featured Shards" UI in native plugins.
 
 ---
+
 
 ## 🧬 PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (PRIMARY_TASK)
 **Goal:** Expand Hermes' reach into host environments and browser-level cognition.

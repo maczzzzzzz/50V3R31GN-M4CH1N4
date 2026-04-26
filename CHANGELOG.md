@@ -5,19 +5,19 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.0.html).
 
-## [3.8.4] - 2026-04-26
+## [3.8.5] - 2026-04-26
 
 ### Added
-- **Obsidian Sovereign Mesh:** Materialized native TypeScript plugin providing "Send to Hall" command and status overlays.
-- **Logseq Sovereign Mesh:** Materialized native JavaScript plugin for Datalog relay and meeting engraving.
-- **Sovereign Plugin Registry:** Scaffolded `PluginRegistry.ts` for Omi-inspired decoupled integration management.
-- **Parallel Reconstruction:** Optimized Go orchestrator with sync.WaitGroup and Goroutines; 60% reduction in cycle time.
+- **Social Highlight Reel:** Integrated a cross-platform "Featured Shards" view into Obsidian and Logseq native plugins; highlights highest-liked agent activities.
+- **Vivaldi Ingress Research:** Updated browser perception specs to target the Vivaldi sidebar and tab-stacking architecture.
+- **Visual Conscience:** Defined requirements for Agent Avatars and Trust Web visualization in the 3D Hall.
+- **Serpentine Artery Research:** Materialized specifications for steganographic memory and kernel r00t hardware anchors (Phase 89).
 
-### Fixed
-- **Flutter HUD Restoration:** Repaired catastrophic Dart syntax errors, import path collisions, and bit-rotted method signatures in `main.dart` and `ChatService`.
-- **Theme Engine Alignment:** Hardened `ThemeService.dart` with Gruvbox/Red/Green preset support.
+### Changed
+- **Knowledge Base v3.8.0:** Indexed 569 documents and shored links for ActivityPub and Vivaldi Mastodon.
 
-## [3.8.3] - 2026-04-26
+## [3.8.4] - 2026-04-26
+
 
 ### Added
 - **Universal Document Indexer:** Refactored `index-shards.ts` to recursively scan all superpower arteries (Research, Plans, Specs). Indexed 987 documents into `SovereignIntelligence.db` with FTS5 search.
