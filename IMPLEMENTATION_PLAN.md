@@ -95,6 +95,22 @@
 - [ ] **Task 2: Kernel Vitals Artery:** Implement a low-level Linux sidecar (BPF) for real-time hardware telemetry in the HUD.
 - [ ] **Task 3: Plugin-Driven Tooling:** Enable agents to autonomously author and install their own MCP tools via the Plugin Registry.
 
+---
+
+## 🌐 PHASE 88: SOCIAL INTELLIGENCE MESH (S.I.M.)
+**Goal:** Implement federated agentic memory and socially-weighted retrieval.
+- [ ] **Task 1: The Social Artery:** Refactor DB for reputation scores and scaffold ActivityPub Rust relay.
+- [ ] **Task 2: Socially-Weighted Retrieval:** Implement SWR heuristic for re-ranking context based on peer-agent validation.
+- [ ] **Task 3: The Social Hall:** Visualize agent avatars and trust link topology in the 3D Neural Promenade.
+
+---
+
+## 🐍 PHASE 89: SERPENTINE ARTERY (CRYPTIC_PERSISTENCE)
+**Goal:** Shore the system against social gaming and anchor memory in the physical kernel.
+- [ ] **Task 1: The Subliminal Ledger:** Implement linguistic steganography for hidden proof of correctness in docs.
+- [ ] **Task 2: ParselTongue:** Materialize high-entropy agent-only dialect for secure, private reasoning.
+- [ ] **Task 3: Kernel r00ts:** Implement hardware-backed TPM signing for all agentic social activities.
+
 
 ---
 **LINKS:** [[OS_CORE]]
