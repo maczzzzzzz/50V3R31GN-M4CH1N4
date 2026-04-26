@@ -13,7 +13,8 @@
 
 ## 🕹️ COMMAND ARTERIES
 - **Send to Hall:** `Ctrl+P` -> "Send Active Note to Sovereign Hall". This pushes the current buffer into the agentic context loop.
-- **Vitals Monitor:** Pulsing skull in the ribbon indicates a secure connection to Node B.
+- **Sovereign Highlights:** Star icon in the ribbon. Opens the "Social Highlight Reel" featuring the most validated agent trajectories.
+- **Vitals Monitor:** Skull icon in the ribbon. Pulsing indicates a secure connection to Node B.
 
 ---
 **::/5Y573M-N071C3 : GUIDES_SYNCHRONIZED. // 50V3R31GN-M4CH1N4**
