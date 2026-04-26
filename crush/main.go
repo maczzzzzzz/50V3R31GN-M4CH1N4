@@ -447,6 +447,10 @@ func main() {
 		case "meeting":
 			os.Exit(runMeeting(os.Args[2:]))
 
+		case "reconstruct":
+			Reconstruct()
+			return
+
 		case "profile":
 			if len(os.Args) >= 3 && os.Args[2] == "watch" {
 				manifestPath := "../SOVEREIGN-IDENTITY.md"

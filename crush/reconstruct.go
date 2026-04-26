@@ -16,7 +16,7 @@ import (
  * CRUSH_RECONSTRUCT : v3.8.0
  *
  * Full Go port of fast-reconstruct.py with complete parity.
- * Reconstructs the Obsidian Vault (RKG) from Akashik.db.
+ * Reconstructs the Obsidian Vault (RKG) from Akashik.db and SovereignIntelligence.db.
  */
 
 const (
@@ -25,20 +25,26 @@ const (
 )
 
 type Reconstructor struct {
-	DB        *sql.DB
-	VaultPath string
-	Timestamp string
+	AkashikDB   *sql.DB
+	SovereignDB *sql.DB
+	VaultPath   string
+	Timestamp   string
 }
 
-func NewReconstructor(dbPath, vaultPath string) (*Reconstructor, error) {
-	db, err := sql.Open("sqlite", dbPath)
+func NewReconstructor(akashikPath, sovereignPath, vaultPath string) (*Reconstructor, error) {
+	adb, err := sql.Open("sqlite", akashikPath)
+	if err != nil {
+		return nil, err
+	}
+	sdb, err := sql.Open("sqlite", sovereignPath)
 	if err != nil {
 		return nil, err
 	}
 	return &Reconstructor{
-		DB:        db,
-		VaultPath: vaultPath,
-		Timestamp: time.Now().UTC().Format(time.RFC3339),
+		AkashikDB:   adb,
+		SovereignDB: sdb,
+		VaultPath:   vaultPath,
+		Timestamp:   time.Now().UTC().Format(time.RFC3339),
 	}, nil
 }
 
@@ -66,7 +72,7 @@ func (r *Reconstructor) writeFrontmatter(f *os.File, subject, typeStr, source st
 	}
 	fmt.Fprintf(f, "tags: [%s]\n", strings.Join(tags, ", "))
 	fmt.Fprintf(f, "sovereign: true\n")
-	fmt.Fprintf(f, "provenance: AKASHIK_DB\n")
+	fmt.Fprintf(f, "provenance: SOVEREIGN_DB\n")
 	fmt.Fprintf(f, "generated_at: %s\n", r.Timestamp)
 	for k, v := range extra {
 		fmt.Fprintf(f, "%s: %s\n", k, v)
@@ -76,7 +82,7 @@ func (r *Reconstructor) writeFrontmatter(f *os.File, subject, typeStr, source st
 
 func (r *Reconstructor) ReconstructTriplets() int {
 	fmt.Println(">> RECONSTRUCTING TRIPLET ENTITIES...")
-	rows, err := r.DB.Query("SELECT subject_id, predicate, object_literal, COALESCE(district_id, '') FROM triplets WHERE predicate NOT LIKE 'PURGED_%'")
+	rows, err := r.AkashikDB.Query("SELECT subject_id, predicate, object_literal, COALESCE(district_id, '') FROM triplets WHERE predicate NOT LIKE 'PURGED_%'")
 	if err != nil {
 		log.Printf("❌ [RECONSTRUCT] Triplets query failed: %v", err)
 		return 0
@@ -117,7 +123,7 @@ func (r *Reconstructor) ReconstructTriplets() int {
 
 func (r *Reconstructor) ReconstructNPCs() int {
 	fmt.Println(">> RECONSTRUCTING NPC ENTITIES...")
-	rows, err := r.DB.Query("SELECT name, COALESCE(faction,'Independent'), disposition, COALESCE(district_id,''), id, hp, sp, emp FROM npcs")
+	rows, err := r.AkashikDB.Query("SELECT name, COALESCE(faction,'Independent'), disposition, COALESCE(district_id,''), id, hp, sp, emp FROM npcs")
 	if err != nil {
 		log.Printf("❌ [RECONSTRUCT] NPCs query failed: %v", err)
 		return 0
@@ -146,7 +152,7 @@ func (r *Reconstructor) ReconstructNPCs() int {
 
 func (r *Reconstructor) ReconstructShards() int {
 	fmt.Println(">> RECONSTRUCTING INTELLIGENCE SHARD TREE...")
-	rows, err := r.DB.Query("SELECT name, sector, content FROM intelligence_shards")
+	rows, err := r.SovereignDB.Query("SELECT name, sector, content FROM intelligence_shards")
 	if err != nil {
 		log.Printf("❌ [RECONSTRUCT] Shards query failed: %v", err)
 		return 0
@@ -172,8 +178,8 @@ func (r *Reconstructor) ReconstructShards() int {
 	return count
 }
 
-func main() {
-	recon, err := NewReconstructor(DefaultDBPath, DefaultVaultPath)
+func Reconstruct() {
+	recon, err := NewReconstructor(DefaultDBPath, "data/SovereignIntelligence.db", DefaultVaultPath)
 	if err != nil {
 		log.Fatal(err)
 	}
