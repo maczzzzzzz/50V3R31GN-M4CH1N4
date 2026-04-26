@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 )
 
 // logseq.go — Phase 85, Task 2: The Logseq Artery (Local HTTP Bridge)

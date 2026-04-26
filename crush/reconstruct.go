@@ -13,25 +13,28 @@ import (
 )
 
 /**
- * CRUSH_RECONSTRUCT : v3.8.0
+ * CRUSH_RECONSTRUCT : v3.8.0 (Sociotomy Hardened)
  *
- * Full Go port of fast-reconstruct.py with complete parity.
- * Reconstructs the Obsidian Vault (RKG) from Akashik.db and SovereignIntelligence.db.
+ * Enforces strict separation between OS and RKG vaults.
+ * Functional logic (OS) -> SovereignIntelligence.db -> D:\Obsidian_Sovereign_OS
+ * Simulation lore (RED) -> Akashik.db -> D:\Obsidian_RKG
  */
 
 const (
-	DefaultVaultPath = "/mnt/d/Obsidian_Sovereign_OS"
-	DefaultDBPath    = "data/Akashik.db"
+	DefaultOsVaultPath  = "/mnt/d/Obsidian_Sovereign_OS"
+	DefaultRkgVaultPath = "/mnt/d/Obsidian_RKG"
+	DefaultDBPath       = "data/Akashik.db"
 )
 
 type Reconstructor struct {
-	AkashikDB   *sql.DB
-	SovereignDB *sql.DB
-	VaultPath   string
-	Timestamp   string
+	AkashikDB    *sql.DB
+	SovereignDB  *sql.DB
+	OsVaultPath  string
+	RkgVaultPath string
+	Timestamp    string
 }
 
-func NewReconstructor(akashikPath, sovereignPath, vaultPath string) (*Reconstructor, error) {
+func NewReconstructor(akashikPath, sovereignPath, osPath, rkgPath string) (*Reconstructor, error) {
 	adb, err := sql.Open("sqlite", akashikPath)
 	if err != nil {
 		return nil, err
@@ -41,10 +44,11 @@ func NewReconstructor(akashikPath, sovereignPath, vaultPath string) (*Reconstruc
 		return nil, err
 	}
 	return &Reconstructor{
-		AkashikDB:   adb,
-		SovereignDB: sdb,
-		VaultPath:   vaultPath,
-		Timestamp:   time.Now().UTC().Format(time.RFC3339),
+		AkashikDB:    adb,
+		SovereignDB:  sdb,
+		OsVaultPath:  osPath,
+		RkgVaultPath: rkgPath,
+		Timestamp:    time.Now().UTC().Format(time.RFC3339),
 	}, nil
 }
 
@@ -81,7 +85,7 @@ func (r *Reconstructor) writeFrontmatter(f *os.File, subject, typeStr, source st
 }
 
 func (r *Reconstructor) ReconstructTriplets() int {
-	fmt.Println(">> RECONSTRUCTING TRIPLET ENTITIES...")
+	fmt.Println(">> RECONSTRUCTING RKG TRIPLET ENTITIES...")
 	rows, err := r.AkashikDB.Query("SELECT subject_id, predicate, object_literal, COALESCE(district_id, '') FROM triplets WHERE predicate NOT LIKE 'PURGED_%'")
 	if err != nil {
 		log.Printf("❌ [RECONSTRUCT] Triplets query failed: %v", err)
@@ -100,9 +104,10 @@ func (r *Reconstructor) ReconstructTriplets() int {
 			subfolder = "Items"
 		}
 
-		baseDir := filepath.Join(r.VaultPath, "Districts", district, subfolder)
+		// ARTERY_TARGET: RKG VAULT
+		baseDir := filepath.Join(r.RkgVaultPath, "Districts", district, subfolder)
 		if district == "" {
-			baseDir = filepath.Join(r.VaultPath, "Global", subfolder)
+			baseDir = filepath.Join(r.RkgVaultPath, "Global", subfolder)
 		}
 
 		r.ensureDir(baseDir)
@@ -122,7 +127,7 @@ func (r *Reconstructor) ReconstructTriplets() int {
 }
 
 func (r *Reconstructor) ReconstructNPCs() int {
-	fmt.Println(">> RECONSTRUCTING NPC ENTITIES...")
+	fmt.Println(">> RECONSTRUCTING RKG NPC ENTITIES...")
 	rows, err := r.AkashikDB.Query("SELECT name, COALESCE(faction,'Independent'), disposition, COALESCE(district_id,''), id, hp, sp, emp FROM npcs")
 	if err != nil {
 		log.Printf("❌ [RECONSTRUCT] NPCs query failed: %v", err)
@@ -137,7 +142,9 @@ func (r *Reconstructor) ReconstructNPCs() int {
 		rows.Scan(&name, &faction, &disposition, &district, &id, &hp, &sp, &emp)
 
 		filename := r.cleanFilename(name)
-		baseDir := filepath.Join(r.VaultPath, "Districts", district, "Actors")
+		
+		// ARTERY_TARGET: RKG VAULT
+		baseDir := filepath.Join(r.RkgVaultPath, "Districts", district, "Actors")
 		r.ensureDir(baseDir)
 		filePath := filepath.Join(baseDir, filename+".md")
 
@@ -151,7 +158,7 @@ func (r *Reconstructor) ReconstructNPCs() int {
 }
 
 func (r *Reconstructor) ReconstructShards() int {
-	fmt.Println(">> RECONSTRUCTING INTELLIGENCE SHARD TREE...")
+	fmt.Println(">> RECONSTRUCTING OS INTELLIGENCE SHARDS...")
 	rows, err := r.SovereignDB.Query("SELECT name, sector, content FROM intelligence_shards")
 	if err != nil {
 		log.Printf("❌ [RECONSTRUCT] Shards query failed: %v", err)
@@ -164,14 +171,25 @@ func (r *Reconstructor) ReconstructShards() int {
 		var name, sector, content string
 		rows.Scan(&name, &sector, &content)
 
-		filename := r.cleanFilename(name)
-		baseDir := filepath.Join(r.VaultPath, "Shard_Tree", sector)
+		// ALIGNMENT: Strip technical prefixes for vault aesthetic
+		cleanName := strings.TrimPrefix(name, "Shard_")
+		cleanName = strings.TrimPrefix(cleanName, "AbilityStone_")
+		filename := r.cleanFilename(cleanName)
+		
+		// ALIGNMENT: Map sectors to superpower counterpart folders in OS VAULT
+		targetFolder := "Shards"
+		if sector == "BLUEPRINTS" {
+			targetFolder = "Plans" 
+		}
+
+		// ARTERY_TARGET: OS VAULT
+		baseDir := filepath.Join(r.OsVaultPath, targetFolder, sector)
 		r.ensureDir(baseDir)
 		filePath := filepath.Join(baseDir, filename+".md")
 
 		f, _ := os.Create(filePath)
-		r.writeFrontmatter(f, name, "Intelligence_Shard", "SOVEREIGN_SYSTEM", []string{"shard", "sector/" + strings.ToLower(sector)}, sector, nil)
-		fmt.Fprintf(f, "# %s\n\n- **Sector:** %s\n- **Type:** SYSTEM_AUTHORITY\n\n---\n\n%s", name, sector, content)
+		r.writeFrontmatter(f, cleanName, "Intelligence_Shard", "SOVEREIGN_SYSTEM", []string{"shard", "sector/" + strings.ToLower(sector)}, sector, nil)
+		fmt.Fprintf(f, "# %s\n\n- **Sector:** %s\n- **Type:** SYSTEM_AUTHORITY\n\n---\n\n%s", cleanName, sector, content)
 		f.Close()
 		count++
 	}
@@ -179,12 +197,12 @@ func (r *Reconstructor) ReconstructShards() int {
 }
 
 func Reconstruct() {
-	recon, err := NewReconstructor(DefaultDBPath, "data/SovereignIntelligence.db", DefaultVaultPath)
+	recon, err := NewReconstructor(DefaultDBPath, "data/SovereignIntelligence.db", DefaultOsVaultPath, DefaultRkgVaultPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 	t := recon.ReconstructTriplets()
 	n := recon.ReconstructNPCs()
 	s := recon.ReconstructShards()
-	fmt.Printf("✅ RECONSTRUCTION COMPLETE: %d triplets, %d NPCs, %d shards shored.\n", t, n, s)
+	fmt.Printf("✅ SOCIOTOMY RESTORED: %d RKG triplets, %d NPCs shored to RKG; %d shards shored to OS.\n", t, n, s)
 }
