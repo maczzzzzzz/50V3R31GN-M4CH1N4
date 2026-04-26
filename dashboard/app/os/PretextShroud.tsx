@@ -5,15 +5,16 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 import NeuralPromenade from './NeuralPromenade';
+import PretextMarketArtery from '@/components/PretextMarketArtery';
+import PretextCommandArtery from '@/components/PretextCommandArtery';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 /**
- * PRETEXT_SHROUD — PHASE 92, TASK 3
+ * PRETEXT_SHROUD — PHASE 92/93 TOTAL_UNIFICATION
  * 
- * The single-file UI baseline for the Monolithic HUD.
- * Replaces React-Grid-Layout panels with Pretext flow-zones.
- * Features 3D Three.js overlays and Circular Context Rings.
+ * The monolithic, high-density UI baseline for the Sovereign Trinity.
+ * Achieves bit-identical parity across all operational modes.
  */
 
 const ContextRing = ({ progress, color, label }: { progress: number, color: string, label: string }) => {
@@ -53,7 +54,8 @@ export default function PretextShroud() {
     { i: 'command-artery', x: 0, y: 0, w: 6, h: 10 },
     { i: 'telemetry-pulse', x: 6, y: 0, w: 6, h: 4 },
     { i: 'synapse-orbit', x: 6, y: 4, w: 6, h: 6 },
-    { i: 'forensic-terminal', x: 0, y: 10, w: 12, h: 4 },
+    { i: 'forensic-terminal', x: 0, y: 10, w: 6, h: 4 },
+    { i: 'red-trade-mesh', x: 6, y: 10, w: 6, h: 4 },
   ]);
 
   useEffect(() => {
@@ -130,12 +132,8 @@ export default function PretextShroud() {
               <div className="w-2 h-2 rounded-full bg-[#b8bb26]" />
             </div>
           </div>
-          <div className="flex-1 p-4 overflow-y-auto space-y-4">
-            <div className="text-xs leading-relaxed">
-              <span className="text-[#fb4934]">::/SYSTEM : </span>
-              Cognitive Ingress Active. Awaiting Directives...
-            </div>
-            {/* TODO: Integrate conversation component */}
+          <div className="flex-1 overflow-hidden">
+            <PretextCommandArtery />
           </div>
         </div>
 
@@ -170,6 +168,16 @@ export default function PretextShroud() {
             <div>[2026-04-26 20:45:02] ::/VSB_ARTERY_LOCKED</div>
             <div>[2026-04-26 20:45:03] ::/NEURAL_UPLLINK_SYNCED</div>
             <div className="animate-pulse">_</div>
+          </div>
+        </div>
+
+        {/* RED_TRADE_MESH */}
+        <div key="red-trade-mesh" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner overflow-hidden">
+          <div className="handle p-2 border-b border-[#3c3836] cursor-move">
+            <span className="text-[10px] text-[#fe8019]">RED_TRADE_MESH</span>
+          </div>
+          <div className="h-full overflow-hidden">
+            <PretextMarketArtery />
           </div>
         </div>
       </ResponsiveGridLayout>

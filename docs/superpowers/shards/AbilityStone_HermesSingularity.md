@@ -5,24 +5,24 @@
 ---
 
 ## 🏗️ 1. THE SINGULARITY ARCHITECTURE
-The **Hermes Singularity** marks the transition from custom proxy orchestration to native, high-fidelity agentic control. It purges custom CDP sidecars in favor of native tool-ingress.
+The **Hermes Singularity** marks the transition from custom proxy orchestration to native, high-fidelity agentic control. It provides dual-mode orchestration for both **[SOVEREIGN_OS]** and **[RED_DIRECTOR]** profiles.
 
 - **Engine:** Hermes v2026 (Native Orchestrator).
 - **Transport:** SSE-Short-Circuit (Direct Python-to-Next.js).
-- **Perception:** Native `browser_cdp` (Live DOM streaming).
+- **Perception:** Native `browser_cdp` (Live DOM / Foundry VTT streaming).
 
 ---
 
 ## ⚡ 2. MATERIALIZED CAPABILITIES
 
 ### 2.1 Native Orchestration
-Subsumes `LangGraphOrchestrator` into a direct system-call. Coordinates Vesper (Defense) and Healer (Recovery) as native sub-processes with zero-latency file sync.
+Subsumes `LangGraphOrchestrator` into a direct system-call. Coordinates Vesper (Defense), Healer (Recovery), and **NitroLogic (Rules)** as native sub-processes with zero-latency file sync.
 
 ### 2.2 Autonomous GUI Management
-The `page-agent` enables Hermes to autonomously rearrange the **Pretext HUD** grid based on task urgency, token pressure, and mission context.
+The `page-agent` enables Hermes to autonomously rearrange the **Pretext HUD** grid based on task urgency (OS) or combat intensity (RED).
 
 ### 2.3 SSE Streaming
-Bypasses Go-based WebSocket bridges for raw agentic output streaming via the **Hermes Transport ABC**, achieving <50ms UI latency.
+Bypasses Go-based WebSocket bridges for raw agentic output streaming via the **Hermes Transport ABC**, achieving <50ms UI latency in both the terminal and Foundry chat.
 
 ---
 

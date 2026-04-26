@@ -174,7 +174,7 @@ func main() {
 		switch os.Args[1] {
 		case "start":
 			mode := "full"
-			headless := false
+			headless := true // DEFAULT TO HEADLESS (Phase 93)
 			
 			// Simple flag parsing
 			for _, arg := range os.Args[2:] {
@@ -182,16 +182,16 @@ func main() {
 					mode = "lite"
 				} else if arg == "--full" {
 					mode = "full"
-				} else if arg == "--headless" {
-					headless = true
+				} else if arg == "--interactive" {
+					headless = false
 				}
 			}
 			
-			fmt.Printf("Initiating 50V3R31GN-M4CH1N4 Deck Igniter in %s mode", mode)
 			if headless {
-				fmt.Printf(" (HEADLESS)")
+				fmt.Printf("::/CRUSH_ARTERY : Igniting headless sidecar [%s mode]...\n", mode)
+			} else {
+				fmt.Printf("Initiating 50V3R31GN-M4CH1N4 Deck Igniter in %s mode...\n", mode)
 			}
-			fmt.Println("...")
 
 			// Auto-Unseal for Runtime
 			key := os.Getenv("SOVEREIGN_KEY")
@@ -359,10 +359,8 @@ func main() {
 			return
 
 		case "terminal":
-			if err := runTerminal(); err != nil {
-				fmt.Printf("[TERMINAL] fatal: %v\n", err)
-				os.Exit(1)
-			}
+			fmt.Println("::/DEPRECATION_NOTICE : Legacy crush terminal is deprecated.")
+			fmt.Println("◈ Use 'npm run terminal' to ignite the new Hermes Ink Shell.")
 			return
 
 		case "devdom":

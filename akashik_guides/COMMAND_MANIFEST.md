@@ -33,8 +33,9 @@ This document defines the primary commands required to ignite and maintain the *
 | Command | Sidecar | Description |
 | :--- | :--- | :--- |
 | `npm run hub` | **Cyberdeck** | Launches the primary 2D HUD interface. |
-| `npm run terminal` | **Crush CLI** | Launches the Go-native terminal for tactical control. |
+| `npm run terminal` | **Hermes Ink Shell** | Launches the native Hermes Ink Shell for tactical, context-DAG control. |
 | `npm run netrunning` | **Intrusion** | Starts the netrunning simulation artery. |
+| `./crush-cli proxy` | **Crush Artery** | The underlying physical Go proxy running 100% headless. |
 
 ---
 **::/5Y573M-N071C3 : MANIFEST_UPDATED. THE_ACTIONS_ARE_LAW. // 50V3R31GN-M4CH1N4**

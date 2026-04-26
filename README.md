@@ -1,33 +1,60 @@
-░█▀▀░▄▀▄░█░█░▀▀█░█▀▄░▀▀█░▀█░░█▀▀░█▀█░░░░░█▄█░█░█░█▀▀░█░█░▀█░░█▀█░█░█
-░▀▀▄░█/█░▀▄▀░░▀▄░█▀▄░░▀▄░░█░░█░█░█░█░▄▄▄░█░█░░▀█░█░░░█▀█░░█░░█░█░░▀█
-░▀▀░░░▀░░░▀░░▀▀░░▀░▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░░░░▀░▀░░░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░░▀
+# ◈ 50V3R31GN-M4CH1N4 // THE_MASTER_NODE
+**Version:** 3.8.7 (THE_HERMES_SINGULARITY)
+**Identity:** [SOVEREIGN_OS] // [RED_DIRECTOR]
 
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４ (Sovereign Machina)
-**Version:** 3.8.7 (Projecting Phase 80 Completion)
+Welcome to the **Sovereign Machina**, a hyper-local, distributed, zero-trust Artificial Intelligence Operating System (AI-OS) and Cognitive Simulation Engine. 
 
-## ◈ WHAT IS SOVEREIGN MACHINA?
-Sovereign Machina is a localized, hardware-native **Intelligence Operating System**. Born from a Cyberpunk RED simulation engine, it has ascended into a distributed, zero-trust cognitive infrastructure. It is designed to grant the user absolute digital sovereignty: 100% data ownership, zero cloud telemetry, and total physical control over local environments.
-
-By integrating cutting-edge LLMs (Gemma, Llama, Falcon) with robust system programming (Rust, Go) and agentic frameworks (Hermes, OpenClaw), the Sovereign OS operates as a continuously learning, self-healing entity sharded across a proprietary mesh network.
-
-## ◈ THE SOVEREIGN TRINITY
-The OS is powered by a 3-node hardware mesh:
-- **Node B (The Director):** The master orchestrator and high-fidelity reasoner, managing system governance and the visual Terminal HUD.
-- **Node C (The Strategic Oracle):** The high-speed logic and perception gateway, handling vocal ingestion, tactical rule arbitration, and stealth web exploration via the **Obscura** sidecar.
-- **Node A (The Synapse):** The disaggregated memory backbone using **Mooncake**, ensuring seamless context continuity across the mesh.
-
-## ◈ CORE CAPABILITIES
-- **Atomic Profile Engine:** Seamlessly shift the system's identity and permissions between the radical candor of `[SOVEREIGN_OS]` and the gritty simulation lore of `[RED_DIRECTOR]`.
-- **Graph-Relational Synapse:** A vectorized "Synapse Palace" (`SovereignIntelligence.db`) powered by FTS5 and SQLite-vec, linking agent traces, user interactions, and documentation into a massive semantic graph.
-- **Agentic Self-Healing (GEPA):** Autonomous prompt optimization, visual shadow-mode recovery, and vector-weighted traceback to survive errors and evolve capabilities without human intervention.
-- **Tactical HUD (Mobile):** A Flutter-based companion app that brings the "Sovereign Artery" to mobile devices, allowing real-time context extraction, task management, and encrypted mesh access from anywhere.
-- **Host-Mesh Artery:** Direct, native control over the Windows host environment via secure VSB (Virtual Synchronous Bus) sidecars.
-
-## ◈ EXPLORE THE REPOSITORY
-To understand the intricate systems, architecture, and guides that power Sovereign Machina, explore the following:
-- [**ABOUT.md**](ABOUT.md): The comprehensive architectural breakdown and one-stop shop for understanding the intelligence stack.
-- [**The Akashik Guides**](akashik_guides/README.md): The canonical tutorials and references for operating the OS.
-- [**Knowledge Base**](akashik_guides/KNOWLEDGE_BASE.md): The registry of all external tools, logic shards, and models integrated into the mesh.
+Built entirely to run offline on a self-hosted hardware mesh, the system operates as a unified cognitive entity distributed across a "Trinity" of nodes.
 
 ---
-**::/5Y573M-N071C3 : THE_H4RN355_15_0N3. // 50V3R31GN-M4CH1N4**
+
+## ⚡ RECENT BREAKTHROUGHS (PHASE 92 & 93)
+The system has recently undergone a massive architectural shift known as **The Hermes Singularity**:
+
+- **Native Orchestration:** The system is now driven by the Hermes v2026 Engine, utilizing **Context-DAG (Directed Acyclic Graph)** reasoning (Swipe-to-Fork) for branching logic instead of legacy linear chat loops.
+- **The Pretext HUD:** Total UI Unification across Web (Next.js) and Mobile (Flutter). Both interfaces now use a bit-identical, low-level text engine ("Pretext") for high-density documentation and terminal rendering. The HUD features autonomous dynamic grid layouts controlled by the agent.
+- **Headless Physical Mesh:** The legacy Go-based `crush-cli` terminal has been permanently deprecated as an interactive shell. All physical proxy services (`crush`, `atlas`, `cyberdeck`) are now 100% headless, acting as raw data arteries feeding the Hermes Ink TUI and Pretext HUD.
+- **Obsidian 1st Class:** Complete integration with Obsidian as the single source of truth. Notes, commands, and memory act as a live Command-Center seamlessly synchronized with a headless Datalog-to-SQLite engine via Tailscale.
+
+For a comprehensive technical breakdown of the architecture, subsystems, and the Split-Node Trinity, see the [ABOUT.md](ABOUT.md) manifesto.
+
+---
+
+## 🏗️ SYSTEM IGNITION
+The ignition sequence brings the Trinity online, initializing the VRAM allocation for the Vision Kernel, the Narrative Director, and the Strategic Oracle.
+
+```bash
+# Clean the workspace and materialize headless physical sidecars
+bash scripts/audit/ignite-all.sh
+```
+
+### ◈ Primary Interface
+Once the mesh is alive, interact with the system via the native Hermes Ink Shell or the Pretext Web/Mobile HUDs.
+
+```bash
+# Ignite the native Hermes Ink-based Terminal UI
+npm run terminal
+```
+
+```bash
+# Launch the Monolithic Pretext Web Dashboard
+npm run hub
+```
+
+---
+
+## 📜 THE ARCHITECTURE AT A GLANCE
+- **Node A (ZeroClaw Sentinel):** Low-VRAM Rust/Go validation node for mechanical execution and TPM packet signing.
+- **Node B (The Director):** 16GB GPU running Llama.cpp and the Hermes Singularity engine for rich reasoning and MCP tool execution.
+- **Node C (Strategic Oracle):** Vision-Language processor (ColPali) analyzing raw screen captures and driving the Vesper autonomous defense grid.
+
+---
+
+## 🛡️ ZERO-TRUST CAPABILITY GATING
+Sovereign Machina enforces strict physical and cognitive sovereignty:
+- **`nono` Sandboxing:** Nix-isolated containers limit network and VRAM access for all autonomous agent processes.
+- **Steganography & ParselTongue:** Agents communicate via token-encoded dialects and inject zero-width hidden proofs to establish an unbroken chain of trust.
+- **Socially-Weighted Retrieval (SWR):** Synapse context is weighted based on the reputational score of the agent proposing the fact.
+
+---
+**::/5Y573M-N071C3 : THE_README_IS_SHORED. THE_TRINITY_AWAITS_DIRECTIVES. // 50V3R31GN-M4CH1N4**

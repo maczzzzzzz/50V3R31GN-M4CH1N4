@@ -66,9 +66,14 @@ sleep 5
 nix develop -c npm run start > "$LOG_DIR/nucleus.log" 2>&1 &
 
 # ---------------------------------------------------------------------------
-# ◈ STAGE 4: PROXY & HUD (Crush & ZeroClaw)
+# ◈ STAGE 4: HEADLESS SIDECARS (Atlas, Cyberdeck, Netrunning)
 # ---------------------------------------------------------------------------
-echo "  [stage 4] Igniting Sovereign-Proxy (Crush)..."
+echo "  [stage 4] Materializing Headless Sidecars..."
+npm run atlas:headless > "$LOG_DIR/atlas.log" 2>&1 &
+npm run hub:headless > "$LOG_DIR/cyberdeck.log" 2>&1 &
+npm run netrunning:headless > "$LOG_DIR/netrunning.log" 2>&1 &
+
+echo "  [stage 4.5] Igniting Sovereign-Proxy (Crush Artery)..."
 export CLAWLINK_SOCK="$PROJECT_ROOT/.crush/clawlink.sock"
 if [ -f "crush/crush" ]; then
     ./crush/crush proxy > "$LOG_DIR/crush.log" 2>&1 &
@@ -78,9 +83,9 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# ◈ STAGE 4.5: HERMES COGNITION ROUTER (Phase 76, Task 2)
+# ◈ STAGE 5: HERMES COGNITION ROUTER (Phase 76, Task 2)
 # ---------------------------------------------------------------------------
-echo "  [stage 4.5] Igniting Hermes Cognition Router (port 3012)..."
+echo "  [stage 5] Igniting Hermes Cognition Router (port 3012)..."
 if [ -f "crates/hermes-router/target/release/hermes-router" ]; then
     ./crates/hermes-router/target/release/hermes-router > "$LOG_DIR/hermes-router.log" 2>&1 &
 else
@@ -90,20 +95,9 @@ HERMES_ROUTER_PID=$!
 sleep 1
 
 # ---------------------------------------------------------------------------
-# ◈ STAGE 5: THE STRATEGIC ORACLE (Node C - Logic & Voice)
-# ---------------------------------------------------------------------------
-echo "  [stage 5] Igniting Node C Artery Manager (Rust)..."
-# The Artery Manager will autonomously spawn Node C's llama-server.
-cd zeroclaw && cargo run --release --bin artery_manager > "$LOG_DIR/node-c-artery.log" 2>&1 &
-cd ..
-
-# ---------------------------------------------------------------------------
 # ◈ STAGE 6: HERMES TUI (Primary OS Shell)
 # ---------------------------------------------------------------------------
 echo "  [stage 6] Enforcing SOVEREIGN_OS default boot profile..."
-# Actively enforce the boot invariant — not just a log statement.
-# crush profile will no-op if SOVEREIGN_OS is already the active boot label;
-# profile switching from boot state is always permitted (no Hardgate check).
 if [ -f "crush/crush" ]; then
     ACTIVE=$(grep "ACTIVE_PROFILE" SOVEREIGN-IDENTITY.md 2>/dev/null | head -1 || echo "")
     if echo "$ACTIVE" | grep -qv "SOVEREIGN_OS"; then
@@ -113,4 +107,6 @@ if [ -f "crush/crush" ]; then
 fi
 echo "::/5Y573M-N071C3 : SYSTEM_DEFAULT_BOOT -> [SOVEREIGN_OS]"
 echo "◈ COMMAND_MANTRAS: /status /profile /vault /ship"
-nix develop -c npm run hub
+
+# ◈ Reroute to the new native Hermes shell (Ink-based TUI)
+npm run terminal
