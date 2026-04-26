@@ -45,6 +45,19 @@ func runLogseqQuery(token string, method string, args []interface{}) (string, er
 	return string(body), nil
 }
 
+func LogseqEngraveMeeting(traceID string, reason string) error {
+	token := os.Getenv("LOGSEQ_TOKEN")
+	if token == "" {
+		return fmt.Errorf("LOGSEQ_TOKEN not found")
+	}
+
+	content := fmt.Sprintf("# ◈ SOVEREIGN_HALL_MEETING [%s]\n- **Trace:** [[%s]]\n- **Reason:** %s\n- **Status:** #OPEN", 
+		time.Now().Format("2006-01-02 15:04"), traceID, reason)
+	
+	_, err := runLogseqQuery(token, "logseq.Editor.appendBlockInPage", []interface{}{"Sovereign Journals", content})
+	return err
+}
+
 func runLogseq(args []string) int {
 	token := os.Getenv("LOGSEQ_TOKEN")
 	if token == "" {

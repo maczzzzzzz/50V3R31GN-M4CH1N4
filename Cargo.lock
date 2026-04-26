@@ -5421,7 +5421,7 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "sidecar-atlas"
-version = "3.7.0"
+version = "3.8.0"
 dependencies = [
  "eframe",
  "egui",
@@ -5431,7 +5431,7 @@ dependencies = [
 
 [[package]]
 name = "sidecar-cyberdeck"
-version = "3.7.0"
+version = "3.8.0"
 dependencies = [
  "crc32fast",
  "eframe",
@@ -5445,7 +5445,7 @@ dependencies = [
 
 [[package]]
 name = "sidecar-netrunning"
-version = "3.7.0"
+version = "3.8.0"
 dependencies = [
  "eframe",
  "egui",
@@ -5672,7 +5672,7 @@ dependencies = [
 
 [[package]]
 name = "sovereign-observer"
-version = "3.7.0"
+version = "3.8.0"
 dependencies = [
  "anyhow",
  "futures-util",
@@ -5686,7 +5686,7 @@ dependencies = [
 
 [[package]]
 name = "sovereign-sdk"
-version = "3.7.0"
+version = "3.8.0"
 
 [[package]]
 name = "sovereign-synapse"
@@ -5713,6 +5713,7 @@ dependencies = [
  "serde_json",
  "tempfile",
  "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -7853,7 +7854,7 @@ dependencies = [
 
 [[package]]
 name = "zeroclaw"
-version = "3.7.0"
+version = "3.8.0"
 dependencies = [
  "anyhow",
  "axum",
@@ -7886,11 +7887,11 @@ dependencies = [
 
 [[package]]
 name = "zeroclaw-api"
-version = "3.7.0"
+version = "3.8.0"
 
 [[package]]
 name = "zeroclaw-runtime"
-version = "3.7.0"
+version = "3.8.0"
 
 [[package]]
 name = "zerocopy"

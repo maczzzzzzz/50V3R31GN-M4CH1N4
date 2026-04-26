@@ -47,36 +47,36 @@
 
 ---
 
-## 🌌 PHASE 82: SPATIAL MEMORY SYNTHESIS (NEURAL_PROMENADE) (PRIMARY_TASK)
+## 🌌 PHASE 82: SPATIAL MEMORY SYNTHESIS (NEURAL_PROMENADE) (COMPLETED)
 **Goal:** Transform the Synapse Palace into the Sovereign Hall's physical environment.
-- [ ] **Task 1: Synapse-as-Architecture:** Map vectorized triplets to 3D coordinates in the WebGL Hall.
-- [ ] **Task 2: Proximity Context:** Implement "Room-Scale" context loading based on agent/user spatial position.
-- [ ] **Task 3: Visual Deadlocks:** Visualize "Stuck Arteries" as static storms in the 3D grid.
+- [x] **Task 1: Synapse-as-Architecture:** Map vectorized triplets to 3D coordinates in the WebGL Hall.
+- [x] **Task 2: Proximity Context:** Implement "Room-Scale" context loading based on agent/user spatial position.
+- [x] **Task 3: Visual Deadlocks:** Visualize "Stuck Arteries" as static storms in the 3D grid.
 
 ---
 
-## 👁️ PHASE 83: AUTOTELIC CURIOSITY (INTRINSIC_EXPLORATION)
+## 👁️ PHASE 83: AUTOTELIC CURIOSITY (INTRINSIC_EXPLORATION) (COMPLETED)
 **Goal:** Empower Vesper to perform autonomous research and system optimization during idle cycles.
-- [ ] **Task 1: Curiosity Shard:** Implement intrinsically motivated goal sampling in Vesper.
-- [ ] **Task 2: Idle Recon:** Dispatch agents to audit the KB and research upcoming technologies when the VSB Heartbeat is steady.
-- [ ] **Task 3: Efficiency Proposals:** Allow agents to propose logic optimizations directly to the Sovereign Hall.
+- [x] **Task 1: Curiosity Shard:** Implement intrinsically motivated goal sampling in Vesper.
+- [x] **Task 2: Idle Recon:** Dispatch agents to audit the KB and research upcoming technologies when the VSB Heartbeat is steady.
+- [x] **Task 3: Efficiency Proposals:** Allow agents to propose logic optimizations directly to the Sovereign Hall.
 
 ---
 
-## 🛰️ PHASE 84: SPATIAL VLA & ENVIRONMENTAL INTERACTION
+## 🛰️ PHASE 84: SPATIAL VLA & ENVIRONMENTAL INTERACTION (COMPLETED)
 **Goal:** Enable agents to reason and act within a 3D spatial world model (Host + Hall).
-- [ ] **Task 1: Spatial Observer:** Port OMI port to support 3D environmental pixel analysis.
-- [ ] **Task 2: VLA Integration:** Implement Vision-Language-Action patterns for "Above/Below/Inside" host interaction.
-- [ ] **Task 3: Total Domination:** Achieve seamless, spatially-aware interaction across all physical and virtual shards.
+- [x] **Task 1: Spatial Observer:** Port OMI port to support 3D environmental pixel analysis.
+- [x] **Task 2: VLA Integration:** Implement Vision-Language-Action patterns for "Above/Below/Inside" host interaction.
+- [x] **Task 3: Total Domination:** Achieve seamless, spatially-aware interaction across all physical and virtual shards.
 
 ---
 
-## 🔗 PHASE 85: LOGSEQ INTELLIGENCE MESH (PRIMARY_TASK)
+## 🔗 PHASE 85: LOGSEQ INTELLIGENCE MESH (COMPLETED)
 **Goal:** Purge AppFlowy and integrate Logseq for block-level agentic memory via a Shared Shard.
-- [ ] **Task 1: The Shared Shard:** Point Logseq and Obsidian to the same `data/vault/Sovereign_OS/` directory. 
-- [ ] **Task 2: Datalog Limb:** Integrate Datalog querying into `LangGraphOrchestrator` for agent memory retrieval.
-- [ ] **Task 3: The Flutter Sync:** Materialize `ObsidianSyncService.dart` to bidirectional sync the vault via Tailscale to mobile devices.
-- [ ] **Task 4: Meeting Engraver:** Update Sovereign Hall to engrave meeting minutes directly as Logseq journal blocks.
+- [x] **Task 1: The Shared Shard:** Point Logseq and Obsidian to the same `data/vault/Sovereign_OS/` directory. 
+- [x] **Task 2: Datalog Limb:** Integrate Datalog querying into `LangGraphOrchestrator` for agent memory retrieval.
+- [x] **Task 3: The Flutter Sync:** Materialize `ObsidianSyncService.dart` to bidirectional sync the vault via Tailscale to mobile devices.
+- [x] **Task 4: Meeting Engraver:** Update Sovereign Hall to engrave meeting minutes directly as Logseq journal blocks.
 
 
 ---

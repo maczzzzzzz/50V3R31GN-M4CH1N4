@@ -103,6 +103,9 @@ func meetingCall(args []string) int {
 	)
 	_ = os.WriteFile(stubPath, []byte(stub), 0o644)
 
+	// Phase 85: Engrave in Logseq
+	_ = LogseqEngraveMeeting(traceID, "Operator-initiated call")
+
 	fmt.Println(headerStyle.Render("◈ SOVEREIGN_HALL_CALL"))
 	fmt.Printf("  trace_id : %s\n", traceID)
 	fmt.Printf("  vault    : %s\n", meetDir)
@@ -227,6 +230,9 @@ func EmitSovereignHallCall(traceID string, reason string) (string, error) {
 		reason,
 	)
 	_ = os.WriteFile(filepath.Join(meetDir, "healer.thought"), []byte(stub), 0o644)
+
+	// Phase 85: Engrave in Logseq
+	_ = LogseqEngraveMeeting(safe, reason)
 
 	return manifestPath, nil
 }

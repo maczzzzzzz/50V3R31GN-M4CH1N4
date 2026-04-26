@@ -31,7 +31,7 @@ import { MemoryObserver } from './MemoryObserver.js';
 // User-supplied args are validated against an allowlist before use.
 // ---------------------------------------------------------------------------
 
-const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode', '/dev']);
+const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode', '/dev', '/logseq']);
 
 // Known profile names from SOVEREIGN-IDENTITY.md — allowlist for /profile <name>
 const KNOWN_PROFILES = new Set(['daily-use', 'researcher', 'sovereign-red-game-master']);
@@ -57,6 +57,10 @@ async function dispatchSystemCommand(
 
   try {
     switch (cmd) {
+      case '/logseq': {
+        if (argArray.length === 0) return `◈ LOGSEQ_ERROR: Subcommand required. Try '/logseq query "[:find ...]"' or '/logseq insert "Page" "Content"'`;
+        return `◈ LOGSEQ_MESH:\n${runCrush(['logseq', ...argArray])}`;
+      }
       case '/crush': {
         return `◈ CRUSH_RELAY:\n${runCrush(argArray)}`;
       }

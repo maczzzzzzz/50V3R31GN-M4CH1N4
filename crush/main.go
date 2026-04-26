@@ -473,6 +473,14 @@ func main() {
 				}
 			}
 			return
+
+		case "spatial":
+			SpatialCommand(os.Args[2:])
+			return
+
+		case "propose":
+			ProposeCommand(os.Args[2:])
+			return
 		}
 	}
 
