@@ -1,177 +1,94 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import protobuf from 'protobufjs';
 
-// ─── Proto schema (inline — mirrors crush/nucleuspb/state.proto) ─────────────
-const PROTO_JSON = {
-  nested: {
-    nucleuspb: {
-      nested: {
-        Proposal: {
-          fields: {
-            id:          { id: 1, type: 'uint32' },
-            status:      { id: 2, type: 'uint32' },
-            description: { id: 3, type: 'string' },
-          },
-        },
-        HoveredUnit: {
-          fields: {
-            active:   { id: 1, type: 'bool'   },
-            id:       { id: 2, type: 'string' },
-            unitType: { id: 3, type: 'string' },
-            imgPath:  { id: 4, type: 'string' },
-            x:        { id: 5, type: 'float'  },
-            y:        { id: 6, type: 'float'  },
-          },
-        },
-        NucleusState: {
-          fields: {
-            timestamp:     { id: 1, type: 'int64'       },
-            proposal:      { id: 2, type: 'Proposal'    },
-            hoveredUnit:   { id: 3, type: 'HoveredUnit' },
-            logs:          { id: 4, type: 'string', rule: 'repeated' },
-            narrative:     { id: 5, type: 'string', rule: 'repeated' },
-            recentMarkets: { id: 6, type: 'Market',  rule: 'repeated' },
-            lexiconItems:  { id: 7, type: 'Item',    rule: 'repeated' },
-          },
-        },
-        Market: {
-          fields: {
-            id:         { id: 1, type: 'string' },
-            districtId: { id: 2, type: 'string' },
-            vendorName: { id: 3, type: 'string' },
-            itemCount:  { id: 4, type: 'uint32' },
-          },
-        },
-        Item: {
-          fields: {
-            id:   { id: 1, type: 'string' },
-            name: { id: 2, type: 'string' },
-            cost: { id: 3, type: 'uint32' },
-            type: { id: 4, type: 'string' },
-          },
-        },
-      },
-    },
-  },
-};
-
-// ─── Types (mirrored from proto schema) ──────────────────────────────────────
-export interface NucleusProposal {
-  id: number;
-  status: number;
-  description?: string;
-}
-
-export interface NucleusHoveredUnit {
-  active: boolean;
-  id: string;
-  unitType: string;
-  imgPath: string;
-  x: number;
-  y: number;
-}
-
-export interface NucleusMarket {
-  id: string;
-  districtId: string;
-  vendorName: string;
-  itemCount: number;
-}
-
-export interface NucleusItem {
-  id: string;
-  name: string;
-  cost: number;
-  type: string;
-}
-
-export interface NucleusAgentStatus {
-  id: string;
-  name: string;
-  status: string;
-  intent: string;
-  progress: number;
-}
+/**
+ * useNucleusWS — Phase 80
+ * 
+ * Persistent WebSocket artery connecting the React HUD to the Go Nucleus bridge.
+ * Implements auto-reconnect and packet serialization.
+ */
 
 export interface NucleusState {
-  timestamp: number;
-  proposal?: NucleusProposal;
-  hoveredUnit?: NucleusHoveredUnit;
+  connected: boolean;
+  activeProfile: string;
+  energy: number;
+  trace_id: string;
   logs: string[];
-  narrative: string[];
-  recentMarkets: NucleusMarket[];
-  lexiconItems: NucleusItem[];
-  activeAgents: NucleusAgentStatus[];
+  narrative?: string;
+  recentMarkets?: any[];
+  lexiconItems?: any[];
+  hoveredUnit?: any;
+  timestamp?: string;
+  last_vitals?: {
+    cpu: number;
+    mem: number;
+    latency: number;
+  };
 }
 
-// ─── Hook ────────────────────────────────────────────────────────────────────
-export function useNucleusWS(url: string) {
-  const [state, setState] = useState<NucleusState | null>(null);
-  const ws       = useRef<WebSocket | null>(null);
-  const msgType  = useRef<protobuf.Type | null>(null);
+export function useNucleusWS(url: string = 'ws://localhost:3010/ws') {
+  const ws = useRef<WebSocket | null>(null);
+  const [state, setState] = useState<NucleusState>({
+    connected: false,
+    activeProfile: 'UNKNOWN',
+    energy: 1.0,
+    trace_id: 'TR-000',
+    logs: [],
+  });
 
-  // Load proto schema once
-  useEffect(() => {
-    const root = protobuf.Root.fromJSON(PROTO_JSON);
-    msgType.current = root.lookupType('nucleuspb.NucleusState');
-  }, []);
+  const connect = useCallback(() => {
+    try {
+      ws.current = new WebSocket(url);
 
-  useEffect(() => {
-    let reconnectTimer: ReturnType<typeof setTimeout>;
+      ws.current.onopen = () => {
+        console.log('◈ [HUD] Artery established.');
+        setState(s => ({ ...s, connected: true }));
+      };
 
-    function connect() {
-      const sock = new WebSocket(url);
-      sock.binaryType = 'arraybuffer';
-      ws.current = sock;
+      ws.current.onclose = () => {
+        console.log('◈ [HUD] Artery severed. Re-routing...');
+        setState(s => ({ ...s, connected: false }));
+        setTimeout(connect, 3000);
+      };
 
-      sock.onmessage = (e: MessageEvent) => {
+      ws.current.onmessage = (event) => {
         try {
-          if (e.data instanceof ArrayBuffer) {
-            // Protobuf binary frame from Go nucleus artery
-            const type = msgType.current;
-            if (!type) return;
-            const buf  = new Uint8Array(e.data);
-            const msg  = type.decode(buf);
-            const obj  = type.toObject(msg, { longs: Number, defaults: true }) as NucleusState;
-            setState(obj);
-          } else {
-            // Fallback: JSON text frame (dev / compatibility)
-            setState(JSON.parse(e.data as string) as NucleusState);
+          const packet = JSON.parse(event.data);
+          
+          // Pattern: type: "UPDATE_STATE", payload: {...}
+          if (packet.type === 'UPDATE_STATE') {
+            setState(s => ({ ...s, ...packet.payload }));
           }
-        } catch {
-          // malformed frame — ignore
+          
+          if (packet.type === 'LOG_SIGNAL') {
+             // Side-channel for ephemeral events
+             console.log(`◈ [CORE] ${packet.payload.message}`);
+          }
+        } catch (e) {
+          console.error('::/PARSE_ERROR : HUD_PACKET_CORRUPT', e);
         }
       };
 
-      sock.onclose = () => {
-        reconnectTimer = setTimeout(connect, 2000);
+      ws.current.onerror = (err) => {
+        console.error('::/ARTERY_ERROR : HUD_WS_FAILED', err);
       };
-    }
 
+    } catch (e) {
+      console.error('::/IGNITION_ERROR : HUD_WS_INIT_FAILED', e);
+    }
+  }, [url]);
+
+  useEffect(() => {
     connect();
     return () => {
-      clearTimeout(reconnectTimer);
       ws.current?.close();
     };
-  }, [url]);
+  }, [connect]);
 
   const send = useCallback((action: string, arg?: string) => {
     if (ws.current?.readyState === WebSocket.OPEN) {
-      // Commands flow as JSON text — server decodes with json.Unmarshal
       ws.current.send(JSON.stringify({ action, arg }));
-    }
-  }, []);
-
-  return { state, send };
-}
-.close();
-    };
-  }, [url]);
-
-  const send = useCallback((action: string, arg?: string) => {
-    if (ws.current?.readyState === WebSocket.OPEN) {
-      // Commands flow as JSON text — server decodes with json.Unmarshal
-      ws.current.send(JSON.stringify({ action, arg }));
+    } else {
+      console.warn('::/TRANS_ERROR : ARTERY_OFFLINE - COMMAND_DROPPED');
     }
   }, []);
 

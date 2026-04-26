@@ -105,7 +105,7 @@ export const CommandDeck = forwardRef(({ state }: Props, ref) => {
       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
     />
   );
-}
+});
 
 // ─── Layout builders ─────────────────────────────────────────────────────────
 

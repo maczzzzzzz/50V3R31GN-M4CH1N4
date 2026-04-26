@@ -5,4 +5,9 @@ members = [
     "sovereign-sdk",
     "zeroclaw/crates/*"
 ]
+exclude = [
+    "sidecar-browser-extension",
+    "sidecar-logseq-plugin",
+    "sidecar-obsidian-plugin",
+]
 resolver = "2"

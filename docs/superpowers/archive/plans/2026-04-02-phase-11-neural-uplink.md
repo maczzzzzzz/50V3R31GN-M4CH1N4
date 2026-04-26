@@ -60,11 +60,11 @@ Trigger a "God Mode" mutation and verify the Foundry UI physically reacts in rea
 
 ---
 
-### Task 4: Final v3.8.0 Sovereignty Audit
+### Task 4: Final v3.8.6 Sovereignty Audit
 
 **Files:**
 - Modify: `docs/IMPLEMENTATION_PLAN.md`
-- Create: `docs/audits/2026-04-02_v3.8.0-Neural-Uplink-Audit.md`
+- Create: `docs/audits/2026-04-02_v3.8.6-Neural-Uplink-Audit.md`
 
 **Step 1: Version Increment**
 Bump version to **1.1.0** (Synthetic Sovereignty + Neural Uplink).

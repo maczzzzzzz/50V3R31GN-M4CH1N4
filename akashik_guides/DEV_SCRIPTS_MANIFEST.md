@@ -1,5 +1,5 @@
 # ◈ DEV_SCRIPTS_MANIFEST // THE_MACHINE_LIMBS
-**Version:** 3.8.0
+**Version:** 3.8.6
 **Identity:** 50V3R31GN-M4CH1N4
 
 This document indexes the vast array of developer utilities, operational scripts, and maintenance protocols hardcoded into the Sovereign Trinity. 

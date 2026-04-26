@@ -75,7 +75,7 @@ export const CommandPanel = {
 
     const narrText = c.getChildByName('narrText') as BitmapText | null;
     if (narrText && state.narrative) {
-      const fullText = state.narrative.join('\n\n');
+      const fullText = Array.isArray(state.narrative) ? state.narrative.join('\n\n') : state.narrative;
       const lines = layoutEngine.layout(fullText, (c.parent as Container).width / 2 - 24);
       narrText.text = lines.join('\n');
     }

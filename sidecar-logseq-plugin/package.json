@@ -1,9 +1,0 @@
-{
-    "name": "logseq-sovereign-mesh",
-    "version": "1.0.0",
-    "main": "src/main.js",
-    "description": "Native Logseq integration for Datalog agentic memory and Shared Shard synchronization.",
-    "author": "50V3R31GN-M4CH1N4",
-    "title": "Sovereign Mesh",
-    "icon": "skull"
-}

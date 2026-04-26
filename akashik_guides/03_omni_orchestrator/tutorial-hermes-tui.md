@@ -1,9 +1,9 @@
 # ◈ TUTORIAL: HERMES_TUI // THE_OS_SHELL
-**Version:** 3.8.0
+**Version:** 3.8.6
 **Identity:** 50V3R31GN-M4CH1N4
 
 ## 🎯 OBJECTIVE
-The **Hermes v3.8.0 TUI** (Ink-based) is the primary interactive shell for the **[SOVEREIGN_OS]** profile. It provides a real-time, streaming interface for agentic reasoning, tool execution, and self-healing logs.
+The **Hermes v3.8.6 TUI** (Ink-based) is the primary interactive shell for the **[SOVEREIGN_OS]** profile. It provides a real-time, streaming interface for agentic reasoning, tool execution, and self-healing logs.
 
 ---
 

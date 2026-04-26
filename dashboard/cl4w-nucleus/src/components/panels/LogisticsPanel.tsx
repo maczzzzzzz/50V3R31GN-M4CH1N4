@@ -66,7 +66,8 @@ export const LogisticsPanel = {
     if (!c) return;
     const status = c.getChildByName('vsbStatus') as BitmapText | null;
     if (status) {
-      const lag = Date.now() - (state.timestamp ?? 0);
+      const ts = state.timestamp ? Number(state.timestamp) : Date.now();
+      const lag = Date.now() - ts;
       status.text  = lag < 500 ? 'VSB: ONLINE' : '! VSB: LAG';
       status.tint  = lag < 500 ? GREEN : RED;
     }

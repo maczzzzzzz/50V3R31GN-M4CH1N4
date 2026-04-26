@@ -1,5 +1,6 @@
-use anyhow::{Context, Result};
-use sovereign_vesper_eye::{FailureTracker, LogDistiller, CuriosityEngine};
+use anyhow::Result;
+use rusqlite::{Connection, params};
+use sovereign_vesper_eye::{FailureTracker, CuriosityEngine};
 use std::path::PathBuf;
 use std::time::Duration;
 use std::{fs, thread};

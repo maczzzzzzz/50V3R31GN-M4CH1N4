@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sovereign Ingress</title>
+  <style>
+    :root {
+      --bg:     #282828;
+      --bg1:    #3c3836;
+      --fg:     #ebdbb2;
+      --yellow: #fabd2f;
+      --green:  #98971a;
+      --red:    #cc241d;
+      --gray:   #928374;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 260px;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "JetBrains Mono", monospace, monospace;
+      font-size: 12px;
+      padding: 12px;
+    }
+    header {
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--bg1);
+      padding-bottom: 8px; margin-bottom: 10px;
+    }
+    header .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--red);
+      transition: background .3s;
+    }
+    header .dot.connected { background: var(--green); }
+    header h1 { font-size: 11px; color: var(--yellow); letter-spacing: 1px; }
+    #status-text { font-size: 10px; color: var(--gray); }
+    #status-text.ok { color: var(--green); }
+    button {
+      width: 100%; padding: 7px 10px; margin-top: 8px;
+      background: var(--bg1); color: var(--fg);
+      border: 1px solid var(--gray); border-radius: 3px;
+      cursor: pointer; font-family: inherit; font-size: 11px;
+      transition: background .15s;
+    }
+    button:hover { background: #504945; }
+    button:active { background: #665c54; }
+    #log {
+      margin-top: 10px; font-size: 10px; color: var(--gray);
+      border-top: 1px solid var(--bg1); padding-top: 8px;
+      min-height: 40px; max-height: 80px; overflow-y: auto;
+      white-space: pre-wrap; word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="dot" id="dot"></div>
+    <h1>◈ SOVEREIGN INGRESS</h1>
+  </header>
+  <div id="status-text">Checking bridge…</div>
+  <button id="btn-push">◈ Push Active Tab to Synapse</button>
+  <button id="btn-reconnect">↺ Reconnect Bridge</button>
+  <div id="log">—</div>
+  <script src="popup.js"></script>
+</body>
+</html>

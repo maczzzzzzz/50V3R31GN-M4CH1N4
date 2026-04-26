@@ -67,6 +67,7 @@ import { VesperService } from './core/vesper-service.js';
 import { SharedMemoryService } from './core/shared-memory-service.js';
 import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
 import { LangGraphOrchestrator } from './core/hermes/LangGraphOrchestrator.js';
+import { BrowserBridge } from './api/browser-bridge.js';
 
 import { RootsInjector } from './core/roots-injector.js';
 import { getHijackJs } from './core/sovereign-theme.js';
@@ -74,7 +75,7 @@ import { logger } from './shared/logger.js';
 
 async function main() {
   const bootTraceId = 'boot-' + Date.now();
-  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v3.8.0)...');
+  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v3.8.6)...');
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({
@@ -319,6 +320,27 @@ async function main() {
 
   directorApi.start(3011);
 
+  // Phase 87: Vivaldi Ingress — Browser Bridge on port 3012
+  const browserBridge = new BrowserBridge(logger);
+  browserBridge.onContext(async (frame, traceId) => {
+    const prompt = [
+      `[BROWSER_CONTEXT] A new page context has been pushed from the Sovereign browser extension.`,
+      `URL: ${frame.url}`,
+      `Title: ${frame.title}`,
+      frame.description ? `Description: ${frame.description}` : '',
+      frame.selection   ? `Selected Text: "${frame.selection}"` : '',
+      `Source: ${frame.source}`,
+      `Timestamp: ${frame.timestamp}`,
+      `TASK: Briefly acknowledge this context ingestion. If the page contains research-relevant content, note the key concept in one sentence.`,
+    ].filter(Boolean).join('\n');
+    try {
+      await orchestrator.invoke({ prompt, tokens: 80, thread_id: traceId });
+    } catch (e) {
+      logger.warn('BrowserBridge', traceId, `Orchestrator ingest failed: ${(e as Error).message}`);
+    }
+  });
+  browserBridge.start(3012);
+
   // 13. Sentinel: wire 0x0A context pushes from Node A → Active Context Slot
   vsbClient.onContextUpdate((update) => {
     sovereignNarrative.updateContext(update.payload);
@@ -352,6 +374,9 @@ async function main() {
       
       await nitroLogic.stop();
       logger.info('Orchestrator', shutdownTraceId, '✅ NitroLogic Client STOPPED.');
+
+      browserBridge.stop();
+      logger.info('Orchestrator', shutdownTraceId, '✅ BrowserBridge STOPPED.');
 
       vsbClient.close();
       logger.info('Orchestrator', shutdownTraceId, '✅ VsbClient (UDP) STOPPED.');

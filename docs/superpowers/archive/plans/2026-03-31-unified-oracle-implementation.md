@@ -1,4 +1,4 @@
-# Phase 3: Unified Strategic Oracle Implementation Plan (v3.8.0)
+# Phase 3: Unified Strategic Oracle Implementation Plan (v3.8.6)
 **Goal:** Consolidate world state and history into a queryable SQLite data plane.
 **Status:** ACTIVE
 

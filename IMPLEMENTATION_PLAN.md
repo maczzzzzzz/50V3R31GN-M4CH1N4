@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.8.0
+**Version:** 3.8.6
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
 <details>
@@ -71,17 +71,36 @@
 
 ---
 
-## 🔗 PHASE 85: LOGSEQ INTELLIGENCE MESH (COMPLETED)
-**Goal:** Purge AppFlowy and integrate Logseq for block-level agentic memory via a Shared Shard.
-- [x] **Task 1: The Shared Shard:** Point Logseq and Obsidian to the same `data/vault/Sovereign_OS/` directory. 
-- [x] **Task 2: Datalog Limb:** Integrate Datalog querying into `LangGraphOrchestrator` for agent memory retrieval.
+## 🔗 PHASE 85: HEADLESS DATALOG MEMORY (RE-IGNITED)
+**Goal:** Mine Logseq logic into a headless Datalog engine within the Trinity (Node B).
+- [x] **Task 1: The Shared Shard:** Point our memory engine and Obsidian to the same `data/vault/Sovereign_OS/` directory.
+- [ ] **Task 2: DataScript Integration:** Integrate `datascript` (TS/WASM) into Node B to provide headless relational queries.
 - [x] **Task 3: The Flutter Sync:** Materialize `ObsidianSyncService.dart` to bidirectional sync the vault via Tailscale to mobile devices.
-- [x] **Task 4: Meeting Engraver:** Update Sovereign Hall to engrave meeting minutes directly as Logseq journal blocks.
+- [ ] **Task 4: Obsidian Journaling:** Update Sovereign Hall to engrave meeting minutes directly as Obsidian-native journal files.
 
 ---
 
 ## 🧩 PHASE 86: SOVEREIGN ECOSYSTEM & HUD REALIGNMENT (COMPLETED)
-**Goal:** Materialize native plugin bridges and repair the Flutter HUD for v3.8.0 performance.
+...
+
+---
+
+## 🦾 PHASE 90: THE UNIFIED SYMBOLIC ARTERY (PRIMARY_TASK)
+**Goal:** Total consolidation of agentic memory into a single, high-fidelity Datalog-on-SQLite engine.
+- [ ] **Task 1: Datalog-to-SQLite Mesh:** Implement a compiler that translates Datalog queries into our existing `os_triplets` FTS5 structure.
+- [ ] **Task 2: The Obsidian Command-Center:** Materialize the "Sovereign Dashboard" in Obsidian, subsuming all previous Logseq UI features.
+- [ ] **Task 3: Headless Persistence:** Ensure the Datalog state is mirrored in real-time to the physical Markdown journal shards.
+
+---
+
+## 📱 PHASE 91: MOBILE AGENTIC INGRESS & UNIFIED VISION
+**Goal:** Establish agentic presence on Android via Tailscale and achieve 100% Mobile Screen Awareness.
+- [ ] **Task 1: The Mobile Mesh:** Scaffold `openclaw_bridge.dart` to enable `node.invoke` RPC over Tailscale.
+- [ ] **Task 2: Postcard Protocol:** Implement the `POSTCARD-v1` snapshots for continuous social presence and reputation tracking.
+- [ ] **Task 3: Unified Vision Extension:** Integrate mobile screen capture as a virtual sensory source in the **Sovereign Observer**.
+- [ ] **Task 4: The Deportation Hardgate:** Implement Vesper-driven session revocation and physical purge of unstable agents from mobile.
+
+**Goal:** Materialize native plugin bridges and repair the Flutter HUD for v3.8.6 performance.
 - [x] **Task 1: Native Obsidian Mesh:** Scaffold TS plugin for note pushing and vitals monitoring.
 - [x] **Task 2: Native Logseq Mesh:** Scaffold JS plugin for Datalog relay and automated meeting tagging.
 - [x] Task 3: HUD Restoration: Repair bit-rotted Dart imports, method signatures, and Theme Engine logic.
@@ -91,15 +110,15 @@
 ---
 
 
-## 🧬 PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (PRIMARY_TASK)
+## ✅ PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (COMPLETED)
 **Goal:** Expand Hermes' reach into host environments and browser-level cognition.
-- [ ] **Task 1: Vivaldi Ingress:** Materialize a Vivaldi/Chromium extension for direct context-scraping into the Synapse Palace.
-- [ ] **Task 2: Kernel Vitals Artery:** Implement a low-level Linux sidecar (BPF) for real-time hardware telemetry in the HUD.
-- [ ] **Task 3: Plugin-Driven Tooling:** Enable agents to autonomously author and install their own MCP tools via the Plugin Registry.
+- [x] **Task 1: Vivaldi Ingress:** `sidecar-browser-extension/` (MV3 WebExtension) materialized — WS relay to port 3012, context-menu push, Gruvbox popup HUD.
+- [x] **Task 2: Kernel Vitals Artery:** `crates/sovereign-kernel` materialized — `/proc` telemetry (CPU/mem/PSI) streamed as `VitalsSnapshot` JSON via WS on port 3013. `BrowserBridge` (`src/api/browser-bridge.ts`) wired into Node B on port 3012.
+- [x] **Task 3: Plugin-Driven Tooling:** `src/core/plugins/SkillAuthor.ts` materialized — converts successful `AgentTrajectory` records into `.ts` MCP tool files and live-registers them in `PluginRegistry`.
 
 ---
 
-## 🌐 PHASE 88: SOCIAL INTELLIGENCE MESH (S.I.M.)
+## 🌐 PHASE 88: SOCIAL INTELLIGENCE MESH (S.I.M.) (PRIMARY_TASK)
 **Goal:** Implement federated agentic memory and socially-weighted retrieval.
 - [ ] **Task 1: The Social Artery:** Refactor DB for reputation scores and scaffold ActivityPub Rust relay.
 - [ ] **Task 2: Socially-Weighted Retrieval:** Implement SWR heuristic for re-ranking context based on peer-agent validation.

@@ -15,10 +15,10 @@ import (
 )
 
 /**
- * CRUSH_RECONSTRUCT : v3.8.0 (High-Throughput Parallelism)
+ * CRUSH_RECONSTRUCT : v3.8.6 (Namespace Isolation)
  *
- * Enforces bit-identical separation between OS and RKG.
- * Parallelizes mirroring, entity reconstruction, and synchronization.
+ * Enforces absolute separation between static docs and dynamic DB shards.
+ * Prevents Logseq namespace collisions.
  */
 
 const (
@@ -119,22 +119,13 @@ func (r *Reconstructor) CleanseOsVault() {
 		}
 	}
 
+	// ◈ Task: Isolation - Wipe all doc folders to ensure zero orphans/collisions
 	arteries := []string{"Specs", "Plans", "Research", "Shards"}
 	for _, art := range arteries {
 		path := filepath.Join(r.OsVaultPath, art)
 		_ = os.RemoveAll(path)
 		r.ensureDir(path)
 	}
-
-	filepath.Walk(r.OsVaultPath, func(p string, info os.FileInfo, err error) error {
-		if err != nil || info.IsDir() {
-			return nil
-		}
-		if strings.Contains(p, "Zone.Identifier") || strings.Contains(p, ".pdf") || info.Size() == 0 {
-			_ = os.Remove(p)
-		}
-		return nil
-	})
 }
 
 func (r *Reconstructor) MirrorManifests() {
@@ -188,9 +179,6 @@ func (r *Reconstructor) GenerateTrees(shardCount int) {
 	
 	coreContent := "# ◈ SOVEREIGN OS CORE\nPARENT :: [[NAVIGATOR]]\n---\n- [[PHASE_TREE]]\n- [[SPEC_TREE]]\n- [[PLAN_TREE]]\n- [[RESEARCH_TREE]]\n- [[SHARD_TREE]]\n- [[GUIDE_TREE]]\n"
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "OS_CORE.md"), []byte(coreContent), 0644)
-
-	guideContent := "# ◈ GUIDE TREE\nPARENT :: [[OS_CORE]]\n---\n- [[akashik_guides/00_system_setup/README|00_SYSTEM_SETUP]]\n- [[akashik_guides/01_crush_cli/reference-crush-cli|01_CRUSH_CLI]]\n- [[akashik_guides/02_deck_igniter/reference-deck-igniter|02_DECK_IGNITER]]\n- [[akashik_guides/03_omni_orchestrator/explanation-orchestrator|03_OMNI_ORCHESTRATOR]]\n- [[akashik_guides/04_unified_oracle/reference-oracle|04_UNIFIED_ORACLE]]\n- [[akashik_guides/05_red_trade_economy/explanation-economy|05_RED_TRADE_ECONOMY]]\n- [[akashik_guides/06_perception_systems/how-to-mission-swarm|06_PERCEPTION_SYSTEMS]]\n- [[akashik_guides/07_obsidian_vault/how-to-use-vault|07_OBSIDIAN_VAULT]]\n- [[akashik_guides/08_sovereign_identity/profiles-and-identity|08_SOVEREIGN_IDENTITY]]\n- [[akashik_guides/09_logseq_mesh/setup-logseq|09_LOGSEQ_MESH]]\n"
-	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "GUIDE_TREE.md"), []byte(guideContent), 0644)
 
 	var wg sync.WaitGroup
 	wg.Add(4)
@@ -278,9 +266,11 @@ func (r *Reconstructor) ReconstructShards() int {
 		rows.Scan(&name, &sector, &content)
 		cleanName := strings.TrimPrefix(strings.TrimPrefix(name, "Shard_"), "AbilityStone_")
 		filename := r.cleanFilename(cleanName)
-		targetFolder := "Shards"; if sector == "BLUEPRINTS" { targetFolder = "Plans" }
-		baseDir := filepath.Join(r.OsVaultPath, targetFolder, sector); r.ensureDir(baseDir)
+		
+		// ◈ Task: Isolation - All DB shards go to /Shards/ to prevent Plans/Specs collisions
+		baseDir := filepath.Join(r.OsVaultPath, "Shards", sector); r.ensureDir(baseDir)
 		filePath := filepath.Join(baseDir, filename+".md")
+		
 		f, _ := os.Create(filePath)
 		r.writeFrontmatter(f, cleanName, "Intelligence_Shard", "SOVEREIGN_SYSTEM", []string{"shard", "sector/" + strings.ToLower(sector)}, sector, nil)
 		fmt.Fprintf(f, "# %s\n\n- **Sector:** %s\n- **Type:** SYSTEM_AUTHORITY\n\n---\n\n%s", cleanName, sector, content)

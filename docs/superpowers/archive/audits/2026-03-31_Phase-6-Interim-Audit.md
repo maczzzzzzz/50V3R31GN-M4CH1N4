@@ -1,7 +1,7 @@
 # Code Audit Report: Phase 6 (Interim)
 **Date:** Tuesday, March 31, 2026
 **Status:** ✅ STABLE (Tasks 1 & 2 Complete)
-**Version:** 3.8.0 (Living City In-Progress)
+**Version:** 3.8.6 (Living City In-Progress)
 
 ## 1. Executive Summary
 This audit confirms the successful implementation of the first half of **Phase 6: The Living City**. Project **Eyes-On** (Computer Vision) is functionally active. Node A can now surgically extract walls from raw images, and Node B can identify tactical regions using structured LLaVa vision.

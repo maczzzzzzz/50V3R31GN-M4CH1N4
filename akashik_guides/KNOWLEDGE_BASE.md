@@ -1,6 +1,6 @@
 # ◈ 50V3R31GN-M4CH1N4 // KNOWLEDGE_BASE
-**Version:** 3.8.0
-**Status:** ARCH1V3_LOCK (v3.8.0)
+**Version:** 3.8.6
+**Status:** ARCH1V3_LOCK (v3.8.6)
 
 ---
 
@@ -12,7 +12,7 @@
 | **GStack (Garry Tan)** | [garrytan/gstack](https://github.com/garrytan/gstack) | **Workflow:** Opinionated "Think → Plan → Build" loop and specialized roles. |
 | **GBrain (Garry Tan)** | [garrytan/gbrain](https://github.com/garrytan/gbrain) | **Synapse:** PGLite + pgvector for local knowledge graphs. |
 | **Claw-Code (Rust)** | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | High-performance Rust rewrite of the foundational IPC bridge. |
-| **Zeroclaw (v3.8.0)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
+| **Zeroclaw (v3.8.6)** | [openclaw/zeroclaw](https://github.com/openclaw/zeroclaw) | Rust-native rules engine sharded into workspace crates. |
 | **Sovereign-Healer** | Local: `crates/sovereign-healer` | **Self-Healing:** Vector-weighted failure analysis and automated regression prevention. |
 | **Obscura (Rust)** | [h4ckf0r0day/obscura](https://github.com/h4ckf0r0day/obscura) | **Ingress:** Headless stealth browser for agentic sensory input (30MB RAM). |
 | **Hermes-Router** | Local: `crates/hermes-router` | **Cognition Artery:** High-throughput request routing and vLLM farm management. |
@@ -62,7 +62,7 @@
 
 ---
 
-## 🧠 ARCHITECTURAL PATTERNS (v3.8.0)
+## 🧠 ARCHITECTURAL PATTERNS (v3.8.6)
 
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
@@ -77,7 +77,7 @@
 | **Neural Promenade** | 3d-force-graph | Physicalized 3D visualization of the agentic mesh and trust link topology. |
 
 ---
-*Verified by Gemini CLI v3.8.0.*
+*Verified by Gemini CLI v3.8.6.*
 
 
 ---
