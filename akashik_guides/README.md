@@ -2,51 +2,44 @@
 **Version:** 3.8.7
 **Identity:** 50V3R31GN-M4CH1N4
 
-This repository contains the canonical tutorials, references, and architectural shards required to operate the **Sovereign Intelligence OS** and the **Trinity** cognitive mesh.
+Welcome to the **Sovereign Akashik Guides**. This directory is the canonical source for learning, operating, and extending the 50V3R31GN-M4CH1N4 AI-OS.
 
 ---
 
-## 🏗️ 0. System Setup & Onboarding
-- [Tutorial: Master Trinity Startup](00_system_setup/tutorial-master-startup.md)
-- [Reference: Sovereign Identity & Profiles](00_system_setup/reference-identity-profiles.md)
-- [How to Setup Sovereign Trinity](00_system_setup/how-to-setup-sovereign-trinity.md)
-- [How to Ingest Lore Assets](00_system_setup/how-to-ingest-assets.md)
-- [Reference: Intelligence OS vs Simulation Shard](00_system_setup/reference-sociotomy.md)
-- [How to Setup Secure Tunneling (Tailscale)](00_system_setup/how-to-setup-tailscale.md)
-- [Reference: Terminal Logging](00_system_setup/reference-logging.md)
-- [Reference: Developer Scripts Manifest](DEV_SCRIPTS_MANIFEST.md)
+## 🏗️ 1. ARCHITECTURAL HIERARCHY (DIÁTAXIS)
+The guides are structured using the **Diátaxis framework** to ensure high-fidelity knowledge transfer and zero-trust accessibility.
 
-## 🖥️ 1. CRUSH CLI Orchestration
-- [Reference: CRUSH Command Set](01_crush_cli/reference-crush-cli.md)
-- [Explanation: The Tactical RED Communicator](01_crush_cli/explanation-red-communicator.md)
+### ◈ [TUTORIALS](tutorials/)
+*Learning-oriented: Follow these to ignite your first session.*
+- [Onboarding](tutorials/onboarding.md): Initial mesh ignition and user grounding.
+- [Startup Sequence](tutorials/startup-sequence.md): Understanding the `ignite-all.sh` protocol.
+- [Hermes TUI Usage](tutorials/hermes-tui-usage.md): Direct tactical control via the Ink Shell.
 
-## ⚡ 2. Infrastructure & Igniters
-- [Reference: Deck Igniter Logic](02_deck_igniter/reference-deck-igniter.md)
+### ◈ [HOW-TO GUIDES](how-to-guides/)
+*Problem-oriented: Step-by-step solutions for specific tasks.*
+- [Build Mobile HUD](how-to-guides/build-and-install-mobile-hud.md): Materializing the Android APK on NixOS.
+- [Install Obsidian Plugin](how-to-guides/install-obsidian-plugin.md): Shoring the Sovereign Mesh Artery.
+- [Mobile Vault Sync](how-to-guides/mobile-vault-sync.md): Setting up the Sovereign Link via Tailscale.
+- [Setup Tailscale Network](how-to-guides/setup-tailscale-network.md): Securing the physical subnet.
 
-## 🧠 3. Omni Orchestrator (Hermes)
-- [Explanation: The Hermes Artery](03_omni_orchestrator/explanation-orchestrator.md)
-- [Tutorial: Hermes v2026 TUI Integration](03_omni_orchestrator/tutorial-hermes-tui.md)
+### ◈ [REFERENCE](reference/)
+*Information-oriented: Technical specifications and command manifests.*
+- [Crush Artery](reference/crush-artery.md): Headless proxy, VSB, and Mmap specs.
+- [Unified Strategic Oracle](reference/unified-oracle.md): RKG SQLite schema and triplet architecture.
+- [Command Manifest](COMMAND_MANIFEST.md): Essential system directives.
 
-## 🔮 4. Unified Strategic Oracle (Strategic Oracle)
-- [Reference: RDT Kernel & Rules](04_unified_oracle/reference-oracle.md)
-- [Tutorial: OMI Vocal Sync & Machina Terminal](04_unified_oracle/tutorial-omi-vocal-sync.md)
+### ◈ [EXPLANATION](explanation/)
+*Understanding-oriented: Deep dives into the system's cognitive logic.*
+- [Sociotomy](explanation/sociotomy.md): The strict separation of OS and Lore.
+- [Orchestration Loop](explanation/orchestration-loop.md): The Hermes Singularity and Context-DAG.
+- [Identity and Profiles](explanation/identity-and-profiles.md): [SOVEREIGN_OS] vs [RED_DIRECTOR].
 
-## 💰 5. Red Trade Economy
-- [Explanation: Market Invariants](05_red_trade_economy/explanation-economy.md)
+---
 
-## 👁️ 6. Perception Systems (Falcon)
-- [Tutorial: Mission Swarm Simulation](06_perception_systems/how-to-mission-swarm.md)
-- [How to: Neural Image Painting](06_perception_systems/how-to-neural-painter.md)
-- [Explanation: Atmospheric GLSL Shrouds](06_perception_systems/explanation-atmospheric-immersion.md)
-
-## 📂 7. Obsidian Vault
-- [How to Use the Lore Vault](07_obsidian_vault/how-to-use-vault.md)
-
-## 🆔 8. Sovereign Identity
-- [Reference: Profiles and Atomic Switching](08_sovereign_identity/profiles-and-identity.md)
-
-## 🗃️ 9. Logseq Mesh
-- [Tutorial: Logseq Agentic Synapse](09_logseq_mesh/logseq-mesh-usage.md)
+## ⚡ 2. THE RE-GROUNDED TRINITY
+- **Node A (Mooncake Artery):** Dedicated **KV Synapse Cache** and mechanical validation reflex.
+- **Node B (The Director):** 16GB VRAM. **Gemma-4-E4B Q8** (Vision-Capable). Deep reasoning and screen awareness.
+- **Node C (Strategic Strategic Oracle):** Cognition farm hosting **Gemma-4-E4B shards (Q3-Q5)** and **Falcon Perception** for Vesper defense.
 
 ---
 **::/5Y573M-N071C3 : GUIDES_SYNCHRONIZED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**

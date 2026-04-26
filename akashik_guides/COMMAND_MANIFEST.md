@@ -6,36 +6,29 @@ This document defines the primary commands required to ignite and maintain the *
 
 ---
 
-## 🏗️ 0. System Orchestration
-| Command | Role | Description |
+## 🏗️ 1. SYSTEM IGNITION (The Artery Path)
+| Command | Mode | Description |
 | :--- | :--- | :--- |
-| `npm run scribe` | **The Sync** | Synchronizes versioning and terminology across all manifests. |
-| `npm run scribe:lock`| **The Lock** | Executes sync and performs a final git push to remote. |
-| `bash scripts/ops/grounding.sh` | **Context Feed** | Injects core system soul into the agentic context. |
-| `npm run reconstruct` | **Palace Forge** | Physically mirrors documentation to the Windows vault (D:). |
+| `bash scripts/audit/ignite-all.sh` | **Ignition** | Full system boot: clean, unseal, and materialize headless sidecars. |
+| `./crush/crush proxy` | **Artery** | Manual headless physical bridge ignition (VSB/Mmap). |
 
-## 🧠 1. Node Ignition
-| Command | Node | Description |
-| :--- | :--- | :--- |
-| `npm run synapse:ignite` | **Node A** | Starts the Mooncake Master KV-cache artery via CUDA Nix shell. |
-| `npm run director:ignite` | **Node B** | Ignites the Narrative Heart (Gemma-4-E4B). |
-| `npm run kernel` | **Node C** | Starts the Rust-native Linux sidecar (Telemetry + TPM Signing). |
+---
 
-## 👁️ 2. Perception & VLM
-| Command | Role | Description |
+## ⌨️ 2. OPERATOR INTERFACES (The Shell Path)
+| Command | Interface | Description |
 | :--- | :--- | :--- |
-| `npm run pulse` | **Tactical** | Emits a VSB pulse to verify mesh connectivity. |
-| `npm run audit:vitals` | **Heartbeat** | Performs a 3-node latency and VRAM audit. |
-| `npm run observer:ignite` | **Sensory** | Starts the `sovereign-observer` screen capture loop. |
-| `npm run atlas` | **Tactical** | Starts the 3D Atlas Force Graph visualizer. |
+| `npm run terminal` | **Hermes Ink** | Launches the primary high-fidelity agentic reasoning shell (Context-DAG). |
+| `npm run hub` | **Pretext HUD** | Launches the monolithic WebGL dashboard for total system awareness. |
 
-## 🕹️ 3. Native Sidecars & Shells
-| Command | Sidecar | Description |
+---
+
+## 🛠️ 3. DEVELOPMENT & MATERIALIZATION
+| Command | Target | Description |
 | :--- | :--- | :--- |
-| `npm run hub` | **Cyberdeck** | Launches the primary 2D HUD interface. |
-| `npm run terminal` | **Hermes Ink Shell** | Launches the native Hermes Ink Shell for tactical, context-DAG control. |
-| `npm run netrunning` | **Intrusion** | Starts the netrunning simulation artery. |
-| `./crush-cli proxy` | **Crush Artery** | The underlying physical Go proxy running 100% headless. |
+| `npm run scribe` | **Manifests** | Synchronizes bit-identical versioning across all 200+ docs. |
+| `npm run scribe:lock` | **History** | Executes sync, index, and pushes to remote master. |
+| `cd terminal-app && flutter build apk --release` | **Mobile** | Materializes the Android HUD (See Build Guide). |
+| `cd sidecar-obsidian-plugin && pnpm run build` | **Obsidian** | Materializes the Sovereign Mesh plugin (See Plugin Guide). |
 
 ---
 **::/5Y573M-N071C3 : MANIFEST_UPDATED. THE_ACTIONS_ARE_LAW. // 50V3R31GN-M4CH1N4**
