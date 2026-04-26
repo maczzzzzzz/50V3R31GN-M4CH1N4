@@ -8,16 +8,17 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"time"
 
 	_ "modernc.org/sqlite"
 )
 
 /**
- * CRUSH_RECONSTRUCT : v3.8.0 (Absolute Sociotomy + Hard Cleanse)
+ * CRUSH_RECONSTRUCT : v3.8.0 (High-Throughput Parallelism)
  *
  * Enforces bit-identical separation between OS and RKG.
- * Recursively purges noise and binary artifacts from documentation arteries.
+ * Parallelizes mirroring, entity reconstruction, and synchronization.
  */
 
 const (
@@ -87,7 +88,6 @@ func (r *Reconstructor) writeFrontmatter(f *os.File, subject, typeStr, source st
 func (r *Reconstructor) CleanseOsVault() {
 	fmt.Println(">> INITIATING ABSOLUTE OS VAULT CLEANSE...")
 	
-	// 1. Root Level Purge
 	files, _ := os.ReadDir(r.OsVaultPath)
 	allowlist := map[string]bool{
 		"README.md":                true,
@@ -119,16 +119,13 @@ func (r *Reconstructor) CleanseOsVault() {
 		}
 	}
 
-	// 2. Recursive Artery WIPE (Delete everything before mirroring)
 	arteries := []string{"Specs", "Plans", "Research", "Shards"}
 	for _, art := range arteries {
 		path := filepath.Join(r.OsVaultPath, art)
-		// Physically remove the directory and recreate it to ensure zero orphans
 		_ = os.RemoveAll(path)
 		r.ensureDir(path)
 	}
 
-	// 3. Metadata Neutralization (ADS and Orphans)
 	filepath.Walk(r.OsVaultPath, func(p string, info os.FileInfo, err error) error {
 		if err != nil || info.IsDir() {
 			return nil
@@ -155,7 +152,7 @@ func (r *Reconstructor) MirrorManifests() {
 }
 
 func (r *Reconstructor) MirrorDirectories() {
-	fmt.Println(">> MIRRORING SUPERPOWER ARTERIES...")
+	fmt.Println(">> MIRRORING SUPERPOWER ARTERIES (PARALLEL)...")
 	mirrors := map[string]string{
 		"docs/superpowers/specs":    "Specs",
 		"docs/superpowers/plans":    "Plans",
@@ -163,44 +160,49 @@ func (r *Reconstructor) MirrorDirectories() {
 		"akashik_guides":            "akashik_guides",
 	}
 
+	var wg sync.WaitGroup
 	for src, target := range mirrors {
-		targetPath := filepath.Join(r.OsVaultPath, target)
-		r.ensureDir(targetPath)
-		filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
-			if err != nil || info.IsDir() || strings.Contains(path, "/archive/") || strings.Contains(path, "\\archive\\") {
+		wg.Add(1)
+		go func(s, t string) {
+			defer wg.Done()
+			targetPath := filepath.Join(r.OsVaultPath, t)
+			r.ensureDir(targetPath)
+			filepath.Walk(s, func(path string, info os.FileInfo, err error) error {
+				if err != nil || info.IsDir() || strings.Contains(path, "/archive/") || strings.Contains(path, "\\archive\\") {
+					return nil
+				}
+				rel, _ := filepath.Rel(s, path)
+				dstPath := filepath.Join(targetPath, rel)
+				r.ensureDir(filepath.Dir(dstPath))
+				input, _ := os.ReadFile(path)
+				_ = os.WriteFile(dstPath, input, 0644)
 				return nil
-			}
-			rel, _ := filepath.Rel(src, path)
-			dstPath := filepath.Join(targetPath, rel)
-			r.ensureDir(filepath.Dir(dstPath))
-			input, _ := os.ReadFile(path)
-			_ = os.WriteFile(dstPath, input, 0644)
-			return nil
-		})
+			})
+		}(src, target)
 	}
+	wg.Wait()
 }
 
 func (r *Reconstructor) GenerateTrees(shardCount int) {
 	fmt.Println(">> GENERATING HUB TREES...")
 	
-	// 1. OS_CORE.md
 	coreContent := "# ◈ SOVEREIGN OS CORE\nPARENT :: [[NAVIGATOR]]\n---\n- [[PHASE_TREE]]\n- [[SPEC_TREE]]\n- [[PLAN_TREE]]\n- [[RESEARCH_TREE]]\n- [[SHARD_TREE]]\n- [[GUIDE_TREE]]\n"
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "OS_CORE.md"), []byte(coreContent), 0644)
 
-	// 2. GUIDE_TREE.md
 	guideContent := "# ◈ GUIDE TREE\nPARENT :: [[OS_CORE]]\n---\n- [[akashik_guides/00_system_setup/README|00_SYSTEM_SETUP]]\n- [[akashik_guides/01_crush_cli/reference-crush-cli|01_CRUSH_CLI]]\n- [[akashik_guides/02_deck_igniter/reference-deck-igniter|02_DECK_IGNITER]]\n- [[akashik_guides/03_omni_orchestrator/explanation-orchestrator|03_OMNI_ORCHESTRATOR]]\n- [[akashik_guides/04_unified_oracle/reference-oracle|04_UNIFIED_ORACLE]]\n- [[akashik_guides/05_red_trade_economy/explanation-economy|05_RED_TRADE_ECONOMY]]\n- [[akashik_guides/06_perception_systems/how-to-mission-swarm|06_PERCEPTION_SYSTEMS]]\n- [[akashik_guides/07_obsidian_vault/how-to-use-vault|07_OBSIDIAN_VAULT]]\n- [[akashik_guides/08_sovereign_identity/profiles-and-identity|08_SOVEREIGN_IDENTITY]]\n- [[akashik_guides/09_logseq_mesh/setup-logseq|09_LOGSEQ_MESH]]\n"
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "GUIDE_TREE.md"), []byte(guideContent), 0644)
 
-	// 3. Dynamic Tree Hubs
-	r.materializeDynamicTree("docs/superpowers/plans", "PLAN_TREE.md", "PLAN TREE", "Plans")
-	r.materializeDynamicTree("docs/superpowers/specs", "SPEC_TREE.md", "SPEC TREE", "Specs")
-	r.materializeDynamicTree("docs/superpowers/research", "RESEARCH_TREE.md", "RESEARCH TREE", "Research")
-	r.materializeDynamicTree("docs/superpowers/shards", "SHARD_TREE.md", "SHARD TREE", "Shards")
+	var wg sync.WaitGroup
+	wg.Add(4)
+	go func() { defer wg.Done(); r.materializeDynamicTree("docs/superpowers/plans", "PLAN_TREE.md", "PLAN TREE", "Plans") }()
+	go func() { defer wg.Done(); r.materializeDynamicTree("docs/superpowers/specs", "SPEC_TREE.md", "SPEC TREE", "Specs") }()
+	go func() { defer wg.Done(); r.materializeDynamicTree("docs/superpowers/research", "RESEARCH_TREE.md", "RESEARCH TREE", "Research") }()
+	go func() { defer wg.Done(); r.materializeDynamicTree("docs/superpowers/shards", "SHARD_TREE.md", "SHARD TREE", "Shards") }()
+	wg.Wait()
 }
 
 func (r *Reconstructor) materializeDynamicTree(srcDir, filename, title, vaultFolder string) {
 	content := fmt.Sprintf("# ◈ %s\nPARENT :: [[OS_CORE]]\n---\n\n", title)
-	
 	filepath.Walk(srcDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil || info.IsDir() || !strings.HasSuffix(info.Name(), ".md") {
 			return nil
@@ -211,16 +213,13 @@ func (r *Reconstructor) materializeDynamicTree(srcDir, filename, title, vaultFol
 		content += link
 		return nil
 	})
-
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, filename), []byte(content), 0644)
 }
 
 func (r *Reconstructor) ReconstructTriplets() int {
 	fmt.Println(">> RECONSTRUCTING RKG TRIPLET ENTITIES...")
 	rows, err := r.AkashikDB.Query("SELECT subject_id, predicate, object_literal, COALESCE(district_id, '') FROM triplets WHERE predicate NOT LIKE 'PURGED_%'")
-	if err != nil {
-		return 0
-	}
+	if err != nil { return 0 }
 	defer rows.Close()
 
 	count := 0
@@ -228,14 +227,9 @@ func (r *Reconstructor) ReconstructTriplets() int {
 		var sub, pred, obj, district string
 		rows.Scan(&sub, &pred, &obj, &district)
 		filename := r.cleanFilename(sub)
-		subfolder := "Lore"
-		if strings.Contains(strings.ToLower(sub), "weapon") || strings.Contains(strings.ToLower(sub), "armor") {
-			subfolder = "Items"
-		}
+		subfolder := "Lore"; if strings.Contains(strings.ToLower(sub), "weapon") || strings.Contains(strings.ToLower(sub), "armor") { subfolder = "Items" }
 		baseDir := filepath.Join(r.RkgVaultPath, "Districts", district, subfolder)
-		if district == "" {
-			baseDir = filepath.Join(r.RkgVaultPath, "Global", subfolder)
-		}
+		if district == "" { baseDir = filepath.Join(r.RkgVaultPath, "Global", subfolder) }
 		r.ensureDir(baseDir)
 		filePath := filepath.Join(baseDir, filename+".md")
 		f, _ := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -245,8 +239,7 @@ func (r *Reconstructor) ReconstructTriplets() int {
 			fmt.Fprintf(f, "# %s\n\n### ◈ KNOWLEDGE TRIADS\n", sub)
 		}
 		fmt.Fprintf(f, "- **%s** :: [[%s]]\n", pred, obj)
-		f.Close()
-		count++
+		f.Close(); count++
 	}
 	return count
 }
@@ -254,9 +247,7 @@ func (r *Reconstructor) ReconstructTriplets() int {
 func (r *Reconstructor) ReconstructNPCs() int {
 	fmt.Println(">> RECONSTRUCTING RKG NPC ENTITIES...")
 	rows, err := r.AkashikDB.Query("SELECT name, COALESCE(faction,'Independent'), disposition, COALESCE(district_id,''), id, hp, sp, emp FROM npcs")
-	if err != nil {
-		return 0
-	}
+	if err != nil { return 0 }
 	defer rows.Close()
 
 	count := 0
@@ -265,14 +256,12 @@ func (r *Reconstructor) ReconstructNPCs() int {
 		var hp, sp, emp int
 		rows.Scan(&name, &faction, &disposition, &district, &id, &hp, &sp, &emp)
 		filename := r.cleanFilename(name)
-		baseDir := filepath.Join(r.RkgVaultPath, "Districts", district, "Actors")
-		r.ensureDir(baseDir)
+		baseDir := filepath.Join(r.RkgVaultPath, "Districts", district, "Actors"); r.ensureDir(baseDir)
 		filePath := filepath.Join(baseDir, filename+".md")
 		f, _ := os.Create(filePath)
 		r.writeFrontmatter(f, name, "Actor", "AKASHIK_DB", []string{"rkg/actors", "faction/" + strings.ToLower(faction)}, district, map[string]string{"npc_id": id})
 		fmt.Fprintf(f, "# %s\n\n- **Faction:** [[%s]]\n- **Disposition:** %s\n- **Status:** Alive\n\n### ◈ BIOMETRICS\n- **HP:** %d  **SP:** %d  **EMP:** %d\n", name, faction, disposition, hp, sp, emp)
-		f.Close()
-		count++
+		f.Close(); count++
 	}
 	return count
 }
@@ -280,30 +269,22 @@ func (r *Reconstructor) ReconstructNPCs() int {
 func (r *Reconstructor) ReconstructShards() int {
 	fmt.Println(">> RECONSTRUCTING OS INTELLIGENCE SHARDS...")
 	rows, err := r.SovereignDB.Query("SELECT name, sector, content FROM intelligence_shards")
-	if err != nil {
-		return 0
-	}
+	if err != nil { return 0 }
 	defer rows.Close()
 
 	count := 0
 	for rows.Next() {
 		var name, sector, content string
 		rows.Scan(&name, &sector, &content)
-		cleanName := strings.TrimPrefix(name, "Shard_")
-		cleanName = strings.TrimPrefix(cleanName, "AbilityStone_")
+		cleanName := strings.TrimPrefix(strings.TrimPrefix(name, "Shard_"), "AbilityStone_")
 		filename := r.cleanFilename(cleanName)
-		targetFolder := "Shards"
-		if sector == "BLUEPRINTS" {
-			targetFolder = "Plans" 
-		}
-		baseDir := filepath.Join(r.OsVaultPath, targetFolder, sector)
-		r.ensureDir(baseDir)
+		targetFolder := "Shards"; if sector == "BLUEPRINTS" { targetFolder = "Plans" }
+		baseDir := filepath.Join(r.OsVaultPath, targetFolder, sector); r.ensureDir(baseDir)
 		filePath := filepath.Join(baseDir, filename+".md")
 		f, _ := os.Create(filePath)
 		r.writeFrontmatter(f, cleanName, "Intelligence_Shard", "SOVEREIGN_SYSTEM", []string{"shard", "sector/" + strings.ToLower(sector)}, sector, nil)
 		fmt.Fprintf(f, "# %s\n\n- **Sector:** %s\n- **Type:** SYSTEM_AUTHORITY\n\n---\n\n%s", cleanName, sector, content)
-		f.Close()
-		count++
+		f.Close(); count++
 	}
 	return count
 }
@@ -311,25 +292,25 @@ func (r *Reconstructor) ReconstructShards() int {
 func (r *Reconstructor) GenerateKanban() {
 	fmt.Println(">> SYNCHRONIZING KANBAN ROADMAP...")
 	out, err := exec.Command("npx", "tsx", "scripts/ops/generate-kanban.ts").Output()
-	if err != nil {
-		fmt.Printf("❌ Kanban generation failed: %v\n", err)
-		return
-	}
+	if err != nil { fmt.Printf("❌ Kanban generation failed: %v\n", err); return }
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "Sovereign-Roadmap.md"), out, 0644)
 }
 
 func Reconstruct() {
 	recon, err := NewReconstructor(DefaultDBPath, "data/SovereignIntelligence.db", DefaultOsVaultPath, DefaultRkgVaultPath)
-	if err != nil {
-		log.Fatal(err)
-	}
+	if err != nil { log.Fatal(err) }
+
+	start := time.Now()
 	recon.CleanseOsVault()
-	recon.MirrorManifests()
-	recon.MirrorDirectories()
-	t := recon.ReconstructTriplets()
-	recon.ReconstructNPCs()
-	s := recon.ReconstructShards()
-	recon.GenerateTrees(s)
-	recon.GenerateKanban()
-	fmt.Printf("✅ ABSOLUTE SOCIOTOMY RESTORED: %d RKG triplets; %d OS shards shored.\n", t, s)
+
+	var wg sync.WaitGroup
+	wg.Add(4)
+
+	go func() { defer wg.Done(); recon.MirrorManifests(); recon.MirrorDirectories() }()
+	go func() { defer wg.Done(); recon.ReconstructTriplets(); recon.ReconstructNPCs() }()
+	go func() { defer wg.Done(); s := recon.ReconstructShards(); recon.GenerateTrees(s) }()
+	go func() { defer wg.Done(); recon.GenerateKanban() }()
+
+	wg.Wait()
+	fmt.Printf("✅ RECONSTRUCTION COMPLETE in %v. Total Parity Achieved.\n", time.Since(start))
 }
