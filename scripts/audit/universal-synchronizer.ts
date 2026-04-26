@@ -147,15 +147,26 @@ async function universalSync() {
         const shardVault = 'docs/superpowers/shards';
         if (!fs.existsSync(shardVault)) fs.mkdirSync(shardVault, { recursive: true });
 
-        // Find all local AGENTS.md (excluding root)
+        // A. Mirror local AGENTS.md (Ability Stones)
         const agentFiles = execSync('find . -name "AGENTS.md" -not -path "./AGENTS.md" -not -path "./node_modules/*"', { encoding: 'utf8' }).split('\n').filter(Boolean);
-        
         for (const file of agentFiles) {
             const dirName = path.dirname(file).replace('./', '').replace(/\//g, '_');
             const targetName = `AbilityStone_${dirName}.md`;
             fs.copyFileSync(file, path.join(shardVault, targetName));
-            console.log(`${GREEN}● SHORED SHARD:${RESET} ${targetName}`);
+            console.log(`${GREEN}● SHORED ABILITY_STONE:${RESET} ${targetName}`);
         }
+
+        // B. Mirror Phase Specs and Plans (Intelligence Shards)
+        // Look for 202*-04-*-*.md in plans and specs
+        const blueprints = execSync('find docs/superpowers/specs docs/superpowers/plans -name "*.md" -not -path "*/archive/*"', { encoding: 'utf8' }).split('\n').filter(Boolean);
+        for (const file of blueprints) {
+            const type = file.includes('/specs/') ? 'SPEC' : 'PLAN';
+            const baseName = path.basename(file);
+            const targetName = `Shard_${type}_${baseName}`;
+            fs.copyFileSync(file, path.join(shardVault, targetName));
+            console.log(`${GREEN}● SHORED BLUEPRINT:${RESET} ${targetName}`);
+        }
+
     } catch (error) {
         console.error(`${RED}ERROR: Shard consolidation failed.${RESET}`);
     }

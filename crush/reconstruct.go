@@ -144,6 +144,34 @@ func (r *Reconstructor) ReconstructNPCs() int {
 	return count
 }
 
+func (r *Reconstructor) ReconstructShards() int {
+	fmt.Println(">> RECONSTRUCTING INTELLIGENCE SHARD TREE...")
+	rows, err := r.DB.Query("SELECT name, sector, content FROM intelligence_shards")
+	if err != nil {
+		log.Printf("❌ [RECONSTRUCT] Shards query failed: %v", err)
+		return 0
+	}
+	defer rows.Close()
+
+	count := 0
+	for rows.Next() {
+		var name, sector, content string
+		rows.Scan(&name, &sector, &content)
+
+		filename := r.cleanFilename(name)
+		baseDir := filepath.Join(r.VaultPath, "Shard_Tree", sector)
+		r.ensureDir(baseDir)
+		filePath := filepath.Join(baseDir, filename+".md")
+
+		f, _ := os.Create(filePath)
+		r.writeFrontmatter(f, name, "Intelligence_Shard", "SOVEREIGN_SYSTEM", []string{"shard", "sector/" + strings.ToLower(sector)}, sector, nil)
+		fmt.Fprintf(f, "# %s\n\n- **Sector:** %s\n- **Type:** SYSTEM_AUTHORITY\n\n---\n\n%s", name, sector, content)
+		f.Close()
+		count++
+	}
+	return count
+}
+
 func main() {
 	recon, err := NewReconstructor(DefaultDBPath, DefaultVaultPath)
 	if err != nil {
@@ -151,5 +179,6 @@ func main() {
 	}
 	t := recon.ReconstructTriplets()
 	n := recon.ReconstructNPCs()
-	fmt.Printf("✅ RECONSTRUCTION COMPLETE: %d triplets, %d NPCs shored.\n", t, n)
+	s := recon.ReconstructShards()
+	fmt.Printf("✅ RECONSTRUCTION COMPLETE: %d triplets, %d NPCs, %d shards shored.\n", t, n, s)
 }
