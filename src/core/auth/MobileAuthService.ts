@@ -11,7 +11,7 @@ import type { ILogger } from '../../db/interfaces.js';
 
 export class MobileAuthService {
   private readonly store: SynapseStore;
-  private readonly logger?: ILogger;
+  private readonly logger: ILogger | undefined;
 
   constructor(store: SynapseStore, logger?: ILogger) {
     this.store = store;

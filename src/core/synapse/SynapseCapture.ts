@@ -39,7 +39,7 @@ export interface CaptureResult {
 export class SynapseCapture {
   private readonly store: SynapseStore;
   private readonly tripletService: OsTripletService;
-  private readonly logger?: ILogger | undefined;
+  private readonly logger: ILogger | undefined;
 
   constructor(store: SynapseStore, tripletService: OsTripletService, logger?: ILogger) {
     this.store = store;
@@ -69,8 +69,8 @@ export class SynapseCapture {
     if (rawTriplets.length > 0) {
       const enrichedTriplets = rawTriplets.map(t => ({
         ...t,
-        roomId: input.roomId,
-        clusterId: input.clusterId,
+        roomId: input.roomId ?? undefined,
+        clusterId: input.clusterId ?? undefined,
       }));
       await this.tripletService.upsertBatch(enrichedTriplets);
       this.logger?.info(

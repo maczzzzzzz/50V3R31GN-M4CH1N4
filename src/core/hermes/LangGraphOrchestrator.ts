@@ -22,7 +22,8 @@ import Database from 'better-sqlite3';
 import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
 import { VsbClient } from '../../api/vsb-client.js';
-import { WebScraperSidecar, IngressTier } from '../../shared/WebScraperSidecar.js';
+// Phase 93: CDP Purge
+// import { WebScraperSidecar, IngressTier } from '../../shared/WebScraperSidecar.js';
 import { HeadlessDatalog } from '../memory/HeadlessDatalog.js';
 
 // ---------------------------------------------------------------------------
@@ -372,16 +373,14 @@ function routeEntry(state: OrchestratorState, cfg: OrchestratorConfig): NodeTarg
 
 export class LangGraphOrchestrator {
   private cfg: OrchestratorConfig;
-  private vsbClient?: VsbClient;
-  private webScraper?: WebScraperSidecar;
+  private vsbClient: VsbClient | undefined;
 
   constructor(
     cfg: Partial<OrchestratorConfig> = {}, 
-    deps?: { vsbClient?: VsbClient; webScraper?: WebScraperSidecar }
+    deps?: { vsbClient?: VsbClient }
   ) {
     this.cfg = { ...DEFAULT_CONFIG, ...cfg };
     this.vsbClient = deps?.vsbClient;
-    this.webScraper = deps?.webScraper;
   }
 
   private saveCheckpoint(threadId: string, state: OrchestratorState) {

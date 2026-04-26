@@ -17,7 +17,7 @@ export interface MobileVisionArteryOptions {
 export class MobileVisionArtery {
   private wss: WebSocketServer | null = null;
   private readonly port: number;
-  private readonly logger?: ILogger;
+  private readonly logger: ILogger | undefined;
   private latestFrame: Buffer | null = null;
 
   constructor(options: MobileVisionArteryOptions) {

@@ -25,7 +25,7 @@ export interface PostcardV1 {
 
 export class PostcardIngestor {
   private readonly store: SynapseStore;
-  private readonly logger?: ILogger;
+  private readonly logger: ILogger | undefined;
 
   constructor(store: SynapseStore, logger?: ILogger) {
     this.store = store;

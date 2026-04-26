@@ -15,7 +15,7 @@ export interface MessagePayload {
 }
 
 export class NativeMessagingAdapter {
-  private readonly logger?: ILogger;
+  private readonly logger: ILogger | undefined;
 
   constructor(logger?: ILogger) {
     this.logger = logger;

@@ -15,7 +15,7 @@ export interface MCPTool {
 }
 
 export class MCPBridge {
-  private readonly logger?: ILogger;
+  private readonly logger: ILogger | undefined;
   private tools: Map<string, MCPTool> = new Map();
 
   constructor(logger?: ILogger) {

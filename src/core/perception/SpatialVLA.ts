@@ -1,4 +1,4 @@
-import { SpatialObserver, SpatialPixel } from './SpatialObserver.js';
+import { SpatialObserver, type SpatialPixel } from './SpatialObserver.js';
 
 /**
  * SPATIAL VLA (Vision-Language-Action) — PHASE 84, TASK 2
@@ -33,6 +33,16 @@ export class SpatialVLA {
         // 2. Relationship Reasoning
         const primary = pixels[0];
         const secondary = pixels[1];
+
+        if (!primary || !secondary) {
+            return {
+                type: "MOVE",
+                target_id: "waypoint_1",
+                coordinates: { x: context.x + 5, y: context.y, z: context.z },
+                rationale: "Insufficient visual data; initiating exploratory move."
+            };
+        }
+
         const rel = this.observer.reasonRelationship(primary, secondary);
         
         console.log(`>> [SPATIAL_VLA] Vision Analysis: Secondary is ${rel} Primary.`);
