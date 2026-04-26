@@ -450,6 +450,9 @@ func main() {
 		case "meeting":
 			os.Exit(runMeeting(os.Args[2:]))
 
+		case "logseq":
+			os.Exit(runLogseq(os.Args[2:]))
+
 		case "reconstruct":
 			Reconstruct()
 			return
