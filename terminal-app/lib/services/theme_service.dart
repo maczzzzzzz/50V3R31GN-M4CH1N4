@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum ThemeModePreset { neonGreen, sovereignRed }
+enum ThemeModePreset { neonGreen, sovereignRed, gruvboxDark, gruvboxLight }
 
 class ThemePreset {
   final Color scaffoldBackgroundColor;
@@ -45,7 +45,7 @@ class ThemePreset {
       ),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: primaryColor),
-        hintStyle: TextStyle(color: primaryColor.withValues(alpha: 0.5)),
+        hintStyle: TextStyle(color: primaryColor.withOpacity(0.5)),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: primaryColor),
         ),
@@ -53,44 +53,43 @@ class ThemePreset {
           borderSide: BorderSide(color: primaryColor, width: 2.0),
         ),
       ),
-    enum ThemeModePreset { neonGreen, sovereignRed, gruvboxDark, gruvboxLight }
+    );
+  }
+}
 
-    ...
+class ThemeService extends ChangeNotifier {
+  ThemeModePreset _currentMode = ThemeModePreset.gruvboxDark;
 
-    class ThemeService extends ChangeNotifier {
-      static final Map<ThemeModePreset, ThemePreset> presets = {
-        ThemeModePreset.neonGreen: ThemePreset(
-          scaffoldBackgroundColor: const Color(0xFF1D2021),
-          primaryColor: const Color(0xFF98971A),
-          accentColor: const Color(0xFFB8BB26),
-          textColor: const Color(0xFFEBDBB2),
-          name: 'GRUVB0X-GR33N',
-        ),
-        ThemeModePreset.sovereignRed: ThemePreset(
-          scaffoldBackgroundColor: const Color(0xFF1D2021),
-          primaryColor: const Color(0xFFCC241D),
-          accentColor: const Color(0xFFFB4934),
-          textColor: const Color(0xFFEBDBB2),
-          name: 'GRUVB0X-R3D',
-        ),
-        ThemeModePreset.gruvboxDark: ThemePreset(
-          scaffoldBackgroundColor: const Color(0xFF282828),
-          primaryColor: const Color(0xFFFABD2F),
-          accentColor: const Color(0xFFFE8019),
-          textColor: const Color(0xFFEBDBB2),
-          name: 'GRUVB0X-D4RK',
-        ),
-        ThemeModePreset.gruvboxLight: ThemePreset(
-          scaffoldBackgroundColor: const Color(0xFFFBF1C7),
-          primaryColor: const Color(0xFFAF3A03),
-          accentColor: const Color(0xFFD65D0E),
-          textColor: const Color(0xFF3C3836),
-          name: 'GRUVB0X-L16H7',
-        ),
-      };
-
-
-  ThemeModePreset _currentMode = ThemeModePreset.neonGreen;
+  static final Map<ThemeModePreset, ThemePreset> presets = {
+    ThemeModePreset.neonGreen: ThemePreset(
+      scaffoldBackgroundColor: const Color(0xFF1D2021),
+      primaryColor: const Color(0xFF98971A),
+      accentColor: const Color(0xFFB8BB26),
+      textColor: const Color(0xFFEBDBB2),
+      name: 'GRUVB0X-GR33N',
+    ),
+    ThemeModePreset.sovereignRed: ThemePreset(
+      scaffoldBackgroundColor: const Color(0xFF1D2021),
+      primaryColor: const Color(0xFFCC241D),
+      accentColor: const Color(0xFFFB4934),
+      textColor: const Color(0xFFEBDBB2),
+      name: 'GRUVB0X-R3D',
+    ),
+    ThemeModePreset.gruvboxDark: ThemePreset(
+      scaffoldBackgroundColor: const Color(0xFF282828),
+      primaryColor: const Color(0xFFFABD2F),
+      accentColor: const Color(0xFFFE8019),
+      textColor: const Color(0xFFEBDBB2),
+      name: 'GRUVB0X-D4RK',
+    ),
+    ThemeModePreset.gruvboxLight: ThemePreset(
+      scaffoldBackgroundColor: const Color(0xFFFBF1C7),
+      primaryColor: const Color(0xFFAF3A03),
+      accentColor: const Color(0xFFD65D0E),
+      textColor: const Color(0xFF3C3836),
+      name: 'GRUVB0X-L16H7',
+    ),
+  };
 
   ThemeModePreset get currentMode => _currentMode;
   ThemePreset get currentPreset => presets[_currentMode]!;

@@ -16,12 +16,19 @@ class ArteryClient extends ChangeNotifier {
   final _audioRecorder = AudioRecorder();
   bool _isRecording = false;
   String _currentTranscription = "";
+  String? _currentProposal;
   StreamSubscription<Uint8List>? _audioSubscription;
 
   List<String> get logs => List.unmodifiable(_logs);
   bool get isConnected => _isConnected;
   bool get isRecording => _isRecording;
   String get currentTranscription => _currentTranscription;
+  String? get currentProposal => _currentProposal;
+
+  void clearProposal() {
+    _currentProposal = null;
+    notifyListeners();
+  }
 
   Future<void> connectFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();

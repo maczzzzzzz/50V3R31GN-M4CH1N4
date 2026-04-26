@@ -5,6 +5,13 @@ import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import '../models/chat_message.dart';
 import '../models/conversation.dart';
+import 'artery_client.dart';
+
+/**
+ * CHAT_SERVICE : v3.8.4 (Sovereign Ecosystem)
+ * 
+ * Manages local chat history and routes messages through the ArteryClient WebSocket.
+ */
 
 class ChatService extends ChangeNotifier {
   List<Conversation> _conversations = [];
@@ -29,7 +36,7 @@ class ChatService extends ChangeNotifier {
 
   Future<void> _loadHistory() async {
     final prefs = await SharedPreferences.getInstance();
-    final historyJson = prefs.getStringList('conversations_v2') ?? [];
+    final historyJson = prefs.getStringList('conversations_v3') ?? [];
     _conversations = historyJson.map((c) => Conversation.fromJson(jsonDecode(c))).toList();
     
     if (_conversations.isEmpty) {
@@ -43,7 +50,7 @@ class ChatService extends ChangeNotifier {
   Future<void> _saveHistory() async {
     final prefs = await SharedPreferences.getInstance();
     final historyJson = _conversations.map((c) => jsonEncode(c.toJson())).toList();
-    await prefs.setStringList('conversations_v2', historyJson);
+    await prefs.setStringList('conversations_v3', historyJson);
   }
 
   Future<void> createNewConversation({String title = 'NEW_QUERY'}) async {
@@ -102,16 +109,10 @@ class ChatService extends ChangeNotifier {
 
     // ◈ Phase 79/81 Alignment: Route through ArteryClient WebSocket
     if (artery.isConnected) {
-       // Send as JSON command
        artery.sendJsonCommand('CHAT', text);
     } else {
-       // Fallback to legacy HTTP if Artery is offline
-       _legacySendHttp(text, index);
+       debugPrint("::/ERROR : ARTERY_OFFLINE - MESSAGE_CACHED_LOCALLY");
     }
-  }
-
-  Future<void> _legacySendHttp(String text, int index) async {
-    // ... existing HTTP logic moved here ...
   }
 
   Future<void> syncWithNodeC() async {

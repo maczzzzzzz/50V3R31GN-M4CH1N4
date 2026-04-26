@@ -74,7 +74,7 @@ class TerminalScreen extends StatelessWidget {
                     child: TextField(
                       style: GoogleFonts.vt323(color: Colors.white),
                       decoration: const InputDecoration(
-                        border: InputInput.none,
+                        border: InputBorder.none,
                         hintText: 'ENTER_COMMAND...',
                         hintStyle: TextStyle(color: Colors.white24),
                       ),
