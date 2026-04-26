@@ -1,18 +1,17 @@
-# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.7)
+# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.2.19)
 
-This document defines roles, mandates, and workflows for the AI staff.
+This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
 ## 🤝 THE SOVEREIGN TRIAD
-- **GEMINI CLI (The Strategist/Lead Dev):** High-Level Reasoner. Architecture, Roadmap, and Audit authority.
-- **CLAUDE (The Architect):** High-Throughput Implementation. Primary code generation engine.
-- **FACTORY (The Environment):** Local execution and file manipulation via Droid/Scribe MCP tools.
+- **GEMINI (The Strategist):** Roadmap, Architecture, Research. (Ref: `GEMINI.md`)
+- **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
+- **DROID (The Environment):** Local execution, file manipulation. (Factory CLI).
 
 ## 🛠 SETUP & RUNTIME COMMANDS
-...
-
+| Action | Command | Purpose |
 | :--- | :--- | :--- |
 | **Grounding** | `bash scripts/ops/grounding.sh` | Sync context with all shards. |
-| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Mesh).|
+| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Bridge).|
 | **Verification**| `npm test` | Run full Vitest suite. |
 | **Sync** | `npm run sync` | Align all manifests and guides. |
 | **Security** | `crush vault seal` | Secure steganographic archives. |
@@ -25,8 +24,8 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 
 ## ⚠️ CONSTRAINTS & SAFETY
 1. **Nix Sovereignty:** All commands must be wrapped in `nix develop --command`.
-2. **Hardware Invariants:** Node A = 4GB VRAM (Strategic Oracle/Vision). Node B = 16GB (Director).
+2. **Hardware Invariants:** Node A = 4GB VRAM (Oracle/Vision). Node B = 16GB (Director).
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 
-*Verified by the Sovereign Trinity v3.8.7.*
+*Verified by the Sovereign Triad v3.2.19.*

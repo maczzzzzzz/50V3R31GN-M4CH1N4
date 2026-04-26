@@ -8,17 +8,20 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 ## [3.8.7] - 2026-04-26
 
 ### Added
-- **HeadlessDatalog (Phase 90 Task 1):** Materialized `src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax (`:find`, `:where`, `:in`, `:limit`). Compiles multi-pattern queries to JOINs against `os_triplets`. FTS5 search via `ftsSearch()` against `shard_fts`. Includes `upsertFact()`, `upsertFacts()`, `retract()`, `findSubjects()`, and `stats()`.
-- **SovereignDashboardService (Phase 90 Tasks 2-3):** Materialized `src/core/memory/SovereignDashboardService.ts` — live Obsidian Command-Center. Materializes `Sovereign_Dashboard.md` with DB stats + recent facts table every 60s. Engraves agent activity to `Journals/YYYY-MM-DD.md`. Bidirectional vault sync via chokidar watcher on `Facts/` subdirectory. Supports optional Windows vault mirror path.
-- **`/datalog` System Command:** Wired into `LangGraphOrchestrator` — operator can run `/datalog query '[:find ?name :where ...]'`, `/datalog compile`, `/datalog fts <terms>`, `/datalog stats` directly from the HUD.
-- **KNOWLEDGE_BASE v3.8.7:** Added RND Predictor, OpenVLA (7B), DINOv2, Three.js, Tailscale, react-grid-layout, Recharts. New DOMINION CLUSTER section. Three new architectural patterns (Monolithic HUD V2, Hermes Singularity, Postcard Protocol).
+- **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
+- **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.
+- **HeadlessDatalog (Phase 90):** Materialized `src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax.
+- **SovereignDashboardService (Phase 90):** Materialized `src/core/memory/SovereignDashboardService.ts` — live Obsidian Command-Center with bidirectional fact ingestion and journal engraving.
+- **Phase 86-93 Resilience Forge:** Scaffolded 8 new Gauntlet test phases (`v86` through `v93`) and the `AbilityStone_HermesAgent_v2026.md` intelligence boost.
 
 ### Fixed
-- **LangGraphOrchestrator Corruption (2nd instance):** Removed second dangling `return state; }` fragment (lines 508-510) causing TS1128 parse failure.
+- **System-Wide Artery Audit (Phase 94):** Performed surgical fixes across all 2026-04-26 documentation shards; standardized sector-prefixes (`SPEC_`, `PLAN_`, `RESEARCH_`) to prevent Logseq/Obsidian indexing collisions.
+- **Kernel Vitals Restoration:** Refactored `sovereign-kernel` to run dual Tokio tasks for both `/proc` telemetry and TPM signing.
+- **LangGraphOrchestrator Integrity:** Repaired catastrophic syntax fractures and type-desyncs in the Hermes routing layer and Dashboard interface.
 
 ### Changed
-- **main.ts:** SovereignDashboardService wired into startup/shutdown lifecycle on Phase 90 boot.
-- **package.json:** Version bumped to 3.8.7.
+- **Obsidian 1st Class HUD:** Formally established Obsidian as the primary operator interface, physically purging the Logseq native plugin.
+- **KNOWLEDGE_BASE v3.8.7:** Total integration of Hermes Atlas and Pretext research arteries.
 
 ## [3.8.6] - 2026-04-26
 
