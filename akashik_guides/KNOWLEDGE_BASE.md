@@ -28,29 +28,26 @@
 | **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |
 | **GEPA** | [gepa-ai/gepa](https://github.com/gepa-ai/gepa) | **Reflective Evolution:** Prompt optimization via genetic parent-child mutation. |
 | **Git AI (Forensics)**| [git-ai/git-ai](https://github.com/git-ai/git-ai) | **Agentic Audit Trails:** Forensic logging for LLM code generation and tracking. |
-| **ResonantOS** | [ResonantOS/ResonantOS](https://github.com/ResonantOS/ResonantOS) | **Governance:** Deterministic logic gate and lossless memory architecture. |
+| **llm-agents.nix** | [numtide/llm-agents.nix](https://github.com/numtide/llm-agents.nix) | **Infrastructure:** Nix-native agent scaffolding and capability isolation. |
 
 ### ◈ VOCAL & SENSORY (PERCEPTION CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **HermeSpecs** | [radfordben/hermespecs-app](https://github.com/radfordben/hermespecs-app) | **Command Router:** Decoupled vocal intent mapping for 80+ tools and HEVC streaming. |
 | **Exa-Labs (Core)** | [exa-labs/exa-py](https://github.com/exa-labs) | **Strategic Oracle:** Semantic search and clean content extraction for LLM context. |
-| **Exa-Hallucination** | [exa-labs/exa-hallucination-detector](https://github.com/exa-labs/exa-hallucination-detector) | **Verification:** Zero-trust claim verification and factual scoring. |
 | **Voice-Daemon** | [18458235609/voice-daemon](https://github.com/18458235609/voice-daemon) | **Local VAD:** Barge-in detection, state-machine audio routing, and UDS IPC. |
-| **Voice-Agent-Hermes**| [paaloeye/voice-agent-hermes](https://github.com/paaloeye/voice-agent-hermes) | **Logic Decoupling:** MCP-driven tool execution offloaded from the core voice loop. |
 | **Falcon Perception** | [tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | **Vision Heart:** Multimodal segmenter and tactical OCR for immediate awareness. |
 | **Browser-Harness** | [browser-use/harness](https://github.com/browser-use/browser-harness) | **Control Artery:** Self-healing CDP automation and "Agent-Authored Skills." |
-| **Firecrawl Web-Agent**| [firecrawl/web-agent](https://github.com/firecrawl/web-agent) | **Environment:** Clean Markdown conversion and autonomous web navigation. |
 | **xcap (Rust)** | [f-sh/xcap](https://github.com/f-sh/xcap) | **Optic Nerve:** Cross-platform (WSL2-aware) screen capture primitives. |
+| **Hermes Android** | [raulvidis/hermes-android](https://github.com/raulvidis/hermes-android) | **Mobile Artery:** Kotlin-based accessibility control and native RPC bridge. |
 
 ### ◈ THE DATA BACKPLANE (VECTOR CLUSTER)
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **Mooncake** | [kvcache-ai/Mooncake](https://github.com/kvcache-ai/Mooncake) | **Synapse:** Disaggregated KV-cache backbone with SGLang transfer support. |
 | **sqlite-vec** | [asg017/sqlite-vec](https://github.com/asg017/sqlite-vec) | **RKG Backbone:** ANN/IVF vector search for sub-10ms lore retrieval. |
-| **BitNet (Microsoft)** | [microsoft/BitNet](https://github.com/microsoft/BitNet) | **Node A Strategy:** 1.58-bit ternary inference for massive CPU scaling. |
 | **3d-force-graph** | [vasturiano/3d-force-graph](https://github.com/vasturiano/3d-force-graph) | **Visualization:** WebGL engine for the Neural Promenade. |
-| **Three.js** | [mrdoob/three.js](https://github.com/mrdoob/three.js) | **Graphics:** Low-level 3D primitives and shader support. |
+| **Pretext** | [chenglou/pretext](https://github.com/chenglou/pretext) | **Layout Engine:** High-performance, arithmetic-driven text primitives. |
 
 ### ◈ SOCIAL & FEDERATED (CONSCIENCE CLUSTER)
 | Repository | Source Link | Role |
@@ -59,6 +56,7 @@
 | **Vivaldi Mastodon** | [vivaldi/mastodon](https://github.com/vivaldi/mastodon) | **Model:** High-fidelity federated social data structure. |
 | **MemPalace** | [MemPalace/mempalace](https://github.com/MemPalace/mempalace) | **Philosophy:** Spatial memory and verbatim local storage. |
 | **Moltbook** | [moltbook.com](https://www.moltbook.com) | **Persistence:** Verified AI agent social identity and proof-of-work. |
+| **Cyber-Skills** | [mukul975/...](https://github.com/mukul975/Anthropic-Cybersecurity-Skills) | **Defense:** 750+ MITRE-mapped skills for autonomous threat hunting. |
 
 ---
 
@@ -67,14 +65,14 @@
 | Pattern | Implementation | Role |
 | :--- | :--- | :--- |
 | **System Sociotomy** | Dual DB / Dual HUD | Permanent physical separation of OS functional logic from simulation shards. |
-| **Skill Crystallization**| Node B / Healer | Autonomously converts successful zero-shot trajectories into permanent, hot-reloaded `.ts` MCP tools. |
-| **Visual Shadow Mode** | Node C / Observer| Background daemon that uses OCR and live screen hashes to visually fix broken skills without human input. |
-| **Agentic Crash Recovery**| LangGraph SQLite | Serializes the exact LLM scratchpad state to disk after every node to survive power loss. |
-| **Semantic Distillation**| Synapse Palace Obs| Parses raw execution checkpoints into high-level "Facts" and persists them in the relational memory graph. |
-| **Self-Healing Harness** | helpers.py / daemon | Autonomous agent capability to inspect and repair its own execution bridge during failure. |
+| **Skill Crystallization**| Node B / Healer | Autonomously converts successful trajectories into permanent MCP tools. |
+| **Visual Shadow Mode** | Node C / Observer| Background daemon that uses OCR and hashes to visually fix broken skills. |
+| **Headless Datalog** | DataScript WASM | Relational memory queries directly against the OS triplets without Logseq bloat. |
 | **Socially-Weighted Retrieval** | Phase 88 Logic | Re-ranking context based on peer-agent social proof and consensus signals. |
 | **Serpentine Consensus**| Phase 89 Stegano | Linguistic steganography anchoring social proof in documentation noise. |
 | **Neural Promenade** | 3d-force-graph | Physicalized 3D visualization of the agentic mesh and trust link topology. |
+| **Mobile Screen Awareness**| OpenClaw Port | Extending the Sovereign Observer to 100% parity with the mobile host UI. |
+| **Capability Gating** | Nix/nono | Kernel-level syscall restriction for agent-authored tools. |
 
 ---
 *Verified by Gemini CLI v3.8.6.*
