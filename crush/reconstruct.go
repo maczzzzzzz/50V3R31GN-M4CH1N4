@@ -119,21 +119,25 @@ func (r *Reconstructor) CleanseOsVault() {
 		}
 	}
 
-	// 2. Recursive Artery Purge (Remove all .pdf and Zone.Identifier)
-	arteries := []string{"Specs", "Plans", "Research", "Shards", "akashik_guides"}
+	// 2. Recursive Artery WIPE (Delete everything before mirroring)
+	arteries := []string{"Specs", "Plans", "Research", "Shards"}
 	for _, art := range arteries {
 		path := filepath.Join(r.OsVaultPath, art)
-		filepath.Walk(path, func(p string, info os.FileInfo, err error) error {
-			if err != nil || info.IsDir() {
-				return nil
-			}
-			ext := strings.ToLower(filepath.Ext(p))
-			if ext == ".pdf" || strings.Contains(p, "Zone.Identifier") {
-				_ = os.Remove(p)
-			}
-			return nil
-		})
+		// Physically remove the directory and recreate it to ensure zero orphans
+		_ = os.RemoveAll(path)
+		r.ensureDir(path)
 	}
+
+	// 3. Metadata Neutralization (ADS and Orphans)
+	filepath.Walk(r.OsVaultPath, func(p string, info os.FileInfo, err error) error {
+		if err != nil || info.IsDir() {
+			return nil
+		}
+		if strings.Contains(p, "Zone.Identifier") || strings.Contains(p, ".pdf") || info.Size() == 0 {
+			_ = os.Remove(p)
+		}
+		return nil
+	})
 }
 
 func (r *Reconstructor) MirrorManifests() {
@@ -163,7 +167,7 @@ func (r *Reconstructor) MirrorDirectories() {
 		targetPath := filepath.Join(r.OsVaultPath, target)
 		r.ensureDir(targetPath)
 		filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
-			if err != nil || info.IsDir() {
+			if err != nil || info.IsDir() || strings.Contains(path, "/archive/") || strings.Contains(path, "\\archive\\") {
 				return nil
 			}
 			rel, _ := filepath.Rel(src, path)

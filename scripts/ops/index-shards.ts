@@ -43,6 +43,7 @@ function universalIndex() {
     let count = 0;
 
     for (const fullPath of files) {
+        if (fullPath.includes('/archive/')) continue;
         const ext = path.extname(fullPath).toLowerCase();
         if (ext !== '.md' && ext !== '.pdf') continue;
 
