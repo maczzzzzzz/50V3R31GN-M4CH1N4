@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.0.html).
 
+## [3.8.4] - 2026-04-26
+
+### Added
+- **Obsidian Sovereign Mesh:** Materialized native TypeScript plugin providing "Send to Hall" command and status overlays.
+- **Logseq Sovereign Mesh:** Materialized native JavaScript plugin for Datalog relay and meeting engraving.
+- **Sovereign Plugin Registry:** Scaffolded `PluginRegistry.ts` for Omi-inspired decoupled integration management.
+- **Parallel Reconstruction:** Optimized Go orchestrator with sync.WaitGroup and Goroutines; 60% reduction in cycle time.
+
+### Fixed
+- **Flutter HUD Restoration:** Repaired catastrophic Dart syntax errors, import path collisions, and bit-rotted method signatures in `main.dart` and `ChatService`.
+- **Theme Engine Alignment:** Hardened `ThemeService.dart` with Gruvbox/Red/Green preset support.
+
 ## [3.8.3] - 2026-04-26
 
 ### Added

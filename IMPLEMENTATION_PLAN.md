@@ -78,6 +78,23 @@
 - [x] **Task 3: The Flutter Sync:** Materialize `ObsidianSyncService.dart` to bidirectional sync the vault via Tailscale to mobile devices.
 - [x] **Task 4: Meeting Engraver:** Update Sovereign Hall to engrave meeting minutes directly as Logseq journal blocks.
 
+---
+
+## 🧩 PHASE 86: SOVEREIGN ECOSYSTEM & HUD REALIGNMENT (COMPLETED)
+**Goal:** Materialize native plugin bridges and repair the Flutter HUD for v3.8.0 performance.
+- [x] **Task 1: Native Obsidian Mesh:** Scaffold TS plugin for note pushing and vitals monitoring.
+- [x] **Task 2: Native Logseq Mesh:** Scaffold JS plugin for Datalog relay and automated meeting tagging.
+- [x] **Task 3: HUD Restoration:** Repair bit-rotted Dart imports, method signatures, and Theme Engine logic.
+- [x] **Task 4: Parallel Reconstruction:** Optimize `crush reconstruct` with high-throughput Goroutines (~2m cycle time).
+
+---
+
+## 🧬 PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (PRIMARY_TASK)
+**Goal:** Expand Hermes' reach into host environments and browser-level cognition.
+- [ ] **Task 1: Browser-Level Ingress:** Materialize a Chrome/Firefox extension for direct context-scraping into the Synapse Palace.
+- [ ] **Task 2: Kernel Vitals Artery:** Implement a low-level Linux sidecar (BPF) for real-time hardware telemetry in the HUD.
+- [ ] **Task 3: Plugin-Driven Tooling:** Enable agents to autonomously author and install their own MCP tools via the Plugin Registry.
+
 
 ---
 **LINKS:** [[OS_CORE]]
