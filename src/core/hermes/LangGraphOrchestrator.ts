@@ -31,7 +31,7 @@ import { MemoryObserver } from './MemoryObserver.js';
 // User-supplied args are validated against an allowlist before use.
 // ---------------------------------------------------------------------------
 
-const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper']);
+const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode']);
 
 // Known profile names from SOVEREIGN-IDENTITY.md — allowlist for /profile <name>
 const KNOWN_PROFILES = new Set(['daily-use', 'researcher', 'sovereign-red-game-master']);
@@ -53,9 +53,25 @@ async function dispatchSystemCommand(
   if (!SYSTEM_COMMANDS.has(cmd)) return null;
 
   const args = trimmed.slice(cmd.length).trim();
+  const argArray = args.split(/\s+/).filter(Boolean);
+
   try {
     switch (cmd) {
+      case '/crush': {
+        return `◈ CRUSH_RELAY:\n${runCrush(argArray)}`;
+      }
+      case '/reconstruct': {
+        return `◈ RECONSTRUCTING_MESH:\n${runCrush(['reconstruct', ...argArray])}`;
+      }
+      case '/meeting': {
+        return `◈ SOVEREIGN_HALL:\n${runCrush(['meeting', ...argArray])}`;
+      }
+      case '/mode': {
+        if (!args) return `◈ MODE ERROR: specify 'on' or 'off'.`;
+        return `◈ SOVEREIGN_MODE:\n${runCrush(['sovereign-mode', args])}`;
+      }
       case '/profile': {
+
         if (args) {
           // Validate profile name against allowlist — blocks injection attempts
           const profileName = args.split(/\s+/)[0] ?? '';
