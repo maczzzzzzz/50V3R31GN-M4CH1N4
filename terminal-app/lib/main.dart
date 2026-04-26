@@ -8,12 +8,16 @@ import 'services/memory_provider.dart';
 import 'services/openclaw_bridge.dart';
 import 'services/screen_capture_service.dart';
 import 'services/postcard_service.dart';
+import 'services/permission_service.dart';
 import 'screens/chat_screen.dart';
 import 'screens/pretext_dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  // ◈ Permission Ingress
+  await PermissionService.requestStartupPermissions();
+
   final themeService = ThemeService();
   final dbService = DatabaseService();
   // Database initialization is lazy-loaded via the getter, 
