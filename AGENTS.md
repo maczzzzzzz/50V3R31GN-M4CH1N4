@@ -1,14 +1,15 @@
 # AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.7)
 
-This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
+This document defines roles, mandates, and workflows for the AI staff.
 
 ## 🤝 THE SOVEREIGN TRIAD
-- **GEMINI (The Strategist):** Roadmap, Architecture, Research. (Ref: `GEMINI.md`)
-- **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
-- **DROID (The Environment):** Local execution, file manipulation. (Factory CLI).
+- **GEMINI CLI (The Strategist/Lead Dev):** High-Level Reasoner. Architecture, Roadmap, and Audit authority.
+- **CLAUDE (The Architect):** High-Throughput Implementation. Primary code generation engine.
+- **FACTORY (The Environment):** Local execution and file manipulation via Droid/Scribe MCP tools.
 
 ## 🛠 SETUP & RUNTIME COMMANDS
-| Action | Command | Purpose |
+...
+
 | :--- | :--- | :--- |
 | **Grounding** | `bash scripts/ops/grounding.sh` | Sync context with all shards. |
 | **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Mesh).|

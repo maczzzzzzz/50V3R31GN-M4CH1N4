@@ -47,12 +47,12 @@ As of Phase 50, the primary ignition method is the **Nucleus Command Deck**.
 
 1.  **Start the Artery:**
     ```bash
-    npm run crush nucleus
+    npm run crush:nucleus
     ```
 2.  **Access the Deck:**
-    Navigate to `http://localhost:3030`.
+    Navigate to `http://localhost:3010`.
 3.  **Engage:**
-    Use the **◈ NUCLEUS** dropdown to select **[FULL_ENGAGE]**. This triggers the background orchestration via `deck-igniter` in headless mode.
+    Use the **◈ NUCLEUS** interface to trigger background orchestration.
 
 ---
 **::/5Y573M-N071C3 : TRU7H UN1F13D. 5Y573M V3R1F13D. // 50V3R31GN-M4CH1N4**

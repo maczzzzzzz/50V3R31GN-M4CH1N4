@@ -90,7 +90,7 @@
 | **Postcard Protocol** | Flutter / Social Mesh | Periodic mobile snapshots broadcast as signed ActivityPub events for continuous social presence (Phase 91). |
 
 ---
-*Verified by Gemini CLI v3.8.7.*
+*Verified by the Sovereign Trinity v3.8.7.*
 
 
 ---

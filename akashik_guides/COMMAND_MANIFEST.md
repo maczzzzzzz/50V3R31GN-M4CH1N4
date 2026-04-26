@@ -10,17 +10,16 @@ This document defines the primary commands required to ignite and maintain the *
 | Command | Role | Description |
 | :--- | :--- | :--- |
 | `npm run scribe` | **The Sync** | Synchronizes versioning and terminology across all manifests. |
-| `npm run sync` | **The Alias** | Alias for `npm run scribe`. |
 | `npm run scribe:lock`| **The Lock** | Executes sync and performs a final git push to remote. |
 | `bash scripts/ops/grounding.sh` | **Context Feed** | Injects core system soul into the agentic context. |
+| `npm run reconstruct` | **Palace Forge** | Physically mirrors documentation to the Windows vault (D:). |
 
 ## 🧠 1. Node Ignition
 | Command | Node | Description |
 | :--- | :--- | :--- |
-| `npm run synapse:ignite` | **Node A** | Starts the Mooncake Master KV-cache artery. |
-| `npm run director:ignite` | **Node B** | Ignites the Narrative Heart (OBLITERATED Q8). |
-| `nix-shell -p llama-cpp ...` | **Node C** | (Host) Starts the host-native Llama.cpp Strategic Oracle. |
-| `npm run oracle:ignite` | **Node C** | Starts the Rust Artery Manager (Port 7340). |
+| `npm run synapse:ignite` | **Node A** | Starts the Mooncake Master KV-cache artery via CUDA Nix shell. |
+| `npm run director:ignite` | **Node B** | Ignites the Narrative Heart (Gemma-4-E4B). |
+| `npm run kernel` | **Node C** | Starts the Rust-native Linux sidecar (Telemetry + TPM Signing). |
 
 ## 👁️ 2. Perception & VLM
 | Command | Role | Description |
@@ -28,13 +27,14 @@ This document defines the primary commands required to ignite and maintain the *
 | `npm run pulse` | **Tactical** | Emits a VSB pulse to verify mesh connectivity. |
 | `npm run audit:vitals` | **Heartbeat** | Performs a 3-node latency and VRAM audit. |
 | `npm run observer:ignite` | **Sensory** | Starts the `sovereign-observer` screen capture loop. |
+| `npm run atlas` | **Tactical** | Starts the 3D Atlas Force Graph visualizer. |
 
-## 🎙️ 🎙️ 3. Vocal & TUI Interfaces
-| Command | Role | Description |
+## 🕹️ 3. Native Sidecars & Shells
+| Command | Sidecar | Description |
 | :--- | :--- | :--- |
-| `npm run hub` | **OS TUI** | Launches the Hermes v2026 TUI as the primary OS shell. |
-| `npm run terminal` | **RED CLI** | Launches the Go-native Crush CLI for tactical RED simulation. |
-| `flutter run` | **Mobile** | Launches the Machina Hub Lite on connected Android device. |
+| `npm run hub` | **Cyberdeck** | Launches the primary 2D HUD interface. |
+| `npm run terminal` | **Crush CLI** | Launches the Go-native terminal for tactical control. |
+| `npm run netrunning` | **Intrusion** | Starts the netrunning simulation artery. |
 
 ---
 **::/5Y573M-N071C3 : MANIFEST_UPDATED. THE_ACTIONS_ARE_LAW. // 50V3R31GN-M4CH1N4**

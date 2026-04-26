@@ -33,9 +33,9 @@ The pods are synchronized over an encrypted **Tailscale Mesh**.
 
 ## ⚡ 3. IGNITION SEQUENCE
 1. **Node A:** `npm run synapse:ignite`.
-2. **Node C:** Execute `bash scripts/ops/node-c-ignition.sh` followed by Artery Manager ignition.
-3. **Node B:** Execute `npx tsx scripts/ops/ignite-director.ts`.
-4. **Vocal:** Connect Machina Terminal HUD to Node C (7340/7339) and Node B (3011).
+2. **Node C:** Execute `npm run kernel`.
+3. **Node B:** Execute `npm run director:ignite`.
+4. **Vocal:** Connect Machina Terminal HUD to Node B (3011).
 
 ---
 **::/5Y573M-N071C3 : TRINITY_GROUNDED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**
