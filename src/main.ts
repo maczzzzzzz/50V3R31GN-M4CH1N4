@@ -134,11 +134,16 @@ async function main() {
     contextReceivePort: 9090, // Listen for pushes from Node A/C
   }, logger);
 
+  const webScraper = new WebScraperSidecar({
+    host: '127.0.0.1',
+    port: 9222,
+  });
+
   const orchestrator = new LangGraphOrchestrator({
     nodeAUrl: process.env.NODE_A_LLAMA_URL || 'http://100.102.95.43:8080/v1',
     nodeBUrl: process.env.SOVEREIGN_INFERENCE_URL || 'http://localhost:8080/v1',
     nodeCUrl: process.env.NODE_C_LLAMA_URL || 'http://100.69.220.101:7339/v1',
-  });
+  }, { vsbClient, webScraper });
 
   vsbClient.onVocalIntent(async (transcript) => {
     const traceId = randomUUID();

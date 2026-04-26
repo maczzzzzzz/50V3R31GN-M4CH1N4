@@ -43,7 +43,11 @@ function runCrush(args: string[]): string {
   return out || 'crush: no output';
 }
 
-function dispatchSystemCommand(prompt: string): string | null {
+async function dispatchSystemCommand(
+  prompt: string, 
+  vsbClient?: VsbClient, 
+  webScraper?: WebScraperSidecar
+): Promise<string | null> {
   const trimmed = prompt.trim();
   const cmd = trimmed.split(/\s+/)[0]?.toLowerCase() ?? '';
   if (!SYSTEM_COMMANDS.has(cmd)) return null;
@@ -85,11 +89,26 @@ function dispatchSystemCommand(prompt: string): string | null {
       }
       case '/host': {
         // Phase 81: Host-Bridge Artery.
-        // Routes commands to the Windows sidecar via VSB specialized packets.
-        if (!args) return `◈ HOST ERROR: No command specified. Try /host volume 50 | /host launch obsidian`;
+        if (!args) return `◈ HOST ERROR: No command specified. Try /host volume 50 | /host launch obsidian | /host scrape <url>`;
         
-        // TODO: Implement VSB packet emission for Host Control
-        return `◈ HOST COMMAND SENT: ${args} [STAGED_FOR_PHASE_81]`;
+        const sub = args.split(/\s+/)[0]?.toLowerCase();
+        const subArgs = args.slice(sub.length).trim();
+
+        if (sub === 'scrape' && webScraper) {
+          const result = await webScraper.scrape(subArgs, IngressTier.RESEARCH);
+          return `◈ HOST SCRAPE [${result.title}]:\n\n${result.content.substring(0, 1000)}...`;
+        }
+
+        if (vsbClient) {
+          // Dispatch to Windows sidecar via VSB
+          const hostActorId = new Uint8Array([0x48, 0x4f, 0x53, 0x54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+          const sessionId = new Uint8Array(16);
+          const payload = new TextEncoder().encode(args);
+          const result = await vsbClient.sendSkillCheck(Math.floor(Math.random() * 65535), sessionId, hostActorId, payload);
+          return `◈ HOST RESPONSE [${sub}]: ${new TextDecoder().decode(result.payload).trim()}`;
+        }
+
+        return `◈ HOST COMMAND SENT: ${args} [VSB_OFFLINE]`;
       }
     }
   } catch (e) {
@@ -321,7 +340,7 @@ export class LangGraphOrchestrator {
    */
   async invoke(input: { prompt: string; tokens?: number | undefined; file_path?: string | undefined; diff?: string | undefined; thread_id?: string | undefined }): Promise<OrchestratorState> {
     // Phase 76 Task 3: Pre-dispatch system commands — no LLM roundtrip.
-    const sysResult = dispatchSystemCommand(input.prompt);
+    const sysResult = await dispatchSystemCommand(input.prompt, this.vsbClient, this.webScraper);
     if (sysResult !== null) {
       const tid = input.thread_id ?? randomUUID();
       const fastState: OrchestratorState = {
@@ -409,6 +428,12 @@ export class LangGraphOrchestrator {
     });
 
     // Phase 68.5: Trigger the asynchronous Memory Palace Observer to distill long-term facts
+    MemoryObserver.observeAndDistill(state).catch((e: unknown) => console.error(e));
+
+    return state;
+  }
+}
+68.5: Trigger the asynchronous Memory Palace Observer to distill long-term facts
     MemoryObserver.observeAndDistill(state).catch((e: unknown) => console.error(e));
 
     return state;

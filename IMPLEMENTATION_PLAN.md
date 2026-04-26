@@ -39,15 +39,15 @@
 
 ---
 
-## 🚀 PHASE 81: HOST-BRIDGE ARTERY (PRIMARY_TASK)
+## ✅ PHASE 81: HOST-BRIDGE ARTERY (COMPLETED)
 **Goal:** Establish direct control of the Windows host environment via a secure VSB sidecar.
-- [ ] **Task 1: Machina-Host Scaffolding (Go/Windows):** Scaffold the native Windows sidecar and VSB listener.
-- [ ] **Task 2: The Blackout Shroud:** Implement visual redaction for source code windows and path traversal blocking.
-- [ ] **Task 3: Tiered Web Artery:** Implement the 3-tier ingress model (Comms, Media, Research) via Obscura-Host bridge.
+- [x] **Task 1: Machina-Host Scaffolding (Go/Windows):** Materialized the Go-native Windows sidecar with VSB listener and capability handlers.
+- [x] **Task 2: The Blackout Shroud:** Implemented visual redaction for source code windows and path traversal blocking (Option C).
+- [x] **Task 3: Tiered Web Artery:** Materialized `WebScraperSidecar.ts` implementing the 3-tier ingress model.
 
 ---
 
-## 🌌 PHASE 82: SPATIAL MEMORY SYNTHESIS (NEURAL_PROMENADE)
+## 🌌 PHASE 82: SPATIAL MEMORY SYNTHESIS (NEURAL_PROMENADE) (PRIMARY_TASK)
 **Goal:** Transform the Synapse Palace into the Sovereign Hall's physical environment.
 - [ ] **Task 1: Synapse-as-Architecture:** Map vectorized triplets to 3D coordinates in the WebGL Hall.
 - [ ] **Task 2: Proximity Context:** Implement "Room-Scale" context loading based on agent/user spatial position.
