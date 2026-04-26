@@ -7,6 +7,8 @@
 
 use anyhow::Result;
 
+pub mod parseltongue;
+
 #[tokio::main]
 async fn main() -> Result<()> {
     println!("::/5Y573M-N071C3 : SYNAPSE_VISION_LAYER_ONLINE. [RUST_CANDLE]");

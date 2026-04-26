@@ -38,6 +38,7 @@
 | **Voice-Daemon** | [18458235609/voice-daemon](https://github.com/18458235609/voice-daemon) | **Local VAD:** Barge-in detection, state-machine audio routing, and UDS IPC. |
 | **Falcon Perception** | [tiiuae/Falcon](https://huggingface.co/tiiuae/falcon-7b) | **Vision Heart:** Multimodal segmenter and tactical OCR for immediate awareness. |
 | **Browser-Harness** | [browser-use/harness](https://github.com/browser-use/browser-harness) | **Control Artery:** Self-healing CDP automation and "Agent-Authored Skills." |
+| **Browser-Use** | [browser-use/browser-use](https://github.com/browser-use/browser-use) | **Control Artery:** Vision-powered natural language DOM control for Vivaldi. |
 | **xcap (Rust)** | [f-sh/xcap](https://github.com/f-sh/xcap) | **Optic Nerve:** Cross-platform (WSL2-aware) screen capture primitives. |
 | **Hermes Android** | [raulvidis/hermes-android](https://github.com/raulvidis/hermes-android) | **Mobile Artery:** Kotlin-based accessibility control and native RPC bridge. |
 

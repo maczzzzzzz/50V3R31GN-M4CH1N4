@@ -7,10 +7,11 @@ PARENT :: [[PHASE_87_SPEC]]
 
 ## ◈ ATOMIC MISSIONS
 
-### 1. Browser Perception [ ]
-- [ ] Scaffold `sidecar-browser-extension` using WebExtensions API (Vivaldi-optimized).
-- [ ] Implement secure WebSocket relay to the Host bridge (port 3012).
-- [ ] Enable "Context-Push" from Vivaldi to the Synapse Palace.
+### 1. Browser Perception & Control [ ]
+- [ ] Scaffold `sidecar-browser-extension` targeting Vivaldi.
+- [ ] Integrate `browser-use` python library to allow natural language DOM manipulation.
+- [ ] Connect the agent to the existing authenticated Vivaldi profile for seamless auth-bypass.
+- [ ] Implement secure WebSocket relay to the Host bridge (port 3012) for "Context-Push" and action streams.
 
 ### 2. Kernel Artery [ ]
 - [ ] Implement `sovereign-kernel` sidecar in Rust.

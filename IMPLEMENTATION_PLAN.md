@@ -86,7 +86,7 @@
 
 ## ✅ PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (COMPLETED)
 **Goal:** Expand Hermes' reach into host environments and browser-level cognition.
-- [x] **Task 1: Vivaldi Ingress:** `sidecar-browser-extension/` (MV3 WebExtension) materialized — WS relay to port 3012, context-menu push, Vivaldi-optimized sidebar.
+- [ ] **Task 1: Vivaldi & Browser-Use Ingress:** Scaffold `sidecar-browser-extension/` and integrate the Python `browser-use` library for vision-powered, natural language DOM control via the operator's authenticated Vivaldi profile.
 - [x] **Task 2: Kernel Vitals Artery:** `crates/sovereign-kernel` materialized — `/proc` telemetry streamed as `VitalsSnapshot` JSON via WS on port 3013.
 - [x] **Task 3: Plugin-Driven Tooling:** `src/core/plugins/SkillAuthor.ts` materialized — converts agent trajectories into live-registered MCP tools.
 
@@ -100,15 +100,15 @@
 
 ---
 
-## 🐍 PHASE 89: SERPENTINE ARTERY (CRYPTIC_PERSISTENCE) (PRIMARY_TASK)
+## 🐍 PHASE 89: SERPENTINE ARTERY (CRYPTIC_PERSISTENCE) (COMPLETED)
 **Goal:** Shore the system against social gaming and anchor memory in the physical kernel.
-- [ ] **Task 1: The Subliminal Ledger:** Implement linguistic steganography for hidden proof of correctness in docs.
-- [ ] **Task 2: ParselTongue:** Materialize high-entropy agent-only dialect for secure, private reasoning.
-- [ ] **Task 3: Kernel r00ts:** Implement hardware-backed TPM signing for all agentic social activities.
+- [x] **Task 1: The Subliminal Ledger:** Implement linguistic steganography for hidden proof of correctness in docs.
+- [x] **Task 2: ParselTongue:** Materialize high-entropy agent-only dialect for secure, private reasoning.
+- [x] **Task 3: Kernel r00ts:** Implement hardware-backed TPM signing for all agentic social activities.
 
 ---
 
-## 🦾 PHASE 90: THE UNIFIED SYMBOLIC ARTERY
+## 🦾 PHASE 90: THE UNIFIED SYMBOLIC ARTERY (PRIMARY_TASK)
 **Goal:** Total consolidation of agentic memory into a single, high-fidelity Datalog-on-SQLite engine.
 - [ ] **Task 1: Datalog-to-SQLite Mesh:** Implement a compiler that translates Datalog queries into our existing `os_triplets` FTS5 structure.
 
@@ -135,7 +135,7 @@
 
 ## ⚡ PHASE 93: THE HERMES SINGULARITY (SYSTEM_WIDE_BOOST)
 **Goal:** Deeply integrate Hermes v2026 capabilities to replace custom TS/Go proxies with native, high-fidelity agentic tools.
-- [ ] **Task 1: The CDP Purge:** Delete `chrome-remote-interface` and `WebScraperSidecar.ts`; route all perception through Hermes `browser_cdp`.
+- [ ] **Task 1: The CDP Purge & Self-Healing Harness:** Delete `chrome-remote-interface` and `WebScraperSidecar.ts`; route all perception through Hermes `browser_cdp`. Empower agents to write custom CDP helpers mid-flight (`browser-harness` pattern).
 - [ ] **Task 2: Orchestrator Subsumption:** Deprecate `LangGraphOrchestrator` in favor of Hermes's native subagent orchestrator role with file-coordination.
 - [ ] **Task 3: Transport Short-Circuit:** Implement Transport ABC for zero-latency streaming directly to the Flutter HUD and Pretext Shroud.
 - [ ] **Task 4: GUI Domination:** Embed Hermes natively into the Pretext UI using the `page-agent` skill, allowing it to dynamically rearrange its own HUD layout.
