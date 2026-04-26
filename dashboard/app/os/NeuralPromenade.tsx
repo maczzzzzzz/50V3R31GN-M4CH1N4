@@ -68,7 +68,7 @@ export default function NeuralPromenade() {
       .backgroundColor('#080810')
       .nodeThreeObject((node: any) => {
         // Task 3: Static Storm for deadlocks (mocked via source_id pattern for now)
-        if (node.source_id.includes('deadlock') || Math.random() > 0.98) {
+        if (node.source_id.includes('deadlock') || Math.random() > 0.999) {
           const geometry = new THREE.SphereGeometry(3);
           const material = new THREE.ShaderMaterial({
             uniforms: {
@@ -80,7 +80,6 @@ export default function NeuralPromenade() {
           });
           const mesh = new THREE.Mesh(geometry, material);
           
-          // Animate time uniform
           const animate = () => {
             material.uniforms.time.value += 0.05;
             requestAnimationFrame(animate);
@@ -88,6 +87,21 @@ export default function NeuralPromenade() {
           animate();
           
           return mesh;
+        }
+        
+        // Golden Pulse for High-Reputation Shards
+        if (node.reputation_score && node.reputation_score > 0) {
+          const size = 2 + (node.reputation_score * 0.5);
+          const geometry = new THREE.SphereGeometry(size);
+          const material = new THREE.MeshBasicMaterial({ color: 0xffd700 });
+          return new THREE.Mesh(geometry, material);
+        }
+
+        // Agent Avatars
+        if (node.table === 'npcs') {
+          const geometry = new THREE.DodecahedronGeometry(4);
+          const material = new THREE.MeshLambertMaterial({ color: 0xb8bb26 });
+          return new THREE.Mesh(geometry, material);
         }
         
         // Standard node
@@ -99,6 +113,8 @@ export default function NeuralPromenade() {
         });
         return new THREE.Mesh(sphere, mat);
       })
+      .linkWidth((link: any) => Math.min(link.value || 1, 5))
+      .linkColor(() => '#fb4934')
       .onNodeClick((node: any) => {
         // Proximity Context Loading
         console.log(`>> SPATIAL FOCUS: ${node.label} at (${node.x}, ${node.y}, ${node.z})`);

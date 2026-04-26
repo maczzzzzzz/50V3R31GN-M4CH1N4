@@ -67,21 +67,21 @@ export class WebScraperSidecar {
       // Tier 1 (Comms) uses the default profile (as it needs session persistence for WhatsApp/Discord)
       // but we enforce "Read-Only" via logic.
       if (tier === IngressTier.MEDIA || tier === IngressTier.RESEARCH) {
-        const { browserContextId: ctxId } = await browser.Target.createBrowserContext();
+        const { browserContextId: ctxId } = await (browser as any).Target.createBrowserContext();
         browserContextId = ctxId;
-        const { targetId: tId } = await browser.Target.createTarget({
+        const { targetId: tId } = await (browser as any).Target.createTarget({
           url: 'about:blank',
           browserContextId,
         });
         targetId = tId;
       } else {
         // Tier 1: Use default context
-        const { targetId: tId } = await browser.Target.createTarget({ url: 'about:blank' });
+        const { targetId: tId } = await (browser as any).Target.createTarget({ url: 'about:blank' });
         targetId = tId;
       }
 
       // 3. Connect to the specific target
-      client = await CDP({ target: targetId, host: this.host, port: this.port });
+      client = await CDP({ target: targetId as unknown as string, host: this.host, port: this.port });
       await Promise.all([
         client.Page.enable(),
         client.Runtime.enable(),
@@ -94,7 +94,7 @@ export class WebScraperSidecar {
         await client.Network.setRequestInterception({
           patterns: [{ urlPattern: '*', interceptionStage: 'Request' }]
         });
-        client.Network.requestIntercepted(async ({ interceptionId, request }) => {
+        client.Network.requestIntercepted(async ({ interceptionId, request }: { interceptionId: string, request: any }) => {
           const isMutation = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method);
           if (isMutation) {
             logger.warn('WebScraperSidecar', traceId, `Blocked mutation request in Tier 1: ${request.method} ${request.url}`);
@@ -147,9 +147,9 @@ export class WebScraperSidecar {
 
       // 7. Cleanup
       await client.close();
-      await browser.Target.closeTarget({ targetId: targetId! });
+      await (browser as any).Target.closeTarget({ targetId: targetId! });
       if (browserContextId) {
-        await browser.Target.disposeBrowserContext({ browserContextId });
+        await (browser as any).Target.disposeBrowserContext({ browserContextId });
       }
       await browser.close();
 

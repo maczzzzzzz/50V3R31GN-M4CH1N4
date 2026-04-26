@@ -47,7 +47,7 @@ export interface AaakBlock {
 const STOP_WORDS = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'were', 'of', 'in', 'on', 'at', 'to', 'for', 'and', 'or']);
 
 /** Compress a phrase by removing stop words and applying AAAK abbreviations. */
-function compress(text: string): string {
+export function compress(text: string): string {
   return text
     .split(/\s+/)
     .filter(w => !STOP_WORDS.has(w.toLowerCase()))

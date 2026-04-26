@@ -5,8 +5,7 @@
  * Implements autonomous prompt evolution via LangGraph and Sovereign Intelligence.
  */
 
-import { sqlite3 } from 'modernc.org/sqlite'; // Schematic placeholder for actual DB access
-import { DecisionAudit } from '@/types/audit';
+import Database from 'better-sqlite3';
 
 export interface GepaCandidate {
   prompt: string;
@@ -35,7 +34,7 @@ export class GepaOrchestrator {
    * Evaluates candidates based on Pareto efficiency (Speed vs Quality).
    */
   public evaluatePareto(candidates: GepaCandidate[]): GepaCandidate {
-    return candidates.sort((a, b) => (b.score / b.tokens) - (a.score / a.tokens))[0];
+    return candidates.sort((a, b) => (b.score / b.tokens) - (a.score / a.tokens))[0]!;
   }
 
   /**

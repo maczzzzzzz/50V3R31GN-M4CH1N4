@@ -1,4 +1,4 @@
-import { SpatialObserver, SpatialPixel } from './SpatialObserver';
+import { SpatialObserver, SpatialPixel } from './SpatialObserver.js';
 
 /**
  * SPATIAL VLA (Vision-Language-Action) — PHASE 84, TASK 2

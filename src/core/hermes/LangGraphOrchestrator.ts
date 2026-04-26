@@ -21,6 +21,8 @@ import { execSync, spawnSync } from 'node:child_process';
 import Database from 'better-sqlite3';
 import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
+import { VsbClient } from '../../api/vsb-client.js';
+import { WebScraperSidecar, IngressTier } from '../../shared/WebScraperSidecar.js';
 
 // ---------------------------------------------------------------------------
 // Phase 76 Task 3 — Hermes System Command Registry
@@ -115,7 +117,7 @@ async function dispatchSystemCommand(
         // Phase 81: Host-Bridge Artery.
         if (!args) return `◈ HOST ERROR: No command specified. Try /host volume 50 | /host launch obsidian | /host scrape <url>`;
         
-        const sub = args.split(/\s+/)[0]?.toLowerCase();
+        const sub = args.split(/\s+/)[0]?.toLowerCase() || '';
         const subArgs = args.slice(sub.length).trim();
 
         if (sub === 'scrape' && webScraper) {
@@ -333,9 +335,16 @@ function routeEntry(state: OrchestratorState, cfg: OrchestratorConfig): NodeTarg
 
 export class LangGraphOrchestrator {
   private cfg: OrchestratorConfig;
+  private vsbClient?: VsbClient;
+  private webScraper?: WebScraperSidecar;
 
-  constructor(cfg: Partial<OrchestratorConfig> = {}) {
+  constructor(
+    cfg: Partial<OrchestratorConfig> = {}, 
+    deps?: { vsbClient?: VsbClient; webScraper?: WebScraperSidecar }
+  ) {
     this.cfg = { ...DEFAULT_CONFIG, ...cfg };
+    this.vsbClient = deps?.vsbClient;
+    this.webScraper = deps?.webScraper;
   }
 
   private saveCheckpoint(threadId: string, state: OrchestratorState) {
@@ -453,6 +462,11 @@ export class LangGraphOrchestrator {
 
     // Phase 68.5: Trigger the asynchronous Memory Palace Observer to distill long-term facts
     MemoryObserver.observeAndDistill(state).catch((e: unknown) => console.error(e));
+
+    return state;
+  }
+}
+
 
     return state;
   }

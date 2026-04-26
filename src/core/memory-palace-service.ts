@@ -147,7 +147,7 @@ const DRAWER_COLLECTION = 'sovereign_drawer';
 
 export class MemoryPalaceService {
   private readonly oracle: UnifiedOracleClient;
-  public readonly tripletService?: OsTripletService;
+  public readonly tripletService?: OsTripletService | undefined;
   private activeContext: PalaceContext = {
     wingId: null,
     wingName: null,

@@ -56,6 +56,7 @@ import { StoryEngine } from './core/story-engine.js';
 import { VsbClient } from './api/vsb-client.js';
 import { GmApprovalQueue } from './core/gm-approval-queue.js';
 import { NightMarketService } from './core/night-market-service.js';
+import { WebScraperSidecar } from './shared/WebScraperSidecar.js';
 import { RedTradeService } from './core/red-trade-service.js';
 import { UnifiedOracleClient } from './db/unified-oracle-client.js';
 import { ArchitectPassService } from './core/architect-pass-service.js';

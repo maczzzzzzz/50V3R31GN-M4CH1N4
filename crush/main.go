@@ -481,6 +481,10 @@ func main() {
 		case "propose":
 			ProposeCommand(os.Args[2:])
 			return
+
+		case "social":
+			SocialCommand(os.Args[2:])
+			return
 		}
 	}
 

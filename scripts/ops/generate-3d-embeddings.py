@@ -6,12 +6,15 @@ import os
 
 # Config
 DB_PATH = "data/SovereignIntelligence.db"
+AKASHIK_PATH = "data/Akashik.db"
 MODEL_NAME = "all-MiniLM-L6-v2"
 
 def main():
     print(">> INITIATING SPATIAL EMBEDDING GENERATION...")
     db = sqlite3.connect(DB_PATH)
+    akashik_db = sqlite3.connect(AKASHIK_PATH)
     cursor = db.cursor()
+    akashik_cursor = akashik_db.cursor()
 
     # 1. Prepare Schema
     cursor.execute("CREATE TABLE IF NOT EXISTS spatial_node_mapping (id INTEGER PRIMARY KEY AUTOINCREMENT, source_table TEXT NOT NULL, source_id TEXT NOT NULL, label TEXT, UNIQUE(source_table, source_id))")
@@ -32,6 +35,14 @@ def main():
     cursor.execute("SELECT DISTINCT subject_id FROM os_triplets")
     for row in cursor.fetchall():
         nodes.append(("os_triplets_subject", row[0], row[0], row[0]))
+
+    # NPCs (Agents)
+    try:
+        akashik_cursor.execute("SELECT id, name, disposition FROM npcs")
+        for row in akashik_cursor.fetchall():
+            nodes.append(("npcs", str(row[0]), f"{row[1]} {row[2]}", row[1]))
+    except Exception as e:
+        print(f"Warning fetching NPCs: {e}")
 
     if not nodes:
         print("!! NO DATA FOUND FOR EMBEDDING.")
