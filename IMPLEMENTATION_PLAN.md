@@ -120,16 +120,25 @@
 - [ ] **Task 2: Postcard Protocol:** Implement `POSTCARD-v1` snapshots for continuous social presence and reputation tracking.
 - [ ] **Task 3: Unified Vision Extension:** Integrate mobile screen capture as a virtual sensory source in the **Sovereign Observer**.
 - [ ] **Task 4: The Deportation Hardgate:** Implement Vesper-driven session revocation and physical purge of unstable agents from mobile.
+- [ ] **Task 5: Hermes Native Messaging Adapter:** Harness Hermes v2026 native messaging (WhatsApp/QQBot) for autonomous Comms Ingress.
 
 ---
 
-## 🖥️ PHASE 92: MONOLITHIC PRETEXT HUD (V2)
-**Goal:** Fresh build of the Sovereign HUD using the Pretext "Pure Arithmetic" layout engine.
+## 🖥️ PHASE 92: MONOLITHIC PRETEXT HUD (V2) & HERMES V2026 INTEGRATION
+**Goal:** Fresh build of the Sovereign HUD using the Pretext "Pure Arithmetic" layout engine, supercharged by Hermes Agent v3.8.6.
 - [ ] **Task 1: The Pretext Shroud:** Materialize `PretextShroud.tsx` as the single-file UI baseline.
 - [ ] **Task 2: Universal Intelligence Boost:** Integrate Lossless Context DAGs (hermes-lcm) and self-evolving GEPA logic.
 - [ ] **Task 3: Circular Context Rings:** Port the high-density telemetry rings from Hermes-UI to the Pretext canvas.
 - [ ] **Task 4: Mobile Pretext Unification:** Port the low-level Paragraph API rendering to the Flutter HUD for 100% design parity.
 
+---
+
+## ⚡ PHASE 93: THE HERMES SINGULARITY (SYSTEM_WIDE_BOOST)
+**Goal:** Deeply integrate Hermes v2026 capabilities to replace custom TS/Go proxies with native, high-fidelity agentic tools.
+- [ ] **Task 1: The CDP Purge:** Delete `chrome-remote-interface` and `WebScraperSidecar.ts`; route all perception through Hermes `browser_cdp`.
+- [ ] **Task 2: Orchestrator Subsumption:** Deprecate `LangGraphOrchestrator` in favor of Hermes's native subagent orchestrator role with file-coordination.
+- [ ] **Task 3: Transport Short-Circuit:** Implement Transport ABC for zero-latency streaming directly to the Flutter HUD and Pretext Shroud.
+- [ ] **Task 4: GUI Domination:** Embed Hermes natively into the Pretext UI using the `page-agent` skill, allowing it to dynamically rearrange its own HUD layout.
 
 ---
 **LINKS:** [[OS_CORE]]

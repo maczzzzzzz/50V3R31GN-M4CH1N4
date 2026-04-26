@@ -23,7 +23,7 @@
 | **Omi (Flutter)** | [BasedHardware/omi](https://github.com/BasedHardware/omi) | **Synapse Model:** Real-time conversation extraction and "Synapse" tab logic. |
 | **Logseq (Core)** | [logseq/logseq](https://github.com/logseq/logseq) | **Hub:** Local-first, block-level graph for agentic memory and meeting minutes. |
 | **DataScript (Clojure)**| [tonsky/datascript](https://github.com/tonsky/datascript) | **Graph Engine:** Immutable Datalog database for agentic memory queries. |
-| **Hermes Agent (v2026)**| [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | **Interface:** React/Ink TUI and persistent cross-session memory (FTS5). |
+| **Hermes Agent (v3.8.6)**| [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent/releases/tag/v3.8.6) | **Interface & Orchestration:** Pluggable Transport ABC, browser_cdp, page-agent, and native orchestrator role. |
 | **Hermes-Kanban** | [GumbyEnder/hermes-kanban](https://github.com/GumbyEnder/hermes-kanban) | **Governance:** API-driven task management and Obsidian board sync. |
 | **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |
 | **GEPA** | [gepa-ai/gepa](https://github.com/gepa-ai/gepa) | **Reflective Evolution:** Prompt optimization via genetic parent-child mutation. |
