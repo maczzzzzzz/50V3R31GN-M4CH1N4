@@ -485,6 +485,10 @@ func main() {
 		case "social":
 			SocialCommand(os.Args[2:])
 			return
+
+		case "cron":
+			cronCmd.Execute()
+			return
 		}
 	}
 
