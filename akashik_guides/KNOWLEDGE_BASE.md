@@ -21,7 +21,8 @@
 | Repository | Source Link | Role |
 | :--- | :--- | :--- |
 | **Omi (Flutter)** | [BasedHardware/omi](https://github.com/BasedHardware/omi) | **Synapse Model:** Real-time conversation extraction and "Synapse" tab logic. |
-| **AppFlowy Cloud** | [AppFlowy-IO/AppFlowy-Cloud](https://github.com/AppFlowy-IO/AppFlowy-Cloud) | **Hub:** Structured documentation and Roadmap Artery synchronization. |
+| **Logseq (Core)** | [logseq/logseq](https://github.com/logseq/logseq) | **Hub:** Local-first, block-level graph for agentic memory and meeting minutes. |
+| **DataScript (Clojure)**| [tonsky/datascript](https://github.com/tonsky/datascript) | **Graph Engine:** Immutable Datalog database for agentic memory queries. |
 | **Hermes Agent (v2026)**| [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | **Interface:** React/Ink TUI and persistent cross-session memory (FTS5). |
 | **Hermes-Kanban** | [GumbyEnder/hermes-kanban](https://github.com/GumbyEnder/hermes-kanban) | **Governance:** API-driven task management and Obsidian board sync. |
 | **Atropos** | [NousResearch/Atropos](https://github.com/NousResearch/Atropos) | **RL Framework:** Asynchronous collection and evaluation of mission trajectories. |

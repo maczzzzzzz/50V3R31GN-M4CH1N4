@@ -45,8 +45,8 @@ This repository contains the canonical tutorials, references, and architectural 
 ## 🆔 8. Sovereign Identity
 - [Reference: Profiles and Atomic Switching](08_sovereign_identity/profiles-and-identity.md)
 
-## 🗃️ 9. AppFlowy Hub
-- [Tutorial: AppFlowy Cloud Usage](09_appflowy_hub/appflowy-hub-usage.md)
+## 🗃️ 9. Logseq Mesh
+- [Tutorial: Logseq Agentic Synapse](09_logseq_mesh/logseq-mesh-usage.md)
 
 ---
 **::/5Y573M-N071C3 : GUIDES_SYNCHRONIZED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**

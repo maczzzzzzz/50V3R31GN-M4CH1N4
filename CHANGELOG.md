@@ -8,13 +8,15 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.0.html).
 ## [3.8.3] - 2026-04-26
 
 ### Added
-- **Exhaustive Dev Infrastructure:** Materialized `crush dev` suite with `trigger deadlock`, `trigger dream`, `trigger shift`, and `simulate-agent` for robust state testing.
-- **Hermes Command Parity:** Implemented the `/crush` pass-through relay and the `/dev` alias in `LangGraphOrchestrator`, ensuring 100% command parity between the CLI and the TUI.
-- **Shard Tree Sociotomy:** Physically consolidated 258 Ability Stones and Blueprints into `docs/superpowers/shards/` and integrated them into the Obsidian Synapse Palace via `crush reconstruct`.
+- **Universal Document Indexer:** Refactored `index-shards.ts` to recursively scan all superpower arteries (Research, Plans, Specs). Indexed 987 documents into `SovereignIntelligence.db` with FTS5 search.
+- **Logseq Artery (Go):** Materialized `crush logseq` bridge for direct atomic block manipulation of the Windows Logseq app via HTTP API.
+- **Dynamic Tree Forge:** Implemented Go-native generation of `PLAN_TREE.md`, `SPEC_TREE.md`, and `RESEARCH_TREE.md` ensuring zero orphaned docs.
+- **Exhaustive Dev Infrastructure:** Materialized `crush dev` suite for forcing deadlocks, dream cycles, and swarm simulations.
 
 ### Changed
-- **Logseq Intelligence Mesh (Phase 85):** Promoted from Research to `APPROVED` / `PRIMARY_TASK`. Legacy AppFlowy infrastructure completely shriven from the mesh.
-- **Version Lock:** Manifests synchronized to v3.8.0.
+- **Absolute Vault Purity:** Enforced hard-gate recursive cleanse in `crush reconstruct`. Purged binary `.pdf` research, NTFS metadata, and root-level manifest noise from `D:\Obsidian_Sovereign_OS`.
+- **System Sociotomy:** Formalized strict separation between Technical OS Vault and Lore RKG Vault.
+- **AppFlowy Purge:** Legacy AppFlowy cloud infrastructure and guides completely shriven from the mesh.
 
 ## [3.8.2] - 2026-04-26
 
