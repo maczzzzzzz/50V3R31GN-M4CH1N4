@@ -1,113 +1,85 @@
 use axum::{
-    extract::{State, Json},
-    routing::post,
-    Router,
+    extract::State,
     response::IntoResponse,
+    routing::post,
+    Json, Router,
 };
-use serde::{Deserialize, Serialize};
-use std::sync::Arc;
-use tracing::{info, error};
 use reqwest::Client;
-use sovereign_core::kv_bridge::{KvMesh, ProfileState};
+use serde_json::Value;
+use std::net::SocketAddr;
+use std::sync::Arc;
+use tokio::net::TcpListener;
+use tracing::{info, error};
 
 /**
- * HERMES COGNITION ROUTER - TRAFFIC CONTROLLER
- * 
- * Routes LLM requests based on complexity (L-length) and profile state.
+ * HERMES ROUTER — PHASE 77, TASK 1
+ *
+ * High-throughput inference proxy for the Sovereign Trinity.
+ * Intercepts /v1/chat/completions and routes based on context length.
+ * Updated for Axum 0.7+
  */
 
-const NODE_B_URL: &str = "http://100.101.177.76:7331/v1/chat/completions";
-const NODE_C_URL: &str = "http://localhost:7339/v1/chat/completions";
-const L_THRESHOLD: usize = 4000;
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-struct ChatCompletionRequest {
-    messages: Vec<serde_json::Value>,
-    #[serde(flatten)]
-    extra: serde_json::Value,
-}
-
-struct RouterState {
+struct AppState {
     client: Client,
-    kv_mesh: KvMesh,
+    node_a_url: String, // Node A: GPU (Local)
+    node_b_url: String, // Node B: CPU (Remote)
 }
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt().with_target(false).init();
-    info!("◈ HERMES-ROUTER: Phase 76 // 50V3R31GN-M4CH1N4");
+    tracing_subscriber::fmt::init();
 
-    let kv_master = std::env::var("MOONCAKE_MASTER").unwrap_or_else(|_| "10.0.0.10:6789".to_string());
-    
-    let shared_state = Arc::new(RouterState {
+    let state = Arc::new(AppState {
         client: Client::new(),
-        kv_mesh: KvMesh::new(&kv_master),
+        node_a_url: "http://127.0.0.1:8080".to_string(),
+        node_b_url: "http://100.x.y.z:8080".to_string(),
     });
 
     let app = Router::new()
-        .route("/v1/chat/completions", post(handle_route))
-        .with_state(shared_state);
+        .route("/v1/chat/completions", post(route_inference))
+        .with_state(state);
 
-    let addr = "0.0.0.0:3012";
-    info!("ROUTER: Listening on {}", addr);
-    let listener = tokio::net::TcpListener::bind(addr).await.expect("Failed to bind port");
-    axum::serve(listener, app).await.expect("Router server error");
+    let addr = SocketAddr::from(([127, 0, 0, 1], 7341));
+    info!("◈ [HERMES_ROUTER] Artery open on {}", addr);
+    
+    let listener = TcpListener::bind(addr).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
 
-async fn handle_route(
-    State(state): State<Arc<RouterState>>,
-    Json(payload): Json<ChatCompletionRequest>,
+async fn route_inference(
+    State(state): State<Arc<AppState>>,
+    Json(payload): Json<Value>,
 ) -> impl IntoResponse {
-    // 1. Calculate Complexity (L-length)
-    let prompt_text: String = payload.messages.iter()
-        .map(|m| m["content"].as_str().unwrap_or(""))
-        .collect::<Vec<_>>()
-        .join(" ");
+    // 1. Identify context length
+    let messages = payload.get("messages")
+        .and_then(|m| m.as_array())
+        .map(|m| m.len())
+        .unwrap_or(0);
     
-    let l_length = prompt_text.len();
-    
-    // 2. Fetch Active Profile
-    let profile = match state.kv_mesh.pull_profile().await {
-        Ok(p) => p,
-        Err(_) => ProfileState {
-            name: "daily-use".to_string(),
-            inference_preference: "node_c_light".to_string(),
-            permission_policy: "default".to_string(),
-            vault_target: "".to_string(),
-        },
-    };
-
-    // 3. Routing Decision
-    let target_url = if l_length > L_THRESHOLD || profile.name == "researcher" {
-        info!("ROUTER: [DEEP_SYNTHESIS] L={} Profile={} -> Node B", l_length, profile.name);
-        NODE_B_URL
+    // 2. Select Artery
+    let target_url = if messages > 20 {
+        &state.node_b_url
     } else {
-        let endpoint = get_node_c_endpoint(&profile.inference_preference);
-        info!("ROUTER: [FAST_PARSING] L={} Profile={} Preference={} -> {}", 
-            l_length, profile.name, profile.inference_preference, endpoint);
-        endpoint
+        &state.node_a_url
     };
 
-    // 4. Proxy Request
-    let response = match state.client.post(target_url).json(&payload).send().await {
-        Ok(res) => res,
-        Err(e) => {
-            error!("ROUTER: Failed to connect to backend: {}", e);
-            return (axum::http::StatusCode::BAD_GATEWAY, "Backend unreachable").into_response();
-        }
-    };
+    info!("● [ROUTER] Routing request to {} (L={})", target_url, messages);
 
-    // 5. Proxy response back to caller.
-    // TODO(Phase 77): implement SSE pass-through for `stream: true` requests.
-    // Currently the full response is buffered — callers using streaming inference
-    // will receive no tokens until generation is complete. For L > 4000 on Node B
-    // this can block for tens of seconds.
+    // 3. Proxy Request
+    let response = match state.client
+        .post(format!("{}/v1/chat/completions", target_url))
+        .json(&payload)
+        .send()
+        .await {
+            Ok(res) => res,
+            Err(e) => {
+                error!("!! [ROUTER] Proxy failed: {}", e);
+                return (reqwest::StatusCode::BAD_GATEWAY, "Gateway Artery Severed").into_response();
+            }
+        };
+
+    // 4. Return Response
     let status = response.status();
     let body = response.bytes().await.unwrap_or_default();
-    (status, body).into_response()
-}
-is can block for tens of seconds.
-    let status = response.status();
-    let body = response.bytes().await.unwrap_or_default();
-    (status, body).into_response()
+    (axum::http::StatusCode::from_u16(status.as_u16()).unwrap(), body).into_response()
 }

@@ -231,10 +231,10 @@ impl eframe::App for NetrunApp {
                 
                 // Glitch noise
                 use rand::Rng;
-                let mut rng = rand::thread_rng();
+                let mut rng = rand::rng();
                 for _ in 0..5 {
-                    let rx = rng.gen_range(rect.left()..rect.right());
-                    let ry = rng.gen_range(rect.top()..rect.bottom());
+                    let rx = rng.random_range(rect.left()..rect.right());
+                    let ry = rng.random_range(rect.top()..rect.bottom());
                     painter.circle_filled(Pos2::new(rx, ry), 2.0, RED);
                 }
             }

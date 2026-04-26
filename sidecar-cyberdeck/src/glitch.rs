@@ -16,7 +16,7 @@ impl GlitchEngine {
     pub fn new() -> Self {
         Self {
             intensity: 0.0,
-            rng: rand::thread_rng(),
+            rng: rand::rng(),
         }
     }
 
@@ -51,9 +51,9 @@ impl GlitchEngine {
         // ── Noise pixels ─────────────────────────────────────────────────────
         let noise_count = (self.intensity * 30.0) as usize;
         for _ in 0..noise_count {
-            let rx: f32 = self.rng.gen_range(rect.left()..rect.right());
-            let ry: f32 = self.rng.gen_range(rect.top()..rect.bottom());
-            let alpha: u8 = self.rng.gen_range(80..200);
+            let rx: f32 = self.rng.random_range(rect.left()..rect.right());
+            let ry: f32 = self.rng.random_range(rect.top()..rect.bottom());
+            let alpha: u8 = self.rng.random_range(80..200);
             let color = if self.intensity > 0.7 {
                 Color32::from_rgba_unmultiplied(0xff, 0x20, 0x20, alpha)
             } else {
@@ -69,7 +69,7 @@ impl GlitchEngine {
             for i in 0..band_count {
                 let band_y = rect.top()
                     + ((t * 2.3 + i as f32 * 97.1).sin().abs() * rect.height());
-                let band_h = 3.0 + self.rng.gen_range(0.0f32..6.0);
+                let band_h = 3.0 + self.rng.random_range(0.0f32..6.0);
                 let shift = (t * 7.0 + i as f32 * 33.3).sin() * self.intensity * 20.0;
                 let alpha: u8 = (self.intensity * 60.0) as u8;
                 let slice_color =
