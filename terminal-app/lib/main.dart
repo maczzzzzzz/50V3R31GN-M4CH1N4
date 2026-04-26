@@ -5,6 +5,9 @@ import 'services/chat_service.dart';
 import 'services/artery_client.dart';
 import 'services/database_service.dart';
 import 'services/memory_provider.dart';
+import 'services/openclaw_bridge.dart';
+import 'services/screen_capture_service.dart';
+import 'services/postcard_service.dart';
 import 'screens/chat_screen.dart';
 
 void main() async {
@@ -23,6 +26,12 @@ void main() async {
         Provider.value(value: dbService),
         ChangeNotifierProvider(create: (_) => MemoryProvider()),
         ChangeNotifierProvider(create: (_) => ArteryClient()),
+        ChangeNotifierProvider(create: (_) => OpenClawBridge()),
+        ChangeNotifierProvider(create: (_) => ScreenCaptureService()),
+        ProxyProvider<OpenClawBridge, PostcardService>(
+          update: (_, bridge, __) => PostcardService(bridge),
+          dispose: (_, postcardService) => postcardService.dispose(),
+        ),
         Provider(create: (_) => ChatService()),
       ],
       child: const SovereignApp(),

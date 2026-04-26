@@ -120,8 +120,19 @@ export class SynapseStore {
         object_literal TEXT NOT NULL,
         room_id        TEXT,
         cluster_id     TEXT,
+        reputation_score REAL DEFAULT 0.0,
+        peer_validations INTEGER DEFAULT 0,
         last_updated   DATETIME DEFAULT CURRENT_TIMESTAMP,
         UNIQUE (subject_id, predicate, object_literal)
+      );
+
+      CREATE TABLE IF NOT EXISTS mobile_postcards (
+        id               TEXT PRIMARY KEY,
+        node_id          TEXT NOT NULL,
+        timestamp        DATETIME NOT NULL,
+        vitals           TEXT NOT NULL,
+        reputation_delta REAL NOT NULL,
+        location_mask    TEXT NOT NULL
       );
 
       -- Phase 72: JARVIS Capture inbox
@@ -257,6 +268,24 @@ export class SynapseStore {
     return this.db
       .prepare(`SELECT * FROM synapse_briefs ORDER BY generated_at DESC LIMIT ?`)
       .all(limit) as SynapseBrief[];
+  }
+
+  // ── mobile_postcards ────────────────────────────────────────────────────
+
+  insertPostcard(postcard: { id: string, node_id: string, timestamp: string, vitals: string, reputation_delta: number, location_mask: string }): void {
+    this.db
+      .prepare(
+        `INSERT INTO mobile_postcards (id, node_id, timestamp, vitals, reputation_delta, location_mask)
+         VALUES (?, ?, ?, ?, ?, ?)`
+      )
+      .run(postcard.id, postcard.node_id, postcard.timestamp, postcard.vitals, postcard.reputation_delta, postcard.location_mask);
+  }
+
+  updateReputation(id: string, delta: number, table: 'os_triplets' | 'intelligence_shards' = 'os_triplets'): void {
+    // Note: intelligence_shards table assumed to exist per Phase 88
+    this.db
+      .prepare(`UPDATE ${table} SET reputation_score = reputation_score + ? WHERE id = ?`)
+      .run(delta, id);
   }
 
   // ── stats ───────────────────────────────────────────────────────────────

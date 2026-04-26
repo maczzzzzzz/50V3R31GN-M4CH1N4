@@ -20,7 +20,7 @@
     - `docs/superpowers/plans/PLAN_2026-04-26-phase-91-atlas-mobile.md`
     - `docs/superpowers/plans/PLAN_2026-04-26-mobile-android-control-plan.md`
 3.  **IGNITE PHASE 91:**
-    - Scaffold the **Mobile Bridge** (`openclaw_bridge.dart`) to enable `node.invoke` RPC over Tailscale.
+    - Scaffold the **Mobile Mesh** (`openclaw_bridge.dart`) to enable `node.invoke` RPC over Tailscale.
     - Implement the **Postcard Protocol** for continuous field presence.
     - Extend the **Sovereign Observer** to 100% Mobile Screen Awareness.
 

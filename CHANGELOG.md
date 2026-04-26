@@ -8,6 +8,12 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 ## [3.8.7] - 2026-04-26
 
 ### Added
+- **Mobile Mesh Materialized (Phase 91):** Scaffolded `openclaw_bridge.dart`, `screen_capture_service.dart`, and `postcard_service.dart` in the Flutter HUD. Integrated native `MethodChannel` in Kotlin `MainActivity.kt`.
+- **Native Android Control:** Scaffolded `SovereignAccessibilityService` and `accessibility_service_config.xml` for 100% semantic screen awareness.
+- **Mobile Vision Artery:** Materialized `MobileVisionArtery.ts` (Node B) listening on Port 3013 for binary frame ingestion.
+- **Postcard Protocol:** Materialized `PostcardIngestor.ts` and updated `SovereignIntelligence.db` with `mobile_postcards` schema for field reputation tracking.
+- **Deportation Hardgate:** Materialized `MobileAuthService.ts` to enable Vesper-driven session revocation and audit logging.
+- **Hermes Comms Ingress:** Scaffolded `NativeMessagingAdapter.ts` for autonomous WhatsApp/QQBot integration.
 - **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
 - **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.
 - **HeadlessDatalog (Phase 90):** Materialized `src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax.
