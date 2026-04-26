@@ -1,6 +1,6 @@
 # User Guide: Mission Swarm Orchestration
 
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Role:** Procedural Mission Generation & Tactical Analysis
 
 ---

@@ -1,5 +1,5 @@
 # SPECIFICATION: ATOMIC PROFILE ENGINE
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** DRAFT
 **Topic:** Real-time, declarative context switching across the Sovereign Trinity.
 

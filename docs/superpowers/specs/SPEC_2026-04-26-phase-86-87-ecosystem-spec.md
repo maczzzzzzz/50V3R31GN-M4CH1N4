@@ -8,7 +8,7 @@ PARENT :: [[OS_CORE]]
 - **Artery 3:** `terminal-app/` (Dart) - HUD restoration and Theme Engine hardening.
 
 ## ◈ PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION
-- **Artery 1:** `sidecar-browser-extension/` (Vivaldi + `browser-use`) - Vision-powered DOM understanding and natural language browser control via existing authenticated profiles.
+- **Artery 1:** `sidecar-browser-extension/` (Vivaldi + `crush/harness`) - Vision-powered DOM understanding and natural language browser control via existing authenticated profiles, utilizing the Go-Native Sovereign Harness to completely avoid Python/FastAPI dependencies.
 - **Artery 2:** `crates/sovereign-kernel/` - BPF-based Linux telemetry sidecar.
 - **Artery 3:** `src/core/hermes/SkillAuthor.ts` - Logic for agents to autonomously author and register new plugins/tools.
 

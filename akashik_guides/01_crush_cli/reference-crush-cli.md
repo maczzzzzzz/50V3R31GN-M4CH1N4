@@ -1,6 +1,6 @@
 # User Guide: Crush CLI (The Control Plane)
 
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Role:** Primary Human Interface for 50V3R31GN-M4CH1N4
 
 ---
@@ -42,7 +42,7 @@ No world-state change occurs without your physical `ACK`. You can approve transa
 - **`[VETO]`** / **`n`**: REJECTED — Rollback the transaction.
 
 ---
-*Command and Control: 50V3R31GN-M4CH1N4 v3.8.6 Hardened.*
+*Command and Control: 50V3R31GN-M4CH1N4 v3.8.7 Hardened.*
 
 
 ---

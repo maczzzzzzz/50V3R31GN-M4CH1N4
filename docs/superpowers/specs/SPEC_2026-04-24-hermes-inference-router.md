@@ -1,5 +1,5 @@
 # SPECIFICATION: HERMES INFERENCE ROUTER
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** DRAFT
 **Topic:** Intelligent payload routing based on profile and hardware capacity.
 

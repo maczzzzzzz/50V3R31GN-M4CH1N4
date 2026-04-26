@@ -1,5 +1,5 @@
 /**
- * PLUGIN_REGISTRY : v3.8.6 (Sovereign Ecosystem)
+ * PLUGIN_REGISTRY : v3.8.7 (Sovereign Ecosystem)
  * 
  * Manages decoupled integrations (Obsidian, Logseq, Flutter) using an 
  * Omi-inspired capability manifest.

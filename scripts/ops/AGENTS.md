@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : OPS_COMMAND // SCRIBE_AUTHORITY
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Sector:** /scripts/ops/
 **Role:** System Ignition, Synchronization & Manifest Governance.
 

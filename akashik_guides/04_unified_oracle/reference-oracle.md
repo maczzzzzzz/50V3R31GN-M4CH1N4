@@ -1,5 +1,5 @@
 # ◈ User Guide: The Strategic Oracle (Node C) // RECURSIVE_MIND
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Role:** Logical Rule-Checking and Tier 2 Vision
 
 ---

@@ -1,5 +1,5 @@
 # ◈ TUTORIAL: LOGSEQ SOVEREIGN MESH
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Target:** Logseq v0.10+
 
 ## 📂 INSTALLATION PROTOCOL

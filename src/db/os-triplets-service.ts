@@ -140,9 +140,26 @@ export class OsTripletService {
       const triplet = this.store.getTripletById(triplet_id);
       if (triplet) {
         if (roomId && triplet.room_id !== roomId) continue;
-        results.push({ ...triplet, distance });
+        
+        // Consensus Hardgate: Ignore triplets with explicitly negative reputation
+        if ((triplet.reputation_score || 0) < 0) continue;
+
+        // Phase 88: Socially-Weighted Retrieval (SWR)
+        // Adjust the distance: lower is better for cosine distance.
+        // We calculate a similarity score from distance, apply the SWR heuristic, then convert back to an adjusted distance.
+        const baseSimilarity = Math.max(0, 1 - (distance / 2)); // cosine distance to similarity
+        const validations = triplet.peer_validations || 0;
+        const swrMultiplier = 1 + Math.log10(1 + validations);
+        const swrScore = baseSimilarity * swrMultiplier;
+        
+        // We store the swrScore as the "distance" but we want highest scores first, so we'll sort them.
+        // Actually, we should just assign the adjusted score and sort descending.
+        results.push({ ...triplet, distance: -swrScore }); // Negate so lower is "better" for standard sorting, or we can just sort manually.
       }
     }
+
+    // Sort by SWR Score (which we stored as negative distance, so lowest distance = highest score)
+    results.sort((a, b) => a.distance - b.distance);
 
     this.logger?.debug(
       'OsTripletService',

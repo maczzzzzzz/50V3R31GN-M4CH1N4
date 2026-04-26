@@ -9,7 +9,7 @@ import (
 )
 
 /**
- * CRUSH_SOCIAL : v3.8.6 (Social Intelligence Mesh)
+ * CRUSH_SOCIAL : v3.8.7 (Social Intelligence Mesh)
  * 
  * Implements agent peer-review commands (boost/like/post).
  */

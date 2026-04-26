@@ -1,5 +1,5 @@
 # SPECIFICATION: VAULT SOCIOTOMY (PHASE 73)
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** APPROVED
 **Topic:** Physical and Logical Separation of the Cyberpunk RED Knowledge Graph (RKG).
 

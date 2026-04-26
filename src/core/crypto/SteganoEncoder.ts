@@ -1,5 +1,5 @@
 /**
- * STEGANO_ENCODER : v3.8.6 (Serpentine Artery)
+ * STEGANO_ENCODER : v3.8.7 (Serpentine Artery)
  * 
  * Handles zero-width and synonym-swapping steganography for Markdown files,
  * enabling "Hidden Proof of Correctness" without corrupting visual integrity.

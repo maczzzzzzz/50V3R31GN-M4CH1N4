@@ -1,5 +1,5 @@
 # ◈ TUTORIAL: OBSIDIAN SOVEREIGN BRIDGE
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Target:** Obsidian v1.5+
 
 ## 📂 INSTALLATION PROTOCOL

@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: 7R1-M1N1NG [VRAM_50V3R31GN7Y]
-**Version:** 3.8.6 (The Geometric Synapse Milestone)
+**Version:** 3.8.7 (The Geometric Synapse Milestone)
 **Status:** DESIGN_APPROVED
 **Phase:** 38
 

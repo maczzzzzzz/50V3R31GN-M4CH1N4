@@ -1,6 +1,6 @@
 # ◈ TUTORIAL : OMI_VOCAL_SYNC // THE_MIND_HAS_A_VOICE
 **Sector:** /04_unified_oracle/
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** CANONICAL // USER_FRIENDLY
 
 This guide defines the materialization of the **Vocal Artery** using the OMI wearable and the **Machina Terminal** companion app.

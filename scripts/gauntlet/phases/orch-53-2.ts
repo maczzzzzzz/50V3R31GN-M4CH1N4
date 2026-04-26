@@ -62,7 +62,7 @@ export const phase53_2: SovereignShard = {
     //    - Must contain the version string
     //    - Must contain GEPA-Distilled section
     //    - Must not contain unescaped '' (Nix string delimiters mid-block)
-    if (!evolvedSoul.includes('3.8.6-TEST')) {
+    if (!evolvedSoul.includes('3.8.7-TEST')) {
       return { phaseId: PHASE_ID, phaseName: PHASE_NAME, block: BLOCK, status: 'FAIL', message: 'Evolved soul missing version string', details };
     }
     if (!evolvedSoul.includes('GEPA-Distilled')) {

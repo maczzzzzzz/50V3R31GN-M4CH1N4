@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : NETRUNNING // SHIELD_AUTHORITY
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Sector:** /sidecar-netrunning/
 **Role:** Security Buffer, Steganography Proxy & Webhook Ingress.
 

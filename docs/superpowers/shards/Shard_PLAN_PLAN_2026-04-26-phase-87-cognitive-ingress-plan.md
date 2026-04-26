@@ -9,8 +9,8 @@ PARENT :: [[PHASE_87_SPEC]]
 
 ### 1. Browser Perception & Control [ ]
 - [ ] Scaffold `sidecar-browser-extension` targeting Vivaldi.
-- [ ] Integrate `browser-use` python library to allow natural language DOM manipulation.
-- [ ] Connect the agent to the existing authenticated Vivaldi profile for seamless auth-bypass.
+- [ ] Integrate the Go-Native **Sovereign Harness** (`crush/harness`) using `gobwas/ws` and `cdproto` to allow type-safe, self-healing DOM manipulation.
+- [ ] Connect the agent to the existing authenticated Vivaldi profile, bypassing the need for Python or FastAPI interpreters.
 - [ ] Implement secure WebSocket relay to the Host bridge (port 3012) for "Context-Push" and action streams.
 
 ### 2. Kernel Artery [ ]

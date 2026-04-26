@@ -1,5 +1,5 @@
 # ◈ SPEC-2026-04-26: MOBILE COMPANION ARCHITECTURE
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** RESEARCH
 **Topic:** Flutter HUD interaction with Native Obsidian/Logseq apps.
 

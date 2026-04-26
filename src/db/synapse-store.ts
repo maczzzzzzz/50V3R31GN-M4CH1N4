@@ -33,6 +33,8 @@ export interface OsTriplet {
   room_id: string | null;
   cluster_id: string | null;
   last_updated: string;
+  reputation_score?: number;
+  peer_validations?: number;
 }
 
 export interface VecSearchResult {

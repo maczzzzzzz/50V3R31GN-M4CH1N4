@@ -1,5 +1,5 @@
 # ◈ SOVEREIGN IDENTITY & ATOMIC PROFILES
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Aesthetic:** Gruvbox (Canonical)
 
 ## 🎯 OBJECTIVE

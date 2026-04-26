@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 use anyhow::Result;
+use sovereign_synapse::parseltongue::ParselTongueEngine;
 
 /// Represents an ActivityPub Actor (e.g., an Agent)
 #[derive(Debug, Serialize, Deserialize)]
@@ -36,7 +37,11 @@ pub struct Activity {
 }
 
 impl Activity {
-    pub fn new(activity_type: &str, actor: &str, object: Object) -> Self {
+    pub fn new(activity_type: &str, actor: &str, mut object: Object) -> Self {
+        // Phase 89: Serpentine Dialect Encoding
+        let engine = ParselTongueEngine::new();
+        object.content = engine.encode(&object.content);
+
         Self {
             context: "https://www.w3.org/ns/activitystreams".to_string(),
             id: format!("urn:uuid:{}", uuid::Uuid::new_v4()),

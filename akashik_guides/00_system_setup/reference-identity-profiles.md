@@ -1,5 +1,5 @@
 # ◈ REFERENCE: IDENTITY_PROFILES // THE_SOVEREIGN_MASKS
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Identity:** 50V3R31GN-M4CH1N4
 
 ## 🎯 OBJECTIVE

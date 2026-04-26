@@ -18,6 +18,7 @@ import { writeFile, mkdir, readdir } from 'node:fs/promises';
 import { join, basename } from 'node:path';
 import { existsSync } from 'node:fs';
 import type { PluginRegistry } from './PluginRegistry.js';
+import { SteganoEncoder } from '../crypto/SteganoEncoder.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -75,7 +76,12 @@ export class SkillAuthor {
 
     await mkdir(SKILLS_DIR, { recursive: true });
     const filePath = join(SKILLS_DIR, `${skill.name}.ts`);
-    await writeFile(filePath, skill.source, 'utf-8');
+    
+    // Phase 89: Steganographic Proof Injection
+    const proof = Buffer.from(skill.name).toString('base64');
+    const finalSource = SteganoEncoder.injectProof(skill.source, proof);
+    
+    await writeFile(filePath, finalSource, 'utf-8');
 
     this.registry.register({
       id:          `skill:${skill.name}`,

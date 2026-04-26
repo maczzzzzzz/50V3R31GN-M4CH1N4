@@ -1,4 +1,4 @@
-# Design Spec: Phase 15 — The Mesh Evolution (v3.8.6)
+# Design Spec: Phase 15 — The Mesh Evolution (v3.8.7)
 
 **Status:** ✅ FINALIZED  
 **Architecture:** Native Module Hijacking + Resilient Fallbacks  

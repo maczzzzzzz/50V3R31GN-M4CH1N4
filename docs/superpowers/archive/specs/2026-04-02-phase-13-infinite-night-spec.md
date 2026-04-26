@@ -1,4 +1,4 @@
-# Design Specification: Phase 13 — The Infinite Night (v3.8.6)
+# Design Specification: Phase 13 — The Infinite Night (v3.8.7)
 **Subject:** Procedural Campaign Generation & Map Ingestion Engine
 **Status:** DESIGN FINALIZED (Audit Hardened)
 
@@ -20,7 +20,7 @@ Phase 13 establishes the 50V3R31GN-M4CH1N4 as a self-sovereign procedural engine
 - **Batch Injection:** Uses the Neural Uplink (CDP) to push `createDocuments` manifests directly to Foundry.
 - **Atmospheric Sync:** Automated placement of lights and tokens based on mission "Mood" keywords.
 
-## 3. Communication Protocol (v3.8.6)
+## 3. Communication Protocol (v3.8.7)
 - **Asset Frame:** `{ type: 'asset_ingest', payload: { fileName, biome, status } }`.
 - **Mission Frame:** `{ type: 'materialize_scene', payload: { journalId, mapId, npcRoster } }`.
 

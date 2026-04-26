@@ -1,6 +1,6 @@
 # ◈ HOW_TO : SETUP_SOVEREIGN_TRINITY // THE_3-NODE_MESH
 **Sector:** /00_system_setup/
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** CANONICAL // ARCHITECT_LOCK
 
 This guide defines the physical and network configuration required to shore the **Sovereign Trinity** cognitive mesh.

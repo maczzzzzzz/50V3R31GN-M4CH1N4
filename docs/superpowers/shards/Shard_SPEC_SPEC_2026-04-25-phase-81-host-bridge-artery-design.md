@@ -1,5 +1,5 @@
 # ◈ SPEC-2026-04-25: HOST-BRIDGE ARTERY (PHASE 81)
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Status:** DRAFT (REFINED)
 **Topic:** Windows Host Integration, Source Shrouding, and Tiered Web Ingress.
 

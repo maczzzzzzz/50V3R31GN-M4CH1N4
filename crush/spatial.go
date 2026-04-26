@@ -9,7 +9,7 @@ import (
 )
 
 /**
- * CRUSH_SPATIAL : v3.8.6 (Neural Promenade)
+ * CRUSH_SPATIAL : v3.8.7 (Neural Promenade)
  * 
  * Implements room-scale proximity queries using SQLite RTREE.
  */

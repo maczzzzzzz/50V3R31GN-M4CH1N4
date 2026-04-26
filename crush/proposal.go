@@ -7,7 +7,7 @@ import (
 )
 
 /**
- * CRUSH_PROPOSE : v3.8.6 (Autotelic Curiosity)
+ * CRUSH_PROPOSE : v3.8.7 (Autotelic Curiosity)
  * 
  * Injects an agent proposal into the VSB shared memory for Hall authorization.
  */
