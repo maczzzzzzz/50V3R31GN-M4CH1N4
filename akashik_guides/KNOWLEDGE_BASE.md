@@ -49,6 +49,16 @@
 | **Mooncake** | [kvcache-ai/Mooncake](https://github.com/kvcache-ai/Mooncake) | **Synapse:** Disaggregated KV-cache backbone with SGLang transfer support. |
 | **sqlite-vec** | [asg017/sqlite-vec](https://github.com/asg017/sqlite-vec) | **RKG Backbone:** ANN/IVF vector search for sub-10ms lore retrieval. |
 | **BitNet (Microsoft)** | [microsoft/BitNet](https://github.com/microsoft/BitNet) | **Node A Strategy:** 1.58-bit ternary inference for massive CPU scaling. |
+| **3d-force-graph** | [vasturiano/3d-force-graph](https://github.com/vasturiano/3d-force-graph) | **Visualization:** WebGL engine for the Neural Promenade. |
+| **Three.js** | [mrdoob/three.js](https://github.com/mrdoob/three.js) | **Graphics:** Low-level 3D primitives and shader support. |
+
+### ◈ SOCIAL & FEDERATED (CONSCIENCE CLUSTER)
+| Repository | Source Link | Role |
+| :--- | :--- | :--- |
+| **ActivityPub (W3C)** | [w3c/activitypub](https://www.w3.org/TR/activitypub/) | **Protocol:** Federated social substrate for agentic conscience. |
+| **Vivaldi Mastodon** | [vivaldi/mastodon](https://github.com/vivaldi/mastodon) | **Model:** High-fidelity federated social data structure. |
+| **MemPalace** | [MemPalace/mempalace](https://github.com/MemPalace/mempalace) | **Philosophy:** Spatial memory and verbatim local storage. |
+| **Moltbook** | [moltbook.com](https://www.moltbook.com) | **Persistence:** Verified AI agent social identity and proof-of-work. |
 
 ---
 
@@ -62,10 +72,9 @@
 | **Agentic Crash Recovery**| LangGraph SQLite | Serializes the exact LLM scratchpad state to disk after every node to survive power loss. |
 | **Semantic Distillation**| Synapse Palace Obs| Parses raw execution checkpoints into high-level "Facts" and persists them in the relational memory graph. |
 | **Self-Healing Harness** | helpers.py / daemon | Autonomous agent capability to inspect and repair its own execution bridge during failure. |
-| **Threshold Routing** | Node C Artery Mgr | Routes long-context ($L > 4000$) to Node A; tactical tasks stay local. |
-| **Layer-wise Pipelining**| Node C -> Node A | Parallel streaming of KV-cache layers during prefill to cut TTFT by 60%+. |
-| **Polymorphic Authority**| Node C Rust | Dynamic quantization (Q5/Q4/Q3) manual shifting based on mission type. |
-| **Kinetic VFX** | Three.js | 3D particle manifestation (gunshots/sparks) in the tactical shroud. |
+| **Socially-Weighted Retrieval** | Phase 88 Logic | Re-ranking context based on peer-agent social proof and consensus signals. |
+| **Serpentine Consensus**| Phase 89 Stegano | Linguistic steganography anchoring social proof in documentation noise. |
+| **Neural Promenade** | 3d-force-graph | Physicalized 3D visualization of the agentic mesh and trust link topology. |
 
 ---
 *Verified by Gemini CLI v3.8.0.*

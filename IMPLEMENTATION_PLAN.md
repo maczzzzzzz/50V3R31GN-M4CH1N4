@@ -91,7 +91,7 @@
 
 ## 🧬 PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (PRIMARY_TASK)
 **Goal:** Expand Hermes' reach into host environments and browser-level cognition.
-- [ ] **Task 1: Browser-Level Ingress:** Materialize a Chrome/Firefox extension for direct context-scraping into the Synapse Palace.
+- [ ] **Task 1: Vivaldi Ingress:** Materialize a Vivaldi/Chromium extension for direct context-scraping into the Synapse Palace.
 - [ ] **Task 2: Kernel Vitals Artery:** Implement a low-level Linux sidecar (BPF) for real-time hardware telemetry in the HUD.
 - [ ] **Task 3: Plugin-Driven Tooling:** Enable agents to autonomously author and install their own MCP tools via the Plugin Registry.
 

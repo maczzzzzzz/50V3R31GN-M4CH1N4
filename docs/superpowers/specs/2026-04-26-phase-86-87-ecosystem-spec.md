@@ -8,7 +8,7 @@ PARENT :: [[OS_CORE]]
 - **Artery 3:** `terminal-app/` (Dart) - HUD restoration and Theme Engine hardening.
 
 ## ◈ PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION
-- **Artery 1:** `sidecar-browser-extension/` - WebSocket relay for real-time web perception.
+- **Artery 1:** `sidecar-browser-extension/` (Vivaldi) - WebSocket relay for real-time web perception.
 - **Artery 2:** `crates/sovereign-kernel/` - BPF-based Linux telemetry sidecar.
 - **Artery 3:** `src/core/hermes/SkillAuthor.ts` - Logic for agents to autonomously author and register new plugins/tools.
 

@@ -7,9 +7,9 @@ PARENT :: [[PHASE_87_SPEC]]
 
 ## ◈ CORE ARCHITECTURAL PRIMITIVES
 
-### 1. Browser-Level Perception (Extension)
-- **Engine:** WebExtensions API (Chrome/Firefox).
-- **Capability:** Passive monitoring of active tabs with "Deep Extract" triggers via Hermes TUI.
+### 1. Browser-Level Perception (Vivaldi Extension)
+- **Engine:** WebExtensions API (Vivaldi/Chromium).
+- **Capability:** Passive monitoring of active tabs with "Deep Extract" triggers via Hermes TUI. Vivaldi's unique sidebar and tab-stacking features will be leveraged for organized context management.
 - **Data Flow:** Extract Markdown-formatted content -> Encrypt via VSB -> Relay to Node B `ingress/research` artery.
 
 ### 2. Cognitive Filter (On-Device LLM)
