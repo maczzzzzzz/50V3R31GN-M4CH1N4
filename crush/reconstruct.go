@@ -20,7 +20,7 @@ import (
  */
 
 const (
-	DefaultVaultPath = "/home/nixos/50V3R31GN-M4CH1N4/data/vault/RKG"
+	DefaultVaultPath = "/mnt/d/Obsidian_Sovereign_OS"
 	DefaultDBPath    = "data/Akashik.db"
 )
 

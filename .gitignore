@@ -78,14 +78,17 @@ data/vault/**/*.md
 !CLAUDE.md
 !RED_RULES.md
 
-# --- LOCAL RUNTIME DATA (UNVERSIONED) ---
+# --- LOCAL RUNTIME DATA (TRACKED VAULT) ---
 data/
 !data/assets/
 !data/skillstones/
 !data/vault/
 !data/vault/RKG/
-data/vault/RKG/
-/mnt/d/Obsidian_RKG/
+!data/vault/RKG/Shard_Tree/
+
+# Windows Vault Mirror
+!/mnt/d/Obsidian_Sovereign_OS/
+!/mnt/d/Obsidian_Sovereign_OS/Shard_Tree/
 
 *.db
 *.db-journal
