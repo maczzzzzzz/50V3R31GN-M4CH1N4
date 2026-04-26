@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -160,7 +161,7 @@ func (r *Reconstructor) MirrorDirectories() {
 
 func (r *Reconstructor) GenerateTrees(shardCount int) {
 	fmt.Println(">> GENERATING HUB TREES...")
-	
+
 	// 1. OS_CORE.md
 	coreContent := "# ◈ SOVEREIGN OS CORE\nPARENT :: [[NAVIGATOR]]\n---\n- [[PHASE_TREE]]\n- [[SPEC_TREE]]\n- [[PLAN_TREE]]\n- [[RESEARCH_TREE]]\n- [[SHARD_TREE]]\n- [[GUIDE_TREE]]\n"
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "OS_CORE.md"), []byte(coreContent), 0644)
@@ -169,9 +170,29 @@ func (r *Reconstructor) GenerateTrees(shardCount int) {
 	guideContent := "# ◈ GUIDE TREE\nPARENT :: [[OS_CORE]]\n---\n- [[akashik_guides/00_system_setup/README|00_SYSTEM_SETUP]]\n- [[akashik_guides/01_crush_cli/reference-crush-cli|01_CRUSH_CLI]]\n- [[akashik_guides/02_deck_igniter/reference-deck-igniter|02_DECK_IGNITER]]\n- [[akashik_guides/03_omni_orchestrator/explanation-orchestrator|03_OMNI_ORCHESTRATOR]]\n- [[akashik_guides/04_unified_oracle/reference-oracle|04_UNIFIED_ORACLE]]\n- [[akashik_guides/05_red_trade_economy/explanation-economy|05_RED_TRADE_ECONOMY]]\n- [[akashik_guides/06_perception_systems/how-to-mission-swarm|06_PERCEPTION_SYSTEMS]]\n- [[akashik_guides/07_obsidian_vault/how-to-use-vault|07_OBSIDIAN_VAULT]]\n- [[akashik_guides/08_sovereign_identity/profiles-and-identity|08_SOVEREIGN_IDENTITY]]\n- [[akashik_guides/09_logseq_mesh/setup-logseq|09_LOGSEQ_MESH]]\n"
 	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "GUIDE_TREE.md"), []byte(guideContent), 0644)
 
-	// 3. SHARD_TREE.md
-	shardContent := fmt.Sprintf("# ◈ SHARD TREE\nPARENT :: [[OS_CORE]]\n---\nIndexed Fragments: %d\n\n- [[Shards/BLUEPRINTS|BLUEPRINTS]]\n- [[Shards/crates|CRATES]]\n- [[Shards/scripts|SCRIPTS]]\n- [[Shards/sovereign-sdk|SDK]]\n- [[Shards/GLOBAL|GLOBAL]]\n", shardCount)
-	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "SHARD_TREE.md"), []byte(shardContent), 0644)
+	// 3. Dynamic Tree Hubs (Plans, Specs, Research, Shards)
+	r.materializeDynamicTree("docs/superpowers/plans", "PLAN_TREE.md", "PLAN TREE", "Plans")
+	r.materializeDynamicTree("docs/superpowers/specs", "SPEC_TREE.md", "SPEC TREE", "Specs")
+	r.materializeDynamicTree("docs/superpowers/research", "RESEARCH_TREE.md", "RESEARCH TREE", "Research")
+	r.materializeDynamicTree("docs/superpowers/shards", "SHARD_TREE.md", "SHARD TREE", "Shards")
+}
+
+func (r *Reconstructor) materializeDynamicTree(srcDir, filename, title, vaultFolder string) {
+	content := fmt.Sprintf("# ◈ %s\nPARENT :: [[OS_CORE]]\n---\n\n", title)
+	
+	filepath.Walk(srcDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil || info.IsDir() || !strings.HasSuffix(info.Name(), ".md") {
+			return nil
+		}
+		rel, _ := filepath.Rel(srcDir, path)
+		cleanRel := strings.TrimSuffix(rel, ".md")
+		// Correct link path for Obsidian
+		link := fmt.Sprintf("- [[%s/%s|%s]]\n", vaultFolder, strings.ReplaceAll(cleanRel, "\\", "/"), info.Name())
+		content += link
+		return nil
+	})
+
+	_ = os.WriteFile(filepath.Join(r.OsVaultPath, filename), []byte(content), 0644)
 }
 
 func (r *Reconstructor) ReconstructTriplets() int {
@@ -267,6 +288,16 @@ func (r *Reconstructor) ReconstructShards() int {
 	return count
 }
 
+func (r *Reconstructor) GenerateKanban() {
+	fmt.Println(">> SYNCHRONIZING KANBAN ROADMAP...")
+	out, err := exec.Command("npx", "tsx", "scripts/ops/generate-kanban.ts").Output()
+	if err != nil {
+		fmt.Printf("❌ Kanban generation failed: %v\n", err)
+		return
+	}
+	_ = os.WriteFile(filepath.Join(r.OsVaultPath, "Sovereign-Roadmap.md"), out, 0644)
+}
+
 func Reconstruct() {
 	recon, err := NewReconstructor(DefaultDBPath, "data/SovereignIntelligence.db", DefaultOsVaultPath, DefaultRkgVaultPath)
 	if err != nil {
@@ -279,5 +310,6 @@ func Reconstruct() {
 	recon.ReconstructNPCs()
 	s := recon.ReconstructShards()
 	recon.GenerateTrees(s)
+	recon.GenerateKanban()
 	fmt.Printf("✅ ABSOLUTE SOCIOTOMY RESTORED: %d RKG triplets; %d OS shards shored.\n", t, s)
 }

@@ -136,7 +136,7 @@ async function universalSync() {
     // 3. OS MemPalace Reconstruction
     try {
         console.log(`\n>> RECONSTRUCTING SOVEREIGN OS PALACE...`);
-        execSync('bash scripts/ops/reconstruct-os-palace.sh', { stdio: 'inherit' });
+        execSync('./crush_bin reconstruct', { stdio: 'inherit' });
     } catch (error) {
         console.error(`${RED}ERROR: OS Palace reconstruction failed.${RESET}`);
     }
