@@ -9,6 +9,7 @@ import 'services/openclaw_bridge.dart';
 import 'services/screen_capture_service.dart';
 import 'services/postcard_service.dart';
 import 'screens/chat_screen.dart';
+import 'screens/pretext_dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,7 @@ class SovereignApp extends StatelessWidget {
           title: '50V3R31GN HUD',
           debugShowCheckedModeBanner: false,
           theme: themeService.currentPreset.themeData,
-          home: const ChatScreen(),
+          home: const PretextDashboard(),
         );
       },
     );

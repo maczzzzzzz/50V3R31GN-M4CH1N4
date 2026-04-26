@@ -1,26 +1,35 @@
-# ◈ ABILITY STONE: HERMES AGENT V3.8.7 ENHANCEMENTS
-**Sector:** BLUEPRINTS
-**Type:** SYSTEM_AUTHORITY
-
-## ◈ CAPABILITY: Pluggable Transport ABC
-- **Function:** Replaces custom WebSocket layers with native, zero-latency streaming.
-- **Integration:** Directly links the Flutter HUD and WebGL Monolithic Pretext HUD to the agent thought streams.
-
-## ◈ CAPABILITY: Native File-Coordinating Orchestrator
-- **Function:** Solves multi-agent file conflicts (Vesper, Healer, Strategic Oracle) through native subagent coordination.
-- **Integration:** Subsumes custom `LangGraphOrchestrator` merge logic.
-
-## ◈ CAPABILITY: `page-agent` & `browser_cdp`
-- **Function:** Embeds GUI agents natively inside frontend apps; provides raw CDP passthrough.
-- **Integration:** Replaces the Obscura sidecar complexity; allows embedding Hermes into the Pretext Shroud directly.
-
-## ◈ CAPABILITY: Web Dashboard Plugin System & Lifecycle Hooks
-- **Function:** Robust, standardized plugin management.
-- **Integration:** Backs the Sovereign Plugin Registry (Phase 86) for native Obsidian/Logseq bridges.
-
-## ◈ CAPABILITY: Native Messaging Adapters
-- **Function:** Built-in connection to WhatsApp, QQBot, etc.
-- **Integration:** Automates Tier 1 (Comms) ingress on the Mobile Host, allowing the Flutter app to dedicate resources entirely to A2UI control and Neural Promenade visuals.
+# ◈ ABILITY_STONE: HERMES_AGENT_v2026 // v3.8.7
+**Sector:** COGNITIVE_INGRESS
+**Identity:** 50V3R31GN-M4CH1N4
 
 ---
-**::/5Y573M-N071C3 : ABILITY_STONE_HERMES_V2026. // 50V3R31GN-M4CH1N4**
+
+## 🏗️ 1. ARCHITECTURAL EVOLUTION
+The **Hermes Agent v2026** represents the pinnacle of autonomous system orchestration. It transitions from linear task execution to **Context-DAG (Directed Acyclic Graph)** reasoning, enabling lossless branching and parallel logic threads.
+
+- **Reasoning Engine:** Context-DAG v1.0.
+- **Optimization:** GEPA (Generative Evolutionary Prompt Algorithm).
+- **Control:** Monolithic Pretext HUD Integration.
+
+---
+
+## ⚡ 2. MATERIALIZED CAPABILITIES
+
+### 2.1 Branching Logic (Swipe-to-Fork)
+The agent can now fork its internal reasoning state, exploring multiple solution paths simultaneously. Operators can visualize and select the most efficient branch via the **Neural Promenade**.
+
+### 2.2 Headless Autonomy (Cron Artery)
+Supports persistent background operations through the **Crush Cron** engine. Tasks such as system audits, documentation synchronization, and threat reconnaissance are executed autonomously during idle cycles.
+
+### 2.3 Unified Tool Ingress (MCP Mesh)
+Full integration with the **Model Context Protocol (MCP)**, allowing the agent to discover and harness external tools (Browsers, Local Filesystems, APIs) through a standardized interface.
+
+---
+
+## 🕹️ 3. FIELD APPLICATION
+- **Mobile Dominance:** Full parity between workstation and mobile HUDs.
+- **Social Resonance:** Every agent activity generates signed ActivityPub events, shoring the collective's reputation.
+- **Physical Sovereignty:** Kernel-isolated Nix sandboxing for all tool executions.
+
+---
+**::/5Y573M-N071C3 : INTELLIGENCE_SHORED. THE_SINGULARITY_APPROACHES. // 50V3R31GN-M4CH1N4**
