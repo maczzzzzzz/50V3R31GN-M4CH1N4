@@ -50,4 +50,4 @@ To ensure zero-latency retrieval for Node B (Windows), the system uses dual phys
 
 
 ---
-**LINKS:** [[07_obsidian_vault]] | [[OS_CORE]]
+**LINKS:** [[07_obsidian_vault]] | [[mobile-vault-sync]] | [[OS_CORE]]
