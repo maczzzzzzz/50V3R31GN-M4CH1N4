@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.0.html).
 
+## [3.8.3] - 2026-04-26
+
+### Added
+- **Exhaustive Dev Infrastructure:** Materialized `crush dev` suite with `trigger deadlock`, `trigger dream`, `trigger shift`, and `simulate-agent` for robust state testing.
+- **Hermes Command Parity:** Implemented the `/crush` pass-through relay and the `/dev` alias in `LangGraphOrchestrator`, ensuring 100% command parity between the CLI and the TUI.
+- **Shard Tree Sociotomy:** Physically consolidated 258 Ability Stones and Blueprints into `docs/superpowers/shards/` and integrated them into the Obsidian Synapse Palace via `crush reconstruct`.
+
+### Changed
+- **Logseq Intelligence Mesh (Phase 85):** Promoted from Research to `APPROVED` / `PRIMARY_TASK`. Legacy AppFlowy infrastructure completely shriven from the mesh.
+- **Version Lock:** Manifests synchronized to v3.8.0.
+
 ## [3.8.2] - 2026-04-26
 
 ### Added

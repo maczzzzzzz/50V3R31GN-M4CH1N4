@@ -31,7 +31,7 @@ import { MemoryObserver } from './MemoryObserver.js';
 // User-supplied args are validated against an allowlist before use.
 // ---------------------------------------------------------------------------
 
-const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode']);
+const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode', '/dev']);
 
 // Known profile names from SOVEREIGN-IDENTITY.md — allowlist for /profile <name>
 const KNOWN_PROFILES = new Set(['daily-use', 'researcher', 'sovereign-red-game-master']);
@@ -59,6 +59,10 @@ async function dispatchSystemCommand(
     switch (cmd) {
       case '/crush': {
         return `◈ CRUSH_RELAY:\n${runCrush(argArray)}`;
+      }
+      case '/dev': {
+        if (argArray.length === 0) return `◈ DEV_ERROR: Subcommand required. Try '/dev trigger deadlock' or '/dev purge-cache'`;
+        return `◈ DEV_CONSOLE:\n${runCrush(['dev', ...argArray])}`;
       }
       case '/reconstruct': {
         return `◈ RECONSTRUCTING_MESH:\n${runCrush(['reconstruct', ...argArray])}`;

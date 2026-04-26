@@ -71,13 +71,13 @@
 
 ---
 
-## 🔗 PHASE 85: LOGSEQ INTELLIGENCE MESH (UNAPPROVED_PHASE)
+## 🔗 PHASE 85: LOGSEQ INTELLIGENCE MESH (PRIMARY_TASK)
 **Goal:** Purge AppFlowy and integrate Logseq for block-level agentic memory via a Shared Shard.
-- [ ] **Research Note:** Transition from Tabular Artery of Truth to Graph-Block Datalog.
 - [ ] **Task 1: The Shared Shard:** Point Logseq and Obsidian to the same `data/vault/Sovereign_OS/` directory. 
 - [ ] **Task 2: Datalog Limb:** Integrate Datalog querying into `LangGraphOrchestrator` for agent memory retrieval.
 - [ ] **Task 3: The Flutter Sync:** Materialize `ObsidianSyncService.dart` to bidirectional sync the vault via Tailscale to mobile devices.
 - [ ] **Task 4: Meeting Engraver:** Update Sovereign Hall to engrave meeting minutes directly as Logseq journal blocks.
+
 
 ---
 **LINKS:** [[OS_CORE]]

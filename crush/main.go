@@ -444,6 +444,9 @@ func main() {
 			}
 			return
 
+		case "dev":
+			os.Exit(runDev(os.Args[2:]))
+
 		case "meeting":
 			os.Exit(runMeeting(os.Args[2:]))
 
