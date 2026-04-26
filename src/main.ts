@@ -69,6 +69,7 @@ import { SharedMemoryService } from './core/shared-memory-service.js';
 import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
 import { LangGraphOrchestrator } from './core/hermes/LangGraphOrchestrator.js';
 import { BrowserBridge } from './api/browser-bridge.js';
+import { SovereignDashboardService } from './core/memory/SovereignDashboardService.js';
 
 import { RootsInjector } from './core/roots-injector.js';
 import { getHijackJs } from './core/sovereign-theme.js';
@@ -76,7 +77,7 @@ import { logger } from './shared/logger.js';
 
 async function main() {
   const bootTraceId = 'boot-' + Date.now();
-  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v3.8.6)...');
+  logger.info('Orchestrator', bootTraceId, '🌃 50V3R31GN-M4CH1N4: Booting Orchestrator (v3.8.7)...');
 
   // 1. Initialise Oracle (RKG)
   const oracle = new UnifiedOracleClient({
@@ -352,6 +353,15 @@ async function main() {
   const sentinel = new SentinelMonitorService(logger);
   sentinel.start();
 
+  // Phase 90: Sovereign Dashboard — HeadlessDatalog persistence artery
+  const sovereignDashboard = new SovereignDashboardService({
+    dbPath:            process.env['SOVEREIGN_INTELLIGENCE_DB'] ?? 'data/SovereignIntelligence.db',
+    vaultRoot:         process.env['SOVEREIGN_OS_VAULT'] ?? 'data/vault/Sovereign_OS',
+    refreshIntervalMs: parseInt(process.env['DASHBOARD_REFRESH_MS'] ?? '60000', 10),
+    ...(process.env['WINDOWS_VAULT_ROOT'] ? { windowsMirror: process.env['WINDOWS_VAULT_ROOT'] } : {}),
+  }, logger);
+  sovereignDashboard.start();
+
   logger.info('Orchestrator', bootTraceId, '🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
 
   // 9. Graceful Shutdown
@@ -377,6 +387,7 @@ async function main() {
       logger.info('Orchestrator', shutdownTraceId, '✅ NitroLogic Client STOPPED.');
 
       browserBridge.stop();
+      sovereignDashboard.stop();
       logger.info('Orchestrator', shutdownTraceId, '✅ BrowserBridge STOPPED.');
 
       vsbClient.close();

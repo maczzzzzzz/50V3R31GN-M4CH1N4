@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.8.6
+**Version:** 3.8.7
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
 <details>
@@ -76,7 +76,7 @@
 ---
 
 ## ✅ PHASE 86: SOVEREIGN ECOSYSTEM & HUD REALIGNMENT (COMPLETED)
-**Goal:** Materialize native plugin bridges and repair the Flutter HUD for v3.8.6 performance.
+**Goal:** Materialize native plugin bridges and repair the Flutter HUD for v3.8.7 performance.
 - [x] **Task 1: Native Obsidian Mesh:** Scaffold TS plugin for note pushing and vitals monitoring.
 - [x] **Task 2: Social Highlight Reel:** Implement cross-platform "Featured Shards" UI in native plugins.
 - [x] **Task 3: HUD Restoration:** Repair bit-rotted Dart imports, method signatures, and Theme Engine logic.
@@ -86,7 +86,7 @@
 
 ## ✅ PHASE 87: COGNITIVE INGRESS & SYSTEM ORCHESTRATION (COMPLETED)
 **Goal:** Expand Hermes' reach into host environments and browser-level cognition.
-- [ ] **Task 1: Vivaldi & Browser-Use Ingress:** Scaffold `sidecar-browser-extension/` and integrate the Python `browser-use` library for vision-powered, natural language DOM control via the operator's authenticated Vivaldi profile.
+- [ ] **Task 1: Vivaldi & Sovereign Harness Ingress:** Scaffold `sidecar-browser-extension/` and integrate the Go-Native **Sovereign Harness** (`crush/harness`) for ultra-low-latency, self-healing DOM control, completely opting out of Python/FastAPI dependencies.
 - [x] **Task 2: Kernel Vitals Artery:** `crates/sovereign-kernel` materialized — `/proc` telemetry streamed as `VitalsSnapshot` JSON via WS on port 3013.
 - [x] **Task 3: Plugin-Driven Tooling:** `src/core/plugins/SkillAuthor.ts` materialized — converts agent trajectories into live-registered MCP tools.
 
@@ -108,13 +108,15 @@
 
 ---
 
-## 🦾 PHASE 90: THE UNIFIED SYMBOLIC ARTERY (PRIMARY_TASK)
+## ✅ PHASE 90: THE UNIFIED SYMBOLIC ARTERY (COMPLETED)
 **Goal:** Total consolidation of agentic memory into a single, high-fidelity Datalog-on-SQLite engine.
-- [ ] **Task 1: Datalog-to-SQLite Mesh:** Implement a compiler that translates Datalog queries into our existing `os_triplets` FTS5 structure.
+- [x] **Task 1: Datalog-to-SQLite Mesh:** Materialized `src/core/memory/HeadlessDatalog.ts` — DataScript-style Datalog parser + compiler targeting `os_triplets` + `shard_fts` (FTS5). `/datalog` system command wired into LangGraphOrchestrator.
+- [x] **Task 2: The Obsidian Command-Center:** Materialized `src/core/memory/SovereignDashboardService.ts` — live dashboard note in `data/vault/Sovereign_OS/Sovereign_Dashboard.md`, bidirectional Facts/ vault sync.
+- [x] **Task 3: Headless Persistence:** Journal engraving to `Journals/YYYY-MM-DD.md` with bidirectional fact ingestion from vault edits back into `os_triplets`.
 
 ---
 
-## 📱 PHASE 91: MOBILE AGENTIC INGRESS & UNIFIED VISION
+## 📱 PHASE 91: MOBILE AGENTIC INGRESS & UNIFIED VISION (PRIMARY_TASK)
 **Goal:** Establish agentic presence on Android via Tailscale and achieve 100% Mobile Screen Awareness.
 - [ ] **Task 1: The Mobile Mesh:** Scaffold `openclaw_bridge.dart` to enable `node.invoke` RPC over Tailscale (A2UI control).
 - [ ] **Task 2: Postcard Protocol:** Implement `POSTCARD-v1` snapshots for continuous social presence and reputation tracking.
@@ -125,7 +127,7 @@
 ---
 
 ## 🖥️ PHASE 92: MONOLITHIC PRETEXT HUD (V2) & HERMES V2026 INTEGRATION
-**Goal:** Fresh build of the Sovereign HUD using the Pretext "Pure Arithmetic" layout engine, supercharged by Hermes Agent v3.8.6.
+**Goal:** Fresh build of the Sovereign HUD using the Pretext "Pure Arithmetic" layout engine, supercharged by Hermes Agent v3.8.7.
 - [ ] **Task 1: The Pretext Shroud:** Materialize `PretextShroud.tsx` as the single-file UI baseline.
 - [ ] **Task 2: Universal Intelligence Boost:** Integrate Lossless Context DAGs (hermes-lcm) and self-evolving GEPA logic.
 - [ ] **Task 3: Circular Context Rings:** Port the high-density telemetry rings from Hermes-UI to the Pretext canvas.
@@ -139,6 +141,15 @@
 - [ ] **Task 2: Orchestrator Subsumption:** Deprecate `LangGraphOrchestrator` in favor of Hermes's native subagent orchestrator role with file-coordination.
 - [ ] **Task 3: Transport Short-Circuit:** Implement Transport ABC for zero-latency streaming directly to the Flutter HUD and Pretext Shroud.
 - [ ] **Task 4: GUI Domination:** Embed Hermes natively into the Pretext UI using the `page-agent` skill, allowing it to dynamically rearrange its own HUD layout.
+
+---
+
+## 🔧 PHASE 94: TRINITY ALIGNMENT & FIX CYCLE (PRIMARY_TASK)
+**Goal:** Perform surgical fixes across Phase 86-90 to achieve 100% operational fidelity and resolve architectural conflicts.
+- [ ] **Task 1: Kernel Vitals Restoration:** Refactor `sovereign-kernel` to run a dual-threaded Tokio runtime for eBPF `/proc` telemetry (Phase 87) alongside VSB Packet TPM signing (Phase 89).
+- [ ] **Task 2: SWR & Consensus Hardgate:** Update semantic search retrieval to apply the SWR heuristic (`Similarity * (1 + log(1 + validations))`) and enforce the Consensus Hardgate.
+- [ ] **Task 3: Cryptic Persistence Wiring:** Connect `SteganoEncoder.ts` to agent file-writing routines and wire `ParselTongueEngine` into `sovereign-social` ActivityPub payloads.
+- [ ] **Task 4: Logseq Purge & Highlight Migration:** Delete `sidecar-logseq-plugin` and migrate the Social Highlight Reel entirely to the Obsidian Sovereign Mesh and Pretext HUD.
 
 ---
 **LINKS:** [[OS_CORE]]

@@ -23,6 +23,7 @@ import { HealerProtocol, RepairStrategy } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
 import { VsbClient } from '../../api/vsb-client.js';
 import { WebScraperSidecar, IngressTier } from '../../shared/WebScraperSidecar.js';
+import { HeadlessDatalog } from '../memory/HeadlessDatalog.js';
 
 // ---------------------------------------------------------------------------
 // Phase 76 Task 3 — Hermes System Command Registry
@@ -33,7 +34,7 @@ import { WebScraperSidecar, IngressTier } from '../../shared/WebScraperSidecar.j
 // User-supplied args are validated against an allowlist before use.
 // ---------------------------------------------------------------------------
 
-const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode', '/dev', '/logseq']);
+const SYSTEM_COMMANDS = new Set(['/profile', '/status', '/vault', '/vesper', '/host', '/crush', '/reconstruct', '/meeting', '/mode', '/dev', '/logseq', '/datalog']);
 
 // Known profile names from SOVEREIGN-IDENTITY.md — allowlist for /profile <name>
 const KNOWN_PROFILES = new Set(['daily-use', 'researcher', 'sovereign-red-game-master']);
@@ -59,6 +60,42 @@ async function dispatchSystemCommand(
 
   try {
     switch (cmd) {
+      case '/datalog': {
+        // Phase 90: HeadlessDatalog — Datalog-to-SQLite query artery.
+        // Usage: /datalog query '[:find ?name :where [?e :is-a "agent"] [?e :name ?name]]'
+        //        /datalog compile '[:find ...]'
+        //        /datalog fts <search terms>
+        //        /datalog stats
+        const sub = argArray[0]?.toLowerCase() ?? '';
+        const rest = args.slice(sub.length).trim();
+        try {
+          const dl = new HeadlessDatalog(
+            new (await import('better-sqlite3')).default(
+              process.env['SOVEREIGN_INTELLIGENCE_DB'] ?? 'data/SovereignIntelligence.db'
+            )
+          );
+          switch (sub) {
+            case 'query': {
+              const rows = dl.query(rest);
+              return `◈ DATALOG_RESULT [${rows.length} rows]:\n${JSON.stringify(rows, null, 2)}`;
+            }
+            case 'compile': {
+              return `◈ DATALOG_SQL:\n${dl.compile(rest)}`;
+            }
+            case 'fts': {
+              const results = dl.ftsSearch(rest, 5);
+              return `◈ DATALOG_FTS [${results.length} shards]:\n${results.map(r => `  [${r.sector}] ${r.name}\n  ${r.excerpt}`).join('\n\n')}`;
+            }
+            case 'stats': {
+              return `◈ DATALOG_STATS:\n${JSON.stringify(dl.stats(), null, 2)}`;
+            }
+            default:
+              return `◈ DATALOG_ERROR: Unknown sub-command '${sub}'. Try: query | compile | fts | stats`;
+          }
+        } catch (e) {
+          return `◈ DATALOG_ERROR: ${e instanceof Error ? e.message : String(e)}`;
+        }
+      }
       case '/logseq': {
         if (argArray.length === 0) return `◈ LOGSEQ_ERROR: Subcommand required. Try '/logseq query "[:find ...]"' or '/logseq insert "Page" "Content"'`;
         return `◈ LOGSEQ_MESH:\n${runCrush(['logseq', ...argArray])}`;
@@ -462,11 +499,6 @@ export class LangGraphOrchestrator {
 
     // Phase 68.5: Trigger the asynchronous Memory Palace Observer to distill long-term facts
     MemoryObserver.observeAndDistill(state).catch((e: unknown) => console.error(e));
-
-    return state;
-  }
-}
-
 
     return state;
   }

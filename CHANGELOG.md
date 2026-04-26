@@ -3,7 +3,22 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.6.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
+
+## [3.8.7] - 2026-04-26
+
+### Added
+- **HeadlessDatalog (Phase 90 Task 1):** Materialized `src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax (`:find`, `:where`, `:in`, `:limit`). Compiles multi-pattern queries to JOINs against `os_triplets`. FTS5 search via `ftsSearch()` against `shard_fts`. Includes `upsertFact()`, `upsertFacts()`, `retract()`, `findSubjects()`, and `stats()`.
+- **SovereignDashboardService (Phase 90 Tasks 2-3):** Materialized `src/core/memory/SovereignDashboardService.ts` — live Obsidian Command-Center. Materializes `Sovereign_Dashboard.md` with DB stats + recent facts table every 60s. Engraves agent activity to `Journals/YYYY-MM-DD.md`. Bidirectional vault sync via chokidar watcher on `Facts/` subdirectory. Supports optional Windows vault mirror path.
+- **`/datalog` System Command:** Wired into `LangGraphOrchestrator` — operator can run `/datalog query '[:find ?name :where ...]'`, `/datalog compile`, `/datalog fts <terms>`, `/datalog stats` directly from the HUD.
+- **KNOWLEDGE_BASE v3.8.7:** Added RND Predictor, OpenVLA (7B), DINOv2, Three.js, Tailscale, react-grid-layout, Recharts. New DOMINION CLUSTER section. Three new architectural patterns (Monolithic HUD V2, Hermes Singularity, Postcard Protocol).
+
+### Fixed
+- **LangGraphOrchestrator Corruption (2nd instance):** Removed second dangling `return state; }` fragment (lines 508-510) causing TS1128 parse failure.
+
+### Changed
+- **main.ts:** SovereignDashboardService wired into startup/shutdown lifecycle on Phase 90 boot.
+- **package.json:** Version bumped to 3.8.7.
 
 ## [3.8.6] - 2026-04-26
 
@@ -30,7 +45,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.6.html).
 - **Serpentine Artery Research:** Materialized specifications for steganographic memory and kernel r00t hardware anchors (Phase 89).
 
 ### Changed
-- **Knowledge Base v3.8.6:** Indexed 569 documents and shored links for ActivityPub and Vivaldi Mastodon.
+- **Knowledge Base v3.8.7:** Indexed 569 documents and shored links for ActivityPub and Vivaldi Mastodon.
 
 ## [3.8.4] - 2026-04-26
 
@@ -62,7 +77,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.6.html).
 
 ### Added
 - **Node C Model Farm Orchestration:** Refactored `hermes-router` to dynamically select between Q3 (8081), Q4 (8082), and Q5 (8083) model shards based on profile `inference_preference`.
-- **OpenClaw v3.8.6 Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening.
+- **OpenClaw v3.8.7 Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening.
 - **Tactical Terminal:** Materialized a dedicated **[TERM]** navigation tab in the Flutter HUD for real-time passive VSB monitoring.
 - **Command Priming:** Implemented structured JSON command dispatch in the Artery Client, preparing the mesh for Windows Host Control.
 
