@@ -14,7 +14,7 @@
 Every line of code must trace back to the `IMPLEMENTATION_PLAN.md`. Hallucinations or profile-leaks are fatal failures.
 
 ---
-**::/5Y573M-N071C3 : GLM_ARCHITECT_DNA_V3_4_1_SYNCED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : GLM_ARCHITECT_DNA_V3_8_7_SYNCED. // 50V3R31GN-M4CH1N4**
 
 
 ---

@@ -1,14 +1,34 @@
-import { GauntletTask, AuditResult } from '../engine.js';
+import { GauntletPhase } from '../GauntletEngine';
 
-export const phaseV93HermesSingularity: GauntletTask = {
-  id: 'v93-hermes',
-  name: 'The Hermes Singularity',
-  description: 'Verifies integration of Hermes Agent v3.8.7 features (browser_cdp, page-agent, Transport ABC).',
-  async audit(ctx): Promise<AuditResult> {
-    const results: string[] = [];
-    results.push('● The CDP Purge and native browser_cdp routing validated.');
-    results.push('● Orchestrator Subsumption via native file-coordination tracked.');
-    results.push('● Transport Short-Circuit and page-agent UI embedding specified.');
-    return { status: 'SUCCESS', output: results.join('\n') };
-  }
+/**
+ * GAUNTLET_PHASE_v93 : HERMES_SINGULARITY_INTEGRITY — v3.8.7
+ * 
+ * Verifies the system-wide purge of legacy proxies and the 
+ * deep integration of native Hermes v2026 capabilities.
+ */
+
+export const v93HermesSingularity: GauntletPhase = {
+  id: 'v93-hermes-singularity',
+  name: 'Hermes Singularity Integrity',
+  objective: 'Validate native orchestration and SSE transport short-circuit.',
+  tasks: [
+    {
+      id: 'cdp-purge-verify',
+      description: 'Check if chrome-remote-interface is removed from package.json.',
+      command: 'grep "chrome-remote-interface" package.json || echo "CLEAN"',
+      expectedOutput: 'CLEAN'
+    },
+    {
+      id: 'native-orchestration-verify',
+      description: 'Verify src/main.ts uses the native Hermes Singularity engine.',
+      command: 'grep "HermesSingularity" src/main.ts',
+      expectedOutput: 'HermesSingularity'
+    },
+    {
+      id: 'sse-transport-verify',
+      description: 'Confirm presence of the Python SSE Transport ABC.',
+      command: 'ls scripts/lib/hermes_transport.py',
+      expectedOutput: 'scripts/lib/hermes_transport.py'
+    }
+  ]
 };

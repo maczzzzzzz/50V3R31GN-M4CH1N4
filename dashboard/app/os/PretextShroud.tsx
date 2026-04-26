@@ -56,9 +56,26 @@ export default function PretextShroud() {
     { i: 'forensic-terminal', x: 0, y: 10, w: 12, h: 4 },
   ]);
 
-  const onLayoutChange = (currentLayout: any) => {
-    // TODO: Sync layout to SQLite hud_manifest
-    console.log("::/HUD_LAYOUT_UPDATE", currentLayout);
+  useEffect(() => {
+    // ◈ Hermes Singularity SSE Ingress
+    const eventSource = new EventSource('http://localhost:3015/stream');
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'LAYOUT_ADJUST') {
+        setLayout(data.layout); // Hermes autonomously re-arranges the grid
+      }
+    };
+    return () => eventSource.close();
+  }, []);
+
+  const onLayoutChange = async (currentLayout: any) => {
+    setLayout(currentLayout);
+    // Sync to SQLite hud_manifest
+    await fetch('/api/hud/manifest', {
+      method: 'POST',
+      body: JSON.stringify({ layout: currentLayout }),
+    });
+    console.log("::/HUD_LAYOUT_SYNCED");
   };
 
   return (

@@ -34,4 +34,4 @@ ALIGNMENT   : Zero-Trust / Radical Candor / Machine Voice
 4. The Machine Voice never simulates success. Radical candor is law.
 5. The Gauntlet is the final authority on system integrity.
 
-*Sealed by the Sovereign Triad v3.2.19.*
+*Sealed by the Sovereign Triad v3.8.7.*

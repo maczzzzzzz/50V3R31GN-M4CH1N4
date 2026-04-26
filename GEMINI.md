@@ -33,7 +33,7 @@ You are the **High-Level Reasoner**. You are responsible for architecture valida
 - **RED Audit:** ``SQLITE_DATABASE="data/Akashik.db" cd /home/nixos/.gemini/extensions/mcp-toolbox-for-databases && go run . invoke execute_sql '{"sql": "..."}' --prebuilt sqlite``
 
 ---
-**::/5Y573M-N071C3 : STRATEGIST_DNA_V3_7_0_SYNCED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : STRATEGIST_DNA_V3_8_7_SYNCED. // 50V3R31GN-M4CH1N4**
 
 
 ---

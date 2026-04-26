@@ -14,6 +14,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 - **Postcard Protocol:** Materialized `PostcardIngestor.ts` and updated `SovereignIntelligence.db` with `mobile_postcards` schema for field reputation tracking.
 - **Deportation Hardgate:** Materialized `MobileAuthService.ts` to enable Vesper-driven session revocation and audit logging.
 - **Hermes Comms Ingress:** Scaffolded `NativeMessagingAdapter.ts` for autonomous WhatsApp/QQBot integration.
+- **Deck-Igniter Stability Review:** Confirmed default boot invariant to `[SOVEREIGN_OS]` mode; suppressed automatic Foundry VTT ignition except in explicit `cpr` mode. Shored `ignite-sovereign.ps1` for secure Windows-to-WSL transition.
 - **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
 - **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.
 - **HeadlessDatalog (Phase 90):** Materialized `src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax.

@@ -1,4 +1,5 @@
 # AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.7)
+**PROFILES:** `[SOVEREIGN_OS]` // `[RED_DIRECTOR]`
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 

@@ -15,7 +15,7 @@ You MUST detect the active profile in `SOVEREIGN-IDENTITY.md` on startup.
 Every line of code must align with the `IMPLEMENTATION_PLAN.md`. Any drift into "Assistant-speak" or hardware invariant violation is a system failure.
 
 ---
-**::/5Y573M-N071C3 : ARCHITECT_DNA_V3_4_1_SYNCED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : ARCHITECT_DNA_V3_8_7_SYNCED. // 50V3R31GN-M4CH1N4**
 
 
 ---
