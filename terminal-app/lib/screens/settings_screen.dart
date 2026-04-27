@@ -3,6 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/theme_service.dart';
 
+/**
+ * TACTICAL_SETTINGS — v3.8.7
+ * 
+ * High-readability configuration mesh for the Sovereign HUD.
+ * Handles Node B/C IP orchestration and Theme selection.
+ */
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -11,10 +18,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final _ipController = TextEditingController();
-  final _arteryPortController = TextEditingController();
-  final _llmPortController = TextEditingController();
-  final _directorIpController = TextEditingController();
+  final _nodeBIpController = TextEditingController();
+  final _nodeCIpController = TextEditingController();
+  final _rpcPortController = TextEditingController();
+  final _visionPortController = TextEditingController();
   bool _secureTunnel = false;
 
   @override
@@ -26,28 +33,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _ipController.text = prefs.getString('node_c_ip') ?? '10.0.0.30';
-      _arteryPortController.text = prefs.getString('node_c_port') ?? '7340';
-      _llmPortController.text = prefs.getString('node_c_llm_port') ?? '7339';
-      _directorIpController.text = prefs.getString('node_b_ip') ?? '10.0.0.10';
+      _nodeBIpController.text = prefs.getString('node_b_ip') ?? '100.x.y.z';
+      _nodeCIpController.text = prefs.getString('node_c_ip') ?? '100.x.y.z';
+      _rpcPortController.text = prefs.getString('rpc_port') ?? '3011';
+      _visionPortController.text = prefs.getString('vision_port') ?? '3013';
       _secureTunnel = prefs.getBool('secure_tunnel') ?? false;
     });
   }
 
   Future<void> _saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('node_c_ip', _ipController.text.trim());
-    await prefs.setString('node_c_port', _arteryPortController.text.trim());
-    await prefs.setString('node_c_llm_port', _llmPortController.text.trim());
-    await prefs.setString('node_b_ip', _directorIpController.text.trim());
+    await prefs.setString('node_b_ip', _nodeBIpController.text.trim());
+    await prefs.setString('node_c_ip', _nodeCIpController.text.trim());
+    await prefs.setString('rpc_port', _rpcPortController.text.trim());
+    await prefs.setString('vision_port', _visionPortController.text.trim());
     await prefs.setBool('secure_tunnel', _secureTunnel);
     
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('SETTINGS_SAVED'),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
+        const SnackBar(content: Text('::/SETTINGS_SHORED'), backgroundColor: Color(0xFFB8BB26)),
       );
     }
   }
@@ -57,98 +61,85 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final themeService = context.watch<ThemeService>();
     final primaryColor = Theme.of(context).primaryColor;
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: const Text('MACHINA_TERMINAL // SETTINGS'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
+    return Container(
+      color: const Color(0xFF1D2021),
+      child: ListView(
+        padding: const EdgeInsets.all(24.0),
         children: [
-          TextField(
-            controller: _ipController,
-            decoration: const InputDecoration(
-              labelText: 'NODE C IP ADDRESS',
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _directorIpController,
-            decoration: const InputDecoration(
-              labelText: 'NODE B (DIRECTOR) IP ADDRESS',
-            ),
-          ),
-          const SizedBox(height: 16),
+          _buildSectionHeader("◈ NODE_TOPOLOGY", primaryColor),
+          _buildTacticalField("NODE B (DIRECTOR) IP", _nodeBIpController, primaryColor),
+          _buildTacticalField("NODE C (ORACLE) IP", _nodeCIpController, primaryColor),
+          
+          const SizedBox(height: 24),
+          _buildSectionHeader("◈ ARTERY_PORTS", primaryColor),
           Row(
             children: [
-              Expanded(
-                child: TextField(
-                  controller: _arteryPortController,
-                  decoration: const InputDecoration(
-                    labelText: 'ARTERY PORT',
-                  ),
-                ),
-              ),
+              Expanded(child: _buildTacticalField("RPC_PORT", _rpcPortController, primaryColor)),
               const SizedBox(width: 16),
-              Expanded(
-                child: TextField(
-                  controller: _llmPortController,
-                  decoration: const InputDecoration(
-                    labelText: 'LLM PORT',
-                  ),
-                ),
-              ),
+              Expanded(child: _buildTacticalField("VISION_PORT", _visionPortController, primaryColor)),
             ],
           ),
-          const SizedBox(height: 16),
-          SwitchListTile(
-            title: Text('REMOTE_ENCRYPTION (SSL)', style: TextStyle(color: primaryColor)),
-            subtitle: const Text('ENABLE ONLY IF NODES HAVE SSL CERTS. TAILSCALE IS SECURE BY DEFAULT.', style: TextStyle(fontSize: 10, color: Colors.white54)),
-            value: _secureTunnel,
-            onChanged: (value) {
-              setState(() {
-                _secureTunnel = value;
-              });
-            },
-            activeThumbColor: Colors.black,
-            activeTrackColor: primaryColor,
-            inactiveThumbColor: Colors.grey,
-            inactiveTrackColor: Colors.black54,
-          ),
-          const Divider(color: Colors.white24, height: 32),
-          Text('SYSTEM_THEME', style: TextStyle(color: primaryColor, fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          DropdownButtonFormField<ThemeModePreset>(
-            value: themeService.currentMode,
-            dropdownColor: Colors.black,
-            style: TextStyle(color: primaryColor, fontSize: 18),
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            ),
-            items: ThemeService.presets.entries.map((entry) {
-              return DropdownMenuItem(
-                value: entry.key,
-                child: Text(entry.value.name),
-              );
-            }).toList(),
-            onChanged: (mode) {
-              if (mode != null) {
-                themeService.setTheme(mode);
-              }
-            },
-          ),
-          const SizedBox(height: 32),
+
+          const SizedBox(height: 24),
+          _buildSectionHeader("◈ TACTICAL_THEME", primaryColor),
+          _buildThemeDropdown(themeService, primaryColor),
+
+          const SizedBox(height: 40),
           ElevatedButton(
             onPressed: _saveSettings,
             style: ElevatedButton.styleFrom(
-              backgroundColor: primaryColor.withValues(alpha: 0.2),
-              foregroundColor: primaryColor,
-              side: BorderSide(color: primaryColor),
-              padding: const EdgeInsets.all(16.0),
+              minimumSize: const Size(double.infinity, 60),
+              backgroundColor: primaryColor.withOpacity(0.1),
+              side: BorderSide(color: primaryColor, width: 2),
             ),
-            child: const Text('SAVE SETTINGS'),
+            child: const Text("EXECUTE_SYNC", style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, Color color) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Text(title, style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+    );
+  }
+
+  Widget _buildTacticalField(String label, TextEditingController controller, Color color) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextField(
+        controller: controller,
+        style: const TextStyle(color: Color(0xFFEBDBB2), fontSize: 16),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: color.withOpacity(0.7), fontSize: 12),
+          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF3C3836))),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color)),
+          filled: true,
+          fillColor: const Color(0xFF282828),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThemeDropdown(ThemeService service, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF282828),
+        border: Border.all(color: const Color(0xFF3C3836)),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<ThemeModePreset>(
+          value: service.currentMode,
+          isExpanded: true,
+          dropdownColor: const Color(0xFF282828),
+          style: TextStyle(color: color, fontSize: 16, fontFamily: 'monospace'),
+          items: ThemeService.presets.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value.name))).toList(),
+          onChanged: (m) => m != null ? service.setTheme(m) : null,
+        ),
       ),
     );
   }

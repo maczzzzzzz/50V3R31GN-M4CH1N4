@@ -1,48 +1,33 @@
 'use client';
 
 /**
- * NeuralPromenade.tsx — Phase 82 (Neural Promenade)
+ * NeuralPromenade.tsx — PHASE 95.2 (MemPalace Structural Refactor)
  * 
- * 3D Force-Directed Graph visualization of the Sovereign Synapse.
- * Implements room-scale context loading and spatial memory synthesis.
+ * Replaces freeform graphs with a rigid mnemonic hierarchy: Wings -> Rooms -> Drawers.
+ * Implements Temporal Fading and Spatial Clustering.
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import ForceGraph3D from '3d-force-graph';
 import * as THREE from 'three';
 
-// ── Static Storm Shader ───────────────────────────────────────────────────────
-const STORM_SHADER = {
+// ── Freshness Shader (Temporal Decay) ────────────────────────────────────────
+const FRESHNESS_SHADER = {
   vertexShader: `
-    varying vec2 vUv;
-    varying float vNoise;
-    uniform float time;
-    
-    // Brownian Noise approximation
-    float hash(float n) { return fract(sin(n) * 43758.5453123); }
-    float noise(vec3 x) {
-      vec3 p = floor(x);
-      vec3 f = fract(x);
-      f = f*f*(3.0-2.0*f);
-      float n = p.x + p.y*57.0 + 113.0*p.z;
-      return mix(mix(mix( hash(n+  0.0), hash(n+  1.0),f.x),
-                     mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y),
-                 mix(mix( hash(n+113.0), hash(n+114.0),f.x),
-                     mix( hash(n+170.0), hash(n+171.0),f.x),f.y),f.z);
-    }
-
+    varying float vFreshness;
+    attribute float freshness;
     void main() {
-      vUv = uv;
-      vNoise = noise(position * 10.0 + time * 5.0);
-      vec3 newPosition = position + normal * vNoise * 2.0;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+      vFreshness = freshness;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
   `,
   fragmentShader: `
-    varying float vNoise;
+    varying float vFreshness;
     uniform vec3 color;
     void main() {
-      gl_FragColor = vec4(color * (0.5 + vNoise * 0.5), 1.0);
+      // Fade older shards (lower freshness)
+      float alpha = clamp(vFreshness, 0.1, 1.0);
+      gl_FragColor = vec4(color, alpha);
     }
   `
 };
@@ -51,6 +36,14 @@ export default function NeuralPromenade() {
   const containerRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<any>(null);
   const [data, setData] = useState({ nodes: [], links: [] });
+  const [activeWing, setActiveWing] = useState<string | null>(null);
+
+  // ◈ Wing Coordinates
+  const WINGS = useMemo(() => ({
+    'NODE_A': { x: -200, y: 0, z: 0, color: 0xfb4934, label: 'KV_ARTERY' },
+    'NODE_B': { x: 0, y: 0, z: 0, color: 0xb8bb26, label: 'DIRECTOR_CORE' },
+    'NODE_C': { x: 200, y: 0, z: 0, color: 0x83a598, label: 'ORACLE_FARM' },
+  }), []);
 
   useEffect(() => {
     fetch('/api/spatial')
@@ -63,82 +56,88 @@ export default function NeuralPromenade() {
 
     const Graph = ForceGraph3D()(containerRef.current)
       .graphData(data)
-      .nodeLabel('label')
-      .nodeAutoColorBy('table')
-      .backgroundColor('#080810')
+      .backgroundColor('#000000')
+      .showNavInfo(false)
       .nodeThreeObject((node: any) => {
-        // Task 3: Static Storm for deadlocks (mocked via source_id pattern for now)
-        if (node.source_id.includes('deadlock') || Math.random() > 0.999) {
-          const geometry = new THREE.SphereGeometry(3);
-          const material = new THREE.ShaderMaterial({
-            uniforms: {
-              time: { value: 0 },
-              color: { value: new THREE.Color(0xff003c) }
-            },
-            vertexShader: STORM_SHADER.vertexShader,
-            fragmentShader: STORM_SHADER.fragmentShader
-          });
-          const mesh = new THREE.Mesh(geometry, material);
+        // 1. Determine Wing Affiliation
+        const wingId = node.node_id?.toUpperCase() || 'NODE_B';
+        const wing = (WINGS as any)[wingId] || WINGS.NODE_B;
+
+        // 2. Mnemonic Shard (The Drawer)
+        const geometry = node.table === 'npcs' 
+          ? new THREE.DodecahedronGeometry(6)
+          : new THREE.BoxGeometry(3, 3, 3);
           
-          const animate = () => {
-            material.uniforms.time.value += 0.05;
-            requestAnimationFrame(animate);
-          };
-          animate();
-          
-          return mesh;
-        }
+        const material = new THREE.MeshLambertMaterial({ 
+          color: node.color || wing.color,
+          transparent: true,
+          opacity: node.freshness || 0.8
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
         
-        // Golden Pulse for High-Reputation Shards
-        if (node.reputation_score && node.reputation_score > 0) {
-          const size = 2 + (node.reputation_score * 0.5);
-          const geometry = new THREE.SphereGeometry(size);
-          const material = new THREE.MeshBasicMaterial({ color: 0xffd700 });
-          return new THREE.Mesh(geometry, material);
+        // Add "Glow" for active selection
+        if (node.id === activeWing) {
+           mesh.scale.set(1.5, 1.5, 1.5);
         }
 
-        // Agent Avatars
-        if (node.table === 'npcs') {
-          const geometry = new THREE.DodecahedronGeometry(4);
-          const material = new THREE.MeshLambertMaterial({ color: 0xb8bb26 });
-          return new THREE.Mesh(geometry, material);
-        }
-        
-        // Standard node
-        const sphere = new THREE.SphereGeometry(2);
-        const mat = new THREE.MeshLambertMaterial({ 
-          color: node.color || '#fabd2f',
-          transparent: true,
-          opacity: 0.8
-        });
-        return new THREE.Mesh(sphere, mat);
+        return mesh;
       })
-      .linkWidth((link: any) => Math.min(link.value || 1, 5))
-      .linkColor(() => '#fb4934')
       .onNodeClick((node: any) => {
-        // Proximity Context Loading
-        console.log(`>> SPATIAL FOCUS: ${node.label} at (${node.x}, ${node.y}, ${node.z})`);
+        setActiveWing(node.id);
         Graph.cameraPosition(
-          { x: node.x * 2, y: node.y * 2, z: node.z * 2 },
-          { x: node.x, y: node.y, z: node.z },
-          2000
+          { x: node.x * 1.5, y: node.y * 1.5, z: node.z * 1.5 },
+          node,
+          1000
         );
       });
+
+    // ◈ Hierarchical Force Constrainment
+    Graph.d3Force('x', (d: any) => {
+      const wing = (WINGS as any)[d.node_id?.toUpperCase() || 'NODE_B'] || WINGS.NODE_B;
+      return wing.x;
+    });
+    
+    // Add Wing Bounding Boxes
+    Object.entries(WINGS).forEach(([id, wing]) => {
+      const boxGeom = new THREE.BoxGeometry(150, 150, 150);
+      const boxMat = new THREE.MeshBasicMaterial({ 
+        color: wing.color, 
+        wireframe: true, 
+        transparent: true, 
+        opacity: 0.05 
+      });
+      const box = new THREE.Mesh(boxGeom, boxMat);
+      box.position.set(wing.x, wing.y, wing.z);
+      Graph.scene().add(box);
+      
+      // ◈ Billboard Label for Wing
+      // (Implementation requires THREE.Sprite for text labels)
+    });
 
     graphRef.current = Graph;
 
     return () => {
       if (graphRef.current) graphRef.current._destructor();
     };
-  }, [data]);
+  }, [data, WINGS, activeWing]);
 
   return (
-    <div className="relative w-full h-full bg-black border border-primary overflow-hidden">
-      <div className="absolute top-4 left-4 z-10 p-2 bg-black/80 border border-primary font-mono text-primary text-xs">
-        ◈ NEURAL_PROMENADE // SPATIAL_MEMORY_SYNTHESIS
-        <div className="mt-1 opacity-60">Nodes Shored: {data.nodes.length}</div>
+    <div className="relative w-full h-full bg-black overflow-hidden group">
+      <div className="absolute top-4 left-4 z-10 p-3 bg-[#282828]/95 border border-[#3c3836] font-mono shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+        <div className="text-[#fe8019] font-bold text-[10px] tracking-widest flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-[#fb4934] animate-pulse" />
+          ◈ SOVEREIGN_MEMPALACE // v3.8.7
+        </div>
+        <div className="mt-2 text-[#a89984] text-[9px] grid grid-cols-2 gap-x-4 gap-y-0.5">
+          <span className="font-bold text-[#b8bb26]">WINGS:</span> <span>3_ACTIVE</span>
+          <span className="font-bold text-[#b8bb26]">SHARDS:</span> <span>{data.nodes.length}</span>
+          <span className="font-bold text-[#b8bb26]">FORMAT:</span> <span>DIATAXIS_STRUCT</span>
+        </div>
       </div>
       <div ref={containerRef} className="w-full h-full" />
+      {/* ◈ Structural Grid Overlay */}
+      <div className="absolute inset-0 pointer-events-none border border-[#fb4934]/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)]" />
     </div>
   );
 }

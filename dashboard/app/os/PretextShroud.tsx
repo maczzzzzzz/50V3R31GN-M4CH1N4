@@ -13,100 +13,78 @@ import PretextTerminalArtery from '@/components/PretextTerminalArtery';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 /**
- * PRETEXT_SHROUD — PHASE 93.9 TOTAL_UNIFICATION
+ * PRETEXT_SHROUD_MODERN — v3.8.7
  * 
- * The monolithic, high-density UI baseline for the Sovereign Trinity.
- * Achieves 100% parity with the Flutter Mobile HUD.
+ * Modular, grid-aligned command center.
+ * Inspired by hermes-ui but hardened with Gruvbox physicality.
  */
 
 const ContextRing = ({ progress, color, label }: { progress: number, color: string, label: string }) => {
-  const radius = 20;
+  const radius = 18;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center gap-1">
-      <svg className="w-12 h-12 transform -rotate-90">
-        <circle
-          className="text-[#3c3836]"
-          strokeWidth="2"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx="24"
-          cy="24"
-        />
-        <circle
-          style={{ strokeDasharray: circumference, strokeDashoffset: offset, transition: 'stroke-dashoffset 0.5s ease' }}
-          strokeWidth="2"
-          stroke={color}
-          fill="transparent"
-          r={radius}
-          cx="24"
-          cy="24"
-        />
-      </svg>
-      <span className="text-[8px] text-[#a89984] font-bold">{label}</span>
+    <div className="flex flex-col items-center gap-1 group">
+      <div className="relative w-10 h-10 flex items-center justify-center">
+        <svg className="w-10 h-10 transform -rotate-90 absolute">
+          <circle className="text-[#3c3836]" strokeWidth="3" stroke="currentColor" fill="transparent" r={radius} cx="20" cy="20" />
+          <circle
+            style={{ strokeDasharray: circumference, strokeDashoffset: offset, transition: 'stroke-dashoffset 0.8s ease' }}
+            strokeWidth="3" stroke={color} fill="transparent" r={radius} cx="20" cy="20"
+          />
+        </svg>
+        <span className="text-[7px] font-bold text-[#ebdbb2] group-hover:text-white transition-colors">{progress}%</span>
+      </div>
+      <span className="text-[8px] text-[#a89984] font-bold tracking-tighter uppercase">{label}</span>
     </div>
   );
 };
 
 export default function PretextShroud() {
   const [layout, setLayout] = useState([
-    { i: 'command-artery', x: 0, y: 0, w: 6, h: 10 },
-    { i: 'telemetry-pulse', x: 6, y: 0, w: 3, h: 4 },
-    { i: 'tasks-mesh', x: 9, y: 0, w: 3, h: 4 },
-    { i: 'synapse-orbit', x: 6, y: 4, w: 6, h: 6 },
-    { i: 'terminal-artery', x: 0, y: 10, w: 6, h: 4 },
-    { i: 'red-trade-mesh', x: 6, y: 10, w: 6, h: 4 },
+    { i: 'command-artery', x: 0, y: 0, w: 7, h: 14 },
+    { i: 'vitals-rack', x: 7, y: 0, w: 5, h: 4 },
+    { i: 'tasks-mesh', x: 7, y: 4, w: 5, h: 5 },
+    { i: 'synapse-orbit', x: 7, y: 9, w: 5, h: 5 },
+    { i: 'terminal-artery', x: 0, y: 14, w: 7, h: 6 },
+    { i: 'red-trade-mesh', x: 7, y: 14, w: 5, h: 6 },
   ]);
 
-  useEffect(() => {
-    // ◈ Hermes Singularity SSE Ingress
-    const eventSource = new EventSource('http://localhost:3015/stream');
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === 'LAYOUT_ADJUST') {
-        setLayout(data.layout);
-      }
-    };
-    return () => eventSource.close();
-  }, []);
-
-  const onLayoutChange = async (currentLayout: any) => {
-    setLayout(currentLayout);
-    console.log("::/HUD_LAYOUT_UPDATE");
-  };
-
   return (
-    <div className="min-h-screen bg-[#1d2021] text-[#ebdbb2] font-mono selection:bg-[#fb4934] selection:text-[#282828] overflow-hidden">
-      {/* MONOLITHIC_HEADER */}
-      <div className="border-b border-[#3c3836] p-4 flex items-center justify-between bg-[#282828] shadow-2xl">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full border-2 border-[#fe8019] flex items-center justify-center animate-pulse shadow-[0_0_15px_rgba(254,128,25,0.4)]">
-            <span className="text-xs text-[#fe8019] font-bold text-[10px]">RNG</span>
-          </div>
-          <div>
-            <h1 className="text-2xl tracking-[0.2em] font-bold text-[#fb4934]">
-              50V3R31GN_M4CH1N4
-            </h1>
-            <div className="text-[10px] text-[#a89984] font-bold tracking-widest opacity-80">
-              INTELLIGENCE_OS // HUD_V2 // THE_SINGULARITY
+    <div className="min-h-screen bg-[#1d2021] text-[#ebdbb2] font-mono selection:bg-[#fb4934] selection:text-black p-2">
+      {/* ◈ TOP_COMMAND_BAR */}
+      <div className="flex items-stretch gap-2 mb-2 h-20">
+        <div className="bg-[#282828] border border-[#3c3836] flex-1 flex items-center justify-between px-6 shadow-xl">
+          <div className="flex items-center gap-6">
+            <div className="w-10 h-10 border-2 border-[#fb4934] flex items-center justify-center rotate-45 group hover:rotate-90 transition-transform cursor-pointer bg-black/20">
+              <span className="text-[10px] font-bold text-[#fb4934] -rotate-45 group-hover:-rotate-90">S_OS</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-bold tracking-[0.3em] text-[#ebdbb2]">50V3R31GN_M4CH1N4</h1>
+              <div className="text-[9px] text-[#fb4934] font-bold tracking-widest flex gap-4">
+                <span>:: STATUS_OPERATIONAL</span>
+                <span className="text-[#a89984]">:: v3.8.7_SINGULARITY</span>
+              </div>
             </div>
           </div>
+          
+          <div className="flex gap-8">
+            <ContextRing progress={85} color="#fb4934" label="Node_A" />
+            <ContextRing progress={42} color="#b8bb26" label="Node_B" />
+            <ContextRing progress={12} color="#83a598" label="Node_C" />
+          </div>
         </div>
-        <div className="flex gap-6 items-center">
-          <ContextRing progress={85} color="#fb4934" label="NODE_A" />
-          <ContextRing progress={42} color="#b8bb26" label="NODE_B" />
-          <ContextRing progress={12} color="#83a598" label="NODE_C" />
-          <div className="h-10 w-[1px] bg-[#3c3836] mx-2" />
-          <div className="flex flex-col text-[10px] text-[#a89984]">
-            <span className="text-[#fe8019] font-bold">RADV_VULKAN</span>
-            <span>AMDGPU_9060XT</span>
+        
+        <div className="bg-[#282828] border border-[#3c3836] w-64 flex flex-col justify-center px-4 shadow-xl">
+          <span className="text-[8px] text-[#a89984] font-bold mb-1 uppercase tracking-widest">Global_Access_Key</span>
+          <div className="text-xs text-[#fabd2f] font-bold bg-black/40 p-2 border border-[#3c3836] truncate">
+            7X8-VSB-MMAP-9923-TRINITY
           </div>
         </div>
       </div>
 
+      {/* ◈ MAIN_MODULAR_GRID */}
       <ResponsiveGridLayout
         className="layout"
         layouts={{ lg: layout }}
@@ -114,46 +92,53 @@ export default function PretextShroud() {
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
         rowHeight={30}
         draggableHandle=".handle"
-        onLayoutChange={onLayoutChange}
+        margin={[8, 8]}
       >
         {/* COMMAND_ARTERY */}
-        <div key="command-artery" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner flex flex-col overflow-hidden group">
-          <div className="handle p-2 border-b border-[#3c3836] flex items-center justify-between cursor-move bg-[#282828] group-hover:bg-[#32302f] transition-colors">
-            <span className="text-[10px] text-[#fe8019] font-bold tracking-widest">◈ COMMAND_ARTERY</span>
-            <div className="flex gap-1">
-              <div className="w-2 h-2 rounded-full bg-[#fb4934]" />
-              <div className="w-2 h-2 rounded-full bg-[#b8bb26]" />
+        <div key="command-artery" className="bg-[#282828] border border-[#3c3836] shadow-2xl flex flex-col overflow-hidden">
+          <div className="handle h-10 border-b border-[#3c3836] flex items-center px-4 justify-between bg-[#1d2021]/50 cursor-move hover:bg-[#3c3836]/20 transition-colors">
+            <span className="text-[10px] font-bold text-[#fe8019] tracking-widest">◈ COMMAND_ARTERY</span>
+            <div className="flex gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#fb4934] animate-pulse" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#b8bb26]" />
             </div>
           </div>
-          <div className="flex-1 overflow-hidden bg-[#1d2021]">
+          <div className="flex-1 overflow-hidden p-1">
             <PretextCommandArtery />
           </div>
         </div>
 
-        {/* TELEMETRY_PULSE */}
-        <div key="telemetry-pulse" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner overflow-hidden group">
-          <div className="handle p-2 border-b border-[#3c3836] cursor-move bg-[#282828] group-hover:bg-[#32302f] transition-colors">
-            <span className="text-[10px] text-[#b8bb26] font-bold tracking-widest">◈ TELEMETRY_PULSE</span>
+        {/* VITALS_RACK */}
+        <div key="vitals-rack" className="bg-[#282828] border border-[#3c3836] shadow-2xl flex flex-col overflow-hidden">
+          <div className="handle h-8 border-b border-[#3c3836] flex items-center px-4 bg-[#1d2021]/50 cursor-move">
+            <span className="text-[9px] font-bold text-[#b8bb26] tracking-widest">◈ VITALS_RACK</span>
           </div>
-          <div className="p-4 h-full flex items-center justify-center bg-[#1d2021]">
-             <div className="text-[10px] text-[#a89984] animate-pulse font-bold tracking-tighter">STREAMING_VITALS...</div>
+          <div className="flex-1 grid grid-cols-2 p-4 gap-4">
+             <div className="flex flex-col">
+               <span className="text-[8px] text-[#a89984]">VRAM_PRESSURE</span>
+               <div className="h-1.5 bg-[#3c3836] mt-1"><div className="h-full bg-[#fb4934] w-[85%]" /></div>
+             </div>
+             <div className="flex flex-col">
+               <span className="text-[8px] text-[#a89984]">MMAP_SYNC</span>
+               <div className="text-[10px] font-bold text-[#b8bb26] mt-1">NOMINAL</div>
+             </div>
           </div>
         </div>
 
         {/* TASKS_MESH */}
-        <div key="tasks-mesh" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner overflow-hidden group">
-          <div className="handle p-2 border-b border-[#3c3836] cursor-move bg-[#282828] group-hover:bg-[#32302f] transition-colors">
-            <span className="text-[10px] text-[#fabd2f] font-bold tracking-widest">◈ TASKS_MESH</span>
+        <div key="tasks-mesh" className="bg-[#282828] border border-[#3c3836] shadow-2xl flex flex-col overflow-hidden">
+          <div className="handle h-8 border-b border-[#3c3836] flex items-center px-4 bg-[#1d2021]/50 cursor-move">
+            <span className="text-[9px] font-bold text-[#fabd2f] tracking-widest">◈ TASKS_MESH</span>
           </div>
-          <div className="flex-1 h-full bg-[#1d2021] overflow-hidden">
+          <div className="flex-1 overflow-hidden">
             <PretextTasksMesh />
           </div>
         </div>
 
         {/* SYNAPSE_ORBIT */}
-        <div key="synapse-orbit" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner overflow-hidden relative group">
-          <div className="handle p-2 border-b border-[#3c3836] cursor-move z-10 relative bg-[#282828] group-hover:bg-[#32302f] transition-colors">
-            <span className="text-[10px] text-[#83a598] font-bold tracking-widest">◈ SYNAPSE_ORBIT</span>
+        <div key="synapse-orbit" className="bg-[#282828] border border-[#3c3836] shadow-2xl flex flex-col overflow-hidden relative">
+          <div className="handle h-8 border-b border-[#3c3836] flex items-center px-4 bg-[#1d2021]/50 cursor-move z-10">
+            <span className="text-[9px] font-bold text-[#83a598] tracking-widest">◈ SYNAPSE_ORBIT</span>
           </div>
           <div className="absolute inset-0 pt-8 bg-black">
             <NeuralPromenade />
@@ -161,21 +146,21 @@ export default function PretextShroud() {
         </div>
 
         {/* TERMINAL_ARTERY */}
-        <div key="terminal-artery" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner overflow-hidden group">
-          <div className="handle p-2 border-b border-[#3c3836] cursor-move bg-[#282828] group-hover:bg-[#32302f] transition-colors">
-            <span className="text-[10px] text-[#d3869b] font-bold tracking-widest">◈ TERMINAL_ARTERY</span>
+        <div key="terminal-artery" className="bg-[#282828] border border-[#3c3836] shadow-2xl flex flex-col overflow-hidden">
+          <div className="handle h-8 border-b border-[#3c3836] flex items-center px-4 bg-[#1d2021]/50 cursor-move">
+            <span className="text-[9px] font-bold text-[#d3869b] tracking-widest">◈ TERMINAL_ARTERY</span>
           </div>
-          <div className="h-full overflow-hidden bg-black">
+          <div className="flex-1 overflow-hidden">
             <PretextTerminalArtery />
           </div>
         </div>
 
         {/* RED_TRADE_MESH */}
-        <div key="red-trade-mesh" className="bg-[#282828] border border-[#3c3836] rounded shadow-inner overflow-hidden group">
-          <div className="handle p-2 border-b border-[#3c3836] cursor-move bg-[#282828] group-hover:bg-[#32302f] transition-colors">
-            <span className="text-[10px] text-[#fe8019] font-bold tracking-widest">◈ RED_TRADE_MESH</span>
+        <div key="red-trade-mesh" className="bg-[#282828] border border-[#3c3836] shadow-2xl flex flex-col overflow-hidden">
+          <div className="handle h-8 border-b border-[#3c3836] flex items-center px-4 bg-[#1d2021]/50 cursor-move">
+            <span className="text-[9px] font-bold text-[#fe8019] tracking-widest">◈ RED_TRADE_MESH</span>
           </div>
-          <div className="h-full overflow-hidden bg-[#1d2021]">
+          <div className="flex-1 overflow-hidden">
             <PretextMarketArtery />
           </div>
         </div>
