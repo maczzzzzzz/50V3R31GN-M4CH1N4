@@ -159,6 +159,22 @@
 - [x] **Task 2: Absolute Terminal Purge:** Physically deleted 60+ legacy gauntlet phases and redundant scripts in `scripts/dev/` and `scripts/ops/` to eliminate architectural drift.
 - [x] **Task 3: Recursive Intelligence Audit:** Subagents reverse-engineered test patterns from OMI, Hermes, vLLM, and SGLang to ensure 100% operational fidelity.
 
+---
+
+## 🏛️ PHASE 95: SPATIAL ASCENSION & CLAW3D INGRESS (COMPLETED)
+**Goal:** Port advanced spatial orchestration patterns from Claw3D and enforce MemPalace structural hierarchy.
+- [x] **Task 1: Spatial Latch System:** Materialized real-time visual anchors (latches) between agents and memory shards in the 3D Neural Promenade.
+- [x] **Task 2: MemPalace Hierarchy:** Refactored the 3D scene from a freeform graph to a rigid Wing/Room structure with wireframe bounding boxes.
+- [x] **Task 3: Mobile Topography:** Materialized `SpatialHotspotArtery.dart` to provide a 2D floorplan view of the palace on mobile devices.
+
+---
+
+## ⚡ PHASE 96: PRETEXT ASCENSION & OMI INTEGRITY (COMPLETED)
+**Goal:** Total UI remodel utilizing Pretext "Pure Arithmetic" layout and metabolic Fluid Smoke visualization.
+- [x] **Task 1: Fluid Smoke Metabolism:** Materialized high-performance trig-noise shaders in Web and Mobile to visualize agent "Thinking" and "Listening" energy.
+- [x] **Task 2: Modular Command Deck:** Refactored the HUD (Web & Mobile) to a high-density, sharp-bordered grid layout with a persistent side-rail.
+- [x] **Task 3: OMI Handshake Restoration:** Injected the JSON configuration preamble into the `ArteryClient` to fix the OMI microphone initialization.
+- [x] **Task 4: Pure Arithmetic Integration:** Ported Pretext measurement and layout primitives to achieve zero-reflow 120fps UI performance.
 
 ---
 **LINKS:** [[OS_CORE]]

@@ -6,16 +6,19 @@ import '../services/task_service.dart';
 import '../services/vsb_listener.dart';
 import '../widgets/pretext_painter.dart';
 import '../widgets/spatial_hotspot_artery.dart';
+import '../widgets/fluid_smoke_painter.dart';
 import 'terminal_screen.dart';
 import 'settings_screen.dart';
 import 'dart:ui' as ui;
 
 /**
- * PRETEXT_DASHBOARD_V4 — PHASE 96.1
+ * PRETEXT_DASHBOARD_V4 — PHASE 96.2 (Ascended)
  * 
- * Total UI Modernization.
- * Inspired by hermes-ui / gruvbox-material-vscode.
- * Bottom Navigation + High-Density Mnemonic Grid.
+ * Modular Command Deck with Fluid Smoke metabolism.
+ * Features:
+ * - Direct Pretext-Painter background (120fps).
+ * - Persistent tactical side-rail.
+ * - High-readability tactile cards.
  */
 
 class PretextDashboard extends StatefulWidget {
@@ -25,10 +28,11 @@ class PretextDashboard extends StatefulWidget {
   State<PretextDashboard> createState() => _PretextDashboardState();
 }
 
-class _PretextDashboardState extends State<PretextDashboard> {
+class _PretextDashboardState extends State<PretextDashboard> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
   final TextEditingController _controller = TextEditingController();
+  late AnimationController _smokeController;
 
   final List<Map<String, dynamic>> _navItems = [
     {'label': 'HOME', 'icon': Icons.terminal},
@@ -39,9 +43,19 @@ class _PretextDashboardState extends State<PretextDashboard> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _smokeController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    )..repeat();
+  }
+
+  @override
   void dispose() {
     _pageController.dispose();
     _controller.dispose();
+    _smokeController.dispose();
     super.dispose();
   }
 
@@ -54,73 +68,128 @@ class _PretextDashboardState extends State<PretextDashboard> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final primaryColor = theme.primaryColor;
-    final bg1 = const Color(0xFF32302f); // Gruvbox BG1
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: const Color(0xFF1D2021),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            // ◈ MONOLITHIC_HEADER
-            _buildModernHeader(primaryColor),
-
-            // ◈ MAIN_VIEWPORT
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  border: Border.all(color: theme.dividerColor, width: 1),
-                  color: bg1.withOpacity(0.5),
-                ),
-                child: PageView(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    _buildChatView(),
-                    _buildTasksView(),
-                    const SpatialHotspotArtery(),
-                    _buildTerminalView(),
-                    const SettingsScreen(),
-                  ],
+            // ◈ METABOLIC_BACKGROUND (Fluid Smoke)
+            Positioned.fill(
+              child: AnimatedBuilder(
+                animation: _smokeController,
+                builder: (context, _) => CustomPaint(
+                  painter: FluidSmokePainter(time: _smokeController.value * 20),
                 ),
               ),
+            ),
+
+            Row(
+              children: [
+                // ◈ PERSISTENT_SIDE_RAIL
+                _buildSideRail(primaryColor),
+
+                // ◈ MAIN_TACTICAL_VIEWPORT
+                Expanded(
+                  child: Column(
+                    children: [
+                      _buildModernHeader(primaryColor),
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xFF3C3836).withOpacity(0.5), width: 1),
+                            color: const Color(0xFF282828).withOpacity(0.4),
+                          ),
+                          child: PageView(
+                            controller: _pageController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: [
+                              _buildChatView(),
+                              _buildTasksView(),
+                              const SpatialHotspotArtery(),
+                              _buildTerminalView(),
+                              const SettingsScreen(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
-      // ◈ BOTTOM_NAVIGATION (Space Efficiency)
-      bottomNavigationBar: _buildBottomNav(primaryColor, bg1),
+    );
+  }
+
+  Widget _buildSideRail(Color primaryColor) {
+    return Container(
+      width: 72,
+      decoration: const BoxDecoration(
+        border: Border(right: BorderSide(color: Color(0xFF3C3836), width: 2)),
+        color: Color(0xFF282828),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 20),
+          // ◈ S_OS LOGO
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xFFFB4934), width: 2),
+              color: Colors.black12,
+            ),
+            child: const Center(child: Text("S", style: TextStyle(color: Color(0xFFFB4934), fontWeight: FontWeight.bold))),
+          ),
+          const SizedBox(height: 40),
+          ...List.generate(_navItems.length, (index) {
+            final item = _navItems[index];
+            final isSelected = _currentIndex == index;
+            return GestureDetector(
+              onTap: () => _onTabTapped(index),
+              child: Container(
+                height: 72,
+                width: double.infinity,
+                color: isSelected ? const Color(0xFF3C3836) : Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(item['icon'], color: isSelected ? primaryColor : const Color(0xFFA89984), size: 28),
+                    const SizedBox(height: 4),
+                    Text(item['label'], style: TextStyle(color: isSelected ? primaryColor : const Color(0xFFA89984), fontSize: 8, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            );
+          }),
+          const Spacer(),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 20),
+            child: Icon(Icons.bolt, color: Color(0xFFB8BB26), size: 20),
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildModernHeader(Color primaryColor) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      decoration: const BoxDecoration(
-        color: Color(0xFF32302f),
-        border: Border(bottom: BorderSide(color: Color(0xFF504945), width: 1)),
-      ),
+      padding: const EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  border: Border.all(color: primaryColor, width: 2),
-                ),
-                child: Center(child: Text("S", style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 18))),
+              Text(
+                "50V3R31GN_M4CH1N4",
+                style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, letterSpacing: 3, fontSize: 20),
               ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("50V3R31GN_M4CH1N4", style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, letterSpacing: 2, fontSize: 16)),
-                  Text("OPERATIONAL // ${_navItems[_currentIndex]['label']}", style: const TextStyle(color: Color(0xFFA89984), fontSize: 10)),
-                ],
-              ),
+              const Text("ASCENDED_v3.8.7 // TACTICAL_DECK", style: TextStyle(color: Color(0xFFA89984), fontSize: 10, fontWeight: FontWeight.bold)),
             ],
           ),
           _buildContextRings(),
@@ -128,36 +197,6 @@ class _PretextDashboardState extends State<PretextDashboard> {
       ),
     );
   }
-
-  Widget _buildBottomNav(Color primaryColor, Color bgColor) {
-    return Container(
-      height: 64,
-      decoration: BoxDecoration(
-        color: bgColor,
-        border: const Border(top: BorderSide(color: Color(0xFF504945), width: 1)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(_navItems.length, (index) {
-          final isSelected = _currentIndex == index;
-          return GestureDetector(
-            onTap: () => _onTabTapped(index),
-            behavior: HitTestBehavior.opaque,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(_navItems[index]['icon'], color: isSelected ? primaryColor : const Color(0xFFA89984), size: 24),
-                const SizedBox(height: 4),
-                Text(_navItems[index]['label'], style: TextStyle(color: isSelected ? primaryColor : const Color(0xFFA89984), fontSize: 8, fontWeight: FontWeight.bold)),
-              ],
-            ),
-          );
-        }),
-      ),
-    );
-  }
-
-  // ─── 0. CHAT_VIEW ───────────────────────────────────────────────────────
 
   Widget _buildChatView() {
     final chatService = context.watch<ChatService>();
@@ -173,12 +212,12 @@ class _PretextDashboardState extends State<PretextDashboard> {
             itemBuilder: (context, index) {
               final msg = chatService.messages[index];
               return Padding(
-                padding: const EdgeInsets.only(bottom: 24),
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("::/${msg.sender.toUpperCase()}", style: const TextStyle(color: Color(0xFFFE8019), fontSize: 10, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     Text(msg.text, style: const TextStyle(color: Color(0xFFEBDBB2), fontSize: 18, height: 1.4)),
                   ],
                 ),
@@ -186,7 +225,7 @@ class _PretextDashboardState extends State<PretextDashboard> {
             },
           ),
         ),
-        _buildTacticalInput(artery),
+        _buildInputArtery(artery),
       ],
     );
   }
@@ -197,86 +236,57 @@ class _PretextDashboardState extends State<PretextDashboard> {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFfb4934).withOpacity(0.05),
+        color: const Color(0xFFfb4934).withOpacity(0.1),
         border: Border.all(color: const Color(0xFFfb4934), width: 1),
       ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.graphic_eq, color: Color(0xFFfb4934), size: 16),
-              const SizedBox(width: 8),
-              const Text("FLUID_SMOKE_ARTERY_ACTIVE", style: TextStyle(color: Color(0xFFfb4934), fontSize: 10, fontWeight: FontWeight.bold)),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(artery.currentTranscription, style: const TextStyle(color: Color(0xFFfbf1c7), fontSize: 14, fontStyle: FontStyle.italic)),
-        ],
+      child: Text(
+        "⟨ V01C3_IN6R355 ⟩ : ${artery.currentTranscription}",
+        style: const TextStyle(color: Color(0xFFfb4934), fontSize: 14, fontStyle: FontStyle.italic),
       ),
     );
   }
 
-  Widget _buildTacticalInput(ArteryClient artery) {
+  Widget _buildInputArtery(ArteryClient artery) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
         color: Color(0xFF282828),
-        border: Border(top: BorderSide(color: Color(0xFF504945))),
+        border: Border(top: BorderSide(color: Color(0xFF3C3836))),
       ),
       child: Row(
         children: [
-          _tacticalButton(
-            icon: artery.isRecording ? Icons.stop : Icons.mic,
-            color: artery.isRecording ? const Color(0xFFfb4934) : const Color(0xFFfabd2f),
-            onPressed: () => artery.isRecording ? artery.stopVoiceStream() : artery.startVoiceStream(),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              style: const TextStyle(color: Color(0xFFfbf1c7), fontSize: 18),
-              decoration: const InputDecoration(
-                hintText: "ENTER_DIRECTIVE...",
-                border: InputBorder.none,
-                filled: false,
-              ),
-              onSubmitted: (_) => _handleSend(),
-            ),
-          ),
-          const SizedBox(width: 16),
-          _tacticalButton(
-            icon: Icons.bolt,
-            color: const Color(0xFFfb4934),
-            onPressed: _handleSend,
-          ),
+          _tacticalIconButton(artery.isRecording ? Icons.stop : Icons.mic, const Color(0xFFFABD2F), () {
+            artery.isRecording ? artery.stopVoiceStream() : artery.startVoiceStream();
+          }),
+          const SizedBox(width: 12),
+          Expanded(child: TextField(
+            controller: _controller,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+            decoration: const InputDecoration(hintText: "ENTER_DIRECTIVE...", border: InputBorder.none)
+          )),
+          const SizedBox(width: 12),
+          _tacticalIconButton(Icons.bolt, const Color(0xFFFB4934), () {
+            if (_controller.text.isNotEmpty) {
+               context.read<ChatService>().sendMessage(_controller.text, artery);
+               _controller.clear();
+            }
+          }),
         ],
       ),
     );
   }
 
-  Widget _tacticalButton({required IconData icon, required Color color, required VoidCallback onPressed}) {
+  Widget _tacticalIconButton(IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: onTap,
       child: Container(
-        width: 56,
-        height: 56,
-        decoration: BoxDecoration(
-          border: Border.all(color: color, width: 2),
-          color: color.withOpacity(0.05),
-        ),
-        child: Icon(icon, color: color, size: 32),
+        width: 54,
+        height: 54,
+        decoration: BoxDecoration(border: Border.all(color: color, width: 2), color: color.withOpacity(0.05)),
+        child: Icon(icon, color: color, size: 28),
       ),
     );
   }
-
-  void _handleSend() {
-    if (_controller.text.isEmpty) return;
-    final artery = context.read<ArteryClient>();
-    context.read<ChatService>().sendMessage(_controller.text, artery);
-    _controller.clear();
-  }
-
-  // ─── 1. TASKS_VIEW ───────────────────────────────────────────────────────
 
   Widget _buildTasksView() {
     final taskService = context.watch<TaskService>();
@@ -287,20 +297,15 @@ class _PretextDashboardState extends State<PretextDashboard> {
         final task = taskService.tasks[index];
         return Container(
           margin: const EdgeInsets.only(bottom: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFF504945)),
-            color: const Color(0xFF32302f),
-          ),
+          decoration: BoxDecoration(border: Border.all(color: const Color(0xFF3C3836)), color: const Color(0xFF282828)),
           child: ListTile(
             leading: Checkbox(value: task.isCompleted, onChanged: (_) => taskService.toggleTask(task.id)),
-            title: Text(task.title, style: TextStyle(color: task.isCompleted ? Colors.white24 : const Color(0xFFfbf1c7), fontSize: 18)),
+            title: Text(task.title, style: TextStyle(color: task.isCompleted ? Colors.white24 : Colors.white, fontSize: 18)),
           ),
         );
       },
     );
   }
-
-  // ─── 3. TERMINAL_VIEW ───────────────────────────────────────────────────
 
   Widget _buildTerminalView() {
     final vsb = context.watch<VsbListener>();
@@ -309,39 +314,27 @@ class _PretextDashboardState extends State<PretextDashboard> {
 
     return Container(
       color: Colors.black,
-      padding: const EdgeInsets.all(12),
       child: ListView.builder(
+        padding: const EdgeInsets.all(12),
         itemCount: combined.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1),
-            child: Text(
-              combined[index],
-              style: const TextStyle(color: Color(0xFFb8bb26), fontSize: 12, fontFamily: 'monospace'),
-            ),
-          );
-        },
+        itemBuilder: (context, index) => Text(combined[index], style: const TextStyle(color: Color(0xFFB8BB26), fontSize: 12, fontFamily: 'monospace')),
       ),
     );
-  }
-
-  Widget _buildPlaceholder(String label) {
-    return Center(child: Text("::/$label\_OFFLINE", style: const TextStyle(color: Colors.white12, fontSize: 18, fontWeight: FontWeight.bold)));
   }
 
   Widget _buildContextRings() {
     return Row(
       children: [
-        _ring(0.85, const Color(0xFFfb4934)),
-        const SizedBox(width: 8),
-        _ring(0.42, const Color(0xFFb8bb26)),
-        const SizedBox(width: 8),
-        _ring(0.12, const Color(0xFF83a598)),
+        _ring(0.85, const Color(0xFFFB4934)),
+        const SizedBox(width: 12),
+        _ring(0.42, const Color(0xFFB8BB26)),
+        const SizedBox(width: 12),
+        _ring(0.12, const Color(0xFF83A598)),
       ],
     );
   }
 
   Widget _ring(double progress, Color color) {
-    return SizedBox(width: 20, height: 20, child: CircularProgressIndicator(value: progress, strokeWidth: 3, color: color, backgroundColor: const Color(0xFF3c3836)));
+    return SizedBox(width: 24, height: 24, child: CircularProgressIndicator(value: progress, strokeWidth: 4, color: color, backgroundColor: const Color(0xFF3C3836)));
   }
 }

@@ -8,6 +8,10 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 ## [3.8.7] - 2026-04-26
 
 ### Added
+- **Pretext Ascension (Phase 96):** Materialized high-performance **Fluid Smoke** metabolic shaders in Web and Mobile HUDs. Refactored the UI to a "Modular Command Deck" with a persistent tactical side-rail and high-density cards.
+- **OMI Voice Restoration:** Repaired the missing OMI JSON Handshake protocol; the microphone now correctly initializes with PCM-16 preambles for active field listening.
+- **MemPalace Structural Refactor (Phase 95):** Refactored the **Neural Promenade** from a freeform graph into a rigid spatial hierarchy (Wings -> Rooms -> Drawers) with visible wireframe bounding boxes and temporal freshness shaders.
+- **Claw3D Spatial Ingress:** Materialized the **Spatial Latch System** and `SpatialHotspotArtery.dart` for real-time visual anchoring and 2D topographical mapping of agent activity.
 - **Mobile Mesh Materialized (Phase 91):** Scaffolded `openclaw_bridge.dart`, `screen_capture_service.dart`, and `postcard_service.dart` in the Flutter HUD. Integrated native `MethodChannel` in Kotlin `MainActivity.kt`.
 - **Native Android Control:** Scaffolded `SovereignAccessibilityService` and `accessibility_service_config.xml` for 100% semantic screen awareness.
 - **Mobile Vision Artery:** Materialized `MobileVisionArtery.ts` (Node B) listening on Port 3013 for binary frame ingestion.

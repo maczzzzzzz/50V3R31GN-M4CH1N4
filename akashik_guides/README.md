@@ -33,6 +33,7 @@ The guides are structured using the **Diátaxis framework** to ensure high-fidel
 - [Sociotomy](explanation/sociotomy.md): The strict separation of OS and Lore.
 - [Orchestration Loop](explanation/orchestration-loop.md): The Hermes Singularity and Context-DAG.
 - [Identity and Profiles](explanation/identity-and-profiles.md): [SOVEREIGN_OS] vs [RED_DIRECTOR].
+- [Reckoning Protocol](explanation/closed-loop-gauntlet-reckoning.md): Autonomous live-audit and self-optimization.
 
 ---
 
