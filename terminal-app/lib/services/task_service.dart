@@ -42,7 +42,6 @@ class TaskService extends ChangeNotifier {
       id: _uuid.v4(),
       title: title,
       isCompleted: false,
-      createdAt: DateTime.now(),
     );
     _tasks.insert(0, newTask);
     await _saveTasks();
