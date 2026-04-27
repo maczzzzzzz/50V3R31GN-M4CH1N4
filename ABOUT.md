@@ -15,19 +15,19 @@ Sovereign Machina achieves high-fidelity operation by distributing its cognitive
 ### ◈ Node A: Mooncake Artery (KV Cache)
 - **Hardware:** Edge Node / Secondary GPU.
 - **Role:** The **Mechanical Reasoner** and **Context Cache**.
-- **Function:** Handles KV (Key-Value) memory caching via Mooncake Master. Manages all high-speed, mechanical validations (e.g., VSB telemetry packet signing and rules-oracle bypass) using ultra-fast, small parameter models to ensure sub-10ms response for physical reflexes.
+- **Function:** Handles KV (Key-Value) memory caching via Mooncake v0.3.10. Implements **Prefill-Decode Disaggregation (PD)** logic, separating initial prompt processing from high-speed token generation. Manages all high-speed mechanical validations (e.g., VSB telemetry packet signing) using ultra-fast, small parameter models.
 
 ### ◈ Node B: The Director (16GB VRAM)
 - **Hardware:** Primary high-performance GPU.
 - **Role:** The **Cognitive Heart** and **Visual Cortex**.
 - **Stack:** Llama.cpp (Gemma-4-E4B Q8), Vision-Language Integration.
-- **Function:** Runs the **Hermes Singularity Engine**. This node is **Vision-Capable**, allowing it to analyze raw screen captures for 100% Mobile/Desktop awareness. It handles deep contextual reasoning, complex tool execution via MCP, and rich narrative generation.
+- **Function:** Runs the **Hermes Singularity Engine** (v0.11.0). This node is **Vision-Capable**, allowing it to analyze raw screen captures for 100% awareness. It handles deep contextual reasoning and complex tool execution via the **Model Context Protocol (MCP)** standard.
 
 ### ◈ Node C: Strategic Oracle (Model Farm)
 - **Hardware:** Dedicated inference array.
 - **Role:** The **Background Brain** and **Defense Grid**.
 - **Stack:** Gemma-4-E4B Model Farm (Q3, Q4, Q5) + Falcon Perception.
-- **Function:** Hosts multiple model shards for token-efficient background reasoning. Drives the **Vesper Enforcer** for autonomous threat reconnaissance and system optimization. (Note: ColPali is utilized strictly for document/PDF ingestion pipelines and is not part of the active vision artery).
+- **Function:** Hosts multiple model shards for token-efficient background reasoning. Drives the **Vesper Enforcer** for autonomous threat reconnaissance. Utilizes **Mysticeti-inspired DAG consensus** for multi-agent state synchronization.
 
 ---
 
@@ -35,18 +35,18 @@ Sovereign Machina achieves high-fidelity operation by distributing its cognitive
 
 ### 3.1 The Hermes Singularity
 The native, high-fidelity orchestration engine driving the Trinity.
-- **Context-DAG:** Reasoning utilizes Directed Acyclic Graphs for branching logic threads.
+- **Context-DAG:** Reasoning utilizes Directed Acyclic Graphs for branching logic threads, synchronized with the latest Hermes-Agent v0.11 closed-loop learning patterns.
+- **MCP Ubiquity:** All tool-ingress (Browser, Filesystem, Terminal) is standardized on the Model Context Protocol, enabling zero-latency integration with external logic shards.
 - **GEPA:** Continuous self-optimization of prompts based on task fitness.
-- **SSE Short-Circuit:** Direct streaming to the UI with sub-50ms latency.
 
 ### 3.2 The Pretext HUD
 Total UI Unification across Web (Next.js) and Mobile (Flutter).
 - **Monolithic Visuals:** A single-file UI baseline using the Pretext low-level text engine.
-- **Autonomous Grid Control:** Agents dynamically resize panels based on mission context.
+- **Claw3D Spatial Anchors:** Integrated v0.1.4 "Runtime Profiles" for real-time visual anchoring of agent reasoning to 3D geometry.
 
 ### 3.3 Headless Physical Mesh
 - **Crush Proxy:** 100% headless background artery for Mmap and VSB management.
-- **Obsidian 1st Class:** Primary memory vault synchronized via Datalog-to-SQLite and Tailscale tunnels.
+- **Obsidian 1st Class:** Primary memory vault synchronized via **MemPalace-v3.3** temporal entity-relationship graphs and Tailscale tunnels.
 
 ---
 **::/5Y573M-N071C3 : THE_ABOUT_FILE_SHORED. TOPOLOGY_VERIFIED. // 50V3R31GN-M4CH1N4**

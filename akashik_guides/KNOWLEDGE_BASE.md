@@ -10,9 +10,9 @@ This document serves as the high-fidelity technical specification for the Sovere
 
 | Node | Role | Model / Engine | Hardware Focus |
 | :--- | :--- | :--- | :--- |
-| **Node A** | **KV Cache** | Mooncake Master | 4GB VRAM / Reflexes |
-| **Node B** | **Director** | Gemma-4-E4B Q8 | 16GB VRAM / Reasoning |
-| **Node C** | **Model Farm** | Gemma-4-E4B (Q3-Q5) | Cognition Shards / Defense |
+| **Node A** | **KV Cache** | Mooncake v3.8.7 | 4GB VRAM / PD-Disaggregation |
+| **Node B** | **Director** | Gemma-4-E4B Q8 | 16GB VRAM / Vision-Capable |
+| **Node C** | **Model Farm** | Gemma-4-E4B (Q3-Q5) | Cognition Shards / Mysticeti-DAG |
 
 ---
 
@@ -32,17 +32,23 @@ This document serves as the high-fidelity technical specification for the Sovere
 
 ## 🛡️ 3. CORE SUB-SYSTEMS
 
-### ◈ The Hermes Singularity
-Native v2026 orchestration replacing legacy linear proxies. Implements **Context-DAG** for branching cognitive ingress and **GEPA** for prompt evolution.
+### ◈ The Hermes Singularity (v3.8.7)
+Native orchestration engine. Implements **Context-DAG** reasoning and **MCP-standard** tool execution. Features autonomous closed-loop learning and FTS5 session search.
 
 ### ◈ The Pretext HUD
-A monolithic, high-density visualization layer built with the Pretext low-level rendering engine. Bit-identical across Web (Next.js) and Mobile (Flutter).
+A monolithic, high-density visualization layer built with the Pretext low-level rendering engine. Features **Claw3D v3.8.7** spatial anchors and bit-identical parity across Web/Mobile.
 
 ### ◈ The Crush Artery (Headless)
-Go-native physical bridge. Exclusively handles VSB binary telemetry, Mmap synchronization (`black_ice_state.mem`), and SSH tunneling. **Interactive mode is deprecated.**
+Go-native physical bridge. Exclusively handles VSB binary telemetry, Mmap synchronization, and SSH tunneling. **Interactive mode is deprecated.**
 
 ### ◈ Vesper Enforcer
 Autonomous defense grid running on Node C. Monitors system vitals and performs visual reconnaissance via 100% Screen Awareness on Node B.
+
+---
+
+## 🔗 4. EXTERNAL LOGIC SHARDS
+The Trinity mesh is shored by a collection of external open-source logic shards. 
+See the [[shard-manifest]] for the full list and audit protocol.
 
 ---
 **::/5Y573M-N071C3 : KNOWLEDGE_BASE_SHORED. ARTERIES_STABLE. // 50V3R31GN-M4CH1N4**
