@@ -5,13 +5,22 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:record/record.dart';
+import 'package:uuid/uuid.dart';
 import 'notification_service.dart';
+
+/**
+ * ◈ ARTERY_CLIENT — v3.8.7 RE-GROUNDED
+ * 
+ * High-fidelity voice and command artery connecting the HUD to Node C.
+ * Implements OMI Handshake and PCM-16 streaming.
+ */
 
 class ArteryClient extends ChangeNotifier {
   WebSocketChannel? _channel;
   final List<String> _logs = [];
   bool _isConnected = false;
   final NotificationService _notificationService = NotificationService();
+  final _uuid = const Uuid();
   
   final _audioRecorder = AudioRecorder();
   bool _isRecording = false;
@@ -32,11 +41,10 @@ class ArteryClient extends ChangeNotifier {
 
   Future<void> connectFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    final ip = prefs.getString('node_c_ip') ?? '10.0.0.30';
+    final ip = prefs.getString('node_c_ip') ?? '100.x.y.z'; // Use real tailscale IP
     final port = prefs.getString('node_c_port') ?? '7340';
     final secure = prefs.getBool('secure_tunnel') ?? false;
     
-    // ◈ Handshake protocol: ws (standard) or wss (encrypted)
     final protocol = secure ? 'wss' : 'ws';
     final url = '$protocol://$ip:$port/ws/audio';
     
@@ -49,6 +57,18 @@ class ArteryClient extends ChangeNotifier {
     try {
       _channel = WebSocketChannel.connect(Uri.parse(url));
       _isConnected = true;
+      
+      // ◈ OMI Handshake (Phase 96.1)
+      final handshake = jsonEncode({
+        "type": "handshake",
+        "session_id": _uuid.v4(),
+        "sample_rate": 16000,
+        "codec": "pcm16",
+        "uid": "SOVEREIGN_HUD"
+      });
+      _channel!.sink.add(handshake);
+      addLog("::/ARTERY_ACTIVE : HANDSHAKE_SENT");
+
       notifyListeners();
 
       _channel!.stream.listen(
@@ -72,28 +92,9 @@ class ArteryClient extends ChangeNotifier {
   }
 
   void _handleIncomingMessage(dynamic message) {
-    // Command Parsing
     if (message is String) {
-      if (message.startsWith("::/REMINDER|")) {
-        try {
-          final parts = message.split('|');
-          if (parts.length >= 3) {
-            final timeStr = parts[1];
-            final note = parts[2];
-            final time = DateTime.parse(timeStr);
-            
-            _notificationService.scheduleNotification(
-              message.hashCode,
-              'HERMES_REMINDER',
-              note,
-              time,
-            );
-            addLog("::/REMINDER_SCHEDULED : $note at $timeStr");
-          }
-        } catch (e) {
-          addLog("::/REMINDER_ERROR : Failed to parse reminder command");
-        }
-      } else if (message.startsWith("{")) {
+      addLog("::/RX : $message"); // Traceable logs
+      if (message.startsWith("{")) {
         try {
           final data = jsonDecode(message);
           if (data['type'] == 'TRANSCRIPTION') {
@@ -106,10 +107,8 @@ class ArteryClient extends ChangeNotifier {
             notifyListeners();
           }
         } catch (e) {
-          addLog("::/WS_RECEIVE : $message");
+          // Fallback
         }
-      } else {
-        addLog("::/WS_RECEIVE : $message");
       }
     }
   }
@@ -122,7 +121,7 @@ class ArteryClient extends ChangeNotifier {
 
   Future<void> startVoiceStream() async {
     if (!_isConnected) {
-      addLog("::/ERROR : NOT_CONNECTED");
+      addLog("::/ERROR : ARTERY_OFFLINE");
       return;
     }
 
@@ -138,7 +137,7 @@ class ArteryClient extends ChangeNotifier {
         _isRecording = true;
         _currentTranscription = "";
         notifyListeners();
-        addLog("::/USER : [AUDIO_STREAM_STARTED]");
+        addLog("::/USER : [V01C3_IN6R355_ACTIVE]");
         
         _notificationService.showPersistentEye(status: 'TRANSCRIBING_ACTIVE');
 
@@ -158,14 +157,8 @@ class ArteryClient extends ChangeNotifier {
     await _audioRecorder.stop();
     _isRecording = false;
     notifyListeners();
-    addLog("::/USER : [AUDIO_STREAM_STOPPED]");
+    addLog("::/USER : [V01C3_IN6R355_OFFLINE]");
     _notificationService.showPersistentEye(status: 'MONITORING_ACTIVE');
-  }
-
-  void sendAudioChunk(Uint8List data) {
-    if (_isConnected && _channel != null) {
-      _channel!.sink.add(data);
-    }
   }
 
   /// Sends a structured JSON command through the Artery.
@@ -180,29 +173,6 @@ class ArteryClient extends ChangeNotifier {
       addLog("::/USER_CMD : $action");
     } else {
       addLog("::/ERROR : ARTERY_OFFLINE");
-    }
-  }
-
-  Future<void> shiftQuantization(String quant) async {
-    final prefs = await SharedPreferences.getInstance();
-    final ip = prefs.getString('node_c_ip') ?? '10.0.0.30';
-    final port = prefs.getString('node_c_port') ?? '7340';
-    const protocol = 'http';
-    
-    try {
-      final response = await http.post(
-        Uri.parse('$protocol://$ip:$port/shift'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({"quantization": quant}),
-      ).timeout(const Duration(seconds: 10));
-      
-      if (response.statusCode == 200) {
-        addLog("::/SHIFT_SUCCESS : $quant");
-      } else {
-        addLog("::/SHIFT_FAILED : ${response.statusCode}");
-      }
-    } catch (e) {
-      addLog("::/SHIFT_ERROR : $e");
     }
   }
 

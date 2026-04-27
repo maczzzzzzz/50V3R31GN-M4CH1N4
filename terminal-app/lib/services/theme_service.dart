@@ -4,104 +4,167 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum ThemeModePreset { neonGreen, sovereignRed, gruvboxDark, gruvboxLight }
+/**
+ * ◈ GRUVB0X_M473R14L_7H3M3 — v3.8.7
+ * 
+ * High-fidelity port of sainnhe/gruvbox-material-vscode.
+ * Standardized for the Sovereign Trinity OS.
+ */
+
+enum ThemeModePreset { mediumDark, softDark, hardDark, light }
 
 class ThemePreset {
-  final Color scaffoldBackgroundColor;
-  final Color primaryColor;
-  final Color accentColor;
-  final Color textColor;
+  final Color bg0;
+  final Color bg1;
+  final Color bg2;
+  final Color bg3;
+  final Color fg0;
+  final Color fg1;
+  final Color red;
+  final Color green;
+  final Color yellow;
+  final Color blue;
+  final Color purple;
+  final Color aqua;
+  final Color orange;
   final String name;
 
   ThemePreset({
-    required this.scaffoldBackgroundColor,
-    required this.primaryColor,
-    required this.accentColor,
-    required this.textColor,
+    required this.bg0,
+    required this.bg1,
+    required this.bg2,
+    required this.bg3,
+    required this.fg0,
+    required this.fg1,
+    required this.red,
+    required this.green,
+    required this.yellow,
+    required this.blue,
+    required this.purple,
+    required this.aqua,
+    required this.orange,
     required this.name,
   });
 
   ThemeData get themeData {
-    // ◈ Tactical Sizing
     const double baseFontSize = 18.0;
     const double headerFontSize = 28.0;
 
-    // Use vt323 for all text styles to ensure readability
-    final baseTextTheme = GoogleFonts.vt323TextTheme();
-
     return ThemeData(
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: scaffoldBackgroundColor,
-      primaryColor: primaryColor,
-      hintColor: accentColor,
-      textTheme: baseTextTheme.copyWith(
-        bodyMedium: GoogleFonts.vt323(fontSize: baseFontSize, color: textColor),
-        bodyLarge: GoogleFonts.vt323(fontSize: baseFontSize + 2, color: textColor),
-        bodySmall: GoogleFonts.vt323(fontSize: baseFontSize - 4, color: textColor.withOpacity(0.7)),
-        headlineMedium: GoogleFonts.vt323(fontSize: headerFontSize, color: primaryColor, fontWeight: FontWeight.bold),
-        titleLarge: GoogleFonts.vt323(fontSize: baseFontSize + 4, color: primaryColor, fontWeight: FontWeight.bold),
+      scaffoldBackgroundColor: bg0,
+      primaryColor: orange,
+      canvasColor: bg1,
+      hintColor: yellow,
+      dividerColor: bg3,
+      
+      textTheme: GoogleFonts.vt323TextTheme().copyWith(
+        bodyMedium: GoogleFonts.vt323(fontSize: baseFontSize, color: fg0),
+        bodyLarge: GoogleFonts.vt323(fontSize: baseFontSize + 2, color: fg1),
+        bodySmall: GoogleFonts.vt323(fontSize: baseFontSize - 4, color: fg1.withOpacity(0.7)),
+        headlineMedium: GoogleFonts.vt323(fontSize: headerFontSize, color: red, fontWeight: FontWeight.bold),
+        titleLarge: GoogleFonts.vt323(fontSize: baseFontSize + 4, color: aqua, fontWeight: FontWeight.bold),
       ),
+      
       appBarTheme: AppBarTheme(
-        backgroundColor: const Color(0xFF282828),
-        titleTextStyle: GoogleFonts.vt323(color: primaryColor, fontSize: headerFontSize),
-        iconTheme: IconThemeData(color: primaryColor, size: 28),
+        backgroundColor: bg1,
+        elevation: 0,
+        titleTextStyle: GoogleFonts.vt323(color: fg0, fontSize: headerFontSize),
+        iconTheme: IconThemeData(color: orange, size: 28),
       ),
-      iconTheme: IconThemeData(color: primaryColor, size: 28),
+      
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: bg1,
+        selectedItemColor: orange,
+        unselectedItemColor: fg1.withOpacity(0.5),
+        selectedLabelStyle: GoogleFonts.vt323(fontSize: 10, fontWeight: FontWeight.bold),
+        unselectedLabelStyle: GoogleFonts.vt323(fontSize: 10),
+        type: BottomNavigationBarType.fixed,
+        elevation: 10,
+      ),
+
+      iconTheme: IconThemeData(color: orange, size: 28),
+      
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF3C3836),
-          foregroundColor: primaryColor,
-          textStyle: GoogleFonts.vt323(fontSize: baseFontSize),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          backgroundColor: bg2,
+          foregroundColor: fg0,
+          textStyle: GoogleFonts.vt323(fontSize: baseFontSize, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          shape: const BeveledRectangleBorder(),
+          side: BorderSide(color: bg3, width: 1),
         ),
       ),
+      
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: primaryColor, fontSize: baseFontSize),
-        hintStyle: TextStyle(color: primaryColor.withOpacity(0.5), fontSize: baseFontSize),
+        filled: true,
+        fillColor: bg1,
+        labelStyle: TextStyle(color: yellow, fontSize: baseFontSize),
+        hintStyle: TextStyle(color: fg1.withOpacity(0.3), fontSize: baseFontSize),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: primaryColor)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: primaryColor, width: 2.0)),
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: bg3)),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: orange, width: 2.0)),
       ),
+      
       checkboxTheme: CheckboxThemeData(
-        fillColor: WidgetStateProperty.all(primaryColor),
-        checkColor: WidgetStateProperty.all(scaffoldBackgroundColor),
+        fillColor: WidgetStateProperty.all(orange),
+        checkColor: WidgetStateProperty.all(bg0),
       ),
     );
   }
 }
 
 class ThemeService extends ChangeNotifier {
-  ThemeModePreset _currentMode = ThemeModePreset.gruvboxDark;
+  ThemeModePreset _currentMode = ThemeModePreset.mediumDark;
 
   static final Map<ThemeModePreset, ThemePreset> presets = {
-    ThemeModePreset.neonGreen: ThemePreset(
-      scaffoldBackgroundColor: const Color(0xFF1D2021),
-      primaryColor: const Color(0xFFB8BB26),
-      accentColor: const Color(0xFF8EC07C),
-      textColor: const Color(0xFFEBDBB2),
-      name: 'GRUVB0X-GR33N',
+    ThemeModePreset.mediumDark: ThemePreset(
+      bg0: const Color(0xFF282828),
+      bg1: const Color(0xFF32302f),
+      bg2: const Color(0xFF3c3836),
+      bg3: const Color(0xFF504945),
+      fg0: const Color(0xFFfbf1c7),
+      fg1: const Color(0xFFebdbb2),
+      red: const Color(0xFFfb4934),
+      green: const Color(0xFFb8bb26),
+      yellow: const Color(0xFFfabd2f),
+      blue: const Color(0xFF83a598),
+      purple: const Color(0xFFd3869b),
+      aqua: const Color(0xFF8ec07c),
+      orange: const Color(0xFFfe8019),
+      name: 'GRUVB0X_MEDIUM',
     ),
-    ThemeModePreset.sovereignRed: ThemePreset(
-      scaffoldBackgroundColor: const Color(0xFF1D2021),
-      primaryColor: const Color(0xFFFB4934),
-      accentColor: const Color(0xFFFE8019),
-      textColor: const Color(0xFFEBDBB2),
-      name: 'GRUVB0X-R3D',
+    ThemeModePreset.softDark: ThemePreset(
+      bg0: const Color(0xFF32302f),
+      bg1: const Color(0xFF3c3836),
+      bg2: const Color(0xFF504945),
+      bg3: const Color(0xFF665c54),
+      fg0: const Color(0xFFfbf1c7),
+      fg1: const Color(0xFFddc7a1),
+      red: const Color(0xFFfb4934),
+      green: const Color(0xFFb8bb26),
+      yellow: const Color(0xFFfabd2f),
+      blue: const Color(0xFF83a598),
+      purple: const Color(0xFFd3869b),
+      aqua: const Color(0xFF8ec07c),
+      orange: const Color(0xFFfe8019),
+      name: 'GRUVB0X_SOFT',
     ),
-    ThemeModePreset.gruvboxDark: ThemePreset(
-      scaffoldBackgroundColor: const Color(0xFF282828),
-      primaryColor: const Color(0xFFFABD2F),
-      accentColor: const Color(0xFFFE8019),
-      textColor: const Color(0xFFEBDBB2),
-      name: 'GRUVB0X-D4RK',
-    ),
-    ThemeModePreset.gruvboxLight: ThemePreset(
-      scaffoldBackgroundColor: const Color(0xFFFBF1C7),
-      primaryColor: const Color(0xFFAF3A03),
-      accentColor: const Color(0xFFD65D0E),
-      textColor: const Color(0xFF3C3836),
-      name: 'GRUVB0X-L16H7',
+    ThemeModePreset.hardDark: ThemePreset(
+      bg0: const Color(0xFF1d2021),
+      bg1: const Color(0xFF282828),
+      bg2: const Color(0xFF32302f),
+      bg3: const Color(0xFF3c3836),
+      fg0: const Color(0xFFfbf1c7),
+      fg1: const Color(0xFFebdbb2),
+      red: const Color(0xFFfb4934),
+      green: const Color(0xFFb8bb26),
+      yellow: const Color(0xFFfabd2f),
+      blue: const Color(0xFF83a598),
+      purple: const Color(0xFFd3869b),
+      aqua: const Color(0xFF8ec07c),
+      orange: const Color(0xFFfe8019),
+      name: 'GRUVB0X_HARD',
     ),
   };
 
@@ -121,8 +184,7 @@ class ThemeService extends ChangeNotifier {
 
     try {
       final secure = prefs.getBool('secure_tunnel') ?? false;
-      final protocol = secure ? 'https' : 'http';
-      final url = '$protocol://$ip:3011/api/system/theme';
+      final url = '${secure ? "https" : "http"}://$ip:3011/api/system/theme';
 
       await http.post(
         Uri.parse(url),
