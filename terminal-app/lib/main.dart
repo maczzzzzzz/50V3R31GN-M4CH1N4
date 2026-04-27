@@ -9,7 +9,9 @@ import 'services/openclaw_bridge.dart';
 import 'services/screen_capture_service.dart';
 import 'services/postcard_service.dart';
 import 'services/permission_service.dart';
-import 'screens/chat_screen.dart';
+import 'services/task_service.dart';
+import 'services/vsb_listener.dart';
+import 'services/notification_service.dart';
 import 'screens/pretext_dashboard.dart';
 
 void main() async {
@@ -29,15 +31,18 @@ void main() async {
       providers: [
         ChangeNotifierProvider.value(value: themeService),
         Provider.value(value: dbService),
+        Provider(create: (_) => NotificationService()),
+        ChangeNotifierProvider(create: (_) => TaskService()),
         ChangeNotifierProvider(create: (_) => MemoryProvider()),
         ChangeNotifierProvider(create: (_) => ArteryClient()),
+        ChangeNotifierProvider(create: (_) => VsbListener()),
         ChangeNotifierProvider(create: (_) => OpenClawBridge()),
         ChangeNotifierProvider(create: (_) => ScreenCaptureService()),
         ProxyProvider<OpenClawBridge, PostcardService>(
           update: (_, bridge, __) => PostcardService(bridge),
           dispose: (_, postcardService) => postcardService.dispose(),
         ),
-        Provider(create: (_) => ChatService()),
+        ChangeNotifierProvider(create: (_) => ChatService()),
       ],
       child: const SovereignApp(),
     ),

@@ -38,7 +38,7 @@
     "atlas:headless": "nix develop --impure --command ./sidecar-atlas/target/release/sidecar-atlas --headless",
     "netrunning": "nix develop --impure --command ./sidecar-netrunning/target/release/sidecar-netrunning",
     "netrunning:headless": "nix develop --impure --command ./sidecar-netrunning/target/release/sidecar-netrunning --headless",
-    "terminal": "npm run ink:terminal",
+    "terminal": "./crush-cli terminal",
     "ink:terminal": "nix develop --impure --command hermes terminal --ink",
     "pulse": "npx tsx scripts/dev/sovereign-pulse.ts",
     "build:sidecar:atlas": "nix develop --impure --command cargo build --release --manifest-path sidecar-atlas/Cargo.toml",
@@ -52,7 +52,6 @@
     "reconstruct": "python3 scripts/fast-reconstruct.py",
     "crush": "./crush-cli",
     "crush:nucleus": "./crush-cli nucleus",
-    "terminal": "./crush-cli terminal",
     "dream": "tsx src/scripts/dream-daemon.ts",
     "dream:once": "tsx src/scripts/dream-daemon.ts --once",
     "mcp:start": "tsx scripts/dev/mcp-daemon.ts",
@@ -98,6 +97,7 @@
     }
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/better-sqlite3": "7.6.13",
     "@types/js-yaml": "^4.0.9",
     "@types/jsdom": "^28.0.1",
@@ -108,6 +108,7 @@
     "@types/pngjs": "^6.0.5",
     "@types/ws": "8.18.1",
     "esbuild": "0.25.0",
+    "playwright": "^1.59.1",
     "tsx": "4.21.0",
     "typescript": "5.8.3",
     "vite": "^7.3.2",

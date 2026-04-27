@@ -23,22 +23,23 @@ class ThemePreset {
 
   ThemeData get themeData {
     // ◈ Tactical Sizing
-    const double baseFontSize = 16.0;
+    const double baseFontSize = 18.0;
     const double headerFontSize = 28.0;
+
+    // Use vt323 for all text styles to ensure readability
+    final baseTextTheme = GoogleFonts.vt323TextTheme();
 
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       primaryColor: primaryColor,
       hintColor: accentColor,
-      textTheme: GoogleFonts.vt323TextTheme().apply(
-        bodyColor: textColor,
-        displayColor: textColor,
-        fontSizeFactor: 1.2, // Global increase for readability
-      ).copyWith(
+      textTheme: baseTextTheme.copyWith(
         bodyMedium: GoogleFonts.vt323(fontSize: baseFontSize, color: textColor),
         bodyLarge: GoogleFonts.vt323(fontSize: baseFontSize + 2, color: textColor),
+        bodySmall: GoogleFonts.vt323(fontSize: baseFontSize - 4, color: textColor.withOpacity(0.7)),
         headlineMedium: GoogleFonts.vt323(fontSize: headerFontSize, color: primaryColor, fontWeight: FontWeight.bold),
+        titleLarge: GoogleFonts.vt323(fontSize: baseFontSize + 4, color: primaryColor, fontWeight: FontWeight.bold),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: const Color(0xFF282828),

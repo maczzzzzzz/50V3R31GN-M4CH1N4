@@ -34,12 +34,13 @@ function getWslGateway(): string {
 }
 
 async function fetchCdpWsUrl(): Promise<string> {
-  const bridgeHost = process.env['CDP_BRIDGE_HOST'] ?? '10.0.0.11';
-  const bridgePort = process.env['CDP_BRIDGE_PORT'] ?? '9223';
+  const bridgeHost = process.env['CDP_BRIDGE_HOST'] ?? '127.0.0.1';
+  const bridgePort = process.env['CDP_BRIDGE_PORT'] ?? '9222';
   const wslGw = getWslGateway();
 
   const candidates = [...new Set([
     `http://${bridgeHost}:${bridgePort}`,
+    `http://127.0.0.1:9222`,
     `http://${wslGw}:${bridgePort}`,
     `http://${wslGw}:9222`,
   ])];
