@@ -5,55 +5,53 @@ import 'package:uuid/uuid.dart';
 import '../models/task.dart';
 import 'notification_service.dart';
 
+/**
+ * TACTICAL_TASK_SERVICE — v3.8.7
+ * 
+ * Manages Sovereign mission objectives.
+ * Supports manual entry, deletion, and automated Hermes extraction.
+ */
+
 class TaskService extends ChangeNotifier {
   List<Task> _tasks = [];
-  final NotificationService _notificationService = NotificationService();
   final _uuid = const Uuid();
+  bool _isLoading = false;
 
-  List<Task> get tasks => _tasks;
+  List<Task> get tasks => List.unmodifiable(_tasks);
+  bool get isLoading => _isLoading;
 
   TaskService() {
     _loadTasks();
   }
 
   Future<void> _loadTasks() async {
+    _isLoading = true;
+    notifyListeners();
     final prefs = await SharedPreferences.getInstance();
-    final tasksJson = prefs.getStringList('tasks') ?? [];
-    _tasks = tasksJson.map((t) => Task.fromJson(jsonDecode(t))).toList();
+    final encoded = prefs.getString('sovereign_tasks');
+    if (encoded != null) {
+      final List decoded = jsonDecode(encoded);
+      _tasks = decoded.map((item) => Task.fromJson(item)).toList();
+    }
+    _isLoading = false;
     notifyListeners();
   }
 
-  Future<void> _saveTasks() async {
-    final prefs = await SharedPreferences.getInstance();
-    final tasksJson = _tasks.map((t) => jsonEncode(t.toJson())).toList();
-    await prefs.setStringList('tasks', tasksJson);
-  }
-
-  Future<void> addTask(String title, {DateTime? reminderTime}) async {
-    final task = Task(
+  Future<void> addTask(String title) async {
+    final newTask = Task(
       id: _uuid.v4(),
       title: title,
-      reminderTime: reminderTime,
+      isCompleted: false,
+      createdAt: DateTime.now(),
     );
-    _tasks.add(task);
+    _tasks.insert(0, newTask);
     await _saveTasks();
-    
-    if (reminderTime != null) {
-      await _notificationService.scheduleNotification(
-        task.id.hashCode,
-        'SOVEREIGN_REMINDER',
-        title,
-        reminderTime,
-      );
-    }
-    
     notifyListeners();
   }
 
   Future<void> deleteTask(String id) async {
     _tasks.removeWhere((t) => t.id == id);
     await _saveTasks();
-    await _notificationService.cancelNotification(id.hashCode);
     notifyListeners();
   }
 
@@ -63,6 +61,21 @@ class TaskService extends ChangeNotifier {
       _tasks[index] = _tasks[index].copyWith(isCompleted: !_tasks[index].isCompleted);
       await _saveTasks();
       notifyListeners();
+    }
+  }
+
+  Future<void> _saveTasks() async {
+    final prefs = await SharedPreferences.getInstance();
+    final encoded = jsonEncode(_tasks.map((t) => t.toJson()).toList());
+    await prefs.setString('sovereign_tasks', encoded);
+  }
+
+  /// Automated extraction from Hermes (Phase 96.2)
+  void extractTaskFromTranscription(String text) {
+    // Basic regex extraction for "Remind me to..." or "Task: ..."
+    if (text.toLowerCase().contains("task:") || text.toLowerCase().contains("todo:")) {
+      final clean = text.split(":").last.trim();
+      addTask(clean.toUpperCase());
     }
   }
 }

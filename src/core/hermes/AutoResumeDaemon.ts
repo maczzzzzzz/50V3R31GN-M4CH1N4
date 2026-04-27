@@ -8,8 +8,8 @@
  */
 
 import Database from 'better-sqlite3';
-import { LangGraphOrchestrator } from './LangGraphOrchestrator.js';
-import type { OrchestratorState } from './LangGraphOrchestrator.js';
+import { HermesSingularity } from './HermesSingularity.js';
+import type { OrchestratorState } from './HealerProtocol.js';
 
 export class AutoResumeDaemon {
   private db: Database.Database;
@@ -22,14 +22,14 @@ export class AutoResumeDaemon {
     const stmt = this.db.prepare(`SELECT thread_id, state FROM orchestrator_checkpoints`);
     const rows = stmt.all() as Array<{ thread_id: string; state: string }>;
 
-    const orchestrator = new LangGraphOrchestrator();
+    const orchestrator = new HermesSingularity();
 
     for (const row of rows) {
       try {
         const state = JSON.parse(row.state) as OrchestratorState;
         if (state.activeNode !== 'done') {
           console.log(`[AutoResumeDaemon] Resuming dangling thread: ${row.thread_id}`);
-          // Re-invoke the orchestrator to resume.
+          // Re-invoke the native singularity engine to resume.
           await orchestrator.invoke({
             prompt: state.prompt,
             tokens: state.tokens,

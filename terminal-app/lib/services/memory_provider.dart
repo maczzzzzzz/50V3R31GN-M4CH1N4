@@ -1,52 +1,48 @@
-import 'package:flutter/foundation.dart';
-import 'database_service.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 /**
- * MEMORY_PROVIDER : v3.7.0
+ * SOVEREIGN_MEMORY_ARTERY — v3.8.7
  * 
- * Manages the persistent memory graph for the Flutter HUD.
- * Handles Titled Memories and extracted Triplets via DatabaseService.
+ * High-fidelity retrieval of historical transcriptions and RKG triplets.
+ * Adopts OMI backend memory sync patterns.
  */
 
 class MemoryProvider extends ChangeNotifier {
-  final DatabaseService _db = DatabaseService();
-  
-  List<Map<String, dynamic>> _triplets = [];
-  List<Map<String, dynamic>> _archivedConversations = [];
+  List<Map<String, dynamic>> _memories = [];
   bool _isLoading = false;
 
-  List<Map<String, dynamic>> get triplets => _triplets;
-  List<Map<String, dynamic>> get archivedConversations => _archivedConversations;
+  List<Map<String, dynamic>> get memories => List.unmodifiable(_memories);
   bool get isLoading => _isLoading;
 
-  MemoryProvider() {
-    refresh();
-  }
-
-  Future<void> refresh() async {
+  Future<void> fetchMemories() async {
     _isLoading = true;
     notifyListeners();
 
+    final prefs = await SharedPreferences.getInstance();
+    final ip = prefs.getString('node_b_ip') ?? '100.x.y.z';
+    
     try {
-      final db = await _db.database;
-      
-      // Load Triplets
-      _triplets = await db.query('os_triplets', orderBy: 'created_at DESC');
-      
-      // Load Archived Conversations
-      _archivedConversations = await db.query('conversations', orderBy: 'updated_at DESC');
-      
+      final res = await http.get(Uri.parse('http://$ip:3011/api/memories'))
+          .timeout(const Duration(seconds: 5));
+          
+      if (res.statusCode == 200) {
+        final List decoded = jsonDecode(res.body);
+        _memories = List<Map<String, dynamic>>.from(decoded);
+      }
     } catch (e) {
-      debugPrint('◈ Memory refresh failed: $e');
+      debugPrint("::/MEMORY_SYNC_ERROR : $e");
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  /// Engraves a new triplet and refreshes the state.
-  Future<void> engrave(String sub, String pred, String obj, String source) async {
-    await _db.engraveTriplet(sub, pred, obj, source);
-    await refresh();
+  /// Injects a new memory shard materialized by Hermes
+  void addMemory(Map<String, dynamic> memory) {
+    _memories.insert(0, memory);
+    notifyListeners();
   }
 }

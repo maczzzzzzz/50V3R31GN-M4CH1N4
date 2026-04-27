@@ -11,9 +11,22 @@
 
 import { appendFile, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import type { OrchestratorState, OrchestratorConfig } from './LangGraphOrchestrator.js';
 import { VisualSkillCrystallizationPipeline, type DetectedCycle } from '../../../scripts/forge/skill-factory.js';
 import { randomUUID } from 'node:crypto';
+
+export interface OrchestratorState {
+  activeNode: string;
+  retries: number;
+  error?: string;
+  prompt: string;
+  tokens?: number;
+  file_path?: string;
+  diff?: string;
+}
+
+export interface OrchestratorConfig {
+  maxRetries: number;
+}
 
 export enum RepairStrategy {
   RETRY_SAME_NODE = 'RETRY_SAME_NODE',

@@ -122,6 +122,10 @@ export class SynapseStore {
         cluster_id     TEXT,
         reputation_score REAL DEFAULT 0.0,
         peer_validations INTEGER DEFAULT 0,
+        x              REAL DEFAULT 0.0,
+        y              REAL DEFAULT 0.0,
+        z              REAL DEFAULT 0.0,
+        freshness      REAL DEFAULT 1.0,
         last_updated   DATETIME DEFAULT CURRENT_TIMESTAMP,
         UNIQUE (subject_id, predicate, object_literal)
       );

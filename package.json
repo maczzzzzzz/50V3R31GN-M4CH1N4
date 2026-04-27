@@ -38,7 +38,7 @@
     "atlas:headless": "nix develop --impure --command ./sidecar-atlas/target/release/sidecar-atlas --headless",
     "netrunning": "nix develop --impure --command ./sidecar-netrunning/target/release/sidecar-netrunning",
     "netrunning:headless": "nix develop --impure --command ./sidecar-netrunning/target/release/sidecar-netrunning --headless",
-    "terminal": "./crush-cli terminal",
+    "terminal": "npm run ink:terminal",
     "ink:terminal": "nix develop --impure --command hermes terminal --ink",
     "pulse": "npx tsx scripts/dev/sovereign-pulse.ts",
     "build:sidecar:atlas": "nix develop --impure --command cargo build --release --manifest-path sidecar-atlas/Cargo.toml",

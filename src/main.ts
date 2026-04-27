@@ -7,7 +7,7 @@
  *   - Connects to ZeroClaw (Node A) via ClawLink SSH Bridge.
  *   - Initialises the Unified Oracle (SQLite RKG).
  *   - Boots the Foundry VTT WebSocket Server (Port 3010).
- *   - Configures Mistral-Nemo (Node B) for narrative synthesis.
+ *   - Configures Gemma-4-E4B Q8 (Node B) for narrative synthesis and vision.
  */
 
 import 'dotenv/config';
@@ -56,7 +56,6 @@ import { StoryEngine } from './core/story-engine.js';
 import { VsbClient } from './api/vsb-client.js';
 import { GmApprovalQueue } from './core/gm-approval-queue.js';
 import { NightMarketService } from './core/night-market-service.js';
-// import { WebScraperSidecar } from './shared/WebScraperSidecar.js';
 import { RedTradeService } from './core/red-trade-service.js';
 import { UnifiedOracleClient } from './db/unified-oracle-client.js';
 import { ArchitectPassService } from './core/architect-pass-service.js';
@@ -70,10 +69,8 @@ import { SentinelMonitorService } from './core/sentinel-monitor-service.js';
 import { BrowserBridge } from './api/browser-bridge.js';
 import { SovereignDashboardService } from './core/memory/SovereignDashboardService.js';
 
-// Phase 93: Hermes Singularity — Native Orchestration
-// import { LangGraphOrchestrator } from './core/hermes/LangGraphOrchestrator.js'; 
-
 import { RootsInjector } from './core/roots-injector.js';
+import { HermesSingularity } from './core/hermes/HermesSingularity.js';
 import { getHijackJs } from './core/sovereign-theme.js';
 import { logger } from './shared/logger.js';
 
@@ -87,29 +84,6 @@ async function main() {
     crushDbPath: process.env.CRUSH_DB_PATH ?? './data/crush.db',
   }, logger);
   await oracle.connect();
-
-  // ... (setup continues)
-
-  // 10. Heartbeat Watchdog — Self-terminate if Foundry dies
-  const FOUNDRY_HEARTBEAT_MS = 30_000;
-  const ZOMBIE_TIMEOUT_MS = 5 * 60_000; // 5 minutes
-  let lastFoundrySeen = Date.now();
-
-  setInterval(async () => {
-    try {
-      if (neuralUplink.isConnected()) {
-        await neuralUplink.getClient().Page.getFrameTree(); // Simple ping
-        lastFoundrySeen = Date.now();
-      }
-    } catch {
-      // Foundry might be closed or crashed
-    }
-
-    if (Date.now() - lastFoundrySeen > ZOMBIE_TIMEOUT_MS) {
-      logger.error('Orchestrator', 'watchdog', '!! ZOMBIE DETECTED: Foundry connection lost for >5m. Purging Node B.');
-      process.emit('SIGTERM');
-    }
-  }, FOUNDRY_HEARTBEAT_MS);
 
   // 3. Initialise Hardware Clients
   const nitroLogic = new NitroLogicClient({
@@ -139,21 +113,8 @@ async function main() {
     contextReceivePort: 9090, // Listen for pushes from Node A/C
   }, logger);
 
-  const webScraper = new WebScraperSidecar({
-    host: '127.0.0.1',
-    port: 9222,
-  });
-
-  // Phase 93: Hermes Singularity — Native Orchestration
-  // We initialize Hermes in 'orchestrator' role with native subagents.
-  const orchestrator = {
-    invoke: async (input: any) => {
-      // ◈ Hermes Native Coordination Artery
-      // Coordinates Vesper, Healer, and Strategic Oracle as subagents.
-      logger.info('HermesSingularity', input.thread_id || 'root', `Native Ingress: ${input.prompt.substring(0, 50)}...`);
-      return { ruleResult: { tasks: [] } }; // Mock for Phase 93 scaffolding
-    }
-  };
+  // Phase 93/97: Hermes Singularity — Native Orchestration
+  const orchestrator = new HermesSingularity();
 
   vsbClient.onVocalIntent(async (transcript) => {
     const traceId = randomUUID();
@@ -167,7 +128,13 @@ async function main() {
 
     try {
       const result = await orchestrator.invoke({ prompt: extractionPrompt, tokens: 100, thread_id: traceId });
-      // ... (task insertion logic preserved)
+      if (result.ruleResult && Array.isArray(result.ruleResult.tasks)) {
+          for (const task of result.ruleResult.tasks) {
+            oracle.getRawDatabase().prepare(
+              "INSERT INTO tasks (id, title, status) VALUES (?, ?, 'pending')"
+            ).run(randomUUID(), task);
+          }
+      }
     } catch (e) {
       logger.error('Orchestrator', traceId, `Failed to extract vocal intent: ${(e as Error).message}`);
     }
@@ -179,7 +146,6 @@ async function main() {
   });
 
   // 4. Initialise State Engine
-  // For the "Live-Fire" test, we use the TttA Part 1 starting state
   const storyEngine = new StoryEngine(createTttaPart1InitialState(), sovereignNarrative);
   bootstrapTttaPart1(storyEngine);
 
@@ -200,16 +166,15 @@ async function main() {
   const debugPort = debugHost === '127.0.0.1' ? 9222 : 9223;
   logger.info('Orchestrator', bootTraceId, `Neural Uplink target: ${debugHost}:${debugPort}`);
 
-  // 6. Neural Uplink — CDP handshake (non-blocking: Foundry may not be running yet)
+  // 6. Neural Uplink — CDP handshake
   const neuralUplink = new VisualMonitorService({
     debugHost,
     debugPort: parseInt(process.env.CDP_DEBUG_PORT || String(debugPort), 10),
     oracle,
   });
+  
   try {
     await neuralUplink.connect();
-    
-    // Phase 35: Inject SOVEREIGN_HIJACK_JS payload upon successful CDP connection
     const client = neuralUplink.getClient();
     const token = foundry.getHandshakeToken();
     
@@ -218,11 +183,9 @@ async function main() {
         (async () => {
           if (typeof game !== 'undefined' && game.ready) {
             await game.settings.set('50v3r31gn-bridge', 'nodeBWsUrl', 'ws://localhost:3010?token=${token}');
-            console.log('::/5Y573M-N071C3 : Bridge token injected.');
           } else {
             Hooks.once('ready', async () => {
               await game.settings.set('50v3r31gn-bridge', 'nodeBWsUrl', 'ws://localhost:3010?token=${token}');
-              console.log('::/5Y573M-N071C3 : Bridge token injected (deferred).');
             });
           }
         })()
@@ -236,20 +199,18 @@ async function main() {
     });
     logger.info('Orchestrator', bootTraceId, '💉 SOVEREIGN_HIJACK_JS Payload Injected.');
   } catch (err) {
-    logger.warn('Orchestrator', bootTraceId, `⚠️  Neural Uplink OFFLINE (Foundry not detected): ${(err as Error).message}`);
+    logger.warn('Orchestrator', bootTraceId, `⚠️  Neural Uplink OFFLINE (Foundry not detected).`);
   }
 
   const architect = new ArchitectPassService(neuralUplink);
 
   // 7. Initialize Shared Memory (VSB Mmap)
-  const sharedMemory = new SharedMemoryService(
-    process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem'
-  );
+  const sharedMemory = new SharedMemoryService(process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem');
   try {
     sharedMemory.open();
-    logger.info('Orchestrator', bootTraceId, `✅ VSB Shared Memory OPEN: ${process.env.VSB_MMAP_PATH ?? 'black_ice_state.mem'}`);
+    logger.info('Orchestrator', bootTraceId, `✅ VSB Shared Memory OPEN.`);
   } catch (err) {
-    logger.warn('Orchestrator', bootTraceId, `⚠️  VSB Shared Memory failed to open: ${(err as Error).message}`);
+    logger.warn('Orchestrator', bootTraceId, `⚠️  VSB Shared Memory failed to open.`);
   }
 
   // 8. Assemble Orchestration Loop
@@ -278,35 +239,28 @@ async function main() {
   });
 
   // 9. Vesper Shadow Mode — Autonomous Reconnaissance
-  const vesper = new VesperService(
-    foundry,
-    neuralUplink,
-    oracle,
-    sharedMemory,
-  );
+  const vesper = new VesperService(foundry, neuralUplink, oracle, sharedMemory);
   vesper.start();
 
   // 10. Wire Orchestrator to Bridge Events
   foundry.onEvent(async (event) => {
-    const traceId = randomUUID();
     try {
       await controller.handleFoundryEvent(event);
     } catch (err) {
-      logger.error('Orchestrator', traceId, '[Main] Orchestrator event error:', { error: (err as Error).message, event });
+      logger.error('Orchestrator', randomUUID(), '[Main] Orchestrator event error:', { error: (err as Error).message });
     }
   });
 
   // 11. Wire Proxy Intents (crush-cli)
   clawlinkClient.onIntent(async (intent) => {
-    const traceId = randomUUID();
     try {
       await controller.handleProxyIntent(intent);
     } catch (err) {
-      logger.error('Orchestrator', traceId, '[Main] Proxy intent error:', { error: (err as Error).message, intent });
+      logger.error('Orchestrator', randomUUID(), '[Main] Proxy intent error:', { error: (err as Error).message });
     }
   });
 
-  // 12. Start the WS Server
+  // 12. Start Services
   await Promise.all([
     foundry.start(3010),
     vsbClient.connect(),
@@ -319,84 +273,53 @@ async function main() {
   const browserBridge = new BrowserBridge(logger);
   browserBridge.onContext(async (frame, traceId) => {
     const prompt = [
-      `[BROWSER_CONTEXT] A new page context has been pushed from the Sovereign browser extension.`,
+      `[BROWSER_CONTEXT] Pushed from Sovereign browser extension.`,
       `URL: ${frame.url}`,
       `Title: ${frame.title}`,
-      frame.description ? `Description: ${frame.description}` : '',
-      frame.selection   ? `Selected Text: "${frame.selection}"` : '',
-      `Source: ${frame.source}`,
-      `Timestamp: ${frame.timestamp}`,
-      `TASK: Briefly acknowledge this context ingestion. If the page contains research-relevant content, note the key concept in one sentence.`,
-    ].filter(Boolean).join('\n');
+      frame.selection ? `Text: "${frame.selection}"` : '',
+    ].join('\n');
     try {
       await orchestrator.invoke({ prompt, tokens: 80, thread_id: traceId });
     } catch (e) {
-      logger.warn('BrowserBridge', traceId, `Orchestrator ingest failed: ${(e as Error).message}`);
+      logger.warn('BrowserBridge', traceId, `Orchestrator ingest failed.`);
     }
   });
   browserBridge.start(3012);
 
-  // 13. Sentinel: wire 0x0A context pushes from Node A → Active Context Slot
+  // 13. Sentinel: wire 0x0A context pushes
   vsbClient.onContextUpdate((update) => {
     sovereignNarrative.updateContext(update.payload);
-    logger.debug('Orchestrator', 'sentinel', `ActiveContextSlot updated (hash=${update.context_hash.toString(16)})`);
   });
 
-  // 14. Sentinel Monitor — reactive risk observer
+  // 14. Sentinel Monitor
   const sentinel = new SentinelMonitorService(logger);
   sentinel.start();
 
-  // Phase 90: Sovereign Dashboard — HeadlessDatalog persistence artery
+  // Phase 90: Sovereign Dashboard
   const sovereignDashboard = new SovereignDashboardService({
-    dbPath:            process.env['SOVEREIGN_INTELLIGENCE_DB'] ?? 'data/SovereignIntelligence.db',
-    vaultRoot:         process.env['SOVEREIGN_OS_VAULT'] ?? 'data/vault/Sovereign_OS',
-    refreshIntervalMs: parseInt(process.env['DASHBOARD_REFRESH_MS'] ?? '60000', 10),
-    ...(process.env['WINDOWS_VAULT_ROOT'] ? { windowsMirror: process.env['WINDOWS_VAULT_ROOT'] } : {}),
+    dbPath: process.env['SOVEREIGN_INTELLIGENCE_DB'] ?? 'data/SovereignIntelligence.db',
+    vaultRoot: process.env['SOVEREIGN_OS_VAULT'] ?? 'data/vault/Sovereign_OS',
+    refreshIntervalMs: 60000,
   }, logger);
   sovereignDashboard.start();
 
-  logger.info('Orchestrator', bootTraceId, '🚀 Orchestrator READY. Listening for Foundry on Port 3010.');
+  logger.info('Orchestrator', bootTraceId, '🚀 Orchestrator READY.');
 
-  // 9. Graceful Shutdown
   const shutdown = async (signal: string) => {
-    const shutdownTraceId = 'shutdown-' + Date.now();
-    logger.info('Orchestrator', shutdownTraceId, `\n[Main] Received ${signal}. Shutting down gracefully...`);
-    
+    logger.info('Orchestrator', randomUUID(), `\n[Main] Received ${signal}. Shutting down...`);
     try {
       sentinel.stop();
-
-      // Disconnect Neural Uplink
       await neuralUplink.disconnect().catch(() => {});
-
-      // Stop Foundry first to stop incoming events
       await foundry.stop();
-      logger.info('Orchestrator', shutdownTraceId, '✅ Foundry Adapter STOPPED.');
-
-      // Stop AI clients (SovereignNarrative will unload model)
       await sovereignNarrative.stop();
-      logger.info('Orchestrator', shutdownTraceId, '✅ SovereignNarrative Client STOPPED.');
-      
       await nitroLogic.stop();
-      logger.info('Orchestrator', shutdownTraceId, '✅ NitroLogic Client STOPPED.');
-
       browserBridge.stop();
       sovereignDashboard.stop();
-      logger.info('Orchestrator', shutdownTraceId, '✅ BrowserBridge STOPPED.');
-
       vsbClient.close();
-      logger.info('Orchestrator', shutdownTraceId, '✅ VsbClient (UDP) STOPPED.');
-
       await clawlinkClient.disconnect().catch(() => {});
-      logger.info('Orchestrator', shutdownTraceId, '✅ ClawLink Client DISCONNECTED.');
-
-      // Disconnect Oracle
       await oracle.disconnect();
-      logger.info('Orchestrator', shutdownTraceId, '✅ Unified Oracle DISCONNECTED.');
-
-      logger.info('Orchestrator', shutdownTraceId, '👋 50V3R31GN-M4CH1N4 shutdown complete.');
       process.exit(0);
     } catch (err) {
-      logger.error('Orchestrator', shutdownTraceId, '[Main] Error during shutdown:', { error: (err as Error).message });
       process.exit(1);
     }
   };
