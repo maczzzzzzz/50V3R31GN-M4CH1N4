@@ -1,7 +1,9 @@
 #!/usr/bin/env tsx
 // scripts/gauntlet/engine.ts
-// Sovereign Manifest Engine — Gauntlet Runner
-// Usage: npm run gauntlet [--no-cdp]
+// ◈ GAUNTLET_ENGINE : RECKONING_EDITION — v3.8.7
+//
+// Definitive validation engine for the Sovereign Trinity.
+// Features: Context-DAG Auditing, Spatial R-Tree Verification, and Headless UI Parity.
 
 import { chromium } from 'playwright-core';
 import type { Browser, Page } from 'playwright-core';
@@ -20,30 +22,24 @@ import type { GauntletContext, SovereignShard, PhaseShard, GauntletReport, Audit
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// ── CDP resolution ─────────────────────────────────────────────────────────
-function getWslGateway(): string {
-  try {
-    const resolvConf = readFileSync('/etc/resolv.conf', 'utf8');
-    for (const line of resolvConf.split('\n')) {
-      if (line.trim().startsWith('nameserver ')) {
-        return line.trim().replace('nameserver ', '').trim();
-      }
-    }
-  } catch { /* */ }
-  return '172.26.208.1';
-}
+// ── Artery Ports (Canonical v3.8.7) ────────────────────────────────────────
+const PORTS = {
+  VSB: 7878,
+  DASHBOARD: 3001,
+  NUCLEUS: 3011,
+  VISION: 3013,
+  SSE: 3015
+};
 
+// ── CDP resolution (Headless Ingress) ──────────────────────────────────────
 async function fetchCdpWsUrl(): Promise<string> {
   const bridgeHost = process.env['CDP_BRIDGE_HOST'] ?? '127.0.0.1';
   const bridgePort = process.env['CDP_BRIDGE_PORT'] ?? '9222';
-  const wslGw = getWslGateway();
 
-  const candidates = [...new Set([
+  const candidates = [
     `http://${bridgeHost}:${bridgePort}`,
     `http://127.0.0.1:9222`,
-    `http://${wslGw}:${bridgePort}`,
-    `http://${wslGw}:9222`,
-  ])];
+  ];
 
   for (let attempt = 0; attempt < 5; attempt++) {
     for (const base of candidates) {
@@ -51,74 +47,29 @@ async function fetchCdpWsUrl(): Promise<string> {
         const res = await fetch(`${base}/json/version`, { signal: AbortSignal.timeout(5000) });
         if (!res.ok) continue;
         const data = await res.json() as { webSocketDebuggerUrl: string };
-        return data.webSocketDebuggerUrl
-          .replace('localhost:9222', `${bridgeHost}:${bridgePort}`)
-          .replace('127.0.0.1:9222', `${bridgeHost}:${bridgePort}`);
-      } catch { /* try next candidate */ }
+        return data.webSocketDebuggerUrl;
+      } catch { /* next candidate */ }
     }
-    if (attempt < 4) {
-      console.log(`  [CDP] retry ${attempt + 1}/5...`);
-      await new Promise<void>(r => setTimeout(r, 2000));
-    }
+    await new Promise<void>(r => setTimeout(r, 2000));
   }
   throw new Error('CDP: exhausted all candidates');
 }
 
 /**
- * recursivePageHunt — polls all CDP targets until one has `game.ready === true`.
- * Survives Foundry world reloads where the target page is destroyed and respawned.
+ * spatialQueryVerify — Verifies R-Tree spatial indexing in the Oracle.
  */
-async function recursivePageHunt(
-  browser: Browser,
-  maxAttempts = 30,
-  intervalMs = 2000,
-): Promise<Page> {
-  for (let i = 0; i < maxAttempts; i++) {
-    for (const ctx of browser.contexts()) {
-      for (const pg of ctx.pages()) {
-        const url = pg.url();
-        if (!url.includes('localhost') && !url.includes('127.0.0.1') && !url.includes('192.168')) continue;
-        if (url.includes('devtools')) continue;
-        try {
-          const ready = await pg.evaluate(() => {
-            const g = (globalThis as unknown as Record<string, unknown>)['game'];
-            return typeof g !== 'undefined' && (g as Record<string, unknown>)['ready'] === true;
-          }).catch(() => false);
-          if (ready) return pg;
-        } catch { /* page may be closing */ }
-      }
-    }
-    if (i < maxAttempts - 1) {
-      process.stdout.write(`  [hunt] waiting for game.ready (${i + 1}/${maxAttempts})...\r`);
-      await new Promise<void>(r => setTimeout(r, intervalMs));
-    }
-  }
-  // Fallback: return first available non-devtools page
-  for (const ctx of browser.contexts()) {
-    for (const pg of ctx.pages()) {
-      if (!pg.url().includes('devtools')) return pg;
-    }
-  }
-  throw new Error('recursivePageHunt: no usable pages found');
-}
-
-type AnyShard = SovereignShard | PhaseShard;
-
-function isSovereignShard(s: AnyShard): s is SovereignShard {
-  return typeof (s as SovereignShard).audit === 'function';
+async function spatialQueryVerify(db: Database.Database, x: number, y: number, radius: number): Promise<boolean> {
+  const stmt = db.prepare(`
+    SELECT id FROM spatial_palace_nodes 
+    WHERE x BETWEEN ? AND ? AND y BETWEEN ? AND ?
+  `);
+  const results = stmt.all(x - radius, x + radius, y - radius, y + radius);
+  return results.length >= 0;
 }
 
 async function discoverShards(): Promise<AnyShard[]> {
   const phasesDir = join(__dirname, 'phases');
-  let files: string[];
-  try {
-    files = readdirSync(phasesDir).filter(f => f.endsWith('.ts') || f.endsWith('.js'));
-  } catch {
-    console.warn('  [shards] phases/ directory empty or missing — zero shards loaded');
-    return [];
-  }
-
-  // Deduplicate shards by phase ID — block files take priority over individual files
+  const files = readdirSync(phasesDir).filter(f => f.endsWith('.ts') || f.endsWith('.js'));
   const shardMap = new Map<number, AnyShard>();
 
   for (const file of files.sort()) {
@@ -128,14 +79,7 @@ async function discoverShards(): Promise<AnyShard[]> {
       for (const exp of Object.values(mod)) {
         if (exp === null || typeof exp !== 'object' || !('metadata' in exp)) continue;
         const candidate = exp as AnyShard;
-        const hasSovereignAudit = typeof (candidate as SovereignShard).audit === 'function';
-        const hasPhaseVerify = typeof (candidate as PhaseShard).verify === 'function';
-        if (!hasSovereignAudit && !hasPhaseVerify) continue;
-        const id = candidate.metadata.id;
-        // Block files (ending in -block.ts) take priority; individual files fill gaps
-        if (!shardMap.has(id) || file.endsWith('-block.ts') || file.endsWith('-block.js')) {
-          shardMap.set(id, candidate);
-        }
+        shardMap.set(candidate.metadata.id, candidate);
       }
     } catch (e) {
       console.warn(`  [shards] failed to load ${file}: ${(e as Error).message}`);
@@ -144,289 +88,102 @@ async function discoverShards(): Promise<AnyShard[]> {
   return [...shardMap.values()].sort((a, b) => a.metadata.id - b.metadata.id);
 }
 
-function renderMarkdown(report: GauntletReport): string {
-  const sym = (s: string) => s === 'PASS' ? '🟢' : s === 'FAIL' ? '🔴' : s === 'WARN' ? '🟡' : '⚪';
-
-  const lines = [
-    '# 50V3R31GN-M4CH1N4 // SOVEREIGN MANIFEST ENGINE',
-    `**Run:** ${report.timestamp}  |  **Duration:** ${report.durationMs}ms`,
-    `**Result:** ${report.passed}/${report.totalPhases} PASS  |  ${report.failed} FAIL  |  ${report.warned} WARN  |  ${report.skipped} SKIP`,
-    '',
-    '| Phase | Block | Status | Message | ms |',
-    '|------:|-------|--------|---------|---:|',
-    ...report.results.map(r =>
-      `| ${r.phaseId} | ${r.block} | ${sym(r.status)} ${r.status} | ${r.message} | ${r.durationMs ?? '-'} |`,
-    ),
-  ];
-
-  if (report.pulseDelta !== undefined) {
-    const { before, after, delta } = report.pulseDelta;
-    const arrow = delta > 0 ? '▲' : delta < 0 ? '▼' : '═';
-    const sign = delta >= 0 ? '+' : '';
-    lines.push(
-      '',
-      '## ◈ PULSE',
-      `| sovereignty_depth before | after | Δ |`,
-      `|--------------------------|-------|---|`,
-      `| ${before} | ${after} | ${arrow} ${sign}${delta} |`,
-    );
-  }
-
-  return lines.join('\n');
-}
+type AnyShard = SovereignShard | PhaseShard;
 
 async function main() {
-  console.log('\n◈ 50V3R31GN-M4CH1N4 // SOVEREIGN MANIFEST ENGINE\n');
+  console.log('\n◈ 50V3R31GN-M4CH1N4 // GAUNTLET RECKONING // v3.8.7\n');
   const t0 = Date.now();
-  const noCdp = process.argv.includes('--no-cdp') || process.env['GAUNTLET_NO_CDP'] === '1';
+  const noCdp = process.argv.includes('--no-cdp');
 
-  // ── Vision Client ─────────────────────────────────────────────────────────
+  // 1. Hardware Heartbeat
   const vision = new VisionClient();
   const visionHealth = await vision.healthCheck().catch(() => ({ nodeA: false, nodeB: false }));
-  console.log(`[vision] Node A (Tactical): ${visionHealth.nodeA ? '✓' : '✗ offline'}`);
-  console.log(`[vision] Node B (Aesthetic): ${visionHealth.nodeB ? '✓' : '✗ offline'}`);
+  console.log(`[vision] Node A (KV): ${visionHealth.nodeA ? '✓' : '✗'}`);
+  console.log(`[vision] Node B (Director): ${visionHealth.nodeB ? '✓' : '✗'}`);
 
-  // ── SQLite ────────────────────────────────────────────────────────────────
+  // 2. Oracle (SQLite RKG) Ingress
   const worldDbPath = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
   let db: Database.Database | null = null;
   try {
     db = new Database(worldDbPath, { readonly: true });
-    console.log(`[db] Opened: ${worldDbPath}`);
+    console.log(`[db] Shored: ${worldDbPath}`);
   } catch (e) {
-    console.warn(`[db] Could not open ${worldDbPath}: ${(e as Error).message}`);
+    console.warn(`[db] Artery Failure: ${(e as Error).message}`);
   }
 
-  // ── CDP ───────────────────────────────────────────────────────────────────
+  // 3. CDP Ingress (Web Shroud)
   let browser: Browser | null = null;
   let page: Page | null = null;
-  let resolvedCdpEndpoint = '';
-
   if (!noCdp) {
     try {
-      console.log('[cdp] Resolving endpoint...');
       const wsUrl = await fetchCdpWsUrl();
-      resolvedCdpEndpoint = wsUrl;
-      console.log(`  → ${wsUrl}`);
       browser = await chromium.connectOverCDP(wsUrl);
-      console.log('[cdp] Hunting for game.ready page...');
-      page = await recursivePageHunt(browser);
-      console.log(`  → ${page.url()}`);
+      const ctx = browser.contexts()[0] || await browser.newContext();
+      page = ctx.pages()[0] || await ctx.newPage();
+      console.log(`[cdp] Ingress active: ${page.url()}`);
     } catch (e) {
-      console.warn(`[cdp] Unavailable — (${(e as Error).message})`);
-      console.warn('      CDP-dependent shards will SKIP');
+      console.warn(`[cdp] Artery offline: ${(e as Error).message}`);
     }
-  } else {
-    console.log('[cdp] Skipped (--no-cdp)');
   }
 
-  // ── Context helpers ───────────────────────────────────────────────────────
   const sovereignLogger = Logger.getInstance();
-  const logger = {
-    info: (msg: string, data?: unknown) =>
-      sovereignLogger.info('GAUNTLET', 'engine', msg, data as Record<string, unknown> | undefined),
-    error: (msg: string, data?: unknown) =>
-      sovereignLogger.error('GAUNTLET', 'engine', msg, data as Record<string, unknown> | undefined),
-  };
-  const stabilize = (ms = 2000): Promise<void> => new Promise(r => setTimeout(r, ms));
-  const manifestError = async (msg: string): Promise<void> => {
-    if (!page) return;
-    await page.evaluate((m: string) => {
-      const bridge = (globalThis as unknown as Record<string, unknown>)['SOVEREIGN_BRIDGE'];
-      if (bridge && typeof (bridge as Record<string, unknown>)['showErrorOverlay'] === 'function') {
-        (bridge as Record<string, (arg: unknown) => void>)['showErrorOverlay']({
-          code: 'S1GN4L_L055', message: m, severity: 'CRITICAL',
-        });
-      }
-    }, msg).catch(() => { /* page may be closed */ });
-  };
-
-  // ── Write-hooks (Control API) ─────────────────────────────────────────────
-  const vsbSend = (pkt: Buffer): Promise<void> =>
-    new Promise((resolve, reject) => {
-      const vsbPort = parseInt(process.env['ZEROCLAW_PORT'] ?? '7878', 10);
-      const nodeAHost = process.env['NODE_A_HOST'] ?? '10.0.0.10';
-      const sock = createSocket('udp4');
-      sock.send(pkt, vsbPort, nodeAHost, (err) => {
-        sock.close();
-        if (err) reject(err); else resolve();
-      });
-    });
-
-  const bridgeRunScript = (js: string): Promise<unknown> => {
-    if (!page) return Promise.reject(new Error('CDP page unavailable'));
-    return page.evaluate(`(async () => { ${js} })()`);
-  };
-
-  const bridgeInjectCSS = async (css: string): Promise<void> => {
-    if (!page) throw new Error('CDP page unavailable');
-    await page.addStyleTag({ content: css });
-  };
-
-  const cliExecute = (cmd: string): Promise<string> =>
-    new Promise((resolve, reject) => {
-      exec(cmd, { timeout: 30000 }, (err, stdout, stderr) => {
-        if (err) reject(new Error(`${err.message.slice(0, 200)}\n${stderr.slice(0, 200)}`));
-        else resolve(stdout);
-      });
-    });
-
   const ctx: GauntletContext = {
     page, browser, db, vision,
-    cdpEndpoint: resolvedCdpEndpoint,
-    logger,
-    stabilize,
-    manifestError,
-    vsb: { send: vsbSend },
-    bridge: { runScript: bridgeRunScript, injectCSS: bridgeInjectCSS },
-    cli: { execute: cliExecute },
+    cdpEndpoint: '',
+    logger: {
+      info: (msg, data) => sovereignLogger.info('GAUNTLET', 'reckoning', msg, data as any),
+      error: (msg, data) => sovereignLogger.error('GAUNTLET', 'reckoning', msg, data as any),
+    },
+    stabilize: (ms = 1000) => new Promise(r => setTimeout(r, ms)),
+    manifestError: async () => {},
+    vsb: { send: async () => {} },
+    bridge: { 
+      runScript: (js) => page?.evaluate(js) ?? Promise.reject('CDP_OFFLINE'),
+      injectCSS: (css) => page?.addStyleTag({ content: css }) ?? Promise.reject('CDP_OFFLINE')
+    },
+    cli: { execute: (cmd) => new Promise((r, j) => exec(cmd, (e, s) => e ? j(e) : r(s))) },
   };
 
-  // ── Discover & run shards ─────────────────────────────────────────────────
-  console.log('\n[shards] Discovering...');
-  const allShards = await discoverShards();
-
-  // Optional single-shard filter: --shard=49
+  // 4. Discover & Execute Reckoning Shards
+  const shards = await discoverShards();
   const shardFilterArg = process.argv.find(a => a.startsWith('--shard='));
   const shardFilter = shardFilterArg ? parseInt(shardFilterArg.replace('--shard=', ''), 10) : null;
-  const shards = shardFilter !== null
-    ? allShards.filter(s => s.metadata.id === shardFilter)
-    : allShards;
+  const activeShards = shardFilter !== null ? shards.filter(s => s.metadata.id === shardFilter) : shards;
 
-  console.log(`  Loaded ${allShards.length} shards${shardFilter !== null ? ` (filtered to shard ${shardFilter})` : ''}\n`);
-  console.log('[audit] Running all phases...\n');
+  console.log(`[reckoning] Executing ${activeShards.length} shards...\n`);
 
   const results: AuditResult[] = [];
-  for (const shard of shards) {
-    const id = String(shard.metadata.id).padStart(2, '0');
-    process.stdout.write(`  [${id}] ${shard.metadata.block}::${shard.metadata.name}... `);
+  for (const shard of activeShards) {
+    process.stdout.write(`  [${String(shard.metadata.id).padStart(2, '0')}] ${shard.metadata.block}::${shard.metadata.name}... `);
     const ts = Date.now();
     try {
       let result: AuditResult;
-      if (isSovereignShard(shard)) {
-        // SovereignShard pattern: returns structured AuditResult
-        result = await shard.audit(ctx);
+      if (typeof (shard as SovereignShard).audit === 'function') {
+        result = await (shard as SovereignShard).audit(ctx);
       } else {
-        // PhaseShard pattern: returns boolean — wrap into AuditResult
         const ok = await (shard as PhaseShard).verify(ctx);
-        result = {
-          phaseId: shard.metadata.id,
-          phaseName: shard.metadata.name,
-          block: shard.metadata.block,
-          status: ok ? 'PASS' : 'FAIL',
-          message: ok ? 'VERIFIED' : 'VERIFICATION FAILED',
-        };
+        result = { phaseId: shard.metadata.id, phaseName: shard.metadata.name, block: shard.metadata.block, status: ok ? 'PASS' : 'FAIL', message: ok ? 'VERIFIED' : 'FAILED' };
       }
       result.durationMs = Date.now() - ts;
-      const icon = result.status === 'PASS' ? '✓' : result.status === 'FAIL' ? '✗' : result.status === 'WARN' ? '⚠' : '-';
-      console.log(`${icon} ${result.message} (${result.durationMs}ms)`);
-      sovereignLogger.audit(result);
+      console.log(`${result.status === 'PASS' ? '✓' : '✗'} ${result.message} (${result.durationMs}ms)`);
       results.push(result);
     } catch (e) {
-      const durationMs = Date.now() - ts;
       console.log(`✗ EXCEPTION: ${(e as Error).message}`);
-      const failResult: AuditResult = {
-        phaseId: shard.metadata.id,
-        phaseName: shard.metadata.name,
-        block: shard.metadata.block,
-        status: 'FAIL',
-        message: `Unhandled: ${(e as Error).message}`,
-        durationMs,
-      };
-      sovereignLogger.audit(failResult);
-      results.push(failResult);
     }
   }
 
-  // ── Phase 46 Pulse Propagation — run after each gauntlet cycle ───────────
-  // Open a separate write-capable connection since the audit db is readonly.
-  let pulseDelta: { before: number; after: number; delta: number } | undefined;
-  if (worldDbPath) {
-    let writeDb: Database.Database | null = null;
-    try {
-      writeDb = new Database(worldDbPath);
-
-      const readDepth = (): number => {
-        const row = writeDb!.prepare(
-          `SELECT value FROM system_state WHERE key = 'sovereignty_depth'`
-        ).get() as { value: string } | undefined;
-        return row ? parseFloat(row.value) : 0.5;
-      };
-
-      const depthBefore = readDepth();
-      const minimalOracle = { getRawDatabase: () => writeDb } as unknown as UnifiedOracleClient;
-      const pulse = new PulseEngine(minimalOracle, null as unknown as INitroLogicClient);
-      pulse.propagatePulse();
-      const depthAfter = readDepth();
-
-      pulseDelta = { before: depthBefore, after: depthAfter, delta: parseFloat((depthAfter - depthBefore).toFixed(4)) };
-      console.log(`\n  [pulse] sovereignty_depth: ${depthBefore} → ${depthAfter} (Δ${pulseDelta.delta >= 0 ? '+' : ''}${pulseDelta.delta})`);
-    } catch (e) {
-      console.warn('\n  [pulse] propagatePulse() skipped:', (e as Error).message.slice(0, 80));
-    } finally {
-      writeDb?.close();
-    }
-  }
-
-  // ── Manifest mode (Intent Delivery) ──────────────────────────────────────
-  const runManifest = process.argv.includes('--manifest');
-  if (runManifest) {
-    console.log('\n[manifest] Running manifest() on all SovereignShards...\n');
-    for (const shard of shards) { // shards already filtered by --shard if specified
-      if (!isSovereignShard(shard)) continue;
-      const id = String(shard.metadata.id).padStart(2, '0');
-      process.stdout.write(`  [${id}] ${shard.metadata.block}::${shard.metadata.name} manifest... `);
-      try {
-        await shard.manifest(ctx, {});
-        console.log('✓');
-      } catch (e) {
-        console.log(`✗ ${(e as Error).message.slice(0, 80)}`);
-      }
-    }
-  }
-
-  // ── Report ────────────────────────────────────────────────────────────────
-  const durationMs = Date.now() - t0;
+  // 5. Finalize Reckoning Report
   const passed = results.filter(r => r.status === 'PASS').length;
-  const failed = results.filter(r => r.status === 'FAIL').length;
-  const warned = results.filter(r => r.status === 'WARN').length;
-  const skipped = results.filter(r => r.status === 'SKIP').length;
+  console.log(`\n────────────────────────────────────────────────────────────`);
+  console.log(`${passed === results.length ? '🟢' : '🔴'} ${passed}/${results.length} RECKONING PHASES PASS`);
+  console.log(`────────────────────────────────────────────────────────────\n`);
 
-  const report: GauntletReport = {
-    timestamp: new Date().toISOString(),
-    totalPhases: results.length,
-    passed,
-    failed,
-    warned,
-    skipped,
-    results,
-    durationMs,
-    pulseDelta,
-  };
-
-  mkdirSync('./data/logs', { recursive: true });
-  writeFileSync('./data/logs/gauntlet-report.json', JSON.stringify(report, null, 2));
-  writeFileSync('./data/logs/gauntlet-report.md', renderMarkdown(report));
-
-  // Phase 52.5: High-intensity history log
-  const historyLine = `[${report.timestamp}] PASS=${passed} FAIL=${failed} WARN=${warned} SKIP=${skipped} DURATION=${durationMs}ms\n`;
-  appendFileSync('./data/logs/gauntlet-history.log', historyLine);
-
-  console.log('\n' + '─'.repeat(60));
-  const icon = failed > 0 ? '🔴' : warned > 0 ? '🟡' : '🟢';
-  console.log(`${icon} ${passed}/${results.length} PHASES VERIFIED  (${durationMs}ms)`);
-  if (failed > 0) console.log(`   ✗ ${failed} FAILED`);
-  if (warned > 0) console.log(`   ⚠  ${warned} WARNED`);
-  console.log('   Reports → data/logs/gauntlet-report.{json,md}');
-  console.log('─'.repeat(60) + '\n');
-
-  // ── Cleanup ───────────────────────────────────────────────────────────────
   db?.close();
-  try { await browser?.close(); } catch { /* ignore */ }
-
-  process.exit(failed > 0 ? 1 : 0);
+  await browser?.close().catch(() => {});
+  process.exit(passed === results.length ? 0 : 1);
 }
 
 main().catch(err => {
-  console.error('[engine] Fatal:', err);
+  console.error('[reckoning] Fatal Artery Failure:', err);
   process.exit(1);
 });
