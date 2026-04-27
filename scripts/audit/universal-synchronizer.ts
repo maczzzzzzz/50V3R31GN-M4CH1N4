@@ -134,12 +134,12 @@ async function universalSync() {
     for (const dir of SCAN_DIRS) walk(dir);
 
     // 3. OS MemPalace Reconstruction
-    try {
-        console.log(`\n>> RECONSTRUCTING SOVEREIGN OS PALACE...`);
-        execSync('./crush_bin reconstruct', { stdio: 'inherit' });
-    } catch (error) {
-        console.error(`${RED}ERROR: OS Palace reconstruction failed.${RESET}`);
-    }
+    // try {
+    //     console.log(`\n>> RECONSTRUCTING SOVEREIGN OS PALACE...`);
+    //     execSync('./crush_bin reconstruct', { stdio: 'inherit' });
+    // } catch (error) {
+    //     console.error(`${RED}ERROR: OS Palace reconstruction failed.${RESET}`);
+    // }
 
     // 5. Intelligence Shard Consolidation
     try {

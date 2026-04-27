@@ -15,8 +15,13 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 - **Deportation Hardgate:** Materialized `MobileAuthService.ts` to enable Vesper-driven session revocation and audit logging.
 - **Hermes Comms Ingress:** Scaffolded `NativeMessagingAdapter.ts` for autonomous WhatsApp/QQBot integration.
 - **Gauntlet Reckoning Suite (v3.8.7):** Materialized an exhaustive, zero-trust architectural validation suite. Includes `dag_validator.ts` (Context-DAG), `reckoning_vitals.rs` (KV-Cache Pressure), `reckoning_pulse.go` (7-step Pulse Verification), and `reckoning_ui_parity.ts` (Web-to-Mobile Parity).
-- **Absolute Project Purge:** Physically deleted 60+ legacy gauntlet phases and redundant scripts in `scripts/dev/` and `scripts/ops/` to restore project purity and eliminate architectural drift.
-- **Total Documentation Overhaul:** Rewrote `README.md` to reflect the post-Singularity capabilities and materialized `ABOUT.md` as the definitive high-level system architecture report. Updated `COMMAND_MANIFEST.md` and `tutorial-hermes-tui.md` to reflect the deprecation of interactive crush in favor of the Hermes Ink Shell.
+- **Absolute Project Purge:** Physically deleted 60+ legacy gauntlet phases and redundant scripts to restore project purity and eliminate architectural drift.
+- **Phase 95.1 (Spatial Ingress):** Materialized the **Spatial Latch System** (Claw3D integration) in the Neural Promenade and `SpatialHotspotArtery.dart` in the Flutter HUD for 100% topographical awareness.
+- **Phase 95.2 (MemPalace Reconstruction):** Refactored the 3D scene to implement **Wing-Clustering** and **Temporal Fading**. Shards are now constrained to rigid mnemonic hierarchy (Wings -> Rooms -> Drawers).
+- **Observability Hardening:** Standardized TS and Go loggers for structured JSON output (`artery.json`) and Trace-ID propagation. Refactored `PretextTerminalArtery` for real-time SSE log ingestion in the HUD.
+- **Flutter HUD Resilience:** Implemented `PageView` navigation to prevent white-screen hangs, added `PermissionService` for startup ingress, and shored tactical UI scaling for field readability.
+- **Total Documentation Overhaul:** Rewrote `README.md` and `ABOUT.md` to reflect the re-grounded Trinity topology. Reconstructed the `akashik_guides` using the **Diátaxis framework**.
+- **Unified Strategic Oracle v3.8.7:** Shored SQLite schema with FTS5 search triggers and R-Tree spatial indexing.
 - **Deck-Igniter Stability Review:** Confirmed default boot invariant to `[SOVEREIGN_OS]` mode; suppressed automatic Foundry VTT ignition except in explicit `cpr` mode. Shored `ignite-sovereign.ps1` for secure Windows-to-WSL transition.
 - **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
 - **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.
