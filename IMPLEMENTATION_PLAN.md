@@ -177,4 +177,13 @@
 - [x] **Task 4: Pure Arithmetic Integration:** Ported Pretext measurement and layout primitives to achieve zero-reflow 120fps UI performance.
 
 ---
+
+## 🏗️ PHASE 98: QUATERNARY ARTERY IGNITION (PENDING)
+**Goal:** Integrate the GMKtec K15 as Node D to enable 128k+ Hyper-Context and NPU-driven background perception.
+- [ ] **Task 1: NixOS Mesh Ingress:** Materialize hardware-optimized boot configuration for the Intel Core Ultra 125U.
+- [ ] **Task 2: Mooncake Scale-Out:** Distribute the KV-Cache across Node A and Node D for long-context retention.
+- [ ] **Task 3: NPU Artery Scaffolding:** Implement the Intel AI Boost bridge for continuous background Whisper transcription.
+- [ ] **Task 4: OCuLink Strategic Reserve:** Design the fail-safe protocol for upscaling Node D to primary Director status via eGPU.
+
+---
 **LINKS:** [[OS_CORE]]

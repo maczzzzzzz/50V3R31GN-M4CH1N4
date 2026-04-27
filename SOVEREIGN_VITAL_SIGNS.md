@@ -22,6 +22,12 @@
 - **Engine:** Gemma-4-E4B Farm (Q3/Q4/Q5) + Falcon Perception.
 - **Responsibility:** Vesper autonomous threat recon, model-switching for token efficiency, and tactical perception.
 
+### ◈ NODE D: QUATERNARY_ARTERY (GMKtec K15)
+- **Role:** Hyper-Context Cache & NPU-Perception.
+- **Status:** **PENDING_IGNITION** (Expected: 2026-04-28).
+- **Engine:** Intel AI Boost / Mooncake Long-Context Cluster.
+- **Responsibility:** 128k+ Token Context retention and continuous background transcription.
+
 ---
 
 ## ⚡ 2. SYSTEM ARTERIES
