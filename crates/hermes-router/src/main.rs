@@ -19,20 +19,28 @@ use tracing::{info, error};
  * Updated for Axum 0.7+
  */
 
+use std::env;
+
 struct AppState {
     client: Client,
-    node_a_url: String, // Node A: GPU (Local)
-    node_b_url: String, // Node B: CPU (Remote)
+    node_b_url: String, // Director
+    node_c_url: String, // Oracle
+    node_d_url: String, // Quaternary Oracle (Swapper)
 }
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
 
+    let node_b = env::var("NODE_B_URL").unwrap_or_else(|_| "http://127.0.0.1:8080".to_string());
+    let node_c = env::var("NODE_C_URL").unwrap_or_else(|_| "http://127.0.0.1:7339".to_string());
+    let node_d = env::var("NODE_D_URL").unwrap_or_else(|_| "http://127.0.0.1:8081".to_string());
+
     let state = Arc::new(AppState {
         client: Client::new(),
-        node_a_url: "http://127.0.0.1:8080".to_string(),
-        node_b_url: "http://100.x.y.z:8080".to_string(),
+        node_b_url: node_b,
+        node_c_url: node_c,
+        node_d_url: node_d,
     });
 
     let app = Router::new()
@@ -40,7 +48,7 @@ async fn main() {
         .with_state(state);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 7341));
-    info!("◈ [HERMES_ROUTER] Artery open on {}", addr);
+    info!("◈ [HERMES_ROUTER] Quaternary Artery open on {}", addr);
     
     let listener = TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
@@ -50,20 +58,27 @@ async fn route_inference(
     State(state): State<Arc<AppState>>,
     Json(payload): Json<Value>,
 ) -> impl IntoResponse {
-    // 1. Identify context length
+    // 1. Identify context length and model preference
     let messages = payload.get("messages")
         .and_then(|m| m.as_array())
         .map(|m| m.len())
         .unwrap_or(0);
     
+    let model = payload.get("model")
+        .and_then(|m| m.as_str())
+        .unwrap_or("gemma")
+        .to_lowercase();
+
     // 2. Select Artery
-    let target_url = if messages > 20 {
-        &state.node_b_url
+    let target_url = if model.contains("26b") || model.contains("coder") || model.contains("qwen") || model.contains("flash") || model.contains("glm") || messages > 50 {
+        &state.node_d_url // Any heavy or specific research model goes to Node D
+    } else if model.contains("stable") || model.contains("oracle") {
+        &state.node_c_url
     } else {
-        &state.node_a_url
+        &state.node_b_url
     };
 
-    info!("● [ROUTER] Routing request to {} (L={})", target_url, messages);
+    info!("● [ROUTER] Routing {} request (M={}) to {} (L={})", model, model, target_url, messages);
 
     // 3. Proxy Request
     let response = match state.client

@@ -322,6 +322,53 @@
             echo "◈ 50V3R31GN-M4CH1N4: Node C (HARDENED_ORACLE) Environment Loaded."
           '';
         };
+
+        # Phase 103: Quaternary Artery — Node D (Intel Core Ultra / NPU)
+        quaternary = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            # Node.js Stack
+            nodejs_22
+            typescript
+            pnpm
+            bun
+            
+            # AI/Inference
+            llama-cpp
+            openvino
+            intel-compute-runtime
+            intel-media-driver
+            
+            # System Utilities
+            rsync
+            ripgrep
+            pciutils
+            usbutils
+            
+            # Build Tools
+            cargo
+            rustc
+            cmake
+            clang
+            pkg-config
+            openssl
+          ];
+
+          shellHook = ''
+            export PROJECT_ROOT=$(pwd)
+            export NIXPKGS_ALLOW_UNFREE=1
+            
+            # Intel NPU / OpenVINO Environment
+            export OPENVINO_DIR="${pkgs.openvino}"
+            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath (with pkgs; [
+              openvino
+              intel-compute-runtime
+              stdenv.cc.cc.lib
+              openssl
+            ])}:$LD_LIBRARY_PATH"
+
+            echo "◈ 50V3R31GN-M4CH1N4: Node D (QUATERNARY_COMMAND) Environment Loaded [CPU: Intel Ultra 5]."
+          '';
+        };
       };
     };
 }

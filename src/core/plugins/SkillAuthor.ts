@@ -134,7 +134,7 @@ export class SkillAuthor {
 ${stepDocs}
  */
 
-import type { McpTool } from '../../../mcp/types.js';
+import type { McpTool } from '../../hermes/mcp-types.js';
 
 // Tool-call helper — resolved at runtime via the active MCP session.
 declare function callTool(name: string, args: Record<string, unknown>): Promise<unknown>;

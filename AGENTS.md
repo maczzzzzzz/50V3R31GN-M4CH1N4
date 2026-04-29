@@ -1,5 +1,4 @@
 # AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.7)
-**PROFILES:** `[SOVEREIGN_OS]` // `[RED_DIRECTOR]`
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
@@ -25,7 +24,7 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 
 ## ⚠️ CONSTRAINTS & SAFETY
 1. **Nix Sovereignty:** All commands must be wrapped in `nix develop --command`.
-2. **Hardware Invariants:** Node A = 4GB VRAM (Strategic Oracle/Vision). Node B = 16GB (Director).
+2. **Hardware Invariants:** Node A = 4GB VRAM. Node B = 16GB. Node D = 128k Context.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 

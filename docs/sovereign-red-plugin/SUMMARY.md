@@ -8,7 +8,7 @@
 * [Night Market Economy](mechanics/market.md)
 
 ## Integration
-* [Foundry VTT Bridge](integration/foundry.md)
+* [Foundry VTT Mesh](integration/foundry.md)
 * [NitroLogic Audits](integration/security.md)
 * [Mobile HUD Control](integration/mobile.md)
 

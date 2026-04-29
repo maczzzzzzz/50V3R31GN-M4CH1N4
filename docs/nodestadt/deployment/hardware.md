@@ -13,7 +13,7 @@ Node B is the executive hub for narrative generation and vision processing. It r
   - Real-time HUD rendering.
 - **Note:** Systems with <16GB VRAM will experience narrative stutter and visual desync.
 
-### 2. Node D (Quaternary Oracle) - NPU Invariant
+### 2. Node D (Quaternary Strategic Oracle) - NPU Invariant
 Node D handles hyper-context and hardware-accelerated reasoning. It leverages modern NPU (Neural Processing Unit) architectures for efficient throughput.
 
 - **Minimum Requirement:** Intel NPU / Core Ultra 7/9 or equivalent.
@@ -40,7 +40,7 @@ The Artery relies on a stable, low-latency network spine to connect the quaterna
 | :--- | :--- | :--- |
 | **Node A** | 4GB+ VRAM / Low Latency NVMe | Synapse / KV Store |
 | **Node B** | 16GB+ VRAM (NVIDIA Preferred) | Director / Vision |
-| **Node C** | Balanced CPU/GPU | Oracle / Defense Grid |
+| **Node C** | Balanced CPU/GPU | Strategic Oracle / Defense Grid |
 | **Node D** | Intel Core Ultra / NPU | Hyper-Context / Optimization |
 
 ---

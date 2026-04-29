@@ -9,7 +9,7 @@ The **Sovereign-Red-Plugin** is the flagship simulation engine for the Cyberpunk
 - **Neural Link Simulation:** Real-time manipulation of the Foundry VTT interface through high-fidelity CSS glitches and biometric overlays.
 - **Black Ice Antagonist:** An AI-driven service that actively stalks players in the net, triggering lighting changes, hostile token spawns, and system-level disruptions.
 - **Night Market Economy:** A procedural trade engine that manages contraband, vendor inventory, and socially-weighted market fluctuations.
-- **Foundry VTT Bridge:** A high-performance, Palantiri-style reverse proxy that establishes a secure, outbound connection from Foundry to the Sovereign Mesh.
+- **Foundry VTT Mesh:** A high-performance, Palantiri-style reverse proxy that establishes a secure, outbound connection from Foundry to the Sovereign Mesh.
 
 ## 🛠️ ARCHITECTURE
 

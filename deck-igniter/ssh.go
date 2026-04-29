@@ -238,12 +238,55 @@ func launchOracle(c *Component) tea.Cmd {
 	}
 }
 
+// launchNodeDCommand starts the Node D Quaternary Oracle daemon.
+func launchNodeDCommand(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		keyPath := expandHome(nodeAIdentity)
+		keyBytes, err := os.ReadFile(keyPath)
+		if err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: fmt.Sprintf("read identity key: %v", err)}
+		}
+
+		signer, err := ssh.ParsePrivateKey(keyBytes)
+		if err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: fmt.Sprintf("parse identity key: %v", err)}
+		}
+
+		sshCfg := &ssh.ClientConfig{
+			User:            Cfg.NodeAUser,
+			Auth:            []ssh.AuthMethod{ssh.PublicKeys(signer)},
+			HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+			Timeout:         sshDialTimeout,
+		}
+
+		addr := net.JoinHostPort(Cfg.NodeDHost, "22")
+		client, err := ssh.Dial("tcp", addr, sshCfg)
+		if err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: fmt.Sprintf("ssh dial %s: %v", addr, err)}
+		}
+		defer client.Close()
+
+		// 1. Graceful Shutdown of existing daemon
+		_, _ = runRemote(client, "pkill -SIGTERM -f node-d-command")
+
+		// 2. Ignition via Nix Shell
+		script := "~/50V3R31GN-M4CH1N4/scripts/ops/node-d-command-ignition.sh"
+		cmd := fmt.Sprintf("cd ~/50V3R31GN-M4CH1N4 && nix develop .#npu --command bash %s", script)
+		if err := startRemote(client, cmd); err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: fmt.Sprintf("node-d boot: %v", err)}
+		}
+
+		return stateUpdateMsg{name: c.Name, state: StateStarting}
+	}
+}
+
 // ── Boot Sequence Patch ───────────────────────────────────────────────────────
 // nodeABootCmds returns the remote sequence:
 //   1. llama-server via setup-resident-models.sh
 //   2. zeroclaw
 //   3. mooncake-synapse
 //   4. oracle-logic (Node C)
+//   5. node-d-command (Node D)
 //
 // Called by launcher.go's bootSequenceCmd when it encounters a LayerRemote
 // component.
@@ -258,6 +301,8 @@ func nodeABootCmd(c *Component) tea.Cmd {
 		return launchMooncake(c)
 	case "oracle-logic":
 		return launchOracle(c)
+	case "node-d-command":
+		return launchNodeDCommand(c)
 	default:
 		return func() tea.Msg {
 			return logMsg{text: fmt.Sprintf("[%s] unknown remote component: %s",

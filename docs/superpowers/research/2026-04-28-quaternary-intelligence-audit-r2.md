@@ -4,13 +4,13 @@
 **Subject:** Generic System-Wide Intelligence Boosts & Architectural Optimizations
 
 ## 1. Executive Summary
-Round 2 research focused on the underlying "engine" logic required to scale the Sovereign OS to v3.8.8 standards. Key findings include advanced KV-cache management for ultra-long context, self-evolving prompt engineering, and hardware-accelerated background perception.
+Round 2 research focused on the underlying "engine" logic required to scale the Sovereign OS to v3.8.7 standards. Key findings include advanced KV-cache management for ultra-long context, self-evolving prompt engineering, and hardware-accelerated background perception.
 
 ## 2. Technical Pillars
 
-### A. Context & Memory Management (The Engine)
+### A. Context & Synapse Management (The Engine)
 *   **RadixAttention (SGLang):** Treats the KV cache as a compressed trie, allowing for granular token-level sharing. This achieves up to **6.4x higher throughput** and near-instant "Time to First Token" (TTFT) for repetitive agentic prompts.
-*   **Letta Hierarchy:** Implementation of Core Memory (working context), Archival Memory (LanceDB/Vector), and Recall Memory (DuckDB/Relational).
+*   **Letta Hierarchy:** Implementation of Core Synapse (working context), Archival Synapse (LanceDB/Vector), and Recall Synapse (DuckDB/Relational).
 
 ### B. Self-Evolution & Reasoning (The Logic)
 *   **DSPy (Compiler Pattern):** Moves from manual prompt engineering to declarative, compiled pipelines. Automatically optimizes instructions and few-shot examples for smaller local models.
@@ -27,7 +27,7 @@ Round 2 research focused on the underlying "engine" logic required to scale the 
 
 ## 3. Implementation Blueprint
 1.  **Deploy SGLang** on Node D for prefix-cached 128k context loops.
-2.  **Unify LanceDB + DuckDB** for the "Recall Memory" system.
+2.  **Unify LanceDB + DuckDB** for the "Recall Synapse" system.
 3.  **Bootstrap DSPy** to refine the Node D system prompts using the Sovereign OS telemetry data.
 4.  **Hardware Ingress:** Configure the Ryzen AI SDK for background NPU perception.
 

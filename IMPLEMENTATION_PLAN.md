@@ -221,7 +221,7 @@
 
 ## ✅ PHASE 102: QUATERNARY INTELLIGENCE AUDIT (COMPLETED)
 **Goal:** Perform deep research into SOTA agentic logic and system-wide intelligence boosts for Node D.
-- [x] **Task 1: Intelligence Audit (Round 1):** Scanned 10+ repos (VLA, Git-Memory, Skill-Factory). Verified native **Hermes Tools (v2026.4.23)** framework.
+- [x] **Task 1: Intelligence Audit (Round 1):** Scanned 10+ repos (VLA, Git-Synapse, Skill-Factory). Verified native **Hermes Tools (v3.8.7)** framework.
 - [x] **Task 2: Intelligence Audit (Round 2):** Researched KV-cache optimizations (Prefix-Caching), **LangGraph Purge**, and NPU acceleration.
 - [x] **Task 3: Final Ignition Planning:** Research documentation complete, Node D ignition plan and NODESTADT architectural pivot documented.
 
@@ -240,33 +240,37 @@
 
 ## ✅ PHASE 103.5: FORENSIC AUDIT & DOC RECONSTRUCTION (COMPLETED)
 **Goal:** Perform a deep architectural audit and reconstruct documentation to professional product standards.
-- [x] **Task 1: Orchestrate Swarm Audit:** Dispatched sub-agent swarms to map all 5 domains (Infrastructure, Intelligence, Memory, HUD, Simulation).
+- [x] **Task 1: Orchestrate Swarm Audit:** Dispatched sub-agent swarms to map all 5 domains (Infrastructure, Intelligence, Synapse, HUD, Simulation).
 - [x] **Task 2: Scaffold GitBook Structure:** Materialized `docs/nodestadt/` and `docs/sovereign-red-plugin/` hierarchies.
 - [x] **Task 3: Rewrite Core Manifests:** Reconstructed `README.md` and `ABOUT.md` with NODESTADT Authority OS branding.
 - [x] **Task 4: Materialize Core Documentation:** Drafted comprehensive architecture and capability guides.
 - [x] **Task 5: Isolate RED Documentation:** Extracted all Cyberpunk RED simulation logic into the dedicated plugin repository.
+- [x] **Task 6: Command & Script Manifests:** Materialized bit-identical `COMMAND_MANIFEST.md` and `DEV_SCRIPTS_MANIFEST.md` in `docs/nodestadt/reference/`.
+- [x] **Task 7: Mobile Sovereignty Strategy:** Formalized the "Mobile Sovereignty" strategy in `docs/nodestadt/architecture/mobile-sovereignty.md`.
+- [x] **Task 8: Ghost Purge & Quaternary Shutdown:** Materialized `scripts/audit/purge-ghosts.sh` and integrated Node D into `shutdown.sh` and `deck-igniter`.
 
 ---
 
-## 🏛️ PHASE 104: NODESTADT ORGANIZATION PIVOT (PENDING)
+## 🏛️ PHASE 104: NODESTADT ORGANIZATION PIVOT (IN-PROGRESS)
 **Goal:** Transition the Sovereign Machina codebase to a professional monorepo structure under the NODESTADT organization.
 - [ ] **Task 1: GitHub Organization Transfer:** Move the primary repository to the `nodestadt` GitHub organization.
 - [ ] **Task 2: Monorepo & Thin Variant Scaffolding:** Create the `flake.nix` structure to support thin overlays (`sovereign-lite`, `sovereign-k15`, etc.).
 - [ ] **Task 3: Profile + Plugin Framework Baseline:** Finalize the declarative manifest format for drop-in Rust sidecars and themes.
+- [ ] **Task 4: Manifest Decommissioning:** Phase out `akashik_guides/` and other legacy documentation directories.
 
 ---
 
 ## 🔌 PHASE 105: CYBERPUNK RED PLUGIN EXTRACTION (PENDING)
 **Goal:** Surgically extract all Cyberpunk Red mechanics from the clean core and establish it as the flagship first-party plugin.
-- [ ] **Task 1: Database Decoupling:** Unify the legacy `world.db` and `Akashik.db` into a dedicated `cyberpunk.db` managed exclusively by the plugin.
+- [ ] **Task 1: Artery of Truth Decoupling:** Unify the legacy `world.db` and `Akashik.db` into a dedicated `cyberpunk.db` managed exclusively by the plugin.
 - [ ] **Task 2: Logic Extraction:** Move all Red-specific MCP tools, Foundry integration, and Netrunning sidecars to `nodestadt/sovereign-red-plugin`.
 - [ ] **Task 3: Core Proprietary Primitives:** Rewrite generic functionality (e.g., dice engines, state sync) as Sovereign proprietary MCPs in the main repo.
 
 ---
 
 ## 🧠 PHASE 106: RESEARCH PROFILE & SWARM ACTIVATION (PENDING)
-**Goal:** Ignite Node D (Oracle) with the new intelligence architecture and instantiate the Factory Pipeline swarm.
-- [ ] **Task 1: Memory Core Integration:** Integrate LanceDB (Archival compression) and DuckDB (Agent telemetry) alongside Mooncake.
+**Goal:** Ignite Node D (Strategic Oracle) with the new intelligence architecture and instantiate the Factory Pipeline swarm.
+- [ ] **Task 1: Synapse Core Integration:** Integrate LanceDB (Archival compression) and DuckDB (Agent telemetry) alongside Mooncake.
 - [ ] **Task 2: The Factory Pipeline:** Implement the persistent Planner/Reviewer and dynamic Worker swarm for the Research Profile in the Sovereign Hall.
 - [ ] **Task 3: Hermes RL Booster:** Deploy the GRPO training loop via the `rlox` crate to elevate agent tool-calling mastery.
 

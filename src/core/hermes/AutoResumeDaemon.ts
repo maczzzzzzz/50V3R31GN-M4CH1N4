@@ -32,9 +32,9 @@ export class AutoResumeDaemon {
           // Re-invoke the native singularity engine to resume.
           await orchestrator.invoke({
             prompt: state.prompt,
-            tokens: state.tokens,
-            file_path: state.file_path,
-            diff: state.diff,
+            tokens: state.tokens ?? 16384,
+            file_path: state.file_path ?? undefined,
+            diff: state.diff ?? undefined,
             thread_id: row.thread_id,
           });
         }

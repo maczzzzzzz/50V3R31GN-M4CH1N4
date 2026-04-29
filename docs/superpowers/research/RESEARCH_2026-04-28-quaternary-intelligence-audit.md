@@ -2,7 +2,7 @@
 **Status:** Materialized // **Classification:** Quaternary Intelligence Audit // **ID:** 50V3R31GN-STRAT-AUDIT-004
 
 ## ::/5Y573M-N071C3 : AUDIT_INITIALIZED. 
-**Targeting:** Intelligence/Control, Memory, Automation, and Planning Shards.
+**Targeting:** Intelligence/Control, Synapse, Automation, and Planning Shards.
 **Grounding:** Deep technical extraction from seven primary cognitive hubs.
 
 ---
@@ -21,7 +21,7 @@
 
 ### Operit
 - **Native System Integration:** Embeds a full **Ubuntu 24** environment within Android, bridging mobile mobility with server-grade CLI control.
-- **Local Inference:** Supports `llama.cpp` and `MNN` for private, offline intelligence on Node-C (mobile) hardware.
+- **Local Cognition:** Supports `llama.cpp` and `MNN` for private, offline intelligence on Node-C (mobile) hardware.
 
 ---
 
@@ -29,7 +29,7 @@
 *Long-term Retention & RAG*
 
 ### brain (codejunkie99)
-- **Git-Backed Episodic Memory:** Stores all agent experiences as versioned commits in `~/.brain`. This ensures persistence, auditability, and syncability across different workstations.
+- **Git-Backed Episodic Synapse:** Stores all agent experiences as versioned commits in `~/.brain`. This ensures persistence, auditability, and syncability across different workstations.
 - **Four-Layer Architecture:**
   - `Working`: Volatile context.
   - `Episodic`: Historical event log.
@@ -73,7 +73,7 @@
 ---
 
 ## 💎 MINEABLE ARTIFACTS FOR THE SOVEREIGN TRIAD
-1. **The Git-Memory Shard:** Port the `brain` git-backed storage to `SovereignIntelligence.db` for bit-identical state tracking.
+1. **The Git-Synapse Shard:** Port the `brain` git-backed storage to `SovereignIntelligence.db` for bit-identical state tracking.
 2. **Specialized Sub-Agent Manifests:** Adopt the ECC `typescript-reviewer` and `security-gate` patterns for the **[RED_DIRECTOR]** audit loop.
 3. **Instinct-Based Learning:** Implement the ECC "Continuous Learning v2" to auto-generate `.gemini/skills/` from our `soul.jsonl` history.
 4. **VLM UI Control:** Integrate `Open-AutoGLM` patterns for screen-perception tasks in the **Sovereign-Vesper-Eye** crate.

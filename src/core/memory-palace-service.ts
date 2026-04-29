@@ -18,7 +18,8 @@ import { randomUUID } from 'node:crypto';
 import { ChromaClient, type Collection } from 'chromadb';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { OsTripletService } from '../db/os-triplets-service.js';
-import { compress as aaakCompress } from './aaak-compressor.js';
+import { compress as aaakCompress, type AaakIdentity, compressIdentity, type AaakBlock } from './aaak-compressor.js';
+import type { SovereignProfile } from './interfaces.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -148,6 +149,7 @@ const DRAWER_COLLECTION = 'sovereign_drawer';
 export class MemoryPalaceService {
   private readonly oracle: UnifiedOracleClient;
   public readonly tripletService?: OsTripletService | undefined;
+  private activeProfile: SovereignProfile = 'SOVEREIGN_OS';
   private activeContext: PalaceContext = {
     wingId: null,
     wingName: null,
@@ -164,6 +166,10 @@ export class MemoryPalaceService {
   constructor(oracle: UnifiedOracleClient, tripletService?: OsTripletService) {
     this.oracle = oracle;
     this.tripletService = tripletService;
+  }
+
+  public setProfile(profile: SovereignProfile): void {
+    this.activeProfile = profile;
   }
 
   /**

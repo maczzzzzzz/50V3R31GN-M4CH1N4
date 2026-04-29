@@ -169,7 +169,7 @@ A profile is a simple directory + manifest:
 # profiles/secretary/profile.yaml
 name: secretary
 description: Handles email, calendar, Slack, admin tasks
-version: 1.0.0
+version: 3.8.7
 
 inference_preference: node_b_medium   # or node_d_heavy, etc.
 model_selection_strategy: auto
@@ -529,7 +529,7 @@ This gives NODESTADT a complete, logical product line:
 - **Enterprise / Scalable** → Hybrid cloud (home nodes + dedicated cloud node).
 
 **How the Old Hardware Revival Fits the Profile Framework**  
-Users can create a “Memory-Buffer” profile that:
+Users can create a “Synapse-Buffer” profile that:
 - Only runs Mooncake master.
 - Registers a minimal SPIFFE identity.
 - Applies a low-power theme.

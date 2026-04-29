@@ -67,7 +67,7 @@ This is the **killer feature** of Sovereign Machina.
 
 ```yaml
 name: secretary
-version: 1.0.0
+version: 3.8.7
 description: Handles email, calendar, Slack, admin tasks
 
 inference_preference: node_b_medium
@@ -94,7 +94,7 @@ theme:
     hud: minimal
     terminal: clean-sans
 
-# Database (if needed)
+# Artery of Truth (if needed)
 database:
   name: secretary-data
   engine: sqlite
@@ -129,7 +129,7 @@ User writes a normal Rust crate → places it in `profiles/my-profile/sidecars/`
 
 ---
 
-**5. Database Separation (Already Implemented)**
+**5. Artery of Truth Separation (Already Implemented)**
 
 - `sovereignintelligence.db` → Core only (profiles, GEPA, Hermes, Mooncake, etc.).
 - `cyberpunk.db` → Owned and managed entirely by the Cyberpunk Red plugin (created on install, archived on removal).
@@ -397,7 +397,7 @@ This pattern ensures:
 - **sovereign-machina** → Pure sovereign core + Profile + Plugin + Theme Framework  
 - **sovereign-red-plugin** → First high-level plugin (Cyberpunk Red GM + Foundry)  
 - **sovereign-lite** → Consumer entry (32 GB RAM minimum)  
-- **sovereign-old-hardware** → Memory buffer revival (old laptops/desktops)  
+- **sovereign-old-hardware** → Synapse buffer revival (old laptops/desktops)  
 - **sovereign-k15** → Optimized headless Hermes Command Center (Android egress only)  
 - **sovereign-mobile** → Full screen awareness + control on Android  
 - **sovereign-cloud** → Hybrid cloud (local nodes + optional cloud nodes with E2EE)

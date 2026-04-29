@@ -75,6 +75,12 @@ func LoadConfig() {
 	if v, ok := env["NODE_C_PORT"]; ok && v != "" {
 		Cfg.NodeCPort = v
 	}
+	if v, ok := env["NODE_D_HOST"]; ok && v != "" {
+		Cfg.NodeDHost = v
+	}
+	if v, ok := env["NODE_D_PORT"]; ok && v != "" {
+		Cfg.NodeDPort = v
+	}
 	if v, ok := env["CLAWLINK_PORT"]; ok && v != "" {
 		Cfg.ClawlinkPort = v
 	}

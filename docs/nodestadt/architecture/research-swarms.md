@@ -1,7 +1,7 @@
 # DEVELOPMENT INSIDE THE MACHINA // THE RESEARCH SWARMS
 
 ## ◈ THE PIVOT
-The **NODESTADT Authority OS** has transcended being a subject of development. It is now the **Environment of Development**. By leveraging the **Node D Quaternary Oracle** (48GB RAM / Intel NPU), we have moved the full cognitive load of engineering into the mesh itself.
+The **NODESTADT Authority OS** has transcended being a subject of development. It is now the **Environment of Development**. By leveraging the **Node D Quaternary Strategic Oracle** (48GB RAM / Intel NPU), we have moved the full cognitive load of engineering into the mesh itself.
 
 ## ◈ THE RESEARCHER PROFILE (Node D)
 

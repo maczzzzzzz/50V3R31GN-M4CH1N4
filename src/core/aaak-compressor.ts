@@ -16,6 +16,8 @@
  * Target: ≤170 tokens (~680 characters). Compression ratio ~4:1 over plaintext.
  */
 
+import type { SovereignProfile } from './interfaces.js';
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface AaakIdentity {
@@ -81,8 +83,12 @@ export function compress(text: string): string {
  *   ||[ST4T]V35P3R=<0|1>|THR=<0|1|2>
  *   ||[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.
  */
-export function compressIdentity(identity: AaakIdentity): AaakBlock {
+export function compressIdentity(identity: AaakIdentity, profile: SovereignProfile = 'SOVEREIGN_OS'): AaakBlock {
   const ts = Math.floor(Date.now() / 1000);
+
+  const mandate = profile === 'RED_DIRECTOR' 
+    ? '[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.OBLITERATUS.'
+    : '[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.';
 
   const sections: string[] = [
     `[SYS:IDENTITY]${compress(identity.designation)}|ts=${ts}`,
@@ -90,7 +96,7 @@ export function compressIdentity(identity: AaakIdentity): AaakBlock {
     `[PAL4C3]${identity.activeWing ? compress(identity.activeWing) : 'NULL'}>${identity.activeRoom ? compress(identity.activeRoom) : 'NULL'}`,
     `[FACTS]${identity.criticalFacts.slice(0, 5).map(compress).join('|') || 'NONE'}`,
     `[ST4T]V35P3R=${identity.vesperActive ? 1 : 0}|THR=${identity.threatLevel}`,
-    '[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.OBLITERATUS.',
+    mandate,
   ];
 
   const text = sections.join('||');

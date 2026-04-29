@@ -544,13 +544,13 @@ This is fully achievable and aligns perfectly with the drop-in plugin philosophy
 
 **LOCKED DATABASE SEPARATION STRATEGY**
 
-**1. Core Database (Main Repo – Sovereign OS Logic)**  
+**1. Core Artery of Truth (Main Repo – Sovereign OS Logic)**  
 - Single, clean database (SQLite + ChromaDB + Mooncake KV layer).  
 - Contains only general-purpose sovereign data:
   - Profiles, GEPA genomes, identity tokens, routing state, provenance ledger, MemPalace (non-domain-specific drawers), etc.
 - No Cyberpunk Red tables, no lore, no campaign state, no Red-specific rules.
 
-**2. Plugin Database (Cyberpunk Red Plugin)**  
+**2. Plugin Artery of Truth (Cyberpunk Red Plugin)**  
 - The plugin ships with its **own dedicated database schema and instance**.  
 - When the plugin is installed (via `nix profile install` or framework command), it:
   - Creates a separate SQLite/ChromaDB file (e.g., `cyberpunk-red.db` or `plugin-sovereign-red.db`).

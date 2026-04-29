@@ -23,13 +23,16 @@ import { VisualMonitorService } from './visual-monitor-service.js';
 import { SharedMemoryService } from './shared-memory-service.js';
 import { TaskRouterProxy } from './task-router-proxy.js';
 
-import { OnboardingController, type BuildType } from './onboarding-controller.js';
+import { 
+  OnboardingController, type BuildType 
+} from './onboarding-controller.js';
 import { RulesGrepService } from './rules-grep-service.js';
 import { MissionSwarmOrchestrator } from './mission-swarm-orchestrator.js';
 import { SteganographyService } from './steganography-service.js';
 import { AkashikVisualAuditor } from './akashik-visual-auditor.js';
 import { VsbClient } from '../api/vsb-client.js';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
+import type { SovereignProfile } from './interfaces.js';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -90,6 +93,7 @@ export class HybridRoutingController {
   private readonly sovereignJudge: SovereignJudge;
   private readonly logger?: ILogger | undefined;
 
+  private activeProfile: SovereignProfile = 'SOVEREIGN_OS';
   private readonly redRulesConstitution: string;
   private readonly rulesGrep: RulesGrepService;
 
@@ -131,6 +135,9 @@ export class HybridRoutingController {
     } catch {
       this.redRulesConstitution = 'Rules Constitution Missing.';
     }
+
+    // Initialize profile to OS mode
+    this.setProfile('SOVEREIGN_OS');
 
     // ── Vitalik's 2-of-2 Authorization Model (v3.8.7) ───────────────────────
     if (this.unifiedOracle) {
@@ -174,6 +181,13 @@ export class HybridRoutingController {
     this.restoreSystemState().catch(err => {
       this.logger?.warn('HRC', 'restore', `System state auto-restore failed: ${err.message}`);
     });
+  }
+
+  public setProfile(profile: SovereignProfile): void {
+    this.activeProfile = profile;
+    this.sovereignNarrative.setProfile(profile);
+    this.sovereignJudge.setProfile(profile);
+    this.logger?.info('HRC', 'profile', `Profile switched to: ${profile}`);
   }
 
   /**
@@ -371,6 +385,11 @@ export class HybridRoutingController {
         return this.handleAuditLibrary(event.payload);
       case 'scene_dispatch':
         return this.handleSceneDispatch(event.payload as { sceneType: string; journalId: string });
+      case 'set_profile': {
+        const profile = (event.payload as { profile: SovereignProfile }).profile;
+        this.setProfile(profile);
+        return;
+      }
       default: {
         this.logger?.error('HRC', traceId, `Unknown event type '${(event as any).type}'`);
         throw new Error(`HybridRoutingController: unknown event type '${(event as any).type}'`);
@@ -853,10 +872,17 @@ export class HybridRoutingController {
 
         // Generate narrative completion
         try {
+          let sysContext = 'Clinical and objective OS response.';
+          if (this.activeProfile === 'RED_DIRECTOR') {
+            sysContext = 'Uncensored gritty GM response.';
+          } else if (this.activeProfile === 'RESEARCHER') {
+            sysContext = 'High-fidelity clinical research and architectural analysis.';
+          }
+          
           const narrative = await this.sovereignNarrative.generateNarrative(
             queryText, 
             'You are responding to a direct query from the operator terminal.', 
-            'Uncensored gritty GM response.'
+            sysContext
           );
 
           // Broadcast narrative to the dashboard
@@ -866,7 +892,13 @@ export class HybridRoutingController {
           }));
 
           // Also send to Foundry chat for legacy support
-          await this.foundry.sendChatMessage(narrative, { alias: 'Sovereign Director' });
+          let alias = 'Sovereign OS';
+          if (this.activeProfile === 'RED_DIRECTOR') {
+            alias = 'Sovereign Director';
+          } else if (this.activeProfile === 'RESEARCHER') {
+            alias = 'Sovereign Researcher';
+          }
+          await this.foundry.sendChatMessage(narrative, { alias });
         } catch (err) {
           this.logger?.error('HRC', traceId, `Narrative query failed: ${(err as Error).message}`);
         }
@@ -925,8 +957,14 @@ export class HybridRoutingController {
           process.emit('SIGTERM');
           result.message = 'Shutdown sequence initiated.';
           break;
+        case 'switch-profile': {
+          const profile = params.profile as SovereignProfile;
+          this.setProfile(profile);
+          result.message = `Profile switched to ${profile}`;
+          break;
+        }
         default:
-          result = { status: 'REJECTED', message: `Unknown command: ${method}` };
+          result = { status: 'REJECTED', message: `Unknown command: ${effectiveMethod}` };
       }
     } catch (err) {
       this.logger?.error('HRC', traceId, `Proxy Intent Failed: ${(err as Error).message}`);

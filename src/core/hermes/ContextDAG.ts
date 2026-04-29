@@ -37,7 +37,7 @@ export class ContextDAG {
     const id = randomUUID();
     const node: DAGNode = {
       id,
-      parentId: parentId || this.activePath[this.activePath.length - 1],
+      parentId: parentId ?? (this.activePath.length > 0 ? this.activePath[this.activePath.length - 1]! : null),
       content,
       role,
       metadata: {},

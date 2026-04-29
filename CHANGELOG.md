@@ -8,8 +8,8 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 ## [3.8.8] - 2026-04-28
 
 ### Added
-- **Quaternary Mesh:** Node D (Intel Core Ultra 5 125U) officially ignited and provisioned as the Cluster Oracle. Built `llama.cpp` from source with Intel optimizations.
-- **Hermes Tools (v2026.4.23):** Transitioned to native, pluggable transport-based tool calling. Physically purged **LangGraph** dependencies.
+- **Quaternary Mesh:** Node D (Intel Core Ultra 5 125U) officially ignited and provisioned as the Cluster Strategic Oracle. Built `llama.cpp` from source with Intel optimizations.
+- **Hermes Tools (v3.8.7):** Transitioned to native, pluggable transport-based tool calling. Physically purged **LangGraph** dependencies.
 - **RESEARCHER Profile:** Dedicated high-context profile for long-running research cycles and architectural audits.
 - **Experience-Gitting:** Immutable, Git-backed event logging for agentic reasoning trajectories and failure recovery in `SovereignIntelligence.db`.
 - **ClawLink Backbone:** Persistent zero-latency SSH tunnels established as the default direct connection path for inter-node reasoning.
@@ -51,7 +51,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 - **Observability Hardening:** Standardized TS and Go loggers for structured JSON output (`artery.json`) and Trace-ID propagation. Refactored `PretextTerminalArtery` for real-time SSE log ingestion in the HUD.
 - **Flutter HUD Resilience:** Implemented `PageView` navigation to prevent white-screen hangs, added `PermissionService` for startup ingress, and shored tactical UI scaling for field readability.
 - **Total Documentation Overhaul:** Rewrote `README.md` and `ABOUT.md` to reflect the re-grounded Trinity topology. Reconstructed the `akashik_guides` using the **Diátaxis framework**.
-- **Unified Strategic Oracle v3.8.7:** Shored SQLite schema with FTS5 search triggers and R-Tree spatial indexing.
+- **Unified Strategic Strategic Oracle v3.8.7:** Shored SQLite schema with FTS5 search triggers and R-Tree spatial indexing.
 - **Deck-Igniter Stability Review:** Confirmed default boot invariant to `[SOVEREIGN_OS]` mode; suppressed automatic Foundry VTT ignition except in explicit `cpr` mode. Shored `ignite-sovereign.ps1` for secure Windows-to-WSL transition.
 - **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
 - **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.

@@ -34,7 +34,7 @@ export const PALETTES: Record<string, ThemePalette> = {
 };
 
 export function getThemeCss(themeId: string = 'gruvboxDark'): string {
-    const palette = PALETTES[themeId] || PALETTES.gruvboxDark;
+    const palette = PALETTES[themeId] ?? PALETTES['gruvboxDark'] ?? { accent: '#fabd2f', bg: '#282828', glow: 'rgba(250, 189, 47, 0.8)' };
     return `
 /* SOVEREIGN DOMINANCE LAYER: ${themeId} */
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');

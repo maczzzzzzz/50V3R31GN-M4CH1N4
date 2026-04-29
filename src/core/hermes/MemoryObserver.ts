@@ -3,7 +3,13 @@ import { UnifiedOracleClient } from '../../db/unified-oracle-client.js';
 import { SynapseStore } from '../../db/synapse-store.js';
 import { OsTripletService } from '../../db/os-triplets-service.js';
 import { SovereignEmbeddingService } from '../../db/sovereign-embedding-service.js';
-import type { OrchestratorState } from './LangGraphOrchestrator.js';
+
+export interface HermesState {
+  prompt: string;
+  response?: string;
+  outcome: 'SUCCESS' | 'FAILURE' | 'PENDING';
+  traceId: string;
+}
 
 /**
  * Phase 68.5: Memory Palace Observer
@@ -19,7 +25,7 @@ export class MemoryObserver {
     const oracle = new UnifiedOracleClient({
       worldDbPath: 'data/Akashik.db',
       crushDbPath: 'data/crush.db',
-    });
+    }, {});
     await oracle.connect();
 
     const store = new SynapseStore('data/SovereignIntelligence.db');
@@ -33,7 +39,7 @@ export class MemoryObserver {
     this.service = new MemoryPalaceService(oracle, tripletService);
   }
 
-  static async observeAndDistill(state: OrchestratorState) {
+  static async observeAndDistill(state: HermesState) {
     if (state.outcome !== 'SUCCESS' || !state.response) return;
 
     try {

@@ -9,7 +9,7 @@
 
 import { z } from 'zod';
 import { randomUUID } from 'node:crypto';
-import type { ISovereignNarrativeClient, SovereignNarrativeConfig, CombatAudioMetadata } from './interfaces.js';
+import type { ISovereignNarrativeClient, SovereignNarrativeConfig, CombatAudioMetadata, SovereignProfile } from './interfaces.js';
 import { RootsInjector } from './roots-injector.js';
 import type { ILogger } from '../db/interfaces.js';
 import { soulLogger } from './soul-logger.js';
@@ -128,6 +128,12 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
 
   public setRootsInjector(injector: RootsInjector) {
     this.rootsInjector = injector;
+  }
+
+  public setProfile(profile: SovereignProfile): void {
+    if (this.rootsInjector) {
+      this.rootsInjector.setProfile(profile);
+    }
   }
 
   // ── isHealthy ───────────────────────────────────────────────────────────────

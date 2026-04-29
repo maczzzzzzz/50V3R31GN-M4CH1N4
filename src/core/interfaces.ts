@@ -23,6 +23,8 @@ export interface ILogger {
   error(context: string, traceId: string, message: string, data?: Record<string, unknown>): void;
 }
 
+export type SovereignProfile = 'SOVEREIGN_OS' | 'RED_DIRECTOR' | 'RESEARCHER';
+
 // ── Configuration ─────────────────────────────────────────────────────────────
 
 /**
@@ -233,6 +235,8 @@ export interface ISovereignNarrativeClient {
    * For SovereignNarrative, this unloads the model from VRAM.
    */
   stop(): Promise<void>;
+  /** Phase 103: Switch the active profile (OS, Director, Researcher). */
+  setProfile(profile: SovereignProfile): void;
 }
 
 // â”€â”€ Vision (Sidecar) types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

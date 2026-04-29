@@ -15,7 +15,7 @@ All active scripts (Node.js, Go, or Rust-based droids) are subject to **NitroLog
 
 - **Static Analysis:** Scripts are audited for "Shadow Logic" (unauthorized network calls, file system escapes) before being marked as `STABLE`.
 - **Runtime Sandboxing:** High-risk logic is executed within a hardened Nix-based sandbox with no external egress, unless explicitly routed through the Artery proxy.
-- **Heuristic Defense:** Node C (Oracle) performs real-time heuristic analysis on script behavior, looking for patterns indicative of logic drift or external interference.
+- **Heuristic Defense:** Node C (Strategic Oracle) performs real-time heuristic analysis on script behavior, looking for patterns indicative of logic drift or external interference.
 
 ### 3. Air-Gap Principles (Sensitive Shards)
 Critical system shards—including the core Identity manifest and the Root Synapse Key—are protected by logical air-gap principles.

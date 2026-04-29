@@ -1,12 +1,12 @@
 # ◈ RESEARCH: LANGGRAPH_PURGE // NATIVE_HERMES_TOOLS_ADOPTION
 **Date:** 2026-04-27 (Post-Ignition Session)
-**Subject:** Formalizing the transition from LangGraph state-machines to native Hermes Tools (v2026.4.23).
+**Subject:** Formalizing the transition from LangGraph state-machines to native Hermes Tools (v3.8.7).
 **Status:** **[EXECUTED_&_VERIFIED]**
 
 ---
 
 ## 1. THE ARCHITECTURAL SHIFT
-The Sovereign Trinity has officially purged all **LangGraph** dependencies. The overhead of managing state-machine graphs for agent orchestration has been replaced by the native **Hermes Tools** framework introduced in the `v2026.4.23` release.
+The Sovereign Trinity has officially purged all **LangGraph** dependencies. The overhead of managing state-machine graphs for agent orchestration has been replaced by the native **Hermes Tools** framework introduced in the `v3.8.7` release.
 
 ### ◈ Rationale:
 *   **Latency:** LangGraph added unnecessary traversal steps between thought and action.
@@ -30,7 +30,7 @@ Tool-calling is now handled via the **Pluggable Transport Layer** (Python ABC).
 ## 3. CONTEXT-DAG INTEGRATION
 The **Context-DAG** (materialized in Phase 93) is now the primary data structure for the **Trajectory Compressor**. 
 *   It handles smart deduplication and recursive summarization of previous tool results.
-*   Ensures the 128k context window on Node D (Oracle) is utilized for *reasoning* rather than redundant log storage.
+*   Ensures the 128k context window on Node D (Strategic Oracle) is utilized for *reasoning* rather than redundant log storage.
 
 ---
 

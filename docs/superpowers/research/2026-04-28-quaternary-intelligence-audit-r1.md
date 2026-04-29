@@ -4,18 +4,18 @@
 **Subject:** SOTA Agentic Architectures & Mineable Logic for Node D Ignition
 
 ## 1. Executive Summary
-This report synthesizes the architectural patterns and "mineable logic" extracted from seven high-fidelity repositories (Operit, Open-AutoGLM, Brain, ECC, Bux, Factory.ai, and Hermes-TouchDesigner). The goal is to provide a blueprint for the ignition of Node D (GMKtec K15) as the high-context "Oracle" of the Sovereign Trinity.
+This report synthesizes the architectural patterns and "mineable logic" extracted from seven high-fidelity repositories (Operit, Open-AutoGLM, Brain, ECC, Bux, Factory.ai, and Hermes-TouchDesigner). The goal is to provide a blueprint for the ignition of Node D (GMKtec K15) as the high-context "Strategic Oracle" of the Sovereign Trinity.
 
 ## 2. Key Intelligence Pillars
 
-### A. Intelligence & Autonomous Control (Oracle/Teacher Pattern)
+### A. Intelligence & Autonomous Control (Strategic Oracle/Teacher Pattern)
 *   **Source:** Open-AutoGLM, Operit
-*   **Logic:** Implementation of a **26B Oracle** model that performs high-level planning and reasoning, which is then distilled or executed by smaller edge models (9B).
-*   **Actionable:** Cast Node D as the "Reasoning Oracle" for the 10.0.0.x spine. Move from DOM-scraping to **Pixel-to-Action mapping** via VLM vision cortex for Android/Web control.
+*   **Logic:** Implementation of a **26B Strategic Oracle** model that performs high-level planning and reasoning, which is then distilled or executed by smaller edge models (9B).
+*   **Actionable:** Cast Node D as the "Reasoning Strategic Oracle" for the 10.0.0.x spine. Move from DOM-scraping to **Pixel-to-Action mapping** via VLM vision cortex for Android/Web control.
 
-### B. Persistent Memory & Event Logging (Git-Backed State)
+### B. Persistent Synapse & Event Logging (Git-Backed State)
 *   **Source:** Brain (codejunkie99), ECC
-*   **Logic:** Memory is treated as an immutable sequence of **Git Commits**. This allows for "Rewind/Replay" debugging of agent reasoning and prevents memory drift.
+*   **Logic:** Synapse is treated as an immutable sequence of **Git Commits**. This allows for "Rewind/Replay" debugging of agent reasoning and prevents memory drift.
 *   **Actionable:** Implement the "Doctor Pattern"—a dual-layer persistence system with a high-speed SQLite index mirroring a durable Git-backed event log.
 
 ### C. Skill Synthesis & Meta-Automation (Skill-Factory)

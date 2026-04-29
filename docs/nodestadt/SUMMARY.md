@@ -7,8 +7,9 @@
 * [The Quaternary Mesh](architecture/topology.md)
 * [ClawLink & The Artery](architecture/artery.md)
 * [Zero-Trust Boundaries](architecture/security.md)
-* [The Symbolic Memory Core](architecture/memory.md)
+* [The Symbolic Synapse Core](architecture/memory.md)
 * [Research Swarms (Inside the Machina)](architecture/research-swarms.md)
+* [Mobile Sovereignty (Android/Ubuntu)](architecture/mobile-sovereignty.md)
 
 ## Capabilities
 * [Hermes Singularity](capabilities/hermes.md)
@@ -24,3 +25,7 @@
 
 ---
 * [Cyberpunk RED Plugin](../sovereign-red-plugin/README.md)
+
+## Reference
+* [Command Manifest](reference/COMMAND_MANIFEST.md)
+* [Dev Scripts Manifest](reference/DEV_SCRIPTS_MANIFEST.md)

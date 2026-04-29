@@ -68,9 +68,11 @@ export class SynapseCapture {
 
     if (rawTriplets.length > 0) {
       const enrichedTriplets = rawTriplets.map(t => ({
-        ...t,
-        roomId: input.roomId ?? undefined,
-        clusterId: input.clusterId ?? undefined,
+        subject: t.subject,
+        predicate: t.predicate,
+        object: t.object,
+        roomId: input.roomId,
+        clusterId: input.clusterId,
       }));
       await this.tripletService.upsertBatch(enrichedTriplets);
       this.logger?.info(

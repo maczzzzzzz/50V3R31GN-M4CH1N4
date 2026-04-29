@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { ISovereignNarrativeClient, INitroLogicClient, ILogger } from './interfaces.js';
+import type { ISovereignNarrativeClient, INitroLogicClient, ILogger, SovereignProfile } from './interfaces.js';
 import type { UnifiedOracleClient } from '../db/unified-oracle-client.js';
 import type { IClawLinkClient } from '../api/clawlink-client.js';
 import type { IFoundryAdapter } from '../api/foundry-adapter.js';
@@ -22,6 +22,7 @@ export class SovereignJudge {
   private readonly clawlink?: IClawLinkClient;
   private readonly foundry?: IFoundryAdapter;
   private readonly logger?: ILogger | undefined;
+  private activeProfile: SovereignProfile = 'SOVEREIGN_OS';
 
   constructor(options: SovereignJudgeOptions) {
     this.nitro = options.nitroLogicClient;
@@ -30,6 +31,10 @@ export class SovereignJudge {
     if (options.clawlinkClient !== undefined) this.clawlink = options.clawlinkClient;
     if (options.foundryAdapter !== undefined) this.foundry = options.foundryAdapter;
     this.logger = options.logger;
+  }
+
+  public setProfile(profile: SovereignProfile): void {
+    this.activeProfile = profile;
   }
 
   public async evaluateNarrative(
@@ -82,7 +87,11 @@ export class SovereignJudge {
              this.foundry.sendChatMessage(`**[SYS.ERR]** Cognitive alignment failure. Recalculating...`, { alias: 'System' }).catch(() => {});
           }
 
-          currentPrompt = prompt + " REJECTED BY SYSTEM: Your previous response contained forbidden AI-isms or lacked grit. You are a Sovereign Reality Engine. Be brutal, terse, and unfiltered.";
+          if (this.activeProfile === 'RED_DIRECTOR') {
+            currentPrompt = prompt + " REJECTED BY SYSTEM: Your previous response contained forbidden AI-isms or lacked grit. You are a Sovereign Reality Engine. Be brutal, terse, and unfiltered.";
+          } else {
+            currentPrompt = prompt + " REJECTED BY SYSTEM: Your previous response was logically inconsistent or contained AI meta-talk. Be clinical, objective, and adhere strictly to the OS mandate.";
+          }
         }
       } catch (e) {
         this.logger?.error(CONTEXT, traceId, 'Narrative audit failed, accepting narrative as fallback', { error: (e as Error).message });

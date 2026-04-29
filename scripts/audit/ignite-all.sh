@@ -45,13 +45,13 @@ nix develop .#optical -c python scripts/dev/colpali-server.py > "$LOG_DIR/colpal
 COLPALI_PID=$!
 
 # ---------------------------------------------------------------------------
-# ◈ STAGE 2: BRAIN KERNEL (Node B - Gemma-4-E4B GPU)
+# ◈ STAGE 2: BRAIN KERNEL (Node B - Gemma-4-26B A4B GPU)
 # ---------------------------------------------------------------------------
-echo "  [stage 2] Igniting Director (Gemma-4-E4B Q8 GPU)..."
-# Use Windows llama-server.exe (build b8710) — nix build is too old for gemma4 arch.
-# Windows binary uses Vulkan backend targeting AMD RX 9060 XT (15428 MiB free).
+echo "  [stage 2] Igniting Director (Gemma-4-26B A4B Q3_K_M GPU)..."
+# Use Windows llama-server.exe (build b8710) targeting AMD RX 9060 XT.
 /mnt/d/llama.cpp/llama-server.exe \
-  -m 'D:\llama.cpp\models\Gemma-4-E4B-Uncensored-HauhauCS-Aggressive-Q8_K_P.gguf' \
+  -m 'D:\llama.cpp\models\gemma-4-26B-A4B-it-UD-Q3_K_M.gguf' \
+  --mmproj 'D:\llama.cpp\models\mmproj-BF16.gguf' \
   --host 0.0.0.0 --port 8080 \
   -ngl 99 -c 8192 --no-mmap > "$LOG_DIR/director.log" 2>&1 &
 DIRECTOR_PID=$!

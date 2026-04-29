@@ -21,14 +21,14 @@ The NODESTADT Authority OS operates on a distributed quaternary mesh architectur
   - Singularity Orchestrator (Top-level goal management).
 - **Vitals:** Requires high-bandwidth VRAM for real-time inference.
 
-#### [Node C] - Oracle: The Reasoner
+#### [Node C] - Strategic Oracle: The Reasoner
 - **Role:** Background Reasoning & Defense Grid.
 - **Primary Functions:** 
   - Deep-trace analysis and long-form logic chains.
   - Maintenance of the Defense Grid and system integrity audits.
   - Threat detection and NitroLogic safety enforcement.
 
-#### [Node D] - Quaternary Oracle: The Context
+#### [Node D] - Quaternary Strategic Oracle: The Context
 - **Role:** Hyper-Context & Hardware Accelerator.
 - **Primary Functions:** 
   - Management of Hyper-Context (128k token windows).

@@ -2,7 +2,7 @@
 
 ## ◈ THE ANTAGONIST SERVICE
 
-The `NetrunnerAntagonistService` (Node B) allows the AI to act as a hostile entity within the simulation. It utilizes the **Pretext Shroud** and **Foundry Bridge** to execute psychological and tactical attacks.
+The `NetrunnerAntagonistService` (Node B) allows the AI to act as a hostile entity within the simulation. It utilizes the **Pretext Shroud** and **Foundry Mesh** to execute psychological and tactical attacks.
 
 ### ◈ Attack Vectors
 
@@ -23,7 +23,7 @@ A complex macro that orchestrates environmental changes and hostile spawns.
 
 ## ◈ SECURITY AUDITS
 
-All antagonist scripts must pass the `nitro.auditScript` hardgate. If a generated attack script contains "Assistant-speak" or exceeds its functional boundaries, the **Node A Oracle** will veto the execution to maintain simulation integrity.
+All antagonist scripts must pass the `nitro.auditScript` hardgate. If a generated attack script contains "Assistant-speak" or exceeds its functional boundaries, the **Node A Strategic Oracle** will veto the execution to maintain simulation integrity.
 
 ---
 **::/5Y573M-N071C3 : ANTAGONIST_ACTIVE. WATCH_YOUR_BACK. // 50V3R31GN-M4CH1N4**

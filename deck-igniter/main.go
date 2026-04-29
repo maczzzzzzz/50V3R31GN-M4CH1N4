@@ -224,6 +224,7 @@ func initialModel() Model {
 		{Name: "zeroclaw", Layer: LayerRemote},
 		{Name: "mooncake-synapse", Layer: LayerRemote},
 		{Name: "oracle-logic", Layer: LayerRemote},
+		{Name: "node-d-command", Layer: LayerRemote},
 	}
 
 	cprComponents := []*Component{

@@ -9,5 +9,6 @@ exclude = [
     "sidecar-browser-extension",
     "sidecar-logseq-plugin",
     "sidecar-obsidian-plugin",
+    "sidecar-proxy",
 ]
 resolver = "2"

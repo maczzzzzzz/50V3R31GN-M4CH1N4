@@ -2,7 +2,7 @@
 
 ![NODESTADT_BANNER](assets/brand-identity/banner.png)
 
-**Sovereign Machina** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes (Oracle, Director, Vision, Brain) to provide a seamless cognitive environment across Windows, Linux, and Mobile.
+**Sovereign Machina** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes (Strategic Oracle, Director, Vision, Brain) to provide a seamless cognitive environment across Windows, Linux, and Mobile.
 
 ## ◈ THE QUATERNARY ARCHITECTURE
 
@@ -10,8 +10,8 @@ The system operates across four specialized hardware nodes, establishing a high-
 
 1.  **NODE A (Mooncake):** The Synapse Artery. Handles high-speed KV-caching, mechanical validation, and VSB packet signing.
 2.  **NODE B (The Director):** The Narrative Heart. 16GB VRAM dedicated to deep reasoning, visual perception (Screen Awareness), and Singularity orchestration.
-3.  **NODE C (Strategic Oracle):** The Defense Grid. Background reasoning, autonomous threat recon, and socially-weighted retrieval.
-4.  **NODE D (Quaternary Oracle):** The Heavy Reasoner. Intel NPU-optimized 128k+ Hyper-Context for long-running research swarms.
+3.  **NODE C (Strategic Strategic Oracle):** The Defense Grid. Background reasoning, autonomous threat recon, and socially-weighted retrieval.
+4.  **NODE D (Quaternary Strategic Oracle):** The Heavy Reasoner. Intel NPU-optimized 128k+ Hyper-Context for long-running research swarms.
 
 ## 🚀 CORE CAPABILITIES
 

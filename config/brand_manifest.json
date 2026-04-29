@@ -1,0 +1,61 @@
+{
+  "organization": "NODESTADT",
+  "product": "SOVEREIGN MACHINA",
+  "version": "1.2.0",
+  "palette": {
+    "authority_charcoal": {
+      "hex": "#1A1A1A",
+      "purpose": "The Void / Background / Primary Depth"
+    },
+    "machina_rust": {
+      "hex": "#F36622",
+      "purpose": "Ocular Pulse / Tactical Highlights / Code"
+    },
+    "gilded_sovereign": {
+      "hex": "#C7A87A",
+      "purpose": "Ritual Borders / Authority Accents"
+    },
+    "system_white": {
+      "hex": "#F2F2F2",
+      "purpose": "Logic Text / Technical Readouts"
+    },
+    "hydraulic_chrome": {
+      "hex": "#C0C0C0",
+      "purpose": "Secondary Mechanical / Grid Lines"
+    }
+  },
+  "typography": {
+    "authority": {
+      "family": "Cinzel",
+      "fallback": "serif",
+      "weight": "bold",
+      "style": "uppercase"
+    },
+    "operational": {
+      "family": "Space Grotesk",
+      "fallback": "sans-serif",
+      "weight": "medium"
+    },
+    "tactical": {
+      "family": "Silkscreen",
+      "fallback": "monospace",
+      "weight": "normal"
+    },
+    "code": {
+      "family": "JetBrains Mono",
+      "fallback": "monospace"
+    }
+  },
+  "submarks": {
+    "master": "MASTER_EMBLEM (Combined Ouroboros + Gaze)",
+    "node_a": "THE_RING (Ouroboros Gear)",
+    "node_b": "THE_GAZE (Hand with Eye)",
+    "node_c": "THE_EYE (Bio-Mechanical)",
+    "node_d": "THE_ORACLE (Full Nexus)"
+  },
+  "visual_effects": {
+    "smoke_composition": "Authority Charcoal base with Machina Rust highlights",
+    "glitch_style": "Chromatic Aberration (Rust/Chrome/Charcoal) + Serif Flash",
+    "status_rings": "Animated Ouroboros Vector (Snake consuming tail)"
+  }
+}

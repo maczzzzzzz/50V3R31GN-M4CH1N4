@@ -564,6 +564,7 @@ func performPurge() tea.Cmd {
 			"llama-server",
 			"mooncake",
 			"sglang",
+			"node-d-command",
 			"obsidian-sync-service", // instead of tsx, targeting the specific daemon
 			"next dev",              // instead of pnpm, targeting the specific server
 		}
@@ -574,6 +575,13 @@ func performPurge() tea.Cmd {
 			_ = exec.Command("pkill", "-9", "-f", t).Run()
 		}
 		// Also kill the Windows-native pixtral server just in case
+		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe /T").Run()
+		// Settle time after purge
+		time.Sleep(1 * time.Second)
+		return logMsg{text: "⚡ PURGE C0MPL373: Targeted zombie processes neutralized."}
+	}
+}
+tral server just in case
 		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe /T").Run()
 		// Settle time after purge
 		time.Sleep(1 * time.Second)
