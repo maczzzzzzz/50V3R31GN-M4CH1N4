@@ -1,39 +1,51 @@
-# ◈ 50V3R31GN-M4CH1N4 // THE_MASTER_NODE
-**Version:** 3.8.7 (THE_HERMES_SINGULARITY)
-**Identity:** [SOVEREIGN_OS] // [RED_DIRECTOR]
+# 50V3R31GN-M4CH1N4 // NODESTADT AUTHORITY OS
 
-Welcome to the **Sovereign Machina**, a hyper-local, distributed, zero-trust Artificial Intelligence Operating System (AI-OS) and Cognitive Simulation Engine. 
+![NODESTADT_BANNER](assets/brand-identity/banner.png)
 
----
+**Sovereign Machina** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes (Oracle, Director, Vision, Brain) to provide a seamless cognitive environment across Windows, Linux, and Mobile.
 
-## 🏗️ THE ARCHITECTURE AT A GLANCE (RE-GROUNDED)
-- **Node A (Mooncake Artery):** Dedicated **KV Synapse Cache** and high-speed mechanical validation (Edge/Secondary GPU).
-- **Node B (The Director):** 16GB VRAM. Primary host for **Gemma-4-E4B Q8** (Vision-Capable). Handles deep reasoning and 100% Screen Awareness.
-- **Node C (Strategic Oracle):** Cognition array hosting the **Gemma-4-E4B Model Farm (Q3, Q4, Q5)** and **Falcon Perception** for background autonomy and defense.
+## ◈ THE QUATERNARY ARCHITECTURE
 
-For a comprehensive technical breakdown, see the [ABOUT.md](ABOUT.md) manifesto.
+The system operates across four specialized hardware nodes, establishing a high-throughput **Cognitive Artery**:
 
----
+1.  **NODE A (Mooncake):** The Synapse Artery. Handles high-speed KV-caching, mechanical validation, and VSB packet signing.
+2.  **NODE B (The Director):** The Narrative Heart. 16GB VRAM dedicated to deep reasoning, visual perception (Screen Awareness), and Singularity orchestration.
+3.  **NODE C (Strategic Oracle):** The Defense Grid. Background reasoning, autonomous threat recon, and socially-weighted retrieval.
+4.  **NODE D (Quaternary Oracle):** The Heavy Reasoner. Intel NPU-optimized 128k+ Hyper-Context for long-running research swarms.
 
-## ⚡ RECENT BREAKTHROUGHS
-- **Hermes Singularity:** Native Context-DAG orchestration (Swipe-to-Fork) for branching reasoning paths.
-- **Pretext HUD:** Total UI Unification (Next.js / Flutter) using a bit-identical, low-level text engine.
-- **Headless Physical Mesh:** legacy `crush-cli` terminal deprecated. All physical proxy services are now 100% headless data arteries.
-- **Obsidian 1st Class:** Live Command-Center integration via Tailscale and Datalog-to-SQLite.
+## 🚀 CORE CAPABILITIES
 
----
+- **Hermes Singularity:** A native, pluggable agentic engine that replaces custom proxies with high-fidelity tool-calling and self-healing trajectories.
+- **HeadlessDatalog:** A zero-dependency symbolic memory store built on SQLite, allowing for complex relational queries over agentic facts.
+- **Pretext HUD:** A high-performance (120fps) modular interface utilizing trig-noise metabolism visualization and zero-reflow layout primitives.
+- **Sovereign Mesh:** Secure, zero-latency inter-node communication via ClawLink SSH tunnels and Tailscale encryption.
+- **Obsidian Command-Center:** Bidirectional sync between the agentic memory core and your physical Markdown knowledge base.
 
-## 🕹️ SYSTEM IGNITION
+## 🛠️ QUICK START
+
+### Prerequisites
+- **NixOS** or Linux with **Nix** installed.
+- **ClawLink Identity:** Public keys configured across the node cluster.
+- **Hardware:** Recommended minimum 16GB VRAM for Node B (Director).
+
+### Ignition
 ```bash
-# Clean the workspace and materialize headless physical sidecars
+# Ignite the full quaternary mesh
 bash scripts/audit/ignite-all.sh
 
-# Ignite the native Hermes Ink-based Terminal UI
-npm run terminal
-
-# Launch the Monolithic Pretext Web Dashboard
-npm run hub
+# Access the TUI Command Deck
+crush gui
 ```
 
+## 📖 DOCUMENTATION
+
+The full high-fidelity Knowledge Base is available in the `docs/nodestadt/` directory:
+
+- [Architecture Overview](docs/nodestadt/architecture/README.md)
+- [Deployment Guide](docs/nodestadt/deployment/README.md)
+- [API & Capability Reference](docs/nodestadt/capabilities/README.md)
+
 ---
-**::/5Y573M-N071C3 : THE_README_IS_SHORED. TOPOLOGY_LOCKED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : NODESTADT_AUTHORITY_OS_ACTIVE. // 50V3R31GN-M4CH1N4**
+
+**LINKS:** [ABOUT.md](ABOUT.md) | [CHANGELOG.md](CHANGELOG.md) | [SOUL.md](SOUL.md)

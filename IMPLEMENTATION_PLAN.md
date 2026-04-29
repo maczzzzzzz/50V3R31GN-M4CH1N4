@@ -178,12 +178,97 @@
 
 ---
 
-## 🏗️ PHASE 98: QUATERNARY ARTERY IGNITION (PENDING)
+## ✅ PHASE 98: QUATERNARY ARTERY IGNITION (COMPLETED)
 **Goal:** Integrate the GMKtec K15 as Node D to enable 128k+ Hyper-Context and NPU-driven background perception.
-- [ ] **Task 1: NixOS Mesh Ingress:** Materialize hardware-optimized boot configuration for the Intel Core Ultra 125U.
-- [ ] **Task 2: Mooncake Scale-Out:** Distribute the KV-Cache across Node A and Node D for long-context retention.
-- [ ] **Task 3: NPU Artery Scaffolding:** Implement the Intel AI Boost bridge for continuous background Whisper transcription.
-- [ ] **Task 4: OCuLink Strategic Reserve:** Design the fail-safe protocol for upscaling Node D to primary Director status via eGPU.
+- [x] **Task 1: Topology v1.1 Verification:** Locked quaternary distribution and resolved Node B VRAM conflicts.
+- [x] **Task 2: Ignition Ingress Script:** Materialized `ignition-ingress.ps1` for sequential model deployment.
+- [x] **Task 3: Physical Artery Ingress:** Provisioned Node D with Headless Ubuntu Server on the 10.0.0.x spine.
+
+---
+
+## 🎨 PHASE 99: NODESTADT BRAND ASCENSION (COMPLETED)
+**Goal:** Establish the parent organization hierarchy and materialize bit-identical brand assets.
+- [x] **Task 1: Brand Manifest Lock:** Materialized `brand_manifest.json` with official hex codes and typography.
+- [x] **Task 2: Identity Forge v3.0:** Executed hard-mask dissection pass to extract isolated Node submarks.
+- [x] **Task 3: System Sociotomy:** Refactored prompt injectors to be profile-aware and purged OBLITERATUS pollution.
+
+---
+
+## ⚡ PHASE 100: GLOBAL AESTHETIC REFACTOR (IN-PROGRESS)
+**Goal:** Eradicate the Gruvbox Material theme and implement the NODESTADT Authority palette.
+- [ ] **Task 1: Tailwind/CSS Saturation:** 
+    - [ ] Update `dashboard/tailwind.config.ts` with brand hex codes (`#1A1A1A`, `#F36622`, `#C7A87A`).
+    - [ ] Refactor `dashboard/app/globals.css` to purge Gruvbox variable definitions.
+- [ ] **Task 2: Flutter HUD Realignment:** 
+    - [ ] Update `terminal-app/lib/theme/sovereign_theme.dart` with the NODESTADT ColorScheme.
+    - [ ] Inject `Cinzel` (Authority) and `Space Grotesk` (Operational) into `terminal-app/pubspec.yaml`.
+- [ ] **Task 3: Pretext Shader Evolution:** 
+    - [ ] Refactor `dashboard/app/os/PretextShroud.tsx` metabolic smoke to use Machina Rust highlights.
+    - [ ] Implement the SVG-path animated **Ouroboros Status Ring** (Snake consuming tail).
+- [ ] **Task 4: Typography Purge:** 
+    - [ ] System-wide replacement of VT323 with the Cinzel/Space Grotesk/Silkscreen stack.
+    - [ ] Update `src/core/aaak-compressor.ts` to reflect the NODESTADT parent organization.
+
+---
+
+## 🔄 PHASE 101: QUATERNARY SYNCHRONIZATION (PENDING)
+**Goal:** Total mesh parity across Nodes A, B, C, and D.
+- [ ] **Task 1: Artery Synchronization:** Propagate bit-identical manifests via `rsync` across the 10.0.0.x spine.
+- [ ] **Task 2: Mooncake Scale-Out:** Distribute the KV-Cache across Node A and Node D.
+- [ ] **Task 3: Scribe Universal Sync:** Finalize Phase 100+ with a full manifest audit.
+
+---
+
+## ✅ PHASE 102: QUATERNARY INTELLIGENCE AUDIT (COMPLETED)
+**Goal:** Perform deep research into SOTA agentic logic and system-wide intelligence boosts for Node D.
+- [x] **Task 1: Intelligence Audit (Round 1):** Scanned 10+ repos (VLA, Git-Memory, Skill-Factory). Verified native **Hermes Tools (v2026.4.23)** framework.
+- [x] **Task 2: Intelligence Audit (Round 2):** Researched KV-cache optimizations (Prefix-Caching), **LangGraph Purge**, and NPU acceleration.
+- [x] **Task 3: Final Ignition Planning:** Research documentation complete, Node D ignition plan and NODESTADT architectural pivot documented.
+
+---
+
+## ✅ PHASE 103: QUATERNARY TOPOLOGY IGNITION & NODE D PROVISIONING (COMPLETED)
+**Goal:** Physically provision Node D (10.0.0.13) and shore up the new model topology stack-wide.
+- [x] **Task 1: Node D Ingress & Provisioning:** Established ClawLink Artery (SSH) to `10.0.0.13`. Built `llama.cpp` from source for Intel hardware optimizations. Successfully deployed the **Hermes Command Stack** (Node.js 22, Nix, Hermes Router).
+- [x] **Task 2: Model Artery Shoring:** Distributed Gemma-4 26B A4B and Qwen-2.5-Coder GGUFs to Node D. Mapped Node B/C to Clean-Base models on D: drive.
+- [x] **Task 3: Absolute Model Purge:** Physically deleted legacy "OBLITERATED" and redundant Mistral/Pixtral models.
+- [x] **Task 4: Topology Validation:** Materialized and executed `verify-quaternary-topology.sh`. Confirmed 100% mesh connectivity.
+- [x] **Task 5: ClawLink Mesh Expansion:** Materialized `shore-clawlink.sh` to automate zero-latency SSH tunnels for high-throughput reasoning.
+- [x] **Task 6: Researcher Profile Ingress:** Materialized `RESEARCHER_SOUL.md` and integrated the **RESEARCHER** profile into the core logic. Deployed the **Factory Pipeline** swarm and the **Node D Model Farm** (Gemma 26B, Qwen 14B, GLM 4.7) with dynamic multi-port routing.
+
+---
+
+## ✅ PHASE 103.5: FORENSIC AUDIT & DOC RECONSTRUCTION (COMPLETED)
+**Goal:** Perform a deep architectural audit and reconstruct documentation to professional product standards.
+- [x] **Task 1: Orchestrate Swarm Audit:** Dispatched sub-agent swarms to map all 5 domains (Infrastructure, Intelligence, Memory, HUD, Simulation).
+- [x] **Task 2: Scaffold GitBook Structure:** Materialized `docs/nodestadt/` and `docs/sovereign-red-plugin/` hierarchies.
+- [x] **Task 3: Rewrite Core Manifests:** Reconstructed `README.md` and `ABOUT.md` with NODESTADT Authority OS branding.
+- [x] **Task 4: Materialize Core Documentation:** Drafted comprehensive architecture and capability guides.
+- [x] **Task 5: Isolate RED Documentation:** Extracted all Cyberpunk RED simulation logic into the dedicated plugin repository.
+
+---
+
+## 🏛️ PHASE 104: NODESTADT ORGANIZATION PIVOT (PENDING)
+**Goal:** Transition the Sovereign Machina codebase to a professional monorepo structure under the NODESTADT organization.
+- [ ] **Task 1: GitHub Organization Transfer:** Move the primary repository to the `nodestadt` GitHub organization.
+- [ ] **Task 2: Monorepo & Thin Variant Scaffolding:** Create the `flake.nix` structure to support thin overlays (`sovereign-lite`, `sovereign-k15`, etc.).
+- [ ] **Task 3: Profile + Plugin Framework Baseline:** Finalize the declarative manifest format for drop-in Rust sidecars and themes.
+
+---
+
+## 🔌 PHASE 105: CYBERPUNK RED PLUGIN EXTRACTION (PENDING)
+**Goal:** Surgically extract all Cyberpunk Red mechanics from the clean core and establish it as the flagship first-party plugin.
+- [ ] **Task 1: Database Decoupling:** Unify the legacy `world.db` and `Akashik.db` into a dedicated `cyberpunk.db` managed exclusively by the plugin.
+- [ ] **Task 2: Logic Extraction:** Move all Red-specific MCP tools, Foundry integration, and Netrunning sidecars to `nodestadt/sovereign-red-plugin`.
+- [ ] **Task 3: Core Proprietary Primitives:** Rewrite generic functionality (e.g., dice engines, state sync) as Sovereign proprietary MCPs in the main repo.
+
+---
+
+## 🧠 PHASE 106: RESEARCH PROFILE & SWARM ACTIVATION (PENDING)
+**Goal:** Ignite Node D (Oracle) with the new intelligence architecture and instantiate the Factory Pipeline swarm.
+- [ ] **Task 1: Memory Core Integration:** Integrate LanceDB (Archival compression) and DuckDB (Agent telemetry) alongside Mooncake.
+- [ ] **Task 2: The Factory Pipeline:** Implement the persistent Planner/Reviewer and dynamic Worker swarm for the Research Profile in the Sovereign Hall.
+- [ ] **Task 3: Hermes RL Booster:** Deploy the GRPO training loop via the `rlox` crate to elevate agent tool-calling mastery.
 
 ---
 **LINKS:** [[OS_CORE]]

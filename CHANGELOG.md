@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.7.html).
 
+## [3.8.8] - 2026-04-28
+
+### Added
+- **Quaternary Mesh:** Node D (Intel Core Ultra 5 125U) officially ignited and provisioned as the Cluster Oracle. Built `llama.cpp` from source with Intel optimizations.
+- **Hermes Tools (v2026.4.23):** Transitioned to native, pluggable transport-based tool calling. Physically purged **LangGraph** dependencies.
+- **RESEARCHER Profile:** Dedicated high-context profile for long-running research cycles and architectural audits.
+- **Experience-Gitting:** Immutable, Git-backed event logging for agentic reasoning trajectories and failure recovery in `SovereignIntelligence.db`.
+- **ClawLink Backbone:** Persistent zero-latency SSH tunnels established as the default direct connection path for inter-node reasoning.
+- **Context-DAG v2:** Enhanced trajectory compression for 128k+ hyper-context windows on Node D.
+- **NODESTADT Brand Ascension (Phase 99):** Materialized the `brand_manifest.json` locking the **Authority Charcoal (#1A1A1A)**, **Machina Rust (#F36622)**, and **Gilded Sovereign (#C7A87A)** palette.
+- **Bit-Identical Identity Forge:** Executed the surgical dissection of the Master Emblem using ImageMagick hard-masking. Materialized isolated submarks for Nodes A, B, C, and D.
+- **Topology v1.1 Verification:** Resolved Node B VRAM hardgate by standardizing **Gemma-4-26B-A4B Q3_K_M** for stable Director cycles with BF16 Vision.
+- **Forensic Audit & Reconstruction (Phase 103.5):** Executed a full-mesh technical audit across 5 domains. Materialized a professional, GitBook-compliant Knowledge Base in `docs/nodestadt/`.
+- **Cyberpunk RED Plugin Isolation:** Surgically extracted and isolated all RED-specific simulation logic into `docs/sovereign-red-plugin/`.
+
+### Changed
+- **README & ABOUT Reconstruction:** Rewrote core manifests with NODESTADT branding and quaternary-mesh product positioning.
+- **Profile Architecture:** RootsInjector upgraded to support multi-soul injection (DIRECTOR vs RESEARCHER).
+- **Hermes Router v1.1:** Refactored for dynamic multi-node routing based on context length and hardware capability.
+- **Model Topology:** Standardized on Gemma-4-26B A4B Q6_K for heavy reasoning and Qwen-2.5-Coder for audits.
+- **Gruvbox Deprecation:** Formally initiated the purge of Gruvbox Material colors in favor of the NODESTADT Authority palette.
+
+### Fixed
+- **Model Purge:** Reclaimed 40GB+ storage by deleting legacy "OBLITERATED" model shards and redundant Mistral/Pixtral files.
+- **Documentation Drift:** Synchronized all technical documentation with the physical quaternary architecture.
+
 ## [3.8.7] - 2026-04-26
 
 ### Added
