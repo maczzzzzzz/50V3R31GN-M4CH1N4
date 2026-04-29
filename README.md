@@ -9,7 +9,7 @@
 The system operates across four specialized hardware nodes, establishing a high-throughput **Cognitive Artery**:
 
 1.  **NODE A (Mooncake):** The Synapse Artery. Handles high-speed KV-caching, mechanical validation, and VSB packet signing.
-2.  **NODE B (The Director):** The Narrative Heart. 16GB VRAM dedicated to deep reasoning, visual perception (Screen Awareness), and Singularity orchestration.
+2.  **NODE B (The Director):** The Narrative Heart. 16GB VRAM dedicated to deep reasoning, **Ambient Screen Awareness (OMI)**, and Singularity orchestration.
 3.  **NODE C (Strategic Strategic Oracle):** The Defense Grid. Background reasoning, autonomous threat recon, and socially-weighted retrieval.
 4.  **NODE D (Quaternary Strategic Oracle):** The Heavy Reasoner. Intel NPU-optimized 128k+ Hyper-Context for long-running research swarms.
 

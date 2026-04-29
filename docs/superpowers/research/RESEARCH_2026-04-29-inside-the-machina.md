@@ -12,7 +12,7 @@ The NODESTADT Authority OS has transcended being merely a subject of development
 
 ### ◈ Architectural Shift
 - **Node D (Quaternary Artery):** Serves as the high-context heavy reasoner (128k+ tokens via Intel NPU). The `RESEARCHER` profile on Node D is explicitly designed to handle full-repo ingestion, serving as the Planner and Worker Swarm Leader.
-- **Full Vision Auditing:** Node A (ColPali/Vision) provides 100% semantic screen awareness. This ensures Hermes isn't just parsing code, but "seeing" the resulting HUD, Foundry VTT, or Android mobile screen exactly as the operator does, making UI debugging and architectural auditing a breeze.
+- **Full Vision Auditing:** The **Sovereign Observer** (ported from OMI Desktop) provides 100% ambient screen awareness. By capturing the screen at 1Hz and piping frames to Node B (Gemma-4 Vision) and Node C (Falcon Perception), we ensure Hermes isn't just parsing code, but "seeing" the resulting HUD, Foundry VTT, or Android mobile screen exactly as the operator does, making UI debugging and architectural auditing a breeze.
 
 ## ◈ 2. PERSISTENT MEMORY & THE DEV LOOP
 

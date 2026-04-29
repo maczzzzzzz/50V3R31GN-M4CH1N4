@@ -8,14 +8,14 @@
 ## 🏗️ 1. PHYSICAL TOPOLOGY (INVARIANTS)
 
 ### ◈ NODE A: MOONCAKE_ARTERY (Edge/Secondary)
-- **Role:** KV Synapse Cache & Mechanical Validation.
-- **Engine:** Mooncake Master / ZeroClaw Go-Proxy.
-- **Responsibility:** Short-term context retention and high-speed VSB packet signing.
+- **Role:** KV Synapse Cache & PDF Vision Ingestion.
+- **Engine:** Mooncake Master / ColPali v1.2.
+- **Responsibility:** Short-term context retention and high-speed PDF semantic scanning.
 
 ### ◈ NODE B: THE DIRECTOR (16GB VRAM)
-- **Role:** The Narrative Heart & Visual Cortex.
-- **Engine:** Gemma-4-26B A4B Q3_K_M (BF16 Vision).
-- **Responsibility:** Deep cognitive reasoning, 100% Mobile/Desktop Screen Awareness, and Hermes Singularity orchestration.
+- **Role:** The Narrative Heart & Ambient Vision.
+- **Engine:** Gemma-4-26B A4B Q3_K_M + Sovereign Observer (OMI).
+- **Responsibility:** Deep cognitive reasoning, 100% Mobile/Desktop Screen Awareness (1Hz capture), and Hermes Singularity orchestration.
 
 ### ◈ NODE C: STRATEGIC ORACLE (Model Farm)
 - **Role:** Background Reasoning & Defense Grid.
