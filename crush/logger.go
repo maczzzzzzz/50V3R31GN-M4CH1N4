@@ -9,7 +9,7 @@ import (
 )
 
 /**
- * ◈ CRUSH_LOGGER — v3.8.7
+ * ◈ CRUSH_LOGGER — v3.8.8
  * 
  * Implements structured JSON logging for headless arteries.
  * Mirrors the TS Logger schema for cross-node correlation.

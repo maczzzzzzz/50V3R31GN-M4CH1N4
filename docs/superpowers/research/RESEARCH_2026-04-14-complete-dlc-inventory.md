@@ -1,5 +1,5 @@
 # MASTER DLC CATALOG // 7H3-G0LD-M1N3
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Total PDFs Indexed:** 66
 
 | DLC Name | Category | Key Intel Summary |

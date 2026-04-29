@@ -15,7 +15,7 @@ import (
 )
 
 /**
- * CRUSH_RECONSTRUCT : v3.8.7 (Namespace Isolation)
+ * CRUSH_RECONSTRUCT : v3.8.8 (Namespace Isolation)
  *
  * Enforces absolute separation between static docs and dynamic DB shards.
  * Prevents Logseq namespace collisions.

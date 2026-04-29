@@ -1,7 +1,7 @@
 # Design Spec: DECK-IGNITER TUI (Master Startup & Supervisor)
 
 **Date:** 2026-04-05
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Project:** 50V3R31GN-M4CH1N4
 **Domain:** Node B (NixOS/WSL) Orchestration
 

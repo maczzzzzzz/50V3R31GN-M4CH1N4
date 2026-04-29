@@ -10,7 +10,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 1. Initialise Tracing (High-Signal Observability)
     tracing_subscriber::fmt::init();
 
-    info!("🌃 ZeroClaw Rules Oracle v3.8.7 Initializing...");
+    info!("🌃 ZeroClaw Rules Oracle v3.8.8 Initializing...");
 
     // 2. Construct shared PerceptionController (Phase 16 — Falcon Sidecar)
     let perception = Arc::new(

@@ -1,5 +1,5 @@
 # ◈ SPEC-2026-04-25: Sovereign Flutter Evolution & Omi-Gruvbox Alignment
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Status:** DRAFT
 **Owner:** Strategist // Lead Architect
 

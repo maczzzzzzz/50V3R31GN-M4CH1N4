@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 
 /**
- * RECKONING : PRETEXT_PARITY_CHECK — v3.8.7
+ * RECKONING : PRETEXT_PARITY_CHECK — v3.8.8
  * 
  * Compares Web and Mobile UI outputs to ensure 100% design parity.
  */

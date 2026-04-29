@@ -39,7 +39,7 @@ export class HermesSingularity {
   }
 
   /**
-   * Orchestrate a long-running Research Swarm (v3.8.7)
+   * Orchestrate a long-running Research Swarm (v3.8.8)
    */
   public async orchestrateResearchSwarm(prompt: string, threadId: string = randomUUID()): Promise<SingularityResult> {
     logger.info('HermesSingularity', threadId, `[SWARM] Initiating Research: ${prompt.substring(0, 50)}...`);
@@ -97,7 +97,7 @@ export class HermesSingularity {
   }
 
   /**
-   * Experience-Gitting (v3.8.7): Log failure trajectories for future reasoning.
+   * Experience-Gitting (v3.8.8): Log failure trajectories for future reasoning.
    */
   public async logExperience(agentId: string, task: string, failureTrace: any, fix?: string, severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' = 'LOW'): Promise<void> {
     if (!this.db) return;

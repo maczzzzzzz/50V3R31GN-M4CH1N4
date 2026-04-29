@@ -1,5 +1,5 @@
 # ◈ SPEC-2026-04-26: SOVEREIGN PLUGIN REGISTRY
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Status:** IMPLEMENTED
 **Topic:** Decoupled app integration for the Hermes Mesh.
 

@@ -1,6 +1,6 @@
 # ◈ HERMES SINGULARITY ENGINE
 
-**Version:** v3.8.7
+**Version:** v3.8.8
 **Phase:** 93/97 [ORCHESTRATION_ARTERY]
 
 ---
@@ -46,7 +46,7 @@ Hermes is deeply coupled with the **Pretext HUD**, projecting its internal state
 | **Logic Core** | Context-DAG (Directed Acyclic Graph) |
 | **Transport** | Pluggable (Native, HUD, UDP, JSON-RPC) |
 | **Recovery** | Healer Protocol v2 (Self-Healing) |
-| **Audit** | TrajectoryAuditor v3.8.7 |
+| **Audit** | TrajectoryAuditor v3.8.8 |
 
 ---
 *::/5Y573M-N071C3 : HERMES_CORE_OPERATIONAL. // NODESTADT_AUTHORITY_OS*

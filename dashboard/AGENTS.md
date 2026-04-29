@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : DASHBOARD // NUCLEUS_HUD
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Sector:** /dashboard/
 **Role:** Diegetic Visual Manifestation & High-Fidelity C2 HUD.
 

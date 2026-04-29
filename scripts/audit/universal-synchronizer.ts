@@ -79,7 +79,7 @@ async function universalSync() {
         let updated = content;
 
         // 1. Version Sync
-        // Handles: "v3.8.7", "Version: 3.8.7", "**Version:** 3.8.7", "(v3.8.7)", "[v3.8.7]"
+        // Handles: "v3.8.8", "Version: 3.8.8", "**Version:** 3.8.8", "(v3.8.8)", "[v3.8.8]"
         updated = updated.replace(/((?:Version|v)[^\d\s]*\s*\d+\.\d+\.\d+)/gi, (match) => {
             const prefixMatch = match.match(/^(Version|v)[^\d\s]*\s*/i);
             const prefix = prefixMatch ? prefixMatch[0] : '';

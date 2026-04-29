@@ -1,7 +1,7 @@
 use std::time::Instant;
 
 /**
- * RECKONING : VITALS_SATURATION — v3.8.7
+ * RECKONING : VITALS_SATURATION — v3.8.8
  * 
  * Adopts vLLM PagedAttention/KV-cache pressure patterns.
  * Stress-tests Node A (Mooncake) reflexes under high-density prefix caching.

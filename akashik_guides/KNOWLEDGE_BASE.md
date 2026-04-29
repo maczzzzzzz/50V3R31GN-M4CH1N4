@@ -1,5 +1,5 @@
 # ◈ KNOWLEDGE_BASE // TECHNICAL_OS_SPECIFICATIONS
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Identity:** 50V3R31GN-M4CH1N4
 **Status:** **[ASCENDED]**
 
@@ -7,11 +7,11 @@ This document serves as the high-fidelity technical specification for the Sovere
 
 ---
 
-## ⚡ 1. THE QUATERNARY MESH (v3.8.7)
+## ⚡ 1. THE QUATERNARY MESH (v3.8.8)
 
 | Node | Role | Model / Engine | Hardware Focus |
 | :--- | :--- | :--- | :--- |
-| **Node A** | **KV Cache** | Mooncake v3.8.7 | 4GB VRAM / PD-Disaggregation |
+| **Node A** | **KV Cache** | Mooncake v3.8.8 | 4GB VRAM / PD-Disaggregation |
 | **Node B** | **Director** | Gemma-4 26B A4B | 16GB VRAM / **BF16 Vision** |
 | **Node C** | **Strategic Oracle** | Gemma-4 E4B | 6GB VRAM / Fast-Path Routing |
 | **Node D** | **Hermes Command** | Gemma-4 26B A4B | **Intel Ultra 5** / 48GB | 128k Hyper-Context |
@@ -33,8 +33,8 @@ This document serves as the high-fidelity technical specification for the Sovere
 
 ## 🛡️ 3. CORE SUB-SYSTEMS
 
-### ◈ The Hermes Singularity (v3.8.7)
-Native orchestration engine. **LangGraph is Purged.** Uses native **Hermes Tools** (v3.8.7) for pluggable transport-based tool calling. Implements **Context-DAG** trajectory compression.
+### ◈ The Hermes Singularity (v3.8.8)
+Native orchestration engine. **LangGraph is Purged.** Uses native **Hermes Tools** (v3.8.8) for pluggable transport-based tool calling. Implements **Context-DAG** trajectory compression.
 
 ### ◈ The ClawLink Backbone (Mandate)
 **Default Connection:** Persistent SSH Tunnels + VSB UDP. 
@@ -56,7 +56,7 @@ The Mesh is shored by external logic shards (Operit, Open-AutoGLM, Hermes-Agent)
 Strict **Discovery-First Mandate** enforced for all agentic interactions.
 
 ---
-**::/5Y573M-N071C3 : KNOWLEDGE_BASE_ASCENDED. v3.8.7_LOCKED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : KNOWLEDGE_BASE_ASCENDED. v3.8.8_LOCKED. // 50V3R31GN-M4CH1N4**
 
 
 ---

@@ -1,5 +1,5 @@
 # ◈ COMMAND_MANIFEST // THE_SOVEREIGN_ACTIONS
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Identity:** 50V3R31GN-M4CH1N4
 
 This document defines every command available to the operator via the **Crush CLI**, **Hermes Ink**, and the **Quaternary Mesh** arteries.

@@ -1,5 +1,5 @@
 # ◈ DEV_SCRIPTS_MANIFEST // THE_MACHINE_LIMBS
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Identity:** 50V3R31GN-M4CH1N4
 
 This document indexes the core developer utilities and operational scripts. **Legacy Python logic is deprecated.**
@@ -54,7 +54,7 @@ Scripts for system restoration and health.
 | `backup-mind.ts` | **ACTIVE** | Full DB/Skill snapshots. |
 | `nuke-and-rebuild-v4.sh` | **DANGER** | Complete system purge and rebuild. |
 | `recover-ingest.mjs` | **UTIL** | Repairs fractured ingestion queues. |
-| `migrate-v4.ts` | **CORE** | DB schema migration to v3.8.7. |
+| `migrate-v4.ts` | **CORE** | DB schema migration to v3.8.8. |
 
 ---
 **::/5Y573M-N071C3 : DEV_SCRIPTS_MANIFEST_V3_8_8_LOCKED. // 50V3R31GN-M4CH1N4**

@@ -3,7 +3,7 @@ import { createServer, IncomingMessage, ServerResponse } from 'node:http';
 import { logger } from '../../shared/logger.js';
 
 /**
- * node-d-swapper.ts — The Sovereign Model Swapper (v3.8.7)
+ * node-d-swapper.ts — The Sovereign Model Swapper (v3.8.8)
  * 
  * Maximizes Node D intelligence by ensuring only one HEAVY model is loaded at a time,
  * providing the full 48GB RAM buffer for 128k context.

@@ -1,5 +1,5 @@
 # ◈ SPEC-2026-04-26: LOGSEQ INTELLIGENCE MESH (PHASE 85)
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Status:** DRAFT (RESEARCH)
 **Topic:** Transition from AppFlowy to Logseq for block-level agentic memory.
 

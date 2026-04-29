@@ -3,7 +3,7 @@ PARENT :: [[PHASE_92_SPEC]]
 -----
 
 ## ◈ EXECUTIVE SUMMARY
-**Mission:** Harness the native enhancements introduced in Hermes Agent v3.8.7 (v3.8.7) to supercharge the Sovereign WebGL HUD, Flutter Companion App, and internal orchestration architecture.
+**Mission:** Harness the native enhancements introduced in Hermes Agent v3.8.8 (v3.8.8) to supercharge the Sovereign WebGL HUD, Flutter Companion App, and internal orchestration architecture.
 
 ## ◈ CORE CAPABILITY ALIGNMENTS
 

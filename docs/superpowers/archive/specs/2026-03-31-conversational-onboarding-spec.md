@@ -1,4 +1,4 @@
-# Design Specification: Conversational Onboarding (v3.8.7)
+# Design Specification: Conversational Onboarding (v3.8.8)
 **Date:** March 31, 2026
 **Subject:** Fixer Interview, Lifepath Mapping, and Foundry Actor Materialization
 **Status:** FINALIZED

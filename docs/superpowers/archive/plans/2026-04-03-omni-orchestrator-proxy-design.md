@@ -1,6 +1,6 @@
 # Design: Omni-Orchestrator Proxy & Strict State Loop
 **Date:** 2026-04-03
-**Target:** v3.8.7+ (Phase 18)
+**Target:** v3.8.8+ (Phase 18)
 
 ## 1. Architecture & Data Flow
 

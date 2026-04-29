@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import type { ILogger } from '../core/interfaces.js';
 
 /**
- * ◈ SOVEREIGN_LOGGER — v3.8.7 RE-GROUNDED
+ * ◈ SOVEREIGN_LOGGER — v3.8.8 RE-GROUNDED
  * 
  * Enforces structured Trace-ID propagation across the Trinity.
  * Persistence: JSON Stream (data/logs/artery.json) + SQLite (decision_audit).

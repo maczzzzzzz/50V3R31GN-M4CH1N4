@@ -1,7 +1,7 @@
 import { ContextDAG } from '../../../src/core/hermes/ContextDAG.js';
 
 /**
- * RECKONING : TRAJECTORY_AUDITOR — v3.8.7
+ * RECKONING : TRAJECTORY_AUDITOR — v3.8.8
  * 
  * Adopts NousResearch/hermes-agent "Batch Trajectory" pattern.
  * Audits Context-DAG reasoning for "Cognitive Breakouts" and "Context Pollution".

@@ -1,14 +1,14 @@
-# Architectural Audit: Phase 6 "Living City" Completion (v3.8.7)
+# Architectural Audit: Phase 6 "Living City" Completion (v3.8.8)
 **Date:** April 2, 2026
 **Session Focus:** Computer Vision, Pulse Engine, and Hardware Optimization
 **Status:** 🟢 FINALIZED & GROUNDED
 
 ## 1. Executive Summary
-Phase 6 is physically complete. The AI now possesses "Spatial Eyes" through a dual-node CV pipeline and a "Deterministic Heartbeat" via recursive SQLite triggers. The Split-Node architecture has been hardened for v3.8.7, featuring sub-500ms narrative latency and zero-lag mathematical grounding on Node A.
+Phase 6 is physically complete. The AI now possesses "Spatial Eyes" through a dual-node CV pipeline and a "Deterministic Heartbeat" via recursive SQLite triggers. The Split-Node architecture has been hardened for v3.8.8, featuring sub-500ms narrative latency and zero-lag mathematical grounding on Node A.
 
 ## 2. Technical Accomplishments
 
-### 🏗️ Split-Node v3.8.7 (Hardened)
+### 🏗️ Split-Node v3.8.8 (Hardened)
 - **Node A (Nitro 5):** **Bonsai 8B (1-bit)** is active and callable via the Rust-native `ZeroClaw` bridge. 
 - **Binary Transport:** ClawLink (TCP Socket) is verified with <10ms transport latency.
 - **Node B (Main):** **Mistral-Nemo 12B (FP8)** optimized with `q4_0` KV cache, expanding context window to **32,768 tokens**.

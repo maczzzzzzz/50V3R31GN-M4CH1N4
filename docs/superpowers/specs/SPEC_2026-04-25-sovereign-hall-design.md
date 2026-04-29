@@ -1,5 +1,5 @@
 # ◈ SPEC-2026-04-25: SOVEREIGN_HALL & AGENT_COLLABORATION
-**Version:** 3.8.7
+**Version:** 3.8.8
 **Status:** APPROVED
 **Owner:** Strategist // Lead Architect
 

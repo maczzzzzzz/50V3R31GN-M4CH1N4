@@ -6,7 +6,7 @@ import (
 )
 
 /**
- * RECKONING : PULSE_VERIFICATION — v3.8.7
+ * RECKONING : PULSE_VERIFICATION — v3.8.8
  * 
  * Adopts Hyperspace AGI 7-step Pulse Verification.
  * Ensures verifiable logic synchronization across the Trinity (Node A/B/C).

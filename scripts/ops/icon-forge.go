@@ -11,7 +11,7 @@ import (
 )
 
 /**
- * SOVEREIGN_ICON_FORGE : v3.8.7
+ * SOVEREIGN_ICON_FORGE : v3.8.8
  * 
  * Note: Since high-fidelity .ico generation requires complex packing,
  * I am providing a strategic fallback: Move the PNG to a local Windows folder

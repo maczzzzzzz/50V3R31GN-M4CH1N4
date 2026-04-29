@@ -122,7 +122,7 @@ predicates: ${stats.predicates}
 
 # ◈ SOVEREIGN DASHBOARD
 
-**Version:** v3.8.7 | **Engine:** HeadlessDatalog / SQLite
+**Version:** v3.8.8 | **Engine:** HeadlessDatalog / SQLite
 **Sync:** ${now}
 
 ---
