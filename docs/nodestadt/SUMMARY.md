@@ -12,16 +12,18 @@
 * [Mobile Sovereignty (Android/Ubuntu)](architecture/mobile-sovereignty.md)
 
 ## Capabilities
+* [Usage Guide (Operator Manual)](capabilities/usage-guide.md)
 * [Hermes Singularity](capabilities/hermes.md)
 * [HeadlessDatalog Reference](capabilities/datalog.md)
 * [Pretext HUD Layout](capabilities/hud.md)
 * [Skill-Factory & GEPA](capabilities/gepa.md)
 
 ## Deployment
+* [Setup Guide (Quickstart)](deployment/setup-guide.md)
 * [Hardware Invariants](deployment/hardware.md)
 * [NixOS Ignition](deployment/nixos.md)
-* [Mobile Vision Artery](deployment/mobile.md)
 * [Node D (K15) Provisioning](deployment/node-d.md)
+
 
 ---
 * [Cyberpunk RED Plugin](../sovereign-red-plugin/README.md)

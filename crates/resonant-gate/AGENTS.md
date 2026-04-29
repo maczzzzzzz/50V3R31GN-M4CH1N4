@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : RESONANT_GATE // GOVERNANCE_AUTHORITY
-**Version:** 3.7.0
+**Version:** 3.8.8
 **Sector:** /crates/resonant-gate/
 **Role:** Deterministic Decision Arbitration & Zero-Trust Logic.
 

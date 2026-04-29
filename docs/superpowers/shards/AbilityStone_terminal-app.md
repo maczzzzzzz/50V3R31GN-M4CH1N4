@@ -1,4 +1,4 @@
-# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.7)
+# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.8)
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
