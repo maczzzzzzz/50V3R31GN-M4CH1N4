@@ -75,7 +75,9 @@
 - [ ] **Task 1: Visual-First Perception:** Materialize the `think-answer` block structure and 1Hz pixel-to-coordinate mapping (Open-AutoGLM pattern).
 - [ ] **Task 2: GitNexus AST Graph:** Scaffold `crates/sovereign-graph` to replace linear grep with structured code-graph traversal.
 - [ ] **Task 3: Triple-Path Automation:** Implement Accessibility/ADB/Root fallback mechanism for robust Node C/D control (Operit pattern).
-- [ ] **Task 4: VibeVoice Acoustic Tokenizer:** Implement the `sigma-VAE` 7.5Hz continuous latent pipeline for ultra-low latency voice sessions.
+- [ ] **Task 4: Voice Intelligence Ingress:** 
+    - [ ] Implement the `sigma-VAE` 7.5Hz continuous latent pipeline (VibeVoice).
+    - [ ] Deploy the **Voicebox MCP Server** for high-fidelity cloning and Kokoro-TTS synthesis.
 - [ ] **Task 5: Browser Keeper:** Materialize the persistent Chromium session harness with OAuth preservation (Bux pattern).
 - [ ] **Task 6: Knowledge Stream (CocoIndex):** Materialize `crates/sovereign-watcher` for `inotify`-based JSONL change-data-capture.
 

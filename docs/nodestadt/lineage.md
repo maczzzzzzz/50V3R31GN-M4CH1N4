@@ -58,6 +58,7 @@ The Quaternary Intelligence Audit (v3.8.8-v3.8.9) expanded the mesh with SOTA ag
 - **AAswordman/Operit:** Triple-path system automation (Accessibility, ADB, Root).
 - **abhigyanpatwari/GitNexus:** AST-based relational intelligence for large codebases.
 - **microsoft/VibeVoice:** Ultra-low latency latent audio (7.5Hz) processing.
+- **jamiepine/voicebox:** Local-first neural voice studio and high-fidelity synthesis.
 - **cocoindex-io/cocoindex:** Change-Data-Capture (CDC) streaming for unstructured knowledge.
 
 ---
