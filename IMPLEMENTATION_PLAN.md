@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.8.9-ALIGN
+**Version:** 3.8.9-SYNTHESIS
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
 <details>
@@ -49,52 +49,50 @@
 
 ---
 
-## ◈ PHASE 103: SYSTEM ALIGNMENT & CONSOLIDATION (PRIMARY_TASK)
-**Goal:** Fix organizational drift, isolate simulation shards, and enable script-aware reasoning.
+## ◈ PHASE 103: "INSIDE THE MACHINA" (PEER-DEVELOPER SYNERGY) (PRIMARY_TASK)
+**Goal:** Move development *inside* the OS. Hermes watches code being built, learns from corrections, and collaborates via voice/vision.
+- [ ] **Task 1: Sovereign Observer (Vision):** Materialize 1Hz screen capture (Node B) to provide real-time IDE/HUD context.
+- [ ] **Task 2: Voice Command Artery:** Implement OMI listener + Voicebox synthesis for hands-free swarm orchestration.
+- [ ] **Task 3: Experience-Gitting:** Update `HealerProtocol` to commit every failure/correction to the Git-backed event log.
+- [ ] **Task 4: Discovery-First Hardgate:** Force agents to call `discover_state` before planning any implementation.
+- [ ] **Task 5: Pretext Kinetic HUD:** Implement `@chenglou/pretext` for real-time thought-stream visualization.
+
+## ◈ PHASE 104: SYSTEM ALIGNMENT & CONSOLIDATION
+**Goal:** Finalize organizational drift recovery and establish context purity.
 - [x] **Task 1: Profile-Aware Memory Gating:** Refactored `MemoryObserver.ts` to prevent lore-bleed into `Akashik.db`.
-- [x] **Task 2: Script-Aware Hermes:** Injected script corpus into `HermesSingularity` system prompts to prioritize existing sidecars.
-- [x] **Task 3: Research Artifact Normalization:** Renamed drifted research documents to strict `RESEARCH_YYYY-MM-DD-title.md` convention.
-- [ ] **Task 4: KV Cache Vaccination:** Implement `KVCacheManager.ts` to trigger physical `/slots` purges on profile transitions.
-- [ ] **Task 5: Discovery-First Hardgate:** Force agents to call `discover_state` (querying processes/windows) before planning implementation (TouchDesigner pattern).
+- [x] **Task 2: Script-Aware Hermes:** Injected script corpus into `HermesSingularity` system prompts.
+- [x] **Task 3: Research Artifact Normalization:** Renamed drifted research documents to standard convention.
+- [ ] **Task 4: KV Cache Vaccination:** Implement physical `/slots` purges on profile transitions to ensure context purity.
 
-## ⚡ PHASE 104: GLOBAL AESTHETIC REFACTOR (NODESTADT) (IN-PROGRESS)
-**Goal:** Eradicate legacy CRT effects and implement the NODESTADT Authority palette with Pretext Kinetic Typography.
-- [x] **Task 1: Authority Palette Saturation:** Updated `dashboard/app/globals.css` with brand hex codes (`#1A1A1A`, `#F36622`, `#C7A87A`).
-- [x] **Task 2: Fluid Smoke Metabolism:** Refactored `PretextShroud.tsx` to Machina Rust highlights and materialized the **Ouroboros Status Ring**.
-- [ ] **Task 3: Kinetic Typography (Pretext):** Implement `@chenglou/pretext` for geometric text flow and metabolic jitter.
-- [ ] **Task 4: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
+## ⚡ PHASE 105: GLOBAL AESTHETIC REFACTOR (NODESTADT)
+**Goal:** Complete the transition to the NODESTADT Authority OS visual standard.
+- [x] **Task 1: Authority Palette Saturation:** Updated `dashboard/app/globals.css` with brand hex codes.
+- [x] **Task 2: Fluid Smoke Metabolism:** Refactored `PretextShroud.tsx` to Machina Rust pulse.
+- [ ] **Task 3: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
 
-## 🛡️ PHASE 105: THE SECURITY HARDGATE (PENDING)
+## 🛡️ PHASE 106: THE SECURITY HARDGATE
 **Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer.
 - [ ] **Task 1: SPIRE Server Provisioning:** Deploy declarative Nix module for TPM-backed SPIRE Server on Node D.
 - [ ] **Task 2: Hardened Gemini Proxy (mTLS):** Refactor `CLIPRoxyAPI` to enforce mutual TLS using SPIFFE SVIDs.
 - [ ] **Task 3: Router mTLS Enforcement:** Update `hermes-inference-router.rs` for strict SPIFFE workload validation.
 
-## 🧠 PHASE 106: INTELLIGENCE SYNTHESIS & COGNITIVE EXPANSION (BACKLOG)
-**Goal:** Integrate the advanced cognitive pipelines (GitNexus, VibeVoice, AutoGLM).
-- [ ] **Task 1: Visual-First Perception:** Materialize the `think-answer` block structure and 1Hz pixel-to-coordinate mapping (Open-AutoGLM pattern).
-- [ ] **Task 2: GitNexus AST Graph:** Scaffold `crates/sovereign-graph` to replace linear grep with structured code-graph traversal.
-- [ ] **Task 3: Triple-Path Automation:** Implement Accessibility/ADB/Root fallback mechanism for robust Node C/D control (Operit pattern).
-- [ ] **Task 4: Voice Intelligence Ingress:** 
-    - [ ] Implement the `sigma-VAE` 7.5Hz continuous latent pipeline (VibeVoice).
-    - [ ] Deploy the **Voicebox MCP Server** for high-fidelity cloning and Kokoro-TTS synthesis.
-- [ ] **Task 5: Browser Keeper:** Materialize the persistent Chromium session harness with OAuth preservation (Bux pattern).
-- [ ] **Task 6: Knowledge Stream (CocoIndex):** Materialize `crates/sovereign-watcher` for `inotify`-based JSONL change-data-capture.
+## 🧠 PHASE 107: INTELLIGENCE SYNTHESIS & COGNITIVE EXPANSION
+**Goal:** Integrate SOTA cognitive breakthroughs (GraphRAG, AutoGLM, CocoIndex).
+- [ ] **Task 1: Visual-First Perception:** Implement pixel-to-coordinate mapping (AutoGLM Pattern).
+- [ ] **Task 2: GitNexus AST Graph:** Scaffold `crates/sovereign-graph` for relational code intelligence.
+- [ ] **Task 3: Knowledge Stream (CocoIndex):** Materialize Rust-based CDC watching for unstructured data.
+- [ ] **Task 4: Triple-Path Automation:** Implement Accessibility/ADB/Root fallback mechanism (Operit pattern).
+- [ ] **Task 5: Browser Keeper:** Materialize persistent Chromium session harness (Bux pattern).
 
-## 🏛️ PHASE 107: NODESTADT ORGANIZATION PIVOT (PENDING)
+## 🏛️ PHASE 108: NODESTADT ORGANIZATION PIVOT
 **Goal:** Transition to a professional monorepo structure.
 - [ ] **Task 1: Monorepo & Thin Variant Scaffolding:** Create the `flake.nix` structure to support thin overlays.
 - [ ] **Task 2: Profile + Plugin Framework Baseline:** Finalize the declarative manifest format for drop-in Rust sidecars.
 
-## 🔌 PHASE 108: CYBERPUNK RED PLUGIN EXTRACTION (PENDING)
+## 🔌 PHASE 109: CYBERPUNK RED PLUGIN EXTRACTION
 **Goal:** Surgically extract simulation mechanics into the flagship plugin.
 - [ ] **Task 1: Artery of Truth Decoupling:** Unify legacy DBs into `cyberpunk.db`.
 - [ ] **Task 2: Logic Extraction:** Move Red-specific MCP tools and sidecars to `nodestadt/sovereign-red-plugin`.
-
-## 🧠 PHASE 109: RESEARCH PROFILE & SWARM ACTIVATION (PENDING)
-**Goal:** Ignite the Factory Pipeline swarm.
-- [ ] **Task 1: Synapse Core Integration:** Integrate LanceDB and DuckDB.
-- [ ] **Task 2: The Factory Pipeline:** Implement persistent Planner/Reviewer swarm.
 
 ---
 **LINKS:** [[OS_CORE]]
