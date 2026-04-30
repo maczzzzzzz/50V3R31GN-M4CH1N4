@@ -77,7 +77,7 @@ export class OsTripletService {
    * minimize round-trips to llama-server.
    */
   async upsertBatch(
-    triplets: Array<{ subject: string; predicate: string; object: string; roomId?: string; clusterId?: string }>,
+    triplets: Array<{ subject: string; predicate: string; object: string; roomId?: string | undefined; clusterId?: string | undefined }>,
   ): Promise<UpsertTripletResult[]> {
     const traceId = randomUUID();
 

@@ -131,8 +131,17 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
   }
 
   public setProfile(profile: SovereignProfile): void {
+    const previousProfile = this.activeProfile;
+    this.activeProfile = profile;
     if (this.rootsInjector) {
       this.rootsInjector.setProfile(profile);
+    }
+    
+    // Purge KV cache if transitioning away from RED_DIRECTOR
+    if (previousProfile === 'RED_DIRECTOR' && profile !== 'RED_DIRECTOR') {
+      this.logger?.info('SovereignNarrativeClient', 'profile', 'Purging Cyberpunk RED KV Cache...');
+      // llama.cpp server endpoint to clear slots/KV cache
+      fetch(`${this.config.baseUrl}/slots`, { method: 'DELETE' }).catch(() => {});
     }
   }
 
@@ -261,6 +270,13 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
       model: this.config.model,
       context_length: effectiveContext.length,
       ...(audioMetadata ? { audio_metadata: audioMetadata } : {}),
+    });
+
+    this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');
+    return result;
+  }
+}
+ ? { audio_metadata: audioMetadata } : {}),
     });
 
     this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');

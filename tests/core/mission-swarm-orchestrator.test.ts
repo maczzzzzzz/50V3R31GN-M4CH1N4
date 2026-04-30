@@ -14,14 +14,22 @@ function makeMockSovereignNarrative() {
       }
       return 'Mocked response';
     }),
+    setProfile: vi.fn(),
+    isHealthy: vi.fn().mockResolvedValue(true),
+    stop: vi.fn().mockResolvedValue(undefined),
   } as any;
 }
 
 function makeMockOracle(rows: { content: string }[] = [{ content: 'V met Rogue in Watson' }]) {
   return {
     isConnected: vi.fn().mockReturnValue(true),
-    query: vi.fn().mockReturnValue(rows),
-    execute: vi.fn().mockReturnValue({ changes: 1 }),
+    query: vi.fn().mockImplementation((sql: string) => {
+      if (sql.includes('map_assets')) {
+        return [{ file_path: 'mock/path.png', category: 'map' }];
+      }
+      return rows;
+    }),
+    executeCommand: vi.fn().mockResolvedValue({ changes: 1 }),
   } as any;
 }
 
@@ -73,6 +81,12 @@ describe('MissionSwarmOrchestrator', () => {
 
     const blueprint = await orchestrator.generateMission('Heywood');
 
-    expect(blueprint.rulesIntel).toEqual({ difficulty: 'professional' });
+    expect(blueprint.rulesIntel).toEqual({ 
+      difficulty: 'professional',
+      assets: {
+        suggestedMaps: ['mock/path.png'],
+        suggestedTokens: ['mock/path.png']
+      }
+    });
   });
 });

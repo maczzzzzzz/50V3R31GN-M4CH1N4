@@ -47,7 +47,7 @@ export class NightMarketService {
 
     // Fetch a relevant map tile or map for this district
     const maps = this.oracle.query(
-      `SELECT file_path FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 1`,
+      `SELECT file_path FROM map_assets WHERE category IN ('tile', 'map') AND biome LIKE ? LIMIT 1`,
       [`%${district}%`]
     ) as Array<{ file_path: string }>;
 

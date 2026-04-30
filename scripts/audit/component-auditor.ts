@@ -97,7 +97,7 @@ async function checkDatabase(): Promise<ComponentStatus> {
     const tableRow = db.prepare(`SELECT COUNT(*) as c FROM sqlite_master WHERE type='table'`).get() as { c: number };
     checks['tables'] = `${tableRow.c} tables`;
 
-    const assetRow = db.prepare(`SELECT COUNT(*) as c FROM assets WHERE anchor = 1`).get() as { c: number } | undefined;
+    const assetRow = db.prepare(`SELECT COUNT(*) as c FROM map_assets WHERE status = 'indexed'`).get() as { c: number } | undefined;
     checks['anchors'] = assetRow ? `${assetRow.c} indexed` : 'table missing';
 
     db.close();
@@ -211,8 +211,23 @@ async function checkLLMEndpoints(): Promise<ComponentStatus> {
   return { component: 'LLMEndpoints', status, checks, ...(!nodeA && !nodeB ? { error: 'Both inference endpoints offline (expected when nodes are down)' } : {}) };
 }
 
+async function checkHermesSingularity(): Promise<ComponentStatus> {
+  const checks: Record<string, string> = {};
+  try {
+    const { HermesSingularity } = await import('../../src/core/hermes/HermesSingularity.js');
+    checks['module'] = 'loaded';
+    const orchestrator = new HermesSingularity();
+    checks['instantiation'] = 'OK';
+    checks['dag'] = orchestrator.getDAG() ? 'ready' : 'missing';
+    return { component: 'HermesSingularity', status: 'OK', checks };
+  } catch (err) {
+    return { component: 'HermesSingularity', status: 'FAIL', checks, error: (err as Error).message };
+  }
+}
+
 const COMPONENT_MAP: Record<string, () => Promise<ComponentStatus>> = {
   NanoBanana:       checkNanoBanana,
+  HermesSingularity: checkHermesSingularity,
   AtlasForge:       checkAtlasForge,
   NucleusAssembler: checkNucleusAssembler,
   AkashikDB:        checkDatabase,

@@ -1,21 +1,33 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { LangGraphOrchestrator, OrchestratorState } from '../../src/core/hermes/LangGraphOrchestrator.js';
+import { HermesSingularity } from '../../src/core/hermes/HermesSingularity.js';
 import { HealerProtocol, RepairStrategy } from '../../src/core/hermes/HealerProtocol.js';
 import { MemoryObserver } from '../../src/core/hermes/MemoryObserver.js';
 
-describe('Phase 67.9 & 68.5: Hermes Orchestrator Resilience & State Persistence', () => {
+describe('Phase 93 & 97: Hermes Singularity Resilience & Context-DAG', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
-  it('should execute threshold routing effectively (Node C vs Node A)', () => {
-    const orchestrator = new LangGraphOrchestrator({ thresholdTokens: 100 });
+  it('should instantiate HermesSingularity and maintain a Context-DAG', async () => {
+    vi.spyOn(HealerProtocol, 'getNegativeConstraints').mockResolvedValueOnce('');
+    vi.spyOn(HealerProtocol, 'logAudit').mockResolvedValueOnce(undefined);
+    vi.spyOn(MemoryObserver, 'observeAndDistill').mockResolvedValueOnce(undefined);
     
-    // Using private reflection for testing the routing
-    const routeEntry = (orchestrator as any).cfg.thresholdTokens;
-    expect(routeEntry).toBe(100);
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ choices: [{ message: { content: 'Mock' } }] })
+    });
+
+    const orchestrator = new HermesSingularity();
+    expect(orchestrator.getDAG()).toBeDefined();
+    
+    const input = { prompt: 'Test reasoning', thread_id: 'test-thread' };
+    await orchestrator.invoke(input);
+    
+    const nodeCount = orchestrator.getDAG().getAllNodes().length;
+    expect(nodeCount).toBeGreaterThan(0);
   });
 
   it('should inject negative constraints into enriched prompt', async () => {
@@ -28,7 +40,7 @@ describe('Phase 67.9 & 68.5: Hermes Orchestrator Resilience & State Persistence'
       json: async () => ({ choices: [{ message: { content: '{"status": "ok"}' } }] })
     });
 
-    const orchestrator = new LangGraphOrchestrator();
+    const orchestrator = new HermesSingularity();
     const result = await orchestrator.invoke({ prompt: 'Fix the UI', tokens: 50 });
 
     expect(result.prompt).toContain('NEGATIVE CONSTRAINT: Do not use regex.');
@@ -46,7 +58,7 @@ describe('Phase 67.9 & 68.5: Hermes Orchestrator Resilience & State Persistence'
       json: async () => ({ choices: [{ message: { content: 'Mock response' } }] })
     });
 
-    const orchestrator = new LangGraphOrchestrator();
+    const orchestrator = new HermesSingularity();
     const result = await orchestrator.invoke({ prompt: 'Analyze log', tokens: 10 });
 
     expect(result.outcome).toBe('SUCCESS');
@@ -70,7 +82,7 @@ describe('Phase 67.9 & 68.5: Hermes Orchestrator Resilience & State Persistence'
     // Force a failure in the LLM fetch
     global.fetch = vi.fn().mockRejectedValue(new Error('Connection refused'));
 
-    const orchestrator = new LangGraphOrchestrator();
+    const orchestrator = new HermesSingularity();
     const result = await orchestrator.invoke({ prompt: 'Dangerous task', tokens: 10 });
 
     expect(result.error).toContain('Connection refused');

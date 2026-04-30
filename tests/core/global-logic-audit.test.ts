@@ -25,6 +25,15 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
     await oracle.connect();
     await oracle.initSchema();
 
+    // Ensure triplets table exists for the test
+    oracle.execute(`
+      CREATE TABLE IF NOT EXISTS triplets (
+        subject_id TEXT,
+        predicate TEXT,
+        object_literal TEXT
+      )
+    `);
+
     // 2. Mock hardware
     foundry = {
       readActor: vi.fn().mockResolvedValue({ system: { wealth: { eb: 1000 } } }),
@@ -32,6 +41,8 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
       sendChatMessage: vi.fn().mockResolvedValue(undefined),
       show3dDice: vi.fn().mockResolvedValue(undefined),
       pushDashboardUpdate: vi.fn().mockResolvedValue(undefined),
+      onEvent: vi.fn(),
+      getHandshakeToken: vi.fn().mockReturnValue('token'),
     } as any;
 
     logic = {
@@ -45,15 +56,23 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
         reasoning: 'Calculated correctly.'
       }),
       isHealthy: vi.fn().mockResolvedValue(true),
+      stop: vi.fn().mockResolvedValue(undefined),
     } as any;
 
     controller = new HybridRoutingController({
       nitroLogicClient: logic,
-      sovereignNarrativeClient: { generateNarrative: vi.fn().mockResolvedValue('prose'), isHealthy: vi.fn().mockResolvedValue(true) } as any,
+      sovereignNarrativeClient: { 
+        generateNarrative: vi.fn().mockResolvedValue('prose'), 
+        isHealthy: vi.fn().mockResolvedValue(true),
+        setProfile: vi.fn(),
+        stop: vi.fn().mockResolvedValue(undefined),
+      } as any,
       foundryAdapter: foundry,
       storyEngine: { evaluateEvent: vi.fn().mockReturnValue({ transitioned: false }) } as any,
       gmApprovalQueue: {} as any,
-      nightMarketService: {} as any,
+      nightMarketService: {
+        getVendorInventory: vi.fn().mockResolvedValue({ items: [] })
+      } as any,
       unifiedOracle: oracle,
       redTradeService: {} as any,
     });
@@ -79,7 +98,7 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
       } as any
     });
 
-    const state = oracle.query('SELECT hp FROM npcs WHERE id = ?', [npcId])[0];
+    const state = oracle.query('SELECT hp FROM npcs WHERE id = ?', [npcId])[0] as any;
     // Verified: Should now be 40 (50 - 10 netDamage)
     expect(state.hp).toBe(40); 
   });
@@ -100,7 +119,7 @@ describe('Global Logic Audit: State Synchronization Stress Test', () => {
     });
 
     // Check lore fallback (ADD_LORE)
-    const lore = oracle.query('SELECT object_literal FROM triplets WHERE subject_id = ? AND predicate = ?', [itemId, 'owned_by'])[0];
+    const lore = oracle.query('SELECT object_literal FROM triplets WHERE subject_id = ? AND predicate = ?', [itemId, 'owned_by'])[0] as any;
     expect(lore.object_literal).toBe(actorId);
   });
 });

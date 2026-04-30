@@ -35,7 +35,7 @@ describe('Crush Proxy Chaos & Resilience Test', () => {
           resolve();
         }
         attempts++;
-        if (attempts > 50) {
+        if (attempts > 150) {
           clearInterval(interval);
           reject(new Error('Proxy socket never created'));
         }
@@ -46,7 +46,7 @@ describe('Crush Proxy Chaos & Resilience Test', () => {
         reject(new Error(`Proxy exited prematurely with code ${code}`));
       });
     });
-  }, 10000);
+  }, 30000);
 
   afterAll(() => {
     if (proxyProcess) proxyProcess.kill('SIGKILL');

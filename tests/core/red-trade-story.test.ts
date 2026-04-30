@@ -39,6 +39,8 @@ function makeMockSovereignNarrative(): ISovereignNarrativeClient {
   return {
     generateNarrative: vi.fn().mockResolvedValue('The city never sleeps, choom.'),
     isHealthy: vi.fn().mockResolvedValue(true),
+    stop: vi.fn().mockResolvedValue(undefined),
+    setProfile: vi.fn(),
   };
 }
 

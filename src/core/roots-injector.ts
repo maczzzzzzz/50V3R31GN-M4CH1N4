@@ -22,7 +22,7 @@ export class RootsInjector {
 
   constructor(private readonly db: Database, private readonly projectRoot: string, soulContent?: string) {
     this.directorSoulPath = path.join(projectRoot, 'docs/superpowers/archive/DIRECTOR_SOUL.md');
-    this.researcherSoulPath = path.join(projectRoot, 'docs/superpowers/research/RESEARCHER_SOUL.md');
+    this.researcherSoulPath = path.join(projectRoot, 'RESEARCHER_SOUL.md');
     this.osSoulPath = path.join(projectRoot, 'SOUL.md');
     if (soulContent) this.cachedOsSoul = soulContent;
   }

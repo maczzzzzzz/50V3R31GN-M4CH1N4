@@ -32,13 +32,13 @@ export class MissionSwarmOrchestrator {
     // 3. Asset Retrieval (New!)
     // Fetch relevant map tiles or original TTTA maps for this district
     const maps = this.config.oracle.query(
-      `SELECT file_path, category FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 3`,
+      `SELECT file_path, category FROM map_assets WHERE category IN ('tile', 'map') AND biome LIKE ? LIMIT 3`,
       [`%${district}%`]
     ) as AssetRow[];
 
     // Fetch relevant tokens
     const tokens = this.config.oracle.query(
-      `SELECT file_path, category FROM assets WHERE category = 'token' AND faction LIKE ? LIMIT 5`,
+      `SELECT file_path, category FROM map_assets WHERE category = 'token' AND biome LIKE ? LIMIT 5`,
       [`%${district}%`]
     ) as AssetRow[];
 

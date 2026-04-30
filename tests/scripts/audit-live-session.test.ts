@@ -25,7 +25,7 @@ describe('audit-live-session: getWindowsHostIP', () => {
     vi.doMock('fs', () => ({
       readFileSync: vi.fn().mockReturnValue('# comment\nnameserver 172.26.208.1\nnameserver 8.8.8.8\n'),
     }));
-    const { getWindowsHostIP } = await import('../../scripts/audit-live-session.js');
+    const { getWindowsHostIP } = await import('../../scripts/archive/audit-live-session.js');
     expect(getWindowsHostIP()).toBe('172.26.208.1');
   });
 
@@ -33,7 +33,7 @@ describe('audit-live-session: getWindowsHostIP', () => {
     vi.doMock('fs', () => ({
       readFileSync: vi.fn().mockReturnValue('# no nameserver here\n'),
     }));
-    const { getWindowsHostIP } = await import('../../scripts/audit-live-session.js');
+    const { getWindowsHostIP } = await import('../../scripts/archive/audit-live-session.js');
     expect(getWindowsHostIP()).toBe('127.0.0.1');
   });
 
@@ -41,7 +41,7 @@ describe('audit-live-session: getWindowsHostIP', () => {
     vi.doMock('fs', () => ({
       readFileSync: vi.fn().mockImplementation(() => { throw new Error('ENOENT'); }),
     }));
-    const { getWindowsHostIP } = await import('../../scripts/audit-live-session.js');
+    const { getWindowsHostIP } = await import('../../scripts/archive/audit-live-session.js');
     expect(getWindowsHostIP()).toBe('127.0.0.1');
   });
 
@@ -49,7 +49,7 @@ describe('audit-live-session: getWindowsHostIP', () => {
     vi.doMock('fs', () => ({
       readFileSync: vi.fn().mockReturnValue('  nameserver   192.168.1.1  \n'),
     }));
-    const { getWindowsHostIP } = await import('../../scripts/audit-live-session.js');
+    const { getWindowsHostIP } = await import('../../scripts/archive/audit-live-session.js');
     expect(getWindowsHostIP()).toBe('192.168.1.1');
   });
 });

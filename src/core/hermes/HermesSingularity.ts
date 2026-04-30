@@ -1,6 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { logger } from '../../shared/logger.js';
 import { ContextDAG } from './ContextDAG.js';
+import { HealerProtocol, RepairStrategy, type OrchestratorState } from './HealerProtocol.js';
+import { MemoryObserver } from './MemoryObserver.js';
 import type { Database } from 'better-sqlite3';
 
 /**
@@ -12,10 +14,10 @@ import type { Database } from 'better-sqlite3';
 
 export interface SingularityInput {
   prompt: string;
-  tokens?: number;
-  thread_id?: string;
-  file_path?: string;
-  diff?: string;
+  tokens?: number | undefined;
+  thread_id?: string | undefined;
+  file_path?: string | undefined;
+  diff?: string | undefined;
 }
 
 export interface SingularityResult {
@@ -25,6 +27,11 @@ export interface SingularityResult {
   };
   report?: string;
   audit?: any;
+  outcome?: 'SUCCESS' | 'FATAL' | 'PENDING';
+  prompt?: string;
+  response?: string;
+  error?: string;
+  activeNode?: string;
 }
 
 export type AgentRole = 'PLANNER' | 'WORKER' | 'REVIEWER' | 'SYNTHESIZER';
@@ -120,20 +127,151 @@ export class HermesSingularity {
    */
   public async invoke(input: SingularityInput): Promise<SingularityResult> {
     const traceId = input.thread_id || randomUUID();
+    const prompt = input.prompt;
     
-    logger.info('HermesSingularity', traceId, `Native Ingress: ${input.prompt.substring(0, 50)}...`);
+    logger.info('HermesSingularity', traceId, `Native Ingress: ${prompt.substring(0, 50)}...`);
 
-    // ◈ Context-DAG Logic (Phase 97)
-    // Here we would integrate the local LLM call via Node B (Gemma-4-E4B)
-    // and materialize nodes in the DAG.
+    // 1. Get negative constraints from HealerProtocol (Experience-Gitting)
+    const negativeConstraints = await HealerProtocol.getNegativeConstraints(prompt);
+    const enrichedPrompt = prompt + negativeConstraints;
+
+    const state: OrchestratorState = {
+      activeNode: 'node-c', // Default to Oracle
+      retries: 0,
+      prompt: enrichedPrompt,
+      tokens: input.tokens,
+      file_path: input.file_path,
+      diff: input.diff
+    };
+
+    let result: SingularityResult | null = null;
+    const systemPrompt = this.getSystemPrompt();
     
-    this.dag.addNode(input.prompt, 'user', input.thread_id);
+    while (state.retries < 3) {
+      try {
+        // Phase 93: Local LLM Orchestration
+        const nodeUrl = state.activeNode === 'node-c' 
+          ? (process.env['NODE_C_URL'] ?? 'http://10.0.0.12:8080')
+          : (process.env['NODE_A_URL'] ?? 'http://10.0.0.10:8080');
 
-    // Mock response for Phase 97 scaffolding
-    return {
-      ruleResult: {
-        tasks: []
+        const response = await fetch(`${nodeUrl}/v1/chat/completions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'hermes-model',
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: enrichedPrompt }
+            ],
+            max_tokens: input.tokens ?? 4096
+          })
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        
+        const data = (await response.json()) as any;
+        const content = data.choices[0]?.message?.content || '';
+
+        result = {
+          ruleResult: { tasks: [] },
+          outcome: 'SUCCESS',
+          prompt: enrichedPrompt,
+          response: content,
+          activeNode: 'done'
+        };
+
+        // 2. Audit success and trigger Memory Observer
+        await HealerProtocol.logAudit({
+          traceId,
+          outcome: 'SUCCESS',
+          reasoning_trace: content,
+          file_path: input.file_path,
+          diff: input.diff
+        });
+
+        await MemoryObserver.observeAndDistill({
+          prompt: enrichedPrompt,
+          response: content,
+          outcome: 'SUCCESS',
+          traceId
+        });
+
+        this.dag.addNode(prompt, 'user', traceId);
+        return result;
+
+      } catch (err) {
+        state.error = (err as Error).message;
+        const diagnosis = HealerProtocol.diagnose(state, { maxRetries: 3 });
+
+        if (diagnosis.strategy === RepairStrategy.ABORT_MISSION) {
+          await HealerProtocol.logAudit({
+            traceId,
+            outcome: 'FATAL',
+            reasoning_trace: state.error,
+            file_path: input.file_path,
+            diff: input.diff
+          });
+          
+          return {
+            ruleResult: { tasks: [] },
+            outcome: 'FATAL',
+            error: state.error,
+            activeNode: 'done'
+          };
+        }
+
+        // Apply suggested state shifts (e.g. quantization or node bypass)
+        if (diagnosis.suggestedState) {
+          Object.assign(state, diagnosis.suggestedState);
+        } else {
+          state.retries++;
+        }
+        
+        logger.warn('HermesSingularity', traceId, `Healer Strategy: ${diagnosis.strategy} - ${diagnosis.reason}`);
       }
+    }
+
+    return {
+      ruleResult: { tasks: [] },
+      outcome: 'FATAL',
+      error: 'Max retries exceeded',
+      activeNode: 'done'
+    };
+  }
+
+  public getDAG(): ContextDAG {
+    return this.dag;
+  }
+}
+     reasoning_trace: state.error,
+            file_path: input.file_path,
+            diff: input.diff
+          });
+          
+          return {
+            ruleResult: { tasks: [] },
+            outcome: 'FATAL',
+            error: state.error,
+            activeNode: 'done'
+          };
+        }
+
+        // Apply suggested state shifts (e.g. quantization or node bypass)
+        if (diagnosis.suggestedState) {
+          Object.assign(state, diagnosis.suggestedState);
+        } else {
+          state.retries++;
+        }
+        
+        logger.warn('HermesSingularity', traceId, `Healer Strategy: ${diagnosis.strategy} - ${diagnosis.reason}`);
+      }
+    }
+
+    return {
+      ruleResult: { tasks: [] },
+      outcome: 'FATAL',
+      error: 'Max retries exceeded',
+      activeNode: 'done'
     };
   }
 

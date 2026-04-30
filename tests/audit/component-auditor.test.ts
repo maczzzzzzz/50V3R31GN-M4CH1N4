@@ -49,9 +49,19 @@ describe('Component Auditor', () => {
     expect(result.checks['instantiation']).toBe('OK');
   });
 
+  it('verifies HermesSingularity component state', async () => {
+    const result = await checkComponentState('HermesSingularity');
+    expect(result.component).toBe('HermesSingularity');
+    expect(result.status).toBe('OK');
+    expect(result.checks['instantiation']).toBe('OK');
+  });
+
   it('verifies AkashikDB is reachable', async () => {
     const result = await checkComponentState('AkashikDB');
     expect(result.component).toBe('AkashikDB');
+    if (result.status === 'FAIL') {
+      console.error(`AkashikDB check failed: ${result.error}`, result.checks);
+    }
     expect(result.status).toBe('OK');
     expect(result.checks['tables']).toMatch(/\d+ tables/);
   });
@@ -63,9 +73,10 @@ describe('Component Auditor', () => {
 
   it('auditAllComponents returns a result for every known component', async () => {
     const results = await auditAllComponents();
-    expect(results.length).toBeGreaterThanOrEqual(4);
+    expect(results.length).toBeGreaterThanOrEqual(5);
     const names = results.map(r => r.component);
     expect(names).toContain('NanoBanana');
+    expect(names).toContain('HermesSingularity');
     expect(names).toContain('AtlasForge');
     expect(names).toContain('NucleusAssembler');
     expect(names).toContain('AkashikDB');

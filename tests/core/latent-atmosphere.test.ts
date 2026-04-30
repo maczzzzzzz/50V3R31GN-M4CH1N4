@@ -70,10 +70,10 @@ import type { AtmosphereState } from '../../src/core/visual-monitor-service.js';
 function makeOracle(overrides?: {
   connected?: boolean;
   rows?: unknown[];
-}): { isConnected: ReturnType<typeof vi.fn>; execute: ReturnType<typeof vi.fn>; query: ReturnType<typeof vi.fn> } {
+}): { isConnected: ReturnType<typeof vi.fn>; executeCommand: ReturnType<typeof vi.fn>; query: ReturnType<typeof vi.fn> } {
   return {
     isConnected: vi.fn().mockReturnValue(overrides?.connected ?? true),
-    execute: vi.fn(),
+    executeCommand: vi.fn(),
     query: vi.fn().mockReturnValue(overrides?.rows ?? []),
   };
 }
@@ -141,8 +141,8 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
 
     await svc.captureAtmosphere('scene-neon-01');
 
-    expect(oracle.execute).toHaveBeenCalledOnce();
-    const [sql, params] = oracle.execute.mock.calls[0];
+    expect(oracle.executeCommand).toHaveBeenCalledOnce();
+    const [sql, params] = oracle.executeCommand.mock.calls[0];
     expect(sql).toContain('INSERT OR REPLACE INTO scene_atmosphere');
     expect(params).toContain('scene-neon-01');
     expect(params).toContain('#ff003c');
@@ -159,7 +159,7 @@ describe('VisualMonitorService — Latent Atmosphere Persistence', () => {
 
     await svc.captureAtmosphere('scene-neon-01');
 
-    expect(oracle.execute).not.toHaveBeenCalled();
+    expect(oracle.executeCommand).not.toHaveBeenCalled();
   });
 
   // Test 5: captureAtmosphere() throws when exceptionDetails is present

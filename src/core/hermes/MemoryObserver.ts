@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto';
+import { logger } from '../../shared/logger.js';
 import { MemoryPalaceService } from '../memory-palace-service.js';
 import { UnifiedOracleClient } from '../../db/unified-oracle-client.js';
 import { SynapseStore } from '../../db/synapse-store.js';
@@ -9,6 +11,7 @@ export interface HermesState {
   response?: string;
   outcome: 'SUCCESS' | 'FAILURE' | 'PENDING';
   traceId: string;
+  profile?: 'SOVEREIGN_OS' | 'RED_DIRECTOR' | 'RESEARCHER';
 }
 
 /**
@@ -19,22 +22,28 @@ export interface HermesState {
  */
 export class MemoryObserver {
   private static service: MemoryPalaceService | null = null;
+  private static activeProfile: string = 'SOVEREIGN_OS';
+
+  static setProfile(profile: string) {
+    this.activeProfile = profile;
+  }
 
   static async init() {
     if (this.service) return;
     const oracle = new UnifiedOracleClient({
       worldDbPath: 'data/Akashik.db',
       crushDbPath: 'data/crush.db',
-    }, {});
+    }, logger);
     await oracle.connect();
 
-    const store = new SynapseStore('data/SovereignIntelligence.db');
+    const store = new SynapseStore('data/SovereignIntelligence.db', logger);
     store.open();
     const embedder = new SovereignEmbeddingService({
       baseUrl: process.env.NODE_A_URL ?? 'http://10.0.0.10:8080/v1',
       model: 'nomic-embed-text',
-    });
-    const tripletService = new OsTripletService(store, embedder);
+      timeoutMs: 10000,
+    }, logger);
+    const tripletService = new OsTripletService(store, embedder, logger);
 
     this.service = new MemoryPalaceService(oracle, tripletService);
   }
@@ -46,9 +55,16 @@ export class MemoryObserver {
       await this.init();
       if (!this.service) return;
 
+      const profile = state.profile || this.activeProfile;
       const context = this.service.getActiveContext();
-      if (!context.roomId) {
-        // Fallback: If no room is active, create/use a generic agent observation room
+      
+      // Phase 107: Profile-Aware Memory Gating
+      // Only distill world-state lore if in RED_DIRECTOR mode
+      if (profile === 'RED_DIRECTOR') {
+        const wing = this.service.upsertWing('Simulation Shard', 'PLAYER', 'Cyberpunk RED world-state fragments.');
+        const room = this.service.upsertRoom(wing.id, 'World Narrative', 'POI', 'Distilled lore from the Director.');
+        this.service.enterRoom(room.id);
+      } else {
         const wing = this.service.upsertWing('Sovereign Memory', 'PLAYER', 'Auto-generated agentic observations.');
         const room = this.service.upsertRoom(wing.id, 'Agent Traces', 'POI', 'Distilled facts from the Hermes Orchestrator.');
         this.service.enterRoom(room.id);
@@ -74,7 +90,8 @@ export class MemoryObserver {
           'Agent',
           'executed_task',
           state.prompt.substring(0, 40).replace(/\s+/g, '_'),
-          activeCtx.roomId
+          activeCtx.roomId,
+          randomUUID()
         );
       }
       

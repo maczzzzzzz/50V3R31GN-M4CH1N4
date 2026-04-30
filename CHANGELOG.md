@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 
+## [3.8.9-RECONCILIATION] - 2026-04-29
+
+### Added
+- **Reconciliation Audit:** Executed the exhaustive **Context Drift Audit** following a catastrophic cognitive failure. Engraved the record in `docs/superpowers/audits/`.
+- **SPIRE Materialization Spec (Phase 108.1):** Materialized the high-fidelity plan for SPIFFE/SPIRE Identity Federation across the quaternary mesh.
+- **KV Cache Vaccination Spec (Phase 108.2):** Drafted the physical vaccination protocol for model context purging during profile transitions to eliminate lore-bleed.
+- **Intelligence Synthesis Spec (Phase 109):** Integrated SOTA patterns from **GraphRAG-SDK**, **Plurai BARRED**, **IntellAgent**, and **CocoIndex CDC** into the implementation trajectory.
+- **Hardware Truth Table:** Precision-mapped the physical specifications of MACSPC (Node B) and the K15 (Node D) across all system soul manifests.
+- **Ouroboros Status Ring:** Materialized the SVG-path animated status ring in `PretextShroud.tsx` for real-time agentic loop visualization.
+
+### Changed
+- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.9) across `SOUL.md`, `AGENTS.md`, `README.md`, `GEMINI.md`, and `SOVEREIGN-IDENTITY.md`.
+- **NODESTADT Aesthetic Ascension:** Purged Gruvbox Material variables from `globals.css`. Locked the **Authority Palette** (#1A1A1A, #F36622, #C7A87A) and transitioned to the Cinzel/Space Grotesk typography stack.
+- **Aesthetic Refactor:** Replaced legacy CRT/Glitch overlays with **Fluid Smoke Metabolism** (Machina Rust pulse) in the Pretext HUD.
+- **Implementation Plan Re-Alignment:** Surgically re-ordered and re-numbered the `IMPLEMENTATION_PLAN.md` to reflect true dependency-weighted trajectories.
+- **Profile-Aware Memory Observer:** Refactored `MemoryObserver.ts` to strictly gate lore-distillation based on the active soul profile ([SOVEREIGN_OS] vs [RED_DIRECTOR]).
+
+### Fixed
+- **Dead Link Restoration:** Repaired broken documentation references in `README.md` and restored link integrity to the high-fidelity knowledge base.
+- **Cognitive Drift Neutralization:** Surgically purged mislabeled legacy research documents and neutralized "Shadow Logic" in the reasoning loop.
+
 ## [3.8.8] - 2026-04-28
 
 ### Added

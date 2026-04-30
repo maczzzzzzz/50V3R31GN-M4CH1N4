@@ -13,10 +13,10 @@ import PretextTerminalArtery from '@/components/PretextTerminalArtery';
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 /**
- * ◈ FLUID_SMOKE_METABOLISM — PHASE 96.2
+ * ◈ FLUID_SMOKE_METABOLISM — PHASE 100.3
  * 
  * High-performance trig-noise loop for visualizing agent metabolism.
- * Ported from somnai-dreams/pretext-demos.
+ * Refactored to Machina Rust (#F36622).
  */
 const FluidSmokeBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -31,7 +31,6 @@ const FluidSmokeBackground = () => {
     let time = 0;
     const COLS = 120;
     const ROWS = 60;
-    const density = new Float32Array(COLS * ROWS);
 
     const render = () => {
       time += 0.02;
@@ -42,13 +41,13 @@ const FluidSmokeBackground = () => {
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
           const nx = c / COLS, ny = r / ROWS;
-          // ◈ Metabolic Trig-Noise (Listening vs Thinking)
+          // ◈ Metabolic Trig-Noise
           const v = Math.sin(ny * 6.28 + time * 0.3) * 2 + 
                     Math.cos((nx + ny) * 12.5 + time * 0.55) * 0.7;
           
           const val = Math.max(0, Math.min(1, (v + 1) / 2));
           if (val > 0.4) {
-            ctx.fillStyle = `rgba(251, 73, 52, ${val * 0.15})`; // Gruvbox Red Pulse
+            ctx.fillStyle = `rgba(243, 102, 34, ${val * 0.12})`; // Machina Rust Pulse
             ctx.fillRect(c * cw, r * ch, cw - 1, ch - 1);
           }
         }
@@ -71,27 +70,32 @@ const FluidSmokeBackground = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0 opacity-40" />;
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0 opacity-30" />;
 };
 
-const ContextRing = ({ progress, color, label }: { progress: number, color: string, label: string }) => {
+/**
+ * ◈ OUROBOROS_STATUS_RING — PHASE 100.3
+ * 
+ * Animated SVG ring representing the agentic loop.
+ */
+const OuroborosRing = ({ progress, color, label }: { progress: number, color: string, label: string }) => {
   const radius = 18;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (progress / 100) * circumference;
 
   return (
     <div className="flex flex-col items-center gap-1 group relative z-10">
-      <div className="relative w-10 h-10 flex items-center justify-center">
-        <svg className="w-10 h-10 transform -rotate-90 absolute">
-          <circle className="text-[#3c3836]" strokeWidth="3" stroke="currentColor" fill="transparent" r={radius} cx="20" cy="20" />
+      <div className="relative w-12 h-12 flex items-center justify-center">
+        <svg className="w-12 h-12 transform -rotate-90 absolute">
+          <circle className="text-[#262626]" strokeWidth="2" stroke="currentColor" fill="transparent" r={radius} cx="24" cy="24" />
           <circle
-            style={{ strokeDasharray: circumference, strokeDashoffset: offset, transition: 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)' }}
-            strokeWidth="3" stroke={color} fill="transparent" r={radius} cx="20" cy="20"
+            style={{ strokeDasharray: circumference, strokeDashoffset: offset, transition: 'stroke-dashoffset 1.5s ease-out' }}
+            strokeWidth="2" stroke={color} strokeLinecap="round" fill="transparent" r={radius} cx="24" cy="24"
           />
         </svg>
-        <span className="text-[7px] font-bold text-[#ebdbb2] group-hover:text-white transition-colors">{progress}%</span>
+        <span className="text-[8px] font-bold text-[#E5E5E5] mono-text">{progress}%</span>
       </div>
-      <span className="text-[8px] text-[#a89984] font-bold tracking-tighter uppercase">{label}</span>
+      <span className="text-[7px] text-[#A3A3A3] font-bold tracking-widest uppercase authority-text">{label}</span>
     </div>
   );
 };
@@ -107,33 +111,36 @@ export default function PretextShroud() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#282828] text-[#fbf1c7] font-mono selection:bg-[#fb4934] selection:text-black p-3 overflow-hidden relative">
+    <div className="min-h-screen bg-[#1A1A1A] text-[#E5E5E5] selection:bg-[#F36622] selection:text-black p-3 overflow-hidden relative operational-text">
       <FluidSmokeBackground />
       
       {/* ◈ TACTICAL_COMMAND_BAR */}
-      <div className="flex items-stretch gap-3 mb-3 h-20 relative z-10">
-        <div className="bg-[#32302f]/90 border border-[#504945] flex-1 flex items-center justify-between px-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-sm">
-          <div className="flex items-center gap-6">
-            <div className="w-10 h-10 border-2 border-[#fe8019] flex items-center justify-center rotate-45 hover:rotate-90 transition-all duration-500 cursor-pointer bg-black/20 group">
-              <span className="text-[12px] font-bold text-[#fe8019] -rotate-45 group-hover:-rotate-90">Σ</span>
+      <div className="flex items-stretch gap-3 mb-3 h-24 relative z-10">
+        <div className="bg-[#262626]/90 border border-[#404040] flex-1 flex items-center justify-between px-8 shadow-[0_15px_40px_rgba(0,0,0,0.6)] backdrop-blur-md">
+          <div className="flex items-center gap-8">
+            <div className="w-12 h-12 border border-[#F36622] flex items-center justify-center rotate-45 hover:rotate-0 transition-all duration-700 cursor-pointer bg-[#F36622]/5 group">
+              <span className="text-xl font-bold text-[#F36622] -rotate-45 group-hover:rotate-0 transition-all duration-700 authority-text">Σ</span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold tracking-[0.4em] text-[#fbf1c7] drop-shadow-[0_0_10px_rgba(251,241,199,0.2)]">50V3R31GN_M4CH1N4</h1>
-              <div className="text-[10px] text-[#fb4934] font-bold tracking-[0.2em] flex gap-4">
-                <span className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-[#fb4934] animate-pulse" /> ASCENDING_v3.8.7</span>
+              <h1 className="text-3xl font-bold tracking-[0.5em] text-[#E5E5E5] drop-shadow-[0_0_15px_rgba(243,102,34,0.3)] authority-text">NODESTADT</h1>
+              <div className="text-[9px] text-[#F36622] font-bold tracking-[0.3em] flex gap-5 mono-text mt-1">
+                <span className="flex items-center gap-2 uppercase tracking-tighter">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#F36622] animate-pulse" /> 
+                  Sovereign_OS v3.8.8-ALIGN
+                </span>
               </div>
             </div>
           </div>
           
-          <div className="flex gap-10">
-            <ContextRing progress={85} color="#fb4934" label="NODE_A" />
-            <ContextRing progress={42} color="#b8bb26" label="NODE_B" />
-            <ContextRing progress={12} color="#83a598" label="NODE_C" />
+          <div className="flex gap-8">
+            <OuroborosRing progress={85} color="#F36622" label="NODE_A" />
+            <OuroborosRing progress={64} color="#C7A87A" label="NODE_B" />
+            <OuroborosRing progress={12} color="#C7A87A" label="NODE_D" />
           </div>
         </div>
       </div>
 
-      {/* ◈ MAIN_GRID (Modern Modular) */}
+      {/* ◈ MAIN_GRID (Modular Command Deck) */}
       <ResponsiveGridLayout
         className="layout relative z-10"
         layouts={{ lg: layout }}
@@ -141,65 +148,65 @@ export default function PretextShroud() {
         cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
         rowHeight={30}
         draggableHandle=".handle"
-        margin={[10, 10]}
+        margin={[12, 12]}
       >
-        <div key="command-artery" className="bg-[#32302f]/95 border border-[#504945] shadow-2xl flex flex-col overflow-hidden group backdrop-blur-md">
-          <div className="handle h-10 border-b border-[#504945] flex items-center px-4 justify-between bg-[#282828] cursor-move group-hover:bg-[#3c3836] transition-colors">
-            <span className="text-[10px] font-bold text-[#fe8019] tracking-widest uppercase flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-[#fe8019]" /> ◈ COGNITIVE_INGRESS
+        <div key="command-artery" className="bg-[#262626]/95 border border-[#404040] shadow-2xl flex flex-col overflow-hidden group backdrop-blur-xl">
+          <div className="handle h-10 border-b border-[#404040] flex items-center px-5 justify-between bg-[#1A1A1A] cursor-move group-hover:bg-[#262626] transition-colors">
+            <span className="text-[10px] font-bold text-[#F36622] tracking-widest uppercase flex items-center gap-3 authority-text">
+              <div className="w-1.5 h-1.5 bg-[#F36622] rotate-45" /> COGNITIVE_INGRESS
             </span>
           </div>
-          <div className="flex-1 overflow-hidden p-0.5">
+          <div className="flex-1 overflow-hidden">
             <PretextCommandArtery />
           </div>
         </div>
 
-        <div key="vitals-rack" className="bg-[#32302f]/95 border border-[#504945] shadow-xl flex flex-col overflow-hidden backdrop-blur-md">
-          <div className="handle h-8 border-b border-[#504945] flex items-center px-4 bg-[#282828] cursor-move">
-            <span className="text-[9px] font-bold text-[#b8bb26] tracking-[0.2em]">◈ VITALS_RACK</span>
+        <div key="vitals-rack" className="bg-[#262626]/95 border border-[#404040] shadow-xl flex flex-col overflow-hidden backdrop-blur-xl">
+          <div className="handle h-8 border-b border-[#404040] flex items-center px-4 bg-[#1A1A1A] cursor-move">
+            <span className="text-[9px] font-bold text-[#C7A87A] tracking-[0.2em] authority-text">VITALS_RACK</span>
           </div>
-          <div className="flex-1 grid grid-cols-2 p-4 gap-4 bg-[#1d2021]/30">
-             <div className="flex flex-col gap-1">
-               <span className="text-[8px] text-[#a89984] uppercase font-bold">VRAM_Saturation</span>
-               <div className="h-2 bg-[#3c3836] rounded-sm overflow-hidden"><div className="h-full bg-[#fb4934] w-[85%]" /></div>
+          <div className="flex-1 grid grid-cols-2 p-5 gap-6 bg-black/10">
+             <div className="flex flex-col gap-2">
+               <span className="text-[8px] text-[#A3A3A3] uppercase font-bold tracking-wider">VRAM_Saturation</span>
+               <div className="h-1.5 bg-[#404040] rounded-full overflow-hidden"><div className="h-full bg-[#F36622] w-[85%] shadow-[0_0_10px_#F36622]" /></div>
              </div>
-             <div className="flex flex-col gap-1">
-               <span className="text-[8px] text-[#a89984] uppercase font-bold">Latency_Sync</span>
-               <div className="text-[12px] font-bold text-[#b8bb26]">12ms</div>
+             <div className="flex flex-col gap-2">
+               <span className="text-[8px] text-[#A3A3A3] uppercase font-bold tracking-wider">Latency_Sync</span>
+               <div className="text-[14px] font-bold text-[#C7A87A] mono-text">12ms</div>
              </div>
           </div>
         </div>
 
-        <div key="tasks-mesh" className="bg-[#32302f]/95 border border-[#504945] shadow-xl flex flex-col overflow-hidden backdrop-blur-md">
-          <div className="handle h-8 border-b border-[#504945] flex items-center px-4 bg-[#282828] cursor-move">
-            <span className="text-[9px] font-bold text-[#fabd2f] tracking-[0.2em]">◈ TASKS_MESH</span>
+        <div key="tasks-mesh" className="bg-[#262626]/95 border border-[#404040] shadow-xl flex flex-col overflow-hidden backdrop-blur-xl">
+          <div className="handle h-8 border-b border-[#404040] flex items-center px-4 bg-[#1A1A1A] cursor-move">
+            <span className="text-[9px] font-bold text-[#C7A87A] tracking-[0.2em] authority-text">TASKS_MESH</span>
           </div>
           <div className="flex-1 overflow-hidden">
             <PretextTasksMesh />
           </div>
         </div>
 
-        <div key="synapse-orbit" className="bg-[#32302f]/95 border border-[#504945] shadow-2xl flex flex-col overflow-hidden relative group backdrop-blur-md">
-          <div className="handle h-8 border-b border-[#504945] flex items-center px-4 bg-[#282828] cursor-move z-10 relative">
-            <span className="text-[9px] font-bold text-[#83a598] tracking-[0.2em]">◈ SYNAPSE_ORBIT</span>
+        <div key="synapse-orbit" className="bg-[#262626]/95 border border-[#404040] shadow-2xl flex flex-col overflow-hidden relative group backdrop-blur-xl">
+          <div className="handle h-8 border-b border-[#404040] flex items-center px-4 bg-[#1A1A1A] cursor-move z-10 relative">
+            <span className="text-[9px] font-bold text-[#C7A87A] tracking-[0.2em] authority-text">NEURAL_PROMENADE</span>
           </div>
-          <div className="absolute inset-0 pt-8 bg-black">
+          <div className="absolute inset-0 pt-8 bg-black/50">
             <NeuralPromenade />
           </div>
         </div>
 
-        <div key="terminal-artery" className="bg-[#32302f]/95 border border-[#504945] shadow-xl flex flex-col overflow-hidden backdrop-blur-md">
-          <div className="handle h-8 border-b border-[#504945] flex items-center px-4 bg-[#282828] cursor-move">
-            <span className="text-[9px] font-bold text-[#d3869b] tracking-[0.2em]">◈ TERMINAL_ARTERY</span>
+        <div key="terminal-artery" className="bg-[#262626]/95 border border-[#404040] shadow-xl flex flex-col overflow-hidden backdrop-blur-xl">
+          <div className="handle h-8 border-b border-[#404040] flex items-center px-4 bg-[#1A1A1A] cursor-move">
+            <span className="text-[9px] font-bold text-[#F36622] tracking-[0.2em] authority-text">TERMINAL_ARTERY</span>
           </div>
           <div className="flex-1 overflow-hidden">
             <PretextTerminalArtery />
           </div>
         </div>
 
-        <div key="red-trade-mesh" className="bg-[#32302f]/95 border border-[#504945] shadow-xl flex flex-col overflow-hidden backdrop-blur-md">
-          <div className="handle h-8 border-b border-[#504945] flex items-center px-4 bg-[#282828] cursor-move">
-            <span className="text-[9px] font-bold text-[#fe8019] tracking-[0.2em]">◈ RED_TRADE_MESH</span>
+        <div key="red-trade-mesh" className="bg-[#262626]/95 border border-[#404040] shadow-xl flex flex-col overflow-hidden backdrop-blur-xl">
+          <div className="handle h-8 border-b border-[#404040] flex items-center px-4 bg-[#1A1A1A] cursor-move">
+            <span className="text-[9px] font-bold text-[#F36622] tracking-[0.2em] authority-text">RED_SIMULATION</span>
           </div>
           <div className="flex-1 overflow-hidden">
             <PretextMarketArtery />

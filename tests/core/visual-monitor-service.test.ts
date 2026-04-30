@@ -58,7 +58,7 @@ import { logger } from '../../src/shared/logger.js';
 function makeMockOracle() {
   return {
     isConnected: vi.fn().mockReturnValue(true),
-    execute: vi.fn().mockReturnValue({ changes: 1 }),
+    executeCommand: vi.fn().mockResolvedValue({ changes: 1 }),
     query: vi.fn().mockReturnValue([]),
   } as any;
 }
@@ -114,10 +114,10 @@ describe('VisualMonitorService', () => {
     });
 
     it('logs the Neural Uplink activation message', async () => {
-      const consoleSpy = vi.spyOn(console, 'info').mockImplementation(() => {});
+      const loggerSpy = vi.spyOn(logger, 'info');
       await service.connect();
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('✅ Neural Uplink: Native CDP Engine Active.'));
-      consoleSpy.mockRestore();
+      expect(loggerSpy).toHaveBeenCalledWith('VisualMonitorService', expect.any(String), expect.stringContaining('✅ Neural Uplink: Native CDP Engine Active.'));
+      loggerSpy.mockRestore();
     });
 
     it('marks isConnected() true after successful connect', async () => {
@@ -200,7 +200,7 @@ describe('VisualMonitorService', () => {
       const svc = new VisualMonitorService({ debugPort: 9222, oracle });
       await svc.connect();
       const record = await svc.captureScreenshot('scene-42');
-      expect(oracle.execute).toHaveBeenCalledWith(
+      expect(oracle.executeCommand).toHaveBeenCalledWith(
         'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
         ['scene-42', record.hash, record.timestamp]
       );
@@ -218,7 +218,7 @@ describe('VisualMonitorService', () => {
       const svc = new VisualMonitorService({ debugPort: 9222, oracle });
       await svc.connect();
       await svc.captureScreenshot();
-      expect(oracle.execute).not.toHaveBeenCalledWith(
+      expect(oracle.executeCommand).not.toHaveBeenCalledWith(
         expect.stringContaining('INSERT OR REPLACE INTO scene_perception'),
         expect.anything()
       );
@@ -323,7 +323,7 @@ describe('VisualMonitorService', () => {
       const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
       await svc.connect();
       await svc.regroundScene('scene-005');
-      expect(oracle.execute).toHaveBeenCalledWith(
+      expect(oracle.executeCommand).toHaveBeenCalledWith(
         expect.stringContaining('INSERT OR REPLACE INTO scene_perception'),
         expect.arrayContaining(['scene-005'])
       );
@@ -336,7 +336,7 @@ describe('VisualMonitorService', () => {
       const svc = new VisualMonitorService({ debugPort: 9222, oracle, nitroLogic });
       await svc.connect();
       await expect(svc.regroundScene('scene-006')).resolves.toBeUndefined();
-      expect(oracle.execute).not.toHaveBeenCalledWith(
+      expect(oracle.executeCommand).not.toHaveBeenCalledWith(
         expect.stringContaining('INSERT OR REPLACE INTO scene_perception'),
         expect.anything()
       );

@@ -33,8 +33,8 @@ export class AutoResumeDaemon {
           await orchestrator.invoke({
             prompt: state.prompt,
             tokens: state.tokens ?? 16384,
-            file_path: state.file_path ?? undefined,
-            diff: state.diff ?? undefined,
+            file_path: state.file_path,
+            diff: state.diff,
             thread_id: row.thread_id,
           });
         }

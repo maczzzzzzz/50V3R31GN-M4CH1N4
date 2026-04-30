@@ -38,10 +38,12 @@ export const phaseV81Host: GauntletTask = {
        results.push('● Visual Redaction architectural hook verified.');
     }
 
-    // 4. Verify Web Scraper Tiered Ingress
-    const checkScraper = await ctx.shell('ls src/shared/WebScraperSidecar.ts');
-    if (checkScraper.code === 0) {
-       results.push('● Web Scraper Sidecar materialized.');
+    // 4. Verify OMI-based Screen Awareness (Phase 93 Pivot)
+    const checkObserver = await ctx.shell('ls src/core/hermes/SovereignObserver.ts');
+    if (checkObserver.code === 0) {
+       results.push('● Sovereign Observer (OMI) materialized.');
+    } else {
+       results.push('● Sovereign Observer not found (Expected in Phase 104).');
     }
 
     return {

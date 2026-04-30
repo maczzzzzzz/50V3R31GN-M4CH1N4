@@ -70,14 +70,16 @@ export class Logger implements ILogger {
 
     const logLine = JSON.stringify(entry);
 
-    // 1. Terminal Output
-    this.printToConsole(severity, logLine);
+    if (process.env['NODE_ENV'] !== 'test') {
+      // 1. Terminal Output
+      this.printToConsole(severity, logLine);
 
-    // 2. Physical Persistence (JSON Stream)
-    try {
-      appendFileSync(LOG_FILE, logLine + '\n');
-    } catch (e) {
-      console.error(`::/LOG_WRITE_FAILURE : ${e}`);
+      // 2. Physical Persistence (JSON Stream)
+      try {
+        appendFileSync(LOG_FILE, logLine + '\n');
+      } catch (e) {
+        console.error(`::/LOG_WRITE_FAILURE : ${e}`);
+      }
     }
 
     // 3. Dispatch to subscribers (e.g. Pretext HUD via SSE)

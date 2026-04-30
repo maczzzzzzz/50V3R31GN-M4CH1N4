@@ -24,7 +24,13 @@ describe('Mmap Concurrency & Integrity Audit', () => {
   });
 
   it('should survive concurrent memory corruption without crashing', async () => {
-    const corruptor = spawn('go', ['run', join(__dirname, '../../scripts/mmap-corruptor.go'), TEST_MMAP_PATH]);
+    const corruptor = spawn('go', ['run', join(__dirname, '../../scripts/recovery/mmap-corruptor.go'), TEST_MMAP_PATH]);
+
+    corruptor.stdout?.on('data', (d) => console.log('[corruptor] ' + d));
+    corruptor.stderr?.on('data', (d) => console.log('[corruptor error] ' + d));
+
+    // Wait 2s for go run to compile
+    await new Promise(r => setTimeout(r, 2000));
 
     const startTime = Date.now();
     let readCount = 0;
@@ -47,7 +53,7 @@ describe('Mmap Concurrency & Integrity Audit', () => {
           readCount++;
         }
 
-        if (Date.now() - startTime > 2500) {
+        if (Date.now() - startTime > 3000) {
           clearInterval(interval);
           resolve();
         }
@@ -62,5 +68,5 @@ describe('Mmap Concurrency & Integrity Audit', () => {
     // The corruptor process should finish
     expect(readCount).toBeGreaterThan(0);
     expect(corruptedReads).toBeGreaterThan(0);
-  }, 10000);
+  }, 30000);
 });

@@ -91,7 +91,7 @@ describe('Socketlib Sovereignty Integration', () => {
   });
 
   it('Node B should receive system_heartbeat and log module status', async () => {
-    const logSpy = vi.spyOn(console, 'debug').mockImplementation(() => {});
+    const logSpy = vi.spyOn(logger, 'debug');
     
     // Simulate inbound heartbeat from bridge
     const heartbeatEvent = {
@@ -109,12 +109,20 @@ describe('Socketlib Sovereignty Integration', () => {
     const controller = new HybridRoutingController({
       foundryAdapter: adapter,
       logger,
+      sovereignNarrativeClient: {
+        setProfile: vi.fn(),
+        generateNarrative: vi.fn(),
+        isHealthy: vi.fn().mockResolvedValue(true),
+        stop: vi.fn().mockResolvedValue(undefined)
+      } as any,
       // ... rest of mocks
     } as any);
 
     await controller.handleFoundryEvent(heartbeatEvent as any);
 
     expect(logSpy).toHaveBeenCalledWith(
+      'HRC',
+      expect.any(String),
       expect.stringContaining('System Heartbeat: socketlib=true, fxmaster=true, sequencer=true, splatter=false')
     );
     

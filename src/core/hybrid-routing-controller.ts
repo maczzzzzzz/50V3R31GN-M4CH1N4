@@ -185,7 +185,9 @@ export class HybridRoutingController {
 
   public setProfile(profile: SovereignProfile): void {
     this.activeProfile = profile;
-    this.sovereignNarrative.setProfile(profile);
+    if (typeof this.sovereignNarrative.setProfile === 'function') {
+      this.sovereignNarrative.setProfile(profile);
+    }
     this.sovereignJudge.setProfile(profile);
     this.logger?.info('HRC', 'profile', `Profile switched to: ${profile}`);
   }
@@ -537,7 +539,7 @@ export class HybridRoutingController {
       // Fetch a relevant map tile for the district
       const district = payload.district ?? 'Watson';
       const maps = this.unifiedOracle.query(
-        `SELECT file_path FROM assets WHERE category IN ('tile', 'map') AND faction LIKE ? LIMIT 1`,
+        `SELECT file_path FROM map_assets WHERE biome LIKE ? LIMIT 1`,
         [`%${district}%`]
       ) as Array<{ file_path: string }>;
       mapTile = maps[0]?.file_path;

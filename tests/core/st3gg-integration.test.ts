@@ -10,7 +10,11 @@ import { PNG } from 'pngjs';
 
 // Mocks
 const mockNitroLogic = { resolveAttack: vi.fn(), calculateDv: vi.fn(), oracleRoll: vi.fn(), isHealthy: vi.fn().mockResolvedValue(true) };
-const mockSovereignNarrative = { generateNarrative: vi.fn().mockResolvedValue("SECRET_KEY") };
+const mockSovereignNarrative = { 
+  generateNarrative: vi.fn().mockResolvedValue("SECRET_KEY"),
+  setProfile: vi.fn(),
+  stop: vi.fn().mockResolvedValue(undefined),
+};
 const mockFoundry = { 
   sendChatMessage: vi.fn(), 
   show3dDice: vi.fn(), 

@@ -39,9 +39,8 @@ Pretext utilizes **"Pure Arithmetic"** layout constraints, bypassing traditional
 
 ## ◈ INTERACTIVE OVERLAYS
 
-The HUD supports several reactive overlay layers:
-- **CRT Line Scan:** Periodic scanline sweeps for physical machine aesthetic.
-- **Glitch Impulse:** Frame-buffer distortion triggered by logic vaccination or system errors.
+The HUD supports reactive overlay layers:
+- **Fluid Smoke Metabolism:** Frame-buffer distortion mapping system and agentic load visually.
 - **Neural Shroud:** An opaque locking layer activated during high-security cryptographic operations.
 
 ---
@@ -53,7 +52,7 @@ The HUD supports several reactive overlay layers:
 | **Refresh Rate** | 120fps (Locked) |
 | **Layout Engine** | Pure Arithmetic Primitives |
 | **Visualization** | Trig-Noise / Fluid Smoke |
-| **Feedback** | Glitch Impulse / CRT Scan |
+| **Feedback** | Fluid Smoke Metabolism |
 
 ---
 *::/5Y573M-N071C3 : HUD_BASELINE_MATERIALIZED. // NODESTADT_AUTHORITY_OS*
