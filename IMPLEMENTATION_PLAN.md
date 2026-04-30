@@ -55,7 +55,7 @@
 - [x] **Task 2: Script-Aware Hermes:** Injected script corpus into `HermesSingularity` system prompts to prioritize existing sidecars.
 - [x] **Task 3: Research Artifact Normalization:** Renamed drifted research documents to strict `RESEARCH_YYYY-MM-DD-title.md` convention.
 - [ ] **Task 4: KV Cache Vaccination:** Implement `KVCacheManager.ts` to trigger physical `/slots` purges on profile transitions.
-- [ ] **Task 5: Knowledge Stream (CocoIndex):** Materialize `crates/sovereign-watcher` for `inotify`-based JSONL change-data-capture.
+- [ ] **Task 5: Discovery-First Hardgate:** Force agents to call `discover_state` (querying processes/windows) before planning implementation (TouchDesigner pattern).
 
 ## ⚡ PHASE 104: GLOBAL AESTHETIC REFACTOR (NODESTADT) (IN-PROGRESS)
 **Goal:** Eradicate legacy CRT effects and implement the NODESTADT Authority palette.
@@ -71,10 +71,13 @@
 - [ ] **Task 3: Router mTLS Enforcement:** Update `hermes-inference-router.rs` for strict SPIFFE workload validation.
 
 ## 🧠 PHASE 106: INTELLIGENCE SYNTHESIS & COGNITIVE EXPANSION (BACKLOG)
-**Goal:** Integrate the advanced cognitive pipelines (GitNexus, VibeVoice).
-- [ ] **Task 1: GitNexus AST Graph:** Scaffold `crates/sovereign-graph` to replace linear grep with structured code-graph traversal.
-- [ ] **Task 2: NTLSX Proxy Hardening:** Expand mTLS to Tailscale cross-node tunnels.
-- [ ] **Task 3: VibeVoice Acoustic Tokenizer:** Implement the `sigma-VAE` 7.5Hz continuous latent pipeline for ultra-low latency voice sessions.
+**Goal:** Integrate the advanced cognitive pipelines (GitNexus, VibeVoice, AutoGLM).
+- [ ] **Task 1: Visual-First Perception:** Materialize the `think-answer` block structure and 1Hz pixel-to-coordinate mapping (Open-AutoGLM pattern).
+- [ ] **Task 2: GitNexus AST Graph:** Scaffold `crates/sovereign-graph` to replace linear grep with structured code-graph traversal.
+- [ ] **Task 3: Triple-Path Automation:** Implement Accessibility/ADB/Root fallback mechanism for robust Node C/D control (Operit pattern).
+- [ ] **Task 4: VibeVoice Acoustic Tokenizer:** Implement the `sigma-VAE` 7.5Hz continuous latent pipeline for ultra-low latency voice sessions.
+- [ ] **Task 5: Browser Keeper:** Materialize the persistent Chromium session harness with OAuth preservation (Bux pattern).
+- [ ] **Task 6: Knowledge Stream (CocoIndex):** Materialize `crates/sovereign-watcher` for `inotify`-based JSONL change-data-capture.
 
 ## 🏛️ PHASE 107: NODESTADT ORGANIZATION PIVOT (PENDING)
 **Goal:** Transition to a professional monorepo structure.
