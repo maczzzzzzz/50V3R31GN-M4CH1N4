@@ -1,7 +1,5 @@
 # SOVEREIGN-RED-PLUGIN // THE DIRECTOR'S GAUNTLET
 
-![RED_BANNER](assets/brand-identity/red-banner.png)
-
 The **Sovereign-Red-Plugin** is the flagship simulation engine for the Cyberpunk RED TTRPG. It transforms the Sovereign Machina into a relentless **RED_DIRECTOR**, capable of orchestrating immersive tabletop experiences, simulating complex netrunning environments, and managing deep economic and atmospheric simulation.
 
 ## ◈ CORE FEATURES
