@@ -58,11 +58,11 @@
 - [ ] **Task 5: Discovery-First Hardgate:** Force agents to call `discover_state` (querying processes/windows) before planning implementation (TouchDesigner pattern).
 
 ## ⚡ PHASE 104: GLOBAL AESTHETIC REFACTOR (NODESTADT) (IN-PROGRESS)
-**Goal:** Eradicate legacy CRT effects and implement the NODESTADT Authority palette.
+**Goal:** Eradicate legacy CRT effects and implement the NODESTADT Authority palette with Pretext Kinetic Typography.
 - [x] **Task 1: Authority Palette Saturation:** Updated `dashboard/app/globals.css` with brand hex codes (`#1A1A1A`, `#F36622`, `#C7A87A`).
 - [x] **Task 2: Fluid Smoke Metabolism:** Refactored `PretextShroud.tsx` to Machina Rust highlights and materialized the **Ouroboros Status Ring**.
-- [ ] **Task 3: Typography Purge:** System-wide replacement of VT323 with the Cinzel/Space Grotesk stack.
-- [ ] **Task 4: Flutter HUD Realignment:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD.
+- [ ] **Task 3: Kinetic Typography (Pretext):** Implement `@chenglou/pretext` for geometric text flow and metabolic jitter.
+- [ ] **Task 4: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
 
 ## 🛡️ PHASE 105: THE SECURITY HARDGATE (PENDING)
 **Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer.
