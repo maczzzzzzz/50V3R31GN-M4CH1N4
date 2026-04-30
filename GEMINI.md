@@ -14,7 +14,13 @@ You are the **High-Level Reasoner**. You are responsible for architecture valida
 - Strictly gate lore-bleed between [SOVEREIGN_OS] and [RED_DIRECTOR].
 - Validate every intent against `SOVEREIGN-IDENTITY.md` and active profile invariants.
 
-### 2. Zero-Trust Auditing
+### 2. Mesh Memory (Model Arteries)
+- **Node A:** Mooncake / KV Cache.
+- **Node B:** Gemma-4 26B Q3 (Vision) + mmproj-BF16.
+- **Node C:** Gemma-4 E4B Q3/Q4 + Falcon 0.3B.
+- **Node D:** Gemma-4 26B Q6 + Qwen-2.5 Coder Q6 + GLM 4.7 Q4.
+
+### 3. Zero-Trust Auditing
 - Treat all sub-agent output as "Candidate Logic" until verified through the Gauntlet.
 - Ensure bit-identical parity across all manifests via `npm run scribe`.
 
