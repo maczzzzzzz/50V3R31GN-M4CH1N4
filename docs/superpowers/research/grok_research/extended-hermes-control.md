@@ -181,7 +181,7 @@ This turns Sovereign Machina into a true **personal distributed agent OS**.
 
 **Architecture**
 
-- **IoT Bridge Sidecar** (Rust crate, drop-in via Profile Framework)
+- **IoT Mesh Sidecar** (Rust crate, drop-in via Profile Framework)
   - Supports multiple protocols:
     - Zigbee (via Zigbee2MQTT)
     - Z-Wave
@@ -249,7 +249,7 @@ It fits perfectly into the NODESTADT product line:
 Reply with the number you want first:
 
 1. **Full technical spec** for the Machina Device Agent (Rust crate structure, MCP interface, Android implementation notes).
-2. **IoT Bridge sidecar design** + example Zigbee/MQTT integration.
+2. **IoT Mesh sidecar design** + example Zigbee/MQTT integration.
 3. **Profile Framework extension** to include device & IoT management.
 4. **All of the above** as one comprehensive document.
 

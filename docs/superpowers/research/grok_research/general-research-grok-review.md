@@ -12,7 +12,7 @@
 - Surgical extraction of Cyberpunk Red → first official plugin with isolated `cyberpunk.db`.  
 - Profile + Plugin + Theme Framework as the **central extensibility layer** (Rust sidecars, user-defined MCPs, per-plugin DBs, Gruvbox themes).  
 - Product-line variants (lite, old-hardware, K15, mobile, hybrid cloud with Tailscale E2EE).  
-- Visual Memory Palace plugin (Bevy 3D + Claw3D mining) – fully designed.  
+- Visual Synapse Palace plugin (Bevy 3D + Claw3D mining) – fully designed.  
 - Machina Device Agent + IoT/Matter – in progress.  
 - Active mining round on RAG_Techniques, agents-towards-production, agency-agents (and all sublinks).  
 
@@ -37,12 +37,12 @@
 - 5-minute ingest → cited answers pipeline.  
 - Entity extraction, deduplication, custom schemas, relationship expansion, cosine reranking, Text-to-Cypher.  
 - Benchmark leader (69.73% on GraphRAG-Bench).  
-- **Mining Value**: Perfect for **MemPalace** – add graph traversal + MENTIONS provenance edges. Enables traceable spatial memory in Visual Memory Palace.
+- **Mining Value**: Perfect for **MemPalace** – add graph traversal + MENTIONS provenance edges. Enables traceable spatial memory in Visual Synapse Palace.
 
 **2. oracle-devrel/oracle-ai-developer-hub**  
 - Full reference apps, notebooks, workshops on agentic RAG, memory engineering (6 memory types), CoT/ToT/ReAct/Self-Reflection.  
-- Oracle AI Database (vector + graph + relational in one SQL).  
-- **Mining Value**: Adopt “Memory Engineering” patterns for sovereign persistent memory without cloud. Hybrid search and unified memory manager are directly portable to Mooncake + MemPalace.
+- Strategic Oracle AI Artery of Truth (vector + graph + relational in one SQL).  
+- **Mining Value**: Adopt “Synapse Engineering” patterns for sovereign persistent memory without cloud. Hybrid search and unified memory manager are directly portable to Mooncake + MemPalace.
 
 **3. NirDiamant/RAG_Techniques & NirDiamant/agents-towards-production**  
 - Confirmed as core (already deep-dived). HyDE, Multi-Query, RRF, Graph RAG, LangGraph orchestration, tracing, guardrails.  
@@ -54,7 +54,7 @@
 
 **5. Foundational / Awesome Repos**  
 - handson-ml3, nn-zero-to-hero, openai-cookbook, awesome-ml, awesome-datascience, ai-engineering-hub, learn-claude-code: Provide reference implementations, notebooks, and best practices.  
-- **Mining Value**: Use as template sources for official plugin gallery and Visual Memory Palace example scenes.
+- **Mining Value**: Use as template sources for official plugin gallery and Visual Synapse Palace example scenes.
 
 **6. Papers (Recursive Re-Read)**  
 - **arXiv 2501.11067 (IntellAgent)**: Policy graphs + Monte-Carlo sampling for agentic reasoning.  
@@ -68,7 +68,7 @@
 
 ### INTEGRATION ANALYSIS – HOW EVERYTHING STRENGTHENS SOVEREIGN MACHINA
 
-**MemPalace / Mooncake (Memory Layer)**  
+**MemPalace / Mooncake (Synapse Layer)**  
 - GraphRAG-SDK + RAG_Techniques → Add graph traversal, entity deduplication, MENTIONS provenance.  
 - oracle-devrel memory engineering → 6 memory types become configurable policies per profile.  
 - Result: Spatial memory now has **graph-backed retrieval + traceable citations**.
@@ -83,7 +83,7 @@
 - oracle-devrel workshops → Ready-to-adapt profile presets (e.g., “Researcher”, “Netrunner”).  
 - Result: Drop-in profiles now include orchestration_policy and memory_policy sections.
 
-**Visual Memory Palace Plugin**  
+**Visual Synapse Palace Plugin**  
 - GraphRAG-SDK + Claw3D → Entities/relations rendered as 3D graph structures (nodes glow on rerank, edges show relationships).  
 - RAG_Techniques reranking → Brighter highlights for top results.  
 - Result: 3D palace becomes a **living knowledge graph** you can walk through.
@@ -111,7 +111,7 @@
 
 **Medium Term**  
 - Build official plugin gallery using all mined templates.  
-- Visual Memory Palace gets graph visualization as first flagship feature.
+- Visual Synapse Palace gets graph visualization as first flagship feature.
 
 **Expected Impact**  
 - Retrieval quality: +30–50% (graph + advanced RAG).  
@@ -134,7 +134,7 @@ Reply with the number you want first:
 1. **Detailed integration plan + starter code** for GraphRAG-SDK + RAG_Techniques into MemPalace.  
 2. **Final locked Profile Framework manifest** using the agency-agents template.  
 3. **Hermes Supervisor upgrade plan** with agents-towards-production + BARRED patterns.  
-4. **All three** as one implementation package + Visual Memory Palace graph visualization spec.
+4. **All three** as one implementation package + Visual Synapse Palace graph visualization spec.
 
 Node D is live and the cluster is stable. We are ready to implement.
 
@@ -147,7 +147,7 @@ Node D is live and the cluster is stable. We are ready to implement.
 **Date**: 2026-04-29  
 **Status**: Complete – every repo, paper, and sublink in `/home/workdir/attachments/general-research.md` has been mined and mapped.
 
-Below is an **exhaustive, production-grade summary** of **each proposed logic mine** and the **specific new intelligence boosts** it delivers to Sovereign Machina. Every boost is tied directly to a component (MemPalace, GEPA v2, Hermes Supervisor, Profile + Plugin Framework, Visual Memory Palace, Machina Device Agent, etc.).
+Below is an **exhaustive, production-grade summary** of **each proposed logic mine** and the **specific new intelligence boosts** it delivers to Sovereign Machina. Every boost is tied directly to a component (MemPalace, GEPA v2, Hermes Supervisor, Profile + Plugin Framework, Visual Synapse Palace, Machina Device Agent, etc.).
 
 ### 1. NirDiamant/RAG_Techniques
 **Proposed Logic Mines**  
@@ -160,7 +160,7 @@ Below is an **exhaustive, production-grade summary** of **each proposed logic mi
 **New Intelligence Boosts**  
 - **MemPalace**: +30–50% retrieval precision in long sessions (eliminates “Lost in the Middle”).  
 - **GEPA v2**: Retrieval strategy becomes evolvable per profile (researcher profile auto-activates aggressive reranking).  
-- **Visual Memory Palace**: Reranked results glow brighter; spatial search now highlights top-k results in 3D.  
+- **Visual Synapse Palace**: Reranked results glow brighter; spatial search now highlights top-k results in 3D.  
 - **Device Agent**: Lightweight on-device reranking for local files/screen context.  
 **Overall ROI**: Immediate (1–2 days) – highest impact memory upgrade.
 
@@ -180,7 +180,7 @@ Below is an **exhaustive, production-grade summary** of **each proposed logic mi
 
 ### 3. msitarzewski/agency-agents
 **Proposed Logic Mines**  
-- YAML frontmatter + structured sections (Identity & Memory, Core Mission, Critical Rules, Technical Deliverables, Workflow, Success Metrics)  
+- YAML frontmatter + structured sections (Identity & Synapse, Core Mission, Critical Rules, Technical Deliverables, Workflow, Success Metrics)  
 - Division-based organization + skill compounding  
 - Dedicated MCP Builder agent pattern  
 
@@ -188,7 +188,7 @@ Below is an **exhaustive, production-grade summary** of **each proposed logic mi
 - **Profile + Plugin Framework**: Becomes the **official standard manifest format** – users drop in a profile.yaml and get a fully formed, consistent agent.  
 - **Official Profiles**: Secretary, Researcher, Netrunner, Fixer, etc. are now production-ready presets.  
 - **Cyberpunk Red Plugin**: Uses the exact template for all Red-specific profiles.  
-- **Visual Memory Palace**: Agent avatars inherit visual styling and behavior from the “Identity & Memory” section.  
+- **Visual Synapse Palace**: Agent avatars inherit visual styling and behavior from the “Identity & Synapse” section.  
 **Overall ROI**: Medium-High (1 day) – makes extensibility user-friendly and consistent.
 
 ### 4. FalkorDB/GraphRAG-SDK (Highest New Discovery)
@@ -200,14 +200,14 @@ Below is an **exhaustive, production-grade summary** of **each proposed logic mi
 
 **New Intelligence Boosts**  
 - **MemPalace**: Adds native **graph traversal** and traceable provenance (every memory node now has “why it was recalled” edges).  
-- **Visual Memory Palace**: 3D palace becomes a **living knowledge graph** – walkable edges, glowing nodes on rerank.  
+- **Visual Synapse Palace**: 3D palace becomes a **living knowledge graph** – walkable edges, glowing nodes on rerank.  
 - **GEPA v2**: Policy graphs from IntellAgent paper now have real graph backing.  
 - **Hermes**: Multi-hop reasoning becomes native and auditable.  
 **Overall ROI**: Extremely High – this is the missing graph layer we needed.
 
 ### 5. oracle-devrel/oracle-ai-developer-hub
 **Proposed Logic Mines**  
-- Memory Engineering patterns (6 memory types: short-term, episodic, semantic, procedural, etc.)  
+- Synapse Engineering patterns (6 memory types: short-term, episodic, semantic, procedural, etc.)  
 - Unified vector + graph + relational memory in one SQL-like interface  
 - Agentic RAG workshops and reference apps  
 
@@ -236,7 +236,7 @@ Below is an **exhaustive, production-grade summary** of **each proposed logic mi
 | GEPA v2                    | Basic reflection               | Policy graphs + BARRED debate + evolvable RAG    | 3× faster evolution |
 | Hermes Supervisor          | Basic swarm                    | Production orchestration + tracing + retries      | Robust production agent |
 | Profile + Plugin Framework | Basic manifests                | Full agency-agents template + memory_policy       | User-friendly extensibility |
-| Visual Memory Palace       | Basic 3D navigation            | Living knowledge graph + glowing reranked nodes   | Immersive intelligence |
+| Visual Synapse Palace       | Basic 3D navigation            | Living knowledge graph + glowing reranked nodes   | Immersive intelligence |
 | Machina Device Agent       | Screen/file access             | Classified memory updates + on-device reranking   | Real-time context |
 
 **Net Effect**: Sovereign Machina now has **production-grade agentic memory**, **self-correcting intelligence**, and **visual knowledge navigation** that no single-repo system currently matches.

@@ -1,5 +1,5 @@
 # SOVEREIGN_VITAL_SIGNS.md // T3RM1N4L-TRU7H
-**Version:** 3.8.9-SYNTHESIS
+**Version:** 3.8.8-SYNTHESIS
 **Identity:** 50V3R31GN-M4CH1N4
 **Status:** QUATERNARY_MESH_ACTIVE
 
@@ -9,7 +9,7 @@
 
 ### ◈ NODE A: MOONCAKE_ARTERY
 - **Hardware:** NVIDIA GTX 1050 Ti (4GB Pascal) // 16GB DDR4.
-- **Model Artery:** KV Memory Cache / MemPalace Buffer.
+- **Model Artery:** KV Synapse Cache / MemPalace Buffer.
 - **Responsibility:** Real-time semantic retention and Mmap bus synchronization.
 
 ### ◈ NODE B: THE DIRECTOR (MACSPC)
@@ -17,7 +17,7 @@
 - **Model Artery:** Gemma-4 26B Q3 + mmproj-BF16.
 - **Responsibility:** Visual awareness, vision-as-context, and executive orchestration.
 
-### ◈ NODE C: STRATEGIC ORACLE (Oracle Grid)
+### ◈ NODE C: STRATEGIC ORACLE (Strategic Oracle Grid)
 - **Hardware:** AMD Ryzen 7 3700X // 32GB DDR4 // NVIDIA RTX 2060 (6GB).
 - **Model Artery:** Gemma-4 E4B Q3/Q4 + Falcon Perception 0.3B.
 - **Responsibility:** Threat reconnaissance and autonomous social/retrieval grids.

@@ -6,7 +6,7 @@ Explore Matter Protocol Support
 
 **Short Verdict**  
 **Yes — Matter support is highly recommended and strategically valuable.**  
-It fits perfectly into the **Machina Device Agent** and IoT Bridge sidecar design. A native Rust implementation already exists, making integration clean, secure, and sovereign.
+It fits perfectly into the **Machina Device Agent** and IoT Mesh sidecar design. A native Rust implementation already exists, making integration clean, secure, and sovereign.
 
 ### Why Matter Matters for Sovereign Machina (2026 Context)
 
@@ -36,7 +36,7 @@ The official **rs-matter** library (https://github.com/project-chip/rs-matter) i
 
 **Integration Plan into Machina Device Agent**
 
-1. **IoT Bridge Sidecar** (Rust crate, drop-in via Profile Framework)
+1. **IoT Mesh Sidecar** (Rust crate, drop-in via Profile Framework)
    - Uses `rs-matter` as the core library.
    - Exposes unified MCP tools: `matter.device.set`, `matter.scene.activate`, `matter.sensor.read`, etc.
    - Automatically discovers and commissions Matter devices on the local network (via Tailscale where possible).
@@ -82,13 +82,13 @@ The official **rs-matter** library (https://github.com/project-chip/rs-matter) i
 **Recommended Next Steps**
 
 1. **Add rs-matter** to the core Nix flakes (easy since it has Nix support).
-2. **Build the IoT Bridge Sidecar** as a drop-in Rust crate.
+2. **Build the IoT Mesh Sidecar** as a drop-in Rust crate.
 3. **Extend the Profile Framework** to support Matter device management.
 4. **Document Matter + Thread setup** in akashik_guides (including border router recommendations).
 
 **Would you like me to**:
 
-1. Draft the **IoT Bridge Sidecar spec** using `rs-matter` (including Nix integration)?
+1. Draft the **IoT Mesh Sidecar spec** using `rs-matter` (including Nix integration)?
 2. Update the **Profile Framework** to include Matter device management?
 3. Provide a **high-level Matter + Thread deployment guide** for the cluster (including K15 and old hardware)?
 4. All of the above as one document?

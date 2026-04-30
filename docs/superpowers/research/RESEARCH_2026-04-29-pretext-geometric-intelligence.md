@@ -1,6 +1,6 @@
 # RESEARCH: Pretext Geometric Intelligence & Kinetic Typography
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.9-PRETEXT
+**Version:** 3.8.8-PRETEXT
 **Source:** https://github.com/NousResearch/hermes-agent/tree/main/skills/creative/pretext
 
 ## ◈ 1. CONCEPTUAL LEAP: TEXT AS GEOMETRY

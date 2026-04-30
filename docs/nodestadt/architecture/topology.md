@@ -1,4 +1,4 @@
-# NODESTADT Authority OS: Network Topology (v3.8.9)
+# NODESTADT Authority OS: Network Topology (v3.8.8)
 ## 4-Node Quaternary Mesh (A/B/C/D)
 
 The system operates on a distributed quaternary mesh. **STATUS: ARTERY_MAPPED.**
@@ -7,7 +7,7 @@ The system operates on a distributed quaternary mesh. **STATUS: ARTERY_MAPPED.**
 
 #### [Node A] - Mooncake: The Synapse
 - **Hardware:** NVIDIA GTX 1050 Ti (4GB Pascal) // 16GB DDR4.
-- **Model Artery:** KV Memory Cache / MemPalace Buffer.
+- **Model Artery:** KV Synapse Cache / MemPalace Buffer.
 - **Role:** High-speed semantic retention and logic bus signing.
 
 #### [Node B] - Director: The Vision (MACSPC)
@@ -27,8 +27,8 @@ The system operates on a distributed quaternary mesh. **STATUS: ARTERY_MAPPED.**
 
 ---
 
-### ◈ THE COGNITIVE ARTERY (v3.8.9)
-1. **Memory:** Node A (Synapse Cache).
+### ◈ THE COGNITIVE ARTERY (v3.8.8)
+1. **Synapse:** Node A (Synapse Cache).
 2. **Perception:** Node B (Vision-as-Context) + Node C (Ambient Perception).
 3. **Reasoning:** Node D (Architectural Heavy-Lifting).
 4. **Implementation:** Node D (Qwen-Coder Artery).

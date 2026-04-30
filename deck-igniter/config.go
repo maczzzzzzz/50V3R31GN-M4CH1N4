@@ -20,6 +20,8 @@ type Config struct {
 	NodeALlamaURL   string // NODE_A_LLAMA_URL
 	NodeCHost       string // NODE_C_HOST
 	NodeCPort       string // NODE_C_PORT
+	NodeDHost       string // NODE_D_HOST
+	NodeDPort       string // NODE_D_PORT
 	ClawlinkPort    string // CLAWLINK_PORT (VSB UDP port)
 	SetupScriptPath string // full path to setup-resident-models.sh on Node A
 	WindowsHostIP   string // WINDOWS_HOST_IP — override WSL2 auto-detection (default: empty = auto)
@@ -33,6 +35,8 @@ var defaultConfig = Config{
 	NodeALlamaURL:   "http://10.0.0.10:8080/v1",
 	NodeCHost:       "10.0.0.12",
 	NodeCPort:       "7339",
+	NodeDHost:       "10.0.0.13",
+	NodeDPort:       "8080",
 	ClawlinkPort:    "7878",
 	SetupScriptPath: "~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh",
 	WindowsHostIP:   "",

@@ -68,6 +68,10 @@ func mooncakeHealthURL() string {
 	return fmt.Sprintf("http://%s:6789/health", Cfg.NodeAHost)
 }
 
+func swapperHealthURL() string {
+	return fmt.Sprintf("http://%s:%s/health", Cfg.NodeDHost, Cfg.NodeDPort)
+}
+
 var httpProber = &http.Client{Timeout: probeTimeout}
 
 // ── Probe Dispatch ─────────────────────────────────────────────────────────────
@@ -110,6 +114,8 @@ func probeComponent(c *Component) tea.Cmd {
 		return probeHTTP(c.Name, mooncakeHealthURL())
 	case "oracle-logic":
 		return probeHTTP(c.Name, oracleHealthURL())
+	case "node-d-command":
+		return probeHTTP(c.Name, swapperHealthURL())
 	default:
 		return nil
 	}

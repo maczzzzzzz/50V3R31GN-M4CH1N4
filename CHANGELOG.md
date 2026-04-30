@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 
+## [3.8.10-SYNTHESIS] - 2026-04-30
+
+### Added
+- **Ability Stones (Scoped Identity):** Materialized localized `AGENTS.md` manifests for `src/`, `crush/`, and `zeroclaw/` to enforce sector-specific architectural invariants and eliminate assistant-speak in specialized domains.
+- **Browser Extension Guide:** Materialized `docs/nodestadt/sidecar-browser-extension.md` documenting the high-fidelity Vivaldi ingress pipeline and port mappings.
+- **Node D Health Probe:** Integrated a dedicated health check for the Node D model swapper into the `deck-igniter` heartbeat loop.
+
+### Changed
+- **Model Farm Orchestration:** Patched `hermes-router` to hit the **Node D Swapper (:8080)** instead of the raw model server, enabling autonomous VRAM management for heavy context/reasoning requests.
+- **Declarative Identity Sync:** Synchronized `nix/identities.nix` with root `SOUL.md` and `AGENTS.md` hardware invariants for the Quaternary Mesh (v3.8.8).
+- **Startup Consolidation:** Centralized the system ignition sequence around `deck-igniter`. Added `boot:cpr` and `boot:headless` scripts to `package.json` for environment-aware startup.
+- **Agent Sandbox Upgrade:** Elevated `nix/agent-sandbox.nix` to **Node.js 22** with strict capability gates for hardware sovereignty.
+- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.8-SYNTHESIS) across the mesh.
+
+### Fixed
+- **Ignition Pollution:** Surgically archived 10+ legacy/redundant ignition scripts to `scripts/archive/` to restore directory purity and simplify the boot process.
+- **Drift Reconciliation:** Synchronized root `SOUL.md` and `AGENTS.md` with the physical state of the Quaternary Artery.
+
 ## [3.8.9-RECONCILIATION] - 2026-04-29
 
 ### Added
@@ -18,11 +36,11 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 - **Ouroboros Status Ring:** Materialized the SVG-path animated status ring in `PretextShroud.tsx` for real-time agentic loop visualization.
 
 ### Changed
-- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.9) across `SOUL.md`, `AGENTS.md`, `README.md`, `GEMINI.md`, and `SOVEREIGN-IDENTITY.md`.
+- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.8) across `SOUL.md`, `AGENTS.md`, `README.md`, `GEMINI.md`, and `SOVEREIGN-IDENTITY.md`.
 - **NODESTADT Aesthetic Ascension:** Purged Gruvbox Material variables from `globals.css`. Locked the **Authority Palette** (#1A1A1A, #F36622, #C7A87A) and transitioned to the Cinzel/Space Grotesk typography stack.
 - **Aesthetic Refactor:** Replaced legacy CRT/Glitch overlays with **Fluid Smoke Metabolism** (Machina Rust pulse) in the Pretext HUD.
 - **Implementation Plan Re-Alignment:** Surgically re-ordered and re-numbered the `IMPLEMENTATION_PLAN.md` to reflect true dependency-weighted trajectories.
-- **Profile-Aware Memory Observer:** Refactored `MemoryObserver.ts` to strictly gate lore-distillation based on the active soul profile ([SOVEREIGN_OS] vs [RED_DIRECTOR]).
+- **Profile-Aware Synapse Observer:** Refactored `MemoryObserver.ts` to strictly gate lore-distillation based on the active soul profile ([SOVEREIGN_OS] vs [RED_DIRECTOR]).
 
 ### Fixed
 - **Dead Link Restoration:** Repaired broken documentation references in `README.md` and restored link integrity to the high-fidelity knowledge base.

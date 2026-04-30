@@ -17,18 +17,18 @@ lets compare this system to our RAG implementation https://github.com/supermemor
 | Aspect                  | Sovereign Machina                              | SMFS (Supermemory AI)                     |
 |-------------------------|------------------------------------------------|-------------------------------------------|
 | **Core Design**         | Multi-node cluster (Node A–D), NixOS declarative, Rust-heavy core | Single-user mount + cloud backend         |
-| **Memory Layer**        | Distributed (Mooncake KV spillover + spatial MemPalace) | Cloud-backed container with local FUSE/NFS mount |
+| **Synapse Layer**        | Distributed (Mooncake KV spillover + spatial MemPalace) | Cloud-backed container with local FUSE/NFS mount |
 | **Orchestration**       | Hermes Supervisor + GEPA v2 + swarms-rs + ZeroClaw | Simple sync daemon + semantic grep wrapper |
 | **Extensibility**       | Full Profile + Plugin + Theme Framework (drop-in Rust sidecars, custom MCPs, per-plugin databases) | Limited to path-based memory scoping and virtual bash tool |
 | **Security**            | Zero-trust (SPIFFE identities, mTLS, Tailscale E2EE, provenance ledger) | API-key based, no built-in zero-trust or workload identity |
 
-**RAG / Memory Management**  
+**RAG / Synapse Management**  
 
 | Aspect                  | Sovereign Machina                              | SMFS                                      |
 |-------------------------|------------------------------------------------|-------------------------------------------|
 | **RAG Approach**        | Hybrid: structured spatial MemPalace + vector search + GEPA-evolved retrieval | Semantic indexing of files dropped into scoped paths; exposed via `grep` wrapper |
-| **Memory Persistence**  | Fully local-first (Mooncake + `sovereignintelligence.db`); plugin dbs are isolated | Local cache + cloud backend (Supermemory API required for indexing) |
-| **Agentic Memory**      | Self-evolving (GEPA v2 reflects on trajectories, evolves genomes per profile) | Static memory profiles based on paths; no self-evolution |
+| **Synapse Persistence**  | Fully local-first (Mooncake + `sovereignintelligence.db`); plugin dbs are isolated | Local cache + cloud backend (Supermemory API required for indexing) |
+| **Agentic Synapse**      | Self-evolving (GEPA v2 reflects on trajectories, evolves genomes per profile) | Static memory profiles based on paths; no self-evolution |
 | **Scalability**         | Horizontal across physical nodes + hybrid cloud | Single-container focus; scales via cloud backend |
 
 **Agentic Capabilities**  
@@ -78,7 +78,7 @@ We should **not** integrate SMFS directly.
 Instead, we can mine the semantic `grep` + mount UX pattern and implement a similar lightweight interface as a **drop-in plugin** on top of our existing Mooncake + MemPalace layer.
 
 Would you like me to:
-1. Draft a **Memory Mount Plugin** spec inspired by SMFS (using our core infrastructure)?
+1. Draft a **Synapse Mount Plugin** spec inspired by SMFS (using our core infrastructure)?
 2. Continue with the product-line / plugin framework work?
 3. Focus on Node D stabilization first?
 
@@ -113,7 +113,7 @@ CocoIndex + Kafka treats unstructured knowledge sources (files, wikis, PDFs, cod
 
 **APPLICABILITY TO SOVEREIGN MACHINA**
 
-**1. Agentic Memory & Streaming Knowledge Layer (High Value)**  
+**1. Agentic Synapse & Streaming Knowledge Layer (High Value)**  
 This directly addresses one of the biggest weaknesses in current agent systems: **snapshot drift** during long sessions.  
 
 - **Our Current Stack**: Mooncake + MemPalace + GEPA v2 (structured spatial memory with evolution).  
@@ -124,7 +124,7 @@ This directly addresses one of the biggest weaknesses in current agent systems: 
 **Concrete Benefit**  
 - Hermes agents always see fresh knowledge without periodic re-indexing.  
 - GEPA v2 can react to real changes in real time (e.g., new research paper added → immediate reflection pass).  
-- Solves “Lost in the Middle” and False Memory Propagation by reducing reliance on stale snapshots.
+- Solves “Lost in the Middle” and False Synapse Propagation by reducing reliance on stale snapshots.
 
 **2. Hermes Supervisor & Multi-Agent Coordination**  
 - The post’s “single change reaches every consumer” pattern aligns perfectly with our swarm orchestration.  
@@ -134,11 +134,11 @@ This directly addresses one of the biggest weaknesses in current agent systems: 
 **3. Profile + Plugin Framework**  
 - Profiles can declare “watched sources” that feed into their scoped view of memory.  
 - Plugins (e.g., Cyberpunk Red) can publish their own change events to dedicated topics.  
-- The Memory Mount plugin can expose these streams as a live filesystem view.
+- The Synapse Mount plugin can expose these streams as a live filesystem view.
 
 **4. Machina Device Agent & IoT**  
 - Device Agent on Android/laptops can act as a source: screen changes, file edits, sensor data → change events published to Kafka-style log.  
-- IoT Bridge can publish device state changes as events.
+- IoT Mesh can publish device state changes as events.
 
 **5. Hybrid Cloud & Product Line**  
 - Perfect for hybrid setups: local nodes publish changes → cloud nodes subscribe with replay.  
@@ -162,7 +162,7 @@ The CocoIndex approach (state-driven → change events with durable log) is a na
 1. Add a **Knowledge Stream Plugin** that watches sources and emits change events.  
 2. Integrate durable log replay into Hermes for consistent agent state.  
 3. Extend the Profile Framework to declare watched sources and scoped event subscriptions.  
-4. Use this for real-time freshness in the Visual Memory Palace plugin and Cyberpunk Red plugin.
+4. Use this for real-time freshness in the Visual Synapse Palace plugin and Cyberpunk Red plugin.
 
 This strengthens our agentic memory story significantly and fits the sovereign, local-first ethos.
 

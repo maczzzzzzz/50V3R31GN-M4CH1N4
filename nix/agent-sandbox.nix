@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 /**
- * AGENT_SANDBOX — v3.8.7
+ * AGENT_SANDBOX — v3.8.9
  * 
  * Implements the 'nono' capability gates for agent-spawned processes.
  * Ensures strict physical sovereignty and VRAM safety.
@@ -32,7 +32,7 @@ in
       git
       curl
       sqlite
-      nodejs_20
+      nodejs_22
       ripgrep
     ];
     vramLimitMb = 4096;

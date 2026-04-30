@@ -6,10 +6,10 @@
 
 The system operates across four specialized hardware nodes, establishing a high-throughput **Cognitive Artery**:
 
-1.  **NODE A (Mooncake):** Synapse Artery. NVIDIA GTX 1050 Ti (4GB Pascal). Dedicated to **KV Memory Caching** and MemPalace buffer management.
+1.  **NODE A (Mooncake):** Synapse Artery. NVIDIA GTX 1050 Ti (4GB Pascal). Dedicated to **KV Synapse Caching** and MemPalace buffer management.
 2.  **NODE B (The Director):** The Narrative Heart. AMD Radeon RX 9060 XT (16GB). Dedicated to **Gemma-4 26B Visual Control** and Ambient Screen Awareness.
-3.  **NODE C (Oracle):** The Defense Grid. NVIDIA RTX 2060 (6GB). Hosting **Gemma-4 E4B** and **Falcon Perception 0.3B** for threat reconnaissance.
-4.  **NODE D (Strategic Oracle):** The Heavy Reasoner. GMKtec K15 (Intel NPU). Hosting the **Heavy Reasoner Farm** (Gemma 26B Q6, Qwen Coder Q6, GLM 4.7).
+3.  **NODE C (Strategic Oracle):** The Defense Grid. NVIDIA RTX 2060 (6GB). Hosting **Gemma-4 E4B** and **Falcon Perception 0.3B** for threat reconnaissance.
+4.  **NODE D (Strategic Strategic Oracle):** The Heavy Reasoner. GMKtec K15 (Intel NPU). Hosting the **Heavy Reasoner Farm** (Gemma 26B Q6, Qwen Coder Q6, GLM 4.7).
 
 ## 🚀 CORE CAPABILITIES
 
@@ -39,6 +39,6 @@ The full high-fidelity Knowledge Base is available in the `docs/nodestadt/` dire
 - [API & Capability Reference](docs/nodestadt/capabilities/usage-guide.md)
 
 ---
-**::/5Y573M-N071C3 : NODESTADT_AUTHORITY_OS_V3.8.9_ACTIVE. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : NODESTADT_AUTHORITY_OS_V3.8.8_ACTIVE. // 50V3R31GN-M4CH1N4**
 
 **LINKS:** [ABOUT.md](ABOUT.md) | [CHANGELOG.md](CHANGELOG.md) | [SOUL.md](SOUL.md)

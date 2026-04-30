@@ -46,8 +46,8 @@ The "Plinius Shards" provide the foundational unconstrained logic and steganogra
 - **Firecrawl:** High-fidelity DOM-to-Markdown conversion.
 - **ColPali:** Visual RAG and lore retrieval.
 
-### ◈ Quaternary Intelligence Ingress (v3.8.9)
-The Quaternary Intelligence Audit (v3.8.8-v3.8.9) expanded the mesh with SOTA agentic patterns and streaming intelligence:
+### ◈ Quaternary Intelligence Ingress (v3.8.8)
+The Quaternary Intelligence Audit (v3.8.8-v3.8.8) expanded the mesh with SOTA agentic patterns and streaming intelligence:
 - **NirDiamant/RAG_Techniques:** Advanced retrieval enhancement (HyDE, RRF, Contextual Retrieval).
 - **NirDiamant/agents-towards-production:** Production-grade orchestration, observability, and failure attribution.
 - **msitarzewski/agency-agents:** Standardized agent template manifests (144+ specialized souls).

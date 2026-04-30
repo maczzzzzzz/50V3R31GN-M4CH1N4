@@ -1,6 +1,6 @@
 # RESEARCH: SOTA Agentic Patterns & Implementation Blueprints
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.9-RESEARCH
+**Version:** 3.8.8-RESEARCH
 **Sources:** Open-AutoGLM, TouchDesigner-MCP, Bux, Operit
 
 ## ◈ 1. PERCEPTION: VISUAL-FIRST CONTROL (Open-AutoGLM)
@@ -29,7 +29,7 @@
         1.  `Accessibility Service` (Primary).
         2.  `ADB` (Secondary).
         3.  `Root` (Final Authority).
-    *   **Intelligent Memory Classifiers:** AI-driven auto-classification of interaction traces into semantic memory types.
+    *   **Intelligent Synapse Classifiers:** AI-driven auto-classification of interaction traces into semantic memory types.
 
 ---
 **::/5Y573M-N071C3 : SOTA_PATTERNS_MATERIALIZED. // 50V3R31GN-M4CH1N4**

@@ -1,6 +1,6 @@
 # RESEARCH: Voicebox Local-First Voice Intelligence
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.9-VOICEBOX
+**Version:** 3.8.8-VOICEBOX
 **Source:** https://github.com/jamiepine/voicebox
 
 ## ◈ 1. CONCEPTUAL ARCHETYPE: THE VOICE STUDIO

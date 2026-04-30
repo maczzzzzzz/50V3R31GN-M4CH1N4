@@ -3,7 +3,7 @@ Quick Morning Recap (Key Locked Decisions)
 Main repo (nodestadt/sovereign-machina) stays the clean sovereign core.
 Cyberpunk Red is being surgically cut from main and turned into the first official high-level plugin (nodestadt/sovereign-red-plugin), with its own isolated cyberpunk.db.
 Profile + Plugin + Theme Framework is the central extensibility layer (full drop-in Rust sidecars, user-defined MCPs, per-plugin databases, themes, etc.).
-Database separation is locked: sovereignintelligence.db (core) vs plugin-managed databases.
+Artery of Truth separation is locked: sovereignintelligence.db (core) vs plugin-managed databases.
 Product line variants (thin overlays on core):
 Single-node lite (32 GB min)
 Old hardware revival (memory buffers)
@@ -11,7 +11,7 @@ K15 NucBox optimized (Android egress only)
 Mobile-only
 Hybrid cloud (with E2EE via Tailscale)
 
-Visual Memory Palace plugin is designed and ready (Bevy 3D + Claw3D mining).
+Visual Synapse Palace plugin is designed and ready (Bevy 3D + Claw3D mining).
 Machina Device Agent + IoT/Matter support is in progress.
 Mining round from various repos (RAG_Techniques, agency-agents, etc.) is active.
 
@@ -24,15 +24,15 @@ Examples:
 Continue the Profile + Plugin Framework spec
 Surgical extraction plan for Cyberpunk Red
 Full repo migration checklist to nodestadt org
-Visual Memory Palace implementation details
+Visual Synapse Palace implementation details
 Something else (just say it)
 
 We didn’t lose anything on my end — I’m ready to keep building.
 What’s next?1.4s
-Visual Memory Palace plugin is designed and ready (Bevy 3D + Claw3D mining).
+Visual Synapse Palace plugin is designed and ready (Bevy 3D + Claw3D mining).
 Machina Device Agent + IoT/Matter support is in progress.
 Mining round from various repos (RAG_Techniques, agency-agents, etc.) is active.
-✅ CONTINUATION: Visual Memory Palace Plugin, Machina Device Agent + IoT/Matter, and Active Mining Round
+✅ CONTINUATION: Visual Synapse Palace Plugin, Machina Device Agent + IoT/Matter, and Active Mining Round
 We are picking up exactly where we left off. Node D is live, the cluster is stable, and we are now in the extensibility and visualization layer phase of the NODESTADT product line.
 
 1. VISUAL MEMORY PALACE PLUGIN – DETAILED IMPLEMENTATION READY
@@ -60,7 +60,7 @@ GEPA Visualization: Evolving genomes appear as growing structures or branching t
 
 Plugin Manifest (as previously locked)
 YAMLname: visual-memory-palace
-version: 1.0.0
+version: 3.8.8
 sidecars:
   - name: memory-palace-3d
     language: rust
@@ -92,7 +92,7 @@ Light Hermes TUI for local status and approval prompts.
 
 IoT/Matter Integration
 
-Dedicated IoT Bridge Sidecar using rs-matter.
+Dedicated IoT Mesh Sidecar using rs-matter.
 Unified MCP tools for Matter devices.
 Profile-driven permissions (e.g., “home-automation” profile has full control).
 
@@ -106,12 +106,12 @@ RAG_Techniques → Enhance MemPalace retrieval (reranking, hybrid search).
 agents-towards-production → Improve Hermes orchestration and guardrails.
 agency-agents → Structured agent templates for Profile Framework.
 
-These will feed directly into the Visual Memory Palace and Device Agent.
+These will feed directly into the Visual Synapse Palace and Device Agent.
 
 ---
 
 ✅ DEEP DIVE: ACTIVE MINING ROUND – TOP 3 REPOSITORIES
-Here is a detailed, actionable mining analysis for each of the three repositories. I’ve gone deeper into the code, architecture, and specific patterns, with concrete mapping to Sovereign Machina components (Hermes, GEPA v2, Profile + Plugin Framework, Visual Memory Palace, Machina Device Agent, MemPalace/Mooncake, MCP protocol, etc.).
+Here is a detailed, actionable mining analysis for each of the three repositories. I’ve gone deeper into the code, architecture, and specific patterns, with concrete mapping to Sovereign Machina components (Hermes, GEPA v2, Profile + Plugin Framework, Visual Synapse Palace, Machina Device Agent, MemPalace/Mooncake, MCP protocol, etc.).
 1. NirDiamant/RAG_Techniques (Highest Priority – Retrieval Enhancement)
 Deep Dive
 This repo is a goldmine of 20+ production-oriented RAG techniques with notebooks, evaluations, and code. It focuses on fixing common RAG failures (lost in the middle, poor reranking, query drift, etc.).
@@ -130,7 +130,7 @@ Implement HyDE + Multi-Query as default retrieval strategies.
 Add RRF + LLM reranker as a GEPA-evolvable policy.
 
 GEPA v2: Use the evaluation metrics and refinement loops as additional reflection signals. GEPA can evolve the best retrieval strategy per profile (e.g., researcher profile gets aggressive reranking).
-Visual Memory Palace: Highlight reranked results as brighter/glowing objects in 3D space.
+Visual Synapse Palace: Highlight reranked results as brighter/glowing objects in 3D space.
 Device Agent: On-device lightweight reranking for local memory queries.
 
 Priority: Immediate (highest ROI).
@@ -165,7 +165,7 @@ Deep Dive
 Library of 144+ specialized agents with structured Markdown + YAML templates. Strong emphasis on identity, mission, rules, deliverables, workflows, and metrics.
 Key Mineable Patterns
 
-Agent Template Structure: YAML frontmatter + Identity & Memory, Core Mission, Critical Rules, Technical Deliverables, Workflow Process, Success Metrics.
+Agent Template Structure: YAML frontmatter + Identity & Synapse, Core Mission, Critical Rules, Technical Deliverables, Workflow Process, Success Metrics.
 Division-Based Organization: Engineering, Design, Product, etc. — maps to profile categories.
 Skill Compounding: Agents building on each other’s work.
 MCP Builder Agent: Dedicated agent for creating MCP servers.
@@ -176,7 +176,7 @@ Profile Framework: Adopt the exact template structure as the standard profile.ya
 Official Profiles: Create built-in profiles (Secretary, Researcher, Netrunner, etc.) based on these templates.
 Plugin Gallery: Use the agent library as a source for ready-to-adapt plugins.
 Cyberpunk Red Plugin: Use the template for Netrunner, Fixer, and Solo profiles.
-Visual Memory Palace: Agent avatars in 3D can use the “Identity & Memory” section for visual styling and behavior.
+Visual Synapse Palace: Agent avatars in 3D can use the “Identity & Synapse” section for visual styling and behavior.
 
 Priority: Medium-High (foundational for user experience).
 Effort: 1 day to fully adopt the template format.
@@ -195,14 +195,14 @@ Mine orchestration & guardrail patterns from agents-towards-production into Herm
 Medium Term
 
 Build official plugin gallery using templates from all three repos.
-Integrate into Visual Memory Palace and Machina Device Agent.
+Integrate into Visual Synapse Palace and Machina Device Agent.
 
 Expected Overall Impact
 
 Retrieval quality ↑ significantly.
 Hermes agents become more robust and production-like.
 Profile + Plugin Framework becomes highly polished and user-friendly.
-Visual Memory Palace and Device Agent gain richer interaction patterns.
+Visual Synapse Palace and Device Agent gain richer interaction patterns.
 
 **✅ EXACT LINKS TO THE ACTIVE MINING ROUND REPOSITORIES**
 
@@ -232,7 +232,7 @@ Here are the **precise, verified GitHub links** for the three repositories we ar
 | https://github.com/msitarzewski/agency-agents | Agent template structure (YAML + sections) | Profile + Plugin Framework | **Medium-High** |
 
 These three are feeding directly into:
-- **Visual Memory Palace** (spatial highlighting of reranked results, agent avatars)
+- **Visual Synapse Palace** (spatial highlighting of reranked results, agent avatars)
 - **Machina Device Agent** (on-device retrieval & orchestration)
 - Overall extensibility layer
 

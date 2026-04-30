@@ -34,7 +34,7 @@ async fn main() {
 
     let node_b = env::var("NODE_B_URL").unwrap_or_else(|_| "http://127.0.0.1:8080".to_string());
     let node_c = env::var("NODE_C_URL").unwrap_or_else(|_| "http://127.0.0.1:7339".to_string());
-    let node_d = env::var("NODE_D_URL").unwrap_or_else(|_| "http://127.0.0.1:8081".to_string());
+    let node_d = env::var("NODE_D_URL").unwrap_or_else(|_| "http://127.0.0.1:8080".to_string()); // Points to Node D Swapper (node-d-swapper.ts)
 
     let state = Arc::new(AppState {
         client: Client::new(),
@@ -70,8 +70,10 @@ async fn route_inference(
         .to_lowercase();
 
     // 2. Select Artery
+    // If we request Node D specific models or have a long context, we hit the Swapper on 8080.
+    // The Swapper will then proxy the request to the raw llama-server on 8081 after ensuring the model is loaded.
     let target_url = if model.contains("26b") || model.contains("coder") || model.contains("qwen") || model.contains("flash") || model.contains("glm") || messages > 50 {
-        &state.node_d_url // Any heavy or specific research model goes to Node D
+        &state.node_d_url // Routes to Node D Swapper (8080)
     } else if model.contains("stable") || model.contains("oracle") {
         &state.node_c_url
     } else {
