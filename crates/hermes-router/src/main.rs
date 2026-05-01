@@ -72,12 +72,12 @@ async fn route_inference(
     // 2. Select Artery
     // If we request Node D specific models or have a long context, we hit the Swapper on 8080.
     // The Swapper will then proxy the request to the raw llama-server on 8081 after ensuring the model is loaded.
-    let target_url = if model.contains("26b") || model.contains("coder") || model.contains("qwen") || model.contains("flash") || model.contains("glm") || messages > 50 {
+    let target_url = if model.contains("26b") || model.contains("coder") || model.contains("glm") || messages > 50 {
         &state.node_d_url // Routes to Node D Swapper (8080)
-    } else if model.contains("stable") || model.contains("oracle") {
-        &state.node_c_url
+    } else if model.contains("qwen") || model.contains("deepseek") || model.contains("flash") || model.contains("oracle") {
+        &state.node_c_url // Routes to Node C single-model fast-tier
     } else {
-        &state.node_b_url
+        &state.node_b_url // Routes to Node B Director (Vision/Gemma)
     };
 
     info!("● [ROUTER] Routing {} request (M={}) to {} (L={})", model, model, target_url, messages);

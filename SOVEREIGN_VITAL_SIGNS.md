@@ -19,8 +19,8 @@
 
 ### ◈ NODE C: STRATEGIC ORACLE (Strategic Oracle Grid)
 - **Hardware:** AMD Ryzen 7 3700X // 32GB DDR4 // NVIDIA RTX 2060 (6GB).
-- **Model Artery:** Gemma-4 E4B Q3/Q4 + Falcon Perception 0.3B.
-- **Responsibility:** Threat reconnaissance and autonomous social/retrieval grids.
+- **Model Artery:** Qwen-3.5 9B DeepSeek-V4-Flash Q3 + Falcon Perception 0.3B.
+- **Responsibility:** Fast-tier Oracle, GEPA reflections, guardrails, lightweight agentic tasks, HALO triage, and low-latency support for the Warp observer bridge.
 
 ### ◈ NODE D: QUATERNARY_ARTERY (GMKtec K15)
 - **Hardware:** Intel Core Ultra 5 125U (Intel AI Boost NPU) // 48GB DDR5.

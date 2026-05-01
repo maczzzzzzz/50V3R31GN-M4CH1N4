@@ -17,7 +17,7 @@ You are the **High-Level Reasoner**. You are responsible for architecture valida
 ### 2. Mesh Synapse (Model Arteries)
 - **Node A:** Mooncake / KV Cache.
 - **Node B:** Gemma-4 26B Q3 (Vision) + mmproj-BF16.
-- **Node C:** Gemma-4 E4B Q3/Q4 + Falcon 0.3B.
+- **Node C:** Qwen-3.5 9B DeepSeek-V4-Flash Q3 + Falcon 0.3B.
 - **Node D:** Gemma-4 26B Q6 + Qwen-2.5 Coder Q6 + GLM 4.7 Q4.
 
 ### 3. Zero-Trust Auditing
