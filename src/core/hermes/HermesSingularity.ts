@@ -6,7 +6,7 @@ import { MemoryObserver } from './MemoryObserver.js';
 import type { Database } from 'better-sqlite3';
 
 /**
- * HERMES_SINGULARITY — PHASE 93/97
+ * HERMES_SINGULARITY — PHASE 105.5
  * 
  * The native orchestration engine for the Sovereign Trinity.
  * Subsumes legacy linear proxies into a high-fidelity Context-DAG loop.
@@ -59,24 +59,27 @@ export class HermesSingularity {
    * Routes incoming Warp telemetry through the structured Triage -> Spec -> Implement -> Review loop.
    */
   public async handleWarpTelemetry(episode: OzDevEpisode): Promise<void> {
-    this.logger?.info('HermesSingularity', 'trace', `[OZ_PIPELINE] Processing telemetry at stage: ${episode.stage}`);
+    this.logger.info('HermesSingularity', 'trace', `[OZ_PIPELINE] Processing telemetry at stage: ${episode.stage}`);
     
     switch (episode.stage) {
       case 'Triage':
         // Trigger GEPA reflection to categorize the issue
-        this.logger?.debug('HermesSingularity', 'trace', 'Triaging developer intent...');
+        this.logger.debug('HermesSingularity', 'trace', 'Triaging developer intent...');
         break;
       case 'Spec':
         // Generate structured spec based on triage
-        this.logger?.debug('HermesSingularity', 'trace', 'Generating implementation spec...');
+        this.logger.debug('HermesSingularity', 'trace', 'Generating implementation spec...');
         break;
       case 'Implement':
         // Push rich blocks to Warp / Pretext HUD
-        this.logger?.debug('HermesSingularity', 'trace', 'Suggesting implementation refactors...');
+        this.logger.debug('HermesSingularity', 'trace', 'Suggesting implementation refactors...');
         break;
       case 'Review':
         // Grade the outcome against success metrics
-        this.logger?.debug('HermesSingularity', 'trace', 'Reviewing dev episode outcome...');
+        this.logger.debug('HermesSingularity', 'trace', 'Reviewing dev episode outcome...');
+        break;
+      default:
+        this.logger.warn('HermesSingularity', 'trace', `[OZ_PIPELINE] Unknown telemetry stage: ${episode.stage}`);
         break;
     }
   }
@@ -85,12 +88,12 @@ export class HermesSingularity {
    * Orchestrate a long-running Research Swarm (v3.8.8)
    */
   public async orchestrateResearchSwarm(prompt: string, threadId: string = randomUUID()): Promise<SingularityResult> {
-    logger.info('HermesSingularity', threadId, `[SWARM] Initiating Research: ${prompt.substring(0, 50)}...`);
+    this.logger.info('HermesSingularity', threadId, `[SWARM] Initiating Research: ${prompt.substring(0, 50)}...`);
     
     // 1. THE PLANNER: Decompose task
     const planNode = this.dag.addNode(`Planning research for: ${prompt}`, 'system');
     const tasks = await this.decomposeTask(prompt);
-    logger.info('HermesSingularity', threadId, `[PLANNER] Decomposed into ${tasks.length} sub-tasks.`);
+    this.logger.info('HermesSingularity', threadId, `[PLANNER] Decomposed into ${tasks.length} sub-tasks.`);
 
     // 2. THE WORKERS: Parallel execution
     const results: any[] = [];
@@ -105,7 +108,7 @@ export class HermesSingularity {
       
       const isClean = await this.auditFinding(result);
       if (!isClean) {
-        logger.warn('HermesSingularity', threadId, `[REVIEWER] Finding rejected: ${task}. Retrying...`);
+        this.logger.warn('HermesSingularity', threadId, `[REVIEWER] Finding rejected: ${task}. Retrying...`);
         // Retry logic or Experience-Gitting log
         await this.logExperience('REVIEWER', task, { finding: result }, 'Incomplete data', 'MEDIUM');
       }
@@ -152,9 +155,9 @@ export class HermesSingularity {
         VALUES (?, ?, ?, ?, ?, ?)
       `);
       stmt.run(id, agentId, task, JSON.stringify(failureTrace), fix || null, severity);
-      logger.info('HermesSingularity', id, `Experience Logged: ${task} [${severity}]`);
+      this.logger.info('HermesSingularity', id, `Experience Logged: ${task} [${severity}]`);
     } catch (err) {
-      logger.error('HermesSingularity', id, `Failed to log experience: ${(err as Error).message}`);
+      this.logger.error('HermesSingularity', id, `Failed to log experience: ${(err as Error).message}`);
     }
   }
 
@@ -165,7 +168,7 @@ export class HermesSingularity {
     const traceId = input.thread_id || randomUUID();
     const prompt = input.prompt;
     
-    logger.info('HermesSingularity', traceId, `Native Ingress: ${prompt.substring(0, 50)}...`);
+    this.logger.info('HermesSingularity', traceId, `Native Ingress: ${prompt.substring(0, 50)}...`);
 
     // 1. Get negative constraints from HealerProtocol (Experience-Gitting)
     const negativeConstraints = await HealerProtocol.getNegativeConstraints(prompt);
@@ -266,7 +269,7 @@ export class HermesSingularity {
           state.retries++;
         }
         
-        logger.warn('HermesSingularity', traceId, `Healer Strategy: ${diagnosis.strategy} - ${diagnosis.reason}`);
+        this.logger.warn('HermesSingularity', traceId, `Healer Strategy: ${diagnosis.strategy} - ${diagnosis.reason}`);
       }
     }
 
@@ -279,7 +282,7 @@ export class HermesSingularity {
   }
 
   private async discoverStateBeforePlan(prompt: string): Promise<any> {
-    logger.info("HermesSingularity", "traceId", "[HARDGATE] Executing discover_state before planning...");
+    this.logger.info("HermesSingularity", "traceId", "[HARDGATE] Executing discover_state before planning...");
     // Simulated discovery for Phase 103
     return { status: "success", summary: "IDE: VSCode, Process: Code.exe, Docs: IMPLEMENTATION_PLAN.md unsealed." };
   }
