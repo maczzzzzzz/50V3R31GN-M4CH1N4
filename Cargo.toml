@@ -2,6 +2,8 @@
 members = [
     "crates/*",
     "sidecar-*",
+    "sidecars/warp-observer",
+    "sidecars/gepa-curator",
     "sovereign-sdk",
     "zeroclaw/crates/*"
 ]
