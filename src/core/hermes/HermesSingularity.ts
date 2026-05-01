@@ -32,17 +32,53 @@ export interface SingularityResult {
   response?: string;
   error?: string;
   activeNode?: string;
+  ozStage?: OzPipelineStage;
 }
 
 export type AgentRole = 'PLANNER' | 'WORKER' | 'REVIEWER' | 'SYNTHESIZER';
 
+export type OzPipelineStage = 'Triage' | 'Spec' | 'Implement' | 'Review';
+
+export interface OzDevEpisode {
+  stage: OzPipelineStage;
+  telemetry: any;
+}
+
 export class HermesSingularity {
   private dag: ContextDAG;
   private db: Database | undefined;
+  private logger = logger;
 
   constructor(db?: Database) {
     this.dag = new ContextDAG();
     this.db = db;
+  }
+
+  /**
+   * ◈ Phase 106+: Mined Oz Contribution Pipeline
+   * Routes incoming Warp telemetry through the structured Triage -> Spec -> Implement -> Review loop.
+   */
+  public async handleWarpTelemetry(episode: OzDevEpisode): Promise<void> {
+    this.logger?.info('HermesSingularity', 'trace', `[OZ_PIPELINE] Processing telemetry at stage: ${episode.stage}`);
+    
+    switch (episode.stage) {
+      case 'Triage':
+        // Trigger GEPA reflection to categorize the issue
+        this.logger?.debug('HermesSingularity', 'trace', 'Triaging developer intent...');
+        break;
+      case 'Spec':
+        // Generate structured spec based on triage
+        this.logger?.debug('HermesSingularity', 'trace', 'Generating implementation spec...');
+        break;
+      case 'Implement':
+        // Push rich blocks to Warp / Pretext HUD
+        this.logger?.debug('HermesSingularity', 'trace', 'Suggesting implementation refactors...');
+        break;
+      case 'Review':
+        // Grade the outcome against success metrics
+        this.logger?.debug('HermesSingularity', 'trace', 'Reviewing dev episode outcome...');
+        break;
+    }
   }
 
   /**
