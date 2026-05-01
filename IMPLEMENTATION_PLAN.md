@@ -85,40 +85,49 @@
 - [ ] **Task 3: Router mTLS Enforcement:** Update `hermes-inference-router.rs` for strict SPIFFE workload validation.
 - [ ] **Task 4: Hardware Isolation Enablement:** Reconfigure Node D NixOS headless constraints to enable nested Firecracker/KVM for sub-millisecond VM isolation (`zerobootdev/zeroboot` prep).
 
-## 🧠 PHASE 107: THE SOVEREIGN MEMORY & IDENTITY CORE
-**Goal:** Establish shared, persistent memory and identity primitives across the Quaternary Mesh.
-- [ ] **Task 1: The Sovereign Synapse Artery:** Deploy `alash3al/stash` on Node D as the MCP-native, 8-stage memory consolidation engine (Episodes -> Facts -> Relationships -> Wisdom).
-- [ ] **Task 2: Shared Agent YAML Persistence:** Integrate `plur-ai/plur` to enforce shared persistent memory across Hermes, Claude Code, and Cursor sessions.
-- [ ] **Task 3: Obsidian Identity Layer:** Implement `beiyuii/personal-api-skill`, turning the local Obsidian vault into the primary "Soul" metadata contract (`ME.md` / `AGENT.md`).
-- [ ] **Task 4: Scoped Swarm Directory Injection:** Implement `Abruptive/Ankh.md` logic to enable per-folder, project-specific agent swarms with custom config merges.
+## 🏛️ PHASE 107: NODESTADT ORGANIZATION PIVOT
+**Goal:** Transition to a professional monorepo structure and declarative sidecar framework.
+- [ ] **Task 1: Monorepo Scaffolding:** Create the `flake.nix` structure and Nix-driven directory hierarchy for the NODESTADT monorepo.
+- [ ] **Task 2: Profile + Plugin Framework Baseline:** Finalize the declarative manifest format for drop-in Rust sidecars and profile-specific agent behaviors.
+- [ ] **Task 3: Scoped Swarm Directory Injection:** Integrate `Abruptive/Ankh.md` logic into the new profile framework to enable per-folder agent swarms.
 
-## 🏛️ PHASE 108: COGNITIVE EXPANSION & ZERO-SERVER INTELLIGENCE
-**Goal:** Integrate SOTA reasoning, graphs, and recursive logic into the mesh.
-- [ ] **Task 1: Local Model Gateway Proxy:** Deploy `Alishahryar1/free-claude-code` proxy to route Claude Code telemetry through local Node D / `llama.cpp` inference.
-- [ ] **Task 2: Zero-Server Code Graphs:** Scaffold `abhigyanpatwari/GitNexus` for relational code intelligence and local codebase mapping without cloud transmission.
-- [ ] **Task 3: Trace-Driven Optimization:** Port `context-labs/halo` logic (RLM pattern) into the Node C Qwen-Strategic Oracle to generate improvement reports from OpenTelemetry.
-- [ ] **Task 4: RecursiveMAS Foundation:** Implement the theoretical framework from `arXiv:2604.25917` to scale agent collaboration through infinite recursion loops.
+## 🔌 PHASE 108: CYBERPUNK RED PLUGIN EXTRACTION
+**Goal:** Surgically extract simulation mechanics into a dedicated plugin, leaving the Clean BASE.
+- [ ] **Task 1: Artery of Truth Decoupling:** Unify legacy simulation DBs into `cyberpunk.db` and separate from core Sovereign state.
+- [ ] **Task 2: Logic Extraction:** Move Red-specific MCP tools, sidecars, and profile logic to `nodestadt/sovereign-red-plugin`.
+- [ ] **Task 3: Clean BASE Verification:** Audit the remaining core codebase to ensure zero lore-bleed or simulation dependencies remain in the primary OS.
 
-## ⚡ PHASE 109: THE SKILL FORGE & DOMAIN EXPERTISE
-**Goal:** Establish an autonomous skill marketplace and inject high-signal engineering workflows.
-- [ ] **Task 1: The Sovereign Skill Registry:** Deploy a local instance of `amanning3390/hermeshub` including its automated Python security scanner.
-- [ ] **Task 2: Autonomous Skill Generation:** Integrate `Lethe044/hermes-skill-marketplace` (Hermes Skill Forge) to observe, abstract, test, and publish new skills autonomously.
-- [ ] **Task 3: High-Signal Engineering Workflows:** Port `mattpocock/skills`, `davila7/claude-code-templates`, and `ComposioHQ/awesome-codex-skills` into the local Droid Factory.
-- [ ] **Task 4: Domain Role Forging:** Implement specialized Analyst/Trader roles based on `TauricResearch/TradingAgents`.
+## 🧠 PHASE 109: THE SOVEREIGN MEMORY & IDENTITY CORE (CLEAN_BASE)
+**Goal:** Establish shared, persistent memory and identity primitives on the Clean BASE.
+- [ ] **Task 1: The Sovereign Synapse Artery:** Deploy `alash3al/stash` on Node D as the MCP-native, 8-stage memory consolidation engine.
+- [ ] **Task 2: Shared Agent YAML Persistence:** Integrate `plur-ai/plur` to enforce shared persistent memory across Hermes, Claude Code, and Cursor.
+- [ ] **Task 3: Obsidian Identity Layer:** Implement `beiyuii/personal-api-skill`, turning the local Obsidian vault into the primary "Soul" metadata contract (`ME.md`).
 
-## 👁️ PHASE 110: THE PHYSICAL HUD & PERCEPTION
+## 🏛️ PHASE 110: COGNITIVE EXPANSION & ZERO-SERVER INTELLIGENCE
+**Goal:** Integrate SOTA reasoning, graphs, and recursive logic.
+- [ ] **Task 1: Local Model Gateway Proxy:** Deploy `Alishahryar1/free-claude-code` proxy to route Claude Code telemetry through local Node D.
+- [ ] **Task 2: Zero-Server Code Graphs:** Scaffold `abhigyanpatwari/GitNexus` for relational code intelligence and local codebase mapping.
+- [ ] **Task 3: Trace-Driven Optimization:** Port `context-labs/halo` logic (RLM pattern) into the Node C Qwen-Strategic Oracle to analyze telemetry traces.
+- [ ] **Task 4: RecursiveMAS Foundation:** Implement the theoretical framework from `arXiv:2604.25917` for infinite agent collaboration.
+
+## ⚡ PHASE 111: THE SKILL FORGE & DOMAIN EXPERTISE
+**Goal:** Establish an autonomous skill marketplace and inject high-signal workflows.
+- [ ] **Task 1: The Sovereign Skill Registry:** Deploy a local instance of `amanning3390/hermeshub` with automated security scanning.
+- [ ] **Task 2: Autonomous Skill Generation:** Integrate `Lethe044/hermes-skill-marketplace` (Forge) to autonomously abstract and test new skills.
+- [ ] **Task 3: High-Signal Engineering Workflows:** Port `mattpocock/skills` and `ComposioHQ/awesome-codex-skills` into the Droid Factory.
+
+## 👁️ PHASE 112: THE PHYSICAL HUD & PERCEPTION
 **Goal:** Enhance the terminal, desktop, and UI experience for "Inside the Machina" interactions.
-- [ ] **Task 1: Official Pretext Alignment:** Refactor `PretextShroud.tsx` to align exactly with the `hermes-agent/skills/creative/pretext/SKILL.md` DOM-free text layout.
-- [ ] **Task 2: Desktop & Web UI Ingress:** Materialize `fathah/hermes-desktop` and `EKKOLearnAI/hermes-web-ui` for multi-gateway (Telegram/Discord) and session management.
-- [ ] **Task 3: Local Image Generation:** Deploy `Wysie/drawthings-grpc-hermes-plugin` enabling local gRPC Draw Things image creation from the HUD.
-- [ ] **Task 4: Visual-First Perception:** Implement pixel-to-coordinate mapping (AutoGLM Pattern) and Browser Keeper (Bux) persistent Chromium sessions.
+- [ ] **Task 1: Official Pretext Alignment:** Refactor `PretextShroud.tsx` to align exactly with the official `SKILL.md (Pretext)` implementation.
+- [ ] **Task 2: Desktop & Web UI Ingress:** Materialize `fathah/hermes-desktop` and `EKKOLearnAI/hermes-web-ui` for multi-gateway session management.
+- [ ] **Task 3: Local Image Generation:** Deploy `Wysie/drawthings-grpc-hermes-plugin` for local HUD-integrated image creation.
 
-## 🚀 PHASE 111: THE MANAGED EMPLOYEE (AUTONOMOUS EVOLUTION)
-**Goal:** Transition Hermes from a partner to a fully managed, self-evolving employee within the mesh.
-- [ ] **Task 1: Paperclip Adapter Loop:** Orchestrate Hermes via `NousResearch/hermes-paperclip-adapter` as a managed employee reporting to the Strategist.
-- [ ] **Task 2: Zeroboot Sandboxing:** Integrate `zerobootdev/zeroboot` to execute untrusted generated code within sub-millisecond CoW KVM forks.
-- [ ] **Task 3: The World Engine:** Deploy `AIScientists-Dev/WorldSeed` to simulate complex environmental consequences for agent testing.
-- [ ] **Task 4: Nodestadt Monorepo Pivot:** Create `flake.nix` structure and extract Cyberpunk RED plugin to finalize the physical monorepo standard.
+## 🚀 PHASE 113: THE MANAGED EMPLOYEE (AUTONOMOUS EVOLUTION)
+**Goal:** Transition Hermes to a fully managed, self-evolving employee.
+- [ ] **Task 1: Paperclip Adapter Loop:** Orchestrate Hermes via `NousResearch/hermes-paperclip-adapter` as a managed employee.
+- [ ] **Task 2: Zeroboot Sandboxing:** Integrate `zerobootdev/zeroboot` for sub-millisecond VM isolation of untrusted code.
+- [ ] **Task 3: The World Engine:** Deploy `AIScientists-Dev/WorldSeed` for environmental agent testing.
 
 ---
 **LINKS:** [[OS_CORE]]
+
