@@ -128,7 +128,7 @@ async function emitSovereignHallCall(traceId: string, reason: string): Promise<v
   await writeFile(join(meetDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
 
   const thought = [
-    `## THOUGHT_FRAGMENT : healer:system`,
+    `## THOUGHT_FRAGMENT : [IMPORTANT: HEALER_SYSTEM]`,
     `- **Assumed Context:** 3-failure threshold crossed for trace ${traceId}`,
     `- **Failed Approach:** ${reason}`,
     `- **Proposed Resolution:** Awaiting agent fragments`,

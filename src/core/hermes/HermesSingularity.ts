@@ -187,7 +187,7 @@ export class HermesSingularity {
     };
 
     let result: SingularityResult | null = null;
-    const systemPrompt = "";
+    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v0.12.0]";
     
     while (state.retries < 3) {
       try {
