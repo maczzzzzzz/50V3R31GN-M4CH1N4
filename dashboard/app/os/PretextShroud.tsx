@@ -11,6 +11,88 @@ import PretextTasksMesh from '@/components/PretextTasksMesh';
 import PretextTerminalArtery from '@/components/PretextTerminalArtery';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
+/**
+ * ◈ PRETEXT_GEOMETRIC_CANVAS — PHASE 103, TASK 5
+ * 
+ * Real-time visualization of agent thought trajectories.
+ * Uses raw Canvas API for 60FPS fluid geometric patterns.
+ */
+const PretextGeometricCanvas = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrame: number;
+    let time = 0;
+    const points: { x: number; y: number; vx: number; vy: number }[] = [];
+
+    for (let i = 0; i < 40; i++) {
+      points.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+      });
+    }
+
+    const render = () => {
+      time += 0.01;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      points.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        points.forEach((p2, j) => {
+          if (i === j) return;
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 180) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            const alpha = (1 - dist / 180) * 0.15;
+            ctx.strokeStyle = `rgba(199, 168, 122, ${alpha})`; // Gilded Sovereign
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        });
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+        ctx.fillStyle = "#F36622"; // Machina Rust
+        ctx.fill();
+      });
+
+      animationFrame = requestAnimationFrame(render);
+    };
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+    render();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-10 opacity-20" />;
+};
 
 /**
  * ◈ FLUID_SMOKE_METABOLISM — PHASE 100.3
@@ -113,6 +195,7 @@ export default function PretextShroud() {
   return (
     <div className="min-h-screen bg-[#1A1A1A] text-[#E5E5E5] selection:bg-[#F36622] selection:text-black p-3 overflow-hidden relative operational-text">
       <FluidSmokeBackground />
+      <PretextGeometricCanvas />
       
       {/* ◈ TACTICAL_COMMAND_BAR */}
       <div className="flex items-stretch gap-3 mb-3 h-24 relative z-10">
@@ -126,7 +209,7 @@ export default function PretextShroud() {
               <div className="text-[9px] text-[#F36622] font-bold tracking-[0.3em] flex gap-5 mono-text mt-1">
                 <span className="flex items-center gap-2 uppercase tracking-tighter">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#F36622] animate-pulse" /> 
-                  Sovereign_OS v3.8.8-ALIGN
+                  Sovereign_OS v3.8.10-SYNTHESIS
                 </span>
               </div>
             </div>
@@ -135,7 +218,7 @@ export default function PretextShroud() {
           <div className="flex gap-8">
             <OuroborosRing progress={85} color="#F36622" label="NODE_A" />
             <OuroborosRing progress={64} color="#C7A87A" label="NODE_B" />
-            <OuroborosRing progress={12} color="#C7A87A" label="NODE_D" />
+            <OuroborosRing progress={42} color="#C7A87A" label="NODE_D" />
           </div>
         </div>
       </div>

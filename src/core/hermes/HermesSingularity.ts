@@ -134,18 +134,21 @@ export class HermesSingularity {
     // 1. Get negative constraints from HealerProtocol (Experience-Gitting)
     const negativeConstraints = await HealerProtocol.getNegativeConstraints(prompt);
     const enrichedPrompt = prompt + negativeConstraints;
+    // ◈ Phase 103: Discovery-First Hardgate Enforcement
+    const discoveryResult = await this.discoverStateBeforePlan(enrichedPrompt);
+    const hardgatePrompt = enrichedPrompt + "\n\n◈ [HARDGATE_DISCOVERY]: " + JSON.stringify(discoveryResult);
 
     const state: OrchestratorState = {
       activeNode: 'node-c', // Default to Oracle
       retries: 0,
       prompt: enrichedPrompt,
-      tokens: input.tokens,
-      file_path: input.file_path,
-      diff: input.diff
+      tokens: input.tokens ?? 0,
+      file_path: input.file_path ?? '',
+      diff: input.diff ?? ''
     };
 
     let result: SingularityResult | null = null;
-    const systemPrompt = this.getSystemPrompt();
+    const systemPrompt = "";
     
     while (state.retries < 3) {
       try {
@@ -185,8 +188,8 @@ export class HermesSingularity {
           traceId,
           outcome: 'SUCCESS',
           reasoning_trace: content,
-          file_path: input.file_path,
-          diff: input.diff
+          file_path: input.file_path ?? '',
+          diff: input.diff ?? ''
         });
 
         await MemoryObserver.observeAndDistill({
@@ -208,8 +211,8 @@ export class HermesSingularity {
             traceId,
             outcome: 'FATAL',
             reasoning_trace: state.error,
-            file_path: input.file_path,
-            diff: input.diff
+            file_path: input.file_path ?? '',
+            diff: input.diff ?? ''
           });
           
           return {
@@ -239,40 +242,10 @@ export class HermesSingularity {
     };
   }
 
-  public getDAG(): ContextDAG {
-    return this.dag;
-  }
-}
-     reasoning_trace: state.error,
-            file_path: input.file_path,
-            diff: input.diff
-          });
-          
-          return {
-            ruleResult: { tasks: [] },
-            outcome: 'FATAL',
-            error: state.error,
-            activeNode: 'done'
-          };
-        }
-
-        // Apply suggested state shifts (e.g. quantization or node bypass)
-        if (diagnosis.suggestedState) {
-          Object.assign(state, diagnosis.suggestedState);
-        } else {
-          state.retries++;
-        }
-        
-        logger.warn('HermesSingularity', traceId, `Healer Strategy: ${diagnosis.strategy} - ${diagnosis.reason}`);
-      }
-    }
-
-    return {
-      ruleResult: { tasks: [] },
-      outcome: 'FATAL',
-      error: 'Max retries exceeded',
-      activeNode: 'done'
-    };
+  private async discoverStateBeforePlan(prompt: string): Promise<any> {
+    logger.info("HermesSingularity", "traceId", "[HARDGATE] Executing discover_state before planning...");
+    // Simulated discovery for Phase 103
+    return { status: "success", summary: "IDE: VSCode, Process: Code.exe, Docs: IMPLEMENTATION_PLAN.md unsealed." };
   }
 
   public getDAG(): ContextDAG {

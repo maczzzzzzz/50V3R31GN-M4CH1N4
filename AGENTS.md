@@ -11,8 +11,7 @@ This document defines roles, mandates, and workflows for all AI agents (Gemini, 
 | Action | Command | Purpose |
 | :--- | :--- | :--- |
 | **Grounding** | `bash scripts/ops/grounding.sh` | Sync context with all shards. |
-| **Ignition** | `npm run boot` | Start main OS (Sovereign OS). |
-| **Ignition (RED)**| `npm run boot:cpr` | Start Simulation (Cyberpunk RED). |
+| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Mesh).|
 | **Verification**| `npm test` | Run full Vitest suite. |
 | **Sync** | `npm run sync` | Align all manifests and guides. |
 | **Security** | `crush vault seal` | Secure steganographic archives. |

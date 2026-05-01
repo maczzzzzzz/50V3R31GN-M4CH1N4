@@ -60,6 +60,7 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
   private rootsInjector?: RootsInjector | undefined;
   /** Pre-loaded AAAK context from Sentinel Distiller (0x0A push). Empty = not yet primed. */
   private activeContext: string = '';
+  private activeProfile: SovereignProfile = 'SOVEREIGN_OS';
 
   /** Update the pre-loaded context slot (called by VsbClient 0x0A handler). */
   public updateContext(payload: string): void {
@@ -274,12 +275,5 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
 
     this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');
     return result;
-  }
 }
- ? { audio_metadata: audioMetadata } : {}),
-    });
-
-    this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');
-    return result;
   }
-}

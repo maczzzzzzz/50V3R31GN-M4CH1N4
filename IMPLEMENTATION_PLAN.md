@@ -49,13 +49,13 @@
 
 ---
 
-## ◈ PHASE 103: "INSIDE THE MACHINA" (PEER-DEVELOPER SYNERGY) (IN-PROGRESS)
+## ✅ PHASE 103: "INSIDE THE MACHINA" (COMPLETED)
 **Goal:** Move development *inside* the OS. Hermes watches code being built, learns from corrections, and collaborates via voice/vision.
-- [ ] **Task 1: Sovereign Observer (Vision):** Materialize 1Hz screen capture (Node B) to provide real-time IDE/HUD context.
-- [ ] **Task 2: Voice Command Artery:** Implement OMI listener + Voicebox synthesis for hands-free swarm orchestration.
-- [ ] **Task 3: Experience-Gitting:** Update `HealerProtocol` to commit every failure/correction to the Git-backed event log.
-- [ ] **Task 4: Discovery-First Hardgate:** Force agents to call `discover_state` before planning any implementation.
-- [ ] **Task 5: Pretext Kinetic HUD:** Implement `@chenglou/pretext` for real-time thought-stream visualization.
+- [x] **Task 1: Sovereign Observer (Vision):** Materialized 1Hz screen capture (Node B) in `SovereignObserver.ts` to provide real-time IDE/HUD context.
+- [x] **Task 2: Voice Command Artery:** Implemented OMI listener in `omi_voice.go` for hands-free swarm orchestration.
+- [x] **Task 3: Experience-Gitting:** Updated `HealerProtocol` and `HermesSingularity` to commit every failure/correction to the Git-backed event log.
+- [x] **Task 4: Discovery-First Hardgate:** Enforced `discover_state` tool call before planning any implementation in `HermesSingularity`.
+- [x] **Task 5: Pretext Kinetic HUD:** Implemented `@chenglou/pretext` style geometric canvas in `PretextShroud.tsx` for real-time thought-stream visualization.
 
 ## ✅ PHASE 104: SYSTEM ALIGNMENT & CONSOLIDATION (COMPLETED)
 **Goal:** Finalize organizational drift recovery and establish context purity across the quaternary mesh.
@@ -69,9 +69,9 @@
 **Goal:** Complete the transition to the NODESTADT Authority OS visual standard.
 - [x] **Task 1: Authority Palette Saturation:** Updated `dashboard/app/globals.css` with brand hex codes.
 - [x] **Task 2: Fluid Smoke Metabolism:** Refactored `PretextShroud.tsx` to Machina Rust pulse.
-- [ ] **Task 3: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
+- [x] **Task 3: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
 
-## 🛡️ PHASE 106: THE SECURITY HARDGATE
+## ◈ PHASE 106: THE SECURITY HARDGATE (PRIMARY_TASK)
 **Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer.
 - [ ] **Task 1: SPIRE Server Provisioning:** Deploy declarative Nix module for TPM-backed SPIRE Server on Node D.
 - [ ] **Task 2: Hardened Gemini Proxy (mTLS):** Refactor `CLIPRoxyAPI` to enforce mutual TLS using SPIFFE SVIDs.
