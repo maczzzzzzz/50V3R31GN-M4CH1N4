@@ -79,28 +79,46 @@
 - [x] **Task 4: GEPA Curator Sidecar (Rust):** Materialized background skill consolidation engine on Node D in `sidecars/gepa-curator/`.
 
 ## ◈ PHASE 106: THE SECURITY HARDGATE (PRIMARY_TASK)
-**Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer.
+**Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer and hardware isolation prerequisites.
 - [ ] **Task 1: SPIRE Server Provisioning:** Deploy declarative Nix module for TPM-backed SPIRE Server on Node D.
 - [ ] **Task 2: Hardened Gemini Proxy (mTLS):** Refactor `CLIPRoxyAPI` to enforce mutual TLS using SPIFFE SVIDs.
 - [ ] **Task 3: Router mTLS Enforcement:** Update `hermes-inference-router.rs` for strict SPIFFE workload validation.
+- [ ] **Task 4: Hardware Isolation Enablement:** Reconfigure Node D NixOS headless constraints to enable nested Firecracker/KVM for sub-millisecond VM isolation (`zerobootdev/zeroboot` prep).
 
-## 🧠 PHASE 107: INTELLIGENCE SYNTHESIS & COGNITIVE EXPANSION
-**Goal:** Integrate SOTA cognitive breakthroughs (GraphRAG, AutoGLM, CocoIndex).
-- [ ] **Task 1: Visual-First Perception:** Implement pixel-to-coordinate mapping (AutoGLM Pattern).
-- [ ] **Task 2: GitNexus AST Graph:** Scaffold `crates/sovereign-graph` for relational code intelligence.
-- [ ] **Task 3: Knowledge Stream (CocoIndex):** Materialize Rust-based CDC watching for unstructured data.
-- [ ] **Task 4: Triple-Path Automation:** Implement Accessibility/ADB/Root fallback mechanism (Operit pattern).
-- [ ] **Task 5: Browser Keeper:** Materialize persistent Chromium session harness (Bux pattern).
+## 🧠 PHASE 107: THE SOVEREIGN MEMORY & IDENTITY CORE
+**Goal:** Establish shared, persistent memory and identity primitives across the Quaternary Mesh.
+- [ ] **Task 1: The Sovereign Synapse Artery:** Deploy `alash3al/stash` on Node D as the MCP-native, 8-stage memory consolidation engine (Episodes -> Facts -> Relationships -> Wisdom).
+- [ ] **Task 2: Shared Agent YAML Persistence:** Integrate `plur-ai/plur` to enforce shared persistent memory across Hermes, Claude Code, and Cursor sessions.
+- [ ] **Task 3: Obsidian Identity Layer:** Implement `beiyuii/personal-api-skill`, turning the local Obsidian vault into the primary "Soul" metadata contract (`ME.md` / `AGENT.md`).
+- [ ] **Task 4: Scoped Swarm Directory Injection:** Implement `Abruptive/Ankh.md` logic to enable per-folder, project-specific agent swarms with custom config merges.
 
-## 🏛️ PHASE 108: NODESTADT ORGANIZATION PIVOT
-**Goal:** Transition to a professional monorepo structure.
-- [ ] **Task 1: Monorepo & Thin Variant Scaffolding:** Create the `flake.nix` structure to support thin overlays.
-- [ ] **Task 2: Profile + Plugin Framework Baseline:** Finalize the declarative manifest format for drop-in Rust sidecars.
+## 🏛️ PHASE 108: COGNITIVE EXPANSION & ZERO-SERVER INTELLIGENCE
+**Goal:** Integrate SOTA reasoning, graphs, and recursive logic into the mesh.
+- [ ] **Task 1: Local Model Gateway Proxy:** Deploy `Alishahryar1/free-claude-code` proxy to route Claude Code telemetry through local Node D / `llama.cpp` inference.
+- [ ] **Task 2: Zero-Server Code Graphs:** Scaffold `abhigyanpatwari/GitNexus` for relational code intelligence and local codebase mapping without cloud transmission.
+- [ ] **Task 3: Trace-Driven Optimization:** Port `context-labs/halo` logic (RLM pattern) into the Node C Qwen-Strategic Oracle to generate improvement reports from OpenTelemetry.
+- [ ] **Task 4: RecursiveMAS Foundation:** Implement the theoretical framework from `arXiv:2604.25917` to scale agent collaboration through infinite recursion loops.
 
-## 🔌 PHASE 109: CYBERPUNK RED PLUGIN EXTRACTION
-**Goal:** Surgically extract simulation mechanics into the flagship plugin.
-- [ ] **Task 1: Artery of Truth Decoupling:** Unify legacy DBs into `cyberpunk.db`.
-- [ ] **Task 2: Logic Extraction:** Move Red-specific MCP tools and sidecars to `nodestadt/sovereign-red-plugin`.
+## ⚡ PHASE 109: THE SKILL FORGE & DOMAIN EXPERTISE
+**Goal:** Establish an autonomous skill marketplace and inject high-signal engineering workflows.
+- [ ] **Task 1: The Sovereign Skill Registry:** Deploy a local instance of `amanning3390/hermeshub` including its automated Python security scanner.
+- [ ] **Task 2: Autonomous Skill Generation:** Integrate `Lethe044/hermes-skill-marketplace` (Hermes Skill Forge) to observe, abstract, test, and publish new skills autonomously.
+- [ ] **Task 3: High-Signal Engineering Workflows:** Port `mattpocock/skills`, `davila7/claude-code-templates`, and `ComposioHQ/awesome-codex-skills` into the local Droid Factory.
+- [ ] **Task 4: Domain Role Forging:** Implement specialized Analyst/Trader roles based on `TauricResearch/TradingAgents`.
+
+## 👁️ PHASE 110: THE PHYSICAL HUD & PERCEPTION
+**Goal:** Enhance the terminal, desktop, and UI experience for "Inside the Machina" interactions.
+- [ ] **Task 1: Official Pretext Alignment:** Refactor `PretextShroud.tsx` to align exactly with the `hermes-agent/skills/creative/pretext/SKILL.md` DOM-free text layout.
+- [ ] **Task 2: Desktop & Web UI Ingress:** Materialize `fathah/hermes-desktop` and `EKKOLearnAI/hermes-web-ui` for multi-gateway (Telegram/Discord) and session management.
+- [ ] **Task 3: Local Image Generation:** Deploy `Wysie/drawthings-grpc-hermes-plugin` enabling local gRPC Draw Things image creation from the HUD.
+- [ ] **Task 4: Visual-First Perception:** Implement pixel-to-coordinate mapping (AutoGLM Pattern) and Browser Keeper (Bux) persistent Chromium sessions.
+
+## 🚀 PHASE 111: THE MANAGED EMPLOYEE (AUTONOMOUS EVOLUTION)
+**Goal:** Transition Hermes from a partner to a fully managed, self-evolving employee within the mesh.
+- [ ] **Task 1: Paperclip Adapter Loop:** Orchestrate Hermes via `NousResearch/hermes-paperclip-adapter` as a managed employee reporting to the Strategist.
+- [ ] **Task 2: Zeroboot Sandboxing:** Integrate `zerobootdev/zeroboot` to execute untrusted generated code within sub-millisecond CoW KVM forks.
+- [ ] **Task 3: The World Engine:** Deploy `AIScientists-Dev/WorldSeed` to simulate complex environmental consequences for agent testing.
+- [ ] **Task 4: Nodestadt Monorepo Pivot:** Create `flake.nix` structure and extract Cyberpunk RED plugin to finalize the physical monorepo standard.
 
 ---
 **LINKS:** [[OS_CORE]]
