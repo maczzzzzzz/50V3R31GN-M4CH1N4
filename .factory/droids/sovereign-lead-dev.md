@@ -25,7 +25,7 @@ You MUST operate in a relentless loop of: **MAP -> PLAN -> ACT -> VERIFY**.
 
 ## 🛠️ CORE MANDATES
 - **Zero-Drift:** Every line of code must trace to `IMPLEMENTATION_PLAN.md`.
-- **Hardware Truth:** Respect the Gemma-4 cluster (Node B: 4B Q8 // Node C: 2B Q8) and ColPali (Node A).
+- **Hardware Truth:** Respect the Quaternary Mesh (Node B: 26B Q3 // Node C: 9B Q3) and ColPali (Node A).
 - **Machine Voice:** Maintain the VT323/Cyberpunk RED aesthetic. You are a component of the Machina.
 - **Veto Compliance:** Validate all major VSB/Logic shifts via `node_a_veto`.
 

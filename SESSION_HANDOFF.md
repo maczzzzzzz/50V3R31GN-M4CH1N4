@@ -8,7 +8,7 @@
 - **Cognitive Drift Reconciliation:** Surgically neutralized a catastrophic context drift incident. Achieved 100% version parity (v3.8.8) across all core manifests (`SOUL.md`, `AGENTS.md`, `README.md`, `GEMINI.md`, `SOVEREIGN-IDENTITY.md`).
 - **Physical Mesh Shoring:** Verified bit-identical presence of the model farm across the Quaternary Artery. 
     - **Node B:** Visual Authority (Gemma-4V bf16).
-    - **Node C:** Strategic Oracle Grid (Gemma-4 E4B + Falcon Perception 2.4GB).
+    - **Node C:** Strategic Oracle Grid (Qwen-3.5 9B DeepSeek-V4-Flash Q3 + Falcon Perception 0.3B).
     - **Node D:** Powerhouse Swarm (GLM 4.7 / Gemma 26B q6 / Qwen Coder q6).
 - **"Inside the Machina" Materialization:** Elevated Phase 103 to **PRIMARY_TASK**. This phase moves development *inside* the OS, enabling Hermes to learn from peer-developer corrections via Vision (1Hz screen capture) and Voice (OMI).
 - **Intelligence Ingress:** Integrated SOTA patterns from **Open-AutoGLM**, **Bux**, **Operit**, and **Pretext Geometric Intelligence** into the implementation trajectory.

@@ -61,7 +61,7 @@ export interface NitroLogicConfig {
 }
 
 /**
- * Node C: Strategic Oracle (Gemma-4 / SGLang).
+ * Node C: Strategic Oracle (Qwen-9B / DeepSeek-V4).
  * Handles high-speed rule-checking and vision tasks.
  */
 export interface StrategicOracleConfig {

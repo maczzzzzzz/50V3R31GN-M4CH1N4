@@ -47,7 +47,7 @@ for node in "${NODES[@]}"; do
         # Local 7340 -> Node C 7340 (Qwen Auditor)
         ssh -f -N -L 7339:localhost:7339 "$node"
         ssh -f -N -L 7340:localhost:7340 "$node"
-        echo "  [Artery] 127.0.0.1:7339 -> $node:7339 (Node C Gemma) [ESTABLISHED]"
+        echo "  [Artery] 127.0.0.1:7339 -> $node:7339 (Node C Qwen-Oracle) [ESTABLISHED]"
         echo "  [Artery] 127.0.0.1:7340 -> $node:7340 (Node C Qwen) [ESTABLISHED]"
     fi
 

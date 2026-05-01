@@ -29,7 +29,7 @@ echo "◈ Checking Service Arteries (ClawLink Tunnels)..."
 # Port 7878: VSB UDP (Direct)
 
 PORTS=(8080 8081 8083 8084 7339 7340 6789 7878)
-NAMES=("Node B (Director)" "Node D (Gemma)" "Node D (Qwen)" "Node D (GLM)" "Node C (Gemma)" "Node C (Qwen)" "Node A (Mooncake)" "VSB Heartbeat")
+NAMES=("Node B (Director)" "Node D (Gemma)" "Node D (Qwen)" "Node D (GLM)" "Node C (Qwen)" "Node C (Qwen)" "Node A (Mooncake)" "VSB Heartbeat")
 
 for i in "${!PORTS[@]}"; do
     port=${PORTS[$i]}
