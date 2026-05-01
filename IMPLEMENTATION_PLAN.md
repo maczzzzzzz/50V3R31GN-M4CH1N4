@@ -71,6 +71,13 @@
 - [x] **Task 2: Fluid Smoke Metabolism:** Refactored `PretextShroud.tsx` to Machina Rust pulse.
 - [x] **Task 3: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
 
+## ✅ PHASE 105.5: LIVE CODING PARTNER INTEGRATION (COMPLETED)
+**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.8 "Curator" capabilities for local swarm orchestration.
+- [x] **Task 1: Warp Observer Sidecar (Rust):** Materialized read-only telemetry ingress on Node D in `sidecars/warp-observer/`.
+- [x] **Task 2: Oz Pipeline Formalization:** Implemented `Triage -> Spec -> Implement -> Review` loop in `HermesSingularity.ts`.
+- [x] **Task 3: Prompt Standard Synchronization:** Migrated system markers to `[IMPORTANT:]` per Hermes v3.8.8 spec.
+- [x] **Task 4: GEPA Curator Sidecar (Rust):** Materialized background skill consolidation engine on Node D in `sidecars/gepa-curator/`.
+
 ## ◈ PHASE 106: THE SECURITY HARDGATE (PRIMARY_TASK)
 **Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer.
 - [ ] **Task 1: SPIRE Server Provisioning:** Deploy declarative Nix module for TPM-backed SPIRE Server on Node D.

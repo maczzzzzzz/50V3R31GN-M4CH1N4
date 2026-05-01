@@ -5695,6 +5695,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "sovereign-gepa-curator"
+version = "0.1.0"
+dependencies = [
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "sovereign-healer"
 version = "0.1.0"
 dependencies = [
@@ -5788,6 +5797,17 @@ dependencies = [
  "serde",
  "serde_json",
  "tempfile",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "sovereign-warp-observer"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tokio",
  "tracing",
  "tracing-subscriber",
 ]

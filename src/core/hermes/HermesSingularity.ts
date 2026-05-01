@@ -180,14 +180,14 @@ export class HermesSingularity {
     const state: OrchestratorState = {
       activeNode: 'node-c', // Default to Oracle
       retries: 0,
-      prompt: enrichedPrompt,
+      prompt: hardgatePrompt,
       tokens: input.tokens ?? 0,
       file_path: input.file_path ?? '',
       diff: input.diff ?? ''
     };
 
     let result: SingularityResult | null = null;
-    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v0.12.0]";
+    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v3.8.8]";
     
     while (state.retries < 3) {
       try {
@@ -203,7 +203,7 @@ export class HermesSingularity {
             model: 'hermes-model',
             messages: [
               { role: 'system', content: systemPrompt },
-              { role: 'user', content: enrichedPrompt }
+              { role: 'user', content: state.prompt }
             ],
             max_tokens: input.tokens ?? 4096
           })
@@ -217,7 +217,7 @@ export class HermesSingularity {
         result = {
           ruleResult: { tasks: [] },
           outcome: 'SUCCESS',
-          prompt: enrichedPrompt,
+          prompt: state.prompt,
           response: content,
           activeNode: 'done'
         };
