@@ -30,7 +30,7 @@
 - **Response:** If a player attempts an "illegal" move (unauthorized movement into fog), the machine returns `false` in the wrapper, preventing the state commit.
 
 ---
-*Verified by Gemini CLI v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Orchestrator.*
+*Verified by Gemini CLI v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Orchestrator.*
 
 
 ---

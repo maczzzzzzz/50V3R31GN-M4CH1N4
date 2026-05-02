@@ -1,5 +1,5 @@
 # ◈ DEPLOYMENT : MACHINA_DAEMON // LOCAL_SOVEREIGN_CONTROL
-**Version:** 3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** INFRASTRUCTURE / CONTROL
 **Artery:** Local Device -> Mesh Artery (:3030) -> Node B Director
 
@@ -22,7 +22,7 @@ nix develop --impure
 ```
 
 ### 2. Mesh Ignition (Crush)
-The Machina Daemon is shored within the `crush` directory. Build and ignite the bridge:
+The Machina Daemon is shored within the `crush` directory. Build and ignite the artery:
 ```bash
 cd crush
 go build -o machina-daemon

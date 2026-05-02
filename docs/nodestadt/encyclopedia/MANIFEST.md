@@ -1,4 +1,4 @@
-# ◈ THE ENCYCLOPEDIA OF THE MACHINA (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# ◈ THE ENCYCLOPEDIA OF THE MACHINA (v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Sector:** Architectural Purity // Historical Mapping
 **Date:** Friday, May 1, 2026
 
@@ -46,7 +46,7 @@ The following table maps the evolution of the Machina from its physical database
 ## 3. THE ARCHITECTURAL DICTIONARY (SYMBOLS)
 *   **VSB (Virtual System Bus):** The binary UDP/TCP backbone (Port 7878) using magic header `0xC0DE`. It is the "Artery of Truth."
 *   **ST3GG (Steganography):** The LSB-based visual signing engine. Powers the **V2F (Visual Second Factor)** identity pulse.
-*   **RKG (Relational Knowledge Graph):** The semantic memory layer stored in `Akashik.db` and `SovereignIntelligence.db`.
+*   **RKG (Relational Knowledge Graph):** The semantic memory layer stored in `Akashik.db` and `SovereignIntelligence.db`. Access to `Akashik.db` is strictly restricted to **RED_MODE** sessions.
 *   **Roots:** Physical identity anchors (TPM) bound to SPIFFE SVIDs.
 *   **ParselTongue:** A machine-only dialect used for low-latency node attestation and internal handshakes.
 

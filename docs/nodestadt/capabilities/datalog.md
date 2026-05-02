@@ -1,4 +1,4 @@
-# ◈ HEADLESS DATALOG & SYMBOLIC MEMORY (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# ◈ HEADLESS DATALOG & SYMBOLIC MEMORY (v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 **Phase:** 90 [UNIFIED_SYMBOLIC_ARTERY]
 **Engine:** HeadlessDatalog / SQLite
@@ -35,6 +35,8 @@ NODESTADT implements a high-fidelity subset of **DataScript EDN** syntax for que
 ## ◈ TRIPLE STORE SCHEMA (`triplets`)
 
 All symbolic facts are stored as (Subject-Predicate-Object) triplets in the `triplets` table within `Akashik.db`.
+
+> **◈ LORE_NEUTRALITY_GATE:** `Akashik.db` queries are strictly gated behind an active **CYBERPUNK_RED_MODE** invariant to prevent lore-bleed into the Clean BASE. In standard operation, this artery remains dormant.
 
 | Column | Type | Description |
 | :--- | :--- | :--- |
