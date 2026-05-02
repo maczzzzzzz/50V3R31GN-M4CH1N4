@@ -1,0 +1,13 @@
+[package]
+name = "voxcpm-tts"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.36", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+ort = { version = "2.0.0-rc.12" }
+sovereign-mcp = { path = "../../crates/sovereign-mcp" }
+sovereign-memory = { path = "../../crates/sovereign-memory" }
