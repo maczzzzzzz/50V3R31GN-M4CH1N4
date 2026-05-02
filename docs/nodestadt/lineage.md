@@ -61,5 +61,34 @@ The Quaternary Intelligence Audit (v3.8.8-v3.8.8) expanded the mesh with SOTA ag
 - **jamiepine/voicebox:** Local-first neural voice studio and high-fidelity synthesis.
 - **cocoindex-io/cocoindex:** Change-Data-Capture (CDC) streaming for unstructured knowledge.
 
+### ◈ The Syndicate Ingress (v3.8.8)
+The **Grok Research Swarm** and subsequent **Strategist Audit** have verified the following high-signal logic arteries. This registry serves as the primary target list for the `.factory/skills/shard-scanner` automation:
+
+| Repository | Application Pillar | Sovereignty |
+| :--- | :--- | :--- |
+| **alash3al/stash** | 8-Stage Synapse Consolidation (Episodes -> Wisdom) | 10/10 |
+| **context-labs/halo** | Trace-Driven Recursive Feedback Logic | 6/10 |
+| **zerobootdev/zeroboot** | Sub-ms VM Isolation & Hardened Sandboxing | 8/10 |
+| **xujfcn/crazyrouter-hermes** | Gated Cognition Routing & Session Management | 9/10 |
+| **Abruptive/Ankh.md** | Scoped Per-Folder Agent Swarm Injection | 10/10 |
+| **Wysie/drawthings-plugin** | Local gRPC Image Generation (Draw Things) | 10/10 |
+| **amanning3390/hermeshub** | Central Skills Registry & Security Scanner | 9/10 |
+| **plur-ai/plur** | Cross-Agent Shared YAML Persistent Synapse | 10/10 |
+| **beiyuii/personal-api-skill** | Obsidian "Soul" Metadata & Identity Contract | 10/10 |
+| **Lethe044/skill-marketplace** | Autonomous Skill Forge & Pattern Abstraction | 10/10 |
+| **NousResearch/paperclip-adapter** | Managed Employee Orchestration Loop | 10/10 |
+| **mattpocock/skills** | Industrial-Grade Engineering Skill Manifests | 10/10 |
+| **AIScientists-Dev/WorldSeed** | Environmental Consequence Simulation | 9/10 |
+| **TauricResearch/TradingAgents** | Specialized Domain Analyst & Trader Roles | 9/10 |
+| **Alishahryar1/free-claude-code** | Local-First Claude Code Gateway Proxy | 10/10 |
+| **aivrar/portable-hermes** | Hardened Portable Execution Layer | 10/10 |
+| **fathah/hermes-desktop** | Cross-Platform Multi-Gateway Command Deck | 10/10 |
+| **EKKOLearnAI/hermes-web-ui** | Web-Based Visual Ingress & HUD | 9/10 |
+| **ogallotti/rtk-hermes** | Real-Time Kinetic Canvas & Shaders | 10/10 |
+| **Agent-Analytics/analytics** | Trajectory Performance & Failure Attribution | 9/10 |
+| **provision-org/provision-core** | Automated Zero-Trust Mesh Provisioning | 10/10 |
+| **OpenInterpretability/suite** | Mechanistic Interpretability & Logic Extraction | 10/10 |
+| **RecursiveMAS (arXiv:2604.25917)** | Theoretical Framework for Infinite Recursion | 10/10 |
+
 ---
-**::/5Y573M-N071C3 : LINEAGE_PRESERVED. THE_HISTORY_IS_OUR_STRENGTH. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : LINEAGE_EXPANDED. SHARD_SCANNER_TARGETS_LOCKED. // 50V3R31GN-M4CH1N4**
