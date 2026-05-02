@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 
+## [3.8.17-SYNTHESIS] - 2026-05-01
+
+### Added
+- **Encyclopedia of the Machina:** Materialized a 100% exhaustive architectural knowledge base in `docs/nodestadt/encyclopedia/`.
+- **System Soul Dive:** Backtraced 113+ phases of evolution through historical archives, git logs, and shards to map every miniscule feature and orphaned primitive.
+- **Physical DNA Mapping:** Created the `PHYSICAL_MAP.md` dictionary, binding every directory and core file to its origin and technical purpose.
+- **Reckoning Documentation:** Formalized the documentation for the `Gauntlet Reckoning Suite` ensuring zero-trust verification is comprehensibly understood.
+
 ## [3.8.16-SYNTHESIS] - 2026-05-01
 
 ### Added
