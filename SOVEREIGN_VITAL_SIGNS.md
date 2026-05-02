@@ -1,5 +1,5 @@
 # SOVEREIGN_VITAL_SIGNS.md // T3RM1N4L-TRU7H
-**Version:** 3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Identity:** 50V3R31GN-M4CH1N4
 **Status:** QUATERNARY_MESH_ACTIVE
 
@@ -23,7 +23,7 @@
 - **Responsibility:** Fast-tier Oracle, GEPA reflections, guardrails, lightweight agentic tasks, HALO triage, and low-latency support for the Warp observer bridge.
 
 ### ◈ NODE D: QUATERNARY_ARTERY (GMKtec K15)
-- **Hardware:** Intel Core Ultra 5 125U (Intel AI Boost NPU) // 48GB DDR5.
+- **Hardware:** Intel Core Ultra 5 125U (Intel AI Boost NPU / Intel Graphics) // 48GB DDR5.
 - **Model Artery:** Gemma-4 26B Q6 + Qwen-2.5 Coder Q6 + GLM 4.7 Q4.
 - **Responsibility:** 128k+ Hyper-Context reasoning swarms and implementation lead.
 

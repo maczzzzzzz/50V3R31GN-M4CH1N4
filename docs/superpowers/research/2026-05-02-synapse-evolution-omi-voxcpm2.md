@@ -1,5 +1,5 @@
 # ◈ RESEARCH : THE_OMNISCIENT_ARTERY // PHASE_115_SYNTHESIS
-**Version:** 3.8.26-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** ARCHITECTURE_LOCKED
 **Focus:** VoxCPM2 + OMI + Browser-Harness Deep Integration
 
@@ -14,7 +14,7 @@ The Sovereign OS is transitioning from a reactive system to an **Omniscient Arte
 - **Engine:** Tokenizer-free Diffusion AR (2B-parameter).
 - **Fidelity:** Native 48kHz output; studio-quality.
 - **Innovation:** "Voice Design" via natural language prompts (e.g., "authoritative, clinical, low-frequency").
-- **Performance:** RTF ~0.13 via Nano-vLLM on Node D (Radeon 780M).
+- **Performance:** RTF ~0.13 via Intel OpenVINO / ONNX-Runtime (Intel AI Boost NPU) on Node D (Core Ultra 5).
 
 ### ◈ OMI : The Ambient Ingress
 - **Protocol:** BasedHardware/OMI v1 alignment.
