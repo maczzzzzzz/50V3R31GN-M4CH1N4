@@ -30,7 +30,7 @@ async function checkNanoBanana(): Promise<ComponentStatus> {
     const hasApiKey = Boolean(process.env['GOOGLE_API_KEY']);
     checks['GOOGLE_API_KEY'] = hasApiKey ? 'present' : 'missing';
 
-    const { NanoBananaService } = await import('../../src/core/nano-banana-service.js');
+    const { NanoBananaService } = await import('../../packages/hermes-core/src/core/nano-banana-service.js');
     checks['module'] = 'loaded';
 
     if (!hasApiKey) {
@@ -110,7 +110,7 @@ async function checkDatabase(): Promise<ComponentStatus> {
 async function checkUnifiedOracle(): Promise<ComponentStatus> {
   const checks: Record<string, string> = {};
   try {
-    const { UnifiedOracleClient } = await import('../../src/db/unified-oracle-client.js');
+    const { UnifiedOracleClient } = await import('../../packages/hermes-core/src/db/unified-oracle-client.js');
     checks['module'] = 'loaded';
     const client = new UnifiedOracleClient({ worldDbPath: AKASHIK_DB, crushDbPath: './data/crush.db' });
     await client.connect();
@@ -127,7 +127,7 @@ async function checkUnifiedOracle(): Promise<ComponentStatus> {
 async function checkSteganography(): Promise<ComponentStatus> {
   const checks: Record<string, string> = {};
   try {
-    const { SteganographyService } = await import('../../src/core/steganography-service.js');
+    const { SteganographyService } = await import('../../packages/hermes-core/src/core/steganography-service.js');
     checks['module'] = 'loaded';
     const svc = new SteganographyService();
     checks['encodeSecret'] = typeof svc.encodeSecret === 'function' ? 'present' : 'missing';
@@ -161,7 +161,7 @@ async function checkVisionClient(): Promise<ComponentStatus> {
 async function checkSharedMemory(): Promise<ComponentStatus> {
   const checks: Record<string, string> = {};
   try {
-    const { SharedMemoryService } = await import('../../src/core/shared-memory-service.js');
+    const { SharedMemoryService } = await import('../../packages/hermes-core/src/core/shared-memory-service.js');
     checks['module'] = 'loaded';
     const mmapPath = process.env['MMAP_FILE_PATH'] ?? '/tmp/sovereign_state.mmap';
     const { existsSync } = await import('node:fs');
@@ -179,7 +179,7 @@ async function checkSharedMemory(): Promise<ComponentStatus> {
 async function checkTaskRouter(): Promise<ComponentStatus> {
   const checks: Record<string, string> = {};
   try {
-    const { TaskRouterProxy } = await import('../../src/core/task-router-proxy.js');
+    const { TaskRouterProxy } = await import('../../packages/hermes-core/src/core/task-router-proxy.js');
     checks['module'] = 'loaded';
     const proxy = new TaskRouterProxy();
     checks['lockNode']   = typeof proxy.lockNode   === 'function' ? 'present' : 'missing';
@@ -214,7 +214,7 @@ async function checkLLMEndpoints(): Promise<ComponentStatus> {
 async function checkHermesSingularity(): Promise<ComponentStatus> {
   const checks: Record<string, string> = {};
   try {
-    const { HermesSingularity } = await import('../../src/core/hermes/HermesSingularity.js');
+    const { HermesSingularity } = await import('../../packages/hermes-core/src/core/hermes/HermesSingularity.js');
     checks['module'] = 'loaded';
     const orchestrator = new HermesSingularity();
     checks['instantiation'] = 'OK';

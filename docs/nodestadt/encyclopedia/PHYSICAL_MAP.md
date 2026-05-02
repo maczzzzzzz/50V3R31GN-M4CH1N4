@@ -5,10 +5,10 @@
 This document maps the physical directories and core files of the Sovereign Machina to their technical purpose and origin phase.
 
 ## 1. CORE OS (NERVOUS SYSTEM)
-- `src/core/hermes/`: **The Brain.** Home of `HermesSingularity.ts` (Orchestration) and `SovereignObserver.ts` (Vision).
-- `src/core/perception/`: **The Senses.** Home of `VisualMonitorService.ts` (CDP Neural Uplink) and `MobileVisionArtery.ts`.
-- `src/core/memory/`: **The Hippocampus.** Home of `SynapseStore.ts` (Vector DB) and `HeadlessDatalog.ts`.
-- `src/shared/`: **The Synapse.** Common protocols, schemas, and loggers used across the Node B environment.
+- `packages/hermes-core/src/core/hermes/`: **The Brain.** Home of `HermesSingularity.ts` (Orchestration) and `SovereignObserver.ts` (Vision).
+- `packages/hermes-core/src/core/perception/`: **The Senses.** Home of `VisualMonitorService.ts` (CDP Neural Uplink) and `MobileVisionArtery.ts`.
+- `packages/hermes-core/src/core/memory/`: **The Hippocampus.** Home of `SynapseStore.ts` (Vector DB) and `HeadlessDatalog.ts`.
+- `packages/hermes-core/src/shared/`: **The Synapse.** Common protocols, schemas, and loggers used across the Node B environment.
 
 ## 2. THE PHYSICAL HAND (INGRESS/EGRESS)
 - `crush/`: **The Master Controller.** Go-native CLI and bridge daemon.

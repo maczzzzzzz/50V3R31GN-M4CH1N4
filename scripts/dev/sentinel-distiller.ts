@@ -15,7 +15,7 @@
  */
 
 import * as dgram from 'node:dgram';
-import { IntentPacketCodec, IntentType, SovereignContextUpdateCodec } from '../../src/shared/vsb_protocol.js';
+import { IntentPacketCodec, IntentType, SovereignContextUpdateCodec } from '../../packages/hermes-core/src/shared/vsb_protocol.js';
 
 const MOCK = process.argv.includes('--mock');
 

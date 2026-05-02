@@ -7,8 +7,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { ParseltongueCodec } from '../../src/shared/parseltongue-codec.js';
-import type { WorldCommand } from '../../src/shared/schemas/world-commands.schema.js';
+import { ParseltongueCodec } from '../../packages/hermes-core/src/shared/parseltongue-codec.js';
+import type { WorldCommand } from '../../packages/hermes-core/src/shared/schemas/world-commands.schema.js';
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 

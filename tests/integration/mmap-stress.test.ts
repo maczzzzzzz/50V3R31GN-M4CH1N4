@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { SharedMemoryService } from '../../src/core/shared-memory-service.js';
+import { SharedMemoryService } from '../../packages/hermes-core/src/core/shared-memory-service.js';
 import { spawn } from 'child_process';
 import { join } from 'path';
 import { tmpdir } from 'os';

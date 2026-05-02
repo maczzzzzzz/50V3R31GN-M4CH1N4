@@ -1,7 +1,7 @@
 // tests/core/night-market-service.test.ts
 import { describe, it, expect, vi } from 'vitest';
-import { NightMarketService } from '../../src/core/night-market-service.js';
-import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import { NightMarketService } from '../../packages/hermes-core/src/core/night-market-service.js';
+import type { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
 
 describe('NightMarketService', () => {
   it('fetches inventory and calculates prices correctly', async () => {

@@ -2,7 +2,7 @@
 // Phase 61 — UI/UX Sovereignty Verification (VISUAL block)
 //
 // Verifies:
-//   1. Telemetry roll_breakdown packet structure matches zeroclaw/src/server/telemetry.rs output.
+//   1. Telemetry roll_breakdown packet structure matches zeroclaw/packages/hermes-core/src/server/telemetry.rs output.
 //   2. WebSocket event routing: type-guard parses and routes correctly.
 //   3. Rolling 20-entry buffer logic: overflow drops oldest entry.
 //   4. Friction monitor: hit/miss tracking and percentage calculation.
@@ -19,7 +19,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, '..', '..', '..');
 
 // ---------------------------------------------------------------------------
-// Roll breakdown packet shape (mirrors zeroclaw/src/server/telemetry.rs)
+// Roll breakdown packet shape (mirrors zeroclaw/packages/hermes-core/src/server/telemetry.rs)
 // ---------------------------------------------------------------------------
 
 interface RollBreakdown {
@@ -125,9 +125,9 @@ export const shard: PhaseShard = {
 
     // 4. API route files exist
     const apiRoutes = [
-      'dashboard/src/app/api/items/route.ts',
-      'dashboard/src/app/api/markets/route.ts',
-      'dashboard/src/app/api/generate-market/route.ts',
+      'dashboard/packages/hermes-core/src/app/api/items/route.ts',
+      'dashboard/packages/hermes-core/src/app/api/markets/route.ts',
+      'dashboard/packages/hermes-core/src/app/api/generate-market/route.ts',
     ];
     for (const route of apiRoutes) {
       const full = join(repoRoot, route);
@@ -136,10 +136,10 @@ export const shard: PhaseShard = {
 
     // 5. Component files exist
     const components = [
-      'dashboard/src/components/SideNav.tsx',
-      'dashboard/src/app/combat/page.tsx',
-      'dashboard/src/app/economy/page.tsx',
-      'dashboard/src/app/lexicon/page.tsx',
+      'dashboard/packages/hermes-core/src/components/SideNav.tsx',
+      'dashboard/packages/hermes-core/src/app/combat/page.tsx',
+      'dashboard/packages/hermes-core/src/app/economy/page.tsx',
+      'dashboard/packages/hermes-core/src/app/lexicon/page.tsx',
     ];
     for (const comp of components) {
       const full = join(repoRoot, comp);
@@ -147,7 +147,7 @@ export const shard: PhaseShard = {
     }
 
     // 6. Telemetry Rust source exists and declares emit_roll_breakdown
-    const telemetryPath = join(repoRoot, 'zeroclaw/src/server/telemetry.rs');
+    const telemetryPath = join(repoRoot, 'zeroclaw/packages/hermes-core/src/server/telemetry.rs');
     if (!existsSync(telemetryPath)) {
       errors.push('telemetry.rs missing — telemetry broadcast source absent');
     }
@@ -183,19 +183,19 @@ export const shard: PhaseShard = {
 
     // File presence map
     const apiRoutes = [
-      'dashboard/src/app/api/items/route.ts',
-      'dashboard/src/app/api/markets/route.ts',
-      'dashboard/src/app/api/generate-market/route.ts',
+      'dashboard/packages/hermes-core/src/app/api/items/route.ts',
+      'dashboard/packages/hermes-core/src/app/api/markets/route.ts',
+      'dashboard/packages/hermes-core/src/app/api/generate-market/route.ts',
     ];
     results['api_routes'] = Object.fromEntries(
       apiRoutes.map(r => [r, existsSync(join(repoRoot, r))])
     );
 
     const components = [
-      'dashboard/src/components/SideNav.tsx',
-      'dashboard/src/app/combat/page.tsx',
-      'dashboard/src/app/economy/page.tsx',
-      'dashboard/src/app/lexicon/page.tsx',
+      'dashboard/packages/hermes-core/src/components/SideNav.tsx',
+      'dashboard/packages/hermes-core/src/app/combat/page.tsx',
+      'dashboard/packages/hermes-core/src/app/economy/page.tsx',
+      'dashboard/packages/hermes-core/src/app/lexicon/page.tsx',
     ];
     results['components'] = Object.fromEntries(
       components.map(c => [c, existsSync(join(repoRoot, c))])

@@ -20,7 +20,7 @@ echo "  [stage 0] Cleaning existing daemons..."
 pkill -9 -f llama-server || true
 pkill -9 -f colpali-server || true
 pkill -9 -f mcp-daemon || true
-pkill -9 -f "tsx src/main.ts" || true
+pkill -9 -f "tsx packages/hermes-core/src/main.ts" || true
 pkill -9 -f crush || true
 pkill -9 -f zeroclaw || true
 

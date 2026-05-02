@@ -20,8 +20,8 @@ export const v93HermesSingularity: GauntletPhase = {
     },
     {
       id: 'native-orchestration-verify',
-      description: 'Verify src/main.ts uses the native Hermes Singularity engine.',
-      command: 'grep "HermesSingularity" src/main.ts',
+      description: 'Verify packages/hermes-core/src/main.ts uses the native Hermes Singularity engine.',
+      command: 'grep "HermesSingularity" packages/hermes-core/src/main.ts',
       expectedOutput: 'HermesSingularity'
     },
     {

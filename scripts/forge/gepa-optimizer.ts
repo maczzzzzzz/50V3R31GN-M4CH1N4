@@ -12,7 +12,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import type { SoulEntry } from '../../src/core/soul-logger.js';
+import type { SoulEntry } from '../../packages/hermes-core/src/core/soul-logger.js';
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { NitroLogicClient } from '../../src/core/nitro-logic-client.js';
+import { NitroLogicClient } from '../../packages/hermes-core/src/core/nitro-logic-client.js';
 
 describe('NitroLogicClient: Arithmetic Stress Tests', () => {
   it('should pass high-complexity modifier stacks to Node A for calculation', async () => {

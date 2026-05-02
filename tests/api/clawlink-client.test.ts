@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import net from 'node:net';
-import { ClawLinkClient } from '../../src/api/clawlink-client.js';
+import { ClawLinkClient } from '../../packages/hermes-core/src/api/clawlink-client.js';
 
 vi.mock('node:net', async () => {
   const actual = await vi.importActual<typeof net>('node:net');

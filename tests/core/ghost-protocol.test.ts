@@ -33,8 +33,8 @@ const { mockCDP, mockClient } = vi.hoisted(() => {
 
 vi.mock('chrome-remote-interface', () => ({ default: mockCDP }));
 
-import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
-import { GhostInputService } from '../../src/core/ghost-input-service.js';
+import { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
+import { GhostInputService } from '../../packages/hermes-core/src/core/ghost-input-service.js';
 
 describe('Phase 28: Ghost Protocol & UI Infiltration', () => {
   let visualMonitor: VisualMonitorService;

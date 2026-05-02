@@ -19,7 +19,7 @@ The Skill-Factory utilizes the `SkillAuthor` logic to promotes ephemeral agent b
 When an agent completes a successful trajectory, the `SkillAuthor` performs the following steps:
 - **Ingestion**: Analyzes the `AgentTrajectory` (tool calls, inputs, and outcomes).
 - **Synthesis**: Extracts the underlying logic pattern and generates a corresponding TypeScript MCP tool.
-- **Materialization**: Writes the tool to `src/core/plugins/skills/`.
+- **Materialization**: Writes the tool to `packages/hermes-core/src/core/plugins/skills/`.
 - **Registration**: Injects the new skill into the `PluginRegistry` for immediate system-wide availability.
 
 ### 2. Steganographic Proofing

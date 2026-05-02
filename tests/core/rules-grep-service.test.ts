@@ -2,7 +2,7 @@
  * tests/core/rules-grep-service.test.ts
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { RulesGrepService } from '../../src/core/rules-grep-service.js';
+import { RulesGrepService } from '../../packages/hermes-core/src/core/rules-grep-service.js';
 import fs from 'node:fs';
 import path from 'node:path';
 

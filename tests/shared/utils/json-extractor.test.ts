@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractJsonObject } from '../../../src/shared/utils/json-extractor.js';
+import { extractJsonObject } from '../../../packages/hermes-core/src/shared/utils/json-extractor.js';
 
 describe('extractJsonObject', () => {
   it('should find JSON amidst LLM fluff', () => {

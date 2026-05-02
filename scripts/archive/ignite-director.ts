@@ -21,11 +21,11 @@ async function ignite() {
   }
 
   /**
-   * Initialize the Director engine (src/main.ts).
+   * Initialize the Director engine (packages/hermes-core/src/main.ts).
    * We use dynamic import to ensure that process.env.MOONCAKE_MASTER is set
    * BEFORE any top-level logic in main.ts executes.
    */
-  await import('../../src/main.ts');
+  await import('../../packages/hermes-core/src/main.ts');
 }
 
 ignite().catch((err) => {

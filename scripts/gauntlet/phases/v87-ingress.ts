@@ -7,7 +7,7 @@ export const phaseV87Ingress: GauntletTask = {
   async audit(ctx): Promise<AuditResult> {
     const results: string[] = [];
     
-    const checkSkillAuthor = await ctx.shell('ls src/core/plugins/SkillAuthor.ts');
+    const checkSkillAuthor = await ctx.shell('ls packages/hermes-core/src/core/plugins/SkillAuthor.ts');
     if (checkSkillAuthor.code === 0) results.push('● Plugin-Driven Tooling materialized.');
     
     return { status: 'SUCCESS', output: results.join('\n') };

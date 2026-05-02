@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import type { INitroLogicClient, ISovereignNarrativeClient, IFoundryAdapter } from '../../src/core/interfaces.js';
-import { StoryEngine } from '../../src/core/story-engine.js';
-import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
-import { NightMarketService } from '../../src/core/night-market-service.js';
-import { RedTradeService } from '../../src/core/red-trade-service.js';
+import { HybridRoutingController } from '../../packages/hermes-core/src/core/hybrid-routing-controller.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import type { INitroLogicClient, ISovereignNarrativeClient, IFoundryAdapter } from '../../packages/hermes-core/src/core/interfaces.js';
+import { StoryEngine } from '../../packages/hermes-core/src/core/story-engine.js';
+import { GmApprovalQueue } from '../../packages/hermes-core/src/core/gm-approval-queue.js';
+import { NightMarketService } from '../../packages/hermes-core/src/core/night-market-service.js';
+import { RedTradeService } from '../../packages/hermes-core/src/core/red-trade-service.js';
 import fs from 'node:fs';
 
 describe('Global Logic Audit: State Synchronization Stress Test', () => {

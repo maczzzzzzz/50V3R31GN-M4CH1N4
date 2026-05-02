@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { MissionSwarmOrchestrator } from '../../src/core/mission-swarm-orchestrator.js';
+import { MissionSwarmOrchestrator } from '../../packages/hermes-core/src/core/mission-swarm-orchestrator.js';
 
 // ── Mock helpers ──────────────────────────────────────────────────────────────
 

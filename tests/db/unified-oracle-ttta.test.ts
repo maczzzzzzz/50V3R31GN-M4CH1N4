@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
 
 describe('UnifiedOracleClient: TTTA Gear Integration', () => {
   const worldDbPath = './data/test-ttta-world.db';

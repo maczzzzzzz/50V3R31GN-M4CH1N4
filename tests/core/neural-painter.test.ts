@@ -54,8 +54,8 @@ vi.mock('chrome-remote-interface', () => ({ default: mockCDP }));
 
 // ── Import under test ─────────────────────────────────────────────────────────
 
-import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
-import type { SceneBlueprint } from '../../src/core/visual-monitor-service.js';
+import { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
+import type { SceneBlueprint } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
 
 // ── Tests ─────────────────────────────────────────────────────────────────────
 

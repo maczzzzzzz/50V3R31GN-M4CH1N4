@@ -10,19 +10,19 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { StoryEngine } from '../../src/core/story-engine.js';
-import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
+import { StoryEngine } from '../../packages/hermes-core/src/core/story-engine.js';
+import { HybridRoutingController } from '../../packages/hermes-core/src/core/hybrid-routing-controller.js';
 import {
   bootstrapRedTrade,
   createRedTradeInitialState,
-} from '../../src/core/campaign-registry.js';
-import type { INitroLogicClient, ISovereignNarrativeClient } from '../../src/core/interfaces.js';
-import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
-import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
-import type { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
-import type { NightMarketService } from '../../src/core/night-market-service.js';
-import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import type { RedTradeService } from '../../src/core/red-trade-service.js';
+} from '../../packages/hermes-core/src/core/campaign-registry.js';
+import type { INitroLogicClient, ISovereignNarrativeClient } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { IFoundryAdapter } from '../../packages/hermes-core/src/api/foundry-adapter.js';
+import type { FoundryEvent } from '../../packages/hermes-core/src/shared/schemas/foundry-bridge.schema.js';
+import type { GmApprovalQueue } from '../../packages/hermes-core/src/core/gm-approval-queue.js';
+import type { NightMarketService } from '../../packages/hermes-core/src/core/night-market-service.js';
+import type { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import type { RedTradeService } from '../../packages/hermes-core/src/core/red-trade-service.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 

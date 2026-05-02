@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import path from 'node:path';
-import { RedTradeService } from '../../src/core/red-trade-service.js';
-import { RedTradeCargoSchema, FrictionRollResultSchema } from '../../src/shared/schemas/red-trade.schema.js';
+import { RedTradeService } from '../../packages/hermes-core/src/core/red-trade-service.js';
+import { RedTradeCargoSchema, FrictionRollResultSchema } from '../../packages/hermes-core/src/shared/schemas/red-trade.schema.js';
 
 const ITEMS_DIR = path.resolve('tests/fixtures/red-trade-items');
 

@@ -10,8 +10,8 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import { LifePathService } from '../../src/core/life-path-service.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import { LifePathService } from '../../packages/hermes-core/src/core/life-path-service.js';
 
 async function makeInMemoryStack(): Promise<{
   oracle: UnifiedOracleClient;

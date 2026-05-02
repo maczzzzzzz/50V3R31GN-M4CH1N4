@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ClawLinkConfigSchema } from '../../src/shared/schemas/clawlink.schema.js';
+import { ClawLinkConfigSchema } from '../../packages/hermes-core/src/shared/schemas/clawlink.schema.js';
 
 describe('ClawLinkConfigSchema', () => {
   it('accepts socketPath and applies default', () => {

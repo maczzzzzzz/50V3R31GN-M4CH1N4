@@ -11,7 +11,7 @@
 
 import { appendFile, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { VisualSkillCrystallizationPipeline, type DetectedCycle } from '../../../scripts/forge/skill-factory.js';
+import { VisualSkillCrystallizationPipeline, type DetectedCycle } from '../../../../../scripts/forge/skill-factory.js';
 import { randomUUID } from 'node:crypto';
 
 export interface OrchestratorState {

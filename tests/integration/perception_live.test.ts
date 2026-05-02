@@ -1,5 +1,5 @@
 import { test, expect, describe } from 'vitest';
-import { ClawLinkClient } from '../../src/api/clawlink-client';
+import { ClawLinkClient } from '../../packages/hermes-core/src/api/clawlink-client';
 import * as net from 'net';
 
 const host = '127.0.0.1';

@@ -1,4 +1,4 @@
-import { ContextDAG } from '../../../src/core/hermes/ContextDAG.js';
+import { ContextDAG } from '../../../packages/hermes-core/src/core/hermes/ContextDAG.js';
 
 /**
  * RECKONING : TRAJECTORY_AUDITOR — v3.8.8

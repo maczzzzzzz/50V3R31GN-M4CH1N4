@@ -14,10 +14,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import Database from 'better-sqlite3';
 import fs from 'node:fs';
-import { PulseEngine } from '../../src/core/pulse-engine.js';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import type { INitroLogicClient, OracleResult } from '../../src/core/interfaces.js';
-import { TimeSkipResultSchema } from '../../src/shared/schemas/red-trade.schema.js';
+import { PulseEngine } from '../../packages/hermes-core/src/core/pulse-engine.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import type { INitroLogicClient, OracleResult } from '../../packages/hermes-core/src/core/interfaces.js';
+import { TimeSkipResultSchema } from '../../packages/hermes-core/src/shared/schemas/red-trade.schema.js';
 
 const worldDbPath = './test-pulse-world.db';
 const crushDbPath = './test-pulse-crush.db';

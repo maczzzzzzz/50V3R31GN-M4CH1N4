@@ -7,7 +7,7 @@ export const phaseV88Social: GauntletTask = {
   async audit(ctx): Promise<AuditResult> {
     const results: string[] = [];
     
-    const checkSocial = await ctx.shell('ls crates/sovereign-social/src/lib.rs');
+    const checkSocial = await ctx.shell('ls crates/sovereign-social/packages/hermes-core/src/lib.rs');
     if (checkSocial.code === 0) results.push('● The Social Artery materialized.');
     
     const checkCrushSocial = await ctx.shell('ls crush/social.go');

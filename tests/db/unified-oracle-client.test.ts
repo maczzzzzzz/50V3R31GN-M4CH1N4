@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
 import Database from 'better-sqlite3';
 import fs from 'node:fs';
 

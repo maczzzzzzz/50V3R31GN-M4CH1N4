@@ -1,0 +1,8 @@
+name: "example-rust-sidecar"
+version: "0.1.0"
+binary: "./bin/example-rust-sidecar"
+spiffe_id: "spiffe://sovereign.mesh/sidecar/example-rust"
+vsb_intents: [1, 2, 3]
+configuration:
+  log_level: "info"
+  cache_size: 1024

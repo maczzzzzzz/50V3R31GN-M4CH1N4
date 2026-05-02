@@ -2,7 +2,7 @@
  * tests/core/tactical-vision-service.test.ts
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { TacticalVisionService } from '../../src/core/tactical-vision-service.js';
+import { TacticalVisionService } from '../../packages/hermes-core/src/core/tactical-vision-service.js';
 import fs from 'node:fs/promises';
 
 vi.mock('node:fs/promises');

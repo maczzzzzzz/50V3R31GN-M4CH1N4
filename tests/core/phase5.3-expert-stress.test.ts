@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { OnboardingController, InterviewState } from '../../src/core/onboarding-controller.js';
-import type { INitroLogicClient, ISovereignNarrativeClient } from '../../src/core/interfaces.js';
-import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import { OnboardingController, InterviewState } from '../../packages/hermes-core/src/core/onboarding-controller.js';
+import type { INitroLogicClient, ISovereignNarrativeClient } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
 
 describe('Phase 5.3 Expert Stress Tests', () => {
   const mockNitro = {} as INitroLogicClient;

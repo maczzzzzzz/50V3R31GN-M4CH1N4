@@ -13,8 +13,8 @@ import path from 'node:path';
 import Database from 'better-sqlite3';
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
-import { NanoBananaService } from '../../src/core/nano-banana-service.js';
-import { SteganographyService } from '../../src/core/steganography-service.js';
+import { NanoBananaService } from '../../packages/hermes-core/src/core/nano-banana-service.js';
+import { SteganographyService } from '../../packages/hermes-core/src/core/steganography-service.js';
 import 'dotenv/config';
 
 const execAsync = promisify(exec);

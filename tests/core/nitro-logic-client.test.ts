@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { NitroLogicClient } from '../../src/core/nitro-logic-client.js';
-import type { NitroLogicConfig } from '../../src/core/interfaces.js';
+import { NitroLogicClient } from '../../packages/hermes-core/src/core/nitro-logic-client.js';
+import type { NitroLogicConfig } from '../../packages/hermes-core/src/core/interfaces.js';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 

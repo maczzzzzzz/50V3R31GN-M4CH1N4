@@ -8,7 +8,7 @@ The Sovereign Browser Extension provides a high-fidelity ingress pipeline for we
 ## ◈ TECHNICAL ARCHITECTURE
 - **Protocol:** Manifest V3 (MV3).
 - **Relay:** Persistent WebSocket connection to `localhost:3012`.
-- **Ingestor:** `src/api/browser-bridge.ts` (Node B).
+- **Ingestor:** `packages/hermes-core/src/api/browser-bridge.ts` (Node B).
 - **Heartbeat:** 5-second pulse to maintain bridge stability.
 
 ## ◈ OPERATIONAL MODES

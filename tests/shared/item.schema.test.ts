@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { ItemSchema } from '../../src/shared/schemas/item.schema.js';
+import { ItemSchema } from '../../packages/hermes-core/src/shared/schemas/item.schema.js';
 
 describe('ItemSchema', () => {
   it('parses a real gear item (Afterlife Eagle)', () => {

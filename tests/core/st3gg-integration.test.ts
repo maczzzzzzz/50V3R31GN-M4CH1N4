@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
+import { HybridRoutingController } from '../../packages/hermes-core/src/core/hybrid-routing-controller.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { PNG } from 'pngjs';

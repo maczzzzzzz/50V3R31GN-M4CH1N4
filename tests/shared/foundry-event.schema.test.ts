@@ -1,6 +1,6 @@
 // tests/shared/foundry-event.schema.test.ts
 import { describe, it, expect } from 'vitest';
-import { FoundryEventSchema, BridgeCommandSchema } from '../../src/shared/schemas/foundry-bridge.schema.js';
+import { FoundryEventSchema, BridgeCommandSchema } from '../../packages/hermes-core/src/shared/schemas/foundry-bridge.schema.js';
 
 describe('Phase 4 Bridge Schemas', () => {
   describe('Inbound Events (Foundry -> Node B)', () => {

@@ -4,6 +4,12 @@
   "description": "48L173R473D M1ND // 50V3R31GN-M4CH1N4",
   "icon": "terminal-app/assets/app_icon.png",
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "sidecars/*",
+    "crates/*",
+    "dashboard"
+  ],
   "contributors": [
     {
       "name": "maczzzzzzz",
@@ -22,7 +28,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "start": "tsx src/main.ts",
+    "start": "tsx packages/hermes-core/src/main.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "f(){ if [ -z \"$IN_NIX_SHELL\" ] && command -v nix >/dev/null 2>&1; then nix develop .#default --command vitest run \"$@\"; else vitest run \"$@\"; fi; }; f",
@@ -54,8 +60,8 @@
     "reconstruct": "python3 scripts/fast-reconstruct.py",
     "crush": "./crush-cli",
     "crush:nucleus": "./crush-cli nucleus",
-    "dream": "tsx src/scripts/dream-daemon.ts",
-    "dream:once": "tsx src/scripts/dream-daemon.ts --once",
+    "dream": "tsx packages/hermes-core/src/scripts/dream-daemon.ts",
+    "dream:once": "tsx packages/hermes-core/src/scripts/dream-daemon.ts --once",
     "mcp:start": "tsx scripts/dev/mcp-daemon.ts",
     "mcp:test": "tsx scripts/dev/test-mcp-connection.ts",
     "gauntlet": "tsx scripts/gauntlet/engine.ts",
@@ -89,7 +95,7 @@
     "mind:backup": "tsx scripts/recovery/backup-mind.ts",
     "mind:fresh": "tsx scripts/forge/fresh-db.ts",
     "mind:fresh:dry": "tsx scripts/forge/fresh-db.ts --dry-run",
-    "mind:ingest": "tsx src/core/ingest/SovereignIngestService.ts",
+    "mind:ingest": "tsx packages/hermes-core/src/core/ingest/SovereignIngestService.ts",
     "mind:materialize": "python3 scripts/fast-reconstruct.py"
   },
   "pnpm": {

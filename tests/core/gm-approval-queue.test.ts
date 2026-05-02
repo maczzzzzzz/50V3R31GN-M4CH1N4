@@ -1,7 +1,7 @@
 // tests/core/gm-approval-queue.test.ts
 import { describe, it, expect, vi } from 'vitest';
-import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
-import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
+import { GmApprovalQueue } from '../../packages/hermes-core/src/core/gm-approval-queue.js';
+import type { IFoundryAdapter } from '../../packages/hermes-core/src/api/foundry-adapter.js';
 
 describe('GmApprovalQueue', () => {
   it('enqueues a change and resolves when response is handled', async () => {

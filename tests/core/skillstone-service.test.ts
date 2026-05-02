@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SkillstoneService } from '../../src/core/skillstone-service.js';
-import { StoryEngine } from '../../src/core/story-engine.js';
-import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
+import { SkillstoneService } from '../../packages/hermes-core/src/core/skillstone-service.js';
+import { StoryEngine } from '../../packages/hermes-core/src/core/story-engine.js';
+import type { ISovereignNarrativeClient } from '../../packages/hermes-core/src/core/interfaces.js';
 
 // ── SkillstoneService unit tests ──────────────────────────────────────────────
 

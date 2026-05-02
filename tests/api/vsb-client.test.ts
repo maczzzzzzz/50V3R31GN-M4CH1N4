@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { VsbClient } from '../../src/api/vsb-client.js';
+import { VsbClient } from '../../packages/hermes-core/src/api/vsb-client.js';
 import * as dgram from 'node:dgram';
-import { ResultPacketCodec, ResultStatus } from '../../src/shared/vsb_protocol.js';
+import { ResultPacketCodec, ResultStatus } from '../../packages/hermes-core/src/shared/vsb_protocol.js';
 
 vi.mock('node:dgram');
 

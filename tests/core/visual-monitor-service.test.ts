@@ -50,8 +50,8 @@ vi.mock('chrome-remote-interface', () => ({ default: mockCDP }));
 
 // ── Import under test ─────────────────────────────────────────────────────────
 
-import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
-import { logger } from '../../src/shared/logger.js';
+import { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
+import { logger } from '../../packages/hermes-core/src/shared/logger.js';
 
 // ── Mock oracle ───────────────────────────────────────────────────────────────
 

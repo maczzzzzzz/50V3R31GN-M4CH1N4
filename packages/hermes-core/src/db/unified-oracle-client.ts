@@ -183,11 +183,11 @@ export class UnifiedOracleClient {
     const traceId = randomUUID();
     
     try {
-      const schema = fs.readFileSync('src/db/world-schema.sql', 'utf8');
+      const schema = fs.readFileSync('packages/hermes-core/src/db/world-schema.sql', 'utf8');
       this.db.exec(schema);
 
       // ── Phase 34 Migration: Memory Palace ────────────────────────────────────
-      const palaceSchema = fs.readFileSync('src/db/palace-schema.sql', 'utf8');
+      const palaceSchema = fs.readFileSync('packages/hermes-core/src/db/palace-schema.sql', 'utf8');
       this.db.exec(palaceSchema);
 
       // ── Phase 47 Migration: district_id columns ──────────────────────────────

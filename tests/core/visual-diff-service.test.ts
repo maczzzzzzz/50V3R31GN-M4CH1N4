@@ -6,7 +6,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { VisualDiffService } from '../../src/core/visual-diff-service.js';
+import { VisualDiffService } from '../../packages/hermes-core/src/core/visual-diff-service.js';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -165,7 +165,7 @@ describe('VisualMonitorService.diffScene()', () => {
   it('throws when no base screenshot is stored for the given sceneId', async () => {
     // Mock chrome-remote-interface to allow VisualMonitorService to construct
     // and have captureScreenshot spied on without a real CDP connection.
-    const { VisualMonitorService } = await import('../../src/core/visual-monitor-service.js');
+    const { VisualMonitorService } = await import('../../packages/hermes-core/src/core/visual-monitor-service.js');
 
     const monitor = new VisualMonitorService({});
 

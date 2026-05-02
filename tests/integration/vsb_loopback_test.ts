@@ -9,7 +9,7 @@ import {
   IntentPacketCodec,
   IntentType,
   ResultPacketCodec,
-} from '../../src/shared/vsb_protocol.js';
+} from '../../packages/hermes-core/src/shared/vsb_protocol.js';
 
 const TARGET_IP = '127.0.0.1';
 const VSB_PORT = 7878;

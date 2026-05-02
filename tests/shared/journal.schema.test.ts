@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { JournalEntrySchema } from '../../src/shared/schemas/journal.schema.js';
+import { JournalEntrySchema } from '../../packages/hermes-core/src/shared/schemas/journal.schema.js';
 
 describe('JournalEntrySchema', () => {
   it('parses a real single-page journal (Afterlife Entrance Fee)', () => {

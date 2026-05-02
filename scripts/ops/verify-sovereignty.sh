@@ -25,10 +25,10 @@ check_bin "sidecar-netrunning/target/release/sidecar-netrunning"
 
 # 2. Schema & Interface Audit
 echo "  [2/4] Interface Audit (TypeScript)..."
-grep -q "AkashikVisualAuditor" src/main.ts && echo "    ✅ Auditor wired in main.ts"
-grep -q "audit_library" src/core/hybrid-routing-controller.ts && echo "    ✅ HRC handles audit_library"
-grep -q "corruptUI" src/core/visual-monitor-service.ts && echo "    ✅ CDP corruptUI implemented"
-grep -q "dragToken" src/core/ghost-input-service.ts && echo "    ✅ Ghost dragToken implemented"
+grep -q "AkashikVisualAuditor" packages/hermes-core/src/main.ts && echo "    ✅ Auditor wired in main.ts"
+grep -q "audit_library" packages/hermes-core/src/core/hybrid-routing-controller.ts && echo "    ✅ HRC handles audit_library"
+grep -q "corruptUI" packages/hermes-core/src/core/visual-monitor-service.ts && echo "    ✅ CDP corruptUI implemented"
+grep -q "dragToken" packages/hermes-core/src/core/ghost-input-service.ts && echo "    ✅ Ghost dragToken implemented"
 
 # 3. CLI Functional Audit
 echo "  [3/4] CLI Subcommand Audit..."
@@ -38,7 +38,7 @@ echo "  [3/4] CLI Subcommand Audit..."
 
 # 4. Hardware Sovereignty Audit (Rust)
 echo "  [4/4] Sidecar Capability Audit..."
-grep -q "nixos-rebuild" sidecar-cyberdeck/src/main.rs && echo "    ✅ NixOS rebuild hooks found in HUD"
+grep -q "nixos-rebuild" sidecar-cyberdeck/packages/hermes-core/src/main.rs && echo "    ✅ NixOS rebuild hooks found in HUD"
 grep -q "pkill" deck-igniter/launcher.go && echo "    ✅ Zombie purge hooks found in launcher"
 
 echo ""

@@ -1,5 +1,5 @@
 import Database from 'better-sqlite3';
-import { VisualRAGService } from '../../src/core/ingest/VisualRAGService';
+import { VisualRAGService } from '../../packages/hermes-core/src/core/ingest/VisualRAGService';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 

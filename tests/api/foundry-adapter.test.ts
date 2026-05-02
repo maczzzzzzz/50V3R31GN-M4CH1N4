@@ -8,7 +8,7 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi, type MockedFunction } from 'vitest';
 import WebSocket, { WebSocketServer } from 'ws';
-import { FoundryAdapter } from '../../src/api/foundry-adapter.js';
+import { FoundryAdapter } from '../../packages/hermes-core/src/api/foundry-adapter.js';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 

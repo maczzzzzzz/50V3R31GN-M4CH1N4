@@ -6,12 +6,12 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { TurnDaemon } from '../../src/core/turn-daemon.js';
-import type { TurnResult, NpcAction } from '../../src/core/turn-daemon.js';
-import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
-import type { IClawLinkClient } from '../../src/api/clawlink-client.js';
-import type { LifePathService } from '../../src/core/life-path-service.js';
-import type { NpcLog } from '../../src/core/life-path-service.js';
+import { TurnDaemon } from '../../packages/hermes-core/src/core/turn-daemon.js';
+import type { TurnResult, NpcAction } from '../../packages/hermes-core/src/core/turn-daemon.js';
+import type { ISovereignNarrativeClient } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { IClawLinkClient } from '../../packages/hermes-core/src/api/clawlink-client.js';
+import type { LifePathService } from '../../packages/hermes-core/src/core/life-path-service.js';
+import type { NpcLog } from '../../packages/hermes-core/src/core/life-path-service.js';
 
 // ── Shared mock factories ─────────────────────────────────────────────────────
 

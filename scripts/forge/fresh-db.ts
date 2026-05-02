@@ -17,8 +17,8 @@ import path from 'node:path';
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const DB_PATH = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
-const SCHEMA_PATH = path.resolve('./src/db/world-schema.sql');
-const PALACE_SCHEMA_PATH = path.resolve('./src/db/palace-schema.sql');
+const SCHEMA_PATH = path.resolve('./packages/hermes-core/src/db/world-schema.sql');
+const PALACE_SCHEMA_PATH = path.resolve('./packages/hermes-core/src/db/palace-schema.sql');
 
 function log(msg: string): void {
   console.log(`::/5Y573M-N071C3 : ${msg}`);

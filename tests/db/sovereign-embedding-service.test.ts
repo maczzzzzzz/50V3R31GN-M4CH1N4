@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import type { ILogger, EmbeddingServiceConfig } from '../../src/db/interfaces.js';
-import { SovereignEmbeddingService } from '../../src/db/sovereign-embedding-service.js';
+import type { ILogger, EmbeddingServiceConfig } from '../../packages/hermes-core/src/db/interfaces.js';
+import { SovereignEmbeddingService } from '../../packages/hermes-core/src/db/sovereign-embedding-service.js';
 
 function createMockLogger(): ILogger & { calls: Array<{ severity: string; traceId: string; message: string }> } {
   const calls: Array<{ severity: string; traceId: string; message: string }> = [];

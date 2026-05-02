@@ -3,10 +3,10 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { createRequire } from 'node:module';
 import 'dotenv/config';
-import { UnifiedOracleClient } from '../src/db/unified-oracle-client.js';
-import { AkashikVisualAuditor } from '../src/core/akashik-visual-auditor.js';
-import { MemoryPalaceService } from '../src/core/memory-palace-service.js';
-import { SovereignInferenceClient } from '../src/core/sovereign-inference-client.js';
+import { UnifiedOracleClient } from '../packages/hermes-core/src/db/unified-oracle-client.js';
+import { AkashikVisualAuditor } from '../packages/hermes-core/src/core/akashik-visual-auditor.js';
+import { MemoryPalaceService } from '../packages/hermes-core/src/core/memory-palace-service.js';
+import { SovereignInferenceClient } from '../packages/hermes-core/src/core/sovereign-inference-client.js';
 
 const require = createRequire(import.meta.url);
 const pdf = require('pdf-parse');

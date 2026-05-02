@@ -10,11 +10,11 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { OnboardingController } from '../../src/core/onboarding-controller.js';
-import type { INitroLogicClient, OracleResult } from '../../src/core/interfaces.js';
-import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
-import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import { InterviewState } from '../../src/core/onboarding-controller.js';
+import { OnboardingController } from '../../packages/hermes-core/src/core/onboarding-controller.js';
+import type { INitroLogicClient, OracleResult } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import { InterviewState } from '../../packages/hermes-core/src/core/onboarding-controller.js';
 
 // ── Mock factories ─────────────────────────────────────────────────────────────
 

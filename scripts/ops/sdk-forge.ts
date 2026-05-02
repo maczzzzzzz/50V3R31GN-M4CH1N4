@@ -9,7 +9,7 @@ import path from 'node:path';
  */
 
 const RUST_SOURCE = 'sovereign-sdk/src/protocol.rs';
-const TS_TARGET   = 'src/shared/protocol.ts';
+const TS_TARGET   = 'packages/hermes-core/src/shared/protocol.ts';
 const GO_TARGET   = 'crush/harness/protocol/generated_offsets.go';
 
 function forge() {

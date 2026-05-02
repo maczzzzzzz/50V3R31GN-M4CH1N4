@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { foundryToMachine, machineToFoundry, normalizedToMachine } from '../../../src/shared/utils/coords.js';
+import { foundryToMachine, machineToFoundry, normalizedToMachine } from '../../../packages/hermes-core/src/shared/utils/coords.js';
 
 describe('Coordinate Normalization', () => {
   it('should convert foundry pixels to machine units (0-1000)', () => {

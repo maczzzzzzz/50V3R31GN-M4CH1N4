@@ -4,14 +4,14 @@
  * "Night City Meat Grinder" — Exhaustive System Stress Test
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import { RulesGrepService } from '../../src/core/rules-grep-service.js';
-import { ClawLinkClient } from '../../src/api/clawlink-client.js';
-import { StoryEngine } from '../../src/core/story-engine.js';
-import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
-import { NightMarketService } from '../../src/core/night-market-service.js';
-import { RedTradeService } from '../../src/core/red-trade-service.js';
+import { HybridRoutingController } from '../../packages/hermes-core/src/core/hybrid-routing-controller.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import { RulesGrepService } from '../../packages/hermes-core/src/core/rules-grep-service.js';
+import { ClawLinkClient } from '../../packages/hermes-core/src/api/clawlink-client.js';
+import { StoryEngine } from '../../packages/hermes-core/src/core/story-engine.js';
+import { GmApprovalQueue } from '../../packages/hermes-core/src/core/gm-approval-queue.js';
+import { NightMarketService } from '../../packages/hermes-core/src/core/night-market-service.js';
+import { RedTradeService } from '../../packages/hermes-core/src/core/red-trade-service.js';
 import fs from 'node:fs';
 import path from 'node:path';
 

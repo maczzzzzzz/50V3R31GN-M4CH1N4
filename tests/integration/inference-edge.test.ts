@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { SpatialVisionService } from '../../src/core/spatial-vision-service.js';
+import { SpatialVisionService } from '../../packages/hermes-core/src/core/spatial-vision-service.js';
 
 describe('Inference API Edge Cases (Native llama-server)', () => {
   it('should not crash when VLM endpoint returns malformed JSON', async () => {

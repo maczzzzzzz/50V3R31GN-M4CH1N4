@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { SpatialVisionService, type VisualTacticalContext } from '../../src/core/spatial-vision-service.js';
+import { SpatialVisionService, type VisualTacticalContext } from '../../packages/hermes-core/src/core/spatial-vision-service.js';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 

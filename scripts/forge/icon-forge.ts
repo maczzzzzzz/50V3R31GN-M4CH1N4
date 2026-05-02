@@ -5,7 +5,7 @@
  * with a cyberpunk eye background (Pure Black and White).
  */
 
-import { NanoBananaService } from '../../src/core/nano-banana-service.js';
+import { NanoBananaService } from '../../packages/hermes-core/src/core/nano-banana-service.js';
 import path from 'node:path';
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -51,7 +51,7 @@ async function main() {
     
     // Generate Android assets
     console.log('◈ Materializing icon mesh for Android...');
-    const resPath = 'terminal-app/android/app/src/main/res';
+    const resPath = 'terminal-app/android/app/packages/hermes-core/src/main/res';
     const sizes = {
       'mipmap-mdpi': '48x48',
       'mipmap-hdpi': '72x72',

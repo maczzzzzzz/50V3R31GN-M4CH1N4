@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PdfChunkSchema, NamespaceEnum } from '../../src/shared/schemas/pdf-chunk.schema.js';
+import { PdfChunkSchema, NamespaceEnum } from '../../packages/hermes-core/src/shared/schemas/pdf-chunk.schema.js';
 
 describe('PdfChunkSchema', () => {
   it('validates a well-formed core rules chunk', () => {

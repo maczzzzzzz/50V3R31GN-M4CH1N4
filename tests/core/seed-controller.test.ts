@@ -6,8 +6,8 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { SeedController } from '../../src/core/seed-controller.js';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import { SeedController } from '../../packages/hermes-core/src/core/seed-controller.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
 import fs from 'node:fs';
 
 const WORLD_DB = './test-seeds-world.db';

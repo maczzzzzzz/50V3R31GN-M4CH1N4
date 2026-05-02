@@ -7,8 +7,8 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { FoundryAdapter } from '../../src/api/foundry-adapter.js';
-import { logger } from '../../src/shared/logger.js';
+import { FoundryAdapter } from '../../packages/hermes-core/src/api/foundry-adapter.js';
+import { logger } from '../../packages/hermes-core/src/shared/logger.js';
 import WebSocket from 'ws';
 
 // ── Mock Foundry Globals ──────────────────────────────────────────────────────
@@ -105,7 +105,7 @@ describe('Socketlib Sovereignty Integration', () => {
     };
 
     // We'll test the HRC handler directly for speed
-    const { HybridRoutingController } = await import('../../src/core/hybrid-routing-controller.js');
+    const { HybridRoutingController } = await import('../../packages/hermes-core/src/core/hybrid-routing-controller.js');
     const controller = new HybridRoutingController({
       foundryAdapter: adapter,
       logger,

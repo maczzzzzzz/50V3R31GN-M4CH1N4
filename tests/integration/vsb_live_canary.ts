@@ -11,7 +11,7 @@ import {
   IntentType,
   ResultPacketCodec,
   VSB_MAGIC,
-} from '../../src/shared/vsb_protocol.js';
+} from '../../packages/hermes-core/src/shared/vsb_protocol.js';
 
 const NODE_A_IP = '10.0.0.10';
 const VSB_PORT = 7878;

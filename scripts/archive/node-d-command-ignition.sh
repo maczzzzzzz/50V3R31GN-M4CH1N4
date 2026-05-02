@@ -13,7 +13,7 @@ echo "◈ 50V3R31GN-M4CH1N4 // NODE_D_COMMAND_IGNITION // 1N171473D"
 nix develop .#quaternary --command bash -c "
     echo '● [STAGE 0] Cleaning Stale Arteries...'
     pkill -f hermes-router || true
-    pkill -f "tsx src/core/hermes/node-d-command.ts" || true
+    pkill -f "tsx packages/hermes-core/src/core/hermes/node-d-command.ts" || true
     sleep 2
 
     echo '● [STAGE 1] Validating Environment...'
@@ -37,11 +37,11 @@ nix develop .#quaternary --command bash -c "
     ROUTER_PID=\$!
     
     echo '● [STAGE 3] Igniting Sovereign Swapper...'
-    npx tsx src/core/hermes/node-d-swapper.ts > ~/swapper.log 2>&1 &
+    npx tsx packages/hermes-core/src/core/hermes/node-d-swapper.ts > ~/swapper.log 2>&1 &
     SWAPPER_PID=\$!
 
     echo '● [STAGE 4] Igniting Hermes Singularity Daemon...'
-    npx tsx src/core/hermes/node-d-command.ts > ~/singularity.log 2>&1 &
+    npx tsx packages/hermes-core/src/core/hermes/node-d-command.ts > ~/singularity.log 2>&1 &
     SINGULARITY_PID=\$!
     
     echo '◈ NODE D COMMAND STACK LIVE.'

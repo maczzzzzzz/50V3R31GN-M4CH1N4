@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import * as dgram from 'node:dgram';
+import { execSync } from 'node:child_process';
 import { logger } from '../../shared/logger.js';
 
 /**
@@ -81,8 +82,24 @@ export class SovereignObserver {
 
     if (status === 0x00) {
       logger.debug('SovereignObserver', traceId, `Screen captured: ${payload}`);
+      // ◈ Phase 106: Sign frame with Visual Second Factor (V2F)
+      this.signFrameWithV2f(payload, traceId);
     } else {
       logger.warn('SovereignObserver', traceId, `Capture failed [Status: ${status}]: ${payload}`);
+    }
+  }
+
+  private signFrameWithV2f(filePath: string, traceId: string): void {
+    try {
+      // Execute crush identity_st3gg to sign the frame
+      // Usage: crush identity_st3gg <image> <svid> <secret> <out>
+      const svid = process.env['SPIFFE_ID'] || 'spiffe://sovereign.machina/workload/observer';
+      const secret = process.env['V2F_SECRET'] || 'SOVEREIGN_M4CH1N4_V2F_SECRET';
+      
+      execSync(`./crush-cli identity_st3gg sign "${filePath}" "${svid}" "${secret}" "${filePath}"`);
+      logger.debug('SovereignObserver', traceId, `◈ [V2F] Frame signed: ${filePath}`);
+    } catch (err) {
+      logger.error('SovereignObserver', traceId, `◈ [V2F] Signing failed: ${(err as Error).message}`);
     }
   }
 

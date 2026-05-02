@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { SteganographyService } from '../../src/core/steganography-service.js';
+import { SteganographyService } from '../../packages/hermes-core/src/core/steganography-service.js';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { PNG } from 'pngjs';

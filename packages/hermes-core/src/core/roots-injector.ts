@@ -2,6 +2,7 @@ import type { Database } from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { SovereignProfile } from './interfaces.js';
+import { ScopedSwarmManager } from './hermes/ScopedSwarmManager.js';
 
 export interface DistrictDNA {
   id: string;
@@ -29,6 +30,19 @@ export class RootsInjector {
 
   public setProfile(profile: SovereignProfile): void {
     this.activeProfile = profile;
+  }
+
+  /**
+   * ◈ Phase 107 Task 4: Scoped Swarm Injection
+   * Merges project-specific instructions from Ankh.md into the base system prompt.
+   */
+  public discover_state(currentDir: string, baseSystemPrompt: string): string {
+    const scopedInstructions = ScopedSwarmManager.discoverInstructions(currentDir, this.projectRoot);
+    let mergedPrompt = baseSystemPrompt;
+    if (scopedInstructions.length > 0) {
+      mergedPrompt += `\n\n[SCOPED SWARM INSTRUCTIONS (Ankh.md)]\n${scopedInstructions.join('\n---\n')}`;
+    }
+    return mergedPrompt;
   }
 
   private getSoul(): string {

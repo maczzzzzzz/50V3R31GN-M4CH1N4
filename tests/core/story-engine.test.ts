@@ -1,10 +1,10 @@
 // tests/core/story-engine.test.ts
 import { describe, it, expect, vi } from 'vitest';
-import { StoryEngine } from '../../src/core/story-engine.js';
-import { ParseltongueCodec } from '../../src/shared/parseltongue-codec.js';
-import type { StoryState } from '../../src/shared/schemas/story.schema.js';
-import type { WorldCommand } from '../../src/shared/schemas/world-commands.schema.js';
-import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
+import { StoryEngine } from '../../packages/hermes-core/src/core/story-engine.js';
+import { ParseltongueCodec } from '../../packages/hermes-core/src/shared/parseltongue-codec.js';
+import type { StoryState } from '../../packages/hermes-core/src/shared/schemas/story.schema.js';
+import type { WorldCommand } from '../../packages/hermes-core/src/shared/schemas/world-commands.schema.js';
+import type { IFoundryAdapter } from '../../packages/hermes-core/src/api/foundry-adapter.js';
 
 describe('StoryEngine', () => {
   it('transitions to a new beat when a condition is met', () => {

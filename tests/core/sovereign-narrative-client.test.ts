@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { SovereignNarrativeClient } from '../../src/core/sovereign-narrative-client.js';
-import type { SovereignNarrativeConfig } from '../../src/core/interfaces.js';
+import { SovereignNarrativeClient } from '../../packages/hermes-core/src/core/sovereign-narrative-client.js';
+import type { SovereignNarrativeConfig } from '../../packages/hermes-core/src/core/interfaces.js';
 
 const mockFetch = vi.fn();
 vi.stubGlobal('fetch', mockFetch);

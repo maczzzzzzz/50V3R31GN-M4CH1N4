@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ArchitectPassService } from '../../src/core/architect-pass-service.js';
-import type { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
-import type { GhostBlip } from '../../src/shared/vsb_protocol.js';
+import { ArchitectPassService } from '../../packages/hermes-core/src/core/architect-pass-service.js';
+import type { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
+import type { GhostBlip } from '../../packages/hermes-core/src/shared/vsb_protocol.js';
 
 describe('ArchitectPassService', () => {
   let architect: ArchitectPassService;

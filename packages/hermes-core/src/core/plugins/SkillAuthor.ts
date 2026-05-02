@@ -58,7 +58,7 @@ export interface SynthesisedSkill {
 
 // ── SkillAuthor ───────────────────────────────────────────────────────────────
 
-const SKILLS_DIR = join(process.cwd(), 'src/core/plugins/skills');
+const SKILLS_DIR = join(process.cwd(), 'packages/hermes-core/src/core/plugins/skills');
 
 export class SkillAuthor {
   constructor(private readonly registry: PluginRegistry) {}

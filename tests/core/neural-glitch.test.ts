@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
+import { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
 
 // ── Mock CDP ──────────────────────────────────────────────────────────────────
 

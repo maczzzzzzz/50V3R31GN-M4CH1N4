@@ -39,7 +39,7 @@ export const phaseV81Host: GauntletTask = {
     }
 
     // 4. Verify OMI-based Screen Awareness (Phase 93 Pivot)
-    const checkObserver = await ctx.shell('ls src/core/hermes/SovereignObserver.ts');
+    const checkObserver = await ctx.shell('ls packages/hermes-core/src/core/hermes/SovereignObserver.ts');
     if (checkObserver.code === 0) {
        results.push('● Sovereign Observer (OMI) materialized.');
     } else {

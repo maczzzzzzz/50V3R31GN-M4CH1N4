@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
-import { LoreHarmonizer } from '../../src/core/ingest/LoreHarmonizer';
-import { VisualRAGService } from '../../src/core/ingest/VisualRAGService';
+import { LoreHarmonizer } from '../../packages/hermes-core/src/core/ingest/LoreHarmonizer';
+import { VisualRAGService } from '../../packages/hermes-core/src/core/ingest/VisualRAGService';
 
 const DB_PATH = process.env['AKASHIK_DB_PATH'] ?? 'data/Akashik.db';
 const db = new Database(DB_PATH);

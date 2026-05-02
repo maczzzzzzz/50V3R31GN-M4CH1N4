@@ -10,16 +10,16 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { HybridRoutingController } from '../../src/core/hybrid-routing-controller.js';
-import type { INitroLogicClient, AttackResult, DvResult, OracleResult } from '../../src/core/interfaces.js';
-import type { ISovereignNarrativeClient } from '../../src/core/interfaces.js';
-import type { IFoundryAdapter } from '../../src/api/foundry-adapter.js';
-import type { FoundryEvent } from '../../src/shared/schemas/foundry-bridge.schema.js';
-import { StoryEngine } from '../../src/core/story-engine.js';
-import { GmApprovalQueue } from '../../src/core/gm-approval-queue.js';
-import { NightMarketService } from '../../src/core/night-market-service.js';
-import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import type { RedTradeService } from '../../src/core/red-trade-service.js';
+import { HybridRoutingController } from '../../packages/hermes-core/src/core/hybrid-routing-controller.js';
+import type { INitroLogicClient, AttackResult, DvResult, OracleResult } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { ISovereignNarrativeClient } from '../../packages/hermes-core/src/core/interfaces.js';
+import type { IFoundryAdapter } from '../../packages/hermes-core/src/api/foundry-adapter.js';
+import type { FoundryEvent } from '../../packages/hermes-core/src/shared/schemas/foundry-bridge.schema.js';
+import { StoryEngine } from '../../packages/hermes-core/src/core/story-engine.js';
+import { GmApprovalQueue } from '../../packages/hermes-core/src/core/gm-approval-queue.js';
+import { NightMarketService } from '../../packages/hermes-core/src/core/night-market-service.js';
+import type { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import type { RedTradeService } from '../../packages/hermes-core/src/core/red-trade-service.js';
 
 // ── Mock factories ────────────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { SceneSchema } from '../../src/shared/schemas/scene.schema.js';
+import { SceneSchema } from '../../packages/hermes-core/src/shared/schemas/scene.schema.js';
 
 describe('SceneSchema', () => {
   it('parses a real environment scene (Afterlife Exterior)', () => {

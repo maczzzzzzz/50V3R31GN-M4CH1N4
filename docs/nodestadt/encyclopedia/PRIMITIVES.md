@@ -6,10 +6,10 @@ This document contains technical details of specific, granular features mapped d
 
 ## 1. NARRATIVE & COGNITION
 *   **autoDream (Phase 9): [ARTIFACT]** A proposed recursive self-cleaning mechanism for the context window. 
-    *   *Status:* Non-physical in `src/`. Superseded by `MemoryObserver` and structured `SovereignIntelligence.db` logging.
+    *   *Status:* Non-physical in `packages/hermes-core/src/`. Superseded by `MemoryObserver` and structured `SovereignIntelligence.db` logging.
 *   **Conversational Onboarding (Phase 5.3): [ACTIVE]** A stateful interview controller that builds Actors through dialogue.
     *   *States:* `VIBE_CHECK`, `LIFEPATH`, `STATS`.
-    *   *Files:* `src/core/onboarding-controller.ts`.
+    *   *Files:* `packages/hermes-core/src/core/onboarding-controller.ts`.
 *   **Conlang Mutation (Phase 12): [EVOLVED]** Linguistic steganography system that corrupts journal entries into machine dialects.
     *   *Status:* Integrated into `LinguisticService.ts` and `zeroclaw`.
     *   *Hook:* `sovereign.conlang.mutate`.

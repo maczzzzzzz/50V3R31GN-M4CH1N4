@@ -6,7 +6,7 @@ echo "::/5Y573M-N071C3 : INITIATING_GRACEFUL_SHUTDOWN..."
 
 # 1. Trigger Save State for active Orchestrator threads
 echo "  [1/5] Signalling Node B Orchestrator (Checkpointing)..."
-pkill -SIGTERM -f "tsx src/main.ts" || true
+pkill -SIGTERM -f "tsx packages/hermes-core/src/main.ts" || true
 sleep 2
 
 # 2. Shutdown MCP Bridge
@@ -27,7 +27,7 @@ pkill -SIGTERM -f "llama-server" || true
 # 5. Final Sweep (Force Kill any phantom zombies)
 echo "  [5/5] Purging residual phantom services..."
 sleep 1
-pkill -9 -f "tsx src/main.ts" || true
+pkill -9 -f "tsx packages/hermes-core/src/main.ts" || true
 pkill -9 -f "mcp-daemon" || true
 pkill -9 -f "crush" || true
 pkill -9 -f "zeroclaw" || true

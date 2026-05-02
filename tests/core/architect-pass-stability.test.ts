@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ArchitectPassService } from '../../src/core/architect-pass-service.js';
-import type { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
+import { ArchitectPassService } from '../../packages/hermes-core/src/core/architect-pass-service.js';
+import type { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
 
 describe('ArchitectPassService Stability Test', () => {
   let architect: ArchitectPassService;

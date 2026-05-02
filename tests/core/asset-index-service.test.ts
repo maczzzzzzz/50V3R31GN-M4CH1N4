@@ -6,7 +6,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AssetIndexService } from '../../src/core/asset-index-service.js';
+import { AssetIndexService } from '../../packages/hermes-core/src/core/asset-index-service.js';
 
 // ── Chokidar mock (vi.hoisted so it runs before module evaluation) ────────────
 

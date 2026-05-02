@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
-import { VisualMonitorService } from '../../src/core/visual-monitor-service.js';
+import { VisualMonitorService } from '../../packages/hermes-core/src/core/visual-monitor-service.js';
 import { createServer } from 'http';
 import WebSocket, { WebSocketServer } from 'ws';
 import { Server } from 'http';

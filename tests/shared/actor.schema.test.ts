@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { ActorSchema } from '../../src/shared/schemas/actor.schema.js';
+import { ActorSchema } from '../../packages/hermes-core/src/shared/schemas/actor.schema.js';
 
 describe('ActorSchema', () => {
   it('parses a real edgerunner NPC actor', () => {

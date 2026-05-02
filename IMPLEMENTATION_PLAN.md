@@ -87,16 +87,17 @@
 
 ## 🔍 MANDATORY: SYSTEM COHESION AUDIT (IN-PROGRESS)
 **Objective:** Recursive audit of all 100+ phases to ensure zero "architectural bloat" and full primitive integration.
-- [ ] **Task 1: The Integrity Scan:** Dispatch Node D to perform a cross-sector audit, identifying any "stacked" technologies that lack deep integration with core Machina soul (Roots, ST3GG, ParselTongue).
+- [x] **Task 1: The Integrity Scan:** Dispatched Node D to perform a cross-sector audit. Identified Artery Bypass, Vision Fragmentation, and Lore-Bleed fractures.
 - [ ] **Task 2: Bloat Neutralization:** Refactor or purge any redundant layers identified in the scan to maintain the Clean BASE invariant.
 
-## 🏛️ PHASE 107: NODESTADT ORGANIZATION PIVOT
+## ✅ PHASE 107: NODESTADT ORGANIZATION PIVOT (COMPLETED)
 **Goal:** Transition to a professional monorepo structure and declarative sidecar framework.
-- [ ] **Task 1: Monorepo Scaffolding:** Create the `flake.nix` structure and Nix-driven directory hierarchy for the NODESTADT monorepo.
-- [ ] **Task 2: Profile + Plugin Framework Baseline:** Finalize the declarative manifest format for drop-in Rust sidecars and profile-specific agent behaviors.
-- [ ] **Task 3: Scoped Swarm Directory Injection:** Integrate `Abruptive/Ankh.md` logic into the new profile framework to enable per-folder agent swarms.
+- [x] **Task 1: Monorepo Scaffolding:** Materialized `flake.nix` multi-package shells and migrated core logic to `packages/hermes-core/src/`.
+- [x] **Task 2: Declarative Profile & Plugin Framework:** Implemented Zod-based `PluginManifest` and updated `PluginRegistry` for automated sidecar provisioning.
+- [x] **Task 3: Nervous System Re-wiring:** Refactored `HermesSingularity` to use the zero-trust `hermes-router` and integrated `ST3GG` signing into the `SovereignObserver` vision stream.
+- [x] **Task 4: Scoped Swarm Directory Injection:** Implemented `ScopedSwarmManager` to enable per-folder agent behaviors based on local `.agent/Ankh.md` configs.
 
-## 🔌 PHASE 108: CYBERPUNK RED PLUGIN EXTRACTION
+## 🔌 PHASE 108: CYBERPUNK RED PLUGIN EXTRACTION (IN-PROGRESS)
 **Goal:** Surgically extract simulation mechanics into a dedicated plugin, leaving the Clean BASE.
 - [ ] **Task 1: Artery of Truth Decoupling:** Unify legacy simulation DBs into `cyberpunk.db` and separate from core Sovereign state.
 - [ ] **Task 2: Logic Extraction:** Move Red-specific MCP tools, sidecars, and profile logic to `nodestadt/sovereign-red-plugin`.

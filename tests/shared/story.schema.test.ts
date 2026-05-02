@@ -1,6 +1,6 @@
 // tests/shared/story.schema.test.ts
 import { describe, it, expect } from 'vitest';
-import { StoryStateSchema } from '../../src/shared/schemas/story.schema.js';
+import { StoryStateSchema } from '../../packages/hermes-core/src/shared/schemas/story.schema.js';
 
 describe('StoryStateSchema', () => {
   it('validates a correct story state', () => {

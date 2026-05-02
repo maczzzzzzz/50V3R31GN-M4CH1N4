@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { TaskRouterProxy } from '../../src/core/task-router-proxy.js';
+import { TaskRouterProxy } from '../../packages/hermes-core/src/core/task-router-proxy.js';
 
 describe('TaskRouterProxy', () => {
   it('queues tasks when the destination node is locked', async () => {

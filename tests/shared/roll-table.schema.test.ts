@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { RollTableSchema } from '../../src/shared/schemas/roll-table.schema.js';
+import { RollTableSchema } from '../../packages/hermes-core/src/shared/schemas/roll-table.schema.js';
 
 describe('RollTableSchema', () => {
   it('parses a real bounty employer table', () => {

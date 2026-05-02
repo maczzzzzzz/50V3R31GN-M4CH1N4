@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
+import { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
 import fs from 'node:fs';
 
 describe('UnifiedOracleClient: Persistence Stress Tests', () => {

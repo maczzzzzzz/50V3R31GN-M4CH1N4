@@ -14,10 +14,10 @@ import { fileURLToPath } from 'node:url';
 import { createSocket } from 'node:dgram';
 import { exec } from 'node:child_process';
 import { VisionClient } from './vision-client.js';
-import { Logger } from '../../src/shared/logger.js';
-import { PulseEngine } from '../../src/core/pulse-engine.js';
-import type { UnifiedOracleClient } from '../../src/db/unified-oracle-client.js';
-import type { INitroLogicClient } from '../../src/core/interfaces.js';
+import { Logger } from '../../packages/hermes-core/src/shared/logger.js';
+import { PulseEngine } from '../../packages/hermes-core/src/core/pulse-engine.js';
+import type { UnifiedOracleClient } from '../../packages/hermes-core/src/db/unified-oracle-client.js';
+import type { INitroLogicClient } from '../../packages/hermes-core/src/core/interfaces.js';
 import type { GauntletContext, SovereignShard, PhaseShard, GauntletReport, AuditResult } from './types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

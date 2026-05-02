@@ -33,7 +33,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 - **KVM Enablement:** Materialized `scripts/ops/enable-node-d-kvm.sh` for hardware-level isolation.
 
 ### Fixed
-- **Type Safety Audit:** Resolved TS2554 errors in `src/core/visual-monitor-service.ts` related to `better-sqlite3` prepared statement calls.
+- **Type Safety Audit:** Resolved TS2554 errors in `packages/hermes-core/src/core/visual-monitor-service.ts` related to `better-sqlite3` prepared statement calls.
 - **Go Compilation:** Fixed unused import regression in `crush/identity_st3gg.go`.
 
 ## [3.8.14-SYNTHESIS] - 2026-05-01
@@ -69,7 +69,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 ## [3.8.10-SYNTHESIS] - 2026-04-30
 
 ### Added
-- **Ability Stones (Scoped Identity):** Materialized localized `AGENTS.md` manifests for `src/`, `crush/`, and `zeroclaw/` to enforce sector-specific architectural invariants and eliminate assistant-speak in specialized domains.
+- **Ability Stones (Scoped Identity):** Materialized localized `AGENTS.md` manifests for `packages/hermes-core/src/`, `crush/`, and `zeroclaw/` to enforce sector-specific architectural invariants and eliminate assistant-speak in specialized domains.
 - **Browser Extension Guide:** Materialized `docs/nodestadt/sidecar-browser-extension.md` documenting the high-fidelity Vivaldi ingress pipeline and port mappings.
 - **Node D Health Probe:** Integrated a dedicated health check for the Node D model swapper into the `deck-igniter` heartbeat loop.
 
@@ -157,8 +157,8 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 - **Deck-Igniter Stability Review:** Confirmed default boot invariant to `[SOVEREIGN_OS]` mode; suppressed automatic Foundry VTT ignition except in explicit `cpr` mode. Shored `ignite-sovereign.ps1` for secure Windows-to-WSL transition.
 - **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
 - **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.
-- **HeadlessDatalog (Phase 90):** Materialized `src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax.
-- **SovereignDashboardService (Phase 90):** Materialized `src/core/memory/SovereignDashboardService.ts` — live Obsidian Command-Center with bidirectional fact ingestion and journal engraving.
+- **HeadlessDatalog (Phase 90):** Materialized `packages/hermes-core/src/core/memory/HeadlessDatalog.ts` — zero-dependency Datalog-to-SQLite compiler. Supports DataScript EDN-subset syntax.
+- **SovereignDashboardService (Phase 90):** Materialized `packages/hermes-core/src/core/memory/SovereignDashboardService.ts` — live Obsidian Command-Center with bidirectional fact ingestion and journal engraving.
 - **Phase 86-93 Resilience Forge:** Scaffolded 8 new Gauntlet test phases (`v86` through `v93`) and the `AbilityStone_HermesAgent_v2026.md` intelligence boost.
 
 ### Fixed
@@ -176,8 +176,8 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 - **Flutter APK Materialized:** Cleared Build Hardgate via surgical `patchelf` of Android SDK cmake/ninja/NDK toolchain (38 ELF binaries) and `aapt2`; fixed `ic_launcher` mipmap generation. `app-release.apk` (50.1MB) shored.
 - **Vivaldi Ingress Extension (Phase 87 Task 1):** Scaffolded `sidecar-browser-extension/` — `manifest.json` (MV3), `background.js` (persistent WS relay to port 3012, heartbeat, context-menu), `content.js` (page-load + selection push), `popup/` (Gruvbox HUD with bridge status and manual push).
 - **Kernel Vitals Artery (Phase 87 Task 2):** Materialized `crates/sovereign-kernel` Rust crate — `vitals.rs` reads CPU/mem from `/proc/stat` + `/proc/meminfo` + PSI pressure files; `main.rs` streams `VitalsSnapshot` JSON via WebSocket on port 3013. Build: clean.
-- **Browser Mesh Artery (Phase 87 Task 2.5):** Materialized `src/api/browser-bridge.ts` — WebSocket server on port 3012; routes `ContextFrame` pushes from the Vivaldi extension into the `LangGraphOrchestrator` ingest channel. Wired into `main.ts` startup/shutdown.
-- **SkillAuthor (Phase 87 Task 3):** Materialized `src/core/plugins/SkillAuthor.ts` — converts successful `AgentTrajectory` records into `.ts` MCP tool files in `src/core/plugins/skills/` and registers them live into `PluginRegistry`.
+- **Browser Mesh Artery (Phase 87 Task 2.5):** Materialized `packages/hermes-core/src/api/browser-bridge.ts` — WebSocket server on port 3012; routes `ContextFrame` pushes from the Vivaldi extension into the `LangGraphOrchestrator` ingest channel. Wired into `main.ts` startup/shutdown.
+- **SkillAuthor (Phase 87 Task 3):** Materialized `packages/hermes-core/src/core/plugins/SkillAuthor.ts` — converts successful `AgentTrajectory` records into `.ts` MCP tool files in `packages/hermes-core/src/core/plugins/skills/` and registers them live into `PluginRegistry`.
 - **Cargo Workspace Hardening:** Added `exclude` entries for `sidecar-browser-extension`, `sidecar-logseq-plugin`, `sidecar-obsidian-plugin` to prevent Cargo from scanning non-Rust sidecar directories.
 
 ### Fixed

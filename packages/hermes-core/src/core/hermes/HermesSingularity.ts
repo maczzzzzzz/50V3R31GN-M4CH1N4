@@ -191,16 +191,15 @@ export class HermesSingularity {
     
     while (state.retries < 3) {
       try {
-        // Phase 93: Local LLM Orchestration
-        const nodeUrl = state.activeNode === 'node-c' 
-          ? (process.env['NODE_C_URL'] ?? 'http://10.0.0.12:8080')
-          : (process.env['NODE_A_URL'] ?? 'http://10.0.0.10:8080');
+        // ◈ Phase 106+: Force all inference through the Zero-Trust Artery
+        // The Artery (hermes-router) handles routing to Node B/C/D internally.
+        const arteryUrl = process.env['HERMES_ROUTER_URL'] ?? 'http://127.0.0.1:7341';
 
-        const response = await fetch(`${nodeUrl}/v1/chat/completions`, {
+        const response = await fetch(`${arteryUrl}/v1/chat/completions`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'hermes-model',
+            model: state.activeNode === 'node-c' ? 'qwen-oracle' : 'gemma-director',
             messages: [
               { role: 'system', content: systemPrompt },
               { role: 'user', content: state.prompt }

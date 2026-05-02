@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { HermesSingularity } from '../../src/core/hermes/HermesSingularity.js';
-import { HealerProtocol, RepairStrategy } from '../../src/core/hermes/HealerProtocol.js';
-import { MemoryObserver } from '../../src/core/hermes/MemoryObserver.js';
+import { HermesSingularity } from '../../packages/hermes-core/src/core/hermes/HermesSingularity.js';
+import { HealerProtocol, RepairStrategy } from '../../packages/hermes-core/src/core/hermes/HealerProtocol.js';
+import { MemoryObserver } from '../../packages/hermes-core/src/core/hermes/MemoryObserver.js';
 
 describe('Phase 93 & 97: Hermes Singularity Resilience & Context-DAG', () => {
   beforeEach(() => {
