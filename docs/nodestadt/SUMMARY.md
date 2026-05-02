@@ -1,39 +1,41 @@
 # Summary
 
-* [Introduction](README.md)
-* [The Lineage of Machina](lineage.md)
+* [[nodestadt/README.md|Introduction]]
+* [[nodestadt/lineage.md|The Lineage of Machina]]
 
 ## Architecture
-* [The Quaternary Mesh](architecture/topology.md)
-* [ClawLink & The Artery](architecture/artery.md)
-* [Zero-Trust Boundaries](architecture/security.md)
-* [Research Swarms (Inside the Machina)](architecture/research-swarms.md)
-* [Mobile Sovereignty (Android/Ubuntu)](architecture/mobile-sovereignty.md)
+* [[nodestadt/architecture/topology.md|The Quaternary Mesh]]
+* [[nodestadt/architecture/artery.md|ClawLink & The Artery]]
+* [[nodestadt/architecture/security.md|Zero-Trust Boundaries]]
+* [[nodestadt/architecture/research-swarms.md|Research Swarms]]
+* [[nodestadt/architecture/mobile-sovereignty.md|Mobile Sovereignty]]
 
 ## Capabilities
-* [Usage Guide (Operator Manual)](capabilities/usage-guide.md)
-* [Hermes Singularity](capabilities/hermes.md)
-* [HeadlessDatalog Reference](capabilities/datalog.md)
-* [Pretext HUD Layout](capabilities/hud.md)
-* [Browser Ingress](capabilities/browser-ingress.md)
-* [Skill-Factory & GEPA](capabilities/gepa.md)
+* [[nodestadt/capabilities/usage-guide.md|Operator Manual]]
+* [[nodestadt/capabilities/hermes.md|Hermes Singularity]]
+* [[nodestadt/capabilities/datalog.md|HeadlessDatalog Reference]]
+* [[nodestadt/capabilities/hud.md|Pretext HUD Layout]]
+* [[nodestadt/capabilities/browser-ingress.md|Browser Ingress]]
+* [[nodestadt/capabilities/gepa.md|Skill-Factory & GEPA]]
 
 ## Deployment
-* [Setup Guide (Quickstart)](deployment/setup-guide.md)
-* [Hardware Invariants](deployment/hardware.md)
-* [NixOS Ignition](deployment/nixos.md)
-* [Node D (K15) Provisioning](deployment/node-d.md)
-* [Mobile Deployment](deployment/mobile.md)
+* [[nodestadt/deployment/setup-guide.md|Setup Guide]]
+* [[nodestadt/deployment/hardware.md|Hardware Invariants]]
+* [[nodestadt/deployment/nixos.md|NixOS Ignition]]
+* [[nodestadt/deployment/node-d.md|Node D Provisioning]]
+* [[nodestadt/deployment/mobile.md|Mobile Deployment]]
+* [[nodestadt/deployment/machina-daemon.md|Machina Daemon]]
 
 ---
-* [Sovereign RED Plugin](../../plugins/sovereign-red-plugin/README.md)
+* [[sim/README.md|Sovereign RED Plugin]]
 
 ## Encyclopedia
-* [Physical Map](encyclopedia/PHYSICAL_MAP.md)
-* [Primitives Dictionary](encyclopedia/PRIMITIVES.md)
-* [Reckoning Suite](encyclopedia/RECKONING_SUITE.md)
-* [Master Manifest](encyclopedia/MANIFEST.md)
+* [[nodestadt/encyclopedia/PHYSICAL_MAP.md|Physical Map]]
+* [[nodestadt/encyclopedia/PRIMITIVES.md|Primitives Dictionary]]
+* [[nodestadt/encyclopedia/RECKONING_SUITE.md|Reckoning Suite]]
+* [[nodestadt/encyclopedia/MANIFEST.md|Master Manifest]]
 
 ## Reference
-* [Command Manifest](reference/COMMAND_MANIFEST.md)
-* [Dev Scripts Manifest](reference/DEV_SCRIPTS_MANIFEST.md)
+* [[nodestadt/reference/COMMAND_MANIFEST.md|Command Manifest]]
+* [[nodestadt/reference/DEV_SCRIPTS_MANIFEST.md|Dev Scripts Manifest]]
+* [[nodestadt/sidecars/sidecar-obsidian-plugin.md|Obsidian Plugin Doc]]

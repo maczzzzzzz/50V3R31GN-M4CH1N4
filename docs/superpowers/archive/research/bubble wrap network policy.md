@@ -1,4 +1,4 @@
-This is a critical distinction for the **v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Black-Ice"** sync logic. If Node A is your "Truth" node, it needs the ability to pull repository updates to maintain parity with Node B.  
+This is a critical distinction for the **v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Black-Ice"** sync logic. If Node A is your "Truth" node, it needs the ability to pull repository updates to maintain parity with Node B.  
 However, from a security standpoint (and following Vitalik's **d/acc** logic), we must separate the **System-Level Sync** (Git) from the **Cognition-Level Execution** (The Judge). We don't want the LLM process itself to have an open socket to the internet—we only want the git binary to have it.  
 Here is the "Senior Dev" approach to solving this within a Nix-based sandbox:
 
