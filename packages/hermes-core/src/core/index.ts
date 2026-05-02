@@ -1,23 +1,10 @@
+/**
+ * src/core/index.ts
+ * ◈ Clean BASE Core Index
+ */
+
+export * from './interfaces.js';
 export { NitroLogicClient } from './nitro-logic-client.js';
-export { MemoryPalaceService } from './memory-palace-service.js';
-export type { Wing, Room, Tunnel, PalaceContext, DrawerEntry, DrawerConfig, WingType, RoomType } from './memory-palace-service.js';
-export { compressIdentity, buildPrefixPrompt, validateBudget } from './aaak-compressor.js';
-export type { AaakIdentity, AaakBlock } from './aaak-compressor.js';
-export { bootstrapTttaPart1, createTttaPart1InitialState } from './campaign-registry.js';
 export { SovereignNarrativeClient } from './sovereign-narrative-client.js';
-export { HybridRoutingController } from './hybrid-routing-controller.js';
-export type {
-  NitroLogicConfig,
-  INitroLogicClient,
-  SovereignNarrativeConfig,
-  ISovereignNarrativeClient,
-  ResolveAttackParams,
-  CalculateDvParams,
-  OracleRollParams,
-  AttackResult,
-  DvResult,
-  OracleResult,
-  RangeBand,
-  CheckType,
-  DifficultyLabel,
-} from './interfaces.js';
+export { SovereignController } from './sovereign-controller.js';
+export { RootsInjector } from './roots-injector.js';

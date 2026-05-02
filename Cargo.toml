@@ -1,8 +1,8 @@
 [workspace]
 members = [
+    "plugins/sovereign-red-plugin/zeroclaw/crates/*",
     "crates/*",
     "sidecars/*",
-    "zeroclaw/crates/*"
 ]
 exclude = [
     "sidecars/sidecar-browser-extension",

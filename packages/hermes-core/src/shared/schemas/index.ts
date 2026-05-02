@@ -1,54 +1,4 @@
 export {
-  FoundryStatsSchema,
-  FoundrySourceSchema,
-  FoundryFlagsSchema,
-  FoundryOwnershipSchema,
-  FoundryBaseDocumentSchema,
-} from './common.schema.js';
-
-export {
-  ActorSchema,
-  ActorStatsSchema,
-  ActorSystemSchema,
-  DerivedStatsSchema,
-  StatValueSchema,
-  StatWithMaxSchema,
-  WoundState,
-} from './actor.schema.js';
-
-export {
-  ItemSchema,
-  BaseItemSystemSchema,
-  ItemDescriptionSchema,
-  ItemPriceSchema,
-  ItemConcealableSchema,
-  ItemInstalledItemsSchema,
-} from './item.schema.js';
-
-export {
-  SceneSchema,
-  SceneBackgroundSchema,
-  SceneGridSchema,
-  SceneWallSchema,
-  SceneLightSchema,
-  SceneTileSchema,
-  SceneTokenSchema,
-  SceneEnvironmentSchema,
-  SceneFogSchema,
-} from './scene.schema.js';
-
-export {
-  JournalEntrySchema,
-  JournalPageSchema,
-  JournalPageTextSchema,
-} from './journal.schema.js';
-
-export {
-  RollTableSchema,
-  RollTableResultSchema,
-} from './roll-table.schema.js';
-
-export {
   PdfChunkSchema,
   NamespaceEnum,
 } from './pdf-chunk.schema.js';
@@ -61,31 +11,6 @@ export {
 } from './node-a.schema.js';
 
 export {
-  RequestIdSchema,
-  ChatMessagePayloadSchema,
-  ReadActorPayloadSchema,
-  SimplePhonePayloadSchema,
-  DiceRollPayloadSchema,
-  SceneActivatePayloadSchema,
-  BridgeCommandSchema,
-  BridgeResponseSchema,
-  FoundryEventSchema,
-} from './foundry-bridge.schema.js';
-
-export type {
-  ChatMessagePayload,
-  ReadActorPayload,
-  SimplePhonePayload,
-  DiceRollPayload,
-  SceneActivatePayload,
-  BridgeCommand,
-  BridgeResponse,
-  FoundryEvent,
-} from './foundry-bridge.schema.js';
-
-export * from './story.schema.js';
-
-export {
   ZerocrawlChunkSchema,
   ZerocrawlExportSchema,
 } from './zeroclaw-export.schema.js';
@@ -96,42 +21,20 @@ export type {
 } from './zeroclaw-export.schema.js';
 
 export {
-  RedTradeCargoSchema,
-  CargoCategorySchema,
-  CargoBulkSchema,
-  CargoRaritySchema,
-  FrictionOutcomeSchema,
-  FrictionRollResultSchema,
-  HousingTierSchema,
-  TimeSkipResultSchema,
-} from './red-trade.schema.js';
-
-export type {
-  RedTradeCargo,
-  CargoCategory,
-  CargoBulk,
-  CargoRarity,
-  FrictionOutcome,
-  FrictionRollResult,
-  HousingTier,
-  TimeSkipResult,
-} from './red-trade.schema.js';
-
-export {
   ClawLinkConfigSchema,
   ClawLinkRpcRequestSchema,
   ClawLinkRpcResponseSchema,
   ClawLinkSearchResultSchema,
   ClawLinkSearchResultsSchema,
-  ClawLinkInterlockRollSchema,
-  ClawLinkAttackResultSchema,
-  ClawLinkDamageResultSchema,
 } from './clawlink.schema.js';
 
 export type {
   ClawLinkConfig,
   ClawLinkRpcResponse,
   ClawLinkSearchResult,
-  ClawLinkAttackResult,
-  ClawLinkDamageResult,
 } from './clawlink.schema.js';
+
+export {
+  WorldCommandSchema,
+  type WorldCommand,
+} from './world-commands.schema.js';

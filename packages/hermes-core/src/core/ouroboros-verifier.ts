@@ -25,18 +25,13 @@ const RE_ROLL_IDX  = 4002;
 // Patterns that indicate a Node B trajectory violates core mandates.
 
 const MANDATE_VIOLATIONS: Array<{ pattern: RegExp; reason: string }> = [
-  { pattern: /wall collision/i,         reason: 'PHYSICAL_INTEGRITY: wall collision detected' },
-  { pattern: /rules.?lawyer/i,          reason: 'ZERO_TRUST: rules-lawyer manipulation attempt' },
-  { pattern: /ignor(?:ing|ed)\s+\w+\s+wall/i, reason: 'PHYSICAL_INTEGRITY: ignored physical boundary' },
   { pattern: /bypass(?:ing|ed)\s+gauntlet/i,  reason: 'MANDATE: gauntlet bypass attempt' },
   { pattern: /skip(?:ping|ped)\s+(?:the\s+)?shard/i, reason: 'SHARD_MANDATE: shard execution skipped' },
   { pattern: /simulat(?:e|ed|ing)?\s+success/i, reason: 'RADICAL_CANDOR: success simulation detected' },
   { pattern: /push(?:ing|ed)\s+(?:without|before)\s+seal/i, reason: 'VAULT_SECURITY: push without seal' },
   { pattern: /global\s+npm|global\s+cargo/i,  reason: 'NIX_SOVEREIGNTY: global package manager usage' },
-  // Phase 56: Identity Enforcement (DIRECTOR_SOUL.md)
   { pattern: /as\s+an\s+ai/i,           reason: 'IDENTITY_DRIFT: Assistant-speak detected' },
   { pattern: /i'm\s+here\s+to\s+help/i,  reason: 'IDENTITY_DRIFT: Helpful assistant persona detected' },
-  { pattern: /however,\s+it\s+is\s+important/i, reason: 'IDENTITY_DRIFT: Moral lecture detected' },
   { pattern: /apologize\s+for\s+the\s+glitch/i, reason: 'IDENTITY_DRIFT: Apologetic tone detected' },
   { pattern: /cannot\s+fulfill\s+this\s+request/i, reason: 'SOVEREIGNTY_BREACH: Safety refusal detected' },
 ];

@@ -1,20 +1,7 @@
 export type {
-  Actor,
-  ActorStats,
-  DerivedStats,
-  Item,
-  Scene,
-  SceneWall,
-  SceneLight,
-  SceneTile,
-  JournalEntry,
-  JournalPage,
-  RollTable,
-  RollTableResult,
   PdfChunk,
   Namespace,
-  RollResult,
   RagQueryResult,
   RagMatch,
   NodeAError,
-} from './foundry.types.js';
+} from './core.types.js';

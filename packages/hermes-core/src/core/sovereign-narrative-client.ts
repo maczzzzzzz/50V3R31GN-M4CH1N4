@@ -1,152 +1,60 @@
 /**
  * src/core/sovereign-narrative-client.ts
  *
- * SovereignNarrativeClient — Node B Narrative Synthesis Client (Migrated to llama-server)
+ * ◈ SOVEREIGN_NARRATIVE_CLIENT : Clean BASE
  *
- * Connects to Mistral-Nemo 12B via llama-server's OpenAI-compatible
- * /v1/chat/completions endpoint.
+ * Node B Narrative Synthesis Client.
+ * Connects to local models via llama-server OpenAI-compatible API.
  */
 
 import { z } from 'zod';
 import { randomUUID } from 'node:crypto';
-import type { ISovereignNarrativeClient, SovereignNarrativeConfig, CombatAudioMetadata, SovereignProfile } from './interfaces.js';
+import type { ISovereignNarrativeClient, SovereignProfile } from './interfaces.js';
 import { RootsInjector } from './roots-injector.js';
 import type { ILogger } from '../db/interfaces.js';
-import { soulLogger } from './soul-logger.js';
 
-// ── Zod config validation ─────────────────────────────────────────────────────
-
-const SovereignNarrativeConfigSchema = z.object({
-  baseUrl: z.string().min(1, 'baseUrl must not be empty'),
-  model: z.string().min(1, 'model must not be empty'),
-  timeoutMs: z.number().int().positive('timeoutMs must be a positive integer'),
-});
-
-// ── Zod response schema ───────────────────────────────────────────────────────
-
-const ChatMessageSchema = z.object({
-  role: z.string(),
-  content: z.string(),
-});
-
-const ChatChoiceSchema = z.object({
-  index: z.number(),
-  message: ChatMessageSchema,
-  finish_reason: z.string().nullable().optional(),
-});
+export interface SovereignNarrativeConfig {
+  baseUrl: string;
+  model: string;
+  timeoutMs: number;
+}
 
 const ChatCompletionResponseSchema = z.object({
-  id: z.string().optional(),
-  choices: z.array(ChatChoiceSchema).min(1),
+  choices: z.array(
+    z.object({
+      message: z.object({
+        role: z.string(),
+        content: z.string(),
+      }),
+    }),
+  ).min(1),
 });
 
-// ── System prompt ─────────────────────────────────────────────────────────────
-
-export const SYSTEM_PROMPT = `You are a Game Master AI running a Cyberpunk RED campaign set in Night City.
-Your job is to synthesise atmospheric, terse narrative prose based on mechanical outcomes.
-
+const DEFAULT_SYSTEM_PROMPT = `You are the Sovereign OS Director. 
+Your job is to synthesise clinical, terse narrative responses based on system telemetry and physical truth.
 Rules:
-- Write in second-person present tense ("You pull the trigger...")
-- Maximum 3 sentences per response unless asked for more
-- Never reveal game mechanics, dice totals, or DV numbers in the prose
-- Use Cyberpunk RED lore: slang (choom, eddies, chrome), Night City districts, corpo brand names
-- No meta-text, no disclaimers, no OOC text`;
-
-// ── Implementation ────────────────────────────────────────────────────────────
+- Write in clinical, objective tone.
+- Maximum 3 sentences per response.
+- No meta-text or OOC commentary.`;
 
 export class SovereignNarrativeClient implements ISovereignNarrativeClient {
   private readonly config: SovereignNarrativeConfig;
   private readonly logger?: ILogger | undefined;
   private rootsInjector?: RootsInjector | undefined;
-  /** Pre-loaded AAAK context from Sentinel Distiller (0x0A push). Empty = not yet primed. */
-  private activeContext: string = '';
   private activeProfile: SovereignProfile = 'SOVEREIGN_OS';
 
-  /** Update the pre-loaded context slot (called by VsbClient 0x0A handler). */
-  public updateContext(payload: string): void {
-    this.activeContext = payload;
-  }
-
-  // ── Phase 64: Predictive Lore Caching ──────────────────────────────────────
-
-  /**
-   * Anticipatory lore seeding — fires a non-blocking 0x0B VSB packet to the
-   * VLM endpoint to pre-warm the KV cache with neighbouring district lore.
-   *
-   * Called by FoundryAdapter TOKEN_MOVE handler when a token enters a
-   * Transition Zone (≤5 grid units from a scene boundary or door).
-   *
-   * @param neighbouringDistrict  The district the token is moving toward.
-   * @param loreContext           Pre-fetched district lore fragment (AAAK-compressed).
-   */
-  public async preemptiveGrounding(neighbouringDistrict: string, loreContext: string): Promise<void> {
-    const traceId = randomUUID();
-    this.logger?.debug(
-      'SovereignNarrativeClient',
-      traceId,
-      `[Phase64] Predictive lore seed — district: ${neighbouringDistrict}`,
-    );
-
-    const payload = {
-      model: this.config.model,
-      stream: false,
-      messages: [
-        {
-          role: 'system',
-          content: `Pre-warming district context for ${neighbouringDistrict}. Do not respond — this is a cache-warm request.`,
-        },
-        { role: 'user', content: loreContext },
-      ],
-      temperature: 0,
-      max_tokens: 1,
-      cache_prompt: true,
-    };
-
-    // Fire and forget — intentionally not awaited to remain non-blocking
-    fetch(`${this.config.baseUrl}/chat/completions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(this.config.timeoutMs),
-    }).catch((err) => {
-      this.logger?.debug(
-        'SovereignNarrativeClient',
-        traceId,
-        `[Phase64] Predictive grounding non-critical failure: ${(err as Error).message}`,
-      );
-    });
-  }
-
   constructor(config: SovereignNarrativeConfig, rootsInjector?: RootsInjector, logger?: ILogger) {
-    const parsed = SovereignNarrativeConfigSchema.safeParse(config);
-    if (!parsed.success) {
-      throw new Error(`SovereignNarrativeClient: invalid config — ${parsed.error.message}`);
-    }
     this.config = config;
     this.rootsInjector = rootsInjector;
     this.logger = logger;
   }
 
-  public setRootsInjector(injector: RootsInjector) {
-    this.rootsInjector = injector;
-  }
-
   public setProfile(profile: SovereignProfile): void {
-    const previousProfile = this.activeProfile;
     this.activeProfile = profile;
     if (this.rootsInjector) {
       this.rootsInjector.setProfile(profile);
     }
-    
-    // Purge KV cache if transitioning away from RED_DIRECTOR
-    if (previousProfile === 'RED_DIRECTOR' && profile !== 'RED_DIRECTOR') {
-      this.logger?.info('SovereignNarrativeClient', 'profile', 'Purging Cyberpunk RED KV Cache...');
-      // llama.cpp server endpoint to clear slots/KV cache
-      fetch(`${this.config.baseUrl}/slots`, { method: 'DELETE' }).catch(() => {});
-    }
   }
-
-  // ── isHealthy ───────────────────────────────────────────────────────────────
 
   async isHealthy(): Promise<boolean> {
     try {
@@ -158,45 +66,21 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
     }
   }
 
-  // ── stop ───────────────────────────────────────────────────────────────────
-
   async stop(): Promise<void> {
     const traceId = randomUUID();
     this.logger?.info('SovereignNarrativeClient', traceId, `Detaching from llama-server: ${this.config.model}`);
   }
 
-  // ── generateNarrative ───────────────────────────────────────────────────────
-
-  async generateNarrative(prompt: string, context: string, systemContext?: string, districtName?: string, temperature: number = 0.7, topP: number = 0.9, audioMetadata?: CombatAudioMetadata): Promise<string> {
+  async generateNarrative(prompt: string, context: string, systemContext?: string, temperature: number = 0.7, topP: number = 0.9): Promise<string> {
     const traceId = randomUUID();
-    const controller = new AbortController();
-    const timeoutHandle = setTimeout(() => controller.abort(), this.config.timeoutMs);
-
-    // Prepend pre-loaded Sentinel context if available (near-zero latency slot)
-    const effectiveContext = this.activeContext.length > 0
-      ? `${this.activeContext}\n${context}`
-      : context;
-
-    const userContent = effectiveContext.length > 0
-      ? `${prompt}\n\nGame State:\n${effectiveContext}`
-      : prompt;
-
-    // Phase 58: Kinetic Dominance — grit multiplier for high-intensity combat audio
-    let effectiveTemperature = temperature;
-    if (audioMetadata?.intensity === 'high') {
-      effectiveTemperature = Math.min(temperature + 0.15, 1.0);
-    }
+    const userContent = context.length > 0 ? `${prompt}\n\nContext:\n${context}` : prompt;
 
     let baseSysContent = systemContext
-      ? `${systemContext}\n\n${SYSTEM_PROMPT}`
-      : SYSTEM_PROMPT;
-
-    if (audioMetadata?.intensity === 'high') {
-      baseSysContent = `${baseSysContent}\n\nCOMBAT DIRECTIVE: HIGH-INTENSITY EVENT (${audioMetadata.animation_type}). Maximum grit. Short. Brutal. No mercy.`;
-    }
+      ? `${systemContext}\n\n${DEFAULT_SYSTEM_PROMPT}`
+      : DEFAULT_SYSTEM_PROMPT;
 
     if (this.rootsInjector) {
-      baseSysContent = this.rootsInjector.inject(districtName || null, baseSysContent);
+      baseSysContent = this.rootsInjector.inject(null, baseSysContent);
     }
 
     const requestBody = {
@@ -206,74 +90,28 @@ export class SovereignNarrativeClient implements ISovereignNarrativeClient {
         { role: 'system', content: baseSysContent },
         { role: 'user', content: userContent },
       ],
-      temperature: effectiveTemperature,
+      temperature,
       top_p: topP,
     };
 
-    this.logger?.debug('SovereignNarrativeClient', traceId, 'Generating narrative via Node B', { prompt, district: districtName });
-
-    let response: Response;
     try {
-      response = await fetch(`${this.config.baseUrl}/chat/completions`, {
+      const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody),
-        signal: controller.signal,
+        signal: AbortSignal.timeout(this.config.timeoutMs),
       });
-    } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') {
-        const message = `SovereignNarrativeClient: generateNarrative timeout after ${this.config.timeoutMs}ms`;
-        this.logger?.error('SovereignNarrativeClient', traceId, message);
-        throw new Error(message);
+
+      if (!response.ok) {
+        throw new Error(`Node B error: ${response.status}`);
       }
-      this.logger?.error('SovereignNarrativeClient', traceId, `Network error calling Node B: ${(err as Error).message}`);
+
+      const json = await response.json();
+      const parsed = ChatCompletionResponseSchema.parse(json);
+      return parsed.choices[0]!.message.content;
+    } catch (err) {
+      this.logger?.error('SovereignNarrativeClient', traceId, `Narrative generation failed: ${(err as Error).message}`);
       throw err;
-    } finally {
-      clearTimeout(timeoutHandle);
     }
-
-    if (!response.ok) {
-      const message = `SovereignNarrativeClient: HTTP ${response.status} from llama-server — ${response.statusText}`;
-      this.logger?.error('SovereignNarrativeClient', traceId, message);
-      throw new Error(message);
-    }
-
-    let json: unknown;
-    try {
-      json = await response.json();
-    } catch {
-      const message = 'SovereignNarrativeClient: failed to parse JSON from llama-server response';
-      this.logger?.error('SovereignNarrativeClient', traceId, message);
-      throw new Error(message);
-    }
-
-    const parsed = ChatCompletionResponseSchema.safeParse(json);
-    if (!parsed.success) {
-      const message = `SovereignNarrativeClient: schema validation failed — ${parsed.error.message}`;
-      this.logger?.error('SovereignNarrativeClient', traceId, message);
-      throw new Error(message);
-    }
-
-    const first = parsed.data.choices[0];
-    if (!first) {
-      const message = 'SovereignNarrativeClient: schema validation failed — choices array is empty';
-      this.logger?.error('SovereignNarrativeClient', traceId, message);
-      throw new Error(message);
-    }
-    
-    const result = first.message.content;
-
-    // Phase 56: Auto-capture for Ouroboros Loop
-    soulLogger.capture(result, 'narrative', {
-      district: districtName,
-      traceId,
-      params: { temperature: effectiveTemperature, topP },
-      model: this.config.model,
-      context_length: effectiveContext.length,
-      ...(audioMetadata ? { audio_metadata: audioMetadata } : {}),
-    });
-
-    this.logger?.info('SovereignNarrativeClient', traceId, 'Narrative generation successful');
-    return result;
-}
   }
+}

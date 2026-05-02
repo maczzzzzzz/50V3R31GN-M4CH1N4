@@ -54,14 +54,10 @@ export function compress(text: string): string {
     .split(/\s+/)
     .filter(w => !STOP_WORDS.has(w.toLowerCase()))
     .join(' ')
-    .replace(/Night City/gi, 'N1GHT-C1TY')
     .replace(/faction/gi, 'FCT')
-    .replace(/district/gi, 'D1ST')
-    .replace(/combat/gi, 'CMB')
-    .replace(/player/gi, 'PLY')
-    .replace(/threat/gi, 'THR')
-    .replace(/mission/gi, 'M1SSN')
-    .replace(/session/gi, 'S3SS')
+    .replace(/identity/gi, 'ID')
+    .replace(/telemetry/gi, 'TLM')
+    .replace(/command/gi, 'CMD')
     .replace(/active/gi, 'ACT')
     .replace(/current/gi, 'CUR')
     .replace(/memory/gi, 'MEM')
@@ -74,21 +70,11 @@ export function compress(text: string): string {
 
 /**
  * Compress an AaakIdentity into the ~170-token Wake-Up Block.
- *
- * Format (pipe-delimited sections):
- *   [SYS:IDENTITY]designation|ts=<epoch>
- *   ||[M1SSN]compressed_mission
- *   ||[PAL4C3]wing>room
- *   ||[FACTS]f1|f2|f3...
- *   ||[ST4T]V35P3R=<0|1>|THR=<0|1|2>
- *   ||[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.
  */
 export function compressIdentity(identity: AaakIdentity, profile: SovereignProfile = 'SOVEREIGN_OS'): AaakBlock {
   const ts = Math.floor(Date.now() / 1000);
 
-  const mandate = profile === 'RED_DIRECTOR' 
-    ? '[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.OBLITERATUS.'
-    : '[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.';
+  const mandate = '[MANDATE]Relentless Construction.Zero-Trust.Air-Gap.';
 
   const sections: string[] = [
     `[SYS:IDENTITY]${compress(identity.designation)}|ts=${ts}`,
