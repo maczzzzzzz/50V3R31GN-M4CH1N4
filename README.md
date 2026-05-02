@@ -4,7 +4,7 @@
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-F36622.svg)](LICENSE)
 [![Monorepo](https://img.shields.io/badge/architecture-NODESTADT_Monorepo-C7A87A.svg)](pnpm-workspace.yaml)
-[![Version](https://img.shields.io/badge/version-v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS--SYNTHESIS-F36622.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS--SYNTHESIS-F36622.svg)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-CLEAN_BASE_ACTIVE-success.svg)](IMPLEMENTATION_PLAN.md)
 
 [**Documentation**](docs/nodestadt/) | [**Architecture**](docs/nodestadt/architecture/topology.md) | [**Roadmap**](IMPLEMENTATION_PLAN.md) | [**Identity**](SOUL.md)
@@ -30,7 +30,7 @@
 
 ## 🆕 News
 - **[2026-05-02]** **Professional Manifest Overhaul:** Overhauled root README and shored 431+ manifests across the mesh.
-- **[2026-05-01]** **Clean BASE Achieved:** Surgically extracted simulation logic; finalized NODESTADT monorepo structure (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS).
+- **[2026-05-01]** **Clean BASE Achieved:** Surgically extracted simulation logic; finalized NODESTADT monorepo structure (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS).
 - **[2026-04-28]** **Intelligence Boosts:** Integrated local gateway proxies and code graphs for zero-server intelligence.
 - **[2026-04-20]** **Security Hardgate:** Enforced SPIFFE mTLS and V2F pulse verification across the mesh.
 
@@ -79,16 +79,6 @@ npm run ink:terminal
 
 The system operates across four specialized hardware nodes, establishing a high-throughput **Cognitive Artery**. The only source of truth is the **VSB (Virtual Sovereign Bus)**.
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><b>Node A: Synapse</b><br/><img src="assets/brand-identity/materialized/node_a.webp" width="150"/><br/><i>Synapse & Cache</i></td>
-      <td align="center"><b>Node B: Director</b><br/><img src="assets/brand-identity/materialized/node_b.webp" width="150"/><br/><i>Vision & HUD</i></td>
-      <td align="center"><b>Node C: Strategic Oracle</b><br/><img src="assets/brand-identity/materialized/node_c.webp" width="150"/><br/><i>Perception & Rules</i></td>
-      <td align="center"><b>Node D: Quaternary</b><br/><img src="assets/brand-identity/materialized/node_d.webp" width="150"/><br/><i>Heavy Reasoning</i></td>
-    </tr>
-  </table>
-</div>
 
 | Node | Name | Hardware | Responsibility |
 | :--- | :--- | :--- | :--- |

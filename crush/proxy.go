@@ -255,10 +255,10 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 	sc.Buffer(make([]byte, 4*1024*1024), 4*1024*1024)
 	for sc.Scan() {
 		raw := sc.Bytes()
-		fmt.Printf("[DEBUG] Received raw frame: %s\n", string(raw))
+		// logMessage("DEBUG", "PROXY", pkt.TraceID, "Received raw frame", nil)
 		var pkt clawLinkPacket
 		if err := json.Unmarshal(raw, &pkt); err != nil {
-			fmt.Printf("[DEBUG] JSON Unmarshal error: %v\n", err)
+			logMessage("ERROR", "PROXY", "internal", fmt.Sprintf("JSON Unmarshal error: %v", err), nil)
 			continue
 		}
 
@@ -266,7 +266,7 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 			// If not a standard packet (e.g. raw JSON intent from CLI), wrap it
 			pkt.Payload = string(raw)
 			pkt.TraceID = newTraceID()
-			fmt.Printf("[DEBUG] Wrapped non-standard packet. New trace_id=%s\n", pkt.TraceID)
+			logMessage("DEBUG", "PROXY", pkt.TraceID, "Wrapped non-standard packet", nil)
 			// Update raw to be the wrapped packet for broadcasting/sending
 			raw, _ = json.Marshal(pkt)
 		}
@@ -286,7 +286,7 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 		_ = json.Unmarshal([]byte(pkt.Payload), &intent)
 
 		if intent.Command == "scan" || intent.Command == "hack" || intent.Command == "crop-scan" || intent.Command == "intent" || intent.Method == "reason_audit" {
-			fmt.Printf("[DEBUG] Broadcasting intent: cmd=%s, method=%s, trace_id=%s\n", intent.Command, intent.Method, pkt.TraceID)
+			logMessage("INFO", "PROXY", pkt.TraceID, fmt.Sprintf("Broadcasting intent: cmd=%s, method=%s", intent.Command, intent.Method), nil)
 			// Broadcast to Node B and other listeners
 			p.broadcast(raw, conn)
 			
@@ -296,7 +296,7 @@ func (p *proxy) handleUnixConn(conn net.Conn) {
 			}
 		}
 
-		fmt.Printf("[DEBUG] Sending to Node A: method=%s, trace_id=%s\n", intent.Method, pkt.TraceID)
+		logMessage("DEBUG", "PROXY", pkt.TraceID, fmt.Sprintf("Sending to Node A: method=%s", intent.Method), nil)
 		resp, err := p.send(append(raw[:len(raw):len(raw)], '\n'), pkt.TraceID)
 		if strings.Contains(pkt.Payload, "reason_audit") {
 			payloadStr := "nil"

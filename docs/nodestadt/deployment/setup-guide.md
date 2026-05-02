@@ -1,6 +1,6 @@
 # ◈ HOW TO SET UP THE QUATERNARY MESH (NODESTADT AUTHORITY OS)
 
-**Version:** 3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** v3.8.28-SYNTHESIS-GOLD-RELEASE
 **Target:** Multi-Node Hardware Ignition
 
 ---
@@ -8,53 +8,44 @@
 ## ◈ 1. PREREQUISITES
 
 ### ◈ Hardware Nodes
-- **Node A (Synapse):** NVIDIA GPU (4GB+), NixOS Native.
-- **Node B (Director):** 16GB+ VRAM, WSL2/Ubuntu.
-- **Node C (Strategic Oracle):** NVIDIA GPU (6GB+), Remote Server.
-- **Node D (Quaternary):** Intel Core Ultra (NPU-Capable) or high-context CPU node.
+- **Node A (Mooncake):** NVIDIA GTX 1050 Ti (4GB+), NixOS Native.
+- **Node B (Director):** 16GB+ VRAM (AMD RX 9060 XT), WSL2/Ubuntu.
+- **Node C (Strategic Oracle):** NVIDIA RTX 2060 (6GB+), Remote Server.
+- **Node D (Quaternary):** Intel Core Ultra 5 125U (NPU-Capable) // 48GB DDR5.
 
 ### ◈ Networking
-- **Tailscale:** All nodes must be joined to the same Tailscale Tailnet.
-- **Static IPs:** Assign static 10.0.0.x IPs (recommended) or use Tailscale MagicDNS.
-- **SSH Keys:** Deploy your `id_ed25519` key across all nodes for passwordless ClawLink orchestration.
+- **Static IPs:** All nodes should be on the 10.0.0.x spine.
+- **SSH Keys:** Passwordless SSH (id_ed25519) required for ClawLink orchestration.
 
 ---
 
-## ◈ 2. NODE-SPECIFIC CONFIGURATION
+## ◈ 2. SYSTEM IGNITION
 
-### ◈ Node A: Synapse & Artery (NixOS)
-1. Clone the repository: `git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4.git ~/50V3R31GN-M4CH1N4`
-2. Enter Nix shell: `nix develop --impure`
-3. Deploy models: `bash scripts/ops/node-a-setup-models.sh`
-4. Verify VSB port: Ensure port `7878` (UDP) is open.
+The Sovereign OS is orchestrated via the **Deck Igniter** TUI.
 
-### ◈ Node B: Director & HUD (WSL2)
-1. Install Node.js 22+ and pnpm.
-2. Build monorepo: `pnpm install && npm run build`
-3. Configure `.env`:
-   ```env
-   NODE_A_HOST=10.0.0.10
-   NODE_C_HOST=10.0.0.12
-   NODE_D_HOST=10.0.0.13
-   SOVEREIGN_KEY=<your_steganography_key>
-   ```
+### ◈ Method 1: The Supervisor (TUI)
+From **Node B (Director)**, execute the interactive supervisor:
+```bash
+npm run boot
+```
+- **ctrl+i:** Sequential Ignition (Node A -> Node B -> Sidecars).
+- **ctrl+p:** Purge zombie processes.
+- **shift+q:** Shutdown mesh.
 
-### ◈ Node D: Heavy Reasoning (GMKtec K15)
-1. Install Nix: `curl -L https://nixos.org/nix/install | sh`
-2. Build Intel-optimized inference:
-   ```bash
-   nix develop --impure --command bash scripts/ops/node-d-provision.sh
-   ```
-
----
-
-## ◈ 3. SYSTEM IGNITION
-
-From **Node B (Director)**, execute the sequential boot:
+### ◈ Method 2: Headless Artery
+For automated or background sessions:
 ```bash
 bash scripts/audit/ignite-all.sh
 ```
-*Wait for the [GATE] status on all 4 nodes to turn green in the HUD.*
+
+---
+
+## ◈ 3. PROFILE MANAGEMENT (Clean BASE)
+
+The mesh supports strict logical separation between core OS operations and simulation lore.
+
+- **Main Sovereign OS:** Default boot. Lore-neutral clinical standard.
+- **Simulation (RED):** Enabled via `IGNITER_MODE=cpr npm run boot`. Ignites Foundry VTT and simulation-specific sidecars.
 
 ---
 **::/5Y573M-N071C3 : SETUP_GUIDE_SHORED. // 50V3R31GN-M4CH1N4**

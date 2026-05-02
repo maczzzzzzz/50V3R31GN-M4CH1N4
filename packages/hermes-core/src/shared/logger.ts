@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import type { ILogger } from '../core/interfaces.js';
 
 /**
- * ◈ SOVEREIGN_LOGGER — v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS RE-GROUNDED
+ * ◈ SOVEREIGN_LOGGER — v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS RE-GROUNDED
  * 
  * Enforces structured Trace-ID propagation across the Trinity.
  * Persistence: JSON Stream (data/logs/artery.json) + SQLite (decision_audit).
@@ -77,6 +77,7 @@ export class Logger implements ILogger {
       // 2. Physical Persistence (JSON Stream)
       try {
         appendFileSync(LOG_FILE, logLine + '\n');
+        appendFileSync(SESSION_LOG_FILE, logLine + '\n');
       } catch (e) {
         console.error(`::/LOG_WRITE_FAILURE : ${e}`);
       }
@@ -144,6 +145,13 @@ export class Logger implements ILogger {
     this.patternSubscribers.push(sub);
     return () => {
       const idx = this.patternSubscribers.indexOf(sub);
+      if (idx !== -1) this.patternSubscribers.splice(idx, 1);
+    };
+  }
+}
+
+export const logger = Logger.getInstance();
+cribers.indexOf(sub);
       if (idx !== -1) this.patternSubscribers.splice(idx, 1);
     };
   }

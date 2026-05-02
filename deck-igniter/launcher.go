@@ -63,14 +63,36 @@ func projectRoot() string {
 	return dir
 }
 
+// ── Output Redirection ────────────────────────────────────────────────────────
+
+func setupLogRedirection(name string, cmd *exec.Cmd) {
+	logDir := filepath.Join(projectRoot(), "data", "logs")
+	_ = os.MkdirAll(logDir, 0755)
+	
+	logPath := filepath.Join(logDir, fmt.Sprintf("%s.log", name))
+	f, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf("!! [LOG_ERROR] Failed to open log for %s: %v\n", name, err)
+		return
+	}
+	
+	// Prepend a boot marker
+	_, _ = f.WriteString(fmt.Sprintf("\n--- ◈ BOOT_LOG_ENTRY : %s [%s] ---\n", name, time.Now().Format(time.RFC3339)))
+	
+	cmd.Stdout = f
+	cmd.Stderr = f
+	// Note: We don't close 'f' here because the process needs it open.
+	// In a more robust system, we'd use a writer that closes after the process exits.
+}
+
 // ── Layer 1: Windows / Foundry VTT ────────────────────────────────────────────
 
 const (
-	foundryExe  = `D:\FoundryVTT\Foundry Virtual Tabletop\Foundry Virtual Tabletop.exe`
-	foundryPort = 9222
-	pixtralBat  = `D:\llama.cpp\start_pixtral.bat`
-	cmdExe      = "/mnt/c/Windows/System32/cmd.exe"
-	pwshExe     = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+	foundryExe     = `D:\FoundryVTT\Foundry Virtual Tabletop\Foundry Virtual Tabletop.exe`
+	foundryPort    = 9222
+	nodeBVisionBat = `D:\llama.cpp\start_node_b_vision.bat`
+	cmdExe         = "/mnt/c/Windows/System32/cmd.exe"
+	pwshExe        = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
 )
 
 // launchFoundry fires Foundry VTT via WSL interop powershell.exe.
@@ -118,13 +140,13 @@ Start-Process -FilePath 'D:\Nodejs\node.exe' -ArgumentList 'D:\FoundryVTT_Data\D
 	}
 }
 
-// launchPixtral fires the Pixtral Windows Native Server via WSL interop powershell.exe.
+// launchNodeBVision fires the Node B Vision Artery (Windows Native) via WSL interop powershell.exe.
 // Non-blocking (cmd.Start) for the same reason as launchFoundry — CombinedOutput
 // hangs when PS is spawned from a non-console WSL process.
-func launchPixtral(c *Component) tea.Cmd {
+func launchNodeBVision(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		workDir := `D:\llama.cpp`
-		args := fmt.Sprintf(`/K "%s"`, pixtralBat)
+		args := fmt.Sprintf(`/K "%s"`, nodeBVisionBat)
 		psCmd := fmt.Sprintf(
 			`Start-Process -FilePath 'cmd.exe' -ArgumentList '%s' -WorkingDirectory '%s'`,
 			args, workDir,
@@ -136,7 +158,7 @@ func launchPixtral(c *Component) tea.Cmd {
 			return stateUpdateMsg{
 				name:  c.Name,
 				state: StateError,
-				err:   fmt.Sprintf("pwsh start error (pixtral): %v", err),
+				err:   fmt.Sprintf("pwsh start error (node-b-vision): %v", err),
 			}
 		}
 		go func() { _ = cmd.Wait() }()
@@ -319,6 +341,7 @@ func launchShadowDashboard(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
 		cmd := nixCmd(root+"/dashboard", "pnpm", "dev")
+		setupLogRedirection(c.Name, cmd)
 
 		if err := cmd.Start(); err != nil {
 			return stateUpdateMsg{
@@ -402,8 +425,8 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 			switch comp.Name {
 			case "foundry-vtt":
 				cmds = append(cmds, launchFoundry(comp))
-			case "pixtral":
-				cmds = append(cmds, launchPixtral(comp))
+			case "node-b-vision":
+				cmds = append(cmds, launchNodeBVision(comp))
 			case "obsidian":
 				cmds = append(cmds, launchObsidian(comp))
 			}
@@ -575,13 +598,6 @@ func performPurge() tea.Cmd {
 			_ = exec.Command("pkill", "-9", "-f", t).Run()
 		}
 		// Also kill the Windows-native pixtral server just in case
-		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe /T").Run()
-		// Settle time after purge
-		time.Sleep(1 * time.Second)
-		return logMsg{text: "⚡ PURGE C0MPL373: Targeted zombie processes neutralized."}
-	}
-}
-tral server just in case
 		_ = exec.Command(cmdExe, "/C", "taskkill /F /IM llama-server.exe /T").Run()
 		// Settle time after purge
 		time.Sleep(1 * time.Second)

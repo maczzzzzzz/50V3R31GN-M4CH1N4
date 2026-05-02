@@ -211,6 +211,7 @@ func initialModel() Model {
 
 	osComponents := []*Component{
 		{Name: "obsidian", Layer: LayerWindows},
+		{Name: "node-b-vision", Layer: LayerWindows},
 		{Name: "crush-proxy", Layer: LayerWSL},
 		{Name: "crush-gui", Layer: LayerWSL},
 		{Name: "director", Layer: LayerWSL},
@@ -229,7 +230,6 @@ func initialModel() Model {
 
 	cprComponents := []*Component{
 		{Name: "foundry-vtt", Layer: LayerWindows},
-		{Name: "pixtral", Layer: LayerWindows},
 	}
 
 	var activeComponents []*Component

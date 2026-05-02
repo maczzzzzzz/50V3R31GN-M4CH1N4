@@ -45,18 +45,30 @@ func logMessage(severity, context, traceId, message string, data map[string]inte
 	// 1. Console Output
 	fmt.Println(string(jsonData))
 
-	// 2. Physical Persistence (Shared artery log)
-	logDir := "../data/logs"
+// 2. Physical Persistence (Shared artery log)
+	logDir := os.Getenv("ARTERY_LOG_DIR")
+	if logDir == "" {
+		logDir = "../data/logs"
+	}
 	_ = os.MkdirAll(logDir, 0755)
 	
+	// Primary persistent log
 	logFile := filepath.Join(logDir, "artery.json")
 	f, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		return
+	if err == nil {
+		_, _ = f.Write(append(jsonData, '\n'))
+		f.Close()
 	}
-	defer f.Close()
 
-	_, _ = f.Write(append(jsonData, '\n'))
+	// Secondary session log (Temp Artery)
+	sessionLogDir := "/home/nixos/.gemini/tmp/50v3r31gn-m4ch1n4/logs"
+	_ = os.MkdirAll(sessionLogDir, 0755)
+	sessionLogFile := filepath.Join(sessionLogDir, "session_artery.json")
+	sf, err := os.OpenFile(sessionLogFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err == nil {
+		_, _ = sf.Write(append(jsonData, '\n'))
+		sf.Close()
+	}
 }
 
 // Legacy wrapper for error-only logging

@@ -216,9 +216,9 @@ func startNucleusServer() {
 	distPath := filepath.Join(root, "dashboard", "cl4w-nucleus", "dist")
 	mux.Handle("/", http.FileServer(http.Dir(distPath)))
 
-	fmt.Printf("[NUCLEUS] Artery online — http://localhost:3030  ws://localhost:3030/ws\n")
+	logMessage("INFO", "NUCLEUS", "internal", "Artery online — http://localhost:3030  ws://localhost:3030/ws", nil)
 	if err := http.ListenAndServe(":3030", mux); err != nil {
-		fmt.Printf("[NUCLEUS] Fatal: %v\n", err)
+		logMessage("ERROR", "NUCLEUS", "internal", fmt.Sprintf("Fatal: %v", err), nil)
 		os.Exit(1)
 	}
 }
@@ -256,14 +256,14 @@ func handleVoiceWS(w http.ResponseWriter, r *http.Request) {
 	if err != nil { return }
 	defer conn.Close()
 
-	fmt.Println("◈ OMI_VOICE_ARTERY : Connection Established")
+	logMessage("INFO", "VOICE", "internal", "OMI_VOICE_ARTERY : Connection Established", nil)
 	
 	for {
 		mt, msg, err := conn.ReadMessage()
 		if err != nil { return }
 		
 		if mt == websocket.TextMessage {
-			fmt.Printf("◈ OMI_HANDSHAKE : %s\n", string(msg))
+			logMessage("DEBUG", "VOICE", "internal", fmt.Sprintf("OMI_HANDSHAKE : %s", string(msg)), nil)
 			conn.WriteMessage(websocket.TextMessage, []byte(`{"type":"handshake_ack"}`))
 		} else if mt == websocket.BinaryMessage {
 			// ◈ PHASE 115: LIVE_OVERRIDE_ARTERY
@@ -285,9 +285,7 @@ func handleVoiceWS(w http.ResponseWriter, r *http.Request) {
 					"priority": "CRITICAL",
 				})
 				
-				// Using the hub's sendToUnix capability (we need to pass hub to this function or use a global)
-				// For now, we'll log it as a simulation.
-				fmt.Printf("::/LIVE_OVERRIDE : %s\n", transcription)
+				logMessage("INFO", "VOICE", "live-override", transcription, nil)
 			}
 		}
 	}
