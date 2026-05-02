@@ -9,10 +9,10 @@ import 'package:uuid/uuid.dart';
 import 'notification_service.dart';
 
 /**
- * ◈ ARTERY_CLIENT — v3.8.7 RE-GROUNDED
+ * ◈ ARTERY_CLIENT — v3.8.26 OMI_ALIGNED
  * 
- * High-fidelity voice and command artery connecting the HUD to Node C.
- * Implements OMI Handshake and PCM-16 streaming.
+ * High-fidelity voice and command artery connecting the HUD to the Quaternary Mesh.
+ * Implements OMI v1 Handshake and buffered PCM-16 streaming.
  */
 
 class ArteryClient extends ChangeNotifier {
@@ -25,29 +25,19 @@ class ArteryClient extends ChangeNotifier {
   final _audioRecorder = AudioRecorder();
   bool _isRecording = false;
   String _currentTranscription = "";
-  String? _currentProposal;
   StreamSubscription<Uint8List>? _audioSubscription;
 
   List<String> get logs => List.unmodifiable(_logs);
   bool get isConnected => _isConnected;
   bool get isRecording => _isRecording;
   String get currentTranscription => _currentTranscription;
-  String? get currentProposal => _currentProposal;
-
-  void clearProposal() {
-    _currentProposal = null;
-    notifyListeners();
-  }
 
   Future<void> connectFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    final ip = prefs.getString('node_c_ip') ?? '100.x.y.z'; // Use real tailscale IP
-    final port = prefs.getString('node_c_port') ?? '7340';
-    final secure = prefs.getBool('secure_tunnel') ?? false;
+    final ip = prefs.getString('node_b_ip') ?? '10.0.0.x';
+    final port = '3030'; // Nucleus Artery
     
-    final protocol = secure ? 'wss' : 'ws';
-    final url = '$protocol://$ip:$port/ws/audio';
-    
+    final url = 'ws://$ip:$port/ws/audio';
     connect(url);
   }
 
@@ -58,16 +48,17 @@ class ArteryClient extends ChangeNotifier {
       _channel = WebSocketChannel.connect(Uri.parse(url));
       _isConnected = true;
       
-      // ◈ OMI Handshake (Phase 96.1)
+      // ◈ OMI v1 Handshake
       final handshake = jsonEncode({
         "type": "handshake",
+        "version": "1.0",
         "session_id": _uuid.v4(),
         "sample_rate": 16000,
-        "codec": "pcm16",
+        "audio_format": "pcm16",
         "uid": "SOVEREIGN_HUD"
       });
       _channel!.sink.add(handshake);
-      addLog("::/ARTERY_ACTIVE : HANDSHAKE_SENT");
+      addLog("::/ARTERY_ACTIVE : OMI_HANDSHAKE_SENT");
 
       notifyListeners();
 
@@ -93,7 +84,6 @@ class ArteryClient extends ChangeNotifier {
 
   void _handleIncomingMessage(dynamic message) {
     if (message is String) {
-      addLog("::/RX : $message"); // Traceable logs
       if (message.startsWith("{")) {
         try {
           final data = jsonDecode(message);
@@ -101,14 +91,10 @@ class ArteryClient extends ChangeNotifier {
             _currentTranscription = data['text'] ?? "";
             addLog("::/TRANSCRIPT : $_currentTranscription");
             notifyListeners();
-          } else if (data['type'] == 'CONTEXT_PROPOSAL') {
-            _currentProposal = data['content'];
-            addLog("::/CONTEXT_PROPOSAL : [GLOW_ACTIVE]");
-            notifyListeners();
+          } else if (data['type'] == 'handshake_ack') {
+            addLog("::/OMI_ACK : ARTERY_SYNCHRONIZED");
           }
-        } catch (e) {
-          // Fallback
-        }
+        } catch (e) {}
       }
     }
   }
@@ -121,8 +107,11 @@ class ArteryClient extends ChangeNotifier {
 
   Future<void> startVoiceStream() async {
     if (!_isConnected) {
-      addLog("::/ERROR : ARTERY_OFFLINE");
-      return;
+      await connectFromPrefs();
+      if (!_isConnected) {
+        addLog("::/ERROR : ARTERY_OFFLINE");
+        return;
+      }
     }
 
     try {
@@ -139,10 +128,10 @@ class ArteryClient extends ChangeNotifier {
         notifyListeners();
         addLog("::/USER : [V01C3_IN6R355_ACTIVE]");
         
-        _notificationService.showPersistentEye(status: 'TRANSCRIBING_ACTIVE');
-
         _audioSubscription = stream.listen((data) {
-          _channel?.sink.add(data);
+          if (_isConnected) {
+            _channel?.sink.add(data);
+          }
         });
       } else {
         addLog("::/ERROR : MIC_PERMISSION_DENIED");
@@ -158,10 +147,8 @@ class ArteryClient extends ChangeNotifier {
     _isRecording = false;
     notifyListeners();
     addLog("::/USER : [V01C3_IN6R355_OFFLINE]");
-    _notificationService.showPersistentEye(status: 'MONITORING_ACTIVE');
   }
 
-  /// Sends a structured JSON command through the Artery.
   void sendJsonCommand(String action, String payload) {
     if (_isConnected && _channel != null) {
       final cmd = jsonEncode({

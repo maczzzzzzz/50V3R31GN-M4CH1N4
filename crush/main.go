@@ -21,14 +21,14 @@ import (
 
 var (
 	colorSovereign = lipgloss.Color("#F36622")
-	colorBg        = lipgloss.Color("#1A1A1A")
+	colorBg        = lipgloss.Color("#0A0A0A")
 	colorAccent    = lipgloss.Color("#C7A87A")
 	colorDim       = lipgloss.Color("#404040")
 	colorWhite     = lipgloss.Color("#E5E5E5")
-	colorRed       = lipgloss.Color("#FB4934")
+	colorRed       = lipgloss.Color("#F36622")
 
 	paneStyle = lipgloss.NewStyle().
-			Border(lipgloss.RoundedBorder()).
+			Border(lipgloss.NormalBorder()).
 			BorderForeground(colorSovereign).
 			Padding(0, 1).
 			Background(colorBg)

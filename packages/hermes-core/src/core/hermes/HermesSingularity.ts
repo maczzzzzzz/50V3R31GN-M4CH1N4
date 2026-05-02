@@ -3,6 +3,7 @@ import { logger } from '../../shared/logger.js';
 import { ContextDAG } from './ContextDAG.js';
 import { HealerProtocol, RepairStrategy, type OrchestratorState } from './HealerProtocol.js';
 import { MemoryObserver } from './MemoryObserver.js';
+import { ArteryClient } from '../../shared/ArteryClient.js';
 import type { Database } from 'better-sqlite3';
 
 /**
@@ -85,7 +86,7 @@ export class HermesSingularity {
   }
 
   /**
-   * Orchestrate a long-running Research Swarm (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+   * Orchestrate a long-running Research Swarm (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
    */
   public async orchestrateResearchSwarm(prompt: string, threadId: string = randomUUID()): Promise<SingularityResult> {
     this.logger.info('HermesSingularity', threadId, `[SWARM] Initiating Research: ${prompt.substring(0, 50)}...`);
@@ -143,7 +144,7 @@ export class HermesSingularity {
   }
 
   /**
-   * Experience-Gitting (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS): Log failure trajectories for future reasoning.
+   * Experience-Gitting (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS): Log failure trajectories for future reasoning.
    */
   public async logExperience(agentId: string, task: string, failureTrace: any, fix?: string, severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' = 'LOW'): Promise<void> {
     if (!this.db) return;
@@ -187,31 +188,18 @@ export class HermesSingularity {
     };
 
     let result: SingularityResult | null = null;
-    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS]";
+    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS]";
     
     while (state.retries < 3) {
       try {
-        // ◈ Phase 106+: Force all inference through the Zero-Trust Artery
-        // The Artery (hermes-router) handles routing to Node B/C/D internally.
-        const arteryUrl = process.env['HERMES_ROUTER_URL'] ?? 'http://127.0.0.1:7341';
-
-        const response = await fetch(`${arteryUrl}/v1/chat/completions`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: state.activeNode === 'node-c' ? 'qwen-oracle' : 'gemma-director',
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: state.prompt }
-            ],
-            max_tokens: input.tokens ?? 4096
-          })
-        });
-
-        if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        
-        const data = (await response.json()) as any;
-        const content = data.choices[0]?.message?.content || '';
+        const content = await ArteryClient.chat({
+          model: state.activeNode === 'node-c' ? 'qwen-oracle' : 'gemma-director',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: state.prompt }
+          ],
+          max_tokens: input.tokens ?? 4096
+        }, traceId);
 
         result = {
           ruleResult: { tasks: [] },

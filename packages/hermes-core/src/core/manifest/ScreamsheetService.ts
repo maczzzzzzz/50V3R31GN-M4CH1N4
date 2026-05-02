@@ -17,6 +17,7 @@
 
 import { randomUUID } from 'node:crypto';
 import { EventEmitter } from 'node:events';
+import { ArteryClient } from '../../shared/ArteryClient.js';
 
 // ---------------------------------------------------------------------------
 // World event types
@@ -39,14 +40,7 @@ export interface VsbRelay {
   sendCommand(type: string, payload: Record<string, unknown>): Promise<void>;
 }
 
-// ---------------------------------------------------------------------------
-// Director client (Node B inference)
-// ---------------------------------------------------------------------------
-
-const DIRECTOR_URL =
-  process.env.NODE_B_DIRECTOR_URL ?? 'http://10.0.0.20:7339/v1';
-
-async function generateSvg(event: WorldEvent): Promise<string> {
+async function generateSvg(event: WorldEvent, traceId: string): Promise<string> {
   const statsBlock = event.stats
     ? Object.entries(event.stats).map(([k, v]) => `${k}: ${v}`).join(' | ')
     : '';
@@ -67,20 +61,11 @@ async function generateSvg(event: WorldEvent): Promise<string> {
     `- No external image refs. All content inline.`,
   ].filter(Boolean).join('\n');
 
-  const res = await fetch(`${DIRECTOR_URL}/chat/completions`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'local-director',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.6,
-    }),
-    signal: AbortSignal.timeout(60_000),
-  });
-
-  if (!res.ok) throw new Error(`Director SVG generation failed: ${res.status}`);
-  const data = await res.json() as { choices: Array<{ message: { content: string } }> };
-  const content = data.choices[0]?.message?.content ?? '';
+  const content = await ArteryClient.chat({
+    model: 'gemma-director',
+    messages: [{ role: 'user', content: prompt }],
+    temperature: 0.6,
+  }, traceId);
 
   // Extract SVG block if Director wraps it in markdown
   const svgMatch = content.match(/<svg[\s\S]*<\/svg>/i);
@@ -115,7 +100,7 @@ export class ScreamsheetService {
     const traceId = randomUUID();
     try {
       process.stderr.write(`[screamsheet:${traceId}] Generating SVG for "${event.title}"…\n`);
-      const svg = await generateSvg(event);
+      const svg = await generateSvg(event, traceId);
 
       await this.relay.sendCommand('render_screamsheet', {
         svg,

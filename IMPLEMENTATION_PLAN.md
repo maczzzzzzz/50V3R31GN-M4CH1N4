@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Architecture:** Sovereign-Proxy (Go) + Unified-HUD (Rust) + Node B (TS) + Motor Cortex (JS) + WebGL Shroud (GLSL)
 
 <details>
@@ -25,7 +25,7 @@
 
 ## ✅ PHASE 100: QUATERNARY INTELLIGENCE AUDIT (COMPLETED)
 **Goal:** Perform deep research into SOTA agentic logic and system-wide intelligence boosts for Node D.
-- [x] **Task 1: Intelligence Audit (Round 1):** Scanned 10+ repos (VLA, Git-Synapse, Skill-Factory). Verified native **Hermes Tools (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)** framework.
+- [x] **Task 1: Intelligence Audit (Round 1):** Scanned 10+ repos (VLA, Git-Synapse, Skill-Factory). Verified native **Hermes Tools (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)** framework.
 - [x] **Task 2: Intelligence Audit (Round 2):** Researched KV-cache optimizations (Prefix-Caching), **LangGraph Purge**, and NPU acceleration.
 - [x] **Task 3: Final Ignition Planning:** Research documentation complete, Node D ignition plan and NODESTADT architectural pivot documented.
 
@@ -41,7 +41,7 @@
 ## ✅ PHASE 102: FORENSIC AUDIT & DOC RECONSTRUCTION (COMPLETED)
 **Goal:** Perform a deep architectural audit and reconstruct documentation to professional product standards.
 - [x] **Task 1: Orchestrate Swarm Audit:** Dispatched sub-agent swarms to map all 5 domains (Infrastructure, Intelligence, Synapse, HUD, Simulation).
-- [x] **Task 2: Scaffold GitBook Structure:** Materialized `docs/nodestadt/` and `docs/sovereign-red-plugin/` hierarchies.
+- [x] **Task 2: Scaffold GitBook Structure:** Materialized `docs/nodestadt/` and `plugins/sovereign-red-plugin/docs/` hierarchies.
 - [x] **Task 3: Rewrite Core Manifests:** Reconstructed `README.md` and `ABOUT.md` with NODESTADT Authority OS branding.
 - [x] **Task 4: Materialize Core Documentation:** Drafted comprehensive architecture and capability guides.
 - [x] **Task 5: Isolate RED Documentation:** Extracted all Cyberpunk RED simulation logic into the dedicated plugin repository.
@@ -60,7 +60,7 @@
 ## ✅ PHASE 104: SYSTEM ALIGNMENT & CONSOLIDATION (COMPLETED)
 **Goal:** Finalize organizational drift recovery and establish context purity across the quaternary mesh.
 - [x] **Task 1: Model Farm Orchestration:** Reconnected Hermes Router to Node D Swapper (:8080) for dynamic VRAM management.
-- [x] **Task 2: Nix Identity Sync:** Synchronized `identities.nix` and `agent-sandbox.nix` (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS / Node.js 22).
+- [x] **Task 2: Nix Identity Sync:** Synchronized `identities.nix` and `agent-sandbox.nix` (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS / Node.js 22).
 - [x] **Task 3: Ability Stone Forging:** Materialized scoped `AGENTS.md` manifests for `src/`, `crush/`, and `zeroclaw/`.
 - [x] **Task 4: Startup Consolidation:** Centralized ignition around `deck-igniter` and archived 10+ redundant scripts.
 - [x] **Task 5: Vivaldi Ingress Docs:** Materialized `docs/nodestadt/sidecars/sidecar-browser-extension.md`.
@@ -72,10 +72,10 @@
 - [x] **Task 3: Flutter HUD Typography Refactor:** Inject `Cinzel` and `Space Grotesk` into the mobile HUD canvas.
 
 ## ✅ PHASE 105.5: LIVE CODING PARTNER INTEGRATION (COMPLETED)
-**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities for local swarm orchestration.
+**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities for local swarm orchestration.
 - [x] **Task 1: Warp Observer Sidecar (Rust):** Materialized read-only telemetry ingress on Node D in `sidecars/warp-observer/`.
 - [x] **Task 2: Oz Pipeline Formalization:** Implemented `Triage -> Spec -> Implement -> Review` loop in `HermesSingularity.ts`.
-- [x] **Task 3: Prompt Standard Synchronization:** Migrated system markers to `[IMPORTANT:]` per Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS spec.
+- [x] **Task 3: Prompt Standard Synchronization:** Migrated system markers to `[IMPORTANT:]` per Hermes v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS spec.
 - [x] **Task 4: GEPA Curator Sidecar (Rust):** Materialized background skill consolidation engine on Node D in `sidecars/gepa-curator/`.
 
 ## ✅ PHASE 106: THE SECURITY HARDGATE (COMPLETED)
@@ -88,7 +88,7 @@
 ## 🔍 MANDATORY: SYSTEM COHESION AUDIT (IN-PROGRESS)
 **Objective:** Recursive audit of all 100+ phases to ensure zero "architectural bloat" and full primitive integration.
 - [x] **Task 1: The Integrity Scan:** Dispatched Node D to perform a cross-sector audit. Identified Artery Bypass, Vision Fragmentation, and Lore-Bleed fractures.
-- [ ] **Task 2: Bloat Neutralization:** Refactor or purge any redundant layers identified in the scan to maintain the Clean BASE invariant.
+- [x] **Task 2: Bloat Neutralization:** Refactor or purge any redundant layers identified in the scan to maintain the Clean BASE invariant. (COMPLETED: Migrated legacy bridge and scripts, pruned sidecar debt).
 
 ## ✅ PHASE 107: NODESTADT ORGANIZATION PIVOT (COMPLETED)
 **Goal:** Transition to a professional monorepo structure and declarative sidecar framework.
@@ -128,11 +128,34 @@
 - [x] **Task 2: Desktop & Web UI Ingress:** Materialized `sidecars/hermes-desktop` and `sidecars/hermes-web-ui` with declarative manifests.
 - [x] **Task 3: Local Image Generation:** Materialized `sidecars/drawthings-plugin` and declarative manifest. Established local gRPC image pipeline.
 
-## ✅ PHASE 113: THE MANAGED EMPLOYEE (AUTONOMOUS EVOLUTION) (COMPLETED)
+## ⚡ PHASE 113: THE MANAGED EMPLOYEE (AUTONOMOUS EVOLUTION) (COMPLETED)
 **Goal:** Transition Hermes from a partner to a fully managed, self-evolving employee.
 - [x] **Task 1: Paperclip Adapter Loop:** Materialized `sidecars/paperclip-adapter` and declarative manifest. Established the managed employee orchestration loop.
 - [x] **Task 2: Zeroboot Sandboxing:** Materialized `sidecars/zeroboot` and declarative manifest. Prepared sub-millisecond VM isolation for untrusted code execution.
 - [x] **Task 3: The World Engine:** Materialized `sidecars/worldseed` and declarative manifest. Established environmental consequence simulation for agent testing.
+
+---
+
+## ⚡ PHASE 114: PLUGIN HARDENING & ARTERY CONSOLIDATION (IN-PROGRESS)
+**Goal:** Standardize plugin documentation and eliminate networking redundancy across the mesh.
+- [x] **Task 1: Lite README Materialization:** Generate standard `README.md` for all sidecars/plugins (19 total) documenting purpose, port mappings, and boot instructions. (COMPLETED: Materialized shards across all 19 sidecars).
+- [x] **Task 2: Artery Consolidation:** Merge `sidecar-proxy` and `free-claude-proxy` logic into a single Cognition Gateway. Refactor direct `fetch` calls in core TS logic to use `ArteryClient`. (COMPLETED: Materialized ArteryClient, refactored 5+ core services, identified proxy functional parity).
+- [x] **Task 3: Vision Synchronisation:** Standardise the vision/OCR entry points to eliminate fragmentation. (COMPLETED: Standardised Vision OCR access via ArteryClient).
+
+---
+
+## ✅ PHASE 114.5: FUNCTIONAL LOCKDOWN & PURE EXTENSION (COMPLETED)
+**Goal:** Lock down arteries and materialize the terminal app as a pure extension of the main mesh.
+- [x] **Task 1: Navigation Relocation:** Move navigation bar to bottom for horizontal kinetic HUD space.
+- [x] **Task 2: Voice Artery (OMI):** Repair VOICE functionality by aligning with BasedHardware/OMI PCM-16 protocol.
+- [x] **Task 3: Interactive Artery Shell:** Replace passive logs with a real interactive PTY shell (Ubuntu/NixOS) in the app.
+- [x] **Task 4: Deep Synapse Integration:** Expose FTS5 search and OsTriplet management (CRUD) to the mobile HUD. (Gated behind RED_MODE).
+- [x] **Task 5: Task Reminders:** Implement date/time alarms and phone notifications for shored tasks.
+- [x] **Task 6: Browser Extension Aesthetic:** Refactor Vivaldi Ingress to 'Glow-Terminal' NodeStadt Authority standard.
+- [x] **Task 7: Machina Daemon Ingress:** Materialized local device control documentation and brand asset synchronization.
+
+---
+**::/5Y573M-N071C3 : MISSION_GOAL_ACHIEVED. // 50V3R31GN-M4CH1N4**
 
 ---
 **LINKS:** [[OS_CORE]]

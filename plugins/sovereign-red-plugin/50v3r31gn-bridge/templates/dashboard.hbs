@@ -1,0 +1,92 @@
+<style>
+.50v3r31gn-dashboard {
+  background: #050505;
+  color: #ff003c;
+  font-family: 'Courier New', Courier, monospace;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.bio-monitor {
+  border-bottom: 2px solid #ff003c;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.stat-line {
+  margin-bottom: 4px;
+}
+
+.pulse-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 2px;
+  border: 1px solid #ff003c33;
+  margin-bottom: 10px;
+  aspect-ratio: 1/1;
+}
+
+.grid-cell {
+  border: 1px solid #ff003c11;
+  transition: background 0.3s;
+}
+
+.fixer-console {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.terminal-btn {
+  background: transparent;
+  border: 1px solid #ff003c;
+  color: #ff003c;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  padding: 8px;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.terminal-btn:hover {
+  background: #ff003c33;
+  box-shadow: 0 0 5px #ff003c;
+}
+
+.stat-label {
+  font-weight: bold;
+}
+</style>
+
+<div class="50v3r31gn-dashboard">
+  <div class="bio-monitor">
+    <div class="stat-line">
+      <span class="stat-label">HP [</span>{{hpBar}}<span class="stat-label">] {{hp}}/{{maxHp}}</span>
+    </div>
+    <div class="stat-line">
+      <span class="stat-label">HUM [</span>{{humBar}}<span class="stat-label">] {{hum}}/{{maxHum}}</span>
+    </div>
+  </div>
+
+  <div class="pulse-grid">
+    {{#each cells}}
+      <div class="grid-cell" style="background: {{this.color}};"></div>
+    {{/each}}
+  </div>
+
+  <div class="fixer-console">
+    {{#each actions}}
+      <button class="terminal-btn" data-action="{{this.id}}">
+        > {{this.label}}
+      </button>
+    {{/each}}
+  </div>
+</div>
+
+<!-- Co-Authored-By: 50V3R31GN-M4CH1N4 <50v3r31gn@black-ice.net> -->

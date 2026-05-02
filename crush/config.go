@@ -15,6 +15,7 @@ type Config struct {
 	ClawlinkSock    string // CLAWLINK_SOCK — Unix socket path for proxy
 	ClawlinkTimeout int    // CLAWLINK_TIMEOUT — per-request timeout in ms
 	DashboardPort   string // DASHBOARD_PORT — WebSocket port for telemetry broadcast
+	RedModeActive   bool   // RED_MODE_ACTIVE — if true, allows Akashik.db queries
 }
 
 // Cfg is the package-level config loaded at startup.
@@ -32,6 +33,7 @@ func loadConfig() Config {
 		ClawlinkSock:    getEnv("CLAWLINK_SOCK", "/run/crush/clawlink.sock"),
 		ClawlinkTimeout: getEnvInt("CLAWLINK_TIMEOUT", 15000),
 		DashboardPort:   getEnv("DASHBOARD_PORT", "9090"),
+		RedModeActive:   getEnvBool("RED_MODE_ACTIVE", false),
 	}
 }
 
@@ -97,6 +99,14 @@ func getEnvInt(key string, defaultVal int) int {
 		if n, err := strconv.Atoi(v); err == nil {
 			return n
 		}
+	}
+	return defaultVal
+}
+
+func getEnvBool(key string, defaultVal bool) bool {
+	if v := os.Getenv(key); v != "" {
+		v = strings.ToLower(v)
+		return v == "true" || v == "1" || v == "on"
 	}
 	return defaultVal
 }

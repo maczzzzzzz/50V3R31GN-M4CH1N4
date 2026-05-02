@@ -110,7 +110,9 @@ async function universalSync() {
         const entries = fs.readdirSync(dir, { withFileTypes: true });
         for (const entry of entries) {
             const fullPath = path.join(dir, entry.name);
+            // Skip hidden directories (e.g. .dart_tool, .git) but keep .factory
             if (entry.isDirectory()) {
+                if (entry.name.startsWith('.') && entry.name !== '.factory') continue;
                 walk(fullPath);
             } else if (EXTENSIONS.includes(path.extname(fullPath)) || entry.name === 'package.json') {
                 processFile(fullPath);

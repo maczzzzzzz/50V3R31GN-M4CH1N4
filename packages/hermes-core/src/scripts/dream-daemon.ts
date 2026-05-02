@@ -26,17 +26,16 @@ import 'dotenv/config';
 import Database from 'better-sqlite3';
 import { z } from 'zod';
 import cron from 'node-cron';
+import { ArteryClient } from '../shared/ArteryClient.js';
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-const NODE_A_BASE_URL = process.env['NODE_A_URL'] ?? 'http://192.168.1.100:8080/v1';
 const NODE_A_MODEL    = process.env['NODE_A_MODEL'] ?? 'open-reasoner-zero-1.5b';
 const AKASHIK_DB_PATH = process.env['AKASHIK_DB_PATH'] ?? 'data/Akashik.db';
-const DREAMS_MD_PATH  = process.env['DREAMS_MD_PATH'] ?? 'docs/DREAMS.md';
 const SIGNAL_LIMIT    = parseInt(process.env['DREAM_SIGNAL_LIMIT'] ?? '20', 10);
-const MIN_SCORE       = parseFloat(process.env['DREAM_MIN_SCORE'] ?? '0.7');
 const MEETINGS_DIR    = process.env['MEETINGS_DIR'] ?? 'data/meetings';
 const VACCINES_PATH   = process.env['VACCINES_PATH'] ?? 'data/logic_vaccinations.jsonl';
+const RED_MODE_ACTIVE = process.env['RED_MODE_ACTIVE'] === 'true' || process.env['RED_MODE_ACTIVE'] === '1';
 
 const args = process.argv.slice(2);
 const runOnce = args.includes('--once');
@@ -94,8 +93,6 @@ function openDb(): Database.Database {
 function lightPhase(db: Database.Database): LoreSignal[] {
   process.stdout.write('[Dream:LIGHT] Tallying lore signals...\n');
 
-  // Score triplets by frequency (count of same subject+predicate pairs)
-  // and recency (most recently inserted rows rank higher).
   const signals = db.prepare(`
     SELECT
       MIN(id)          AS id,
@@ -115,10 +112,10 @@ function lightPhase(db: Database.Database): LoreSignal[] {
   return signals;
 }
 
-// ── Phase 2: REM — Contradiction Audit via Node A ────────────────────────────
+// ── Phase 2: REM — Contradiction Audit via Artery ────────────────────────────
 
 async function remPhase(signals: LoreSignal[], cycleId: string): Promise<RemAudit> {
-  process.stdout.write('[Dream:REM] Dispatching signals to Node A Reasoner...\n');
+  process.stdout.write('[Dream:REM] Dispatching signals to Artery (Node A Reasoner)...\n');
 
   const signalText = signals
     .map(s => `- ${s.subject} ${s.predicate}: "${s.object}" (freq=${s.frequency})`)
@@ -126,45 +123,31 @@ async function remPhase(signals: LoreSignal[], cycleId: string): Promise<RemAudi
 
   const systemPrompt = `You are a lore consolidation engine for a NODESTADT Authority campaign.
 You receive a list of recent world-state signals and must:
-1. Identify TRUE FACTS: statements that are consistent and can be committed as durable world-state. Assign a confidence 'score' (0.0 to 1.0).
+1. Identify TRUE FACTS: statements that are consistent and can be committed as durable world-state.
 2. Identify CONTRADICTIONS: pairs of signals that conflict with each other.
 3. Extract THEMES and REFLECTIONS from the data.
 4. Write a brief SUMMARY of the most important world developments.
 
 Output ONLY valid JSON with exactly these fields:
-{"true_facts":[{"fact":"...","score":0.9}],"contradictions":["..."],"themes":["..."],"reflections":["..."],"summary":"...","reasoning":"..."}`;
+{"true_facts":["..."],"contradictions":["..."],"themes":["..."],"reflections":["..."],"summary":"...","reasoning":"..."}`;
 
   const userMessage = `Analyze these recent lore signals from NODESTADT (cycle ${cycleId}):\n\n${signalText}`;
 
-  const response = await fetch(`${NODE_A_BASE_URL}/chat/completions`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: NODE_A_MODEL,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userMessage },
-      ],
-      temperature: 0.1,
-      top_k: 1,
-      top_p: 1.0,
-      response_format: { type: 'json_object' },
-    }),
-    signal: AbortSignal.timeout(60_000),
-  });
-
-  if (!response.ok) {
-    const body = await response.text().catch(() => '');
-    throw new Error(`[Dream:REM] Node A returned HTTP ${response.status}: ${body}`);
-  }
-
-  const json = await response.json() as { choices: Array<{ message: { content: string } }> };
-  const content = json.choices[0]?.message?.content;
-  if (!content) throw new Error('[Dream:REM] Node A returned empty response');
+  const content = await ArteryClient.chat({
+    model: NODE_A_MODEL,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userMessage },
+    ],
+    temperature: 0.1,
+    top_k: 1,
+    top_p: 1.0,
+    response_format: { type: 'json_object' },
+  }, `dream-cycle-${cycleId}`);
 
   const parsed = RemAuditSchema.safeParse(JSON.parse(content));
   if (!parsed.success) {
-    throw new Error(`[Dream:REM] Node A response failed Zod validation: ${parsed.error.issues[0]?.message}`);
+    throw new Error(`[Dream:REM] Artery response failed Zod validation: ${parsed.error.issues[0]?.message}`);
   }
 
   process.stdout.write(`[Dream:REM] Audit complete. True facts: ${parsed.data.true_facts.length}, Contradictions: ${parsed.data.contradictions.length}\n`);
@@ -186,24 +169,10 @@ function deepPhase(db: Database.Database, audit: RemAudit, cycleId: string): voi
   });
   transaction(audit.true_facts);
 
-  process.stdout.write(`[Dream:DEEP] ${audit.true_facts.length} facts committed to DB. DREAMS.md is deprecated.\n`);
+  process.stdout.write(`[Dream:DEEP] ${audit.true_facts.length} facts committed to DB.\n`);
 }
 
 // ── Phase 4: OUROBOROS — Meeting Transcript Ingestion & Logic Vaccinations ────
-//
-// Scans data/meetings/ for unprocessed meeting vaults (those without
-// a processed.stamp file). Reads all .thought fragments, dispatches them
-// to Node A for synthesis, and writes "Logic Vaccination" directives to
-// data/logic_vaccinations.jsonl for injection into future prompts.
-
-interface LogicVaccination {
-  id: string;
-  trace_id: string;
-  cycle_id: string;
-  directive: string;
-  source_agents: string[];
-  created_at: string;
-}
 
 async function ouroborosPhase(cycleId: string): Promise<void> {
   process.stdout.write('[Dream:OUROBOROS] Scanning meeting vaults...\n');
@@ -211,7 +180,6 @@ async function ouroborosPhase(cycleId: string): Promise<void> {
   let vaultCount = 0;
   let vaccinationCount = 0;
 
-  // Read all meeting directories
   let entries: string[] = [];
   try {
     entries = fs.readdirSync(MEETINGS_DIR);
@@ -226,9 +194,8 @@ async function ouroborosPhase(cycleId: string): Promise<void> {
     if (!stat.isDirectory()) continue;
 
     const stampPath = path.join(meetDir, 'processed.stamp');
-    if (fs.existsSync(stampPath)) continue; // already processed
+    if (fs.existsSync(stampPath)) continue;
 
-    // Collect all .thought fragments
     const thoughtFiles = fs.readdirSync(meetDir).filter(f => f.endsWith('.thought'));
     if (thoughtFiles.length === 0) continue;
 
@@ -243,7 +210,6 @@ async function ouroborosPhase(cycleId: string): Promise<void> {
 
     vaultCount++;
 
-    // Synthesize Logic Vaccination via Node A
     try {
       const fragmentText = fragments
         .map(f => `### Agent: ${f.agent}\n${f.content}`)
@@ -255,28 +221,19 @@ Output ONLY valid JSON: {"directive":"<one-sentence constraint>","confidence":0.
 
       const userMessage = `Meeting trace_id: ${traceId}\n\nThought Fragments:\n\n${fragmentText}`;
 
-      const response = await fetch(`${NODE_A_BASE_URL}/chat/completions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: NODE_A_MODEL,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userMessage },
-          ],
-          temperature: 0.1,
-          response_format: { type: 'json_object' },
-        }),
-        signal: AbortSignal.timeout(60_000),
-      });
+      const content = await ArteryClient.chat({
+        model: NODE_A_MODEL,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userMessage },
+        ],
+        temperature: 0.1,
+        response_format: { type: 'json_object' },
+      }, `ouroboros-${traceId}`);
 
-      if (!response.ok) throw new Error(`Node A HTTP ${response.status}`);
-
-      const json = await response.json() as { choices: Array<{ message: { content: string } }> };
-      const content = json.choices[0]?.message?.content ?? '';
       const parsed = JSON.parse(content) as { directive: string; confidence: number; reasoning: string };
 
-      const vaccination: LogicVaccination = {
+      const vaccination = {
         id: randomUUID(),
         trace_id: traceId,
         cycle_id: cycleId,
@@ -285,7 +242,6 @@ Output ONLY valid JSON: {"directive":"<one-sentence constraint>","confidence":0.
         created_at: new Date().toISOString(),
       };
 
-      // Ensure vaccines file exists
       const vaccinesDir = path.dirname(VACCINES_PATH);
       if (!fs.existsSync(vaccinesDir)) fs.mkdirSync(vaccinesDir, { recursive: true });
       fs.appendFileSync(VACCINES_PATH, JSON.stringify(vaccination) + '\n', 'utf-8');
@@ -296,14 +252,11 @@ Output ONLY valid JSON: {"directive":"<one-sentence constraint>","confidence":0.
       process.stderr.write(`[Dream:OUROBOROS] Synthesis failed for ${traceId}: ${err}\n`);
     }
 
-    // Write processed stamp regardless — prevents infinite reprocessing on error
     fs.writeFileSync(stampPath, new Date().toISOString() + '\n', 'utf-8');
   }
 
   process.stdout.write(`[Dream:OUROBOROS] ${vaultCount} vaults scanned, ${vaccinationCount} vaccinations generated.\n`);
 }
-
-// ── Main Loop ─────────────────────────────────────────────────────────────────
 
 async function dreamCycle(): Promise<void> {
   const cycleId = randomUUID().slice(0, 8);
@@ -311,20 +264,14 @@ async function dreamCycle(): Promise<void> {
 
   const db = openDb();
   try {
-    // Phase 1: LIGHT
     const signals = lightPhase(db);
     if (signals.length === 0) {
       process.stdout.write('[DreamDaemon] No signals to process. Cycle skipped.\n');
       return;
     }
 
-    // Phase 2: REM
     const audit = await remPhase(signals, cycleId);
-
-    // Phase 3: DEEP
     deepPhase(db, audit, cycleId);
-
-    // Phase 4: OUROBOROS — meeting transcript ingestion + Logic Vaccinations
     await ouroborosPhase(cycleId);
 
     process.stdout.write(`[DreamDaemon] ===== CYCLE ${cycleId} COMPLETE =====\n`);
@@ -334,8 +281,12 @@ async function dreamCycle(): Promise<void> {
 }
 
 async function main(): Promise<void> {
+  if (!RED_MODE_ACTIVE) {
+    process.stdout.write('[DreamDaemon] RED_MODE_OFFLINE. Simulation layer dormant.\n');
+    return;
+  }
+
   process.stdout.write('[DreamDaemon] OpenClaw Dreaming Loop online.\n');
-  process.stdout.write(`[DreamDaemon] Node A: ${NODE_A_BASE_URL} | DB: ${AKASHIK_DB_PATH}\n`);
 
   if (runOnce) {
     await dreamCycle();

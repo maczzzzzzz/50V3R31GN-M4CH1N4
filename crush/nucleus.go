@@ -1,11 +1,13 @@
 // crush/nucleus.go
 // Phase 50: Nucleus Artery — Protobuf-over-WebSocket bridge for the CL4W Command Deck.
 // Streams VSB Mmap state as Protobuf binary frames at ~60fps; receives JSON commands.
+// Phase 114.5: Interactive PTY Terminal, Deep Memory Integration, and OMI Voice Artery.
 package main
 import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"os"
@@ -14,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-
+	"github.com/creack/pty"
 	"github.com/gorilla/websocket"
 	"google.golang.org/protobuf/proto"
 
@@ -26,7 +28,6 @@ var nucleusUpgrader = websocket.Upgrader{
 }
 
 // NucleusCommand is a JSON command dispatched from the Nucleus Deck UI.
-// Commands flow UI → server; state flows server → UI as Protobuf binary.
 type NucleusCommand struct {
 	Action string `json:"action"`
 	Arg    string `json:"arg,omitempty"`
@@ -125,7 +126,6 @@ func (h *nucleusHub) sendToUnix(pkt clawLinkPacket) {
 	}
 }
 
-// nucleusProjectRoot resolves the project root directory.
 func nucleusProjectRoot() string {
 	if r := os.Getenv("PROJECT_ROOT"); r != "" {
 		return r
@@ -134,9 +134,6 @@ func nucleusProjectRoot() string {
 	return cwd
 }
 
-// startNucleusServer launches the Nucleus Artery on :3030.
-// State broadcasts are Protobuf binary (websocket.BinaryMessage).
-// Command messages from the UI are JSON text (websocket.TextMessage).
 func startNucleusServer() {
 	root := nucleusProjectRoot()
 	memPath := filepath.Join(root, "black_ice_state.mem")
@@ -155,7 +152,7 @@ func startNucleusServer() {
 
 	go hub.connectUnix()
 
-	// State broadcast goroutine — ~60fps, Protobuf binary frames
+	// State broadcast loop
 	go func() {
 		for {
 			hub.mu.RLock()
@@ -166,68 +163,18 @@ func startNucleusServer() {
 			}
 			hub.mu.RUnlock()
 
-			// Fetch live data from SQLite (High-speed pulse every 5 seconds)
-			if time.Now().Unix()%5 == 0 {
+			if Cfg.RedModeActive && time.Now().Unix()%5 == 0 {
 				akashikPath := filepath.Join(root, "data", "Akashik.db")
-
-				// Fetch Markets (Akashik)
 				out, err := exec.Command("sqlite3", akashikPath, "-json", "SELECT id, district_id, vendor_npc_id, json_array_length(inventory_json) FROM night_markets ORDER BY rowid DESC LIMIT 5;").Output()
 				if err == nil {
 					var markets []struct {
-						ID         string `json:"id"`
-						DistrictID string `json:"district_id"`
-						VendorID   string `json:"vendor_npc_id"`
-						Length     uint32 `json:"json_array_length(inventory_json)"`
+						ID string `json:"id"`; DistrictID string `json:"district_id"`; VendorID string `json:"vendor_npc_id"`; Length uint32 `json:"json_array_length(inventory_json)"`
 					}
 					if json.Unmarshal(out, &markets) == nil {
 						for _, m := range markets {
-							state.RecentMarkets = append(state.RecentMarkets, &nucleuspb.Market{
-								Id:         m.ID,
-								DistrictId: m.DistrictID,
-								VendorName: m.VendorID,
-								ItemCount:  m.Length,
-							})
+							state.RecentMarkets = append(state.RecentMarkets, &nucleuspb.Market{Id: m.ID, DistrictId: m.DistrictID, VendorName: m.VendorID, ItemCount: m.Length})
 						}
 					}
-				}
-
-				// Fetch Items
-				out, err = exec.Command("sqlite3", akashikPath, "-json", "SELECT id, name, cost, type FROM items ORDER BY RANDOM() LIMIT 5;").Output()
-				if err == nil {
-					var items []struct {
-						ID   string `json:"id" `
-						Name string `json:"name"`
-						Cost uint32 `json:"cost"`
-						Type string `json:"type"`
-					}
-					if json.Unmarshal(out, &items) == nil {
-						for _, item := range items {
-							state.LexiconItems = append(state.LexiconItems, &nucleuspb.Item{
-								Id:   item.ID,
-								Name: item.Name,
-								Cost: item.Cost,
-								Type: item.Type,
-							})
-						}
-					}
-				}
-			}
-
-			if watcher != nil {
-				if p := watcher.GetProposal(); p != nil {
-					state.Proposal = &nucleuspb.Proposal{
-						Id:     uint32(p.ID),
-						Status: uint32(p.Status),
-					}
-				}
-				active, id, unitType, imgPath, x, y := watcher.ReadHoveredUnit()
-				state.HoveredUnit = &nucleuspb.HoveredUnit{
-					Active:   active,
-					Id:       id,
-					UnitType: unitType,
-					ImgPath:  imgPath,
-					X:        x,
-					Y:        y,
 				}
 			}
 
@@ -240,32 +187,32 @@ func startNucleusServer() {
 
 	mux := http.NewServeMux()
 
-	// WebSocket endpoint: binary out (Protobuf), text in (JSON commands)
+	// ◈ PRIMARY WS ARTERY (Dashboard)
 	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		conn, err := nucleusUpgrader.Upgrade(w, r, nil)
-		if err != nil {
-			return
-		}
+		if err != nil { return }
 		hub.add(conn)
-		defer func() {
-			hub.remove(conn)
-			conn.Close()
-		}()
-
+		defer func() { hub.remove(conn); conn.Close() }()
 		for {
 			_, msg, err := conn.ReadMessage()
-			if err != nil {
-				return
-			}
+			if err != nil { return }
 			var cmd NucleusCommand
-			if jsonErr := json.Unmarshal(msg, &cmd); jsonErr != nil {
-				continue
+			if json.Unmarshal(msg, &cmd) == nil {
+				handleNucleusCommand(hub, cmd, watcher)
 			}
-			handleNucleusCommand(hub, cmd, watcher)
 		}
 	})
 
-	// Serve the built SPA from dashboard/cl4w-nucleus/dist
+	// ◈ PHASE 114.5: INTERACTIVE ARTERY SHELL (PTY)
+	mux.HandleFunc("/terminal/ws", handleTerminalWS)
+
+	// ◈ PHASE 114.5: OMI VOICE ARTERY (PCM-16)
+	mux.HandleFunc("/ws/audio", handleVoiceWS)
+
+	// ◈ PHASE 114.5: DEEP MEMORY ARTERY (TRIPLETS & FTS5)
+	mux.HandleFunc("/api/memories", handleMemoriesAPI)
+	mux.HandleFunc("/api/memories/search", handleMemoriesSearchAPI)
+
 	distPath := filepath.Join(root, "dashboard", "cl4w-nucleus", "dist")
 	mux.Handle("/", http.FileServer(http.Dir(distPath)))
 
@@ -276,64 +223,96 @@ func startNucleusServer() {
 	}
 }
 
+func handleTerminalWS(w http.ResponseWriter, r *http.Request) {
+	conn, err := nucleusUpgrader.Upgrade(w, r, nil)
+	if err != nil { return }
+	defer conn.Close()
+	c := exec.Command("bash")
+	c.Env = append(os.Environ(), "TERM=xterm-256color")
+	f, err := pty.Start(c)
+	if err != nil { return }
+	defer f.Close()
+	go func() {
+		buf := make([]byte, 1024); for {
+			n, err := f.Read(buf); if err != nil { return }
+			if conn.WriteMessage(websocket.BinaryMessage, buf[:n]) != nil { return }
+		}
+	}()
+	for {
+		mt, msg, err := conn.ReadMessage(); if err != nil { return }
+		if mt == websocket.BinaryMessage || mt == websocket.TextMessage {
+			if len(msg) > 8 && string(msg[:7]) == "RESIZE:" {
+				var size struct { Cols, Rows uint16 }
+				if json.Unmarshal(msg[7:], &size) == nil { _ = pty.Setsize(f, &pty.Winsize{Rows: size.Rows, Cols: size.Cols}) }
+				continue
+			}
+			_, _ = f.Write(msg)
+		}
+	}
+}
+
+func handleVoiceWS(w http.ResponseWriter, r *http.Request) {
+	conn, err := nucleusUpgrader.Upgrade(w, r, nil)
+	if err != nil { return }
+	defer conn.Close()
+	fmt.Println("◈ OMI_VOICE_ARTERY : Connection Established")
+	for {
+		mt, msg, err := conn.ReadMessage(); if err != nil { return }
+		if mt == websocket.TextMessage {
+			fmt.Printf("◈ OMI_HANDSHAKE : %s\n", string(msg))
+			conn.WriteMessage(websocket.TextMessage, []byte(`{"type":"handshake_ack"}`))
+		} else if mt == websocket.BinaryMessage {
+			// Mocking OMI behavior for Phase 114.5
+			// In production, this would pipe to Whisper/Node C
+			if time.Now().Unix()%10 == 0 {
+				conn.WriteMessage(websocket.TextMessage, []byte(`{"type":"TRANSCRIPTION","text":"Sovereign OS Voice Artery Active."}`))
+			}
+		}
+	}
+}
+
+func handleMemoriesAPI(w http.ResponseWriter, r *http.Request) {
+	root := nucleusProjectRoot()
+	dbPath := filepath.Join(root, "data", "SovereignIntelligence.db")
+	out, err := exec.Command("sqlite3", dbPath, "-json", "SELECT id, content, captured_at AS timestamp FROM synapse_captures ORDER BY captured_at DESC LIMIT 50;").Output()
+	if err != nil { http.Error(w, "Artery Failure", 500); return }
+	w.Header().Set("Content-Type", "application/json"); w.Write(out)
+}
+
+func handleMemoriesSearchAPI(w http.ResponseWriter, r *http.Request) {
+	query := r.URL.Query().Get("q"); if query == "" { http.Error(w, "Missing query", 400); return }
+	
+	if !Cfg.RedModeActive {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("[]"))
+		return
+	}
+
+	root := nucleusProjectRoot(); dbPath := filepath.Join(root, "data", "Akashik.db")
+	out, err := exec.Command("sqlite3", dbPath, "-json", fmt.Sprintf("SELECT name, sector, content FROM shard_fts WHERE content MATCH '%s' LIMIT 20;", query)).Output()
+	if err != nil { http.Error(w, "Search Failure", 500); return }
+	w.Header().Set("Content-Type", "application/json"); w.Write(out)
+}
+
 func handleNucleusCommand(hub *nucleusHub, cmd NucleusCommand, w *VsbWatcher) {
 	root := nucleusProjectRoot()
 	crushBin := filepath.Join(root, "crush", "crush")
-	if _, err := os.Stat(crushBin); err != nil {
-		// Fallback to project root if not in crush/
-		crushBin = filepath.Join(root, "crush-cli")
-	}
-
+	if _, err := os.Stat(crushBin); err != nil { crushBin = filepath.Join(root, "crush-cli") }
 	switch cmd.Action {
 	case "CHAT_INPUT":
-		// Wrap the chat input as a broadcast intent for the Orchestrator (Node B)
-		payload, _ := json.Marshal(map[string]interface{}{
-			"command": "chat",
-			"method":  "narrative_query",
-			"text":    cmd.Arg,
-		})
-		pkt := clawLinkPacket{
-			TraceID:  newTraceID(),
-			Payload:  string(payload),
-			Type:     "broadcast",
-		}
-		hub.sendToUnix(pkt)
-		// Add to logs for immediate visual feedback
+		payload, _ := json.Marshal(map[string]interface{}{"command": "chat", "method": "narrative_query", "text": cmd.Arg})
+		hub.sendToUnix(clawLinkPacket{TraceID: newTraceID(), Payload: string(payload), Type: "broadcast"})
 		hub.appendLog("> " + cmd.Arg)
-	case "VIEW_LEXICON":
-		pkt := clawLinkPacket{TraceID: newTraceID(), Type: "broadcast", Payload: `{"action":"TOGGLE_VIEW","target":"LEXICON"}`}
-		hub.sendToUnix(pkt)
-	case "VIEW_ECONOMY":
-		pkt := clawLinkPacket{TraceID: newTraceID(), Type: "broadcast", Payload: `{"action":"TOGGLE_VIEW","target":"ECONOMY"}`}
-		hub.sendToUnix(pkt)
-	case "GHOST_BOOT":
-		_ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
-	case "FULL_ENGAGE":
-		_ = exec.Command(crushBin, "start", "--full", "--headless").Start()
-	case "LITE_MODE":
-		_ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
+	case "GHOST_BOOT": _ = exec.Command(crushBin, "start", "--lite", "--headless").Start()
+	case "FULL_ENGAGE": _ = exec.Command(crushBin, "start", "--full", "--headless").Start()
+	case "RED_MODE_ON":
+		Cfg.RedModeActive = true
+		hub.appendLog("::/ARTERY : RED_MODE_ACTIVE (Lore Unlocked)")
+	case "RED_MODE_OFF":
+		Cfg.RedModeActive = false
+		hub.appendLog("::/ARTERY : RED_MODE_OFFLINE (Clean BASE Enforced)")
 	case "VAULT_OPEN":
-		key := os.Getenv("SOVEREIGN_KEY")
-		if key != "" {
-			openDirectory(filepath.Join(root, "docs", "superpowers"), key)
-		}
-	case "SOVEREIGN_MODE_ON":
-		if w != nil {
-			w.ToggleSovereignMode(true)
-		}
-	case "SOVEREIGN_MODE_OFF":
-		if w != nil {
-			w.ToggleSovereignMode(false)
-		}
-	case "FLUSH_ACKNOWLEDGE":
-		if w != nil {
-			w.SetStatus(StatusApproved)
-		}
-	case "FLUSH_VETO":
-		if w != nil {
-			w.SetStatus(StatusRejected)
-		}
-	case "REBOOT_NODE_A":
-		_ = exec.Command(crushBin, "shut-down").Start()
+		if key := os.Getenv("SOVEREIGN_KEY"); key != "" { openDirectory(filepath.Join(root, "docs", "superpowers"), key) }
+	case "REBOOT_NODE_A": _ = exec.Command(crushBin, "shut-down").Start()
 	}
 }

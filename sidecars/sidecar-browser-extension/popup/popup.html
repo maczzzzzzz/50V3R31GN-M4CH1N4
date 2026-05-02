@@ -2,66 +2,169 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Sovereign Ingress</title>
+  <title>◈ NODESTADT INGRESS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:     #282828;
-      --bg1:    #3c3836;
-      --fg:     #ebdbb2;
-      --yellow: #fabd2f;
-      --green:  #98971a;
-      --red:    #cc241d;
-      --gray:   #928374;
+      --bg: #1A1A1A;
+      --rust: #F36622;
+      --gold: #C7A87A;
+      --green: #00FF88;
+      --dim: #404040;
+      --fg: #E5E5E5;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      width: 260px;
-      background: var(--bg);
+      width: 320px;
+      margin: 0;
+      background-color: var(--bg);
       color: var(--fg);
-      font-family: "JetBrains Mono", monospace, monospace;
-      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      border: 1px solid var(--dim);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ◈ GLSL NOISE OVERLAY (CSS MOCK) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .header {
+      padding: 16px;
+      background-color: #0F0F0F;
+      border-bottom: 1px solid var(--dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--gold);
+    }
+
+    .heartbeat {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--dim);
+    }
+    .heartbeat.active {
+      background-color: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    .content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      background-color: transparent;
+      border: 1px solid var(--rust);
+      color: var(--rust);
       padding: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 900;
+      letter-spacing: 2px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
     }
-    header {
-      display: flex; align-items: center; gap: 8px;
-      border-bottom: 1px solid var(--bg1);
-      padding-bottom: 8px; margin-bottom: 10px;
+
+    .btn:hover {
+      background-color: var(--rust);
+      color: white;
     }
-    header .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--red);
-      transition: background .3s;
+
+    .btn:active {
+      transform: scale(0.98);
     }
-    header .dot.connected { background: var(--green); }
-    header h1 { font-size: 11px; color: var(--yellow); letter-spacing: 1px; }
-    #status-text { font-size: 10px; color: var(--gray); }
-    #status-text.ok { color: var(--green); }
-    button {
-      width: 100%; padding: 7px 10px; margin-top: 8px;
-      background: var(--bg1); color: var(--fg);
-      border: 1px solid var(--gray); border-radius: 3px;
-      cursor: pointer; font-family: inherit; font-size: 11px;
-      transition: background .15s;
+
+    .btn-secondary {
+      border-color: var(--dim);
+      color: var(--dim);
     }
-    button:hover { background: #504945; }
-    button:active { background: #665c54; }
-    #log {
-      margin-top: 10px; font-size: 10px; color: var(--gray);
-      border-top: 1px solid var(--bg1); padding-top: 8px;
-      min-height: 40px; max-height: 80px; overflow-y: auto;
-      white-space: pre-wrap; word-break: break-all;
+
+    .btn-secondary:hover {
+      border-color: var(--fg);
+      color: var(--fg);
+      background-color: transparent;
+    }
+
+    .telemetry {
+      height: 120px;
+      background-color: #0A0A0A;
+      border: 1px solid #262626;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      padding: 8px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column-reverse;
+      color: var(--green);
+    }
+
+    .log-line {
+      margin-bottom: 4px;
+      border-left: 2px solid var(--dim);
+      padding-left: 6px;
+    }
+
+    .log-line.error { color: #ff3333; border-color: #ff3333; }
+
+    .footer {
+      padding: 8px 16px;
+      font-size: 8px;
+      color: var(--dim);
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #161616;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="dot" id="dot"></div>
-    <h1>◈ SOVEREIGN INGRESS</h1>
-  </header>
-  <div id="status-text">Checking bridge…</div>
-  <button id="btn-push">◈ Push Active Tab to Synapse</button>
-  <button id="btn-reconnect">↺ Reconnect Bridge</button>
-  <div id="log">—</div>
+  <div class="header">
+    <div class="title">◈ NODESTADT INGRESS</div>
+    <div id="dot" class="heartbeat"></div>
+  </div>
+
+  <div class="content">
+    <button id="btn-push" class="btn">Push Active Shard</button>
+    <button id="btn-reconnect" class="btn btn-secondary">Sync Artery</button>
+    
+    <div id="log" class="telemetry">
+      <div class="log-line">::/ARTERY_READY</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>v3.8.26-SYNTHESIS</span>
+    <span id="status-text">DISCONNECTED</span>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>

@@ -1,0 +1,22 @@
+/**
+ * THE_M4573R_7H3M3 — R3D_V01D Sovereign Variables for Foundry VTT
+ * Phase 37: 0B51D14N_V1510N [R3D_V01D_SY573M]
+ */
+
+:root.theme-sovereign-red {
+  /* ── R3D_V01D Master Palette ──────────────────────────────────────────── */
+  --sovereign-primary: #ff1a1a;
+  --sovereign-primary-glow: rgba(255, 26, 26, 0.8);
+  --sovereign-void:   #0a0a0a;
+  --sovereign-red:    #ff1a1a;
+  --sovereign-blood:  #440000;
+  --sovereign-panel:  #0f0f1a;
+  --sovereign-dim:    #1a1a2e;
+  --sovereign-text:   #ffffff;
+  --sovereign-muted:  #888888;
+
+  /* ── Glow Effects ─────────────────────────────────────────────────────── */
+  --sovereign-glow-sm: 0 0 6px  rgba(255, 26, 26, 0.6);
+  --sovereign-glow-md: 0 0 10px rgba(255, 26, 26, 0.8);
+  --sovereign-glow-lg: 0 0 18px rgba(255, 26, 26, 1.0);
+}

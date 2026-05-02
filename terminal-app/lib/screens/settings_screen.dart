@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/theme_service.dart';
+import '../services/artery_client.dart';
 
 /**
- * ◈ TACTICAL_SETTINGS : CLINICAL_CONFIG — v3.8.25
+ * ◈ TACTICAL_SETTINGS : CLINICAL_CONFIG — v3.8.26
  * 
  * High-readability configuration mesh for the NODESTADT Authority.
  * Manages quaternary node orchestration and zero-trust arteries.
@@ -24,6 +25,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final _nodeDIpController = TextEditingController();
   final _vsbPortController = TextEditingController();
   final _rpcPortController = TextEditingController();
+  bool _redMode = false;
 
   @override
   void initState() {
@@ -40,6 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _nodeDIpController.text = prefs.getString('node_d_ip') ?? '10.0.0.13';
       _vsbPortController.text = prefs.getString('vsb_port') ?? '7878';
       _rpcPortController.text = prefs.getString('rpc_port') ?? '7341';
+      _redMode = prefs.getBool('red_mode_active') ?? false;
     });
   }
 
@@ -51,8 +54,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await prefs.setString('node_d_ip', _nodeDIpController.text.trim());
     await prefs.setString('vsb_port', _vsbPortController.text.trim());
     await prefs.setString('rpc_port', _rpcPortController.text.trim());
+    await prefs.setBool('red_mode_active', _redMode);
     
+    // Sync with Artery
     if (mounted) {
+      final artery = context.read<ArteryClient>();
+      artery.sendJsonCommand(_redMode ? 'RED_MODE_ON' : 'RED_MODE_OFF', '');
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('::/ARTERY_SETTINGS_SHORED', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900)), 
@@ -89,6 +97,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
 
           const SizedBox(height: 30),
+          _buildClinicalHeader("◈ SIMULATION_PROTOCOL", accentColor),
+          _buildSimulationToggle(accentColor),
+
+          const SizedBox(height: 30),
           _buildClinicalHeader("◈ AESTHETIC_PROTOCOL", accentColor),
           _buildThemeSelector(themeService, accentColor),
 
@@ -120,6 +132,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
           filled: true,
           fillColor: const Color(0xFF161616),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSimulationToggle(Color color) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF161616),
+        border: Border.all(color: const Color(0xFF262626)),
+      ),
+      child: SwitchListTile(
+        title: Text("CYBERPUNK_RED_MODE", style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2)),
+        subtitle: const Text("Unlock simulation lore and Akashik.db ingress.", style: TextStyle(color: Color(0xFF808080), fontSize: 10)),
+        value: _redMode,
+        activeColor: color,
+        onChanged: (val) => setState(() => _redMode = val),
       ),
     );
   }

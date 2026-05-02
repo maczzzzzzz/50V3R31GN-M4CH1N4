@@ -1,0 +1,1032 @@
+/*
+ * Black-Ice Theme for Cyberpunk RED Core v0.9.3+
+ * THE "ROLL TABLE" GOLD STANDARD - GLOBAL UNIFORMITY
+ * Pattern: Solid Black BG, Glowing Cyan Headers, Boxed Cyan Borders.
+ */
+
+@layer cpr-theme, black-ice;
+
+@import url('https://fonts.googleapis.com/css2?family=Space Grotesk&display=swap');
+
+@layer black-ice {
+    :root {
+        --cpr-bg-black: #000000;
+        --cpr-bg-dark-grey: #050505;
+        --cpr-red: var(--sovereign-primary, #ff003c);
+        --cpr-white: #ffffff;
+        --cpr-text-main: #eeeeee;
+        --black-ice-glow: 0 0 10px var(--sovereign-primary-glow, rgba(255, 0, 60, 0.8));
+        --font-primary: 'Space Grotesk', monospace;
+        
+        /* Neutralize CPR system background/fill reds only — NOT the text/border color var.
+           We override specific CPR element backgrounds below instead of zeroing the variable,
+           because zeroing --cpr-red makes all var(--cpr-red) usages (icons, borders, headers)
+           resolve to black-on-black and become invisible. */
+    }
+
+    /* 1. UNIVERSAL SOVEREIGNTY - THE ROLL TABLE PATTERN */
+    /* Target all Foundry interface sections and windows */
+    body.vtt,
+    body.vtt .window-app,
+    body.vtt .window-content,
+    body.vtt .app,
+    body.vtt .application,
+    body.vtt .sheet,
+    body.vtt .item-sheet,
+    body.vtt .cpr-item-sheet,
+    body.vtt .journal-entry,
+    body.vtt .journal-sheet,
+    body.vtt .journal-entry-pages,
+    body.vtt .journal-entry-page,
+    body.vtt .journal-pages-list,
+    body.vtt .journal-page-header,
+    body.vtt .journal-page-content,
+    body.vtt .roll-table-config,
+    body.vtt .directory-item,
+    body.vtt #sidebar,
+    body.vtt #navigation,
+    body.vtt #controls,
+    body.vtt .sidebar-tab {
+        background-color: #000000 !important;
+        background-image: none !important;
+        color: var(--cpr-text-main) !important;
+        border-color: var(--cpr-red) !important;
+        font-family: var(--font-primary) !important;
+    }
+
+    /* 2. HEADER SUPREMACY (Glowing Cyan Top-Line) */
+    body.vtt h1, body.vtt h2, body.vtt h3, body.vtt h4, body.vtt h5, body.vtt h6,
+    body.vtt .window-title,
+    body.vtt .header,
+    body.vtt .header-label,
+    body.vtt .attribute-label,
+    body.vtt .resource-label,
+    body.vtt .charname,
+    body.vtt .folder-header,
+    body.vtt .section-header,
+    body.vtt .tab-label,
+    body.vtt .cpr-header,
+    body.vtt .title,
+    body.vtt th {
+        color: var(--cpr-red) !important;
+        text-shadow: var(--black-ice-glow) !important;
+        background: #000000 !important;
+        border-bottom: 1px solid var(--cpr-red) !important;
+        text-transform: uppercase !important;
+        padding: 4px 8px !important;
+    }
+
+    /* 2b. HEADER ELEMENT SOVEREIGNTY (Live Audit v1.5.0)
+       <header> HTML elements — directory panels, combat tracker, playlists,
+       window titlebars — are not covered by class selectors above. */
+    body.vtt header.directory-header,
+    body.vtt header.combat-tracker-header,
+    body.vtt header.playlist-header,
+    body.vtt header#ui-top,
+    body.vtt header.window-header {
+        color: var(--cpr-red) !important;
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-bottom: 1px solid var(--cpr-red) !important;
+        text-shadow: var(--black-ice-glow) !important;
+    }
+
+    /* 2c. SCENE CONTROLS — Zero-Red Active Indicator (Live Audit v1.5.0)
+       li.scene-control.active lives inside ol.main-controls.control-tools (NOT .scene-controls).
+       li.control-tool.active also lives inside .control-tools. Both require .control-tools parent. */
+    body.vtt .control-tools li.scene-control.active,
+    body.vtt .control-tools li.control-tool.active,
+    body.vtt .scene-controls li.scene-control.active,
+    body.vtt .scene-controls li.control-tool.active,
+    body.vtt #controls li.scene-control.active,
+    body.vtt #controls li.control-tool.active {
+        border-top-color: var(--cpr-red) !important;
+        border-color: var(--cpr-red) !important;
+    }
+
+    /* 3. COMPONENT BOXING (The Roll-Table Row Pattern) */
+    body.vtt .actor-details,
+    body.vtt .actor-stats,
+    body.vtt .skills-container,
+    body.vtt .stat-box,
+    body.vtt .cpr-stat-box,
+    body.vtt .stat-grid div,
+    body.vtt .item-top-pane,
+    body.vtt .item-bottom-pane,
+    body.vtt .table-result,
+    body.vtt .journal-page-content table tr,
+    body.vtt .journal-page-content div {
+        background-color: #000000 !important;
+        border: 1px solid var(--cpr-red) !important;
+        margin: 2px 0 !important;
+        color: #ffffff !important;
+    }
+
+    /* 3b. CPR ACTOR SHEET INNER WRAPPERS (Live Audit v1.5.0)
+       The CPR system sets rgb(234,234,234) grey on .actor-sheet.character
+       and rgb(185,2,2) red on .bottom-content-section. Both confirmed via CDP. */
+    body.vtt .actor-sheet,
+    body.vtt .actor-sheet.character,
+    body.vtt .bottom-content-section {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-red) !important;
+    }
+
+    /* 3b-2. ITEM SHEET SOVEREIGNTY — CPR item sheets use rgb(234,234,234) bg
+       .item-sheet and .cpr-item-sheet are not caught by .sheet specificity battle */
+    body.vtt .item-sheet,
+    body.vtt .cpr-item-sheet,
+    body.vtt .item-sheet .window-content,
+    body.vtt .cpr-item-sheet .window-content {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-red) !important;
+        color: var(--cpr-text-main) !important;
+    }
+
+    /* 3b-3. JOURNAL v12 DOM — Foundry v12 renamed sheet containers */
+    body.vtt .journal-sheet,
+    body.vtt .journal-sheet .window-content,
+    body.vtt .journal-entry-page,
+    body.vtt .journal-pages-list,
+    body.vtt .journal-page-header {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-red) !important;
+        color: var(--cpr-text-main) !important;
+    }
+    body.vtt .journal-pages-list {
+        border-right: 1px solid var(--cpr-red) !important;
+    }
+    body.vtt .journal-page-header {
+        border-bottom: 1px solid var(--cpr-red) !important;
+    }
+
+    /* 3c. CPR FIGHT TAB — Zero-Red Protocol (Live Audit v1.5.0)
+       CPR v0.9.3 hardcodes rgb(185,2,2) on .fight-tab and .tab.fight-tab.active.
+       Requires explicit both-class overrides with !important to beat specificity. */
+    body.vtt .fight-tab,
+    body.vtt .tab.fight-tab,
+    body.vtt .tab.fight-tab.active {
+        background-color: #000000 !important;
+        background-image: none !important;
+        border-color: var(--cpr-red) !important;
+    }
+
+    /* 4. TEXT READABILITY (Pure White inside boxes) */
+    body.vtt .journal-page-content p,
+    body.vtt .journal-page-content li,
+    body.vtt .journal-page-content span,
+    body.vtt .stat-value,
+    body.vtt .skill-name,
+    body.vtt .attribute-value,
+    body.vtt input,
+    body.vtt select,
+    body.vtt textarea {
+        color: #ffffff !important;
+        background-color: #000 !important;
+        border-color: var(--cpr-red) !important;
+    }
+
+    /* 4b. EDITOR CONTENT — ProseMirror / Foundry notepad (Live Audit v1.5.0)
+       .editor-content inherits near-black rgb(13,11,12) from the system.
+       Target the content div and all descendants to ensure white text. */
+    body.vtt .editor-content,
+    body.vtt .editor-content * {
+        color: #ffffff !important;
+    }
+
+    /* 5. TAB & INTERACTIVE SUPREMACY */
+    body.vtt .tabs .item,
+    body.vtt .sheet-tabs .item,
+    body.vtt #sidebar-tabs .item,
+    body.vtt .nav-item,
+    body.vtt button {
+        background: #050505 !important;
+        color: #e0e0e0 !important;   /* white — readable on black */
+        border: 1px solid #333 !important;
+        text-transform: uppercase !important;
+    }
+
+    body.vtt .tabs .item.active,
+    body.vtt .sheet-tabs .item.active,
+    body.vtt #sidebar-tabs .item.active,
+    body.vtt .nav-item.active,
+    body.vtt button:hover,
+    body.vtt button:focus,
+    body.vtt button:active {
+        background: #0a0a0a !important;
+        color: #ff003c !important;
+        border: 1px solid #ff003c !important;
+        box-shadow: inset 0 0 8px rgba(255,0,60,0.4) !important;
+        text-shadow: 0 0 6px rgba(255,0,60,0.6) !important;
+    }
+
+    /* 5b. SIDEBAR TAB ICONS — explicit white default, red active */
+    body.vtt #sidebar-tabs .item i,
+    body.vtt #sidebar-tabs > .item i { color: #c8c8c8 !important; }
+    body.vtt #sidebar-tabs .item.active i,
+    body.vtt #sidebar-tabs .item:hover i { color: #ff003c !important; text-shadow: 0 0 8px rgba(255,0,60,0.8) !important; }
+
+    /* 5c. DIRECTORY ENTRY NAMES — h4/span elements were getting h4 { color: var(--cpr-red) } */
+    body.vtt .entry-name,
+    body.vtt .entry-name a,
+    body.vtt .entry-name span,
+    body.vtt h4.entry-name,
+    body.vtt .document-name { color: #e0e0e0 !important; text-shadow: none !important; border-bottom: none !important; }
+    body.vtt .entry-name:hover,
+    body.vtt .entry-name a:hover,
+    body.vtt li.directory-item:hover .entry-name { color: #ff003c !important; text-shadow: 0 0 6px rgba(255,0,60,0.5) !important; }
+
+    /* 5d. FOLDER HEADERS in directory lists */
+    body.vtt .folder-header,
+    body.vtt .folder-header .noborder,
+    body.vtt .folder-header span { color: #e0e0e0 !important; }
+    body.vtt .folder-header:hover { color: #ff003c !important; }
+
+    /* 5e. CHAT & SIDEBAR CONTENT text */
+    body.vtt .chat-message .message-header,
+    body.vtt .chat-message .message-sender,
+    body.vtt .chat-message .message-metadata,
+    body.vtt .chat-message .flavor-text,
+    body.vtt .chat-message .dice-formula,
+    body.vtt .chat-message .dice-total,
+    body.vtt #chat-log .whisper-to { color: #e0e0e0 !important; }
+    
+    body.vtt .chat-message .message-content {
+        color: #ffffff !important;
+    }
+
+    /* 6. THIRD-PARTY MODULE HARDENING (Simple Calendar, etc.) */
+    body.vtt [class*="fsc-"],
+    body.vtt .simple-calendar {
+        background-color: #000 !important;
+        color: #fff !important;
+        border-color: var(--cpr-red) !important;
+    }
+
+    /* 7. SYSTEM COLOR PURGE (The Scythe) */
+    /* Target any inline style that is not theme-compliant.
+       Covers both `background:` and `background-color:` shorthand forms,
+       as the Night Market buy button uses `background:#e64539` (shorthand). */
+    body.vtt [style*="background-color: red"],
+    body.vtt [style*="background-color: #ff0000"],
+    body.vtt [style*="background-color: #e64539"],
+    body.vtt [style*="background: #e64539"],
+    body.vtt [style*="background-color: rgb(185, 2, 2)"],
+    body.vtt [style*="background-color: rgb(219, 52, 17)"],
+    body.vtt [style*="background-color: white"],
+    body.vtt [style*="background-color: #ffffff"],
+    body.vtt [style*="background-color: rgb(234, 234, 234)"],
+    body.vtt [style*="background-color: rgb(238, 238, 238)"],
+    body.vtt [style*="border-color: red"],
+    body.vtt [style*="border-color: rgb(185, 2, 2)"],
+    body.vtt [style*="color: red"],
+    body.vtt [style*="color: rgb(185, 2, 2)"],
+    body.vtt .dice-tray__flag,
+    body.vtt .scene-player {
+        background-color: #000000 !important;
+        background: #000000 !important;
+        border-color: var(--cpr-red) !important;
+        color: #ffffff !important;
+    }
+
+    /* Normalize icons — grey by default (readable on black), red on interaction */
+    body.vtt i.fas, body.vtt i.far, body.vtt i.fa-solid,
+    body.vtt i.fa-regular, body.vtt i.fal, body.vtt i.fat {
+        color: #9a9a9a !important;
+    }
+    body.vtt button:hover i.fas, body.vtt button:hover i.far,
+    body.vtt button:hover i.fa-solid, body.vtt button:hover i.fal,
+    body.vtt a:hover > i.fas, body.vtt a:hover > i.far,
+    body.vtt a:hover > i.fa-solid, body.vtt a:hover > i.fal,
+    body.vtt .item.active i.fas, body.vtt .item.active i.far,
+    body.vtt .item.active i.fa-solid, body.vtt .item.active i.fal {
+        color: #ff003c !important;
+        text-shadow: 0 0 6px rgba(255,0,60,0.6) !important;
+    }
+
+    /* 8. SCROLLBARS */
+    body.vtt ::-webkit-scrollbar-thumb {
+        background: var(--cpr-red) !important;
+        box-shadow: var(--black-ice-glow);
+    }
+
+    /* 9. DICE TRAY — Black-Ice Palette
+       Targets the Dice Tray module (.dice-tray__*) that renders the
+       quantity row (+/-/0/KH/KL/ROLL) and the die-face buttons (d4–d100).
+       Die face images are <img> elements inside .dice-tray__button;
+       background-image fallback uses filter on the whole button. */
+
+    /* Container */
+    body.vtt .dice-tray {
+        background-color: #000000 !important;
+        border-top: 1px solid var(--cpr-red) !important;
+    }
+
+    /* Die-face buttons (d4, d6, d8, d10, d12, d20, d100) */
+    body.vtt .dice-tray__button {
+        background-color: #050505 !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
+        box-shadow: inset 0 0 6px rgba(255, 0, 60, 0.12) !important;
+    }
+    body.vtt .dice-tray__button:hover {
+        background-color: #1a1a1a !important;
+        box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.45) !important;
+    }
+    /* Tint die-face <img> icons to red */
+    body.vtt .dice-tray__button img {
+        filter: invert(1) sepia(1) saturate(8) hue-rotate(155deg) brightness(1.1) !important;
+    }
+
+    /* Operator buttons: – and + */
+    body.vtt .dice-tray__operator {
+        background-color: #000000 !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
+    }
+    body.vtt .dice-tray__operator:hover {
+        background-color: #1a1a1a !important;
+        box-shadow: inset 0 0 8px rgba(255, 0, 60, 0.4) !important;
+    }
+
+    /* Quantity input (the "0" box) */
+    body.vtt .dice-tray__input,
+    body.vtt .dice-tray__input input {
+        background-color: #000000 !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
+    }
+
+    /* Advantage / disadvantage selector (KH / KL) */
+    body.vtt .dice-tray__advantage,
+    body.vtt .dice-tray__disadvantage {
+        background-color: #000000 !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
+    }
+    body.vtt .dice-tray__advantage:hover,
+    body.vtt .dice-tray__disadvantage:hover {
+        background-color: #1a1a1a !important;
+    }
+
+    /* ROLL button */
+    body.vtt .dice-tray__roll {
+        background-color: #000000 !important;
+        border: 1px solid var(--cpr-red) !important;
+        color: var(--cpr-red) !important;
+        text-shadow: var(--black-ice-glow) !important;
+    }
+    body.vtt .dice-tray__roll:hover {
+        background-color: #1a1a1a !important;
+        box-shadow: inset 0 0 8px var(--cpr-red) !important;
+    }
+
+
+/* AUTO-PATCH: 2026-04-04 — theme-auditor */
+    body.vtt .blackice-sheet {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-info-name.text-hero.text-large {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-info-class {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-info-price {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-actions.text-center.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats.text-normal {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats-per {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats-spd {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats-atk {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats-def {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats-rez {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-stats-dmg {
+        background-color: #000000 !important;
+    }
+    body.vtt .blackice-notes {
+        background-color: #000000 !important;
+    }
+    body.vtt .scene-control.active {
+        color: #ffffff !important;
+    }
+    body.vtt .scene-control {
+        color: #ffffff !important;
+    }
+    body.vtt .control-tool.active {
+        color: #ffffff !important;
+    }
+    body.vtt .control-tool {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border-color: var(--cpr-red) !important;
+    }
+    body.vtt .control-tool.toggle.active {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .control-tool.toggle {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border-color: var(--cpr-red) !important;
+    }
+    body.vtt .fa-duotone.fa-object-subtract {
+        color: #ffffff !important;
+    }
+    body.vtt .collapse {
+        color: #ffffff !important;
+    }
+    body.vtt .dice {
+        background-color: #000000 !important;
+    }
+    body.vtt .combat-button.combat-create {
+        color: #ffffff !important;
+    }
+    body.vtt .combat-button.combat-settings {
+        color: #ffffff !important;
+    }
+    body.vtt .collapse.fa.fa-angle-down {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-plus {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fas.fa-compress-arrows-alt {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-play {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-sync {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fas.fa-play {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.far.fa-arrow-alt-circle-right {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fas.fa-random {
+        color: #ffffff !important;
+    }
+    body.vtt .sound-control.fa-solid.fa-sync.inactive {
+        color: #ffffff !important;
+    }
+    body.vtt .popout-module-button {
+        color: #ffffff !important;
+    }
+    body.vtt .fa.fa-chevron-left {
+        color: #ffffff !important;
+    }
+    body.vtt .fa.fa-chevron-right {
+        color: #ffffff !important;
+    }
+    body.vtt .fa.fa-seedling {
+        color: #ffffff !important;
+    }
+    body.vtt .actor-details-image {
+        background-color: #000000 !important;
+    }
+    body.vtt .profile-img {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-handle.text-hero.text-large.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-role.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .calculate-hp {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-current.text-right.text-padding-left-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-of {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-hp-max.text-left.text-padding-left-smaller {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .calculate-humanity {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-current.text-right.text-padding-left-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-of {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-humanity-max.text-left.text-padding-left-smaller {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save-title.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .rollable {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .actor-details-death-save-reset {
+        background-color: #000000 !important;
+    }
+    body.vtt .reset-deathsave-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .fa-solid.fa-arrow-rotate-left {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-death-save-actions {
+        background-color: #000000 !important;
+    }
+    body.vtt .increase-deathsave-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .far.fa-circle-up {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-improvement-points-actions {
+        background-color: #000000 !important;
+    }
+    body.vtt .improvement-points-open-ledger {
+        background-color: #000000 !important;
+    }
+    body.vtt .fas.fa-note-sticky {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-wound-state-blank {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-facedown.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .rollable.text-padding-left-smaller {
+        background-color: #000000 !important;
+    }
+    body.vtt .far.fa-face-angry {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-reputation-actions {
+        background-color: #000000 !important;
+    }
+    body.vtt .reputation-open-ledger {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .actor-details-reputation-blank {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks-title.text-semi.text-padding-sides-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-eurobucks-ledger {
+        background-color: #000000 !important;
+    }
+    body.vtt .eurobucks-open-ledger {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-filter {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-filter-box.text-left {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-details-filter-actions {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    body.vtt .fas.fa-xmark.reset-content-filter {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-stat.text-normal.text-center {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-title.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-value {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of.flexrow {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of-min.text-right {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of-sep {
+        background-color: #000000 !important;
+    }
+    body.vtt .actor-stats-of-max.text-left {
+        background-color: #000000 !important;
+    }
+    body.vtt .tab-pink-underlay {
+        background-color: #000000 !important;
+    }
+    body.vtt .right-content-section {
+        background-color: #000000 !important;
+        border-color: var(--cpr-red) !important;
+    }
+    body.vtt .tab.skills-tab.active {
+        background-color: #000000 !important;
+    }
+    body.vtt .skills-tab {
+        background-color: #000000 !important;
+    }
+    body.vtt .left-pane-skills.items-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .items-header.flexrow.collapsible {
+        color: #ffffff !important;
+    }
+    body.vtt .item-name.text-padding-left-smallest.expand-button {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-mod-value.text-center {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-level.text-center {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-base.text-center {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.skill-favorite.text-nowrap.text-center.toggle-section-visibility {
+        color: #ffffff !important;
+    }
+    body.vtt .right-pane-skills.items-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .item-name.gear-name.gear-section-header.text-nowrap.expand-button {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-amount.gear-section-header.text-nowrap {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-data.gear-section-header.text-nowrap {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-actions.gear-section-header.text-nowrap {
+        color: #ffffff !important;
+    }
+    body.vtt .items-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .item-name.gear-name.expand-button {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-data {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-actions {
+        color: #ffffff !important;
+    }
+    body.vtt .effects-category.flexrow.item-header {
+        color: #ffffff !important;
+    }
+    body.vtt .effect-name {
+        color: #ffffff !important;
+    }
+    body.vtt .effect-source.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .effect-actions.text-semi.text-padding-right-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .injuries-section {
+        background-color: #000000 !important;
+    }
+    body.vtt .item-name.section-name.text-nowrap.text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .item-detail.gear-actions.text-nowrap.text-float-right.text-padding-right-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .roll-critical-injury {
+        color: #ffffff !important;
+    }
+    body.vtt .armor-section {
+        background-color: #000000 !important;
+    }
+    body.vtt .weapon-section {
+        background-color: #000000 !important;
+    }
+    body.vtt .text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .notes-label.section-name.text-nowrap.text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .lifepath-label.section-name.text-nowrap.text-padding-left-smallest {
+        color: #ffffff !important;
+    }
+    body.vtt .text-float-right {
+        color: #ffffff !important;
+    }
+    body.vtt .set-lifepath {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-sheet {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-name.text-hero.side-banner {
+        color: #ffffff !important;
+    }
+    body.vtt .text-largest {
+        color: #ffffff !important;
+    }
+    body.vtt .change-mook-name {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-stats.pad-thin.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-int-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .block-data.text-normal {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-ref-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-dex-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-tech-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-cool-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-will-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-luck-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-move-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-body-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-emp-stat {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-derived-stats.pad-thin {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-hp {
+        color: #ffffff !important;
+    }
+    body.vtt .text-padding-left-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .min-of-max-container.text-normal.block-data {
+        color: #ffffff !important;
+    }
+    body.vtt .of.text-normal.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-wounded {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-wounded-stat.text-center.text-normal {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-deathsave {
+        color: #ffffff !important;
+    }
+    body.vtt .text-padding-right-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-deathsave-value.width-full.text-center.text-normal.text-semi {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-weapon-header.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .weapon-content {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-armor-header.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .armor-content {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-skills-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .text-nowrap.text-padding-left-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mod-mook-skill {
+        color: #ffffff !important;
+    }
+    body.vtt .text-right.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-skills-content.text-padding-left-smallest {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-special-header.items-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .item-name.section-name.text-nowrap.text-padding-left-smallest.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-special-content.text-padding-left-smallest.mook-special-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-crit-header.items-header.flexrow {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-crit-content.text-padding-left-smallest.mook-crit-list {
+        background-color: #000000 !important;
+    }
+    body.vtt .mook-notes-header.text-semi {
+        color: #ffffff !important;
+    }
+    body.vtt .mook-notes-content {
+        background-color: #000000 !important;
+    }
+/* END AUTO-PATCH */
+
+    /* ── Sovereign Main Menu Button ───────────────────────────────────── */
+    li#sovereign-menu-btn {
+        list-style: none !important;
+    }
+    li#sovereign-menu-btn .sovereign-btn {
+        width: 100% !important;
+        background-color: #000000 !important;
+        border: 1px solid #ff003c !important;
+        color: #ff003c !important;
+        font-family: 'Space Grotesk', monospace !important;
+        font-size: 16px !important;
+        text-shadow: 0 0 8px rgba(255, 0, 60, 0.8) !important;
+        box-shadow: 0 0 6px rgba(255, 0, 60, 0.4) !important;
+        padding: 4px 8px !important;
+        cursor: pointer !important;
+        letter-spacing: 2px !important;
+    }
+    li#sovereign-menu-btn .sovereign-btn:hover {
+        background-color: #1a0000 !important;
+        box-shadow: 0 0 12px rgba(255, 0, 60, 0.9) !important;
+    }
+
+    /* ── CHAT READABILITY FIX ─────────────────────────────────────────────
+       CPR system injects .card-section, .cpr-chat-card, .cpr-roll-section
+       and related divs with class-based light grey/white backgrounds.
+       The Scythe (Section 7) only catches inline styles — not class styles.
+       Result: color:#fff text on grey/white bg = invisible.
+       Fix: force dark base on .chat-message, transparent on all inner divs,
+       then re-assert readable text throughout. ──────────────────────────── */
+    body.vtt li.chat-message,
+    body.vtt .chat-message {
+        background-color: #0d0d0d !important;
+        border: 1px solid #2a0000 !important;
+        color: #e0e0e0 !important;
+    }
+    /* Wipe class-based backgrounds from every inner element */
+    body.vtt .chat-message .message-content,
+    body.vtt .chat-message .card-section,
+    body.vtt .chat-message .card-header,
+    body.vtt .chat-message .cpr-chat-card,
+    body.vtt .chat-message .cpr-chat-card-header,
+    body.vtt .chat-message .cpr-roll-section,
+    body.vtt .chat-message .cpr-card-content,
+    body.vtt .chat-message .success-row,
+    body.vtt .chat-message .failure-row,
+    body.vtt .chat-message .chat-card,
+    body.vtt .chat-message table,
+    body.vtt .chat-message thead,
+    body.vtt .chat-message tbody,
+    body.vtt .chat-message tr,
+    body.vtt .chat-message td,
+    body.vtt .chat-message th,
+    body.vtt .chat-message div,
+    body.vtt .chat-message p,
+    body.vtt .chat-message span,
+    body.vtt .chat-message li {
+        background-color: transparent !important;
+        color: #e0e0e0 !important;
+    }
+    /* Re-assert heading colors after the transparent wipe */
+    body.vtt .chat-message h1,
+    body.vtt .chat-message h2,
+    body.vtt .chat-message h3,
+    body.vtt .chat-message h4,
+    body.vtt .chat-message h5,
+    body.vtt .chat-message h6 {
+        color: var(--cpr-red) !important;
+        background-color: transparent !important;
+        text-shadow: var(--black-ice-glow) !important;
+    }
+    /* Dice total highlight — keep it readable */
+    body.vtt .chat-message .dice-total,
+    body.vtt .chat-message .total {
+        color: #ff003c !important;
+        font-weight: bold !important;
+        text-shadow: 0 0 6px rgba(255,0,60,0.6) !important;
+    }
+    /* Success/failure text colours */
+    body.vtt .chat-message .success,
+    body.vtt .chat-message .success-text { color: #00ff99 !important; }
+    body.vtt .chat-message .failure,
+    body.vtt .chat-message .failure-text { color: #ff003c !important; }
+
+    /* Force dark theme on Journals/Items (Phase 43) */
+    body.vtt .journal-page-content,
+    body.vtt .journal-entry-page .journal-page-content,
+    body.vtt .journal-entry-content,
+    body.vtt .prosemirror,
+    body.vtt .tox-tinymce,
+    body.vtt .tox-edit-area__iframe,
+    body.vtt .item-sheet .sheet-body,
+    body.vtt .cpr-item-sheet .sheet-body,
+    body.vtt .item-sheet .item-details,
+    body.vtt .item-sheet .item-bottom-tabs-section,
+    body.vtt .item-sheet .item-summary-section,
+    body.vtt .item-sheet .item-description-section,
+    body.vtt .item-sheet .item-settings-tab,
+    body.vtt .item-sheet .item-effects-tab {
+        background-color: #000000 !important;
+        background-image: none !important;
+        color: #eeeeee !important;
+    }
+
+    /* Force dark theme inside the editor iframes */
+    iframe.tox-edit-area__iframe {
+        filter: invert(1) hue-rotate(180deg); /* Crude but effective for legacy TinyMCE */
+    }
+}

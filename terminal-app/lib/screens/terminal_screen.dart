@@ -1,99 +1,121 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../services/vsb_listener.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:xterm/xterm.dart';
 import '../services/artery_client.dart';
 
 /**
- * ◈ TERMINAL_SCREEN : CLINICAL_CLI — v3.8.25
+ * ◈ TERMINAL_SCREEN : INTERACTIVE_ARTERY — v3.8.26
  * 
- * Passive connection to the VSB and Artery logs.
- * Clinical industrial terminal interface.
+ * High-fidelity interactive bash shell via Go-native PTY proxy.
+ * Connects the mobile HUD to the Ubuntu/NixOS spine.
  */
 
-class TerminalScreen extends StatelessWidget {
+class TerminalScreen extends StatefulWidget {
   const TerminalScreen({super.key});
 
   @override
+  State<TerminalScreen> createState() => _TerminalScreenState();
+}
+
+class _TerminalScreenState extends State<TerminalScreen> {
+  late Terminal _terminal;
+  WebSocketChannel? _channel;
+  bool _isConnected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _terminal = Terminal(maxLines: 10000);
+    _connectTerminal();
+  }
+
+  Future<void> _connectTerminal() async {
+    final prefs = await SharedPreferences.getInstance();
+    final ip = prefs.getString('node_b_ip') ?? '10.0.0.x';
+    final port = '3030'; // Nucleus Artery
+    
+    try {
+      final url = 'ws://$ip:$port/terminal/ws';
+      _channel = WebSocketChannel.connect(Uri.parse(url));
+      
+      _channel!.stream.listen(
+        (data) {
+          if (data is List<int>) {
+            _terminal.write(utf8.decode(data, allowMalformed: true));
+          } else if (data is String) {
+            _terminal.write(data);
+          }
+          if (!_isConnected) {
+            setState(() => _isConnected = true);
+          }
+        },
+        onDone: () => setState(() => _isConnected = false),
+        onError: (e) => _terminal.write('\r\n::/ARTERY_FAULT : $e\r\n'),
+      );
+
+      _terminal.onOutput = (data) {
+        _channel?.sink.add(data);
+      };
+      
+    } catch (e) {
+      _terminal.write('::/WS_FATAL : $e\n');
+    }
+  }
+
+  @override
+  void dispose() {
+    _channel?.sink.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final vsb = context.watch<VsbListener>();
-    final artery = context.watch<ArteryClient>();
     final accentColor = const Color(0xFFF36622);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
-        title: const Text('TERMINAL_ARTERY'),
-        backgroundColor: const Color(0xFF0F0F0F),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
           children: [
-            const Text('::/PASSIVE_ARTERY_LINK: ACTIVE', 
-              style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2, fontFamily: 'Space Grotesk')),
-            const SizedBox(height: 12),
-            const Divider(color: Color(0xFF262626)),
-            Expanded(
-              child: ListView.builder(
-                reverse: true,
-                itemCount: vsb.packets.length + artery.logs.length,
-                itemBuilder: (context, index) {
-                  final combined = [...vsb.packets, ...artery.logs];
-                  if (index < combined.length) {
-                    final log = combined[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Text(
-                        log,
-                        style: TextStyle(
-                          color: log.contains('ERROR') ? Colors.red : const Color(0xFFB8BB26),
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
+            const Text('ARTERY_SHELL'),
+            const SizedBox(width: 12),
             Container(
-              height: 50,
+              width: 8,
+              height: 8,
               decoration: BoxDecoration(
-                color: const Color(0xFF161616),
-                border: Border.all(color: const Color(0xFF262626)),
-              ),
-              child: Row(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text('Σ:/>', style: TextStyle(color: Color(0xFFF36622), fontWeight: FontWeight.w900, fontSize: 14)),
-                  ),
-                  Expanded(
-                    child: TextField(
-                      style: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'monospace'),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'RAW_DIRECTIVE',
-                        hintStyle: TextStyle(color: Color(0xFF404040)),
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                      onSubmitted: (val) {
-                        if (val.isNotEmpty) {
-                          artery.sendJsonCommand('SYSTEM_RAW', val);
-                        }
-                      },
-                    ),
-                  ),
-                ],
+                shape: BoxShape.circle,
+                color: _isConnected ? const Color(0xFF00FF88) : Colors.red,
+                boxShadow: _isConnected ? [
+                  BoxShadow(color: const Color(0xFF00FF88).withOpacity(0.5), blurRadius: 4, spreadRadius: 2)
+                ] : [],
               ),
             ),
           ],
+        ),
+        backgroundColor: const Color(0xFF0F0F0F),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              _channel?.sink.close();
+              _connectTerminal();
+            },
+          ),
+        ],
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(8),
+        child: TerminalView(
+          _terminal,
+          padding: const EdgeInsets.all(8),
+          style: const TerminalStyle(
+            fontSize: 12,
+            fontFamily: 'monospace',
+            backgroundColor: Color(0xFF0A0A0A),
+          ),
         ),
       ),
     );

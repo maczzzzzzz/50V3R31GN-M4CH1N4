@@ -6,75 +6,76 @@ import '../models/task.dart';
 import 'notification_service.dart';
 
 /**
- * TACTICAL_TASK_SERVICE — v3.8.7
+ * ◈ TASK_SERVICE : SHARD_MANAGER — v3.8.26
  * 
- * Manages Sovereign mission objectives.
- * Supports manual entry, deletion, and automated Hermes extraction.
+ * Manages implementation tasks and schedules reminder alarms via NotificationService.
  */
 
 class TaskService extends ChangeNotifier {
   List<Task> _tasks = [];
+  final NotificationService _notifications = NotificationService();
   final _uuid = const Uuid();
-  bool _isLoading = false;
 
-  List<Task> get tasks => List.unmodifiable(_tasks);
-  bool get isLoading => _isLoading;
+  List<Task> get tasks => _tasks;
 
   TaskService() {
     _loadTasks();
   }
 
   Future<void> _loadTasks() async {
-    _isLoading = true;
-    notifyListeners();
     final prefs = await SharedPreferences.getInstance();
-    final encoded = prefs.getString('sovereign_tasks');
+    final String? encoded = prefs.getString('shored_tasks');
     if (encoded != null) {
-      final List decoded = jsonDecode(encoded);
+      final List<dynamic> decoded = jsonDecode(encoded);
       _tasks = decoded.map((item) => Task.fromJson(item)).toList();
-    }
-    _isLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> addTask(String title) async {
-    final newTask = Task(
-      id: _uuid.v4(),
-      title: title,
-      isCompleted: false,
-    );
-    _tasks.insert(0, newTask);
-    await _saveTasks();
-    notifyListeners();
-  }
-
-  Future<void> deleteTask(String id) async {
-    _tasks.removeWhere((t) => t.id == id);
-    await _saveTasks();
-    notifyListeners();
-  }
-
-  Future<void> toggleTask(String id) async {
-    final index = _tasks.indexWhere((t) => t.id == id);
-    if (index != -1) {
-      _tasks[index] = _tasks[index].copyWith(isCompleted: !_tasks[index].isCompleted);
-      await _saveTasks();
       notifyListeners();
     }
   }
 
   Future<void> _saveTasks() async {
     final prefs = await SharedPreferences.getInstance();
-    final encoded = jsonEncode(_tasks.map((t) => t.toJson()).toList());
-    await prefs.setString('sovereign_tasks', encoded);
+    final String encoded = jsonEncode(_tasks.map((t) => t.toJson()).toList());
+    await prefs.setString('shored_tasks', encoded);
   }
 
-  /// Automated extraction from Hermes (Phase 96.2)
-  void extractTaskFromTranscription(String text) {
-    // Basic regex extraction for "Remind me to..." or "Task: ..."
-    if (text.toLowerCase().contains("task:") || text.toLowerCase().contains("todo:")) {
-      final clean = text.split(":").last.trim();
-      addTask(clean.toUpperCase());
+  void addTask(String title, {DateTime? reminder}) {
+    final id = _uuid.v4();
+    final newTask = Task(
+      id: id,
+      title: title.toUpperCase(),
+      reminderTime: reminder,
+    );
+    _tasks.insert(0, newTask);
+    _saveTasks();
+    
+    if (reminder != null) {
+      _notifications.scheduleNotification(
+        id: id.hashCode,
+        title: "::/DIRECTIVE_RECALL",
+        body: "Executing: $title",
+        scheduledDate: reminder,
+      );
     }
+    
+    notifyListeners();
+  }
+
+  void toggleTask(String id) {
+    final index = _tasks.indexWhere((t) => t.id == id);
+    if (index != -1) {
+      _tasks[index] = _tasks[index].copyWith(isCompleted: !_tasks[index].isCompleted);
+      if (_tasks[index].isCompleted) {
+        _notifications.cancelNotification(id.hashCode);
+      }
+      _saveTasks();
+      notifyListeners();
+    }
+  }
+
+  void deleteTask(String id) {
+    _tasks.removeWhere((t) => t.id == id);
+    _notifications.cancelNotification(id.hashCode);
+    _saveTasks();
+    notifyListeners();
   }
 }

@@ -1,4 +1,4 @@
-# Spec: Sovereign Mind Fresh-Start & Ingestion Pipeline (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# Spec: Sovereign Mind Fresh-Start & Ingestion Pipeline (v3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 🏁 Objectives
 - **Zero-Drift Reconstruction:** Nuke and rebuild `Akashik.db` and `data/vault/RKG` from high-fidelity source primitives.

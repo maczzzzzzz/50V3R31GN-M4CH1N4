@@ -92,31 +92,52 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
               ),
             ),
 
-            Row(
+            Column(
               children: [
-                _buildClinicalSideRail(accentColor),
+                _buildClinicalHeader(accentColor),
                 Expanded(
-                  child: Column(
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      _buildClinicalHeader(accentColor),
-                      Expanded(
-                        child: PageView(
-                          controller: _pageController,
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            _buildClinicalIngressView(),
-                            _buildClinicalTasksView(),
-                            _buildClinicalMemoryView(),
-                            _buildTerminalView(),
-                            _buildSecurityVisualizer(),
-                          ],
-                        ),
-                      ),
+                      _buildClinicalIngressView(),
+                      const TasksScreen(),
+                      const MemoryScreen(),
+                      _buildTerminalView(),
+                      const ChatScreen(),
+                      const SettingsScreen(),
                     ],
                   ),
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(top: BorderSide(color: Color(0xFF161616), width: 2)),
+          color: Color(0xFF0F0F0F),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: _onTabTapped,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: accentColor,
+          unselectedItemColor: const Color(0xFF404040),
+          selectedFontSize: 8,
+          unselectedFontSize: 8,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, letterSpacing: 1),
+          items: [
+            const BottomNavigationBarItem(icon: Icon(Icons.terminal, size: 20), label: 'INGRESS'),
+            const BottomNavigationBarItem(icon: Icon(Icons.fact_check, size: 20), label: 'TASKS'),
+            const BottomNavigationBarItem(icon: Icon(Icons.hub, size: 20), label: 'MEMORY'),
+            const BottomNavigationBarItem(icon: Icon(Icons.code, size: 20), label: 'ARTERY'),
+            const BottomNavigationBarItem(icon: Icon(Icons.chat_bubble, size: 20), label: 'CHAT'),
+            const BottomNavigationBarItem(icon: Icon(Icons.settings, size: 20), label: 'SETTINGS'),
           ],
         ),
       ),

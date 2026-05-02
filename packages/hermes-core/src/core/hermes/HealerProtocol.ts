@@ -13,6 +13,7 @@ import { appendFile, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { VisualSkillCrystallizationPipeline, type DetectedCycle } from '../../../../../scripts/forge/skill-factory.js';
 import { randomUUID } from 'node:crypto';
+import { ArteryClient } from '../../shared/ArteryClient.js';
 
 export interface OrchestratorState {
   activeNode: string;
@@ -91,16 +92,11 @@ export class ShadowModeHealerDaemon {
 
   private async getNodeAOCROnLiveFrame(): Promise<string> {
     try {
-      // Mocked endpoint for sovereign-observer live frame OCR
-      const res = await fetch('http://localhost:7340/api/observer/live-frame-ocr');
-      if (res.ok) {
-        const data = (await res.json()) as { target: string };
-        return data.target;
-      }
+      const text = await ArteryClient.getVisionOCR('healer-daemon');
+      return text || 'default_target_location_xy';
     } catch (e) {
-      // Fallback
+      return 'default_target_location_xy';
     }
-    return 'default_target_location_xy';
   }
 }
 

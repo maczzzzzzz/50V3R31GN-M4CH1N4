@@ -1,5 +1,5 @@
 # ◈ SIDECAR : BROWSER_EXTENSION // VIVALDI_INGRESS
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.25-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Artery:** Vivaldi Sidebar -> Browser Mesh (:3012) -> Hermes Singularity
 
 ## ◈ OVERVIEW
@@ -7,14 +7,16 @@ The Sovereign Browser Extension provides a high-fidelity ingress pipeline for we
 
 ## ◈ TECHNICAL ARCHITECTURE
 - **Protocol:** Manifest V3 (MV3).
+- **Aesthetic:** NodeStadt Authority (Glow-Terminal).
 - **Relay:** Persistent WebSocket connection to `localhost:3012`.
 - **Ingestor:** `packages/hermes-core/src/api/browser-bridge.ts` (Node B).
-- **Heartbeat:** 5-second pulse to maintain bridge stability.
 
-## ◈ OPERATIONAL MODES
-1. **Ambient Sync:** Automatically pushes the current page title and URL to the `Context-DAG`.
-2. **Selective Push:** Pushes the active text selection to the `HermesSingularity` for immediate analysis.
-3. **Ghost-Observation:** Passive listening for page-load events to trigger related lore lookups in `Akashik.db`.
+## 🛠 Installation (Vivaldi Side-load)
+1.  Open Vivaldi and navigate to `vivaldi://extensions/`.
+2.  Enable **Developer Mode** (toggle in top right).
+3.  Click **Load unpacked**.
+4.  Select the directory: `\\wsl.localhost\NixOS\home\nixos\50V3R31GN-M4CH1N4\sidecars\sidecar-browser-extension`.
+5.  Pin the **50V3R31GN Vivaldi Ingress** to your sidebar.
 
 ## ◈ PORT CONFIGURATION
 | Component | Port | Purpose |
