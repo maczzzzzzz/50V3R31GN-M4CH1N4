@@ -74,7 +74,8 @@ async function universalSync() {
         let updated = content;
 
         // 1. Version Sync
-        updated = updated.replace(/((?:Version|v)[^\d\s]*\s*\d+\.\d+\.\d+)/gi, (match) => {
+        // Improved regex to capture version including suffixes like -SYNTHESIS to prevent duplication
+        updated = updated.replace(/((?:Version|v)[^\d\s]*\s*\d+\.\d+\.\d+(?:-[\w-]+)?)/gi, (match) => {
             const prefixMatch = match.match(/^(Version|v)[^\d\s]*\s*/i);
             const prefix = prefixMatch ? prefixMatch[0] : '';
             return `${prefix}${version}`;

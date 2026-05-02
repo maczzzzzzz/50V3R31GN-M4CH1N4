@@ -86,7 +86,7 @@ export class HermesSingularity {
   }
 
   /**
-   * Orchestrate a long-running Research Swarm (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+   * Orchestrate a long-running Research Swarm (v3.8.28-GOLD)
    */
   public async orchestrateResearchSwarm(prompt: string, threadId: string = randomUUID()): Promise<SingularityResult> {
     this.logger.info('HermesSingularity', threadId, `[SWARM] Initiating Research: ${prompt.substring(0, 50)}...`);
@@ -144,7 +144,7 @@ export class HermesSingularity {
   }
 
   /**
-   * Experience-Gitting (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS): Log failure trajectories for future reasoning.
+   * Experience-Gitting (v3.8.28-GOLD): Log failure trajectories for future reasoning.
    */
   public async logExperience(agentId: string, task: string, failureTrace: any, fix?: string, severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' = 'LOW'): Promise<void> {
     if (!this.db) return;
@@ -188,7 +188,7 @@ export class HermesSingularity {
     };
 
     let result: SingularityResult | null = null;
-    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS]";
+    const systemPrompt = "[IMPORTANT: HERMES_SINGULARITY_ORCHESTRATOR v3.8.28-GOLD]";
     
     while (state.retries < 3) {
       try {

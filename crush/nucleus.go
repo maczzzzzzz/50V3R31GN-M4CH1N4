@@ -258,6 +258,9 @@ func handleVoiceWS(w http.ResponseWriter, r *http.Request) {
 
 	logMessage("INFO", "VOICE", "internal", "OMI_VOICE_ARTERY : Connection Established", nil)
 	
+	var lastPacketID uint64
+	epoch := time.Now().Unix()
+
 	for {
 		mt, msg, err := conn.ReadMessage()
 		if err != nil { return }
@@ -266,26 +269,34 @@ func handleVoiceWS(w http.ResponseWriter, r *http.Request) {
 			logMessage("DEBUG", "VOICE", "internal", fmt.Sprintf("OMI_HANDSHAKE : %s", string(msg)), nil)
 			conn.WriteMessage(websocket.TextMessage, []byte(`{"type":"handshake_ack"}`))
 		} else if mt == websocket.BinaryMessage {
-			// ◈ PHASE 115: LIVE_OVERRIDE_ARTERY
-			// In production, this pipes to local Whisper-Tiny on Node D.
-			// Here we simulate a transcription pulse that triggers Hermes.
-			
-			// Mock: If we receive data, occasionally trigger a 'Live Override'
+			// ◈ PHASE 116: OMI_RESILIENCE_LOGIC
+			// Extract Packet ID and Timestamp (simulated from binary header)
+			// In production, we'd parse the first 12 bytes.
+			packetID := lastPacketID + 1
+			lastPacketID = packetID
+
+			// ◈ PHASE 116: VIBEVOICE_BCF_FILTER
+			// Simulated Bone Conduction Filter to mask environmental noise.
+			// Logic: use vibrational reference to isolate voice frequency.
+			if len(msg) > 0 {
+				msg[0] = msg[0] ^ 0xFF // Dummy DSP transformation
+			}
+
+			// Mock: Occasionally trigger a 'Live Override'
 			if time.Now().Unix()%15 == 0 {
 				transcription := "Hey Machina, unseal the research shard for Phase 115."
 				
-				// 1. Send feedback to UI
-				conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf(`{"type":"TRANSCRIPTION","text":"%s"}`, transcription)))
+				// 1. Send feedback to UI with Sequence Data
+				feedback := map[string]interface{}{
+					"type": "TRANSCRIPTION",
+					"text": transcription,
+					"seq":  packetID,
+					"epoch": epoch,
+				}
+				fbData, _ := json.Marshal(feedback)
+				conn.WriteMessage(websocket.TextMessage, fbData)
 				
-				// 2. Trigger LIVE_OVERRIDE intent for Node B Director
-				payload, _ := json.Marshal(map[string]interface{}{
-					"command": "override",
-					"method":  "voice_ingress",
-					"text":    transcription,
-					"priority": "CRITICAL",
-				})
-				
-				logMessage("INFO", "VOICE", "live-override", transcription, nil)
+				logMessage("INFO", "VOICE", "live-override", fmt.Sprintf("[%d:%d] %s", epoch, packetID, transcription), nil)
 			}
 		}
 	}
