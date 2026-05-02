@@ -7,12 +7,14 @@ echo "::/5Y573M-N071C3 : INITIATING_CONTEXT_FEED..."
 
 FILES=(
   "SOUL.md"
+  "RESEARCHER_SOUL.md"
   "AGENTS.md"
   "SOVEREIGN_VITAL_SIGNS.md"
+  "SOVEREIGN-IDENTITY.md"
   "GEMINI.md"
   "CLAUDE.md"
-  "DIRECTOR_SOUL.md"
-  "RED_RULES.md"
+  "GLM.md"
+  "plugins/sovereign-red-plugin/RED_RULES.md"
 )
 
 for file in "${FILES[@]}"; do

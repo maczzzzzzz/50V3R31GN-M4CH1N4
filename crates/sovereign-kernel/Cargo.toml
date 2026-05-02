@@ -1,6 +1,6 @@
 [package]
 name    = "sovereign-kernel"
-version = "0.1.0"
+version = "3.8.8"
 edition = "2021"
 description = "Phase 87: Kernel Vitals Artery — CPU/VRAM/IO telemetry via /proc, streamed to HUD [VITALS] panel"
 

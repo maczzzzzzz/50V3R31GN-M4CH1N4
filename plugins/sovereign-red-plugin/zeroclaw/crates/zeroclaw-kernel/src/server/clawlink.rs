@@ -14,9 +14,11 @@ static RED_RULES: OnceLock<String> = OnceLock::new();
 
 pub fn get_red_rules() -> &'static str {
     RED_RULES.get_or_init(|| {
-        fs::read_to_string("../RED_RULES.md").unwrap_or_else(|_| {
-            fs::read_to_string("RED_RULES.md").unwrap_or_else(|_| {
-                "RECONSTITUTION ERROR: Global Rules Oracle Invariants Missing.".to_string()
+        fs::read_to_string("plugins/sovereign-red-plugin/RED_RULES.md").unwrap_or_else(|_| {
+            fs::read_to_string("../RED_RULES.md").unwrap_or_else(|_| {
+                fs::read_to_string("../../RED_RULES.md").unwrap_or_else(|_| {
+                    "RECONSTITUTION ERROR: Global Rules Oracle Invariants Missing.".to_string()
+                })
             })
         })
     })

@@ -131,7 +131,7 @@ export class HybridRoutingController {
 
     this.rulesGrep = new RulesGrepService();
     try {
-      this.redRulesConstitution = fs.readFileSync('RED_RULES.md', 'utf8');
+      this.redRulesConstitution = fs.readFileSync('plugins/sovereign-red-plugin/RED_RULES.md', 'utf8');
     } catch {
       this.redRulesConstitution = 'Rules Constitution Missing.';
     }

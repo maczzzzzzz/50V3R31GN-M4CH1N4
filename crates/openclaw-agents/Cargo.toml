@@ -1,6 +1,6 @@
 [package]
 name = "openclaw-agents"
-version = "0.1.0"
+version = "3.8.8"
 edition = "2021"
 description = "Phase 77: OpenClaw Managed Agents — WarmPool, CrashRecovery, AgentRegistry"
 

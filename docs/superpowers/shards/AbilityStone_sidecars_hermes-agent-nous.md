@@ -40,7 +40,7 @@ hermes-agent/
 │   │                     #   webhook, api_server, ...). See ADDING_A_PLATFORM.md.
 │   └── builtin_hooks/    # Extension point for always-registered gateway hooks (none shipped)
 ├── plugins/              # Plugin system (see "Plugins" section below)
-│   ├── memory/           # Memory-provider plugins (honcho, mem0, supermemory, ...)
+│   ├── memory/           # Synapse-provider plugins (honcho, mem0, supermemory, ...)
 │   ├── context_engine/   # Context-engine plugins
 │   └── <others>/         # Dashboard, image-gen, disk-cleanup, examples, ...
 ├── optional-skills/      # Heavier/niche skills shipped but NOT active by default
@@ -457,7 +457,7 @@ as a side effect of importing `model_tools.py`. Code paths that read plugin
 state without importing `model_tools.py` first must call `discover_plugins()`
 explicitly (it's idempotent).
 
-### Memory-provider plugins (`plugins/memory/<name>/`)
+### Synapse-provider plugins (`plugins/memory/<name>/`)
 
 Separate discovery system for pluggable memory backends. Current built-in
 providers include **honcho, mem0, supermemory, byterover, hindsight,

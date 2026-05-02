@@ -1,7 +1,7 @@
 import { App, Plugin, PluginSettingTab, Setting, MarkdownView } from 'obsidian';
 
 /**
- * OBSIDIAN_SOVEREIGN_BRIDGE : v1.0.0
+ * OBSIDIAN_SOVEREIGN_BRIDGE : v3.8.8
  * 
  * Native Obsidian plugin for physical vault synchronization and HUD overlays.
  */

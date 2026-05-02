@@ -1,6 +1,6 @@
 [package]
 name = "resonant-gate"
-version = "0.1.0"
+version = "3.8.8"
 edition = "2021"
 description = "Phase 77: Resonant Logic Gate — deterministic LLM output governance via decision_audit"
 

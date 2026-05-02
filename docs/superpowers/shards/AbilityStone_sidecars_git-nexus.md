@@ -1,4 +1,4 @@
-<!-- version: 1.7.0 -->
+<!-- version: 3.8.8 -->
 <!-- Last updated: 2026-04-23 -->
 
 Last reviewed: 2026-04-23
@@ -114,7 +114,7 @@ Indexed as **GitNexus** (4325 symbols, 10556 relationships, 300 execution flows)
 | `group_sync` | Rebuild group Contract Registry | `gitnexus_group_sync({name: "myGroup"})` |
 | `query` (group mode) | Cross-repo search in a group (RRF-merged) | `gitnexus_query({repo: "@myGroup", query: "auth"})` |
 | `context` (group mode) | 360° view across all member repos | `gitnexus_context({repo: "@myGroup", name: "validateUser"})` |
-| `impact` (group mode) | Cross-repo blast radius via Contract Bridge | `gitnexus_impact({repo: "@myGroup", target: "X", direction: "upstream"})` |
+| `impact` (group mode) | Cross-repo blast radius via Contract Mesh | `gitnexus_impact({repo: "@myGroup", target: "X", direction: "upstream"})` |
 
 > Group mode: pass `repo: "@<groupName>"` to fan out across all member repos, or `repo: "@<groupName>/<memberPath>"` to target a single member (path keys from `group.yaml`). Optional `service: "<monorepo/path>"` filters by service root. Group-level state (contracts, staleness) lives in the resources table below — there are **no** `group_query` / `group_context` / `group_impact` / `group_contracts` / `group_status` MCP tools.
 >

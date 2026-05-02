@@ -1,6 +1,6 @@
 [package]
 name = "sovereign-vesper-eye"
-version = "0.1.0"
+version = "3.8.8"
 edition = "2021"
 description = "Phase 78: Vesper Perception Sidecar — log distillation and Scribe-drift pattern matching"
 

@@ -14,8 +14,8 @@ Every agentic decision and tool invocation is audited. The system uses a **Vespe
 ### 3. High-Fidelity Cognitive Arteries
 We utilize raw binary protocols (VSB over UDP) and high-throughput streaming (SSE) to ensure that the bridge between human intent and machine action is zero-latency. The **Hermes Singularity** engine ensures that agentic reasoning is as high-fidelity as the models powering it.
 
-### 4. Symbolic & Semantic Memory
-Human intelligence relies on both symbolic logic and semantic intuition. Sovereign Machina mirrors this by combining **HeadlessDatalog** (symbolic, relational facts) with **ChromaDB/LanceDB** (semantic, high-dimensional search), creating a "Memory Palace" that grows with the operator.
+### 4. Symbolic & Semantic Synapse
+Human intelligence relies on both symbolic logic and semantic intuition. Sovereign Machina mirrors this by combining **HeadlessDatalog** (symbolic, relational facts) with **ChromaDB/LanceDB** (semantic, high-dimensional search), creating a "Synapse Palace" that grows with the operator.
 
 ## ◈ THE SYSTEM SOCIOTOMY
 Sovereign Machina maintains a strict separation between its functional core (**SOVEREIGN_OS**) and its simulation environments (**RED_DIRECTOR**). This sociotomy ensures that technical operations remain clinical and objective, while creative simulations remain immersive and gritty, without one polluting the other.
