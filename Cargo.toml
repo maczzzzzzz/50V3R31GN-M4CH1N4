@@ -5,9 +5,22 @@ members = [
     "sidecars/*",
 ]
 exclude = [
+    "sidecars/drawthings-plugin",
+    "sidecars/free-claude-proxy",
+    "sidecars/git-nexus",
+    "sidecars/halo",
+    "sidecars/hermes-agent-nous",
+    "sidecars/hermes-desktop",
+    "sidecars/hermeshub",
+    "sidecars/hermes-web-ui",
+    "sidecars/paperclip-adapter",
+    "sidecars/plur",
     "sidecars/sidecar-browser-extension",
     "sidecars/sidecar-obsidian-plugin",
     "sidecars/sidecar-proxy",
-    "sidecars/sidecar-logseq-plugin"
+    "sidecars/sidecar-logseq-plugin",
+    "sidecars/skill-marketplace",
+    "sidecars/stash",
+    "sidecars/worldseed",
 ]
 resolver = "2"
