@@ -1,32 +1,26 @@
 'use client';
 
 /**
- * SovereignHall.tsx — Phase 80, Task 2
+ * ◈ SOVEREIGN_HALL : CLINICAL_VISUALIZER — v3.8.25
  *
  * 2.5D Isometric agent collaboration visualization.
- * Renders pulsing Thought Nodes on a Gruvbox isometric grid, connected by
- * Data Arteries. Clicking a node opens the live Thought Stream for that agent.
- *
- * Implements without external deps — pure Canvas 2D API + React hooks.
- * Each cell on the iso-grid maps to one agent slot.
+ * Industrial retro-futuristic interface.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-// ── Gruvbox palette ───────────────────────────────────────────────────────────
-const GBX = {
-  bg:     '#282828',
-  bg1:    '#3c3836',
-  bg2:    '#504945',
-  fg:     '#ebdbb2',
-  yellow: '#fabd2f',
-  red:    '#cc241d',
-  green:  '#98971a',
-  blue:   '#458588',
-  gray:   '#665c54',
+// ── NODESTADT palette ─────────────────────────────────────────────────────────
+const NDS = {
+  bg:     '#0A0A0A',
+  bg1:    '#161616',
+  bg2:    '#262626',
+  fg:     '#E5E5E5',
+  accent: '#F36622',
+  gold:   '#C7A87A',
+  dim:    '#404040',
+  red:    '#FB4934',
+  green:  '#B8BB26',
 };
-
-// ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface ThoughtNode {
   id: string;
@@ -37,25 +31,18 @@ export interface ThoughtNode {
 
 interface IsoCell {
   node: ThoughtNode;
-  /** Isometric screen coords */
   sx: number;
   sy: number;
-  /** Grid coords */
   gx: number;
   gy: number;
-  /** Pulse phase offset (0..2π) */
   phase: number;
 }
-
-// ── Isometric math ────────────────────────────────────────────────────────────
 
 function isoProject(gx: number, gy: number, tileW: number, tileH: number, ox: number, oy: number) {
   const sx = ox + (gx - gy) * (tileW / 2);
   const sy = oy + (gx + gy) * (tileH / 2);
   return { sx, sy };
 }
-
-// ── Draw helpers ──────────────────────────────────────────────────────────────
 
 function drawIsoTile(
   ctx: CanvasRenderingContext2D,
@@ -86,28 +73,26 @@ function drawNode(
   pulse: number,
   label: string,
 ) {
-  // Glow ring
-  const glowR = radius + 4 + Math.sin(pulse) * 3;
-  const gradient = ctx.createRadialGradient(sx, sy, radius * 0.5, sx, sy, glowR);
-  gradient.addColorStop(0, color + 'cc');
+  const glowR = radius + 6 + Math.sin(pulse) * 4;
+  const gradient = ctx.createRadialGradient(sx, sy, radius * 0.2, sx, sy, glowR);
+  gradient.addColorStop(0, color + 'aa');
   gradient.addColorStop(1, color + '00');
+  
   ctx.beginPath();
   ctx.arc(sx, sy, glowR, 0, Math.PI * 2);
   ctx.fillStyle = gradient;
   ctx.fill();
 
-  // Core node
   ctx.beginPath();
   ctx.arc(sx, sy, radius, 0, Math.PI * 2);
   ctx.fillStyle = color;
   ctx.fill();
 
-  // Label
-  ctx.font = '10px VT323, monospace';
-  ctx.fillStyle = GBX.fg;
+  ctx.font = '900 10px "Space Grotesk"';
+  ctx.fillStyle = NDS.fg;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.fillText(label, sx, sy + radius + 4);
+  ctx.fillText(label.toUpperCase(), sx, sy + radius + 6);
 }
 
 function drawArtery(
@@ -117,29 +102,25 @@ function drawArtery(
   color: string,
   pulse: number,
 ) {
-  const alpha = 0.3 + 0.2 * Math.sin(pulse);
+  const alpha = 0.2 + 0.15 * Math.sin(pulse);
   ctx.beginPath();
   ctx.moveTo(ax, ay);
   ctx.lineTo(bx, by);
   ctx.strokeStyle = color;
-  ctx.lineWidth = 1.5;
+  ctx.lineWidth = 2;
   ctx.globalAlpha = alpha;
   ctx.stroke();
   ctx.globalAlpha = 1.0;
 }
 
-// ── Status color mapping ──────────────────────────────────────────────────────
-
 function nodeColor(status: ThoughtNode['status']): string {
   switch (status) {
-    case 'active':   return GBX.yellow;
-    case 'deadlock': return GBX.red;
-    case 'resolved': return GBX.green;
-    case 'idle':     return GBX.gray;
+    case 'active':   return NDS.accent;
+    case 'deadlock': return NDS.red;
+    case 'resolved': return NDS.green;
+    case 'idle':     return NDS.dim;
   }
 }
-
-// ── Main Component ────────────────────────────────────────────────────────────
 
 interface SovereignHallProps {
   nodes?: ThoughtNode[];
@@ -150,7 +131,7 @@ const DEFAULT_NODES: ThoughtNode[] = [
   { id: 'n1', agentId: 'synapse',  status: 'active',   thoughtFile: undefined },
   { id: 'n2', agentId: 'oracle',   status: 'active',   thoughtFile: undefined },
   { id: 'n3', agentId: 'director', status: 'idle',     thoughtFile: undefined },
-  { id: 'n4', agentId: 'vesper',   status: 'active',   thoughtFile: undefined },
+  { id: 'n4', agentId: 'heavy',    status: 'active',   thoughtFile: undefined },
   { id: 'n5', agentId: 'healer',   status: 'resolved', thoughtFile: undefined },
 ];
 
@@ -164,16 +145,14 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
   const [thought,  setThought]  = useState<string>('');
   const [loading,  setLoading]  = useState(false);
 
-  // ── Build iso-cell layout ─────────────────────────────────────────────────
-
   const buildCells = useCallback(
     (w: number, h: number): IsoCell[] => {
       const cols     = Math.min(nodes.length, 4);
       const rows     = Math.ceil(nodes.length / cols);
-      const tileW    = 80;
-      const tileH    = 40;
+      const tileW    = 100;
+      const tileH    = 50;
       const ox       = w / 2;
-      const oy       = h * 0.22 + rows * tileH;
+      const oy       = h * 0.25 + rows * tileH;
       const cells: IsoCell[] = [];
       nodes.forEach((node, i) => {
         const gx = i % cols;
@@ -185,8 +164,6 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
     },
     [nodes],
   );
-
-  // ── Animation loop ────────────────────────────────────────────────────────
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -202,55 +179,51 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
     resize();
     window.addEventListener('resize', resize);
 
-    const tileW = 80;
-    const tileH = 40;
+    const tileW = 100;
+    const tileH = 50;
 
     function frame() {
       frameRef.current++;
-      const t = frameRef.current * 0.03;
+      const t = frameRef.current * 0.02;
       const cells = cellsRef.current;
       const w = canvas!.width;
       const h = canvas!.height;
 
       ctx!.clearRect(0, 0, w, h);
-
-      // Background
-      ctx!.fillStyle = GBX.bg;
+      ctx!.fillStyle = NDS.bg;
       ctx!.fillRect(0, 0, w, h);
 
-      // Grid tiles
       cells.forEach(c => {
-        const tileFill = c.node.status === 'deadlock' ? GBX.bg2 : GBX.bg1;
-        drawIsoTile(ctx!, c.sx, c.sy, tileW, tileH, tileFill, GBX.gray);
+        const tileFill = c.node.status === 'deadlock' ? NDS.bg2 : NDS.bg1;
+        drawIsoTile(ctx!, c.sx, c.sy, tileW, tileH, tileFill, NDS.dim);
       });
 
-      // Arteries between adjacent cells (connect horizontally/vertically in grid)
       cells.forEach((a, i) => {
         cells.slice(i + 1).forEach(b => {
           const dx = Math.abs(a.gx - b.gx);
           const dy = Math.abs(a.gy - b.gy);
           if ((dx === 1 && dy === 0) || (dx === 0 && dy === 1)) {
-            drawArtery(ctx!, a.sx, a.sy, b.sx, b.sy, GBX.yellow, t + a.phase);
+            drawArtery(ctx!, a.sx, a.sy, b.sx, b.sy, NDS.accent, t + a.phase);
           }
         });
       });
 
-      // Thought nodes
       cells.forEach(c => {
         const color  = nodeColor(c.node.status);
-        const radius = 10;
+        const radius = 12;
         drawNode(ctx!, c.sx, c.sy - tileH * 0.5, radius, color, t + c.phase, c.node.agentId);
       });
 
-      // Selected highlight
       if (selected) {
         const cell = cells.find(c => c.node.id === selected.id);
         if (cell) {
           ctx!.beginPath();
-          ctx!.arc(cell.sx, cell.sy - tileH * 0.5, 16, 0, Math.PI * 2);
-          ctx!.strokeStyle = GBX.yellow;
+          ctx!.arc(cell.sx, cell.sy - tileH * 0.5, 20, 0, Math.PI * 2);
+          ctx!.strokeStyle = NDS.accent;
           ctx!.lineWidth = 2;
+          ctx!.setLineDash([5, 5]);
           ctx!.stroke();
+          ctx!.setLineDash([]);
         }
       }
 
@@ -265,26 +238,23 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
     };
   }, [buildCells, nodes, selected]);
 
-  // ── Hit-test click → select node ─────────────────────────────────────────
-
   const handleClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const mx   = e.clientX - rect.left;
     const my   = e.clientY - rect.top;
-    const tileH = 40;
+    const tileH = 50;
 
     const hit = cellsRef.current.find(c => {
       const nx = c.sx;
       const ny = c.sy - tileH * 0.5;
-      return Math.hypot(mx - nx, my - ny) <= 16;
+      return Math.hypot(mx - nx, my - ny) <= 20;
     });
 
     if (!hit) { setSelected(null); setThought(''); return; }
     setSelected(hit.node);
 
-    // Load thought file if available
     if (hit.node.thoughtFile) {
       setLoading(true);
       fetch(`/api/meetings/${traceId ?? 'latest'}/${hit.node.thoughtFile}`)
@@ -292,46 +262,43 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
         .then(t => { setThought(t); setLoading(false); })
         .catch(() => { setThought('(no thought fragment available)'); setLoading(false); });
     } else {
-      setThought(`## THOUGHT_FRAGMENT : ${hit.node.agentId}\n- **Status:** ${hit.node.status}\n- **Fragment:** (not yet written)`);
+      setThought(`## THOUGHT_FRAGMENT : ${hit.node.agentId}\n- **Status:** ${hit.node.status}\n- **Fragment:** (stream offline)`);
     }
   }, [traceId]);
 
-  // ── Render ────────────────────────────────────────────────────────────────
-
   return (
-    <div className="flex flex-col h-full w-full bg-panel border border-primary" style={{ fontFamily: "'VT323', monospace" }}>
+    <div className="flex flex-col h-full w-full bg-[#111111] border border-[#333333] font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-primary">
-        <span className="text-primary text-lg">◈ SOVEREIGN_HALL</span>
+      <div className="flex items-center justify-between px-6 py-3 border-b border-[#333333] bg-[#0A0A0A]">
+        <span className="text-[#F36622] font-black tracking-widest text-sm uppercase authority-text">◈ SOVEREIGN_HALL</span>
         {traceId && (
-          <span className="text-xs opacity-60">trace: {traceId}</span>
+          <span className="text-[10px] text-[#A3A3A3] technical-data">ID: {traceId}</span>
         )}
       </div>
 
       {/* Canvas */}
       <canvas
         ref={canvasRef}
-        className="flex-1 cursor-pointer"
-        style={{ minHeight: 200 }}
+        className="flex-1 cursor-crosshair"
+        style={{ minHeight: 250 }}
         onClick={handleClick}
       />
 
       {/* Legend */}
-      <div className="flex gap-4 px-4 py-1 border-t border-primary text-xs opacity-70">
+      <div className="flex gap-6 px-6 py-2 border-t border-[#333333] text-[9px] font-black uppercase technical-data">
         {(['active', 'deadlock', 'resolved', 'idle'] as const).map(s => (
-          <span key={s} style={{ color: nodeColor(s) }}>■ {s}</span>
+          <span key={s} style={{ color: nodeColor(s) }}>• {s}</span>
         ))}
-        <span className="ml-auto opacity-50">click node to read fragment</span>
       </div>
 
       {/* Thought Stream panel */}
       {selected && (
-        <div className="border-t border-primary px-4 py-3 max-h-48 overflow-y-auto">
-          <div className="text-primary text-sm mb-1">◈ THOUGHT STREAM — {selected.agentId}</div>
+        <div className="border-t border-[#333333] px-6 py-4 max-h-56 overflow-y-auto bg-[#0A0A0A]/80 backdrop-blur-md">
+          <div className="text-[#F36622] text-xs font-black mb-2 tracking-widest uppercase authority-text">◈ THOUGHT_STREAM : {selected.agentId}</div>
           {loading ? (
-            <div className="opacity-50 animate-pulse">loading fragment…</div>
+            <div className="text-[#A3A3A3] technical-data animate-pulse italic">Retrieving fragment…</div>
           ) : (
-            <pre className="text-xs opacity-90 whitespace-pre-wrap">{thought}</pre>
+            <pre className="text-[11px] text-[#E5E5E5] whitespace-pre-wrap leading-relaxed technical-data">{thought}</pre>
           )}
         </div>
       )}

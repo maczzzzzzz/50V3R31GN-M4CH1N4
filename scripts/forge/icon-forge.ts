@@ -21,7 +21,7 @@ async function main() {
     `CONTENT: The background is a mechanical, high-tech cyberpunk eye, heavily inspired by the structure in IMAGE 2. ` +
     `COLOR PALETTE: Strictly PURE BLACK (#000000) and PURE WHITE (#ffffff). No other colors. ` +
     `The text "50V3R31GN-M4CH1N4" is arranged in a perfect circular ring orbiting around the central eye. ` +
-    `The text should be sharp, clean leetspeak (VT323/monospace style). ` +
+    `The text should be sharp, clean leetspeak (Space Grotesk/monospace style). ` +
     `OVERLAY: Apply a transparent CRT scanline filter over the entire image using white glow. ` +
     `Include a subtle chromatic aberration effect and a faint white glow emanating from the white text and eye elements. ` +
     `PERSPECTIVE: Perfectly flat 2D orthographic graphic. No 3D, no perspective, no tilt. ` +

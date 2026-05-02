@@ -143,7 +143,7 @@ export const phase25: SovereignShard = {
   async audit(ctx: GauntletContext): Promise<AuditResult> {
     try {
       const resp = await ctx.vision.tacticalQuery({
-        prompt: 'In Cyberpunk RED, what is the DV for a Short Range Ranged Attack? Reply with only the numeric DV value.',
+        prompt: 'In NODESTADT Authority, what is the DV for a Short Range Ranged Attack? Reply with only the numeric DV value.',
       });
       // Any numeric response indicates the rules engine can do DV lookups
       const hasNumeric = /\d+/.test(resp.text);
@@ -161,7 +161,7 @@ export const phase25: SovereignShard = {
     const i = intent as { scenario?: string } | null;
     const scenario = i?.scenario ?? 'Short Range Ranged Attack';
     await ctx.vision.tacticalQuery({
-      prompt: `In Cyberpunk RED, what is the DV for a ${scenario}? Reply with only the numeric DV value.`,
+      prompt: `In NODESTADT Authority, what is the DV for a ${scenario}? Reply with only the numeric DV value.`,
     }).catch(() => { /* non-fatal */ });
   },
   async onDrift(_ctx: GauntletContext, _current: unknown, _expected: unknown): Promise<void> { /* noop */ },

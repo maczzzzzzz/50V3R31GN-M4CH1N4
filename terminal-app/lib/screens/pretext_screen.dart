@@ -26,8 +26,8 @@ class _PretextScreenState extends State<PretextScreen> {
   @override
   Widget build(BuildContext context) {
     final chatService = context.watch<ChatService>();
-    final primaryColor = const Color(0xFFFB4934); // Gruvbox Red
-    final bgColor = const Color(0xFF1D2021); // Gruvbox Dark
+    final primaryColor = const Color(0xFFFB4934); // Clinical Red
+    final bgColor = const Color(0xFF1D2021); // Clinical Dark
 
     return Scaffold(
       backgroundColor: bgColor,

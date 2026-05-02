@@ -1,4 +1,4 @@
-# ◈ NODESTADT ARCHITECTURE : THE ARTERY (v3.8.24-SYNTHESIS)
+# ◈ NODESTADT ARCHITECTURE : THE ARTERY (v3.8.24-SYNTHESIS-SYNTHESIS)
 ## Connection Logic & Transport Protocols
 
 The **Artery** defines the physical and logical pathways through which the NODESTADT Authority OS maintains its distributed state. It is designed for low-latency state synchronization and zero-trust packet delivery.

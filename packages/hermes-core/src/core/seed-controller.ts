@@ -5,7 +5,7 @@
  *
  * Manages conceptual seeds that bias NPC narrative generation.
  * Seeds represent weighted mood/atmosphere concepts ("Despair", "Paranoia")
- * scoped to Night City districts. getPromptBias() assembles a compact bias
+ * scoped to NODESTADT districts. getPromptBias() assembles a compact bias
  * string for injection into Mistral-Nemo's system prompt.
  */
 
@@ -44,7 +44,7 @@ export class SeedController {
    *
    * Returns an empty string when no seeds are found.
    *
-   * @param district Night City district name, or null for global seeds.
+   * @param district NODESTADT district name, or null for global seeds.
    * @param topN Max number of seeds to include. Defaults to 5.
    */
   getPromptBias(district: string | null, topN = 5): string {

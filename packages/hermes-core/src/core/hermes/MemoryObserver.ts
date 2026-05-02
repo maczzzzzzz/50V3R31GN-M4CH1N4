@@ -61,7 +61,7 @@ export class MemoryObserver {
       // Phase 107: Profile-Aware Memory Gating
       // Only distill world-state lore if in RED_DIRECTOR mode
       if (profile === 'RED_DIRECTOR') {
-        const wing = this.service.upsertWing('Simulation Shard', 'PLAYER', 'Cyberpunk RED world-state fragments.');
+        const wing = this.service.upsertWing('Simulation Shard', 'PLAYER', 'NODESTADT Authority world-state fragments.');
         const room = this.service.upsertRoom(wing.id, 'World Narrative', 'POI', 'Distilled lore from the Director.');
         this.service.enterRoom(room.id);
       } else {

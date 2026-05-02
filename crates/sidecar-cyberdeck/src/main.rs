@@ -14,10 +14,10 @@ mod glitch;
 mod st3gg;
 pub(crate) use glitch::GlitchEngine;
 
-// ─── Gruvbox Canonical Palette (Phase 76, Task 3) ────────────────────────────
-const RED: Color32   = Color32::from_rgb(0xFA, 0xBD, 0x2F); // Gruvbox Yellow — primary accent
-const GREEN: Color32 = Color32::from_rgb(0xB8, 0xBB, 0x26); // Gruvbox Green
-const BLACK: Color32 = Color32::from_rgb(0x28, 0x28, 0x28); // Gruvbox BG Hard
+// ─── Clinical Canonical Palette (Phase 76, Task 3) ────────────────────────────
+const RED: Color32   = Color32::from_rgb(0xFA, 0xBD, 0x2F); // Clinical Yellow — primary accent
+const GREEN: Color32 = Color32::from_rgb(0xB8, 0xBB, 0x26); // Clinical Green
+const BLACK: Color32 = Color32::from_rgb(0x28, 0x28, 0x28); // Clinical BG Hard
 fn dim_red() -> Color32 {
     Color32::from_rgba_unmultiplied(0xFA, 0xBD, 0x2F, 60)
 }
@@ -222,7 +222,7 @@ struct CyberdeckApp {
     // ── Phase 39: Infiltration Scanner ────────────────────────────────────────
     hovered_unit: Option<HoveredUnit>,
 
-    // ── Phase 76/77: Identity Switch (Gruvbox vs. Red theme gate) ─────────────
+    // ── Phase 76/77: Identity Switch (Clinical vs. Red theme gate) ─────────────
     active_profile: Option<String>,
 }
 
@@ -364,7 +364,7 @@ impl CyberdeckApp {
     }
 
     /// Phase 77: Read IDENTITY_SWITCH slot from VSB mmap.
-    /// When active, updates active_profile — which gates Gruvbox vs. Red theme.
+    /// When active, updates active_profile — which gates Clinical vs. Red theme.
     fn parse_identity_switch(&mut self) {
         let mmap = match &self.radar_mmap {
             Some(m) => m,
@@ -620,7 +620,7 @@ impl CyberdeckApp {
         }
 
         let status = format!(
-            "NETRUNNER HUD v3.8.24-SYNTHESIS | NODES: {} | INTRUSION: {:.0}%",
+            "NETRUNNER HUD v3.8.24-SYNTHESIS-SYNTHESIS | NODES: {} | INTRUSION: {:.0}%",
             node_count,
             self.intrusion_level * 100.0
         );

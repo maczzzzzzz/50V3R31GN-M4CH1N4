@@ -1,10 +1,10 @@
 'use client';
 
 /**
- * NeuralPromenade.tsx — PHASE 95.2 (MemPalace Structural Refactor)
+ * ◈ NEURAL_PROMENADE : SPATIAL_ARTERY — v3.8.25
  * 
- * Replaces freeform graphs with a rigid mnemonic hierarchy: Wings -> Rooms -> Drawers.
- * Implements Temporal Fading and Spatial Clustering.
+ * 3D mnemonic hierarchy: Wings -> Rooms -> Shards.
+ * Clinical visualization of the disaggregated memory core.
  */
 
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
@@ -25,8 +25,7 @@ const FRESHNESS_SHADER = {
     varying float vFreshness;
     uniform vec3 color;
     void main() {
-      // Fade older shards (lower freshness)
-      float alpha = clamp(vFreshness, 0.1, 1.0);
+      float alpha = clamp(vFreshness, 0.15, 1.0);
       gl_FragColor = vec4(color, alpha);
     }
   `
@@ -38,11 +37,12 @@ export default function NeuralPromenade() {
   const [data, setData] = useState({ nodes: [], links: [] });
   const [activeWing, setActiveWing] = useState<string | null>(null);
 
-  // ◈ Wing Coordinates
+  // ◈ Wing Coordinates : Clinical Quaternary Mapping
   const WINGS = useMemo(() => ({
-    'NODE_A': { x: -200, y: 0, z: 0, color: 0xfb4934, label: 'KV_ARTERY' },
-    'NODE_B': { x: 0, y: 0, z: 0, color: 0xb8bb26, label: 'DIRECTOR_CORE' },
-    'NODE_C': { x: 200, y: 0, z: 0, color: 0x83a598, label: 'ORACLE_FARM' },
+    'NODE_A': { x: -250, y: 0, z: 0, color: 0xF36622, label: 'SYNAPSE_CACHE' },
+    'NODE_B': { x: 0, y: 0, z: 0, color: 0xC7A87A, label: 'DIRECTOR_CORE' },
+    'NODE_C': { x: 250, y: 0, z: 0, color: 0x8EC07C, label: 'ORACLE_FARM' },
+    'NODE_D': { x: 0, y: 250, z: 0, color: 0x83A598, label: 'QUATERNARY_HEAVY' },
   }), []);
 
   useEffect(() => {
@@ -59,13 +59,12 @@ export default function NeuralPromenade() {
       .backgroundColor('#000000')
       .showNavInfo(false)
       .nodeThreeObject((node: any) => {
-        // 1. Determine Wing Affiliation
         const wingId = node.node_id?.toUpperCase() || 'NODE_B';
         const wing = (WINGS as any)[wingId] || WINGS.NODE_B;
 
-        // 2. Mnemonic Shard (The Drawer)
-        const geometry = node.table === 'npcs' 
-          ? new THREE.DodecahedronGeometry(6)
+        // ◈ Mnemonic Shard Geometry
+        const geometry = node.is_core 
+          ? new THREE.DodecahedronGeometry(5)
           : new THREE.BoxGeometry(3, 3, 3);
           
         const material = new THREE.MeshLambertMaterial({ 
@@ -76,9 +75,8 @@ export default function NeuralPromenade() {
 
         const mesh = new THREE.Mesh(geometry, material);
         
-        // Add "Glow" for active selection
         if (node.id === activeWing) {
-           mesh.scale.set(1.5, 1.5, 1.5);
+           mesh.scale.set(2, 2, 2);
         }
 
         return mesh;
@@ -92,27 +90,28 @@ export default function NeuralPromenade() {
         );
       });
 
-    // ◈ Hierarchical Force Constrainment
     Graph.d3Force('x', (d: any) => {
       const wing = (WINGS as any)[d.node_id?.toUpperCase() || 'NODE_B'] || WINGS.NODE_B;
       return wing.x;
     });
+
+    Graph.d3Force('y', (d: any) => {
+      const wing = (WINGS as any)[d.node_id?.toUpperCase() || 'NODE_B'] || WINGS.NODE_B;
+      return wing.y;
+    });
     
     // Add Wing Bounding Boxes
     Object.entries(WINGS).forEach(([id, wing]) => {
-      const boxGeom = new THREE.BoxGeometry(150, 150, 150);
+      const boxGeom = new THREE.BoxGeometry(200, 200, 200);
       const boxMat = new THREE.MeshBasicMaterial({ 
         color: wing.color, 
         wireframe: true, 
         transparent: true, 
-        opacity: 0.05 
+        opacity: 0.03 
       });
       const box = new THREE.Mesh(boxGeom, boxMat);
       box.position.set(wing.x, wing.y, wing.z);
       Graph.scene().add(box);
-      
-      // ◈ Billboard Label for Wing
-      // (Implementation requires THREE.Sprite for text labels)
     });
 
     graphRef.current = Graph;
@@ -124,20 +123,19 @@ export default function NeuralPromenade() {
 
   return (
     <div className="relative w-full h-full bg-black overflow-hidden group">
-      <div className="absolute top-4 left-4 z-10 p-3 bg-[#282828]/95 border border-[#3c3836] font-mono shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-        <div className="text-[#fe8019] font-bold text-[10px] tracking-widest flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-[#fb4934] animate-pulse" />
-          ◈ SOVEREIGN_MEMPALACE // v3.8.7
+      <div className="absolute top-6 left-6 z-10 p-4 bg-[#111111]/95 border border-[#333333] font-sans shadow-[0_20px_40px_rgba(0,0,0,0.8)] backdrop-blur-md">
+        <div className="text-[#F36622] font-black text-[11px] tracking-[0.3em] flex items-center gap-3 uppercase authority-text">
+          <div className="w-2 h-2 bg-[#F36622] animate-pulse" />
+          ◈ NEURAL_PROMENADE // v3.8.25
         </div>
-        <div className="mt-2 text-[#a89984] text-[9px] grid grid-cols-2 gap-x-4 gap-y-0.5">
-          <span className="font-bold text-[#b8bb26]">WINGS:</span> <span>3_ACTIVE</span>
-          <span className="font-bold text-[#b8bb26]">SHARDS:</span> <span>{data.nodes.length}</span>
-          <span className="font-bold text-[#b8bb26]">FORMAT:</span> <span>DIATAXIS_STRUCT</span>
+        <div className="mt-3 text-[#A3A3A3] text-[9px] grid grid-cols-2 gap-x-6 gap-y-1 font-black uppercase technical-data">
+          <span className="text-[#C7A87A]">ACTIVE_WINGS:</span> <span>4_QUATERNARY</span>
+          <span className="text-[#C7A87A]">MEM_SHARDS:</span> <span>{data.nodes.length}</span>
+          <span className="text-[#C7A87A]">ARTERY_SYNC:</span> <span>NOMINAL</span>
         </div>
       </div>
       <div ref={containerRef} className="w-full h-full" />
-      {/* ◈ Structural Grid Overlay */}
-      <div className="absolute inset-0 pointer-events-none border border-[#fb4934]/5 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)]" />
+      <div className="absolute inset-0 pointer-events-none border border-[#F36622]/5 shadow-[inset_0_0_150px_rgba(0,0,0,1)]" />
     </div>
   );
 }

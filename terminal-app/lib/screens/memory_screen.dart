@@ -3,12 +3,13 @@ import 'package:provider/provider.dart';
 import '../services/memory_provider.dart';
 import '../services/theme_service.dart';
 import '../widgets/temporal_tab_bar.dart';
+import '../widgets/geometric_shard.dart';
 
 /**
- * TEMPORAL_INTERFACE (MemoryScreen) : v3.7.0
+ * ◈ MEMORY_SCREEN : TEMPORAL_INTERFACE — v3.8.25
  * 
- * Implements the [LIVE] | [ARCHIVE] | [CONTEXT] view.
- * Allows navigation through titled memories and extracted context.
+ * Implements the [LIVE] | [ARCHIVE] | [CONTEXT] navigation.
+ * Standardized clinical data ingress.
  */
 
 class MemoryScreen extends StatefulWidget {
@@ -27,9 +28,9 @@ class _MemoryScreenState extends State<MemoryScreen> {
     final theme = Provider.of<ThemeService>(context).currentPreset;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
-        title: const Text('MACHINA_TERMINAL // TEMPORAL_HUD'),
+        title: const Text('MEMORY_CORE'),
       ),
       body: Column(
         children: [
@@ -65,11 +66,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.radar, size: 64, color: theme.primaryColor.withValues(alpha: 0.3)),
-          const SizedBox(height: 16),
-          Text(
-            'ACTIVE_SESSION_MONITORING...',
-            style: TextStyle(color: theme.primaryColor, letterSpacing: 2.0),
+          Icon(Icons.radar, size: 64, color: const Color(0xFFF36622).withOpacity(0.3)),
+          const SizedBox(height: 24),
+          const Text(
+            'ACTIVE_SESSION_MONITORING',
+            style: TextStyle(color: Color(0xFFF36622), letterSpacing: 4.0, fontWeight: FontWeight.black, fontSize: 10, fontFamily: 'Space Grotesk'),
           ),
         ],
       ),
@@ -78,19 +79,18 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
   Widget _buildArchiveView(MemoryProvider memory, ThemePreset theme) {
     if (memory.archivedConversations.isEmpty) {
-      return const Center(child: Text('NO_ARCHIVED_MEMORIES'));
+      return const Center(child: Text('NO_ARCHIVED_MEMORIES', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2)));
     }
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       itemCount: memory.archivedConversations.length,
       itemBuilder: (context, index) {
         final conv = memory.archivedConversations[index];
-        return Card(
-          child: ListTile(
-            leading: Icon(Icons.history, color: theme.primaryColor),
-            title: Text(conv['title'] ?? 'UNTITLED_FRAG'),
-            subtitle: Text(conv['created_at']),
-          ),
+        return GeometricShard(
+          borderColor: const Color(0xFFC7A87A),
+          leading: const Icon(Icons.history, color: Color(0xFFC7A87A), size: 18),
+          title: Text(conv['title'] ?? 'UNTITLED_FRAG', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          subtitle: Text(conv['created_at'], style: const TextStyle(color: Color(0xFFA3A3A3), fontSize: 9, letterSpacing: 1)),
         );
       },
     );
@@ -98,22 +98,21 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
   Widget _buildContextView(MemoryProvider memory, ThemePreset theme) {
     if (memory.triplets.isEmpty) {
-      return const Center(child: Text('NO_CONTEXT_TRIPLETS_SHORED'));
+      return const Center(child: Text('NO_CONTEXT_TRIPLETS_SHORED', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2)));
     }
     return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       itemCount: memory.triplets.length,
       itemBuilder: (context, index) {
         final t = memory.triplets[index];
-        return Card(
-          child: ListTile(
-            leading: Icon(Icons.bolt, color: theme.primaryColor),
-            title: Text('${t['subject_id']} -> ${t['predicate']}'),
-            subtitle: Text(t['object_literal']),
-            trailing: Text(
-              t['created_at'].split(' ').last,
-              style: const TextStyle(fontSize: 10, color: Colors.white24),
-            ),
+        return GeometricShard(
+          borderColor: const Color(0xFFF36622).withOpacity(0.4),
+          leading: const Icon(Icons.hub, color: Color(0xFFF36622), size: 18),
+          title: Text('${t['subject_id']} -> ${t['predicate']}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+          subtitle: Text(t['object_literal'], style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 13)),
+          trailing: Text(
+            t['created_at'].split(' ').last,
+            style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.black),
           ),
         );
       },

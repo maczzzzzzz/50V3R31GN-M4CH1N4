@@ -1,58 +1,17 @@
 "use client";
 
-import KernelMonitor from "@/components/KernelMonitor";
-import DirectorPulse from "@/components/DirectorPulse";
-import VsbWaveform from "@/components/VsbWaveform";
-import GhostBootTrigger from "@/components/GhostBootTrigger";
-import HermesProxy from "@/components/HermesProxy";
-import SynapsePanel from "@/components/SynapsePanel";
-import { useSovereignTelemetry } from "@/hooks/useSovereignTelemetry";
+import PretextShroud from "./PretextShroud";
 
-export default function Dashboard() {
-  const { telemetry, connected, packetRate } = useSovereignTelemetry(
-    "ws://localhost:9090/ws"
-  );
-  
-  const { state: nucleusState } = useNucleusWS("ws://localhost:3030/ws");
+/**
+ * ◈ COMMAND_DECK : NODESTADT_AUTHORITY — v3.8.25
+ * 
+ * Root entry point for the clinical Sovereign OS interface.
+ */
 
+export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-background p-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-      <AgentSwarm agents={nucleusState?.activeAgents || []} />
-      {/* Header */}
-      <div className="lg:col-span-2 border border-primary rounded p-3 bg-panel flex items-center justify-between">
-        <span className="text-primary text-2xl tracking-widest">
-          ◈ 5H4D0W_D45HB04RD [50V3R31GN_MN7R]
-        </span>
-        <span className={`text-sm ${connected ? "text-primary" : "text-muted"}`}>
-          {connected ? "● V5B_L1NK_4CT1V3" : "○ LINK_0FFLIN3"}
-        </span>
-      </div>
-
-      {/* Node A: Kernel Monitor */}
-      <KernelMonitor telemetry={telemetry} />
-
-      {/* Node B: Director Pulse */}
-      <DirectorPulse telemetry={telemetry} />
-
-      {/* VSB Waveform — full width */}
-      <div className="lg:col-span-2">
-        <VsbWaveform packetRate={packetRate} />
-      </div>
-
-      {/* Ghost Boot trigger */}
-      <div className="lg:col-span-2 flex justify-center">
-        <GhostBootTrigger />
-      </div>
-
-      {/* Hermes Control Interface — Node C proxy (collapsible) */}
-      <div className="lg:col-span-2">
-        <HermesProxy />
-      </div>
-
-      {/* Phase 72: Synapse Graph — triplet search + brief */}
-      <div className="lg:col-span-2">
-        <SynapsePanel />
-      </div>
+    <main className="min-h-screen bg-[#0A0A0A] selection:bg-[#F36622] selection:text-black">
+      <PretextShroud />
     </main>
   );
 }

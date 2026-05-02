@@ -87,10 +87,10 @@ mod tests {
         // we verify the structure and confidence thresholding logic.
         
         let report = VerificationReport {
-            original_text: "Militech is a mega-corp in Night City.".to_string(),
+            original_text: "Militech is a mega-corp in NODESTADT.".to_string(),
             claims: vec![
                 Claim {
-                    text: "Militech is a mega-corp in Night City.".to_string(),
+                    text: "Militech is a mega-corp in NODESTADT.".to_string(),
                     verified: true,
                     sources: vec!["https://militech.com".to_string()],
                     confidence: 0.92,

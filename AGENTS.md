@@ -26,6 +26,6 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 1. **Nix Sovereignty:** All commands must be wrapped in `nix develop --command`.
 2. **Hardware Invariants:** Node B = 16GB VRAM. Node D = 48GB RAM.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
-4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
+4. **Machine Voice:** Maintain Space Grotesk/Cyberpunk RED aesthetic and slang.
 
 *Verified by the Sovereign Trinity v3.8.24-SYNTHESIS.*

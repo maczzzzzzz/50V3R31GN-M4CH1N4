@@ -25,11 +25,11 @@ async function fetchWikiPage(pageName) {
 async function run() {
     console.log(`::/5Y573M-N071C3 : INITIATING CYBERPUNK RED LORE SCRAPE...`);
     
-    // 1. Get the main Night City page
-    console.log(`>> Fetching main Night City overview...`);
+    // 1. Get the main NODESTADT page
+    console.log(`>> Fetching main NODESTADT overview...`);
     const mainHtml = await fetchWikiPage('Night_City');
     if (!mainHtml) {
-        console.error("❌ Failed to fetch Night City overview.");
+        console.error("❌ Failed to fetch NODESTADT overview.");
         process.exit(1);
     }
 
@@ -55,7 +55,7 @@ async function run() {
             for (const a of links) {
                 const title = a.getAttribute('title');
                 // Exclude edit links, citations, or irrelevant wiki pages
-                if (title && !title.includes('edit') && !title.includes('Night City') && !title.includes('Cyberpunk')) {
+                if (title && !title.includes('edit') && !title.includes('NODESTADT') && !title.includes('NODESTADT')) {
                     districtLinks.set(title, title);
                 }
             }
@@ -108,7 +108,7 @@ async function run() {
                 stmt.run(
                     `dna-${title.toLowerCase().replace(/\s+/g, '-')}`,
                     title,
-                    0.7, // Cyberpunk RED districts are relatively dangerous
+                    0.7, // NODESTADT Authority districts are relatively dangerous
                     JSON.stringify(paragraphs),
                     `You are a Sovereign Reality Engine. Incorporate the physical details, gang presence, and atmosphere of ${title}.`
                 );

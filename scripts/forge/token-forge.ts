@@ -102,7 +102,7 @@ export class TokenForge {
     const stylePrompt = 
       `ACT AS A MASTER CYBERPUNK MINIATURE ARTIST. ` +
       `IMAGE 1 IS THE STYLE REFERENCE. MATCH ITS AESTHETIC, LIGHTING, AND PERSPECTIVE (STRICTLY TOP-DOWN 90 DEGREES). ` +
-      `MISSION: Generate a Top-Down battlemap token for a Cyberpunk character. ` +
+      `MISSION: Generate a Top-Down battlemap token for a NODESTADT character. ` +
       `CONTENT REQUIREMENTS: The character is a "${name}" from the "${faction}" faction. ` +
       `They are equipped with: [${loadoutStr}] and [Gear: ${gear}]. ` +
       `Ensure the primary weapon is visible in their hands from the top-down perspective. ` +

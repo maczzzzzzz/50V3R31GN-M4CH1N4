@@ -3,7 +3,7 @@ import { logger } from '../../shared/logger.js';
 import Database from 'better-sqlite3';
 
 /**
- * node-d-command.ts — Node D Command Daemon (v3.8.24-SYNTHESIS)
+ * node-d-command.ts — Node D Command Daemon (v3.8.24-SYNTHESIS-SYNTHESIS)
  * 
  * Persistent entry point for the Hermes Singularity on Node D.
  * Listens for research tasks and coordinates the swarm.

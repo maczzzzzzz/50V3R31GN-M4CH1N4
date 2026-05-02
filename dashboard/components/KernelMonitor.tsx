@@ -9,16 +9,16 @@ interface Props {
 
 function ProgressBar({ value, max, label }: { value: number; max: number; label: string }) {
   const pct = Math.min(100, Math.round((value / max) * 100));
-  const color = pct > 80 ? "bg-primary" : pct > 50 ? "bg-warning" : "bg-primary";
+  const color = pct > 85 ? "bg-[#FB4934]" : "bg-[#F36622]";
   return (
-    <div className="mb-3">
-      <div className="flex justify-between text-sm mb-1">
-        <span className="text-muted">{label}</span>
-        <span className="text-primary">{pct}%</span>
+    <div className="mb-4">
+      <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-1.5 technical-data">
+        <span className="text-[#404040]">{label}</span>
+        <span className="text-[#F36622]">{pct}%</span>
       </div>
-      <div className="w-full bg-dim rounded-sm h-4 overflow-hidden border border-muted">
+      <div className="w-full bg-[#111111] h-3 overflow-hidden border border-[#262626]">
         <div
-          className={`h-full ${color} transition-all duration-300`}
+          className={`h-full ${color} transition-all duration-500`}
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -26,7 +26,7 @@ function ProgressBar({ value, max, label }: { value: number; max: number; label:
   );
 }
 
-const MAX_LOG_LINES = 8;
+const MAX_LOG_LINES = 12;
 
 export default function KernelMonitor({ telemetry }: Props) {
   const [auditLog, setAuditLog] = useState<string[]>([]);
@@ -35,7 +35,6 @@ export default function KernelMonitor({ telemetry }: Props) {
 
   useEffect(() => {
     if (!telemetry) return;
-    // Simulate PR0C3550R_57R41N from payload_len + seq jitter
     const strain = Math.min(100, (telemetry.seq % 100) + telemetry.payload_len % 40);
     setProcessorStrain(strain);
 
@@ -51,26 +50,26 @@ export default function KernelMonitor({ telemetry }: Props) {
   }, [auditLog]);
 
   return (
-    <div className="border border-primary rounded bg-panel p-4">
-      <h2 className="text-primary text-xl tracking-widest mb-4">
-        ◈ K3RN3L_MN7R [N0D3-4]
+    <div className="border border-[#333333] bg-[#161616] p-6 shadow-2xl backdrop-blur-xl">
+      <h2 className="text-[#F36622] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
+        <div className="w-2.5 h-2.5 bg-[#F36622] rotate-45" /> KERNEL_MONITOR [NODE_A]
       </h2>
 
-      <ProgressBar value={processorStrain} max={100} label="PR0C3550R_57R41N" />
-      <ProgressBar value={telemetry ? telemetry.payload_len % 4096 : 0} max={4096} label="M3M0RY_PR355UR3" />
+      <ProgressBar value={processorStrain} max={100} label="PROCESSOR_STRAIN" />
+      <ProgressBar value={telemetry ? telemetry.payload_len % 4096 : 0} max={4096} label="ARTERY_PRESSURE" />
 
-      <div className="mt-4">
-        <p className="text-muted text-sm mb-1 tracking-wider">4UD17_L0G</p>
+      <div className="mt-6">
+        <p className="text-[#404040] text-[9px] font-black mb-2 tracking-widest uppercase authority-text">AUDIT_ARTERY</p>
         <div
           ref={logRef}
-          className="bg-background border border-dim rounded p-2 h-36 overflow-y-auto text-xs font-mono"
+          className="bg-[#0A0A0A] border border-[#262626] p-3 h-40 overflow-y-auto text-[10px] font-mono technical-data leading-relaxed"
         >
           {auditLog.length === 0 ? (
-            <span className="text-muted">— awaiting vsb signal —</span>
+            <span className="text-[#404040] italic tracking-widest uppercase animate-pulse">Waiting for artery link...</span>
           ) : (
             auditLog.map((line, i) => (
-              <div key={i} className="text-text-main leading-5">
-                <span className="text-primary">▸</span> {line}
+              <div key={i} className="text-[#E5E5E5] border-b border-[#161616] py-1 last:border-none">
+                <span className="text-[#F36622] font-black mr-2">Σ</span> {line}
               </div>
             ))
           )}

@@ -60,7 +60,7 @@ GEPA Visualization: Evolving genomes appear as growing structures or branching t
 
 Plugin Manifest (as previously locked)
 YAMLname: visual-memory-palace
-version: 3.8.24-SYNTHESIS
+version: 3.8.24-SYNTHESIS-SYNTHESIS
 sidecars:
   - name: memory-palace-3d
     language: rust

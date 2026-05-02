@@ -45,7 +45,7 @@ git push origin master
 ```
 
 ## 📜 Aesthetic Invariants
-- **Machine Voice:** Use the VT323/Cyberpunk RED tone.
+- **Machine Voice:** Use the Space Grotesk/NODESTADT Authority tone.
 - **Collapsible Shards:** Use `<details>` blocks for historical archives exceeding 100 lines.
 - **Zero Echoes:** Surgically neutralize any logical echoes (e.g., "Strategic Strategic...") during the update.
 

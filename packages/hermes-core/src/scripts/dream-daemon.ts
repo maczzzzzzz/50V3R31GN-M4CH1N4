@@ -124,7 +124,7 @@ async function remPhase(signals: LoreSignal[], cycleId: string): Promise<RemAudi
     .map(s => `- ${s.subject} ${s.predicate}: "${s.object}" (freq=${s.frequency})`)
     .join('\n');
 
-  const systemPrompt = `You are a lore consolidation engine for a Cyberpunk RED campaign.
+  const systemPrompt = `You are a lore consolidation engine for a NODESTADT Authority campaign.
 You receive a list of recent world-state signals and must:
 1. Identify TRUE FACTS: statements that are consistent and can be committed as durable world-state. Assign a confidence 'score' (0.0 to 1.0).
 2. Identify CONTRADICTIONS: pairs of signals that conflict with each other.
@@ -134,7 +134,7 @@ You receive a list of recent world-state signals and must:
 Output ONLY valid JSON with exactly these fields:
 {"true_facts":[{"fact":"...","score":0.9}],"contradictions":["..."],"themes":["..."],"reflections":["..."],"summary":"...","reasoning":"..."}`;
 
-  const userMessage = `Analyze these recent lore signals from Night City (cycle ${cycleId}):\n\n${signalText}`;
+  const userMessage = `Analyze these recent lore signals from NODESTADT (cycle ${cycleId}):\n\n${signalText}`;
 
   const response = await fetch(`${NODE_A_BASE_URL}/chat/completions`, {
     method: 'POST',

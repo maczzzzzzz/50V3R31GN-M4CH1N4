@@ -1,5 +1,5 @@
 # ◈ SIDECAR : BROWSER_EXTENSION // VIVALDI_INGRESS
-**Version:** 3.8.24-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS
 **Artery:** Vivaldi Sidebar -> Browser Mesh (:3012) -> Hermes Singularity
 
 ## ◈ OVERVIEW

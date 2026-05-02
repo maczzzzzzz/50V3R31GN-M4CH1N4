@@ -2,10 +2,9 @@ import React from 'react';
 import { NucleusAgentStatus } from '../hooks/useNucleusWS';
 
 /**
- * AGENT_SWARM : v3.7.0
+ * ◈ AGENT_SWARM_MONITOR : CLINICAL_REASONING — v3.8.25
  * 
- * Live view of dispatched agent swarms.
- * Visualizes active intent, status, and progress from SovereignIntelligence.db.
+ * Live view of active reasoning swarms in the quaternary mesh.
  */
 
 interface AgentSwarmProps {
@@ -16,31 +15,31 @@ export const AgentSwarm: React.FC<AgentSwarmProps> = ({ agents }) => {
   if (!agents || agents.length === 0) return null;
 
   return (
-    <div className="fixed top-20 right-4 w-80 bg-black/80 border border-yellow-500/30 p-4 font-mono text-xs shadow-2xl backdrop-blur-sm">
-      <div className="flex items-center justify-between mb-4 border-b border-yellow-500/20 pb-2">
-        <span className="text-yellow-500 font-bold tracking-widest">◈ AGENT_SWARM_MONITOR</span>
-        <span className="bg-yellow-500 text-black px-1 animate-pulse">{agents.length} ACTIVE</span>
+    <div className="fixed top-24 right-6 w-84 bg-[#111111]/95 border border-[#333333] p-5 font-sans text-xs shadow-2xl backdrop-blur-xl z-[60]">
+      <div className="flex items-center justify-between mb-5 border-b border-[#262626] pb-3">
+        <span className="text-[#F36622] font-black tracking-[0.2em] uppercase authority-text">◈ REASONING_SWARMS</span>
+        <span className="bg-[#F36622] text-[#0A0A0A] px-2 font-black animate-pulse technical-data">{agents.length} ACTIVE</span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {agents.map((agent) => (
           <div key={agent.id} className="group">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-blue-400 font-bold">{agent.name}</span>
-              <span className={`px-1 ${
-                agent.status === 'WORKING' ? 'text-yellow-500' : 'text-green-500'
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-[#C7A87A] font-black tracking-wide technical-data">{agent.name.toUpperCase()}</span>
+              <span className={`text-[9px] font-black tracking-widest uppercase ${
+                agent.status === 'WORKING' ? 'text-[#FABD2F]' : 'text-[#B8BB26]'
               }`}>
                 [{agent.status}]
               </span>
             </div>
             
-            <div className="text-gray-400 mb-2 truncate">
-              {agent.intent || '::/IDLE_WAITING_FOR_DIRECTIVE'}
+            <div className="text-[#A3A3A3] mb-3 truncate technical-data text-[10px]">
+              {agent.intent || '::/AWAITING_REASONING_TARGET'}
             </div>
 
-            <div className="w-full bg-gray-900 h-1 rounded-full overflow-hidden">
+            <div className="w-full bg-[#1A1A1A] h-1.5 overflow-hidden border border-[#262626]">
               <div 
-                className="bg-yellow-500 h-full transition-all duration-500 ease-out"
+                className="bg-[#F36622] h-full transition-all duration-700 ease-out shadow-[0_0_10px_#F36622]"
                 style={{ width: `${agent.progress || (agent.status === 'WORKING' ? 45 : 100)}%` }}
               />
             </div>
@@ -48,8 +47,8 @@ export const AgentSwarm: React.FC<AgentSwarmProps> = ({ agents }) => {
         ))}
       </div>
 
-      <div className="mt-4 text-[10px] text-yellow-500/40 italic">
-        ::/5Y573M-N071C3 : TRINITY_MESH_ACTIVE.
+      <div className="mt-5 text-[9px] text-[#404040] font-black tracking-widest uppercase authority-text">
+        ::/5Y573M-N071C3 : QUATERNARY_MESH_READY.
       </div>
     </div>
   );

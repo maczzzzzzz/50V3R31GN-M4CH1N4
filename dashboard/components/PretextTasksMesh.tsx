@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 
 /**
- * PRETEXT_TASKS_MESH — PHASE 93.9
+ * ◈ PRETEXT_TASKS_MESH : IMPLEMENTATION_LATTICE — v3.8.25
  * 
- * High-density task management for the Pretext Shroud.
- * Achieves parity with the Flutter HUD.
+ * High-density task management for the clinical HUD.
+ * Industrial standard geometry with sharp-edge shards.
  */
 
 interface Task {
@@ -19,11 +19,11 @@ export default function PretextTasksMesh() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    // TODO: Fetch from Node B /api/tasks
     setTasks([
       { id: '1', title: 'MATERIALIZE_OBSIDIAN_VAULT', isCompleted: true },
       { id: '2', title: 'SHORE_FLUTTER_ARTERY', isCompleted: true },
       { id: '3', title: 'EXECUTE_SINGULARITY_AUDIT', isCompleted: false },
+      { id: '4', title: 'CLEAN_BASE_HARDENING', isCompleted: true },
     ]);
   }, []);
 
@@ -32,16 +32,16 @@ export default function PretextTasksMesh() {
   };
 
   return (
-    <div className="flex flex-col h-full font-mono text-[11px] text-[#ebdbb2] bg-[#1d2021] p-4 overflow-y-auto">
-      <div className="space-y-2">
+    <div className="flex flex-col h-full font-sans text-[11px] text-[#E5E5E5] bg-[#0F0F0F] p-5 overflow-y-auto">
+      <div className="space-y-3">
         {tasks.map(t => (
           <div 
             key={t.id} 
             onClick={() => toggleTask(t.id)}
-            className="flex items-center gap-4 p-2 border border-[#3c3836] bg-[#282828] hover:border-[#fe8019] cursor-pointer transition-all"
+            className="flex items-center gap-5 px-4 py-3 border border-[#262626] bg-[#161616] hover:border-[#F36622] hover:bg-[#1A1A1A] cursor-crosshair transition-all duration-300"
           >
-            <div className={`w-3 h-3 border ${t.isCompleted ? 'bg-[#b8bb26] border-[#b8bb26]' : 'border-[#a89984]'}`} />
-            <span className={t.isCompleted ? 'opacity-30 line-through' : ''}>
+            <div className={`w-3.5 h-3.5 border-2 ${t.isCompleted ? 'bg-[#F36622] border-[#F36622] shadow-[0_0_10px_#F36622]' : 'border-[#404040]'}`} />
+            <span className={`technical-data tracking-wide font-black uppercase ${t.isCompleted ? 'opacity-20 line-through' : 'text-[#E5E5E5]'}`}>
               {t.title}
             </span>
           </div>

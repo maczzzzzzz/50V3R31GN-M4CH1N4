@@ -1,4 +1,4 @@
-# Design: Smart Asset Ingestion & Physicalized Data (v3.8.24-SYNTHESIS)
+# Design: Smart Asset Ingestion & Physicalized Data (v3.8.24-SYNTHESIS-SYNTHESIS)
 
 **Date:** 2026-04-05
 **Status:** Approved
@@ -35,7 +35,7 @@
 - **Checksums:** Every ST3GG payload includes a CRC32 check to ensure no corruption occurred during file moves.
 
 ---
-*Verified by Gemini CLI v3.8.24-SYNTHESIS Orchestrator.*
+*Verified by Gemini CLI v3.8.24-SYNTHESIS-SYNTHESIS Orchestrator.*
 
 
 ---

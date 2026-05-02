@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import '../services/theme_service.dart';
 
 /**
- * TEMPORAL_TAB_BAR : v3.7.0
+ * ◈ TEMPORAL_TAB_BAR : CLINICAL_NAV — v3.8.25
  * 
- * Custom navigation bar for switching between temporal states:
+ * Custom navigation for switching between temporal memory states:
  * [LIVE] | [ARCHIVE] | [CONTEXT]
  */
 
@@ -26,39 +26,42 @@ class TemporalTabBar extends StatelessWidget {
     final theme = Provider.of<ThemeService>(context).currentPreset;
 
     return Container(
-      height: 50,
-      decoration: BoxDecoration(
-        color: Colors.black,
-        border: Border(bottom: BorderSide(color: theme.primaryColor.withValues(alpha: 0.3))),
+      height: 60,
+      decoration: const BoxDecoration(
+        color: Color(0xFF0F0F0F),
+        border: Border(bottom: BorderSide(color: Color(0xFF262626))),
       ),
       child: Row(
         children: [
-          _buildTab(context, '[LIVE]', TemporalState.live, theme),
-          _buildTab(context, '[ARCHIVE]', TemporalState.archive, theme),
-          _buildTab(context, '[CONTEXT]', TemporalState.context, theme),
+          _buildClinicalTab(context, 'LIVE_ARTERY', TemporalState.live, theme),
+          _buildClinicalTab(context, 'ARCHIVE_CORE', TemporalState.archive, theme),
+          _buildClinicalTab(context, 'CONTEXT_RKG', TemporalState.context, theme),
         ],
       ),
     );
   }
 
-  Widget _buildTab(BuildContext context, String label, TemporalState state, ThemePreset theme) {
+  Widget _buildClinicalTab(BuildContext context, String label, TemporalState state, ThemePreset theme) {
     final isSelected = selectedState == state;
     return Expanded(
-      child: InkWell(
+      child: GestureDetector(
         onTap: () => onStateChanged(state),
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFFF36622).withOpacity(0.05) : Colors.transparent,
             border: isSelected 
-              ? Border(bottom: BorderSide(color: theme.primaryColor, width: 3.0))
+              ? const Border(bottom: BorderSide(color: Color(0xFFF36622), width: 3.0))
               : null,
           ),
           child: Text(
-            label,
+            label.toUpperCase(),
             style: TextStyle(
-              color: isSelected ? theme.primaryColor : Colors.grey,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              fontSize: 14,
+              color: isSelected ? const Color(0xFFF36622) : const Color(0xFF404040),
+              fontWeight: FontWeight.black,
+              fontSize: 10,
+              letterSpacing: 2,
+              fontFamily: 'Space Grotesk',
             ),
           ),
         ),

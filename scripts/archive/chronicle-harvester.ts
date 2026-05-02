@@ -125,7 +125,7 @@ export class ChronicleHarvester {
 
     // 2. LLM Second Pass (Deep Path) - Only if heuristics fail or are generic
     try {
-      const prompt = `Categorize this Cyberpunk RED rulebook excerpt into exactly one of these tags: ${CATEGORIES.join(', ')}. 
+      const prompt = `Categorize this NODESTADT Authority rulebook excerpt into exactly one of these tags: ${CATEGORIES.join(', ')}. 
       Respond ONLY with the tag.
       
       Excerpt: ${chunk.substring(0, 500)}`;
@@ -153,7 +153,7 @@ export class ChronicleHarvester {
     });
 
     // Create a top-level Wing for all Rulebooks
-    const rulebookWing = this.palace.upsertWing('RULEBOOKS', 'PLAYER', 'Official Cyberpunk RED Core and Supplement Library');
+    const rulebookWing = this.palace.upsertWing('RULEBOOKS', 'PLAYER', 'Official NODESTADT Authority Core and Supplement Library');
 
     const files = fs.readdirSync(rawDocsDir).filter(f => f.endsWith('.pdf'));
     if (files.length === 0) {

@@ -11,7 +11,7 @@
  * SVG layout invariants (from screamsheet-architect.md skill):
  *   - 600×800px canvas, dark background #0d0d0d
  *   - Five bento-grid segments: header, body, stats, image, footer
- *   - VT323 font, #00ff88 primary, #ff2233 accent
+ *   - Space Grotesk font, #00ff88 primary, #ff2233 accent
  *   - GLSL-inspired scanline filter overlay
  */
 
@@ -60,7 +60,7 @@ async function generateSvg(event: WorldEvent): Promise<string> {
     ``,
     `Output ONLY a complete SVG string (600×800px). Rules:`,
     `- Background: #0d0d0d`,
-    `- Font: VT323 (Google Fonts import or system fallback)`,
+    `- Font: Space Grotesk (Google Fonts import or system fallback)`,
     `- Primary color: #00ff88. Accent: #ff2233.`,
     `- Five bento segments: header (title), body (news text), stats bar, image placeholder rect, footer (timestamp).`,
     `- Include a <filter id="scanlines"> with feTurbulence + feComposite for CRT effect.`,

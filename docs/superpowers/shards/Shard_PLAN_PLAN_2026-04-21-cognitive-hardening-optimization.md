@@ -4,13 +4,13 @@
 
 **Goal:** Optimize Node C (Strategic Oracle) and Node A (Synapse) for high-performance, disaggregated inference using threshold routing and sharded Rust crates.
 
-**Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.8.24-SYNTHESIS workspace standard.
+**Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.8.24-SYNTHESIS-SYNTHESIS workspace standard.
 
 **Tech Stack:** Rust (Cargo Workspaces), SGLang, Mooncake, `gojq`.
 
 ---
 
-### Task 1: Zeroclaw Workspace Migration (v3.8.24-SYNTHESIS Standard)
+### Task 1: Zeroclaw Workspace Migration (v3.8.24-SYNTHESIS-SYNTHESIS Standard)
 
 **Files:**
 - Create: `zeroclaw/Cargo.toml` (Workspace root)
@@ -37,7 +37,7 @@ resolver = "2"
 
 ```bash
 git add zeroclaw/
-git commit -m "chore(arch): migrate zeroclaw to workspace standard v3.8.24-SYNTHESIS"
+git commit -m "chore(arch): migrate zeroclaw to workspace standard v3.8.24-SYNTHESIS-SYNTHESIS"
 ```
 
 ---

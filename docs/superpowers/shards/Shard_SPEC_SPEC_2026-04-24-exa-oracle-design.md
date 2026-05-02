@@ -1,5 +1,5 @@
 # SPECIFICATION: THE SOVEREIGN ORACLE (EXA INTEGRATION)
-**Version:** 3.8.24-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Semantic Web Search and Hallucination Detection via Exa-Labs.
 

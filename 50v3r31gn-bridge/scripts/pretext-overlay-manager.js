@@ -53,7 +53,7 @@ void main(void) {
 }
 `.trim();
 
-const VT323_FONT_NAME = 'VT323-Sovereign';
+const Space Grotesk_FONT_NAME = 'Space Grotesk-Sovereign';
 
 export class PretextOverlayManager {
   static activeOverlays = new Map();
@@ -93,16 +93,16 @@ export class PretextOverlayManager {
       return;
     }
 
-    // Install VT323 BitmapFont atlas from system font if not already present
-    if (!PIXI.BitmapFont.available?.[VT323_FONT_NAME]) {
+    // Install Space Grotesk BitmapFont atlas from system font if not already present
+    if (!PIXI.BitmapFont.available?.[Space Grotesk_FONT_NAME]) {
       try {
-        PIXI.BitmapFont.from(VT323_FONT_NAME, {
-          fontFamily: 'VT323, monospace',
+        PIXI.BitmapFont.from(Space Grotesk_FONT_NAME, {
+          fontFamily: 'Space Grotesk, monospace',
           fontSize: 24,
           fill: '#ff003c',
         }, { chars: PIXI.BitmapFont.ASCII });
       } catch (e) {
-        console.warn('[PretextOverlayManager] VT323 BitmapFont install failed:', e);
+        console.warn('[PretextOverlayManager] Space Grotesk BitmapFont install failed:', e);
       }
     }
 
@@ -231,18 +231,18 @@ export class PretextOverlayManager {
       this.activeOverlays.set(payload.targetId, container);
     }
 
-    // 2. Render text — prefer BitmapText with VT323 atlas, fall back to PIXI.Text
+    // 2. Render text — prefer BitmapText with Space Grotesk atlas, fall back to PIXI.Text
     let textObj;
-    const vt323Available = !!PIXI.BitmapFont.available?.[VT323_FONT_NAME];
+    const vt323Available = !!PIXI.BitmapFont.available?.[Space Grotesk_FONT_NAME];
     if (vt323Available) {
       textObj = new PIXI.BitmapText(payload.text, {
-        fontName: VT323_FONT_NAME,
+        fontName: Space Grotesk_FONT_NAME,
         fontSize: 24,
         tint: parseInt((payload.color ?? '#ff003c').replace('#', ''), 16),
       });
     } else {
       const style = new PIXI.TextStyle({
-        fontFamily: 'VT323, monospace',
+        fontFamily: 'Space Grotesk, monospace',
         fontSize: 24,
         fontWeight: 'bold',
         fill: payload.color || '#ff003c',

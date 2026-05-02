@@ -3,7 +3,7 @@ import path from 'node:path';
 import { execSync } from 'node:child_process';
 
 /**
- * UNIVERSAL_INDEXER : v3.8.24-SYNTHESIS (Absolute Harmony)
+ * UNIVERSAL_INDEXER : v3.8.24-SYNTHESIS-SYNTHESIS (Absolute Harmony)
  * 
  * Recursively indexes all documentation arteries into the Sovereign Mind.
  * 1. Populates intelligence_shards table (Unified storage).

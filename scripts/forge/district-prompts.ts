@@ -29,7 +29,7 @@ export function getDistrictPrompt(districtName: string, locationType?: string): 
   const baseStr = `Location Type: ${loc}\n`;
 
   if (d.includes('watson')) {
-    return baseStr + `District Lore: Watson (Kabuki / Little China) is a booming, overcrowded development zone dominated by Asian immigrant communities, factories, and the Night City Co-Prosperity Sphere. 
+    return baseStr + `District Lore: Watson (Kabuki / Little China) is a booming, overcrowded development zone dominated by Asian immigrant communities, factories, and the NODESTADT Co-Prosperity Sphere. 
     Mandatory Props: High-tech factory scrap used as furniture, Japanese/Chinese cultural motifs, sliding paper doors, neon signs visible through windows or cast lighting, industrial corporate tech mixed with street trash, scattered noodle boxes, surgical chairs or electronic workbenches if applicable.`;
   }
   if (d.includes('glen')) {
@@ -70,6 +70,6 @@ export function getDistrictPrompt(districtName: string, locationType?: string): 
   }
 
   // Default fallback
-  return baseStr + `District Lore: Night City (Generic) is a sprawling, dangerous cyberpunk metropolis. 
+  return baseStr + `District Lore: NODESTADT (Generic) is a sprawling, dangerous cyberpunk metropolis. 
     Mandatory Props: Standard runner gear, weapons cache on a table, sleeping mat on the floor, netrunning deck with glowing cables, empty takeout containers, scattered ammo, neon glow from streetlights outside.`;
 }

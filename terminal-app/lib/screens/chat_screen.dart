@@ -5,9 +5,12 @@ import '../services/artery_client.dart';
 import '../services/database_service.dart';
 import '../models/chat_message.dart';
 import '../models/conversation.dart';
-import '../widgets/artery_pulse.dart';
+import '../widgets/geometric_shard.dart';
 import '../widgets/refinement_slate.dart';
-import 'main_layout.dart';
+
+/**
+ * ◈ CHAT_SCREEN : HERMES_INGRESS — v3.8.25
+ */
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -30,29 +33,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void _showRefinementSlate(String content) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: RefinementSlate(
-          initialContent: content,
-          onEngrave: (refined) async {
-            await DatabaseService().engraveTriplet(
-              'MEM_EXTRACT',
-              'CONTAINS',
-              refined,
-              'ARTERY_PULSE',
-            );
-            if (mounted) context.read<ArteryClient>().clearProposal();
-          },
-        ),
-      ),
-    );
-  }
-
   void _scrollToBottom() {
     Future.delayed(const Duration(milliseconds: 100), () {
       if (_scrollController.hasClients) {
@@ -68,159 +48,145 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final chatService = context.watch<ChatService>();
-    final primaryColor = Theme.of(context).primaryColor;
+    final accentColor = const Color(0xFFF36622);
     final currentConversation = chatService.currentConversation;
 
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0A0A),
       appBar: AppBar(
-        title: Text(currentConversation?.title ?? 'HERMES // CHAT'),
+        title: Text(currentConversation?.title.toUpperCase() ?? 'HERMES_INGRESS'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_comment),
+            icon: const Icon(Icons.add_comment, size: 20),
             onPressed: () => chatService.createNewConversation(),
           ),
           IconButton(
-            icon: const Icon(Icons.sync),
+            icon: const Icon(Icons.sync, size: 20),
             onPressed: chatService.syncWithNodeC,
           ),
         ],
       ),
-      drawer: _buildConversationDrawer(context, chatService),
-      body: Stack(
+      drawer: _buildClinicalDrawer(context, chatService),
+      body: Column(
         children: [
-          Positioned.fill(child: IgnorePointer(child: CustomPaint(painter: ScanLinePainter(color: primaryColor)))),
-          Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollController,
-                  padding: const EdgeInsets.all(16.0),
-                  itemCount: chatService.messages.length,
-                  itemBuilder: (context, index) {
-                    final msg = chatService.messages[index];
-                    final isUser = msg.sender == 'USER';
-                    return Align(
-                      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 4.0),
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: isUser ? primaryColor.withValues(alpha: 0.1) : Colors.black54,
-                          border: Border.all(color: primaryColor.withValues(alpha: 0.3)),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                          children: [
-                            Text(msg.text, style: const TextStyle(fontSize: 16)),
-                            const SizedBox(height: 4),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  TimeOfDay.fromDateTime(msg.timestamp).format(context),
-                                  style: const TextStyle(fontSize: 10, color: Colors.white24),
-                                ),
-                                if (isUser) ...[
-                                  const SizedBox(width: 4),
-                                  Icon(
-                                    msg.isSynced ? Icons.cloud_done : Icons.cloud_off,
-                                    size: 10,
-                                    color: msg.isSynced ? primaryColor : Colors.white24,
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+          Expanded(
+            child: ListView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.all(24.0),
+              itemCount: chatService.messages.length,
+              itemBuilder: (context, index) {
+                final msg = chatService.messages[index];
+                final isUser = msg.sender == 'USER';
+                return GeometricShard(
+                  borderColor: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A),
+                  title: Text("::/${msg.sender.toUpperCase()}", style: TextStyle(color: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.black, letterSpacing: 2)),
+                  subtitle: Text(msg.text, style: const TextStyle(fontSize: 15, color: Color(0xFFE5E5E5), height: 1.4)),
+                  trailing: Text(
+                    TimeOfDay.fromDateTime(msg.timestamp).format(context),
+                    style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.black),
+                  ),
+                );
+              },
+            ),
+          ),
+          if (chatService.isSyncing)
+            const LinearProgressIndicator(minHeight: 2, color: Color(0xFFF36622), backgroundColor: Colors.transparent),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: const BoxDecoration(
+              color: Color(0xFF161616),
+              border: Border(top: BorderSide(color: Color(0xFF262626))),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                    decoration: const InputDecoration(
+                      hintText: 'ENTER_DIRECTIVE',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                    ),
+                    onSubmitted: (_) => _sendMessage(),
+                  ),
                 ),
-              ),
-              if (chatService.isSyncing)
-                const LinearProgressIndicator(minHeight: 2),
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                color: Colors.black,
-                child: Row(
-                  children: [
-                    Consumer<ArteryClient>(
-                      builder: (context, artery, child) {
-                        return ArteryPulse(
-                          isActive: artery.currentProposal != null,
-                          onTap: () => _showRefinementSlate(artery.currentProposal!),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        decoration: const InputDecoration(
-                          hintText: 'ENTER QUERY...',
-                        ),
-                        onSubmitted: (_) => _sendMessage(),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton(
-                      icon: const Icon(Icons.send),
-                      color: primaryColor,
-                      onPressed: _sendMessage,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                const SizedBox(width: 16),
+                _brutalistSendButton(_sendMessage, accentColor),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildConversationDrawer(BuildContext context, ChatService chatService) {
-    final primaryColor = Theme.of(context).primaryColor;
+  Widget _brutalistSendButton(VoidCallback onPressed, Color color) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          color: color.withOpacity(0.05),
+        ),
+        child: Icon(Icons.bolt, color: color, size: 20),
+      ),
+    );
+  }
+
+  Widget _buildClinicalDrawer(BuildContext context, ChatService chatService) {
     return Drawer(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF0F0F0F),
       child: Column(
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: primaryColor.withValues(alpha: 0.1)),
+          const DrawerHeader(
+            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF262626)))),
             child: Center(
-              child: Text('LOG_ARCHIVE', style: TextStyle(color: primaryColor, fontSize: 24)),
+              child: Text('LOG_ARCHIVE', style: TextStyle(color: Color(0xFFF36622), fontSize: 18, fontWeight: FontWeight.black, letterSpacing: 4, fontFamily: 'Space Grotesk')),
             ),
           ),
           Expanded(
             child: ListView.builder(
+              padding: const EdgeInsets.all(16),
               itemCount: chatService.conversations.length,
               itemBuilder: (context, index) {
                 final conv = chatService.conversations[index];
                 final isSelected = conv.id == chatService.currentConversation?.id;
-                return ListTile(
-                  title: Text(conv.title, style: TextStyle(color: isSelected ? primaryColor : Colors.white)),
-                  subtitle: Text(
-                    '${conv.messages.length} ENTRIES',
-                    style: const TextStyle(fontSize: 10, color: Colors.white24),
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline, size: 18),
-                    onPressed: () => chatService.deleteConversation(conv.id),
-                  ),
+                return GeometricShard(
+                  borderColor: isSelected ? const Color(0xFFF36622) : const Color(0xFF262626),
                   onTap: () {
                     chatService.selectConversation(conv.id);
                     Navigator.pop(context);
                   },
+                  title: Text(conv.title.toUpperCase(), style: TextStyle(color: isSelected ? Colors.white : const Color(0xFFA3A3A3), fontSize: 12, fontWeight: FontWeight.black, letterSpacing: 1)),
+                  subtitle: Text('${conv.messages.length} ENTRIES', style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.black)),
                 );
               },
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.delete_sweep, color: primaryColor),
-            title: const Text('PURGE_ALL_LOGS'),
-            onTap: chatService.clearHistory,
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: _brutalistDeleteButton(chatService.clearHistory),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _brutalistDeleteButton(VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.red, width: 1),
+          color: Colors.red.withOpacity(0.05),
+        ),
+        child: const Center(
+          child: Text("PURGE_ALL_LOGS", style: TextStyle(color: Colors.red, fontWeight: FontWeight.black, letterSpacing: 2, fontSize: 10)),
+        ),
       ),
     );
   }

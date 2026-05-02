@@ -248,7 +248,7 @@ export const phase42: SovereignShard = {
 };
 
 // ── Phase 44.5: Sovereign Shroud Integrity ────────────────────────────────────
-// Verifies the Master Shroud PIXI container, VT323 BitmapText, and GLSL shader
+// Verifies the Master Shroud PIXI container, Space Grotesk BitmapText, and GLSL shader
 // uniforms (uScanlineAlpha, uGlitchIntensity) per the Sovereign Shroud design spec.
 export const phase44_5: SovereignShard = {
   metadata: { id: 44.5, name: 'Sovereign-Shroud', block: 'VISUAL' },
@@ -303,7 +303,7 @@ export const phase44_5: SovereignShard = {
       }
       if (!shroudStatus.hasBitmapText) {
         return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'WARN',
-          message: `Shroud ${shroudStatus.hasShoudContainer ? 'present' : 'absent'} | PIXI.BitmapText (VT323) not confirmed`, details };
+          message: `Shroud ${shroudStatus.hasShoudContainer ? 'present' : 'absent'} | PIXI.BitmapText (Space Grotesk) not confirmed`, details };
       }
 
       return { phaseId: 44.5, phaseName: 'Sovereign-Shroud', block: 'VISUAL', status: 'PASS',

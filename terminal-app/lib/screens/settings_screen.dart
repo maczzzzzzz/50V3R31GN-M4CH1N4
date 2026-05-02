@@ -4,10 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../services/theme_service.dart';
 
 /**
- * TACTICAL_SETTINGS — v3.8.7
+ * ◈ TACTICAL_SETTINGS : CLINICAL_CONFIG — v3.8.25
  * 
- * High-readability configuration mesh for the Sovereign HUD.
- * Handles Node B/C IP orchestration and Theme selection.
+ * High-readability configuration mesh for the NODESTADT Authority.
+ * Manages quaternary node orchestration and zero-trust arteries.
  */
 
 class SettingsScreen extends StatefulWidget {
@@ -18,11 +18,12 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final _nodeAIpController = TextEditingController();
   final _nodeBIpController = TextEditingController();
   final _nodeCIpController = TextEditingController();
+  final _nodeDIpController = TextEditingController();
+  final _vsbPortController = TextEditingController();
   final _rpcPortController = TextEditingController();
-  final _visionPortController = TextEditingController();
-  bool _secureTunnel = false;
 
   @override
   void initState() {
@@ -33,25 +34,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _nodeBIpController.text = prefs.getString('node_b_ip') ?? '100.x.y.z';
-      _nodeCIpController.text = prefs.getString('node_c_ip') ?? '100.x.y.z';
-      _rpcPortController.text = prefs.getString('rpc_port') ?? '3011';
-      _visionPortController.text = prefs.getString('vision_port') ?? '3013';
-      _secureTunnel = prefs.getBool('secure_tunnel') ?? false;
+      _nodeAIpController.text = prefs.getString('node_a_ip') ?? '10.0.0.10';
+      _nodeBIpController.text = prefs.getString('node_b_ip') ?? '10.0.0.11';
+      _nodeCIpController.text = prefs.getString('node_c_ip') ?? '10.0.0.12';
+      _nodeDIpController.text = prefs.getString('node_d_ip') ?? '10.0.0.13';
+      _vsbPortController.text = prefs.getString('vsb_port') ?? '7878';
+      _rpcPortController.text = prefs.getString('rpc_port') ?? '7341';
     });
   }
 
   Future<void> _saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('node_a_ip', _nodeAIpController.text.trim());
     await prefs.setString('node_b_ip', _nodeBIpController.text.trim());
     await prefs.setString('node_c_ip', _nodeCIpController.text.trim());
+    await prefs.setString('node_d_ip', _nodeDIpController.text.trim());
+    await prefs.setString('vsb_port', _vsbPortController.text.trim());
     await prefs.setString('rpc_port', _rpcPortController.text.trim());
-    await prefs.setString('vision_port', _visionPortController.text.trim());
-    await prefs.setBool('secure_tunnel', _secureTunnel);
     
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('::/SETTINGS_SHORED'), backgroundColor: Color(0xFFB8BB26)),
+        const SnackBar(
+          content: Text('::/ARTERY_SETTINGS_SHORED', style: TextStyle(color: Colors.black, fontWeight: FontWeight.black)), 
+          backgroundColor: Color(0xFFF36622)
+        ),
       );
     }
   }
@@ -59,86 +65,96 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeService = context.watch<ThemeService>();
-    final primaryColor = Theme.of(context).primaryColor;
+    final accentColor = const Color(0xFFF36622);
 
     return Container(
-      color: const Color(0xFF1D2021),
+      color: const Color(0xFF0A0A0A),
       child: ListView(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(30.0),
         children: [
-          _buildSectionHeader("◈ NODE_TOPOLOGY", primaryColor),
-          _buildTacticalField("NODE B (DIRECTOR) IP", _nodeBIpController, primaryColor),
-          _buildTacticalField("NODE C (ORACLE) IP", _nodeCIpController, primaryColor),
+          _buildClinicalHeader("◈ QUATERNARY_TOPOLOGY", accentColor),
+          _buildTechnicalField("NODE_A (SYNAPSE)", _nodeAIpController, accentColor),
+          _buildTechnicalField("NODE_B (DIRECTOR)", _nodeBIpController, accentColor),
+          _buildTechnicalField("NODE_C (ORACLE)", _nodeCIpController, accentColor),
+          _buildTechnicalField("NODE_D (HEAVY)", _nodeDIpController, accentColor),
           
-          const SizedBox(height: 24),
-          _buildSectionHeader("◈ ARTERY_PORTS", primaryColor),
+          const SizedBox(height: 30),
+          _buildClinicalHeader("◈ ARTERY_PORTS", accentColor),
           Row(
             children: [
-              Expanded(child: _buildTacticalField("RPC_PORT", _rpcPortController, primaryColor)),
-              const SizedBox(width: 16),
-              Expanded(child: _buildTacticalField("VISION_PORT", _visionPortController, primaryColor)),
+              Expanded(child: _buildTechnicalField("VSB_PORT", _vsbPortController, accentColor)),
+              const SizedBox(width: 20),
+              Expanded(child: _buildTechnicalField("RPC_PORT", _rpcPortController, accentColor)),
             ],
           ),
 
-          const SizedBox(height: 24),
-          _buildSectionHeader("◈ TACTICAL_THEME", primaryColor),
-          _buildThemeDropdown(themeService, primaryColor),
+          const SizedBox(height: 30),
+          _buildClinicalHeader("◈ AESTHETIC_PROTOCOL", accentColor),
+          _buildThemeSelector(themeService, accentColor),
 
-          const SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: _saveSettings,
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(double.infinity, 60),
-              backgroundColor: primaryColor.withOpacity(0.1),
-              side: BorderSide(color: primaryColor, width: 2),
-            ),
-            child: const Text("EXECUTE_SYNC", style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 2)),
-          ),
+          const SizedBox(height: 50),
+          _clinicalExecuteButton(_saveSettings, accentColor),
         ],
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title, Color color) {
+  Widget _buildClinicalHeader(String title, Color color) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Text(title, style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Text(title, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.black, letterSpacing: 3, fontFamily: 'Space Grotesk')),
     );
   }
 
-  Widget _buildTacticalField(String label, TextEditingController controller, Color color) {
+  Widget _buildTechnicalField(String label, TextEditingController controller, Color color) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 20),
       child: TextField(
         controller: controller,
-        style: const TextStyle(color: Color(0xFFEBDBB2), fontSize: 16),
+        style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 14, fontFamily: 'Lexend'),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(color: color.withOpacity(0.7), fontSize: 12),
-          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Color(0xFF3C3836))),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color)),
+          labelStyle: TextStyle(color: color.withOpacity(0.6), fontSize: 9, fontWeight: FontWeight.black, letterSpacing: 2),
+          enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.zero, borderSide: BorderSide(color: Color(0xFF262626))),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.zero, borderSide: BorderSide(color: color, width: 1.5)),
           filled: true,
-          fillColor: const Color(0xFF282828),
+          fillColor: const Color(0xFF161616),
         ),
       ),
     );
   }
 
-  Widget _buildThemeDropdown(ThemeService service, Color color) {
+  Widget _buildThemeSelector(ThemeService service, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFF282828),
-        border: Border.all(color: const Color(0xFF3C3836)),
+        color: const Color(0xFF161616),
+        border: Border.all(color: const Color(0xFF262626)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<ThemeModePreset>(
           value: service.currentMode,
           isExpanded: true,
-          dropdownColor: const Color(0xFF282828),
-          style: TextStyle(color: color, fontSize: 16, fontFamily: 'monospace'),
-          items: ThemeService.presets.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value.name))).toList(),
+          dropdownColor: const Color(0xFF161616),
+          style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.black, letterSpacing: 1),
+          items: ThemeService.presets.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value.name.toUpperCase()))).toList(),
           onChanged: (m) => m != null ? service.setTheme(m) : null,
+        ),
+      ),
+    );
+  }
+
+  Widget _clinicalExecuteButton(VoidCallback onPressed, Color color) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          color: color.withOpacity(0.05),
+        ),
+        child: Center(
+          child: Text("EXECUTE_ARTERY_SYNC", style: TextStyle(color: color, fontWeight: FontWeight.black, letterSpacing: 4, fontSize: 12, fontFamily: 'Space Grotesk')),
         ),
       ),
     );

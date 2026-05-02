@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : OPENCLAW_AGENTS // RESILIENCE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS
 **Sector:** /crates/openclaw-agents/
 **Role:** High-Resilience Agent Primitives & Warm Pools.
 

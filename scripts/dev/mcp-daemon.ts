@@ -92,7 +92,7 @@ function buildMcpServer(): McpServer {
   // ── Veto Tool ────────────────────────────────────────────────────────────────
   server.tool(
     'node_a_veto',
-    'Ask the Node A Reasoner (Open-Reasoner-Zero-1.5B) to validate an intent or code change against the Cyberpunk RED rules.',
+    'Ask the Node A Reasoner (Open-Reasoner-Zero-1.5B) to validate an intent or code change against the NODESTADT Authority rules.',
     {
       intent: z.string().describe('The proposed action, intent, or code snippet to validate'),
     },

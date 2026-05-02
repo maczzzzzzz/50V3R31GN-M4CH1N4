@@ -1,5 +1,5 @@
 /**
- * GEPA_ORCHESTRATOR : v3.8.24-SYNTHESIS
+ * GEPA_ORCHESTRATOR : v3.8.24-SYNTHESIS-SYNTHESIS
  * 
  * TypeScript port of gepa_loop.py.
  * Implements autonomous prompt evolution via LangGraph and Sovereign Intelligence.
@@ -25,7 +25,7 @@ export class GepaOrchestrator {
       " Use more technical terminology.",
       " Focus on memory safety.",
       " Prioritize throughput.",
-      " Adopt Machine Voice (VT323)."
+      " Adopt Machine Voice (Space Grotesk)."
     ];
     return basePrompt + mutations[Math.floor(Math.random() * mutations.length)];
   }

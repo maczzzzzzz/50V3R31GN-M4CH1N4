@@ -15,12 +15,12 @@ const SOVEREIGN_BLACK = '#000000';
 export const SOVEREIGN_THEME_CSS = `
 /* SOVEREIGN DOMINANCE LAYER */
 /* Phase 69: Local font sovereignty - Removed Google Fonts telemetry import */
-const FONT_CSS = '@font-face { font-family: "VT323"; src: url("/assets/fonts/VT323-Regular.ttf"); }';
+const FONT_CSS = '@font-face { font-family: "Space Grotesk"; src: url("/assets/fonts/Space Grotesk-Regular.ttf"); }';
 
 :root {
     --cpr-red: ${SOVEREIGN_RED};
     --cpr-black: ${SOVEREIGN_BLACK};
-    --font-primary: 'VT323', monospace;
+    --font-primary: 'Space Grotesk', monospace;
 }
 
 /* Global Core */

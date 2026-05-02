@@ -1,4 +1,4 @@
-# Design Specification: Phase 15 — The Omni-Orchestrator (v3.8.24-SYNTHESIS)
+# Design Specification: Phase 15 — The Omni-Orchestrator (v3.8.24-SYNTHESIS-SYNTHESIS)
 **Subject:** Unified VLM Narrative & Vision Convergence
 **Status:** DESIGN FINALIZED (Neural Sync)
 
@@ -18,14 +18,14 @@ Replaces `SovereignCognitionClient` and `TacticalVisionService` with a single `O
 - **Logic:** Every narrative prompt is automatically enriched with a **Neural Uplink screenshot** and an **Akashik RKG subgraph**.
 - **Cognition:** Single-pass multimodal reasoning. The AI "sees" the map and "writes" the story in one atomic GPU cycle.
 
-## 3. Deployment Protocol (v3.8.24-SYNTHESIS)
+## 3. Deployment Protocol (v3.8.24-SYNTHESIS-SYNTHESIS)
 - **Model Registry:** `hf.co/mlx-community/gemma-4-vlm-31b-iq3_m`.
 - **VRAM Hardening:** Forcing `OLLAMA_NUM_PARALLEL=1` to ensure the 31B model has exclusive bandwidth.
 - **Latency Target:** Narrative synthesis with visual grounding in **<800ms**.
 
 ## 4. Continuity & Fallback
 - **Rules Sync:** Continues to use **Node A (ZeroClaw)** for deterministic math via the binary bridge.
-- **Safe Mode:** Reverts to the modular v3.8.24-SYNTHESIS stack if VRAM saturation exceeds 98%.
+- **Safe Mode:** Reverts to the modular v3.8.24-SYNTHESIS-SYNTHESIS stack if VRAM saturation exceeds 98%.
 
 
 ---

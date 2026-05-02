@@ -5,13 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 /**
- * ◈ GRUVB0X_M473R14L_7H3M3 — v3.8.7
+ * ◈ NODESTADT_CLINICAL_THEME — v3.8.25
  * 
- * High-fidelity port of sainnhe/gruvbox-material-vscode.
- * Standardized for the Sovereign Trinity OS.
+ * Clinical, industrial retro-futurism.
+ * Replaces legacy Clinical/Space Grotesk with Space Grotesk and Lexend.
  */
 
-enum ThemeModePreset { mediumDark, softDark, hardDark, light }
+enum ThemeModePreset { clinicalDark, softDark, hardDark, light }
 
 class ThemePreset {
   final Color bg0;
@@ -47,8 +47,8 @@ class ThemePreset {
   });
 
   ThemeData get themeData {
-    const double baseFontSize = 18.0;
-    const double headerFontSize = 28.0;
+    const double baseFontSize = 16.0;
+    const double headerFontSize = 24.0;
 
     return ThemeData(
       brightness: Brightness.dark,
@@ -58,18 +58,18 @@ class ThemePreset {
       hintColor: yellow,
       dividerColor: bg3,
       
-      textTheme: GoogleFonts.vt323TextTheme().copyWith(
-        bodyMedium: GoogleFonts.vt323(fontSize: baseFontSize, color: fg0),
-        bodyLarge: GoogleFonts.vt323(fontSize: baseFontSize + 2, color: fg1),
-        bodySmall: GoogleFonts.vt323(fontSize: baseFontSize - 4, color: fg1.withOpacity(0.7)),
-        headlineMedium: GoogleFonts.vt323(fontSize: headerFontSize, color: red, fontWeight: FontWeight.bold),
-        titleLarge: GoogleFonts.vt323(fontSize: baseFontSize + 4, color: aqua, fontWeight: FontWeight.bold),
+      textTheme: GoogleFonts.lexendTextTheme().copyWith(
+        bodyMedium: GoogleFonts.lexend(fontSize: baseFontSize, color: fg0),
+        bodyLarge: GoogleFonts.lexend(fontSize: baseFontSize + 2, color: fg1),
+        bodySmall: GoogleFonts.lexend(fontSize: baseFontSize - 4, color: fg1.withOpacity(0.7)),
+        headlineMedium: GoogleFonts.spaceGrotesk(fontSize: headerFontSize, color: orange, fontWeight: FontWeight.bold, letterSpacing: 2),
+        titleLarge: GoogleFonts.spaceGrotesk(fontSize: baseFontSize + 4, color: aqua, fontWeight: FontWeight.bold),
       ),
       
       appBarTheme: AppBarTheme(
         backgroundColor: bg1,
         elevation: 0,
-        titleTextStyle: GoogleFonts.vt323(color: fg0, fontSize: headerFontSize),
+        titleTextStyle: GoogleFonts.spaceGrotesk(color: fg0, fontSize: headerFontSize, fontWeight: FontWeight.bold, letterSpacing: 3),
         iconTheme: IconThemeData(color: orange, size: 28),
       ),
       
@@ -77,8 +77,8 @@ class ThemePreset {
         backgroundColor: bg1,
         selectedItemColor: orange,
         unselectedItemColor: fg1.withOpacity(0.5),
-        selectedLabelStyle: GoogleFonts.vt323(fontSize: 10, fontWeight: FontWeight.bold),
-        unselectedLabelStyle: GoogleFonts.vt323(fontSize: 10),
+        selectedLabelStyle: GoogleFonts.lexend(fontSize: 10, fontWeight: FontWeight.bold),
+        unselectedLabelStyle: GoogleFonts.lexend(fontSize: 10),
         type: BottomNavigationBarType.fixed,
         elevation: 10,
       ),
@@ -89,9 +89,9 @@ class ThemePreset {
         style: ElevatedButton.styleFrom(
           backgroundColor: bg2,
           foregroundColor: fg0,
-          textStyle: GoogleFonts.vt323(fontSize: baseFontSize, fontWeight: FontWeight.bold),
+          textStyle: GoogleFonts.spaceGrotesk(fontSize: baseFontSize, fontWeight: FontWeight.bold),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: const BeveledRectangleBorder(),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           side: BorderSide(color: bg3, width: 1),
         ),
       ),
@@ -102,11 +102,12 @@ class ThemePreset {
         labelStyle: TextStyle(color: yellow, fontSize: baseFontSize),
         hintStyle: TextStyle(color: fg1.withOpacity(0.3), fontSize: baseFontSize),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: bg3)),
-        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: orange, width: 2.0)),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.zero, borderSide: BorderSide(color: bg3)),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.zero, borderSide: BorderSide(color: orange, width: 2.0)),
       ),
       
       checkboxTheme: CheckboxThemeData(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         fillColor: WidgetStateProperty.all(orange),
         checkColor: WidgetStateProperty.all(bg0),
       ),
@@ -115,24 +116,24 @@ class ThemePreset {
 }
 
 class ThemeService extends ChangeNotifier {
-  ThemeModePreset _currentMode = ThemeModePreset.mediumDark;
+  ThemeModePreset _currentMode = ThemeModePreset.clinicalDark;
 
   static final Map<ThemeModePreset, ThemePreset> presets = {
-    ThemeModePreset.mediumDark: ThemePreset(
-      bg0: const Color(0xFF282828),
-      bg1: const Color(0xFF32302f),
-      bg2: const Color(0xFF3c3836),
-      bg3: const Color(0xFF504945),
-      fg0: const Color(0xFFfbf1c7),
-      fg1: const Color(0xFFebdbb2),
-      red: const Color(0xFFfb4934),
-      green: const Color(0xFFb8bb26),
-      yellow: const Color(0xFFfabd2f),
-      blue: const Color(0xFF83a598),
-      purple: const Color(0xFFd3869b),
-      aqua: const Color(0xFF8ec07c),
-      orange: const Color(0xFFfe8019),
-      name: 'GRUVB0X_MEDIUM',
+    ThemeModePreset.clinicalDark: ThemePreset(
+      bg0: const Color(0xFF121212),
+      bg1: const Color(0xFF1A1A1A),
+      bg2: const Color(0xFF262626),
+      bg3: const Color(0xFF333333),
+      fg0: const Color(0xFFE5E5E5),
+      fg1: const Color(0xFFA3A3A3),
+      red: const Color(0xFFFB4934),
+      green: const Color(0xFFB8BB26),
+      yellow: const Color(0xFFFABD2F),
+      blue: const Color(0xFF83A598),
+      purple: const Color(0xFFD3869B),
+      aqua: const Color(0xFF8EC07C),
+      orange: const Color(0xFFF36622),
+      name: 'NODESTADT_CLINICAL',
     ),
     ThemeModePreset.softDark: ThemePreset(
       bg0: const Color(0xFF32302f),

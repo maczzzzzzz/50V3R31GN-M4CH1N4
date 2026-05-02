@@ -18,7 +18,7 @@
  *   --sovereign-muted  #888888   Muted text
  *
  * Font Stack:
- *   Machine Voice: VT323 (loaded via Google Fonts CDN)
+ *   Machine Voice: Space Grotesk (loaded via Google Fonts CDN)
  *   Human Voice:   JetBrains Mono, Hack (system / Nix-provided)
  */
 
@@ -38,7 +38,7 @@
   --sovereign-glow-lg:  0 0 18px rgba(255, 26, 26, 1.0);
 
   /* ── Font Families ────────────────────────────────────────────────────── */
-  --font-machine: 'VT323', monospace;
+  --font-machine: 'Space Grotesk', monospace;
   --font-human:   'JetBrains Mono', 'Hack', 'Fira Code', monospace;
 }
 

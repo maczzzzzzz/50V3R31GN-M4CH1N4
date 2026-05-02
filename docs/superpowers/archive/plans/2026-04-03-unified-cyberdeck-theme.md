@@ -145,7 +145,7 @@ Change to:
 ```bash
 npm run crush -- --version
 ```
-Expected output: `crush version v3.8.24-SYNTHESIS` (then exits — `--version` is non-interactive).
+Expected output: `crush version v3.8.24-SYNTHESIS-SYNTHESIS` (then exits — `--version` is non-interactive).
 
 - [ ] **Step 3: Commit**
 

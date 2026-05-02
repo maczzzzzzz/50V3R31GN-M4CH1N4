@@ -6,7 +6,7 @@
 
 @layer cpr-theme, black-ice;
 
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space Grotesk&display=swap');
 
 @layer black-ice {
     :root {
@@ -16,7 +16,7 @@
         --cpr-white: #ffffff;
         --cpr-text-main: #eeeeee;
         --black-ice-glow: 0 0 10px var(--sovereign-primary-glow, rgba(255, 0, 60, 0.8));
-        --font-primary: 'VT323', monospace;
+        --font-primary: 'Space Grotesk', monospace;
         
         /* Neutralize CPR system background/fill reds only — NOT the text/border color var.
            We override specific CPR element backgrounds below instead of zeroing the variable,
@@ -931,7 +931,7 @@
         background-color: #000000 !important;
         border: 1px solid #ff003c !important;
         color: #ff003c !important;
-        font-family: 'VT323', monospace !important;
+        font-family: 'Space Grotesk', monospace !important;
         font-size: 16px !important;
         text-shadow: 0 0 8px rgba(255, 0, 60, 0.8) !important;
         box-shadow: 0 0 6px rgba(255, 0, 60, 0.4) !important;

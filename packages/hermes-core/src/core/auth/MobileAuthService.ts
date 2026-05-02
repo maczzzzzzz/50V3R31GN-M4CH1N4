@@ -3,7 +3,7 @@ import type { SynapseStore } from '../../db/synapse-store.js';
 import type { ILogger } from '../../db/interfaces.js';
 
 /**
- * MOBILE_AUTH_SERVICE — v3.8.24-SYNTHESIS
+ * MOBILE_AUTH_SERVICE — v3.8.24-SYNTHESIS-SYNTHESIS
  * 
  * Manages mobile session lifecycle and the Deportation Hardgate.
  * Enables Vesper-driven session revocation.

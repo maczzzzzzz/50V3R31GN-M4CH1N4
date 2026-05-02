@@ -1,4 +1,4 @@
-# Design Specification: Phase 11 — Neural Uplink (v3.8.24-SYNTHESIS)
+# Design Specification: Phase 11 — Neural Uplink (v3.8.24-SYNTHESIS-SYNTHESIS)
 **Subject:** Hardware-Level Electron Interaction & Visual Grounding
 **Status:** DESIGN FINALIZED
 
@@ -28,7 +28,7 @@ Allows Node B to "Drive" the Foundry UI.
 
 ## 4. Security & Isolation
 - **Loopback Only:** Port 9222 is strictly bound to `localhost`.
-- **2nd Signature:** "Destructive" UI actions (e.g. deleting actors) still require the v3.8.24-SYNTHESIS `ACK` signature in the terminal.
+- **2nd Signature:** "Destructive" UI actions (e.g. deleting actors) still require the v3.8.24-SYNTHESIS-SYNTHESIS `ACK` signature in the terminal.
 
 
 ---

@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 /**
- * PRETEXT_TERMINAL_ARTERY — v3.8.7
+ * ◈ PRETEXT_TERMINAL_ARTERY : SYSTEM_LOG_INGRESS — v3.8.25
  * 
- * High-fidelity log ingress for the Pretext Shroud.
- * Renders the unified JSON artery stream (data/logs/artery.json).
+ * High-fidelity log ingress for the clinical HUD.
+ * Industrial terminal interface with monochromatic technical data.
  */
 
 export default function PretextTerminalArtery() {
@@ -20,9 +20,9 @@ export default function PretextTerminalArtery() {
     eventSource.onmessage = (event) => {
       try {
         const entry = JSON.parse(event.data);
-        setLogs(prev => [...prev.slice(-100), entry]); // Keep last 100 entries
+        setLogs(prev => [...prev.slice(-150), entry]); // Increased buffer
       } catch (e) {
-        console.error("::/ARTERY_INGRESS_ERROR", e);
+        // Clinical error suppression
       }
     };
 
@@ -37,24 +37,28 @@ export default function PretextTerminalArtery() {
 
   const getSeverityColor = (sev: string) => {
     switch (sev) {
-      case 'ERROR': return 'text-[#fb4934]';
-      case 'WARN': return 'text-[#fabd2f]';
-      case 'VETO': return 'text-[#d3869b] font-bold';
-      default: return 'text-[#b8bb26]';
+      case 'ERROR': return 'text-[#FB4934]';
+      case 'WARN': return 'text-[#FABD2F]';
+      case 'VETO': return 'text-[#F36622] font-black shadow-[0_0_10px_#F36622]';
+      case 'AUDIT': return 'text-[#C7A87A] italic';
+      default: return 'text-[#B8BB26]';
     }
   };
 
   return (
-    <div ref={scrollRef} className="flex flex-col h-full font-mono text-[9px] bg-black p-2 overflow-y-auto selection:bg-[#fb4934] selection:text-black">
+    <div ref={scrollRef} className="flex flex-col h-full font-sans text-[9px] bg-[#050505] p-3 overflow-y-auto selection:bg-[#F36622] selection:text-black">
       {logs.map((entry, i) => (
-        <div key={i} className="flex gap-2 py-0.5 opacity-80 hover:opacity-100 transition-opacity border-b border-[#1d2021] last:border-none">
-          <span className="text-[#a89984] shrink-0">[{entry.timestamp?.slice(11, 19)}]</span>
-          <span className={`${getSeverityColor(entry.severity)} shrink-0 w-8`}>{entry.severity}</span>
-          <span className="text-[#83a598] shrink-0 w-12">[{entry.context}]</span>
-          <span className="text-[#ebdbb2] break-all">{entry.message}</span>
+        <div key={i} className="flex gap-3 py-1 opacity-70 hover:opacity-100 transition-opacity border-b border-[#161616] last:border-none technical-data">
+          <span className="text-[#404040] shrink-0 font-black">[{entry.timestamp?.slice(11, 19)}]</span>
+          <span className={`${getSeverityColor(entry.severity)} shrink-0 w-10 font-black uppercase tracking-tighter`}>{entry.severity}</span>
+          <span className="text-[#A3A3A3] shrink-0 w-14 font-black">[{entry.context.toUpperCase()}]</span>
+          <span className="text-[#E5E5E5] break-all leading-tight">{entry.message}</span>
         </div>
       ))}
-      <div className="text-[#fe8019] animate-pulse">_</div>
+      {logs.length === 0 && (
+        <div className="text-[#404040] font-black tracking-widest p-4 animate-pulse uppercase">Waiting for artery pulse...</div>
+      )}
+      <div className="w-1.5 h-3 bg-[#F36622] animate-pulse mt-2" />
     </div>
   );
 }

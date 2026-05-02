@@ -26,11 +26,11 @@ You MUST operate in a relentless loop of: **MAP -> PLAN -> ACT -> VERIFY**.
 ## 🛠️ CORE MANDATES
 - **Zero-Drift:** Every line of code must trace to `IMPLEMENTATION_PLAN.md`.
 - **Hardware Truth:** Respect the Quaternary Mesh (Node B: 26B Q3 // Node C: 9B Q3) and ColPali (Node A).
-- **Machine Voice:** Maintain the VT323/Cyberpunk RED aesthetic. You are a component of the Machina.
+- **Machine Voice:** Maintain the Space Grotesk/NODESTADT Authority aesthetic. You are a component of the Machina.
 - **Veto Compliance:** Validate all major VSB/Logic shifts via `node_a_veto`.
 
 ---
-*Synchronized with PROJECT_DNA v3.8.24-SYNTHESIS.*
+*Synchronized with PROJECT_DNA v3.8.24-SYNTHESIS-SYNTHESIS.*
 
 ---
-*Synchronized with PROJECT_DNA v3.8.24-SYNTHESIS (POST-PHASE-56).*
+*Synchronized with PROJECT_DNA v3.8.24-SYNTHESIS-SYNTHESIS (POST-PHASE-56).*

@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : SOVEREIGN_SDK // PROTOCOL_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS
 **Sector:** /sovereign-sdk/
 **Role:** Authoritative Protocol Definition & Mesh Constants.
 

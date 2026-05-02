@@ -37,12 +37,12 @@ export function getThemeCss(themeId: string = 'gruvboxDark'): string {
     const palette = PALETTES[themeId] ?? PALETTES['gruvboxDark'] ?? { accent: '#fabd2f', bg: '#282828', glow: 'rgba(250, 189, 47, 0.8)' };
     return `
 /* SOVEREIGN DOMINANCE LAYER: ${themeId} */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space Grotesk&display=swap');
 
 :root {
     --cpr-red: ${palette.accent};
     --cpr-black: ${palette.bg};
-    --font-primary: 'VT323', monospace;
+    --font-primary: 'Space Grotesk', monospace;
     --sovereign-primary: ${palette.accent};
     --sovereign-primary-glow: ${palette.glow};
 }

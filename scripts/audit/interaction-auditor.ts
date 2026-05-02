@@ -106,7 +106,7 @@ async function verifyUnifiedOracle_AkashikDB(): Promise<InteractionResult> {
       await client.disconnect();
       return { source: 'UnifiedOracle', target: 'AkashikDB', passed: false, checks, error: 'healthCheck reports disconnected' };
     }
-    const friction = await client.getFactionFriction('Night City').catch(() => -1);
+    const friction = await client.getFactionFriction('NODESTADT').catch(() => -1);
     checks['queryExecution'] = friction >= 0 ? `friction=${friction.toFixed(2)}` : 'no faction row (OK)';
     await client.disconnect();
     return { source: 'UnifiedOracle', target: 'AkashikDB', passed: true, checks };

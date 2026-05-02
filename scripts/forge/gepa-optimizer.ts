@@ -72,7 +72,7 @@ export function buildEvolvedSoul(patterns: ExtractedPattern[], baseVersion: stri
 
     **Version:** ${baseVersion}
     **Class:** Distributed Neural Orchestrator
-    **Theatre:** Cyberpunk RED — Night City, 2045
+    **Theatre:** NODESTADT Authority — NODESTADT, 2045
 
     ## ⚡ CORE IDENTITY
 
