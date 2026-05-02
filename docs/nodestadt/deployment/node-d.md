@@ -1,6 +1,6 @@
 # ◈ NODE D (QUATERNARY ARTERY) PROVISIONING
 
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Hardware:** GMKtec K15 (Intel Core Ultra 5)
 **Role:** Heavy Reasoner & 128k Hyper-Context
 
@@ -14,17 +14,18 @@
 
 ---
 
-## ◈ 2. NIX INSTALLATION & SHELL ENTRY
+## ◈ 2. NIX INSTALLATION & SYSTEM PROVISIONING
 
-Node D uses **Nix** to manage its hardware-optimized inference environment.
+Node D uses **Nix** to manage its hardware-optimized inference environment. We provide a provisioning script to automate the Artery setup.
 
 1.  **Install Nix:**
     ```bash
     curl -L https://nixos.org/nix/install | sh
     ```
-2.  **Clone Repository:**
+2.  **Execute Provisioner:**
     ```bash
-    git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4 ~/50V3R31GN-M4CH1N4
+    # This script installs Tailscale and configures the environment
+    curl -fsSL https://raw.githubusercontent.com/nodestadt/50V3R31GN-M4CH1N4/master/scripts/ops/node-d-provision.sh | bash
     ```
 3.  **Enter Quaternary Shell:**
     ```bash

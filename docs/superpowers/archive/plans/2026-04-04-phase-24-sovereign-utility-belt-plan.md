@@ -1,4 +1,4 @@
-# Implementation Plan: Phase 24 — Sovereign Utility Belt (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# Implementation Plan: Phase 24 — Sovereign Utility Belt (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 

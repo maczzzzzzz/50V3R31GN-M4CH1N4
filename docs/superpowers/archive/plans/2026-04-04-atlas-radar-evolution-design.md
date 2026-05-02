@@ -1,4 +1,4 @@
-# Design: Atlas Radar Evolution & ST3GG Grounding (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# Design: Atlas Radar Evolution & ST3GG Grounding (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Date:** 2026-04-04
 **Target:** Phase 23 (Neural World Engine)
 
