@@ -25,17 +25,4 @@
 * [[nodestadt/deployment/node-d.md|Node D Provisioning]]
 * [[nodestadt/deployment/mobile.md|Mobile Deployment]]
 * [[nodestadt/deployment/machina-daemon.md|Machina Daemon]]
-
----
-* [[sim/README.md|Sovereign RED Plugin]]
-
-## Encyclopedia
-* [[nodestadt/encyclopedia/PHYSICAL_MAP.md|Physical Map]]
-* [[nodestadt/encyclopedia/PRIMITIVES.md|Primitives Dictionary]]
-* [[nodestadt/encyclopedia/RECKONING_SUITE.md|Reckoning Suite]]
-* [[nodestadt/encyclopedia/MANIFEST.md|Master Manifest]]
-
-## Reference
-* [[nodestadt/reference/COMMAND_MANIFEST.md|Command Manifest]]
-* [[nodestadt/reference/DEV_SCRIPTS_MANIFEST.md|Dev Scripts Manifest]]
-* [[nodestadt/sidecars/sidecar-obsidian-plugin.md|Obsidian Plugin Doc]]
+* [[nodestadt/deployment/obsidian-infrastructure.md|Obsidian Artery Setup]]

@@ -1,6 +1,6 @@
 # ◈ MOBILE SOVEREIGNTY: ANDROID INGRESS GUIDE
 
-**Version:** 3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Target:** Android 14+ (Arm64)
 **Software:** Machina Hub (Flutter)
 
@@ -45,6 +45,23 @@ For deep-control, the Hub includes a terminal tab.
 1.  **Identity:** Import your SPIFFE SVID into the Hub's security vault.
 2.  **ClawLink:** Select the **Director** node from the mesh list.
 3.  **Ignite:** You now have a persistent, high-throughput shell to the quaternary mesh.
+
+## ◈ 5. BROWSER INGRESS (VIVALDI MOBILE)
+
+Vivaldi on Android/iOS serves as a high-fidelity ingress point for the quaternary mesh.
+
+1.  **Direct Ingress:** Access the **Sovereign Mesh Server** (Node B) URL via Vivaldi.
+2.  **HUD Sync:** Log in with your operator credentials to synchronize your active research threads.
+3.  **Context Push:** Use the mobile share menu to push URLs directly into the **Machina Hub** app for agentic processing.
+
+---
+
+## ◈ 6. MOBILE BRAIN (OBSIDIAN)
+
+For total lore-mastery, synchronize your system brain to your mobile device.
+
+1.  Follow the [[nodestadt/deployment/obsidian-infrastructure.md|Obsidian Mobile Guide]].
+2.  This allows you to review meeting journals, intelligence shards, and the **Sovereign Dashboard** on the fly.
 
 ---
 **::/5Y573M-N071C3 : MOBILE_INGRESS_SHORED. 100%_AWARENESS. // 50V3R31GN-M4CH1N4**
