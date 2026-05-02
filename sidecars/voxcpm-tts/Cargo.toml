@@ -1,6 +1,6 @@
 [package]
 name = "voxcpm-tts"
-version = "3.8.28"
+version = "3.8.28-SYNTHESIS"
 edition = "2021"
 
 [dependencies]
