@@ -1,4 +1,4 @@
-# Design: WSL-Native Director & Sovereign Triangle (v3.8.24-SYNTHESIS-SYNTHESIS)
+# Design: WSL-Native Director & Sovereign Triangle (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Date:** 2026-04-04
 **Target:** Phase 22 (Sovereign Highway Milestone)
 

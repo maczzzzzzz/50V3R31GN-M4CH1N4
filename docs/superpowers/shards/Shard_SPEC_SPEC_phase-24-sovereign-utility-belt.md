@@ -1,4 +1,4 @@
-# Specification: Phase 24 — Sovereign Utility Belt (v3.8.24-SYNTHESIS-SYNTHESIS)
+# Specification: Phase 24 — Sovereign Utility Belt (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Status:** DRAFT
 **Date:** 2026-04-04
 

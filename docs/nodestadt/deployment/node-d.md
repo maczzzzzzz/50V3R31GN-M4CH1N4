@@ -1,6 +1,6 @@
 # ◈ NODE D (QUATERNARY ARTERY) PROVISIONING
 
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Hardware:** GMKtec K15 (Intel Core Ultra 5)
 **Role:** Heavy Reasoner & 128k Hyper-Context
 
@@ -34,7 +34,24 @@ Node D uses **Nix** to manage its hardware-optimized inference environment.
 
 ---
 
-## ◈ 3. INTEL NPU / OPENVINO OPTIMIZATION
+## ◈ 3. TAILSCALE ARTERY SETUP
+
+Node D must be shored within the Tailscale Tailnet to maintain the encrypted backbone.
+
+1.  **Install Tailscale:**
+    ```bash
+    curl -fsSL https://tailscale.com/install.sh | sh
+    ```
+2.  **Ignite Artery:**
+    ```bash
+    sudo tailscale up --authkey=<your_tailnet_auth_key> --hostname=NODESTADT-HEAVY
+    ```
+3.  **Verification:**
+    Ensure the node appears in the Tailscale Admin Console and your mobile app.
+
+---
+
+## ◈ 4. INTEL NPU / OPENVINO OPTIMIZATION
 
 Node D leverages the **Intel AI Boost NPU** for background perception.
 

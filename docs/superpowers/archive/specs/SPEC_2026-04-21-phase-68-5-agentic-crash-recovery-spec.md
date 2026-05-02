@@ -1,4 +1,4 @@
-# Design Specification: Phase 68.5 - Agentic Crash Recovery (v3.8.24-SYNTHESIS-SYNTHESIS)
+# Design Specification: Phase 68.5 - Agentic Crash Recovery (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Overview
 Phase 68.5 introduces an "Auto-Save" and "Virtual Stronghold" architecture to the Hermes Orchestrator. By integrating SQLite checkpointing, the system achieves 100% resilience against power loss, crashes, and rate-limit timeouts.

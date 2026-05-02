@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 /**
- * RESEARCH_DISTILLER : v3.8.24-SYNTHESIS-SYNTHESIS (Hardened)
+ * RESEARCH_DISTILLER : v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS (Hardened)
  * 
  * Converts high-fidelity binary PDF research into structured Markdown.
  * Uses native extraction to avoid pdf-parse legacy bugs.

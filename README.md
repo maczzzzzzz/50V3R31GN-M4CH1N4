@@ -4,12 +4,12 @@
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-F36622.svg)](LICENSE)
 [![Monorepo](https://img.shields.io/badge/architecture-NODESTADT_Monorepo-C7A87A.svg)](pnpm-workspace.yaml)
-[![Version](https://img.shields.io/badge/version-v3.8.24-SYNTHESIS-SYNTHESIS--SYNTHESIS-F36622.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS--SYNTHESIS-F36622.svg)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-CLEAN_BASE_ACTIVE-success.svg)](IMPLEMENTATION_PLAN.md)
 
 [**Documentation**](docs/nodestadt/) | [**Architecture**](docs/nodestadt/architecture/topology.md) | [**Roadmap**](IMPLEMENTATION_PLAN.md) | [**Identity**](SOUL.md)
 
-<img src="terminal-app/assets/master.png" width="400" alt="Sovereign Logo" />
+<img src="assets\brand-identity\ultrawide-wallpaper.jpg" width="400" alt="Sovereign Logo" />
 
 **50V3R31GN-M4CH1N4** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes to provide a clinical cognitive environment for autonomous evolution and peer-development.
 
@@ -30,7 +30,7 @@
 
 ## 🆕 News
 - **[2026-05-02]** **Professional Manifest Overhaul:** Overhauled root README and shored 431+ manifests across the mesh.
-- **[2026-05-01]** **Clean BASE Achieved:** Surgically extracted simulation logic; finalized NODESTADT monorepo structure (v3.8.24-SYNTHESIS-SYNTHESIS).
+- **[2026-05-01]** **Clean BASE Achieved:** Surgically extracted simulation logic; finalized NODESTADT monorepo structure (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS).
 - **[2026-04-28]** **Intelligence Boosts:** Integrated local gateway proxies and code graphs for zero-server intelligence.
 - **[2026-04-20]** **Security Hardgate:** Enforced SPIFFE mTLS and V2F pulse verification across the mesh.
 

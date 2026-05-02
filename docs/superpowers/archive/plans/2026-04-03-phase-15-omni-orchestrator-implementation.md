@@ -1,7 +1,7 @@
 # Implementation Plan: Phase 15 — Omni Orchestrator
 
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS
-**Baseline:** v3.8.24-SYNTHESIS-SYNTHESIS Resilient
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Baseline:** v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS Resilient
 **Goal:** Establish the reactive swarm reasoning and physical execution loop.
 
 ---

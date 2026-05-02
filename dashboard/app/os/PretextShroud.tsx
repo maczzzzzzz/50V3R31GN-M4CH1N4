@@ -281,8 +281,15 @@ export default function PretextShroud() {
       <div className="flex items-stretch gap-4 mb-4 h-28 relative z-10">
         <div className="bg-[#161616]/95 border border-[#333333] flex-1 flex items-center justify-between px-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl">
           <div className="flex items-center gap-10">
-            <div className="w-14 h-14 border-2 border-[#F36622] flex items-center justify-center transition-all duration-500 cursor-pointer bg-[#F36622]/5 hover:bg-[#F36622]/10 group">
-              <span className="text-2xl font-black text-[#F36622] authority-text">Σ</span>
+            <div className="relative group">
+              <div className="w-14 h-14 border-2 border-[#F36622] flex items-center justify-center transition-all duration-500 cursor-pointer bg-[#F36622]/5 hover:bg-[#F36622]/10">
+                <span className="text-2xl font-black text-[#F36622] authority-text">Σ</span>
+              </div>
+              <img 
+                src="/assets/brand-identity/materialized/node_d.png" 
+                alt="Node D Authority" 
+                className="absolute -top-2 -right-2 w-8 h-8 border border-[#F36622] bg-[#0A0A0A] p-0.5 shadow-[0_0_10px_#F36622] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
             </div>
             <div>
               <h1 className="text-4xl font-black tracking-[0.4em] text-[#E5E5E5] authority-text">NODESTADT</h1>

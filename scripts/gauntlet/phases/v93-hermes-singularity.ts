@@ -1,7 +1,7 @@
 import { GauntletPhase } from '../GauntletEngine';
 
 /**
- * GAUNTLET_PHASE_v93 : HERMES_SINGULARITY_INTEGRITY — v3.8.24-SYNTHESIS-SYNTHESIS
+ * GAUNTLET_PHASE_v93 : HERMES_SINGULARITY_INTEGRITY — v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS
  * 
  * Verifies the system-wide purge of legacy proxies and the 
  * deep integration of native Hermes v2026 capabilities.

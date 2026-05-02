@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import type { ILogger } from '../../db/interfaces.js';
 
 /**
- * NATIVE_MESSAGING_ADAPTER — v3.8.24-SYNTHESIS-SYNTHESIS
+ * NATIVE_MESSAGING_ADAPTER — v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS
  * 
  * Harnesses Hermes v2026 native messaging (WhatsApp/QQBot) for autonomous Comms Ingress.
  * Enables agents to communicate via external mobile platforms.

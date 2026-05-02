@@ -1,4 +1,4 @@
-# Design Specification: Red Trade Economy & Faction Matrix (v3.8.24-SYNTHESIS-SYNTHESIS)
+# Design Specification: Red Trade Economy & Faction Matrix (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Date:** March 31, 2026
 **Subject:** Smuggling Mechanics, Faction Standing, and Immersion Loops
 **Status:** FINALIZED
