@@ -219,7 +219,7 @@ func initialModel() Model {
 		{Name: "sidecar-cyberdeck", Layer: LayerWSL},
 		{Name: "sidecar-netrunning", Layer: LayerWSL},
 		{Name: "dashboard-bridge", Layer: LayerWSL},
-		{Name: "shadow-dashboard", Layer: LayerWSL},
+		{Name: "pretext-hud-web", Layer: LayerWSL},
 		{Name: "vault-sync", Layer: LayerWSL},
 		{Name: "llama-server", Layer: LayerRemote},
 		{Name: "zeroclaw", Layer: LayerRemote},

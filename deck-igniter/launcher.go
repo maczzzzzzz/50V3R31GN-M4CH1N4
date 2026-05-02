@@ -311,9 +311,10 @@ func launchSidecar(c *Component, subdir string) tea.Cmd {
 
 // sidecarSubdir maps a component name to its source subdirectory.
 var sidecarSubdir = map[string]string{
-	"sidecar-atlas":      "sidecar-atlas",
-	"sidecar-cyberdeck":  "sidecar-cyberdeck",
-	"sidecar-netrunning": "sidecar-netrunning",
+	"sidecar-atlas":          "sidecar-atlas",
+	"sidecar-cyberdeck":      "sidecar-cyberdeck",
+	"sidecar-netrunning":     "sidecar-netrunning",
+	"browser-agent-harness": "browser-agent-harness",
 }
 
 // launchDashboardBridge starts the VSB→WebSocket telemetry bridge via crush.
@@ -335,8 +336,8 @@ func launchDashboardBridge(c *Component) tea.Cmd {
 	}
 }
 
-// launchShadowDashboard starts the Next.js dev server for the Shadow Dashboard.
-func launchShadowDashboard(c *Component) tea.Cmd {
+// launchPretextHudWeb starts the Next.js dev server and spawns the browser on Windows.
+func launchPretextHudWeb(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
 		cmd := nixCmd(root+"/dashboard", "pnpm", "dev")
@@ -346,11 +347,19 @@ func launchShadowDashboard(c *Component) tea.Cmd {
 			return stateUpdateMsg{
 				name:  c.Name,
 				state: StateError,
-				err:   fmt.Sprintf("shadow-dashboard launch failed: %v", err),
+				err:   fmt.Sprintf("pretext-hud-web launch failed: %v", err),
 			}
 		}
 		registerProc(c.Name, cmd)
-		go func() { _ = cmd.Wait() }()
+
+		// Spawn browser on Windows host after a short delay for Next.js to settle
+		go func() {
+			time.Sleep(3 * time.Second)
+			psCmd := `Start-Process -FilePath "https://localhost:3000"`
+			_ = exec.Command(pwshExe, "-NoProfile", "-Command", psCmd).Run()
+			_ = cmd.Wait()
+		}()
+
 		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
 	}
 }
@@ -503,8 +512,8 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 			cmds = append(cmds, launchHermesTUI(comp))
 		case "dashboard-bridge":
 			cmds = append(cmds, launchDashboardBridge(comp))
-		case "shadow-dashboard":
-			cmds = append(cmds, launchShadowDashboard(comp))
+		case "pretext-hud-web":
+			cmds = append(cmds, launchPretextHudWeb(comp))
 		case "vault-sync":
 			cmds = append(cmds, launchVaultSync(comp))
 		default:

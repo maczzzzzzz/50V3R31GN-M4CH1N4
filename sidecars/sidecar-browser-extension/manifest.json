@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "50V3R31GN Vivaldi Ingress",
-  "version": "1.0.0",
+  "version": "3.8.28",
   "description": "Sovereign Intelligence browser artery — pushes active page context to the Synapse Palace.",
 
   "permissions": ["activeTab", "storage", "contextMenus"],
