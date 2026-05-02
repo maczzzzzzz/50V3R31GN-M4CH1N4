@@ -6,7 +6,7 @@
 ---
 
 ## ◈ 1. EXECUTIVE SUMMARY
-Standard 2D VTT animations fail to provide the physical weight required for **Project Black-Ice**. To achieve the v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standard, we must leverage **Three.js Instanced Mesh** and **PointLight** emitters to manifest combat as physical events. This research concludes that sharding combat visuals into a high-performance 3D layer allows for real-time lighting interaction and physical debris persistence without impacting narrative inference.
+Standard 2D VTT animations fail to provide the physical weight required for **Project Black-Ice**. To achieve the v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standard, we must leverage **Three.js Instanced Mesh** and **PointLight** emitters to manifest combat as physical events. This research concludes that sharding combat visuals into a high-performance 3D layer allows for real-time lighting interaction and physical debris persistence without impacting narrative inference.
 
 ## ◈ 2. KINETIC PRIMITIVES
 1. **Volumetric Muzzle Flash:** Custom GLSL shaders utilizing procedural noise and alpha-blending to create depth-aware flashes.

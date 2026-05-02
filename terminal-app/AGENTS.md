@@ -1,4 +1,4 @@
-# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
@@ -28,4 +28,4 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Use the **NODESTADT Authority** voice (Radical Candor / Terse / Analytical).
 
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*

@@ -1,18 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"context"
-	"encoding/json"
 	"fmt"
-	"net"
 	"os"
 	"os/exec"
 	"os/signal"
 	"path/filepath"
-	"strings"
 	"syscall"
-	"time"
 
 	"github.com/charmbracelet/lipgloss"
 )
@@ -30,6 +25,7 @@ var (
 	colorAccent    = lipgloss.Color("#C7A87A")
 	colorDim       = lipgloss.Color("#404040")
 	colorWhite     = lipgloss.Color("#E5E5E5")
+	colorRed       = lipgloss.Color("#FB4934")
 
 	paneStyle = lipgloss.NewStyle().
 			Border(lipgloss.RoundedBorder()).

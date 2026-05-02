@@ -47,7 +47,7 @@ A root-level configuration file that governs the system's "Self-Concept."
 ## ⌨️ TUI-CENTRIC OS INTERFACE
 
 ### 1. Unified Shell
-- In **[SOVEREIGN_OS]** mode, the primary interface is the **Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS React/Ink TUI**.
+- In **[SOVEREIGN_OS]** mode, the primary interface is the **Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS React/Ink TUI**.
 - In **[RED_DIRECTOR]** mode, the primary interface remains the **Crush CLI**, preserving the gritty, diegetic Netrunning experience.
 - Both interfaces are embedded into their respective dashboard routes and mobile views.
 

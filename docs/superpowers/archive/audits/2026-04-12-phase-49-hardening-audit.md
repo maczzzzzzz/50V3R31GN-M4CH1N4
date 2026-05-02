@@ -38,7 +38,7 @@
 - **Recommendation:** Include depth delta in the `gauntlet-report.md` output for better visibility of system evolution.
 
 ---
-*Signed by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Signed by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---

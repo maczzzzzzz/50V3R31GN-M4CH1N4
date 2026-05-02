@@ -1,5 +1,5 @@
 # SPECIFICATION: HERMES-KANBAN MANIFEST SYNC
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Automating task governance between git manifests and the Hermes Kanban board.
 
@@ -17,7 +17,7 @@ To eliminate manual task management by bi-directionally syncing the state of `IM
 4. **Sync:** The Kanban board visually reflects the "Physical Ground Truth" of the codebase.
 
 ## 3. TECH STACK
-- **Backend:** `hermes-kanban` v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Node.js API).
+- **Backend:** `hermes-kanban` v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Node.js API).
 - **Client:** A lightweight Go-based sync daemon (`hermes-sync-go`).
 
 ## 4. SUCCESS CRITERIA
