@@ -1,4 +1,4 @@
-# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.27-SYNTHESIS)
+# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.9)
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
@@ -11,7 +11,7 @@ This document defines roles, mandates, and workflows for all AI agents (Gemini, 
 | Action | Command | Purpose |
 | :--- | :--- | :--- |
 | **Grounding** | `bash scripts/ops/grounding.sh` | Sync context with all shards. |
-| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Mesh).|
+| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Bridge).|
 | **Verification**| `npm test` | Run full Vitest suite. |
 | **Sync** | `npm run sync` | Align all manifests and guides. |
 | **Security** | `crush vault seal` | Secure steganographic archives. |
@@ -28,4 +28,4 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 
-*Verified by the Sovereign Trinity v3.8.27-SYNTHESIS.*
+*Verified by the Sovereign Triad v3.8.9.*
