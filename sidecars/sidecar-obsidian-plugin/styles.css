@@ -1,0 +1,45 @@
+/* ◈ OBSIDIAN_ARTERY : CLINICAL_AESTHETIC — v3.8.27 */
+
+.sovereign-dashboard {
+    background-color: #1A1A1A; /* Authority Charcoal */
+    color: #E5E5E5;
+    padding: 24px;
+    font-family: 'Space Grotesk', sans-serif;
+    border-radius: 4px;
+}
+
+.sovereign-accent {
+    color: #F36622; /* Machina Rust */
+}
+
+.sovereign-heading {
+    color: #C7A87A; /* Gilded Sovereign */
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.sovereign-pulse {
+    width: 8px;
+    height: 8px;
+    background-color: #00FF88; /* Void Green */
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #00FF88;
+    animation: sovereign-heartbeat 2s infinite;
+}
+
+@keyframes sovereign-heartbeat {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.sovereign-log-entry {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    border-left: 2px solid #333;
+    padding-left: 8px;
+    margin-bottom: 4px;
+    color: #00FF88;
+}
