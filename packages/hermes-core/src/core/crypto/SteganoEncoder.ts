@@ -1,5 +1,5 @@
 /**
- * STEGANO_ENCODER : v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Serpentine Artery)
+ * STEGANO_ENCODER : v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Serpentine Artery)
  * 
  * Handles zero-width and synonym-swapping steganography for Markdown files,
  * enabling "Hidden Proof of Correctness" without corrupting visual integrity.

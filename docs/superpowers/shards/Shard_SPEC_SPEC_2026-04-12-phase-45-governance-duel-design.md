@@ -1,5 +1,5 @@
 # Design Spec: Governance Duel & Pulse Propagation
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Date:** 2026-04-12
 **Phases:** 45 & 46
 **Goal:** Implement a probabilistic governance gate for human-machine conflicts and propagate the results through the Pulse Engine.
