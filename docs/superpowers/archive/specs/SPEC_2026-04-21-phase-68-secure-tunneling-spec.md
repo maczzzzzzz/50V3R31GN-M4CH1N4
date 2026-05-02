@@ -1,4 +1,4 @@
-# Design Specification: Phase 68 - Secure Subnet Tunneling & Alpha Build (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# Design Specification: Phase 68 - Secure Subnet Tunneling & Alpha Build (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Overview
 Phase 68 aims to decouple the Sovereign Trinity from the physical local network (LAN) by wrapping the mesh in an encrypted subnet tunnel. This allows the Machina Terminal HUD (Flutter companion app) to connect to Node C securely from anywhere on Earth over 5G/LTE without exposing the internal Artery Manager to the public internet. Finally, we will compile the Alpha APK.
