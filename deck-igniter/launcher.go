@@ -315,6 +315,8 @@ var sidecarSubdir = map[string]string{
 	"sidecar-cyberdeck":      "sidecar-cyberdeck",
 	"sidecar-netrunning":     "sidecar-netrunning",
 	"browser-agent-harness": "browser-agent-harness",
+	"hermes-router":         "crates/hermes-router",
+	"voxcpm-tts":            "sidecars/voxcpm-tts",
 }
 
 // launchDashboardBridge starts the VSB→WebSocket telemetry bridge via crush.

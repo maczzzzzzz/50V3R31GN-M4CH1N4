@@ -215,9 +215,10 @@ func initialModel() Model {
 		{Name: "crush-proxy", Layer: LayerWSL},
 		{Name: "director", Layer: LayerWSL},
 		{Name: "hermes-tui", Layer: LayerWSL},
+		{Name: "hermes-router", Layer: LayerWSL},
+		{Name: "voxcpm-tts", Layer: LayerWSL},
+		{Name: "browser-agent-harness", Layer: LayerWSL},
 		{Name: "sidecar-atlas", Layer: LayerWSL},
-		{Name: "sidecar-cyberdeck", Layer: LayerWSL},
-		{Name: "sidecar-netrunning", Layer: LayerWSL},
 		{Name: "dashboard-bridge", Layer: LayerWSL},
 		{Name: "pretext-hud-web", Layer: LayerWSL},
 		{Name: "vault-sync", Layer: LayerWSL},
@@ -230,6 +231,8 @@ func initialModel() Model {
 
 	cprComponents := []*Component{
 		{Name: "foundry-vtt", Layer: LayerWindows},
+		{Name: "sidecar-cyberdeck", Layer: LayerWSL},
+		{Name: "sidecar-netrunning", Layer: LayerWSL},
 	}
 
 	var activeComponents []*Component
