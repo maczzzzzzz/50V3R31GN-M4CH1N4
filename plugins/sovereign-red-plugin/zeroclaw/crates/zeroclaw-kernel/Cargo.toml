@@ -20,8 +20,8 @@ crc32fast = "1.4"
 base64 = "0.22"
 ndarray = "0.17"
 ort = { version = "2.0.0-rc.12", features = ["cuda"] }
-sovereign-sdk = { path = "../../../../crates/sovereign-sdk" }
-sovereign-core = { path = "../../../../crates/sovereign-core" }
+sovereign-sdk = { path = "../../../../../crates/sovereign-sdk" }
+sovereign-core = { path = "../../../../../crates/sovereign-core" }
 # Phase 59: Canonical Rules Kernel
 rand = "0.8"
 rusqlite = { version = "0.31", features = ["bundled"] }
