@@ -5,11 +5,35 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 
-## [3.8.13-SYNTHESIS] - 2026-05-01
+## [3.8.16-SYNTHESIS] - 2026-05-01
+
+### Added
+- **V2F Integration (Go):** Integrated `ST3GG` identity heartbeat into `sidecar-proxy`. Added `/api/v2f/pulse` route for Visual Second Factor (V2F) frame generation.
+- **SPIRE Workload API (Go):** Implemented native SPIRE Workload API client in `sidecar-proxy` to retrieve physical SVIDs for visual signing.
+- **Gated Cognition (Rust):** Refactored `hermes-router` to support V2F gating. Cognition routes can now be restricted by the steganographic heartbeat.
+- **mTLS Dependencies:** Added `spiffe`, `rustls`, and `tokio-rustls` foundations to the Rust inference layer.
+
+### Changed
+- **Roadmap Refinement:** Deepened the Phase 106 integration to utilize existing steganography and dialect primitives for a more cohesive security model.
+
+## [3.8.15-SYNTHESIS] - 2026-05-01
+
+### Added
+- **Sovereign Root CA:** Materialized `scripts/ops/generate-sovereign-root.sh` to establish the physical Anchor of Truth. Generated the initial Root CA on Node D.
+- **SPIRE Core:** Materialized `nix/modules/security/spire.nix` for declarative zero-trust identity management on Node D.
+- **Steganographic Identity:** Materialized `crush/identity_st3gg.go` integrating ST3GG steganography with SPIFFE SVIDs for Visual Second Factor (V2F) validation.
+- **KVM Enablement:** Materialized `scripts/ops/enable-node-d-kvm.sh` for hardware-level isolation.
+
+### Fixed
+- **Type Safety Audit:** Resolved TS2554 errors in `src/core/visual-monitor-service.ts` related to `better-sqlite3` prepared statement calls.
+- **Go Compilation:** Fixed unused import regression in `crush/identity_st3gg.go`.
+
+## [3.8.14-SYNTHESIS] - 2026-05-01
 
 ### Added
 - **Architectural Roadmap Expansion:** Radically expanded `IMPLEMENTATION_PLAN.md` from Phase 106 to Phase 111 based on the verification of 24+ high-signal Grok research repositories.
 - **Sovereign Artifact Categorization:** Formalized integration paths for `stash`, `plur`, `Ankh.md`, `halo`, `GitNexus`, `hermes-skill-marketplace`, and `RecursiveMAS` across the Quaternary Mesh.
+
 
 ## [3.8.12-SYNTHESIS] - 2026-05-01
 

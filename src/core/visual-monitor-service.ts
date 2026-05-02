@@ -203,9 +203,8 @@ export class VisualMonitorService {
       const lastRow = last[0];
       if (last.length === 0 || (lastRow && lastRow.screenshot_hash !== hash)) {
         this.oracle.getRawDatabase().prepare(
-          'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)',
-          sceneId ?? null, hash, timestamp
-        );
+          'INSERT INTO vision_history (scene_id, screenshot_hash, captured_at) VALUES (?, ?, ?)'
+        ).run(sceneId ?? null, hash, timestamp);
         this.logger?.debug('VisualMonitorService', traceId, 'New vision record committed to Oracle.');
       }
     }
@@ -403,9 +402,8 @@ export class VisualMonitorService {
     }
 
     this.oracle.getRawDatabase().prepare(
-      'INSERT OR REPLACE INTO scene_perception (scene_id, detected_entities_json, captured_at) VALUES (?, ?, ?)',
-      sceneId, JSON.stringify(entities), new Date().toISOString()
-    );
+      'INSERT OR REPLACE INTO scene_perception (scene_id, detected_entities_json, captured_at) VALUES (?, ?, ?)'
+    ).run(sceneId, JSON.stringify(entities), new Date().toISOString());
 
     this.logger?.info('VisualMonitorService', traceId, `regroundScene: ${entities.length} entities persisted for scene ${sceneId}`);
   }
@@ -464,9 +462,8 @@ export class VisualMonitorService {
     if (this.oracle?.isConnected()) {
       this.oracle.getRawDatabase().prepare(
         `INSERT OR REPLACE INTO scene_atmosphere (scene_id, lighting_color, animation_type, intensity, darkness_level, captured_at)
-         VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
-        sceneId, state.lightingColor, state.animationType, state.intensity, state.darknessLevel
-      );
+         VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`
+      ).run(sceneId, state.lightingColor, state.animationType, state.intensity, state.darknessLevel);
       this.logger?.debug('VisualMonitorService', traceId, 'Atmosphere state committed to Oracle.');
     }
 

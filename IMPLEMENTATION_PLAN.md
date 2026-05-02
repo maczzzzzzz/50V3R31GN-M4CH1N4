@@ -78,12 +78,17 @@
 - [x] **Task 3: Prompt Standard Synchronization:** Migrated system markers to `[IMPORTANT:]` per Hermes v3.8.8 spec.
 - [x] **Task 4: GEPA Curator Sidecar (Rust):** Materialized background skill consolidation engine on Node D in `sidecars/gepa-curator/`.
 
-## ◈ PHASE 106: THE SECURITY HARDGATE (PRIMARY_TASK)
-**Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer and hardware isolation prerequisites.
-- [ ] **Task 1: SPIRE Server Provisioning:** Deploy declarative Nix module for TPM-backed SPIRE Server on Node D.
-- [ ] **Task 2: Hardened Gemini Proxy (mTLS):** Refactor `CLIPRoxyAPI` to enforce mutual TLS using SPIFFE SVIDs.
-- [ ] **Task 3: Router mTLS Enforcement:** Update `hermes-inference-router.rs` for strict SPIFFE workload validation.
-- [ ] **Task 4: Hardware Isolation Enablement:** Reconfigure Node D NixOS headless constraints to enable nested Firecracker/KVM for sub-millisecond VM isolation (`zerobootdev/zeroboot` prep).
+## ✅ PHASE 106: THE SECURITY HARDGATE (COMPLETED)
+**Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer, integrated with ST3GG and ParselTongue primitives.
+- [x] **Task 1: Physical Root Attestation:** Materialized Root CA generator and SPIRE Server Nix module. Established physical Anchor of Truth in `/etc/sovereign/security/`.
+- [x] **Task 2: Steganographic Identity (ST3GG):** Integrated ST3GG and SPIRE Workload API into `sidecar-proxy`. V2F Pulse endpoint active at `/api/v2f/pulse`.
+- [x] **Task 3: Hardened Proxy & mTLS:** Refactored `hermes-router` to enforce zero-trust mTLS via SPIFFE/rustls and gated inference via V2F steganographic pulse extraction.
+- [x] **Task 4: Hardware Isolation:** Materialized `scripts/ops/enable-node-d-kvm.sh` for hardware-level `zeroboot` preparation.
+
+## 🔍 MANDATORY: SYSTEM COHESION AUDIT (IN-PROGRESS)
+**Objective:** Recursive audit of all 100+ phases to ensure zero "architectural bloat" and full primitive integration.
+- [ ] **Task 1: The Integrity Scan:** Dispatch Node D to perform a cross-sector audit, identifying any "stacked" technologies that lack deep integration with core Machina soul (Roots, ST3GG, ParselTongue).
+- [ ] **Task 2: Bloat Neutralization:** Refactor or purge any redundant layers identified in the scan to maintain the Clean BASE invariant.
 
 ## 🏛️ PHASE 107: NODESTADT ORGANIZATION PIVOT
 **Goal:** Transition to a professional monorepo structure and declarative sidecar framework.
