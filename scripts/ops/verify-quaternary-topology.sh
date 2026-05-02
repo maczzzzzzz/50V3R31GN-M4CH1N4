@@ -6,7 +6,7 @@ set -euo pipefail
 
 echo "◈ 50V3R31GN-M4CH1N4 // TOPOLOGY_VERIFICATION // 1N171473D"
 
-NODES=("10.0.0.10" "127.0.0.1" "10.0.0.12" "10.0.0.13")
+NODES=("100.102.95.43" "127.0.0.1" "10.0.0.12" "100.112.71.7")
 NAMES=("Node A (Kernel)" "Node B (Director)" "Node C (Oracle)" "Node D (Quaternary)")
 
 for i in "${!NODES[@]}"; do

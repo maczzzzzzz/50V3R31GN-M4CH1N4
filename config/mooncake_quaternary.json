@@ -1,9 +1,9 @@
 {
-    "master_address": "10.0.0.10:6789",
+    "master_address": "100.102.95.43:6789",
     "nodes": [
         {
             "id": "node-a",
-            "address": "10.0.0.10",
+            "address": "100.102.95.43",
             "role": "master",
             "storage": {
                 "vram_gb": 3.2,
@@ -13,7 +13,7 @@
         },
         {
             "id": "node-d",
-            "address": "10.0.0.13",
+            "address": "100.112.71.7",
             "role": "worker",
             "storage": {
                 "vram_gb": 0.0,

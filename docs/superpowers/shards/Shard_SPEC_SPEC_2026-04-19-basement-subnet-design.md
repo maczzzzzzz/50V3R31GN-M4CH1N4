@@ -10,7 +10,7 @@ The basement cluster is logically isolated from the house network via the Archer
 | Component | Physical Hardware | Static IP | Role |
 | :--- | :--- | :--- | :--- |
 | **Archer Router** | Private Backplane (Router Mode) | `10.0.0.1` | **GATEWAY** |
-| **Node A (Kernel)** | Nitro 5 / 1050 Ti | `10.0.0.10` | **MEMORY SYNAPSE** |
+| **Node A (Kernel)** | Nitro 5 / 1050 Ti | `100.102.95.43` | **MEMORY SYNAPSE** |
 | **Node B (Director)** | Main Rig / 9060 XT | `10.0.0.11` | **NARRATIVE VOICE** |
 | **Node C (Strategic Oracle)** | Server / 2060 | `10.0.0.12` | **STRATEGIC MIND** |
 
@@ -44,7 +44,7 @@ The basement cluster is logically isolated from the house network via the Archer
 ## ◈ 3. SOFTWARE IMPACT (ARTERIES)
 
 ### ◈ 3.1 ENVIRONMENT & SECRETS
-- Update `NODE_A_HOST` to `10.0.0.10` in `.env`.
+- Update `NODE_A_HOST` to `100.102.95.43` in `.env`.
 - Update `CDP_BRIDGE_HOST` to `10.0.0.11` in `.env`.
 
 ### ◈ 3.2 HARDCODED FALLBACKS

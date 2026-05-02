@@ -5,7 +5,7 @@ import type { NitroLogicConfig } from '../../packages/hermes-core/src/core/inter
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const VALID_CONFIG: NitroLogicConfig = {
-  baseUrl: 'http://10.0.0.10:8080/v1',
+  baseUrl: 'http://100.102.95.43:8080/v1',
   model: 'local-llama',
   timeoutMs: 5000,
   seed: 42,

@@ -25,12 +25,12 @@ describe('ClawLinkConfigSchema', () => {
 
   it('includes host or port fields in output', () => {
     const result = ClawLinkConfigSchema.safeParse({
-      host: '10.0.0.10',
+      host: '100.102.95.43',
       port: 7878,
     });
     expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.host).toBe('10.0.0.10');
+      expect(result.data.host).toBe('100.102.95.43');
       expect(result.data.port).toBe(7878);
     }
   });

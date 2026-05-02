@@ -36988,13 +36988,13 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - Modify: `.env.example`
 
 - [ ] **Step 1: Update `.env` (Local Artery)**
-  - Update `NODE_A_HOST` to `10.0.0.10`
-  - Update `NODE_A_LLAMA_URL` to `http://10.0.0.10:8080/v1`
+  - Update `NODE_A_HOST` to `100.102.95.43`
+  - Update `NODE_A_LLAMA_URL` to `http://100.102.95.43:8080/v1`
   - Update `CDP_BRIDGE_HOST` to `10.0.0.11` (if present)
 
 - [ ] **Step 2: Update `.env.example` (Blueprint)**
-  - Update `NODE_A_HOST` to `10.0.0.10`
-  - Update `NODE_A_LLAMA_URL` to `http://10.0.0.10:8080/v1`
+  - Update `NODE_A_HOST` to `100.102.95.43`
+  - Update `NODE_A_LLAMA_URL` to `http://100.102.95.43:8080/v1`
 
 - [ ] **Step 3: Commit**
   ```bash
@@ -37011,11 +37011,11 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - Modify: `deck-igniter/config.go`
 
 - [ ] **Step 1: Update `crush/config.go`**
-  - Replace `192.168.0.50` fallback with `10.0.0.10`
+  - Replace `192.168.0.50` fallback with `100.102.95.43`
 
 - [ ] **Step 2: Update `deck-igniter/config.go`**
-  - Update `NodeAHost` to `10.0.0.10`
-  - Update `NodeALlamaURL` to `http://10.0.0.10:8080/v1`
+  - Update `NodeAHost` to `100.102.95.43`
+  - Update `NodeALlamaURL` to `http://100.102.95.43:8080/v1`
 
 - [ ] **Step 3: Verify with `go test`**
   - Run: `cd crush && go test ./...`
@@ -37024,7 +37024,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - [ ] **Step 4: Commit**
   ```bash
   git add crush/config.go deck-igniter/config.go
-  git commit -m "refactor(go): update hardcoded networking fallbacks to 10.0.0.10"
+  git commit -m "refactor(go): update hardcoded networking fallbacks to 100.102.95.43"
   ```
 
 ---
@@ -37038,17 +37038,17 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - Modify: `src/mcp/nitro-logic/index.ts`
 
 - [ ] **Step 1: Update `scripts/gauntlet/vision-client.ts`**
-  - Replace `192.168.0.50` default with `10.0.0.10` in `NODE_A_URL`
+  - Replace `192.168.0.50` default with `100.102.95.43` in `NODE_A_URL`
 
 - [ ] **Step 2: Update `scripts/gauntlet/engine.ts`**
   - Replace `192.168.0.51` default with `10.0.0.11` in `bridgeHost`
-  - Replace `192.168.0.50` default with `10.0.0.10` in `nodeAHost`
+  - Replace `192.168.0.50` default with `100.102.95.43` in `nodeAHost`
 
 - [ ] **Step 3: Update `src/main.ts`**
-  - Replace `192.168.0.50` defaults with `10.0.0.10` in `baseUrl` and `host`
+  - Replace `192.168.0.50` defaults with `100.102.95.43` in `baseUrl` and `host`
 
 - [ ] **Step 4: Update `src/mcp/nitro-logic/index.ts`**
-  - Replace `192.168.0.50` default with `10.0.0.10` in `llamaBaseUrl`
+  - Replace `192.168.0.50` default with `100.102.95.43` in `llamaBaseUrl`
 
 - [ ] **Step 5: Commit**
   ```bash
@@ -37066,13 +37066,13 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - Modify: `tests/core/nitro-logic-client.test.ts`
 
 - [ ] **Step 1: Update `tests/integration/vsb_live_canary.ts`**
-  - Update `NODE_A_IP` to `10.0.0.10`
+  - Update `NODE_A_IP` to `100.102.95.43`
 
 - [ ] **Step 2: Update `tests/api/vsb-client.test.ts`**
-  - Update `host` to `10.0.0.10`
+  - Update `host` to `100.102.95.43`
 
 - [ ] **Step 3: Update `tests/core/nitro-logic-client.test.ts`**
-  - Update `baseUrl` to `http://10.0.0.10:8080/v1`
+  - Update `baseUrl` to `http://100.102.95.43:8080/v1`
 
 - [ ] **Step 4: Run Pre-Flight Tests (Mocked)**
   - Run: `npm test tests/core/nitro-logic-client.test.ts`
@@ -37081,7 +37081,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - [ ] **Step 5: Commit**
   ```bash
   git add tests/integration/vsb_live_canary.ts tests/api/vsb-client.test.ts tests/core/nitro-logic-client.test.ts
-  git commit -m "test: update integration test vectors to 10.0.0.10"
+  git commit -m "test: update integration test vectors to 100.102.95.43"
   ```
 
 
@@ -37107,13 +37107,13 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 - Modify: `.env.example`
 
 - [ ] **Step 1: Update `.env` (Local Artery)**
-  - Update `NODE_A_HOST` to `10.0.0.10`
-  - Update `NODE_A_LLAMA_URL` to `http://10.0.0.10:8080/v1`
+  - Update `NODE_A_HOST` to `100.102.95.43`
+  - Update `NODE_A_LLAMA_URL` to `http://100.102.95.43:8080/v1`
   - Update `CDP_BRIDGE_HOST` to `10.0.0.11` (if present)
 
 - [ ] **Step 2: Update `.env.example` (Blueprint)**
-  - Update `NODE_A_HOST` to `10.0.0.10`
-  - Update `NODE_A_LLAMA_URL` to `http://10.0.0.10:8080/v1`
+  - Update `NODE_A_HOST` to `100.102.95.43`
+  - Update `NODE_A_LLAMA_URL` to `http://100.102.95.43:8080/v1`
 
 - [ ] **Step 3: Commit**
   ```bash
@@ -37130,11 +37130,11 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 - Modify: `deck-igniter/config.go`
 
 - [ ] **Step 1: Update `crush/config.go`**
-  - Replace `192.168.0.50` fallback with `10.0.0.10`
+  - Replace `192.168.0.50` fallback with `100.102.95.43`
 
 - [ ] **Step 2: Update `deck-igniter/config.go`**
-  - Update `NodeAHost` to `10.0.0.10`
-  - Update `NodeALlamaURL` to `http://10.0.0.10:8080/v1`
+  - Update `NodeAHost` to `100.102.95.43`
+  - Update `NodeALlamaURL` to `http://100.102.95.43:8080/v1`
 
 - [ ] **Step 3: Verify with `go test`**
   - Run: `cd crush && go test ./...`
@@ -37143,7 +37143,7 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 - [ ] **Step 4: Commit**
   ```bash
   git add crush/config.go deck-igniter/config.go
-  git commit -m "refactor(go): update hardcoded networking fallbacks to 10.0.0.10"
+  git commit -m "refactor(go): update hardcoded networking fallbacks to 100.102.95.43"
   ```
 
 ---
@@ -37157,17 +37157,17 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 - Modify: `src/mcp/nitro-logic/index.ts`
 
 - [ ] **Step 1: Update `scripts/gauntlet/vision-client.ts`**
-  - Replace `192.168.0.50` default with `10.0.0.10` in `NODE_A_URL`
+  - Replace `192.168.0.50` default with `100.102.95.43` in `NODE_A_URL`
 
 - [ ] **Step 2: Update `scripts/gauntlet/engine.ts`**
   - Replace `192.168.0.51` default with `10.0.0.11` in `bridgeHost`
-  - Replace `192.168.0.50` default with `10.0.0.10` in `nodeAHost`
+  - Replace `192.168.0.50` default with `100.102.95.43` in `nodeAHost`
 
 - [ ] **Step 3: Update `src/main.ts`**
-  - Replace `192.168.0.50` defaults with `10.0.0.10` in `baseUrl` and `host`
+  - Replace `192.168.0.50` defaults with `100.102.95.43` in `baseUrl` and `host`
 
 - [ ] **Step 4: Update `src/mcp/nitro-logic/index.ts`**
-  - Replace `192.168.0.50` default with `10.0.0.10` in `llamaBaseUrl`
+  - Replace `192.168.0.50` default with `100.102.95.43` in `llamaBaseUrl`
 
 - [ ] **Step 5: Commit**
   ```bash
@@ -37185,13 +37185,13 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 - Modify: `tests/core/nitro-logic-client.test.ts`
 
 - [ ] **Step 1: Update `tests/integration/vsb_live_canary.ts`**
-  - Update `NODE_A_IP` to `10.0.0.10`
+  - Update `NODE_A_IP` to `100.102.95.43`
 
 - [ ] **Step 2: Update `tests/api/vsb-client.test.ts`**
-  - Update `host` to `10.0.0.10`
+  - Update `host` to `100.102.95.43`
 
 - [ ] **Step 3: Update `tests/core/nitro-logic-client.test.ts`**
-  - Update `baseUrl` to `http://10.0.0.10:8080/v1`
+  - Update `baseUrl` to `http://100.102.95.43:8080/v1`
 
 - [ ] **Step 4: Run Pre-Flight Tests (Mocked)**
   - Run: `npm test tests/core/nitro-logic-client.test.ts`
@@ -37200,7 +37200,7 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 - [ ] **Step 5: Commit**
   ```bash
   git add tests/integration/vsb_live_canary.ts tests/api/vsb-client.test.ts tests/core/nitro-logic-client.test.ts
-  git commit -m "test: update integration test vectors to 10.0.0.10"
+  git commit -m "test: update integration test vectors to 100.102.95.43"
   ```
 
 
@@ -37225,10 +37225,10 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 
 **Files:**
 - Modify: `docs/superpowers/specs/2026-04-18-phase-62-sovereign-trinity.md`
-- Action: SSH execution on Node A (`10.0.0.10`)
+- Action: SSH execution on Node A (`100.102.95.43`)
 
 - [ ] **Step 1: Stop and Disable legacy services on Node A**
-  - SSH into `maczz@10.0.0.10`
+  - SSH into `maczz@100.102.95.43`
   - Run: `echo ''ch00m'' | sudo -S systemctl stop zeroclaw.service postgresql.service 2>/dev/null`
   - Run: `echo ''ch00m'' | sudo -S systemctl disable zeroclaw.service postgresql.service 2>/dev/null`
 
@@ -37266,7 +37266,7 @@ echo "◈ Provisions Node A for Mooncake..."
 ```
 
 - [ ] **Step 2: Update Node A''s project root**
-  - Run: `rsync -avz --exclude ''node_modules'' . maczz@10.0.0.10:~/50V3R31GN-M4CH1N4/`
+  - Run: `rsync -avz --exclude ''node_modules'' . maczz@100.102.95.43:~/50V3R31GN-M4CH1N4/`
 
 - [ ] **Step 3: Commit**
   ```bash
@@ -37292,14 +37292,14 @@ echo "◈ Provisions Node A for Mooncake..."
 # ./mooncake-master --port 6789 --db-path ./data/mooncake/meta.db &
 
 # Start Data Worker
-# ./mooncake-worker --master 10.0.0.10:6789 --vram-gb 3.2 --dram-gb 12.0 &
+# ./mooncake-worker --master 100.102.95.43:6789 --vram-gb 3.2 --dram-gb 12.0 &
 ```
 
 - [ ] **Step 2: Execute Ignition on Node A**
-  - Run: `ssh maczz@10.0.0.10 "bash ~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh"`
+  - Run: `ssh maczz@100.102.95.43 "bash ~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh"`
 
 - [ ] **Step 3: Verify Handshake**
-  - Run: `curl http://10.0.0.10:6789/health`
+  - Run: `curl http://100.102.95.43:6789/health`
   - Expected: `{"status": "READY"}`
 
 
@@ -37322,10 +37322,10 @@ INSERT OR REPLACE INTO shard_fts (name, sector, content) VALUES ('Shard_PLAN_PLA
 
 **Files:**
 - Modify: `docs/superpowers/specs/2026-04-18-phase-62-sovereign-trinity.md`
-- Action: SSH execution on Node A (`10.0.0.10`)
+- Action: SSH execution on Node A (`100.102.95.43`)
 
 - [ ] **Step 1: Stop and Disable legacy services on Node A**
-  - SSH into `maczz@10.0.0.10`
+  - SSH into `maczz@100.102.95.43`
   - Run: `echo ''ch00m'' | sudo -S systemctl stop zeroclaw.service postgresql.service 2>/dev/null`
   - Run: `echo ''ch00m'' | sudo -S systemctl disable zeroclaw.service postgresql.service 2>/dev/null`
 
@@ -37363,7 +37363,7 @@ echo "◈ Provisions Node A for Mooncake..."
 ```
 
 - [ ] **Step 2: Update Node A''s project root**
-  - Run: `rsync -avz --exclude ''node_modules'' . maczz@10.0.0.10:~/50V3R31GN-M4CH1N4/`
+  - Run: `rsync -avz --exclude ''node_modules'' . maczz@100.102.95.43:~/50V3R31GN-M4CH1N4/`
 
 - [ ] **Step 3: Commit**
   ```bash
@@ -37389,14 +37389,14 @@ echo "◈ Provisions Node A for Mooncake..."
 # ./mooncake-master --port 6789 --db-path ./data/mooncake/meta.db &
 
 # Start Data Worker
-# ./mooncake-worker --master 10.0.0.10:6789 --vram-gb 3.2 --dram-gb 12.0 &
+# ./mooncake-worker --master 100.102.95.43:6789 --vram-gb 3.2 --dram-gb 12.0 &
 ```
 
 - [ ] **Step 2: Execute Ignition on Node A**
-  - Run: `ssh maczz@10.0.0.10 "bash ~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh"`
+  - Run: `ssh maczz@100.102.95.43 "bash ~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh"`
 
 - [ ] **Step 3: Verify Handshake**
-  - Run: `curl http://10.0.0.10:6789/health`
+  - Run: `curl http://100.102.95.43:6789/health`
   - Expected: `{"status": "READY"}`
 
 
@@ -46999,7 +46999,7 @@ The basement cluster is logically isolated from the house network via the Archer
 | Component | Physical Hardware | Static IP | Role |
 | :--- | :--- | :--- | :--- |
 | **Archer Router** | Private Backplane (Router Mode) | `10.0.0.1` | **GATEWAY** |
-| **Node A (Kernel)** | Nitro 5 / 1050 Ti | `10.0.0.10` | **MEMORY SYNAPSE** |
+| **Node A (Kernel)** | Nitro 5 / 1050 Ti | `100.102.95.43` | **MEMORY SYNAPSE** |
 | **Node B (Director)** | Main Rig / 9060 XT | `10.0.0.11` | **NARRATIVE VOICE** |
 | **Node C (Strategic Oracle)** | Server / 2060 | `10.0.0.12` | **STRATEGIC MIND** |
 
@@ -47033,7 +47033,7 @@ The basement cluster is logically isolated from the house network via the Archer
 ## ◈ 3. SOFTWARE IMPACT (ARTERIES)
 
 ### ◈ 3.1 ENVIRONMENT & SECRETS
-- Update `NODE_A_HOST` to `10.0.0.10` in `.env`.
+- Update `NODE_A_HOST` to `100.102.95.43` in `.env`.
 - Update `CDP_BRIDGE_HOST` to `10.0.0.11` in `.env`.
 
 ### ◈ 3.2 HARDCODED FALLBACKS
@@ -47060,7 +47060,7 @@ The basement cluster is logically isolated from the house network via the Archer
 | Component | Physical Hardware | Static IP | Role |
 | :--- | :--- | :--- | :--- |
 | **Archer Router** | Private Backplane (Router Mode) | `10.0.0.1` | **GATEWAY** |
-| **Node A (Kernel)** | Nitro 5 / 1050 Ti | `10.0.0.10` | **MEMORY SYNAPSE** |
+| **Node A (Kernel)** | Nitro 5 / 1050 Ti | `100.102.95.43` | **MEMORY SYNAPSE** |
 | **Node B (Director)** | Main Rig / 9060 XT | `10.0.0.11` | **NARRATIVE VOICE** |
 | **Node C (Strategic Oracle)** | Server / 2060 | `10.0.0.12` | **STRATEGIC MIND** |
 
@@ -47094,7 +47094,7 @@ The basement cluster is logically isolated from the house network via the Archer
 ## ◈ 3. SOFTWARE IMPACT (ARTERIES)
 
 ### ◈ 3.1 ENVIRONMENT & SECRETS
-- Update `NODE_A_HOST` to `10.0.0.10` in `.env`.
+- Update `NODE_A_HOST` to `100.102.95.43` in `.env`.
 - Update `CDP_BRIDGE_HOST` to `10.0.0.11` in `.env`.
 
 ### ◈ 3.2 HARDCODED FALLBACKS

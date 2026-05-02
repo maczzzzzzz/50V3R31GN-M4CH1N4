@@ -210,7 +210,7 @@ func pushProfileToMooncakeRetry(p *Profile, maxAttempts int) error {
 func pushProfileToMooncake(p *Profile) error {
 	masterAddr := os.Getenv("MOONCAKE_MASTER")
 	if masterAddr == "" {
-		masterAddr = "10.0.0.10:6789"
+		masterAddr = "100.102.95.43:6789"
 	}
 
 	conn, err := net.DialTimeout("tcp", masterAddr, 3*time.Second)

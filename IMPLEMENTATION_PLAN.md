@@ -30,8 +30,8 @@
 - [x] **Task 3: Final Ignition Planning:** Research documentation complete, Node D ignition plan and NODESTADT architectural pivot documented.
 
 ## ✅ PHASE 101: QUATERNARY TOPOLOGY IGNITION & NODE D PROVISIONING (COMPLETED)
-**Goal:** Physically provision Node D (10.0.0.13) and shore up the new model topology stack-wide.
-- [x] **Task 1: Node D Ingress & Provisioning:** Established ClawLink Artery (SSH) to `10.0.0.13`. Built `llama.cpp` from source for Intel hardware optimizations. Successfully deployed the **Hermes Command Stack** (Node.js 22, Nix, Hermes Router).
+**Goal:** Physically provision Node D (100.112.71.7) and shore up the new model topology stack-wide.
+- [x] **Task 1: Node D Ingress & Provisioning:** Established ClawLink Artery (SSH) to `100.112.71.7`. Built `llama.cpp` from source for Intel hardware optimizations. Successfully deployed the **Hermes Command Stack** (Node.js 22, Nix, Hermes Router).
 - [x] **Task 2: Model Artery Shoring:** Distributed Gemma-4 26B A4B and Qwen-2.5-Coder GGUFs to Node D. Mapped Node B/C to Clean-Base models on D: drive.
 - [x] **Task 3: Absolute Model Purge:** Physically deleted legacy "OBLITERATED" and redundant Mistral/Pixtral models.
 - [x] **Task 4: Topology Validation:** Materialized and executed `verify-quaternary-topology.sh`. Confirmed 100% mesh connectivity.

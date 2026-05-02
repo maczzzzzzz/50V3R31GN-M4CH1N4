@@ -14,10 +14,10 @@
 
 **Files:**
 - Modify: `docs/superpowers/specs/2026-04-18-phase-62-sovereign-trinity.md`
-- Action: SSH execution on Node A (`10.0.0.10`)
+- Action: SSH execution on Node A (`100.102.95.43`)
 
 - [ ] **Step 1: Stop and Disable legacy services on Node A**
-  - SSH into `maczz@10.0.0.10`
+  - SSH into `maczz@100.102.95.43`
   - Run: `echo 'ch00m' | sudo -S systemctl stop zeroclaw.service postgresql.service 2>/dev/null`
   - Run: `echo 'ch00m' | sudo -S systemctl disable zeroclaw.service postgresql.service 2>/dev/null`
 
@@ -55,7 +55,7 @@ echo "◈ Provisions Node A for Mooncake..."
 ```
 
 - [ ] **Step 2: Update Node A's project root**
-  - Run: `rsync -avz --exclude 'node_modules' . maczz@10.0.0.10:~/50V3R31GN-M4CH1N4/`
+  - Run: `rsync -avz --exclude 'node_modules' . maczz@100.102.95.43:~/50V3R31GN-M4CH1N4/`
 
 - [ ] **Step 3: Commit**
   ```bash
@@ -81,14 +81,14 @@ echo "◈ Provisions Node A for Mooncake..."
 # ./mooncake-master --port 6789 --db-path ./data/mooncake/meta.db &
 
 # Start Data Worker
-# ./mooncake-worker --master 10.0.0.10:6789 --vram-gb 3.2 --dram-gb 12.0 &
+# ./mooncake-worker --master 100.102.95.43:6789 --vram-gb 3.2 --dram-gb 12.0 &
 ```
 
 - [ ] **Step 2: Execute Ignition on Node A**
-  - Run: `ssh maczz@10.0.0.10 "bash ~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh"`
+  - Run: `ssh maczz@100.102.95.43 "bash ~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh"`
 
 - [ ] **Step 3: Verify Handshake**
-  - Run: `curl http://10.0.0.10:6789/health`
+  - Run: `curl http://100.102.95.43:6789/health`
   - Expected: `{"status": "READY"}`
 
 

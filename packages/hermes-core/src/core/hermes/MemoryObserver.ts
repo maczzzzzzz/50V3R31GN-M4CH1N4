@@ -39,7 +39,7 @@ export class MemoryObserver {
     const store = new SynapseStore('data/SovereignIntelligence.db', logger);
     store.open();
     const embedder = new SovereignEmbeddingService({
-      baseUrl: process.env.NODE_A_URL ?? 'http://10.0.0.10:8080/v1',
+      baseUrl: process.env.NODE_A_URL ?? 'http://100.102.95.43:8080/v1',
       model: 'nomic-embed-text',
       timeoutMs: 10000,
     }, logger);

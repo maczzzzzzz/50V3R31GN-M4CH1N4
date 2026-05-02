@@ -29,13 +29,13 @@ type Config struct {
 
 // defaults are the fallback values if the .env key is absent.
 var defaultConfig = Config{
-	NodeAHost:       "10.0.0.10",
+	NodeAHost:       "100.102.95.43",
 	NodeAUser:       "maczz",
 	NodeASSHPort:    "22",
-	NodeALlamaURL:   "http://10.0.0.10:8080/v1",
+	NodeALlamaURL:   "http://100.102.95.43:8080/v1",
 	NodeCHost:       "10.0.0.12",
 	NodeCPort:       "7339",
-	NodeDHost:       "10.0.0.13",
+	NodeDHost:       "100.112.71.7",
 	NodeDPort:       "8080",
 	ClawlinkPort:    "7878",
 	SetupScriptPath: "~/50V3R31GN-M4CH1N4/scripts/ops/node-a-mooncake-ignite.sh",

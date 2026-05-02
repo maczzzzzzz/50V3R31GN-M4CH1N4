@@ -7,11 +7,11 @@ set -euo pipefail
 echo "◈ 50V3R31GN-M4CH1N4 // CLAWLINK_SHORING // 1N171473D"
 
 # Target Nodes
-# Node D: Quaternary Oracle (10.0.0.13)
+# Node D: Quaternary Oracle (100.112.71.7)
 # Node C: Strategic Oracle (10.0.0.12)
-# Node A: Kernel Artery (10.0.0.10)
+# Node A: Kernel Artery (100.102.95.43)
 
-NODES=("maczz@10.0.0.13" "maczz@10.0.0.12" "maczz@10.0.0.10")
+NODES=("maczz@100.112.71.7" "maczz@10.0.0.12" "maczz@100.102.95.43")
 
 # Clear existing tunnels to avoid port conflicts
 pkill -f "ssh -f -N -L" || true
@@ -29,7 +29,7 @@ for node in "${NODES[@]}"; do
 
     echo "  [Tunnels] Igniting persistent SSH tunnels..."
     
-    if [[ "$node" == *"10.0.0.13" ]]; then
+    if [[ "$node" == *"100.112.71.7" ]]; then
         # Local 8081 -> Node D 8080 (Sovereign Swapper)
         ssh -f -N -L 8081:localhost:8080 "$node"
         
@@ -51,7 +51,7 @@ for node in "${NODES[@]}"; do
         echo "  [Artery] 127.0.0.1:7340 -> $node:7340 (Node C Qwen) [ESTABLISHED]"
     fi
 
-    if [[ "$node" == *"10.0.0.10" ]]; then
+    if [[ "$node" == *"100.102.95.43" ]]; then
         # Local 6789 -> Node A 6789 (Mooncake Master)
         ssh -f -N -L 6789:localhost:6789 "$node"
         echo "  [Artery] 127.0.0.1:6789 -> $node:6789 (Node A Mooncake) [ESTABLISHED]"

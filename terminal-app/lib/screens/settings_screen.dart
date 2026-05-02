@@ -36,10 +36,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _nodeAIpController.text = prefs.getString('node_a_ip') ?? '10.0.0.10';
+      _nodeAIpController.text = prefs.getString('node_a_ip') ?? '100.102.95.43';
       _nodeBIpController.text = prefs.getString('node_b_ip') ?? '10.0.0.11';
       _nodeCIpController.text = prefs.getString('node_c_ip') ?? '10.0.0.12';
-      _nodeDIpController.text = prefs.getString('node_d_ip') ?? '10.0.0.13';
+      _nodeDIpController.text = prefs.getString('node_d_ip') ?? '100.112.71.7';
       _vsbPortController.text = prefs.getString('vsb_port') ?? '7878';
       _rpcPortController.text = prefs.getString('rpc_port') ?? '7341';
       _redMode = prefs.getBool('red_mode_active') ?? false;

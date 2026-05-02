@@ -614,7 +614,7 @@ async fn main() {
         }
     };
 
-    let kv_master = env::var("MOONCAKE_MASTER").unwrap_or_else(|_| "10.0.0.10:6789".to_string());
+    let kv_master = env::var("MOONCAKE_MASTER").unwrap_or_else(|_| "100.102.95.43:6789".to_string());
     let kv_mesh = Arc::new(KvMesh::new(&kv_master));
 
     let initial_state = ArteryState {

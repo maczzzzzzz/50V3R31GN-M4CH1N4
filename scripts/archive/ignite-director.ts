@@ -14,7 +14,7 @@ async function ignite() {
 
   if (offloadToSynapse) {
     // Phase 62: Redirect KV storage to Synapse Node (Go implementation)
-    process.env.MOONCAKE_MASTER = '10.0.0.10:6789';
+    process.env.MOONCAKE_MASTER = '100.102.95.43:6789';
     console.log('◈ DIRECTOR_IGNITED. KV-OFFLOAD ACTIVE.');
   } else {
     console.log('◈ DIRECTOR_IGNITED. STANDALONE_MODE ACTIVE.');

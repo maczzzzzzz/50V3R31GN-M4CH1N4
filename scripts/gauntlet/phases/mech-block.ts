@@ -23,7 +23,7 @@ export const phase5: SovereignShard = {
 
   async audit(ctx: GauntletContext): Promise<AuditResult> {
     // Verify Node A (Tactical) llama server responds
-    const nodeAUrl = process.env['NODE_A_LLAMA_URL'] ?? 'http://10.0.0.10:8080/v1';
+    const nodeAUrl = process.env['NODE_A_LLAMA_URL'] ?? 'http://100.102.95.43:8080/v1';
     try {
       const res = await fetch(`${nodeAUrl}/models`, { signal: AbortSignal.timeout(5000) });
       if (!res.ok) {
@@ -180,7 +180,7 @@ export const phase26: SovereignShard = {
     // Check if VSB module is loaded by looking for shared memory or port
     const { createSocket } = await import('node:dgram');
     const vsbPort = parseInt(process.env['ZEROCLAW_PORT'] ?? '7878', 10);
-    const nodeAHost = process.env['NODE_A_HOST'] ?? '10.0.0.10';
+    const nodeAHost = process.env['NODE_A_HOST'] ?? '100.102.95.43';
 
     // Send FRICTION_INTENT (0x05) opcode as a non-destructive probe
     const probeResult = await new Promise<boolean>(resolve => {

@@ -7,7 +7,7 @@ vi.mock('node:dgram');
 
 describe('VsbClient', () => {
   const config = {
-    host: '10.0.0.10',
+    host: '100.102.95.43',
     port: 7878,
     timeoutMs: 1000,
   };

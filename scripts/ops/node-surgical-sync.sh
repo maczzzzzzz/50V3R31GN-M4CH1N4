@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-NODE_A_IP="10.0.0.10"
+NODE_A_IP="100.102.95.43"
 NODE_C_IP="10.0.0.12"
 TARGET_DIR="/home/maczz/50V3R31GN-M4CH1N4"
 

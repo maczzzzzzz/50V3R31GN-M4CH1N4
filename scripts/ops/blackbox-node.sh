@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # scripts/ops/blackbox-node.sh
 # 50V3R31GN-M4CH1N4: Node Hardening (Zero-Trust Blackbox)
-# Targeted Nodes: Node A (10.0.0.10) and Node C (10.0.0.12)
+# Targeted Nodes: Node A (100.102.95.43) and Node C (10.0.0.12)
 
 PASS="ch00m"
 

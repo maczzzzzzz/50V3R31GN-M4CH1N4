@@ -1,5 +1,5 @@
 {
-    "master_address": "10.0.0.10:6789",
+    "master_address": "100.102.95.43:6789",
     "node_role": "master",
     "storage": {
         "vram_gb": 3.2,
