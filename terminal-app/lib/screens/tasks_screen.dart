@@ -70,7 +70,7 @@ class _TasksScreenState extends State<TasksScreen> {
       );
     }
 
-    context.read<TaskService>().addTask(title, reminderTime: reminder);
+    context.read<TaskService>().addTask(title, reminder: reminder);
     _taskController.clear();
     setState(() {
       _selectedDate = null;

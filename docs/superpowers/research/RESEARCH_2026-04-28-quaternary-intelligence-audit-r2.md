@@ -4,7 +4,7 @@
 **Subject:** Generic System-Wide Intelligence Boosts & Architectural Optimizations
 
 ## 1. Executive Summary
-Round 2 research focused on the underlying "engine" logic required to scale the Sovereign OS to v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards. Key findings include advanced KV-cache management for ultra-long context, self-evolving prompt engineering, and hardware-accelerated background perception.
+Round 2 research focused on the underlying "engine" logic required to scale the Sovereign OS to v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards. Key findings include advanced KV-cache management for ultra-long context, self-evolving prompt engineering, and hardware-accelerated background perception.
 
 ## 2. Technical Pillars
 
@@ -18,7 +18,7 @@ Round 2 research focused on the underlying "engine" logic required to scale the 
 *   **RA-CR Consensus:** Rank-Adaptive Cross-Round protocol to resolve multi-agent deadlocks by dynamically "silencing" low-fidelity peers.
 
 ### C. Hardware Acceleration (The Physicality)
-*   **NPU/iGPU Hybrid Mode:** Leveraging the Ryzen 8845HS NPU (XDNA) for low-power background perception (prefill) and the 780M iGPU for high-speed token generation (decode).
+*   **NPU/iGPU Hybrid Mode:** Leveraging the Intel Core Ultra 5 125U NPU (Intel AI Boost) for low-power background perception (prefill) and the Intel Graphics (Arc) iGPU for high-speed token generation (decode).
 *   **ONNX Runtime GenAI (OGA):** Using the OGA stack for hardware-native inference on Node D.
 
 ### D. Data & Telemetry (The Shards)

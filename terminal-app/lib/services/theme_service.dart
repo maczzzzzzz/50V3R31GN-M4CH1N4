@@ -113,6 +113,13 @@ class ThemePreset {
       ),
     );
   }
+
+  // ◈ COMPATIBILITY_ARTERIES
+  Color get scaffoldBackgroundColor => bg0;
+  Color get primaryColor => orange;
+  Color get accentColor => orange;
+  Color get textColor => fg0;
+  Color get cardColor => bg1;
 }
 
 class ThemeService extends ChangeNotifier {

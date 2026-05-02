@@ -1,4 +1,4 @@
-# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Introduction
 This document outlines the architectural optimizations and system-wide intelligence boosts for the 50V3R31GN-M4CH1N4 engine, aligning with Phase 101 requirements. It focuses on ultra-long context management, self-evolving logic, multi-agent reasoning, and hardware-accelerated local inference.
@@ -18,9 +18,9 @@ This document outlines the architectural optimizations and system-wide intellige
 - **RA-CR Protocol:** Dynamic agent reordering and "silencing" of underperformers to ensure fast convergence.
 
 ## 5. NPU-Driven Local Cognition (Node D Optimization)
-- **Ryzen 8845HS/780M Synergy:**
-    - **NPU (XDNA):** Offloading "Time to First Token" (TTFT) prefill phases via Vitis AI EP.
-    - **iGPU (780M):** High-throughput token generation via DirectML/Vulkan.
+- **Intel Core Ultra 5 125U/Intel Graphics (Arc) Synergy:**
+    - **NPU (Intel AI Boost):** Offloading "Time to First Token" (TTFT) prefill phases via Vitis AI EP.
+    - **iGPU (Intel Graphics (Arc)):** High-throughput token generation via DirectML/Vulkan.
 - **Lemonade SDK:** Implementing "Hybrid Mode" for balanced power and performance.
 
 ## 6. Novel Artery of Truth Patterns (Agentic Telemetry)

@@ -1,7 +1,7 @@
 # RESEARCH: 0xSero Performance Acceleration & System Tuning
 
 **Date:** 2026-04-12
-**Context:** Node B (AMD Ryzen 5950X / Radeon RX 9060 XT) Performance Optimization
+**Context:** Node B (AMD Ryzen 5950X / Intel RX 9060 XT) Performance Optimization
 **Source:** 0xSero Framework Tuning Logic
 
 ## 1. ABSTRACT
@@ -27,7 +27,7 @@ By keeping the model dense (12B) but optimizing the hardware pipe, we maintain "
 These optimizations are verified by **Phase 52.5** audits, which monitor the `vitals.log` for anomalous latency spikes during recursive verification cycles.
 
 ---
-*Verified by the Sovereign Trinity v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---

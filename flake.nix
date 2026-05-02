@@ -13,7 +13,7 @@
         config = {
           allowUnfree = true;
           vulkanSupport = true;
-          rocmSupport = true;
+          oneapiSupport = true;
         };
       };
       identities = import ./nix/identities.nix { lib = pkgs.lib; };
@@ -24,8 +24,8 @@
         cudaSupport = false;
       };
       
-      llama-cpp-rocm = pkgs.llama-cpp.override {
-        rocmSupport = true;
+      llama-cpp-oneapi = pkgs.llama-cpp.override {
+        oneapiSupport = true;
         cudaSupport = false;
       };
       
@@ -153,7 +153,7 @@
 
             # WSL Performance Logic: AMD Radeon RX 9060 XT (D3D12/Vulkan Mapping)
             # In WSL, we use the Microsoft D3D12 loader for Vulkan
-            export MESA_D3D12_DEFAULT_ADAPTER_NAME="AMD"
+            export MESA_D3D12_DEFAULT_ADAPTER_NAME="Intel"
 
             # R3D_V01D Font Config — expose Hack + JetBrains Mono to WSLg X-server
             export FONTCONFIG_FILE="${pkgs.makeFontsConf { fontDirectories = [ pkgs.hack-font pkgs.jetbrains-mono ]; }}"
@@ -262,15 +262,15 @@
             # PDF shard output directory
             export PDF_SHARD_DIR="$PROJECT_ROOT/data/ingest/pdf_shards"
             export PDF_SOURCE_DIR="$PROJECT_ROOT/docs/raw_data/core_rules"
-            mkdir -p "$PDF_SHARD_DIR"
-
+            echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: Intel/Vulkan]."
+            ...
             # Install Docling + ColPali into a local venv if not already present
             VENV_DIR="$PROJECT_ROOT/.optical-venv"
             if [ ! -d "$VENV_DIR" ]; then
-              echo "◈ [optical] Creating Python venv and installing Docling + ColPali (ROCm/GPU)..."
+              echo "◈ [optical] Creating Python venv and installing Docling + ColPali (Intel/CPU)..."
               python3 -m venv "$VENV_DIR"
               "$VENV_DIR/bin/pip" install --quiet --upgrade pip
-              # Use the ROCm-enabled PyTorch index for AMD GPU support
+              # Use standard PyTorch for Intel/CPU compatibility
               "$VENV_DIR/bin/pip" install --quiet \
                 "docling>=2.0" \
                 "colpali-engine>=0.3" \
@@ -278,9 +278,10 @@
                 "fastapi" \
                 "uvicorn" \
                 "python-multipart" \
-                "torch" "torchvision" "torchaudio" --index-url https://download.pytorch.org/whl/rocm6.1
+                "torch" "torchvision" "torchaudio"
               echo "◈ [optical] Venv ready."
             fi
+
             export OPTICAL_PYTHON="$VENV_DIR/bin/python"
             export PATH="$VENV_DIR/bin:$PATH"
 

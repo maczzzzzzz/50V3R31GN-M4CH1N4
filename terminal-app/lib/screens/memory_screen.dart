@@ -78,42 +78,45 @@ class _MemoryScreenState extends State<MemoryScreen> {
   }
 
   Widget _buildArchiveView(MemoryProvider memory, ThemePreset theme) {
-    if (memory.archivedConversations.isEmpty) {
+    if (memory.memories.isEmpty) {
       return const Center(child: Text('NO_ARCHIVED_MEMORIES', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)));
     }
     return ListView.builder(
       padding: const EdgeInsets.all(24.0),
-      itemCount: memory.archivedConversations.length,
+      itemCount: memory.memories.length,
       itemBuilder: (context, index) {
-        final conv = memory.archivedConversations[index];
-        return GeometricShard(
-          borderColor: const Color(0xFFC7A87A),
-          leading: const Icon(Icons.history, color: Color(0xFFC7A87A), size: 18),
-          title: Text(conv['title'] ?? 'UNTITLED_FRAG', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          subtitle: Text(conv['created_at'], style: const TextStyle(color: Color(0xFFA3A3A3), fontSize: 9, letterSpacing: 1)),
+        final conv = memory.memories[index];
+        return Dismissible(
+          key: Key(conv['id'].toString()),
+          onDismissed: (_) => memory.deleteMemory(conv['id'].toString()),
+          background: Container(color: Colors.red.withOpacity(0.1), alignment: Alignment.centerRight, padding: const EdgeInsets.only(right: 20), child: const Icon(Icons.delete, color: Colors.red)),
+          child: GeometricShard(
+            borderColor: const Color(0xFFC7A87A),
+            leading: const Icon(Icons.history, color: Color(0xFFC7A87A), size: 18),
+            title: Text(conv['content'] ?? 'UNTITLED_FRAG', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15), maxLines: 1, overflow: TextOverflow.ellipsis),
+            subtitle: Text(conv['timestamp'] ?? '', style: const TextStyle(color: Color(0xFFA3A3A3), fontSize: 9, letterSpacing: 1)),
+          ),
         );
       },
     );
   }
 
   Widget _buildContextView(MemoryProvider memory, ThemePreset theme) {
-    if (memory.triplets.isEmpty) {
+    // Phase 114.5: Triplets are currently filtered memories in this UI pass
+    final triplets = memory.memories.where((m) => m['content'].contains('->')).toList();
+    if (triplets.isEmpty) {
       return const Center(child: Text('NO_CONTEXT_TRIPLETS_SHORED', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)));
     }
     return ListView.builder(
       padding: const EdgeInsets.all(24.0),
-      itemCount: memory.triplets.length,
+      itemCount: triplets.length,
       itemBuilder: (context, index) {
-        final t = memory.triplets[index];
+        final t = triplets[index];
         return GeometricShard(
           borderColor: const Color(0xFFF36622).withOpacity(0.4),
           leading: const Icon(Icons.hub, color: Color(0xFFF36622), size: 18),
-          title: Text('${t['subject_id']} -> ${t['predicate']}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
-          subtitle: Text(t['object_literal'], style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 13)),
-          trailing: Text(
-            t['created_at'].split(' ').last,
-            style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.w900),
-          ),
+          title: Text(t['content'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+          subtitle: Text(t['timestamp'] ?? '', style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 13)),
         );
       },
     );

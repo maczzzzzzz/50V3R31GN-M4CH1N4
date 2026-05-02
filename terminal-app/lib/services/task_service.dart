@@ -50,10 +50,10 @@ class TaskService extends ChangeNotifier {
     
     if (reminder != null) {
       _notifications.scheduleNotification(
-        id: id.hashCode,
-        title: "::/DIRECTIVE_RECALL",
-        body: "Executing: $title",
-        scheduledDate: reminder,
+        id.hashCode,
+        "::/DIRECTIVE_RECALL",
+        "Executing: $title",
+        reminder,
       );
     }
     

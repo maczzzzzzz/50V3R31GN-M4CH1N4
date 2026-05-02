@@ -1,4 +1,4 @@
-# FINAL REPORT: Deep Quaternary Intelligence Audit (v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# FINAL REPORT: Deep Quaternary Intelligence Audit (v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Date:** 2026-04-28
 **Phase:** 102.2
 **Nodes:** A, B, C, D (Trinity + Strategic Oracle)
@@ -29,7 +29,7 @@ The Quaternary Intelligence Audit has identified a generational shift in agentic
 *   **Actionable:** Replace static `SkillAuthor.ts` with a dynamic synthesis engine that leverages DSPy for instruction optimization.
 
 ## 3. HARDWARE & KERNEL INGRESS
-*   **NPU Perception:** Utilize the Ryzen 8845HS NPU (XDNA) via the Ryzen AI SDK for 24/7 low-power environmental perception.
+*   **NPU Perception:** Utilize the Intel Core Ultra 5 125U NPU (Intel AI Boost) via the Ryzen AI SDK for 24/7 low-power environmental perception.
 *   **TPM Sovereignty:** All agentic actions and memory commits MUST be cryptographically signed via host TPM.
 *   **Consensus:** Implement the RA-CR (Rank-Adaptive Cross-Round) debate protocol for multi-agent reasoning tasks.
 

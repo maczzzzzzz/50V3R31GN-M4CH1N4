@@ -111,11 +111,6 @@ class _TerminalScreenState extends State<TerminalScreen> {
         child: TerminalView(
           _terminal,
           padding: const EdgeInsets.all(8),
-          style: const TerminalStyle(
-            fontSize: 12,
-            fontFamily: 'monospace',
-            backgroundColor: Color(0xFF0A0A0A),
-          ),
         ),
       ),
     );
