@@ -21788,7 +21788,7 @@ Module hierarchy (lowest to highest):
 3. `routers/`
 4. `main.py`
 
-- Memory management: free large objects immediately after use. E.g., `del` for byte arrays after processing, `.clear()` for dicts/lists holding data.
+- Synapse management: free large objects immediately after use. E.g., `del` for byte arrays after processing, `.clear()` for dicts/lists holding data.
 
 #### Backend Service Map
 
@@ -21944,7 +21944,7 @@ Module hierarchy (lowest to highest):
 3. `routers/`
 4. `main.py`
 
-- Memory management: free large objects immediately after use. E.g., `del` for byte arrays after processing, `.clear()` for dicts/lists holding data.
+- Synapse management: free large objects immediately after use. E.g., `del` for byte arrays after processing, `.clear()` for dicts/lists holding data.
 
 #### Backend Service Map
 
@@ -22101,7 +22101,7 @@ Never run `flutterfire configure` — it overwrites prod credentials. Config fil
 - Dev: `ios/Config/Dev/`, `android/app/src/dev/`, `lib/firebase_options_dev.dart`
 - Prod: `ios/Config/Prod/`, `android/app/src/prod/`, `lib/firebase_options_prod.dart`
 
-## Native Bridge
+## Native Mesh
 
 ### Pigeon Interface (bidirectional, iOS ↔ Dart)
 - Contract: `lib/watch_interface.dart` — 13 methods (recording, audio, battery, permissions)
@@ -22225,7 +22225,7 @@ Never run `flutterfire configure` — it overwrites prod credentials. Config fil
 - Dev: `ios/Config/Dev/`, `android/app/src/dev/`, `lib/firebase_options_dev.dart`
 - Prod: `ios/Config/Prod/`, `android/app/src/prod/`, `lib/firebase_options_prod.dart`
 
-## Native Bridge
+## Native Mesh
 
 ### Pigeon Interface (bidirectional, iOS ↔ Dart)
 - Contract: `lib/watch_interface.dart` — 13 methods (recording, audio, battery, permissions)
