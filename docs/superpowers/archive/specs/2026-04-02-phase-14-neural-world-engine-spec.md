@@ -1,9 +1,9 @@
-# Design Specification: Phase 14 — Neural World Engine (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# Design Specification: Phase 14 — Neural World Engine (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Subject:** Reactive Environments, Visual Diffing, and Latent Persistence
 **Status:** DESIGN FINALIZED (Hardware Hardened)
 
 ## 1. Executive Summary
-Phase 14 introduces physical reactivity to the TRPG environment. It establishes a "Visual Diff" engine to stabilize AI perception and an "Action-Conditioned" materialization loop that applies environmental damage based on mechanical outcomes. By pivoting from on-the-fly diffusion to intelligent asset-mapping, we maintain the v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS performance baseline while achieving high-fidelity environmental persistence.
+Phase 14 introduces physical reactivity to the TRPG environment. It establishes a "Visual Diff" engine to stabilize AI perception and an "Action-Conditioned" materialization loop that applies environmental damage based on mechanical outcomes. By pivoting from on-the-fly diffusion to intelligent asset-mapping, we maintain the v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS performance baseline while achieving high-fidelity environmental persistence.
 
 ## 2. Component Architecture
 
