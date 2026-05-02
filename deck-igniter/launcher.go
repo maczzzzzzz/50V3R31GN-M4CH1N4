@@ -232,14 +232,13 @@ func launchCrushProxy(c *Component) tea.Cmd {
 // PowerShell quoting note: use comma-separated -ArgumentList so each token is a
 // distinct element — avoids the \"...\" vs single-quote escaping footgun that
 // caused the window to silently fail in earlier versions.
-func launchCrushGUI(c *Component) tea.Cmd {
+// launchHermesTUI spawns the modern Ink-based TUI in a new terminal window.
+func launchHermesTUI(c *Component) tea.Cmd {
 	return func() tea.Msg {
 		root := projectRoot()
-		// Comma-separated -ArgumentList passes each element as a discrete arg to
-		// wsl.exe, so bash receives the -c string without any backslash artefacts.
 		psCmd := fmt.Sprintf(
 			`Start-Process -FilePath 'C:\Windows\System32\wsl.exe' `+
-				`-ArgumentList '-d','NixOS','--','bash','-c','cd %s && ./crush-cli terminal' `+
+				`-ArgumentList '-d','NixOS','--','bash','-l','-c','cd %s && nix develop --command npm run terminal' `+
 				`-WindowStyle Normal`,
 			root,
 		)
@@ -247,7 +246,7 @@ func launchCrushGUI(c *Component) tea.Cmd {
 		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 		if out, err := cmd.CombinedOutput(); err != nil {
 			return stateUpdateMsg{name: c.Name, state: StateError,
-				err: fmt.Sprintf("crush-gui launch: %v | %s", err, string(out))}
+				err: fmt.Sprintf("hermes-tui launch: %v | %s", err, string(out))}
 		}
 		return stateUpdateMsg{name: c.Name, state: StateRunning}
 	}
@@ -463,17 +462,8 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 		}
 	}
 
-	// 2a.1: crush-gui — PRIMARY model-comms terminal, first window to open after sock.
-	// MUST launch here, before director, before sidecars. This is the operator's
-	// main interface for watching Node A inference in real-time.
-	for _, c := range components {
-		comp := c
-		if comp.Layer == LayerWSL && comp.Name == "crush-gui" {
-			cmds = append(cmds, logEvent("LAUNCHING crush-gui — PRIMARY THOUGHT-STREAM TERMINAL"))
-			cmds = append(cmds, launchCrushGUI(comp))
-			break
-		}
-	}
+	// 2a.1: crush-gui — [PURGED]
+	// Pretext HUD now serves as the primary thought-stream interface.
 
 	// 2b: Node A Orchestration (Mooncake + Artery)
 	// Mooncake (Node A) must boot BEFORE the Director (Node B).
@@ -507,8 +497,10 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 			continue
 		}
 		switch comp.Name {
-		case "crush-proxy", "director", "crush-gui":
+		case "crush-proxy", "director":
 			// handled above with dependency gates
+		case "hermes-tui":
+			cmds = append(cmds, launchHermesTUI(comp))
 		case "dashboard-bridge":
 			cmds = append(cmds, launchDashboardBridge(comp))
 		case "shadow-dashboard":
