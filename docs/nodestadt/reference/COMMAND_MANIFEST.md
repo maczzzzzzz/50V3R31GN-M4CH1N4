@@ -17,7 +17,7 @@ Commands for starting hardware nodes and establishing the cognitive artery.
 | `crush proxy` | **CLI** | Starts the high-throughput VSB/Mmap physical proxy. |
 | `crush shut-down` | **CLI** | **DANGER:** Purges all local Machina processes immediately. |
 | `crush reconstruct` | **CLI** | Cleans and rebuilds the Sovereign Vault and memory core. |
-| `crush profile [name]` | **CLI** | Performs an atomic identity shift (e.g., DIRECTOR -> RESEARCHER). |
+| `crush profile [name]` | **CLI** | Performs an atomic identity shift (e.g., SOVEREIGN_OS -> RESEARCHER). |
 | `ignite-all.sh` | **Shell** | Sequential ignition of Nodes A, B, C, and D. |
 
 ## 🛡️ 2. AUTHORITY & GOVERNANCE
@@ -49,7 +49,7 @@ Commands for real-time interaction and system maintenance.
 
 | Command | Target | Description |
 | :--- | :--- | :--- |
-| `crush hack [action]` | **Director** | Sends a tactical hack intent (unlock, dim-lights, brain-wipe). |
+| `crush hack [action]` | **Director** | Sends a tactical intent (shut-down, switch-profile). |
 | `crush scan [type]` | **Director** | Scans environment for objectives, hazards, or cover. |
 | `crush crop-scan [x y]` | **Director** | High-fidelity vision capture of specific host-screen coordinates. |
 | `crush belt list` | **Registry** | Lists active/available hardware sidecars and VRAM usage. |
@@ -62,4 +62,4 @@ Commands for real-time interaction and system maintenance.
 | `npm run reckoning` | **Validation** | Executes the 100% mesh integrity validation suite. |
 
 ---
-**::/5Y573M-N071C3 : COMMAND_MANIFEST_V3_8_8_LOCKED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : COMMAND_MANIFEST_V3.8.8_LOCKED. // 50V3R31GN-M4CH1N4**

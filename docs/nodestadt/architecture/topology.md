@@ -1,37 +1,37 @@
-# NODESTADT Authority OS: Network Topology (v3.8.8)
+# ◈ NODESTADT ARCHITECTURE : NETWORK TOPOLOGY (v3.8.8)
 ## 4-Node Quaternary Mesh (A/B/C/D)
 
-The system operates on a distributed quaternary mesh. **STATUS: ARTERY_MAPPED.**
+The system operates on a distributed quaternary mesh. Physical nodes are interconnected via Zero-Trust arteries gated by SPIFFE/V2F.
 
-### Node Roles & Physical Truth
+### Node Roles & Physical Specifications
 
 #### [Node A] - Mooncake: The Synapse
 - **Hardware:** NVIDIA GTX 1050 Ti (4GB Pascal) // 16GB DDR4.
-- **Model Artery:** KV Synapse Cache / MemPalace Buffer.
-- **Role:** High-speed semantic retention and logic bus signing.
+- **Cognitive Engine:** KV Synapse Cache / MemPalace Buffer / Mmap Bus Sync.
+- **Primary Role:** High-speed semantic retention and logical bus verification.
 
-#### [Node B] - Director: The Vision (MACSPC)
+#### [Node B] - Director: The Vision
 - **Hardware:** AMD Ryzen 9 5900XT (16-Core) // 48GB RAM // AMD Radeon RX 9060 XT (16GB).
-- **Model Artery:** `gemma-4-26B-A4B-it-UD-Q3` + `mmproj-BF16`.
-- **Role:** Visual Authority, Screen Awareness (OMI), and Narrative Lead.
+- **Cognitive Engine:** `Gemma-4-26B (Vision)` + `mmproj-BF16`.
+- **Primary Role:** Visual Authority, Real-time Screen Awareness (OMI), and HUD Synthesis.
 
-#### [Node C] - Strategic Oracle: The Reasoner
+#### [Node C] - Strategic Oracle: The Perception
 - **Hardware:** AMD Ryzen 7 3700X // 32GB DDR4 // NVIDIA RTX 2060 (6GB).
-- **Model Artery:** `Gemma-4-E4B-it-Q3`, `Gemma-4-E4B-it-Q4`, and `Falcon-Perception-0.3B`.
-- **Role:** Background Reasoning, Threat Recon, and Social/Socially-weighted Retrieval.
+- **Cognitive Engine:** `Gemma-4-E4B` (Fast Reasoning) and `Falcon-Perception-0.3B`.
+- **Primary Role:** Semantic perception, threat reconnaissance, and rule-checking.
 
-#### [Node D] - Quaternary Strategic Oracle: The Context (GMKtec K15)
+#### [Node D] - Quaternary: The Heavy Reasoner
 - **Hardware:** Intel Core Ultra 5 125U (Intel AI Boost NPU) // 48GB DDR5.
-- **Model Artery:** `Gemma-4-26B-A4B-it-Q6`, `Qwen-2.5-Coder-14B-Instruct-Q6`, and `GLM-4.7-Flash-UD-Q4-K-XL`.
-- **Role:** Heavy Reasoner Powerhouse, 128k+ Hyper-Context, and Implementation Lead.
+- **Cognitive Engine:** `Gemma-4-26B (Q6)`, `Qwen-2.5-Coder (Q6)`, and `GLM-4.7 (Q4)`.
+- **Primary Role:** Hyper-Context reasoning (128k+), implementation lead, and security hardgate.
 
 ---
 
 ### ◈ THE COGNITIVE ARTERY (v3.8.8)
 1. **Synapse:** Node A (Synapse Cache).
-2. **Perception:** Node B (Vision-as-Context) + Node C (Ambient Perception).
-3. **Reasoning:** Node D (Architectural Heavy-Lifting).
-4. **Implementation:** Node D (Qwen-Coder Artery).
+2. **Vision:** Node B (Vision-as-Context) + Node C (Perceptual Analysis).
+3. **Reasoning:** Node D (High-Fidelity Logic).
+4. **Implementation:** Node D (Autonomous Skill Forge).
 
 ---
 **::/5Y573M-N071C3 : TOPOLOGY_SYNCHRONIZED. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4**

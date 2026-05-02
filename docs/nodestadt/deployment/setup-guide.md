@@ -8,7 +8,7 @@
 ## ◈ 1. PREREQUISITES
 
 ### ◈ Hardware Nodes
-- **Node A (Kernel):** NVIDIA GPU (4GB+), NixOS Native.
+- **Node A (Synapse):** NVIDIA GPU (4GB+), NixOS Native.
 - **Node B (Director):** 16GB+ VRAM, WSL2/Ubuntu.
 - **Node C (Strategic Oracle):** NVIDIA GPU (6GB+), Remote Server.
 - **Node D (Quaternary):** Intel Core Ultra (NPU-Capable) or high-context CPU node.
@@ -22,15 +22,15 @@
 
 ## ◈ 2. NODE-SPECIFIC CONFIGURATION
 
-### ◈ Node A: Synapse & Rules (NixOS)
-1. Clone the repository: `git clone <repo_url> ~/50V3R31GN-M4CH1N4`
-2. Enter Nix shell: `nix develop .#cuda`
+### ◈ Node A: Synapse & Artery (NixOS)
+1. Clone the repository: `git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4.git ~/50V3R31GN-M4CH1N4`
+2. Enter Nix shell: `nix develop --impure`
 3. Deploy models: `bash scripts/ops/node-a-setup-models.sh`
 4. Verify VSB port: Ensure port `7878` (UDP) is open.
 
 ### ◈ Node B: Director & HUD (WSL2)
 1. Install Node.js 22+ and pnpm.
-2. Build sidecars: `npm run build:sidecars`
+2. Build monorepo: `pnpm install && npm run build`
 3. Configure `.env`:
    ```env
    NODE_A_HOST=10.0.0.10
@@ -39,11 +39,11 @@
    SOVEREIGN_KEY=<your_steganography_key>
    ```
 
-### ◈ Node D: Heavy Reasoning (K15)
+### ◈ Node D: Heavy Reasoning (GMKtec K15)
 1. Install Nix: `curl -L https://nixos.org/nix/install | sh`
-2. Build `llama.cpp` from source (Intel optimization):
+2. Build Intel-optimized inference:
    ```bash
-   nix develop .#npu --command bash scripts/ops/node-d-provision.sh
+   nix develop --impure --command bash scripts/ops/node-d-provision.sh
    ```
 
 ---
@@ -52,9 +52,9 @@
 
 From **Node B (Director)**, execute the sequential boot:
 ```bash
-./deck-igniter-cli start
+bash scripts/audit/ignite-all.sh
 ```
 *Wait for the [GATE] status on all 4 nodes to turn green in the HUD.*
 
 ---
-**::/5Y573M-N071C3 : SETUP_GUIDE_SHORED. v3.8.8_LOCK. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : SETUP_GUIDE_SHORED. // 50V3R31GN-M4CH1N4**

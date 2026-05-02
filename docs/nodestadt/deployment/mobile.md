@@ -24,25 +24,25 @@ Mobile sovereignty requires a direct, encrypted artery to the Director.
 
 1.  Install **Tailscale** on your Android device.
 2.  Join the same Tailnet as Node B.
-3.  Ensure you can ping `10.0.0.11` (Director) from the device.
+3.  Ensure you can ping the **Director** node from the device.
 
 ---
 
-## ◈ 3. SEMANTIC SCREEN AWARENESS
+## ◈ 3. AMBIENT AWARENESS
 
-The **Vesper-Eye** perception layer requires Accessibility permissions.
+The perception layer requires Accessibility permissions for environmental context.
 
 1.  Open **Settings > Accessibility**.
 2.  Enable **Sovereign Accessibility Service**.
-3.  This allows Node B to perform semantic OCR and parse the accessibility tree without root access.
+3.  This allows the OS to ingest environmental context and parse the accessibility tree.
 
 ---
 
-## ◈ 4. TERMINAL ACCESS (EMBEDDED UBUNTU)
+## ◈ 4. TERMINAL ACCESS (mTLS ENFORCED)
 
 For deep-control, the Hub includes a terminal tab.
 
-1.  **SSH Key:** Import your `id_ed25519` key into the Hub's settings.
+1.  **Identity:** Import your SPIFFE SVID into the Hub's security vault.
 2.  **ClawLink:** Select the **Director** node from the mesh list.
 3.  **Ignite:** You now have a persistent, high-throughput shell to the quaternary mesh.
 

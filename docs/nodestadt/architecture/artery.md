@@ -1,7 +1,7 @@
-# NODESTADT Authority OS: The Artery
+# ◈ NODESTADT ARCHITECTURE : THE ARTERY (v3.8.8)
 ## Connection Logic & Transport Protocols
 
-The **Artery** defines the physical and logical pathways through which the NODESTADT Authority OS maintains its distributed state. It is designed for low-latency state synchronization and high-resiliency packet delivery.
+The **Artery** defines the physical and logical pathways through which the NODESTADT Authority OS maintains its distributed state. It is designed for low-latency state synchronization and zero-trust packet delivery.
 
 ### 1. ClawLink SSH Tunnels
 The base layer of the Artery is constructed using **ClawLink** encrypted tunnels.
@@ -11,22 +11,22 @@ The base layer of the Artery is constructed using **ClawLink** encrypted tunnels
 - **Security:** Key-based authentication only. No password-based access is permitted on Artery-exposed ports.
 
 ### 2. VSB UDP Binary Protocol (The Pulse)
-High-frequency state updates are transmitted via the **Vesper System Bus (VSB)** protocol.
+High-frequency state updates are transmitted via the **Virtual Sovereign Bus (VSB)** protocol.
 
 - **Format:** Pure binary UDP for maximum throughput.
 - **Packet Size:** Fixed 302-byte packets to prevent fragmentation and ensure deterministic processing.
 - **Payload Structure:**
   - `Header` [16 bytes]: Source Node ID, Sequence Number, Timestamp.
   - `Body` [270 bytes]: Encrypted logic shard or state delta.
-  - `Signature` [16 bytes]: CRC64 and XOR-based signing derived from Node A's rolling synapse key.
+  - `Signature` [16 bytes]: CRC64 signing derived from Node A's rolling identity key.
 - **Delivery Guarantee:** Best-effort with sequence-based reconstruction for critical logic chains.
 
-### 3. SSE Short-Circuit (HUD Streaming)
-Real-time telemetry and the "Heads-Up Display" (HUD) utilize a dedicated **Server-Sent Events (SSE)** pathway.
+### 3. mTLS Artery (RPC Control Plane)
+All high-level agent tool calls and node-to-node RPCs are routed through the **mTLS Artery**.
 
-- **Endpoint:** `localhost:3015/stream/hud`
-- **Purpose:** Bypasses the heavy binary processing of the VSB for direct-to-visual telemetry.
-- **Optimization:** Short-circuits traditional HTTP overhead to provide sub-50ms visual updates of system vitals.
+- **Proxy:** Managed by `hermes-router` (Rust) on port 7341.
+- **Identity:** Strictly enforced via SPIFFE/SPIRE SVIDs.
+- **Gating:** Access to reasoning arteries (Node D) is gated by ST3GG Visual Second Factor (V2F) verification.
 
 ---
 
@@ -36,7 +36,7 @@ Real-time telemetry and the "Heads-Up Display" (HUD) utilize a dedicated **Serve
 | :--- | :--- | :--- | :--- |
 | ClawLink | L4 (SSH) | Encrypted Backbone | 2222, 2223 |
 | VSB | L3 (UDP) | Logic Synchronization | 3010-3014 |
-| SSE | L7 (HTTP) | Sensorium/HUD | 3015 |
+| mTLS RPC | L7 (HTTP) | Control Plane | 7339-7341 |
 
 ---
 **::/5Y573M-N071C3 : ARTERY_CALIBRATED. // NODESTADT_AUTHORITY_OS**

@@ -8,8 +8,8 @@
 
 ## ◈ 1. OS INSTALLATION
 
-1.  **Base OS:** Install Ubuntu Server 24.04 LTS (Headless).
-2.  **User:** Create user `nixos` (for consistency with the mesh).
+1.  **Base OS:** Install NixOS (preferred) or Ubuntu Server 24.04 LTS (Headless).
+2.  **User:** Create user `nixos`.
 3.  **SSH:** Enable OpenSSH and copy your `id_ed25519.pub` from Node B.
 
 ---
@@ -20,16 +20,16 @@ Node D uses **Nix** to manage its hardware-optimized inference environment.
 
 1.  **Install Nix:**
     ```bash
-    sh <(curl -L https://nixos.org/nix/install) --daemon
+    curl -L https://nixos.org/nix/install | sh
     ```
 2.  **Clone Repository:**
     ```bash
-    git clone https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4 ~/50V3R31GN-M4CH1N4
+    git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4 ~/50V3R31GN-M4CH1N4
     ```
 3.  **Enter Quaternary Shell:**
     ```bash
     cd ~/50V3R31GN-M4CH1N4
-    nix develop .#quaternary
+    nix develop --impure
     ```
 
 ---
@@ -38,14 +38,9 @@ Node D uses **Nix** to manage its hardware-optimized inference environment.
 
 Node D leverages the **Intel AI Boost NPU** for background perception.
 
-1.  **Build llama.cpp with OpenVINO:**
-    ```bash
-    mkdir build && cd build
-    cmake .. -DGGML_OPENVINO=ON
-    make -j$(nproc)
-    ```
+1.  **Optimization:** The Nix shell automatically configures OpenVINO and NPU drivers.
 2.  **Deploy Models:**
-    Download the Gemma-4-26B A4B (Q6_K) GGUF to `~/models/`.
+    Download the Gemma-4-26B (Q6_K) GGUF to the project data directory.
 
 ---
 
@@ -55,7 +50,7 @@ The Node D Command daemon must be active for the Artery to function.
 
 ```bash
 # Start the Quaternary Strategic Oracle
-bash scripts/ops/node-d-command-ignition.sh
+bash scripts/ops/node-d-ignite-farm.sh
 ```
 
 ---

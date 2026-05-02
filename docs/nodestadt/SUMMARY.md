@@ -7,7 +7,6 @@
 * [The Quaternary Mesh](architecture/topology.md)
 * [ClawLink & The Artery](architecture/artery.md)
 * [Zero-Trust Boundaries](architecture/security.md)
-* [The Symbolic Synapse Core](architecture/memory.md)
 * [Research Swarms (Inside the Machina)](architecture/research-swarms.md)
 * [Mobile Sovereignty (Android/Ubuntu)](architecture/mobile-sovereignty.md)
 
@@ -16,6 +15,7 @@
 * [Hermes Singularity](capabilities/hermes.md)
 * [HeadlessDatalog Reference](capabilities/datalog.md)
 * [Pretext HUD Layout](capabilities/hud.md)
+* [Browser Ingress](capabilities/browser-ingress.md)
 * [Skill-Factory & GEPA](capabilities/gepa.md)
 
 ## Deployment
@@ -23,10 +23,16 @@
 * [Hardware Invariants](deployment/hardware.md)
 * [NixOS Ignition](deployment/nixos.md)
 * [Node D (K15) Provisioning](deployment/node-d.md)
-
+* [Mobile Deployment](deployment/mobile.md)
 
 ---
-* [Cyberpunk RED Plugin](../sovereign-red-plugin/README.md)
+* [Sovereign RED Plugin](../../plugins/sovereign-red-plugin/README.md)
+
+## Encyclopedia
+* [Physical Map](encyclopedia/PHYSICAL_MAP.md)
+* [Primitives Dictionary](encyclopedia/PRIMITIVES.md)
+* [Reckoning Suite](encyclopedia/RECKONING_SUITE.md)
+* [Master Manifest](encyclopedia/MANIFEST.md)
 
 ## Reference
 * [Command Manifest](reference/COMMAND_MANIFEST.md)

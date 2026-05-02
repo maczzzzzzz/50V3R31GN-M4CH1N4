@@ -2,7 +2,7 @@
 **Version:** 3.8.8
 **Identity:** 50V3R31GN-M4CH1N4
 
-This document indexes the core developer utilities and operational scripts. **Legacy Python logic is deprecated.**
+This document indexes the core developer utilities and operational scripts. **Legacy simulation logic is extracted.**
 
 ---
 
@@ -13,11 +13,10 @@ The primary limbs for mesh orchestration and ignition.
 | :--- | :--- | :--- |
 | `ignite-all.sh` | **CORE** | Full Mesh boot (Nodes A/B/C/D). |
 | `shutdown.sh` | **CORE** | Graceful Quaternary shutdown protocol. |
-| `grounding.sh` | **CORE** | Dumps identity manifests to context. |
+| `grounding.sh` | **CORE** | Dumps clinical identity manifests to context. |
 | `shore-clawlink.sh` | **CORE** | Automates SSH tunnel persistence. |
 | `verify-quaternary-topology.sh` | **CORE** | Validates inter-node connectivity. |
 | `node-d-ignite-farm.sh` | **CORE** | Starts the Node D model farm. |
-| `node-d-command-ignition.sh`| **CORE** | Ignites the Node D Quaternary Strategic Oracle. |
 | `index-shards.ts` | **CORE** | Rebuilds FTS5 memory indices. |
 | `watch-logs.sh` | **UTIL** | Real-time multi-node log streaming. |
 | `blackbox-node.sh` | **UTIL** | Forensic capture of node state. |
@@ -33,7 +32,7 @@ Zero-trust validation and safety scripts.
 | `vitals-heartbeat.ts` | **CORE** | Monitors VRAM saturation. |
 | `purge-ghosts.sh` | **CORE** | Neutralizes processes surviving >4hrs. |
 | `lockdown.sh` | **CORE** | Final physical network audit. |
-| `verify-sovereignty.sh` | **CORE** | Verifies Rule Strategic Oracle enforcement. |
+| `verify-sovereignty.sh` | **CORE** | Verifies zero-trust artery enforcement. |
 
 ## 🧬 3. DATA & FORGE (`scripts/forge/`)
 Materialization and ingestion limbs.
@@ -52,9 +51,9 @@ Scripts for system restoration and health.
 | Script | Status | Purpose |
 | :--- | :--- | :--- |
 | `backup-mind.ts` | **ACTIVE** | Full DB/Skill snapshots. |
-| `nuke-and-rebuild-v4.sh` | **DANGER** | Complete system purge and rebuild. |
+| `nuke-and-rebuild.sh` | **DANGER** | Complete system purge and rebuild. |
 | `recover-ingest.mjs` | **UTIL** | Repairs fractured ingestion queues. |
 | `migrate-v4.ts` | **CORE** | DB schema migration to v3.8.8. |
 
 ---
-**::/5Y573M-N071C3 : DEV_SCRIPTS_MANIFEST_V3_8_8_LOCKED. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : DEV_SCRIPTS_MANIFEST_V3.8.8_LOCKED. // 50V3R31GN-M4CH1N4**

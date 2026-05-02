@@ -1,4 +1,4 @@
-# ◈ HEADLESS DATALOG & SYMBOLIC MEMORY
+# ◈ HEADLESS DATALOG & SYMBOLIC MEMORY (v3.8.8)
 
 **Phase:** 90 [UNIFIED_SYMBOLIC_ARTERY]
 **Engine:** HeadlessDatalog / SQLite
@@ -32,30 +32,29 @@ NODESTADT implements a high-fidelity subset of **DataScript EDN** syntax for que
 
 ---
 
-## ◈ TRIPLE STORE SCHEMA (`os_triplets`)
+## ◈ TRIPLE STORE SCHEMA (`triplets`)
 
-All symbolic facts are stored as (Subject-Predicate-Object) triplets in the `os_triplets` table.
+All symbolic facts are stored as (Subject-Predicate-Object) triplets in the `triplets` table within `Akashik.db`.
 
 | Column | Type | Description |
 | :--- | :--- | :--- |
 | `subject_id` | TEXT | The unique identifier for the entity. |
 | `predicate` | TEXT | The attribute or relation name (e.g., `:is-a`, `:status`). |
 | `object_literal` | TEXT | The value or target entity ID. |
-| `room_id` | TEXT | Spatial context identifier. |
-| `cluster_id` | TEXT | Logical grouping for shard synchronization. |
+| `district_id` | TEXT | Spatial context identifier. |
 | `last_updated` | DATETIME | Timestamp of the last idempotent UPSERT. |
 
 ---
 
 ## ◈ SEARCH & SYNC INTEGRATION
 
-### 1. FTS5 Integration (`shard_fts`)
-HeadlessDatalog integrates directly with a SQLite **FTS5** virtual table (`shard_fts`). This allows for hybrid queries that combine symbolic relational matching with BM25-ranked full-text search across intelligence shards.
+### 1. FTS5 Integration (`triplets_fts`)
+HeadlessDatalog integrates directly with a SQLite **FTS5** virtual table (`triplets_fts`). This allows for hybrid queries that combine symbolic relational matching with BM25-ranked full-text search across intelligence shards.
 
 ### 2. Obsidian Bidirectional Sync
 The **Sovereign Dashboard Service** mirrors the internal Datalog state to a physical Markdown vault.
 - **Fact Materialization:** Datalog facts are engraved as Obsidian notes in `Facts/`.
-- **Bidirectional Ingestion:** Edits made to Markdown notes in Obsidian are automatically ingested back into `os_triplets`.
+- **Bidirectional Ingestion:** Edits made to Markdown notes in Obsidian are automatically ingested back into the core memory.
 - **Journal Engraving:** Agent trajectories are materialized as daily journal shards in `Journals/YYYY-MM-DD.md`.
 
 ---

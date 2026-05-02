@@ -1,28 +1,28 @@
-# NODESTADT Authority OS: Security Architecture
+# ◈ NODESTADT ARCHITECTURE : SECURITY (v3.8.8)
 ## Zero-Trust Boundaries & Enforcement
 
-The NODESTADT Authority OS implements a "Zero-Trust" security model. No node, logic shard, or agent is considered trusted by default. Every action must be verified against the Vesper Audit Log and signed by the active Synapse.
+The NODESTADT Authority OS implements a **Zero-Trust** security model. No node, logic shard, or agent is considered trusted by default. Every action must be verified against the Vesper Audit Log and signed by the active identity pulse.
 
-### 1. Vesper Enforcer (The Audit Logic)
-The **Vesper Enforcer** is the primary arbiter of system permissions.
+### 1. SPIFFE/SPIRE (Workload Identity)
+The core security layer utilizing the SPIFFE (Secure Production Identity Framework for Everyone) standard.
 
-- **Pre-Execution Audit:** Every script or binary intent must be submitted to the Enforcer for a "pre-flight" check.
-- **Continuous Monitoring:** The Enforcer monitors the Artery for any packets that bypass standard signing procedures.
-- **Fail-Closed Policy:** If the Enforcer detects a signature mismatch or an unsigned logic shard, it immediately triggers a `SECURITY_LOCK` on the affected node, isolating it from the Artery.
+- **SVID Issuance:** Every process (sidecar, orchestrator, agent) is issued a Short-lived Verifiable Identity Document (SVID) via the local SPIRE agent.
+- **mTLS Artery:** Inter-node communication is strictly enforced via Mutual TLS, using SVIDs for both authentication and encryption.
+- **Hardware Bound:** SVIDs are cryptographically bound to the physical hardware node, preventing process impersonation across the mesh.
 
-### 2. NitroLogic Audits (Script Safety)
-All active scripts (Node.js, Go, or Rust-based droids) are subject to **NitroLogic** auditing.
+### 2. ST3GG Visual Second Factor (V2F)
+A proprietary steganographic verification layer for cognitive arteries.
 
-- **Static Analysis:** Scripts are audited for "Shadow Logic" (unauthorized network calls, file system escapes) before being marked as `STABLE`.
-- **Runtime Sandboxing:** High-risk logic is executed within a hardened Nix-based sandbox with no external egress, unless explicitly routed through the Artery proxy.
-- **Heuristic Defense:** Node C (Strategic Oracle) performs real-time heuristic analysis on script behavior, looking for patterns indicative of logic drift or external interference.
+- **V2F Pulse:** High-fidelity reasoning requests (Node D) must include a V2F token extracted from the live 1Hz vision stream.
+- **Visual Signing:** This ensures that the agent is operating within the active environmental context and has not drifted into "Shadow Reasoning".
+- **Hardware Gating:** V2F extraction is performed by the `hermes-router` (Rust), which acts as the mesh-wide security hardgate.
 
-### 3. Air-Gap Principles (Sensitive Shards)
-Critical system shards—including the core Identity manifest and the Root Synapse Key—are protected by logical air-gap principles.
+### 3. Artery Hardening & Sandboxing
+All active logic shards are subject to rigorous containment.
 
-- **Isolation:** Sensitive shards are stored on Node A with no direct path to Node B (Director) or the public internet.
-- **Proxied Access:** Any request for a sensitive shard must be initiated via a signed VSB packet, validated by Node C, and served as a read-only stream.
-- **Physical Sovereignty:** Access to core DB files (`SovereignIntelligence.db`) is restricted to the resident process on Node A. No remote SQL execution is permitted without a physical logic-lock release.
+- **Nix Sovereignty:** All binaries and scripts are executed within a declarative Nix environment, ensuring reproducible and isolated dependencies.
+- **Zero-Egress:** High-risk reasoning tasks are performed in environments with no external network access, utilizing local-only disaggregated memory.
+- **Vesper Auditing:** A continuous background process that monitors the VSB for unauthorized packets or signature mismatches, triggering isolation on violation.
 
 ---
 
@@ -30,9 +30,9 @@ Critical system shards—including the core Identity manifest and the Root Synap
 
 | Component | Protection Level | Enforcement Mechanism |
 | :--- | :--- | :--- |
-| **Artery** | Tier 1 (Encryption) | ClawLink / VSB Signing |
-| **Logic Shards** | Tier 2 (Audited) | NitroLogic / Vesper |
-| **Identity/Core** | Tier 3 (Air-Gapped) | Local-Only Access / Proxied Stream |
+| **Artery (RPC)** | Tier 1 (mTLS) | SPIRE / mTLS Handshake |
+| **Cognition** | Tier 2 (Gated) | ST3GG V2F / Artery Proxy |
+| **Execution** | Tier 3 (Isolated) | Nix Flakes / Zeroboot |
 
 ---
 **::/5Y573M-N071C3 : SECURITY_PROTOCOL_UNSEALED. // NODESTADT_AUTHORITY_OS**

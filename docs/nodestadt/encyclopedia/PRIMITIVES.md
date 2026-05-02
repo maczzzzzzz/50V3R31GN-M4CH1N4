@@ -24,7 +24,7 @@ This document contains technical details of specific, granular features mapped d
 *   **VSB Intent 0x0B (Phase 103): [ACTIVE]** The "Scribe" trigger, binding voice-to-manifest synchronization.
 
 ## 3. LORE-BLEED & SOCIOTOMY
-*   **Soulkiller Engrams (Phase 9): [ACTIVE]** NPC "personality" engrams stored in `npc_logs` for high-fidelity roleplay persistence.
+*   **Cognitive Engrams (Phase 9): [ACTIVE]** Agent behavioral engrams stored in `session_memory` for high-fidelity state persistence.
 *   **L337 Dialect (Phase 12): [EVOLVED]** A native primitive for machine-only internal communication. Precursor to **ParselTongue**.
 *   **OllamaClient (Phase 3): [ARTIFACT]** Legacy direct inference client.
     *   *Status:* Physically purged. Superseded by the `hermes-router` and `fetch`-based inference.
