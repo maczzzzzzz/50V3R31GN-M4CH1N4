@@ -252,6 +252,69 @@ func launchHermesTUI(c *Component) tea.Cmd {
 	}
 }
 
+// launchPlur starts the distributed consensus shard.
+func launchPlur(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		cmd := nixCmd(root+"/sidecars/plur", "npm", "start")
+		setupLogRedirection(c.Name, cmd)
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: err.Error()}
+		}
+		registerProc(c.Name, cmd)
+		go func() { _ = cmd.Wait() }()
+		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
+	}
+}
+
+// launchHermesAgentNous starts the NousResearch Hermes Agent.
+func launchHermesAgentNous(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		dir := root + "/sidecars/hermes-agent-nous"
+		cmd := nixCmd(dir, "python", "run_agent.py", "--help")
+		setupLogRedirection(c.Name, cmd)
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: err.Error()}
+		}
+		registerProc(c.Name, cmd)
+		go func() { _ = cmd.Wait() }()
+		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
+	}
+}
+
+// launchHalo starts the Hierarchical Agent Loop Optimization engine.
+func launchHalo(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		dir := root + "/sidecars/halo"
+		cmd := nixCmd(dir, "uv", "run", "halo", "--help")
+		setupLogRedirection(c.Name, cmd)
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: err.Error()}
+		}
+		registerProc(c.Name, cmd)
+		go func() { _ = cmd.Wait() }()
+		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
+	}
+}
+
+// launchGitNexus starts the knowledge graph server.
+func launchGitNexus(c *Component) tea.Cmd {
+	return func() tea.Msg {
+		root := projectRoot()
+		dir := root + "/sidecars/git-nexus"
+		cmd := nixCmd(dir, "npx", "gitnexus", "serve")
+		setupLogRedirection(c.Name, cmd)
+		if err := cmd.Start(); err != nil {
+			return stateUpdateMsg{name: c.Name, state: StateError, err: err.Error()}
+		}
+		registerProc(c.Name, cmd)
+		go func() { _ = cmd.Wait() }()
+		return stateUpdateMsg{name: c.Name, state: StateStarting, pid: cmd.Process.Pid}
+	}
+}
+
 // launchDirector starts the Node B orchestrator via `nix develop --command pnpm start`.
 func launchDirector(c *Component) tea.Cmd {
 	return func() tea.Msg {
@@ -314,10 +377,12 @@ var sidecarSubdir = map[string]string{
 	"sidecar-atlas":          "sidecar-atlas",
 	"sidecar-cyberdeck":      "sidecar-cyberdeck",
 	"sidecar-netrunning":     "sidecar-netrunning",
-	"browser-agent-harness": "browser-agent-harness",
+	"browser-agent-harness": "sidecars/browser-agent-harness",
 	"hermes-router":         "crates/hermes-router",
 	"voxcpm-tts":            "sidecars/voxcpm-tts",
-}
+	"gepa-curator":          "sidecars/gepa-curator",
+	}
+
 
 // launchDashboardBridge starts the VSB→WebSocket telemetry bridge via crush.
 func launchDashboardBridge(c *Component) tea.Cmd {
@@ -512,6 +577,14 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 			// handled above with dependency gates
 		case "hermes-tui":
 			cmds = append(cmds, launchHermesTUI(comp))
+		case "plur":
+			cmds = append(cmds, launchPlur(comp))
+		case "hermes-agent-nous":
+			cmds = append(cmds, launchHermesAgentNous(comp))
+		case "halo":
+			cmds = append(cmds, launchHalo(comp))
+		case "git-nexus":
+			cmds = append(cmds, launchGitNexus(comp))
 		case "dashboard-bridge":
 			cmds = append(cmds, launchDashboardBridge(comp))
 		case "pretext-hud-web":
