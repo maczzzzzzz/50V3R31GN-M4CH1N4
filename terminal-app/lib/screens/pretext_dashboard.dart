@@ -21,9 +21,8 @@ import 'dart:ui' as ui;
 /**
  * ◈ PRETEXT_DASHBOARD : CLINICAL_ASCENSION — v3.8.28
  * 
- * Kinetic HUD instrument with OMI-style Central Ingress.
- * Navigation: CHAT > TASKS > (INGRESS FAB) > MEMORY > ARTERY.
- * Restores Pretext Scrolling Background and High-Fidelity Ingress UI.
+ * Kinetic HUD instrument with Central Ingress Navigation.
+ * Navigation: CHAT > TASKS > INGRESS > MEMORY > ARTERY.
  */
 
 class PretextDashboard extends StatefulWidget {
@@ -34,15 +33,21 @@ class PretextDashboard extends StatefulWidget {
 }
 
 class _PretextDashboardState extends State<PretextDashboard> with SingleTickerProviderStateMixin {
-  int _currentIndex = 0; // Local index (0:Chat, 1:Tasks, 2:Memory, 3:Artery, 4:Settings)
-  // PageView indices: 0:Chat, 1:Tasks, 2:Ingress, 3:Memory, 4:Artery, 5:Settings
+  int _currentIndex = 2; // Default to Ingress
   final PageController _pageController = PageController(initialPage: 2);
   late AnimationController _smokeController;
+
+  final List<Map<String, dynamic>> _navItems = [
+    {'label': 'CHAT', 'icon': Icons.chat_bubble},
+    {'label': 'TASKS', 'icon': Icons.fact_check},
+    {'label': 'INGRESS', 'icon': Icons.mic},
+    {'label': 'MEMORY', 'icon': Icons.hub},
+    {'label': 'ARTERY', 'icon': Icons.terminal},
+  ];
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = 2; // Default to Ingress
     _smokeController = AnimationController(vsync: this, duration: const Duration(seconds: 15))..repeat();
   }
 
@@ -53,14 +58,14 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
     super.dispose();
   }
 
-  void _onTabTapped(int pageIndex) {
+  void _onTabTapped(int index) {
     _pageController.animateToPage(
-      pageIndex,
+      index,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
     setState(() {
-      _currentIndex = pageIndex;
+      _currentIndex = index;
     });
   }
 
@@ -70,7 +75,6 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
-      extendBody: true,
       body: SafeArea(
         child: Stack(
           children: [
@@ -119,9 +123,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildOmniscientIngressFAB(accentColor),
-      bottomNavigationBar: _buildOmiStyleNavBar(accentColor),
+      bottomNavigationBar: _buildStandardNavBar(accentColor),
     );
   }
 
@@ -141,7 +143,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
           
           // Kinetic Waveform Shard
           Container(
-            height: 120,
+            height: 140,
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.3),
               border: Border.all(color: accentColor.withOpacity(0.2)),
@@ -190,94 +192,51 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildOmniscientIngressFAB(Color accentColor) {
-    final artery = context.watch<ArteryClient>();
-    return SizedBox(
-      height: 76,
-      width: 76,
-      child: FloatingActionButton(
-        onPressed: () {
-          if (_currentIndex != 2) {
-            _onTabTapped(2);
-          } else {
-            artery.isRecording ? artery.stopVoiceStream() : artery.startVoiceStream();
-          }
-        },
-        backgroundColor: artery.isRecording ? Colors.red : const Color(0xFF0A0A0A),
-        elevation: 10,
-        shape: CircleBorder(side: BorderSide(color: artery.isRecording ? Colors.red : accentColor, width: 2)),
-        child: Icon(
-          artery.isRecording ? Icons.stop : Icons.mic,
-          color: artery.isRecording ? Colors.white : accentColor,
-          size: 32,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOmiStyleNavBar(Color accentColor) {
-    return BottomAppBar(
-      color: const Color(0xFF0F0F0F),
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
-      child: Container(
-        height: 64,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // CHAT (0) > TASKS (1)
-            Row(children: [
-              _navIcon(0, Icons.chat_bubble, "CHAT"),
-              const SizedBox(width: 32),
-              _navIcon(1, Icons.fact_check, "TASKS"),
-            ]),
-            // FAB SPACE
-            const SizedBox(width: 48),
-            // MEMORY (3) > ARTERY (4)
-            Row(children: [
-              _navIcon(3, Icons.hub, "MEMORY"),
-              const SizedBox(width: 32),
-              _navIcon(4, Icons.terminal, "ARTERY"),
-            ]),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _navIcon(int pageIndex, IconData icon, String label) {
-    final active = _currentIndex == pageIndex;
-    final color = active ? const Color(0xFFF36622) : const Color(0xFF404040);
-
-    return GestureDetector(
-      onTap: () => _onTabTapped(pageIndex),
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: color, size: 22),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: 1),
+          
+          const SizedBox(height: 24),
+          
+          // Dedicated Mic Button inside Ingress Window
+          Center(
+            child: _brutalistButton(
+              artery.isRecording ? Icons.stop : Icons.mic,
+              artery.isRecording ? Colors.red : accentColor,
+              () => artery.isRecording ? artery.stopVoiceStream() : artery.startVoiceStream(),
+              size: 80,
+            ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title, Color color) {
-    return Text(
-      title,
-      style: TextStyle(color: color, fontWeight: FontWeight.w900, letterSpacing: 4, fontSize: 10),
+  Widget _buildStandardNavBar(Color accentColor) {
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(top: BorderSide(color: Color(0xFF161616), width: 2)),
+        color: Color(0xFF0F0F0F),
+      ),
+      child: BottomNavigationBar(
+        currentIndex: _currentIndex >= 5 ? 4 : _currentIndex, // Cap at 4 for nav display
+        onTap: _onTabTapped,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: accentColor,
+        unselectedItemColor: const Color(0xFF404040),
+        selectedFontSize: 8,
+        unselectedFontSize: 8,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, letterSpacing: 1),
+        items: _navItems.map((item) => BottomNavigationBarItem(
+          icon: Icon(item['icon'], size: 20),
+          label: item['label'],
+        )).toList(),
+      ),
     );
   }
+
+  // ─── UTILS ───────────────────────────────────────────────────────────────
 
   Widget _buildClinicalHeader(Color accentColor) {
     return Container(
@@ -296,6 +255,24 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
     );
   }
 
+  Widget _brutalistButton(IconData icon, Color color, VoidCallback onTap, {double size = 48}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          color: color.withOpacity(0.05),
+          boxShadow: [
+            BoxShadow(color: color.withOpacity(0.1), blurRadius: 10, spreadRadius: 2)
+          ]
+        ),
+        child: Icon(icon, color: color, size: size * 0.4)
+      ),
+    );
+  }
+
   Widget _brutalistRing(double progress, Color color) {
     return SizedBox(
       width: 28,
@@ -306,6 +283,13 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
         color: color,
         backgroundColor: const Color(0xFF161616),
       ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, Color color) {
+    return Text(
+      title,
+      style: TextStyle(color: color, fontWeight: FontWeight.w900, letterSpacing: 4, fontSize: 10),
     );
   }
 }
