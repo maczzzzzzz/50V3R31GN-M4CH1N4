@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities to create a fully local, live coding partner experience via the Quaternary Mesh.
+**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities to create a fully local, live coding partner experience via the Quaternary Mesh.
 
-**Architecture:** A Rust-based `sovereign-warp-observer` sidecar on Node D streams Warp telemetry to MemPalace via MCP. The `HermesSingularity` orchestrates a structured `Triage -> Spec -> Implement -> Review` pipeline based on this telemetry. A new `gepa-curator` sidecar periodically prunes and grades the local skill library. All system prompts are updated to the `[IMPORTANT:]` standard to align with Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
+**Architecture:** A Rust-based `sovereign-warp-observer` sidecar on Node D streams Warp telemetry to MemPalace via MCP. The `HermesSingularity` orchestrates a structured `Triage -> Spec -> Implement -> Review` pipeline based on this telemetry. A new `gepa-curator` sidecar periodically prunes and grades the local skill library. All system prompts are updated to the `[IMPORTANT:]` standard to align with Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
 
 **Tech Stack:** Rust (Tokio, axum, mcp), TypeScript (Node.js), SQLite (MemPalace)
 
@@ -147,7 +147,7 @@ git add src/core/hermes/HermesSingularity.ts
 git commit -m "feat(hermes): implement mined Oz pipeline orchestration"
 ```
 
-### Task 3: Update System Prompts to Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard
+### Task 3: Update System Prompts to Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard
 
 **Files:**
 - Modify: `src/core/hermes/HermesSingularity.ts`
@@ -181,7 +181,7 @@ In `src/core/hermes/HealerProtocol.ts`, perform the same replacement.
 
 ```bash
 git add src/core/hermes/HermesSingularity.ts src/core/hermes/HealerProtocol.ts
-git commit -m "chore(prompts): migrate system markers to Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
+git commit -m "chore(prompts): migrate system markers to Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
 ```
 
 ### Task 4: Initialize the GEPA Curator Sidecar

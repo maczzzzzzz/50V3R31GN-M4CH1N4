@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.html).
+versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.html).
 
 ## [3.8.26-SYNTHESIS] - 2026-05-02
 
@@ -13,7 +13,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 - **Machina Daemon Protocol:** Materialized `docs/nodestadt/deployment/machina-daemon.md` documenting the binary unsealing and bridge ignition sequence for local device control.
 - **Task Reminder Artery:** Integrated `NotificationService` into the Flutter HUD. Tasks now support date/time alarms with persistent mobile notifications.
 - **Obsidian Artery Sync:** Established a bit-identical `rsync` pipeline to the Windows-native vault at `D:\Obsidian_Sovereign_OS\`.
-- **NodeStadt Brand Assets:** Updated the terminal-app icon to the official **Node B Director** signature.
+- **NodeStadt Brand Assets:** Updated the terminal-app icon to the official **Sovereign-Icon (sov-icon.ico)** signature and shored for all mobile platforms.
 
 ### Changed
 - **Lore-Neutrality Gating:** Refactored `crush/nucleus.go` to gate all simulation-heavy database queries (`Akashik.db`) behind an active **RED_MODE** invariant.
@@ -115,7 +115,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 - **GEPA Curator:** Materialized `sidecars/gepa-curator/` Rust crate for background skill and memory consolidation on Node D.
 
 ### Changed
-- **Prompt Standard Alignment:** Migrated all internal system markers to the Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS `[IMPORTANT:]` standard to neutralize Azure content filter friction.
+- **Prompt Standard Alignment:** Migrated all internal system markers to the Hermes v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS `[IMPORTANT:]` standard to neutralize Azure content filter friction.
 - **Hermes Singular Recovery:** Refactored `HermesSingularity.ts` to use class-level logging and shored the Discovery-First Hardgate logic.
 
 ### Fixed
@@ -125,7 +125,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 ## [3.8.11-SYNTHESIS] - 2026-05-01
 
 ### Added
-- **Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Upgrade:** Transitioned Node C (RTX 2060) from multi-port Gemma-4 farm to a single-model Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle utilizing Qwen-3.5 9B DeepSeek-V4-Flash Q3. 
+- **Node C Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle Upgrade:** Transitioned Node C (RTX 2060) from multi-port Gemma-4 farm to a single-model Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle utilizing Qwen-3.5 9B DeepSeek-V4-Flash Q3. 
 - **Mesh Model Audit & Shoring:** Physically verified and shored the model artery distribution across the quaternary mesh. Falcon Perception 0.3B (safetensors) is now shored on Node C.
 - **Warp Observer Sidecar (Rust):** Initialized the baseline telemetry sidecar on Node D in `sidecars/warp-observer/`. Established the `WarpTelemetry` schema and mocked ingestion logic for real-time development process monitoring.
 - **Cargo Workspace Expansion:** Integrated the `sidecars/warp-observer` package into the root Cargo workspace for unified build and dependency management.
@@ -139,10 +139,10 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 
 ### Changed
 - **Model Farm Orchestration:** Patched `hermes-router` to hit the **Node D Swapper (:8080)** instead of the raw model server, enabling autonomous VRAM management for heavy context/reasoning requests.
-- **Declarative Identity Sync:** Synchronized `nix/identities.nix` with root `SOUL.md` and `AGENTS.md` hardware invariants for the Quaternary Mesh (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS).
+- **Declarative Identity Sync:** Synchronized `nix/identities.nix` with root `SOUL.md` and `AGENTS.md` hardware invariants for the Quaternary Mesh (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS).
 - **Startup Consolidation:** Centralized the system ignition sequence around `deck-igniter`. Added `boot:cpr` and `boot:headless` scripts to `package.json` for environment-aware startup.
 - **Agent Sandbox Upgrade:** Elevated `nix/agent-sandbox.nix` to **Node.js 22** with strict capability gates for hardware sovereignty.
-- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS) across the mesh.
+- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS) across the mesh.
 
 ### Fixed
 - **Ignition Pollution:** Surgically archived 10+ legacy/redundant ignition scripts to `scripts/archive/` to restore directory purity and simplify the boot process.
@@ -161,7 +161,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 - **Ouroboros Status Ring:** Materialized the SVG-path animated status ring in `PretextShroud.tsx` for real-time agentic loop visualization.
 
 ### Changed
-- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS) across `SOUL.md`, `AGENTS.md`, `README.md`, `GEMINI.md`, and `SOVEREIGN-IDENTITY.md`.
+- **Universal Manifest Sync:** Achieved 100% version parity (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS) across `SOUL.md`, `AGENTS.md`, `README.md`, `GEMINI.md`, and `SOVEREIGN-IDENTITY.md`.
 - **NODESTADT Aesthetic Ascension:** Purged Gruvbox Material variables from `globals.css`. Locked the **Authority Palette** (#1A1A1A, #F36622, #C7A87A) and transitioned to the Cinzel/Space Grotesk typography stack.
 - **Aesthetic Refactor:** Replaced legacy CRT/Glitch overlays with **Fluid Smoke Metabolism** (Machina Rust pulse) in the Pretext HUD.
 - **Implementation Plan Re-Alignment:** Surgically re-ordered and re-numbered the `IMPLEMENTATION_PLAN.md` to reflect true dependency-weighted trajectories.
@@ -174,8 +174,8 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 ## [3.8.8] - 2026-04-28
 
 ### Added
-- **Quaternary Mesh:** Node D (Intel Core Ultra 5 125U) officially ignited and provisioned as the Cluster Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. Built `llama.cpp` from source with Intel optimizations.
-- **Hermes Tools (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS):** Transitioned to native, pluggable transport-based tool calling. Physically purged **LangGraph** dependencies.
+- **Quaternary Mesh:** Node D (Intel Core Ultra 5 125U) officially ignited and provisioned as the Cluster Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle. Built `llama.cpp` from source with Intel optimizations.
+- **Hermes Tools (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS):** Transitioned to native, pluggable transport-based tool calling. Physically purged **LangGraph** dependencies.
 - **RESEARCHER Profile:** Dedicated high-context profile for long-running research cycles and architectural audits.
 - **Experience-Gitting:** Immutable, Git-backed event logging for agentic reasoning trajectories and failure recovery in `SovereignIntelligence.db`.
 - **ClawLink Backbone:** Persistent zero-latency SSH tunnels established as the default direct connection path for inter-node reasoning.
@@ -210,14 +210,14 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 - **Postcard Protocol:** Materialized `PostcardIngestor.ts` and updated `SovereignIntelligence.db` with `mobile_postcards` schema for field reputation tracking.
 - **Deportation Hardgate:** Materialized `MobileAuthService.ts` to enable Vesper-driven session revocation and audit logging.
 - **Hermes Comms Ingress:** Scaffolded `NativeMessagingAdapter.ts` for autonomous WhatsApp/QQBot integration.
-- **Gauntlet Reckoning Suite (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS):** Materialized an exhaustive, zero-trust architectural validation suite. Includes `dag_validator.ts` (Context-DAG), `reckoning_vitals.rs` (KV-Cache Pressure), `reckoning_pulse.go` (7-step Pulse Verification), and `reckoning_ui_parity.ts` (Web-to-Mobile Parity).
+- **Gauntlet Reckoning Suite (v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS):** Materialized an exhaustive, zero-trust architectural validation suite. Includes `dag_validator.ts` (Context-DAG), `reckoning_vitals.rs` (KV-Cache Pressure), `reckoning_pulse.go` (7-step Pulse Verification), and `reckoning_ui_parity.ts` (Web-to-Mobile Parity).
 - **Absolute Project Purge:** Physically deleted 60+ legacy gauntlet phases and redundant scripts to restore project purity and eliminate architectural drift.
 - **Phase 95.1 (Spatial Ingress):** Materialized the **Spatial Latch System** (Claw3D integration) in the Neural Promenade and `SpatialHotspotArtery.dart` in the Flutter HUD for 100% topographical awareness.
 - **Phase 95.2 (MemPalace Reconstruction):** Refactored the 3D scene to implement **Wing-Clustering** and **Temporal Fading**. Shards are now constrained to rigid mnemonic hierarchy (Wings -> Rooms -> Drawers).
 - **Observability Hardening:** Standardized TS and Go loggers for structured JSON output (`artery.json`) and Trace-ID propagation. Refactored `PretextTerminalArtery` for real-time SSE log ingestion in the HUD.
 - **Flutter HUD Resilience:** Implemented `PageView` navigation to prevent white-screen hangs, added `PermissionService` for startup ingress, and shored tactical UI scaling for field readability.
 - **Total Documentation Overhaul:** Rewrote `README.md` and `ABOUT.md` to reflect the re-grounded Trinity topology. Reconstructed the `akashik_guides` using the **Diátaxis framework**.
-- **Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS:** Shored SQLite schema with FTS5 search triggers and R-Tree spatial indexing.
+- **Unified Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Strategic Oracle v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS:** Shored SQLite schema with FTS5 search triggers and R-Tree spatial indexing.
 - **Deck-Igniter Stability Review:** Confirmed default boot invariant to `[SOVEREIGN_OS]` mode; suppressed automatic Foundry VTT ignition except in explicit `cpr` mode. Shored `ignite-sovereign.ps1` for secure Windows-to-WSL transition.
 - **Social Intelligence Mesh (Phase 88):** Materialized `crates/sovereign-social` (ActivityPub relay) and `crush social` command. Implemented Socially-Weighted Retrieval (SWR) in `OsTripletService.ts` and Agent Avatars/Consensus Arcs in the 3D Neural Promenade.
 - **Serpentine Artery (Phase 89):** Materialized `SteganoEncoder.ts` (Zero-width hidden proof) and `parseltongue.rs` (Token-encoded IPC). Hardened `sovereign-kernel` with TPM hardware-backed signing for agent activities.
@@ -232,7 +232,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 
 ### Changed
 - **Obsidian 1st Class HUD:** Formally established Obsidian as the primary operator interface, physically purging the Logseq native plugin.
-- **KNOWLEDGE_BASE v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS:** Total integration of Hermes Atlas and Pretext research arteries.
+- **KNOWLEDGE_BASE v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS:** Total integration of Hermes Atlas and Pretext research arteries.
 
 ## [3.8.6] - 2026-04-26
 
@@ -259,7 +259,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 - **Serpentine Artery Research:** Materialized specifications for steganographic memory and kernel r00t hardware anchors (Phase 89).
 
 ### Changed
-- **Knowledge Base v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS:** Indexed 569 documents and shored links for ActivityPub and Vivaldi Mastodon.
+- **Knowledge Base v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS:** Indexed 569 documents and shored links for ActivityPub and Vivaldi Mastodon.
 
 ## [3.8.4] - 2026-04-26
 
@@ -291,7 +291,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.27-SYNTHES
 
 ### Added
 - **Node C Model Farm Orchestration:** Refactored `hermes-router` to dynamically select between Q3 (8081), Q4 (8082), and Q5 (8083) model shards based on profile `inference_preference`.
-- **OpenClaw v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening.
+- **OpenClaw v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Integration:** Staged ports for Hybrid Search Transparency, OTEL Trace Correlation, and MCP Loopback Hardening.
 - **Tactical Terminal:** Materialized a dedicated **[TERM]** navigation tab in the Flutter HUD for real-time passive VSB monitoring.
 - **Command Priming:** Implemented structured JSON command dispatch in the Artery Client, preparing the mesh for Windows Host Control.
 
