@@ -1,4 +1,7 @@
 packages:
+  - "packages/*"
+  - "sidecars/*"
+  - "crates/*"
   - "dashboard"
 
 allowBuilds:

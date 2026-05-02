@@ -34,9 +34,9 @@ const SCAN_DIRS = [
     'zeroclaw',
     'crush',
     'dashboard',
-    'sidecar-atlas',
-    'sidecar-cyberdeck',
-    'sidecar-netrunning',
+    'crates/sidecar-atlas',
+    'crates/sidecar-cyberdeck',
+    'crates/sidecar-netrunning',
     'sovereign-sdk'
 ];
 

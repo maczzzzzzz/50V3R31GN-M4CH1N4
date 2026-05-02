@@ -1,16 +1,13 @@
 [workspace]
 members = [
     "crates/*",
-    "sidecar-*",
-    "sidecars/warp-observer",
-    "sidecars/gepa-curator",
-    "sovereign-sdk",
+    "sidecars/*",
     "zeroclaw/crates/*"
 ]
 exclude = [
-    "sidecar-browser-extension",
-    "sidecar-logseq-plugin",
-    "sidecar-obsidian-plugin",
-    "sidecar-proxy",
+    "sidecars/sidecar-browser-extension",
+    "sidecars/sidecar-obsidian-plugin",
+    "sidecars/sidecar-proxy",
+    "sidecars/sidecar-logseq-plugin"
 ]
 resolver = "2"

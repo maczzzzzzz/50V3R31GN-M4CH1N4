@@ -63,7 +63,7 @@
 - [x] **Task 2: Nix Identity Sync:** Synchronized `identities.nix` and `agent-sandbox.nix` (v3.8.8 / Node.js 22).
 - [x] **Task 3: Ability Stone Forging:** Materialized scoped `AGENTS.md` manifests for `src/`, `crush/`, and `zeroclaw/`.
 - [x] **Task 4: Startup Consolidation:** Centralized ignition around `deck-igniter` and archived 10+ redundant scripts.
-- [x] **Task 5: Vivaldi Ingress Docs:** Materialized `docs/nodestadt/sidecar-browser-extension.md`.
+- [x] **Task 5: Vivaldi Ingress Docs:** Materialized `docs/nodestadt/sidecars/sidecar-browser-extension.md`.
 
 ## ⚡ PHASE 105: GLOBAL AESTHETIC REFACTOR (NODESTADT)
 **Goal:** Complete the transition to the NODESTADT Authority OS visual standard.
@@ -81,7 +81,7 @@
 ## ✅ PHASE 106: THE SECURITY HARDGATE (COMPLETED)
 **Goal:** Materialize the SPIFFE/SPIRE zero-trust identity layer, integrated with ST3GG and ParselTongue primitives.
 - [x] **Task 1: Physical Root Attestation:** Materialized Root CA generator and SPIRE Server Nix module. Established physical Anchor of Truth in `/etc/sovereign/security/`.
-- [x] **Task 2: Steganographic Identity (ST3GG):** Integrated ST3GG and SPIRE Workload API into `sidecar-proxy`. V2F Pulse endpoint active at `/api/v2f/pulse`.
+- [x] **Task 2: Steganographic Identity (ST3GG):** Integrated ST3GG and SPIRE Workload API into `sidecars/sidecar-proxy`. V2F Pulse endpoint active at `/api/v2f/pulse`.
 - [x] **Task 3: Hardened Proxy & mTLS:** Refactored `hermes-router` to enforce zero-trust mTLS via SPIFFE/rustls and gated inference via V2F steganographic pulse extraction.
 - [x] **Task 4: Hardware Isolation:** Materialized `scripts/ops/enable-node-d-kvm.sh` for hardware-level `zeroboot` preparation.
 

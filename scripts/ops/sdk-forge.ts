@@ -8,7 +8,7 @@ import path from 'node:path';
  * Prevents magic-number drift across the mesh.
  */
 
-const RUST_SOURCE = 'sovereign-sdk/src/protocol.rs';
+const RUST_SOURCE = 'crates/sovereign-sdk/src/protocol.rs';
 const TS_TARGET   = 'packages/hermes-core/src/shared/protocol.ts';
 const GO_TARGET   = 'crush/harness/protocol/generated_offsets.go';
 

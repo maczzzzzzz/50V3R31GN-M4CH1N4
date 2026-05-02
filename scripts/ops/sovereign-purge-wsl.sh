@@ -16,9 +16,9 @@ nix-store --optimise
 echo "[2/4] Neutralizing Build Shards..."
 rm -rf /home/nixos/50V3R31GN-M4CH1N4/terminal-app/build
 rm -rf /home/nixos/50V3R31GN-M4CH1N4/zeroclaw/target
-rm -rf /home/nixos/50V3R31GN-M4CH1N4/sidecar-atlas/target
-rm -rf /home/nixos/50V3R31GN-M4CH1N4/sidecar-cyberdeck/target
-rm -rf /home/nixos/50V3R31GN-M4CH1N4/sidecar-netrunning/target
+rm -rf /home/nixos/50V3R31GN-M4CH1N4/crates/sidecar-atlas/target
+rm -rf /home/nixos/50V3R31GN-M4CH1N4/crates/sidecar-cyberdeck/target
+rm -rf /home/nixos/50V3R31GN-M4CH1N4/crates/sidecar-netrunning/target
 rm -rf /home/nixos/50V3R31GN-M4CH1N4/sovereign-sdk/target
 
 # 3. Cache & Temp Purge

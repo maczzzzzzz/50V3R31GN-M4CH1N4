@@ -19,7 +19,7 @@ This document maps the physical directories and core files of the Sovereign Mach
 - `crates/hermes-router/`: **The Artery.** Rust-based high-throughput inference proxy.
     - `main.rs`: Dynamic multi-node model routing.
     - `security.rs`: V2F token extraction (Phase 106).
-- `sidecar-proxy/`: **The Shadow Proxy.** (CLIProxyAPI) Provides OpenAI/Claude compatibility for local models.
+- `sidecars/sidecar-proxy/`: **The Shadow Proxy.** (CLIProxyAPI) Provides OpenAI/Claude compatibility for local models.
 
 ## 3. THE OPTICAL LAYER (HUD/UI)
 - `dashboard/`: **The Command Deck.** Next.js-based OS dashboard.

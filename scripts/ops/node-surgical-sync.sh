@@ -31,8 +31,8 @@ sync_node_a() {
     rsync -avz --delete --delete-excluded \
         "${GLOBAL_EXCLUDES[@]}" \
         "--exclude=dashboard/" \
-        "--exclude=sidecar-cyberdeck/" \
-        "--exclude=sidecar-atlas/" \
+        "--exclude=crates/sidecar-cyberdeck/" \
+        "--exclude=crates/sidecar-atlas/" \
         "--exclude=docs/raw_data/" \
         ./ "maczz@$NODE_A_IP:$TARGET_DIR/"
 }
@@ -46,7 +46,7 @@ sync_node_c() {
     rsync -avz --delete --delete-excluded \
         "${GLOBAL_EXCLUDES[@]}" \
         "--exclude=dashboard/" \
-        "--exclude=sidecar-cyberdeck/" \
+        "--exclude=crates/sidecar-cyberdeck/" \
         "--exclude=scripts/ops/node-a-*" \
         ./ "maczz@$NODE_C_IP:$TARGET_DIR/"
 }

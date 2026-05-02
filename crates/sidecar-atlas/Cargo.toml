@@ -8,4 +8,4 @@ image = "0.25"
 eframe = "0.31"
 egui = "0.31"
 memmap2 = "0.9"
-sovereign-sdk = { path = "../sovereign-sdk" }
+sovereign-sdk = { path = "../../crates/sovereign-sdk" }

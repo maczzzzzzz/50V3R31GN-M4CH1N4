@@ -16,8 +16,8 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 ## [3.8.16-SYNTHESIS] - 2026-05-01
 
 ### Added
-- **V2F Integration (Go):** Integrated `ST3GG` identity heartbeat into `sidecar-proxy`. Added `/api/v2f/pulse` route for Visual Second Factor (V2F) frame generation.
-- **SPIRE Workload API (Go):** Implemented native SPIRE Workload API client in `sidecar-proxy` to retrieve physical SVIDs for visual signing.
+- **V2F Integration (Go):** Integrated `ST3GG` identity heartbeat into `sidecars/sidecar-proxy`. Added `/api/v2f/pulse` route for Visual Second Factor (V2F) frame generation.
+- **SPIRE Workload API (Go):** Implemented native SPIRE Workload API client in `sidecars/sidecar-proxy` to retrieve physical SVIDs for visual signing.
 - **Gated Cognition (Rust):** Refactored `hermes-router` to support V2F gating. Cognition routes can now be restricted by the steganographic heartbeat.
 - **mTLS Dependencies:** Added `spiffe`, `rustls`, and `tokio-rustls` foundations to the Rust inference layer.
 
@@ -70,7 +70,7 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 
 ### Added
 - **Ability Stones (Scoped Identity):** Materialized localized `AGENTS.md` manifests for `packages/hermes-core/src/`, `crush/`, and `zeroclaw/` to enforce sector-specific architectural invariants and eliminate assistant-speak in specialized domains.
-- **Browser Extension Guide:** Materialized `docs/nodestadt/sidecar-browser-extension.md` documenting the high-fidelity Vivaldi ingress pipeline and port mappings.
+- **Browser Extension Guide:** Materialized `docs/nodestadt/sidecars/sidecar-browser-extension.md` documenting the high-fidelity Vivaldi ingress pipeline and port mappings.
 - **Node D Health Probe:** Integrated a dedicated health check for the Node D model swapper into the `deck-igniter` heartbeat loop.
 
 ### Changed
@@ -174,11 +174,11 @@ versioning follows [Semantic Versioning](https://semver.org/spec/v3.8.8.html).
 
 ### Added
 - **Flutter APK Materialized:** Cleared Build Hardgate via surgical `patchelf` of Android SDK cmake/ninja/NDK toolchain (38 ELF binaries) and `aapt2`; fixed `ic_launcher` mipmap generation. `app-release.apk` (50.1MB) shored.
-- **Vivaldi Ingress Extension (Phase 87 Task 1):** Scaffolded `sidecar-browser-extension/` — `manifest.json` (MV3), `background.js` (persistent WS relay to port 3012, heartbeat, context-menu), `content.js` (page-load + selection push), `popup/` (Gruvbox HUD with bridge status and manual push).
+- **Vivaldi Ingress Extension (Phase 87 Task 1):** Scaffolded `sidecars/sidecar-browser-extension/` — `manifest.json` (MV3), `background.js` (persistent WS relay to port 3012, heartbeat, context-menu), `content.js` (page-load + selection push), `popup/` (Gruvbox HUD with bridge status and manual push).
 - **Kernel Vitals Artery (Phase 87 Task 2):** Materialized `crates/sovereign-kernel` Rust crate — `vitals.rs` reads CPU/mem from `/proc/stat` + `/proc/meminfo` + PSI pressure files; `main.rs` streams `VitalsSnapshot` JSON via WebSocket on port 3013. Build: clean.
 - **Browser Mesh Artery (Phase 87 Task 2.5):** Materialized `packages/hermes-core/src/api/browser-bridge.ts` — WebSocket server on port 3012; routes `ContextFrame` pushes from the Vivaldi extension into the `LangGraphOrchestrator` ingest channel. Wired into `main.ts` startup/shutdown.
 - **SkillAuthor (Phase 87 Task 3):** Materialized `packages/hermes-core/src/core/plugins/SkillAuthor.ts` — converts successful `AgentTrajectory` records into `.ts` MCP tool files in `packages/hermes-core/src/core/plugins/skills/` and registers them live into `PluginRegistry`.
-- **Cargo Workspace Hardening:** Added `exclude` entries for `sidecar-browser-extension`, `sidecar-logseq-plugin`, `sidecar-obsidian-plugin` to prevent Cargo from scanning non-Rust sidecar directories.
+- **Cargo Workspace Hardening:** Added `exclude` entries for `sidecars/sidecar-browser-extension`, `sidecars/sidecar-logseq-plugin`, `sidecars/sidecar-obsidian-plugin` to prevent Cargo from scanning non-Rust sidecar directories.
 
 ### Fixed
 - **LangGraphOrchestrator Corruption:** Surgically excised duplicate code fragment (`68.5: Trigger the asynchronous...`) that caused TS1005/TS1434 parse failures.

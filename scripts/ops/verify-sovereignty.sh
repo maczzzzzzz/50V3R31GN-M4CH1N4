@@ -19,9 +19,9 @@ check_bin() {
 
 check_bin "deck-igniter/deck-igniter"
 check_bin "crush/crush"
-check_bin "sidecar-cyberdeck/target/release/sidecar-cyberdeck"
-check_bin "sidecar-atlas/target/release/sidecar-atlas"
-check_bin "sidecar-netrunning/target/release/sidecar-netrunning"
+check_bin "crates/sidecar-cyberdeck/target/release/crates/sidecar-cyberdeck"
+check_bin "crates/sidecar-atlas/target/release/crates/sidecar-atlas"
+check_bin "crates/sidecar-netrunning/target/release/crates/sidecar-netrunning"
 
 # 2. Schema & Interface Audit
 echo "  [2/4] Interface Audit (TypeScript)..."
@@ -38,7 +38,7 @@ echo "  [3/4] CLI Subcommand Audit..."
 
 # 4. Hardware Sovereignty Audit (Rust)
 echo "  [4/4] Sidecar Capability Audit..."
-grep -q "nixos-rebuild" sidecar-cyberdeck/packages/hermes-core/src/main.rs && echo "    ✅ NixOS rebuild hooks found in HUD"
+grep -q "nixos-rebuild" crates/sidecar-cyberdeck/packages/hermes-core/src/main.rs && echo "    ✅ NixOS rebuild hooks found in HUD"
 grep -q "pkill" deck-igniter/launcher.go && echo "    ✅ Zombie purge hooks found in launcher"
 
 echo ""
