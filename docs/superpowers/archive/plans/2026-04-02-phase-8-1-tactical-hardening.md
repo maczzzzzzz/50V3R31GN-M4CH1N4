@@ -2,7 +2,7 @@
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Establish the "Black-Ice" visual identity in Foundry v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS and implement the Human-in-the-Loop authorization barrier for world-state writes.
+**Goal:** Establish the "Black-Ice" visual identity in Foundry v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS and implement the Human-in-the-Loop authorization barrier for world-state writes.
 
 **Architecture:** Use CSS @layers for non-destructive theme overrides in Foundry. Implement an asynchronous `AuthorizationGate` in the Node B Orchestrator that pauses the Flush Gate until a physical `ACK` is received via the Crush CLI.
 
@@ -47,7 +47,7 @@ Trigger an attack that would kill an NPC and verify that the database update onl
 ### Task 3: High-Fidelity Audit physicalization
 
 **Files:**
-- Create: `docs/audits/2026-04-02_v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-Hardening-Audit.md`
+- Create: `docs/audits/2026-04-02_v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-Hardening-Audit.md`
 
 **Step 1: Version Increment**
 Bump version to **1.0.3**.

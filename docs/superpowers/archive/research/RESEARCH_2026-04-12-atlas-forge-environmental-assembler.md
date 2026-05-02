@@ -26,7 +26,7 @@ By pre-generating 4 core tiles (Entry, Passageway, Objective, Living) for each o
 The Assembler pattern turns the Machina from a "Generator" into a "World-Builder," enabling the Triad to physically manifest complex, multi-room tactical environments in <15 seconds.
 
 ---
-*Verified by the Sovereign Trinity v3.8.26-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.27-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---

@@ -187,7 +187,7 @@
             fi
 
 
-            echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: RADV/Vulkan]."
+            echo "◈ 50V3R31GN-M4CH1N4: Node B (NixOS/WSL) Environment Loaded [GPU: Intel/Vulkan]."
             echo "◈ RKG Path: $AKASHIK_DB_PATH"
             echo "◈ DROID FACTORY: Enabled via 'droid' alias."
             echo "◈ MCP Bridge: .gemini/tmp/sovereign-mcp.sock"
