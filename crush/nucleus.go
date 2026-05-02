@@ -255,17 +255,39 @@ func handleVoiceWS(w http.ResponseWriter, r *http.Request) {
 	conn, err := nucleusUpgrader.Upgrade(w, r, nil)
 	if err != nil { return }
 	defer conn.Close()
+
 	fmt.Println("◈ OMI_VOICE_ARTERY : Connection Established")
+	
 	for {
-		mt, msg, err := conn.ReadMessage(); if err != nil { return }
+		mt, msg, err := conn.ReadMessage()
+		if err != nil { return }
+		
 		if mt == websocket.TextMessage {
 			fmt.Printf("◈ OMI_HANDSHAKE : %s\n", string(msg))
 			conn.WriteMessage(websocket.TextMessage, []byte(`{"type":"handshake_ack"}`))
 		} else if mt == websocket.BinaryMessage {
-			// Mocking OMI behavior for Phase 114.5
-			// In production, this would pipe to Whisper/Node C
-			if time.Now().Unix()%10 == 0 {
-				conn.WriteMessage(websocket.TextMessage, []byte(`{"type":"TRANSCRIPTION","text":"Sovereign OS Voice Artery Active."}`))
+			// ◈ PHASE 115: LIVE_OVERRIDE_ARTERY
+			// In production, this pipes to local Whisper-Tiny on Node D.
+			// Here we simulate a transcription pulse that triggers Hermes.
+			
+			// Mock: If we receive data, occasionally trigger a 'Live Override'
+			if time.Now().Unix()%15 == 0 {
+				transcription := "Hey Machina, unseal the research shard for Phase 115."
+				
+				// 1. Send feedback to UI
+				conn.WriteMessage(websocket.TextMessage, []byte(fmt.Sprintf(`{"type":"TRANSCRIPTION","text":"%s"}`, transcription)))
+				
+				// 2. Trigger LIVE_OVERRIDE intent for Node B Director
+				payload, _ := json.Marshal(map[string]interface{}{
+					"command": "override",
+					"method":  "voice_ingress",
+					"text":    transcription,
+					"priority": "CRITICAL",
+				})
+				
+				// Using the hub's sendToUnix capability (we need to pass hub to this function or use a global)
+				// For now, we'll log it as a simulation.
+				fmt.Printf("::/LIVE_OVERRIDE : %s\n", transcription)
 			}
 		}
 	}
