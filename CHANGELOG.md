@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org).
 
+## [3.8.29-GOLD] - 2026-05-02
+
+### Added
+- **Final Release Shards:** Materialized the definitive builds for the Flutter HUD (v3.8.28-GOLD+1), Obsidian Artery (v3.8.28-GOLD), and Vivaldi Ingress extension (v3.8.28-GOLD).
+- **Security Lockdown:** Shored 23 vulnerabilities via `pnpm audit fix` and added resolution overrides to the root manifest.
+- **Mesh Purification:** Purged all tech bloat, orphan worktrees, and ghost processes. The mesh is now 100% clean and secured.
+- **Deep Browser Harness:** Fully integrated `sidecars/browser-agent-harness` with ST3GG-authenticated cookie porting.
+
+### Changed
+- **Interaction Standard:** Finalized the HUD interaction model: CHAT > TASKS > INGRESS > MEMORY > ARTERY. Re-materialized high-fidelity 1024x1024 launcher assets.
+- **Vault Partitioning:** Enforced absolute lore-neutrality between the Sovereign OS Brain and the Cyberpunk RED RKG simulation vaults.
+
 ## [3.8.28] - 2026-05-02
 
 ### Added
