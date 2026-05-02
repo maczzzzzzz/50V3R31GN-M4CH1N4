@@ -194,6 +194,28 @@
           '';
         };
 
+        hermes-core = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            nodejs_22
+            typescript
+            pnpm
+          ];
+          shellHook = ''
+            echo "◈ 50V3R31GN-M4CH1N4: hermes-core development environment."
+          '';
+        };
+
+        dashboard = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            nodejs_22
+            typescript
+            pnpm
+          ];
+          shellHook = ''
+            echo "◈ 50V3R31GN-M4CH1N4: dashboard development environment."
+          '';
+        };
+
         # Phase 65: Optical Artery — Docling / ColPali PDF ingestion environment
         optical = pkgs.mkShell {
           buildInputs = with pkgs; [
