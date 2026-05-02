@@ -85,7 +85,7 @@ Scaffold a strictly typed ES2022 ESM TypeScript project with Zod schemas coverin
 
 ## 3. Data Models (Zod Schemas)
 
-All schemas are derived from direct inspection of actual seed data in `docs/raw_data/`. Field optionality reflects what was observed in the real Foundry VTT v12 exports from `cyberpunk-red-core` v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
+All schemas are derived from direct inspection of actual seed data in `docs/raw_data/`. Field optionality reflects what was observed in the real Foundry VTT v12 exports from `cyberpunk-red-core` v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
 
 ### 3.1 `common.schema.ts` — Shared sub-structures
 

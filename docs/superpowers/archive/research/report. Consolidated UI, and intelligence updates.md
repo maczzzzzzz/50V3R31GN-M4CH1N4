@@ -1,4 +1,4 @@
-This final report consolidates the **v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Black-Ice"** architectural blueprint. This lean, distributed configuration moves the **asp.gm** project from a "connected agent" to a hardware-enforced, deterministic Meta-OS for Cyberpunk RED.
+This final report consolidates the **v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Black-Ice"** architectural blueprint. This lean, distributed configuration moves the **asp.gm** project from a "connected agent" to a hardware-enforced, deterministic Meta-OS for Cyberpunk RED.
 
 ## **1\. Distributed Infrastructure (The Core)**
 
@@ -28,7 +28,7 @@ A unified visual identity across all windows to create a singular terminal exper
 
 * **Crush CLI:** Customized via crush.json using **Lip Gloss** styles. Status bars mirror Node A's VRAM and Judge status.  
 * **Strategic Atlas (Sidecar):** A standalone Rust window (egui \+ wgpu) rendering a low-overhead Night City vector-wireframe. Synchronized to world.db coordinates for "District Pings" and lore-grounding.  
-* **Foundry VTT (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Inversion):** Utilizing the new **CSS @layer** system in CPR Core 0.9.3 to override the "Red" branding globally without breaking core files.
+* **Foundry VTT (v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Inversion):** Utilizing the new **CSS @layer** system in CPR Core 0.9.3 to override the "Red" branding globally without breaking core files.
 
 ## **3\. Cherry-Picked Intelligence (Hermes-Agent Integration)**
 
@@ -48,7 +48,7 @@ We are strip-mining the **Nous Research Hermes-Agent** codebase for its producti
 
 | Component | Target Repository | Purpose in Black-Ice |
 | :---- | :---- | :---- |
-| **Foundry System** | [fvtt-cyberpunk-red-core](https://www.google.com/search?q=https://github.com/red-mule/fvtt-cyberpunk-red-core) | v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS / v12 pinning; CSS @layer overrides. |
+| **Foundry System** | [fvtt-cyberpunk-red-core](https://www.google.com/search?q=https://github.com/red-mule/fvtt-cyberpunk-red-core) | v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS / v12 pinning; CSS @layer overrides. |
 | **Agent Logic** | [hermes-agent](https://github.com/nousresearch/hermes-agent) | SKILL.md logic, RPC macros, and WAL patterns. |
 | **Spatial Seeds** | [solutionmaps-freebies](https://github.com/SolutionMaps/solutionmaps-freebies) | Tactical JSON data for wall/light extraction. |
 | **TUI Base** | [charm-bracelet/lipgloss](https://github.com/charmbracelet/lipgloss) | The styling engine for the Crush CLI theme. |
@@ -57,7 +57,7 @@ We are strip-mining the **Nous Research Hermes-Agent** codebase for its producti
 ### **Immediate Execution Priority**
 
 1. Initialize the **R\*Tree schema** in world.db (Node A).  
-2. Scaffold the black-ice-vtt-theme module for **Foundry v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS**.  
+2. Scaffold the black-ice-vtt-theme module for **Foundry v3.8.28-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS**.  
 3. Implement the **ClawLink Binary Handshake** for the RPC Macro pipeline.
 
 **System ready. Command?**
