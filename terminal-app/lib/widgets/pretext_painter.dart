@@ -111,7 +111,7 @@ class PretextPainter extends CustomPainter {
       textAlign: TextAlign.left,
       fontSize: legacyStyle?.fontSize ?? 14,
       fontFamily: 'Space Grotesk',
-      fontWeight: ui.FontWeight.black,
+      fontWeight: ui.FontWeight.w900,
     ));
     builder.pushStyle(ui.TextStyle(color: legacyStyle?.color ?? const Color(0xFFF36622)));
     builder.addText(legacyText!);

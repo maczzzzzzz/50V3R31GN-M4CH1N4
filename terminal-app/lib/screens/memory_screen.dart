@@ -70,7 +70,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
           const SizedBox(height: 24),
           const Text(
             'ACTIVE_SESSION_MONITORING',
-            style: TextStyle(color: Color(0xFFF36622), letterSpacing: 4.0, fontWeight: FontWeight.black, fontSize: 10, fontFamily: 'Space Grotesk'),
+            style: TextStyle(color: Color(0xFFF36622), letterSpacing: 4.0, fontWeight: FontWeight.w900, fontSize: 10, fontFamily: 'Space Grotesk'),
           ),
         ],
       ),
@@ -79,7 +79,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
   Widget _buildArchiveView(MemoryProvider memory, ThemePreset theme) {
     if (memory.archivedConversations.isEmpty) {
-      return const Center(child: Text('NO_ARCHIVED_MEMORIES', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2)));
+      return const Center(child: Text('NO_ARCHIVED_MEMORIES', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)));
     }
     return ListView.builder(
       padding: const EdgeInsets.all(24.0),
@@ -98,7 +98,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
   Widget _buildContextView(MemoryProvider memory, ThemePreset theme) {
     if (memory.triplets.isEmpty) {
-      return const Center(child: Text('NO_CONTEXT_TRIPLETS_SHORED', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2)));
+      return const Center(child: Text('NO_CONTEXT_TRIPLETS_SHORED', style: TextStyle(color: Color(0xFF404040), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)));
     }
     return ListView.builder(
       padding: const EdgeInsets.all(24.0),
@@ -112,7 +112,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
           subtitle: Text(t['object_literal'], style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 13)),
           trailing: Text(
             t['created_at'].split(' ').last,
-            style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.black),
+            style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.w900),
           ),
         );
       },

@@ -33,7 +33,7 @@ class TerminalScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('::/PASSIVE_ARTERY_LINK: ACTIVE', 
-              style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2, fontFamily: 'Space Grotesk')),
+              style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2, fontFamily: 'Space Grotesk')),
             const SizedBox(height: 12),
             const Divider(color: Color(0xFF262626)),
             Expanded(
@@ -72,7 +72,7 @@ class TerminalScreen extends StatelessWidget {
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text('Σ:/>', style: TextStyle(color: Color(0xFFF36622), fontWeight: FontWeight.black, fontSize: 14)),
+                    child: Text('Σ:/>', style: TextStyle(color: Color(0xFFF36622), fontWeight: FontWeight.w900, fontSize: 14)),
                   ),
                   Expanded(
                     child: TextField(

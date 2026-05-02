@@ -2,7 +2,7 @@
 
 > **For Gemini:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Implement Phase 5.2 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS), including the Discord Chronicler and the Playwright Optical Mesh.
+**Goal:** Implement Phase 5.2 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS), including the Discord Chronicler and the Playwright Optical Mesh.
 
 **Architecture:** Discord posts are handled via an MCP tool dispatcher. Visual spatial awareness uses the Playwright MCP server to capture the Foundry canvas and pipes it to Node B's local Llava model for analysis.
 

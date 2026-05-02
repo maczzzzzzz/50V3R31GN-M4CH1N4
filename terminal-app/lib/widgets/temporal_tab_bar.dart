@@ -58,7 +58,7 @@ class TemporalTabBar extends StatelessWidget {
             label.toUpperCase(),
             style: TextStyle(
               color: isSelected ? const Color(0xFFF36622) : const Color(0xFF404040),
-              fontWeight: FontWeight.black,
+              fontWeight: FontWeight.w900,
               fontSize: 10,
               letterSpacing: 2,
               fontFamily: 'Space Grotesk',

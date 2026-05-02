@@ -114,7 +114,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         const SizedBox(width: 12),
                         Text(
                           'SYNCHRONIZED_ALARM: ${DateFormat('yyyy-MM-dd HH:mm').format(DateTime(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day, _selectedTime!.hour, _selectedTime!.minute))}',
-                          style: TextStyle(color: accentColor, fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 1),
+                          style: TextStyle(color: accentColor, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 1),
                         ),
                         const Spacer(),
                         IconButton(
@@ -156,7 +156,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     subtitle: task.reminderTime != null
                         ? Text(
                             'ARTERY_PULSE: ${DateFormat('HH:mm').format(task.reminderTime!)}',
-                            style: TextStyle(color: accentColor.withOpacity(0.6), fontSize: 9, fontWeight: FontWeight.black, letterSpacing: 1),
+                            style: TextStyle(color: accentColor.withOpacity(0.6), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1),
                           )
                         : null,
                     trailing: Icon(task.isCompleted ? Icons.check_box : Icons.check_box_outline_blank, color: task.isCompleted ? accentColor : const Color(0xFF262626), size: 20),

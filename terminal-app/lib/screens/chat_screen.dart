@@ -79,11 +79,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 final isUser = msg.sender == 'USER';
                 return GeometricShard(
                   borderColor: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A),
-                  title: Text("::/${msg.sender.toUpperCase()}", style: TextStyle(color: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.black, letterSpacing: 2)),
+                  title: Text("::/${msg.sender.toUpperCase()}", style: TextStyle(color: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 2)),
                   subtitle: Text(msg.text, style: const TextStyle(fontSize: 15, color: Color(0xFFE5E5E5), height: 1.4)),
                   trailing: Text(
                     TimeOfDay.fromDateTime(msg.timestamp).format(context),
-                    style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.black),
+                    style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.w900),
                   ),
                 );
               },
@@ -144,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
           const DrawerHeader(
             decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF262626)))),
             child: Center(
-              child: Text('LOG_ARCHIVE', style: TextStyle(color: Color(0xFFF36622), fontSize: 18, fontWeight: FontWeight.black, letterSpacing: 4, fontFamily: 'Space Grotesk')),
+              child: Text('LOG_ARCHIVE', style: TextStyle(color: Color(0xFFF36622), fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 4, fontFamily: 'Space Grotesk')),
             ),
           ),
           Expanded(
@@ -160,8 +160,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     chatService.selectConversation(conv.id);
                     Navigator.pop(context);
                   },
-                  title: Text(conv.title.toUpperCase(), style: TextStyle(color: isSelected ? Colors.white : const Color(0xFFA3A3A3), fontSize: 12, fontWeight: FontWeight.black, letterSpacing: 1)),
-                  subtitle: Text('${conv.messages.length} ENTRIES', style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.black)),
+                  title: Text(conv.title.toUpperCase(), style: TextStyle(color: isSelected ? Colors.white : const Color(0xFFA3A3A3), fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 1)),
+                  subtitle: Text('${conv.messages.length} ENTRIES', style: const TextStyle(fontSize: 8, color: Color(0xFF404040), fontWeight: FontWeight.w900)),
                 );
               },
             ),
@@ -185,7 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
           color: Colors.red.withOpacity(0.05),
         ),
         child: const Center(
-          child: Text("PURGE_ALL_LOGS", style: TextStyle(color: Colors.red, fontWeight: FontWeight.black, letterSpacing: 2, fontSize: 10)),
+          child: Text("PURGE_ALL_LOGS", style: TextStyle(color: Colors.red, fontWeight: FontWeight.w900, letterSpacing: 2, fontSize: 10)),
         ),
       ),
     );

@@ -158,9 +158,9 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
       child: Row(children: [
         const Icon(Icons.emergency, color: Color(0xFFF36622), size: 14),
         const SizedBox(width: 12),
-        const Text("VOICE_INGRESS: ACTIVE_ARTERY", style: TextStyle(color: Color(0xFFF36622), fontSize: 9, fontWeight: FontWeight.black, letterSpacing: 2)),
+        const Text("VOICE_INGRESS: ACTIVE_ARTERY", style: TextStyle(color: Color(0xFFF36622), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 2)),
         const Spacer(),
-        const Text("V2F_GATED", style: TextStyle(color: Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.black)),
+        const Text("V2F_GATED", style: TextStyle(color: Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.w900)),
       ]),
     );
   }
@@ -244,7 +244,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF333333)))),
           child: Row(children: [
-            const Text("MEMORY_SHARD_INGRESS", style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2)),
+            const Text("MEMORY_SHARD_INGRESS", style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)),
             const Spacer(),
             _brutalistButton(Icons.sync, const Color(0xFFA3A3A3), memoryProvider.fetchMemories, size: 30),
           ]),
@@ -279,13 +279,13 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
         children: [
           const Icon(Icons.security, color: Color(0xFFF36622), size: 80),
           const SizedBox(height: 40),
-          const Text("SPIFFE_IDENTITY_PULSE", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.black, letterSpacing: 4)),
+          const Text("SPIFFE_IDENTITY_PULSE", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 4)),
           const SizedBox(height: 20),
-          const Text("V2F_GATING: ENFORCED", style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.black, letterSpacing: 2)),
+          const Text("V2F_GATING: ENFORCED", style: TextStyle(color: Color(0xFFC7A87A), fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 2)),
           const SizedBox(height: 60),
           _securityAuraRing(),
           const SizedBox(height: 60),
-          const Text("ST3GG_TOKEN: VALID", style: TextStyle(color: Color(0xFFF36622), fontSize: 12, fontWeight: FontWeight.black, letterSpacing: 1)),
+          const Text("ST3GG_TOKEN: VALID", style: TextStyle(color: Color(0xFFF36622), fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 1)),
         ],
       ),
     );
@@ -314,7 +314,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
       ),
       child: Column(children: [
         const SizedBox(height: 30),
-        const Text("Σ", style: TextStyle(color: Color(0xFFF36622), fontSize: 24, fontWeight: FontWeight.black)),
+        const Text("Σ", style: TextStyle(color: Color(0xFFF36622), fontSize: 24, fontWeight: FontWeight.w900)),
         const SizedBox(height: 50),
         ...List.generate(_navItems.length, (index) {
           final isSelected = _currentIndex == index;
@@ -327,7 +327,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Icon(_navItems[index]['icon'], color: isSelected ? accentColor : const Color(0xFF404040), size: 24),
                 const SizedBox(height: 6),
-                Text(_navItems[index]['label'], style: TextStyle(color: isSelected ? accentColor : const Color(0xFF404040), fontSize: 7, fontWeight: FontWeight.black, letterSpacing: 1)),
+                Text(_navItems[index]['label'], style: TextStyle(color: isSelected ? accentColor : const Color(0xFF404040), fontSize: 7, fontWeight: FontWeight.w900, letterSpacing: 1)),
               ]),
             ),
           );
@@ -341,9 +341,9 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
       padding: const EdgeInsets.all(24),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text("NODESTADT_HUB", style: TextStyle(color: Colors.white, fontWeight: FontWeight.black, letterSpacing: 5, fontSize: 18)),
+          const Text("NODESTADT_HUB", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, letterSpacing: 5, fontSize: 18)),
           const SizedBox(height: 4),
-          const Text("QUATERNARY_MESH // v3.8.25", style: TextStyle(color: Color(0xFFA3A3A3), fontSize: 8, fontWeight: FontWeight.black, letterSpacing: 2)),
+          const Text("QUATERNARY_MESH // v3.8.25", style: TextStyle(color: Color(0xFFA3A3A3), fontSize: 8, fontWeight: FontWeight.w900, letterSpacing: 2)),
         ]),
         _brutalistRing(0.85, const Color(0xFFF36622)),
       ]),

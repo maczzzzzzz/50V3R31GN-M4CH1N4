@@ -55,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('::/ARTERY_SETTINGS_SHORED', style: TextStyle(color: Colors.black, fontWeight: FontWeight.black)), 
+          content: Text('::/ARTERY_SETTINGS_SHORED', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900)), 
           backgroundColor: Color(0xFFF36622)
         ),
       );
@@ -102,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildClinicalHeader(String title, Color color) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: Text(title, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.black, letterSpacing: 3, fontFamily: 'Space Grotesk')),
+      child: Text(title, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 3, fontFamily: 'Space Grotesk')),
     );
   }
 
@@ -114,7 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 14, fontFamily: 'Lexend'),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: TextStyle(color: color.withOpacity(0.6), fontSize: 9, fontWeight: FontWeight.black, letterSpacing: 2),
+          labelStyle: TextStyle(color: color.withOpacity(0.6), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 2),
           enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.zero, borderSide: BorderSide(color: Color(0xFF262626))),
           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.zero, borderSide: BorderSide(color: color, width: 1.5)),
           filled: true,
@@ -136,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           value: service.currentMode,
           isExpanded: true,
           dropdownColor: const Color(0xFF161616),
-          style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.black, letterSpacing: 1),
+          style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1),
           items: ThemeService.presets.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value.name.toUpperCase()))).toList(),
           onChanged: (m) => m != null ? service.setTheme(m) : null,
         ),
@@ -154,7 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: color.withOpacity(0.05),
         ),
         child: Center(
-          child: Text("EXECUTE_ARTERY_SYNC", style: TextStyle(color: color, fontWeight: FontWeight.black, letterSpacing: 4, fontSize: 12, fontFamily: 'Space Grotesk')),
+          child: Text("EXECUTE_ARTERY_SYNC", style: TextStyle(color: color, fontWeight: FontWeight.w900, letterSpacing: 4, fontSize: 12, fontFamily: 'Space Grotesk')),
         ),
       ),
     );

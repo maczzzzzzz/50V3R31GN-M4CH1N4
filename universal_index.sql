@@ -36,9 +36,9 @@ The Sovereign Machina is currently a **Frankenstein organism**. We have successf
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='audit/2026-05-01/INTEGRITY_SCAN_LOG.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('INTEGRITY_SCAN_LOG.md', 'LOCATED_IN_SECTOR', 'AUDIT/2026-05-01', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('INTEGRITY_SCAN_LOG.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('audits/AUDIT_2026-04-29-context-drift-reconciliation.md', 'AUDIT_2026-04-29-context-drift-reconciliation.md', 'AUDITS', '# AUDIT: Context Drift Reconciliation (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('audits/AUDIT_2026-04-29-context-drift-reconciliation.md', 'AUDIT_2026-04-29-context-drift-reconciliation.md', 'AUDITS', '# AUDIT: Context Drift Reconciliation (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Date:** Wednesday, April 29, 2026
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRIFT_REPAIRED // ARCHITECTURE_LOCKED
 
 ## ◈ 1. INCIDENT REPORT
@@ -53,7 +53,7 @@ The system suffered a "Cognitive Buffer Overflow" resulting in the injection of 
 3.  **Research Verification:** Used web-grounding to cross-verify the capabilities of `FalkorDB`, `BARRED`, `IntellAgent`, and `CocoIndex`.
 4.  **Legacy Purge:** Archived mislabeled research documents and deleted deprecated CRT/Glitch aesthetic artifacts.
 
-## ◈ 3. VERIFIED GROUND TRUTH (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+## ◈ 3. VERIFIED GROUND TRUTH (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 - **Node A (4GB):** Mooncake Artery (KV/Vision Ingestion).
 - **Node B (16GB):** The Director (Director/Vision).
 - **Node C (6GB):** Strategic Oracle (Defense/Recon).
@@ -388,8 +388,8 @@ git commit -m "chore(research): initialize grok validation swarm infrastructure"
 
 **Target Reports:**
 - `AI OS article-logic mine.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3-spec.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3-spec.pdf`
 - `massive-logic-research.pdf`
 - `massive-logic-research-LONG-FORMAT.pdf`
 - `massive-logic-research-REPOSITORY-LIST.pdf` (Shared Reference)
@@ -417,10 +417,10 @@ git commit -m "research(alpha): logic and reasoning swarm validation complete"
 
 **Target Reports:**
 - `cluster-enhancement.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec2.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec2.pdf`
 
 - [ ] **Step 1: Execute Validation Protocol**
 
@@ -462,16 +462,16 @@ Write the `SUMMARY.md` including:
 - [ ] **Step 3: Finalize and Sync**
 
 Run: `npm run scribe`
-Commit: `chore(scribe): research swarm synthesis v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS`
+Commit: `chore(scribe): research swarm synthesis v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS`
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='plans/2026-05-01-grok-research-swarm-execution.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('2026-05-01-grok-research-swarm-execution.md', 'LOCATED_IN_SECTOR', 'PLANS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('2026-05-01-grok-research-swarm-execution.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/2026-05-01-hermes-prompt-migration.md', '2026-05-01-hermes-prompt-migration.md', 'PLANS', '# Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard Prompt Migration Implementation Plan
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/2026-05-01-hermes-prompt-migration.md', '2026-05-01-hermes-prompt-migration.md', 'PLANS', '# Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard Prompt Migration Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Migrate system markers in Hermes system prompts from `[SYSTEM:` to `[IMPORTANT:]` to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards and avoid content filters.
+**Goal:** Migrate system markers in Hermes system prompts from `[SYSTEM:` to `[IMPORTANT:]` to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards and avoid content filters.
 
 **Architecture:** Surgical string replacement in core Hermes orchestration files.
 
@@ -542,7 +542,7 @@ Okay, I''ll just follow the directive: "Replace [SYSTEM: with [IMPORTANT:]".
 - [ ] **Step 2: Commit changes**
 ```bash
 git add src/core/hermes/HermesSingularity.ts src/core/hermes/HealerProtocol.ts
-git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
+git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
 ```
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='plans/2026-05-01-hermes-prompt-migration.md';
@@ -1021,7 +1021,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/PLAN_2026-04-29-aesthetic-ascension-pretext.md', 'PLAN_2026-04-29-aesthetic-ascension-pretext.md', 'PLANS', '# 50V3R31GN-M4CH1N4 // AESTHETIC ASCENSION (PRETEXT)
 **Date:** 2026-04-29
 **Phase:** 104 (Global Aesthetic Refactor)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The standard DOM-based text rendering is a bottleneck for high-performance agentic visualization. We are materializing **Pretext Geometric Intelligence** to transition our HUD from static labels to kinetictypography primitives. This allows the system to visualize agent thought-streams as physical objects that react to the metabolic environment.
@@ -1053,7 +1053,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/PLAN_2026-04-29-inside-the-machina-ignition.md', 'PLAN_2026-04-29-inside-the-machina-ignition.md', 'PLANS', '# 50V3R31GN-M4CH1N4 // "INSIDE THE MACHINA" IGNITION
 **Date:** Wednesday, April 29, 2026
 **Phase:** 103 (Priority Phase)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 To accelerate development and eliminate context drift, we are moving all implementation work *inside* the Machina. This phase materializes the peer-developer synergy where Hermes watches, remembers, and co-authors alongside the human operator. We transition from "Agent-as-Tool" to "Agent-as-Peer."
@@ -1089,7 +1089,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/PLAN_2026-04-29-intelligence-synthesis.md', 'PLAN_2026-04-29-intelligence-synthesis.md', 'PLANS', '# 50V3R31GN-M4CH1N4 // INTELLIGENCE SYNTHESIS PLAN
 **Date:** 2026-04-29
 **Phase:** 106 (Cognitive Expansion)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 With the Quaternary Artery (Node D) ignited and the security hardgate (SPIRE/mTLS) locked, we will materialize the cognitive enhancements discovered during the intelligence audits and SOTA mining rounds.
@@ -1118,7 +1118,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/PLAN_2026-04-29-kv-vaccination.md', 'PLAN_2026-04-29-kv-vaccination.md', 'PLANS', '# 50V3R31GN-M4CH1N4 // KV CACHE VACCINATION PLAN
 **Date:** 2026-04-29
 **Phase:** 105.2 (Context Purity)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The Sovereign Mesh is suffering from lore-bleed. While `MemoryObserver.ts` was updated to gate distillation, the physical NPU/GPU KV Caches on Node C and Node D are retaining Cyberpunk RED simulation context across profile transitions. We must implement a "KV Cache Vaccination" protocol to physically purge the model context windows when switching between `SOVEREIGN_OS` and `RED_DIRECTOR`.
@@ -1143,7 +1143,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/PLAN_2026-04-29-spire-materialization.md', 'PLAN_2026-04-29-spire-materialization.md', 'PLANS', '# 50V3R31GN-M4CH1N4 // SPIRE MATERIALIZATION PLAN
 **Date:** 2026-04-29
 **Phase:** 105.1 (Security Hardgate)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The Quaternary Intelligence Audit confirmed that our current security boundary relies on "Shadow Logic." To safely execute multi-model development *inside* the Machina (Node B + Node D), we must materialize the **SPIFFE/SPIRE Identity Federation**. This is the zero-trust bedrock required before any further architectural expansion.
@@ -1168,8 +1168,8 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('PLAN_2026-04-29-spire-materialization.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('plans/PLAN_2026-04-29-system-alignment-consolidation.md', 'PLAN_2026-04-29-system-alignment-consolidation.md', 'PLANS', '# 50V3R31GN-M4CH1N4 // SYSTEM ALIGNMENT & CONSOLIDATION ROADMAP
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-ALIGN
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-ALIGN
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The Quaternary Artery (Node D) is stable, but the documentation and logic layers have drifted. This plan executes a Zero-Trust consolidation of the last 72 hours of research and implementation cycles. We are purging Gruvbox in favor of the **NODESTADT Authority Palette** and isolating the **RED Simulation Shard**.
@@ -1234,9 +1234,9 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities to create a fully local, live coding partner experience via the Quaternary Mesh.
+**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities to create a fully local, live coding partner experience via the Quaternary Mesh.
 
-**Architecture:** A Rust-based `sovereign-warp-observer` sidecar on Node D streams Warp telemetry to MemPalace via MCP. The `HermesSingularity` orchestrates a structured `Triage -> Spec -> Implement -> Review` pipeline based on this telemetry. A new `gepa-curator` sidecar periodically prunes and grades the local skill library. All system prompts are updated to the `[IMPORTANT:]` standard to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
+**Architecture:** A Rust-based `sovereign-warp-observer` sidecar on Node D streams Warp telemetry to MemPalace via MCP. The `HermesSingularity` orchestrates a structured `Triage -> Spec -> Implement -> Review` pipeline based on this telemetry. A new `gepa-curator` sidecar periodically prunes and grades the local skill library. All system prompts are updated to the `[IMPORTANT:]` standard to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
 
 **Tech Stack:** Rust (Tokio, axum, mcp), TypeScript (Node.js), SQLite (MemPalace)
 
@@ -1379,7 +1379,7 @@ git add src/core/hermes/HermesSingularity.ts
 git commit -m "feat(hermes): implement mined Oz pipeline orchestration"
 ```
 
-### Task 3: Update System Prompts to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard
+### Task 3: Update System Prompts to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard
 
 **Files:**
 - Modify: `src/core/hermes/HermesSingularity.ts`
@@ -1413,7 +1413,7 @@ In `src/core/hermes/HealerProtocol.ts`, perform the same replacement.
 
 ```bash
 git add src/core/hermes/HermesSingularity.ts src/core/hermes/HealerProtocol.ts
-git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
+git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
 ```
 
 ### Task 4: Initialize the GEPA Curator Sidecar
@@ -1484,7 +1484,7 @@ git commit -m "feat(gepa-curator): initialize background skill consolidation eng
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='plans/PLAN_2026-05-01-live-coding-partner-integration.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('PLAN_2026-05-01-live-coding-partner-integration.md', 'LOCATED_IN_SECTOR', 'PLANS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('PLAN_2026-05-01-live-coding-partner-integration.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-04-28-quaternary-intelligence-audit-final.md', 'RESEARCH_2026-04-28-quaternary-intelligence-audit-final.md', 'RESEARCH', '# FINAL REPORT: Deep Quaternary Intelligence Audit (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-04-28-quaternary-intelligence-audit-final.md', 'RESEARCH_2026-04-28-quaternary-intelligence-audit-final.md', 'RESEARCH', '# FINAL REPORT: Deep Quaternary Intelligence Audit (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Date:** 2026-04-28
 **Phase:** 102.2
 **Nodes:** A, B, C, D (Trinity + Strategic Oracle)
@@ -1579,7 +1579,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 **Subject:** Generic System-Wide Intelligence Boosts & Architectural Optimizations
 
 ## 1. Executive Summary
-Round 2 research focused on the underlying "engine" logic required to scale the Sovereign OS to v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards. Key findings include advanced KV-cache management for ultra-long context, self-evolving prompt engineering, and hardware-accelerated background perception.
+Round 2 research focused on the underlying "engine" logic required to scale the Sovereign OS to v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards. Key findings include advanced KV-cache management for ultra-long context, self-evolving prompt engineering, and hardware-accelerated background perception.
 
 ## 2. Technical Pillars
 
@@ -1703,7 +1703,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-04-29-inside-the-machina.md', 'RESEARCH_2026-04-29-inside-the-machina.md', 'RESEARCH', '# RESEARCH REPORT: DEVELOPMENT INSIDE THE MACHINA
 
 **Date:** 2026-04-29
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Topic:** Orchestrating Hermes, Full Vision, Persistent Dev Sessions & Voice Control
 
 ---
@@ -1754,7 +1754,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('RESEARCH_2026-04-29-inside-the-machina.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-04-29-pretext-geometric-intelligence.md', 'RESEARCH_2026-04-29-pretext-geometric-intelligence.md', 'RESEARCH', '# RESEARCH: Pretext Geometric Intelligence & Kinetic Typography
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-PRETEXT
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-PRETEXT
 **Source:** https://github.com/NousResearch/hermes-agent/tree/main/skills/creative/pretext
 
 ## ◈ 1. CONCEPTUAL LEAP: TEXT AS GEOMETRY
@@ -1784,7 +1784,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('RESEARCH_2026-04-29-pretext-geometric-intelligence.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-04-29-sota-agentic-patterns.md', 'RESEARCH_2026-04-29-sota-agentic-patterns.md', 'RESEARCH', '# RESEARCH: SOTA Agentic Patterns & Implementation Blueprints
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-RESEARCH
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-RESEARCH
 **Sources:** Open-AutoGLM, TouchDesigner-MCP, Bux, Operit
 
 ## ◈ 1. PERCEPTION: VISUAL-FIRST CONTROL (Open-AutoGLM)
@@ -1823,7 +1823,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('RESEARCH_2026-04-29-sota-agentic-patterns.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-04-29-voicebox-neural-voice.md', 'RESEARCH_2026-04-29-voicebox-neural-voice.md', 'RESEARCH', '# RESEARCH: Voicebox Local-First Voice Intelligence
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-VOICEBOX
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-VOICEBOX
 **Source:** https://github.com/jamiepine/voicebox
 
 ## ◈ 1. CONCEPTUAL ARCHETYPE: THE VOICE STUDIO
@@ -1853,17 +1853,17 @@ Voicebox is a local-first, private alternative to cloud voice services. It trans
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='research/RESEARCH_2026-04-29-voicebox-neural-voice.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('RESEARCH_2026-04-29-voicebox-neural-voice.md', 'LOCATED_IN_SECTOR', 'RESEARCH', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('RESEARCH_2026-04-29-voicebox-neural-voice.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-05-01-hermes-oz-mining.md', 'RESEARCH_2026-05-01-hermes-oz-mining.md', 'RESEARCH', '# RESEARCH: Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS & Warp Oz Mining Synthesis
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/RESEARCH_2026-05-01-hermes-oz-mining.md', 'RESEARCH_2026-05-01-hermes-oz-mining.md', 'RESEARCH', '# RESEARCH: Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS & Warp Oz Mining Synthesis
 **Date:** Friday, May 1, 2026
-**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
-**Context:** Consolidation of upstream Hermes Agent capabilities (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS) and Warp/Oz orchestration patterns for the Sovereign Quaternary Mesh.
+**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+**Context:** Consolidation of upstream Hermes Agent capabilities (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS) and Warp/Oz orchestration patterns for the Sovereign Quaternary Mesh.
 
 ## 1. EXECUTIVE SUMMARY
 This report synthesizes two critical research vectors to accelerate the "Inside the Machina" (Phase 103+) Live Coding Partner experience. 
-1.  **Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS ("The Curator"):** Validates our autonomous evolution loop, introducing background skill curation, rubric-based self-improvement, and significant TUI/cold-start optimizations.
+1.  **Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS ("The Curator"):** Validates our autonomous evolution loop, introducing background skill curation, rubric-based self-improvement, and significant TUI/cold-start optimizations.
 2.  **Warp / Oz Orchestration:** Demystifies Warp''s cloud-centric multi-agent pipeline (`Triage -> Spec -> Implement -> Review`) and provides a blueprint for replicating this swarm-like UX completely locally and sovereignly using our Quaternary Mesh.
 
-## 2. HERMES v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS MINING TARGETS
+## 2. HERMES v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS MINING TARGETS
 Upstream Hermes has shifted toward autonomous self-maintenance. We will adopt the following patterns:
 
 *   **The Autonomous Curator:** Hermes now runs a background cron-driven agent (default 7-day cycle) to grade, prune, and consolidate its skill library. 
@@ -2925,7 +2925,7 @@ A drop-in 3D spatial interface for MemPalace (Wings → Rooms → Drawers) where
 
 ```yaml
 name: visual-memory-palace
-version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 sidecars:
   - name: memory-palace-3d
     language: rust
@@ -3337,7 +3337,7 @@ GEPA Visualization: Evolving genomes appear as growing structures or branching t
 
 Plugin Manifest (as previously locked)
 YAMLname: visual-memory-palace
-version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 sidecars:
   - name: memory-palace-3d
     language: rust
@@ -4365,7 +4365,7 @@ A profile is a simple directory + manifest:
 # profiles/secretary/profile.yaml
 name: secretary
 description: Handles email, calendar, Slack, admin tasks
-version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 inference_preference: node_b_medium   # or node_d_heavy, etc.
 model_selection_strategy: auto
@@ -4834,7 +4834,7 @@ This is the **killer feature** of Sovereign Machina.
 
 ```yaml
 name: secretary
-version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 description: Handles email, calendar, Slack, admin tasks
 
 inference_preference: node_b_medium
@@ -6319,7 +6319,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('warp-oz-mining.pdf', 'FILE_TYPE', 'PDF', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/SUMMARY.md', 'SUMMARY.md', 'RESEARCH/GROK_VALIDATION_2026-05-01', '# Grok Research Swarm: Final Debrief & Synthesis
 **Date:** Friday, May 1, 2026
-**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Audit Status:** ZERO-TRUST_VERIFIED
 
 ## 1. EXECUTIVE SUMMARY
@@ -6332,7 +6332,7 @@ The **Grok Research Swarm** successfully audited 11 reports and identified a sig
 
 ## 2. HALLUCINATION LOG (FALSE CLAIMS)
 The following reports and repositories were identified as **hallucinations** or non-existent during the physical verification pass:
-- **Reports:** `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2`, `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3`.
+- **Reports:** `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2`, `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3`.
 - **Repos:** `hermes-agent-wizard`, `drawthings-grpc-hermes-plugin`, `Ankh.md`.
 - **Note:** These reports generated detailed "specs" for tools that do not physically exist in the public GitHub registry.
 
@@ -6419,7 +6419,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='research/grok_validation_2026-05-01/logs/LOG_cluster-enhancement.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('LOG_cluster-enhancement.md', 'LOCATED_IN_SECTOR', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('LOG_cluster-enhancement.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0-#3-spec.md', 'LOG_hermes_v0.12.0-#3-spec.md', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', '# Zero-Trust Validation Log: hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3-spec
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0-#3-spec.md', 'LOG_hermes_v0.12.0-#3-spec.md', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', '# Zero-Trust Validation Log: hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3-spec
 
 - `[VERIFIED_URLS]`: https://github.com/hermes-ecosystem/Hermes-Agent-Wizard (404), https://github.com/hermes-ecosystem/Ankh.md (404), https://github.com/hermes-ecosystem/drawthings-grpc-hermes-plugin (404)
 - `[GROK_CLAIM_VS_REALITY]`: Grok generated a highly detailed rollout specification and Rust starter code to integrate the "Hermes Fork Wave". Reality: The repositories are hallucinations, making the integration spec fictional.
@@ -6428,7 +6428,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0-#3-spec.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('LOG_hermes_v0.12.0-#3-spec.md', 'LOCATED_IN_SECTOR', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('LOG_hermes_v0.12.0-#3-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0-#3.md', 'LOG_hermes_v0.12.0-#3.md', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', '# Zero-Trust Validation Log: hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0-#3.md', 'LOG_hermes_v0.12.0-#3.md', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', '# Zero-Trust Validation Log: hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3
 
 - `[VERIFIED_URLS]`: None. (All `hermes-ecosystem` links returned 404).
 - `[GROK_CLAIM_VS_REALITY]`: Grok claimed a massive "Hermes Fork Wave" had occurred, creating 10 new community forks and extensions for the Hermes Agent. Reality: Absolute hallucination. The entire ecosystem does not exist.
@@ -6437,14 +6437,14 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0-#3.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('LOG_hermes_v0.12.0-#3.md', 'LOCATED_IN_SECTOR', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('LOG_hermes_v0.12.0-#3.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0.md', 'LOG_hermes_v0.12.0.md', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', '# Log: hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (and specs)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('research/grok_validation_2026-05-01/logs/LOG_hermes_v0.12.0.md', 'LOG_hermes_v0.12.0.md', 'RESEARCH/GROK_VALIDATION_2026-05-01/LOGS', '# Log: hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (and specs)
 
 [VERIFIED_URLS]
 1. https://github.com/NousResearch/hermes-agent
 2. https://github.com/hermes-ecosystem/* (implied forks)
 
 [GROK_CLAIM_VS_REALITY]
-- **Hermes Agent v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS**: Grok claims it is an "Autonomous Curator" and a massive self-improvement release. Reality: While it provides container isolation (Docker/Daytona/Modal) and command approval, it is heavily reliant on cloud compute (Modal) and cloud LLM providers (GMI Cloud, OpenRouter, Anthropic, etc.). 
+- **Hermes Agent v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS**: Grok claims it is an "Autonomous Curator" and a massive self-improvement release. Reality: While it provides container isolation (Docker/Daytona/Modal) and command approval, it is heavily reliant on cloud compute (Modal) and cloud LLM providers (GMI Cloud, OpenRouter, Anthropic, etc.). 
 - **Zero-Trust & Sovereignty**: Grok''s implementation specs (in `-spec` and `-spec2`) attempt to wrap Hermes inside Sovereign Machina using a `hermes-skill-importer` sidecar in Rust/Nix. However, the upstream Hermes agent itself lacks SPIFFE/mTLS integration. It relies on standard isolation rather than cryptographic service identity.
 - **MoE Offload Recipe**: Grok provides a Nix config for Qwen3.6-35B-A3B MoE offloading. This is a configuration pattern rather than a source code repository, but it aligns with local-first deployment on Node C/D.
 
@@ -7325,7 +7325,7 @@ A model trained against a feature-reward like `+1 × fact_retrieval_active - 0.5
 
 ## Status
 
-**Alpha (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS).** API is subject to change. Integrations with `trl` (GRPO), `openrlhf`, and `verl` available.
+**Alpha (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS).** API is subject to change. Integrations with `trl` (GRPO), `openrlhf`, and `verl` available.
 
 **Thesis validated** on Qwen3.5-4B (2026-04-17): three-stage empirical pipeline completed.
 - **Stage Gate 1** (correlation): SAE features predict GSM8K correctness at Spearman ρ=0.540 on 100 held-out questions.
@@ -10486,7 +10486,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_.claude_plugins_cache_claude-plugins-official_superpowers_5.0.7.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.claude_plugins_cache_claude-plugins-official_superpowers_5.0.7.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.claude_plugins_cache_claude-plugins-official_superpowers_5.0.7.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration.md', 'AbilityStone_.worktrees_feat-monorepo-migration.md', 'SHARDS', '# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration.md', 'AbilityStone_.worktrees_feat-monorepo-migration.md', 'SHARDS', '# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
@@ -10516,13 +10516,13 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_.worktrees_feat-monorepo-migration.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_crates_openclaw-agents.md', 'AbilityStone_.worktrees_feat-monorepo-migration_crates_openclaw-agents.md', 'SHARDS', '# ◈ ABILITY_STONE : OPENCLAW_AGENTS // RESILIENCE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /crates/openclaw-agents/
 **Role:** High-Resilience Agent Primitives & Warm Pools.
 
@@ -10541,7 +10541,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_crates_openclaw-agents.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_crates_openclaw-agents.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_crates_resonant-gate.md', 'AbilityStone_.worktrees_feat-monorepo-migration_crates_resonant-gate.md', 'SHARDS', '# ◈ ABILITY_STONE : RESONANT_GATE // GOVERNANCE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /crates/resonant-gate/
 **Role:** Deterministic Decision Arbitration & Zero-Trust Logic.
 
@@ -10560,7 +10560,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_crates_resonant-gate.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_crates_resonant-gate.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_crush.md', 'AbilityStone_.worktrees_feat-monorepo-migration_crush.md', 'SHARDS', '# ◈ ABILITY_STONE : CRUSH_PROXY // GO_ARTERY_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /crush/
 **Role:** High-Performance Sidecar Proxy // CLI Interface & IPC Mesh.
 
@@ -10580,7 +10580,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_crush.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_crush.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_dashboard.md', 'AbilityStone_.worktrees_feat-monorepo-migration_dashboard.md', 'SHARDS', '# ◈ ABILITY_STONE : DASHBOARD // NUCLEUS_HUD
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /dashboard/
 **Role:** Diegetic Visual Manifestation & High-Fidelity C2 HUD.
 
@@ -10602,7 +10602,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_dashboard.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_dashboard.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_packages_hermes-core_src.md', 'AbilityStone_.worktrees_feat-monorepo-migration_packages_hermes-core_src.md', 'SHARDS', '# ◈ ABILITY_STONE : CORE_ORCHESTRATOR // HERMES_SINGULARITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /src/
 **Role:** Central Nervous System // Hybrid Routing & Mesh Coordination.
 
@@ -10622,7 +10622,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_packages_hermes-core_src.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_packages_hermes-core_src.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_scripts_ops.md', 'AbilityStone_.worktrees_feat-monorepo-migration_scripts_ops.md', 'SHARDS', '# ◈ ABILITY_STONE : OPS_COMMAND // SCRIBE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /scripts/ops/
 **Role:** System Ignition, Synchronization & Manifest Governance.
 
@@ -10641,7 +10641,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_scripts_ops.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_scripts_ops.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_sidecar-netrunning.md', 'AbilityStone_.worktrees_feat-monorepo-migration_sidecar-netrunning.md', 'SHARDS', '# ◈ ABILITY_STONE : NETRUNNING // SHIELD_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /sidecar-netrunning/
 **Role:** Security Buffer, Steganography Proxy & Webhook Ingress.
 
@@ -10660,7 +10660,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_sidecar-netrunning.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_sidecar-netrunning.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_sovereign-sdk.md', 'AbilityStone_.worktrees_feat-monorepo-migration_sovereign-sdk.md', 'SHARDS', '# ◈ ABILITY_STONE : SOVEREIGN_SDK // PROTOCOL_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /sovereign-sdk/
 **Role:** Authoritative Protocol Definition & Mesh Constants.
 
@@ -10678,7 +10678,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_.worktrees_feat-monorepo-migration_sovereign-sdk.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_sovereign-sdk.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_sovereign-sdk.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md', 'AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md', 'SHARDS', '# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md', 'AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md', 'SHARDS', '# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
@@ -10708,13 +10708,13 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Maintain VT323/Cyberpunk RED aesthetic and slang.
 
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_terminal-app.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_.worktrees_feat-monorepo-migration_zeroclaw.md', 'AbilityStone_.worktrees_feat-monorepo-migration_zeroclaw.md', 'SHARDS', '# ◈ ABILITY_STONE : ZEROCLAW // RUST_RPC_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /zeroclaw/
 **Role:** Hardened RPC Artery & Hardware-Level Logic Enforcement.
 
@@ -10733,7 +10733,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_.worktrees_feat-monorepo-migration_zeroclaw.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_zeroclaw.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_.worktrees_feat-monorepo-migration_zeroclaw.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_HermesAgent_v2026.md', 'AbilityStone_HermesAgent_v2026.md', 'SHARDS', '# ◈ ABILITY_STONE: HERMES_AGENT_v2026 // v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_HermesAgent_v2026.md', 'AbilityStone_HermesAgent_v2026.md', 'SHARDS', '# ◈ ABILITY_STONE: HERMES_AGENT_v2026 // v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** COGNITIVE_INGRESS
 **Identity:** 50V3R31GN-M4CH1N4
 
@@ -10772,7 +10772,7 @@ Full integration with the **Model Context Protocol (MCP)**, allowing the agent t
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_HermesAgent_v2026.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_HermesAgent_v2026.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_HermesAgent_v2026.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_HermesSingularity.md', 'AbilityStone_HermesSingularity.md', 'SHARDS', '# ◈ ABILITY_STONE: HERMES_SINGULARITY // v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_HermesSingularity.md', 'AbilityStone_HermesSingularity.md', 'SHARDS', '# ◈ ABILITY_STONE: HERMES_SINGULARITY // v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** COGNITIVE_INGRESS
 **Identity:** 50V3R31GN-M4CH1N4
 
@@ -10810,7 +10810,7 @@ Bypasses Go-based WebSocket bridges for raw agentic output streaming via the **H
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_HermesSingularity.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_HermesSingularity.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_HermesSingularity.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_PretextHUD_v2.md', 'AbilityStone_PretextHUD_v2.md', 'SHARDS', '# ◈ ABILITY_STONE: PRETEXT_HUD_v2 // v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_PretextHUD_v2.md', 'AbilityStone_PretextHUD_v2.md', 'SHARDS', '# ◈ ABILITY_STONE: PRETEXT_HUD_v2 // v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** FRONTEND_DOMINANCE
 **Identity:** 50V3R31GN-M4CH1N4
 
@@ -10847,7 +10847,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_PretextHUD_v2.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_PretextHUD_v2.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_crates_openclaw-agents.md', 'AbilityStone_crates_openclaw-agents.md', 'SHARDS', '# ◈ ABILITY_STONE : OPENCLAW_AGENTS // RESILIENCE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /crates/openclaw-agents/
 **Role:** High-Resilience Agent Primitives & Warm Pools.
 
@@ -10866,7 +10866,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crates_openclaw-agents.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crates_openclaw-agents.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_crates_resonant-gate.md', 'AbilityStone_crates_resonant-gate.md', 'SHARDS', '# ◈ ABILITY_STONE : RESONANT_GATE // GOVERNANCE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /crates/resonant-gate/
 **Role:** Deterministic Decision Arbitration & Zero-Trust Logic.
 
@@ -10885,7 +10885,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crates_resonant-gate.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crates_resonant-gate.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_crates_sidecar-netrunning.md', 'AbilityStone_crates_sidecar-netrunning.md', 'SHARDS', '# ◈ ABILITY_STONE : NETRUNNING // SHIELD_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /sidecar-netrunning/
 **Role:** Security Buffer, Steganography Proxy & Webhook Ingress.
 
@@ -10904,7 +10904,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crates_sidecar-netrunning.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crates_sidecar-netrunning.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_crates_sovereign-sdk.md', 'AbilityStone_crates_sovereign-sdk.md', 'SHARDS', '# ◈ ABILITY_STONE : SOVEREIGN_SDK // PROTOCOL_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /sovereign-sdk/
 **Role:** Authoritative Protocol Definition & Mesh Constants.
 
@@ -10943,7 +10943,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crush.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_crush.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_dashboard.md', 'AbilityStone_dashboard.md', 'SHARDS', '# ◈ ABILITY_STONE : DASHBOARD // NUCLEUS_HUD
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /dashboard/
 **Role:** Diegetic Visual Manifestation & High-Fidelity C2 HUD.
 
@@ -10965,7 +10965,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_dashboard.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_dashboard.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_packages_hermes-core_src.md', 'AbilityStone_packages_hermes-core_src.md', 'SHARDS', '# ◈ ABILITY_STONE : CORE_ORCHESTRATOR // HERMES_SINGULARITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /src/
 **Role:** Central Nervous System // Hybrid Routing & Mesh Coordination.
 
@@ -10985,7 +10985,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_packages_hermes-core_src.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_packages_hermes-core_src.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_plugins_sovereign-red-plugin_zeroclaw.md', 'AbilityStone_plugins_sovereign-red-plugin_zeroclaw.md', 'SHARDS', '# ◈ ABILITY_STONE : ZEROCLAW // RUST_RPC_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /zeroclaw/
 **Role:** Hardened RPC Artery & Hardware-Level Logic Enforcement.
 
@@ -11005,7 +11005,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_plugins_sovereign-red-plugin_zeroclaw.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_plugins_sovereign-red-plugin_zeroclaw.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_scripts_ops.md', 'AbilityStone_scripts_ops.md', 'SHARDS', '# ◈ ABILITY_STONE : OPS_COMMAND // SCRIBE_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /scripts/ops/
 **Role:** System Ignition, Synchronization & Manifest Governance.
 
@@ -11024,7 +11024,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_scripts_ops.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_scripts_ops.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_sidecar-netrunning.md', 'AbilityStone_sidecar-netrunning.md', 'SHARDS', '# ◈ ABILITY_STONE : NETRUNNING // SHIELD_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /sidecar-netrunning/
 **Role:** Security Buffer, Steganography Proxy & Webhook Ingress.
 
@@ -11161,7 +11161,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_sidecars_free-claude-proxy.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_sidecars_free-claude-proxy.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_sidecars_free-claude-proxy.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_sidecars_git-nexus.md', 'AbilityStone_sidecars_git-nexus.md', 'SHARDS', '<!-- version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS -->
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_sidecars_git-nexus.md', 'AbilityStone_sidecars_git-nexus.md', 'SHARDS', '<!-- version: 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS -->
 <!-- Last updated: 2026-04-23 -->
 
 Last reviewed: 2026-04-23
@@ -12263,7 +12263,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_sidecars_sidecar-proxy.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_sidecars_sidecar-proxy.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_sovereign-sdk.md', 'AbilityStone_sovereign-sdk.md', 'SHARDS', '# ◈ ABILITY_STONE : SOVEREIGN_SDK // PROTOCOL_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /sovereign-sdk/
 **Role:** Authoritative Protocol Definition & Mesh Constants.
 
@@ -12282,7 +12282,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_sovereign-sdk.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_sovereign-sdk.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_src.md', 'AbilityStone_src.md', 'SHARDS', '# ◈ ABILITY_STONE : CORE_ORCHESTRATOR // HERMES_SINGULARITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /src/
 **Role:** Central Nervous System // Hybrid Routing & Mesh Coordination.
 
@@ -12301,7 +12301,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_src.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_src.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_src.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_terminal-app.md', 'AbilityStone_terminal-app.md', 'SHARDS', '# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_terminal-app.md', 'AbilityStone_terminal-app.md', 'SHARDS', '# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
@@ -12331,13 +12331,13 @@ MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
 3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
 4. **Machine Voice:** Use the **NODESTADT Authority** voice (Radical Candor / Terse / Analytical).
 
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/AbilityStone_terminal-app.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_terminal-app.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('AbilityStone_terminal-app.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/AbilityStone_zeroclaw.md', 'AbilityStone_zeroclaw.md', 'SHARDS', '# ◈ ABILITY_STONE : ZEROCLAW // RUST_RPC_AUTHORITY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Sector:** /zeroclaw/
 **Role:** Hardened RPC Artery & Hardware-Level Logic Enforcement.
 
@@ -12427,7 +12427,7 @@ This directory contains the documentation for every gauntlet shard in the 50V3R3
 - [Phase 54.2: Blueprint Engine](./phase-54-2-blueprint-engine.md)
 
 ---
-*Generated by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Generated by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -12848,8 +12848,8 @@ git commit -m "chore(research): initialize grok validation swarm infrastructure"
 
 **Target Reports:**
 - `AI OS article-logic mine.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3-spec.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#3-spec.pdf`
 - `massive-logic-research.pdf`
 - `massive-logic-research-LONG-FORMAT.pdf`
 - `massive-logic-research-REPOSITORY-LIST.pdf` (Shared Reference)
@@ -12877,10 +12877,10 @@ git commit -m "research(alpha): logic and reasoning swarm validation complete"
 
 **Target Reports:**
 - `cluster-enhancement.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec.pdf`
-- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec2.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec.pdf`
+- `hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-#2-spec2.pdf`
 
 - [ ] **Step 1: Execute Validation Protocol**
 
@@ -12922,16 +12922,16 @@ Write the `SUMMARY.md` including:
 - [ ] **Step 3: Finalize and Sync**
 
 Run: `npm run scribe`
-Commit: `chore(scribe): research swarm synthesis v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS`
+Commit: `chore(scribe): research swarm synthesis v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS`
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_PLAN_2026-05-01-grok-research-swarm-execution.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_2026-05-01-grok-research-swarm-execution.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_2026-05-01-grok-research-swarm-execution.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_2026-05-01-hermes-prompt-migration.md', 'Shard_PLAN_2026-05-01-hermes-prompt-migration.md', 'SHARDS', '# Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard Prompt Migration Implementation Plan
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_2026-05-01-hermes-prompt-migration.md', 'Shard_PLAN_2026-05-01-hermes-prompt-migration.md', 'SHARDS', '# Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard Prompt Migration Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Migrate system markers in Hermes system prompts from `[SYSTEM:` to `[IMPORTANT:]` to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards and avoid content filters.
+**Goal:** Migrate system markers in Hermes system prompts from `[SYSTEM:` to `[IMPORTANT:]` to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS standards and avoid content filters.
 
 **Architecture:** Surgical string replacement in core Hermes orchestration files.
 
@@ -13002,7 +13002,7 @@ Okay, I''ll just follow the directive: "Replace [SYSTEM: with [IMPORTANT:]".
 - [ ] **Step 2: Commit changes**
 ```bash
 git add src/core/hermes/HermesSingularity.ts src/core/hermes/HealerProtocol.ts
-git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
+git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
 ```
 ');
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_PLAN_2026-05-01-hermes-prompt-migration.md';
@@ -15473,7 +15473,7 @@ git commit -m "chore: finalize Phase 53 Ouroboros Logic"
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_PLAN_PLAN_2026-04-12-phase-53-ouroboros-logic.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-12-phase-53-ouroboros-logic.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-12-phase-53-ouroboros-logic.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-12-phase-54-atlas-forge-assembler.md', 'Shard_PLAN_PLAN_2026-04-12-phase-54-atlas-forge-assembler.md', 'SHARDS', '# MASTER IMPLEMENTATION PLAN: Atlas Forge Assembler (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-12-phase-54-atlas-forge-assembler.md', 'Shard_PLAN_PLAN_2026-04-12-phase-54-atlas-forge-assembler.md', 'SHARDS', '# MASTER IMPLEMENTATION PLAN: Atlas Forge Assembler (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -16121,7 +16121,7 @@ git commit -m "chore: finalize Sovereign Control Deck revision"
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_PLAN_PLAN_2026-04-12-sovereign-control-deck.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-12-sovereign-control-deck.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-12-sovereign-control-deck.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-12-sovereign-manifest-engine-consolidated.md', 'Shard_PLAN_PLAN_2026-04-12-sovereign-manifest-engine-consolidated.md', 'SHARDS', '# Sovereign Manifest Engine: Consolidated Implementation Plan (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-12-sovereign-manifest-engine-consolidated.md', 'Shard_PLAN_PLAN_2026-04-12-sovereign-manifest-engine-consolidated.md', 'SHARDS', '# Sovereign Manifest Engine: Consolidated Implementation Plan (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -16187,14 +16187,14 @@ Map all remaining phases. Implement `manifest()` hooks for `injectCSS`, `onboard
 - Modify: `akashik_guides/KNOWLEDGE_BASE.md`
 - Modify: `package.json`
 
-- [ ] **Step 1: Bump version to v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS**
+- [ ] **Step 1: Bump version to v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS**
 Mark the "Sovereign Gauntlet" milestone in all metadata files.
 
 - [ ] **Step 2: Update Changelog**
 Document the transition from "Tests" to "Ability Shards" and the 100% phase coverage.
 
 - [ ] **Step 3: Commit**
-`git add . && git commit -m "chore: v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS sovereign-sync and metadata update"`
+`git add . && git commit -m "chore: v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS sovereign-sync and metadata update"`
 
 ---
 
@@ -18314,8 +18314,8 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
   - Run: `echo ''ch00m'' | sudo -S systemctl disable zeroclaw.service postgresql.service 2>/dev/null`
 
 - [ ] **Step 2: Clean up legacy binaries and weights**
-  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS/zeroclaw/models/*.gguf`
-  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS/zeroclaw/models/*.onnx`
+  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS/zeroclaw/models/*.gguf`
+  - Run: `rm -rf ~/50v3r31gn-m4ch1n4-v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS/zeroclaw/models/*.onnx`
 
 - [ ] **Step 3: Commit Documentation Update**
   ```bash
@@ -19033,7 +19033,7 @@ void main() {
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_PLAN_PLAN_2026-04-19-sovereign-shroud-implementation.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-19-sovereign-shroud-implementation.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-19-sovereign-shroud-implementation.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-19-trinity-ascension-plan.md', 'Shard_PLAN_PLAN_2026-04-19-trinity-ascension-plan.md', 'SHARDS', '# Trinity Ascension & Synapse Evolution Plan (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-19-trinity-ascension-plan.md', 'Shard_PLAN_PLAN_2026-04-19-trinity-ascension-plan.md', 'SHARDS', '# Trinity Ascension & Synapse Evolution Plan (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.
 
@@ -19240,13 +19240,13 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 
 **Goal:** Optimize Node C (Strategic Oracle) and Node A (Synapse) for high-performance, disaggregated inference using threshold routing and sharded Rust crates.
 
-**Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS workspace standard.
+**Architecture:** Node C (Llama-Server) -> Threshold Router -> Node A (Mooncake Master). Migrates `zeroclaw` to the v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS workspace standard.
 
 **Tech Stack:** Rust (Cargo Workspaces), SGLang, Mooncake, `gojq`.
 
 ---
 
-### Task 1: Zeroclaw Workspace Migration (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard)
+### Task 1: Zeroclaw Workspace Migration (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard)
 
 **Files:**
 - Create: `zeroclaw/Cargo.toml` (Workspace root)
@@ -19273,7 +19273,7 @@ resolver = "2"
 
 ```bash
 git add zeroclaw/
-git commit -m "chore(arch): migrate zeroclaw to workspace standard v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS"
+git commit -m "chore(arch): migrate zeroclaw to workspace standard v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS"
 ```
 
 ---
@@ -21117,7 +21117,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-29-aesthetic-ascension-pretext.md', 'Shard_PLAN_PLAN_2026-04-29-aesthetic-ascension-pretext.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // AESTHETIC ASCENSION (PRETEXT)
 **Date:** 2026-04-29
 **Phase:** 104 (Global Aesthetic Refactor)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The standard DOM-based text rendering is a bottleneck for high-performance agentic visualization. We are materializing **Pretext Geometric Intelligence** to transition our HUD from static labels to kinetictypography primitives. This allows the system to visualize agent thought-streams as physical objects that react to the metabolic environment.
@@ -21149,7 +21149,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-29-inside-the-machina-ignition.md', 'Shard_PLAN_PLAN_2026-04-29-inside-the-machina-ignition.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // "INSIDE THE MACHINA" IGNITION
 **Date:** Wednesday, April 29, 2026
 **Phase:** 103 (Priority Phase)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 To accelerate development and eliminate context drift, we are moving all implementation work *inside* the Machina. This phase materializes the peer-developer synergy where Hermes watches, remembers, and co-authors alongside the human operator. We transition from "Agent-as-Tool" to "Agent-as-Peer."
@@ -21185,7 +21185,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-29-intelligence-synthesis.md', 'Shard_PLAN_PLAN_2026-04-29-intelligence-synthesis.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // INTELLIGENCE SYNTHESIS PLAN
 **Date:** 2026-04-29
 **Phase:** 106 (Cognitive Expansion)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 With the Quaternary Artery (Node D) ignited and the security hardgate (SPIRE/mTLS) locked, we will materialize the cognitive enhancements discovered during the intelligence audits and SOTA mining rounds.
@@ -21214,7 +21214,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-29-kv-vaccination.md', 'Shard_PLAN_PLAN_2026-04-29-kv-vaccination.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // KV CACHE VACCINATION PLAN
 **Date:** 2026-04-29
 **Phase:** 105.2 (Context Purity)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The Sovereign Mesh is suffering from lore-bleed. While `MemoryObserver.ts` was updated to gate distillation, the physical NPU/GPU KV Caches on Node C and Node D are retaining Cyberpunk RED simulation context across profile transitions. We must implement a "KV Cache Vaccination" protocol to physically purge the model context windows when switching between `SOVEREIGN_OS` and `RED_DIRECTOR`.
@@ -21239,7 +21239,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-29-spire-materialization.md', 'Shard_PLAN_PLAN_2026-04-29-spire-materialization.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPIRE MATERIALIZATION PLAN
 **Date:** 2026-04-29
 **Phase:** 105.1 (Security Hardgate)
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The Quaternary Intelligence Audit confirmed that our current security boundary relies on "Shadow Logic." To safely execute multi-model development *inside* the Machina (Node B + Node D), we must materialize the **SPIFFE/SPIRE Identity Federation**. This is the zero-trust bedrock required before any further architectural expansion.
@@ -21264,8 +21264,8 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-04-29-spire-materialization.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_2026-04-29-system-alignment-consolidation.md', 'Shard_PLAN_PLAN_2026-04-29-system-alignment-consolidation.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SYSTEM ALIGNMENT & CONSOLIDATION ROADMAP
 **Date:** Wednesday, April 29, 2026
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-ALIGN
-**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-ALIGN
+**Strategist:** LEAD_STRATEGIST_V3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 
 ## ◈ EXECUTIVE SUMMARY
 The Quaternary Artery (Node D) is stable, but the documentation and logic layers have drifted. This plan executes a Zero-Trust consolidation of the last 72 hours of research and implementation cycles. We are purging Gruvbox in favor of the **NODESTADT Authority Palette** and isolating the **RED Simulation Shard**.
@@ -21330,9 +21330,9 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities to create a fully local, live coding partner experience via the Quaternary Mesh.
+**Goal:** Integrate Warp/Oz telemetry mining and Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS "Curator" capabilities to create a fully local, live coding partner experience via the Quaternary Mesh.
 
-**Architecture:** A Rust-based `sovereign-warp-observer` sidecar on Node D streams Warp telemetry to MemPalace via MCP. The `HermesSingularity` orchestrates a structured `Triage -> Spec -> Implement -> Review` pipeline based on this telemetry. A new `gepa-curator` sidecar periodically prunes and grades the local skill library. All system prompts are updated to the `[IMPORTANT:]` standard to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
+**Architecture:** A Rust-based `sovereign-warp-observer` sidecar on Node D streams Warp telemetry to MemPalace via MCP. The `HermesSingularity` orchestrates a structured `Triage -> Spec -> Implement -> Review` pipeline based on this telemetry. A new `gepa-curator` sidecar periodically prunes and grades the local skill library. All system prompts are updated to the `[IMPORTANT:]` standard to align with Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.
 
 **Tech Stack:** Rust (Tokio, axum, mcp), TypeScript (Node.js), SQLite (MemPalace)
 
@@ -21475,7 +21475,7 @@ git add src/core/hermes/HermesSingularity.ts
 git commit -m "feat(hermes): implement mined Oz pipeline orchestration"
 ```
 
-### Task 3: Update System Prompts to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard
+### Task 3: Update System Prompts to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Standard
 
 **Files:**
 - Modify: `src/core/hermes/HermesSingularity.ts`
@@ -21509,7 +21509,7 @@ In `src/core/hermes/HealerProtocol.ts`, perform the same replacement.
 
 ```bash
 git add src/core/hermes/HermesSingularity.ts src/core/hermes/HealerProtocol.ts
-git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
+git commit -m "chore(prompts): migrate system markers to Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS [IMPORTANT:] standard"
 ```
 
 ### Task 4: Initialize the GEPA Curator Sidecar
@@ -21582,7 +21582,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_PLAN_PLAN_2026-05-01-live-coding-partner-integration.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_PLAN_PLAN_TODO_PHASE6.md', 'Shard_PLAN_PLAN_TODO_PHASE6.md', 'SHARDS', '# Phase 6: Living City Task Manifest
 
-## Status: 🟢 COMPLETE (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Hardened)
+## Status: 🟢 COMPLETE (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Hardened)
 
 ### Task 1: Geometric Wall Engine (Node A)
 - [x] Add image dependencies to Cargo.toml
@@ -21613,7 +21613,7 @@ INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('
 - **Result:** AI GM is physically aware of the map''s tactical topology.
 
 ---
-*Verified by Gemini CLI v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by Gemini CLI v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -21662,7 +21662,7 @@ PARENT :: [[OS_CORE]]
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_2026-04-26-mobile-agentic-ingress-spec.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_2026-04-26-mobile-agentic-ingress-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_2026-04-26-mobile-agentic-ingress-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'Shard_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SHARDS', '# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'Shard_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SHARDS', '# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Introduction
 This document outlines the architectural optimizations and system-wide intelligence boosts for the 50V3R31GN-M4CH1N4 engine, aligning with Phase 101 requirements. It focuses on ultra-long context management, self-evolving logic, multi-agent reasoning, and hardware-accelerated local inference.
@@ -21707,7 +21707,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_2026-05-01-grok-research-swarm-design.md', 'Shard_SPEC_2026-05-01-grok-research-swarm-design.md', 'SHARDS', '# SPEC: Grok Research Swarm & Zero-Trust Audit
 **Date:** Friday, May 1, 2026
-**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Status:** DESIGN_LOCKED
 
 ## 1. MISSION STATEMENT
@@ -21756,7 +21756,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_2026-05-01-grok-research-swarm-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_2026-05-01-phase-108-cyberpunk-red-extraction.md', 'Shard_SPEC_2026-05-01-phase-108-cyberpunk-red-extraction.md', 'SHARDS', '# SPEC: Phase 108 — Cyberpunk RED Plugin Extraction & Clean BASE
 **Date:** Friday, May 1, 2026
-**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Status:** DRAFT_INGRESS
 
 ## 1. OBJECTIVE
@@ -21954,7 +21954,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-10-phase-40-sovereign-economy-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-10-phase-40-sovereign-economy-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-atlas-forge-and-mook-bestiary-design.md', 'Shard_SPEC_SPEC_2026-04-12-atlas-forge-and-mook-bestiary-design.md', 'SHARDS', '# Design Spec: Atlas Forge & NC_GANGS_CORPS Library
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Date:** 2026-04-12
 **Goal:** A side-loaded campaign generation engine and a comprehensive Obsidian "NC_GANGS_CORPS" archive, leveraging 4,000 seed points and the Night City Gang pack.
 
@@ -21999,7 +21999,7 @@ The entire `entities_mooks` dataset is physicalized within the Obsidian vault to
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-12-atlas-forge-and-mook-bestiary-design.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-atlas-forge-and-mook-bestiary-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-atlas-forge-and-mook-bestiary-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-atlas-forge-assembler-design.md', 'Shard_SPEC_SPEC_2026-04-12-atlas-forge-assembler-design.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPEC: ATLAS FORGE ASSEMBLER (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-atlas-forge-assembler-design.md', 'Shard_SPEC_SPEC_2026-04-12-atlas-forge-assembler-design.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPEC: ATLAS FORGE ASSEMBLER (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 **Status:** APPROVED
 **Date:** 2026-04-12
@@ -22066,7 +22066,7 @@ Provides real-time observability of the assembly:
 - **Transport:** VSB (Protobuf over WebSocket).
 
 ---
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -22118,7 +22118,7 @@ A persistent top-center menu providing system-wide "Hard Switches":
 - [ ] Functional dial-up audio trigger during VSB governance events.
 
 ---
-*Verified by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -22235,7 +22235,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-43-stabilization-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-43-stabilization-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-phase-44-bridge-sovereignty-design.md', 'Shard_SPEC_SPEC_2026-04-12-phase-44-bridge-sovereignty-design.md', 'SHARDS', '# Design Spec: Mesh Sovereignty & Motor Cortex
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Date:** 2026-04-12
 **Phase:** 44
 **Goal:** Implement the "Motor Cortex" within the Foundry Mesh to allow the Sovereign Machina to execute high-privilege administrative actions.
@@ -22277,7 +22277,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-44-bridge-sovereignty-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-44-bridge-sovereignty-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-phase-45-governance-duel-design.md', 'Shard_SPEC_SPEC_2026-04-12-phase-45-governance-duel-design.md', 'SHARDS', '# Design Spec: Governance Duel & Pulse Propagation
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Date:** 2026-04-12
 **Phases:** 45 & 46
 **Goal:** Implement a probabilistic governance gate for human-machine conflicts and propagate the results through the Pulse Engine.
@@ -22321,7 +22321,7 @@ The Pulse Engine (`/pulse`) now scans the **Duel History** in `Akashik.db`:
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-12-phase-45-governance-duel-design.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-45-governance-duel-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-45-governance-duel-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md', 'Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPEC: PHASE 55 — DISTRICT HARVEST (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md', 'Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPEC: PHASE 55 — DISTRICT HARVEST (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 **Status:** DRAFT
 **Date:** 2026-04-12
@@ -22356,7 +22356,7 @@ Prompts for the harvest are programmatically constructed using **RKG Triplets**.
 - **VRAM:** Node B must remain clear for Nano Banana 2 batch processing.
 
 ---
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -22365,7 +22365,7 @@ Prompts for the harvest are programmatically constructed using **RKG Triplets**.
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-phase-55-district-harvest-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-sovereign-asset-forge-design.md', 'Shard_SPEC_SPEC_2026-04-12-sovereign-asset-forge-design.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPEC: SOVEREIGN ASSET FORGE (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-sovereign-asset-forge-design.md', 'Shard_SPEC_SPEC_2026-04-12-sovereign-asset-forge-design.md', 'SHARDS', '# 50V3R31GN-M4CH1N4 // SPEC: SOVEREIGN ASSET FORGE (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 **Status:** APPROVED
 **Date:** 2026-04-12
@@ -22424,7 +22424,7 @@ A vast library of self-describing tactical assets.
 - **Mesh:** CDP / Motor Cortex (Foundry Infiltration).
 
 ---
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -22474,7 +22474,7 @@ The UI state is managed by a `GlitchIntensity` float (0.0–1.0).
 - [ ] No performance regression in the process supervisor logic.
 
 ---
-*Verified by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Strategist v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -22484,7 +22484,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-sovereign-control-deck-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-12-sovereign-control-deck-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-12-sovereign-manifest-engine-design.md', 'Shard_SPEC_SPEC_2026-04-12-sovereign-manifest-engine-design.md', 'SHARDS', '# Design Spec: Sovereign Manifest Engine
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Date:** 2026-04-12
 **Goal:** Modular "Ability Shards" for 43 historical phases, enabling both live-fire verification and direct Sovereign Machina control via Dual-Node Vision and VSB Dominance.
 
@@ -22692,7 +22692,7 @@ The bridge strictly adheres to the project''s **Sovereignty Rules**:
 - **Tool Integrity:** Automated check of `read_file` and `git status` via the MCP bridge before the first mission start.
 
 ---
-*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
+*Verified by the Sovereign Trinity v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS.*
 
 
 ---
@@ -22789,8 +22789,8 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-13-interactive-scene-wiring.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-13-sentinel-refactor-design.md', 'Shard_SPEC_SPEC_2026-04-13-sentinel-refactor-design.md', 'SHARDS', '# DESIGN SPEC: 53N71N3L (Sentinel) Refactor
 
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Phase 56 Alignment)
-**Topic:** Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Integration & Architectural Hardening
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Phase 56 Alignment)
+**Topic:** Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS Integration & Architectural Hardening
 
 ---
 
@@ -22941,7 +22941,7 @@ AAAK is the **Standard Cognitive Wire-Format** for inter-node state transfer. Wh
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-14-aaak-dialect-spec.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-14-aaak-dialect-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-14-aaak-dialect-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-16-sovereign-mind-rebuild.md', 'Shard_SPEC_SPEC_2026-04-16-sovereign-mind-rebuild.md', 'SHARDS', '# Spec: Sovereign Mind Fresh-Start & Ingestion Pipeline (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-16-sovereign-mind-rebuild.md', 'Shard_SPEC_SPEC_2026-04-16-sovereign-mind-rebuild.md', 'SHARDS', '# Spec: Sovereign Mind Fresh-Start & Ingestion Pipeline (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 🏁 Objectives
 - **Zero-Drift Reconstruction:** Nuke and rebuild `Akashik.db` and `data/vault/RKG` from high-fidelity source primitives.
@@ -23951,7 +23951,7 @@ The machine is authorized to evolve skills for:
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-21-maestro-beads-missions.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-maestro-beads-missions.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-maestro-beads-missions.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md', 'SHARDS', '# Design Specification: Phase 67.8 - Voice Control Hardening (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md', 'SHARDS', '# Design Specification: Phase 67.8 - Voice Control Hardening (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Overview
 Phase 67.8 introduces critical efficiency and contextual upgrades to the Rust-native Artery Manager (`artery_manager.rs`) running on Node C. The goal is to minimize VRAM waste via Voice Activity Detection (VAD), scale command execution via decoupled intent routing, and integrate optical context for spatial voice commands.
@@ -23994,7 +23994,7 @@ Phase 67.8 introduces critical efficiency and contextual upgrades to the Rust-na
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-phase-67-8-voice-control-hardening-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md', 'SHARDS', '# Design Specification: Phase 67.9 - Dynamically Learning Control System (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md', 'SHARDS', '# Design Specification: Phase 67.9 - Dynamically Learning Control System (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Overview
 Phase 67.9 bridges our existing `Skill Forge`, `Maestro Orchestration`, and `Darwinian Induction` into a unified, autonomous **Agentic Control Framework** inspired by 2026 industry standards (HyperAgents, Skill Crystallization). The system will transition from reactive execution to proactive, metacognitive self-improvement.
@@ -24031,7 +24031,7 @@ Phase 67.9 bridges our existing `Skill Forge`, `Maestro Orchestration`, and `Dar
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-phase-67-9-dynamic-learning-control-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md', 'SHARDS', '# Design Specification: Phase 68.5 - Agentic Crash Recovery (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md', 'SHARDS', '# Design Specification: Phase 68.5 - Agentic Crash Recovery (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Overview
 Phase 68.5 introduces an "Auto-Save" and "Virtual Stronghold" architecture to the Hermes Orchestrator. By integrating SQLite checkpointing, the system achieves 100% resilience against power loss, crashes, and rate-limit timeouts.
@@ -24067,7 +24067,7 @@ Phase 68.5 introduces an "Auto-Save" and "Virtual Stronghold" architecture to th
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-phase-68-5-agentic-crash-recovery-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-68-secure-tunneling-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-68-secure-tunneling-spec.md', 'SHARDS', '# Design Specification: Phase 68 - Secure Subnet Tunneling & Alpha Build (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-21-phase-68-secure-tunneling-spec.md', 'Shard_SPEC_SPEC_2026-04-21-phase-68-secure-tunneling-spec.md', 'SHARDS', '# Design Specification: Phase 68 - Secure Subnet Tunneling & Alpha Build (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Overview
 Phase 68 aims to decouple the Sovereign Trinity from the physical local network (LAN) by wrapping the mesh in an encrypted subnet tunnel. This allows the Machina Terminal HUD (Flutter companion app) to connect to Node C securely from anywhere on Earth over 5G/LTE without exposing the internal Artery Manager to the public internet. Finally, we will compile the Alpha APK.
@@ -24203,7 +24203,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-weighted-skill-induction.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-21-weighted-skill-induction.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-appflowy-hub-design.md', 'Shard_SPEC_SPEC_2026-04-24-appflowy-hub-design.md', 'SHARDS', '# SPECIFICATION: APPFLOWY SOVEREIGN HUB
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Integration of AppFlowy as the structured project management hub for 50V3R31GN-M4CH1N4.
 
@@ -24237,7 +24237,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-appflowy-hub-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-appflowy-hub-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-atomic-profile-engine.md', 'Shard_SPEC_SPEC_2026-04-24-atomic-profile-engine.md', 'SHARDS', '# SPECIFICATION: ATOMIC PROFILE ENGINE
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Real-time, declarative context switching across the Sovereign Trinity.
 
@@ -24274,7 +24274,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-atomic-profile-engine.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-atomic-profile-engine.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-exa-oracle-design.md', 'Shard_SPEC_SPEC_2026-04-24-exa-oracle-design.md', 'SHARDS', '# SPECIFICATION: THE SOVEREIGN ORACLE (EXA INTEGRATION)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Semantic Web Search and Hallucination Detection via Exa-Labs.
 
@@ -24316,7 +24316,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-exa-oracle-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-exa-oracle-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-gepa-evolution-hardgate-design.md', 'Shard_SPEC_SPEC_2026-04-24-gepa-evolution-hardgate-design.md', 'SHARDS', '# SPECIFICATION: GEPA EVOLUTION & DETERMINISTIC HARDGATE
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Autonomous prompt optimization and identity protection.
 
@@ -24358,7 +24358,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-gepa-evolution-hardgate-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-gepa-evolution-hardgate-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-hermes-inference-router.md', 'Shard_SPEC_SPEC_2026-04-24-hermes-inference-router.md', 'SHARDS', '# SPECIFICATION: HERMES INFERENCE ROUTER
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Intelligent payload routing based on profile and hardware capacity.
 
@@ -24397,7 +24397,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-hermes-inference-router.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-hermes-inference-router.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-hermes-kanban-sync-design.md', 'Shard_SPEC_SPEC_2026-04-24-hermes-kanban-sync-design.md', 'SHARDS', '# SPECIFICATION: HERMES-KANBAN MANIFEST SYNC
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Automating task governance between git manifests and the Hermes Kanban board.
 
@@ -24415,7 +24415,7 @@ To eliminate manual task management by bi-directionally syncing the state of `IM
 4. **Sync:** The Kanban board visually reflects the "Physical Ground Truth" of the codebase.
 
 ## 3. TECH STACK
-- **Backend:** `hermes-kanban` v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Node.js API).
+- **Backend:** `hermes-kanban` v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS (Node.js API).
 - **Client:** A lightweight Go-based sync daemon (`hermes-sync-go`).
 
 ## 4. SUCCESS CRITERIA
@@ -24433,7 +24433,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-hermes-kanban-sync-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-hermes-kanban-sync-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-obscura-sidecar-design.md', 'Shard_SPEC_SPEC_2026-04-24-obscura-sidecar-design.md', 'SHARDS', '# SPECIFICATION: OBSCURA STEALH SIDECAR
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Implementation of the Rust-based Obscura browser as a lightweight, stealthy sensory ingress.
 
@@ -24473,7 +24473,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-obscura-sidecar-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-obscura-sidecar-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-openclaw-managed-agents.md', 'Shard_SPEC_SPEC_2026-04-24-openclaw-managed-agents.md', 'SHARDS', '# SPECIFICATION: OPENCLAW MANAGED AGENTS
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** High-resilience, restart-safe background agent primitives.
 
@@ -24506,7 +24506,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-openclaw-managed-agents.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-openclaw-managed-agents.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-resonant-logic-gate.md', 'Shard_SPEC_SPEC_2026-04-24-resonant-logic-gate.md', 'SHARDS', '# SPECIFICATION: RESONANT LOGIC GATE
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Deterministic governance and lossless memory patterns.
 
@@ -24593,7 +24593,7 @@ A root-level configuration file that governs the system''s "Self-Concept."
 ## ⌨️ TUI-CENTRIC OS INTERFACE
 
 ### 1. Unified Shell
-- In **[SOVEREIGN_OS]** mode, the primary interface is the **Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS React/Ink TUI**.
+- In **[SOVEREIGN_OS]** mode, the primary interface is the **Hermes v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS React/Ink TUI**.
 - In **[RED_DIRECTOR]** mode, the primary interface remains the **Crush CLI**, preserving the gritty, diegetic Netrunning experience.
 - Both interfaces are embedded into their respective dashboard routes and mobile views.
 
@@ -24627,7 +24627,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-system-sociotomy-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-system-sociotomy-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-24-vault-sociotomy-design.md', 'Shard_SPEC_SPEC_2026-04-24-vault-sociotomy-design.md', 'SHARDS', '# SPECIFICATION: VAULT SOCIOTOMY (PHASE 73)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** APPROVED
 **Topic:** Physical and Logical Separation of the Cyberpunk RED Knowledge Graph (RKG).
 
@@ -24684,7 +24684,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-vault-sociotomy-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-24-vault-sociotomy-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-25-phase-80-host-bridge-artery-design.md', 'Shard_SPEC_SPEC_2026-04-25-phase-80-host-bridge-artery-design.md', 'SHARDS', '# SPECIFICATION: HOST-BRIDGE ARTERY (PHASE 79)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Direct Windows Host Control via VSB Binary Mesh.
 
@@ -24719,7 +24719,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-phase-80-host-bridge-artery-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-phase-80-host-bridge-artery-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-25-phase-81-host-bridge-artery-design.md', 'Shard_SPEC_SPEC_2026-04-25-phase-81-host-bridge-artery-design.md', 'SHARDS', '# ◈ SPEC-2026-04-25: HOST-BRIDGE ARTERY (PHASE 81)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT (REFINED)
 **Topic:** Windows Host Integration, Source Shrouding, and Tiered Web Ingress.
 
@@ -24756,7 +24756,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-phase-81-host-bridge-artery-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-phase-81-host-bridge-artery-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-25-sovereign-flutter-evolution.md', 'Shard_SPEC_SPEC_2026-04-25-sovereign-flutter-evolution.md', 'SHARDS', '# ◈ SPEC-2026-04-25: Sovereign Flutter Evolution & Omi-Gruvbox Alignment
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Owner:** Strategist // Lead Architect
 
@@ -24841,7 +24841,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-sovereign-flutter-evolution.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-sovereign-flutter-evolution.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-25-sovereign-hall-design.md', 'Shard_SPEC_SPEC_2026-04-25-sovereign-hall-design.md', 'SHARDS', '# ◈ SPEC-2026-04-25: SOVEREIGN_HALL & AGENT_COLLABORATION
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** APPROVED
 **Owner:** Strategist // Lead Architect
 
@@ -24889,7 +24889,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-sovereign-hall-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-sovereign-hall-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-25-vesper-mesh-integration-design.md', 'Shard_SPEC_SPEC_2026-04-25-vesper-mesh-integration-design.md', 'SHARDS', '# SPECIFICATION: VESPER MESH INTEGRATION
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Background Agency, Persistence, and Mesh Integration.
 
@@ -24935,7 +24935,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-vesper-mesh-integration-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-25-vesper-mesh-integration-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-26-dev-suite-design.md', 'Shard_SPEC_SPEC_2026-04-26-dev-suite-design.md', 'SHARDS', '# ◈ SPEC-2026-04-26: EXHAUSTIVE DEV INFRASTRUCTURE
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** IMPLEMENTED
 **Topic:** Forced state control for system testing and agent simulation.
 
@@ -25021,7 +25021,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-mobile-android-control-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-mobile-android-control-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-26-mobile-companion-design.md', 'Shard_SPEC_SPEC_2026-04-26-mobile-companion-design.md', 'SHARDS', '# ◈ SPEC-2026-04-26: MOBILE COMPANION ARCHITECTURE
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** RESEARCH
 **Topic:** Flutter HUD interaction with Native Obsidian/Logseq apps.
 
@@ -25078,7 +25078,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-82-85-evolution-spec.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-82-85-evolution-spec.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-26-phase-85-headless-memory-design.md', 'Shard_SPEC_SPEC_2026-04-26-phase-85-headless-memory-design.md', 'SHARDS', '# ◈ SPEC-2026-04-26: LOGSEQ INTELLIGENCE MESH (PHASE 85)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT (RESEARCH)
 **Topic:** Transition from AppFlowy to Logseq for block-level agentic memory.
 
@@ -25107,7 +25107,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-85-headless-memory-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-85-headless-memory-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-26-phase-85-logseq-mesh-design.md', 'Shard_SPEC_SPEC_2026-04-26-phase-85-logseq-mesh-design.md', 'SHARDS', '# ◈ SPEC-2026-04-26: LOGSEQ INTELLIGENCE MESH (PHASE 85)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT (RESEARCH)
 **Topic:** Transition from AppFlowy to Logseq for block-level agentic memory.
 
@@ -25214,7 +25214,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-89-serpentine-artery.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-89-serpentine-artery.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-26-phase-90-headless-memory.md', 'Shard_SPEC_SPEC_2026-04-26-phase-90-headless-memory.md', 'SHARDS', '# ◈ SPEC-2026-04-26: LOGSEQ INTELLIGENCE MESH (PHASE 85)
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** DRAFT (RESEARCH)
 **Topic:** Transition from AppFlowy to Logseq for block-level agentic memory.
 
@@ -25437,7 +25437,7 @@ INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, na
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-93-hermes-singularity.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-phase-93-hermes-singularity.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-26-plugin-registry-design.md', 'Shard_SPEC_SPEC_2026-04-26-plugin-registry-design.md', 'SHARDS', '# ◈ SPEC-2026-04-26: SOVEREIGN PLUGIN REGISTRY
-**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
+**Version:** 3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS
 **Status:** IMPLEMENTED
 **Topic:** Decoupled app integration for the Hermes Mesh.
 
@@ -25588,7 +25588,7 @@ The **Claw3D Latch** events are embedded within the Component Metadata:
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-26-unified-component-stream.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-unified-component-stream.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-26-unified-component-stream.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SHARDS', '# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SHARDS', '# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Introduction
 This document outlines the architectural optimizations and system-wide intelligence boosts for the 50V3R31GN-M4CH1N4 engine, aligning with Phase 101 requirements. It focuses on ultra-long context management, self-evolving logic, multi-agent reasoning, and hardware-accelerated local inference.
@@ -25631,7 +25631,7 @@ This document outlines the architectural optimizations and system-wide intellige
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md', 'Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md', 'SHARDS', '# SPEC: Knowledge Stream Plugin (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md', 'Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md', 'SHARDS', '# SPEC: Knowledge Stream Plugin (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Architecture:** CocoIndex-style Change Data Capture (CDC) for Unstructured Knowledge.
 **Goal:** Eliminate "Snapshot Drift" by treating local files as live event streams.
 
@@ -25670,7 +25670,7 @@ The Knowledge Stream Plugin watches local directories and publishes atomic chang
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='shards/Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md', 'LOCATED_IN_SECTOR', 'SHARDS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('Shard_SPEC_SPEC_2026-04-29-knowledge-stream-cdc.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_phase-24-sovereign-utility-belt.md', 'Shard_SPEC_SPEC_phase-24-sovereign-utility-belt.md', 'SHARDS', '# Specification: Phase 24 — Sovereign Utility Belt (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('shards/Shard_SPEC_SPEC_phase-24-sovereign-utility-belt.md', 'Shard_SPEC_SPEC_phase-24-sovereign-utility-belt.md', 'SHARDS', '# Specification: Phase 24 — Sovereign Utility Belt (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Status:** DRAFT
 **Date:** 2026-04-04
 
@@ -26133,7 +26133,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('vis-block.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('specs/2026-05-01-grok-research-swarm-design.md', '2026-05-01-grok-research-swarm-design.md', 'SPECS', '# SPEC: Grok Research Swarm & Zero-Trust Audit
 **Date:** Friday, May 1, 2026
-**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Status:** DESIGN_LOCKED
 
 ## 1. MISSION STATEMENT
@@ -26182,7 +26182,7 @@ INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('2026-05-01-grok-research-swarm-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
 INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('specs/2026-05-01-phase-108-cyberpunk-red-extraction.md', '2026-05-01-phase-108-cyberpunk-red-extraction.md', 'SPECS', '# SPEC: Phase 108 — Cyberpunk RED Plugin Extraction & Clean BASE
 **Date:** Friday, May 1, 2026
-**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+**Strategist:** 50V3R31GN-M4CH1N4 (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Status:** DRAFT_INGRESS
 
 ## 1. OBJECTIVE
@@ -26225,7 +26225,7 @@ The `sovereign-red-plugin` will re-integrate with the Clean BASE via:
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='specs/2026-05-01-phase-108-cyberpunk-red-extraction.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('2026-05-01-phase-108-cyberpunk-red-extraction.md', 'LOCATED_IN_SECTOR', 'SPECS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('2026-05-01-phase-108-cyberpunk-red-extraction.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('specs/SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SPECS', '# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('specs/SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'SPECS', '# SPEC: AI Agentic System-Wide Intelligence Boosts & Architectural Optimizations (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 ## 1. Introduction
 This document outlines the architectural optimizations and system-wide intelligence boosts for the 50V3R31GN-M4CH1N4 engine, aligning with Phase 101 requirements. It focuses on ultra-long context management, self-evolving logic, multi-agent reasoning, and hardware-accelerated local inference.
@@ -26268,7 +26268,7 @@ This document outlines the architectural optimizations and system-wide intellige
 INSERT OR REPLACE INTO shard_fts (rowid, name, sector, content) SELECT rowid, name, sector, content FROM intelligence_shards WHERE id='specs/SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md';
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'LOCATED_IN_SECTOR', 'SPECS', 'UNIVERSAL_INDEXER');
 INSERT OR IGNORE INTO os_triplets (subject_id, predicate, object_literal, source_id) VALUES ('SPEC_2026-04-28-intelligence-boosts-v3.8.8-design.md', 'FILE_TYPE', 'MD', 'UNIVERSAL_INDEXER');
-INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('specs/SPEC_2026-04-29-knowledge-stream-cdc.md', 'SPEC_2026-04-29-knowledge-stream-cdc.md', 'SPECS', '# SPEC: Knowledge Stream Plugin (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+INSERT OR REPLACE INTO intelligence_shards (id, name, sector, content) VALUES ('specs/SPEC_2026-04-29-knowledge-stream-cdc.md', 'SPEC_2026-04-29-knowledge-stream-cdc.md', 'SPECS', '# SPEC: Knowledge Stream Plugin (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 **Architecture:** CocoIndex-style Change Data Capture (CDC) for Unstructured Knowledge.
 **Goal:** Eliminate "Snapshot Drift" by treating local files as live event streams.
 

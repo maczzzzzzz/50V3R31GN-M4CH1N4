@@ -1,4 +1,4 @@
-# Design: The Forge — Smart Asset Ingestion Engine (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
+# Design: The Forge — Smart Asset Ingestion Engine (v3.8.24-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS-SYNTHESIS)
 
 **Date:** 2026-04-05
 **Status:** Approved
