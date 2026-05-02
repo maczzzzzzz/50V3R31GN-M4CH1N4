@@ -1,10 +1,8 @@
-export function foundryToMachine(px: number, sceneMax: number): number {
-  return Math.round((px / sceneMax) * 1000);
-}
-
-export function machineToFoundry(units: number, sceneMax: number): number {
-  return Math.round((units / 1000) * sceneMax);
-}
+/**
+ * ◈ COORDS_UTIL : Clean BASE
+ *
+ * Machine coordinates are normalized 0-1000 for agnostic spatial awareness.
+ */
 
 export function normalizedToMachine(val: number): number {
   return Math.round(val * 1000);

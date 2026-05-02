@@ -1,0 +1,8 @@
+name: hermes-desktop
+version: 0.1.0
+binary: npm start
+spiffe_id: spiffe://sovereign.machina/workload/hermes-desktop
+vsb_intents: [0x83] # Vision Artery integration
+configuration:
+  multi_gateway: true
+  telegram_proxy_enabled: true

@@ -1,0 +1,8 @@
+name: worldseed
+version: 0.1.0
+binary: uv run worldseed start
+spiffe_id: spiffe://sovereign.machina/workload/worldseed
+vsb_intents: [0x05] # Radar Heat integration
+configuration:
+  simulation_mode: "deterministic"
+  environment_impact_enabled: true

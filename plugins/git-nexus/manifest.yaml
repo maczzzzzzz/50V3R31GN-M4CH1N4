@@ -1,0 +1,8 @@
+name: git-nexus
+version: 1.0.0
+binary: npx @abhigyanpatwari/gitnexus start
+spiffe_id: spiffe://sovereign.machina/workload/git-nexus
+vsb_intents: []
+configuration:
+  storage_path: "./data/git-nexus"
+  auto_index: true

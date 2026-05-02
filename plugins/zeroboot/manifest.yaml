@@ -1,0 +1,9 @@
+name: zeroboot
+version: 0.1.0
+binary: ./target/release/zeroboot
+spiffe_id: spiffe://sovereign.machina/workload/zeroboot
+vsb_intents: []
+configuration:
+  kvm_device: "/dev/kvm"
+  snapshot_dir: "./data/zeroboot/snapshots"
+  isolation_level: "maximum"

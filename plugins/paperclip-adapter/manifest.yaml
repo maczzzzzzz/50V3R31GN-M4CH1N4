@@ -1,0 +1,9 @@
+name: paperclip-adapter
+version: 0.1.0
+binary: npm start
+spiffe_id: spiffe://sovereign.machina/workload/paperclip-adapter
+vsb_intents: []
+configuration:
+  employee_role: "technical_implementer"
+  managed_by: "strategist"
+  quota_management: true

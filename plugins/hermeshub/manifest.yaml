@@ -1,0 +1,8 @@
+name: hermeshub
+version: 0.1.0
+binary: npm start
+spiffe_id: spiffe://sovereign.machina/workload/hermeshub
+vsb_intents: []
+configuration:
+  database_url: "./data/hermeshub.db"
+  security_scan_enabled: true

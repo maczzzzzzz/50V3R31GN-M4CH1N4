@@ -1,0 +1,8 @@
+name: halo
+version: 0.1.0
+binary: uv run halo start
+spiffe_id: spiffe://sovereign.machina/workload/halo
+vsb_intents: [0x05] # Radar Heat integration
+configuration:
+  trace_endpoint: "http://127.0.0.1:4317" # OpenTelemetry
+  optimization_target: "latency"

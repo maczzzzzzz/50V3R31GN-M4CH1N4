@@ -1,0 +1,8 @@
+name: free-claude-proxy
+version: 0.1.0
+binary: uv run uvicorn server:app --host 0.0.0.0 --port 8082
+spiffe_id: spiffe://sovereign.machina/workload/free-claude-proxy
+vsb_intents: []
+configuration:
+  target_model: "llama-3.2-3b-instruct"
+  upstream_url: "http://127.0.0.1:7339/v1"

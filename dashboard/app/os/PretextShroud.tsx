@@ -11,11 +11,78 @@ import PretextTasksMesh from '@/components/PretextTasksMesh';
 import PretextTerminalArtery from '@/components/PretextTerminalArtery';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
+
+/**
+ * ◈ PRETEXT_TEXT_GEOMETRY — PHASE 112, TASK 1
+ * 
+ * Official @chenglou/pretext alignment.
+ * Renders agent thought-streams as DOM-free geometric text obstacles.
+ */
+const PretextTextGeometry = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Load Pretext via esm.sh as per official skill
+    const loadPretext = async () => {
+      const { prepareWithSegments, layoutWithLines } = await import("https://esm.sh/@chenglou/pretext@0.0.6");
+      
+      let animationFrame: number;
+      const text = "◈ SYSTEM_THOUGHT: RELENTLESS CONSTRUCTION. ZERO-TRUST IDENTITY ENFORCED. ARTERY PULSE NOMINAL. PHYSICAL SOVEREIGNTY ACHIEVED.";
+      const font = "900 24px 'Space Grotesk'";
+      const prepared = prepareWithSegments(text, font);
+      
+      let time = 0;
+
+      const render = () => {
+        time += 0.01;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // ◈ Kinetic Typography: Warp text based on noise
+        const width = 400;
+        const { lines } = layoutWithLines(prepared, width, 30);
+        
+        ctx.font = font;
+        ctx.fillStyle = "#F36622"; // Machina Rust
+        
+        lines.forEach((line: any, i: number) => {
+          const x = 50 + Math.sin(time + i) * 10;
+          const y = 100 + i * 35;
+          ctx.fillText(line.text, x, y);
+        });
+
+        animationFrame = requestAnimationFrame(render);
+      };
+
+      render();
+      return () => cancelAnimationFrame(animationFrame);
+    };
+
+    const cleanupPromise = loadPretext();
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cleanupPromise.then(cleanup => cleanup?.());
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-20 opacity-40" />;
+};
+
 /**
  * ◈ PRETEXT_GEOMETRIC_CANVAS — PHASE 103, TASK 5
- * 
- * Real-time visualization of agent thought trajectories.
- * Uses raw Canvas API for 60FPS fluid geometric patterns.
  */
 const PretextGeometricCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -96,9 +163,6 @@ const PretextGeometricCanvas = () => {
 
 /**
  * ◈ FLUID_SMOKE_METABOLISM — PHASE 100.3
- * 
- * High-performance trig-noise loop for visualizing agent metabolism.
- * Refactored to Machina Rust (#F36622).
  */
 const FluidSmokeBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -157,8 +221,6 @@ const FluidSmokeBackground = () => {
 
 /**
  * ◈ OUROBOROS_STATUS_RING — PHASE 100.3
- * 
- * Animated SVG ring representing the agentic loop.
  */
 const OuroborosRing = ({ progress, color, label }: { progress: number, color: string, label: string }) => {
   const radius = 18;
@@ -189,13 +251,13 @@ export default function PretextShroud() {
     { i: 'tasks-mesh', x: 7, y: 4, w: 5, h: 5 },
     { i: 'synapse-orbit', x: 7, y: 9, w: 5, h: 5 },
     { i: 'terminal-artery', x: 0, y: 14, w: 7, h: 6 },
-    { i: 'red-trade-mesh', x: 7, y: 14, w: 5, h: 6 },
   ]);
 
   return (
     <div className="min-h-screen bg-[#1A1A1A] text-[#E5E5E5] selection:bg-[#F36622] selection:text-black p-3 overflow-hidden relative operational-text">
       <FluidSmokeBackground />
       <PretextGeometricCanvas />
+      <PretextTextGeometry />
       
       {/* ◈ TACTICAL_COMMAND_BAR */}
       <div className="flex items-stretch gap-3 mb-3 h-24 relative z-10">
@@ -209,16 +271,16 @@ export default function PretextShroud() {
               <div className="text-[9px] text-[#F36622] font-bold tracking-[0.3em] flex gap-5 mono-text mt-1">
                 <span className="flex items-center gap-2 uppercase tracking-tighter">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#F36622] animate-pulse" /> 
-                  Sovereign_OS v3.8.10-SYNTHESIS
+                  Sovereign_OS v3.8.21-SYNTHESIS
                 </span>
               </div>
             </div>
           </div>
           
           <div className="flex gap-8">
-            <OuroborosRing progress={85} color="#F36622" label="NODE_A" />
-            <OuroborosRing progress={64} color="#C7A87A" label="NODE_B" />
-            <OuroborosRing progress={42} color="#C7A87A" label="NODE_D" />
+            <OuroborosRing progress={100} color="#F36622" label="SECURITY" />
+            <OuroborosRing progress={100} color="#F36622" label="MEMORY" />
+            <OuroborosRing progress={100} color="#F36622" label="IDENTITY" />
           </div>
         </div>
       </div>
@@ -250,12 +312,12 @@ export default function PretextShroud() {
           </div>
           <div className="flex-1 grid grid-cols-2 p-5 gap-6 bg-black/10">
              <div className="flex flex-col gap-2">
-               <span className="text-[8px] text-[#A3A3A3] uppercase font-bold tracking-wider">VRAM_Saturation</span>
-               <div className="h-1.5 bg-[#404040] rounded-full overflow-hidden"><div className="h-full bg-[#F36622] w-[85%] shadow-[0_0_10px_#F36622]" /></div>
+               <span className="text-[8px] text-[#A3A3A3] uppercase font-bold tracking-wider">V2F_Active</span>
+               <div className="h-1.5 bg-[#404040] rounded-full overflow-hidden"><div className="h-full bg-[#F36622] w-[100%] shadow-[0_0_10px_#F36622]" /></div>
              </div>
              <div className="flex flex-col gap-2">
-               <span className="text-[8px] text-[#A3A3A3] uppercase font-bold tracking-wider">Latency_Sync</span>
-               <div className="text-[14px] font-bold text-[#C7A87A] mono-text">12ms</div>
+               <span className="text-[8px] text-[#A3A3A3] uppercase font-bold tracking-wider">SPIFFE_Handshake</span>
+               <div className="text-[14px] font-bold text-[#C7A87A] mono-text">VERIFIED</div>
              </div>
           </div>
         </div>
@@ -284,15 +346,6 @@ export default function PretextShroud() {
           </div>
           <div className="flex-1 overflow-hidden">
             <PretextTerminalArtery />
-          </div>
-        </div>
-
-        <div key="red-trade-mesh" className="bg-[#262626]/95 border border-[#404040] shadow-xl flex flex-col overflow-hidden backdrop-blur-xl">
-          <div className="handle h-8 border-b border-[#404040] flex items-center px-4 bg-[#1A1A1A] cursor-move">
-            <span className="text-[9px] font-bold text-[#F36622] tracking-[0.2em] authority-text">RED_SIMULATION</span>
-          </div>
-          <div className="flex-1 overflow-hidden">
-            <PretextMarketArtery />
           </div>
         </div>
       </ResponsiveGridLayout>

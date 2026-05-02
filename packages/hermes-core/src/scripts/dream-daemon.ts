@@ -6,7 +6,7 @@
  * world-state facts stored in Akashik.db and summarized in docs/DREAMS.md.
  *
  * Phases:
- *   1. LIGHT     — Tally recency/frequency of lore signals from npc_logs and triplets.
+ *   1. LIGHT     — Tally recency/frequency of memory signals from triplets.
  *   2. REM       — Dispatch top signals to Node A 1.5B Reasoner for association/contradiction audit.
  *   3. DEEP      — Commit "True Facts" to Akashik.db and append to docs/DREAMS.md.
  *   4. OUROBOROS — Ingest unprocessed Sovereign Hall meeting transcripts and generate

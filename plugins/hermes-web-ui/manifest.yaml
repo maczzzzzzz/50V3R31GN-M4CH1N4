@@ -1,0 +1,8 @@
+name: hermes-web-ui
+version: 0.1.0
+binary: npm start
+spiffe_id: spiffe://sovereign.machina/workload/hermes-web-ui
+vsb_intents: []
+configuration:
+  visual_ingress_enabled: true
+  session_management: true

@@ -1,0 +1,8 @@
+name: drawthings-plugin
+version: 0.1.0
+binary: python3 client.py
+spiffe_id: spiffe://sovereign.machina/workload/drawthings-plugin
+vsb_intents: [0x11] # Image generation trigger
+configuration:
+  grpc_endpoint: "127.0.0.1:50051"
+  auto_download_models: false

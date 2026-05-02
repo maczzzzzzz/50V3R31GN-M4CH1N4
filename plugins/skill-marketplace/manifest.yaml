@@ -1,0 +1,8 @@
+name: skill-marketplace
+version: 0.1.0
+binary: python3 main.py
+spiffe_id: spiffe://sovereign.machina/workload/skill-marketplace
+vsb_intents: []
+configuration:
+  autonomous_abstraction: true
+  target_skills_dir: "./packages/hermes-core/src/core/plugins/skills"

@@ -94,7 +94,7 @@ export interface DrawerConfig {
   embeddingModel: string;
 }
 
-// ── OBLITERATUS Sanitizer ─────────────────────────────────────────────────────
+// ── Clean BASE Sanitizer ─────────────────────────────────────────────────────
 // Strip prompt-injection patterns before storing verbatim logs in the Drawer.
 
 const INJECTION_PATTERNS = [
@@ -105,7 +105,7 @@ const INJECTION_PATTERNS = [
   /###\s*(System|Human|Assistant):/gi,        // Markdown-style role markers
 ];
 
-function obliteratus(text: string): string {
+function cleanBaseSanitize(text: string): string {
   let sanitized = text;
   for (const pattern of INJECTION_PATTERNS) {
     sanitized = sanitized.replace(pattern, '[REDACTED]');
@@ -195,7 +195,7 @@ export class MemoryPalaceService {
 
   /**
    * Mine a verbatim exchange into the Drawer, tagged with current Palace context.
-   * OBLITERATUS sanitization is applied to both turns before storage.
+   * Clean BASE sanitization is applied to both turns before storage.
    */
   async mineExchange(userTurn: string, assistantTurn: string): Promise<void> {
     if (!this.drawer) return;
@@ -206,8 +206,8 @@ export class MemoryPalaceService {
       return;
     }
 
-    const safeUser = obliteratus(userTurn);
-    const safeAssistant = obliteratus(assistantTurn);
+    const safeUser = cleanBaseSanitize(userTurn);
+    const safeAssistant = cleanBaseSanitize(assistantTurn);
     const document = `USER: ${safeUser}\nASSISTANT: ${safeAssistant}`;
 
     await this.drawer.add({
