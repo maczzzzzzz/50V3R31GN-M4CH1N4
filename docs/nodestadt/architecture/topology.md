@@ -1,4 +1,4 @@
-# ◈ NODESTADT ARCHITECTURE : NETWORK TOPOLOGY (v3.8.8)
+# ◈ NODESTADT ARCHITECTURE : NETWORK TOPOLOGY (v3.8.24-SYNTHESIS)
 ## 4-Node Quaternary Mesh (A/B/C/D)
 
 The system operates on a distributed quaternary mesh. Physical nodes are interconnected via Zero-Trust arteries gated by SPIFFE/V2F.
@@ -27,7 +27,7 @@ The system operates on a distributed quaternary mesh. Physical nodes are interco
 
 ---
 
-### ◈ THE COGNITIVE ARTERY (v3.8.8)
+### ◈ THE COGNITIVE ARTERY (v3.8.24-SYNTHESIS)
 1. **Synapse:** Node A (Synapse Cache).
 2. **Vision:** Node B (Vision-as-Context) + Node C (Perceptual Analysis).
 3. **Reasoning:** Node D (High-Fidelity Logic).

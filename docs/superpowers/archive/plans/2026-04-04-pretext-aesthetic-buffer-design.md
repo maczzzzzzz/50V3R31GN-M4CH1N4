@@ -1,4 +1,4 @@
-# Design: Pretext Aesthetic Buffer & Mission-Load Sequence (v3.8.8)
+# Design: Pretext Aesthetic Buffer & Mission-Load Sequence (v3.8.24-SYNTHESIS)
 **Date:** 2026-04-04
 **Target:** Phase 23 (Neural World Engine)
 

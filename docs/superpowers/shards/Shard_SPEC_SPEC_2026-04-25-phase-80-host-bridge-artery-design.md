@@ -1,5 +1,5 @@
 # SPECIFICATION: HOST-BRIDGE ARTERY (PHASE 79)
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 **Status:** DRAFT
 **Topic:** Direct Windows Host Control via VSB Binary Mesh.
 

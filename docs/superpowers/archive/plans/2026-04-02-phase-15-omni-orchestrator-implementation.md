@@ -43,7 +43,7 @@ Trigger an attack in Foundry and verify the AI GM mentions visual details (e.g. 
 
 ---
 
-### Task 3: VRAM-Hardened Baseline (v3.8.8)
+### Task 3: VRAM-Hardened Baseline (v3.8.24-SYNTHESIS)
 
 **Files:**
 - Modify: `.env.example`
@@ -60,10 +60,10 @@ Confirm Node B remains stable under 100% VRAM saturation.
 
 ---
 
-### Task 4: Release v3.8.8 "The Unified Brain" Audit
+### Task 4: Release v3.8.24-SYNTHESIS "The Unified Brain" Audit
 
 **Files:**
-- Create: `docs/audits/2026-04-02_v3.8.8-Omni-Audit.md`
+- Create: `docs/audits/2026-04-02_v3.8.24-SYNTHESIS-Omni-Audit.md`
 
 **Step 1: Version Increment**
 Bump version to **1.2.0**.

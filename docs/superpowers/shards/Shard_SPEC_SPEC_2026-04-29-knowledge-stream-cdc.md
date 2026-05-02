@@ -1,4 +1,4 @@
-# SPEC: Knowledge Stream Plugin (v3.8.8)
+# SPEC: Knowledge Stream Plugin (v3.8.24-SYNTHESIS)
 **Architecture:** CocoIndex-style Change Data Capture (CDC) for Unstructured Knowledge.
 **Goal:** Eliminate "Snapshot Drift" by treating local files as live event streams.
 

@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import type { ILogger } from '../../db/interfaces.js';
 
 /**
- * MOBILE_VISION_ARTERY — v3.8.8
+ * MOBILE_VISION_ARTERY — v3.8.24-SYNTHESIS
  * 
  * Ingress point for binary frame data (PNG/JPG) from mobile devices.
  * Achieves 100% Mobile Screen Awareness.

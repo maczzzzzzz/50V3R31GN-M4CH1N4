@@ -1,6 +1,6 @@
 # ◈ MOBILE SOVEREIGNTY: ANDROID INGRESS GUIDE
 
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 **Target:** Android 14+ (Arm64)
 **Software:** Machina Hub (Flutter)
 

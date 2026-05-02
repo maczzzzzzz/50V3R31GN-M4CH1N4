@@ -1,5 +1,5 @@
 /**
- * GEPA_ORCHESTRATOR : v3.8.8
+ * GEPA_ORCHESTRATOR : v3.8.24-SYNTHESIS
  * 
  * TypeScript port of gepa_loop.py.
  * Implements autonomous prompt evolution via LangGraph and Sovereign Intelligence.

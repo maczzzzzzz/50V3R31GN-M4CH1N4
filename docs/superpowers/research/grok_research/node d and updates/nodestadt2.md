@@ -67,7 +67,7 @@ This is the **killer feature** of Sovereign Machina.
 
 ```yaml
 name: secretary
-version: 3.8.8
+version: 3.8.24-SYNTHESIS
 description: Handles email, calendar, Slack, admin tasks
 
 inference_preference: node_b_medium

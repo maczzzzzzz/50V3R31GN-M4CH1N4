@@ -2,7 +2,7 @@
 **Date:** 2026-04-18
 **Block:** DATA
 **Status:** VERIFIED // CANONICAL_MIRROR_LIVE
-**Version:** v3.8.8
+**Version:** v3.8.24-SYNTHESIS
 
 ## ◈ PHASE OBJECTIVE
 Replace approximate PDF-extracted data with bit-identical rules enforcement mirrored from `fvtt-cyberpunk-red-core`. Node A Rust kernel executes canonical math; Akashik.db v4 holds the canonical schema.

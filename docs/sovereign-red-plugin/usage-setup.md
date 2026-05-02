@@ -1,6 +1,6 @@
 # ◈ SOVEREIGN RED PLUGIN: USAGE & SETUP
 
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 **Mode:** [RED_DIRECTOR]
 
 ---

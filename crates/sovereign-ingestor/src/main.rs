@@ -1,5 +1,5 @@
 /**
- * SOVEREIGN_INGESTOR : v3.8.8
+ * SOVEREIGN_INGESTOR : v3.8.24-SYNTHESIS
  * 
  * Rust port of docling-worker.py.
  * Handles high-fidelity PDF ingestion and JSON sharding.

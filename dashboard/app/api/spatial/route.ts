@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 /**
- * API_SPATIAL_NODES : v3.8.8 (Neural Promenade)
+ * API_SPATIAL_NODES : v3.8.24-SYNTHESIS (Neural Promenade)
  * 
  * Streams 3D coordinates and labels from SovereignIntelligence.db.
  */

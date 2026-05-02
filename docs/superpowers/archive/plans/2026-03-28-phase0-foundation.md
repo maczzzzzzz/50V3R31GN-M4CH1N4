@@ -1538,18 +1538,18 @@ Add new entry at the top of the version list (below the header, above `[0.1.0]`)
 
 Change:
 ```markdown
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 ```
 To:
 ```markdown
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 ```
 
 - [ ] **Step 5: Commit**
 
 ```bash
 git add CHANGELOG.md README.md
-git commit -m "chore: bump to v3.8.8 — Phase 0 Foundation complete"
+git commit -m "chore: bump to v3.8.24-SYNTHESIS — Phase 0 Foundation complete"
 ```
 
 - [ ] **Step 6: Verify Phase 0 gate**

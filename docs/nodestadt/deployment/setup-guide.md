@@ -1,6 +1,6 @@
 # ◈ HOW TO SET UP THE QUATERNARY MESH (NODESTADT AUTHORITY OS)
 
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 **Target:** Multi-Node Hardware Ignition
 
 ---

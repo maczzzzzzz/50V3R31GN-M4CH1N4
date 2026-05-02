@@ -1,7 +1,7 @@
 import { ContextDAG } from '../../../packages/hermes-core/src/core/hermes/ContextDAG.js';
 
 /**
- * RECKONING : DAG_VALIDATOR — v3.8.8
+ * RECKONING : DAG_VALIDATOR — v3.8.24-SYNTHESIS
  * 
  * Verifies node isolation and dependency tracking in the Context-DAG.
  */

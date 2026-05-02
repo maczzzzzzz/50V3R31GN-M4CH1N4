@@ -1,7 +1,7 @@
 import { GauntletPhase } from '../GauntletEngine';
 
 /**
- * GAUNTLET_PHASE_v92 : MOBILE_PRETEXT_INTEGRITY — v3.8.8
+ * GAUNTLET_PHASE_v92 : MOBILE_PRETEXT_INTEGRITY — v3.8.24-SYNTHESIS
  * 
  * Verifies 100% design parity between Next.js PretextShroud 
  * and Flutter PretextScreen.

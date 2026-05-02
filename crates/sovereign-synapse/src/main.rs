@@ -1,5 +1,5 @@
 /**
- * SOVEREIGN_SYNAPSE : v3.8.8
+ * SOVEREIGN_SYNAPSE : v3.8.24-SYNTHESIS
  * 
  * Rust port of ColPali Python Vision Server.
  * Uses Candle for deterministic local inference.

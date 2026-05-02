@@ -1,6 +1,6 @@
 # ◈ HOW TO USE THE AUTHORITY OS (OPERATOR'S MANUAL)
 
-**Version:** 3.8.8
+**Version:** 3.8.24-SYNTHESIS
 **Mode:** [SOVEREIGN_OS]
 
 ---

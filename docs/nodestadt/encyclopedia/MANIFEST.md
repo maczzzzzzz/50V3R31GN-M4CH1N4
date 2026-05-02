@@ -1,4 +1,4 @@
-# ◈ THE ENCYCLOPEDIA OF THE MACHINA (v3.8.8)
+# ◈ THE ENCYCLOPEDIA OF THE MACHINA (v3.8.24-SYNTHESIS)
 **Sector:** Architectural Purity // Historical Mapping
 **Date:** Friday, May 1, 2026
 

@@ -1,4 +1,4 @@
-# ◈ NODESTADT ARCHITECTURE : NIXOS ENVIRONMENT (v3.8.8)
+# ◈ NODESTADT ARCHITECTURE : NIXOS ENVIRONMENT (v3.8.24-SYNTHESIS)
 ## Flakes, Sandboxing & System Ignition
 
 The NODESTADT Authority OS is managed through the Nix ecosystem to ensure reproducible environments and bit-identical logic across all nodes in the mesh.
