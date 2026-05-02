@@ -433,9 +433,18 @@ func bootSequenceCmd(components []*Component, ghostMode bool) tea.Cmd {
 		}
 	}
 
-	// Gate: Foundry CDP must have a page target before WSL layer starts
-	cmds = append(cmds, logEvent("GATE: waiting for Foundry CDP page target (90s)..."))
-	cmds = append(cmds, waitForCDPGate(90*time.Second))
+	// Gate: Foundry CDP must have a page target before WSL layer starts (ONLY if Foundry is active)
+	hasFoundry := false
+	for _, c := range components {
+		if c.Name == "foundry-vtt" {
+			hasFoundry = true
+			break
+		}
+	}
+	if hasFoundry {
+		cmds = append(cmds, logEvent("GATE: waiting for Foundry CDP page target (90s)..."))
+		cmds = append(cmds, waitForCDPGate(90*time.Second))
+	}
 
 	cmds = append(cmds, logEvent("SYSTEM IGNITION: PHASE 2 — WSL Orchestration"))
 
