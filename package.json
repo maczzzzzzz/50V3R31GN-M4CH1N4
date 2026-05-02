@@ -4,6 +4,7 @@
   "description": "48L173R473D M1ND // 50V3R31GN-M4CH1N4",
   "icon": "terminal-app/assets/app_icon.png",
   "type": "module",
+  "license": "MIT",
   "workspaces": [
     "packages/*",
     "sidecars/*",
