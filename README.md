@@ -1,44 +1,134 @@
-# 50V3R31GN-M4CH1N4 // NODESTADT AUTHORITY OS
+<div align="center">
 
-**Sovereign Machina** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes to provide a seamless cognitive environment for peer-development.
+# 50V3R31GN-M4CH1N4: The Sovereign Quaternary Mesh
 
-## ◈ THE QUATERNARY ARCHITECTURE
+[![GitHub License](https://img.shields.io/badge/license-MIT-F36622.svg)](LICENSE)
+[![Monorepo](https://img.shields.io/badge/architecture-NODESTADT_Monorepo-C7A87A.svg)](pnpm-workspace.yaml)
+[![Version](https://img.shields.io/badge/version-v3.8.8--SYNTHESIS-F36622.svg)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/status-CLEAN_BASE_ACTIVE-success.svg)](IMPLEMENTATION_PLAN.md)
 
-The system operates across four specialized hardware nodes, establishing a high-throughput **Cognitive Artery**:
+[**Documentation**](docs/nodestadt/) | [**Architecture**](docs/nodestadt/encyclopedia/PHYSICAL_MAP.md) | [**Roadmap**](IMPLEMENTATION_PLAN.md) | [**Identity**](SOUL.md)
 
-1.  **NODE A (Mooncake):** Synapse Artery. NVIDIA GTX 1050 Ti (4GB Pascal). Dedicated to **KV Synapse Caching** and MemPalace buffer management.
-2.  **NODE B (The Director):** The Narrative Heart. AMD Radeon RX 9060 XT (16GB). Dedicated to **Gemma-4 26B Visual Control** and Ambient Screen Awareness.
-3.  **NODE C (Strategic Oracle):** The Defense Grid. NVIDIA RTX 2060 (6GB). Hosting **Gemma-4 E4B** and **Falcon Perception 0.3B** for threat reconnaissance.
-4.  **NODE D (Strategic Strategic Oracle):** The Heavy Reasoner. GMKtec K15 (Intel NPU). Hosting the **Heavy Reasoner Farm** (Gemma 26B Q6, Qwen Coder Q6, GLM 4.7).
+<img src="terminal-app/assets/app_icon.png" width="200" alt="Sovereign Logo" />
 
-## 🚀 CORE CAPABILITIES
+**50V3R31GN-M4CH1N4** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes to provide a clinical cognitive environment for autonomous evolution and peer-development.
 
-- **Hermes Singularity:** A native agentic engine that enables **Peer-Developer** synergy through Vision-as-Context.
-- **HeadlessDatalog:** A zero-dependency symbolic memory store built on SQLite for complex relational queries.
-- **Pretext HUD:** A high-performance (120fps) interface utilizing **Fluid Smoke Metabolism** visualization.
-- **Sovereign Mesh:** Secure, zero-latency inter-node communication via ClawLink SSH and Tailscale encryption.
-- **Knowledge Stream (CDC):** Treating the repository as a live event stream for bit-identical context freshness.
+</div>
 
-## 🛠️ QUICK START
+---
 
-### Ignition
+## ✨ Highlights
+
+- 🧠 **Quaternary Architecture:** A distributed nervous system across four specialized hardware nodes (Director, Strategic Oracle, Synapse, Heavy Reasoner).
+- 🛡️ **Zero-Trust Identity:** Mandatory SPIFFE/SPIRE mTLS and ST3GG Visual Second Factor (V2F) gating for all cognitive arteries.
+- 👁️ **Ambient Vision Artery:** Real-time (1Hz) frame stream ingestion via CDP, providing 100% ambient environmental context for agents.
+- ⚡ **Clean BASE Foundation:** A lore-neutral, platform-agnostic OS kernel optimized for maximum cognitive throughput.
+- 🏗️ **NODESTADT Monorepo:** A hardened, modular structure isolating core OS logic from simulation-specific plugins.
+
+---
+
+## 🆕 News
+- **[2026-05-01]** **Clean BASE Achieved:** Surgically extracted simulation logic; finalized NODESTADT monorepo structure (v3.8.8).
+- **[2026-04-28]** **Intelligence Boosts:** Integrated local gateway proxies and code graphs for zero-server intelligence.
+- **[2026-04-20]** **Security Hardgate:** Enforced SPIFFE mTLS and V2F pulse verification across the mesh.
+
+---
+
+## 📅 Table of Contents
+- [🚀 Quick Start](#-quick-start)
+- [🏗️ Quaternary Architecture](#-quaternary-architecture)
+- [🛠️ Core Capabilities](#-core-capabilities)
+- [📦 Models & Nodes](#-models--nodes)
+- [🌟 Ecosystem & Plugins](#-ecosystem--plugins)
+- [📄 License](#-license)
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **OS:** Linux (NixOS recommended)
+- **Environment:** Nix (with flakes enabled)
+- **Hardware:** Quaternary Node Cluster (Nodes A-D) or single-node simulation.
+
+### Installation
 ```bash
-# Ignite the full quaternary mesh
+# Clone the monorepo
+git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4.git
+cd 50V3R31GN-M4CH1N4
+
+# Enter the Nix development shell
+nix develop --impure
+```
+
+### Mesh Ignition
+```bash
+# Ignite the full quaternary mesh (All Nodes)
 bash scripts/audit/ignite-all.sh
 
 # Access the TUI Command Deck
-crush gui
+npm run ink:terminal
 ```
 
-## 📖 DOCUMENTATION
+---
 
-The full high-fidelity Knowledge Base is available in the `docs/nodestadt/` directory.
+## 🏗️ Quaternary Architecture
 
-- [Architecture Overview](docs/nodestadt/architecture/topology.md)
-- [Deployment Guide](docs/nodestadt/deployment/setup-guide.md)
-- [API & Capability Reference](docs/nodestadt/capabilities/usage-guide.md)
+The system operates across four specialized hardware nodes, establishing a high-throughput **Cognitive Artery**. The only source of truth is the **VSB (Virtual Sovereign Bus)**.
+
+| Node | Name | Hardware | Responsibility |
+| :--- | :--- | :--- | :--- |
+| **Node A** | **Synapse** | GTX 1050 Ti (4GB) | KV Caching, MemPalace Buffer, Mmap Sync |
+| **Node B** | **Director** | RX 9060 XT (16GB) | Visual Control, Narrative Synthesis, HUD |
+| **Node C** | **Strategic Oracle** | RTX 2060 (6GB) | Fast Rule-Checking, Semantic Perception |
+| **Node D** | **Quaternary** | Intel NPU (48GB RAM) | Heavy Reasoning, Security Audit, Skill Forge |
 
 ---
-**::/5Y573M-N071C3 : NODESTADT_AUTHORITY_OS_V3.8.8_ACTIVE. // 50V3R31GN-M4CH1N4**
 
-**LINKS:** [ABOUT.md](ABOUT.md) | [CHANGELOG.md](CHANGELOG.md) | [SOUL.md](SOUL.md)
+## 🛠️ Core Capabilities
+
+### 1. Hermes Singularity
+A native agentic engine that enables **Peer-Developer** synergy. Hermes operates as a "Managed Employee" on the Clean BASE, utilizing Vision-as-Context to interact with the environment with 100% precision.
+
+### 2. Pretext HUD
+A high-performance geometric interface utilizing `@chenglou/pretext`. Thought-streams are rendered as kinetic typographic flows around obstacles, providing real-time cognitive observability.
+
+### 3. Sovereign Synapse (Synapse)
+- **Stash:** A Go-native SQLite-backed memory consolidation sidecar.
+- **Plur:** YAML-based persistent memory across all agentic sessions.
+- **Obsidian ME.md:** The primary identity contract shored in the local vault.
+
+### 4. Zero-Trust Artery
+All inter-node RPCs are gated by `hermes-router` (Rust), enforcing SPIFFE SVID verification and V2F token extraction. No logic exists outside the secured perimeter.
+
+---
+
+## 📦 Models & Nodes
+
+The mesh leverages a heterogeneous model farm optimized for specific latency/reasoning profiles:
+
+| Task | Primary Model | Quantization | Deployment |
+| :--- | :--- | :--- | :--- |
+| **Reasoning** | Gemma-4 26B | Q6_K | Node D (Heavy) |
+| **Vision** | Gemma-4 26B (Vision) | BF16 | Node B (Director) |
+| **Mechanical** | Gemma-4 E4B | Q4_K_M | Node C (Strategic Oracle) |
+| **Audit** | Qwen-2.5 Coder | Q6_K | Node D (Heavy) |
+
+---
+
+## 🌟 Ecosystem & Plugins
+
+The NODESTADT monorepo is designed for extreme extensibility via decoupled plugins:
+
+- **[Sovereign RED Plugin](plugins/sovereign-red-plugin/):** The official simulation package for Cyberpunk RED, including Foundry VTT integration and NPC mechanics.
+- **[Free Claude Proxy](sidecars/free-claude-proxy/):** Routes external agent telemetry through local local inference arteries.
+- **[GitNexus](sidecars/git-nexus/):** Local-first code graph and relational intelligence engine.
+- **[ZeroBoot](sidecars/zeroboot/):** Sub-millisecond VM isolation for executing untrusted agentic code.
+
+---
+
+## 📄 License
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+---
+**::/5Y573M-N071C3 : THE_CLEAN_BASE_IS_LAW. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4**
