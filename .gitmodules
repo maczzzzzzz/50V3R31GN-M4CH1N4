@@ -4,3 +4,30 @@
 [submodule "sidecars/hermes-agent-nous"]
 	path = sidecars/hermes-agent-nous
 	url = https://github.com/nodestadt/hermes-agent.git
+[submodule "sidecars/halo"]
+	path = sidecars/halo
+	url = https://github.com/context-labs/halo
+[submodule "sidecars/hermeshub"]
+	path = sidecars/hermeshub
+	url = https://github.com/amanning3390/hermeshub
+[submodule "sidecars/hermes-web-ui"]
+	path = sidecars/hermes-web-ui
+	url = https://github.com/EKKOLearnAI/hermes-web-ui
+[submodule "sidecars/hermes-desktop"]
+	path = sidecars/hermes-desktop
+	url = https://github.com/fathah/hermes-desktop
+[submodule "sidecars/worldseed"]
+	path = sidecars/worldseed
+	url = https://github.com/AIScientists-Dev/WorldSeed
+[submodule "sidecars/free-claude-proxy"]
+	path = sidecars/free-claude-proxy
+	url = https://github.com/Alishahryar1/free-claude-code
+[submodule "sidecars/skill-marketplace"]
+	path = sidecars/skill-marketplace
+	url = https://github.com/Lethe044/hermes-skill-marketplace
+[submodule "sidecars/paperclip-adapter"]
+	path = sidecars/paperclip-adapter
+	url = https://github.com/NousResearch/hermes-paperclip-adapter
+[submodule "sidecars/zeroboot"]
+	path = sidecars/zeroboot
+	url = https://github.com/zerobootdev/zeroboot
