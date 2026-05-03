@@ -80,8 +80,8 @@ export default function SynapsePanel() {
     <div className="border border-[#333333] bg-[#161616] p-4 shadow-2xl backdrop-blur-xl">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <span className="text-[#F36622] text-xs font-black tracking-[0.3em] uppercase authority-text flex items-center gap-2">
-           <div className="w-2 h-2 bg-[#F36622]" /> SYNAPSE_GRAPH
+        <span className="text-[#E07A5F] text-xs font-black tracking-[0.3em] uppercase authority-text flex items-center gap-2">
+           <div className="w-2 h-2 bg-[#E07A5F]" /> SYNAPSE_GRAPH
         </span>
         <div className="flex gap-3">
           {(["stats", "search", "brief"] as PanelView[]).map((v) => (
@@ -90,8 +90,8 @@ export default function SynapsePanel() {
               onClick={() => { setView(v); if (v === "brief") void fetchBrief(); }}
               className={`text-[9px] font-black uppercase tracking-widest px-3 py-1.5 border transition-all duration-300 technical-data ${
                 view === v
-                  ? "border-[#F36622] bg-[#F36622] text-[#0A0A0A]"
-                  : "border-[#262626] text-[#404040] hover:border-[#F36622] hover:text-[#F36622]"
+                  ? "border-[#E07A5F] bg-[#E07A5F] text-[#0A0A0A]"
+                  : "border-[#262626] text-[#404040] hover:border-[#E07A5F] hover:text-[#E07A5F]"
               }`}
             >
               {v}
@@ -119,7 +119,7 @@ export default function SynapsePanel() {
         <div>
           <div className="flex gap-3 mb-4">
             <input
-              className="flex-1 bg-[#0A0A0A] border border-[#262626] text-[#E5E5E5] text-[11px] px-4 py-2 rounded-none focus:border-[#F36622] outline-none technical-data"
+              className="flex-1 bg-[#0A0A0A] border border-[#262626] text-[#E5E5E5] text-[11px] px-4 py-2 rounded-none focus:border-[#E07A5F] outline-none technical-data"
               placeholder="QUERY_TRIPLETS"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -128,7 +128,7 @@ export default function SynapsePanel() {
             <button
               onClick={() => void handleSearch()}
               disabled={loading}
-              className="text-[10px] font-black px-5 py-2 border border-[#F36622] text-[#F36622] hover:bg-[#F36622] hover:text-[#0A0A0A] transition-all disabled:opacity-30 authority-text"
+              className="text-[10px] font-black px-5 py-2 border border-[#E07A5F] text-[#E07A5F] hover:bg-[#E07A5F] hover:text-[#0A0A0A] transition-all disabled:opacity-30 authority-text"
             >
               {loading ? "..." : "SCAN"}
             </button>
@@ -139,7 +139,7 @@ export default function SynapsePanel() {
             )}
             {results.map((t) => (
               <div key={t.id} className="text-[10px] border border-[#262626] bg-[#0A0A0A] p-2.5 technical-data">
-                <span className="text-[#F36622] font-black">{t.subject_id}</span>
+                <span className="text-[#E07A5F] font-black">{t.subject_id}</span>
                 <span className="text-[#404040] mx-2">→</span>
                 <span className="text-[#C7A87A] font-black">{t.predicate}</span>
                 <span className="text-[#404040] mx-2">→</span>
@@ -173,7 +173,7 @@ function StatShard({ label, value }: { label: string; value: number }) {
   return (
     <div className="border border-[#262626] bg-[#0A0A0A] p-3 flex justify-between items-center shadow-inner">
       <span className="text-[#404040] text-[9px] font-black tracking-widest uppercase authority-text">{label}</span>
-      <span className="text-[#F36622] text-sm font-black technical-data">{value.toLocaleString()}</span>
+      <span className="text-[#E07A5F] text-sm font-black technical-data">{value.toLocaleString()}</span>
     </div>
   );
 }

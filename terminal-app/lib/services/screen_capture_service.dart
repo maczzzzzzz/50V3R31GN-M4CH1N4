@@ -20,7 +20,7 @@ class ScreenCaptureService extends ChangeNotifier {
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    final nodeBIp = prefs.getString('node_b_ip') ?? '10.0.0.20';
+    final nodeBIp = prefs.getString('node_b_ip') ?? '100.101.177.76';
     final port = prefs.getString('vision_port') ?? '3010';
     
     final url = 'ws://$nodeBIp:$port/vision';

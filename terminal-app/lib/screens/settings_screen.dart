@@ -37,8 +37,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _nodeAIpController.text = prefs.getString('node_a_ip') ?? '100.102.95.43';
-      _nodeBIpController.text = prefs.getString('node_b_ip') ?? '10.0.0.11';
-      _nodeCIpController.text = prefs.getString('node_c_ip') ?? '10.0.0.12';
+      _nodeBIpController.text = prefs.getString('node_b_ip') ?? '100.101.177.76';
+      _nodeCIpController.text = prefs.getString('node_c_ip') ?? '100.69.220.101';
       _nodeDIpController.text = prefs.getString('node_d_ip') ?? '100.112.71.7';
       _vsbPortController.text = prefs.getString('vsb_port') ?? '7878';
       _rpcPortController.text = prefs.getString('rpc_port') ?? '7341';
@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('::/ARTERY_SETTINGS_SHORED', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900)), 
-          backgroundColor: Color(0xFFF36622)
+          backgroundColor: Color(0xFFE07A5F)
         ),
       );
     }
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeService = context.watch<ThemeService>();
-    final accentColor = const Color(0xFFF36622);
+    final accentColor = const Color(0xFFE07A5F);
 
     return Container(
       color: const Color(0xFF0A0A0A),
@@ -114,7 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildClinicalHeader(String title, Color color) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: Text(title, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 3, fontFamily: 'Space Grotesk')),
+      child: Text(title, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 3, fontFamily: 'Cinzel')),
     );
   }
 
@@ -182,7 +182,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           color: color.withOpacity(0.05),
         ),
         child: Center(
-          child: Text("EXECUTE_ARTERY_SYNC", style: TextStyle(color: color, fontWeight: FontWeight.w900, letterSpacing: 4, fontSize: 12, fontFamily: 'Space Grotesk')),
+          child: Text("EXECUTE_ARTERY_SYNC", style: TextStyle(color: color, fontWeight: FontWeight.w900, letterSpacing: 4, fontSize: 12, fontFamily: 'Cinzel')),
         ),
       ),
     );

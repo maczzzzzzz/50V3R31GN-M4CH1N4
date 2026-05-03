@@ -1,5 +1,5 @@
 # ◈ ABILITY_STONE : CRUSH_PROXY // GO_ARTERY_AUTHORITY
-**Version:** 3.8.8
+**Version:** 3.8.28-GOLD
 **Sector:** /crush/
 **Role:** High-Performance Sidecar Proxy // CLI Interface & IPC Mesh.
 

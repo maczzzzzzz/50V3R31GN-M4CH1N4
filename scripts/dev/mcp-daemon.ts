@@ -368,6 +368,3 @@ startDaemon().catch(e => {
   logError(`startup: ${(e as Error).message}`);
   process.exit(1);
 });
-ess.exit(1);
-});
-);

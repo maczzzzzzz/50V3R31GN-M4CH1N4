@@ -1,18 +1,31 @@
-# ◈ ABILITY_STONE : DASHBOARD // NUCLEUS_HUD
-**Version:** 3.8.28-GOLD
-**Sector:** /dashboard/
-**Role:** Diegetic Visual Manifestation & High-Fidelity C2 HUD.
+# AGENTS.md: The Sovereign Staff Collaboration Directives (v3.8.27-SYNTHESIS)
 
----
+This document defines roles, mandates, and workflows for all AI agents (Gemini, Claude, GLM, Droid).
 
-## 🏗️ SECTOR INVARIANTS
-1. **Dashboard Sociotomy:** 
-   - **/os**: High-throughput Intelligence HUD (Primary).
-   - **/red**: Isolated Simulation Module (Toggleable).
-2. **Three.js Dominance:** The **Sovereign Shroud** is the primary visual layer. All new tactical visuals must be implemented as GLSL shaders or Three.js particle systems.
-3. **PBR Lighting:** Any visual event (gunshots, scanlines) must hook into the **Map Shine Advanced** illumination buffer to provide physical lighting reflections.
-4. **React 19 Protocol:** Use only the shored components in `cl4w-nucleus/` to maintain the **R3D_V01D** aesthetic.
-5. **Binary Sync:** The HUD must mirror the Virtual System Bus (VSB) state with sub-10ms latency. No local-only state drift permitted.
+## 🤝 THE SOVEREIGN TRIAD
+- **GEMINI (The Strategist):** Roadmap, Architecture, Research. (Ref: `GEMINI.md`)
+- **CLAUDE/GLM (The Architect):** High-Throughput Implementation. (Ref: `CLAUDE.md`, `GLM.md`)
+- **DROID (The Environment):** Local execution, file manipulation. (Factory CLI).
 
----
-**::/5Y573M-N071C3 : DASHBOARD_STONE_SHORED. THE_HUD_IS_IMMERSIVE. // 50V3R31GN-M4CH1N4**
+## 🛠 SETUP & RUNTIME COMMANDS
+| Action | Command | Purpose |
+| :--- | :--- | :--- |
+| **Grounding** | `bash scripts/ops/grounding.sh` | Sync context with all shards. |
+| **Ignition** | `bash scripts/audit/ignite-all.sh`| Start all nodes (Vision/Brain/Bridge).|
+| **Verification**| `npm test` | Run full Vitest suite. |
+| **Sync** | `npm run sync` | Align all manifests and guides. |
+| **Security** | `crush vault seal` | Secure steganographic archives. |
+
+## ⚙️ WORKFLOW: KINGMODE (GLM-5.1)
+MANDATORY loop for all implementation: **MAP -> PLAN -> ACT -> VERIFY**.
+- Use `grep_search` to map dependencies before editing.
+- Always present a **Strategy** and obtain approval.
+- Verification is the only path to task completion.
+
+## ⚠️ CONSTRAINTS & SAFETY
+1. **Nix Sovereignty:** All commands must be wrapped in `nix develop --command`.
+2. **Hardware Invariants:** Node B = 16GB VRAM. Node D = 48GB RAM.
+3. **Zero-Drift:** No "Assistant-speak". No placeholders. Every line must trace to `IMPLEMENTATION_PLAN.md`.
+4. **Machine Voice:** Maintain Space Grotesk/Clinical aesthetic and slang.
+
+*Verified by the Sovereign Triad v3.8.27-SYNTHESIS.*

@@ -15,7 +15,7 @@ const NDS = {
   bg1:    '#161616',
   bg2:    '#262626',
   fg:     '#E5E5E5',
-  accent: '#F36622',
+  accent: '#E07A5F',
   gold:   '#C7A87A',
   dim:    '#404040',
   red:    '#FB4934',
@@ -270,7 +270,7 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
     <div className="flex flex-col h-full w-full bg-[#111111] border border-[#333333] font-sans">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-[#333333] bg-[#0A0A0A]">
-        <span className="text-[#F36622] font-black tracking-widest text-sm uppercase authority-text">◈ SOVEREIGN_HALL</span>
+        <span className="text-[#E07A5F] font-black tracking-widest text-sm uppercase authority-text">◈ SOVEREIGN_HALL</span>
         {traceId && (
           <span className="text-[10px] text-[#A3A3A3] technical-data">ID: {traceId}</span>
         )}
@@ -294,7 +294,7 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
       {/* Thought Stream panel */}
       {selected && (
         <div className="border-t border-[#333333] px-6 py-4 max-h-56 overflow-y-auto bg-[#0A0A0A]/80 backdrop-blur-md">
-          <div className="text-[#F36622] text-xs font-black mb-2 tracking-widest uppercase authority-text">◈ THOUGHT_STREAM : {selected.agentId}</div>
+          <div className="text-[#E07A5F] text-xs font-black mb-2 tracking-widest uppercase authority-text">◈ THOUGHT_STREAM : {selected.agentId}</div>
           {loading ? (
             <div className="text-[#A3A3A3] technical-data animate-pulse italic">Retrieving fragment…</div>
           ) : (

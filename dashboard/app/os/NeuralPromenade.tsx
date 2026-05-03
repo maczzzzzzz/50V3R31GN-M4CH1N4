@@ -124,8 +124,8 @@ export default function NeuralPromenade() {
   return (
     <div className="relative w-full h-full bg-black overflow-hidden group">
       <div className="absolute top-6 left-6 z-10 p-4 bg-[#111111]/95 border border-[#333333] font-sans shadow-[0_20px_40px_rgba(0,0,0,0.8)] backdrop-blur-md">
-        <div className="text-[#F36622] font-black text-[11px] tracking-[0.3em] flex items-center gap-3 uppercase authority-text">
-          <div className="w-2 h-2 bg-[#F36622] animate-pulse" />
+        <div className="text-[#E07A5F] font-black text-[11px] tracking-[0.3em] flex items-center gap-3 uppercase authority-text">
+          <div className="w-2 h-2 bg-[#E07A5F] animate-pulse" />
           ◈ NEURAL_PROMENADE // v3.8.25
         </div>
         <div className="mt-3 text-[#A3A3A3] text-[9px] grid grid-cols-2 gap-x-6 gap-y-1 font-black uppercase technical-data">
@@ -135,7 +135,7 @@ export default function NeuralPromenade() {
         </div>
       </div>
       <div ref={containerRef} className="w-full h-full" />
-      <div className="absolute inset-0 pointer-events-none border border-[#F36622]/5 shadow-[inset_0_0_150px_rgba(0,0,0,1)]" />
+      <div className="absolute inset-0 pointer-events-none border border-[#E07A5F]/5 shadow-[inset_0_0_150px_rgba(0,0,0,1)]" />
     </div>
   );
 }

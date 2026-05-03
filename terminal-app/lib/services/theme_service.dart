@@ -62,14 +62,14 @@ class ThemePreset {
         bodyMedium: GoogleFonts.lexend(fontSize: baseFontSize, color: fg0),
         bodyLarge: GoogleFonts.lexend(fontSize: baseFontSize + 2, color: fg1),
         bodySmall: GoogleFonts.lexend(fontSize: baseFontSize - 4, color: fg1.withOpacity(0.7)),
-        headlineMedium: GoogleFonts.spaceGrotesk(fontSize: headerFontSize, color: orange, fontWeight: FontWeight.bold, letterSpacing: 2),
-        titleLarge: GoogleFonts.spaceGrotesk(fontSize: baseFontSize + 4, color: aqua, fontWeight: FontWeight.bold),
+        headlineMedium: GoogleFonts.cinzel(fontSize: headerFontSize, color: orange, fontWeight: FontWeight.bold, letterSpacing: 2),
+        titleLarge: GoogleFonts.cinzel(fontSize: baseFontSize + 4, color: aqua, fontWeight: FontWeight.bold),
       ),
       
       appBarTheme: AppBarTheme(
         backgroundColor: bg1,
         elevation: 0,
-        titleTextStyle: GoogleFonts.spaceGrotesk(color: fg0, fontSize: headerFontSize, fontWeight: FontWeight.bold, letterSpacing: 3),
+        titleTextStyle: GoogleFonts.cinzel(color: fg0, fontSize: headerFontSize, fontWeight: FontWeight.bold, letterSpacing: 3),
         iconTheme: IconThemeData(color: orange, size: 28),
       ),
       
@@ -127,20 +127,20 @@ class ThemeService extends ChangeNotifier {
 
   static final Map<ThemeModePreset, ThemePreset> presets = {
     ThemeModePreset.clinicalDark: ThemePreset(
-      bg0: const Color(0xFF121212),
-      bg1: const Color(0xFF1A1A1A),
-      bg2: const Color(0xFF262626),
-      bg3: const Color(0xFF333333),
-      fg0: const Color(0xFFE5E5E5),
-      fg1: const Color(0xFFA3A3A3),
+      bg0: const Color(0xFF1A1A1A), // Authority Charcoal
+      bg1: const Color(0xFF262626), 
+      bg2: const Color(0xFF333333),
+      bg3: const Color(0xFF404040),
+      fg0: const Color(0xFFF2F2F2), // System White
+      fg1: const Color(0xFFC0C0C0), // Antique Silver
       red: const Color(0xFFFB4934),
-      green: const Color(0xFFB8BB26),
-      yellow: const Color(0xFFFABD2F),
-      blue: const Color(0xFF83A598),
+      green: const Color(0xFF8A9A5B), // Moss Green
+      yellow: const Color(0xFFD4AF37), // Gold-Brass
+      blue: const Color(0xFF4682B4), // Nexus Blue
       purple: const Color(0xFFD3869B),
-      aqua: const Color(0xFF8EC07C),
-      orange: const Color(0xFFF36622),
-      name: 'NODESTADT_CLINICAL',
+      aqua: const Color(0xFF2F4F4F), // Deep Nodestadt Teal
+      orange: const Color(0xFFE07A5F), // Orange Rust
+      name: 'NODESTADT_RENEWAL',
     ),
     ThemeModePreset.softDark: ThemePreset(
       bg0: const Color(0xFF32302f),

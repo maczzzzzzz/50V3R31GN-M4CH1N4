@@ -31,7 +31,7 @@ class _TasksScreenState extends State<TasksScreen> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.dark(
-              primary: Color(0xFFF36622),
+              primary: Color(0xFFE07A5F),
               onPrimary: Colors.black,
               surface: Color(0xFF161616),
               onSurface: Color(0xFFE5E5E5),
@@ -81,7 +81,7 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     final taskService = context.watch<TaskService>();
-    final accentColor = const Color(0xFFF36622);
+    final accentColor = const Color(0xFFE07A5F);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),

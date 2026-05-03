@@ -4,14 +4,14 @@
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-F36622.svg)](LICENSE)
 [![Monorepo](https://img.shields.io/badge/architecture-NODESTADT_Monorepo-C7A87A.svg)](pnpm-workspace.yaml)
-[![Version](https://img.shields.io/badge/version-v3.8.28-GOLD.svg)](CHANGELOG.md)
-[![Status](https://img.shields.io/badge/status-CLEAN_BASE_ACTIVE-success.svg)](IMPLEMENTATION_PLAN.md)
+[![Version](https://img.shields.io/badge/version-v3.8.30-RENEWAL.svg)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/status-CLINICAL_FORK_ACTIVE-success.svg)](IMPLEMENTATION_PLAN.md)
 
 [**Documentation**](docs/nodestadt/) | [**Architecture**](docs/nodestadt/architecture/topology.md) | [**Roadmap**](IMPLEMENTATION_PLAN.md) | [**Identity**](SOUL.md)
 
-<img src="assets\brand-identity\ultrawide-wallpaper.jpg" width="400" alt="Sovereign Logo" />
+<img src="assets/brand-identity/icon.png" width="200" alt="Sovereign Logo" />
 
-**50V3R31GN-M4CH1N4** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Built for high-fidelity intelligence, zero-trust security, and absolute physical sovereignty, it coordinates a distributed cluster of nodes to provide a clinical cognitive environment for autonomous evolution and peer-development.
+**50V3R31GN-M4CH1N4** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Now consolidated on the **Hermes-Agent Clinical Fork (v1.3.0)**, it provides a hardened, upstream-aligned harness for high-fidelity peer-development and physical sovereignty.
 
 </div>
 

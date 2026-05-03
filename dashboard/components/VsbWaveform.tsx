@@ -33,11 +33,11 @@ export default function VsbWaveform({ packetRate }: Props) {
   return (
     <div className="border border-[#333333] bg-[#161616] p-6 shadow-2xl backdrop-blur-xl">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-[#F36622] text-sm font-black tracking-[0.3em] uppercase authority-text flex items-center gap-3">
-          <div className="w-2.5 h-2.5 bg-[#F36622] rotate-45" /> VSB_HIGHWAY
+        <h2 className="text-[#E07A5F] text-sm font-black tracking-[0.3em] uppercase authority-text flex items-center gap-3">
+          <div className="w-2.5 h-2.5 bg-[#E07A5F] rotate-45" /> VSB_HIGHWAY
         </h2>
         <span className="text-[#E5E5E5] text-[10px] font-black technical-data">
-          THROUGHPUT: <span className="text-[#F36622]">{packetRate}</span> PKT/S
+          THROUGHPUT: <span className="text-[#E07A5F]">{packetRate}</span> PKT/S
         </span>
       </div>
 
@@ -70,7 +70,7 @@ export default function VsbWaveform({ packetRate }: Props) {
           <polyline
             points={points}
             fill="none"
-            stroke="#F36622"
+            stroke="#E07A5F"
             strokeWidth={1.5}
             strokeLinejoin="miter"
             strokeLinecap="square"
@@ -82,14 +82,14 @@ export default function VsbWaveform({ packetRate }: Props) {
               y={H - (data[data.length - 1] / maxVal) * (H - 10) - 2}
               width={4}
               height={4}
-              fill="#F36622"
+              fill="#E07A5F"
               className="animate-pulse"
             />
           )}
         </svg>
         
         {/* Aesthetic scan-line overlay on graph */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-[#F36622]/5 to-transparent opacity-10 animate-scan-line" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-[#E07A5F]/5 to-transparent opacity-10 animate-scan-line" />
       </div>
     </div>
   );

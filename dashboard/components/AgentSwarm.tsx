@@ -17,8 +17,8 @@ export const AgentSwarm: React.FC<AgentSwarmProps> = ({ agents }) => {
   return (
     <div className="fixed top-24 right-6 w-84 bg-[#111111]/95 border border-[#333333] p-5 font-sans text-xs shadow-2xl backdrop-blur-xl z-[60]">
       <div className="flex items-center justify-between mb-5 border-b border-[#262626] pb-3">
-        <span className="text-[#F36622] font-black tracking-[0.2em] uppercase authority-text">◈ REASONING_SWARMS</span>
-        <span className="bg-[#F36622] text-[#0A0A0A] px-2 font-black animate-pulse technical-data">{agents.length} ACTIVE</span>
+        <span className="text-[#E07A5F] font-black tracking-[0.2em] uppercase authority-text">◈ REASONING_SWARMS</span>
+        <span className="bg-[#E07A5F] text-[#0A0A0A] px-2 font-black animate-pulse technical-data">{agents.length} ACTIVE</span>
       </div>
 
       <div className="space-y-5">
@@ -39,7 +39,7 @@ export const AgentSwarm: React.FC<AgentSwarmProps> = ({ agents }) => {
 
             <div className="w-full bg-[#1A1A1A] h-1.5 overflow-hidden border border-[#262626]">
               <div 
-                className="bg-[#F36622] h-full transition-all duration-700 ease-out shadow-[0_0_10px_#F36622]"
+                className="bg-[#E07A5F] h-full transition-all duration-700 ease-out shadow-[0_0_10px_#E07A5F]"
                 style={{ width: `${agent.progress || (agent.status === 'WORKING' ? 45 : 100)}%` }}
               />
             </div>

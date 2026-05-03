@@ -20,7 +20,7 @@ class MemoryProvider extends ChangeNotifier {
 
   Future<void> fetchMemories() async {
     final prefs = await SharedPreferences.getInstance();
-    final ip = prefs.getString('node_b_ip') ?? '10.0.0.x';
+    final ip = prefs.getString('node_b_ip') ?? '100.101.177.76';
     final port = '3030'; // Nucleus Artery
 
     _isLoading = true;

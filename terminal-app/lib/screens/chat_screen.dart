@@ -48,7 +48,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final chatService = context.watch<ChatService>();
-    final accentColor = const Color(0xFFF36622);
+    final accentColor = const Color(0xFFE07A5F);
     final currentConversation = chatService.currentConversation;
 
     return Scaffold(
@@ -78,8 +78,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 final msg = chatService.messages[index];
                 final isUser = msg.sender == 'USER';
                 return GeometricShard(
-                  borderColor: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A),
-                  title: Text("::/${msg.sender.toUpperCase()}", style: TextStyle(color: isUser ? const Color(0xFFF36622) : const Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 2)),
+                  borderColor: isUser ? const Color(0xFFE07A5F) : const Color(0xFFC7A87A),
+                  title: Text("::/${msg.sender.toUpperCase()}", style: TextStyle(color: isUser ? const Color(0xFFE07A5F) : const Color(0xFFC7A87A), fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 2)),
                   subtitle: Text(msg.text, style: const TextStyle(fontSize: 15, color: Color(0xFFE5E5E5), height: 1.4)),
                   trailing: Text(
                     TimeOfDay.fromDateTime(msg.timestamp).format(context),
@@ -90,7 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           if (chatService.isSyncing)
-            const LinearProgressIndicator(minHeight: 2, color: Color(0xFFF36622), backgroundColor: Colors.transparent),
+            const LinearProgressIndicator(minHeight: 2, color: Color(0xFFE07A5F), backgroundColor: Colors.transparent),
           Container(
             padding: const EdgeInsets.all(16.0),
             decoration: const BoxDecoration(
@@ -144,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
           const DrawerHeader(
             decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFF262626)))),
             child: Center(
-              child: Text('LOG_ARCHIVE', style: TextStyle(color: Color(0xFFF36622), fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 4, fontFamily: 'Space Grotesk')),
+              child: Text('LOG_ARCHIVE', style: TextStyle(color: Color(0xFFE07A5F), fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 4, fontFamily: 'Cinzel')),
             ),
           ),
           Expanded(
@@ -155,7 +155,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 final conv = chatService.conversations[index];
                 final isSelected = conv.id == chatService.currentConversation?.id;
                 return GeometricShard(
-                  borderColor: isSelected ? const Color(0xFFF36622) : const Color(0xFF262626),
+                  borderColor: isSelected ? const Color(0xFFE07A5F) : const Color(0xFF262626),
                   onTap: () {
                     chatService.selectConversation(conv.id);
                     Navigator.pop(context);

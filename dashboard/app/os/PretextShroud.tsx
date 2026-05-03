@@ -1,13 +1,24 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import GridLayout, { Responsive, WidthProvider } from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import NeuralPromenade from './NeuralPromenade';
+
+let ResponsiveGridLayout: any = null;
+try {
+  ResponsiveGridLayout = WidthProvider(Responsive);
+} catch (e) {
+  console.error("::/GRID_INIT_FAILURE : WidthProvider is not a function", e);
+  // Fallback to basic grid if HOC fails
+  ResponsiveGridLayout = Responsive;
+}
+
+const NeuralPromenade = dynamic(() => import('./NeuralPromenade'), { ssr: false });
 import PretextCommandArtery from '@/components/PretextCommandArtery';
 import PretextTasksMesh from '@/components/PretextTasksMesh';
 import PretextTerminalArtery from '@/components/PretextTerminalArtery';
+import HermesInteractiveTUI from '@/components/HermesInteractiveTUI';
 import SovereignIgnitionTrigger from '@/components/SovereignIgnitionTrigger';
 import HermesProxy from '@/components/HermesProxy';
 import KernelMonitor from '@/components/KernelMonitor';
@@ -16,9 +27,7 @@ import VsbWaveform from '@/components/VsbWaveform';
 import SynapsePanel from '@/components/SynapsePanel';
 import { AgentSwarm } from '@/components/AgentSwarm';
 import { useSovereignTelemetry } from "@/hooks/useSovereignTelemetry";
-import { useNucleusWS } from "@/hooks/useNucleusWS";
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
+import { useNucleusWS } from "@/cl4w-nucleus/src/hooks/useNucleusWS";
 
 /**
  * ◈ PRETEXT_TEXT_GEOMETRY — v3.8.25
@@ -36,7 +45,7 @@ const PretextTextGeometry = () => {
     if (!ctx) return;
 
     const loadPretext = async () => {
-      const { prepareWithSegments, layoutWithLines } = await import("https://esm.sh/@chenglou/pretext@0.0.6");
+      const { prepareWithSegments, layoutWithLines } = await import("@chenglou/pretext");
       
       let animationFrame: number;
       const text = "◈ COGNITIVE_ARTERY: RELENTLESS CONSTRUCTION. ZERO-TRUST IDENTITY ENFORCED. ARTERY PULSE NOMINAL. PHYSICAL SOVEREIGNTY ACHIEVED. CLEAN BASE LOCK.";
@@ -53,7 +62,7 @@ const PretextTextGeometry = () => {
         const { lines } = layoutWithLines(prepared, width, 30);
         
         ctx.font = font;
-        ctx.fillStyle = "#F36622"; 
+        ctx.fillStyle = "#E07A5F"; 
         
         lines.forEach((line: any, i: number) => {
           const warp = Math.sin(time + i * 0.5) * 15;
@@ -147,7 +156,7 @@ const PretextGeometricCanvas = () => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = "#F36622"; 
+        ctx.fillStyle = "#E07A5F"; 
         ctx.fill();
       });
 
@@ -271,7 +280,7 @@ export default function PretextShroud() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#E5E5E5] selection:bg-[#F36622] selection:text-black p-4 overflow-x-hidden overflow-y-auto relative font-sans">
+    <div className="min-h-screen bg-[#0A0A0A] text-[#E5E5E5] selection:bg-[#E07A5F] selection:text-black p-4 overflow-x-hidden overflow-y-auto relative font-sans">
       <FluidSmokeBackground />
       <PretextGeometricCanvas />
       <PretextTextGeometry />
@@ -282,20 +291,20 @@ export default function PretextShroud() {
         <div className="bg-[#161616]/95 border border-[#333333] flex-1 flex items-center justify-between px-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl">
           <div className="flex items-center gap-10">
             <div className="relative group">
-              <div className="w-14 h-14 border-2 border-[#F36622] flex items-center justify-center transition-all duration-500 cursor-pointer bg-[#F36622]/5 hover:bg-[#F36622]/10">
-                <span className="text-2xl font-black text-[#F36622] authority-text">Σ</span>
+              <div className="w-14 h-14 border-2 border-[#E07A5F] flex items-center justify-center transition-all duration-500 cursor-pointer bg-[#E07A5F]/5 hover:bg-[#E07A5F]/10">
+                <span className="text-2xl font-black text-[#E07A5F] authority-text">Σ</span>
               </div>
               <img 
                 src="/assets/brand-identity/materialized/node_d.png" 
                 alt="Node D Authority" 
-                className="absolute -top-2 -right-2 w-8 h-8 border border-[#F36622] bg-[#0A0A0A] p-0.5 shadow-[0_0_10px_#F36622] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute -top-2 -right-2 w-8 h-8 border border-[#E07A5F] bg-[#0A0A0A] p-0.5 shadow-[0_0_10px_#E07A5F] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
             </div>
             <div>
               <h1 className="text-4xl font-black tracking-[0.4em] text-[#E5E5E5] authority-text">NODESTADT</h1>
-              <div className="text-[10px] text-[#F36622] font-black tracking-[0.3em] flex gap-6 mt-1 technical-data">
+              <div className="text-[10px] text-[#E07A5F] font-black tracking-[0.3em] flex gap-6 mt-1 technical-data">
                 <span className="flex items-center gap-2 uppercase">
-                  <div className="w-2 h-2 bg-[#F36622] animate-pulse" /> 
+                  <div className="w-2 h-2 bg-[#E07A5F] animate-pulse" /> 
                   Sovereign_OS v3.8.25-CLINICAL
                 </span>
                 <span className={`flex items-center gap-2 uppercase ${connected ? "text-[#B8BB26]" : "text-[#404040]"}`}>
@@ -306,9 +315,9 @@ export default function PretextShroud() {
           </div>
           
           <div className="flex gap-10">
-            <StatusRing progress={100} color="#F36622" label="IDENTITY" />
-            <StatusRing progress={100} color="#F36622" label="SYNAPSE" />
-            <StatusRing progress={100} color="#F36622" label="PERCEPTION" />
+            <StatusRing progress={100} color="#E07A5F" label="IDENTITY" />
+            <StatusRing progress={100} color="#E07A5F" label="SYNAPSE" />
+            <StatusRing progress={100} color="#E07A5F" label="PERCEPTION" />
           </div>
         </div>
       </div>
@@ -325,8 +334,8 @@ export default function PretextShroud() {
       >
         <div key="command-artery" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-2xl flex flex-col overflow-hidden group backdrop-blur-2xl">
           <div className="handle h-12 border-b border-[#333333] flex items-center px-6 justify-between bg-[#111111] cursor-move group-hover:bg-[#1A1A1A] transition-colors">
-            <span className="text-[11px] font-black text-[#F36622] tracking-widest uppercase flex items-center gap-3 authority-text">
-              <div className="w-2 h-2 bg-[#F36622] rotate-45" /> COGNITIVE_INGRESS
+            <span className="text-[11px] font-black text-[#E07A5F] tracking-widest uppercase flex items-center gap-3 authority-text">
+              <div className="w-2 h-2 bg-[#E07A5F] rotate-45" /> COGNITIVE_INGRESS
             </span>
           </div>
           <div className="flex-1 overflow-hidden">
@@ -341,7 +350,7 @@ export default function PretextShroud() {
           <div className="flex-1 grid grid-cols-2 p-6 gap-8 bg-black/20">
              <div className="flex flex-col gap-3">
                <span className="text-[9px] text-[#A3A3A3] uppercase font-black tracking-widest authority-text">V2F_Status</span>
-               <div className="h-2 bg-[#333333] overflow-hidden"><div className="h-full bg-[#F36622] w-[100%] shadow-[0_0_15px_#F36622]" /></div>
+               <div className="h-2 bg-[#333333] overflow-hidden"><div className="h-full bg-[#E07A5F] w-[100%] shadow-[0_0_15px_#E07A5F]" /></div>
              </div>
              <div className="flex flex-col gap-3">
                <span className="text-[9px] text-[#A3A3A3] uppercase font-black tracking-widest authority-text">SPIFFE_Handshake</span>
@@ -370,10 +379,10 @@ export default function PretextShroud() {
 
         <div key="terminal-artery" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-xl flex flex-col overflow-hidden backdrop-blur-2xl">
           <div className="handle h-10 border-b border-[#333333] flex items-center px-5 bg-[#111111] cursor-move">
-            <span className="text-[10px] font-black text-[#F36622] tracking-[0.2em] authority-text">TERMINAL_ARTERY</span>
+            <span className="text-[10px] font-black text-[#E07A5F] tracking-[0.2em] authority-text">TERMINAL_ARTERY</span>
           </div>
           <div className="flex-1 overflow-hidden">
-            <PretextTerminalArtery />
+            <HermesInteractiveTUI />
           </div>
         </div>
 

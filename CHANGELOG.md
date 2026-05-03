@@ -51,3 +51,18 @@ versioning follows [Semantic Versioning](https://semver.org).
 
 ---
 **LINKS:** [[Sovereign_OS]]
+
+## [3.8.30-RENEWAL] - 2026-05-03
+### Added
+- **Refined Brand Identity (v1.3.0):** Migrated to Orange Rust (#E07A5F) and Cinzel (Serif) typography.
+- **Hermes-Agent Clinical Fork:** Initialized strategic pivot to fork `nousresearch/hermes-agent` as primary operator harness.
+- **HermesInteractiveTUI:** New Next.js component to embed the Python Shard into the Pretext HUD.
+
+### Fixed
+- **Next.js ESM Death:** Resolved 'WidthProvider' runtime error via resilient import patterns.
+- **Node B Vision OOM:** Patched llama-server context limit to 8k to prevent Vulkan allocation fatalities.
+- **Mobile HUD Connectivity:** Remapped hardcoded local IPs to Tailscale/ClawLink mesh.
+
+### Changed
+- **Architectural Consolidation:** Decommissioned 'Shadow Logic' sidecars in favor of upstream Hermes-Ecosystem maintained modules.
+- **Command Re-wiring:** Root `npm run terminal` now targets the Python Shard native CLI.

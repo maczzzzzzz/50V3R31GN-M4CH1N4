@@ -1,18 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&family=Lexend:wght@300;400;500;700&display=swap');
-@import '../../src/shared/sovereign-theme.css';
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&family=Lexend:wght@300;400;500;700&family=Cinzel:wght@400;700;900&display=swap');
+@import '../../packages/hermes-core/src/shared/sovereign-theme.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* NODESTADT Authority Palette — v3.8.25-CLINICAL */
-  --nodestadt-bg:       #0A0A0A; /* Deep Artery Black */
-  --nodestadt-accent:   #F36622; /* Machina Rust */
-  --nodestadt-gold:     #C7A87A; /* Sovereign Gilt */
-  --nodestadt-fg:       #E5E5E5; /* Clinical White */
-  --nodestadt-panel:    #161616; /* Substrate Grey */
-  --nodestadt-dim:      #404040;
+  /* NODESTADT Authority Palette — v3.8.30-RENEWAL */
+  --nodestadt-bg:       #1A1A1A; /* Authority Charcoal */
+  --nodestadt-accent:   #E07A5F; /* Orange Rust */
+  --nodestadt-teal:     #2F4F4F; /* Deep Nodestadt Teal */
+  --nodestadt-gold:     #D4AF37; /* Gold-Brass */
+  --nodestadt-fg:       #F2F2F2; /* System White */
+  --nodestadt-panel:    #262626; 
+  --nodestadt-dim:      #C0C0C0; /* Antique Silver */
+  --nodestadt-moss:     #8A9A5B; /* Moss Green */
+  --nodestadt-nexus:    #4682B4; /* Nexus Blue */
 
   /* Dashboard aliases */
   --primary:    var(--nodestadt-accent);
@@ -30,7 +33,7 @@ html, body {
 }
 
 h1, h2, h3, .authority-text {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cinzel', serif;
   text-transform: uppercase;
   letter-spacing: 0.3em;
   font-weight: 900;

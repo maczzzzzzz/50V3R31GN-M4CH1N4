@@ -2,7 +2,7 @@ name: terminal_app
 description: 50V3R31GN-M4CH1N4 Machina Terminal HUD
 publish_to: 'none'
 
-version: 3.8.28+1
+version: 3.8.30+1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -40,7 +40,7 @@ dependency_overrides:
 flutter_launcher_icons:
   android: "ic_launcher"
   ios: false
-  image_path: "assets/master.png"
+  image_path: "assets/icon.png"
   min_sdk_android: 21
 
 flutter:

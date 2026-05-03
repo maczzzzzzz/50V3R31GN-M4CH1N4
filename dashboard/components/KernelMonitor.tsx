@@ -9,12 +9,12 @@ interface Props {
 
 function ProgressBar({ value, max, label }: { value: number; max: number; label: string }) {
   const pct = Math.min(100, Math.round((value / max) * 100));
-  const color = pct > 85 ? "bg-[#FB4934]" : "bg-[#F36622]";
+  const color = pct > 85 ? "bg-[#FB4934]" : "bg-[#E07A5F]";
   return (
     <div className="mb-4">
       <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-1.5 technical-data">
         <span className="text-[#404040]">{label}</span>
-        <span className="text-[#F36622]">{pct}%</span>
+        <span className="text-[#E07A5F]">{pct}%</span>
       </div>
       <div className="w-full bg-[#111111] h-3 overflow-hidden border border-[#262626]">
         <div
@@ -51,8 +51,8 @@ export default function KernelMonitor({ telemetry }: Props) {
 
   return (
     <div className="border border-[#333333] bg-[#161616] p-6 shadow-2xl backdrop-blur-xl">
-      <h2 className="text-[#F36622] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
-        <div className="w-2.5 h-2.5 bg-[#F36622] rotate-45" /> KERNEL_MONITOR [NODE_A]
+      <h2 className="text-[#E07A5F] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
+        <div className="w-2.5 h-2.5 bg-[#E07A5F] rotate-45" /> KERNEL_MONITOR [NODE_A]
       </h2>
 
       <ProgressBar value={processorStrain} max={100} label="PROCESSOR_STRAIN" />
@@ -69,7 +69,7 @@ export default function KernelMonitor({ telemetry }: Props) {
           ) : (
             auditLog.map((line, i) => (
               <div key={i} className="text-[#E5E5E5] border-b border-[#161616] py-1 last:border-none">
-                <span className="text-[#F36622] font-black mr-2">Σ</span> {line}
+                <span className="text-[#E07A5F] font-black mr-2">Σ</span> {line}
               </div>
             ))
           )}

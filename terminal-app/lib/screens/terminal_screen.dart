@@ -34,7 +34,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
 
   Future<void> _connectTerminal() async {
     final prefs = await SharedPreferences.getInstance();
-    final ip = prefs.getString('node_b_ip') ?? '10.0.0.x';
+    final ip = prefs.getString('node_b_ip') ?? '100.101.177.76';
     final port = '3030'; // Nucleus Artery
     
     try {
@@ -73,7 +73,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = const Color(0xFFF36622);
+    final accentColor = const Color(0xFFE07A5F);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),

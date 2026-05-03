@@ -1,6 +1,6 @@
 {
   "name": "50v3r31gn-m4ch1n4",
-  "version": "3.8.28-GOLD",
+  "version": "3.8.30-RENEWAL",
   "description": "48L173R473D M1ND // 50V3R31GN-M4CH1N4",
   "icon": "terminal-app/assets/app_icon.png",
   "type": "module",
@@ -48,7 +48,7 @@
     "netrunning": "nix develop --impure --command ./crates/sidecar-netrunning/target/release/sidecar-netrunning",
     "netrunning:headless": "nix develop --impure --command ./crates/sidecar-netrunning/target/release/sidecar-netrunning --headless",
     "terminal": "npm run ink:terminal",
-    "ink:terminal": "nix develop --impure --command hermes terminal --ink",
+    "ink:terminal": "cd sidecars/hermes-agent-nous && nix develop --impure --command python3 -m hermes_cli.main chat --tui",
     "pulse": "npx tsx scripts/dev/sovereign-pulse.ts",
     "build:sidecar:atlas": "nix develop --impure --command cargo build --release --manifest-path crates/sidecar-atlas/Cargo.toml",
     "build:sidecar:cyberdeck": "nix develop --impure --command cargo build --release --manifest-path crates/sidecar-cyberdeck/Cargo.toml",
@@ -136,7 +136,7 @@
     "@types/ws": "8.18.1",
     "esbuild": "0.25.0",
     "playwright": "^1.59.1",
-    "tsx": "4.21.0",
+    "tsx": "^4.21.0",
     "typescript": "5.8.3",
     "vite": "^7.3.2",
     "vitest": "4.1.4"

@@ -23,7 +23,7 @@ class OpenClawBridge extends ChangeNotifier {
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    final nodeBIp = prefs.getString('node_b_ip') ?? '10.0.0.20';
+    final nodeBIp = prefs.getString('node_b_ip') ?? '100.101.177.76';
     final port = prefs.getString('rpc_port') ?? '3011';
     
     final url = 'ws://$nodeBIp:$port/rpc';

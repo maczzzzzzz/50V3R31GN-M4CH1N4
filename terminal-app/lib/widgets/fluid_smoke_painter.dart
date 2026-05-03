@@ -37,7 +37,7 @@ class FluidSmokePainter extends CustomPainter {
         
         if (val > 0.5) {
           // Machina Rust #F36622 with variable opacity
-          paint.color = const Color(0xFFF36622).withOpacity(val * 0.08 * intensity);
+          paint.color = const Color(0xFFE07A5F).withOpacity(val * 0.08 * intensity);
           canvas.drawRect(
             Rect.fromLTWH(c * cw, r * ch, cw - 0.2, ch - 0.2), 
             paint

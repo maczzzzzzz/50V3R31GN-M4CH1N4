@@ -24,13 +24,13 @@ export default function DirectorPulse({ telemetry }: Props) {
   }, [telemetry, vramTotal]);
 
   const latencyColor =
-    latency < 80 ? "text-[#F36622]" : latency < 300 ? "text-[#FABD2F]" : "text-[#FB4934]";
+    latency < 80 ? "text-[#E07A5F]" : latency < 300 ? "text-[#FABD2F]" : "text-[#FB4934]";
   const vramPct = Math.round((vramUsed / vramTotal) * 100);
 
   return (
     <div className="border border-[#333333] bg-[#161616] p-6 shadow-2xl backdrop-blur-xl">
-      <h2 className="text-[#F36622] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
-        <div className="w-2.5 h-2.5 bg-[#F36622] rotate-45" /> DIRECTOR_PULSE [NODE_B]
+      <h2 className="text-[#E07A5F] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
+        <div className="w-2.5 h-2.5 bg-[#E07A5F] rotate-45" /> DIRECTOR_PULSE [NODE_B]
       </h2>
 
       {/* Inference latency */}
@@ -45,11 +45,11 @@ export default function DirectorPulse({ telemetry }: Props) {
       <div>
         <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2 technical-data">
           <span className="text-[#404040]">VISUAL_MEMORY</span>
-          <span className="text-[#F36622]">{(vramUsed / 1024).toFixed(1)} / {(vramTotal / 1024).toFixed(0)} GB</span>
+          <span className="text-[#E07A5F]">{(vramUsed / 1024).toFixed(1)} / {(vramTotal / 1024).toFixed(0)} GB</span>
         </div>
         <div className="w-full bg-[#111111] h-8 overflow-hidden border border-[#262626] relative">
           <div
-            className="h-full bg-[#F36622] transition-all duration-700 shadow-[0_0_15px_rgba(243,102,34,0.3)]"
+            className="h-full bg-[#E07A5F] transition-all duration-700 shadow-[0_0_15px_rgba(243,102,34,0.3)]"
             style={{ width: `${vramPct}%` }}
           />
           <span className="absolute inset-0 flex items-center justify-center text-[9px] font-black tracking-[0.2em] text-[#E5E5E5] uppercase technical-data">

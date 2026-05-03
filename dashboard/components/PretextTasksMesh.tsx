@@ -38,9 +38,9 @@ export default function PretextTasksMesh() {
           <div 
             key={t.id} 
             onClick={() => toggleTask(t.id)}
-            className="flex items-center gap-5 px-4 py-3 border border-[#262626] bg-[#161616] hover:border-[#F36622] hover:bg-[#1A1A1A] cursor-crosshair transition-all duration-300"
+            className="flex items-center gap-5 px-4 py-3 border border-[#262626] bg-[#161616] hover:border-[#E07A5F] hover:bg-[#1A1A1A] cursor-crosshair transition-all duration-300"
           >
-            <div className={`w-3.5 h-3.5 border-2 ${t.isCompleted ? 'bg-[#F36622] border-[#F36622] shadow-[0_0_10px_#F36622]' : 'border-[#404040]'}`} />
+            <div className={`w-3.5 h-3.5 border-2 ${t.isCompleted ? 'bg-[#E07A5F] border-[#E07A5F] shadow-[0_0_10px_#E07A5F]' : 'border-[#404040]'}`} />
             <span className={`technical-data tracking-wide font-black uppercase ${t.isCompleted ? 'opacity-20 line-through' : 'text-[#E5E5E5]'}`}>
               {t.title}
             </span>

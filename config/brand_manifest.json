@@ -1,27 +1,35 @@
 {
   "organization": "NODESTADT",
   "product": "SOVEREIGN MACHINA",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "palette": {
     "authority_charcoal": {
       "hex": "#1A1A1A",
       "purpose": "The Void / Background / Primary Depth"
     },
-    "machina_rust": {
-      "hex": "#F36622",
+    "orange_rust": {
+      "hex": "#E07A5F",
       "purpose": "Ocular Pulse / Tactical Highlights / Code"
     },
-    "gilded_sovereign": {
-      "hex": "#C7A87A",
+    "nodestadt_teal": {
+      "hex": "#2F4F4F",
+      "purpose": "Deep Substrate / Narrative Accents"
+    },
+    "gold_brass": {
+      "hex": "#D4AF37",
       "purpose": "Ritual Borders / Authority Accents"
     },
-    "system_white": {
-      "hex": "#F2F2F2",
-      "purpose": "Logic Text / Technical Readouts"
-    },
-    "hydraulic_chrome": {
+    "antique_silver": {
       "hex": "#C0C0C0",
-      "purpose": "Secondary Mechanical / Grid Lines"
+      "purpose": "System Readouts / Mechanical Grid"
+    },
+    "moss_green": {
+      "hex": "#8A9A5B",
+      "purpose": "Biological Synergy / Safety Status"
+    },
+    "nexus_blue": {
+      "hex": "#4682B4",
+      "purpose": "Artery Link / Data Streams"
     }
   },
   "typography": {
@@ -54,8 +62,8 @@
     "node_d": "THE_ORACLE (Full Nexus)"
   },
   "visual_effects": {
-    "smoke_composition": "Authority Charcoal base with Machina Rust highlights",
-    "glitch_style": "Chromatic Aberration (Rust/Chrome/Charcoal) + Serif Flash",
+    "smoke_composition": "Authority Charcoal base with Orange Rust highlights",
+    "glitch_style": "Chromatic Aberration (Orange Rust/Antique Silver/Charcoal) + Serif Flash",
     "status_rings": "Animated Ouroboros Vector (Snake consuming tail)"
   }
 }
