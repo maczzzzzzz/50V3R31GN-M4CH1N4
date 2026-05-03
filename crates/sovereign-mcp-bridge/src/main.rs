@@ -247,16 +247,18 @@ async fn main() {
             }
         };
 
-        // Skip notifications (id is null/absent and method is known notification)
-        let is_notification = req.id == Value::Null && req.method == "initialized";
+        // Skip notifications (id is null/absent — no response required)
+        let is_notification = req.id == Value::Null;
+
+        if is_notification {
+            continue;
+        }
 
         let resp = handle_request(req, &state).await;
 
-        if !is_notification {
-            let mut out = serde_json::to_string(&resp).unwrap();
-            out.push('\n');
-            let _ = writer.write_all(out.as_bytes()).await;
-            let _ = writer.flush().await;
-        }
+        let mut out = serde_json::to_string(&resp).unwrap();
+        out.push('\n');
+        let _ = writer.write_all(out.as_bytes()).await;
+        let _ = writer.flush().await;
     }
 }
