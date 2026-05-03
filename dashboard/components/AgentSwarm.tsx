@@ -17,15 +17,15 @@ export const AgentSwarm: React.FC<AgentSwarmProps> = ({ agents }) => {
   return (
     <div className="fixed top-24 right-6 w-84 bg-[#111111]/95 border border-[#333333] p-5 font-sans text-xs shadow-2xl backdrop-blur-xl z-[60]">
       <div className="flex items-center justify-between mb-5 border-b border-[#262626] pb-3">
-        <span className="text-[#E07A5F] font-black tracking-[0.2em] uppercase authority-text">◈ REASONING_SWARMS</span>
-        <span className="bg-[#E07A5F] text-[#0A0A0A] px-2 font-black animate-pulse technical-data">{agents.length} ACTIVE</span>
+        <span className="text-[#376374] font-black tracking-[0.2em] uppercase authority-text">◈ REASONING_SWARMS</span>
+        <span className="bg-[#376374] text-[#1A282F] px-2 font-black animate-pulse technical-data">{agents.length} ACTIVE</span>
       </div>
 
       <div className="space-y-5">
         {agents.map((agent) => (
           <div key={agent.id} className="group">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-[#C7A87A] font-black tracking-wide technical-data">{agent.name.toUpperCase()}</span>
+              <span className="text-[#836A46] font-black tracking-wide technical-data">{agent.name.toUpperCase()}</span>
               <span className={`text-[9px] font-black tracking-widest uppercase ${
                 agent.status === 'WORKING' ? 'text-[#FABD2F]' : 'text-[#B8BB26]'
               }`}>
@@ -39,7 +39,7 @@ export const AgentSwarm: React.FC<AgentSwarmProps> = ({ agents }) => {
 
             <div className="w-full bg-[#1A1A1A] h-1.5 overflow-hidden border border-[#262626]">
               <div 
-                className="bg-[#E07A5F] h-full transition-all duration-700 ease-out shadow-[0_0_10px_#E07A5F]"
+                className="bg-[#376374] h-full transition-all duration-700 ease-out shadow-[0_0_10px_#376374]"
                 style={{ width: `${agent.progress || (agent.status === 'WORKING' ? 45 : 100)}%` }}
               />
             </div>

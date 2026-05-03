@@ -4,7 +4,7 @@
 The NODESTADT Authority OS is managed through the Nix ecosystem to ensure reproducible environments and bit-identical logic across all nodes in the mesh.
 
 ### 1. Flake Usage (`nix develop`)
-The entire repository is defined as a Nix Flake. This ensures that all dependencies (Go, Orange Rust, Node.js, Python/Torch) are pinned to exact versions.
+The entire repository is defined as a Nix Flake. This ensures that all dependencies (Go, Tactical Authority, Node.js, Python/Torch) are pinned to exact versions.
 
 - **Entering the Environment:**
   ```bash

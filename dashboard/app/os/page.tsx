@@ -11,7 +11,7 @@ const PretextShroud = dynamic(() => import("./PretextShroud"), { ssr: false });
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] selection:bg-[#E07A5F] selection:text-black">
+    <main className="min-h-screen bg-[#1A282F] selection:bg-[#376374] selection:text-black">
       <PretextShroud />
     </main>
   );

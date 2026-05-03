@@ -49,15 +49,15 @@ class TemporalTabBar extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFFE07A5F).withOpacity(0.05) : Colors.transparent,
+            color: isSelected ? const Color(0xFF376374).withOpacity(0.05) : Colors.transparent,
             border: isSelected 
-              ? const Border(bottom: BorderSide(color: Color(0xFFE07A5F), width: 3.0))
+              ? const Border(bottom: BorderSide(color: Color(0xFF376374), width: 3.0))
               : null,
           ),
           child: Text(
             label.toUpperCase(),
             style: TextStyle(
-              color: isSelected ? const Color(0xFFE07A5F) : const Color(0xFF404040),
+              color: isSelected ? const Color(0xFF376374) : const Color(0xFF404040),
               fontWeight: FontWeight.w900,
               fontSize: 10,
               letterSpacing: 2,

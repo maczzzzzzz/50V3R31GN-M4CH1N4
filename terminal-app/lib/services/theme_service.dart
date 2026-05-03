@@ -139,7 +139,7 @@ class ThemeService extends ChangeNotifier {
       blue: const Color(0xFF4682B4), // Nexus Blue
       purple: const Color(0xFFD3869B),
       aqua: const Color(0xFF2F4F4F), // Deep Nodestadt Teal
-      orange: const Color(0xFFE07A5F), // Orange Rust
+      orange: const Color(0xFF376374), // Tactical Authority
       name: 'NODESTADT_RENEWAL',
     ),
     ThemeModePreset.softDark: ThemePreset(

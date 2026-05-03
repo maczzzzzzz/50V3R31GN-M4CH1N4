@@ -15,7 +15,7 @@ class WaveformVisualizer extends StatefulWidget {
   const WaveformVisualizer({
     super.key,
     required this.isActive,
-    this.color = const Color(0xFFE07A5F),
+    this.color = const Color(0xFF376374),
   });
 
   @override

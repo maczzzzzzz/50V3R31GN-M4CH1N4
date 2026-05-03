@@ -35,15 +35,15 @@ export default function PretextCommandArtery() {
   };
 
   return (
-    <div className="flex flex-col h-full font-sans text-[11px] text-[#E5E5E5]">
+    <div className="flex flex-col h-full font-sans text-[11px] text-[#AFAB9C]">
       {/* ◈ MESSAGE_FEED */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-5">
         {messages.map((m, i) => (
           <div key={i} className={`flex flex-col gap-1 ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
-            <span className={`text-[8px] font-black uppercase tracking-widest ${m.role === 'user' ? 'text-[#E07A5F]' : 'text-[#C7A87A]'}`}>
+            <span className={`text-[8px] font-black uppercase tracking-widest ${m.role === 'user' ? 'text-[#376374]' : 'text-[#836A46]'}`}>
               ::/{m.role.toUpperCase()}
             </span>
-            <div className={`max-w-[90%] px-4 py-3 border ${m.role === 'user' ? 'bg-[#E07A5F]/5 border-[#E07A5F]/20 text-[#E5E5E5]' : 'bg-[#161616] border-[#333333] text-[#E5E5E5]'}`}>
+            <div className={`max-w-[90%] px-4 py-3 border ${m.role === 'user' ? 'bg-[#376374]/5 border-[#376374]/20 text-[#AFAB9C]' : 'bg-[#161616] border-[#333333] text-[#AFAB9C]'}`}>
               <span className={m.role === 'system' ? 'text-[#FB4934] italic font-bold' : 'technical-data'}>{m.content}</span>
             </div>
           </div>
@@ -52,16 +52,16 @@ export default function PretextCommandArtery() {
 
       {/* ◈ INPUT_ZONE */}
       <div className="p-4 border-t border-[#333333] bg-[#111111] flex items-center gap-5">
-        <span className="text-[#E07A5F] font-black text-[10px] tracking-widest authority-text">Σ:/&gt;</span>
+        <span className="text-[#376374] font-black text-[10px] tracking-widest authority-text">Σ:/&gt;</span>
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           placeholder="RAW_DIRECTIVE"
-          className="flex-1 bg-transparent border-none outline-none text-[#E5E5E5] placeholder-[#404040] font-sans text-[13px] technical-data"
+          className="flex-1 bg-transparent border-none outline-none text-[#AFAB9C] placeholder-[#404040] font-sans text-[13px] technical-data"
         />
         <div className="flex gap-3">
-          <div className="w-2.5 h-2.5 bg-[#E07A5F] animate-pulse shadow-[0_0_10px_#E07A5F]" title="Artery Active" />
+          <div className="w-2.5 h-2.5 bg-[#376374] animate-pulse shadow-[0_0_10px_#376374]" title="Artery Active" />
           <div className="w-2.5 h-2.5 bg-[#404040]" title="Perception Offline" />
         </div>
       </div>

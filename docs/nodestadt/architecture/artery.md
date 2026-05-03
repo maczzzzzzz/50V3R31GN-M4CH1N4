@@ -24,7 +24,7 @@ High-frequency state updates are transmitted via the **Virtual Sovereign Bus (VS
 ### 3. mTLS Artery (RPC Control Plane)
 All high-level agent tool calls and node-to-node RPCs are routed through the **mTLS Artery**.
 
-- **Proxy:** Managed by `hermes-router` (Orange Rust) on port 7341.
+- **Proxy:** Managed by `hermes-router` (Tactical Authority) on port 7341.
 - **Identity:** Strictly enforced via SPIFFE/SPIRE SVIDs.
 - **Gating:** Access to reasoning arteries (Node D) is gated by ST3GG Visual Second Factor (V2F) verification.
 

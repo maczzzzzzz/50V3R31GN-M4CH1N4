@@ -92,9 +92,9 @@ const PULSE_FRAG = /* glsl */`
 // ---------------------------------------------------------------------------
 
 const PULSE_COLORS = {
-  vsb:       new THREE.Color(0xF36622), // Machina Rust
+  vsb:       new THREE.Color(0x376374), // Tactical Authority
   security:  new THREE.Color(0xffffff), // Clinical White
-  memory:    new THREE.Color(0xC7A87A), // Sovereign Gold
+  memory:    new THREE.Color(0x836A46), // Gold Highlight
   perception: new THREE.Color(0x8EC07C), // Artery Green
 };
 

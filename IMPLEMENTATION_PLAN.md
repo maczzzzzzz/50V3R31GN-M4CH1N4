@@ -1,5 +1,5 @@
 # 50V3R31GN-M4CH1N4: Master Implementation Execution Plan
-**Version:** 3.8.30-RENEWAL
+**Version:** 3.8.31-TAC-AUTH
 **Architecture:** Sovereign-Harness (Python Fork) + Clinical-HUD (Next.js) + VSB-Bridge (Rust/Go) + ST3GG-Guard (Rust)
 
 <details>
@@ -19,7 +19,7 @@
 
 ## ✅ PHASE 117: BRAND IDENTITY RENEWAL (v1.3.0) (COMPLETED)
 **Goal:** Enforce the refined visual standard across all mesh runtimes.
-- [x] **Task 1: Palette Migration:** Global shift from Machina Rust (#F36622) to **Orange Rust (#E07A5F)**.
+- [x] **Task 1: Palette Migration:** Global shift to **Tactical Authority (#376374, #836A46, #1A282F)**.
 - [x] **Task 2: Typography Transition:** Enforced **Cinzel (Serif)** for Authority headers and **Lexend** for technical data across HUD and Mobile.
 - [x] **Task 3: Asset Synchronization:** Embedded high-res refined iconography into Flutter, Next.js, and Monorepo manifests. Locked version at `3.8.30-RENEWAL`.
 - [x] **Task 4: Universal Icon Lock:** Synchronized `terminal-app/assets/app-icon.png` as the absolute branding asset across all desktop and web windows.

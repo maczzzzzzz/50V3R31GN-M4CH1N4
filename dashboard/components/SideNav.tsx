@@ -20,7 +20,7 @@ export default function SideNav() {
   return (
     <nav className="w-48 min-h-screen bg-[#111111] border-r border-[#333333] flex flex-col pt-8 gap-2 shrink-0 z-50">
       <div className="px-6 mb-8">
-        <p className="text-[#E07A5F] text-[10px] font-black tracking-[0.4em] uppercase authority-text">
+        <p className="text-[#376374] text-[10px] font-black tracking-[0.4em] uppercase authority-text">
           NODESTADT
         </p>
         <p className="text-[#A3A3A3] text-[8px] font-black tracking-[0.2em] uppercase technical-data">
@@ -40,8 +40,8 @@ export default function SideNav() {
                 mx-3 px-4 py-3 text-[10px] tracking-[0.2em] font-black uppercase technical-data
                 flex items-center gap-3 transition-all duration-300
                 ${active 
-                  ? "bg-[#E07A5F] text-[#0A0A0A] shadow-[0_0_15px_rgba(243,102,34,0.4)]" 
-                  : "text-[#A3A3A3] hover:text-[#E07A5F] hover:bg-[#1A1A1A]"}
+                  ? "bg-[#376374] text-[#1A282F] shadow-[0_0_15px_rgba(243,102,34,0.4)]" 
+                  : "text-[#A3A3A3] hover:text-[#376374] hover:bg-[#1A1A1A]"}
               `}
             >
               <span className="text-sm">{glyph}</span>
@@ -53,7 +53,7 @@ export default function SideNav() {
 
       <div className="mt-auto px-6 pb-6">
         <div className="border-t border-[#333333] pt-6">
-          <p className="text-[#E07A5F] text-[9px] font-black tracking-widest technical-data">v3.8.25-CLINICAL</p>
+          <p className="text-[#376374] text-[9px] font-black tracking-widest technical-data">v3.8.25-CLINICAL</p>
           <p className="text-[#404040] text-[8px] font-black tracking-widest technical-data">CLEAN_BASE_ACTIVE</p>
         </div>
       </div>

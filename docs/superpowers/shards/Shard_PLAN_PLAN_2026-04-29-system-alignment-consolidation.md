@@ -32,7 +32,7 @@ The Quaternary Artery (Node D) is stable, but the documentation and logic layers
 ## ◈ PHASE 3: AESTHETIC ASCENSION (NODESTADT)
 - [ ] **Visual Purge**:
     - Remove CRT/Glitch overlays in `dashboard/` and `terminal-app/`.
-    - Materialize **Fluid Smoke Metabolism** (Machina Rust highlights) across all canvases.
+    - Materialize **Fluid Smoke Metabolism** (Tactical Authority highlights) across all canvases.
 - [ ] **Ouroboros Ring**:
     - Implement the SVG status ring for real-time agentic loop visualization.
 

@@ -73,7 +73,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = const Color(0xFFE07A5F);
+    final accentColor = const Color(0xFF376374);
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),

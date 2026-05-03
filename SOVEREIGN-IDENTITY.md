@@ -36,7 +36,11 @@ CORE_CONSTRAINTS:
 ## Branding Invariants
 1. **Primary Icon:** `terminal-app/assets/app-icon.png` is the absolute branding asset for all authority-associated windows, taskbars, and runtimes.
 2. **Typography:** Cinzel (Authority) / Lexend (Technical).
-3. **Palette:** Orange Rust (#E07A5F).
+3. **Palette (v1.3.1 - Tactical Authority):**
+   - Authority Primary: `#376374` (Deep Teal)
+   - Gold Highlight:    `#836A46` (Muted Gold)
+   - Tactical Base:     `#1A282F` (Midnight Blue)
+   - Technical Gray:    `#AFAB9C` (Sandstone)
 
 ---
-**::/5Y573M-N071C3 : IDENTITY_V3.8.30-RENEWAL. // 50V3R31GN-M4CH1N4**
+**::/5Y573M-N071C3 : IDENTITY_V3.8.31-TAC-AUTH. // 50V3R31GN-M4CH1N4**

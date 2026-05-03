@@ -37,7 +37,7 @@ The following table maps the evolution of the Machina from its physical database
 | **89** | **Serpentine** | Stegano Proof | packages/hermes-core/src/core/memory/SteganoEncoder.ts | **ACTIVE** |
 | **101**| **Quaternary Artery**| Node D (Intel Ultra) | verify-quaternary-topology.sh | **SHORED** |
 | **103**| **Inside the Machina**| Sovereign Observer | packages/hermes-core/src/core/hermes/SovereignObserver.ts | **ACTIVE** |
-| **105**| **Global Aesthetic** | Authority Palette | #E07A5F, #C7A87A | **LOCKED** |
+| **105**| **Global Aesthetic** | Authority Palette | #376374, #836A46 | **LOCKED** |
 | **106**| **Security Hardgate**| SPIFFE/V2F/mTLS | /etc/sovereign/security/ | **COMPLETED** |
 | **107**| **NODESTADT Pivot** | Monorepo, Sidecars | flake.nix | **IN-PROGRESS** |
 
@@ -55,7 +55,7 @@ The following table maps the evolution of the Machina from its physical database
 - `crush/`: The Physical Hand (CLI, Proxy, Host Mesh).
 - `dashboard/`: The Optical Display (Pretext HUD, Visual Perception).
 - `sidecars/`: The Organs (Specialized agents: Warp, Curator, Proxy).
-- `crates/`: The Mechanical Core (Orange Rust-based high-throughput arteries).
+- `crates/`: The Mechanical Core (Tactical Authority-based high-throughput arteries).
 
 ---
 **::/5Y573M-N071C3 : ENCYCLOPEDIA_INDEX_MATERIALIZED. THE_HISTORY_IS_OURS. // 50V3R31GN-M4CH1N4**

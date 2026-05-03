@@ -62,7 +62,7 @@ const PretextTextGeometry = () => {
         const { lines } = layoutWithLines(prepared, width, 30);
         
         ctx.font = font;
-        ctx.fillStyle = "#E07A5F"; 
+        ctx.fillStyle = "#376374"; 
         
         lines.forEach((line: any, i: number) => {
           const warp = Math.sin(time + i * 0.5) * 15;
@@ -156,7 +156,7 @@ const PretextGeometricCanvas = () => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = "#E07A5F"; 
+        ctx.fillStyle = "#376374"; 
         ctx.fill();
       });
 
@@ -256,7 +256,7 @@ const StatusRing = ({ progress, color, label }: { progress: number, color: strin
             strokeWidth="3" stroke={color} strokeLinecap="square" fill="transparent" r={radius} cx="28" cy="28"
           />
         </svg>
-        <span className="text-[9px] font-black text-[#E5E5E5] technical-data">{progress}%</span>
+        <span className="text-[9px] font-black text-[#AFAB9C] technical-data">{progress}%</span>
       </div>
       <span className="text-[8px] text-[#A3A3A3] font-black tracking-widest uppercase authority-text">{label}</span>
     </div>
@@ -280,7 +280,7 @@ export default function PretextShroud() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#E5E5E5] selection:bg-[#E07A5F] selection:text-black p-4 overflow-x-hidden overflow-y-auto relative font-sans">
+    <div className="min-h-screen bg-[#1A282F] text-[#AFAB9C] selection:bg-[#376374] selection:text-black p-4 overflow-x-hidden overflow-y-auto relative font-sans">
       <FluidSmokeBackground />
       <PretextGeometricCanvas />
       <PretextTextGeometry />
@@ -291,20 +291,20 @@ export default function PretextShroud() {
         <div className="bg-[#161616]/95 border border-[#333333] flex-1 flex items-center justify-between px-10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl">
           <div className="flex items-center gap-10">
             <div className="relative group">
-              <div className="w-14 h-14 border-2 border-[#E07A5F] flex items-center justify-center transition-all duration-500 cursor-pointer bg-[#E07A5F]/5 hover:bg-[#E07A5F]/10">
-                <span className="text-2xl font-black text-[#E07A5F] authority-text">Σ</span>
+              <div className="w-14 h-14 border-2 border-[#376374] flex items-center justify-center transition-all duration-500 cursor-pointer bg-[#376374]/5 hover:bg-[#376374]/10">
+                <span className="text-2xl font-black text-[#376374] authority-text">Σ</span>
               </div>
               <img 
                 src="/assets/brand-identity/materialized/node_d.png" 
                 alt="Node D Authority" 
-                className="absolute -top-2 -right-2 w-8 h-8 border border-[#E07A5F] bg-[#0A0A0A] p-0.5 shadow-[0_0_10px_#E07A5F] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute -top-2 -right-2 w-8 h-8 border border-[#376374] bg-[#1A282F] p-0.5 shadow-[0_0_10px_#376374] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               />
             </div>
             <div>
-              <h1 className="text-4xl font-black tracking-[0.4em] text-[#E5E5E5] authority-text">NODESTADT</h1>
-              <div className="text-[10px] text-[#E07A5F] font-black tracking-[0.3em] flex gap-6 mt-1 technical-data">
+              <h1 className="text-4xl font-black tracking-[0.4em] text-[#AFAB9C] authority-text">NODESTADT</h1>
+              <div className="text-[10px] text-[#376374] font-black tracking-[0.3em] flex gap-6 mt-1 technical-data">
                 <span className="flex items-center gap-2 uppercase">
-                  <div className="w-2 h-2 bg-[#E07A5F] animate-pulse" /> 
+                  <div className="w-2 h-2 bg-[#376374] animate-pulse" /> 
                   Sovereign_OS v3.8.25-CLINICAL
                 </span>
                 <span className={`flex items-center gap-2 uppercase ${connected ? "text-[#B8BB26]" : "text-[#404040]"}`}>
@@ -315,9 +315,9 @@ export default function PretextShroud() {
           </div>
           
           <div className="flex gap-10">
-            <StatusRing progress={100} color="#E07A5F" label="IDENTITY" />
-            <StatusRing progress={100} color="#E07A5F" label="SYNAPSE" />
-            <StatusRing progress={100} color="#E07A5F" label="PERCEPTION" />
+            <StatusRing progress={100} color="#376374" label="IDENTITY" />
+            <StatusRing progress={100} color="#376374" label="SYNAPSE" />
+            <StatusRing progress={100} color="#376374" label="PERCEPTION" />
           </div>
         </div>
       </div>
@@ -334,8 +334,8 @@ export default function PretextShroud() {
       >
         <div key="command-artery" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-2xl flex flex-col overflow-hidden group backdrop-blur-2xl">
           <div className="handle h-12 border-b border-[#333333] flex items-center px-6 justify-between bg-[#111111] cursor-move group-hover:bg-[#1A1A1A] transition-colors">
-            <span className="text-[11px] font-black text-[#E07A5F] tracking-widest uppercase flex items-center gap-3 authority-text">
-              <div className="w-2 h-2 bg-[#E07A5F] rotate-45" /> COGNITIVE_INGRESS
+            <span className="text-[11px] font-black text-[#376374] tracking-widest uppercase flex items-center gap-3 authority-text">
+              <div className="w-2 h-2 bg-[#376374] rotate-45" /> COGNITIVE_INGRESS
             </span>
           </div>
           <div className="flex-1 overflow-hidden">
@@ -345,23 +345,23 @@ export default function PretextShroud() {
 
         <div key="vitals-rack" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-xl flex flex-col overflow-hidden backdrop-blur-2xl">
           <div className="handle h-10 border-b border-[#333333] flex items-center px-5 bg-[#111111] cursor-move">
-            <span className="text-[10px] font-black text-[#C7A87A] tracking-[0.2em] authority-text">VITALS_RACK</span>
+            <span className="text-[10px] font-black text-[#836A46] tracking-[0.2em] authority-text">VITALS_RACK</span>
           </div>
           <div className="flex-1 grid grid-cols-2 p-6 gap-8 bg-black/20">
              <div className="flex flex-col gap-3">
                <span className="text-[9px] text-[#A3A3A3] uppercase font-black tracking-widest authority-text">V2F_Status</span>
-               <div className="h-2 bg-[#333333] overflow-hidden"><div className="h-full bg-[#E07A5F] w-[100%] shadow-[0_0_15px_#E07A5F]" /></div>
+               <div className="h-2 bg-[#333333] overflow-hidden"><div className="h-full bg-[#376374] w-[100%] shadow-[0_0_15px_#376374]" /></div>
              </div>
              <div className="flex flex-col gap-3">
                <span className="text-[9px] text-[#A3A3A3] uppercase font-black tracking-widest authority-text">SPIFFE_Handshake</span>
-               <div className="text-[15px] font-black text-[#C7A87A] technical-data">VERIFIED</div>
+               <div className="text-[15px] font-black text-[#836A46] technical-data">VERIFIED</div>
              </div>
           </div>
         </div>
 
         <div key="tasks-mesh" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-xl flex flex-col overflow-hidden backdrop-blur-2xl">
           <div className="handle h-10 border-b border-[#333333] flex items-center px-5 bg-[#111111] cursor-move">
-            <span className="text-[10px] font-black text-[#C7A87A] tracking-[0.2em] authority-text">TASKS_MESH</span>
+            <span className="text-[10px] font-black text-[#836A46] tracking-[0.2em] authority-text">TASKS_MESH</span>
           </div>
           <div className="flex-1 overflow-hidden">
             <PretextTasksMesh />
@@ -370,7 +370,7 @@ export default function PretextShroud() {
 
         <div key="synapse-orbit" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-2xl flex flex-col overflow-hidden relative group backdrop-blur-2xl">
           <div className="handle h-10 border-b border-[#333333] flex items-center px-5 bg-[#111111] cursor-move z-10 relative">
-            <span className="text-[10px] font-black text-[#C7A87A] tracking-[0.2em] authority-text">NEURAL_PROMENADE</span>
+            <span className="text-[10px] font-black text-[#836A46] tracking-[0.2em] authority-text">NEURAL_PROMENADE</span>
           </div>
           <div className="absolute inset-0 pt-10 bg-black/60">
             <NeuralPromenade />
@@ -379,7 +379,7 @@ export default function PretextShroud() {
 
         <div key="terminal-artery" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-xl flex flex-col overflow-hidden backdrop-blur-2xl">
           <div className="handle h-10 border-b border-[#333333] flex items-center px-5 bg-[#111111] cursor-move">
-            <span className="text-[10px] font-black text-[#E07A5F] tracking-[0.2em] authority-text">TERMINAL_ARTERY</span>
+            <span className="text-[10px] font-black text-[#376374] tracking-[0.2em] authority-text">TERMINAL_ARTERY</span>
           </div>
           <div className="flex-1 overflow-hidden">
             <HermesInteractiveTUI />

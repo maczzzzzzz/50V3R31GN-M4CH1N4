@@ -41,7 +41,7 @@ Update `sidecars/open-design/.od/config.json` (or equivalent) to register the So
 Update the Hermes Harness configuration (`sidecars/hermes-agent-nous/cli-config.yaml`) to point to the high-parameter reasoning models on Node D (Port 7339).
 
 - [ ] **Step 4: Bridge Brand Tokens (Design Systems)**
-Inject the Sovereign brand tokens (Orange Rust, Cinzel) into the `open-design` `design-systems/` directory as a `DESIGN.md` file.
+Inject the Sovereign brand tokens (Tactical Authority, Cinzel) into the `open-design` `design-systems/` directory as a `DESIGN.md` file.
 
 - [ ] **Step 5: Vision Loopback (Verification)**
 Implement a "Design Audit" skill for Hermes that captures the `open-design` artifact preview and sends it to Node B (Gemma-4 Vision) for visual verification.
@@ -62,7 +62,7 @@ Synchronize the new Design Artery state across all manifests.
 
 - [ ] **Verification 1:** Generate a landing page component using the "hermes" agent via `open-design`.
 - [ ] **Verification 2:** Confirm Node D resource utilization during heavy generation tasks.
-- [ ] **Verification 3:** Verify that the generated UI adheres to the "Orange Rust" brand standard via visual audit.
+- [ ] **Verification 3:** Verify that the generated UI adheres to the "Tactical Authority" brand standard via visual audit.
 
 ---
 **::/5Y573M-N071C3 : DESIGN_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**

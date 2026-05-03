@@ -28,7 +28,7 @@ The primary quaternary-mesh Operating System. A lore-neutral, platform-agnostic 
 
 - 🛡️ **Zero-Trust Implementation:** Mandatory SPIFFE/SPIRE identity gating and ST3GG V2F pulse verification across all nodes.
 - ⚡ **Physical Sovereignty:** Distributed orchestration across specialized hardware (Node Cluster A-D).
-- 🎨 **Clinical Aesthetic:** Industrial retro-futurism (Orange Rust / Cinzel / Lexend).
+- 🎨 **Clinical Aesthetic:** Industrial retro-futurism (Tactical Authority / Cinzel / Lexend).
 - 🐍 **Ouroboros Loops:** Recursive agentic learning and self-healing implementations.
 
 ---

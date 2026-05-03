@@ -11,12 +11,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 // ── NODESTADT palette ─────────────────────────────────────────────────────────
 const NDS = {
-  bg:     '#0A0A0A',
+  bg:     '#1A282F',
   bg1:    '#161616',
   bg2:    '#262626',
-  fg:     '#E5E5E5',
-  accent: '#E07A5F',
-  gold:   '#C7A87A',
+  fg:     '#AFAB9C',
+  accent: '#376374',
+  gold:   '#836A46',
   dim:    '#404040',
   red:    '#FB4934',
   green:  '#B8BB26',
@@ -269,8 +269,8 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
   return (
     <div className="flex flex-col h-full w-full bg-[#111111] border border-[#333333] font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-3 border-b border-[#333333] bg-[#0A0A0A]">
-        <span className="text-[#E07A5F] font-black tracking-widest text-sm uppercase authority-text">◈ SOVEREIGN_HALL</span>
+      <div className="flex items-center justify-between px-6 py-3 border-b border-[#333333] bg-[#1A282F]">
+        <span className="text-[#376374] font-black tracking-widest text-sm uppercase authority-text">◈ SOVEREIGN_HALL</span>
         {traceId && (
           <span className="text-[10px] text-[#A3A3A3] technical-data">ID: {traceId}</span>
         )}
@@ -293,12 +293,12 @@ export function SovereignHall({ nodes = DEFAULT_NODES, traceId }: SovereignHallP
 
       {/* Thought Stream panel */}
       {selected && (
-        <div className="border-t border-[#333333] px-6 py-4 max-h-56 overflow-y-auto bg-[#0A0A0A]/80 backdrop-blur-md">
-          <div className="text-[#E07A5F] text-xs font-black mb-2 tracking-widest uppercase authority-text">◈ THOUGHT_STREAM : {selected.agentId}</div>
+        <div className="border-t border-[#333333] px-6 py-4 max-h-56 overflow-y-auto bg-[#1A282F]/80 backdrop-blur-md">
+          <div className="text-[#376374] text-xs font-black mb-2 tracking-widest uppercase authority-text">◈ THOUGHT_STREAM : {selected.agentId}</div>
           {loading ? (
             <div className="text-[#A3A3A3] technical-data animate-pulse italic">Retrieving fragment…</div>
           ) : (
-            <pre className="text-[11px] text-[#E5E5E5] whitespace-pre-wrap leading-relaxed technical-data">{thought}</pre>
+            <pre className="text-[11px] text-[#AFAB9C] whitespace-pre-wrap leading-relaxed technical-data">{thought}</pre>
           )}
         </div>
       )}

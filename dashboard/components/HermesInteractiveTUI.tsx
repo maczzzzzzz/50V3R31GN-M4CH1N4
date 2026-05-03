@@ -53,7 +53,7 @@ export default function HermesInteractiveTUI() {
       <div className="flex items-center justify-between px-4 py-2 bg-[#111111] border-b border-[#161616]">
         <div className="flex items-center gap-3">
           <div className={`w-1.5 h-1.5 rounded-full ${status === 'online' ? 'bg-[#B8BB26] animate-pulse' : 'bg-[#404040]'}`} />
-          <span className="text-[#E5E5E5] font-black tracking-widest text-[9px] uppercase authority-text">
+          <span className="text-[#AFAB9C] font-black tracking-widest text-[9px] uppercase authority-text">
             HERMES_INTERACTIVE_TERMINAL // v0.12.0
           </span>
         </div>

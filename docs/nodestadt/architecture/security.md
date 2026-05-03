@@ -15,7 +15,7 @@ A proprietary steganographic verification layer for cognitive arteries.
 
 - **V2F Pulse:** High-fidelity reasoning requests (Node D) must include a V2F token extracted from the live 1Hz vision stream.
 - **Visual Signing:** This ensures that the agent is operating within the active environmental context and has not drifted into "Shadow Reasoning".
-- **Hardware Gating:** V2F extraction is performed by the `hermes-router` (Orange Rust), which acts as the mesh-wide security hardgate.
+- **Hardware Gating:** V2F extraction is performed by the `hermes-router` (Tactical Authority), which acts as the mesh-wide security hardgate.
 
 ### 3. Artery Hardening & Sandboxing
 All active logic shards are subject to rigorous containment.

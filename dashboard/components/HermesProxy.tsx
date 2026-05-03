@@ -35,7 +35,7 @@ export default function HermesProxy() {
   }, []);
 
   const statusColor =
-    status === 'online' ? 'text-[#E07A5F]' :
+    status === 'online' ? 'text-[#376374]' :
     status === 'probing' ? 'text-[#404040]' :
     'text-[#FB4934]';
 
@@ -51,7 +51,7 @@ export default function HermesProxy() {
         className="flex items-center justify-between p-4 cursor-crosshair select-none bg-[#111111]"
         onClick={() => setExpanded(e => !e)}
       >
-        <span className="text-[#E07A5F] font-black tracking-widest text-xs uppercase authority-text">
+        <span className="text-[#376374] font-black tracking-widest text-xs uppercase authority-text">
           ◈ HERMES_CONTROL_PLANE // NODE_C
         </span>
         <div className="flex items-center gap-6">

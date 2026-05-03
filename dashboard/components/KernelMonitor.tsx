@@ -9,12 +9,12 @@ interface Props {
 
 function ProgressBar({ value, max, label }: { value: number; max: number; label: string }) {
   const pct = Math.min(100, Math.round((value / max) * 100));
-  const color = pct > 85 ? "bg-[#FB4934]" : "bg-[#E07A5F]";
+  const color = pct > 85 ? "bg-[#FB4934]" : "bg-[#376374]";
   return (
     <div className="mb-4">
       <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-1.5 technical-data">
         <span className="text-[#404040]">{label}</span>
-        <span className="text-[#E07A5F]">{pct}%</span>
+        <span className="text-[#376374]">{pct}%</span>
       </div>
       <div className="w-full bg-[#111111] h-3 overflow-hidden border border-[#262626]">
         <div
@@ -51,8 +51,8 @@ export default function KernelMonitor({ telemetry }: Props) {
 
   return (
     <div className="border border-[#333333] bg-[#161616] p-6 shadow-2xl backdrop-blur-xl">
-      <h2 className="text-[#E07A5F] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
-        <div className="w-2.5 h-2.5 bg-[#E07A5F] rotate-45" /> KERNEL_MONITOR [NODE_A]
+      <h2 className="text-[#376374] text-sm font-black tracking-[0.3em] mb-6 uppercase authority-text flex items-center gap-3">
+        <div className="w-2.5 h-2.5 bg-[#376374] rotate-45" /> KERNEL_MONITOR [NODE_A]
       </h2>
 
       <ProgressBar value={processorStrain} max={100} label="PROCESSOR_STRAIN" />
@@ -62,14 +62,14 @@ export default function KernelMonitor({ telemetry }: Props) {
         <p className="text-[#404040] text-[9px] font-black mb-2 tracking-widest uppercase authority-text">AUDIT_ARTERY</p>
         <div
           ref={logRef}
-          className="bg-[#0A0A0A] border border-[#262626] p-3 h-40 overflow-y-auto text-[10px] font-mono technical-data leading-relaxed"
+          className="bg-[#1A282F] border border-[#262626] p-3 h-40 overflow-y-auto text-[10px] font-mono technical-data leading-relaxed"
         >
           {auditLog.length === 0 ? (
             <span className="text-[#404040] italic tracking-widest uppercase animate-pulse">Waiting for artery link...</span>
           ) : (
             auditLog.map((line, i) => (
-              <div key={i} className="text-[#E5E5E5] border-b border-[#161616] py-1 last:border-none">
-                <span className="text-[#E07A5F] font-black mr-2">Σ</span> {line}
+              <div key={i} className="text-[#AFAB9C] border-b border-[#161616] py-1 last:border-none">
+                <span className="text-[#376374] font-black mr-2">Σ</span> {line}
               </div>
             ))
           )}

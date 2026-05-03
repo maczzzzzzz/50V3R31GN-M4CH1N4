@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('::/ARTERY_SETTINGS_SHORED', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900)), 
-          backgroundColor: Color(0xFFE07A5F)
+          backgroundColor: Color(0xFF376374)
         ),
       );
     }
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final themeService = context.watch<ThemeService>();
-    final accentColor = const Color(0xFFE07A5F);
+    final accentColor = const Color(0xFF376374);
 
     return Container(
       color: const Color(0xFF0A0A0A),

@@ -66,11 +66,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.radar, size: 64, color: const Color(0xFFE07A5F).withOpacity(0.3)),
+          Icon(Icons.radar, size: 64, color: const Color(0xFF376374).withOpacity(0.3)),
           const SizedBox(height: 24),
           const Text(
             'ACTIVE_SESSION_MONITORING',
-            style: TextStyle(color: Color(0xFFE07A5F), letterSpacing: 4.0, fontWeight: FontWeight.w900, fontSize: 10, fontFamily: 'Cinzel'),
+            style: TextStyle(color: Color(0xFF376374), letterSpacing: 4.0, fontWeight: FontWeight.w900, fontSize: 10, fontFamily: 'Cinzel'),
           ),
         ],
       ),
@@ -113,8 +113,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
       itemBuilder: (context, index) {
         final t = triplets[index];
         return GeometricShard(
-          borderColor: const Color(0xFFE07A5F).withOpacity(0.4),
-          leading: const Icon(Icons.hub, color: Color(0xFFE07A5F), size: 18),
+          borderColor: const Color(0xFF376374).withOpacity(0.4),
+          leading: const Icon(Icons.hub, color: Color(0xFF376374), size: 18),
           title: Text(t['content'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
           subtitle: Text(t['timestamp'] ?? '', style: const TextStyle(color: Color(0xFFE5E5E5), fontSize: 13)),
         );

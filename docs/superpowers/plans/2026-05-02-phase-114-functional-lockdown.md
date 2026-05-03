@@ -36,7 +36,7 @@ bottomNavigationBar: Container(
     onTap: _onTabTapped,
     backgroundColor: Colors.transparent,
     type: BottomNavigationBarType.fixed,
-    selectedItemColor: const Color(0xFFF36622),
+    selectedItemColor: const Color(0xFF376374),
     unselectedItemColor: const Color(0xFF404040),
     selectedFontSize: 8,
     unselectedFontSize: 8,
@@ -124,7 +124,7 @@ Update `ArteryClient` to respect the `secure_tunnel` preference for `wss://` vs 
 - Modify: `sidecars/sidecar-browser-extension/popup/popup.js`
 
 - [ ] **Step 1: Implement "Glow-Terminal" HTML/CSS**
-Apply Authority Charcoal (#1A1A1A) and Machina Rust (#F36622) styling.
+Apply Authority Charcoal (#1A1A1A) and Tactical Authority (#376374) styling.
 
 - [ ] **Step 2: Add Ticker Telemetry Stream to JS**
 Update `popup.js` to append JSON pulses to a scrolling log container.

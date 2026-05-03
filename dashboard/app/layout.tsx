@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#0A0A0A] font-sans flex text-[#E5E5E5]">
+      <body className="min-h-screen bg-[#1A282F] font-sans flex text-[#AFAB9C]">
         <SideNav />
         <div className="flex-1 min-w-0">{children}</div>
       </body>

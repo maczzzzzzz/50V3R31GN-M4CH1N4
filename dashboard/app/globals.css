@@ -30,18 +30,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* ◈ NODESTADT_PALETTE — v3.8.30-RENEWAL active design system tokens */
+/* ◈ NODESTADT_PALETTE — v1.3.1 Tactical Authority active design system tokens */
 :root {
-  /* NODESTADT Authority Palette — v3.8.30-RENEWAL */
-  --nodestadt-bg:       #1A1A1A; /* Authority Charcoal */
-  --nodestadt-accent:   #E07A5F; /* Orange Rust */
+  --nodestadt-bg:       #1A282F; /* Tactical Base */
+  --nodestadt-accent:   #376374; /* Authority Primary */
+  --nodestadt-gold:     #836A46; /* Gold Highlight */
+  --nodestadt-text:     #AFAB9C; /* Technical Gray */
   --nodestadt-teal:     #2F4F4F; /* Deep Nodestadt Teal */
-  --nodestadt-gold:     #D4AF37; /* Gold-Brass */
+  --nodestadt-red:      #6F5B3E; /* Vitals Red */
   --nodestadt-fg:       #F2F2F2; /* System White */
-  --nodestadt-panel:    #262626; 
-  --nodestadt-dim:      #C0C0C0; /* Antique Silver */
-  --nodestadt-moss:     #8A9A5B; /* Moss Green */
+  --nodestadt-panel:    #161616; 
+  --nodestadt-dim:      #262626; 
+  --nodestadt-muted:    #404040;
+}
   --nodestadt-nexus:    #4682B4; /* Nexus Blue */
 
   --nodestadt-font: 'Cinzel', serif;

@@ -18,7 +18,7 @@ By forking the upstream implementation, Sovereign Machina gains high-velocity ac
 ### 1. Unified Operator Interface (TUI & Dashboard)
 The harness provides a stabilized, high-fidelity terminal interface and a web-based command deck.
 - **Python TUI:** The primary interactive shell for peer-development, featuring real-time telemetry and a persistent session loop.
-- **Refined Dashboard:** A skin-forked version of the Hermes Dashboard, styled with **Orange Orange Rust** highlights and **Cinzel** typography, embedded directly into the Pretext HUD.
+- **Refined Dashboard:** A skin-forked version of the Hermes Dashboard, styled with **Orange Tactical Authority** highlights and **Cinzel** typography, embedded directly into the Pretext HUD.
 
 ### 2. Standardized Toolset & Skills
 The fork leverages the growing Hermes ecosystem (Atlas) while enforcing Sovereign security standards.

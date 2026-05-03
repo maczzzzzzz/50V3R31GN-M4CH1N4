@@ -71,7 +71,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = const Color(0xFFE07A5F); // Machina Rust
+    final accentColor = const Color(0xFF376374); // Tactical Authority
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
@@ -95,7 +95,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
                 child: CustomPaint(
                   painter: PretextPainter(
                     legacyText: "://NODESTADT_MESH_ACTIVE // ARTERY_SIGNAL_STRENGTH_98 // VOXCPM2_INFERENCE_READY // OMI_PROTOCOL_V1_LOCKED // ST3GG_SIGNATURE_VERIFIED // M7B_BUS_TRUTH_MMAP // PURE_BASE_INVARIANT_ENFORCED",
-                    legacyStyle: const TextStyle(fontSize: 10, color: Color(0xFFE07A5F)),
+                    legacyStyle: const TextStyle(fontSize: 10, color: Color(0xFF376374)),
                   ),
                 ),
               ),
@@ -131,7 +131,7 @@ class _PretextDashboardState extends State<PretextDashboard> with SingleTickerPr
 
   Widget _buildHighFidelityIngressView() {
     final artery = context.watch<ArteryClient>();
-    final accentColor = const Color(0xFFE07A5F);
+    final accentColor = const Color(0xFF376374);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),

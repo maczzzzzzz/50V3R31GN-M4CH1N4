@@ -9,13 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#F36622",
-        background: "#0A0A0A",
+        primary: "#376374",
+        background: "#1A282F",
         panel: "#161616",
         dim: "#262626",
         muted: "#404040",
-        "text-main": "#E5E5E5",
-        accent: "#C7A87A",
+        "text-main": "#AFAB9C",
+        accent: "#836A46",
       },
       fontFamily: {
         sans: ["Lexend", "sans-serif"],

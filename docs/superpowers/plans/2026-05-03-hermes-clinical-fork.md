@@ -87,11 +87,11 @@ If ST3GG verification fails, the agent must return a clinical security readout a
 - Modify: `dashboard/app/globals.css`
 - Modify: `dashboard/components/HermesInteractiveTUI.tsx`
 
-- [ ] **Step 1: Enforce Orange Rust & Cinzel**
+- [ ] **Step 1: Enforce Tactical Authority & Cinzel**
 Synchronize the dashboard with the v1.3.0 brand standard.
 ```css
 :root {
-  --nodestadt-accent: #E07A5F;
+  --nodestadt-accent: #376374;
   --nodestadt-font: 'Cinzel', serif;
 }
 ```

@@ -113,7 +113,7 @@ class PretextPainter extends CustomPainter {
       fontFamily: 'Cinzel',
       fontWeight: ui.FontWeight.w900,
     ));
-    builder.pushStyle(ui.TextStyle(color: legacyStyle?.color ?? const Color(0xFFE07A5F)));
+    builder.pushStyle(ui.TextStyle(color: legacyStyle?.color ?? const Color(0xFF376374)));
     builder.addText(legacyText!);
     final paragraph = builder.build();
     paragraph.layout(ui.ParagraphConstraints(width: size.width));
@@ -124,7 +124,7 @@ class PretextPainter extends CustomPainter {
     try {
       return Color(int.parse(hex.replaceFirst('#', '0xFF')));
     } catch (e) {
-      return const Color(0xFFE07A5F); // Fallback to Machina Rust
+      return const Color(0xFF376374); // Fallback to Tactical Authority
     }
   }
 

@@ -15,7 +15,7 @@ This document maps the physical directories and core files of the Sovereign Mach
 - `crush/`: **Physical Sovereignty Interface.** Go-native primitives.
     - `main.go`: VSB command dispatcher.
     - `st3gg.go`: Steganographic engine for tool-signing.
-- `crates/`: **Hardened muscles.** Orange Rust-based high-performance components.
+- `crates/`: **Hardened muscles.** Tactical Authority-based high-performance components.
 - `sidecars/`: **Decoupled Organs.** Standing by for MCP conversion.
 
 ## 3. THE OPTICAL LAYER (HUD/UI)
