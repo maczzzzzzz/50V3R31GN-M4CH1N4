@@ -2,7 +2,7 @@
   "name": "50v3r31gn-m4ch1n4",
   "version": "3.8.30-RENEWAL",
   "description": "48L173R473D M1ND // 50V3R31GN-M4CH1N4",
-  "icon": "terminal-app/assets/app_icon.png",
+  "icon": "terminal-app/assets/app-icon.png",
   "type": "module",
   "license": "MIT",
   "workspaces": [

@@ -22,23 +22,25 @@
 - [x] **Task 1: Palette Migration:** Global shift from Machina Rust (#F36622) to **Orange Rust (#E07A5F)**.
 - [x] **Task 2: Typography Transition:** Enforced **Cinzel (Serif)** for Authority headers and **Lexend** for technical data across HUD and Mobile.
 - [x] **Task 3: Asset Synchronization:** Embedded high-res refined iconography into Flutter, Next.js, and Monorepo manifests. Locked version at `3.8.30-RENEWAL`.
+- [x] **Task 4: Universal Icon Lock:** Synchronized `terminal-app/assets/app-icon.png` as the absolute branding asset across all desktop and web windows.
 
 ---
 
-## ⚡ PHASE 118: THE CLINICAL FORK IGNITION (ACTIVE)
+## ✅ PHASE 118: THE CLINICAL FORK IGNITION (COMPLETED)
 **Goal:** Execute the hard fork of `hermes-agent` and decommission redundant Node.js infrastructure.
-- [ ] **Task 1: Repository Cleansing:** 
+- [x] **Task 1: Repository Cleansing:** 
   - Physically delete `packages/hermes-core/` (Node.js engine).
   - Prune `pnpm-workspace.yaml` and `package.json` of redundant dev-dependencies.
-- [ ] **Task 2: Hermes Harness Initialisation:**
+- [x] **Task 2: Hermes Harness Initialisation:**
   - Create the `50V3R31GN-M4CH1N4/hermes-harness` fork from `nousresearch/hermes-agent`.
   - Sanitize `pyproject.toml` for NixOS/WSL environment purity.
-- [ ] **Task 3: MCP-Bridge Materialization (VSB):**
+- [x] **Task 3: MCP-Bridge Materialization (VSB):**
   - Create `crates/sovereign-mcp-bridge/` to expose Go/C hardware telemetry to the Python harness.
   - Implement VSB UDP listener (Port 7878) to JSON resource mapping.
-- [ ] **Task 4: ST3GG Tool-Guard Integration:**
+- [x] **Task 4: ST3GG Tool-Guard Integration:**
   - Inject mandatory steganographic signing into the Python `call_tool` loop.
   - Implement 'Clinical Refusal' for unsigned agentic intents.
+- [x] **Task 5: Legacy Artery Stubs:** Materialized `scripts/stubs.ts` to maintain CI/Typecheck parity after `hermes-core` removal.
 
 ## ⚡ PHASE 118.5: THE SOVEREIGN WHISPER ARTERY (STT-MCP)
 **Goal:** Materialize high-performance, hardware-accelerated STT via a decoupled MCP Sidecar.

@@ -16,6 +16,7 @@ versioning follows [Semantic Versioning](https://semver.org).
 ### Changed
 - **Architectural Pivot:** Locked the transition to the Hermes-Agent Clinical Fork as the primary operator harness.
 - **Visual Standard:** Globally synchronized the "Orange Rust" (#E07A5F) and "Cinzel" aesthetic across HUD and Mobile.
+- **Universal Branding Lock:** Materialized `terminal-app/assets/app-icon.png` as the absolute app icon for all authority-associated runtimes and windows. Synchronized assets across web, desktop, and mobile arteries.
 
 ## [3.8.29-GOLD] - 2026-05-02
 

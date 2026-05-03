@@ -43,7 +43,7 @@ async function main() {
   console.log(`◈ Icon generated at: ${generatedPath}`);
 
   // Convert to PNG for Flutter and Android launcher
-  const pngPath = path.join('terminal-app', 'assets', 'icon.png');
+  const pngPath = path.join('terminal-app', 'assets', 'app-icon.png');
   try {
     console.log('◈ Converting to PNG and applying final hardening...');
     await execAsync(`nix shell nixpkgs#imagemagick -c magick "${generatedPath}" -resize 1024x1024! "${pngPath}"`);

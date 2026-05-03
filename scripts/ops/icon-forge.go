@@ -23,6 +23,6 @@ import (
 func main() {
 	fmt.Println("::/5Y573M-N071C3 : ICON_FORGE_PROTOCOL_REFINED.")
 	fmt.Println("◈ MANDATE: Windows requires a native .ico file for stable desktop shortcuts.")
-	fmt.Println("● ACTION_REQUIRED: Convert terminal-app/assets/app_icon.png to sovereign.ico manually.")
+	fmt.Println("● ACTION_REQUIRED: Convert terminal-app/assets/app-icon.png to sovereign.ico manually.")
 	fmt.Println("● PLACEMENT: Save sovereign.ico to C:\\Users\\<User>\\Sovereign_OS\\assets\\")
 }
