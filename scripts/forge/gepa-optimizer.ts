@@ -12,7 +12,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import type { SoulEntry } from '../../packages/hermes-core/src/core/soul-logger.js';
+import type { SoulEntry } from '../stubs.js';
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
@@ -44,7 +44,7 @@ function extractPatterns(entries: SoulEntry[]): ExtractedPattern[] {
     for (const sentence of sentences) {
       const key = sentence.toLowerCase().replace(/\s+/g, ' ');
       const existing = freq.get(key) ?? { count: 0, totalScore: 0 };
-      freq.set(key, { count: existing.count + 1, totalScore: existing.totalScore + entry.training_value });
+      freq.set(key, { count: existing.count + 1, totalScore: existing.totalScore + (entry.training_value ?? 0) });
     }
   }
 
@@ -164,7 +164,7 @@ export function runOptimizer(opts: { dryRun?: boolean; nixPath?: string } = {}):
   }
 
   result.samplesRead = entries.length;
-  const highSignal = entries.filter(e => e.training_value >= HIGH_SIGNAL);
+  const highSignal = entries.filter(e => (e.training_value ?? 0) >= HIGH_SIGNAL);
   result.highSignalCount = highSignal.length;
 
   if (highSignal.length < MIN_SAMPLES) {

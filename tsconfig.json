@@ -22,6 +22,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["packages/*/src/**/*.ts"],
+  "include": ["scripts/audit/**/*.ts", "scripts/forge/**/*.ts"],
   "exclude": ["node_modules", "dist", "tests"]
 }

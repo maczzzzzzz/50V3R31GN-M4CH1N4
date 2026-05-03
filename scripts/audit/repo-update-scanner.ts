@@ -39,11 +39,16 @@ function parseKnowledgeBase(): RepoData[] {
   let match;
 
   while ((match = regex.exec(content)) !== null) {
+    const name = match[1]?.trim() || 'Unknown';
+    const owner = match[2]?.trim() || 'Unknown';
+    const repoRaw = match[3]?.trim() || 'Unknown';
+    const repo = repoRaw.replace(/\)$/, '');
+    
     repos.push({
-      name: match[1].trim(),
-      owner: match[2].trim(),
-      repo: match[3].trim().replace(/\)$/, ''), // Clean up any trailing parentheses
-      link: `https://github.com/${match[2].trim()}/${match[3].trim()}`
+      name,
+      owner,
+      repo,
+      link: `https://github.com/${owner}/${repo}`
     });
   }
 
@@ -110,9 +115,9 @@ async function scan() {
        continue;
     }
 
-    const dateToUse = status.releaseDate || status.latestCommitDate;
-    const yearMatch = dateToUse.match(/^(\d{4})/);
-    const year = yearMatch ? parseInt(yearMatch[1], 10) : 0;
+    const dateToUse = status.releaseDate || status.latestCommitDate || '';
+    const yearMatch = dateToUse ? dateToUse.match(/^(\d{4})/) : null;
+    const year = yearMatch ? parseInt(yearMatch[1] ?? '0', 10) : 0;
     
     let freshness = '';
     if (year === CURRENT_YEAR) {
@@ -127,9 +132,9 @@ async function scan() {
 
     console.log(`${freshness}`);
     if (status.releaseStatus !== 'No releases') {
-      console.log(`  └─ Release: ${status.releaseStatus} (${status.releaseDate.split('T')[0]})`);
+      console.log(`  └─ Release: ${status.releaseStatus} (${status.releaseDate?.split('T')[0] || 'Unknown'})`);
     } else {
-      console.log(`  └─ Latest Commit: ${status.latestCommitDate.split('T')[0] || 'Unknown'}`);
+      console.log(`  └─ Latest Commit: ${status.latestCommitDate?.split('T')[0] || 'Unknown'}`);
     }
   }
 

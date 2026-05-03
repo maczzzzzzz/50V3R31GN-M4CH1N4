@@ -1,5 +1,4 @@
 packages:
-  - "packages/*"
   - "sidecars/*"
   - "crates/*"
   - "dashboard"

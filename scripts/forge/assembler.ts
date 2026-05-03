@@ -11,7 +11,7 @@
  */
 
 import { assemble, LAYOUT_PRESETS } from './blueprint-engine.js';
-import { SteganographyService } from '../../packages/hermes-core/src/core/steganography-service.js';
+import { SteganographyService } from '../stubs.js';
 // We'll assume MotorCortex is available via a singleton or can be instantiated
 // For this script, we'll simulate the bridge dispatch
 

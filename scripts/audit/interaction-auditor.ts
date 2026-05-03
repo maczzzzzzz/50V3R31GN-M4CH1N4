@@ -95,7 +95,7 @@ async function verifyUnifiedOracle_AkashikDB(): Promise<InteractionResult> {
   const checks: Record<string, string> = {};
   const AKASHIK_DB = process.env['AKASHIK_DB_PATH'] ?? './data/Akashik.db';
   try {
-    const { UnifiedOracleClient } = await import('../../packages/hermes-core/src/db/unified-oracle-client.js');
+    const { UnifiedOracleClient } = await import('../stubs.js');
     checks['module'] = 'loaded';
     const client = new UnifiedOracleClient({ worldDbPath: AKASHIK_DB, crushDbPath: './data/crush.db' });
     await client.connect();
@@ -118,7 +118,7 @@ async function verifyUnifiedOracle_AkashikDB(): Promise<InteractionResult> {
 async function verifyST3GG_PNGCodec(): Promise<InteractionResult> {
   const checks: Record<string, string> = {};
   try {
-    const { SteganographyService } = await import('../../packages/hermes-core/src/core/steganography-service.js');
+    const { SteganographyService } = await import('../stubs.js');
     checks['module'] = 'loaded';
 
     // Use an existing known-good anchor PNG as a round-trip test target

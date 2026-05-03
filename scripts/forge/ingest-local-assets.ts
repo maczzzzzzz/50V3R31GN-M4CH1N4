@@ -17,7 +17,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import Database from 'better-sqlite3';
-import { SteganographyService } from '../../packages/hermes-core/src/core/steganography-service.js';
+import { SteganographyService } from '../stubs.js';
 import 'dotenv/config';
 
 const ASSETS_ROOT = './assets';
