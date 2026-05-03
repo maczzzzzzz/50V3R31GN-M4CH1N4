@@ -9,7 +9,6 @@
 
 [**Documentation**](docs/nodestadt/) | [**Architecture**](docs/nodestadt/architecture/topology.md) | [**Roadmap**](IMPLEMENTATION_PLAN.md) | [**Identity**](SOUL.md)
 
-
 **50V3R31GN-M4CH1N4** is a quaternary-mesh, multi-modal operating system and agentic orchestrator. Now consolidated on the **Hermes-Agent Clinical Fork (v1.3.0)**, it provides a hardened, upstream-aligned harness for high-fidelity peer-development and physical sovereignty.
 
 </div>
