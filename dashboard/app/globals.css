@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&family=Lexend:wght@300;400;500;700&family=Cinzel:wght@400;700;900&display=swap');
 
-/* ◈ SOVEREIGN_THEME — inlined from packages/hermes-core/src/shared/sovereign-theme.css (decommissioned) */
+/* ◈ SOVEREIGN_LEGACY — inlined from decommissioned packages/hermes-core (do not remove — legacy component refs) */
 :root {
   --sovereign-void:   #0a0a0a;
   --sovereign-red:    #ff1a1a;
@@ -31,6 +31,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ◈ NODESTADT_PALETTE — v3.8.30-RENEWAL active design system tokens */
 :root {
   /* NODESTADT Authority Palette — v3.8.30-RENEWAL */
   --nodestadt-bg:       #1A1A1A; /* Authority Charcoal */
@@ -47,6 +48,10 @@
   --primary:    var(--nodestadt-accent);
   --background: var(--nodestadt-bg);
   --panel:      var(--nodestadt-panel);
+
+  /* Sovereign legacy aliases — redirect legacy component refs to nodestadt tokens */
+  --sovereign-panel: var(--nodestadt-panel);
+  --sovereign-dim:   var(--nodestadt-dim);
 }
 
 html, body {
