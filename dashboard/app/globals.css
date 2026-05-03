@@ -1,5 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&family=Lexend:wght@300;400;500;700&family=Cinzel:wght@400;700;900&display=swap');
-@import '../../packages/hermes-core/src/shared/sovereign-theme.css';
+
+/* ◈ SOVEREIGN_THEME — inlined from packages/hermes-core/src/shared/sovereign-theme.css (decommissioned) */
+:root {
+  --sovereign-void:   #0a0a0a;
+  --sovereign-red:    #ff1a1a;
+  --sovereign-blood:  #440000;
+  --sovereign-panel:  #0f0f1a;
+  --sovereign-dim:    #1a1a2e;
+  --sovereign-text:   #e0e0e0;
+  --sovereign-muted:  #888888;
+  --sovereign-glow-sm:  0 0 6px  rgba(255, 26, 26, 0.6);
+  --sovereign-glow-md:  0 0 10px rgba(255, 26, 26, 0.8);
+  --sovereign-glow-lg:  0 0 18px rgba(255, 26, 26, 1.0);
+  --font-machine: 'Space Grotesk', monospace;
+  --font-human:   'JetBrains Mono', 'Hack', 'Fira Code', monospace;
+}
+.provenance-machine {
+  font-family: var(--font-machine) !important;
+  color: var(--sovereign-red) !important;
+  text-shadow: var(--sovereign-glow-sm);
+  letter-spacing: 0.05em;
+}
+.provenance-human {
+  font-family: var(--font-human) !important;
+  color: var(--sovereign-text);
+  text-shadow: none;
+}
 
 @tailwind base;
 @tailwind components;
