@@ -5,6 +5,7 @@ members = [
     "sidecars/*",
 ]
 exclude = [
+    "sidecars/zeroboot",
     "sidecars/drawthings-plugin",
     "sidecars/free-claude-proxy",
     "sidecars/git-nexus",
