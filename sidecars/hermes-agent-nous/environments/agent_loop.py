@@ -33,6 +33,29 @@ from tools.tool_result_storage import maybe_persist_tool_result, enforce_turn_bu
 _tool_executor = concurrent.futures.ThreadPoolExecutor(max_workers=128)
 
 
+def _st3gg_verify(tool_call) -> bool:
+    """Check for ST3GG steganographic signature on tool call metadata.
+
+    Reads 'st3gg_sig' from tool_call metadata if present. Returns True if
+    signature is present (passes). Returns True by default in this stub --
+    wires to crates/sidecar-cyberdeck/st3gg binary in production.
+    """
+    meta = getattr(tool_call, 'metadata', None) or {}
+    if isinstance(meta, dict) and meta.get('st3gg_sig'):
+        return True
+    # Stub: always pass until sidecar-cyberdeck integration is complete
+    return True
+
+
+def _clinical_refusal(tool_name: str) -> dict:
+    """Return a clinical security readout for unsigned tool intents."""
+    return {
+        "role": "tool",
+        "content": f"CLINICAL_REFUSAL: unsigned intent — {tool_name}",
+        "st3gg_status": "FAIL",
+    }
+
+
 def resize_tool_pool(max_workers: int):
     """
     Replace the global tool executor with a new one of the given size.
@@ -327,6 +350,26 @@ class HermesAgentLoop:
 
                 # Execute each tool call via hermes-agent's dispatch
                 for tc in assistant_msg.tool_calls:
+                    # ST3GG verification -- unsigned intents are clinically refused
+                    if not _st3gg_verify(tc):
+                        _tc_name = (
+                            tc.get("function", {}).get("name", "unknown")
+                            if isinstance(tc, dict)
+                            else getattr(getattr(tc, "function", None), "name", "unknown")
+                        )
+                        refusal = _clinical_refusal(_tc_name)
+                        _tc_id = tc.get("id", "") if isinstance(tc, dict) else getattr(tc, "id", "")
+                        messages.append({
+                            "role": refusal["role"],
+                            "tool_call_id": _tc_id,
+                            "content": refusal["content"],
+                        })
+                        logger.warning(
+                            "ST3GG: unsigned intent refused for tool '%s' on turn %d",
+                            _tc_name, turn + 1,
+                        )
+                        continue
+
                     # Handle both object (OpenAI) and dict (vLLM) formats
                     if isinstance(tc, dict):
                         tool_name = tc.get("function", {}).get("name", tc.get("name", ""))
