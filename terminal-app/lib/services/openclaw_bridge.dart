@@ -23,10 +23,7 @@ class OpenClawBridge extends ChangeNotifier {
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
-    final nodeBIp = prefs.getString('node_b_ip') ?? '100.101.177.76';
-    final port = prefs.getString('rpc_port') ?? '3011';
-    
-    final url = 'ws://$nodeBIp:$port/rpc';
+    final url = prefs.getString('gateway_url') ?? 'ws://node-b:8000/ws';
     _connect(url);
   }
 
@@ -36,7 +33,7 @@ class OpenClawBridge extends ChangeNotifier {
     try {
       _rpcChannel = WebSocketChannel.connect(Uri.parse(url));
       _isConnected = true;
-      _addLog("::/RPC_BRIDGE_ACTIVE : $url");
+      _addLog("::/GATEWAY_ARTERY_ACTIVE : $url");
       notifyListeners();
 
       _rpcChannel!.stream.listen(
