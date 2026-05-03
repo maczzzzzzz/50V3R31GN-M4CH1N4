@@ -1,244 +1,375 @@
-# ◈ NODESTADT ARCHITECTURE : HERMES CLINICAL FORK & SIDECAR SOVEREIGNTY (v1.0.0)
-## Phase 118 → 118.5 → 119 Architectural Shift
+# ◈ NODESTADT ARCHITECTURE : MONOREPO, FORKS & SIDECAR SOVEREIGNTY (v2.0.0)
+## The Complete Workflow Guide — Phase 118 → 119 Architectural Shift
 
 ---
 
-## 1. WHAT HAPPENED — THE PLAIN READ
+## 1. THE SHORT ANSWER
 
-Before Phase 118, the monorepo had two competing hermes implementations:
+**Where do you work?**
+Always in `github.com/nodestadt/50V3R31GN-M4CH1N4`. That is the Sovereign Machina OS. It is the only repo you touch day-to-day. Every other repo (hermes-agent, halo, hermeshub, etc.) is a dependency that lives inside it.
 
-| Path | Language | Status before Phase 118 |
-| :--- | :--- | :--- |
-| `packages/hermes-core/` | TypeScript (Node.js) | Shadow logic — partially duplicating the Python harness |
-| `sidecars/hermes-agent-nous/` | Python (NousResearch upstream) | Vendored copy, no upstream tracking |
+**Does hermes-agent auto-update into the monorepo?**
+No. Nothing auto-updates anywhere. Git submodules are intentionally frozen at a specific commit SHA. Upstream repos (NousResearch, context-labs, etc.) can ship new code every hour — your monorepo will not change until you explicitly decide to pull and bump the pin. This is a feature, not a limitation.
 
-Phase 118 executed the **clinical fork**: deleted `packages/hermes-core/` (94 files, 10,033 lines) and declared `sidecars/hermes-agent-nous/` the single source of truth for all Hermes reasoning. Phases 118.5 and 119 built the VSB audio artery and HUD encapsulation on top of that foundation.
-
-At the end of that cycle, the Python sidecar was still raw vendored files — a snapshot of NousResearch code with our patches applied directly on top, no upstream remote, no version pin.
-
-**Phase 118 also surfaced 13 orphaned gitlink entries** in the monorepo index: `sidecars/halo`, `sidecars/hermeshub`, `sidecars/gepa-*`, etc. These were ghost pointers left over from submodules that were previously deleted without proper `git submodule deinit` cleanup. The files on disk were never touched — `git rm --cached` only removes the 160000-mode index entry, not the filesystem directory. Every one of those sidecar directories still exists exactly as-is.
+**What changed in Phase 118?**
+The monorepo's internal Node.js reimplementation of Hermes (`packages/hermes-core/`) was deleted. The real NousResearch Python agent (`sidecars/hermes-agent-nous/`) became the authoritative runtime. That Python sidecar is now tracked as a proper git submodule pointing to a patched fork we own (`nodestadt/hermes-agent`).
 
 ---
 
-## 2. THE DATA SAFETY GUARANTEE
+## 2. THE TWO-REPO MODEL
+
+There are exactly two repos you will ever care about:
 
 ```
-git rm --cached <path>   ←  removes the gitlink from the INDEX only
-                             does NOT touch the filesystem
-                             does NOT delete any files
+┌─────────────────────────────────────────────────────────────┐
+│  github.com/nodestadt/50V3R31GN-M4CH1N4  (THE MONOREPO)    │
+│                                                             │
+│  This is Sovereign Machina OS. You live here.              │
+│  All code, all crates, all phases, all dashboards.         │
+│  Local path: //wsl.localhost/NixOS/home/nixos/             │
+│              50V3R31GN-M4CH1N4                              │
+│  Branch: master                                             │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ contains (as submodule)
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  github.com/nodestadt/hermes-agent  (THE FORK)              │
+│                                                             │
+│  Your patched fork of NousResearch/hermes-agent.           │
+│  You only touch this when pulling a new upstream release.  │
+│  Never commit here during normal dev cycles.               │
+│  Local path: //wsl.localhost/NixOS/home/nixos/             │
+│              50V3R31GN-M4CH1N4/sidecars/hermes-agent-nous  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ forked from
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  github.com/NousResearch/hermes-agent  (UPSTREAM)           │
+│                                                             │
+│  The original. You never touch this.                       │
+│  You pull from it when NousResearch ships new releases.    │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**All sidecars are intact:**
-
-| Sidecar | Status |
-| :--- | :--- |
-| `sidecars/halo` | On disk, untracked — contents 100% preserved |
-| `sidecars/hermeshub` | On disk, untracked — contents 100% preserved |
-| `sidecars/hermes-web-ui` | On disk, untracked — contents 100% preserved |
-| `sidecars/hermes-desktop` | On disk, untracked — contents 100% preserved |
-| `sidecars/worldseed` | On disk, untracked — contents 100% preserved |
-| `sidecars/free-claude-proxy` | On disk, untracked — contents 100% preserved |
-| `sidecars/git-nexus` | On disk, untracked — contents 100% preserved |
-| `sidecars/skill-marketplace` | On disk, untracked — contents 100% preserved |
-| `sidecars/sidecar-proxy` | On disk, untracked — contents 100% preserved |
-| `sidecars/paperclip-adapter` | On disk, untracked — contents 100% preserved |
-| `sidecars/zeroboot` | On disk, untracked — contents 100% preserved |
-
-They are currently **untracked** by git (show as `??` in `git status`), which means git ignores them — a safe holding state. To re-integrate any of them properly, see Section 5.
+### The Rule
+- **Building features, fixing bugs, running phases** → work in `50V3R31GN-M4CH1N4`
+- **Pulling a new NousResearch release** → work in the fork, then bump the pin in `50V3R31GN-M4CH1N4`
+- **Never** develop directly in `nodestadt/hermes-agent` outside of an upstream-pull event
 
 ---
 
-## 3. THE NEW HERMES ARCHITECTURE
+## 3. WHAT A GIT SUBMODULE ACTUALLY IS
 
-### 3.1 The Fork Chain
-
-```
-NousResearch/hermes-agent  (upstream — MIT)
-        │
-        │  github.com fork
-        ▼
-nodestadt/hermes-agent  (your fork)
-        │
-        │  sovereign-patches branch
-        │    commit 1: feat(sovereign): ST3GG guard + vision artery constants
-        │    commit 2: feat(sovereign): SOVEREIGN_ARTERY + whisper-mcp stub
-        │    commit 3: feat(sovereign): Tactical Authority v1.3.1 palette
-        │    commit 4: feat(sovereign): cli-config.yaml with MCP registrations
-        │  merged → main @ 0ce9231396495192b2e32d5e14d2b6493f157bfb
-        │
-        │  git submodule
-        ▼
-50V3R31GN-M4CH1N4/sidecars/hermes-agent-nous  (monorepo pin)
-```
-
-### 3.2 What the Sovereign Patches Add
-
-| File | Change | Phase |
-| :--- | :--- | :--- |
-| `environments/agent_loop.py` | ST3GG tool-guard (unsigned intents clinically refused) + `VISION_ARTERY_URL`/`VISION_ARTERY_HZ` env constants | 118 + 119 |
-| `tools/transcription_tools.py` | `SOVEREIGN_ARTERY` comment (MCP-first STT priority) + `_get_ambient_intent_from_whisper_mcp()` stub | 118.5 |
-| `web/src/index.css` | Tactical Authority v1.3.1 palette (`#1A282F` bg, `#376374` accent, Cinzel/Lexend) | 119 |
-| `cli-config.yaml` | MCP server registrations: `sovereign_mcp_bridge` (port 7878 VSB) + `sovereign_whisper_mcp` (STT artery) | 118.5 |
-
-### 3.3 What Lives Where Now
+This is the most important concept to understand. A submodule is not a sync, a mirror, or a live connection. It is a **pinned SHA pointer**.
 
 ```
-50V3R31GN-M4CH1N4/
-├── crates/
-│   ├── sovereign-mcp-bridge/      ← VSB UDP→MCP bridge (Rust, Phase 118)
-│   └── sovereign-whisper-mcp/     ← STT artery (Rust, Phase 118.5)
-├── dashboard/
+.gitmodules file in 50V3R31GN-M4CH1N4:
+┌──────────────────────────────────────────────────────────┐
+│ [submodule "sidecars/hermes-agent-nous"]                 │
+│   path = sidecars/hermes-agent-nous                      │
+│   url  = https://github.com/nodestadt/hermes-agent.git   │
+└──────────────────────────────────────────────────────────┘
+
+Git index entry (the pin):
+  160000  0ce9231396495192b2e32d5e14d2b6493f157bfb  sidecars/hermes-agent-nous
+          ↑ this SHA is the exact commit in nodestadt/hermes-agent
+            that the monorepo is currently locked to
+```
+
+When you `cd sidecars/hermes-agent-nous` you are inside a complete, separate git repository — it just happens to live inside the monorepo's filesystem. It has its own `git log`, its own branches, its own history.
+
+**What does NOT happen automatically:**
+- When nodestadt/hermes-agent gets a new commit → the monorepo SHA does NOT change
+- When NousResearch ships v0.13.0 → nothing in your monorepo changes
+- There are no webhooks, no Actions, no cron jobs that bump this
+
+**What DOES happen:**
+- When you `git clone --recurse-submodules 50V3R31GN-M4CH1N4`, git checks out `sidecars/hermes-agent-nous` at exactly that pinned SHA
+- The files you see in `sidecars/hermes-agent-nous/` are always the version pinned in the index
+
+---
+
+## 4. THE FULL ARCHITECTURE MAP
+
+```
+50V3R31GN-M4CH1N4/ (monorepo, master branch)
+│
+├── crates/                          ← Rust components (all owned by nodestadt)
+│   ├── sovereign-mcp-bridge/        Phase 118: VSB UDP→MCP bridge, port 7878
+│   ├── sovereign-whisper-mcp/       Phase 118.5: STT artery, PCM-16 ring buffer
+│   └── [other crates]/
+│
+├── dashboard/                       ← Next.js HUD (owned by nodestadt)
+│   ├── app/
+│   │   └── globals.css              Tactical Authority v1.3.1 palette
 │   └── components/
-│       └── HermesInteractiveTUI.tsx  ← iframe → port 9119, Phase 119
+│       └── HermesInteractiveTUI.tsx iframe → port 9119 (hermes-agent web UI)
+│
 ├── sidecars/
-│   └── hermes-agent-nous/         ← git submodule → nodestadt/hermes-agent
-│       ├── environments/
-│       │   └── agent_loop.py      ← ST3GG guard, vision artery stub
-│       ├── tools/
-│       │   └── transcription_tools.py  ← whisper-mcp stub
-│       ├── web/src/index.css      ← Tactical Authority palette
-│       └── cli-config.yaml        ← MCP server registrations
-└── .gitmodules                    ← pins nodestadt/hermes-agent @ SHA
+│   │
+│   ├── hermes-agent-nous/    ◄──── SUBMODULE: nodestadt/hermes-agent @ 0ce9231
+│   │   ├── environments/
+│   │   │   └── agent_loop.py        PATCHED: ST3GG guard + vision artery stub
+│   │   ├── tools/
+│   │   │   └── transcription_tools.py  PATCHED: whisper-mcp stub
+│   │   ├── web/src/index.css        PATCHED: Tactical Authority palette
+│   │   └── cli-config.yaml          ADDED: MCP server registrations
+│   │
+│   ├── halo/                 ◄──── SUBMODULE: context-labs/halo @ 5fdc06f
+│   │   └── [agent optimization loop — RLM-based trace analysis]
+│   │
+│   ├── hermeshub/            ◄──── SUBMODULE: amanning3390/hermeshub @ 55e6fb9
+│   │   └── [skills registry + marketplace, x402 payments]
+│   │
+│   ├── hermes-web-ui/        ◄──── SUBMODULE: EKKOLearnAI/hermes-web-ui @ caa9162
+│   │   └── [Vue 3 web dashboard: chat, sessions, scheduling, analytics]
+│   │
+│   ├── hermes-desktop/       ◄──── SUBMODULE: fathah/hermes-desktop @ 8678cd5
+│   │   └── [Electron app: guided install, chat, profiles, tools, skills]
+│   │
+│   ├── worldseed/            ◄──── SUBMODULE: AIScientists-Dev/WorldSeed @ 928416c
+│   │   └── [multi-agent world engine, emergent scenarios, AI Dungeon Master]
+│   │
+│   ├── free-claude-proxy/    ◄──── SUBMODULE: Alishahryar1/free-claude-code @ d3a3b37
+│   │   └── [proxy: Claude Code → NVIDIA NIM / OpenRouter / LM Studio / Ollama]
+│   │
+│   ├── skill-marketplace/    ◄──── SUBMODULE: Lethe044/hermes-skill-marketplace @ 10754a2
+│   │   └── [Skill Forge: observe→write→test→publish to agentskills.io]
+│   │
+│   ├── paperclip-adapter/    ◄──── SUBMODULE: NousResearch/hermes-paperclip-adapter @ 937ea71
+│   │   └── [Hermes ↔ Paperclip orchestration bridge]
+│   │
+│   ├── zeroboot/             ◄──── SUBMODULE: zerobootdev/zeroboot @ 87ca9c0
+│   │   └── [sub-ms VM sandboxes for agent isolation via Firecracker KVM]
+│   │
+│   ├── git-nexus/            ◄──── TRACKED DIR (no upstream): code knowledge graph + MCP
+│   └── sidecar-proxy/        ◄──── TRACKED DIR (no upstream): multi-provider proxy CLI
+│
+├── terminal-app/                    ← Flutter mobile app (owned by nodestadt)
+│   └── lib/services/openclaw_bridge.dart   ws://node-b:8000/ws gateway
+│
+├── .gitmodules                      ← all submodule URL + path mappings
+└── IMPLEMENTATION_PLAN.md           ← phase roadmap
 ```
 
 ---
 
-## 4. THE UPDATE WORKFLOW (HOW TO PULL UPSTREAM)
+## 5. DAILY DEVELOPMENT WORKFLOW
 
-When NousResearch ships a new hermes-agent release and you want to incorporate it:
+### 5.1 Normal feature work (most of the time)
 
-### 4.1 Update the fork
+You never leave the monorepo. Everything is a path inside `50V3R31GN-M4CH1N4`.
 
 ```bash
-# Work in a temp clone of your fork
-git clone https://github.com/nodestadt/hermes-agent /tmp/hermes-fork-update
-cd /tmp/hermes-fork-update
+# Clone the monorepo fresh (one-time on a new machine)
+git clone --recurse-submodules https://github.com/nodestadt/50V3R31GN-M4CH1N4
+cd 50V3R31GN-M4CH1N4
 
-# Add the NousResearch upstream remote (one-time)
+# OR if you already have a clone but submodules are not initialized:
+git submodule update --init --recursive
+
+# Daily work: edit files, run tests, commit
+cd 50V3R31GN-M4CH1N4
+# ... make changes to dashboard/, crates/, terminal-app/, etc. ...
+git add <files>
+git commit -m "feat: ..."
+git push origin master
+```
+
+### 5.2 Modifying the Hermes sidecar (rare — only for sovereign patches)
+
+If you need to change files inside `sidecars/hermes-agent-nous/`, those changes must go to `nodestadt/hermes-agent` first, then be pulled back into the monorepo via a submodule bump. You do not commit sidecar changes from inside the monorepo.
+
+```bash
+# Step 1: Open a separate terminal and clone the fork
+git clone https://github.com/nodestadt/hermes-agent /tmp/hermes-work
+cd /tmp/hermes-work
+git checkout sovereign-patches     # always patch on this branch
+
+# Step 2: Make your changes, commit them
+# e.g., adding a new sovereign tool guard or wiring Phase 120 logic
+git add environments/agent_loop.py
+git commit -m "feat(sovereign): wire Phase 120 MCP client to whisper artery"
+
+# Step 3: Merge to main and push
+git checkout main
+git merge sovereign-patches --no-ff -m "merge: sovereign patch vX"
+git push origin main
+git push origin sovereign-patches
+
+# Step 4: Back in the monorepo, bump the submodule pin
+cd /path/to/50V3R31GN-M4CH1N4
+git submodule update --remote sidecars/hermes-agent-nous
+git add sidecars/hermes-agent-nous
+git commit -m "chore(hermes): bump submodule SHA — Phase 120 whisper wiring"
+```
+
+### 5.3 Pulling a new NousResearch upstream release
+
+Do this when NousResearch ships a significant update to hermes-agent that you want.
+
+```bash
+# Clone or use existing fork clone
+git clone https://github.com/nodestadt/hermes-agent /tmp/hermes-update
+cd /tmp/hermes-update
+
+# Add NousResearch as upstream (one-time per machine)
 git remote add upstream https://github.com/NousResearch/hermes-agent
 
-# Fetch the new upstream release
-git fetch upstream
+# Fetch the new upstream
 git fetch upstream --tags
 
-# Rebase sovereign-patches onto the new upstream tag (e.g., v0.13.0)
+# Rebase sovereign-patches onto new upstream tag
 git checkout sovereign-patches
-git rebase upstream/v0.13.0
+git rebase upstream/vX.Y.Z
 
-# Fix any merge conflicts in:
-#   environments/agent_loop.py   (ST3GG guard position may shift with new lines)
-#   tools/transcription_tools.py (whisper stub may conflict with upstream voice changes)
-#   web/src/index.css            (new upstream styles may clash with TA palette)
-#   cli-config.yaml              (new upstream keys may appear)
+# Resolve any conflicts in:
+#   environments/agent_loop.py   — ST3GG guard (line numbers may shift)
+#   tools/transcription_tools.py — whisper-mcp stub
+#   web/src/index.css            — Tactical Authority palette
+#   cli-config.yaml              — MCP server registrations
 
-# Merge rebased sovereign-patches into main
+# Merge into main and push
 git checkout main
-git merge sovereign-patches --no-ff -m "merge: sovereign patches onto upstream vX.Y.Z"
+git merge sovereign-patches --no-ff -m "merge: sovereign patches onto NousResearch vX.Y.Z"
 git push origin main --force-with-lease
 git push origin sovereign-patches --force-with-lease
-```
 
-### 4.2 Bump the monorepo submodule
-
-```bash
+# Bump the monorepo pin
 cd /path/to/50V3R31GN-M4CH1N4
-
-# Pull the new fork HEAD into the submodule
 git submodule update --remote sidecars/hermes-agent-nous
-
-# Commit the SHA bump
 git add sidecars/hermes-agent-nous
-git commit -m "chore(hermes): bump submodule to upstream vX.Y.Z + sovereign patches"
+git commit -m "chore(hermes): bump to NousResearch vX.Y.Z + sovereign patches"
 ```
 
-### 4.3 Initialize submodule on a fresh clone
+### 5.4 Updating a third-party sidecar (halo, hermeshub, etc.)
 
-Anyone cloning the monorepo must run:
-
-```bash
-git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4
-cd 50V3R31GN-M4CH1N4
-git submodule update --init --recursive
-```
-
-Or clone with submodules in one command:
+The other sidecars (halo, hermes-web-ui, etc.) are pinned to their upstream repos directly — no nodestadt fork. If you want the latest version:
 
 ```bash
-git clone --recurse-submodules https://github.com/nodestadt/50V3R31GN-M4CH1N4
+# Example: update halo to latest upstream
+cd sidecars/halo
+git fetch origin
+git checkout main
+git pull origin main
+
+# Back in monorepo: the sidecar's HEAD has changed, stage the new SHA
+cd /path/to/50V3R31GN-M4CH1N4
+git add sidecars/halo
+git commit -m "chore(halo): bump to latest context-labs/halo"
 ```
 
 ---
 
-## 5. RE-INTEGRATING THE UNTRACKED SIDECARS
+## 6. THE SUBMODULE STATUS LEGEND
 
-The sidecars currently untracked (Section 2) have three re-integration paths depending on their nature:
+When you run `git submodule status` in the monorepo:
 
-### Path A — Regular tracked directory (self-contained, no upstream)
-For sidecars you own entirely (e.g., `sidecars/worldseed`, `sidecars/zeroboot`):
-
-```bash
-git add sidecars/worldseed
-git commit -m "chore: re-track sidecars/worldseed as regular directory"
+```
+ 0ce9231... sidecars/hermes-agent-nous  (heads/main)    ← initialized, up to date
+-5fdc06f... sidecars/halo                               ← registered, NOT initialized
++928416c... sidecars/worldseed                          ← initialized, differs from pinned SHA
+U           sidecars/zeroboot                           ← merge conflict (rare)
 ```
 
-### Path B — Fork-backed submodule (external upstream to track)
-For sidecars that ARE forks of external repos (e.g., `sidecars/halo` if it forks an upstream):
-
-```bash
-# Fork the upstream to nodestadt org on GitHub first
-# Then:
-git submodule add https://github.com/nodestadt/<repo>.git sidecars/<name>
-# Apply your patches to the fork, push, bump SHA
-```
-
-### Path C — Archive (deprecated, not needed)
-If a sidecar is superseded and not needed:
-
-```bash
-# Leave as untracked — git ignores it, files preserved
-# Add to .gitignore if you want `git status` to stop showing it:
-echo "sidecars/<name>/" >> .gitignore
-```
-
-### Current recommended status per sidecar
-
-| Sidecar | Recommended Path | Notes |
+| Prefix | Meaning | Action |
 | :--- | :--- | :--- |
-| `halo` | B (submodule) if upstream exists, else A | Check for upstream remote |
-| `hermeshub` | A or C | Evaluate if superseded by hermes-agent |
-| `hermes-web-ui` | C (archive) | Superseded by hermes-agent `web/` + dashboard iframe |
-| `hermes-desktop` | C (archive) | Superseded by HermesInteractiveTUI.tsx |
-| `worldseed` | A (re-track) | Internal — add back as regular directory |
-| `free-claude-proxy` | A or B | Evaluate upstream |
-| Others | A (re-track) | Re-evaluate per Phase 120 roadmap |
+| ` ` (space) | Initialized, checked out at correct SHA | Nothing — this is healthy |
+| `-` | Registered in .gitmodules but not yet initialized locally | Run `git submodule update --init sidecars/<name>` |
+| `+` | Initialized but checked out at a different SHA than pinned | Run `git submodule update sidecars/<name>` to snap back, OR bump the pin if you intentionally moved it |
+| `U` | Merge conflict inside the submodule | Resolve conflict inside the submodule directory |
+
+**The `-` prefix on most sidecars is normal.** It means the submodule is registered in `.gitmodules` and pinned in the index, but you have not run `git submodule update --init` to check them out. The files in those directories are your local working copies that exist on disk independently — they just are not git-managed checkouts yet.
 
 ---
 
-## 6. THE BROADER SIDECAR SOVEREIGNTY PRINCIPLE
+## 7. WHAT HAPPENED TO THE SIDECARS — THE FULL STORY
 
-The architectural decision made in Phase 118 establishes a pattern for all future external integrations:
+Before Phase 118, the monorepo had 13 ghost gitlink entries in its git index. These are `160000`-mode entries (the git type for submodule pointers) that had been left behind when submodules were previously removed using `git rm` instead of `git submodule deinit`. The directories were still on disk; only the index entry was corrupt/orphaned.
 
-1. **Never vendor raw.** External repos become tracked gitlinks (submodules), not copied directories.
-2. **Fork before patching.** All sovereign modifications go on `nodestadt/<fork>`, never directly into index files.
-3. **Patches are commits.** Every deviation from upstream is a named, reviewable commit on the `sovereign-patches` branch.
-4. **The monorepo pins SHAs.** The monorepo's `.gitmodules` + index SHA is the source of truth for exactly what version of each external dependency is running.
-5. **Update on your schedule.** Submodule SHAs never auto-bump. Upstream can ship daily — you absorb updates deliberately, with rebase + review.
+The cleanup used `git rm --cached` which removes only the index entry:
 
-This model is identical to how the Linux kernel manages vendor trees, how Chromium manages V8, and how major distributions maintain patched packages upstream. The fork is the interface; the monorepo is the integration point.
+```
+git rm --cached <path>
+  │
+  ├── DOES: remove the 160000 gitlink record from the git index
+  ├── DOES NOT: touch any file on disk
+  └── DOES NOT: delete the directory or its contents
+```
+
+Every sidecar directory was 100% intact throughout. The only thing that changed was whether git was tracking a pointer to it.
+
+After cleanup and restoration, all 11 sidecars are now properly registered:
+
+| Sidecar | Type | Upstream | What It Does |
+| :--- | :--- | :--- | :--- |
+| `hermes-agent-nous` | Submodule (nodestadt fork) | NousResearch/hermes-agent | Primary Python agent harness — ST3GG patched |
+| `halo` | Submodule | context-labs/halo | RLM agent optimization loop — analyzes traces, generates improvement reports |
+| `hermeshub` | Submodule | amanning3390/hermeshub | Skills registry + marketplace, GitHub OAuth, security scanning |
+| `hermes-web-ui` | Submodule | EKKOLearnAI/hermes-web-ui | Vue 3 production web dashboard: chat, sessions, channels, analytics |
+| `hermes-desktop` | Submodule | fathah/hermes-desktop | Electron desktop client: guided install, chat, profiles, scheduling |
+| `worldseed` | Submodule | AIScientists-Dev/WorldSeed | Multi-agent world simulation engine with emergent AI outcomes |
+| `free-claude-proxy` | Submodule | Alishahryar1/free-claude-code | Claude Code → NVIDIA NIM / OpenRouter / Ollama / LM Studio proxy |
+| `skill-marketplace` | Submodule | Lethe044/hermes-skill-marketplace | Skill Forge: observe tasks → write SKILL.md → test → publish |
+| `paperclip-adapter` | Submodule | NousResearch/hermes-paperclip-adapter | Hermes ↔ Paperclip orchestration bridge |
+| `zeroboot` | Submodule | zerobootdev/zeroboot | Sub-millisecond Firecracker KVM sandboxes for agent task isolation |
+| `git-nexus` | Tracked directory | none (nodestadt-local) | Code knowledge graph + MCP tools for Cursor/Claude Code |
+| `sidecar-proxy` | Tracked directory | none (nodestadt-local) | Multi-provider proxy CLI (OpenAI/Gemini/Claude/Codex) |
 
 ---
 
-## 7. PHASE LINEAGE
+## 8. THE SOVEREIGN PATCHES ON nodestadt/hermes-agent
 
-| Phase | Commit Range | What Changed |
+The fork at `github.com/nodestadt/hermes-agent` sits between NousResearch upstream and the monorepo. It has two permanent branches:
+
+```
+main              ← what the monorepo pins to. Always = sovereign-patches merged in.
+sovereign-patches ← your patch commits, rebased onto each new upstream release.
+```
+
+Current patch set (Phase 118 → 119, SHA prefix: 0ce9231):
+
+| Commit | File | What It Does |
 | :--- | :--- | :--- |
-| **118** | `38b7eca` → `d0cfdf1` | Deleted hermes-core Node.js, ST3GG guard, scripts rewired |
-| **118.5** | `bd410f8` | sovereign-whisper-mcp Rust crate, cli-config.yaml, transcription stub |
-| **119** | `bd410f8` | Tactical Authority HUD skin, vision artery stub, dashboard encapsulation |
-| **Submodule** | `221d1d5` → `e0dc35f` | hermes-agent-nous → submodule, 13 orphaned gitlinks purged |
+| `feat(sovereign): ST3GG guard + vision artery constants` | `environments/agent_loop.py` | Refuses unsigned tool intents; registers VISION_ARTERY env vars for Phase 120 |
+| `feat(sovereign): SOVEREIGN_ARTERY + whisper-mcp stub` | `tools/transcription_tools.py` | MCP-first STT priority comment; `_get_ambient_intent_from_whisper_mcp()` stub |
+| `feat(sovereign): Tactical Authority v1.3.1 palette` | `web/src/index.css` | `#1A282F` bg, `#376374` accent, Cinzel/Lexend fonts |
+| `feat(sovereign): cli-config.yaml with MCP registrations` | `cli-config.yaml` | Registers `sovereign_mcp_bridge` + `sovereign_whisper_mcp` MCP servers |
 
-**Fork HEAD:** `0ce9231396495192b2e32d5e14d2b6493f157bfb` (nodestadt/hermes-agent `main`)
+When NousResearch ships a new release, `sovereign-patches` is rebased onto it. The four commits above travel forward onto every new upstream version.
 
 ---
 
-**::/5Y573M-N071C3 : HERMES_FORK_SPEC_LOCKED. // 50V3R31GN-M4CH1N4**
+## 9. THE SIDECAR SOVEREIGNTY PRINCIPLES
+
+These rules govern all external dependencies in the monorepo going forward:
+
+1. **The monorepo is home.** All active development happens in `50V3R31GN-M4CH1N4`. Never develop in a fork or sidecar repo directly during a feature cycle.
+
+2. **Submodules are intentional pins, not live connections.** There is no auto-sync, no auto-update, no webhook. The monorepo SHA is the source of truth for what version is running.
+
+3. **Fork before patching.** Any external repo that needs sovereign modifications gets forked to `nodestadt/` first. Patches live as named commits on `sovereign-patches` branch. Never patch directly in the monorepo working tree files without committing to the fork first.
+
+4. **Update on your schedule.** Upstream releases are absorbed deliberately: fetch upstream → rebase sovereign-patches → push fork → bump monorepo pin. This gives you a review window before any upstream change enters production.
+
+5. **Plain directories for nodestadt-owned code.** Sidecars with no external upstream (`git-nexus`, `sidecar-proxy`) are tracked as regular git directories — no submodule indirection needed.
+
+6. **Submodule init is explicit.** Run `git submodule update --init --recursive` after cloning or when you need to work inside a specific sidecar. Other sidecars remain as on-disk directories until you need them.
+
+---
+
+## 10. PHASE LINEAGE
+
+| Phase | Key Commits | What Changed |
+| :--- | :--- | :--- |
+| **118** | `38b7eca` → `d0cfdf1` | Deleted `packages/hermes-core/` (Node.js), injected ST3GG guard, rewired npm scripts |
+| **118.5** | `bd410f8` | Created `crates/sovereign-whisper-mcp`, `cli-config.yaml`, transcription stub |
+| **119** | `bd410f8` | Tactical Authority HUD skin, vision artery env vars, dashboard iframe update |
+| **Submodule setup** | `221d1d5` → `154ce8707` | Converted `hermes-agent-nous` to submodule, purged 13 orphaned gitlinks, restored all 11 sidecars |
+
+**Current monorepo HEAD:** master @ `154ce8707`
+**hermes-agent fork HEAD:** `0ce9231396495192b2e32d5e14d2b6493f157bfb` (nodestadt/hermes-agent main)
+
+---
+
+**::/5Y573M-N071C3 : SOVEREIGN_WORKFLOW_SPEC_LOCKED v2.0.0. // 50V3R31GN-M4CH1N4**
