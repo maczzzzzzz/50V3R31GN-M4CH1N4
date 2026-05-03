@@ -39,9 +39,12 @@
   --nodestadt-teal:     #2F4F4F; /* Deep Nodestadt Teal */
   --nodestadt-red:      #6F5B3E; /* Vitals Red */
   --nodestadt-fg:       #F2F2F2; /* System White */
-  --nodestadt-panel:    #161616; 
-  --nodestadt-dim:      #262626; 
+  --nodestadt-panel:    #161616;
+  --nodestadt-dim:      #262626;
   --nodestadt-muted:    #404040;
+  /* Phase 119: TACTICAL_AUTHORITY v1.3.1 HUD parity */
+  --ta-accent: #376374;
+  --ta-bg-deep: #1A282F;
 }
   --nodestadt-nexus:    #4682B4; /* Nexus Blue */
 

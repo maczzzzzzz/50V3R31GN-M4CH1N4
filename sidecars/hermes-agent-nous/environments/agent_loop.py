@@ -24,6 +24,13 @@ from model_tools import handle_function_call
 from tools.terminal_tool import get_active_env
 from tools.tool_result_storage import maybe_persist_tool_result, enforce_turn_budget
 
+# VISION_ARTERY: 1Hz frame stream from Node B Director
+# Config: VISION_ARTERY_URL = os.getenv("VISION_ARTERY_URL", "http://node-b:9220/frame")
+# SovereignObserver polls this at 1Hz and injects frames as ambient visual context
+# Full wiring in Phase 120 — stub registered here for configuration surface
+VISION_ARTERY_URL = os.environ.get("VISION_ARTERY_URL", "http://node-b:9220/frame")
+VISION_ARTERY_HZ = float(os.environ.get("VISION_ARTERY_HZ", "1.0"))
+
 # Thread pool for running sync tool calls that internally use asyncio.run()
 # (e.g., the Modal/Docker/Daytona terminal backends). Running them in a separate
 # thread gives them a clean event loop so they don't deadlock inside Atropos's loop.

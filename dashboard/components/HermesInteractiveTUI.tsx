@@ -65,7 +65,8 @@ export default function HermesInteractiveTUI() {
           src={HERMES_DASHBOARD_URL}
           className="flex-1 w-full border-none bg-[#050505]"
           title="Hermes Python Shard Dashboard"
-          sandbox="allow-scripts allow-same-origin allow-forms"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          onLoad={() => console.log('HERMES_TUI_LOADED')}
         />
       )}
       {status !== 'online' && (
