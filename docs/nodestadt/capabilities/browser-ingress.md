@@ -1,6 +1,6 @@
 # ◈ SIDECAR : BROWSER_EXTENSION // VIVALDI_INGRESS
 **Version:** 3.8.28-GOLD
-**Artery:** Vivaldi Sidebar -> Browser Mesh (:3012) -> Hermes Singularity
+**Artery:** Vivaldi Sidebar -> Browser Mesh (:3012) -> Hermes Operator Harness
 
 ## ◈ OVERVIEW
 The Sovereign Browser Extension provides a high-fidelity ingress pipeline for web-based research and real-time context. It allows the operator to push URL metadata and selected text fragments directly into the Hermes reasoning swarm from the Vivaldi browser.

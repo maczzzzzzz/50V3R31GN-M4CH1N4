@@ -1,4 +1,4 @@
-# ◈ GEPA & THE SKILL-FACTORY (v3.8.28-GOLD)
+# ◈ GEPA & THE SKILL-FACTORY (v3.8.30-RENEWAL)
 
 **Phase:** 87 [AGENTIC_SKILL_AUTHORING]
 **Core Component:** `SkillAuthor.ts`

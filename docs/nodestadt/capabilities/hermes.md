@@ -1,52 +1,50 @@
-# ◈ HERMES SINGULARITY ENGINE
+# ◈ HERMES OPERATOR HARNESS (CLINICAL FORK)
 
-**Version:** v3.8.28-GOLD
-**Phase:** 93/97 [ORCHESTRATION_ARTERY]
+**Version:** v1.3.0-RENEWAL
+**Phase:** 118 [CLINICAL_FORK_IGNITION]
 
 ---
 
 ## ◈ OVERVIEW
 
-The **Hermes Singularity** is the native, pluggable agentic orchestration engine for the NODESTADT Authority OS. It replaces legacy linear proxies with a high-fidelity **Context-DAG** loop, allowing for non-linear reasoning, parallel tool execution, and autonomous self-healing.
+The **Hermes Operator Harness** is a clinical fork of the `nousresearch/hermes-agent` ecosystem, optimized for the NODESTADT Authority OS. It replaces the legacy Node.js "Singularity" with a production-grade, upstream-aligned Python engine that serves as the mesh's primary interface for reasoning and tool orchestration.
 
-Hermes operates as the central nervous system of the Sovereign OS, coordinating between the Operator, the Artery of Truth (RKG), and the Perception Layer (Observer).
+By forking the upstream implementation, Sovereign Machina gains high-velocity access to 40+ native toolsets while maintaining physical sovereignty via custom **MCP Bridges** and **ST3GG signing**.
 
 ---
 
 ## ◈ CORE CAPABILITIES
 
-### 1. Pluggable Transport-Based Tool Calling
-Hermes utilizes an abstract `HermesTransport` layer to communicate with tools across multiple boundaries.
-- **Native Artery:** Direct function calling within the OS kernel.
-- **HUD Transport:** Routes tool requests through the `PretextHudTransport`, allowing the Operator to intercept, modify, or approve actions in real-time via the HUD.
-- **Quaternary Artery:** JSON-RPC bridge for distributed node execution (Nodes B/C/D).
+### 1. Unified Operator Interface (TUI & Dashboard)
+The harness provides a stabilized, high-fidelity terminal interface and a web-based command deck.
+- **Python TUI:** The primary interactive shell for peer-development, featuring real-time telemetry and a persistent session loop.
+- **Refined Dashboard:** A skin-forked version of the Hermes Dashboard, styled with **Orange Orange Rust** highlights and **Cinzel** typography, embedded directly into the Pretext HUD.
 
-### 2. Trajectory Recording & Context-DAG
-Every session in Hermes is recorded as a **Trajectory** — a directed acyclic graph (DAG) of thought fragments, tool calls, and environment responses.
-- **Context-DAG:** Maintains a persistent memory of the reasoning path, enabling the agent to backtrack or branch when encountering deadlocks.
-- **High-Fidelity Logging:** Every state transition is captured, providing a forensic audit trail for the `TrajectoryAuditor`.
+### 2. Standardized Toolset & Skills
+The fork leverages the growing Hermes ecosystem (Atlas) while enforcing Sovereign security standards.
+- **Native Tools:** High-fidelity browser control (Camofox), git integration, and code execution.
+- **Custom Skills:** Strategic domain knowledge stored in `.agent/Ankh.md` manifests, enabling per-directory specialized behaviors.
 
-### 3. Self-Healing & Managed Employee Loop
-The **Managed Employee** pattern (Phase 113) provides background monitoring for state drift and logic failures.
-- **Autonomous Recovery:** Hermes can re-target failed visual anchors or recover from logic drift without operator intervention.
-- **Failure Log Ingestion:** Persistent failure trajectories are stored in `SovereignIntelligence.db`, which are then used for **Logic Vaccination** in future cycles.
+### 3. Sovereign MCP Bridge (VSB Integration)
+The harness is physically grounded in the mesh through the **Model Context Protocol (MCP)**.
+- **VSB Resource Provider:** A dedicated Orange MCP sidecar that exposes the Virtual Sovereign Bus (Go/C) as an MCP Resource.
+- **Hardware Telemetry:** The agent queries real-time node vitals (CPU/VRAM/Mesh Link) to inform its orchestration decisions.
 
-### 4. Integration with Pretext HUD
-Hermes is deeply coupled with the **Pretext HUD**, projecting its internal state into the modular grid.
-- **Command Stream:** Live visualization of active tool calls.
-- **Trajectory Projection:** Real-time rendering of the Context-DAG.
-- **Neural Glitch:** Physical feedback via the HUD when a high-severity error or security violation is detected.
+### 4. ST3GG Security Hardening
+Every upstream tool call is gated by a mandatory **ST3GG signing pass**.
+- **V2F Verification:** Before executing a sensitive tool (e.g., `write_file`), the harness requires a steganographic visual pulse from the operator.
+- **Clinical Refusal:** Unauthorized tool intents are met with an immediate, clinical security shutdown.
 
 ---
 
-## ◈ TECHNICAL SPECIFICATIONS
+## ◈ ARCHITECTURAL PARITY
 
-| Component | Specification |
-| :--- | :--- |
-| **Logic Core** | Context-DAG (Directed Acyclic Graph) |
-| **Transport** | Pluggable (Native, HUD, mTLS RPC) |
-| **Recovery** | Managed Employee Loop (Self-Healing) |
-| **Audit** | TrajectoryAuditor v3.8.28-GOLD |
+| Sector | Fork Implementation | Sovereign Layer |
+| :--- | :--- | :--- |
+| **Logic Core** | Python `run_agent.py` | VSB Hardware Grounding |
+| **Transport** | JSON-RPC / WebSocket | ST3GG Signed Artery |
+| **Interaction** | Native Hermes TUI | Pretext Clinical Shroud |
+| **Update Loop** | Monthly Harvest Protocol | Zero-Trust Forensic Audit |
 
 ---
-*::/5Y573M-N071C3 : HERMES_SINGULARITY_OPERATIONAL. // NODESTADT_AUTHORITY_OS*
+*::/5Y573M-N071C3 : HERMES_HARNESS_OPERATIONAL. // NODESTADT_AUTHORITY_OS*

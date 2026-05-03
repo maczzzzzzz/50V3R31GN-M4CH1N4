@@ -1,47 +1,32 @@
-# ◈ THE ENCYCLOPEDIA : PHYSICAL MAP (v3.8.28-GOLD)
-**Date:** Saturday, May 2, 2026
-**Status:** MAPPED
+# ◈ THE ENCYCLOPEDIA : PHYSICAL MAP (v3.8.30-RENEWAL)
+**Status:** MAPPED // CLINICAL_FORK_ALIGNED
 
 This document maps the physical directories and core files of the Sovereign Machina to their technical purpose and origin phase.
 
-## 1. CORE OS (NERVOUS SYSTEM)
-- `packages/hermes-core/`: **The OS Nervous System.** Standardized TypeScript monorepo package.
-    - `src/core/hermes/`: **The Brain.** Home of `HermesSingularity.ts` (Orchestration) and `SovereignObserver.ts` (Vision).
-    - `src/core/perception/`: **The Senses.** Home of `VisualMonitorService.ts` (CDP Neural Uplink) and `MobileVisionArtery.ts`.
-    - `src/core/memory/`: **The Hippocampus.** Home of `SovereignDashboardService.ts` and memory primitives.
-    - `src/db/`: **The Artery of Truth.** `UnifiedOracleClient` (RKG) and SQLite schemas.
-- `crates/`: **The Hardened Arteries.** Rust-based high-performance components.
-    - `hermes-router/`: **The Cognition Proxy.** Multi-node model routing and zero-trust security.
-    - `sovereign-sdk/`: **The Protocol.** Shared binary framing and message schemas.
+## 1. CORE OPERATOR HARNESS (NERVOUS SYSTEM)
+- `sidecars/hermes-agent-nous/`: **THE HARNESS.** Forked upstream Hermes Agent (Python).
+    - `run_agent.py`: The Logic Core.
+    - `tools/`: Native capabilities (Browser, Git, Terminal).
+    - `agent/`: Reasoning and interaction engine.
+- `crates/sovereign-mcp-bridge/`: **VSB Link.** Rust-based MCP server exposing hardware telemetry to the Harness.
+- `crates/hermes-router/`: **Hardened Artery.** Multi-node routing and zero-trust security.
 
 ## 2. THE PHYSICAL HAND (INGRESS/EGRESS)
-- `crush/`: **The Master Controller.** Go-native CLI and bridge daemon.
-    - `main.go`: TUI and clinical command dispatcher.
-    - `proxy.go`: Unix socket to HTTP/Redis gateway.
-    - `st3gg.go`: Steganographic engine.
-    - `identity_st3gg.go`: V2F identity pulse.
-- `sidecars/`: **Modular Organs.** Helper services in Go, Rust, and Node.js.
-    - `sidecar-proxy/`: **The Shadow Proxy.** Provides OpenAI/Claude compatibility for local models.
-    - `sidecar-browser-extension/`: **Vivaldi Ingress.** Maps browser context into the OS.
-    - `stash/`: **Synapse Artery.** Local-first memory consolidation.
-    - `plur/`: **YAML Synapse.** Shared persistent agent memory.
+- `crush/`: **Physical Sovereignty Interface.** Go-native primitives.
+    - `main.go`: VSB command dispatcher.
+    - `st3gg.go`: Steganographic engine for tool-signing.
+- `crates/`: **Hardened muscles.** Orange Rust-based high-performance components.
+- `sidecars/`: **Decoupled Organs.** Standing by for MCP conversion.
 
 ## 3. THE OPTICAL LAYER (HUD/UI)
-- `dashboard/`: **The Command Deck.** Next.js-based OS dashboard.
+- `dashboard/`: **Pretext Command Deck.** Next.js interface with embedded Hermes TUI.
     - `app/os/PretextShroud.tsx`: The kinetic geometric canvas (Fluid Smoke).
-- `terminal-app/`: **The Mobile HUD.** Flutter-based mobile interface.
-    - `lib/services/vsb_service.dart`: Mobile VSB listener.
+    - `components/HermesInteractiveTUI.tsx`: Python Harness ingress.
+- `terminal-app/`: **Mobile Authority.** Flutter-based mobile interface re-mapped to Python Gateway.
 
-## 4. MECHANICAL SECTORS (PLUGINS)
-- `plugins/sovereign-red-plugin/`: **Simulation Sector.** Isolated environment for Cyberpunk RED.
-    - `zeroclaw/`: **The Rules Engine.** Rust-based deterministic physics calculations.
-    - `RED_RULES.md`: The Physics Constitution.
-- `gauntlet/`: **The Testing Floor.** Phase-based verification shards.
-    - `phases/`: 113+ individual test files ensuring architectural parity.
-
-## 5. ORPHANED & LEGACY PRIMITIVES
+## 4. DECOMMISSIONED (SHADOW LOGIC)
+- `packages/hermes-core/`: **Legacy Engine.** Decommissioned in Phase 118.
 - `scripts/archive/`: Repository for legacy ignition and migration tools.
-- `docs/superpowers/archive/`: The historical record (Phases 0-97).
 
 ---
 **::/5Y573M-N071C3 : PHYSICAL_MAP_LOCKED. // 50V3R31GN-M4CH1N4**

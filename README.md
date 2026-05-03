@@ -91,19 +91,17 @@ The system operates across four specialized hardware nodes, establishing a high-
 
 ## 🛠️ Core Capabilities
 
-### 1. Hermes Singularity
-A native agentic engine that enables **Peer-Developer** synergy. Hermes operates as a "Managed Employee" on the Clean BASE, utilizing Vision-as-Context to interact with the environment with 100% precision.
+### 1. Hermes Operator Harness
+A production-grade, clinical fork of the **NousResearch Hermes-Agent** ecosystem. This Python-native harness provides absolute precision in peer-development, leveraging 40+ toolsets and a persistent interaction loop signed by ST3GG.
 
 ### 2. Pretext HUD
-A high-performance geometric interface utilizing `@chenglou/pretext`. Thought-streams are rendered as kinetic typographic flows around obstacles, providing real-time cognitive observability at 120fps.
+A high-performance geometric interface utilizing `@chenglou/pretext`. Thought-streams from the Python Harness are rendered as kinetic typographic flows around obstacles, providing real-time cognitive observability at 120fps.
 
-### 3. Sovereign Synapse (Synapse)
-- **Stash:** A Go-native SQLite-backed memory consolidation sidecar.
-- **Plur:** YAML-based persistent memory across all agentic sessions.
-- **Obsidian ME.md:** The primary identity contract shored in the local vault.
+### 3. Sovereign-MCP-Bridge
+A high-performance Rust bridge that exposes the **Virtual Sovereign Bus (VSB)** as an MCP Resource. This enables the agent to query real-time hardware telemetry and node vitals to inform its implementation logic.
 
 ### 4. Zero-Trust Artery
-All inter-node RPCs are gated by `hermes-router` (Rust), enforcing SPIFFE SVID verification and V2F token extraction. No logic exists outside the secured perimeter.
+All inter-node RPCs and tool calls are gated by **ST3GG signing** and `hermes-router` (Rust), enforcing SPIFFE SVID verification. No code executes without a verified visual pulse.
 
 ---
 

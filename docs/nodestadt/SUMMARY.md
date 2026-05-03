@@ -12,7 +12,7 @@
 
 ## Capabilities
 * [[nodestadt/capabilities/usage-guide.md|Operator Manual]]
-* [[nodestadt/capabilities/hermes.md|Hermes Singularity]]
+* [[nodestadt/capabilities/hermes.md|Hermes Operator Harness]]
 * [[nodestadt/capabilities/datalog.md|HeadlessDatalog Reference]]
 * [[nodestadt/capabilities/hud.md|Pretext HUD Layout]]
 * [[nodestadt/capabilities/browser-ingress.md|Browser Ingress]]

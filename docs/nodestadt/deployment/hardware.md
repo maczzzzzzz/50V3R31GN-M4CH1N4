@@ -1,4 +1,4 @@
-# ◈ NODESTADT ARCHITECTURE : HARDWARE INVARIANTS (v3.8.28-GOLD)
+# ◈ NODESTADT ARCHITECTURE : HARDWARE INVARIANTS (v3.8.30-RENEWAL)
 ## Deployment Specifications & Environmental Requirements
 
 The NODESTADT Authority OS requires specific hardware primitives to maintain its distributed logic and high-fidelity inference capabilities. Deviations from these invariants will result in logic-drift or system instability.

@@ -1,4 +1,4 @@
-# ◈ PRETEXT HUD (v3.8.28-GOLD)
+# ◈ PRETEXT HUD (v3.8.30-RENEWAL)
 
 **Phase:** 112 [OFFICIAL_PRETEXT_ALIGNMENT]
 **Performance:** 120fps Zero-Reflow

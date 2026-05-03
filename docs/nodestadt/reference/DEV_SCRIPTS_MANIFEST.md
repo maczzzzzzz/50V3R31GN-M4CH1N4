@@ -53,7 +53,7 @@ Scripts for system restoration and health.
 | `backup-mind.ts` | **ACTIVE** | Full DB/Skill snapshots. |
 | `nuke-and-rebuild.sh` | **DANGER** | Complete system purge and rebuild. |
 | `recover-ingest.mjs` | **UTIL** | Repairs fractured ingestion queues. |
-| `migrate-v4.ts` | **CORE** | DB schema migration to v3.8.28-GOLD. |
+| `migrate-v4.ts` | **CORE** | DB schema migration to v3.8.30-RENEWAL. |
 
 ---
 **::/5Y573M-N071C3 : DEV_SCRIPTS_MANIFEST_V3.8.28-GOLD. // 50V3R31GN-M4CH1N4**

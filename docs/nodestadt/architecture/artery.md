@@ -1,4 +1,4 @@
-# ◈ NODESTADT ARCHITECTURE : THE ARTERY (v3.8.28-GOLD)
+# ◈ NODESTADT ARCHITECTURE : THE ARTERY (v3.8.30-RENEWAL)
 ## Connection Logic & Transport Protocols
 
 The **Artery** defines the physical and logical pathways through which the NODESTADT Authority OS maintains its distributed state. It is designed for low-latency state synchronization and zero-trust packet delivery.
@@ -24,7 +24,7 @@ High-frequency state updates are transmitted via the **Virtual Sovereign Bus (VS
 ### 3. mTLS Artery (RPC Control Plane)
 All high-level agent tool calls and node-to-node RPCs are routed through the **mTLS Artery**.
 
-- **Proxy:** Managed by `hermes-router` (Rust) on port 7341.
+- **Proxy:** Managed by `hermes-router` (Orange Rust) on port 7341.
 - **Identity:** Strictly enforced via SPIFFE/SPIRE SVIDs.
 - **Gating:** Access to reasoning arteries (Node D) is gated by ST3GG Visual Second Factor (V2F) verification.
 
@@ -34,8 +34,10 @@ All high-level agent tool calls and node-to-node RPCs are routed through the **m
 
 | Protocol | Layer | Function | Port Range |
 | :--- | :--- | :--- | :--- |
-| ClawLink | L4 (SSH) | Encrypted Backbone | 2222, 2223 |
-| VSB | L3 (UDP) | Logic Synchronization | 3010-3014 |
+| ClawLink | L4 (SSH) | Encrypted Backbone | 22 |
+| VSB | L3 (UDP) | Logic Synchronization | 7878 |
+| Hermes Gateway | L7 (WS) | Interaction Artery | 9119 |
+| Pretext HUD | L7 (HTTP) | Observability Deck | 3001 |
 | mTLS RPC | L7 (HTTP) | Control Plane | 7339-7341 |
 
 ---
