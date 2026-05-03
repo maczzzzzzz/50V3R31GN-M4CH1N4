@@ -1,3 +1,6 @@
 [submodule "scripts/ops/appflowy-cloud"]
 	path = scripts/ops/appflowy-cloud
 	url = https://github.com/AppFlowy-IO/AppFlowy-Cloud.git
+[submodule "sidecars/hermes-agent-nous"]
+	path = sidecars/hermes-agent-nous
+	url = https://github.com/nodestadt/hermes-agent.git
