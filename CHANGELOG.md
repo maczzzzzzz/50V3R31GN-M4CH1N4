@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 versioning follows [Semantic Versioning](https://semver.org).
 
+## [3.8.30-RENEWAL] - 2026-05-03
+
+### Added
+- **Phase 118.5:** Materialized the `Sovereign Whisper Artery` specification.
+- **Phase 120:** Materialized the `Sovereign Design Artery` specification (Open-Design Integration).
+- **Design-to-Code:** Defined the orchestration layer bridging Hermes Control with Node D reasoning and Node B vision audits.
+- **MCP-STT:** Defined the decoupled Rust-based STT architecture via Model Context Protocol.
+
+### Changed
+- **Architectural Pivot:** Locked the transition to the Hermes-Agent Clinical Fork as the primary operator harness.
+- **Visual Standard:** Globally synchronized the "Orange Rust" (#E07A5F) and "Cinzel" aesthetic across HUD and Mobile.
+
 ## [3.8.29-GOLD] - 2026-05-02
 
 ### Added

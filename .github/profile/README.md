@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/nodestadt/50V3R31GN-M4CH1N4/master/assets/brand-identity/pixel-style-character-nodestadt-webpage-bg-alt1.png" width="100%" alt="NODESTADT Authority Banner" />
-
 # ◈ NODESTADT AUTHORITY ◈
 **SYNDICATE_CLASS : DISTRIBUTED_NEURAL_ORCHESTRATION**
 
