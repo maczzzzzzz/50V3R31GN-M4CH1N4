@@ -60,24 +60,21 @@ export default function HermesInteractiveTUI() {
         <span className={`text-[8px] font-black uppercase technical-data ${statusColor}`}>{statusLabel}</span>
       </div>
 
-      <div className="flex-1 relative">
-        {status === 'offline' ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-[#404040] gap-4">
-             <div className="text-[10px] font-black tracking-[0.3em] uppercase authority-text animate-pulse">
-               ARTERY_ISOLATED
-             </div>
-             <div className="text-[8px] technical-data opacity-50">Ensure 'hermes dashboard --tui' is running on port 9119</div>
-          </div>
-        ) : (
-          <iframe
-            src={HERMES_DASHBOARD_URL}
-            title="Hermes Interactive TUI"
-            className="w-full h-full"
-            style={{ border: 'none', background: '#050505' }}
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-          />
-        )}
-      </div>
+      {status === 'online' && (
+        <iframe
+          src={HERMES_DASHBOARD_URL}
+          className="flex-1 w-full border-none bg-[#050505]"
+          title="Hermes Python Shard Dashboard"
+          sandbox="allow-scripts allow-same-origin allow-forms"
+        />
+      )}
+      {status !== 'online' && (
+        <div className="flex-1 flex items-center justify-center">
+          <span className={`text-[10px] font-black uppercase tracking-widest authority-text ${statusColor}`}>
+            {statusLabel}
+          </span>
+        </div>
+      )}
       
       {/* Status Bar */}
       <div className="h-1 bg-[#161616]">

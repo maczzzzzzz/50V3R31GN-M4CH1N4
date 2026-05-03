@@ -44,6 +44,8 @@
   --nodestadt-moss:     #8A9A5B; /* Moss Green */
   --nodestadt-nexus:    #4682B4; /* Nexus Blue */
 
+  --nodestadt-font: 'Cinzel', serif;
+
   /* Dashboard aliases */
   --primary:    var(--nodestadt-accent);
   --background: var(--nodestadt-bg);
