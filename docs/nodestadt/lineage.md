@@ -44,6 +44,7 @@ The **Grok Research Swarm** and subsequent **Strategist Audit** have verified th
 
 | Repository | Application Pillar | Sovereignty |
 | :--- | :--- | :--- |
+| **nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork** | Primary Python Operator Harness (Clinical Fork) | 10/10 |
 | **alash3al/stash** | 8-Stage Synapse Consolidation (Episodes -> Wisdom) | 10/10 |
 | **context-labs/halo** | Trace-Driven Recursive Feedback Logic | 6/10 |
 | **zerobootdev/zeroboot** | Sub-ms VM Isolation & Hardened Sandboxing | 8/10 |
@@ -59,7 +60,19 @@ The **Grok Research Swarm** and subsequent **Strategist Audit** have verified th
 | **Alishahryar1/free-claude-code** | Local-First Claude Code Gateway Proxy | 10/10 |
 | **fathah/hermes-desktop** | Cross-Platform Multi-Gateway Command Deck | 10/10 |
 | **EKKOLearnAI/hermes-web-ui** | Web-Based Visual Ingress & HUD | 9/10 |
-| **RecursiveMAS (arXiv:2604.25917)** | Theoretical Framework for Infinite Recursion | 10/10 |
+| **nexu-io/open-design** | Design-to-Code Orchestration (Phase 120) | 10/10 |
+| **git-nexus (internal)** | Code Knowledge Graph & MCP Artery | 10/10 |
+| **sidecar-proxy (internal)** | Multi-Provider Reasoning Gateway | 10/10 |
+
+## ◈ THE MONTHLY HARVEST PROTOCOL
+
+To maintain synchronization with upstream intelligence while preserving clinical sovereignty, the system executes the **Monthly Harvest Protocol** (defined in `IMPLEMENTATION_PLAN.md` Phase 121).
+
+1. **Scan:** Audit all external repositories listed in this manifest for divergent commits.
+2. **Fetch:** Pull upstream changes into isolated sovereign clones.
+3. **Audit:** Perform zero-trust logic validation and identity-drift check.
+4. **Merge:** Rebase sovereign patches onto upstream and push to `nodestadt/` forks.
+5. **Bump:** Update monorepo submodule pins to the new audited SHAs.
 
 ---
 **::/5Y573M-N071C3 : LINEAGE_SYNCHRONIZED. THE_LEDGER_IS_TRUTH. // 50V3R31GN-M4CH1N4**

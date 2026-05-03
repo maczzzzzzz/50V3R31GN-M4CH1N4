@@ -12,7 +12,7 @@ Always in `github.com/nodestadt/50V3R31GN-M4CH1N4`. That is the Sovereign Machin
 No. Nothing auto-updates anywhere. Git submodules are intentionally frozen at a specific commit SHA. Upstream repos (NousResearch, context-labs, etc.) can ship new code every hour — your monorepo will not change until you explicitly decide to pull and bump the pin. This is a feature, not a limitation.
 
 **What changed in Phase 118?**
-The monorepo's internal Node.js reimplementation of Hermes (`packages/hermes-core/`) was deleted. The real NousResearch Python agent (`sidecars/hermes-agent-nous/`) became the authoritative runtime. That Python sidecar is now tracked as a proper git submodule pointing to a patched fork we own (`nodestadt/hermes-agent`).
+The monorepo's internal Node.js reimplementation of Hermes (`packages/hermes-core/`) was deleted. The real NousResearch Python agent (`sidecars/hermes-agent-nous/`) became the authoritative runtime. That Python sidecar is now tracked as a proper git submodule pointing to a patched fork we own (`nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork`).
 
 ---
 
@@ -33,7 +33,7 @@ There are exactly two repos you will ever care about:
                            │ contains (as submodule)
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  github.com/nodestadt/hermes-agent  (THE FORK)              │
+│  github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork  (THE FORK)              │
 │                                                             │
 │  Your patched fork of NousResearch/hermes-agent.           │
 │  You only touch this when pulling a new upstream release.  │
@@ -54,7 +54,7 @@ There are exactly two repos you will ever care about:
 ### The Rule
 - **Building features, fixing bugs, running phases** → work in `50V3R31GN-M4CH1N4`
 - **Pulling a new NousResearch release** → work in the fork, then bump the pin in `50V3R31GN-M4CH1N4`
-- **Never** develop directly in `nodestadt/hermes-agent` outside of an upstream-pull event
+- **Never** develop directly in `nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork` outside of an upstream-pull event
 
 ---
 
@@ -67,19 +67,19 @@ This is the most important concept to understand. A submodule is not a sync, a m
 ┌──────────────────────────────────────────────────────────┐
 │ [submodule "sidecars/hermes-agent-nous"]                 │
 │   path = sidecars/hermes-agent-nous                      │
-│   url  = https://github.com/nodestadt/hermes-agent.git   │
+│   url  = https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork.git   │
 └──────────────────────────────────────────────────────────┘
 
 Git index entry (the pin):
   160000  0ce9231396495192b2e32d5e14d2b6493f157bfb  sidecars/hermes-agent-nous
-          ↑ this SHA is the exact commit in nodestadt/hermes-agent
+          ↑ this SHA is the exact commit in nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork
             that the monorepo is currently locked to
 ```
 
 When you `cd sidecars/hermes-agent-nous` you are inside a complete, separate git repository — it just happens to live inside the monorepo's filesystem. It has its own `git log`, its own branches, its own history.
 
 **What does NOT happen automatically:**
-- When nodestadt/hermes-agent gets a new commit → the monorepo SHA does NOT change
+- When nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork gets a new commit → the monorepo SHA does NOT change
 - When NousResearch ships v0.13.0 → nothing in your monorepo changes
 - There are no webhooks, no Actions, no cron jobs that bump this
 
@@ -107,7 +107,7 @@ When you `cd sidecars/hermes-agent-nous` you are inside a complete, separate git
 │
 ├── sidecars/
 │   │
-│   ├── hermes-agent-nous/    ◄──── SUBMODULE: nodestadt/hermes-agent @ 0ce9231
+│   ├── hermes-agent-nous/    ◄──── SUBMODULE: nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork @ 0ce9231
 │   │   ├── environments/
 │   │   │   └── agent_loop.py        PATCHED: ST3GG guard + vision artery stub
 │   │   ├── tools/
@@ -178,11 +178,11 @@ git push origin master
 
 ### 5.2 Modifying the Hermes sidecar (rare — only for sovereign patches)
 
-If you need to change files inside `sidecars/hermes-agent-nous/`, those changes must go to `nodestadt/hermes-agent` first, then be pulled back into the monorepo via a submodule bump. You do not commit sidecar changes from inside the monorepo.
+If you need to change files inside `sidecars/hermes-agent-nous/`, those changes must go to `nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork` first, then be pulled back into the monorepo via a submodule bump. You do not commit sidecar changes from inside the monorepo.
 
 ```bash
 # Step 1: Open a separate terminal and clone the fork
-git clone https://github.com/nodestadt/hermes-agent /tmp/hermes-work
+git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork /tmp/hermes-work
 cd /tmp/hermes-work
 git checkout sovereign-patches     # always patch on this branch
 
@@ -210,7 +210,7 @@ Do this when NousResearch ships a significant update to hermes-agent that you wa
 
 ```bash
 # Clone or use existing fork clone
-git clone https://github.com/nodestadt/hermes-agent /tmp/hermes-update
+git clone https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork /tmp/hermes-update
 cd /tmp/hermes-update
 
 # Add NousResearch as upstream (one-time per machine)
@@ -318,9 +318,9 @@ After cleanup and restoration, all 11 sidecars are now properly registered:
 
 ---
 
-## 8. THE SOVEREIGN PATCHES ON nodestadt/hermes-agent
+## 8. THE SOVEREIGN PATCHES ON nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork
 
-The fork at `github.com/nodestadt/hermes-agent` sits between NousResearch upstream and the monorepo. It has two permanent branches:
+The fork at `github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork` sits between NousResearch upstream and the monorepo. It has two permanent branches:
 
 ```
 main              ← what the monorepo pins to. Always = sovereign-patches merged in.
@@ -368,7 +368,7 @@ These rules govern all external dependencies in the monorepo going forward:
 | **Submodule setup** | `221d1d5` → `154ce8707` | Converted `hermes-agent-nous` to submodule, purged 13 orphaned gitlinks, restored all 11 sidecars |
 
 **Current monorepo HEAD:** master @ `154ce8707`
-**hermes-agent fork HEAD:** `0ce9231396495192b2e32d5e14d2b6493f157bfb` (nodestadt/hermes-agent main)
+**hermes-agent fork HEAD:** `0ce9231396495192b2e32d5e14d2b6493f157bfb` (nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork main)
 
 ---
 

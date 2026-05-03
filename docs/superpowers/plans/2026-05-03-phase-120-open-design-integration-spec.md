@@ -20,10 +20,11 @@
 
 ### ◈ 2. IMPLEMENTATION STEPS
 
-- [ ] **Step 1: Materialize `sidecars/open-design`**
-Clone the `nexu-io/open-design` repository into the sidecars directory and initialize the environment.
+- [ ] **Step 1: Materialize `sidecars/open-design` Submodule**
+Initialize the `nodestadt/open-design` fork (forked from `nexu-io/open-design`) as a git submodule. This ensures sovereign patches (theming, logic arteries) are tracked in the fork while the monorepo pins the SHA.
 ```bash
-git clone https://github.com/nexu-io/open-design sidecars/open-design
+git submodule add https://github.com/nodestadt/open-design sidecars/open-design
+git submodule update --init --recursive sidecars/open-design
 ```
 
 - [ ] **Step 2: Configure Hermes as the Primary Agent**

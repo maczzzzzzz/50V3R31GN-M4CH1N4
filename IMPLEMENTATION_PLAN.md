@@ -42,29 +42,29 @@
   - Implement 'Clinical Refusal' for unsigned agentic intents.
 - [x] **Task 5: Legacy Artery Stubs:** Materialized `scripts/stubs.ts` to maintain CI/Typecheck parity after `hermes-core` removal.
 
-## ⚡ PHASE 118.5: THE SOVEREIGN WHISPER ARTERY (STT-MCP)
+## ✅ PHASE 118.5: THE SOVEREIGN WHISPER ARTERY (STT-MCP) (COMPLETED)
 **Goal:** Materialize high-performance, hardware-accelerated STT via a decoupled MCP Sidecar.
-- [ ] **Task 1: MCP-Whisper Scaffolding:** Create `crates/sovereign-whisper-mcp/` using Candle (Rust).
-- [ ] **Task 2: VSB Audio Sink:** Implement UDP PCM-16 ingestion from Port 7878.
-- [ ] **Task 3: Hardware Acceleration:** Port inference to Node C (CUDA) and Node D (NPU/OpenVINO).
-- [ ] **Task 4: Harness Re-Wiring:** Connect the Hermes Python fork to the MCP transcription resources.
+- [x] **Task 1: MCP-Whisper Scaffolding:** Create `crates/sovereign-whisper-mcp/` using Candle (Rust).
+- [x] **Task 2: VSB Audio Sink:** Implement UDP PCM-16 ingestion from Port 7878.
+- [x] **Task 3: Hardware Acceleration:** Port inference to Node C (CUDA) and Node D (NPU/OpenVINO).
+- [x] **Task 4: Harness Re-Wiring:** Connect the Hermes Python fork to the MCP transcription resources.
 
-## ⚡ PHASE 119: HUD ENCAPSULATION & ARTERY RE-WIRING
+## ✅ PHASE 119: HUD ENCAPSULATION & ARTERY RE-WIRING (COMPLETED)
 **Goal:** Connect the Pretext HUD and Flutter App to the new Python Operator Harness.
-- [ ] **Task 1: Pretext "Authority" Skinning:** Update the native Hermes Dashboard CSS to match the Orange Rust / Cinzel standard.
-- [ ] **Task 2: Mobile Gateway Realignment:** Remap the Flutter `OpenClawBridge` to the Python Gateway WebSocket (JSON-RPC).
-- [ ] **Task 3: Voice/Vision Loopback:** Connect the OMI voice stream and 1Hz vision artery to the Python perception layer.
+- [x] **Task 1: Pretext "Authority" Skinning:** Update the native Hermes Dashboard CSS to match the Orange Rust / Cinzel standard.
+- [x] **Task 2: Mobile Gateway Realignment:** Remap the Flutter `OpenClawBridge` to the Python Gateway WebSocket (JSON-RPC).
+- [x] **Task 3: Voice/Vision Loopback:** Connect the OMI voice stream and 1Hz vision artery to the Python perception layer.
 
 ## ⚡ PHASE 120: THE SOVEREIGN DESIGN ARTERY (OPEN-DESIGN)
 **Goal:** Integrate high-fidelity "Design-to-Code" subsystem using the Hermes fork and Node D.
-- [x] **Task 1: Open-Design Materialization:** Deploy the `open-design` daemon and UI.
+- [ ] **Task 1: Open-Design Submodule:** Initialize `nodestadt/open-design` as a git submodule in `sidecars/`.
 - [ ] **Task 2: Hermes Control Bridge:** Configure the Hermes Python fork as the primary design agent.
 - [ ] **Task 3: Brain-Artery Routing:** Point the design agent to the 128k+ context models on Node D.
 - [ ] **Task 4: Vision Audit Loop:** Implement automated layout verification via Node B (Gemma-4 Vision).
 
 ## ⚡ PHASE 121: THE MONTHLY HARVEST PROTOCOL
 **Goal:** Establish the autonomous update loop for upstream intelligence ingestion.
-- [ ] **Task 1: Harvest Script Materialization:** Create `scripts/ops/harvest-upstream.sh` to automate the merge and audit cycle.
+- [ ] **Task 1: Harvest Script Materialization:** Create `scripts/ops/harvest-upstream.sh` to automate the merge and audit cycle. Link to `docs/nodestadt/lineage.md` for manifest-driven synchronization.
 - [ ] **Task 2: Lore-Bleed Sentinel:** Implement automated grep-audits to ensure upstream updates don't pollute Sovereign identity invariants.
 
 ---

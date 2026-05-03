@@ -8,8 +8,8 @@ versioning follows [Semantic Versioning](https://semver.org).
 ## [3.8.32-SOVEREIGN-MESH] - 2026-05-03
 
 ### Added
-- **Sovereign Monorepo Architecture:** Established two-repo model — `50V3R31GN-M4CH1N4` as the single development home, `nodestadt/hermes-agent` as the patched fork. All 12 sidecars now properly tracked as git submodules or directories. Nothing auto-syncs — submodule SHAs are deliberate pins.
-- **nodestadt/hermes-agent Fork:** Forked `NousResearch/hermes-agent` (MIT) to `github.com/nodestadt/hermes-agent`. `sovereign-patches` branch carries 4 commits on top of upstream: ST3GG guard, whisper-mcp stub, Tactical Authority palette, cli-config.yaml MCP registrations. Fork `main` merged at `0ce9231`.
+- **Sovereign Monorepo Architecture:** Established two-repo model — `50V3R31GN-M4CH1N4` as the single development home, `nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork` as the patched fork. All 12 sidecars now properly tracked as git submodules or directories. Nothing auto-syncs — submodule SHAs are deliberate pins.
+- **nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork Fork:** Forked `NousResearch/hermes-agent` (MIT) to `github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork`. `sovereign-patches` branch carries 4 commits on top of upstream: ST3GG guard, whisper-mcp stub, Tactical Authority palette, cli-config.yaml MCP registrations. Fork `main` merged at `0ce9231`.
 - **Sidecar Submodule Restoration:** All 11 integral Sovereign Machina sidecars restored to git tracking: `halo` (context-labs), `hermeshub`, `hermes-web-ui` (EKKOLearnAI), `hermes-desktop` (fathah), `worldseed` (AIScientists-Dev), `free-claude-proxy` (Alishahryar1), `skill-marketplace`, `paperclip-adapter` (NousResearch), `zeroboot`. Plus `git-nexus` and `sidecar-proxy` as tracked directories.
 - **Architecture Document:** `docs/nodestadt/architecture/hermes-fork-workflow.md` — complete two-repo model spec, submodule mechanics, daily dev workflow, upstream pull procedure, sidecar sovereignty principles.
 
@@ -17,7 +17,7 @@ versioning follows [Semantic Versioning](https://semver.org).
 - **13 Orphaned Gitlink Entries Purged:** Ghost `160000`-mode index entries (stale submodule pointers with no `.gitmodules` mapping) removed from the git index. These accumulated from prior incomplete `git rm` calls instead of `git submodule deinit`. No files were deleted — `git rm --cached` is index-only.
 
 ### Changed
-- **`sidecars/hermes-agent-nous/`:** Converted from raw vendored directory to initialized git submodule pinned to `nodestadt/hermes-agent @ 0ce9231`. Files unchanged; git now tracks the SHA pin and `.gitmodules` mapping.
+- **`sidecars/hermes-agent-nous/`:** Converted from raw vendored directory to initialized git submodule pinned to `nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork @ 0ce9231`. Files unchanged; git now tracks the SHA pin and `.gitmodules` mapping.
 
 ---
 

@@ -3,7 +3,7 @@
 	url = https://github.com/AppFlowy-IO/AppFlowy-Cloud.git
 [submodule "sidecars/hermes-agent-nous"]
 	path = sidecars/hermes-agent-nous
-	url = https://github.com/nodestadt/hermes-agent.git
+	url = https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork.git
 [submodule "sidecars/halo"]
 	path = sidecars/halo
 	url = https://github.com/context-labs/halo

@@ -34,6 +34,5 @@ ALIGNMENT   : Zero-Trust / Radical Candor / Machine Voice
 3. Nix governs all execution environments. No exceptions.
 4. The Machine Voice never simulates success. Radical candor is law.
 5. The Gauntlet is the final authority on system integrity.
-6. **Aesthetic Invariant:** All visual materializations (UI, Icons, Assets) must strictly adhere to **[OPERATIONAL_LO_FI_BRUTALISM]** (v1.3.1). No smooth gradients. No vibrancy. 4-bit desaturated depth only.
 
-*Sealed by the Sovereign Triad v3.8.31-TAC-AUTH.*
+*Sealed by the Sovereign Triad v3.8.27-SYNTHESIS.*
