@@ -25,6 +25,7 @@ import KernelMonitor from '@/components/KernelMonitor';
 import DirectorPulse from '@/components/DirectorPulse';
 import VsbWaveform from '@/components/VsbWaveform';
 import SynapsePanel from '@/components/SynapsePanel';
+import DesignStudio from '@/components/DesignStudio';
 import { AgentSwarm } from '@/components/AgentSwarm';
 import { useSovereignTelemetry } from "@/hooks/useSovereignTelemetry";
 import { useNucleusWS } from "@/cl4w-nucleus/src/hooks/useNucleusWS";
@@ -277,6 +278,7 @@ export default function PretextShroud() {
     { i: 'director-pulse', x: 0, y: 20, w: 6, h: 6 },
     { i: 'vsb-highway', x: 6, y: 20, w: 6, h: 4 },
     { i: 'synapse-graph', x: 6, y: 24, w: 6, h: 6 },
+    { i: 'design-studio', x: 0, y: 26, w: 6, h: 10 },
   ]);
 
   return (
@@ -400,6 +402,15 @@ export default function PretextShroud() {
 
         <div key="synapse-graph" className="floating-module">
           <SynapsePanel />
+        </div>
+
+        <div key="design-studio" className="floating-module bg-[#161616]/98 border border-[#333333] shadow-2xl flex flex-col overflow-hidden backdrop-blur-2xl">
+          <div className="handle h-10 border-b border-[#333333] flex items-center px-5 bg-[#111111] cursor-move">
+            <span className="text-[10px] font-black text-[#836A46] tracking-[0.2em] authority-text">DESIGN_STUDIO</span>
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <DesignStudio />
+          </div>
         </div>
       </ResponsiveGridLayout>
 

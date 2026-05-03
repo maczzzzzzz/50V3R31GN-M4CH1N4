@@ -57,7 +57,7 @@
 
 ## ⚡ PHASE 120: THE SOVEREIGN DESIGN ARTERY (OPEN-DESIGN)
 **Goal:** Integrate high-fidelity "Design-to-Code" subsystem using the Hermes fork and Node D.
-- [ ] **Task 1: Open-Design Materialization:** Deploy the `open-design` daemon and UI.
+- [x] **Task 1: Open-Design Materialization:** Deploy the `open-design` daemon and UI.
 - [ ] **Task 2: Hermes Control Bridge:** Configure the Hermes Python fork as the primary design agent.
 - [ ] **Task 3: Brain-Artery Routing:** Point the design agent to the 128k+ context models on Node D.
 - [ ] **Task 4: Vision Audit Loop:** Implement automated layout verification via Node B (Gemma-4 Vision).
