@@ -10,5 +10,5 @@
 
 [submodule "dashboard/hermes-workspace"]
 	path = dashboard/hermes-workspace
-	url = https://github.com/outsourc-e/hermes-workspace
+	url = https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-workspace-fork
 	branch = main
