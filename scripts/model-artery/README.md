@@ -6,7 +6,7 @@ Provision GGUF model weights to the Quaternary Mesh nodes from the central Windo
 ## Architecture
 - **Source:** `D:\llama.cpp\models` (Windows Host)
 - **Node B (10.0.0.11):** Symlinked via WSL2 mount
-- **Node C (10.0.0.12):** Synced via SCP (Carnice-9B)
+- **Node C (10.0.0.12):** Synced via SCP (Qwen3-14B-9B)
 - **Node D (10.0.0.13):** Synced via SCP (Qwen2.5-Coder-14B)
 
 ## Execution Order

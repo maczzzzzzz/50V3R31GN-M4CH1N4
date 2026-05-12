@@ -22,7 +22,7 @@ async def chat_completions(req: ChatRequest):
     tier = "Unknown"
     node = "Unknown"
     
-    if "carnice" in req.model.lower():
+    if "brain" in req.model.lower():
         tier = "Tier 1 (Instant)"
         node = "Node B (Director)"
     elif "qwen" in req.model.lower():

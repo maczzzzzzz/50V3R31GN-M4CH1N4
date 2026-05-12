@@ -16,7 +16,7 @@ in
 
     user = mkOption {
       type = types.str;
-      default = "nixos";
+      default = "maczz";
       description = "User to run the inference engine as.";
     };
 

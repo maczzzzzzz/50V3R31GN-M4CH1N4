@@ -44,7 +44,7 @@ Run: `grep nameserver /etc/resolv.conf | awk '{print $2}'`
 Note the IP (e.g., `172.29.144.1`).
 
 - [ ] **Step 2: Update LiteLLM Configuration**
-Update `sidecars/mesh/litellm-mesh.yaml` to point `mesh-carnice` to the Windows Host IP on port 8080.
+Update `sidecars/mesh/litellm-mesh.yaml` to point `mesh-brain` to the Windows Host IP on port 8080.
 
 - [ ] **Step 3: Restart LiteLLM**
 Run: `docker compose -f sidecars/mesh/proxy.yml restart litellm`

@@ -67,7 +67,7 @@
     isPrimary = true;
     syncNodes = [ "100.66.173.31" "100.120.225.12" ];  # Node B, Node D
     syncInterval = "*/5 * * * *";  # Every 5 minutes
-    sshUser = "nixos";
+    sshUser = "maczz";
   };
 
   # Laptop Power Management: No power off/suspend on lid close

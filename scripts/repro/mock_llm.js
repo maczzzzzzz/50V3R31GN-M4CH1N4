@@ -13,7 +13,7 @@ const server = http.createServer((req, res) => {
         let tier = "Unknown";
         let node = "Unknown";
         
-        if (model.toLowerCase().includes("carnice")) { 
+        if (model.toLowerCase().includes("brain")) { 
           tier = "Tier 1 (Instant)"; 
           node = "Node B (Director)"; 
         } else if (model.toLowerCase().includes("qwen")) { 

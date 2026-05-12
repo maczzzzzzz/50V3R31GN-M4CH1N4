@@ -184,7 +184,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="
 <div class="sourceCode" id="cb7"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On any node</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hermes</span> model list  <span class="co"># Should show models from all nodes (A, B, C, D)</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Should include: node-a/falcon, node-b/carnice-9b, node-c/voxcpm2, node-d/carnice-v2-27b</span></span></code></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Should include: node-a/falcon, node-b/brain-9b, node-c/voxcpm2, node-d/brain-v2-27b</span></span></code></pre></div>
 <p><strong>Verify Psy-core Hook:</strong></p>
 <div class="sourceCode" id="cb8"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On any node</span></span>
@@ -216,7 +216,7 @@ Communication</h3>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On Node B</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hermes</span> chat</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> Ask <span class="ex">Node</span> D <span class="er">(</span><span class="ex">carnice</span><span class="kw">)</span> <span class="cf">for</span> code <span class="ex">generation</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> Ask <span class="ex">Node</span> D <span class="er">(</span><span class="ex">brain</span><span class="kw">)</span> <span class="cf">for</span> code <span class="ex">generation</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> Ask <span class="ex">Node</span> C <span class="er">(</span><span class="ex">voxcpm2</span><span class="kw">)</span> <span class="cf">for</span> TTS</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> Ask <span class="ex">Node</span> A <span class="er">(</span><span class="ex">falcon</span><span class="kw">)</span> <span class="cf">for</span> embedding</span></code></pre></div>
 <p><strong>Test Hermes-LCM (context management):</strong></p>

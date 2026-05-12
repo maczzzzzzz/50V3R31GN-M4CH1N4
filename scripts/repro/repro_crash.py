@@ -9,7 +9,7 @@ from run_agent import AIAgent
 
 agent = AIAgent(
     provider="sovereign-vsb",
-    model="carnice-9b",
+    model="brain-9b",
     api_key="test"
 )
 

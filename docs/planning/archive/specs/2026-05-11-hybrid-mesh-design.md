@@ -18,7 +18,7 @@
 | Node | Primary Hardware | Runtime Container | Primary Mesh Role |
 | :--- | :--- | :--- | :--- |
 | **Node A** | NVIDIA GPU | `redis` / `kv-store` | **KV-Cache & Memory Buffer** |
-| **Node B** | AMD Radeon | `vllm-rocm` | **Director & Reflexive Brain (Carnice-9B)** |
+| **Node B** | AMD Radeon | `vllm-rocm` | **Director & Reflexive Brain (Qwen3-14B-9B)** |
 | **Node C** | NVIDIA GPU | `vllm-openai` | **Voice & Perception Layer** |
 | **Node D** | Intel NPU | `openvino-model-server` | **Deep Reasoner (Qwen32B-MoE)** |
 

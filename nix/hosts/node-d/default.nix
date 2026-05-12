@@ -64,6 +64,6 @@
     dbPath = "/var/lib/hermes-lcm/memory.db";
     isPrimary = false;
     primaryNode = "100.90.196.70";  # Node A
-    sshUser = "nixos";
+    sshUser = "maczz";
   };
 }

@@ -190,19 +190,19 @@ correct target paths (<code>maczz@10.0.0.13</code>)</label></li>
 <p><strong>Files:</strong> -
 <code>scripts/model-artery/node-b-setup.sh</code> (symlink from
 <code>/mnt/d/llama.cpp/models</code>) -
-<code>scripts/model-artery/sync-to-node-c.sh</code> (Carnice-9B to Node
+<code>scripts/model-artery/sync-to-node-c.sh</code> (Qwen3-14B-9B to Node
 C) - <code>scripts/model-artery/sync-to-node-d.sh</code>
-(Carnice-V2-27B, Qwen2.5 to Node D)</p>
+(Qwen3-14B-V2-27B, Qwen2.5 to Node D)</p>
 <p><strong>Commit:</strong>
 <code>chore(beta/v3): add model artery provisioning scripts for nodes C and D</code></p>
 <p><strong>Execution Status:</strong> - Models have been distributed by
 Gemini CLI (verified via GLM-HANDOFF.md) - Scripts are ready for future
 model updates</p>
 <p><strong>Model Distribution (Verified):</strong> | Node | Models |
-Path | |——|———|——| | Node B | Carnice-9B-Q8, Qwen3-VL-2B |
+Path | |——|———|——| | Node B | Qwen3-14B-9B-Q8, Qwen3-VL-2B |
 <code>/var/lib/hermes/models/</code> (symlinked) | | Node C | Falcon
-Perception, Qwen3.5-9B-DS, Carnice-9B-Q6 |
-<code>~/50V3R31GN-M4CH1N4/models/</code> | | Node D | Carnice-V2-27B,
+Perception, Qwen3.5-9B-DS, Qwen3-14B-9B-Q6 |
+<code>~/50V3R31GN-M4CH1N4/models/</code> | | Node D | Qwen3-14B-V2-27B,
 Qwen2.5-Coder-14B | <code>~/50V3R31GN-M4CH1N4/models/</code> |</p>
 <hr />
 <h3 id="task-6-hermes-core-uplift-node-d">Task 6: Hermes Core Uplift

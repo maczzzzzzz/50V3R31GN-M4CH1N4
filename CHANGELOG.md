@@ -1,12 +1,25 @@
 # CHANGELOG: 50V3R31GN-M4CH1N4
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+## [3.6.0-ALPHA] - 2026-05-22
+### Added
+- **Clean Baseline Establishment:** Synchronized the `stable/mesh-alpha` branch with the v3.6.0 topology, purging all "Ghost Logic" and legacy UDP Pulse artifacts.
+- **Node A (Synapse):** Re-materialized as the **Global State Persistence** layer, hosting the semantic state ledger and persistent memory vector store.
+- **Node B (Director):** Designated as **Workspace Authority / Strategist**. Hosts primary workspace tools and 0.8B vision triage for UI automation.
+- **Node C (Oracle):** Designated as **Perception / Voice / MATLAB**. Centralizes all perceptual appendages and engineering execution.
+- **Node D (Quaternary):** Designated as **Hermes Core / Heavy Reasoning / MATLAB**. Hosts the primary 35B MoE reasoning core and high-fidelity engineering bridge.
+- **Native VSB Integration:** Deprecated the custom `vsb_router.py` in favor of the native Hermes v0.13.0 ModelProvider protocol via persistent Tailscale TCP streams.
+
+### Changed
+- **Documentation Sanitization:** Fully audited `docs/nodestadt/` to align with the Alpha Mesh topology. Removed references to `Carnice-9B`, `Qwen 2.5 14B`, and legacy UDP binary pulse specifications.
+- **Implementation Roadmap:** Rewrote `IMPLEMENTATION_PLAN.md` into a 5-phase strategic roadmap focusing on Recursive Sovereignty and Appendage Integration.
+
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [3.5.0-BETA] - 2026-05-11
 ### Added
 - **Hierarchy of Responsiveness:** Implemented a two-tier inference mesh splitting local responsiveness from heavy reasoning.
-- **Node B (Director):** Configured with `Carnice-9B (Q8_0)` for instant TUI response and local tool execution.
+- **Node B (Director):** Configured with `Qwen3-14B-9B (Q8_0)` for instant TUI response and local tool execution.
 - **Node D (Core):** Configured with `Qwen2.5-Coder-14B (Q6_K_M)` for deep reasoning and complex code synthesis.
 - **Sovereign Proxy (LiteLLM):** Replaced HAProxy with LiteLLM for intelligent, model-aware routing via `litellm-mesh.yaml`.
 - **Node B Configuration:** Centralized Node B settings into `nix/hosts/node-b/default.nix`.
@@ -60,7 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - **VSB Router Blocker Remediation (CRITICAL)**:
   - **Nix Firewall**: Added `tailscale0` to `trustedInterfaces` in `tailscale.nix`, allowing all mesh traffic on the Tailscale overlay. Added VSB pulse port (7878/UDP) to `hermes-core.nix`. Added dynamic firewall port opening in `inference-engine.nix`.
-  - **Node D Inference Config**: Fixed `node-d/default.nix` to specify model path (`carnice-v2-27b-q6_k.gguf`) and explicit port (8080) instead of relying on non-existent defaults.
+  - **Node D Inference Config**: Fixed `node-d/default.nix` to specify model path (`brain-v2-27b-q6_k.gguf`) and explicit port (8080) instead of relying on non-existent defaults.
   - **Fallback Trap Eliminated**: Removed hardcoded `base_url` from `SovereignVSBProfile` (`__init__.py`) and `cli-config.yaml`. VSB router now resolves endpoints dynamically. When the router is down, Hermes gets a clear error instead of attempting a direct Node D connection.
   - **Graceful Degradation**: `VSBRouter.__init__` no longer raises `EnvironmentError` when `SOVEREIGN_MESH_SECRET` is unset. Instead it logs an error and continues with pulse auth disabled. `SovereignVSBProvider.generate()` returns a clear error message if the router failed to initialize.
   - **Model Discovery Hardening**: `fetch_models` now falls back to hardcoded `MESH_NODES` when `config.yaml` is missing, instead of returning `None` and disabling all model discovery.
@@ -204,7 +217,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Phase 3: Memory & Spatial Visualization (MATERIALIZED)**
     - Implemented **Hermes-LCM** native Tenacity MemoryProvider, enabling zero-trust synchronization over the Tailscale Artery.
-    - Integrated **Sovereign Sniffer** using Stagehand SDK via local `carnice-v2-27b` inference.
+    - Integrated **Sovereign Sniffer** using Stagehand SDK via local `brain-v2-27b` inference.
     - Added **Directors Forge** API discovery capability using isolated `nix-shell` execution.
     - Materialized **Omi Backend** for localized voice and perception layering on Node D.
 - Phase 7 Blueprint: Formally integrated CloakBrowser, DataDog/pup, Hello-Agents, Nano Banana 2, and Memoir into the roadmap and implementation plans.

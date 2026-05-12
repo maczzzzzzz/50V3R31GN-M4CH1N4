@@ -31,6 +31,7 @@ in
     };
 
     # Add nixos user to docker group for non-root access
+    environment.systemPackages = [ pkgs.docker pkgs.docker-compose ];
     users.users.nixos = {
       extraGroups = [ "docker" ];
     };

@@ -3,7 +3,7 @@ import json
 
 url = "http://127.0.0.1:8081/v1/chat/completions"
 payload = {
-    "model": "carnice-9b",
+    "model": "brain-9b",
     "messages": [{"role": "user", "content": "hi"}],
     "stream": True
 }

@@ -1,7 +1,7 @@
 model_list:
-  - model_name: mesh-carnice
+  - model_name: mesh-brain
     litellm_params:
-      model: openai/carnice-9b
+      model: openai/brain-9b
       api_base: http://127.0.0.1:8080/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 100000
@@ -16,7 +16,7 @@ router_settings:
   routing_strategy: usage-based-routing-v2
   enable_pre_call_checks: true
   model_group_alias:
-    "carnice-9b": "mesh-carnice"
+    "brain-9b": "mesh-brain"
     "qwen2.5-coder-14b": "mesh-qwen"
 
 general_settings:

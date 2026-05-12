@@ -19,7 +19,7 @@
 
   # WSL specific configuration
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = "maczz";
   wsl.useWindowsDriver = true;
 
   # Docker Infrastructure
@@ -39,7 +39,7 @@
     enable = true;
     # Switch to standard llama-cpp from unstable for Qwen 3.5 support
     package = pkgs.unstable.llama-cpp;
-    modelPath = "/var/lib/hermes/models/Carnice-9b-Q8_0.gguf";
+    modelPath = "/var/lib/hermes/models/Qwen3-14B-9b-Q8_0.gguf";
     port = 8080;
     ctxSize = 32000;
     cacheTypeK = "q8_0";
@@ -78,7 +78,7 @@
     dbPath = "/var/lib/hermes-lcm/memory.db";
     isPrimary = false;
     primaryNode = "100.90.196.70";  # Node A
-    sshUser = "nixos";
+    sshUser = "maczz";
   };
 
   # Tailscale Zero-Trust Artery

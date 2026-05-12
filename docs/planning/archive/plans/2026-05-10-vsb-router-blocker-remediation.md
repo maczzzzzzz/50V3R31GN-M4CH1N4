@@ -88,7 +88,7 @@ services.ik-llama = {
   enable = true;
   memoryMax = "36G";
   port = 8080;
-  modelPath = "/var/lib/hermes/models/carnice-v2-27b-q6_k.gguf";
+  modelPath = "/var/lib/hermes/models/brain-v2-27b-q6_k.gguf";
 };
 ```
 
@@ -133,9 +133,9 @@ sovereign_vsb = SovereignVSBProfile(
     auth_type="api_key",
     fallback_models=(
         "falcon", "embedding",
-        "carnice-9b", "qwen3-vl",
+        "brain-9b", "qwen3-vl",
         "voxcpm2-indic-q4", "qwen3.5-0.8b",
-        "carnice-v2-27b", "qwen2.5-coder-14b"
+        "brain-v2-27b", "qwen2.5-coder-14b"
     ),
     default_max_tokens=32768,
 )
@@ -151,7 +151,7 @@ In `sidecars/hermes-agent-nous/cli-config.yaml`, remove the `base_url` line from
 
 ```yaml
 model:
-  default: "carnice-v2-27b"
+  default: "brain-v2-27b"
   provider: "sovereign-vsb"
   # base_url removed — VSB router resolves endpoints dynamically
 ```
@@ -504,7 +504,7 @@ Add at the top of `CHANGELOG.md`:
 ### Fixed
 - **VSB Router Blocker Remediation (CRITICAL)**:
   - **Nix Firewall**: Added `tailscale0` to `trustedInterfaces` in `tailscale.nix`, allowing all mesh traffic on the Tailscale overlay without per-port rules. Added VSB pulse port (7878/UDP) to `hermes-core.nix`. Added dynamic firewall port opening in `inference-engine.nix`.
-  - **Node D Inference Config**: Fixed `node-d/default.nix` to specify model path (`carnice-v2-27b-q6_k.gguf`) and explicit port (8080) instead of relying on non-existent defaults.
+  - **Node D Inference Config**: Fixed `node-d/default.nix` to specify model path (`brain-v2-27b-q6_k.gguf`) and explicit port (8080) instead of relying on non-existent defaults.
   - **Fallback Trap Eliminated**: Removed hardcoded `base_url` from `SovereignVSBProfile` (`__init__.py`) and `cli-config.yaml`. VSB router now resolves endpoints dynamically via mesh topology. When the router is down, Hermes gets a clear error instead of attempting a direct Node D connection.
   - **Graceful Degradation**: `VSBRouter.__init__` no longer raises `EnvironmentError` when `SOVEREIGN_MESH_SECRET` is unset. Instead it logs an error and continues with pulse auth disabled. `SovereignVSBProvider.generate()` returns a clear error message if the router failed to initialize.
 
@@ -539,7 +539,7 @@ After deploying to the mesh:
 3. **Rebuild Node D:** `sudo nixos-rebuild switch --flake .#node-d`
 4. **Verify ik-llama service:** `systemctl status ik-llama` on Node D
 5. **Verify Tailscale connectivity:** `curl --connect-timeout 5 http://100.120.225.12:8080/v1/models`
-6. **Test VSB routing:** Run `ignite.sh` and issue a prompt that hits `carnice-v2-27b`
+6. **Test VSB routing:** Run `ignite.sh` and issue a prompt that hits `brain-v2-27b`
 
 ---
 **::/5Y573M-N071C3 : PLAN_SAVED. STANDING_BY_FOR_EXECUTION. // 50V3R31GN-M4CH1N4**

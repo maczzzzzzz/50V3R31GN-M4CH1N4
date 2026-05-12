@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 config = {
     "mesh_nodes": [
-        {"id": "node-d-fast", "ip": "100.120.225.12", "port": 8081, "models": ["carnice-9b"]}
+        {"id": "node-d-fast", "ip": "100.120.225.12", "port": 8081, "models": ["brain-9b"]}
     ],
     "pulse_enabled": False
 }
@@ -25,7 +25,7 @@ messages = [{"role": "user", "content": "Tell me a very short joke."}]
 print(":: Calling VSB stream...")
 start = time.time()
 try:
-    for chunk in provider.stream("carnice-9b", messages):
+    for chunk in provider.stream("brain-9b", messages):
         if isinstance(chunk, dict) and "content" in chunk:
             print(chunk.get("content", ""), end="", flush=True)
     elapsed = time.time() - start

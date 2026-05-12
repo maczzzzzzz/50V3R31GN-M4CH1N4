@@ -106,7 +106,7 @@ model_providers:
         - id: node-b
           ip: $NODE_B
           port: 9119
-          models: [carnice-9b, qwen3-vl]
+          models: [brain-9b, qwen3-vl]
         - id: node-c
           ip: $NODE_C
           port: 8080

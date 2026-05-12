@@ -12,7 +12,7 @@ The mesh is partitioned into a two-tiered hierarchy to maximize physical hardwar
 
 ### **Tier 1: The Director (Node B)**
 *   **Purpose:** Instant dispatch, TUI responsiveness, local tool execution, and mesh gateway management.
-*   **Model:** `Carnice-9B (Q8_0)`
+*   **Model:** `Qwen3-14B-9B (Q8_0)`
 *   **VRAM Allocation:** ~6GB (Model) / ~10GB (KV Cache & Proxy Overhead).
 *   **Latency Target:** TTFT &lt; 100ms.
 *   **Role:** Acts as the primary interface. All `hermes chat` sessions route here by default.
@@ -30,7 +30,7 @@ The mesh is partitioned into a two-tiered hierarchy to maximize physical hardwar
 
 The Sovereign Proxy (`nix/hosts/node-b/litellm-mesh.yaml`) will implement the following routing table:
 
-*   **Default Route:** `carnice-9b` (Node B Local).
+*   **Default Route:** `brain-9b` (Node B Local).
 *   **Strategic Route:** `mesh-qwen` (Node D Remote).
 *   **Failover:** If Node D (`10.0.0.13`) fails health check, Node C (`100.102.109.81`) acts as the secondary reasoning node.
 
@@ -38,7 +38,7 @@ The Sovereign Proxy (`nix/hosts/node-b/litellm-mesh.yaml`) will implement the fo
 
 ## 3. Data Flow Specification
 
-1.  **Direct Interaction:** User sends query → Node B (Proxy) → Carnice-9B.
+1.  **Direct Interaction:** User sends query → Node B (Proxy) → Qwen3-14B-9B.
 2.  **Strategic Shift:** User triggers reasoning mode (e.g., `/reason` or strategist persona) → Node B (Proxy) → Node D (Qwen-14B).
 3.  **Self-Healing:** If health checks (GET /health) fail on Node D, LiteLLM automatically transparently reroutes to Node C or Node B fallback, preventing user-facing 404/500 errors.
 

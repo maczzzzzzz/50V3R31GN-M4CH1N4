@@ -8,7 +8,7 @@ NODE_D="maczz@10.0.0.13"
 MODEL_SOURCE="/var/lib/hermes/models"
 TARGET_DIR="/home/maczz/50V3R31GN-M4CH1N4/models"
 
-# 1. Carnice V2 27B (Primary Reasoning)
+# 1. Qwen3-14B V2 27B (Primary Reasoning)
 # 2. Qwen2.5 Coder 14B (Specialized engineering)
 MODELS=(
     "qwen2.5-coder-14b-q6_k.gguf"

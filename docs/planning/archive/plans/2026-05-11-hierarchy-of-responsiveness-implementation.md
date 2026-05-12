@@ -2,10 +2,10 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Materialize a high-performance, two-tier model mesh by routing all default traffic to Node B (Carnice-9B) and strategic traffic to Node D (Qwen2.5-Coder-14B) via the Sovereign LiteLLM Proxy.
+**Goal:** Materialize a high-performance, two-tier model mesh by routing all default traffic to Node B (Qwen3-14B-9B) and strategic traffic to Node D (Qwen2.5-Coder-14B) via the Sovereign LiteLLM Proxy.
 
 **Architecture:**
-1. **Model Distribution:** Deploy Carnice-9B on Node B and Qwen2.5-Coder-14B on Node D.
+1. **Model Distribution:** Deploy Qwen3-14B-9B on Node B and Qwen2.5-Coder-14B on Node D.
 2. **Proxy Routing:** Update `nix/hosts/node-b/litellm-mesh.yaml` to include both models with defined routing strategies.
 3. **Hermes Configuration:** Update `~/.hermes/config.yaml` to point to the proxy and set context length overrides.
 
@@ -51,9 +51,9 @@ git commit -m "feat(mesh): update Node D to Qwen2.5-Coder-14B (Q6) for high-fide
 # nix/hosts/node-b/litellm-mesh.yaml
 
 model_list:
-  - model_name: "carnice-v2-27b" # Proxy internal alias for Node B local
+  - model_name: "brain-v2-27b" # Proxy internal alias for Node B local
     litellm_params:
-      model: "openai/carnice-v2-27b"
+      model: "openai/brain-v2-27b"
       api_base: "http://10.0.0.13:8080/v1" 
       api_key: "machina-sovereign-mesh-v3-secret-key"
   - model_name: "qwen-14b"
@@ -87,7 +87,7 @@ git commit -m "chore(mesh): synchronize proxy routing table with Qwen 14B materi
 ```yaml
 # In ~/.hermes/config.yaml
 model:
-  default: carnice-v2-27b
+  default: brain-v2-27b
   provider: sovereign-proxy
   context_length: 256000
 

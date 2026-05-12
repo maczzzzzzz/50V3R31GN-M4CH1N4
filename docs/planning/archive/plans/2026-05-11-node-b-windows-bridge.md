@@ -6,7 +6,7 @@
 
 **Architecture:** 
 1. Disable the internal `ik-llama` service in WSL2.
-2. Update LiteLLM configuration to route `mesh-carnice` requests to the Windows Host IP (`172.28.128.1`).
+2. Update LiteLLM configuration to route `mesh-brain` requests to the Windows Host IP (`172.28.128.1`).
 3. Provide instructions for running `llama-server.exe` on Windows, binding to `0.0.0.0:8080`.
 
 **Tech Stack:** NixOS, LiteLLM, llama-cpp (Windows/ROCm)
@@ -37,12 +37,12 @@ Expected: No output (or no process bound to 8080).
 
 - [ ] **Step 1: Ensure api_base points to the Windows Host IP**
 
-Check `sidecars/mesh/litellm-mesh.yaml` and verify the `mesh-carnice` entry:
+Check `sidecars/mesh/litellm-mesh.yaml` and verify the `mesh-brain` entry:
 
 ```yaml
-  - model_name: mesh-carnice
+  - model_name: mesh-brain
     litellm_params:
-      model: openai/carnice-9b
+      model: openai/brain-9b
       api_base: http://172.28.128.1:8080/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
 ```
@@ -57,8 +57,8 @@ sudo docker restart mesh-litellm-1
 
 - [ ] **Step 1: Locate model on Windows**
 
-The model is located in WSL2 at `/var/lib/hermes/models/Carnice-9b-Q8_0.gguf`.
-Windows Path: `\\wsl.localhost\NixOS\var\lib\hermes\models\Carnice-9b-Q8_0.gguf`
+The model is located in WSL2 at `/var/lib/hermes/models/Qwen3-14B-9b-Q8_0.gguf`.
+Windows Path: `\\wsl.localhost\NixOS\var\lib\hermes\models\Qwen3-14B-9b-Q8_0.gguf`
 
 - [ ] **Step 2: Run llama-server.exe on Windows**
 
@@ -66,7 +66,7 @@ Provide the user with the following PowerShell command:
 
 ```powershell
 # In Windows Terminal (PowerShell)
-.\llama-server.exe -m "\\wsl.localhost\NixOS\var\lib\hermes\models\Carnice-9b-Q8_0.gguf" --host 0.0.0.0 --port 8080 --n-gpu-layers 35 --ctx-size 32000
+.\llama-server.exe -m "\\wsl.localhost\NixOS\var\lib\hermes\models\Qwen3-14B-9b-Q8_0.gguf" --host 0.0.0.0 --port 8080 --n-gpu-layers 35 --ctx-size 32000
 ```
 
 ### Task 4: Verification
@@ -82,7 +82,7 @@ Run: `curl -X POST http://localhost:4000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-sovereign-mesh-proxy" \
   -d '{
-    "model": "mesh-carnice",
+    "model": "mesh-brain",
     "messages": [{"role": "user", "content": "ping"}]
   }'`
 Expected: Successful response from the GPU-backed Windows server.

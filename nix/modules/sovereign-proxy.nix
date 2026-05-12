@@ -40,10 +40,10 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        WorkingDirectory = "/home/nixos/50V3R31GN-M4CH1N4/sidecars/mesh";
+        WorkingDirectory = "/home/maczz/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/mesh";
         ExecStart = "${pkgs.docker}/bin/docker compose -f proxy.yml up -d";
         ExecStop = "${pkgs.docker}/bin/docker compose -f proxy.yml down";
-        User = "nixos";
+        User = "maczz";
       };
     };
 

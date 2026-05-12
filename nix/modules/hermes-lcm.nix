@@ -45,7 +45,7 @@ in
 
     sshUser = mkOption {
       type = types.str;
-      default = "nixos";
+      default = "maczz";
       description = "SSH user for rsync sync";
     };
 
@@ -82,8 +82,8 @@ in
 
       serviceConfig = {
         Type = "simple";
-        User = "nixos";
-        Group = "nixos";
+        User = "maczz";
+        Group = "maczz";
         WorkingDirectory = "/home/nixos/.hermes/plugins/hermes-lcm";
         ExecStart = "${pkgs.python3}/bin/python3 -m hermes_lcm_provider --db-path ${cfg.dbPath}";
         Restart = "on-failure";
@@ -118,7 +118,7 @@ in
 
       serviceConfig = {
         Type = "oneshot";
-        User = "nixos";
+        User = "maczz";
         ExecStart = "${pkgs.bash}/bin/bash -c '${cfg.syncScript}'";
       };
     };

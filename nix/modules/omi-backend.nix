@@ -31,8 +31,8 @@
 
     serviceConfig = {
       Type = "simple";
-      User = "nixos";
-      Group = "nixos";
+      User = "maczz";
+      Group = "maczz";
       WorkingDirectory = "/var/lib/omi-backend";
       ExecStart = "${pkgs.python3Packages.uvicorn}/bin/uvicorn omi_backend.main:app --host 0.0.0.0 --port 8000";
       Restart = "on-failure";

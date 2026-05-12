@@ -23,25 +23,20 @@
     <main>
         <section id="protocol-overview">
             <h2>The Cognitive Heartbeat</h2>
-            <p>The <strong>VSB Protocol</strong> is a high-frequency binary UDP pulse that synchronizes model availability and load status across the mesh. It enables the agent to treat four physical nodes as a single, unified reasoning surface.</p>
+            <p>The <strong>VSB Protocol</strong> is a native ModelProvider synchronization that synchronizes model availability and load status across the mesh. It enables the agent to treat four physical nodes as a single, unified reasoning surface.</p>
         </section>
 
-        <section id="binary-pulse">
-            <h2>1. UDP Pulse Specification</h2>
+        <section id="native-integration">
+            <h2>1. Native ModelProvider Integration</h2>
             <article>
-                <h3>Packet Structure (302-byte Deterministic)</h3>
+                <h3>Hermes v0.13.0 API Compliance</h3>
+                <p>The VSB is now implemented as a native <strong>ModelProvider</strong> plugin. It utilizes persistent TCP streams over the Tailscale Artery, eliminating the need for legacy UDP pulses.</p>
                 <ul>
-                    <li><strong>Bytes 0-2:</strong> Header (ASCII 'VSB').</li>
-                    <li><strong>Byte 3:</strong> Protocol Version (Current: 3).</li>
-                    <li><strong>Byte 4:</strong> Node Identifier (Int).</li>
-                    <li><strong>Bytes 5-8:</strong> Load Average (Float32).</li>
-                    <li><strong>Bytes 9-12:</strong> RAM Usage (Float32).</li>
-                    <li><strong>Bytes 13-16:</strong> VRAM Usage (Float32).</li>
-                    <li><strong>Bytes 17-269:</strong> Padding (Zero-filled).</li>
-                    <li><strong>Bytes 270-301:</strong> Cryptographic HMAC-SHA256 (Secret-keyed).</li>
+                    <li><strong>Transport:</strong> HTTP/2 (Persistent gRPC/REST).</li>
+                    <li><strong>Auth:</strong> Zero-Trust MTLS (Tailscale).</li>
+                    <li><strong>Health:</strong> Real-time KV-cache availability via Tenacity heartbeat.</li>
                 </ul>
             </article>
-            <p><strong>Port:</strong> <code>7878</code> | <strong>Frequency:</strong> 2.0s intervals.</p>
         </section>
 
         <section id="routing-logic">
@@ -50,9 +45,9 @@
             <article>
                 <h3>Specialized Tiers</h3>
                 <ul>
-                    <li><strong>HEAVY:</strong> Routed to Node D (Qwen2.5-Coder-14B) for deep architectural reasoning.</li>
-                    <li><strong>STRATEGY:</strong> Routed to Node B (Carnice-9B) for planning and vision.</li>
-                    <li><strong>TRIAGE:</strong> Routed to Node C (Qwen3.5-0.8B) for high-speed perception.</li>
+                    <li><strong>HEAVY:</strong> Routed to Node D (Qwen 3.6 35B MoE (Strategic Core)) for deep architectural reasoning.</li>
+                    <li><strong>STRATEGY:</strong> Routed to Node B (Qwen 3 14B (Workspace Authority)) for planning and vision.</li>
+                    <li><strong>TRIAGE:</strong> Routed to Node C (Qwen 3.5 0.8B (Perception)) for high-speed perception.</li>
                 </ul>
             </article>
         </section>
@@ -69,7 +64,7 @@ model_providers:
         - id: node-d
           ip: 100.120.225.12
           port: 8080
-          models: [carnice-v2-27b]</code></pre>
+          models: [brain-v2-27b]</code></pre>
         </section>
     </main>
 

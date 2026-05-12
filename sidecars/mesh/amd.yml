@@ -13,7 +13,7 @@ services:
     volumes:
       - /var/lib/hermes/models:/models:ro
     command: >
-      -m /models/Carnice-9b-Q8_0.gguf
+      -m /models/Qwen3-14B-9b-Q8_0.gguf
       --host 0.0.0.0
       --port 8000
       -c 32000
