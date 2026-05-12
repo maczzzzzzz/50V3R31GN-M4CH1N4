@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ FULL ANALYSIS – Graphify
+(https://github.com/safishamsi/graphify)</strong></p>
+<p><strong>Repo Status</strong> (verified live as of 2026-05-07)<br />
+- <strong>License</strong>: MIT (fully open and compatible with our
+sovereign goals).<br />
+- <strong>Activity</strong>: Extremely high — 42.2k stars, frequent
+commits (last commit within the last few days), active community.<br />
+- <strong>Primary Language</strong>: Python (100%).<br />
+- <strong>Purpose</strong>: A <strong>graph-RAG / knowledge-graph
+plugin</strong> for AI coding assistants (Claude Code, Cursor, Gemini
+CLI, Hermes, OpenClaw, Factory Droid, etc.).<br />
+It turns any folder of code, docs, PDFs, images, videos, or URLs into a
+<strong>queryable, structured knowledge graph</strong> that the
+assistant can use instead of grepping files.</p>
+<hr />
+<h3 id="key-features-how-it-works">KEY FEATURES &amp; HOW IT WORKS</h3>
+<p><strong>Core Workflow</strong><br />
+1. Run <code>/graphify .</code> (or <code>graphify extract</code>) in
+the assistant.<br />
+2. Graphify parses the folder:<br />
+- Code → Tree-sitter AST (local, no LLM for code).<br />
+- Non-code (docs, PDFs, images, video, URLs) → LLM semantic
+extraction.<br />
+3. Builds a knowledge graph (nodes = concepts, edges = relationships,
+confidence tags: EXTRACTED / INFERRED / AMBIGUOUS).<br />
+4. Outputs:<br />
+- <code>graph.html</code> (interactive visualization).<br />
+- <code>GRAPH_REPORT.md</code> (summary, god nodes, surprising
+connections, suggested questions).<br />
+- <code>graph.json</code> (full graph for programmatic use).<br />
+5. The assistant automatically uses the graph for future queries (via
+hooks or MCP server).</p>
+<p><strong>Advanced Capabilities</strong><br />
+- <strong>Multi-modal ingestion</strong> — code, Markdown, Office docs,
+PDFs, images, video/audio (local transcription), YouTube URLs.<br />
+- <strong>MCP Server</strong> — Exposes the graph via standard MCP tools
+(<code>query_graph</code>, <code>get_node</code>,
+<code>get_neighbors</code>, <code>shortest_path</code>).<br />
+- <strong>Global Graph</strong> — Register multiple project graphs into
+<code>~/.graphify/global.json</code> for cross-project queries.<br />
+- <strong>Hooks &amp; Auto-rebuild</strong> — Git post-commit hooks
+rebuild the graph automatically (AST-only, low cost).<br />
+- <strong>Privacy-first</strong> — Code parsed locally; only non-code
+assets sent to the LLM backend (configurable: Gemini, Claude, Ollama,
+etc.). No telemetry.</p>
+<hr />
+<h3 id="usefulness-for-sovereign-machina-beta-v3-context">USEFULNESS FOR
+SOVEREIGN MACHINA (BETA V3 CONTEXT)</h3>
+<p><strong>High Usefulness</strong> — This is a <strong>strong,
+practical addition</strong> to our memory layer and agentic
+workflows.</p>
+<p><strong>Direct Benefits</strong><br />
+- <strong>Memory Layer Enhancement</strong>: Graphify provides a
+<strong>structured, queryable knowledge graph</strong> of codebases,
+docs, and multi-modal assets. This complements our MemPalace graph
+perfectly — we can ingest project folders into Graphify and store the
+resulting <code>graph.json</code> in MemPalace for persistent
+recall.<br />
+- <strong>GEPA / Agentic Workflows</strong>: Agents can query the graph
+instead of raw files → fewer tokens, better structural reasoning, and
+more accurate context. This strengthens the live coding partner loop in
+Warp.<br />
+- <strong>Hermes Ecosystem Fit</strong>: Has <strong>native Hermes
+support</strong> (dedicated installer and MCP integration). It slots
+directly into our Hermes-first strategy.<br />
+- <strong>Pretext HUD / Visual Memory Palace</strong>: The interactive
+<code>graph.html</code> and <code>graph.json</code> can be surfaced as a
+new panel or rendered in 3D in Visual Memory Palace.<br />
+- <strong>Beta v3 Modularity</strong>: Perfect as a <strong>pluggable
+module</strong> in the monorepo
+(<code>crates/modules/graphify-integration/</code>). We can run it
+inside Zeroboot for isolation, audit it with Psy-core, and
+enable/disable it via Nix options.</p>
+<p><strong>Potential Use Cases in Our Stack</strong><br />
+- Auto-build knowledge graphs for any project folder on git commit (via
+hook).<br />
+- Query the graph from Warp
+(<code>/graphify query "what connects auth to database?"</code>).<br />
+- Use in GEPA reflections for structural understanding of
+codebases.<br />
+- Cross-project global graph for research or multi-repo work.<br />
+- Visual Memory Palace nodes that link to Graphify graphs for richer 3D
+memory.</p>
+<p><strong>Risks / Limitations</strong><br />
+- Python-based — we will run it inside Zeroboot or as a thin Rust
+wrapper for isolation.<br />
+- LLM calls for non-code extraction — configurable to use our local
+models.<br />
+- Not a full replacement for our custom MemPalace graph — it is a
+complementary tool.</p>
+<p><strong>Verdict</strong><br />
+<strong>High usefulness</strong>. Graphify is a mature, actively
+maintained graph-RAG plugin that directly strengthens our memory layer
+and agentic capabilities. It fits our “lean into Hermes ecosystem”
+direction for beta v3 while adding real value without duplicating
+effort.</p>
+<hr />
+<p><strong>RECOMMENDED INTEGRATION (Beta v3)</strong></p>
+<p><strong>Module</strong>:
+<code>crates/modules/graphify-integration/</code> (tracked directory in
+monorepo).</p>
+<p><strong>Nix Config</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>services<span class="op">.</span>graphify = <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">zeroboot_sandbox</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">auto_rebuild_on_git_commit</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">mcp_enabled</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>;</span></code></pre></div>
+<p><strong>Hermes MCP Tool Wrapper</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>mcp_tool<span class="at">]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> graphify_query(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    query<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    project_path<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    context<span class="op">:</span> MemPalaceContext<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>GraphQueryResult<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> result <span class="op">=</span> <span class="pp">graphify::</span>query(project_path<span class="op">,</span> query)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    context<span class="op">.</span>store_graph_query(<span class="op">&amp;</span>result)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Ok</span>(result)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Pretext HUD Panel</strong> - Add “Project Knowledge Graph”
+panel that shows active graphs, god nodes, and query results.</p>
+<p>This is a clean, pluggable addition that enhances our memory and
+agentic workflows without complicating the core.</p>
+<p><strong>Next Priority (Your Call)</strong></p>
+<p>Reply with the number:</p>
+<ol type="1">
+<li><strong>Full graphify-integration module</strong> code + Nix
+config.<br />
+</li>
+<li><strong>Integration with MemPalace / GEPA</strong> spec.<br />
+</li>
+<li><strong>Test plan</strong> for graphify in Warp and Pretext
+HUD.<br />
+</li>
+<li><strong>All three</strong> as one package.</li>
+</ol>
+<p>What would you like to initiate?</p>
+</body>
+</html>

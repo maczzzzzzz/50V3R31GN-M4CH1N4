@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ DEEP ANALYSIS &amp; INTEGRATION SPEC – hermes-lcm
+(Lossless Context Management Plugin)</strong></p>
+<p><strong>Repo</strong>:
+https://github.com/stephenschoettler/hermes-lcm<br />
+<strong>Status</strong>: Actively maintained (latest release v0.9.1 as
+of May 7, 2026). MIT license.</p>
+<p><strong>Core Purpose</strong><br />
+hermes-lcm is a <strong>lossless context management plugin</strong> for
+Hermes Agent. It stores every raw message in an SQLite database
+(<code>lcm.db</code>) and builds a <strong>hierarchical summary
+DAG</strong> (Directed Acyclic Graph) to keep the active context bounded
+while allowing perfect recall of any prior message or summary. It never
+throws away data — it compresses intelligently and provides agent tools
+to retrieve or expand context on demand.</p>
+<p><strong>Key Features Relevant to Us</strong> - <strong>SQLite +
+FTS5</strong> for raw message storage. - <strong>DAG-based
+summarization</strong>: Messages are grouped into depth-aware summary
+nodes (D0 leaves → higher-depth parents). Older context is compacted
+without loss. - <strong>Tools for the agent</strong>:
+<code>lcm_grep</code>, <code>lcm_load_session</code>,
+<code>lcm_describe</code>, <code>lcm_expand</code>,
+<code>lcm_expand_query</code>, <code>lcm_status</code>,
+<code>lcm_doctor</code>. - <strong>Session controls</strong>: Ignore
+noisy sessions or mark them as stateless. - <strong>Large-output
+handling</strong>: Externalization of oversized tool results. -
+<strong>Diagnostics</strong>: Slash commands and doctor repair
+tools.</p>
+<p><strong>Architecture</strong><br />
+- Ingest → Store raw → Compact into DAG → Assemble bounded context for
+the prompt. - Tools allow the agent to query the DAG intelligently.</p>
+<hr />
+<p><strong>FIT WITH OUR BETA V3 REBUILD STRATEGY</strong></p>
+<p>This plugin is an <strong>excellent fit</strong> and aligns perfectly
+with our decision to lean heavily into Hermes-native capabilities while
+layering our sovereign optimizations as pluggable modules.</p>
+<ul>
+<li>It directly addresses lossless context management — a core weakness
+in most agent systems.</li>
+<li>It uses a <strong>DAG</strong> for hierarchical summarization, which
+complements our MemPalace graph structure.</li>
+<li>It can serve as the <strong>base memory layer</strong> for Hermes,
+with our GEPA v2 + HALO + Ouroboros loop + weighted healing layered on
+top as extensions.</li>
+<li>It is modular by design and can be enabled/disabled without breaking
+the core system.</li>
+</ul>
+<p><strong>How It Layers on Our Existing Components</strong></p>
+<ul>
+<li><strong>Hermes Base Memory</strong> → LCM becomes the primary
+storage and summarization engine.</li>
+<li><strong>MemPalace Graph</strong> → We keep our graph retrieval and
+Mooncake KV spillover as a pluggable module on top of LCM (for 3D
+visualization and advanced queries).</li>
+<li><strong>GEPA v2 + HALO</strong> → GEPA can use LCM tools for context
+expansion and reflection. HALO can analyze LCM run history for trace
+optimization.</li>
+<li><strong>Ouroboros Loop / Weighted Learning</strong> → We can extend
+LCM with our weighted healing logic (e.g., score summaries and decide
+when to escalate depth or prune).</li>
+<li><strong>Psy-core</strong> → Add tamper-proof audit to the LCM SQLite
+database (hash chain on every message and summary node).</li>
+</ul>
+<p>This gives us the best of both worlds: Hermes-native lossless
+management + our sovereign graph, healing, and audit optimizations.</p>
+<hr />
+<p><strong>CONCRETE INTEGRATION PLAN (Monorepo-First)</strong></p>
+<p><strong>1. Treat hermes-lcm as a Pluggable Module</strong><br />
+Create <code>crates/modules/hermes-lcm-integration/</code> in the
+monorepo (tracked directory, not a submodule).</p>
+<p><strong>2. Nix Module for Easy Enable/Disable</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>services<span class="op">.</span>hermes<span class="op">-</span>lcm = <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">enable</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span>           <span class="co"># default on for beta v3</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">sqlite_path</span> <span class="op">=</span> <span class="st">&quot;/var/lib/hermes/lcm.db&quot;</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">context_threshold</span> <span class="op">=</span> <span class="fl">0.75</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">fresh_tail_count</span> <span class="op">=</span> <span class="dv">50</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="va">psy_core_audit</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span>   <span class="co"># our sovereign layer</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>;</span></code></pre></div>
+<p><strong>3. GEPA Extension (Optional Module)</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// crates/modules/gepa-core/src/extensions/lcm.rs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">struct</span> LCMExtension <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    enabled<span class="op">:</span> <span class="dt">bool</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">impl</span> GEPAExtension <span class="cf">for</span> LCMExtension <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> enhance_reflection(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> reflection<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Reflection<span class="op">,</span> context<span class="op">:</span> <span class="op">&amp;</span>MemPalaceContext) <span class="op">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">!</span><span class="kw">self</span><span class="op">.</span>enabled <span class="op">{</span> <span class="cf">return</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> expanded <span class="op">=</span> <span class="pp">lcm::</span>expand_context(<span class="op">&amp;</span>reflection<span class="op">.</span>query<span class="op">,</span> context)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        reflection<span class="op">.</span>apply_expanded_context(expanded)<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>4. Pretext HUD Panel – “LCM Context”</strong> Add a panel
+showing DAG status, active summaries, and recall quality.</p>
+<p><strong>5. Warp Skill Support</strong> Extend the sovereign-hermes
+skill with <code>/lcm</code> commands that forward to Hermes-native LCM
+tools.</p>
+<hr />
+<p><strong>ARCHITECT SIGN-OFF</strong></p>
+<p>hermes-lcm is a <strong>strong, high-value addition</strong> to the
+beta v3 rebuild.<br />
+It gives us lossless context management out of the box, which we can
+layer our MemPalace graph, GEPA/HALO, Ouroboros weighted learning, and
+Psy-core audit on top of — all as pluggable modules.</p>
+<p>This fits the “lean into Hermes routes” direction perfectly while
+keeping our sovereign optimizations.</p>
+<p><strong>Next Priority (Your Call)</strong></p>
+<p>Reply with the number:</p>
+<ol type="1">
+<li><strong>Full hermes-lcm integration module</strong> code + Nix
+config.<br />
+</li>
+<li><strong>Updated GEPA extension</strong> for LCM + Ouroboros weighted
+healing.<br />
+</li>
+<li><strong>Test plan</strong> for lossless context with our memory
+layer.<br />
+</li>
+<li><strong>All three</strong> as one package.</li>
+</ol>
+<p>What would you like to initiate?</p>
+</body>
+</html>

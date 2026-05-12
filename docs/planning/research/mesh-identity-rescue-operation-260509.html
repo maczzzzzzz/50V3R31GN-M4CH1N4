@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>After-Action Report: Mesh Identity & Network Rescue Operation</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">After-Action Report</h1>
+<p class="subtitle">Rescue Operation: Tailscale Artery & Quaternary Identity Alignment</p>
+</header>
+
+<main>
+    <section id="incident-summary">
+        <h2>1. Incident Summary</h2>
+        <p>Between May 7th and May 9th, 2026, the NODESTADT mesh experienced a critical connectivity and identity failure. The Zero-Trust Artery (Tailscale) was blocked by physical network drops, NixOS configuration drift, and a "Ghost Identity" mismatch.</p>
+    </section>
+
+    <section id="failure-modes">
+        <h2>2. Identified Failure Modes</h2>
+        <ul>
+            <li><strong>Identity Fracture:</strong> The logical configuration defined the <code>nixos</code> user, while the physical nodes were managed by <code>maczz</code>. Each <code>nixos-rebuild</code> attempted to "sterilize" the active user, leading to session kills and D-Bus failures.</li>
+            <li><strong>Filesystem Instability:</strong> Missing Btrfs subvolume mappings for <code>/home</code> caused NixOS to attempt unmounting the active user's directory during system switches.</li>
+            <li><strong>Trust Blockage:</strong> Closure signature mismatches prevented Node B from pushing updates to Node A and C, requiring a shift to remote build-host strategies.</li>
+            <li><strong>Physical Link Drop:</strong> Node D experienced a LAN disconnect and a root account lockout, necessitating physical console intervention and manual IP assignment.</li>
+        </ul>
+    </section>
+
+    <section id="recovery-logic">
+        <h2>3. Recovery Logic</h2>
+        <p>The mesh was stabilized using a <strong>Nix-First Recovery Protocol</strong>:</p>
+        <ol>
+            <li><strong>Physical Rescue:</strong> Manually assigning <code>10.0.0.13</code> and restoring <code>resolv.conf</code> on Node D to allow Nix dependency fetching.</li>
+            <li><strong>Identity Alignment:</strong> Codifying the <code>maczz</code> user and <code>PasswordAuthentication</code> in <code>common.nix</code> to bridge the logical/physical gap.</li>
+            <li><strong>Remote Build-Host:</strong> Utilizing <code>--build-host</code> on the target nodes to bypass GPG signature requirements for unsigned closures.</li>
+            <li><strong>Artery Finalization:</strong> Sequential Tailscale authentication via a robust orchestration script (v3.1) that handles TTY allocation for <code>sudo</code>.</li>
+        </ol>
+    </section>
+
+    <section id="stabilized-topology">
+        <h2>4. Stabilized Topology</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Tailnet IP</th>
+                    <th>Restored Identity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Node A</td>
+                    <td><code>100.90.196.70</code></td>
+                    <td><code>maczz</code> (Sovereign Key)</td>
+                </tr>
+                <tr>
+                    <td>Node B</td>
+                    <td><code>100.66.173.31</code></td>
+                    <td><code>nixos</code> (Controller)</td>
+                </tr>
+                <tr>
+                    <td>Node C</td>
+                    <td><code>100.102.109.81</code></td>
+                    <td><code>maczz</code> (Sovereign Key)</td>
+                </tr>
+                <tr>
+                    <td>Node D</td>
+                    <td><code>100.120.225.12</code></td>
+                    <td><code>maczz</code> (Sovereign Key)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="lessons-learned">
+        <h2>5. Lessons Learned</h2>
+        <p>Never attempt to "sterilize" an active user identity without first establishing a backdoor Sovereign Key. Always map physical subvolumes in Nix before attempting a remote <code>switch</code>.</p>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : RESCUE_OPERATION_DOCUMENTED. MESH_HEALED. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

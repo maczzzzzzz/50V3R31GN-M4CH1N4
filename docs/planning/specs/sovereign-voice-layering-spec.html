@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="sovereign-voice-layering-specification-v3-beta">◈ SOVEREIGN
+VOICE LAYERING SPECIFICATION (V3-BETA)</h1>
+<p><strong>Status:</strong> DRAFT | <strong>Target Phase:</strong> 2
+(Pluggable Sovereign Layer)</p>
+<h2 id="strategic-objective">1. STRATEGIC OBJECTIVE</h2>
+<p>To architect a zero-trust, high-fidelity voice pipeline that wraps
+the Hermes native agentic core with the Sovereign amplification stack.
+This ensures studio-quality perception and response while maintaining
+physical hardware independence (Omi/PC parity).</p>
+<h2 id="the-quaternary-voice-topology">2. THE QUATERNARY VOICE
+TOPOLOGY</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Node</th>
+<th style="text-align: left;">Technology</th>
+<th style="text-align: left;">Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Capture</strong></td>
+<td style="text-align: left;">B / Client</td>
+<td style="text-align: left;">Omi SDK / WASAPI / PipeWire</td>
+<td style="text-align: left;">Multi-source physical input.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Duplex Core</strong></td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;"><strong>Moshi-RAG</strong></td>
+<td style="text-align: left;">Full-duplex speech + asynchronous RAG
+grounding.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>STT Base</strong></td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">Hermes Native (Whisper)</td>
+<td style="text-align: left;">Initial transcription hook
+(Fallback).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ASR Amp</strong></td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;"><strong>VibeVoice
+(Microsoft)</strong></td>
+<td style="text-align: left;">Diarization, structured metadata,
+long-form coherence.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Brain</strong></td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;">Carnice-V2-27B (Hermes Core)</td>
+<td style="text-align: left;">Agentic reasoning and tool dispatch.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>TTS Amp</strong></td>
+<td style="text-align: left;">D</td>
+<td style="text-align: left;"><strong>VoxCPM2 (OpenBMB)</strong></td>
+<td style="text-align: left;">48kHz Expressive synthesis / Zero-shot
+cloning.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Perception</strong></td>
+<td style="text-align: left;">C</td>
+<td style="text-align: left;">Falcon Perception stack</td>
+<td style="text-align: left;">Real-time threat/environment
+awareness.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-flow-the-cognitive-artery">3. DATA FLOW (THE COGNITIVE
+ARTERY)</h2>
+<ol type="1">
+<li><strong>Input:</strong> Raw PCM audio streamed from
+<strong>Omi</strong> (BLE/WiFi) or <strong>PC Headset</strong> via
+<strong>Clawlink Bridge</strong> to Node D.</li>
+<li><strong>Transcribe:</strong>
+<ul>
+<li>Hermes Whisper generates raw text.</li>
+<li><strong>VibeVoice-ASR</strong> processes the same stream to provide
+speaker ID and structured context (Timestamped).</li>
+</ul></li>
+<li><strong>Process:</strong> Hermes Core receives the enriched
+transcript, logs it to <strong>MemPalace</strong>, and generates a
+response.</li>
+<li><strong>Synthesize:</strong>
+<ul>
+<li><strong>VoxCPM2</strong> generates the response audio using the
+<strong>Ultimate Cloning</strong> path (referencing the user’s Omi audio
+for zero-latency identity matching).</li>
+<li>Output is 48kHz studio-quality stream.</li>
+</ul></li>
+<li><strong>Return:</strong> Audio streamed back to the source device
+(Flutter App or PC Speakers).</li>
+</ol>
+<h2 id="implementation-modules-phase-2">4. IMPLEMENTATION MODULES (PHASE
+2)</h2>
+<h3 id="module-v1-cratesmodulesvibevoice-asr">Module V1:
+<code>crates/modules/vibevoice-asr</code></h3>
+<ul>
+<li><strong>Engine:</strong> Python bridge via PyTorch/vLLM.</li>
+<li><strong>Task:</strong> Wrap the 7B model for diarized
+transcription.</li>
+<li><strong>Nix:</strong> FHS container for CUDA 12.x dependencies.</li>
+</ul>
+<h3 id="module-v2-cratesmodulesvoxcpm-tts">Module V2:
+<code>crates/modules/voxcpm-tts</code></h3>
+<ul>
+<li><strong>Engine:</strong> Python bridge via vLLM-Omni.</li>
+<li><strong>Task:</strong> 48kHz synthesis with voice design
+capability.</li>
+<li><strong>Nix:</strong> FHS container for 48kHz audio drivers and
+MiniCPM backbone.</li>
+</ul>
+<h3 id="module-v3-sidecarsomi-sdk-bridge">Module V3:
+<code>sidecars/omi-sdk-bridge</code></h3>
+<ul>
+<li><strong>Engine:</strong> Python SDK / MCP.</li>
+<li><strong>Task:</strong> Connect Omi app webhooks to the Node D
+pipeline.</li>
+</ul>
+<h2 id="reasoning-invariants">5. REASONING INVARIANTS</h2>
+<ul>
+<li><strong>Zero-Latency Percept:</strong> Transcription must occur
+within &lt;300ms.</li>
+<li><strong>Sovereign Audit:</strong> Every voice episode is audited by
+<strong>Psy-core</strong> before TTS return.</li>
+<li><strong>Privacy:</strong> Local processing only. No cloud STT/TTS
+permitted in high-security mode.</li>
+</ul>
+<hr />
+<p><strong>::/5Y573M-N071C3 : VOICE_SPEC_INITIALIZED.
+AMPLIFICATION_MAP_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

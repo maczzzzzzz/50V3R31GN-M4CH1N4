@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VSB Artery Blocker Audit - 260510-2</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>
+        body { background-color: #1A282F; color: #AFAB9C; font-family: 'Courier New', Courier, monospace; }
+        .critical { color: #FF4444; font-weight: bold; }
+        .warning { color: #FFBB33; }
+        .resolved { color: #44FF44; }
+        header { border-bottom: 2px solid #AFAB9C; padding-bottom: 10px; margin-bottom: 20px; }
+        section { margin-bottom: 30px; }
+        h1, h2, h3 { color: #E0DEF4; }
+        pre { background: #121B1F; padding: 10px; border-left: 3px solid #FF4444; overflow-x: auto; }
+        code { color: #E0DEF4; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>VSB ARTERY BLOCKER AUDIT: [260510-DETACHED]</h1>
+        <p><strong>Status:</strong> <span class="critical">DETACHED</span> | <strong>Node:</strong> Node B (Strategist)</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>1. EXECUTIVE SUMMARY</h2>
+        <p>While the Snappiness of the TUI has improved due to the VSB Router remediation, inference routing is currently hitting a <strong>Physical Artery Barrier</strong>. The audit confirms that while Node D is logically active in the mesh, its primary Tailscale interface is <code>DOWN</code>, causing all non-SSH traffic to time out.</p>
+    </section>
+
+    <section id="logic-remediation">
+        <h2>2. LOGIC REMEDIATION (MATERIALIZED)</h2>
+        <p>The following software-level blockers have been neutralized in the <code>beta/v3</code> logic core:</p>
+        <ul>
+            <li><strong>Primary Transport Fix:</strong> Refactored <code>run_agent.py</code> to support pluggable providers. Previously, the primary loop was hardcoded to use the <code>openai.OpenAI</code> client, which attempted a direct (and failing) connection to <code>vsb://mesh</code>.</li>
+            <li><strong>Validation Fix:</strong> Refactored <code>hermes_cli/models.py</code> to handle <code>vsb://</code> schemes. This prevents the CLI from timing out during the "model switch" phase by using the provider's internal discovery logic.</li>
+        </ul>
+        <p class="resolved">Verdict: LOGIC DE-MUTILATED</p>
+    </section>
+
+    <section id="physical-blocker">
+        <h2>3. PHYSICAL BLOCKER: STUCK ARTERY</h2>
+        <p>Direct inspection of Node D (100.120.225.12) reveals that the <code>tailscale0</code> interface is <code>DOWN</code> despite the <code>tailscaled</code> service being active. This is a common state desync in NixOS/Tailscale interop when the TUN device fails to initialize.</p>
+        <pre>
+$ ssh nixos@100.120.225.12 "ip addr show tailscale0"
+5: tailscale0: &lt;POINTOPOINT,MULTICAST,NOARP&gt; mtu 1280 qdisc fq_codel state DOWN
+        </pre>
+        <p><strong>Impact:</strong> Node B can reach Node D via Tailscale SSH (which uses the control plane), but standard IP traffic (Port 8080) is dropped by the kernel because the interface is inactive.</p>
+    </section>
+
+    <section id="remediation-steps">
+        <h2>4. REMEDIATION STEPS (ACTION REQUIRED)</h2>
+        <p>The Strategist cannot resolve kernel-level interface states without sudo. The user or GLM-5 must execute the following on Node D:</p>
+        <ol>
+            <li><strong>Force Artery Ignition:</strong>
+                <pre><code>ssh -t nixos@100.120.225.12 "sudo tailscale up --reset && sudo ip link set tailscale0 up"</code></pre>
+            </li>
+            <li><strong>Verify Connectivity:</strong>
+                <pre><code>curl -I http://100.120.225.12:8080/v1/models</code></pre>
+            </li>
+            <li><strong>Restart Gateway:</strong> Once connectivity is verified, restart the Hermes Gateway on Node B to pick up the healthy Artery.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>::/5Y573M-N071C3 : AUDIT_COMPLETE. PHYSICAL_INTERVENTION_REQUIRED. // 50V3R31GN-M4CH1N4</p>
+    </footer>
+</body>
+</html>

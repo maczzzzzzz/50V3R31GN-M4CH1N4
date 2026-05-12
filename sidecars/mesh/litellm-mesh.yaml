@@ -1,0 +1,32 @@
+model_list:
+  - model_name: mesh-carnice
+    litellm_params:
+      model: openai/qwen3.6-14b
+      api_base: http://172.28.128.1:8080/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+      tpm: 100000
+      rpm: 100
+  - model_name: qwen3-vl-2b-instruct
+    litellm_params:
+      model: openai/qwen3-vl-2b-instruct
+      api_base: http://172.28.128.1:8080/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+  - model_name: mesh-heavy
+    litellm_params:
+      model: openai/qwen3.6-35b-a3b
+      api_base: http://100.120.225.12:8080/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+
+router_settings:
+  routing_strategy: usage-based-routing-v2
+  enable_pre_call_checks: true
+  model_group_alias:
+    "qwen3.6-14b": "mesh-carnice"
+    "qwen3.6-35b-a3b": "mesh-heavy"
+    "vision": "qwen3-vl-2b-instruct"
+
+general_settings:
+  master_key: "sk-sovereign-mesh-proxy"
+  host: 0.0.0.0
+  port: 4000
+  telemetry: false

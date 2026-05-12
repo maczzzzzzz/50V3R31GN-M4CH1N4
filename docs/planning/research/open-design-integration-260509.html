@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Deep Research: Open Design & Pretext Materialization</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 6 Research Report</h1>
+<p class="subtitle">Open Design Integration & Pretext HUD Materialization</p>
+</header>
+
+<main>
+    <section id="objective">
+        <h2>1. Objective</h2>
+        <p>This report evaluates the <strong>Open Design</strong> engine (nexu-io/open-design) as the primary materialization layer for Phase 6. The goal is to determine the feasibility of forking this design-to-code engine and injecting the <strong>Pretext</strong> kinetic typography protocol into its core rendering loop without breaking architectural integrity.</p>
+    </section>
+
+    <section id="architectural-audit">
+        <h2>2. Architectural Audit</h2>
+        <h3>2.1 Delegated Reasoning Model</h3>
+        <p>Open Design operates on a <strong>Delegated Reasoning Model</strong>, offloading design-to-code logic to external coding agents (Claude Code, Codex, etc.). It manages state via a local SQLite database and streams artifacts using Server-Sent Events (SSE). This architecture is perfectly aligned with our <strong>Node D (Logic)</strong> and <strong>Node B (Control)</strong> split.</p>
+        
+        <h3>2.2 Decoupled UI</h3>
+        <p>The frontend is a modern Next.js 16 application. Visual aesthetics are governed by deterministic "Directions" defined in <code>prompts/directions.ts</code>, utilizing OKLch color spaces and font stacks. This modularity allows for the native injection of our <strong>Operational Lo-Fi Brutalism</strong> aesthetic.</p>
+    </section>
+
+    <section id="pretext-integration">
+        <h2>3. Pretext HUD Materialization</h2>
+        <p>The primary concern—modifying the UI with Pretext without breaking the engine—is addressed by the system's <strong>Skills Protocol</strong>.</p>
+        <ul>
+            <li><strong>Injection Point:</strong> Pretext can be injected as a high-fidelity rendering skill. By wrapping the Pretext library into a custom <code>SKILL.md</code>, we can force the reasoning engine to utilize kinetic typographic layouts for all generated artifacts.</li>
+            <li><strong>Rendering Loop:</strong> Since Open Design utilizes a sandboxed <code>srcdoc</code> iframe for real-time previews, Pretext's JavaScript-based typography engine can execute in total isolation from the Next.js frontend logic.</li>
+        </ul>
+    </section>
+
+    <section id="distributed-mesh-deployment">
+        <h2>4. Distributed Mesh Deployment (Quaternary)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Node</th>
+                    <th>Rationale</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>OD Daemon</strong></td>
+                    <td>Node D (100.120.225.12)</td>
+                    <td>Handles heavy reasoning, agent process spawning, and artifact generation (48GB RAM).</td>
+                </tr>
+                <tr>
+                    <td><strong>Next.js Frontend</strong></td>
+                    <td>Node B (100.66.173.31)</td>
+                    <td>Provides the low-latency visual HUD and interaction layer (16GB RAM).</td>
+                </tr>
+                <tr>
+                    <td><strong>Artifact Storage</strong></td>
+                    <td>Node A (100.90.196.70)</td>
+                    <td>Persistent storage for the design-to-code ledger and GAC medoids.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="feasibility-verdict">
+        <h2>5. Feasibility Verdict</h2>
+        <p><strong>Verdict: HIGHLY FEASIBLE.</strong></p>
+        <p>Open Design's "BYOS" (Bring Your Own Skill) philosophy makes it the ideal chassis for a Sovereign Design Artery. We can heavily modify the visual output using Pretext while preserving 100% of the underlying design-to-code reasoning logic.</p>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : OPEN_DESIGN_AUDIT_COMPLETE. PHASE_6_PATH_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

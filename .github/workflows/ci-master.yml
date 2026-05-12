@@ -1,0 +1,49 @@
+name: Sovereign CI (Master/Beta)
+
+on:
+  push:
+    branches:
+      - beta/v3
+      - master
+      - main
+
+jobs:
+  nix-build-and-cache:
+    name: Nix Flake Build & Cache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Monorepo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - name: Setup Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+
+      - name: Verify Flake Inputs
+        run: nix flake check --show-trace
+
+      - name: Build Primary Node Configurations
+        run: |
+          echo ":: Building Node A (Synapse)..."
+          nix build .#nixosConfigurations.node-a.config.system.build.toplevel
+          
+          echo ":: Building Node B (Director)..."
+          nix build .#nixosConfigurations.node-b.config.system.build.toplevel
+          
+          echo ":: Building Node D (Quaternary)..."
+          nix build .#nixosConfigurations.node-d.config.system.build.toplevel
+
+      - name: Submodule Strict Pinning Audit
+        run: |
+          chmod +x scripts/check-upstream-updates.sh
+          ./scripts/check-upstream-updates.sh

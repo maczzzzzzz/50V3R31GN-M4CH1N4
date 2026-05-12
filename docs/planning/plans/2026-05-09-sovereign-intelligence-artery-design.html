@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Intelligence Artery: Design Specification</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Intelligence Artery</h1>
+<p class="subtitle">Design Specification: High-Fidelity Research & Memory Consolidation</p>
+</header>
+
+<main>
+    <section id="executive-summary">
+        <h2>1. Executive Summary</h2>
+        <p>The <strong>Sovereign Intelligence Artery</strong> is a distributed cognitive architecture designed to bridge <strong>Local Deep Research (LDR)</strong> with advanced <strong>Geometry-Aware Consolidation (GAC)</strong>. It solves the "Compression Cliff" problem—where agentic memory loses detail over time—by decoupling logic-heavy consolidation math from encrypted state persistence.</p>
+    </section>
+
+    <section id="mesh-topology">
+        <h2>2. Mesh Topology & Roles</h2>
+        <p>The architecture leverages the physical strengths of the Quaternary Mesh:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Role</th>
+                    <th>Hardware Constraint</th>
+                    <th>Functional Stack</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Node D</strong></td>
+                    <td>Orchestrator</td>
+                    <td>48GB DDR5 (NPU)</td>
+                    <td>LangGraph LDR Engine, GAC Dimensional Router, LLM Reasoning Core</td>
+                </tr>
+                <tr>
+                    <td><strong>Node A</strong></td>
+                    <td>The Vault</td>
+                    <td>16GB DDR4</td>
+                    <td>SQLite-VSM (Encrypted), RAM-Resident Vector Index, SearXNG Proxy</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="component-architecture">
+        <h2>3. Component Architecture</h2>
+        
+        <h3>3.1 LDR Ingestion (Node D)</h3>
+        <p>A multi-agent research service using the <code>sovereign-sniffer</code> tool. It executes asynchronous loops to search, crawl, and synthesize raw data. Output is streamed directly to the GAC Router instead of flooding the context window.</p>
+
+        <h3>3.2 GAC Router (Node D)</h3>
+        <p>Middleware that calculates the <strong>Effective Dimensionality ($d_{\text{eff}}$)</strong> of semantic clusters.
+            <ul>
+                <li><strong>Centroid Action:</strong> For redundant clusters ($d_{\text{eff}} < \theta$), it emits a lossy summary.</li>
+                <li><strong>Medoid Action:</strong> For diverse clusters ($d_{\text{eff}} \geq \theta$), it selects the most relevant original document as a lossless representative.</li>
+            </ul>
+        </p>
+
+        <h3>3.3 VSM Vault (Node A)</h3>
+        <p>An ultra-lean service managing an encrypted <code>SQLite</code> instance and memory-mapped vector buffers. With 16GB RAM, the entire vector space is pinned in memory for &lt;10ms retrieval.</p>
+
+        <h3>3.4 Hermes Artery Plugin (hermes-gac)</h3>
+        <p>A native Tenacity <code>MemoryProvider</code> that replaces standard RAG. It handles the Tailscale-encrypted transport and manages context injection via the <code>prefetch()</code> hook.</p>
+    </section>
+
+    <section id="data-flow">
+        <h2>4. Data Flow (The Cognitive Loop)</h2>
+        <ol>
+            <li><strong>Ingest:</strong> LDR tools stream raw research findings into the 128k context window.</li>
+            <li><strong>Analyze:</strong> When context reaches 80%, the GAC Router analyzes the history's geometry.</li>
+            <li><strong>Consolidate:</strong> Representatives (Medoids/Centroids) are pushed to Node A via the Artery.</li>
+            <li><strong>Recall:</strong> Before each turn, <code>hermes-gac</code> performs a hybrid (BM25 + Vector) search on Node A and primes the next reasoning step with high-fidelity context.</li>
+        </ol>
+    </section>
+
+    <section id="security-sovereignty">
+        <h2>5. Security & Sovereignty</h2>
+        <ul>
+            <li><strong>Zero-Cloud:</strong> All inference, embedding, and storage occur on physical hardware.</li>
+            <li><strong>Encrypted Transport:</strong> All mesh communication is locked within the Tailscale Artery.</li>
+            <li><strong>Data at Rest:</strong> Metadata is protected via <code>SQLCipher</code>; vectors are stored in isolated binary buffers.</li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : DESIGN_SPEC_LOCKED. ARTERY_INGESTION_READY. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

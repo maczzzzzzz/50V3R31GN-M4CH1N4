@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Zero-Trust Artery - Nodestadt Foundation</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="topology.html">Topology</a> | 
+        <a href="artery.html">Artery</a> | <a href="network-resilience.html">Resilience</a> | 
+        <a href="security.html">Security</a> | 
+        <a href="roles.html">Roles</a>
+    </nav>
+
+    <header>
+        <h1>◈ THE ZERO-TRUST ARTERY</h1>
+        <p><strong>Category:</strong> FOUNDATION | <strong>Status:</strong> OPERATIONAL</p>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Transport Layer Overview</h2>
+            <p>The <strong>Artery</strong> defines the encrypted pathways through which the Nodestadt nodes maintain state synchronization and command authority. We utilize <strong>Tailscale</strong> to provide a secure, peer-to-peer overlay network across Nodes A, B, C, and D.</p>
+            
+            <ul>
+                <li><strong>Encryption:</strong> WireGuard-based Zero-Trust transport.</li>
+                <li><strong>Addressing:</strong> Statically mapped <code>100.x.y.z</code> IPs.</li>
+                <li><strong>Persistence:</strong> Immune to local LAN fluctuations.</li>
+                <li><strong>Mobile Bridge:</strong> Enables Clawlink Android-to-Mesh connectivity.</li>
+            </ul>
+        </section>
+
+        <section id="vsb-protocol">
+            <h2>1. VSB UDP Protocol (The Pulse)</h2>
+            <p>Real-time logic synchronization and latency-critical telemetry are handled via the <strong>Virtual Sovereign Bus (VSB)</strong>.</p>
+            <ul>
+                <li><strong>Protocol:</strong> Pure binary UDP on port <code>7878</code>.</li>
+                <li><strong>Packet Size:</strong> Fixed 302-byte packets for deterministic mesh processing.</li>
+                <li><strong>Function:</strong> High-frequency state updates and model routing heartbeat.</li>
+            </ul>
+        </section>
+
+        <section id="mesh-rpc">
+            <h2>2. mTLS Control Plane</h2>
+            <p>All high-level tool calls and node-to-node RPCs are routed through an encrypted mTLS layer, ensuring that even if a local node is compromised, the mesh remains resilient.</p>
+            <ul>
+                <li><strong>Authority:</strong> <code>hermes-router</code> on port <code>7341</code>.</li>
+                <li><strong>Gating:</strong> Access is strictly governed by <strong>Psy-core</strong> security audits.</li>
+                <li><strong>Identity:</strong> SPIFFE/SPIRE enforced per-session.</li>
+            </ul>
+        </section>
+
+        <section id="storage-artery">
+            <h2>3. Model Storage & Sync</h2>
+            <p>To maintain bit-identical reasoning, LLM weights are managed via a centralized distribution system.</p>
+            <ul>
+                <li><strong>Source:</strong> Physical Windows D: drive (Node B).</li>
+                <li><strong>Distribution:</strong> <code>rsync</code> via Tailscale Artery to worker nodes.</li>
+                <li><strong>Integrity:</strong> Mandatory SHA-256 verification after every transfer.</li>
+            </ul>
+        </section>
+
+        <section id="port-registry">
+            <h2>4. Port Registry</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Protocol</th>
+                        <th>Port</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>VSB Pulse</strong></td>
+                        <td>UDP</td>
+                        <td>7878</td>
+                        <td>Mesh Heartbeat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hermes Gateway</strong></td>
+                        <td>WS/TCP</td>
+                        <td>8642</td>
+                        <td>Interaction Artery</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nix Daemon</strong></td>
+                        <td>TCP</td>
+                        <td>3025</td>
+                        <td>Distributed Deployment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>mTLS RPC</strong></td>
+                        <td>HTTPS</td>
+                        <td>7341</td>
+                        <td>Zero-Trust Control Plane</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HUD Dashboard</strong></td>
+                        <td>HTTP</td>
+                        <td>9119</td>
+                        <td>Visual Observability</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : ARTERY_STABILIZED. TRANSPORT_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

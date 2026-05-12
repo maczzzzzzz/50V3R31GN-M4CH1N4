@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VSB Router Blocker Audit - 260510</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>
+        body { background-color: #1A282F; color: #AFAB9C; font-family: 'Courier New', Courier, monospace; }
+        .critical { color: #FF4444; font-weight: bold; }
+        .warning { color: #FFBB33; }
+        .resolved { color: #44FF44; }
+        header { border-bottom: 2px solid #AFAB9C; padding-bottom: 10px; margin-bottom: 20px; }
+        section { margin-bottom: 30px; }
+        h1, h2, h3 { color: #E0DEF4; }
+        pre { background: #121B1F; padding: 10px; border-left: 3px solid #FF4444; overflow-x: auto; }
+        code { color: #E0DEF4; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>VSB ROUTER BLOCKER AUDIT: [260510-TIMEOUT]</h1>
+        <p><strong>Status:</strong> <span class="resolved">RESOLVED</span> (v3.3.4-BETA) | <strong>Node:</strong> Node B (Strategist)</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>1. EXECUTIVE SUMMARY</h2>
+        <p>Inference routing via <code>sovereign-vsb</code> is currently failing with <code>APITimeoutError</code>. The audit identifies three cascading blockers: a missing environmental secret, a fallback trap, and a physical connectivity barrier (Firewall/Service state on Node D).</p>
+    </section>
+
+    <section id="blocker-analysis">
+        <h2>2. BLOCKER ANALYSIS</h2>
+        
+        <div class="blocker">
+            <h3>2.1 Missing SOVEREIGN_MESH_SECRET</h3>
+            <p><strong>Fault:</strong> The recent VSB refactor introduced a hard requirement for <code>SOVEREIGN_MESH_SECRET</code>. This variable is absent from <code>~/.hermes/.env</code>.</p>
+            <p><strong>Impact:</strong> The <code>SovereignVSBProvider</code> fails to initialize, logging an <code>OSError</code> and causing a fall-through in the resolution chain.</p>
+        </div>
+
+        <div class="blocker">
+            <h3>2.2 The Fallback Trap</h3>
+            <p><strong>Fault:</strong> When the VSB provider fails, Hermes falls back to a generic OpenAI-compatible resolution. Because the <code>SovereignVSBProfile</code> declares <code>base_url: "http://100.120.225.12:8080/v1"</code>, Hermes attempts a direct connection without the router's load-balancing logic.</p>
+            <p><strong>Impact:</strong> Error messages reflect a direct connection attempt to Node D, bypassing the "Mesh" intelligence.</p>
+        </div>
+
+        <div class="blocker">
+            <h3>2.3 Physical Connectivity (The Core Issue)</h3>
+            <p><strong>Fault:</strong> Node B cannot reach Node D on port 8080 or 8081 over the Tailscale Artery.</p>
+            <pre>
+$ curl --connect-timeout 5 -I http://100.120.225.12:8080/v1/models
+curl: (28) Connection timed out after 5002 milliseconds
+            </pre>
+            <p><strong>Impact:</strong> Absolute failure of inference routing to the Quaternary Core.</p>
+        </div>
+    </section>
+
+    <section id="glm-directives">
+        <h2>3. DIRECTIVES FOR GLM-5</h2>
+        <ol>
+            <li><strong>Environment Provisioning:</strong> Inject <code>SOVEREIGN_MESH_SECRET</code> into <code>~/.hermes/.env</code>.</li>
+            <li><strong>Firewall Hardening (flake.nix):</strong> 
+                <ul>
+                    <li>Add <code>8081</code> to <code>networking.firewall.allowedTCPPorts</code> for Node D.</li>
+                    <li>Ensure <code>tailscale0</code> is listed in <code>trustedInterfaces</code> or verify that local listeners are bound to <code>0.0.0.0</code>.</li>
+                </ul>
+            </li>
+            <li><strong>Service Verification (Node D):</strong> Confirm <code>ik-llama</code> systemd service is active and bound to the correct ports.</li>
+            <li><strong>Fallback Remediation:</strong> Update <code>SovereignVSBProfile</code> to remove the hardcoded <code>base_url</code> to prevent fallback traps when the router is down.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>::/5Y573M-N071C3 : AUDIT_COMPLETE. INFERENCE_OFFLINE. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</p>
+    </footer>
+</body>
+</html>

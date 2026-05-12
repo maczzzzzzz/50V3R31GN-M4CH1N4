@@ -1,0 +1,26 @@
+{
+  "name": "sovereign-sniffer",
+  "version": "1.0.0",
+  "description": "Browser-based discovery and API reverse-engineering via Stagehand SDK",
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": {
+    "sniffer": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node --loader ts-node/esm src/cli.ts",
+    "test": "node --loader ts-node/esm src/test.ts"
+  },
+  "dependencies": {
+    "@browserbasehq/stagehand": "^3.2.1",
+    "zod": "^3.22.0",
+    "commander": "^11.0.0",
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+}

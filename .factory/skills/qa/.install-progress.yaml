@@ -1,0 +1,53 @@
+install_progress:
+  phase: complete
+  date: 2026-05-10
+  project: Sovereign Machina
+
+categories:
+  default_target:
+    answer: tailscale_mesh
+    notes: "Node B: 100.66.173.31:3002"
+
+  personas:
+    answer: single_user
+    roles:
+      - name: operator
+        description: "Single mesh operator with full access"
+        credentials_source: env-var
+        secret_name: HERMES_PASSWORD
+
+  critical_flows:
+    confirmed: true
+    flows:
+      - "Workspace: Login, Chat, Model Selection, Terminal, File Browser, Settings"
+      - "Agent: Plugin listing, Telegram, n8n, VFS operations"
+      - "Rust Crates: Build verification, unit tests"
+
+  external_services:
+    answer: none
+    notes: "Fully self-hosted, no SaaS dependencies"
+
+  cleanup:
+    answer: manual
+    notes: "Tests are mostly read-only"
+
+  imagemagick:
+    installed: false
+    answer: no
+
+  github_actions:
+    answer: yes
+    existing_workflows:
+      - ci-pr.yml
+      - ci-master.yml
+      - submodule-audit.yml
+    new_workflow: qa.yml
+    required_secrets:
+      - HERMES_PASSWORD
+      - HERMES_API_TOKEN
+      - TELEGRAM_ARTERY_BOT_TOKEN
+      - N8N_API_KEY
+    check_type: optional
+
+  failure_learning:
+    answer: suggest_in_report

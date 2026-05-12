@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin Architecture - Nodestadt Engine</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="hermes-core.html">Hermes Core</a> | 
+        <a href="vsb-protocol.html">VSB Protocol</a> | 
+        <a href="consensus-alignment.html">Consensus</a> | <a href="security-audit-psy-core.html">Psy-Core</a> | <a href="zeroboot-isolation.html">Zeroboot</a>
+    </nav>
+
+    <header>
+        <h1>◈ PLUGIN ARCHITECTURE & MANIFESTO</h1>
+        <p><strong>Category:</strong> ENGINE | <strong>Status:</strong> MANDATED</p>
+    </header>
+
+    <main>
+        <section id="manifesto">
+            <h2>The No-Shadow Manifesto</h2>
+            <p>Nodestadt plugins must adhere to the <strong>No-Shadow Logic</strong> mandate. We utilize native Hermes v0.13.0 hooks to inject Sovereign capabilities rather than building custom shim layers.</p>
+            <ul>
+                <li><strong>Modularity:</strong> Each appendage must be a self-contained Python or Rust module.</li>
+                <li><strong>Auditability:</strong> Every tool call must be observable by the <strong>Psy-core</strong> hook.</li>
+                <li><strong>Parity:</strong> Standardized deployment via Nix flakes across all nodes.</li>
+            </ul>
+        </section>
+
+        <section id="hook-surfaces">
+            <h2>1. Native Hook Surfaces</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hook Event</th>
+                        <th>Sovereign Usage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>transform_llm_output</code></td>
+                        <td>Psy-core Cryptographic Signing</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td><code>pre_tool_call</code></td>
+                        <td>Consensus Alignment Checks</td>
+                        <td>Pending</td>
+                    </tr>
+                    <tr>
+                        <td><code>post_api_request</code></td>
+                        <td>Telemetry & VSB Pulse Sync</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td><code>MemoryProvider</code> (Interface)</td>
+                        <td>Hermes-LCM & Memoir (Git-backed)</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td><code>ModelProvider</code> (Interface)</td>
+                        <td>CloakBrowser (Stealth Harness)</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="plugin-structure">
+            <h2>2. Structural Standards</h2>
+            <article>
+                <h3>Manifest: <code>plugin.yaml</code></h3>
+                <p>Every plugin must include a manifest defining its name, type, and hardware requirements.</p>
+                <pre><code>name: resilience-forge
+type: general
+version: 1.0.0
+tags: [security, vaccination]</code></pre>
+            </article>
+            <article>
+                <h3>Logic Core: <code>__init__.py</code></h3>
+                <p>Initialization must be non-blocking. Heavy computation should be deferred to background threads or specialized nodes (Node D).</p>
+            </article>
+        </section>
+
+        <section id="mcp-integration">
+            <h2>3. MCP (Model Context Protocol)</h2>
+            <p>High-level appendages are materialized as MCP servers. This allows for language-agnostic tool expansion (Rust, Node.js, Go) while maintaining bit-identical compatibility with the Hermes core.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : PLUGIN_MANIFESTO_LOCKED. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

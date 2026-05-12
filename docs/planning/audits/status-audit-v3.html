@@ -1,0 +1,22 @@
+# Mesh Stabilization Audit - v3.0.0-BETA
+
+## 1. Accomplishments
+*   **Infrastructure Shift:** Successfully migrated from `hermes-desktop` to `hermes-workspace` for the primary dashboard interface on Node B.
+*   **Mesh Authentication:** Patched the Node D API server to synchronize authentication and fix cross-node session token validation, resolving 401/403 errors.
+*   **Documentation:** Fully synced 50+ documentation files with updated network topology and IP addresses.
+*   **Stability Patches:** Fixed build failures in the Workspace HUD related to Electron/GPU sandboxing in WSL2.
+
+## 2. Blockers: TUI Gateway Lockup
+The primary bottleneck is a process hang during `hermes --tui` initialization.
+*   **Observed Behavior:** The TUI gateway process (`python -m tui_gateway.entry`) starts but deadlocks during early initialization before `gateway.ready` is emitted. 
+*   **Diagnostic Findings:** 
+    *   The gateway successfully initializes the TUI build.
+    *   Manual inspection shows the python process hangs awaiting I/O or responding to a signal from the terminal driver.
+    *   Terminal raw mode settings (`EIO` errors) were detected in `node:tty`.
+    *   This deadlock currently renders the TUI unusable.
+
+## 3. Recovery Plan
+1.  **Node/Instance Restart:** Perform a clean restart of Node B to clear any hung terminal session state or orphaned IPC locks.
+2.  **Environment Sanitation:** Clear all temporary lock files and python bytecode caches (`__pycache__`) in `sidecars/hermes-agent-nous`.
+3.  **TUI Re-validation:** Upon restart, initiate a clean build of `packages/hermes-ink` and execute `hermes --tui` with debugging enabled to trace the specific IPC sink where the deadlock occurs.
+4.  **Fallback Path:** If the TUI gateway continues to deadlock, we will pivot to pure WebSocket communication through the `hermes-workspace` dashboard as the sole interface, bypassing the PTY/TUI bridge temporarily until the gateway protocol is fully stabilized.

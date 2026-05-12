@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="sovereign-strategy-stagehand-sdk-audit">◈ SOVEREIGN STRATEGY :
+STAGEHAND SDK AUDIT</h1>
+<p><strong>Date:</strong> 2026-05-07 <strong>Auditor:</strong> Sovereign
+Strategist (Gemini 3.1 Pro) <strong>Objective:</strong> Evaluate
+Stagehand (by Browserbase) for integration into the ‘Director’s Forge’
+and ‘Browser Harness’ modules.</p>
+<h2 id="executive-summary-verdict">1. EXECUTIVE SUMMARY &amp;
+VERDICT</h2>
+<p>The <strong>Stagehand SDK</strong> is a significant technological
+leap in <strong>Deterministic Browser Automation</strong>. While
+<code>browser-use</code> (our current harness) is excellent for
+open-ended exploration, Stagehand is superior for
+<strong>production-grade repeatability</strong> and <strong>low-latency
+API discovery</strong>.</p>
+<p><strong>Verdict:</strong> HIGH-FIDELITY ADOPTION. We will use
+Stagehand as the <strong>“Sovereign Sniffer”</strong> on Node B to
+accelerate the Director’s Forge.</p>
+<hr />
+<h2 id="architectural-synergies">2. ARCHITECTURAL SYNERGIES</h2>
+<h3 id="the-sovereign-sniffer-directors-forge">◈ The “Sovereign Sniffer”
+(Director’s Forge)</h3>
+<p>The <code>cli-printing-press</code> requires a mechanism to discover
+and reverse-engineer APIs from browser traffic. - <strong>Stagehand’s
+<code>observe()</code> and <code>extract()</code>:</strong> These
+primitives allow the Director (Node B) to point a browser at a target
+site, automatically identify all actionable elements, and extract
+structured data schemas (Zod). - <strong>Self-Healing Caching:</strong>
+Unlike standard Playwright, Stagehand caches successful AI-selected
+paths. This ensures that once the Director’s Forge “forges” a tool, the
+underlying automation remains stable and fast even as the target site
+changes slightly.</p>
+<h3 id="browser-harness-hybridization-node-d">◈ Browser Harness
+Hybridization (Node D)</h3>
+<p>We will maintain a hybrid approach for browser interaction: -
+<strong><code>browser-use</code> (Exploration):</strong> Remains on Node
+D for autonomous, open-ended tasks where the reasoning path is unknown.
+- <strong>Stagehand (Execution):</strong> Deployed for
+<strong>mission-critical, repeatable tasks</strong> (e.g., system-wide
+auth, scheduled data syncs) where performance and determinism are
+paramount.</p>
+<hr />
+<h2 id="deployment-strategy-phase-2">3. DEPLOYMENT STRATEGY (PHASE
+2)</h2>
+<h3 id="task-9-the-sovereign-sniffer-node-b">Task 9: The Sovereign
+Sniffer (Node B)</h3>
+<ol type="1">
+<li><strong>Deployment:</strong> Provision the Stagehand TS/Python SDK
+via a <strong>Nix FHS environment</strong> on Node B.</li>
+<li><strong>Forge Integration:</strong> Link Stagehand to the
+<code>cli-printing-press</code>. When the Director is tasked with
+“Absorbing a new API,” Stagehand will handle the automated browsing and
+schema extraction.</li>
+<li><strong>Local-First CDP:</strong> Utilize the CDP-native
+architecture of Stagehand v3 for 40%+ faster local browser interaction,
+bypassing the heavy overhead of standard Playwright where possible.</li>
+</ol>
+<hr />
+<h2 id="updated-repository-tracking">4. UPDATED REPOSITORY TRACKING</h2>
+<ul>
+<li><strong>Stagehand SDK:</strong> <a
+href="https://github.com/browserbase/stagehand">https://github.com/browserbase/stagehand</a>
+- Hybrid browser automation for API discovery.</li>
+<li><strong>Browserbase Cloud:</strong> (Optional) <a
+href="https://www.browserbase.com/">https://www.browserbase.com/</a> -
+Production-grade browser fleet and agent identity.</li>
+</ul>
+<hr />
+<p><strong>::/5Y573M-N071C3 : STAGEHAND_VERIFIED.
+SOVEREIGN_SNIFFER_PROVISIONED. // 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

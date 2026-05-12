@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Hermes Core Uplift: v0.13.0 Tenacity Release</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Hermes Core Uplift</h1>
+<p class="subtitle">Version 0.13.0: The Tenacity Release Audit</p>
+</header>
+
+<main>
+    <section id="release-summary">
+        <h2>1. Release Summary</h2>
+        <p>Released on May 7, 2026, version 0.13.0 ("Tenacity") represents a massive modernization of the Hermes core, introducing durable multi-agent coordination, persistence rewrites, and a pluggable provider architecture.</p>
+    </section>
+
+    <section id="key-features">
+        <h2>2. Key Feature Audit</h2>
+        <ul>
+            <li><strong>Multi-Agent Kanban:</strong> A durable board for task delegation with heartbeats, zombie detection, and hallucination recovery.</li>
+            <li><strong>Ralph Loop (/goal):</strong> Native cross-turn goal persistence, ensuring the agent remains locked on target.</li>
+            <li><strong>Multimodal Perception:</strong> Integration of <code>video_analyze</code> for native video understanding.</li>
+            <li><strong>Pluggable Providers:</strong> Decoupled inference backends (OpenRouter, Anthropic, Gemini, etc.) through the <code>ProviderProfile</code> ABC.</li>
+            <li><strong>Checkpoints v2:</strong> Total rewrite of state persistence with real pruning and disk guardrails.</li>
+        </ul>
+    </section>
+
+    <section id="sovereign-alignment">
+        <h2>3. Sovereign Mesh Alignment</h2>
+        <p>Our Quaternary Mesh (Beta v3) is now synchronized with this release. The following native surfaces are utilized:</p>
+        <ul>
+            <li><strong>Memory:</strong> Pluggable <code>hermes-lcm</code> (and upcoming <code>hermes-gac</code>) providers.</li>
+            <li><strong>Routing:</strong> Native <code>sovereign-vsb</code> provider for mesh-wide model dispatch.</li>
+            <li><strong>Security:</strong> <code>transform_llm_output</code> hooks for real-time intent vetting.</li>
+        </ul>
+    </section>
+
+    <section id="security-hardening">
+        <h2>4. Security Hardening</h2>
+        <p>The Tenacity release closed 8 P0 security vulnerabilities, including guild-scoped Discord role allowlists and TOCTOU window closures in authentication logic. Redaction is now active by default.</p>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : CORE_UPLIFT_PHYSICALIZED. TENACITY_CORE_ACTIVE. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

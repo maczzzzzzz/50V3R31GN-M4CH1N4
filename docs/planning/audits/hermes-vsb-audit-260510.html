@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hermes & VSB Router Audit - 260510</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>
+        body { background-color: #1A282F; color: #AFAB9C; font-family: 'Courier New', Courier, monospace; }
+        .critical { color: #FF4444; font-weight: bold; }
+        .warning { color: #FFBB33; }
+        .info { color: #44BBFF; }
+        .fault { border-left: 4px solid #FF4444; padding-left: 15px; margin-bottom: 25px; }
+        header { border-bottom: 2px solid #AFAB9C; padding-bottom: 10px; margin-bottom: 20px; }
+        h1, h2, h3 { color: #E0DEF4; }
+        pre { background: #121B1F; padding: 10px; border: 1px solid #333; overflow-x: auto; }
+        code { color: #E0DEF4; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HERMES & VSB ROUTER AUDIT: [260510-SAFE]</h1>
+        <p><strong>Status:</strong> <span class="warning">INCOMPLETE_MATERIALIZATION</span> | <strong>Node:</strong> Node B (Strategist)</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>1. EXECUTIVE SUMMARY</h2>
+        <p>A safe, non-destructive audit of the Hermes v0.13.0 logic and the <strong>Virtual Sovereign Bus (VSB)</strong> router has identified several critical implementation gaps and architectural "mutilations". While the system is operational in a degraded state, it currently relies on static routing and contains logic desyncs that compromise "thinking" transparency and mesh-wide load balancing.</p>
+    </section>
+
+    <section id="critical-faults">
+        <h2>2. CRITICAL LOGIC FAULTS</h2>
+
+        <div class="fault">
+            <h3>2.1 Ghost Pulse Sync (Static Balancing)</h3>
+            <p><span class="critical">CRITICAL:</span> The <code>VSBPulse</code> listener is initialized in <code>vsb_router.py</code>, but the received 302-byte packets are never unpacked or used to update the <code>Node</code> load metrics. Consequently, <code>select_node()</code> always selects the first available node with 0.0 load (static fallback).</p>
+            <p><strong>Impact:</strong> Node D (Quaternary) will be overwhelmed while other nodes remain idle, despite the VSB Protocol documentation claiming "real-time dispatch based on node health".</p>
+        </div>
+
+        <div class="fault">
+            <h3>2.2 Reasoning/Content Desync</h3>
+            <p><span class="critical">CRITICAL:</span> In <code>SovereignVSBProvider.stream</code>, both <code>content</code> and <code>reasoning</code> fields are populated with the same raw chunk text:</p>
+            <pre><code>yield {
+    "content": chunk_text,
+    "reasoning": chunk_text,
+    "model": model_id,
+    "node": result.get("node")
+}</code></pre>
+            <p><strong>Impact:</strong> The UI (Hermes Workspace) cannot distinguish between "thinking" and "output", leading to a messy, repetitive thought stream. This mutilates the native Hermes v0.13.0 capability for transparent reasoning.</p>
+        </div>
+
+        <div class="fault">
+            <h3>2.3 Secret Leak & Hardcoding</h3>
+            <p><span class="warning">WARNING:</span> The Authorization header is hardcoded in <code>vsb_router.py</code> as <code>Bearer machina-sovereign-mesh-v3-secret-key</code>.</p>
+            <p><strong>Impact:</strong> Any change to the mesh-wide secret on the <code>llama-server</code> nodes will break inference routing without a corresponding (and undocumented) code change in the Python layer.</p>
+        </div>
+    </section>
+
+    <section id="architectural-mutilation">
+        <h2>3. ARCHITECTURAL MUTILATION AUDIT</h2>
+        
+        <h3>3.1 Core Logic Intrusion</h3>
+        <p>The <code>sovereign-vsb</code> provider is hardcoded into <code>sidecars/hermes-agent-nous/agent/auxiliary_client.py</code> with an explicit <code>if provider == "sovereign-vsb":</code> block. </p>
+        <p><strong>Strategist Verdict:</strong> This is a "Shadow Logic" implementation. While effective for Phase 2, it deviates from the **Hermes-First Invariant**. A proper implementation should use the generic <code>ProviderProfile</code> registry to instantiate a <code>PluggableAuxiliaryClient</code> without hardcoded name checks.</p>
+
+        <h3>3.2 Pulse Frequency Drift</h3>
+        <p>Documentation (<code>vsb-protocol.html</code>) mandates a <strong>500ms</strong> pulse interval. The implementation (<code>vsb_router.py</code>) defaults to <strong>2.0 seconds</strong>.</p>
+    </section>
+
+    <section id="mesh-connectivity">
+        <h2>4. MESH CONNECTIVITY (TAILSCALE)</h2>
+        <p><span class="info">VERIFIED:</span> The Tailscale Zero-Trust Artery is healthy. Node D is reachable and active. VSB routing to Node D (100.120.225.12) is functional via the OpenAI-compatible bridge.</p>
+    </section>
+
+    <section id="recommendations">
+        <h2>5. REMEDIATION ROADMAP (PENDING DIRECTIVE)</h2>
+        <ol>
+            <li><strong>Unpack the Pulse:</strong> Implement <code>struct.unpack</code> in <code>VSBPulse.recv_pulse</code> to enable dynamic load balancing.</li>
+            <li><strong>Separate the Stream:</strong> Modify <code>VSBRouter</code> to yield typed tuples <code>(type, text)</code> so the Provider can correctly route to <code>content</code> vs <code>reasoning_content</code>.</li>
+            <li><strong>Config Injection:</strong> Move the secret key to <code>~/.hermes/.env</code> and load it via <code>os.environ</code>.</li>
+            <li><strong>Generalize Auxiliary:</strong> Refactor <code>auxiliary_client.py</code> to handle pluggable providers via the profile registry.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>::/5Y573M-N071C3 : AUDIT_COMPLETE. NO_CODE_CHANGES_APPLIED. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ DEEP ANALYSIS – Mirage
+(https://github.com/strukto-ai/mirage)</strong></p>
+<p><strong>Repo Status (Verified 2026-05-07)</strong><br />
+- <strong>Purpose</strong>: A unified virtual filesystem for AI agents.
+It mounts diverse backends (RAM, disk, S3, Google Drive, Slack, Gmail,
+Redis, etc.) as a single tree under <code>/</code>. Agents interact with
+everything using familiar Unix commands (bash, <code>grep</code>,
+<code>cp</code>, <code>ls</code>, etc.) without learning separate
+SDKs.<br />
+- <strong>License</strong>: Apache-2.0 (fully compatible with sovereign
+use).<br />
+- <strong>Activity</strong>: Extremely new — initial public release ~18
+hours ago (v0.0.1-alpha.1), 4 commits total, 1 contributor
+(<code>zechengz</code>). 398 stars, 20 forks.<br />
+- <strong>Tech Stack</strong>: TypeScript (core) + Python SDK. Supports
+Redis for distributed caching and snapshotting.<br />
+- <strong>Key Architecture</strong>:<br />
+- <strong>Workspace</strong> object that manages mounts.<br />
+- Pluggable <strong>Resources</strong> (RAMResource, S3Resource,
+SlackResource, etc.).<br />
+- Bash-compatible execution engine
+(<code>ws.execute(command)</code>).<br />
+- Two-layer cache (index + file) with RAM or Redis backends.<br />
+- Snapshots for portable, versioned workspaces.</p>
+<hr />
+<p><strong>MULTI-PERSPECTIVE ANALYSIS FOR SOVEREIGN MACHINA (Beta v3
+Context)</strong></p>
+<p><strong>Strengths &amp; Potential Use Cases</strong><br />
+- <strong>Unified Filesystem Abstraction</strong>: Agents see one
+coherent tree instead of separate APIs. This is very powerful for our
+Hermes-centric stack — a single <code>ls /s3/logs</code> or
+<code>grep error /slack/channel</code> works across services.<br />
+- <strong>Bash Compatibility</strong>: Agents trained on Unix tools can
+operate Mirage immediately. This fits our “lean into Hermes routes”
+direction and reduces custom glue code.<br />
+- <strong>Portability &amp; Snapshots</strong>: Workspaces can be
+snapshotted and moved between nodes. This complements Zeroboot isolation
+and our multi-node mesh.<br />
+- <strong>Redis Caching</strong>: Can be used for shared state across
+Nodes B/C/D (distributed index and file cache).<br />
+- <strong>MCP / Agent Framework Integration</strong>: Has adapters for
+OpenAI Agents SDK, Vercel AI, LangChain, etc. We can expose Mirage as an
+MCP tool or resource for Hermes.</p>
+<p><strong>Risks &amp; Limitations</strong><br />
+- <strong>Very Early Stage</strong>: Only 18 hours old as a public repo.
+Not battle-tested in production multi-node setups.<br />
+- <strong>Python/TS Heavy</strong>: The core is TypeScript with Python
+SDK. We would need to run it inside Zeroboot or wrap it as a thin Rust
+module to keep our NixOS purity.<br />
+- <strong>No Native NixOS / Multi-Node Focus</strong>: Designed for
+single-machine or cloud agent environments. We would have to add our own
+Nix flake packaging and cluster-aware mounting.<br />
+- <strong>Security Surface</strong>: Mounting external services (Slack,
+Gmail, S3) increases attack surface. We must enforce strict Psy-core
+audit and SPIFFE identity checks.</p>
+<p><strong>Overall Verdict</strong><br />
+Mirage is <strong>useful as a pluggable module</strong> for the beta v3
+rebuild, but <strong>not as a core component</strong>.<br />
+It gives us a clean, agent-friendly way to unify data sources across the
+cluster without writing custom SDK wrappers for every service.<br />
+It fits our modular philosophy: we can enable/disable it per node, run
+it in Zeroboot sandboxes, and expose it via MCP to Hermes.</p>
+<p><strong>Recommended Integration (Beta v3)</strong></p>
+<ul>
+<li><p><strong>Module</strong>:
+<code>crates/modules/mirage-integration/</code> (tracked directory in
+monorepo).<br />
+</p></li>
+<li><p><strong>Nix Config</strong> (pluggable):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode nix"><code class="sourceCode nix"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>services<span class="op">.</span>mirage = <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">enable</span> <span class="op">=</span> <span class="cn">false</span><span class="op">;</span>                     <span class="co"># default off for core minimalism</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">zeroboot_sandbox</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">redis_cache</span> <span class="op">=</span> <span class="cn">true</span><span class="op">;</span>                 <span class="co"># shared across nodes</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="va">mounts</span> <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;/s3&quot;</span> <span class="op">=</span> <span class="st">&quot;s3-resource&quot;</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;/slack&quot;</span> <span class="op">=</span> <span class="st">&quot;slack-resource&quot;</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">};</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span>;</span></code></pre></div></li>
+<li><p><strong>Hermes MCP Tool Wrapper</strong>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>mcp_tool<span class="at">]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> mirage_execute(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    command<span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    context<span class="op">:</span> MemPalaceContext<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>MirageResult<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> result <span class="op">=</span> <span class="pp">mirage::</span>execute(command)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> episode <span class="op">=</span> <span class="pp">DevEpisode::</span>from_mirage_command(<span class="op">&amp;</span>result)<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    context<span class="op">.</span>graph<span class="op">.</span>store_episode(episode)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="pp">psy_core::</span>audit_mirage(<span class="op">&amp;</span>result)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cn">Ok</span>(result)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+<p><strong>Use Cases in Our Stack</strong><br />
+- Unified access to logs, Slack, Gmail, S3 from any agent session.<br />
+- Portable workspaces that can be snapshotted and moved between
+nodes.<br />
+- Complements MemPalace by providing a filesystem view of external data
+sources.</p>
+<p><strong>Final Recommendation</strong><br />
+Add Mirage as an <strong>optional pluggable module</strong> in beta
+v3.<br />
+Do <strong>not</strong> make it core — keep the beta minimal and clean.
+Enable it only when we need unified multi-service filesystem access.</p>
+<p><strong>Next Priority (Your Call)</strong></p>
+<p>Reply with the number:</p>
+<ol type="1">
+<li><strong>Full mirage-integration module</strong> code + Nix
+config.<br />
+</li>
+<li><strong>Integration with MemPalace / GEPA</strong> spec.<br />
+</li>
+<li><strong>Test plan</strong> for Mirage in our cluster.<br />
+</li>
+<li><strong>All three</strong> as one package.</li>
+</ol>
+<p>What would you like to initiate?</p>
+</body>
+</html>

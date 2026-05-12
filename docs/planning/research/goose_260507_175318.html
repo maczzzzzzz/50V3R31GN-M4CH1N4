@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ DEEP ANALYSIS – goose
+(https://github.com/aaif-goose/goose)</strong><br />
+<strong>Usefulness for Hermes, Droid, and Gemini in Sovereign Machina
+(Beta v3 Context)</strong></p>
+<p><strong>Repo Status (Verified 2026-05-07)</strong><br />
+- <strong>Project</strong>: goose is an <strong>open-source, extensible
+AI agent</strong> designed to go beyond simple code suggestions. It can
+install, execute, edit, test, and automate tasks using any LLM. It
+functions as a general-purpose agent for research, writing, automation,
+data analysis, and more.<br />
+- <strong>License</strong>: MIT (fully compatible with our sovereign
+goals).<br />
+- <strong>Activity</strong>: Extremely high — 4,385 commits, 132
+releases (latest v1.33.1 on Apr 29, 2026), 473 contributors. Recent
+commits within hours/days. Moved to the Agentic AI Foundation (AAIF) at
+the Linux Foundation.<br />
+- <strong>Platforms</strong>: Native desktop app for macOS, Linux,
+Windows + full CLI + API.<br />
+- <strong>Tech Stack</strong>: Rust (core), TypeScript/React (desktop),
+MCP (Model Context Protocol) for extensions, ACP (Agent Context
+Protocol) for LLM providers.</p>
+<p><strong>Key Features</strong><br />
+- Integrates with 15+ LLM providers (Anthropic/Claude, OpenAI/ChatGPT,
+Google/Gemini, Ollama, OpenRouter, Azure, Bedrock, etc.).<br />
+- Supports 70+ extensions via MCP (skills/tools discoverable in
+<code>.agents/skills</code>, <code>.claude/skills</code>, etc.).<br />
+- CLI, desktop app, and API for embedding into other tools.<br />
+- Local inference support (Vulkan on Linux, CUDA on Windows).<br />
+- Workflow recipes for multi-step automation.<br />
+- Skills and tools organized for discoverability and extensibility.</p>
+<hr />
+<p><strong>USEFULNESS FOR OUR STACK (Hermes, Droid, Gemini)</strong></p>
+<p><strong>For Hermes (Authoritative Runtime /
+Orchestrator)</strong><br />
+- <strong>High usefulness</strong>.<br />
+- goose is essentially a <strong>general-purpose agent harness</strong>
+that complements Hermes perfectly.<br />
+- Hermes can use goose as a <strong>pluggable execution
+environment</strong> or skill layer for tasks that require native OS
+interaction (install, execute, edit, test code).<br />
+- MCP support means goose can be exposed as an MCP tool to Hermes,
+allowing seamless delegation.<br />
+- In beta v3, goose can be integrated as a <strong>pluggable
+module</strong> (<code>crates/modules/goose-integration/</code>) that
+Hermes calls when it needs a more capable agentic executor.</p>
+<p><strong>For Droid (CLI Tool)</strong><br />
+- <strong>Medium-High usefulness</strong>.<br />
+- Droid is our lightweight CLI. goose offers a much richer agentic layer
+(multi-LLM, skills, workflows, desktop integration).<br />
+- We can use goose to <strong>extend Droid</strong> rather than replace
+it — Droid remains the entry point, goose handles complex agentic
+tasks.<br />
+- goose’s CLI and API make it easy to call from Droid via MCP or
+shell.</p>
+<p><strong>For Gemini (Strategist Model)</strong><br />
+- <strong>High usefulness</strong>.<br />
+- Gemini is already supported natively in goose (via ACP).<br />
+- goose can act as a <strong>strategist execution layer</strong> for
+Gemini — Gemini plans high-level strategy, goose executes the steps with
+tools/skills.<br />
+- This creates a clean separation: Gemini for high-level reasoning,
+Hermes for orchestration, goose for concrete execution.</p>
+<p><strong>Overall Fit with Beta v3 Goals</strong><br />
+- Fits the “lean into strong external tools and layer our sovereign
+optimizations” direction.<br />
+- Can be added as a <strong>pluggable module</strong> in the monorepo —
+easy to enable/disable, test in isolation, and move if needed.<br />
+- Complements our existing stack (Hermes as orchestrator, Pretext HUD as
+home screen, Warp as dev appendage).<br />
+- Does not conflict with modularity or NixOS purity — we can run goose
+inside Zeroboot sandboxes for isolation.</p>
+<p><strong>Risks</strong><br />
+- Another Python/TS-heavy dependency (goose has Rust core but desktop is
+Electron/TS).<br />
+- Potential overlap with our existing agentic tools (we must avoid
+duplication).<br />
+- Maintenance if goose evolves rapidly.</p>
+<p><strong>Recommendation</strong><br />
+<strong>Add goose as a pluggable module</strong> in beta v3.<br />
+It is a strong, actively maintained agent harness that extends Hermes
+and Droid without replacing them.<br />
+Use it for execution-heavy tasks while Hermes remains the orchestrator
+and Gemini the strategist.</p>
+<p><strong>Next Priority (Your Call)</strong></p>
+<p>Reply with the number:</p>
+<ol type="1">
+<li><strong>Full goose-integration module</strong> spec (Nix + MCP
+wrapper).<br />
+</li>
+<li><strong>Integration with Hermes / Droid / Gemini</strong> detailed
+plan.<br />
+</li>
+<li><strong>Test plan</strong> for goose in our stack.<br />
+</li>
+<li><strong>All three</strong> as one package.</li>
+</ol>
+<p>What would you like to initiate?</p>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research: Sovereign Companion Overlay - Nodestadt</title>
+    <link rel="stylesheet" href="../../../../docs/sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <header>
+        <h1>◈ RESEARCH: SOVEREIGN COMPANION OVERLAY</h1>
+        <p><strong>Status:</strong> PROPOSED | <strong>Category:</strong> AGENTIC UX | <strong>Date:</strong> 2026-05-10</p>
+    </header>
+
+    <main>
+        <section id="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>This report evaluates the feasibility of a "Sovereign Companion"—a spawnable sidecar or toggleable workspace overlay character. Inspired by the <strong>Open Design "pet" component</strong>, this entity serves as a visual manifestation of the Quaternary Mesh state, reacting to VSB Pulse events and reasoning streams.</p>
+        </section>
+
+        <section id="reference-analysis">
+            <h2>1. Reference Analysis: Open Design 'Pet'</h2>
+            <p>The <code>open-design/components/pet</code> implementation provides a blueprint for Agentic UX:</p>
+            <ul>
+                <li><strong>Deterministic Identity:</strong> Character species and traits are generated via user-ID hashing, ensuring a persistent "soul" for each mesh.</li>
+                <li><strong>Observer Pattern:</strong> The pet acts as a secondary LLM instance that "watches" the primary agent's telemetry and provides contextual critique or encouragement.</li>
+                <li><strong>Stat-Driven Personality:</strong> Traits like <em>Chaos</em>, <em>Wisdom</em>, and <em>Sarcasmo</em> modulate the system prompt of the companion.</li>
+                <li><strong>State Persistence:</strong> Stats are anchored in a local SQLite database, allowing for cross-session memory.</li>
+            </ul>
+        </section>
+
+        <section id="architectural-proposal">
+            <h2>2. Proposed Sovereign Implementation</h2>
+            <article class="shard">
+                <h3>A. The Visual Layer (HUD Overlay)</h3>
+                <p>The companion will be materialized as a toggleable <strong>SVG/Canvas sprite</strong> within the <code>hermes-workspace</code> dashboard. It will utilize <strong>Framer Motion</strong> for kinetic responsiveness to mesh events.</p>
+            </article>
+
+            <article class="shard">
+                <h3>B. Logic Integration (VSB Artery)</h3>
+                <p>Unlike standard UI pets, the Sovereign Companion is bound to the <strong>VSB Protocol</strong>:</p>
+                <ul>
+                    <li><strong>Pulse Reaction:</strong> The sprite "pulses" or changes color frequency based on the 302-byte binary UDP heartbeat.</li>
+                    <li><strong>Thinking Visualization:</strong> When Node D enters the "Heavy Reasoning" phase (detected via <code>reasoning_content</code>), the companion enters an "Ascended" state.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section id="implementation-path">
+            <h2>3. Strategic Implementation Path</h2>
+            <ol>
+                <li><strong>Component Scaffolding:</strong> Create <code>dashboard/src/components/CompanionOverlay.tsx</code>.</li>
+                <li><strong>State Mapping:</strong> Bind the component to the <code>useMeshStore</code> (Zustand) to react to real-time Node A-D vitals.</li>
+                <li><strong>Persona Injection:</strong> Define a minimal "Shadow Mode" system prompt that allows the companion to comment on terminal output without interfering with mission logic.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : COMPANION_RESEARCH_LOGGED. THE_MESH_HAS_A_FACE. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

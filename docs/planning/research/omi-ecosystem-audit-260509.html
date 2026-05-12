@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Deep Research Report: The Omi Path to Sovereign Voice</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Omi Ecosystem Audit</h1>
+<p class="subtitle">The App-First Path to Sovereign Voice Ingress</p>
+</header>
+
+<main>
+    <section id="objective">
+        <h2>1. Objective</h2>
+        <p>This report evaluates the <strong>Omi ecosystem</strong> (omi.me) as a foundational layer for the Sovereign Machina voice artery. Despite the current lack of wearable hardware, the Omi Flutter app and modular backend provide a superior path for localized, high-fidelity voice ingress compared to generic bridges.</p>
+    </section>
+
+    <section id="app-as-sensor">
+        <h2>2. The App-First Strategy</h2>
+        <p>In the absence of a physical wearable, the <strong>Omi Flutter App</strong> serves as the primary mobile sensor. By leveraging Omi's open-source architecture, we can redirect the app's telemetry and audio streams away from the cloud and into our private mesh.</p>
+        <ul>
+            <li><strong>Voice Ingress:</strong> Real-time PCM/Opus streaming from the mobile mic to <strong>Node D</strong> (Whisper STT).</li>
+            <li><strong>Sovereign Backend:</strong> Hosting the Omi FastAPI backend on <strong>Node B</strong> (100.66.173.31) to eliminate cloud dependencies like Deepgram and Pinecone.</li>
+            <li><strong>Local State:</strong> Directing mobile memories to <strong>Node A</strong> via the Hermes-LCM ledger.</li>
+        </ul>
+    </section>
+
+    <section id="technical-integration">
+        <h2>3. Technical Integration Path</h2>
+        <h3>3.1 Localized Omi Backend</h3>
+        <p>The Omi backend is a modular FastAPI service that can be containerized or "Nix-ified" on Node B. It acts as the coordinator for the mobile client, handling authentication, storage, and tool triggers.</p>
+        
+        <h3>3.2 Native MCP Bridge</h3>
+        <p>Omi's native <strong>MCP Server</strong> will be registered as a tool in the <strong>Hermes Tenacity Core</strong>. This allows the reasoning models on Node D to query mobile context (location, recent mobile-voice notes) as part of their standard reasoning loop.</p>
+
+        <h3>3.3 Node B Voice Ingress (Desktop/TUI)</h3>
+        <p>Voice ingress on Node B (Hermes Desktop/Herm TUI) will bypass the Omi backend and pipe directly into the <strong>VibeVoice/VoxCPM2</strong> stack on Node C, maintaining sub-100ms latency for local engineering tasks.</p>
+    </section>
+
+    <section id="future-proofing-firmware">
+        <h2>4. Future-Proofing: Firmware Sovereignty</h2>
+        <p>When physical wearables are added to the mesh, the <strong>nRF Connect SDK</strong> based firmware will be hardened with zero-trust encryption. The "Device-App Protocol" ensures that audio remains encrypted from the silicon to the local mesh vault.</p>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : OMI_RESEARCH_PHYSICALIZED. APP_FIRST_SOVEREIGNTY_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

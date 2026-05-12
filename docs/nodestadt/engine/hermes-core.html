@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Core Engine - Nodestadt Engine</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="hermes-core.html">Hermes Core</a> | 
+        <a href="vsb-protocol.html">VSB Protocol</a> | 
+        <a href="consensus-alignment.html">Consensus</a> | <a href="security-audit-psy-core.html">Psy-Core</a> | <a href="zeroboot-isolation.html">Zeroboot</a>
+    </nav>
+
+    <header>
+        <h1>◈ HERMES CORE ENGINE</h1>
+        <p><strong>Category:</strong> ENGINE | <strong>Status:</strong> STABILIZED [v0.13.0]</p>
+    </header>
+
+    <main>
+        <section id="system-architecture">
+            <h2>The Reasoning Runtime</h2>
+            <p>The <strong>Hermes Core</strong> is a high-density Python orchestration engine. It serves as the primary intelligence layer of the Nodestadt Mesh, managing the reasoning loop, tool execution, and context persistence.</p>
+            <ul>
+                <li><strong>Logic Core:</strong> <code>run_agent.py</code> (The Ouroboros Loop).</li>
+                <li><strong>Interface:</strong> <code>hermes_cli/</code> (Stock TUI & Dashboard).</li>
+                <li><strong>State:</strong> SQLite-based session storage with FTS5 search.</li>
+            </ul>
+        </section>
+
+        <section id="ouroboros-loop">
+            <h2>1. The Ouroboros Loop</h2>
+            <p>The core reasoning loop in <code>run_conversation()</code> follows a strictly synchronous, deterministic path to ensure absolute reliability across the mesh.</p>
+            <article>
+                <h3>Lifecycle Steps</h3>
+                <ol>
+                    <li><strong>Goal Ingestion:</strong> Parsing objective from the <code>/goal</code> stack.</li>
+                    <li><strong>Provider Selection:</strong> Dynamic routing via the VSB provider adapter.</li>
+                    <li><strong>Tool Orchestration:</strong> Parallel dispatch of mesh-native tools.</li>
+                    <li><strong>Result Vaccination:</strong> Security auditing via the Psy-core hook.</li>
+                    <li><strong>Memory Archival:</strong> Snapshotting the turn into the LCM ledger.</li>
+                </ol>
+            </article>
+        </section>
+
+        <section id="extensibility">
+            <h2>2. Extensibility Mapping</h2>
+            <p>Nodestadt utilizes the native Hermes v0.13.0 Tenacity surfaces to inject Sovereign logic without custom shims.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Surface</th>
+                        <th>Standard</th>
+                        <th>Sovereign Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Memory</strong></td>
+                        <td><code>MemoryProvider</code> ABC</td>
+                        <td>Hermes-LCM (SQLite DAG)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inference</strong></td>
+                        <td><code>ProviderProfile</code></td>
+                        <td>Sovereign VSB (UDP Pulse)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td><code>transform_llm_output</code></td>
+                        <td>Psy-core Cryptographic Audit</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Appendages</strong></td>
+                        <td><code>MCP</code> / <code>Tool</code></td>
+                        <td>MATLAB, Goose, Graphify</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="dev-mandates">
+            <h2>3. Engineering Standards</h2>
+            <ul>
+                <li><strong>Radical Candor:</strong> The agent must proactively report architectural drift or hardware bottlenecks.</li>
+                <li><strong>Zero Shadow Logic:</strong> All mesh-specific code must live in standardized plugins or hardened core patches.</li>
+                <li><strong>Documentation:</strong> 100% coverage mandate for all new capabilities.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : CORE_ENGINE_SYNCED. LOGIC_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

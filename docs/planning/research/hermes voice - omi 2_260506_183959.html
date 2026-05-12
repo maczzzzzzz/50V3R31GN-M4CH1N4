@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ HONEST &amp; UNBIASED ASSESSMENT – Should We Fork Omi Like
+We Did Hermes?</strong></p>
+<p><strong>Short Answer</strong><br />
+<strong>No — it does not make sense to fork the entire Omi repo at this
+stage.</strong></p>
+<p>Forking Omi would be <strong>overkill and add unnecessary maintenance
+burden</strong>, especially as we are deliberately simplifying the
+architecture for the beta v3 rebuild.<br />
+The Omi team is indeed very active, which is actually a <strong>reason
+not to fork</strong> right now.</p>
+<hr />
+<h3 id="pros-cons-comparison">PROS / CONS COMPARISON</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 36%" />
+<col style="width: 35%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Forking Omi (Like Hermes)</th>
+<th>Keeping Official Omi + Extending Our Layer</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control</td>
+<td>Full control over app and future features</td>
+<td>Good control via our Machina Terminal (Flutter)</td>
+<td>Tie (but fork is heavier)</td>
+</tr>
+<tr>
+<td>Maintenance</td>
+<td>High — must rebase frequently on active upstream</td>
+<td>Low — we only maintain our thin extension layer</td>
+<td><strong>Official + Extension</strong></td>
+</tr>
+<tr>
+<td>Development Velocity</td>
+<td>Slower (merge conflicts, testing full fork)</td>
+<td>Faster (focus only on our custom features)</td>
+<td><strong>Official + Extension</strong></td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>High — could break Omi hardware compatibility</td>
+<td>Low — Omi SDK/MCP bridge is stable</td>
+<td><strong>Official + Extension</strong></td>
+</tr>
+<tr>
+<td>Alignment with Beta v3 Goal</td>
+<td>Contradicts “lean into Hermes routes, simplify”</td>
+<td>Supports clean, modular, Hermes-first rebuild</td>
+<td><strong>Official + Extension</strong></td>
+</tr>
+<tr>
+<td>Long-term Scalability</td>
+<td>Harder to keep in sync with active Omi team</td>
+<td>Easier — we benefit from Omi updates automatically</td>
+<td><strong>Official + Extension</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Insight</strong><br />
+Omi is <strong>input hardware + client app</strong>.<br />
+Hermes is the <strong>core agent runtime</strong>.<br />
+We forked Hermes because it is the <strong>brain</strong> of the system
+— we needed deep control and sovereign patches.<br />
+Omi is the <strong>peripheral input layer</strong>. We do not need to
+own the entire stack; we only need a clean bridge to it.</p>
+<hr />
+<h3 id="recommended-approach-most-practical-for-beta-v3">RECOMMENDED
+APPROACH (Most Practical for Beta v3)</h3>
+<p><strong>Do NOT fork the full Omi repo.</strong></p>
+<p>Instead:</p>
+<ol type="1">
+<li><strong>Use the official Omi app + Omi SDK / MCP bridge</strong>
+as-is (already mined and stable).<br />
+</li>
+<li><strong>Extend our own Machina Terminal</strong> (the Flutter app
+already in the monorepo at <code>terminal-app/</code>) as the custom
+sovereign layer on top of Omi.<br />
+</li>
+<li><strong>Keep the Clawlink bridge</strong> (already in monorepo) as
+the secure RPC layer between Omi and Node D.<br />
+</li>
+<li><strong>Amplify voice pipeline</strong> (Hermes Whisper → VibeVoice
+→ VoxCPM2) on Node D, as previously designed.</li>
+</ol>
+<p>This gives us: - Full control over the Machina-specific experience
+(custom UI, commands, voice feedback).<br />
+- Automatic benefit from Omi team’s active development (new hardware
+features, bug fixes, app improvements).<br />
+- Minimal maintenance — we only maintain our thin Flutter extension and
+the Clawlink bridge.<br />
+- Clean alignment with the beta v3 goal of simplicity and
+modularity.</p>
+<p><strong>How This Fits the Beta v3 Rebuild</strong><br />
+- The Flutter Machina Terminal becomes a pluggable appendage
+module.<br />
+- No changes to the Hermes submodule or core brain.<br />
+- Everything stays in the monorepo and follows the same
+submodule/pinning rules.<br />
+- Cyberpunk Red and other future plugins remain isolated.</p>
+<p>This is the practical, long-term maintainable choice.</p>
+<p><strong>Would you like me to</strong>:</p>
+<ol type="1">
+<li>Provide the <strong>updated Machina Terminal extension spec</strong>
+(Flutter side) to deeply integrate with the enhanced voice
+pipeline.<br />
+</li>
+<li>Give the <strong>full voice pipeline module</strong> (Node D side)
+with Omi + PC mic support.<br />
+</li>
+<li>Start the <strong>Phase 122 repo sweep</strong> so we can begin the
+clean beta v3 foundation.</li>
+</ol>
+<p>Just say the number or describe what you want next.</p>
+<p>We are making the right strategic decisions for the long term.</p>
+</body>
+</html>

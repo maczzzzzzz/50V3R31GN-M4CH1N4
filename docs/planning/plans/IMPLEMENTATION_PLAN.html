@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="./docs/sovereign-style.css" />
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1
+id="implementation_plan.md-sovereign-machina-beta-v3">IMPLEMENTATION_PLAN.md:
+Sovereign Machina Beta v3</h1>
+<p><strong>Status:</strong> ACTIVE | <strong>Phase:</strong> 4 (Pretext HUD & Kinetic Typography)</p>
+<h2 id="strategic-invariants-the-law">0. STRATEGIC INVARIANTS (THE
+LAW)</h2>
+<ol type="1">
+<li><strong>The Crucible:</strong> Hermes and the 4 Nodes (A-D) must
+remain <strong>ONLINE CONSTANTLY</strong>. Development is a live stress
+test. Do not shut down nodes to test logic.</li>
+<li><strong>Single Source of Truth:</strong> All granular task
+management, dispatcher queuing, and execution tracking MUST be handled
+via <strong>Hermes Kanban</strong>. This document tracks Macro-Phases
+only.</li>
+<li><strong>No Shadow Logic:</strong> If the Hermes upstream ecosystem
+has a tool (e.g., Browser Harness, MCP), we wrap it. We do NOT rewrite
+it in Rust or Go.</li>
+<li><strong>Modularity:</strong> Every distinct capability must be a
+pluggable Nix Flake.</li>
+</ol>
+<hr />
+<h2 id="phase-0-foundation-reset-repo-sweep-complete">PHASE 0:
+Foundation Reset &amp; Repo Sweep (COMPLETE)</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Create
+<code>beta/v3</code> branch.</label></li>
+<li><label><input type="checkbox" checked="" />Sweep and identify all
+20+ redundant sidecars/crates.</label></li>
+<li><label><input type="checkbox" checked="" />Surgically remove (git
+rm) all Cyberpunk Red/Netrunner lore-bleed and TTRPG data.</label></li>
+<li><label><input type="checkbox" checked="" />Generate Decision Matrix
+(<code>docs/beta-v3/decision-matrix.md</code>).</label></li>
+<li><label><input type="checkbox" checked="" />Sterilize local workspace
+(<code>archive/v2.1.0-prototype/</code>).</label></li>
+</ul>
+<h2 id="phase-1-hermes-first-core-kanban-integration-complete">PHASE 1:
+Hermes-First Core &amp; Kanban Integration (COMPLETE)</h2>
+<p><strong>Objective:</strong> Establish the Python Hermes fork as the
+undisputed logic runtime and link the Kanban dispatcher.
+<strong>Status:</strong> ✅ VERIFIED</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Connect Hermes upstream Kanban
+board to our live dispatcher.</label></li>
+<li><label><input type="checkbox" checked="" />Verify Kanban dependency chaining
+(Triage -&gt; Ready -&gt; In Progress -&gt; Done) is functional on Node
+B.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>Dual-UI Implementation:</strong></label>
+    <ul>
+        <li>Deploy <code>hermes-desktop</code> as the primary visual hub.</li>
+        <li>Provision <code>Herm</code> TUI for high-performance terminal dashboard.</li>
+    </ul>
+</li>
+<li><label><input type="checkbox" checked="" />Implement <code>ik_llama.cpp</code> as a Nix derivation for Node B/C/D
+(node-specific AVX2/CUDA builds).</label></li>
+<li><label><input type="checkbox" checked="" /><strong>Model Artery
+Provisioning:</strong> Sync models from Node B (D:.cpp) to all nodes (B,
+C, D) per <code>beta-v3-artery.md</code>.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>Hermes Core
+Uplift (Node D):</strong></label>
+    <ul>
+        <li>Provision the creative skills (<code>hyperframes</code>, <code>pretext</code>, <code>ascii-video</code>).</li>
+        <li>Provision <code>browser-harness</code> as native capabilities.</li>
+        <li>Dual-UI setup scripts created (<code>scripts/hermes/node-d-dual-ui.sh</code>).</li>
+    </ul>
+</li>
+</ul>
+<p><em>Note: The legacy custom Pretext HUD carries too much old logic to
+port safely. Custom Pretext HUD features are explicitly deferred to a
+later planned phase.</em></p>
+
+<h2 id="phase-2-the-pluggable-sovereign-layer-complete">PHASE 2: The
+Pluggable Sovereign Layer (COMPLETE)</h2>
+<p><strong>Objective:</strong> Extract the hardware-bound logic into
+discrete Nix Flakes. <strong>Status:</strong> ✅ MATERIALIZED</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Task 0: <strong>Tenacity Upstream
+Sync</strong> - Rebase Sovereign fork onto v0.13.0 and unify on <code>main</code> branch.</label></li>
+<li><label><input type="checkbox" checked="" />Task 1: <strong>Lossless Memory Uplift</strong> -
+Integrate <code>hermes-lcm</code> as the primary Memory Provider Plugin.</label></li>
+<li><label><input type="checkbox" checked="" />Task 2: <strong>Zeroboot Isolation
+&amp; Hardware Sandboxes</strong> - Deploy Firecracker/KVM microVM isolation on Node D.</label></li>
+<li><label><input type="checkbox" checked="" />Task 3:
+<strong>Sovereign Model Router (VSB)</strong> - Implement native <code>ModelProvider</code> plugin for multi-node inference.</label></li>
+<li><label><input type="checkbox" checked="" />Task 4: <strong>Expert Engineering Appendages</strong> - Deploy
+<strong>Goose</strong>, <strong>Graphify</strong>, <strong>MATLAB</strong>, and <strong>Oz-skills</strong>.</label></li>
+<li><label><input type="checkbox" checked="" />Task 5: <strong>Sovereign Voice Layering &amp; Omi Pivot</strong> -
+Materialize local Omi backend and bind Zero-Trust Artery.</label></li>
+<li><label><input type="checkbox" checked="" />Task 6: <strong>Psy-core
+Cryptographic Audit</strong> - Implement as a native
+<code>transform_llm_output</code> hook.</label></li>
+<li><label><input type="checkbox" checked="" />Task 7: <strong>The Director’s Forge</strong> - Deploy
+<code>cli-printing-press</code> as our Tool Factory.</label></li>
+<li><label><input type="checkbox" checked="" />Task 8: <strong>The Coordination Layer</strong> -
+Implement <strong>Consensus Alignment</strong> and <strong>Virtualized Shared Memory</strong>.</label></li>
+<li><label><input type="checkbox" checked="" /><strong>Strategist Mandate:</strong> Materialize Sovereign HUD fork and register all Sovereign skills via <code>cli-config.yaml</code>.</label></li>
+</ul>
+
+<h2 id="phase-3-memory-spatial-visualization-active">PHASE 3: Memory
+&amp; Spatial Visualization (COMPLETE)</h2>
+<p><strong>Objective:</strong> Re-integrate Sovereign memory
+enhancements and materialize the <strong>Sovereign Hall</strong> spatial
+coordination environment. Previous attempt abandoned; restarting from zero-trust baseline.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Task 1: <strong>The Sovereign Sniffer (Stagehand)</strong> - Deploy the <strong>Stagehand SDK</strong> on Node B for automated API discovery and <strong>Conductor</strong> mission automation. <em>Integration: Use <strong>CloakBrowser</strong> for source-level stealth.</em></label></li>
+<li><label><input type="checkbox" checked="" />Task 2: <strong>Sovereign Omi &amp; Flutter HUD</strong> - Materialize a high-fidelity Pretext-powered HUD in the Omi Flutter client.</label></li>
+<li><label><input type="checkbox" checked="" />Task 3: <strong>Sovereign HUD Materialization</strong> - Implement the <strong>Pretext Protocol</strong> and <strong>Mesh Telemetry</strong> in the <code>hermes-workspace-fork</code>, utilizing native <strong>Swarm Mode</strong> for multi-agent coordination.</label></li>
+<li><label><input type="checkbox" checked="" />Task 4: <strong>Lossless Memory Integration</strong> - Convert <code>MemPalace</code> graph database to <code>hermes-lcm</code> plugin. <em>Integration: Apply <strong>Hello-Agents</strong> "Situation Understanding" and A2A protocols.</em></label></li>
+<li><label><input type="checkbox" />Task 5: <strong>Sovereign Hall (Claw3D)</strong> - Materialize the 3D meeting environment within the Sovereign Workspace HUD.</label></li>
+<li><label><input type="checkbox" checked="" />Task 6: <strong>Resilience Forge</strong> - Implement the “Logic Vaccination” loop using Ouroboros reflection. <em>Integration: Use <strong>DataDog/pup</strong> for agent-native node observability and Runbooks.</em></label></li>
+<li><label><input type="checkbox" />Task 7: <strong>Mooncake KV SPILLOVER</strong> - Port high-speed KV spillover logic to Node A.</label></li>
+</ul>
+
+<h2 id="phase-4-pretext-hud-kinetic-typography">PHASE 4: Pretext HUD
+&amp; Kinetic Typography (COMPLETE)</h2>
+<p><strong>Objective:</strong> Materialize the high-fidelity visual
+layer for real-time cognitive observability and interactive
+coordination.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />Task 0: <strong>Unified Text Engine (Rust)</strong>
+- Port Pretext layout arithmetic to a shared Rust crate.</label></li>
+<li><label><input type="checkbox" checked="" />Task 1: <strong>Hermes Pretext
+(React)</strong> - Integrate the Editorial Engine into the Sovereign Workspace HUD (<code>prompt-kit</code> components).</label></li>
+<li><label><input type="checkbox" checked="" />Task 2: <strong>Machina
+Pretext (Flutter)</strong> - Implement <code>flutter_pretext</code> in
+the mobile Terminal.</label></li>
+<li><label><input type="checkbox" checked="" />Task 3:
+<strong>Ambient Artery (Fluid Smoke)</strong> - Implement Navier-Stokes fluid background.</label></li>
+<li><label><input type="checkbox" checked="" />Task 4: <strong>Variable Typographic ASCII</strong> -
+Materialize proportional ASCII rendering with “Washed Protocol” styling.</label></li>
+<li><label><input type="checkbox" />Task 5: <strong>Kinetic Memory
+Viz</strong> - Implement shrink-wrapped kinetic bubbles for Node A cache.</label></li>
+<li><label><input type="checkbox" checked="" />Task 6: <strong>Thought-Stream
+Virtualization</strong> - Lossless scrolling of <code>hermes-lcm</code> logs.</label></li>
+</ul>
+
+<h2 id="phase-5-incremental-appendages">PHASE 5+: Incremental
+Appendages</h2>
+<p><strong>Objective:</strong> Carefully roll out isolated appendages
+with strict live-testing.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>n8n-mcp Integration:</strong>
+Externalize API orchestration using Hermes native plugin context.</label></li>
+<li><label><input type="checkbox" /><strong>Omi Voice Layering:</strong> Implement layered voice
+pipeline with Omi hardware input via Clawlink.</label></li>
+<li><label><input type="checkbox" /><strong>Mirage VFS:</strong>
+Pilot the Unified Virtual Filesystem (<code>strukto-ai/mirage</code>).</label></li>
+<li><label><input type="checkbox" /><strong>Android Terminal App (Clawlink):</strong> Finalize
+Flutter-based Machina Terminal for mobile observability.</label></li>
+</ul>
+
+<h2 id="phase-6-sovereign-design-artery">PHASE 6: Sovereign Design
+Artery</h2>
+<p><strong>Objective:</strong> Materialize the high-fidelity
+design-to-code pipeline using Open Design and Pretext.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Task 1:
+<strong>Open Design Sovereign Fork</strong> - Deploy the localized
+design daemon on Node D for heavy reasoning.</label></li>
+<li><label><input type="checkbox" />Task 2: <strong>Next.js
+HUD Integration</strong> - Materialize the design interface on Node B
+via Tailscale SSE.</label></li>
+<li><label><input type="checkbox" />Task 3: <strong>Pretext HUD
+Injection</strong> - Inject the kinetic typography protocol into the
+rendering loop via the Skills Protocol.</label></li>
+<li><label><input type="checkbox" />Task 4: <strong>Aesthetic
+DNA Alignment</strong> - Enforce Operational Lo-Fi Brutalism in all
+generated design artifacts.</label></li>
+</ul>
+<h2 id="phase-7-avatar-pets-stealth-intelligence">PHASE 7: Avatar Pets &amp; Stealth Intelligence</h2>
+<p><strong>Objective:</strong> Materialize the high-fidelity visual and observational layer for managed mesh processes using <strong>CloakBrowser</strong>, <strong>pup</strong>, <strong>Nano Banana 2</strong>, and <strong>Memoir</strong>.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Task 1: <strong>Stealth Browser-Harness (Cloak)</strong> - Integrate <code>CloakBrowser</code> as the primary provider for <code>browser-use</code> and <code>Stagehand</code>.</label></li>
+<li><label><input type="checkbox" />Task 2: <strong>Agent-Native Observability (Pup)</strong> - Deploy <code>pup</code> on all worker nodes (A, C, D) for metrics and Runbook execution.</label></li>
+<li><label><input type="checkbox" />Task 3: <strong>Avatar Pets (Visuals)</strong> - Implement the <strong>Pet Manager</strong> HUD component, utilizing <strong>Nano Banana 2</strong> for procedural process sprites.</label></li>
+<li><label><input type="checkbox" />Task 4: <strong>A2A Situational Context</strong> - Implement the <strong>Hello-Agents</strong> situational understanding layer in the coordination protocol.</label></li>
+<li><label><input type="checkbox" />Task 5: <strong>Avatar-to-Mesh Link</strong> - Bind <code>pup</code> health events to kinetic animations in the Avatar Pet sprites.</label></li>
+<li><label><input type="checkbox" />Task 6: <strong>Version-Controlled Memory (Memoir)</strong> - Replace flat-file context with <code>memoir</code> for hierarchical, branchable agent memory persistence.</label></li>
+</ul>
+<hr />
+<p><strong>::/5Y573M-N071C3 : ROADMAP_LOCKED. ZERO_SCOPE_CREEP_ENFORCED.
+// 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesh Stabilization Report - Beta v3</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="stabilization-v3.html">Stabilization</a> | 
+        <a href="phase-3-blueprint.html">Phase 3 Restart</a>
+    </nav>
+    <header>
+        <h1>◈ MESH STABILIZATION REPORT : BETA v3</h1>
+        <p><strong>Status:</strong> OPERATIONAL | <strong>Date:</strong> 2026-05-09</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>Executive Summary</h2>
+        <p>This report documents the architectural shift from legacy TUI shims to native <strong>Sovereign VSB (Virtual Sovereign Bus)</strong> integration within the Hermes v0.13.0 core. The mesh has been stabilized across all four nodes (A-D), resolving terminal deadlocks and materializing dynamic model discovery.</p>
+    </section>
+
+    <section id="technical-resolutions">
+        <h2>Technical Resolutions</h2>
+        <ul>
+            <li><strong>Terminal Lock-up:</strong> Resolved via <code>HERMES_TUI_GATEWAY_NO_FLUSH=1</code> and orphaned lock purging.</li>
+            <li><strong>VSB Routing:</strong> Materialized the <code>sovereign_vsb</code> model provider. Implemented <code>reasoning_content</code> extraction to ensure "thinking" transparency during CPU-bound inference.</li>
+            <li><strong>Upstream Sync:</strong> Successfully merged 100+ commits from <code>NousResearch/main</code> into the Sovereign fork, maintaining 16 tactical patches.</li>
+            <li><strong>Config Unification:</strong> Centralized <code>config.yaml</code> with dynamic mesh node probing and Tailscale Artery IP mapping.</li>
+        </ul>
+    </section>
+
+    <section id="mesh-readiness">
+        <h2>Mesh Readiness</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Port</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Node A</td>
+                    <td>Synapse (KV Cache)</td>
+                    <td class="status-pass">ONLINE</td>
+                    <td>8000</td>
+                </tr>
+                <tr>
+                    <td>Node B</td>
+                    <td>Director (UI/HUD)</td>
+                    <td class="status-pass">ONLINE</td>
+                    <td>9119 / 8642</td>
+                </tr>
+                <tr>
+                    <td>Node C</td>
+                    <td>Oracle (Voice/9B)</td>
+                    <td class="status-pass">ONLINE</td>
+                    <td>8080</td>
+                </tr>
+                <tr>
+                    <td>Node D</td>
+                    <td>Quaternary (Reasoning)</td>
+                    <td class="status-pass">ONLINE</td>
+                    <td>8080 / 8081</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : STABILIZATION_LOGGED. THE_MESH_IS_TRUTH. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

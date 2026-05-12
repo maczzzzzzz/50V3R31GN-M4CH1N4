@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSB Protocol - Nodestadt Engine</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="hermes-core.html">Hermes Core</a> | 
+        <a href="vsb-protocol.html">VSB Protocol</a> | 
+        <a href="consensus-alignment.html">Consensus</a> | <a href="security-audit-psy-core.html">Psy-Core</a> | <a href="zeroboot-isolation.html">Zeroboot</a>
+    </nav>
+
+    <header>
+        <h1>◈ VIRTUAL SOVEREIGN BUS (VSB)</h1>
+        <p><strong>Category:</strong> ENGINE | <strong>Status:</strong> OPERATIONAL</p>
+    </header>
+
+    <main>
+        <section id="protocol-overview">
+            <h2>The Cognitive Heartbeat</h2>
+            <p>The <strong>VSB Protocol</strong> is a high-frequency binary UDP pulse that synchronizes model availability and load status across the mesh. It enables the agent to treat four physical nodes as a single, unified reasoning surface.</p>
+        </section>
+
+        <section id="binary-pulse">
+            <h2>1. UDP Pulse Specification</h2>
+            <article>
+                <h3>Packet Structure (302-byte Deterministic)</h3>
+                <ul>
+                    <li><strong>Bytes 0-2:</strong> Header (ASCII 'VSB').</li>
+                    <li><strong>Byte 3:</strong> Protocol Version (Current: 3).</li>
+                    <li><strong>Byte 4:</strong> Node Identifier (Int).</li>
+                    <li><strong>Bytes 5-8:</strong> Load Average (Float32).</li>
+                    <li><strong>Bytes 9-12:</strong> RAM Usage (Float32).</li>
+                    <li><strong>Bytes 13-16:</strong> VRAM Usage (Float32).</li>
+                    <li><strong>Bytes 17-269:</strong> Padding (Zero-filled).</li>
+                    <li><strong>Bytes 270-301:</strong> Cryptographic HMAC-SHA256 (Secret-keyed).</li>
+                </ul>
+            </article>
+            <p><strong>Port:</strong> <code>7878</code> | <strong>Frequency:</strong> 2.0s intervals.</p>
+        </section>
+
+        <section id="routing-logic">
+            <h2>2. Dynamic Model Routing</h2>
+            <p>The <code>sovereign_vsb</code> provider performs real-time dispatch based on node health and model specialization.</p>
+            <article>
+                <h3>Specialized Tiers</h3>
+                <ul>
+                    <li><strong>HEAVY:</strong> Routed to Node D (Qwen2.5-Coder-14B) for deep architectural reasoning.</li>
+                    <li><strong>STRATEGY:</strong> Routed to Node B (Carnice-9B) for planning and vision.</li>
+                    <li><strong>TRIAGE:</strong> Routed to Node C (Qwen3.5-0.8B) for high-speed perception.</li>
+                </ul>
+            </article>
+        </section>
+
+        <section id="implementation">
+            <h2>3. Backend Integration</h2>
+            <p>All nodes must run an OpenAI-compatible <strong>llama-server</strong> or <strong>vLLM</strong> instance on port <code>8080</code> or <code>9119</code>. The VSB router maps these local endpoints to the Tailscale Artery.</p>
+            <pre><code># config.yaml Snippet
+model_providers:
+  sovereign-vsb:
+    type: model
+    config:
+      mesh_nodes:
+        - id: node-d
+          ip: 100.120.225.12
+          port: 8080
+          models: [carnice-v2-27b]</code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : VSB_PROTOCOL_MATERIALIZED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

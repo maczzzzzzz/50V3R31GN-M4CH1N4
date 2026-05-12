@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Deep Research Report: Geometry of Consolidation & Local Deep Research</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Deep Research Report</h1>
+<p class="subtitle">Sovereign Memory Architecture & Local Intelligence Synthesis</p>
+</header>
+
+<main>
+    <section id="introduction">
+        <h2>1. Objective</h2>
+        <p>This report synthesizes the integration of <strong>Local Deep Research (LDR)</strong> and <strong>Geometry-Aware Consolidation (GAC)</strong> into the Quaternary Mesh. It addresses the "Compression Cliff" problem in agentic memory and defines the physical roles for Node D (Logic) and Node A (State).</p>
+    </section>
+
+    <section id="distributed-ldr">
+        <h2>2. Distributed Local Deep Research (LDR)</h2>
+        <p>Implementing LDR requires decoupling the "Thinking" layer from the "Remembering" layer to maximize hardware utilization.</p>
+        <ul>
+            <li><strong>Node D (Logic - 48GB):</strong> Orchestrates the multi-agent research loops. Runs high-parameter models (Qwen-32B+) and executes the LangGraph research strategies.</li>
+            <li><strong>Node A (State - 16GB):</strong> Acts as the high-speed vault. Hosts the RAM-resident vector index and SearXNG proxy, providing near-instantaneous search results.</li>
+        </ul>
+    </section>
+
+    <section id="geometry-of-consolidation">
+        <h2>3. Geometry of Consolidation (GAC)</h2>
+        <p>GAC replaces simple RAG summarization with a mathematically grounded "Representative" selection process.</p>
+        <h3>3.1 The Compression Cliff</h3>
+        <p>Traditional RAG uses vector averaging (centroids), which destroys identity as clusters grow diverse. GAC solves this by calculating <strong>Effective Dimensionality ($d_{\text{eff}}$)</strong>.</p>
+        <h3>3.2 Operational Regimes</h3>
+        <ul>
+            <li><strong>Tight Regime:</strong> Semantic similarity is high ($d_{\text{eff}} < \theta$). Use <strong>Centroids</strong> (Lossy summaries) to save space.</li>
+            <li><strong>Spread Regime:</strong> Semantic diversity is high ($d_{\text{eff}} \geq \theta$). Use <strong>Medoids</strong> (Lossless representatives) to preserve specific detail and prevent "interference."</li>
+        </ul>
+    </section>
+
+    <section id="hermes-integration">
+        <h2>4. Hermes Fork Integration</h2>
+        <p>Logic is integrated via native Tenacity hooks:</p>
+        <ul>
+            <li><code>on_pre_compress</code>: Intercepts context window saturation to trigger GAC dimensional routing.</li>
+            <li><code>prefetch(query)</code>: Replaces standard FTS5 with <strong>Smart Search</strong> (BM25 + Vector + Graph) anchored on Node A.</li>
+            <li><code>sync_turn</code>: Real-time streaming of raw observations to the encrypted Node A vault.</li>
+        </ul>
+    </section>
+
+    <section id="hardware-optimization">
+        <h2>5. Hardware-Aware Constraints</h2>
+        <ul>
+            <li><strong>Node A (16GB):</strong> Entire vector space pinned in RAM for &lt;10ms retrieval. Summarization tasks are offloaded to Node D.</li>
+            <li><strong>Node D (48GB):</strong> Large KV caches allow maintaining "deep" state across multiple research branches simultaneously.</li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : RESEARCH_PHYSICALIZED. GAC_LDR_ACTIVE. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director's Forge - Nodestadt Operations</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="ignition.html">Ignition</a> | 
+        <a href="workflows.html">Workflows</a> | 
+        <a href="directors-forge.html">Forge</a>
+    </nav>
+
+    <header>
+        <h1>◈ THE DIRECTOR'S FORGE</h1>
+        <p><strong>Category:</strong> OPERATIONS | <strong>Status:</strong> MATERIALIZED</p>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>The Tool Factory</h2>
+            <p><strong>Director's Forge</strong> is an automated tool materialization engine located on Node B. It allows the Strategist to reverse-engineer external APIs and generate bit-identical Python tool wrappers for the Hermes agent.</p>
+        </section>
+
+        <section id="components">
+            <h2>1. Core Components</h2>
+            <ul>
+                <li><strong>CLI Printing Press:</strong> Materialized in <code>crates/modules/directors-forge/</code> (Rust).</li>
+                <li><strong>Sniffer Integration:</strong> Utilizes <strong>Sovereign Sniffer</strong> (Stagehand) to discover API surfaces.</li>
+                <li><strong>Blueprint Registry:</strong> Persistent storage of forged tool schemas in <code>/var/lib/hermes-tools/</code>.</li>
+            </ul>
+        </section>
+
+        <section id="usage">
+            <h2>2. Operational Usage</h2>
+            <p>Managed via <code>scripts/directors-forge.sh</code>.</p>
+            <pre><code># Forge a new tool from OpenAPI spec
+./scripts/directors-forge.sh openapi https://api.example.com/spec.json</code></pre>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : DIRECTORS_FORGE_DOCUMENTED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

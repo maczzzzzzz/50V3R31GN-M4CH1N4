@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 3 Memory Visualization - Worktree Audit</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+</head>
+<body>
+    <header>
+        <h1>Audit Report: Phase 3 Memory & Spatial Visualization</h1>
+        <p><strong>Target Worktree:</strong> <code>.worktrees/phase3-memory-viz</code></p>
+        <p><strong>Date:</strong> 2026-05-09 | <strong>Auditor:</strong> Gemini Strategist</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>Executive Summary</h2>
+        <p>The Phase 3 worktree is in a <strong>PARTIALLY MATERIALIZED</strong> state. High-fidelity visual components and resilience plugins are present, but core infrastructure dependencies (Stagehand, Omi backend) are missing. Droid CLI instability is likely model-related (GLM latency) rather than process deadlocks.</p>
+    </section>
+
+    <section id="task-status">
+        <h2>Task-by-Task Verification</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Evidence / Missing Artifacts</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Task 1: Sovereign Sniffer (Stagehand)</td>
+                    <td class="status-fail">0% (NOT STARTED)</td>
+                    <td>Missing <code>sidecars/sovereign-sniffer/</code> and <code>nix/modules/stagehand-env.nix</code>.</td>
+                </tr>
+                <tr>
+                    <td>Task 2: Omi Integration</td>
+                    <td class="status-fail">0% (NOT STARTED)</td>
+                    <td>Missing <code>nix/modules/omi-backend.nix</code> and Dart integration logic.</td>
+                </tr>
+                <tr>
+                    <td>Task 3: Lossless Memory (LCM)</td>
+                    <td class="status-warn">50% (IN PROGRESS)</td>
+                    <td><code>hermes-lcm</code> plugin materialized. <code>mempalace-bridge</code> exists but mapping logic is unverified.</td>
+                </tr>
+                <tr>
+                    <td>Task 4: Sovereign Hall (Claw3D)</td>
+                    <td class="status-pass">100% (COMPLETE)</td>
+                    <td><code>SovereignHall.tsx</code> verified in <code>dashboard/hermes-workspace/src/components/sovereign-hall/</code>.</td>
+                </tr>
+                <tr>
+                    <td>Task 5: Resilience Forge</td>
+                    <td class="status-pass">100% (COMPLETE)</td>
+                    <td>Plugin and <code>data/vaccinations/</code> directory verified.</td>
+                </tr>
+                <tr>
+                    <td>Task 6: Mooncake KV Spillover</td>
+                    <td class="status-warn">80% (IN PROGRESS)</td>
+                    <td>Core logic verified in <code>crates/modules/synapse-cache/src/main.rs</code>. Nix derivation pending.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="droid-diagnosis">
+        <h2>Droid CLI Diagnosis</h2>
+        <ul>
+            <li><strong>Symptom:</strong> Reported "hanging up".</li>
+            <li><strong>Audit Findings:</strong> <code>droid --version</code> is responsive. No orphaned processes or lock files detected.</li>
+            <li><strong>Probable Cause:</strong> Model latency. <code>.factory/settings.json</code> specifies <code>glm</code> with "high" reasoning effort, which may cause 10s+ pauses during complex task planning.</li>
+            <li><strong>Recommendation:</strong> Increase <code>read_timeout</code> in local shell or switch to <code>glm-flash</code> for non-critical coordination.</li>
+        </ul>
+    </section>
+
+    <section id="recovery-path">
+        <h2>Recovery & Completion Path</h2>
+        <ol>
+            <li><strong>Provision Sniffer:</strong> Scaffold <code>sidecars/sovereign-sniffer/</code> and create <code>stagehand-env.nix</code>.</li>
+            <li><strong>Nix-ify Synapse Cache:</strong> Complete the <code>default.nix</code> for the Rust spillover logic.</li>
+            <li><strong>Sync Worktree:</strong> Ensure <code>beta/v3</code> upstream changes are merged into the worktree to prevent logic drift.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : PHASE_3_AUDIT_COMPLETE. ACTION_REQUIRED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

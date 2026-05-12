@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Automation Audit: Hermes Routines</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Automation & Routines Audit</h1>
+<p class="subtitle">Local-First Event Triggers & Scheduled Task Engine</p>
+</header>
+
+<main>
+    <section id="capabilities">
+        <h2>1. Core Automation Capabilities</h2>
+        <p>Hermes Agent provides a native, unlimited automation engine that outperforms cloud-locked alternatives by operating directly on the mesh infrastructure.</p>
+        <ul>
+            <li><strong>Scheduled Tasks (Cron):</strong> Support for complex cron expressions and human-readable intervals (e.g., "every 2h").</li>
+            <li><strong>Event Triggers (Webhooks):</strong> Real-time subscription to external events (GitHub PRs, system alerts) with HMAC authentication.</li>
+            <li><strong>Multi-Skill Chaining:</strong> Ability to load specific specialized skillsets for each automation run.</li>
+        </ul>
+    </section>
+
+    <section id="differentiation">
+        <h2>2. Tactical Advantages</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Advantage</th>
+                    <th>Implementation Detail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Data Residency</strong></td>
+                    <td>All automation runs on private hardware (Node B/D).</td>
+                </tr>
+                <tr>
+                    <td><strong>Model Choice</strong></td>
+                    <td>Run sensitive triage on local models; non-sensitive on high-param cloud APIs.</td>
+                </tr>
+                <tr>
+                    <td><strong>Script Injection</strong></td>
+                    <td>Python pre-processing scripts can filter context <em>before</em> the LLM turn.</td>
+                </tr>
+                <tr>
+                    <td><strong>Unlimited Scalability</strong></td>
+                    <td>No artificial ceilings on the number of daily runs.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="deployment-scenarios">
+        <h2>3. Use Case Scenarios</h2>
+        <ul>
+            <li><strong>Nightly Bug Triage:</strong> Pull top issues from Linear, attempt a fix in a microVM (Zeroboot), and post a summary to Telegram.</li>
+            <li><strong>Docs Drift Watchdog:</strong> Trigger on GitHub push to verify that architecture docs (.html) are still bit-identical with physical code.</li>
+            <li><strong>Alert Correlation:</strong> Ingest monitoring payloads and post structured post-mortems to Slack/Discord.</li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : AUTOMATION_AUDIT_PHYSICALIZED. ROUTINES_READY. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

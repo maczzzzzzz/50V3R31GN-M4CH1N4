@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ ANALYSIS – MoshiRAG
+(https://github.com/kyutai-labs/moshi-rag +
+arXiv:2604.12928)</strong><br />
+<strong>Potential as Our Voice Engine in Beta v3</strong></p>
+<p><strong>Short Answer</strong><br />
+Yes — MoshiRAG has <strong>strong potential</strong> as a
+<strong>full-duplex voice engine</strong> component in our stack. It is
+not a drop-in replacement for the entire voice pipeline, but it is an
+excellent candidate to <strong>replace or augment</strong> the current
+Hermes Whisper STT + VoxCPM2 TTS layer with native, real-time, factual
+speech-to-speech capabilities.</p>
+<h3 id="what-moshirag-actually-is">1. What MoshiRAG Actually Is</h3>
+<ul>
+<li><strong>Base Model</strong>: Built on <strong>Moshi</strong> (Kyutai
+Labs’ full-duplex speech language model).<br />
+</li>
+<li><strong>Core Innovation</strong>: Adds <strong>asynchronous
+RAG</strong> (Retrieval-Augmented Generation) without breaking real-time
+interactivity.
+<ul>
+<li>The model predicts when external knowledge is needed.<br />
+</li>
+<li>It triggers retrieval in the background during natural pauses.<br />
+</li>
+<li>Retrieved references are injected back into the conversation stream
+without interrupting speech output.<br />
+</li>
+</ul></li>
+<li><strong>Architecture</strong>:
+<ul>
+<li><strong>Front-end</strong>: Moshi handles full-duplex speech (listen
++ speak simultaneously).<br />
+</li>
+<li><strong>Back-end</strong>: Separate retrieval service (LLM or
+search-based) that runs in parallel.<br />
+</li>
+<li><strong>Reference Encoder</strong>: Encodes retrieved text and
+injects it into Moshi’s conditioning path.<br />
+</li>
+</ul></li>
+<li><strong>Key Features</strong>:
+<ul>
+<li>Full-duplex (no push-to-talk).<br />
+</li>
+<li>Low-latency factuality grounding.<br />
+</li>
+<li>Streaming ASR (Gradium or local).<br />
+</li>
+<li>Plug-and-play retrieval back-ends.<br />
+</li>
+<li>Web UI for testing.<br />
+</li>
+</ul></li>
+<li><strong>Performance</strong>: Designed for real-time conversational
+AI. Retrieval latency target &lt; 3 seconds to maintain
+interactivity.</li>
+</ul>
+<p><strong>Paper Highlights</strong> (arXiv:2604.12928)<br />
+- Focuses on solving factuality issues in full-duplex speech
+models.<br />
+- Achieves factuality comparable to non-duplex models while preserving
+interactivity.<br />
+- Strong on out-of-domain tasks (e.g., math reasoning) via RAG.</p>
+<hr />
+<h3 id="potential-use-cases-as-our-voice-engine">2. POTENTIAL USE CASES
+AS OUR VOICE ENGINE</h3>
+<p><strong>Primary Use Case</strong><br />
+Replace the current <strong>Hermes Whisper STT → VibeVoice → VoxCPM2
+TTS</strong> pipeline with <strong>MoshiRAG as the core full-duplex
+voice engine</strong>, then layer Hermes orchestration on top for
+higher-level agentic control.</p>
+<p><strong>Why This Is Strong</strong><br />
+- Native full-duplex speech (listen and speak at the same time) — better
+than our current turn-based pipeline.<br />
+- Built-in asynchronous RAG → factual grounding without latency penalty
+(perfect for live coding partner or general conversations).<br />
+- Real-time, streaming, and controllable — aligns with our Omi hardware
+and PC mic input goals.<br />
+- Can be run locally (PyTorch or Rust backends) → fully sovereign.</p>
+<p><strong>Concrete Integration Options in Beta v3</strong></p>
+<p><strong>Option 1 (Recommended – Modular Appendage)</strong><br />
+- Run MoshiRAG as a <strong>pluggable voice engine module</strong> in
+the monorepo (<code>crates/modules/moshi-rag/</code>).<br />
+- Input: Omi wearable / PC headset mic (via Clawlink bridge).<br />
+- Processing: MoshiRAG handles full-duplex STT + RAG + TTS.<br />
+- Output: Audio streamed back to Omi/PC + logged to MemPalace.<br />
+- Hermes (patched fork) acts as the <strong>higher-level
+orchestrator</strong> (routes tasks, uses GEPA reflection, etc.).<br />
+- Pretext HUD shows live voice status and RAG references.</p>
+<p><strong>Option 2 (Hybrid)</strong><br />
+- Keep Hermes Whisper + VoxCPM2 for simple voice tasks.<br />
+- Switch to MoshiRAG for knowledge-intensive or long conversations
+(dynamic routing via model router).</p>
+<p><strong>Benefits for Our Stack</strong><br />
+- Improves factuality in voice interactions (critical for the live
+coding partner).<br />
+- Reduces latency compared to separate STT + TTS steps.<br />
+- Fits our modular beta v3 philosophy (pluggable module, easy to
+enable/disable).<br />
+- Complements VibeVoice (use VibeVoice for post-processing if needed)
+and VoxCPM2 (use VoxCPM2 for voice design/cloning if MoshiRAG TTS is not
+sufficient).</p>
+<p><strong>Risks / Limitations</strong><br />
+- MoshiRAG requires a capable GPU (24 GB+ recommended for full-duplex;
+smaller setups possible with Rust backend).<br />
+- It is newer and less battle-tested than our current pipeline.<br />
+- Integration requires some work (MCP bridge + audio streaming).</p>
+<hr />
+<p><strong>RECOMMENDED NEXT STEPS FOR BETA V3</strong></p>
+<p>Since we are doing a clean rebuild, MoshiRAG should be evaluated as a
+<strong>core voice module</strong> rather than an afterthought.</p>
+<p>Would you like me to:</p>
+<ol type="1">
+<li>Provide the <strong>full MoshiRAG integration module</strong> spec
+(Nix + Rust wrapper + MCP tool).<br />
+</li>
+<li>Compare MoshiRAG vs our current voice pipeline (Hermes Whisper +
+VibeVoice + VoxCPM2) in a detailed table.<br />
+</li>
+<li>Add MoshiRAG to the Phase 122 repo sweep / decision matrix.</li>
+</ol>
+<p>Just say the number or describe what you want next.</p>
+<p>This is a high-potential addition that fits our “lean into strong
+external tools and layer our sovereign optimizations” direction for beta
+v3.</p>
+</body>
+</html>

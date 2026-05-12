@@ -1,0 +1,28 @@
+{
+  "title": {
+    "type": "string",
+    "description": "Page title"
+  },
+  "description": {
+    "type": "string",
+    "description": "Page description or main content"
+  },
+  "links": {
+    "type": "array",
+    "description": "List of links on the page",
+    "items": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Link text"
+        },
+        "href": {
+          "type": "string",
+          "description": "Link URL"
+        }
+      },
+      "required": ["text", "href"]
+    }
+  }
+}

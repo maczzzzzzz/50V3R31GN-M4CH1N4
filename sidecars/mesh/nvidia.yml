@@ -1,0 +1,28 @@
+# Node A / Node C: NVIDIA CUDA Runtime
+# llama.cpp server with CUDA backend for GGUF inference
+services:
+  llama-server:
+    image: ghcr.io/ggerganov/llama.cpp:server-cuda--b1-9786a6b
+    runtime: nvidia
+    ports:
+      - "8000:8000"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - /var/lib/hermes/models:/models:ro
+    command: >
+      -m /models/default.gguf
+      --host 0.0.0.0
+      --port 8000
+      -c 32000
+      --cache-type-k q4_0
+      -fa on
+      -ngl 99
+    restart: unless-stopped

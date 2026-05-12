@@ -1,0 +1,33 @@
+model_list:
+  # Node A: NVIDIA GTX 1050 Ti (4GB VRAM) - Lightweight models
+  - model_name: cuda-light
+    litellm_params:
+      model: openai/carnice-9b
+      api_base: http://100.90.196.70:8000/v1
+
+  # Node B: AMD Radeon (16GB VRAM) - Local responsiveness
+  - model_name: amd-local
+    litellm_params:
+      model: openai/carnice-9b
+      api_base: http://100.66.173.31:8000/v1
+
+  # Node C: NVIDIA RTX 2060 (6GB VRAM) - Perception/Voice
+  - model_name: cuda-perception
+    litellm_params:
+      model: openai/qwen3.5-0.8b
+      api_base: http://100.102.109.81:8000/v1
+
+  # Node D: Intel NPU (24GB+ VRAM) - Heavy reasoning
+  - model_name: intel-reasoner
+    litellm_params:
+      model: openai/qwen2.5-coder-14b
+      api_base: http://100.120.225.12:8000/v1
+
+router_settings:
+  routing: "simple-shuffle"
+  num_retries: 2
+  timeout: 120
+  retry_after: 10
+
+general_settings:
+  drop_params: true

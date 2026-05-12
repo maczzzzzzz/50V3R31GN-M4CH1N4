@@ -1,0 +1,15 @@
+{
+  "model": "glm",
+  "reasoningEffort": "high",
+  "sessionDefaultSettings": {
+    "interactionMode": "auto",
+    "autonomyLevel": "medium"
+  },
+  "commandAllowlist": ["nix", "cargo", "git", "bash", "make", "chmod", "curl", "tree", "nix-collect-garbage", "systemctl", "pkill", "docker", "lsof"],
+  "commandDenylist": ["rm -rf /", "mkfs"],
+  "diffMode": "unified",
+  "hooks": {
+    "pre-commit": "./.factory/hooks/protect-branches.sh",
+    "post-edit": "./.factory/hooks/auto-format.sh"
+  }
+}

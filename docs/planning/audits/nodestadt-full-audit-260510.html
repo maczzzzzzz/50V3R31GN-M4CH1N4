@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nodestadt Documentation Coverage Audit - 260510</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>
+        body { background-color: #1A282F; color: #AFAB9C; font-family: 'Courier New', Courier, monospace; }
+        .critical { color: #FF4444; font-weight: bold; }
+        .ghost { color: #FF8833; font-weight: bold; }
+        .materialized { color: #44FF44; }
+        header { border-bottom: 2px solid #AFAB9C; padding-bottom: 10px; margin-bottom: 20px; }
+        section { margin-bottom: 30px; }
+        h1, h2, h3 { color: #E0DEF4; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+        th { background-color: #121B1F; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>NODESTADT DOC COVERAGE AUDIT: [260510-FULL]</h1>
+        <p><strong>Status:</strong> <span class="ghost">DIVERGENCE_DETECTED</span> | <strong>Node:</strong> Node B (Strategist)</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>1. EXECUTIVE SUMMARY</h2>
+        <p>A comprehensive audit of the <code>docs/nodestadt</code> directory against physical materializations (Phases 1-5) has revealed significant "Ghost Logic" (un-documented code) and "Ghost Docs" (outdated/misaligned specs). While primary appendages are well-documented, several core engine components and operational scripts remain undocumented, violating the 100% coverage mandate.</p>
+    </section>
+
+    <section id="divergence-matrix">
+        <h2>2. DIVERGENCE MATRIX</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Component</th>
+                    <th>Code Physicality</th>
+                    <th>Doc Status</th>
+                    <th>Audit Finding</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>VSB Protocol</td>
+                    <td><code>sovereign_vsb/vsb_router.py</code></td>
+                    <td class="materialized">OUTDATED</td>
+                    <td class="critical">Packet schema and pulse interval desync.</td>
+                </tr>
+                <tr>
+                    <td>Network Resilience</td>
+                    <td><code>nix/modules/network-optimization.nix</code></td>
+                    <td class="ghost">MISSING</td>
+                    <td>Ghost Logic: No documentation for WSL2 TCP/MTU clamping.</td>
+                </tr>
+                <tr>
+                    <td>Consensus Alignment</td>
+                    <td><code>crates/modules/consensus-alignment/</code></td>
+                    <td class="ghost">MISSING</td>
+                    <td>Ghost Logic: Entire coordination layer is undocumented.</td>
+                </tr>
+                <tr>
+                    <td>Security Audit Hook</td>
+                    <td><code>plugins/general/psy-core/</code></td>
+                    <td class="ghost">MISSING</td>
+                    <td>Ghost Logic: Dedicated Engine spec for psy-core is missing.</td>
+                </tr>
+                <tr>
+                    <td>Director's Forge</td>
+                    <td><code>crates/modules/directors-forge/</code></td>
+                    <td class="ghost">MISSING</td>
+                    <td>Ghost Logic: Tool factory architecture is undocumented.</td>
+                </tr>
+                <tr>
+                    <td>Zeroboot Isolation</td>
+                    <td><code>crates/modules/zeroboot-isolation/</code></td>
+                    <td class="ghost">MISSING</td>
+                    <td>Ghost Logic: Sandbox isolation layer is undocumented.</td>
+                </tr>
+                <tr>
+                    <td>Goose/Graphify</td>
+                    <td><code>crates/modules/goose-execution/</code></td>
+                    <td class="ghost">MISSING</td>
+                    <td>Ghost Logic: Expert engineering appendages undocumented.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="orphaned-assets">
+        <h2>3. ORPHANED & BROKEN ASSETS</h2>
+        <ul>
+            <li><strong>Master Index:</strong> Broken link to <code>REPORTS</code> category (points to <code>reports/</code> which is empty; actual files are in <code>docs/planning/audits/</code>).</li>
+            <li><strong>Orphaned:</strong> <code>operations/droid-optimization.html</code> (Exists but not linked in nav).</li>
+            <li><strong>Orphaned:</strong> <code>operations/phase4-wasm-requirements.html</code> (Exists but not linked in nav).</li>
+        </ul>
+    </section>
+
+    <section id="remediation-plan">
+        <h2>4. REMEDIATION DIRECTIVES</h2>
+        <ol>
+            <li><strong>Index Fix:</strong> Re-link <code>REPORTS</code> in <code>index.html</code> to <code>../planning/audits/</code>.</li>
+            <li><strong>Engine Specs:</strong> Materialize <code>consensus-alignment.html</code>, <code>security-audit-psy-core.html</code>, and <code>zeroboot-isolation.html</code>.</li>
+            <li><strong>Foundation Update:</strong> Materialize <code>network-resilience.html</code>.</li>
+            <li><strong>Appendage Specs:</strong> Materialize <code>directors-forge.html</code>, <code>goose-execution.html</code>, and <code>graphify-ast.html</code>.</li>
+            <li><strong>VSB Sync:</strong> Update <code>vsb-protocol.html</code> to match current 17-byte packet schema and 2.0s interval.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>::/5Y573M-N071C3 : AUDIT_COMPLETE. REMEDIATION_REQUIRED. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</p>
+    </footer>
+</body>
+</html>

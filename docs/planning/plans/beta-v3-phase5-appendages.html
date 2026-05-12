@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="phase-5-incremental-appendages-implementation-plan">Phase 5: Incremental Appendages Implementation Plan</h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use
+superpowers:subagent-driven-development (recommended) or
+superpowers:executing-plans to implement this plan task-by-task. Steps
+use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote>
+<p><strong>Goal:</strong> Materialize the high-fidelity expert appendages for the mesh, including n8n orchestration, Telegram AI Artery, Omi hardware voice layering, and Mirage VFS.</p>
+<p><strong>Architecture:</strong> This phase follows the "Appendage" model where Node B/D logic cores are extended with specialized external engines. Communication is strictly over the Tailscale Artery.</p>
+<p><strong>Tech Stack:</strong> n8n (Orchestration), Telegram Bot API (Perception Artery), nRF Connect SDK (Omi Firmware), Rust (Mirage VFS), Flutter (Clawlink).</p>
+<hr />
+<h3 id="task-1-telegram-ai-artery-integration">Task 1: Telegram AI Artery Integration</h3>
+<p><strong>Files:</strong> - Create: <code>sidecars/hermes-agent-nous/plugins/general/telegram-artery/</code> - Modify: <code>sidecars/hermes-agent-nous/cli-config.yaml</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Provision Telegram Bot on Node D</strong></label>
+<ul>
+<li>Initialize the "Sovereign Proxy" bot using the high-speed streaming API.</li>
+<li>Verification: <code>curl https://api.telegram.org/bot<token>/getMe</code> returns 200.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Implement Real-Time Reasoning Stream</strong></label>
+<ul>
+<li>Hook Node D tokens directly into the Telegram message stream for "Thought Visualization."</li>
+<li>Verification: Watch raw reasoning steps manifest in Telegram as monospaced blocks.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 3: Enable Bot-to-Bot Coordination</strong></label>
+<ul>
+<li>Utilize "Guest Bot" features to allow Node C perception and Node D reasoning to collaborate in a single thread.</li>
+<li>Verification: Observe autonomous handoff between specialized vision and text agents.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-2-n8n-mcp-integration">Task 2: n8n-mcp Integration</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Provision n8n Instance on Node B</strong></label>
+<ul>
+<li>Install n8n via Docker or Nix on Node B (100.66.173.31).</li>
+<li>Verification: <code>curl http://100.66.173.31:5678/healthz</code> returns 200.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Implement MCP-to-n8n Bridge</strong></label>
+<ul>
+<li>Create <code>__init__.py</code> in <code>n8n-mcp</code> plugin to wrap the n8n API.</li>
+<li>Verification: <code>hermes tools list</code> shows <code>n8n_execute_workflow</code>.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-3-omi-voice-layering-hardware-artery">Task 3: Omi Voice Layering (Hardware Artery)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Implement nRF Firmware Patch</strong></label>
+<ul>
+<li>Apply Sovereign Zero-Trust Artery encryption to the nRF Connect BLE stack in the Omi fork.</li>
+<li>Verification: Firmware builds successfully in the nRF toolchain.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: High-Fidelity Capture Hook</strong></label>
+<ul>
+<li>Update <code>vibevoice-asr</code> to prioritize Omi hardware PCM streams over mobile mic ingress.</li>
+<li>Verification: Logs confirm <code>Source: Omi_Hardware_BLE</code> during voice turn.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-4-mirage-vfs-virtualized-filesystem">Task 4: Mirage VFS (Virtualized Filesystem)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Deploy Mirage on Node D</strong></label>
+<ul>
+<li>Install <code>strukto-ai/mirage</code> and mount as a user-space FUSE filesystem.</li>
+<li>Verification: <code>ls /mnt/mirage</code> shows external data (S3, Redis) as local files.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Hermes VFS Integration</strong></label>
+<ul>
+<li>Configure the Hermes agent on Node D to use <code>/mnt/mirage</code> as its workspace.</li>
+<li>Verification: Agent can read a "file" that actually resides in a mesh-wide Redis cache.</li>
+</ul></li>
+</ul>
+<hr />
+<footer>
+<p><strong>::/5Y573M-N071C3 : PHASE_5_PLAN_UPDATED. ARTERY_EXPANDED. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

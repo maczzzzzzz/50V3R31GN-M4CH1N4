@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hermes Upstream Gap Audit - 260510</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>
+        body { background-color: #1A282F; color: #AFAB9C; font-family: 'Courier New', Courier, monospace; }
+        .critical { color: #FF4444; font-weight: bold; }
+        .high { color: #FF8833; }
+        .materialized { color: #44FF44; }
+        header { border-bottom: 2px solid #AFAB9C; padding-bottom: 10px; margin-bottom: 20px; }
+        h1, h2, h3 { color: #E0DEF4; }
+        pre { background: #121B1F; padding: 10px; border: 1px solid #333; overflow-x: auto; }
+        .impact-card { border-left: 4px solid #FF8833; padding-left: 15px; margin-bottom: 25px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HERMES UPSTREAM GAP AUDIT: [260510-SYNC]</h1>
+        <p><strong>Status:</strong> <span class="high">DIVERGED (114 Commits)</span> | <strong>Target:</strong> upstream/main</p>
+    </header>
+
+    <section id="executive-summary">
+        <h2>1. EXECUTIVE SUMMARY</h2>
+        <p>The Sovereign Hermes fork is exactly 114 commits behind the official Tenacity upstream. While Sovereign patches (VSB, n8n, Telegram) remain physically intact, the underlying engine has evolved significantly in areas of Kanban orchestration, vision Fidelity, and plugin runtime capabilities. Immediate rebase is recommended to prevent logic calcification.</p>
+    </section>
+
+    <section id="high-impact-changes">
+        <h2>2. HIGH-IMPACT ARCHITECTURAL SHIFTS</h2>
+
+        <div class="impact-card">
+            <h3>2.1 Dynamic Kanban Orchestration</h3>
+            <p><strong>Upstream:</strong> <code>6e5c49bdc</code>, <code>236cbe16b</code></p>
+            <p><strong>Change:</strong> Shift from hardcoded specialist rosters to dynamic Step-0 profile discovery. New orchestrator-specific board tools.</p>
+            <p><strong>Risk:</strong> Potential desync with Sovereign <code>kanban.db</code> schema and custom dispatcher logic on Node B.</p>
+        </div>
+
+        <div class="impact-card">
+            <h3>2.2 Pixel-Fidelity Vision</h3>
+            <p><strong>Upstream:</strong> <code>3800972dd</code></p>
+            <p><strong>Change:</strong> <code>vision_analyze</code> now passes raw pixels to vision-capable models instead of auxiliary text descriptions.</p>
+            <p><strong>Opportunity:</strong> Significant upgrade for Node C perception fidelity.</p>
+        </div>
+
+        <div class="impact-card">
+            <h3>2.3 Native Plugin Reasoning (ctx.llm)</h3>
+            <p><strong>Upstream:</strong> <code>5aa755e4e</code></p>
+            <p><strong>Change:</strong> Plugins can now trigger mesh-wide reasoning directly via <code>ctx.llm</code>.</p>
+            <p><strong>Remediation:</strong> Can be used to refactor <code>n8n-mcp</code> to use native reasoning loops instead of externalized API triggers.</p>
+        </div>
+
+        <div class="impact-card">
+            <h3>2.4 Security Hardening</h3>
+            <p><strong>Upstream:</strong> <code>ec9329ec4</code>, <code>0c5c4d1b8</code></p>
+            <p><strong>Change:</strong> Mandatory dashboard auth for plugin API routes. SSRF fetch path security on Skills Hub.</p>
+            <p class="critical">Verdict: MANDATORY for Zero-Trust compliance.</p>
+        </div>
+    </section>
+
+    <section id="sync-roadmap">
+        <h2>3. SYNCHRONIZATION ROADMAP</h2>
+        <ol>
+            <li><strong>Snapshot:</strong> Full backup of <code>~/.hermes/state.db</code> and <code>kanban.db</code>.</li>
+            <li><strong>Rebase:</strong> Execute <code>git rebase upstream/main</code> within <code>sidecars/hermes-agent-nous</code>.</li>
+            <li><strong>Conflict Resolution:</strong> Preserve Sovereign VSB Router and Artery logic in <code>agent/auxiliary_client.py</code>.</li>
+            <li><strong>Verification:</strong> Run full test suite with <code>pytest</code> to ensure no regression in Kanban or Vision layers.</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>::/5Y573M-N071C3 : GAP_AUDIT_COMPLETE. REBASE_RECOMMENDED. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</p>
+    </footer>
+</body>
+</html>

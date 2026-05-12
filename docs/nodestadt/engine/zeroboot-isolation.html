@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeroboot Isolation - Nodestadt Engine</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="hermes-core.html">Hermes Core</a> | 
+        <a href="vsb-protocol.html">VSB Protocol</a> | 
+        <a href="zeroboot-isolation.html">Zeroboot</a>
+    </nav>
+
+    <header>
+        <h1>◈ ZEROBOOT ISOLATION</h1>
+        <p><strong>Category:</strong> ENGINE | <strong>Status:</strong> MATERIALIZED</p>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Hardware Sandbox Layer</h2>
+            <p><strong>Zeroboot</strong> provides Firecracker/KVM based microVM isolation for non-deterministic agent code execution. It ensures that any "execute_code" or untrusted shell tasks are physically contained on Node D.</p>
+        </section>
+
+        <section id="architecture">
+            <h2>1. Technical Architecture</h2>
+            <ul>
+                <li><strong>Host:</strong> Node D (Intel Core Ultra).</li>
+                <li><strong>Logic:</strong> <code>crates/modules/zeroboot-isolation/</code> (Rust Manager).</li>
+                <li><strong>Nix Module:</strong> <code>nix/modules/zeroboot.nix</code>.</li>
+            </ul>
+        </section>
+
+        <section id="lifecycle">
+            <h2>2. VM Lifecycle</h2>
+            <p>The Zeroboot manager handles sub-100ms cold starts for fresh execution environments.</p>
+            <ul>
+                <li><strong>Provision:</strong> Fetches a read-only rootfs image from Node A.</li>
+                <li><strong>Execute:</strong> Mounts task data and triggers the Firecracker process.</li>
+                <li><strong>Reclaim:</strong> Destroys the VM state immediately upon task completion.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : ZEROBOOT_ISOLATION_DOCUMENTED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

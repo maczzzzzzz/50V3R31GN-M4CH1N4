@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<p><strong>✅ FULL ANALYSIS – LiteSeek TokenSpeed
+(https://github.com/lightseekorg/tokenspeed + Blog Post)</strong></p>
+<p><strong>Project Overview</strong><br />
+TokenSpeed (marketed as LiteSeek TokenSpeed) is a <strong>new,
+high-performance LLM inference engine</strong> specifically optimized
+for <strong>agentic workloads</strong> (long-context, multi-turn,
+tool-calling, coding agents).<br />
+It aims to deliver “speed-of-light” inference with TensorRT-LLM-level
+performance and vLLM-level usability.</p>
+<p><strong>Core Technical Highlights</strong> (from repo + blog)<br />
+- <strong>Modeling Layer</strong>: Local-SPMD design with static
+compiler that auto-generates collective communication from
+module-boundary placement annotations.<br />
+- <strong>Scheduler</strong>: C++ control plane + Python execution
+plane. Request lifecycle, KV cache ownership, and overlap timing are
+encoded as a finite-state machine with type-system-enforced
+safety.<br />
+- <strong>Kernels</strong>: Pluggable layered kernel system with a
+centralized registry. Strong focus on <strong>MLA (Multi-head Latent
+Attention)</strong> kernels for agentic models (especially on
+Blackwell).<br />
+- <strong>Entrypoint</strong>: SMG-integrated AsyncLLM for low-overhead
+CPU-side request handling.<br />
+- <strong>Performance Claims</strong>: On Blackwell GPUs, it shows
+strong gains over TensorRT-LLM in agentic coding workloads (higher
+TPM/GPU at 70+ TPS/User targets).<br />
+- <strong>Status</strong>: Preview release (May 6, 2026). Heavy
+development ongoing. Not yet production-hardened.</p>
+<p><strong>Usefulness for Sovereign Machina (Beta v3
+Context)</strong></p>
+<p><strong>High Potential</strong> — This is a <strong>very
+relevant</strong> inference engine for our use case.</p>
+<p><strong>Strengths</strong><br />
+- <strong>Agentic Optimization</strong>: Explicitly designed for the
+exact workload we care about (long-context coding agents, tool calling,
+multi-turn reasoning). This aligns perfectly with our live coding
+partner loop in Warp and heavy tasks on Node D.<br />
+- <strong>Performance on Consumer Hardware</strong>: Strong focus on
+Blackwell and Hopper, but the design (pluggable kernels, scheduler FSM,
+local-SPMD) should translate well to our AMD + NVIDIA mix (especially
+Node B 9060 XT and Node D iGPU).<br />
+- <strong>Modularity</strong>: Pluggable kernels and scheduler make it
+easy to integrate as a <strong>pluggable backend</strong> in our model
+router.<br />
+- <strong>Sovereign Fit</strong>: Fully local, open-source, no cloud. We
+can build it as a Nix package and run it inside Zeroboot sandboxes for
+isolation.</p>
+<p><strong>Risks / Limitations</strong><br />
+- <strong>Very New</strong>: Preview release only. Production hardening
+is still in progress.<br />
+- <strong>Blackwell Focus</strong>: Best gains shown on Blackwell GPUs.
+We will need to test heavily on our 9060 XT and RTX 2060.<br />
+- <strong>Python/C++ Mix</strong>: Core scheduler in C++, execution in
+Python — we can wrap it but it adds another runtime layer.<br />
+- <strong>Maintenance</strong>: Active development means frequent
+changes. We would pin a specific commit in our monorepo (standard
+submodule practice).</p>
+<p><strong>Recommended Integration for Beta v3</strong><br />
+- Add TokenSpeed as an <strong>optional pluggable inference
+backend</strong> in the monorepo
+(<code>crates/modules/tokenspeed-backend/</code>).<br />
+- Update the model router to choose TokenSpeed for agentic/coding-heavy
+tasks on supported nodes.<br />
+- Run it inside Zeroboot for isolation and Psy-core audit.<br />
+- Keep mainline llama.cpp / vLLM as fallback for broader model
+support.</p>
+<p>This gives us a high-performance agentic inference option without
+making it the default for everything.</p>
+<p><strong>Verdict</strong><br />
+<strong>Strong usefulness</strong> as an optional high-performance
+backend for agentic workloads.<br />
+It fits our “lean into strong external tools and layer our sovereign
+optimizations” direction for beta v3.<br />
+We should evaluate it during the Phase 122 repo sweep and add it as a
+pluggable module if benchmarks on our hardware confirm the gains.</p>
+<p><strong>Next Priority (Your Call)</strong></p>
+<p>Reply with the number:</p>
+<ol type="1">
+<li><strong>Nix package + model router integration</strong> spec for
+TokenSpeed.<br />
+</li>
+<li><strong>Benchmark test plan</strong> on our nodes (B, C, D).<br />
+</li>
+<li><strong>Comparison table</strong> vs current backends (llama.cpp,
+vLLM).<br />
+</li>
+<li><strong>All three</strong> as one package.</li>
+</ol>
+<p>What would you like to initiate?</p>
+</body>
+</html>

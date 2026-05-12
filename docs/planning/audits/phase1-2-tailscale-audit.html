@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="sovereign-strategist-architecture-audit-report">SOVEREIGN
+STRATEGIST: ARCHITECTURE AUDIT REPORT</h1>
+<p><strong>DATE:</strong> 2026-05-08 <strong>SUBJECT:</strong> Phase 1
+&amp; 2 Execution / Zero-Trust Tailscale Provisioning
+<strong>STATUS:</strong> FULL APPROVAL (DRIFT RESOLVED)</p>
+<h2 id="strategist-verification-the-watcher">🛡️ STRATEGIST VERIFICATION
+(THE WATCHER)</h2>
+<p>In accordance with the Zero-Trust mandate, I have conducted a
+surgical code review of the Phase 1 and 2 active branches across the
+50V3R31GN-M4CH1N4 mesh.</p>
+<h3 id="the-zero-trust-artery-tailscale">1. THE ZERO-TRUST ARTERY
+(TAILSCALE)</h3>
+<p><strong>STATUS: VERIFIED</strong> The Sovereign Tailnet is
+structurally sound and provisioned across all four physical nodes. -
+<strong>Node A, C, D:</strong> The
+<code>sovereign.tailscale.enable = true;</code> flag is properly
+asserted in their respective <code>default.nix</code> host
+configurations. - <strong>Node B (WSL2):</strong> The fix for the
+missing WSL flake integration has been properly routed. The
+<code>flake.nix</code> module correctly provisions Node B with
+<code>sovereign.tailscale.enable = true;</code> and intelligently
+disables the NixOS firewall to prevent WSL kernel module conflicts. -
+<strong>The Module (<code>nix/modules/tailscale.nix</code>):</strong>
+Correctly activates the native service
+(<code>services.tailscale.enable</code>) and allows UDP 41641. It
+strictly enforces the interactive <code>-ssh</code> login via the
+<code>scripts/setup-tailscale.sh</code>, maintaining the security
+boundary.</p>
+<p><strong>Conclusion:</strong> The infrastructure correctly supports
+running <code>tailscale ip</code> on all 4 nodes once the interactive
+setup is complete.</p>
+<h3 id="phase-1-hermes-first-core-integration">2. PHASE 1: HERMES-FIRST
+CORE INTEGRATION</h3>
+<p><strong>STATUS: VERIFIED (DRIFT RESOLVED)</strong> -
+<strong>Resolution:</strong> The compilation drift detected in
+<code>ik_llama.cpp</code> has been resolved. The derivations for Node B
+(AVX2) and Node D (CUDA) were locked to the stable <code>t0002</code>
+tag, bypassing the broken <code>beta/v3</code> branch upstream.
+Evaluation warnings regarding missing standard library includes
+(<code>&lt;cstdint&gt;</code>) and unused <code>cudaFlags</code> have
+been surgically patched within the Nix sandbox. The flake overlays in
+<code>flake.nix</code> have been uncommented, reinstating the derivation
+properly. - <strong>Strategist Ruling:</strong> Phase 1 meets Sovereign
+invariants.</p>
+<h3 id="phase-2-the-pluggable-sovereign-layer">3. PHASE 2: THE PLUGGABLE
+SOVEREIGN LAYER</h3>
+<p><strong>STATUS: ALIGNED</strong> - The strategy to isolate
+hardware-bound logic into discrete Nix derivations is correctly
+implemented. - <code>flake.nix</code> successfully registers the expert
+engineering appendages and the coordination layer as native packages
+(e.g., <code>matlab-mcp-bridge</code>, <code>zeroboot-isolation</code>,
+<code>consensus-alignment</code>). This enforces the “No Shadow Logic”
+invariant by utilizing standard package routing instead of monolithic
+shims.</p>
+<h2 id="next-steps">⚡ NEXT STEPS</h2>
+<ol type="1">
+<li>Run <code>./scripts/setup-tailscale.sh</code> across the mesh to
+bind the Tailnet.</li>
+<li>Once the Tailscale IP routing is confirmed via the
+<code>100.x.y.z</code> range, proceed with the deployment of the VSB
+Router (Phase 2, Task 3).</li>
+</ol>
+<hr />
+<p><strong>::/5Y573M-N071C3 : THE_BUS_IS_TRUTH. AUDIT_LOGGED. //
+50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

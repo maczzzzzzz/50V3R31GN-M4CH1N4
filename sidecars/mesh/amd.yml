@@ -1,0 +1,23 @@
+# Node B: AMD ROCm Runtime
+# llama.cpp server compiled with HIP/ROCm backend for GGUF inference
+services:
+  llama-server:
+    image: ghcr.io/ggerganov/llama.cpp:server-rocm
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    ports:
+      - "8000:8000"
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+    volumes:
+      - /var/lib/hermes/models:/models:ro
+    command: >
+      -m /models/Carnice-9b-Q8_0.gguf
+      --host 0.0.0.0
+      --port 8000
+      -c 32000
+      --cache-type-k q4_0
+      -fa on
+      -ngl 99
+    restart: unless-stopped

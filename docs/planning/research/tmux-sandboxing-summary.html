@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="managed-tmux-zeroboot-sandboxing-research-summary">Managed Tmux
+&amp; Zeroboot Sandboxing: Research Summary</h1>
+<p><strong>Date:</strong> 2026-05-01 <strong>Source:</strong> Grok
+Research Series (v2.1.0 Archive) <strong>Objective:</strong> Establish a
+lightweight, zero-overhead isolation layer for stacking multiple Hermes
+sessions without context bleed.</p>
+<h2 id="the-tmux-namespace-boundary">1. The Tmux Namespace Boundary</h2>
+<ul>
+<li><strong>Thesis:</strong> Use <code>tmux</code> as the simplest
+separation layer.</li>
+<li><strong>Standard:</strong> One <code>tmux</code> session per
+project/model/role.</li>
+<li><strong>Isolation:</strong> Separate CWD, environment variables, and
+Hermes conversation history per session.</li>
+<li><strong>Persistence:</strong> Uses <code>tmux-resurrect</code> or
+custom session savers for reboot recovery.</li>
+</ul>
+<h2 id="managed-session-fabric-node-d">2. Managed Session Fabric (Node
+D)</h2>
+<ul>
+<li><strong>Sidecar:</strong> <code>sidecars/tmux-session-manager</code>
+(Rust).</li>
+<li><strong>Audit:</strong> Integrated with <strong>Psy-core</strong>
+for hash-chained audit trails and HMAC-signed data.</li>
+<li><strong>Self-Healing:</strong> <strong>GEPA v2</strong> monitors and
+restarts crashed sessions.</li>
+<li><strong>Observability:</strong> Pretext HUD panel for real-time
+resource tracking.</li>
+</ul>
+<h2 id="zeroboot-hardware-isolation">3. Zeroboot Hardware Isolation</h2>
+<ul>
+<li><strong>Tech:</strong> KVM VM sandboxes with 0.8ms startup and 265KB
+footprint.</li>
+<li><strong>Performance:</strong> 190x faster than E2B; supports 1000
+concurrent forks in ~815ms.</li>
+<li><strong>Security:</strong> Hardware-enforced memory isolation
+(Firecracker CoW snapshots).</li>
+<li><strong>Connectivity:</strong> Serial I/O only (no network stack
+inside sandbox) for maximum security.</li>
+</ul>
+<h2 id="clawlink-networked-sandboxing">4. Clawlink: Networked
+Sandboxing</h2>
+<ul>
+<li><strong>Concept:</strong> Android Machina Terminal (Omi) as a
+universal trigger.</li>
+<li><strong>Bridge:</strong> Clawlink sidecar acts as a secure RPC
+bridge over Tailscale + SPIFFE.</li>
+<li><strong>Workflow:</strong> Voice command from Omi -&gt; Clawlink RPC
+-&gt; Zeroboot Sandbox on Node B/C/D.</li>
+</ul>
+<h2 id="integration-standards">Integration Standards</h2>
+<ul>
+<li>Every <code>tmux</code> session is a first-class citizen in
+<strong>MemPalace</strong>.</li>
+<li>All activity logged as immutable <strong>DevEpisode</strong>.</li>
+<li>Nix-native deployment via <code>flake.nix</code> services.</li>
+</ul>
+</body>
+</html>

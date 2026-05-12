@@ -1,0 +1,140 @@
+/* SOVEREIGN MACHINA: OPERATIONAL LO-FI BRUTALISM (v1.3.1) */
+:root {
+    --authority-primary: #376374;
+    --gold-highlight: #836A46;
+    --tactical-base: #1A282F;
+    --technical-gray: #AFAB9C;
+    --bg-color: var(--tactical-base);
+    --text-color: var(--technical-gray);
+    --accent-color: var(--authority-primary);
+    --gold-color: var(--gold-highlight);
+    --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-mono);
+    line-height: 1.6;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    /* Washed Protocol: Elevate blacks */
+    border: 1px solid var(--technical-gray);
+}
+
+header {
+    border-bottom: 2px solid var(--accent-color);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    padding: 1rem;
+}
+
+header h1 {
+    color: var(--bg-color) !important;
+}
+
+h1, h2, h3 {
+    color: var(--gold-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+}
+
+section {
+    margin-bottom: 3rem;
+    border: 1px solid var(--technical-gray);
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+article {
+    background: var(--bg-color);
+    padding: 1.5rem;
+    border: 1px solid var(--accent-color);
+    margin: 1rem 0;
+}
+
+aside {
+    float: right;
+    width: 300px;
+    background: #000;
+    padding: 1rem;
+    margin-left: 1.5rem;
+    border: 1px solid var(--gold-color);
+    font-size: 0.85rem;
+}
+
+code {
+    background: #000;
+    color: var(--gold-color);
+    padding: 0.2rem 0.4rem;
+    border: 1px solid var(--accent-color);
+}
+
+pre {
+    background: #000;
+    padding: 1rem;
+    border: 1px solid var(--accent-color);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+th, td {
+    border: 1px solid var(--technical-gray);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+th {
+    background: var(--accent-color);
+    color: var(--bg-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+}
+
+footer {
+    margin-top: 5rem;
+    border-top: 2px solid var(--accent-color);
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--technical-gray);
+    text-align: left;
+}
+
+/* Metadata & Status Badges */
+.status-active { color: #00ff00; }
+.status-pending { color: #ffff00; }
+.status-blocked { color: #ff0000; }
+
+@media (max-width: 800px) {
+    aside {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Operational Shards */
+.shard {
+    border: 4px double var(--technical-gray);
+    padding: 1rem;
+    margin-top: 1rem;
+}

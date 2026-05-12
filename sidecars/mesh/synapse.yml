@@ -1,0 +1,21 @@
+# Node A: NVIDIA RPC Synapse (4GB VRAM)
+# llama.cpp RPC server for KV-cache offloading
+services:
+  rpc-server:
+    image: ghcr.io/ggerganov/llama.cpp:server-cuda--b1-9786a6b
+    runtime: nvidia
+    ports:
+      - "50052:50052"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: >
+      --host 0.0.0.0
+      --port 50052
+    restart: unless-stopped

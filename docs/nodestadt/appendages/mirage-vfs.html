@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirage VFS - Nodestadt Appendages</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; font-family: 'Courier New', Courier, monospace; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="telegram-artery.html">Telegram</a> | 
+        <a href="n8n-mcp.html">n8n</a> | 
+        <a href="omi-voice.html">Omi</a> | 
+        <a href="mirage-vfs.html">Mirage</a>
+    </nav>
+
+    <header>
+        <h1>◈ MIRAGE VIRTUAL FILESYSTEM</h1>
+        <p><strong>Category:</strong> APPENDAGES | <strong>Status:</strong> MATERIALIZED</p>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Unified Mesh Storage</h2>
+            <p><strong>Mirage VFS</strong> provides a virtualized, Redis-backed filesystem that enables bit-identical file access across all nodes in the mesh, bypassing physical hardware boundaries.</p>
+        </section>
+
+        <section id="architecture">
+            <h2>1. Technical Architecture</h2>
+            <ul>
+                <li><strong>Mount Point:</strong> <code>/mnt/mirage</code> (Node D).</li>
+                <li><strong>Logic:</strong> <code>crates/modules/mirage-vfs/</code> (Rust Engine).</li>
+                <li><strong>Backend:</strong> Redis Cluster (Node A).</li>
+            </ul>
+        </section>
+
+        <section id="tools">
+            <h2>2. Hermes Integration</h2>
+            <ul>
+                <li><code>mirage_health_check</code> — Verify VFS mounting and Redis connectivity.</li>
+                <li><code>mirage_read_file</code> — Retrieve data from the virtual artery.</li>
+                <li><code>mirage_list_dir</code> — Explore virtualized directory structures.</li>
+                <li><code>mirage_write_file</code> — Persist state across the mesh.</li>
+            </ul>
+        </section>
+
+        <section id="verification">
+            <h2>3. Verification Coverage</h2>
+            <p>55 automated tests covering the Rust engine (FUSE mounts) and the Python plugin logic.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : MIRAGE_VFS_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

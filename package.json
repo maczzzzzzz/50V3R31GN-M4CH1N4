@@ -1,0 +1,16 @@
+{
+  "name": "50v3r31gn-m4ch1n4",
+  "version": "3.0.0-beta",
+  "description": "The Sovereign Quaternary Mesh OS",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "./scripts/ignite.sh",
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "semantic-release": "^23.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/changelog": "^6.0.3"
+  }
+}

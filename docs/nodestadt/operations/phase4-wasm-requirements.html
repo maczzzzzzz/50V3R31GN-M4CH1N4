@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Phase 4 WASM Build Requirements</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+  <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Phase 4 WASM Build Requirements</h1>
+</header>
+<h1 id="wasm-build-dependencies">WASM Build Dependencies</h1>
+<p>The Phase 4 Pretext HUD implementation includes WASM bindings for high-performance text layout in the browser. The following dependencies are required for building the WASM module:</p>
+<h2 id="required-tools">Required Tools</h2>
+<ul>
+<li><strong>wasm-pack</strong>: Rust-to-WASM build tool<br />
+<code>cargo install wasm-pack</code></li>
+<li><strong>lld linker</strong>: LLVM linker for WASM<br />
+<code>sudo apt install lld</code> (Debian/Ubuntu)<br />
+or install via Nix: <code>nix-env -iA nixpkgs.lld</code></li>
+</ul>
+<h2 id="build-instructions">Build Instructions</h2>
+<pre><code># From project root
+cd crates/modules/pretext-core
+
+# Build WASM package
+wasm-pack build --target web --out-dir ../../dashboard/hermes-workspace/wasm/pkg
+
+# This generates:
+# - pkg/pretext_core.js (JavaScript bindings)
+# - pkg/pretext_core_bg.wasm (WASM binary)
+# - pkg/pretext_core.d.ts (TypeScript definitions)</code></pre>
+<h2 id="current-implementation-status">Current Implementation Status</h2>
+<p><strong>✅ Complete:</strong></p>
+<ul>
+<li>Pretext Core Rust engine with all layout arithmetic</li>
+<li>ASCII mapper with gradient, wave, and pulse effects</li>
+<li>Thought-stream virtualization for predictive height measurement</li>
+<li>React <code>usePretext</code> hook with fallback Dart implementation</li>
+<li>Flutter/FFI bindings for mobile Machina Terminal</li>
+<li>Fluid smoke shader for Ambient Artery background</li>
+</ul>
+<p><strong>⚠️ Known Limitation:</strong></p>
+<p>The React components (<code>usePretext.ts</code>, <code>KineticThoughtStream.tsx</code>) include fallback implementations that work without WASM. The WASM bindings provide performance benefits but are not strictly required for functionality.</p>
+<h2 id="testing-without-wasm">Testing Without WASM</h2>
+<p>The dashboard will run in "Dart fallback mode" when the WASM module is not available. This uses a pure JavaScript implementation of the layout arithmetic that is functionally equivalent but slightly slower than the WASM version.</p>
+<hr />
+<p><strong>::/5Y573M-N071C3 : PHASE_4_WASM_REQUIREMENTS_DOCUMENTED. // 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

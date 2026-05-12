@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1
+id="beta-v3-phase-2-the-pluggable-sovereign-layer-implementation-plan">Beta
+v3 Phase 2: The Pluggable Sovereign Layer Implementation Plan</h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use
+superpowers:subagent-driven-development (recommended) or
+superpowers:executing-plans to implement this plan task-by-task. Steps
+use checkbox (<code>- [ ]</code>) syntax for tracking. <strong>BRANCH
+MANDATE:</strong> ALL WORK MUST BE COMMITTED TO THE <code>beta/v3</code>
+BRANCH. Do not commit to <code>beta/v3</code>. <strong>TENACITY
+MANDATE:</strong> All integration must utilize Hermes v0.13.0 (Tenacity)
+native surfaces. Zero Shadow Logic.</p>
+</blockquote>
+<p><strong>Goal:</strong> Extract hardware-bound logic into discrete Nix
+Flakes, implement the secure model router (VSB) as a native provider,
+and provision the expert engineering and voice appendages.</p>
+<hr />
+<h3 id="task-0-tenacity-upstream-sync-mandatory">Task 0: Tenacity
+Upstream Sync (MANDATORY)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><strong>Step 1: Rebase
+Sovereign Fork</strong></label>
+<ul>
+<li>Sync <code>sidecars/hermes-agent-nous</code> with upstream
+<code>v2026.5.7</code>.</li>
+<li>Resolve conflicts in the core agent loop.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Initialize Pluggable
+Surfaces</strong></label>
+<ul>
+<li>Verify the new <code>plugins/</code> directory structure is present
+and active.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-1-lossless-memory-uplift-hermes-lcm">Task 1: Lossless
+Memory Uplift (Hermes-LCM)</h3>
+<p><strong>Files:</strong> - Create:
+<code>sidecars/hermes-agent-nous/plugins/memory/hermes-lcm/</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Integrate
+<code>hermes-lcm</code> Plugin</strong></label>
+<ul>
+<li>Register as the primary <code>MemoryProvider</code> for the
+mesh.</li>
+<li>Implement DAG-based SQLite storage for session durability.</li>
+<li>Disable native “forgetful” buffers in favor of lossless
+summaries.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-2-zeroboot-isolation-hardware-sandboxing">Task 2: Zeroboot
+Isolation &amp; Hardware Sandboxing</h3>
+<p><strong>Files:</strong> - Create:
+<code>crates/modules/zeroboot-isolation/</code> - Create:
+<code>nix/modules/zeroboot.nix</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Implement Rust
+Sandboxing Core</strong></label>
+<ul>
+<li>High-performance KVM/Firecracker wrapper.</li>
+<li><strong>SCION Integration:</strong> Utilize
+<code>GoogleCloudPlatform/scion</code> for deep multi-agent container
+isolation.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Define Nix
+Sandboxing Module</strong></label>
+<ul>
+<li>Automated provisioning of isolated execution environments.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-3-sovereign-model-router-vsb---native-provider">Task 3:
+Sovereign Model Router (VSB) - NATIVE PROVIDER</h3>
+<p><strong>Files:</strong> - Create:
+<code>sidecars/hermes-agent-nous/plugins/model-providers/sovereign-vsb/</code>
+- Create: <code>nix/modules/vsb-protocol.nix</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Implement
+<code>ModelProvider</code> Plugin</strong></label>
+<ul>
+<li>Map the VSB Router to the new <code>ProviderProfile</code> ABC.</li>
+<li><strong>TokenSpeed Integration:</strong> Use
+<code>lightseekorg/tokenspeed</code> as the high-performance inference
+backend on Node D.</li>
+<li>Implement multi-node dispatch logic for 10.0.0.x subnet.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Binary VSB Pulse
+(UDP)</strong></label>
+<ul>
+<li>Implement 302-byte deterministic state synchronization between
+nodes.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-4-expert-engineering-appendages">Task 4: Expert Engineering
+Appendages</h3>
+<p><strong>Files:</strong> - Create:
+<code>crates/modules/matlab-mcp-bridge/</code> - Create:
+<code>nix/hosts/node-d/matlab-fhs.nix</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><strong>Step 1: MATLAB
+Agentic Toolkit Integration</strong></label>
+<ul>
+<li>Register MATLAB MCP server as a native Hermes Tools Plugin.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="" /><strong>Step 2: Oz-skills
+Integration</strong></label>
+<ul>
+<li>Map <code>warpdotdev/oz-skills</code> to the Hermes
+<code>activate_skill</code> framework.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 3: n8n-mcp
+Orchestration</strong></label>
+<ul>
+<li>Integrate external API workflows per
+<code>docs/planning/specs/n8n-mcp-integration-spec.md</code>.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="" /><strong>Step 4: Goose
+&amp; Graphify</strong></label>
+<ul>
+<li>Deploy <strong>Goose</strong> as the Node B execution layer.</li>
+<li>Deploy <strong>Graphify</strong> for spatial AST memory on Nodes
+C/D.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-5-sovereign-voice-layering-clawlink-cognitive-artery">Task
+5: Sovereign Voice Layering &amp; Clawlink (Cognitive Artery)</h3>
+<p><strong>Files:</strong> - Create:
+<code>crates/modules/vibevoice-asr/</code> - Create:
+<code>crates/modules/voxcpm-tts/</code> - Create:
+<code>sidecars/omi-sdk-bridge/</code> - Create:
+<code>sidecars/clawlink-android-bridge/</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Deploy Clawlink
+Flutter Bridge</strong></label>
+<ul>
+<li>Establish persistent mobile-to-mesh connection for voice and state
+observability.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="" /><strong>Step 2: Deploy
+VibeVoice &amp; VoxCPM2</strong></label>
+<ul>
+<li>Layered amplification (Whisper -&gt; VibeVoice -&gt; VoxCPM2).</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 3: Moshi-RAG
+Integration</strong></label>
+<ul>
+<li>Implement full-duplex speech grounding per
+<code>docs/planning/specs/sovereign-voice-layering-spec.md</code>.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-6-psy-core-cryptographic-audit---native-hook">Task 6:
+Psy-core Cryptographic Audit - NATIVE HOOK</h3>
+<p><strong>Files:</strong> - Create:
+<code>sidecars/hermes-agent-nous/plugins/general/psy-core/</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><strong>Step 1: Implement
+<code>transform_llm_output</code> Hook</strong></label>
+<ul>
+<li>Execute real-time cryptographic vetting of LLM generated tool
+calls.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-7-the-directors-forge-printing-press">Task 7: The
+Director’s Forge (Printing Press)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><strong>Step 1: Deploy
+<code>cli-printing-press</code> on Node B</strong></label>
+<ul>
+<li>Ingest the <code>printing-press-library</code> as native Hermes
+Tools.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="" /><strong>Step 2: SQLite
+Artery Integration</strong></label>
+<ul>
+<li>Connect tool-local storage to the Synapse cache.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-8-the-coordination-layer-architectural-coordination">Task
+8: The Coordination Layer (Architectural Coordination)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" /><strong>Step 1: Implement
+Consensus Alignment Hook</strong></label>
+<ul>
+<li>Decouple consensus logic from agent prompts.</li>
+<li>Enforce “Virtualized Shared Memory” using Node A as the
+authoritative state ledger.</li>
+</ul></li>
+<li><label><input type="checkbox" checked="" /><strong>Step 2: Deploy
+Murphy Signature Monitoring</strong></label>
+<ul>
+<li>Integrate real-time health metrics into the Pretext HUD.</li>
+</ul></li>
+</ul>
+<hr />
+<p><strong>::/5Y573M-N071C3 : PHASE_2_PLAN_CALIBRATED.
+TENACITY_SURFACES_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

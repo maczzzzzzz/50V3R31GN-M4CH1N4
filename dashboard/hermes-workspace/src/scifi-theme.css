@@ -1,0 +1,59 @@
+/* SOVEREIGN MACHINA: OPERATIONAL LO-FI BRUTALISM (v1.3.1) */
+:root {
+  --authority-primary: #376374;
+  --gold-highlight: #836A46;
+  --tactical-base: #1A282F;
+  --technical-gray: #AFAB9C;
+  
+  /* Workspace Overrides */
+  --background: var(--tactical-base);
+  --foreground: var(--technical-gray);
+  --card: #000;
+  --popover: #000;
+  --primary: var(--authority-primary);
+  --secondary: var(--gold-highlight);
+  --muted: #222;
+  --accent: var(--authority-primary);
+  --border: var(--technical-gray);
+  --radius: 0px;
+
+  --glow-color: rgba(55, 99, 116, 0.4);
+  --scanline-opacity: 0.05;
+}
+
+.root::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: var(--scanline-opacity);
+}
+
+.crt-glow {
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+/* Forced Brutalism */
+* {
+  border-radius: 0px !important;
+}
+
+body {
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: -0.02em;
+}
+
+/* Pretext HUD Hint */
+.pretext-stream {
+  line-height: 1.1;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--gold-highlight);
+}

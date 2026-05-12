@@ -1,0 +1,19 @@
+Warning: True color (24-bit) support not detected. Using a terminal with true color enabled will result in a better visual experience.
+Ripgrep is not available. Falling back to GrepTool.
+MCP issues detected. Run /mcp list for status.
+Workspace command '/plan' was renamed to '/workspace.plan' because it conflicts with built-in command.
+[INFO] Workspace command '/plan' was renamed to '/workspace.plan' because it conflicts with built-in command.
+Error when talking to Gemini API Full report available at: /tmp/nix-shell.FeMkSC/nix-shell.8crbAG/gemini-client-error-Turn.run-sendMessageStream-2026-05-11T11-46-14-010Z.json ModelNotFoundError: Requested entity was not found.
+    at classifyGoogleError (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:269893:12)
+    at retryWithBackoff (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:270562:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:293199:28)
+    at async GeminiChat.streamWithRetries (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:293037:29)
+    at async Turn.run (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:293564:24)
+    at async GeminiClient.processTurn (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:306115:22)
+    at async GeminiClient.sendMessageStream (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/chunk-6DSAZLFF.js:306227:14)
+    at async file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/gemini-U6FSFXFH.js:10811:26
+    at async main (file:///home/nixos/50V3R31GN-M4CH1N4/.npm-global/lib/node_modules/@google/gemini-cli/bundle/gemini-U6FSFXFH.js:15885:5) {
+  code: 404
+}
+An unexpected critical error occurred:[object Object]

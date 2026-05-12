@@ -1,0 +1,58 @@
+{
+  "endpoints": {
+    "type": "array",
+    "description": "List of API endpoints discovered from documentation",
+    "items": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The URL path for the endpoint"
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method (GET, POST, PUT, DELETE, etc.)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of what the endpoint does"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Parameters accepted by the endpoint"
+        }
+      },
+      "required": ["path", "method", "description"]
+    }
+  },
+  "authentication": {
+    "type": "object",
+    "description": "Authentication requirements for the API",
+    "properties": {
+      "type": {
+        "type": "string",
+        "description": "Authentication type (API Key, OAuth, JWT, etc.)"
+      },
+      "location": {
+        "type": "string",
+        "description": "Where authentication is sent (header, query, body)"
+      },
+      "details": {
+        "type": "string",
+        "description": "Additional authentication details"
+      }
+    }
+  },
+  "base_url": {
+    "type": "string",
+    "description": "Base URL for all API endpoints"
+  },
+  "version": {
+    "type": "string",
+    "description": "API version"
+  },
+  "documentation_url": {
+    "type": "string",
+    "description": "URL to full API documentation"
+  }
+}

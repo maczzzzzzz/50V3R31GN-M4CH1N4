@@ -1,0 +1,131 @@
+name: Sovereign QA
+
+on:
+  pull_request:
+    branches:
+      - beta/v3
+      - master
+      - main
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "QA target environment"
+        required: false
+        default: "tailscale_mesh"
+        type: choice
+        options:
+          - tailscale_mesh
+          - local_dev
+
+concurrency:
+  group: qa-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    name: QA Functional Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: true
+      RUN_ID: ${{ github.run_number }}-${{ github.sha }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config: true
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Droid CLI
+        run: curl -fsSL https://app.factory.ai/cli | sh
+
+      - name: Install workspace dependencies
+        run: cd dashboard/hermes-workspace && npm ci
+        continue-on-error: true
+
+      - name: Create QA results directory
+        run: mkdir -p qa-results/$RUN_ID
+
+      - name: Run QA
+        id: qa
+        timeout-minutes: 18
+        continue-on-error: true
+        env:
+          HERMES_PASSWORD: ${{ secrets.HERMES_PASSWORD }}
+          HERMES_API_TOKEN: ${{ secrets.HERMES_API_TOKEN }}
+          TELEGRAM_ARTERY_BOT_TOKEN: ${{ secrets.TELEGRAM_ARTERY_BOT_TOKEN }}
+          N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+          TARGET_ENV: ${{ github.event.inputs.target || 'tailscale_mesh' }}
+        run: |
+          droid exec --auto high 2>&1 | tee qa-results/output.txt <<'PROMPT'
+          You are running in a non-interactive CI environment. There is NO human available.
+          Do NOT use AskUser, do NOT wait for confirmations, do NOT pause for input.
+          Run the qa skill. Write the final report to qa-results/report.md
+          PROMPT
+
+      - name: Upload QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results-${{ github.run_number }}
+          path: qa-results/
+          retention-days: 14
+
+      - name: Post QA report as PR comment
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPORT="qa-results/report.md"
+          BODY=""
+          MARKER="<!-- qa-report -->"
+
+          if [ -f "$REPORT" ]; then
+            BODY="$MARKER"$'\n'"$(cat "$REPORT")"
+          else
+            OUTPUT="qa-results/output.txt"
+            if [ -f "$OUTPUT" ]; then
+              BODY="$MARKER"$'\n\n<details><summary>QA Output (raw)</summary>'$'\n\n```'$'\n'"$(head -200 "$OUTPUT")"$'\n```'$'\n</details>'
+            else
+              BODY="$MARKER"$'\n\nQA run completed but no report was generated.'
+            fi
+          fi
+
+          # Add footer
+          BODY="$BODY"$'\n\n---'$'\n*Workflow run: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) | Artifacts available in workflow summary*'
+
+          # Check if a PR number is available
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          if [ -z "$PR_NUMBER" ]; then
+            # Try to extract from workflow_run or other contexts
+            PR_NUMBER=$(gh pr list --head "${{ github.head_ref }}" --json number -q '.[0].number' 2>/dev/null || echo "")
+          fi
+
+          if [ -n "$PR_NUMBER" ]; then
+            # Check for existing QA comment
+            EXISTING=$(gh api repos/${{ github.repository }}/issues/$PR_NUMBER/comments --jq ".[] | select(.body | startswith(\"$MARKER\")) | .id" 2>/dev/null | head -1)
+
+            if [ -n "$EXISTING" ]; then
+              # Update existing comment
+              gh api repos/${{ github.repository }}/issues/comments/$EXISTING \
+                -X PATCH \
+                --field body="$BODY"
+            else
+              # Create new comment
+              gh pr comment $PR_NUMBER --body "$BODY"
+            fi
+          fi

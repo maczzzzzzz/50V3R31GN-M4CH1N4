@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management (Kanban) - Nodestadt Operations</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="ignition.html">Ignition</a> | 
+        <a href="workflows.html">Workflows</a> | 
+        <a href="interfaces.html">Interfaces</a> | 
+        <a href="vitals.html">Vitals</a>
+    </nav>
+
+    <header>
+        <h1>◈ MESH PROJECT MANAGEMENT</h1>
+        <p><strong>Category:</strong> OPERATIONS | <strong>Status:</strong> OPERATIONAL</p>
+    </header>
+
+    <main>
+        <section id="kanban-overview">
+            <h2>The Distributed Ledger</h2>
+            <p>Nodestadt utilizes an embedded <strong>Kanban Dispatcher</strong> within the Hermes Gateway to manage multi-node missions. Task state is synchronized across the mesh via the <code>kanban.db</code> ledger on Node B.</p>
+        </section>
+
+        <section id="workflow-states">
+            <h2>1. Mission Workflow</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Definition</th>
+                        <th>Transition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Triage</strong></td>
+                        <td>Initial assessment of intent.</td>
+                        <td>→ Todo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ready</strong></td>
+                        <td>Task queued for worker claim.</td>
+                        <td>→ Running</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Running</strong></td>
+                        <td>Actively processed by an agent.</td>
+                        <td>→ Done / Blocked</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blocked</strong></td>
+                        <td>Halted due to error or dependency.</td>
+                        <td>→ Ready</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="worker-lifecycle">
+            <h2>2. Agent Worker Lifecycle</h2>
+            <ol>
+                <li><strong>Poll:</strong> The dispatcher (Node B) identifies <code>ready</code> tasks.</li>
+                <li><strong>Claim:</strong> A worker process is spawned with <code>HERMES_KANBAN_TASK</code> context.</li>
+                <li><strong>Heartbeat:</strong> The agent issues heartbeats every 5 minutes to maintain claim lock.</li>
+                <li><strong>Finalize:</strong> Task is marked <code>done</code> and result is archived in the session ledger.</li>
+            </ol>
+        </section>
+
+        <section id="cli-commands">
+            <h2>3. Command Reference</h2>
+            <pre><code># View mesh-wide tasks
+hermes kanban list
+
+# Inspect specific mission
+hermes kanban show [task_id]
+
+# Create new coordination task
+hermes kanban create --title "Bridge MATLAB" --status ready</code></pre>
+        </section>
+
+        <section id="notifications">
+            <h2>4. Artery Notifications</h2>
+            <p>Mission events (Completion, Failure, Blockers) are automatically pushed to the <strong>Messaging Artery</strong> (Telegram/Discord) for real-time human awareness.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : KANBAN_SYNCED. THE_MISSION_IS_LAW. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

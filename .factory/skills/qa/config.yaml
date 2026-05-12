@@ -1,0 +1,86 @@
+project: Sovereign Machina
+imagemagick: false
+
+environments:
+  tailscale_mesh:
+    url: http://100.66.173.31:3002
+    agent_api: http://100.66.173.31:8642
+    restrictions:
+      - "Never run destructive commands on production mesh nodes"
+      - "Do not modify NixOS configurations on live nodes"
+  local_dev:
+    url: http://localhost:3002
+    agent_api: http://localhost:8642
+    restrictions: []
+  docker:
+    url: http://localhost:3002
+    agent_api: http://localhost:8642
+    restrictions: []
+
+default_target: tailscale_mesh
+
+auth:
+  method: password
+  provider: hermes-session
+  password_env: HERMES_PASSWORD
+  session_cookie: claude-auth
+
+personas:
+  - name: operator
+    description: "Single mesh operator with full access to workspace, agent CLI, and node configuration"
+    credentials_source: env-var
+    secret_name: HERMES_PASSWORD
+    test_focus:
+      - "Workspace login and chat"
+      - "Agent plugin management"
+      - "Rust crate builds"
+      - "Mesh health verification"
+    cannot_do: []
+
+apps:
+  workspace:
+    path_patterns:
+      - "dashboard/hermes-workspace/**"
+      - "dashboard/hermes-workspace/src/**"
+    skill: qa-workspace
+    test_tool: agent-browser
+    build_command: "cd dashboard/hermes-workspace && pnpm install && pnpm build"
+    dev_command: "cd dashboard/hermes-workspace && pnpm dev"
+
+  agent:
+    path_patterns:
+      - "sidecars/hermes-agent-nous/**"
+      - "sidecars/hermes-agent-nous/plugins/**"
+      - "sidecars/hermes-agent-nous/cli-config.yaml"
+    skill: qa-agent
+    test_tool: curl
+    build_command: null
+
+  crates:
+    path_patterns:
+      - "crates/**"
+      - "flake.nix"
+    skill: qa-crates
+    test_tool: curl
+    build_command: "nix build"
+
+  firmware:
+    path_patterns:
+      - "sidecars/omi-monorepo-fork/**"
+    skill: qa-crates
+    test_tool: curl
+    build_command: null
+
+feature_flags:
+  provider: none
+  dashboard_url: null
+  how_to_override: "N/A - no feature flags"
+
+integrations: {}
+
+cleanup:
+  auto_cleanup: false
+  strategy: manual
+  instructions: "Tests are mostly read-only. Leave chat sessions and test data for manual review."
+
+failure_learning: suggest_in_report

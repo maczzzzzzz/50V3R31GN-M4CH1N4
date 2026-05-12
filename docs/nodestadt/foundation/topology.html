@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesh Topology - Nodestadt Foundation</title>
+    <link rel="stylesheet" href="../../sovereign-style.css">
+    <style>
+        /* Fallback for "plain white" issue */
+        body { background-color: #1A282F; color: #AFAB9C; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../index.html">◈ Hub</a> | 
+        <a href="topology.html">Topology</a> | 
+        <a href="artery.html">Artery</a> | <a href="network-resilience.html">Resilience</a> | 
+        <a href="security.html">Security</a> | 
+        <a href="roles.html">Roles</a>
+    </nav>
+
+    <header>
+        <h1>◈ PHYSICAL MESH TOPOLOGY</h1>
+        <p><strong>Category:</strong> FOUNDATION | <strong>Status:</strong> CALIBRATED (BETA V3.2)</p>
+    </header>
+
+    <main>
+        <section id="quaternary-mesh">
+            <h2>The Quaternary Mesh (Nodes A-D)</h2>
+            <p>The system operates on a distributed quaternary mesh. Physical nodes are interconnected via the <strong>Zero-Trust Artery</strong> (Tailscale). Beta v3.2 enforces the <strong>Hierarchy of Responsiveness</strong>, splitting inference between local responsiveness and centralized reasoning.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Node</th>
+                        <th>Alias</th>
+                        <th>Tailscale IP</th>
+                        <th>Hardware Profile</th>
+                        <th>Operational Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Node A</strong></td>
+                        <td>Synapse</td>
+                        <td><code>100.90.196.70</code></td>
+                        <td>4GB VRAM (GTX 1050 Ti)</td>
+                        <td><strong>Memory & State:</strong> Synapse Cache / KV Ledger</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Node B</strong></td>
+                        <td>Director</td>
+                        <td><code>100.66.173.31</code></td>
+                        <td>16GB VRAM (Ryzen 9 5900XT)</td>
+                        <td><strong>Director:</strong> Instant Responsiveness / Proxy Dispatch</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Node C</strong></td>
+                        <td>Oracle</td>
+                        <td><code>100.102.109.81</code></td>
+                        <td>6GB VRAM (RTX 2060)</td>
+                        <td><strong>Perception:</strong> Voice Ingress / High-Speed Triage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Node D</strong></td>
+                        <td>Quaternary</td>
+                        <td><code>100.120.225.12</code></td>
+                        <td>24GB+ VRAM / 48GB RAM</td>
+                        <td><strong>Reasoning Core:</strong> High-Depth Strategic Reasoning</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="cognitive-mapping">
+            <h2>Cognitive Artery Mapping (Hierarchy of Responsiveness)</h2>
+            <article>
+                <h3>Node A (Synapse)</h3>
+                <p>Global State Persistence and Key-Value retrieval. Anchors the <strong>Hermes-LCM</strong> memory ledger.</p>
+            </article>
+            <article>
+                <h3>Node B (Director)</h3>
+                <p>Instant responsiveness tier. Runs <strong>Carnice-9B (Q8_0)</strong> for TUI interactions, local tool execution, and mesh gateway management via LiteLLM.</p>
+            </article>
+            <article>
+                <h3>Node C (Oracle)</h3>
+                <p>High-speed perception. Runs <strong>Qwen3.5-0.8B</strong> for triage and <strong>VoxCPM2</strong> for TTS synthesis.</p>
+            </article>
+            <article>
+                <h3>Node D (Quaternary)</h3>
+                <p>Heavy Reasoning core. Runs <strong>Qwen2.5-Coder-14B (Q6_K_M)</strong> for high-depth architectural planning and complex code synthesis.</p>
+            </article>
+        </section>
+
+        <section id="network-invariants">
+            <h2>Network Invariants</h2>
+            <ul>
+                <li><strong>Subnet Isolation:</strong> All nodes mapped to <code>10.0.0.0/24</code> for local inter-op.</li>
+                <li><strong>Overlay Network:</strong> Tailscale enforced for cross-mesh zero-trust transport.</li>
+                <li><strong>Port Silence:</strong> Ports <code>4000</code> (Proxy), <code>8080</code> (LLM), <code>9119</code> (LCM) are reserved.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>::/5Y573M-N071C3 : TOPOLOGY_SYNCED. HIERARCHY_ANCHORED. // 50V3R31GN-M4CH1N4</strong></p>
+    </footer>
+</body>
+</html>

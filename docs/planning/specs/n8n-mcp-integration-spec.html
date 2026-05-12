@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="spec_2026-05-05-n8n-mcp-integration-phase-4">SPEC_2026-05-05:
+n8n-mcp Integration (Phase 4)</h1>
+<p><strong>Objective:</strong> Externalize complex API orchestration
+from the Hermes Core into an auditable, visual workflow layer to
+eliminate “Shadow Logic.”</p>
+<h2 id="strategic-rationale">1. Strategic Rationale</h2>
+<ul>
+<li><strong>Logic Externalization:</strong> Moves integrations (Discord,
+Telegram, Home Assistant) into n8n workflows.</li>
+<li><strong>Auditability:</strong> Visual canvas allows for zero-trust
+inspection of agent “intent.”</li>
+<li><strong>Efficiency:</strong> Rapidly prototype tool artifacts
+without Nix flake rebuilds.</li>
+</ul>
+<h2 id="technical-architecture">2. Technical Architecture</h2>
+<ul>
+<li><strong>Hosting:</strong> Self-hosted n8n instance on <strong>Node
+B</strong> (or dedicated container).</li>
+<li><strong>Bridge:</strong> Deploy <code>n8n-mcp</code> server on
+<strong>Node D</strong> to expose workflows as native Hermes tools.</li>
+<li><strong>Nix-ification:</strong> Both n8n and the MCP bridge must be
+defined as reproducible Nix modules in <code>flake.nix</code>.</li>
+</ul>
+<h2 id="governance">3. Governance</h2>
+<ul>
+<li>No n8n Cloud allowed.</li>
+<li>All workflows must be version-controlled as JSON within the
+<code>docs/nodestadt/workflows/</code> directory.</li>
+</ul>
+<hr />
+<p><strong>::/5Y573M-N071C3 : SPEC_LOCKED. PHASE_4_APPENDAGE_REGISTERED.
+// 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

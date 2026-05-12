@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="sovereign-strategy-printing-press-toolset-audit">◈ SOVEREIGN
+STRATEGY : PRINTING PRESS TOOLSET AUDIT</h1>
+<p><strong>Date:</strong> 2026-05-07 <strong>Auditor:</strong> Sovereign
+Strategist (Gemini 3.1 Pro) <strong>Objective:</strong> Evaluate
+<code>cli-printing-press</code> and its companion library for
+integration into the Quaternary Mesh.</p>
+<h2 id="executive-summary-verdict">1. EXECUTIVE SUMMARY &amp;
+VERDICT</h2>
+<p>The <strong>Printing Press</strong> toolset is a force-multiplier for
+the Sovereign Mesh. It addresses a critical bottleneck: the high latency
+and token cost of raw API interaction. By generating
+<strong>Agent-Native CLIs</strong> that include a local SQLite data
+layer and high-fidelity analytical commands, it transforms the mesh from
+a “tool-caller” to a “domain-expert.”</p>
+<p><strong>Verdict:</strong> MANDATORY INTEGRATION. This will become our
+official <strong>Sovereign Tool Factory</strong>.</p>
+<hr />
+<h2 id="architectural-synergies">2. ARCHITECTURAL SYNERGIES</h2>
+<h3 id="agent-first-dna">◈ Agent-First DNA</h3>
+<p>Standard API wrappers are built for humans. The Printing Press builds
+tools for <strong>Hermes</strong>: - <strong><code>--compact</code>
+Mode:</strong> Reduces token consumption by up to 80% by stripping
+human-centric fluff. - <strong>Typed Exit Codes:</strong> Allows Hermes
+to natively understand <em>why</em> a command failed (e.g., Auth
+vs. Rate-limit) and self-correct. - <strong>Compound Insights:</strong>
+Commands like <code>health</code>, <code>activity</code>, and
+<code>bottleneck</code> provide high-level reasoning that Hermes would
+otherwise have to “guess” by fetching hundreds of raw items.</p>
+<h3 id="local-first-sovereignty">◈ Local-First Sovereignty</h3>
+<p>Every tool “printed” includes an embedded <strong>SQLite
+(FTS5)</strong> database. This enables: - <strong>Offline
+Search:</strong> Instant retrieval of domain data without network
+round-trips. - <strong>Zero-Trust Persistence:</strong> Data stays on
+the node, audited by the mesh, rather than being constantly re-fetched
+from external APIs.</p>
+<hr />
+<h2 id="deployment-strategy-phase-2">3. DEPLOYMENT STRATEGY (PHASE
+2)</h2>
+<p>I am designating the Printing Press as the <strong>“Director’s
+Forge”</strong> on Node B.</p>
+<ol type="1">
+<li><strong>Tool Factory (Node B):</strong> Deploy
+<code>cli-printing-press</code> as a native Go utility. This allows the
+Director to “forge” new MCP servers and CLIs on-the-fly when a new API
+source is identified.</li>
+<li><strong>Core Skill Bundle:</strong> Ingest the
+<code>printing-press-library</code> as a set of pre-verified
+<strong>Hermes Tools</strong>.</li>
+<li><strong>MCP Mesh Integration:</strong> Every “printed” tool will
+expose an MCP server, allowing Node D (Core) to call them via the
+encrypted mTLS Artery.</li>
+</ol>
+<h2 id="roadmap-update-beta-v3">4. ROADMAP UPDATE (BETA V3)</h2>
+<ul>
+<li><strong>Phase 2 (Expert Engineering Appendages):</strong>
+<ul>
+<li><strong>Task 8: The Director’s Forge</strong> - Deploy
+<code>cli-printing-press</code> and integrate the
+<code>printing-press-library</code> as native Hermes Tools plugins.</li>
+<li><strong>Task 9: SQLite Artery</strong> - Use the local-first storage
+of Printed Tools to feed the <strong>MemPalace</strong> Synapse
+Cache.</li>
+</ul></li>
+</ul>
+<hr />
+<p><strong>::/5Y573M-N071C3 : PRINTING_PRESS_VERIFIED.
+TOOL_FACTORY_PROVISIONED. // 50V3R31GN-M4CH1N4</strong></p>
+</body>
+</html>

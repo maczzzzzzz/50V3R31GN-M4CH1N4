@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Research: Hermes Routines vs. Claude Code</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Hermes Agent: The Native Automation Engine</h1>
+<p class="subtitle">Comparison: Hermes Routines vs. Claude Code Routines</p>
+</header>
+
+<main>
+    <section id="overview">
+        <h2>1. Overview</h2>
+        <p>Anthropic's "Claude Code Routines" (announced May 2026) introduced scheduled tasks and event triggers. Hermes Agent has featured these capabilities since March 2026, operating on a local-first, unlimited, and model-agnostic architecture.</p>
+    </section>
+
+    <section id="comparison">
+        <h2>2. Side-by-Side Comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Claude Code Routines</th>
+                    <th>Hermes Agent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Infrastructure</strong></td>
+                    <td>Anthropic Cloud</td>
+                    <td><strong>Physical Mesh (Sovereign)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Daily Limit</strong></td>
+                    <td>5 - 25 runs/day</td>
+                    <td><strong>Unlimited</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Model Choice</strong></td>
+                    <td>Claude Only</td>
+                    <td><strong>Agnostic (GPT, DeepSeek, Local, etc.)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Script Injection</strong></td>
+                    <td>No</td>
+                    <td><strong>Yes (Python Context Injection)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Delivery Targets</strong></td>
+                    <td>GitHub Comments</td>
+                    <td><strong>Telegram, Discord, Slack, SMS, Email</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="unique-capabilities">
+        <h2>3. Sovereign-First Capabilities</h2>
+        <h3>3.1 Script Injection</h3>
+        <p>Hermes allows running Python scripts <em>before</em> the agent. The script handles mechanical work (fetching, diffing, computing), while the agent handles reasoning. This enables "Silent" notification patterns where the agent only speaks when a change is detected.</p>
+        
+        <h3>3.2 Multi-Skill Chaining</h3>
+        <p>Automation triggers can load multiple specialized skills (e.g., <code>arxiv</code> + <code>obsidian</code>), teaching the agent specific complex behaviors for each run.</p>
+    </section>
+
+    <section id="implementation-examples">
+        <h2>4. Trigger Prototypes</h2>
+        <ul>
+            <li><strong>Scheduled (Cron):</strong> <code>hermes cron create "0 2 * * *" "Pull top bug, attempt fix, open PR."</code></li>
+            <li><strong>Events (Webhook):</strong> <code>hermes webhook subscribe auth-watch --events "pull_request"</code></li>
+            <li><strong>API Triggers:</strong> Secure POST routes with HMAC authentication for external service integration.</li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+<hr />
+<p><strong>::/5Y573M-N071C3 : RESEARCH_PHYSICALIZED. AUTOMATION_PRIORITY_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>

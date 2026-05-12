@@ -1,0 +1,10 @@
+services:
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    network_mode: host
+    volumes:
+      - ./litellm-mesh.yaml:/app/config.yaml
+    environment:
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-sovereign-mesh-proxy}
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
+    restart: always

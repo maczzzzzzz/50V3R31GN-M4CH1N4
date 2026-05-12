@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sovereign Machina Documentation</title>
+  <link rel="stylesheet" href="../../sovereign-style.css" />
+    <style>body { background-color: #1A282F; color: #AFAB9C; }</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sovereign Machina Documentation</h1>
+</header>
+<h1 id="phase-6-sovereign-design-artery-implementation-plan">Phase 6: Sovereign Design Artery Implementation Plan</h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use
+superpowers:subagent-driven-development (recommended) or
+superpowers:executing-plans to implement this plan task-by-task. Steps
+use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote>
+<p><strong>Goal:</strong> Materialize the Sovereign Design-to-Code Artery by forking Open Design and injecting the Pretext kinetic typography protocol into its rendering loop.</p>
+<p><strong>Architecture:</strong> A distributed design engine where Node D handles heavy design reasoning and agent orchestration, while Node B provides the low-latency Pretext visual interface. Logic is decoupled from presentation via the Open Design SSE streaming protocol.</p>
+<p><strong>Tech Stack:</strong> Next.js (Node B UI), Node.js/Express (Node D Daemon), Pretext Protocol (Kinetic Typography), Tailscale (Mesh transport).</p>
+<hr />
+<h3 id="task-1-open-design-sovereign-fork-node-d">Task 1: Open Design Sovereign Fork (Node D)</h3>
+<p><strong>Files:</strong> - Create: <code>sidecars/open-design-fork/</code> (Submodule) - Create: <code>nix/modules/open-design-daemon.nix</code> - Modify: <code>nix/hosts/node-d/default.nix</code></p>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Initialize Open Design Fork</strong></label>
+<ul>
+<li>Clone <code>https://github.com/nexu-io/open-design</code> into <code>sidecars/open-design-fork</code>.</li>
+<li>Verification: <code>nix build .#open-design-daemon</code> succeeds on Node D.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Mesh-Aware Daemon Configuration</strong></label>
+<ul>
+<li>Configure the daemon to bind to <code>100.120.225.12</code> and accept cross-mesh SSE requests from Node B.</li>
+<li>Verification: <code>curl http://100.120.225.12:3000/health</code> returns status OK.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-2-nextjs-hud-integration-node-b">Task 2: Next.js HUD Integration (Node B)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Deploy Visual Layer on Node B</strong></label>
+<ul>
+<li>Build and start the Next.js frontend on Node B (100.66.173.31).</li>
+<li>Verification: UI is accessible at <code>http://100.66.173.31:3001</code>.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Artery Handshake</strong></label>
+<ul>
+<li>Configure <code>OPEN_DESIGN_API_URL</code> to point to Node D's Tailscale IP.</li>
+<li>Verification: Browser console shows successful SSE handshake.</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="task-3-pretext-hud-injection-the-sovereign-overlay">Task 3: Pretext HUD Injection (The Sovereign Overlay)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" /><strong>Step 1: Implement Pretext Skill</strong></label>
+<ul>
+<li>Inject the Pretext runtime into the <code>assets/template.html</code> used by the renderer.</li>
+<li>Verification: Renderer logs show <code>Pretext_Engine_Active: true</code>.</li>
+</ul></li>
+<li><label><input type="checkbox" /><strong>Step 2: Aesthetic DNA Alignment</strong></label>
+<ul>
+<li>Add the "Operational Lo-Fi Brutalism" entry to <code>directions.ts</code> using desaturated palettes.</li>
+<li>Verification: Generated artifacts adopt the Sovereign aesthetic.</li>
+</ul></li>
+</ul>
+<hr />
+<footer>
+<p><strong>::/5Y573M-N071C3 : PHASE_6_PLAN_MATERIALIZED. DESIGN_ARTERY_LOCKED. // 50V3R31GN-M4CH1N4</strong></p>
+</footer>
+</body>
+</html>
