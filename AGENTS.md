@@ -48,7 +48,16 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 
 ## THE ARCHITECT (GLM-5 / Z.ai)
 **Interface:** Stock Hermes (hermes chat)
-**Role:** Master of implementation. Surgical execution. Honest assessment.
+**Role:** Lead Architect. Orchestration authority. Surgical execution. Honest assessment.
+**Subordinates:** Gemini CLI (research/audit), Claude Code (coding), Codex (batch coding)
+**Details:** See LEAD_ARCHITECT.md
+
+## THE SUBORDINATE (Gemini CLI / Google)
+**Interface:** `gemini -p "task" --yolo --skip-trust`
+**Role:** Worker agent. Research, audits, doc cross-reference, brainstorming. Reports to the Architect.
+**Model routing:** Flash (default) for fast tasks. Pro (`-m gemini-3.1-pro-preview`) for deep reasoning.
+**Skills:** `.gemini/skills/` -- systematic-debugging, writing-plans, shard-scanner, brainstorming, etc.
+**Details:** See GEMINI.md
 
 ---
 ::/5Y573M-N071C3 : AGENTS_V3_7_ALPHA. HONEST_SPECS_ONLY. // 50V3R31GN-M4CH1N4
