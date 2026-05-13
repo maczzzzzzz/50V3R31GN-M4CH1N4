@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Machina — Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="index.html">Sovereign Machina</a> Documentation</h1>
+            <p>v3.7.0-ALPHA &middot; Phase 0: Validation Gate &middot; <span class="badge badge-active">Active</span></p>
+        </div>
+    </header>
+
+    <div class="container">
+        <main>
+            <h2>Overview</h2>
+            <p>Sovereign Machina is a 4-node distributed AI mesh running on physical hardware. Each node is a dedicated machine connected via a Tailscale zero-trust network. The system runs local LLM inference across heterogeneous GPUs and CPUs, orchestrated through NixOS configurations and Docker Compose runtimes.</p>
+            <div class="callout">
+                <strong>Design principle:</strong> No cloud dependencies for inference. All models run locally. The mesh is sovereign by default.
+            </div>
+
+            <h2>Documentation</h2>
+            <table>
+                <thead>
+                    <tr><th>Section</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><a href="architecture/topology.html">Architecture</a></td><td>Mesh topology, hardware profiles, model strategy, network design, security model</td></tr>
+                    <tr><td><a href="nodes/node-a.html">Nodes</a></td><td>Per-node detail pages: hardware specs, loaded models, inference backend, known issues</td></tr>
+                    <tr><td><a href="operations/ignition.html">Operations</a></td><td>Boot procedures, daily workflows, health checks, deployment runbooks</td></tr>
+                    <tr><td><a href="crates/index.html">Crates</a></td><td>Validated Rust/Python modules: directors-forge, mirage-vfs, pretext-core, vibevoice-asr, zeroboot-isolation</td></tr>
+                    <tr><td><a href="reference/repository-map.html">Reference</a></td><td>Repository structure, tool inventory</td></tr>
+                    <tr><td><a href="planning/implementation-plan.html">Planning</a></td><td>Phase 0–4 implementation plan and current kanban status</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Quick Reference</h2>
+            <table>
+                <thead>
+                    <tr><th>Node</th><th>Alias</th><th>Tailscale IP</th><th>GPU</th><th>Role</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Node A</td><td>Synapse</td><td><code>100.90.196.70</code></td><td>GTX 1050 Ti 4GB</td><td>State persistence, KV spillover</td></tr>
+                    <tr><td>Node B</td><td>Director</td><td><code>100.66.173.31</code></td><td>RX 9060 XT 16GB</td><td>Fast inference, workspace authority</td></tr>
+                    <tr><td>Node C</td><td>Oracle</td><td><code>100.102.109.81</code></td><td>RTX 2060 6GB</td><td>Perception, function-calling</td></tr>
+                    <tr><td>Node D</td><td>Quaternary</td><td><code>100.120.225.12</code></td><td>CPU-only (Meteor Lake)</td><td>Heavy reasoning (35B MoE)</td></tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

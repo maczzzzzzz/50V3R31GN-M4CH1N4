@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Model — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Architecture &middot; Security</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="topology.html">Architecture</a><span class="sep">/</span>
+            Security
+        </nav>
+
+        <main>
+            <h2>Zero-Trust Model</h2>
+            <p>The mesh operates on zero-trust principles. No node implicitly trusts another. All authentication is handled by Tailscale identities and SSH key pairs. There are no shared passwords or service tokens.</p>
+
+            <h2>SSH Access</h2>
+            <table>
+                <thead><tr><th>Property</th><th>Policy</th></tr></thead>
+                <tbody>
+                    <tr><td>Authentication</td><td>Key-based only (PasswordAuthentication = false)</td></tr>
+                    <tr><td>Root login</td><td>Disabled (PermitRootLogin = no)</td></tr>
+                    <tr><td>Keyboard-interactive</td><td>Disabled</td></tr>
+                    <tr><td>Tailscale SSH</td><td>Enabled via ACL — no browser auth required</td></tr>
+                    <tr><td>Exception</td><td>Node C allows password auth during initial setup phase</td></tr>
+                </tbody>
+            </table>
+
+            <h2>NixOS Safety Assertions</h2>
+            <p>The shared NixOS config (<code>nix/hosts/shared/common.nix</code>) includes a hard assertion that prevents accidental lockout:</p>
+<pre><code>assertions = [{
+  assertion = config.wsl.enable -> config.wsl.defaultUser == "nixos";
+  message = "BLOCKED: wsl.defaultUser must be 'nixos'.
+    Changing it breaks WSL auto-login and locks out the primary user.";
+}];</code></pre>
+            <div class="callout">
+                This assertion was added after an autonomous agent changed <code>wsl.defaultUser</code> to a wrong value during an overnight session, locking out the primary user on Node B. The assertion ensures no future rebuild can succeed with a wrong default user.
+            </div>
+
+            <h2>Tailscale ACL</h2>
+            <p>Access control is managed at the Tailscale admin console. The current policy:</p>
+            <ul>
+                <li>SSH: autogroup:members may SSH to autogroup:self as nonroot or root</li>
+                <li>Default allow-all for internal traffic (single-user tailnet)</li>
+                <li>No exit nodes configured</li>
+            </ul>
+
+            <h2>Autonomous Agent Guardrails</h2>
+            <p>Agents operating on the mesh (Hermes) are constrained by SOUL.md boundaries:</p>
+            <table>
+                <thead><tr><th>Requires Human Approval</th><th>Autonomous (No Approval)</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>PR to main branch</td>
+                        <td>Codebase research and dependency analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Financial transactions</td>
+                        <td>Lint, type, and build error fixes</td>
+                    </tr>
+                    <tr>
+                        <td>Destructive disk operations</td>
+                        <td>Documentation updates</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Nix config and build optimizations</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

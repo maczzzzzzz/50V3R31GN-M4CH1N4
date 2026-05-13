@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zeroboot-isolation — Sovereign Machina Crates</title>
+    <link rel="stylesheet" href="../sovereign-style.css">
+</head>
+<body>
+    <header>
+        <h1>zeroboot-isolation</h1>
+        <p>KVM/Firecracker MicroVM Isolation with SCION Networking</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Back to Crates Index</a>
+    </nav>
+
+    <section>
+        <h2>Overview</h2>
+        <p>Zeroboot Isolation provides containerized agent workspaces using KVM-based Firecracker microVMs with SCION networking for multi-agent isolation. The design prioritizes fast spawn/teardown (target: &lt;2s) and minimal overhead (512MB base image). Lifecycle management uses zero-fork /proc polling instead of spawning external processes for status checks.</p>
+    </section>
+
+    <section>
+        <h2>Module Structure</h2>
+        <pre>crates/modules/zeroboot-isolation/
+  Cargo.toml
+  src/
+    main.rs          -- CLI binary, VM and SCION lifecycle</pre>
+        <p>Single-file binary crate. All VM and SCION logic is in <code>main.rs</code>.</p>
+    </section>
+
+    <section>
+        <h2>Dependencies</h2>
+        <table>
+            <tr><th>Crate</th><th>Version</th><th>Purpose</th></tr>
+            <tr><td>log</td><td>0.4</td><td>Structured logging</td></tr>
+            <tr><td>env_logger</td><td>0.10</td><td>Log output backend</td></tr>
+            <tr><td>serde</td><td>1.0 (derive)</td><td>Serialization</td></tr>
+            <tr><td>libc</td><td>0.2</td><td>Direct syscall for SIGTERM (zero-fork kill)</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Key Types</h2>
+        <article>
+            <h3>VMConfig</h3>
+            <p>MicroVM configuration:</p>
+            <ul>
+                <li><code>id: String</code> — VM identifier</li>
+                <li><code>vcpus: u8</code> — CPU count (default: 2)</li>
+                <li><code>memory_mb: u64</code> — Memory allocation (default: 2048)</li>
+                <li><code>workspace_path: PathBuf</code> — Workspace directory (uses XDG_RUNTIME_DIR)</li>
+            </ul>
+            <p>Factory method: <code>VMConfig::agent_default(id)</code> provides sensible defaults for agent workspaces.</p>
+        </article>
+        <article>
+            <h3>MicroVM</h3>
+            <p>Firecracker microVM runtime:</p>
+            <ul>
+                <li><code>new(config)</code> — Create workspace directory</li>
+                <li><code>launch()</code> — Spawn Firecracker process, detach, track PID</li>
+                <li><code>stop()</code> — Send SIGTERM via <code>libc::kill</code> (zero-fork)</li>
+                <li><code>is_alive()</code> — Check /proc/{pid}/stat exists (zero-fork)</li>
+            </ul>
+        </article>
+        <article>
+            <h3>SCIONIsolation</h3>
+            <p>SCION networking wrapper around MicroVM:</p>
+            <ul>
+                <li><code>new(config)</code> — Create VM + resolve SCION binary path</li>
+                <li><code>launch()</code> — Launch VM then apply SCION network isolation</li>
+            </ul>
+        </article>
+    </section>
+
+    <section>
+        <h2>Design Decisions</h2>
+        <ul>
+            <li><strong>Zero-fork lifecycle</strong> — Uses <code>libc::kill()</code> syscall directly instead of spawning <code>kill</code> command. Status checks via <code>/proc</code> filesystem. No child process overhead.</li>
+            <li><strong>Detached spawn</strong> — Firecracker is spawned and immediately detached (child handle dropped). Only the PID is retained for lifecycle management.</li>
+            <li><strong>XDG_RUNTIME_DIR</strong> — Workspace paths default to XDG runtime directory for proper ephemeral storage.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Environment Variables</h2>
+        <table>
+            <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+            <tr><td>FIRECRACKER_PATH</td><td>/run/current-system/sw/bin/firecracker</td><td>Firecracker binary path</td></tr>
+            <tr><td>SCION_PATH</td><td>/run/current-system/sw/bin/scion</td><td>SCION binary path</td></tr>
+            <tr><td>XDG_RUNTIME_DIR</td><td>/tmp/zeroboot</td><td>Workspace parent directory</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Integration</h2>
+        <p><strong>Status:</strong> Needs rework before mesh integration. The SCION binary interface is aspirational — the <code>scion isolate</code> subcommand may not exist in current SCION releases. The Firecracker config-file approach is functional but needs real VM images.</p>
+    </section>
+
+    <section>
+        <h2>Metadata</h2>
+        <table>
+            <tr><th>Version</th><td>1.0.0</td></tr>
+            <tr><th>Edition</th><td>2021</td></tr>
+            <tr><th>Type</th><td>Binary (CLI)</td></tr>
+            <tr><th>Status</th><td class="status-pending">KEPT — Needs rework</td></tr>
+            <tr><th>Source</th><td><code>crates/modules/zeroboot-isolation/</code></td></tr>
+        </table>
+    </section>
+
+    <footer>
+        <p>Sovereign Machina v3.7.0-ALPHA — zeroboot-isolation</p>
+    </footer>
+</body>
+</html>

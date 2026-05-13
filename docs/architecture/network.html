@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Design — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Architecture &middot; Network</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="topology.html">Architecture</a><span class="sep">/</span>
+            Network
+        </nav>
+
+        <main>
+            <h2>Zero-Trust Artery</h2>
+            <p>All inter-node communication flows through Tailscale (WireGuard). Each node authenticates via its Tailscale identity. There is no trusted LAN — every connection is encrypted and authenticated regardless of physical network topology.</p>
+
+            <h3>Tailscale IP Map</h3>
+            <table>
+                <thead><tr><th>Node</th><th>Tailscale IP</th><th>Local IP</th><th>Key Services</th></tr></thead>
+                <tbody>
+                    <tr><td>Node A</td><td><code>100.90.196.70</code></td><td><code>10.0.0.10</code></td><td>SSH, hermes-lcm sync</td></tr>
+                    <tr><td>Node B</td><td><code>100.66.173.31</code></td><td>WSL2 (dynamic)</td><td>SSH, inference :8000, LiteLLM :4000</td></tr>
+                    <tr><td>Node C</td><td><code>100.102.109.81</code></td><td><code>10.0.0.12</code></td><td>SSH, inference :8000 (planned)</td></tr>
+                    <tr><td>Node D</td><td><code>100.120.225.12</code></td><td><code>10.0.0.13</code></td><td>SSH, inference :8000</td></tr>
+                </tbody>
+            </table>
+
+            <h3>SSH Configuration</h3>
+            <p>SSH is configured for headless key-based access across the mesh. The Tailscale ACL includes an explicit SSH policy:</p>
+<pre><code>{
+  "ssh": [{
+    "action": "accept",
+    "src": ["autogroup:members"],
+    "dst": ["autogroup:self"],
+    "users": ["autogroup:nonroot", "root"]
+  }]
+}</code></pre>
+            <p>All nodes run <code>sshd</code> with <code>PasswordAuthentication = false</code> (except Node C during initial setup). Users connect via <code>ssh nixos@&lt;tailscale-ip&gt;</code> without browser-based auth challenges.</p>
+
+            <h3>Firewall</h3>
+            <p>Each node exposes only required ports:</p>
+            <table>
+                <thead><tr><th>Port</th><th>Service</th><th>Nodes</th></tr></thead>
+                <tbody>
+                    <tr><td>22</td><td>SSH</td><td>All</td></tr>
+                    <tr><td>8000</td><td>llama.cpp server (inference)</td><td>B, C, D</td></tr>
+                    <tr><td>4000</td><td>LiteLLM mesh router</td><td>B</td></tr>
+                    <tr><td>8080</td><td>Dashboard / metrics</td><td>A, C, D</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Known Issues</h3>
+            <ul>
+                <li>Node C loses its local IP on reboot (DHCP, no static reservation). MAC address needs DHCP reservation on the router or static NixOS config.</li>
+                <li>Tailscale version mismatch: WSL client at 1.96.5, nodes at 1.80.3. Not currently causing issues but should be aligned.</li>
+                <li>Node C Tailscale service not in NixOS config — installed manually. Needs to be added to the flake config.</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

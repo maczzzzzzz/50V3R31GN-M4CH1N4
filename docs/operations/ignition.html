@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignition — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Operations &middot; Ignition</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="ignition.html">Operations</a><span class="sep">/</span>
+            Ignition
+        </nav>
+
+        <main>
+            <h2>Node Bootstrap Procedure</h2>
+            <p>Process for bringing a new physical node into the mesh.</p>
+
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Physical machine with NixOS installed (or WSL2 for Node B)</li>
+                <li>Network connectivity (Ethernet or WiFi)</li>
+                <li>Tailscale account access for tailnet</li>
+            </ul>
+
+            <h3>Step 1: Base NixOS Install</h3>
+            <p>Install NixOS 24.11 (Vicuna) with standard partition layout. The mesh uses Btrfs with <code>@</code> and <code>@home</code> subvolumes, systemd-boot, and a swap partition.</p>
+
+            <h3>Step 2: Tailscale</h3>
+<pre><code># Install and authenticate
+nix-env -iA nixos.tailscale
+sudo tailscale up
+
+# Verify connectivity
+tailscale status</code></pre>
+
+            <h3>Step 3: SSH Keys</h3>
+<pre><code># From Node B (workspace), deploy key to new node
+ssh-copy-id nixos@&lt;tailscale-ip&gt;
+
+# Verify headless access
+ssh nixos@&lt;tailscale-ip&gt; "hostname"</code></pre>
+            <p>Ensure Tailscale ACL includes the SSH policy. Without it, connections will prompt for browser-based authentication.</p>
+
+            <h3>Step 4: Flake Config</h3>
+            <p>Clone the mesh repo and apply node-specific config:</p>
+<pre><code>git clone https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4-stable-mesh-alpha.git
+cd 50V3R31GN-M4CH1N4-stable-mesh-alpha
+
+# Dry-run first
+nix build .#nixosConfigurations.node-c.config.system.build.toplevel
+
+# Apply
+sudo nixos-rebuild switch --flake .#node-c</code></pre>
+
+            <h3>Step 5: GPU Driver</h3>
+            <ul>
+                <li><strong>NVIDIA nodes (A, C):</strong> Verify <code>hardware.nvidia</code> is in the config, reboot, check <code>nvidia-smi</code></li>
+                <li><strong>AMD nodes (B):</strong> Vulkan is used, not ROCm. Verify via <code>vulkaninfo</code></li>
+                <li><strong>CPU nodes (D):</strong> No driver needed. Verify AVX2 support: <code>lscpu | grep avx2</code></li>
+            </ul>
+
+            <h3>Step 6: Inference Runtime</h3>
+            <p>Build ik_llama.cpp for the appropriate backend and deploy the assigned model. See each node's detail page for specifics.</p>
+
+            <h3>Step 7: Register with LiteLLM</h3>
+            <p>Add the node's inference endpoint to the LiteLLM config on Node B (port 4000). See the <a href="../architecture/model-strategy.html">model strategy</a> page for the routing matrix.</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -23,6 +23,12 @@
     extraGroups = [ "wheel" "networkmanager" "docker" ];
   };
 
+  # Safety assertion: prevent accidental defaultUser changes that cause lockout
+  assertions = [{
+    assertion = config.wsl.enable -> config.wsl.defaultUser == "nixos";
+    message = "BLOCKED: wsl.defaultUser must be 'nixos'. Changing it breaks WSL auto-login and locks out the primary user.";
+  }];
+
   networking.networkmanager.enable = true;
   networking.useDHCP = lib.mkDefault true;
 

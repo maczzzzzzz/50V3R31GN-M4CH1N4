@@ -4,7 +4,14 @@
   imports = [
     ./../../modules/mesh-runtime.nix
     ./../../modules/docker.nix
+    ./../../modules/nvidia.nix
   ];
+
+  # NVIDIA Driver (RTX 2060 -- headless CUDA compute)
+  sovereign.nvidia = {
+    enable = true;
+    open = false;  # Proprietary driver for compute stability
+  };
 
   # Docker Infrastructure
   sovereign.docker = {

@@ -19,7 +19,7 @@
 
   # WSL specific configuration
   wsl.enable = true;
-  wsl.defaultUser = "maczz";
+  wsl.defaultUser = "nixos";
   wsl.useWindowsDriver = true;
 
   # Docker Infrastructure
@@ -37,12 +37,13 @@
   # Node B Inference (Instant Responsiveness)
   services.ik-llama = {
     enable = true;
-    # Switch to standard llama-cpp from unstable for Qwen 3.5 support
+    # Carnice-9B Q8_0: Qwen3.5-9B fine-tuned for Hermes Agent traces
     package = pkgs.unstable.llama-cpp;
-    modelPath = "/var/lib/hermes/models/Qwen3-14B-9b-Q8_0.gguf";
+    modelPath = "/var/lib/hermes/models/Carnice-9b-Q8_0.gguf";
     port = 8080;
     ctxSize = 32000;
     cacheTypeK = "q8_0";
+    gpuLayers = 99; # Offload all layers to AMD Vulkan
     memoryMax = "12G"; # Bounded for 16GB VRAM system
   };
 

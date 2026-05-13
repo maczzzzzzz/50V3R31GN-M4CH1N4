@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node A — Synapse — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Nodes &middot; Node A — Synapse</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="node-a.html">Nodes</a><span class="sep">/</span>
+            Node A
+        </nav>
+
+        <main>
+            <h2>Node A — Synapse <span class="badge badge-pending">Partially Deployed</span></h2>
+
+            <table>
+                <thead><tr><th>Property</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>Role</td><td>State persistence, KV-cache spillover</td></tr>
+                    <tr><td>CPU</td><td>(NixOS host)</td></tr>
+                    <tr><td>GPU</td><td>NVIDIA GTX 1050 Ti 4GB</td></tr>
+                    <tr><td>RAM</td><td>16GB</td></tr>
+                    <tr><td>OS</td><td>NixOS 24.11</td></tr>
+                    <tr><td>Tailscale IP</td><td><code>100.90.196.70</code></td></tr>
+                    <tr><td>Inference</td><td>None</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Purpose</h2>
+            <p>Node A does not run model inference. The 4GB GTX 1050 Ti cannot load any useful LLM. Instead, Node A serves as:</p>
+            <ul>
+                <li><strong>hermes-lcm primary:</strong> Persistent state ledger and semantic memory store</li>
+                <li><strong>KV-cache spillover target:</strong> Receives quantized KV tensors from Node D via RPC over Tailscale (TurboQuant q4_0)</li>
+                <li><strong>Mesh coordination:</strong> Syncs state to Nodes B, C, D</li>
+            </ul>
+
+            <h2>NixOS Config</h2>
+            <p>Flake-based config at <code>nix/hosts/node-a/default.nix</code>. Imports hermes-lcm module with sync targets:</p>
+<pre><code>services.hermes-lcm.syncNodes = [
+  "100.66.173.31"   # Node B
+  "100.102.109.81"  # Node C
+  "100.120.225.12"  # Node D
+];</code></pre>
+
+            <h2>Current Status</h2>
+            <ul>
+                <li>SSH: Reachable via Tailscale</li>
+                <li>hermes-lcm: Not yet deployed (awaiting Phase 3)</li>
+                <li>KV spillover: Not yet configured (awaiting ik_llama.cpp RPC support validation)</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

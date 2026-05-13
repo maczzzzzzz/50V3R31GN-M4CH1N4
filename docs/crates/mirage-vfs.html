@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mirage-vfs — Sovereign Machina Crates</title>
+    <link rel="stylesheet" href="../sovereign-style.css">
+</head>
+<body>
+    <header>
+        <h1>mirage-vfs</h1>
+        <p>Virtualized Filesystem Client</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Back to Crates Index</a>
+    </nav>
+
+    <section>
+        <h2>Overview</h2>
+        <p>Mirage VFS presents external data sources (Redis on Node A, S3) as local files via a FUSE mount on Node D. It provides a clean Rust API for mount/unmount lifecycle, health checks, and transparent file read/write operations through the virtual filesystem. This is the best-engineered crate in the mesh — well-structured modules, comprehensive error types, and thorough path traversal protection.</p>
+    </section>
+
+    <section>
+        <h2>Module Structure</h2>
+        <pre>crates/modules/mirage-vfs/
+  Cargo.toml
+  src/
+    lib.rs          -- Core types, MirageVfs client, HealthReport
+    config.rs       -- MirageConfig (env-based configuration)
+    mount.rs        -- FUSE mount/unmount operations</pre>
+    <p>Three-module library crate with clean separation of concerns.</p>
+    </section>
+
+    <section>
+        <h2>Dependencies</h2>
+        <table>
+            <tr><th>Crate</th><th>Version</th><th>Purpose</th></tr>
+            <tr><td>log</td><td>0.4</td><td>Structured logging</td></tr>
+            <tr><td>env_logger</td><td>0.10</td><td>Log output backend</td></tr>
+            <tr><td>serde</td><td>1.0 (derive)</td><td>Serialization for health reports and status</td></tr>
+            <tr><td>serde_json</td><td>1.0</td><td>JSON serialization</td></tr>
+            <tr><td>serde_yaml</td><td>0.9</td><td>YAML config support</td></tr>
+            <tr><td>thiserror</td><td>1.0</td><td>Derived error types</td></tr>
+            <tr><td>tokio</td><td>1 (full)</td><td>Async runtime for FUSE operations</td></tr>
+            <tr><td>nix</td><td>0.28 (fs, mount)</td><td>Low-level mount/unmount syscalls</td></tr>
+        </table>
+        <h3>Dev Dependencies</h3>
+        <table>
+            <tr><td>tempfile</td><td>3.0</td><td>Test fixtures</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Key Types</h2>
+        <article>
+            <h3>MirageVfsError</h3>
+            <p>Structured error enum with thiserror derives:</p>
+            <ul>
+                <li><code>MountPoint(String)</code> — Mount point access failure</li>
+                <li><code>MountFailed(String)</code> — FUSE mount operation failed</li>
+                <li><code>UnmountFailed(String)</code> — FUSE unmount failed</li>
+                <li><code>HealthCheckFailed(String)</code> — Mount not active</li>
+                <li><code>IoError(io::Error)</code> — File I/O on virtual filesystem</li>
+                <li><code>ConfigError(String)</code> — Configuration error</li>
+            </ul>
+        </article>
+        <article>
+            <h3>MountStatus</h3>
+            <p>Enum representing mount state: <code>Mounted</code>, <code>Unmounted</code>, <code>NotFound</code>.</p>
+        </article>
+        <article>
+            <h3>HealthReport</h3>
+            <p>Full health check result including:</p>
+            <ul>
+                <li><code>status: MountStatus</code></li>
+                <li><code>mount_point: PathBuf</code></li>
+                <li><code>redis_reachable: bool</code></li>
+                <li><code>s3_reachable: bool</code></li>
+                <li><code>entries: Vec&lt;String&gt;</code> — Top-level VFS listing</li>
+                <li><code>timestamp: u64</code> — Epoch seconds</li>
+            </ul>
+        </article>
+        <article>
+            <h3>MirageVfs (Client)</h3>
+            <p>Main client with full lifecycle:</p>
+            <ul>
+                <li><code>new(config)</code> / <code>from_env()</code> — Initialize from config or env vars</li>
+                <li><code>mount()</code> / <code>unmount()</code> — FUSE lifecycle</li>
+                <li><code>mount_status()</code> / <code>health_check()</code> — Status inspection</li>
+                <li><code>read_file(path)</code> / <code>write_file(path, data)</code> — Transparent VFS I/O</li>
+                <li><code>list_dir(path)</code> — Directory listing</li>
+            </ul>
+        </article>
+    </section>
+
+    <section>
+        <h2>Configuration (Environment Variables)</h2>
+        <table>
+            <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+            <tr><td>MIRAGE_MOUNT_POINT</td><td>/mnt/mirage</td><td>FUSE mount point</td></tr>
+            <tr><td>MIRAGE_REDIS_HOST</td><td>100.90.196.70</td><td>Redis backend (Node A)</td></tr>
+            <tr><td>MIRAGE_REDIS_PORT</td><td>6379</td><td>Redis port</td></tr>
+            <tr><td>MIRAGE_S3_ENDPOINT</td><td>http://100.90.196.70:9000</td><td>S3 endpoint</td></tr>
+            <tr><td>MIRAGE_S3_BUCKET</td><td>sovereign-mirage</td><td>S3 bucket name</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Security</h2>
+        <ul>
+            <li><strong>Dual path traversal protection</strong> — Validates resolved path stays within mount point AND tracks <code>..</code> component depth</li>
+            <li><strong>Canonical path resolution</strong> — Handles both existing and new-file paths correctly</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Integration</h2>
+        <p><strong>Planning reference:</strong> P3-T3 (Mirage VFS Integration) — Deploy on Node D, wire as Hermes plugin with 4 VFS tools (mount, unmount, health, read/write).</p>
+    </section>
+
+    <section>
+        <h2>Metadata</h2>
+        <table>
+            <tr><th>Version</th><td>1.0.0</td></tr>
+            <tr><th>Edition</th><td>2021</td></tr>
+            <tr><th>Type</th><td>Library</td></tr>
+            <tr><th>Status</th><td class="status-active">KEPT — Ready</td></tr>
+            <tr><th>Source</th><td><code>crates/modules/mirage-vfs/</code></td></tr>
+        </table>
+    </section>
+
+    <footer>
+        <p>Sovereign Machina v3.7.0-ALPHA — mirage-vfs</p>
+    </footer>
+</body>
+</html>

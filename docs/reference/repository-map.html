@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Map — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Reference &middot; Repository Map</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="repository-map.html">Reference</a><span class="sep">/</span>
+            Repository Map
+        </nav>
+
+        <main>
+            <h2>Repository Structure</h2>
+            <p>Repo: <code>github.com/maczzzzzzz/50V3R31GN-M4CH1N4-stable-mesh-alpha</code></p>
+            <p>Branch: <code>stable/mesh-alpha</code></p>
+
+<pre>50V3R31GN-M4CH1N4-stable-mesh-alpha/
+├── AGENTS.md              # Mesh roles and global mandates
+├── SOUL.md                 # Agent operating contract
+├── LEAD_ARCHITECT.md       # Lead architect role definition
+├── IMPLEMENTATION_PLAN.md  # Phase 0-4 plan
+├── CHANGELOG.md            # Version history
+├── flake.nix               # Nix flake (all nodes, packages, dev shell)
+├── crates/
+│   └── modules/
+│       ├── directors-forge/   # Tool discovery and API wrapper generation
+│       ├── mirage-vfs/        # Virtual filesystem abstraction
+│       ├── pretext-core/      # Browser demo framework (WASM)
+│       ├── vibevoice-asr/     # Whisper-based ASR with emotion scoring
+│       └── zeroboot-isolation/ # MicroVM isolation (KVM/Firecracker)
+├── nix/
+│   ├── hosts/
+│   │   ├── node-a/default.nix
+│   │   ├── node-b/default.nix  # WSL2 config (imports nixos-wsl)
+│   │   ├── node-c/default.nix  # NVIDIA + Docker + mesh-runtime
+│   │   ├── node-d/default.nix
+│   │   └── shared/
+│   │       ├── common.nix      # Users, SSH, packages, safety assertions
+│   │       └── hardware-base.nix
+│   ├── modules/
+│   │   ├── docker.nix          # Docker + optional NVIDIA container toolkit
+│   │   ├── mesh-runtime.nix    # Systemd-managed Docker Compose for inference
+│   │   ├── nvidia.nix          # NVIDIA proprietary driver (headless CUDA)
+│   │   ├── tailscale.nix       # Zero-trust artery
+│   │   ├── hermes-lcm.nix      # State sync service
+│   │   └── omi-backend.nix     # Stub module
+│   └── packages/
+│       ├── ik-llama-node-b/    # ik_llama.cpp Vulkan build
+│       ├── ik-llama-node-d/    # ik_llama.cpp AVX2 build
+│       └── llama-cpp-openvino.nix
+├── sidecars/
+│   ├── mesh/
+│   │   ├── nvidia.yml          # Docker Compose: llama.cpp CUDA server
+│   │   ├── amd.yml             # Docker Compose: llama.cpp Vulkan server
+│   │   └── intel.yml           # Docker Compose: llama.cpp CPU server
+│   └── hermes-agent-nous/      # Hermes Agent submodule
+└── docs/                       # This documentation</pre>
+
+            <h2>Validated Crates</h2>
+            <table>
+                <thead><tr><th>Crate</th><th>Language</th><th>Purpose</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>directors-forge</td><td>Rust</td><td>Tool discovery and API wrapper generation</td><td><span class="badge badge-pending">Phase 3</span></td></tr>
+                    <tr><td>mirage-vfs</td><td>Rust</td><td>Virtual filesystem abstraction with 4 VFS tools</td><td><span class="badge badge-pending">Phase 3</span></td></tr>
+                    <tr><td>pretext-core</td><td>Rust</td><td>WASM browser demo framework</td><td><span class="badge badge-pending">Phase 4</span></td></tr>
+                    <tr><td>vibevoice-asr</td><td>Rust</td><td>Whisper ASR with emotion scoring</td><td><span class="badge badge-pending">Phase 4</span></td></tr>
+                    <tr><td>zeroboot-isolation</td><td>Rust</td><td>KVM/Firecracker microVM isolation</td><td><span class="badge badge-pending">Phase 2</span></td></tr>
+                </tbody>
+            </table>
+
+            <h2>Deleted Components</h2>
+            <p>Removed during Operation Phoenix (2026-05-12). ~10,206 files, ~4.3M lines purged:</p>
+            <ul>
+                <li>goose-execution — Multi-language code sandbox</li>
+                <li>graphify-ast — Codebase AST indexing</li>
+                <li>matlab-mcp-bridge — MATLAB MCP protocol bridge</li>
+                <li>visuals-gl — OpenGL visualization</li>
+                <li>voxcpm-tts — Zero-shot TTS synthesis</li>
+                <li>consensus-alignment — Mesh-wide coordination protocol</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

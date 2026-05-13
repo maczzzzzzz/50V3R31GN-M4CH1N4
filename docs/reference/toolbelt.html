@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolbelt — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Reference &middot; Toolbelt</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="repository-map.html">Reference</a><span class="sep">/</span>
+            Toolbelt
+        </nav>
+
+        <main>
+            <h2>Core Tooling</h2>
+            <table>
+                <thead><tr><th>Tool</th><th>Purpose</th><th>Nodes</th></tr></thead>
+                <tbody>
+                    <tr><td>NixOS 24.11 + Flakes</td><td>Reproducible system configuration</td><td>A, C, D</td></tr>
+                    <tr><td>WSL2 + NixOS</td><td>Windows bridge with Nix package management</td><td>B</td></tr>
+                    <tr><td>ik_llama.cpp</td><td>LLM inference (Vulkan / CUDA / AVX2 backends)</td><td>B, C, D</td></tr>
+                    <tr><td>Tailscale</td><td>Zero-trust mesh networking (WireGuard)</td><td>All</td></tr>
+                    <tr><td>Docker Compose</td><td>Inference runtime containers</td><td>B, C, D</td></tr>
+                    <tr><td>Hermes Agent</td><td>Agentic framework (CLI, TUI, gateway)</td><td>B (primary)</td></tr>
+                    <tr><td>LiteLLM</td><td>Mesh model routing and failover (planned)</td><td>B</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Agent Stack</h2>
+            <table>
+                <thead><tr><th>Component</th><th>Provider</th><th>Role</th></tr></thead>
+                <tbody>
+                    <tr><td>GLM-5</td><td>Z.ai</td><td>Lead Architect — implementation and execution</td></tr>
+                    <tr><td>Gemini</td><td>Google</td><td>Strategist — planning and assessment</td></tr>
+                    <tr><td>Hermes</td><td>Nous Research</td><td>Agent runtime — tool orchestration, memory, skills</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Development Tools</h2>
+            <table>
+                <thead><tr><th>Tool</th><th>Use</th></tr></thead>
+                <tbody>
+                    <tr><td>gh CLI</td><td>GitHub PRs, issues, code review</td></tr>
+                    <tr><td>git + worktrees</td><td>Branch management, isolated feature work</td></tr>
+                    <tr><td>python3.12 + venv</td><td>Scripts, inference testing, benchmarking</td></tr>
+                    <tr><td>nodejs_22</td><td>Droid CLI, WASM tooling</td></tr>
+                    <tr><td>cargo / rustc</td><td>Crate development</td></tr>
+                    <tr><td>gcc14</td><td>ik_llama.cpp builds</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Model Management</h2>
+            <table>
+                <thead><tr><th>Tool</th><th>Use</th></tr></thead>
+                <tbody>
+                    <tr><td>curl</td><td>Download GGUF files from HuggingFace</td></tr>
+                    <tr><td>scp</td><td>Transfer models to target nodes</td></tr>
+                    <tr><td>llama-cli</td><td>Smoke test models, interactive chat</td></tr>
+                    <tr><td>llama-server</td><td>OpenAI-compatible inference API server</td></tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

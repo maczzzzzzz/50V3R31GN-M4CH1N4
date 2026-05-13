@@ -26,15 +26,10 @@
               config.allowUnfree = true;
             };
 
-            # Sovereign Crates
+            # Sovereign Crates (validated)
             zeroboot-isolation = prev.callPackage ./crates/modules/zeroboot-isolation {};
-            matlab-mcp-bridge = prev.callPackage ./crates/modules/matlab-mcp-bridge {};
-            goose-execution = prev.callPackage ./crates/modules/goose-execution {};
-            graphify-ast = prev.callPackage ./crates/modules/graphify-ast {};
             vibevoice-asr = prev.callPackage ./crates/modules/vibevoice-asr {};
-            voxcpm-tts = prev.callPackage ./crates/modules/voxcpm-tts {};
             directors-forge = prev.callPackage ./crates/modules/directors-forge {};
-            consensus-alignment = prev.callPackage ./crates/modules/consensus-alignment {};
             pretext-core = prev.callPackage ./crates/modules/pretext-core {};
             mirage-vfs = prev.callPackage ./crates/modules/mirage-vfs {};
 
@@ -77,9 +72,8 @@
       # Note: buildSovereignCrate helper available for new crates.
       # Existing packages retain explicit definitions for cargo hash management.
       packages = forAllSystems (system: let pkgs = mkPkgs system; in {
-        inherit (pkgs) zeroboot-isolation matlab-mcp-bridge goose-execution 
-          graphify-ast vibevoice-asr voxcpm-tts directors-forge 
-          consensus-alignment pretext-core mirage-vfs;
+        inherit (pkgs) zeroboot-isolation vibevoice-asr directors-forge 
+          pretext-core mirage-vfs;
         ik-llama-b = pkgs.ik_llama_cpp_b;
         ik-llama-d = pkgs.ik_llama_cpp_d;
         llama-cpp-openvino = pkgs.llama_cpp_openvino;
@@ -132,10 +126,6 @@
         node-d = mkNode "node-d" "x86_64-linux" [
           ./nix/hosts/shared/hardware-base.nix
           ./nix/hosts/node-d/default.nix
-          ./nix/modules/consensus-alignment.nix
-          ({ ... }: {
-            services.consensus-alignment.enable = true;
-          })
           { networking.firewall.allowedTCPPorts = [ 8000 8080 8642 9119 ]; }
         ];
       };

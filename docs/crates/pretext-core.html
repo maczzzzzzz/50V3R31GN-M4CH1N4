@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pretext-core — Sovereign Machina Crates</title>
+    <link rel="stylesheet" href="../sovereign-style.css">
+</head>
+<body>
+    <header>
+        <h1>pretext-core</h1>
+        <p>Unified Text Engine for Zero-DOM Layout</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Back to Crates Index</a>
+    </nav>
+
+    <section>
+        <h2>Overview</h2>
+        <p>Pretext Core provides bit-identical layout arithmetic across two rendering targets: Node B's React/WASM frontend and the Machina Terminal's Flutter/FFI interface. All layout math is pure Rust geometric calculations — no DOM dependency, no browser-specific behavior. The engine also includes an ASCII brightness mapper for terminal rendering and a thought stream virtualizer for HUD display.</p>
+        <p>The dual crate-type build (<code>cdylib</code> + <code>rlib</code>) ensures the same code compiles to both a WASM module and a native C library from a single source.</p>
+    </section>
+
+    <section>
+        <h2>Module Structure</h2>
+        <pre>crates/modules/pretext-core/
+  Cargo.toml
+  src/
+    lib.rs              -- Public API, FFI bindings, WASM exports
+    ascii_mapper.rs     -- ASCII brightness/typography rendering
+    layout.rs           -- PretextEngine, LayoutResult, TextSegment
+    virtualization.rs   -- ThoughtStreamVirtualizer, VirtualThoughtNode</pre>
+    <p>Four-module library with clean separation between layout engine, ASCII rendering, thought virtualization, and FFI/WASM bindings.</p>
+    </section>
+
+    <section>
+        <h2>Dependencies</h2>
+        <table>
+            <tr><th>Crate</th><th>Version</th><th>Purpose</th></tr>
+            <tr><td>log</td><td>0.4</td><td>Structured logging</td></tr>
+            <tr><td>serde</td><td>1.0 (derive)</td><td>Serialization</td></tr>
+            <tr><td>serde_json</td><td>1.0</td><td>JSON serialization</td></tr>
+        </table>
+        <h3>Conditional (WASM target)</h3>
+        <table>
+            <tr><td>wasm-bindgen</td><td>0.2</td><td>WASM JS bindings</td></tr>
+            <tr><td>serde-wasm-bindgen</td><td>0.6</td><td>Serde&lt;-&gt;JS interop</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Key Types</h2>
+        <article>
+            <h3>PretextEngine</h3>
+            <p>Core layout engine. Takes font family, font size, and text input. Produces <code>LayoutResult</code> with lines, segments, widths, and heights — all as pure float arithmetic, no DOM calls.</p>
+        </article>
+        <article>
+            <h3>LayoutResult / LayoutLine / TextSegment</h3>
+            <p>Structured layout output:</p>
+            <ul>
+                <li><code>LayoutResult</code> — tight_width, total_height, lines</li>
+                <li><code>LayoutLine</code> — width, segments</li>
+                <li><code>TextSegment</code> — text, width, char_count</li>
+            </ul>
+        </article>
+        <article>
+            <h3>ASCII Mapper</h3>
+            <p>Public functions for terminal rendering:</p>
+            <ul>
+                <li><code>brightness_to_ascii(f32) -> char</code></li>
+                <li><code>text_to_ascii_brightness(&amp;str, f32) -> String</code></li>
+                <li><code>token_ascii_mapping(&amp;str) -> String</code></li>
+                <li><code>gradient_ascii_typography</code>, <code>pulse_ascii_typography</code>, <code>wave_ascii_typography</code>, <code>variable_ascii_typography</code></li>
+            </ul>
+        </article>
+        <article>
+            <h3>ThoughtStreamVirtualizer</h3>
+            <p>HUD display virtualization for thought nodes. Produces <code>VirtualLayoutResult</code> with <code>VirtualThoughtNode</code> entries for rendering KineticThoughtStream in the dashboard.</p>
+        </article>
+    </section>
+
+    <section>
+        <h2>FFI Bindings (Flutter)</h2>
+        <p>Full C FFI surface for Flutter integration:</p>
+        <ul>
+            <li><code>pretext_engine_create</code> / <code>pretext_engine_destroy</code> — Engine lifecycle</li>
+            <li><code>pretext_layout</code> / <code>pretext_layout_destroy</code> — Layout computation</li>
+            <li><code>pretext_layout_get_lines</code>, <code>get_lines_count</code>, <code>get_tight_width</code>, <code>get_total_height</code></li>
+            <li><code>pretext_layout_line_get_segments</code>, <code>get_segments_count</code>, <code>get_width</code></li>
+            <li><code>pretext_layout_segment_get_text</code>, <code>get_text_len</code>, <code>get_width</code>, <code>get_char_count</code></li>
+            <li><code>ffi_ascii_brightness_to_char</code>, <code>ffi_ascii_text_brightness</code></li>
+        </ul>
+        <p>All FFI functions include null pointer checks and UTF-8 validation via the internal <code>ffi_str</code> helper.</p>
+    </section>
+
+    <section>
+        <h2>Integration</h2>
+        <p><strong>Planning reference:</strong> P4-T2 (Pretext HUD) — Deploy WASM build in dashboard/hermes-workspace. Wire mesh telemetry to HUD components. Validate KineticThoughtStream rendering.</p>
+    </section>
+
+    <section>
+        <h2>Metadata</h2>
+        <table>
+            <tr><th>Version</th><td>1.0.0</td></tr>
+            <tr><th>Edition</th><td>2021</td></tr>
+            <tr><th>Crate Type</th><td>cdylib, rlib</td></tr>
+            <tr><th>Status</th><td class="status-active">KEPT — Ready</td></tr>
+            <tr><th>Source</th><td><code>crates/modules/pretext-core/</code></td></tr>
+        </table>
+    </section>
+
+    <footer>
+        <p>Sovereign Machina v3.7.0-ALPHA — pretext-core</p>
+    </footer>
+</body>
+</html>

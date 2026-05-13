@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflows — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Operations &middot; Workflows</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="ignition.html">Operations</a><span class="sep">/</span>
+            Workflows
+        </nav>
+
+        <main>
+            <h2>Model Deployment</h2>
+            <h3>Download to Staging</h3>
+            <p>All models download to Node B's Windows filesystem first:</p>
+<pre><code># Download from HuggingFace
+curl -L -o /mnt/d/llama.cpp/models/model-name.gguf \
+  "https://huggingface.co/&lt;org&gt;/&lt;repo&gt;/resolve/main/model-name.gguf"</code></pre>
+
+            <h3>Transfer to Target Node</h3>
+<pre><code># SCP to target
+scp /mnt/d/llama.cpp/models/model-name.gguf nixos@&lt;tailscale-ip&gt;:/home/nixos/llama.cpp/models/
+
+# Verify
+ssh nixos@&lt;tailscale-ip&gt; "ls -lh /home/nixos/llama.cpp/models/"</code></pre>
+
+            <h3>Smoke Test</h3>
+<pre><code>ssh nixos@&lt;tailscale-ip&gt;
+cd ~/llama.cpp
+./build/bin/llama-cli -m models/model-name.gguf \
+  -p "Hello, respond briefly." -n 64 --no-warmup</code></pre>
+
+            <h2>NixOS Rebuild</h2>
+            <h3>From Flake (Preferred)</h3>
+<pre><code>cd ~/50V3R31GN-M4CH1N4-stable-mesh-alpha
+sudo nixos-rebuild switch --flake .#node-d</code></pre>
+
+            <h3>From On-Disk Config (Fallback)</h3>
+<pre><code>sudo nixos-rebuild switch \
+  -I nixos-config=/etc/nixos/configuration.nix \
+  -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos</code></pre>
+            <div class="callout">
+                <strong>Common pitfall:</strong> <code>sudo</code> does not inherit <code>NIX_PATH</code> from the calling shell. Always use <code>-I</code> flags or set it inline with <code>sudo env NIX_PATH=... nixos-rebuild switch</code>.
+            </div>
+
+            <h2>Git Workflow</h2>
+<pre><code># Branch for changes
+git checkout -b fix/node-c-nvidia stable/mesh-alpha
+
+# Commit and push
+git add -A &amp;&amp; git commit -m "fix(node-c): add NVIDIA driver module"
+git push origin fix/node-c-nvidia
+
+# PR via gh CLI
+gh pr create --base stable/mesh-alpha --title "fix(node-c): NVIDIA driver" --body "..."</code></pre>
+
+            <h2>Health Check</h2>
+            <p>Quick mesh-wide connectivity test:</p>
+<pre><code>for node in 100.90.196.70 100.66.173.31 100.102.109.81 100.120.225.12; do
+  echo -n "$node: "
+  ssh -o ConnectTimeout=3 nixos@$node "hostname; nixos-version" 2>&amp;1 || echo "UNREACHABLE"
+done</code></pre>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

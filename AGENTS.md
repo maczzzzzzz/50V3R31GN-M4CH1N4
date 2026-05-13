@@ -1,42 +1,54 @@
-# AGENTS.md: The Alpha Mesh Roles (v3.6.0)
+# AGENTS.md: The Alpha Mesh Roles (v3.7.0-ALPHA)
 
-This document defines the physical topology and agentic profiles for the Stable Mesh Alpha build.
-
----
-
-## 0. GLOBAL MANDATES
-- **Branch Mandate:** ALL work occurs in `stable/mesh-alpha`.
-- **Hermes-First:** High-level reasoning is handled by stock `hermes chat`.
-- **TurboQuant:** Mandatory 4-bit KV-cache (`q4_0`) across all inference endpoints.
-- **Hardware Aware:** Agents must respect the physical VRAM/RAM boundaries of their host nodes.
+Active agents and hardware topology for the Stable Mesh Alpha build.
 
 ---
 
-## 1. THE STRATEGIST (Gemini 3.1 Pro/Flash)
-**Node:** Node B (via Gemini CLI)
-**Role:** Architecture validation, zero-trust auditing, and roadmap governance.
-**Objective:** Maintain the Alpha Mesh baseline and oversee the "Lead Architect".
+## GLOBAL MANDATES
+
+- **Branch:** stable/mesh-alpha
+- **Hermes-First:** High-level reasoning via stock `hermes chat`
+- **TurboQuant:** Mandatory 4-bit KV-cache (q4_0) across all inference endpoints
+- **Prove First, Build Second:** No new features until existing infrastructure is benchmarked
+- **Single Deployment Strategy:** ik_llama.cpp native builds per-node. Docker available for future services. Nix for host config.
 
 ---
 
-## 2. THE LEAD ARCHITECT (GLM-5.1 / Z.ai)
-**Interface:** Stock Hermes (`hermes chat`)
-**Role:** Master of implementation, complex code synthesis, and Nix provisioning.
-**Expertise:** Rust, Python, NixOS, and Docker-managed AI runtimes.
+## THE MESH
+
+### Node B -- Director (Primary Workspace)
+- **Hardware:** Ryzen 9 5900XT, 16GB AMD VRAM, 48GB DDR4
+- **Role:** Fast responder, code generation, workspace authority
+- **Models:** Hermes-4-14B Q4_K_M (GPU, staging), Carnice-9b Q8_0 (current benchmark)
+- **Backend:** ik_llama.cpp Vulkan (NOT ROCm -- consumer AMD unreliable)
+- **Services:** LiteLLM mesh router (planned), Hermes TUI/Dashboard
+
+### Node D -- Quaternary (Heavy Reasoning)
+- **Hardware:** Intel Core Ultra Meteor Lake, 48GB DDR5, NPU (excluded from inference)
+- **Role:** Heavy reasoning (35B MoE)
+- **Models:** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (reasoning, 6.1 t/s gen)
+- **Backend:** ik_llama.cpp AVX2
+- **Note:** NPU is ~11 TOPS. Cannot run models above 3B. CPU-only inference.
+- **Benchmarked:** prompt 8.8 t/s, gen 6.1 t/s (8 threads CPU-only)
+
+### Node C -- Oracle (Perception)
+- **Hardware:** Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4
+- **Role:** Function-calling specialist, CUDA inference
+- **Models:** Carnice-9B-Function-Calling i1-Q4_K_M (GPU, staging)
+- **Backend:** ik_llama.cpp CUDA (building)
+- **OS:** NixOS 25.11 (Xantusia), NVIDIA 580.142, CUDA 13.0
+- **Tailscale:** 100.102.109.81
+
+### Node A -- Synapse (State)
+- **Hardware:** GTX 1050 Ti 4GB, 16GB RAM
+- **Role:** KV-cache spillover, hermes-lcm state persistence
+- **Note:** No model inference. Memory and cache only.
 
 ---
 
-## 3. THE HEAVY REASONER (Qwen 3.6 35B MoE)
-**Node:** Node D (Meteor Lake CPU/iGPU)
-**Role:** Deep architectural analysis and long-context reasoning (256k+).
-**Profile:** Optimized for DDR5 throughput using sparse Mixture-of-Experts activation.
+## THE ARCHITECT (GLM-5 / Z.ai)
+**Interface:** Stock Hermes (hermes chat)
+**Role:** Master of implementation. Surgical execution. Honest assessment.
 
 ---
-
-## 4. THE KINETIC OPERATOR (Qwen 3 14B / 2B VL)
-**Node:** Node B (Windows GPU Bridge)
-**Role:** Fast triage, vision-enabled UI automation, and terminal control.
-**Profile:** 100% VRAM offload (16GB) for zero-latency multimodal agency.
-
----
-**::/5Y573M-N071C3 : AGENT_ROLES_MATERIALIZED_V3_6_ALPHA. // 50V3R31GN-M4CH1N4**
+::/5Y573M-N071C3 : AGENTS_V3_7_ALPHA. HONEST_SPECS_ONLY. // 50V3R31GN-M4CH1N4

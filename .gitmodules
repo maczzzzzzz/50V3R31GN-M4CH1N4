@@ -3,12 +3,3 @@
 	url = https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4-hermes-agent-fork
 	branch = main
 
-[submodule "sidecars/omi-monorepo-fork"]
-	path = sidecars/omi-monorepo-fork
-	url = https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4-omi-monorepo-fork
-	branch = main
-
-[submodule "dashboard/hermes-workspace"]
-	path = dashboard/hermes-workspace
-	url = https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4-hermes-workspace-fork
-	branch = main

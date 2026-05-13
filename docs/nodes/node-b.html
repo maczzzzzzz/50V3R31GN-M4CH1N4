@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node B — Director — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Nodes &middot; Node B — Director</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="node-a.html">Nodes</a><span class="sep">/</span>
+            Node B
+        </nav>
+
+        <main>
+            <h2>Node B — Director <span class="badge badge-active">Operational</span></h2>
+
+            <table>
+                <thead><tr><th>Property</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>Role</td><td>Primary workspace, fast inference, vision triage</td></tr>
+                    <tr><td>CPU</td><td>AMD Ryzen 9 5900XT (32 threads visible in WSL)</td></tr>
+                    <tr><td>GPU</td><td>AMD Radeon RX 9060 XT 16GB (RDNA 3.5, Vulkan KHR_coopmat, bf16)</td></tr>
+                    <tr><td>RAM</td><td>48GB DDR4 (23GB usable in WSL)</td></tr>
+                    <tr><td>OS</td><td>NixOS 24.11 via WSL2 on Windows 11</td></tr>
+                    <tr><td>Tailscale IP</td><td><code>100.66.173.31</code></td></tr>
+                    <tr><td>Inference Backend</td><td>ik_llama.cpp Vulkan (NOT ROCm — consumer AMD unreliable)</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Models</h2>
+            <table>
+                <thead><tr><th>Model</th><th>Quant</th><th>Size</th><th>Benchmark</th><th>Use</th></tr></thead>
+                <tbody>
+                    <tr><td>Qwen 3 14B</td><td>Q6_K / Q8_0</td><td>~10–14 GB</td><td>26 tok/s gen (Q6_K, FA on)</td><td>Code generation, fast chat</td></tr>
+                    <tr><td>Qwen3-VL-2B</td><td>Q6_K</td><td>~2 GB</td><td>175 tok/s</td><td>Vision triage, screen analysis</td></tr>
+                    <tr><td>Carnice-9B</td><td>Q8_0</td><td>~9.7 GB</td><td>33.5 tok/s</td><td>General purpose (benchmarked)</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Backend Notes</h2>
+            <ul>
+                <li><strong>Vulkan only.</strong> ROCm support on consumer AMD cards (RDNA 3.5) is unreliable. Vulkan via ik_llama.cpp is the stable path.</li>
+                <li><strong>TurboQuant q4_0 KV hurts on Vulkan.</strong> f16 KV cache only for Node B. This is a known ik_llama.cpp Vulkan limitation.</li>
+                <li><strong>Flash Attention</strong> is functional and enabled.</li>
+                <li>llama.cpp build 8710 located at <code>D:\llama.cpp\</code> on the Windows host.</li>
+            </ul>
+
+            <h2>Services</h2>
+            <ul>
+                <li>LiteLLM mesh router (port 4000) — planned</li>
+                <li>Hermes TUI / Dashboard — planned</li>
+            </ul>
+
+            <h2>Model Staging</h2>
+            <p>All mesh models download to <code>D:\llama.cpp\models\</code> (Windows) first, then SCP to target nodes. Node B can load directly from the Windows path via WSL mount at <code>/mnt/d/llama.cpp/models/</code>.</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

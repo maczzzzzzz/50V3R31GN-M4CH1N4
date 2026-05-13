@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node C — Oracle — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Nodes &middot; Node C — Oracle</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="node-a.html">Nodes</a><span class="sep">/</span>
+            Node C
+        </nav>
+
+        <main>
+            <h2>Node C — Oracle <span class="badge badge-blocked">NVIDIA Driver In Progress</span></h2>
+
+            <table>
+                <thead><tr><th>Property</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>Role</td><td>Perception, function-calling, vision triage</td></tr>
+                    <tr><td>CPU</td><td>AMD Ryzen 7 3700X</td></tr>
+                    <tr><td>GPU</td><td>NVIDIA RTX 2060 6GB (Turing)</td></tr>
+                    <tr><td>RAM</td><td>32GB DDR4</td></tr>
+                    <tr><td>Storage</td><td>222GB Btrfs (190GB free)</td></tr>
+                    <tr><td>OS</td><td>NixOS 24.11 (Vicuna)</td></tr>
+                    <tr><td>Tailscale IP</td><td><code>100.102.109.81</code></td></tr>
+                    <tr><td>Local IP</td><td><code>10.0.0.12</code> (DHCP, unstable on reboot)</td></tr>
+                    <tr><td>Inference Backend</td><td>ik_llama.cpp CUDA (planned)</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Current Status</h2>
+            <p>Node C is reachable on the local network but the NVIDIA proprietary driver is not yet active. The system booted into a stale 25.11 NixOS generation instead of the target 24.11 config. Outstanding issues:</p>
+            <ul>
+                <li>NVIDIA driver installed in config but booted generation doesn't include it — needs rebuild with correct boot default</li>
+                <li>Tailscale not in NixOS config — installed manually, service down after reboot</li>
+                <li>Loses local IP on reboot — needs static IP config or DHCP MAC reservation</li>
+                <li>No llama.cpp built, no models deployed</li>
+            </ul>
+
+            <h2>Planned Models</h2>
+            <table>
+                <thead><tr><th>Model</th><th>Quant</th><th>Size</th><th>Fit</th></tr></thead>
+                <tbody>
+                    <tr><td>Carnice-9B-Function-Calling-xLAM</td><td>Q4_K_M</td><td>~5.5 GB</td><td>Fits 6GB VRAM. Dedicated tool-use / function-calling.</td></tr>
+                    <tr><td>Qwen3-VL-2B</td><td>Q6_K</td><td>~2 GB</td><td>Vision backup for mesh-vision route.</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Setup Runbook</h2>
+            <ol>
+                <li>Rebuild to 24.11 generation: <code>sudo nixos-rebuild switch -I nixos-config=/etc/nixos/configuration.nix -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos</code></li>
+                <li>Set boot default to new generation</li>
+                <li>Reboot — verify <code>nvidia-smi</code> works</li>
+                <li>Add Tailscale to NixOS config and rebuild</li>
+                <li>Add static IP or DHCP reservation (MAC: verify via <code>ip link</code>)</li>
+                <li>Build ik_llama.cpp with CUDA backend</li>
+                <li>SCP model from staging (<code>/mnt/d/llama.cpp/models/</code> on Node B)</li>
+                <li>Start inference, benchmark, register with LiteLLM</li>
+            </ol>
+
+            <h2>NixOS Config</h2>
+            <p>Flake config at <code>nix/hosts/node-c/default.nix</code>. On-disk config at <code>/etc/nixos/configuration.nix</code>. The on-disk config includes NVIDIA driver setup, Docker with NVIDIA container toolkit, and both <code>maczz</code> and <code>nixos</code> users.</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

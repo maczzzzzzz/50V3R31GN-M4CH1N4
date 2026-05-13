@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitals — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Operations &middot; Vitals</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="ignition.html">Operations</a><span class="sep">/</span>
+            Vitals
+        </nav>
+
+        <main>
+            <h2>Mesh Status Overview</h2>
+            <p>Last updated: 2026-05-12. Numbers from live benchmarks and SSH checks.</p>
+
+            <table>
+                <thead><tr><th>Node</th><th>SSH</th><th>Tailscale</th><th>GPU Driver</th><th>Inference</th><th>Model</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Node A</td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Node B</td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td><span class="badge badge-active">Vulkan</span></td>
+                        <td><span class="badge badge-active">Running</span></td>
+                        <td>Qwen3-14B, Qwen3-VL-2B</td>
+                    </tr>
+                    <tr>
+                        <td>Node C</td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td><span class="badge badge-blocked">Down</span></td>
+                        <td><span class="badge badge-blocked">nouveau (wrong)</span></td>
+                        <td><span class="badge badge-blocked">None</span></td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Node D</td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td><span class="badge badge-active">Up</span></td>
+                        <td>N/A (CPU)</td>
+                        <td><span class="badge badge-active">Tested</span></td>
+                        <td>Carnice MoE 35B</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Benchmark Results</h2>
+            <table>
+                <thead><tr><th>Node</th><th>Model</th><th>Quant</th><th>Backend</th><th>Prompt Eval</th><th>Generation</th><th>Notes</th></tr></thead>
+                <tbody>
+                    <tr><td>Node B</td><td>Qwen3-14B</td><td>Q6_K</td><td>Vulkan, FA on</td><td>—</td><td>26 tok/s</td><td>f16 KV</td></tr>
+                    <tr><td>Node B</td><td>Qwen3.5-0.8B</td><td>Q8_K</td><td>Vulkan</td><td>—</td><td>175 tok/s</td><td>f16 KV</td></tr>
+                    <tr><td>Node B</td><td>Carnice-9B</td><td>Q8_0</td><td>Vulkan</td><td>—</td><td>33.5 tok/s</td><td>f16 KV</td></tr>
+                    <tr><td>Node D</td><td>Carnice MoE 35B</td><td>Q4_K_M</td><td>AVX2, 8 threads</td><td>8.8 tok/s</td><td>6.1 tok/s</td><td>CPU-only, 25GB RAM</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Known Issues</h2>
+            <table>
+                <thead><tr><th>Issue</th><th>Node</th><th>Severity</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>NVIDIA driver boots into 25.11 generation</td><td>Node C</td><td>High</td><td><span class="badge badge-blocked">Blocked</span></td></tr>
+                    <tr><td>Tailscale not in NixOS config</td><td>Node C</td><td>High</td><td><span class="badge badge-pending">Pending</span></td></tr>
+                    <tr><td>Loses local IP on reboot</td><td>Node C</td><td>Medium</td><td><span class="badge badge-pending">Pending</span></td></tr>
+                    <tr><td>Tailscale version mismatch (1.96.5 vs 1.80.3)</td><td>Node B</td><td>Low</td><td><span class="badge badge-pending">Tracked</span></td></tr>
+                    <tr><td>ik-llama.service fails (model path mismatch)</td><td>Node B</td><td>Medium</td><td><span class="badge badge-pending">Pending</span></td></tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

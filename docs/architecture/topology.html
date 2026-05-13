@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesh Topology — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Architecture &middot; Mesh Topology</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="topology.html">Architecture</a><span class="sep">/</span>
+            Topology
+        </nav>
+
+        <main>
+            <h2>Quaternary Mesh</h2>
+            <p>Four physical nodes connected via Tailscale (WireGuard). Each node has a dedicated role determined by its hardware constraints. The mesh is heterogeneous by design: AMD Vulkan, NVIDIA CUDA, and CPU-only backends.</p>
+
+            <pre>
+            ┌─────────────┐     ┌─────────────┐
+            │   Node A    │     │   Node B    │
+            │   Synapse   │     │   Director  │
+            │ GTX 1050 Ti │     │ RX 9060 XT  │
+            │   16GB RAM  │     │  48GB DDR4  │
+            │  State/Cache│     │  Fast Infer  │
+            └──────┬──────┘     └──────┬──────┘
+                   │    Tailscale Mesh    │
+            ┌──────┴──────┐     ┌──────┴──────┐
+            │   Node C    │     │   Node D    │
+            │   Oracle    │     │  Quaternary │
+            │  RTX 2060   │     │  Meteor Lake│
+            │  32GB DDR4  │     │  48GB DDR5  │
+            │ Perception  │     │  Heavy Reas.│
+            └─────────────┘     └─────────────┘
+            </pre>
+
+            <h2>Hardware Profiles</h2>
+            <table>
+                <thead>
+                    <tr><th>Node</th><th>Alias</th><th>CPU</th><th>GPU</th><th>RAM</th><th>OS</th><th>Tailscale IP</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Node A</td><td>Synapse</td><td>(NixOS host)</td>
+                        <td>NVIDIA GTX 1050 Ti 4GB</td><td>16GB</td>
+                        <td>NixOS 24.11</td><td><code>100.90.196.70</code></td>
+                    </tr>
+                    <tr>
+                        <td>Node B</td><td>Director</td><td>AMD Ryzen 9 5900XT (32 threads)</td>
+                        <td>AMD RX 9060 XT 16GB (RDNA 3.5, Vulkan)</td><td>48GB DDR4</td>
+                        <td>NixOS via WSL2 on Windows</td><td><code>100.66.173.31</code></td>
+                    </tr>
+                    <tr>
+                        <td>Node C</td><td>Oracle</td><td>AMD Ryzen 7 3700X</td>
+                        <td>NVIDIA RTX 2060 6GB</td><td>32GB DDR4</td>
+                        <td>NixOS 24.11</td><td><code>100.102.109.81</code></td>
+                    </tr>
+                    <tr>
+                        <td>Node D</td><td>Quaternary</td><td>Intel Core Ultra (Meteor Lake)</td>
+                        <td>None (Intel NPU excluded — 11 TOPS, insufficient)</td><td>48GB DDR5</td>
+                        <td>NixOS 24.11</td><td><code>100.120.225.12</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Role Assignments</h2>
+            <h3>Node A — Synapse (State)</h3>
+            <p>No model inference. Dedicated to KV-cache spillover via TurboQuant and persistent state storage via hermes-lcm. The GTX 1050 Ti is too constrained for meaningful LLM work but can buffer quantized KV tensors.</p>
+
+            <h3>Node B — Director (Primary Workspace)</h3>
+            <p>Fast responder and workspace authority. Runs Qwen 3 14B on the AMD GPU via Vulkan backend (ik_llama.cpp). Also hosts Qwen3-VL-2B for vision triage. Node B is the primary development interface, running under WSL2 on Windows.</p>
+
+            <h3>Node C — Oracle (Perception)</h3>
+            <p>Perception and function-calling node. The RTX 2060 has 6GB VRAM — suited for 9B-class models at Q4 quantization. Planned to run Carnice-9B-Function-Calling for tool use and Qwen3-VL-2B for vision backup.</p>
+
+            <h3>Node D — Quaternary (Heavy Reasoning)</h3>
+            <p>CPU-only inference on Meteor Lake with 48GB DDR5. Runs Carnice-Qwen3.6-MoE-35B-A3B (Q4_K_M, 20GB) at ~6.1 tok/s generation. The MoE architecture means only ~3B active parameters per forward pass, making CPU inference viable despite the 35B total. Planned dual-model stack with a 7B interactive model on a separate port.</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

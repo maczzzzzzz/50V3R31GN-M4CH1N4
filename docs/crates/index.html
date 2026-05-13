@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validated Crates — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Crates &middot; Overview</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            Crates
+        </nav>
+
+        <main>
+            <h2>Validated Crates</h2>
+            <p>Five Rust crates survived the Operation Phoenix purge. Each has a Nix package definition in <code>crates/modules/</code> and is exposed through the flake overlay.</p>
+
+            <table>
+                <thead><tr><th>Crate</th><th>Purpose</th><th>Target Node</th><th>Phase</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>directors-forge</strong></td>
+                        <td>Tool discovery and automatic API wrapper generation. Scans tool endpoints and generates typed wrapper scripts.</td>
+                        <td>Node B</td>
+                        <td><span class="badge badge-pending">Phase 3</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>mirage-vfs</strong></td>
+                        <td>Virtual filesystem abstraction layer. Provides 4 VFS tools for transparent file access across local and remote storage.</td>
+                        <td>Node D</td>
+                        <td><span class="badge badge-pending">Phase 3</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>pretext-core</strong></td>
+                        <td>WASM-based browser demo framework. Renders interactive UI components from declarative specifications.</td>
+                        <td>Node B</td>
+                        <td><span class="badge badge-planned">Phase 4</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>vibevoice-asr</strong></td>
+                        <td>Whisper-based automatic speech recognition with emotion scoring. Part of the voice perception pipeline.</td>
+                        <td>Node C</td>
+                        <td><span class="badge badge-planned">Phase 4</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>zeroboot-isolation</strong></td>
+                        <td>KVM/Firecracker microVM isolation for sandboxed execution. Provides hardware-enforced boundaries for untrusted code.</td>
+                        <td>Node D</td>
+                        <td><span class="badge badge-pending">Phase 2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Build</h2>
+            <p>All crates are built via the Nix flake overlay:</p>
+<pre><code># Build individual crate
+nix build .#directors-forge
+nix build .#mirage-vfs
+
+# Or enter dev shell with all dependencies
+nix develop</code></pre>
+
+            <h2>Deleted Crates</h2>
+            <p>These were purged during Operation Phoenix (2026-05-12). Source code is available in git history if needed:</p>
+            <ul>
+                <li><code>goose-execution</code> — replaced by Hermes native terminal tool</li>
+                <li><code>graphify-ast</code> — no current use case</li>
+                <li><code>matlab-mcp-bridge</code> — no MATLAB license on mesh</li>
+                <li><code>visuals-gl</code> — replaced by pretext-core</li>
+                <li><code>voxcpm-tts</code> — no current voice output requirement</li>
+                <li><code>consensus-alignment</code> — single-user system, no consensus needed</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node D — Quaternary — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Nodes &middot; Node D — Quaternary</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="node-a.html">Nodes</a><span class="sep">/</span>
+            Node D
+        </nav>
+
+        <main>
+            <h2>Node D — Quaternary <span class="badge badge-active">Operational</span></h2>
+
+            <table>
+                <thead><tr><th>Property</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>Role</td><td>Heavy reasoning, strategic core</td></tr>
+                    <tr><td>CPU</td><td>Intel Core Ultra (Meteor Lake)</td></tr>
+                    <tr><td>GPU</td><td>None (Intel NPU excluded — 11 TOPS, insufficient for inference)</td></tr>
+                    <tr><td>RAM</td><td>48GB DDR5</td></tr>
+                    <tr><td>Storage</td><td>721 GB free on /home</td></tr>
+                    <tr><td>OS</td><td>NixOS 24.11</td></tr>
+                    <tr><td>Tailscale IP</td><td><code>100.120.225.12</code></td></tr>
+                    <tr><td>Inference Backend</td><td>ik_llama.cpp AVX2 (CPU-only)</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Models</h2>
+            <table>
+                <thead><tr><th>Model</th><th>Quant</th><th>Size</th><th>Benchmark</th><th>Use</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Carnice-Qwen3.6-MoE-35B-A3B</td>
+                        <td>Q4_K_M</td>
+                        <td>20 GB</td>
+                        <td>prompt 8.8 t/s, gen 6.1 t/s (8 threads)</td>
+                        <td>Complex reasoning, analysis</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Planned Dual-Model Stack</h2>
+            <p>Phase 2 targets a two-model deployment on Node D:</p>
+            <table>
+                <thead><tr><th>Model</th><th>Port</th><th>Target</th><th>LiteLLM Route</th></tr></thead>
+                <tbody>
+                    <tr><td>Carnice MoE 35B (existing)</td><td>:8000</td><td>6.1 tok/s</td><td><code>mesh-reason</code></td></tr>
+                    <tr><td>Qwen 2.5 7B Q6_K (~6GB)</td><td>:8001</td><td>30+ tok/s</td><td><code>mesh-interactive</code></td></tr>
+                </tbody>
+            </table>
+
+            <h2>Performance Notes</h2>
+            <ul>
+                <li><strong>MoE advantage:</strong> Only 3B of 35B parameters are active per token. This makes CPU inference viable despite the model size.</li>
+                <li><strong>Bottleneck:</strong> DDR5 memory bandwidth, not compute. Increasing thread count beyond 8 shows diminishing returns.</li>
+                <li><strong>KV cache:</strong> q4_0 quantization via TurboQuant. Reduces KV memory to enable longer context windows within 48GB RAM.</li>
+                <li><strong>NPU status:</strong> Intel AI Boost (~11 TOPS INT8) cannot run models above 3B parameters. Excluded from inference strategy.</li>
+            </ul>
+
+            <h2>File Paths</h2>
+            <table>
+                <thead><tr><th>Path</th><th>Content</th></tr></thead>
+                <tbody>
+                    <tr><td><code>/home/nixos/llama.cpp/</code></td><td>ik_llama.cpp build directory</td></tr>
+                    <tr><td><code>/home/nixos/llama.cpp/build/bin/llama-cli</code></td><td>Inference binary</td></tr>
+                    <tr><td><code>/home/nixos/llama.cpp/models/</code></td><td>Model storage (currently: Carnice MoE 35B only)</td></tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

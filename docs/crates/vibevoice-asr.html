@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vibevoice-asr — Sovereign Machina Crates</title>
+    <link rel="stylesheet" href="../sovereign-style.css">
+</head>
+<body>
+    <header>
+        <h1>vibevoice-asr</h1>
+        <p>Speech Recognition Layer with Multi-Source Audio</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Back to Crates Index</a>
+    </nav>
+
+    <section>
+        <h2>Overview</h2>
+        <p>VibeVoice ASR is a multi-source speech recognition pipeline built around Whisper. It supports three audio sources with automatic priority resolution: Omi hardware BLE streaming (highest priority), mobile device microphone via Tailscale, and local file input. The VibeVoice post-processor adds emotion/vibe scoring to transcriptions for agent context enrichment.</p>
+        <p>The BLE feature flag (<code>--features ble</code>) enables the full Omi hardware integration via btleplug. Without it, the crate operates in file-only mode.</p>
+    </section>
+
+    <section>
+        <h2>Module Structure</h2>
+        <pre>crates/modules/vibevoice-asr/
+  Cargo.toml
+  src/
+    main.rs          -- CLI binary, ASR lifecycle, tests
+    ble_stream.rs    -- BLE device discovery, connection, PCM streaming</pre>
+    </section>
+
+    <section>
+        <h2>Dependencies</h2>
+        <table>
+            <tr><th>Crate</th><th>Version</th><th>Purpose</th></tr>
+            <tr><td>log</td><td>0.4</td><td>Structured logging</td></tr>
+            <tr><td>env_logger</td><td>0.10</td><td>Log output backend</td></tr>
+            <tr><td>serde</td><td>1.0 (derive)</td><td>Serialization for ASR request/response</td></tr>
+            <tr><td>serde_json</td><td>1.0</td><td>JSON serialization</td></tr>
+            <tr><td>uuid</td><td>1.0 (v4)</td><td>BLE service/characteristic UUIDs</td></tr>
+            <tr><td>thiserror</td><td>1.0</td><td>BLE stream error types</td></tr>
+            <tr><td>tokio</td><td>1 (full)</td><td>Async runtime for BLE and transcription</td></tr>
+        </table>
+        <h3>Optional (feature = "ble")</h3>
+        <table>
+            <tr><td>btleplug</td><td>0.11</td><td>BLE device discovery and streaming</td></tr>
+        </table>
+        <h3>Dev Dependencies</h3>
+        <table>
+            <tr><td>tempfile</td><td>3.0</td><td>Test fixtures</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Features</h2>
+        <table>
+            <tr><th>Feature</th><th>Default</th><th>Description</th></tr>
+            <tr><td>ble</td><td>No</td><td>Enable Omi BLE hardware audio streaming</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Key Types</h2>
+        <article>
+            <h3>AudioSource (Priority Enum)</h3>
+            <table>
+                <tr><th>Source</th><th>Priority</th><th>Description</th></tr>
+                <tr><td>OmiHardwareBLE</td><td>2 (highest)</td><td>Omi hardware BLE PCM stream</td></tr>
+                <tr><td>MobileMic</td><td>1</td><td>Mobile mic via Tailscale endpoint</td></tr>
+                <tr><td>FileInput</td><td>0 (default)</td><td>Local audio file</td></tr>
+            </table>
+        </article>
+        <article>
+            <h3>ASRRequest</h3>
+            <ul>
+                <li><code>audio_file: String</code> — Path to audio file</li>
+                <li><code>language: String</code> — Language code (default: "en")</li>
+                <li><code>post_process: bool</code> — Enable VibeVoice scoring (default: true)</li>
+                <li><code>source: AudioSource</code> — Audio source (auto-resolved)</li>
+            </ul>
+        </article>
+        <article>
+            <h3>ASRResponse</h3>
+            <ul>
+                <li><code>text: String</code> — Transcribed text</li>
+                <li><code>confidence: f64</code> — Confidence score (0.0-1.0)</li>
+                <li><code>vibe_score: Option&lt;f64&gt;</code> — Emotion/style score</li>
+                <li><code>source: AudioSource</code> — Source that provided the audio</li>
+            </ul>
+        </article>
+        <article>
+            <h3>BleStreamManager (feature = "ble")</h3>
+            <p>BLE device lifecycle: adapter init, Omi device scan (Sovereign Artery UUID), connection, PCM notification subscription, buffered sample reading, clean disconnect.</p>
+        </article>
+    </section>
+
+    <section>
+        <h2>BLE Protocol</h2>
+        <table>
+            <tr><th>Parameter</th><th>Value</th></tr>
+            <tr><td>Service UUID (Sovereign)</td><td>00414e49-4843-344d-2d4e-47523356-50</td></tr>
+            <tr><td>TX Characteristic UUID</td><td>01414e49-4843-344d-2d4e-47523356-50</td></tr>
+            <tr><td>Fallback Service UUID</td><td>19b10000-e8f2-537e-4f6c-d104768a1214</td></tr>
+            <tr><td>PCM Sample Rate</td><td>16000 Hz</td></tr>
+            <tr><td>PCM Bits</td><td>16-bit</td></tr>
+            <tr><td>PCM Channels</td><td>1 (mono)</td></tr>
+            <tr><td>Max Buffer</td><td>4 MB (~2 minutes)</td></tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>Tests</h2>
+        <p>Comprehensive test suite covering:</p>
+        <ul>
+            <li>Audio source Display formatting</li>
+            <li>Priority ordering verification</li>
+            <li>Serialization round-trip for AudioSource and ASRResponse</li>
+            <li>Default values for ASRRequest</li>
+            <li>Vibe scoring calculation</li>
+            <li>Source resolution without BLE hardware</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Integration</h2>
+        <p><strong>Planning reference:</strong> P4-T1 (Voice Pipeline) — Merge into Hermes runtime. Integrate with Omi BLE hardware on Node C. Deploy as Hermes voice tool.</p>
+    </section>
+
+    <section>
+        <h2>Metadata</h2>
+        <table>
+            <tr><th>Version</th><td>1.1.0</td></tr>
+            <tr><th>Edition</th><td>2021</td></tr>
+            <tr><th>Type</th><td>Binary (CLI)</td></tr>
+            <tr><th>Features</th><td>ble (optional)</td></tr>
+            <tr><th>Status</th><td class="status-pending">KEPT — Needs merge into Hermes</td></tr>
+            <tr><th>Source</th><td><code>crates/modules/vibevoice-asr/</code></td></tr>
+        </table>
+    </section>
+
+    <footer>
+        <p>Sovereign Machina v3.7.0-ALPHA — vibevoice-asr</p>
+    </footer>
+</body>
+</html>
