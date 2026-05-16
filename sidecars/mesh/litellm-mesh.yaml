@@ -26,6 +26,18 @@ model_list:
       tpm: 100000
       rpm: 100
 
+  # Node B -- Director (Vision Perception)
+  # Hardware: Ryzen 9 5900XT, AMD 16GB VRAM, Vulkan
+  # Model: Qwen3-VL-2B-Instruct Q6_K (1.4GB, image-text-to-text)
+  # Benchmark: prompt 18.3 t/s, gen 53.9 t/s
+  - model_name: mesh-vision
+    litellm_params:
+      model: openai/qwen3-vl-2b-instruct
+      api_base: http://10.0.0.11:8082/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+      tpm: 50000
+      rpm: 50
+
   # Node D -- Quaternary (Heavy Reasoning)
   # Hardware: Intel Core Ultra Meteor Lake, 48GB DDR5, CPU-only
   # Model: Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (20GB)
@@ -48,6 +60,8 @@ router_settings:
     "fast": "mesh-fast"
     "fc": "mesh-function-calling"
     "heavy": "mesh-heavy"
+    "vision": "mesh-vision"
+    "vl": "mesh-vision"
 
 general_settings:
   master_key: "sk-sov...roxy"

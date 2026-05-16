@@ -18,11 +18,12 @@
 
 | Route | Model | Target | Backend | Status |
 |:------|:------|:-------|:--------|:-------|
-| mesh-fast | Hermes-4-14B Q4_K_M | prompt 93.2, gen 33.7 t/s | Node B Vulkan | DEPLOYED |
-| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | prompt 8.8, gen 6.1 t/s | Node D CPU | DEPLOYED |
-| mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
+|| mesh-fast | Hermes-4-14B Q4_K_M | prompt 93.2, gen 33.7 t/s | Node B Vulkan | DEPLOYED |
+|| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | prompt 18.3, gen 53.9 t/s | Node B Vulkan (port 8082) | DEPLOYED |
+|| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | prompt 8.8, gen 6.1 t/s | Node D CPU | DEPLOYED |
+|| mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
 
-All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker, port 4000).
+All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker, port 4000). 4 routes.
 
 ## NODE B (DIRECTOR)
 
@@ -30,11 +31,11 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker, 
 |:----------|:-------|
 | OS | NixOS 25.11 WSL2 |
 | GPU | RX 9060 XT 16GB (Vulkan) |
-| ik_llama.cpp | Vulkan build, port 8081 (Windows) |
-| Model | Hermes-4-14B Q4_K_M |
-| Benchmark | prompt 93.2 t/s, gen 33.7 t/s |
-| TurboQuant | q4_0 KV-cache applied |
-| LiteLLM | Docker container, port 4000, 3 routes |
+|| ik_llama.cpp | Vulkan build, port 8081 (Hermes) + port 8082 (Qwen3-VL) |
+|| Model | Hermes-4-14B Q4_K_M + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
+|| Benchmark | Hermes: 93.2/33.7 t/s | Qwen3-VL: 18.3/53.9 t/s |
+|| TurboQuant | q4_0 KV-cache applied |
+|| LiteLLM | Docker container, port 4000, 4 routes |
 | Tailscale | 100.66.173.31 |
 
 ## NODE C (ORACLE)
