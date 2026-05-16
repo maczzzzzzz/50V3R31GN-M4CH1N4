@@ -1,5 +1,6 @@
 # NODESTADT Mesh Router -- LiteLLM Proxy Config
 # 3 active inference nodes, 1 state node (Node A, no inference)
+# Models must appear in /v1/models and /model/info to populate the Hermes picker.
 
 model_list:
   # Node B -- Director (Fast Responder)
@@ -13,6 +14,13 @@ model_list:
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 100000
       rpm: 100
+    model_info:
+      id: mesh-fast
+      object: model
+      owned_by: nodestadt-mesh
+      permission: []
+      root: mesh-fast
+      parent: null
 
   # Node C -- Oracle (Function-Calling Specialist)
   # Hardware: Ryzen 7 3700X, RTX 2060 6GB, CUDA
@@ -25,6 +33,13 @@ model_list:
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 100000
       rpm: 100
+    model_info:
+      id: mesh-function-calling
+      object: model
+      owned_by: nodestadt-mesh
+      permission: []
+      root: mesh-function-calling
+      parent: null
 
   # Node B -- Director (Vision Perception)
   # Hardware: Ryzen 9 5900XT, AMD 16GB VRAM, Vulkan
@@ -37,6 +52,13 @@ model_list:
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 50000
       rpm: 50
+    model_info:
+      id: mesh-vision
+      object: model
+      owned_by: nodestadt-mesh
+      permission: []
+      root: mesh-vision
+      parent: null
 
   # Node D -- Quaternary (Heavy Reasoning)
   # Hardware: Intel Core Ultra Meteor Lake, 48GB DDR5, CPU-only
@@ -49,6 +71,13 @@ model_list:
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 50000
       rpm: 50
+    model_info:
+      id: mesh-heavy
+      object: model
+      owned_by: nodestadt-mesh
+      permission: []
+      root: mesh-heavy
+      parent: null
 
 router_settings:
   routing_strategy: simple-shuffle
@@ -70,3 +99,7 @@ general_settings:
   telemetry: false
   # No database_url -- runs stateless (no Prisma needed for simple routing)
   # If we need persistence later, mount a volume and set sqlite:///path
+
+environment_variables:
+  LITELLM_LOG: "DEBUG"
+  LITELLM_MODEL_LIST: "mesh-fast,mesh-function-calling,mesh-vision,mesh-heavy"

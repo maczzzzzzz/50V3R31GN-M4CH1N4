@@ -24,9 +24,9 @@ All tasks verified with documented benchmarks. Phase 1 authorized.
 
 Give the mesh eyes and hands. Vision triage, terminal control, screen awareness.
 
-- [ ] **P1-T1: Vision-Enabled UI Automation.** Deploy Qwen3-VL-2B on Node B via LiteLLM `mesh-vision` route. Calibrate for sub-second screen triage. Wire into Hermes auxiliary vision config. Benchmark actual latency.
-- [ ] **P1-T2: Terminal Control.** Verify Hermes terminal toolset across Tailscale. Test SSH B->C/D. Validate Docker Compose environments. Prove multi-node execution works.
-- [ ] **P1-T3: Screen Triage Sidecar.** Deploy sovereign-sniffer on Node B as persistent systemd service. Wire to vision model. Measure end-to-end latency from screen capture to agent response. (Depends on P1-T1.)
+- [~] **P1-T1: Vision-Enabled UI Automation.** DEPLOYED. Qwen3-VL-2B Q6_K on mesh-vision route (Node B port 8082). Text benchmark: 550 t/s prompt, 50.7 t/s gen. IMAGE INPUT: mmproj downloaded and bat updated, requires Windows server restart to activate. Hermes vision config pending.
+- [~] **P1-T2: Terminal Control.** PARTIAL. All 4 nodes visible in Tailscale mesh. SSH requires browser re-auth (Tailscale SSH checkin). Key-based SSH not yet deployed. Docker environments: Node B Docker Desktop verified.
+- [~] **P1-T3: Screen Triage Sidecar.** IN PROGRESS. sovereign-sniffer capture.py and triage.py written (sidecars/sniffer/). Screen capture verified (PowerShell -> WSL2, 592KB PNG). End-to-end triage blocked on vision server mmproj activation. Persistent service deferred.
 
 ---
 
