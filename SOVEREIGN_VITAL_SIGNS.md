@@ -56,7 +56,7 @@
 | mirage-vfs | 609 | 16 | Ready |
 | pretext-core | 666 | 20 | Ready |
 | vibevoice-asr | 570 | 9 | Needs merge |
-| directors-forge | 220 | 0 | Needs tests |
+| directors-forge | 298 | 0 | EUTHANIZED (May 17) |
 | zeroboot-isolation | 130 | 0 | Needs rework |
 
 ## NPU ASSESSMENT

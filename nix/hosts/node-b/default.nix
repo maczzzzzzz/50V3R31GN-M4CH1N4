@@ -10,7 +10,6 @@
     ./../../modules/stagehand-env.nix
     ./../../modules/omi-backend.nix
     ./../../modules/hermes-lcm.nix
-    ./../../modules/directors-forge.nix
     ./../../modules/zeroboot.nix
     ./../../modules/mesh-runtime.nix
     ./../../modules/docker.nix
@@ -31,7 +30,6 @@
   networking.networkmanager.enable = lib.mkForce false;
 
   # Enable Sovereign services
-  services.directors-forge.enable = true;
   services.zeroboot.enable = true;
 
   # Node B Inference (Instant Responsiveness)
