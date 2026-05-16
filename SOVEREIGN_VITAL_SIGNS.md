@@ -1,7 +1,7 @@
 # SOVEREIGN VITAL SIGNS (v0.1.0-alpha)
 
 **Status:** PHASE 0 CLOSED. Phase 1 IN PROGRESS.
-**Updated:** May 16, 2026
+**Updated:** May 17, 2026
 
 ---
 
@@ -19,7 +19,7 @@
 | Route | Model | Target | Backend | Status |
 |:------|:------|:-------|:--------|:-------|
 || mesh-fast | Hermes-4-14B Q4_K_M | prompt 93.2, gen 33.7 t/s | Node B Vulkan | DEPLOYED |
-|| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | benchmark pending | Node B Vulkan (port 8082) | DEPLOYED |
+| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | text: prompt 550, gen 50.7 t/s. Image verified. | Node B Vulkan (port 8082) | DEPLOYED |
 || mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | prompt 8.8, gen 6.1 t/s | Node D CPU | DEPLOYED |
 || mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
 
@@ -33,7 +33,7 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker D
 | GPU | RX 9060 XT 16GB (Vulkan) |
 || ik_llama.cpp | Vulkan build, port 8081 (Hermes) + port 8082 (Qwen3-VL) |
 || Model | Hermes-4-14B Q4_K_M + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
-|| Benchmark | Hermes: 93.2/33.7 t/s | Qwen3-VL: benchmark pending |
+|| Benchmark | Hermes: 93.2/33.7 t/s | Qwen3-VL text: 550/50.7 t/s, image verified |
 || TurboQuant | q4_0 KV-cache LIVE |
 || LiteLLM | Docker Desktop container, port 4000, 4 routes |
 | Docker | Native NixOS daemon DISABLED. Using Docker Desktop |
@@ -81,6 +81,7 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker D
 | Hermes fork | sidecars/hermes-agent-nous/ (submodule) | OPERATIONAL |
 | directors-forge | EUTHANIZED (May 17) | REMOVED |
 | Gemini CLI | Connected to kanban MCP | LIVE |
+| sovereign-sniffer | sidecars/sniffer/ (capture + triage) | DEPLOYED |
 
 ---
 ::/5Y573M-N071C3 : HONEST_BASELINE. NO_PHANTOM_SPECS. // 50V3R31GN-M4CH1N4

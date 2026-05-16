@@ -17,11 +17,11 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 ## THE MESH
 
 ### Node B -- Director (Primary Workspace)
-- **Hardware:** Ryzen 9 5900XT, 16GB AMD VRAM, 48GB DDR4
+- **Hardware:** Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4
 - **Role:** Fast responder, code generation, vision perception, workspace authority
 - **Models:** Hermes-4-14B Q4_K_M (GPU port 8081, mesh-fast), Qwen3-VL-2B-Instruct Q6_K (GPU port 8082, mesh-vision)
 - **Backend:** ik_llama.cpp Vulkan (NOT ROCm -- consumer AMD unreliable)
-- **Benchmark:** Hermes prompt 93.2 t/s gen 33.7 t/s | Qwen3-VL prompt 18.3 t/s gen 53.9 t/s
+- **Benchmark:** Hermes prompt 93.2 t/s gen 33.7 t/s | Qwen3-VL prompt 550 t/s gen 50.7 t/s (image verified)
 - **Services:** LiteLLM mesh router (Docker Desktop, port 4000), Hermes TUI/Dashboard
 - **Docker:** Docker Desktop migration COMPLETE. Native NixOS daemon DISABLED. Config `wsl.docker-desktop.enable = true` in `/etc/nixos/configuration.nix`. Use `sg docker -c "docker ..."` for docker commands (shell session lacks group).
 - **VRAM:** ~10.4GB used of 16GB (Hermes 8.4GB + Qwen3-VL 1.9GB shared GPU)

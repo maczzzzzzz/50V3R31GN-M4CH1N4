@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Infrastructure
+
+- **Docker Desktop migration:** Node B native NixOS Docker daemon disabled. Docker Desktop integration active (`wsl.docker-desktop.enable = true`). LiteLLM container running on Docker Desktop daemon. Use `sg docker -c "docker ..."` for docker commands.
+- **mesh-vision route:** Qwen3-VL-2B-Instruct Q6_K on Node B port 8082 (Vulkan). mmproj downloaded and loaded. Image input verified working. Text benchmark: prompt 550 t/s, gen 50.7 t/s.
+- **Hermes auxiliary vision:** Wired `mesh-vision` route into Hermes config (`auxiliary.vision.model = mesh-vision`).
+- **sovereign-sniffer sidecar:** Screen capture pipeline (`sidecars/sniffer/capture.py` + `triage.py`). PowerShell -> WSL2 capture (910ms). End-to-end vision triage verified (25s total). NOT yet a persistent service.
+
 ### Security
 
 - **LiteLLM mesh router:** Upgraded from 1.82.6 to 1.84.0 in Docker container to patch critical SQL injection vulnerability (CVE in litellm <1.83). Container restarted and verified healthy.
@@ -24,7 +31,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Node A PQ warning:** Diagnosed. tailscaled daemon 1.80.3 vs CLI 1.90.9. Requires nixpkgs channel update on Node A (NixOS 24.11). Deferred, low risk.
 - **Port 8082 firewall rule:** Elevated CMD command provided to user for manual execution.
 - **falcon-perception weights:** User confirmed deletion of D:\llama.cpp\models\falcon-perception\.
-- **Node B TurboQuant:** Bat fix applied, awaiting Windows restart to activate.
+- **Node B TurboQuant:** Active. q4_0 KV cache applied on all inference endpoints.
 
 ## [0.1.0-alpha] - 2026-05-16
 
@@ -36,7 +43,7 @@ First formal alpha release of the Sovereign Mesh. Phase 0 (Validation Gate) clos
 - **Node C (Oracle):** Carnice-9B-FC Q4_K_M via ik_llama.cpp CUDA sm_75. 205.2/49.9 t/s. External SSD mounted at /mnt/sovereign-soul.
 - **Node D (Quaternary):** Carnice MoE 35B-A3B Q4_K_M via ik_llama.cpp AVX2 CPU. 8.8/6.1 t/s.
 - **Node A (Synapse):** State persistence, cache spillover. No inference. Tailscale 100.96.253.114.
-- **LiteLLM mesh router:** Docker on Node B port 4000. 3 routes: mesh-fast, mesh-function-calling, mesh-heavy.
+- **LiteLLM mesh router:** Docker Desktop on Node B port 4000. 4 routes: mesh-fast, mesh-vision, mesh-function-calling, mesh-heavy.
 - **Tailscale:** All 4 nodes authenticated. Zero-trust artery operational.
 
 ### Agent Orchestration
@@ -139,10 +146,11 @@ First formal alpha release of the Sovereign Mesh. Phase 0 (Validation Gate) clos
   - **Indexing Phase:** Main repo (balanced tier) → Hermes Agent fork
 
 - **LiteLLM Mesh Router Fixes:**
-  - Verified 3 model groups configured and functional:
-    - `mesh-fast`: Node B (Hermes-4-14B Q4_K_M, 8.4GB, Vulkan)
-    - `mesh-function-calling`: Node C (Carnice-9B-FC i1-Q4_K_M, CUDA sm_75)
-    - `mesh-heavy`: Node D (Carnice-Qwen3.6-MoE-35B Q4_K_M, 20GB, CPU-only)
+  - Verified 4 model groups configured and functional:
+  - `mesh-fast`: Node B (Hermes-4-14B Q4_K_M, 8.4GB, Vulkan)
+  - `mesh-vision`: Node B (Qwen3-VL-2B-Instruct Q6_K, 1.9GB, Vulkan port 8082)
+  - `mesh-function-calling`: Node C (Carnice-9B-FC i1-Q4_K_M, CUDA sm_75)
+  - `mesh-heavy`: Node D (Carnice-Qwen3.6-MoE-35B Q4_K_M, 20GB, CPU-only)
   - Refined routing strategy: simple-shuffle with pre-call checks
   - Stateless operation: Removed `database_url` (runs without Prisma DB dependency)
 

@@ -43,8 +43,8 @@
 | ID | Title | Priority |
 |:---|:------|:--------|
 | t_3dbabbbb | PHASE 2 Epic | 5 |
-| t_64f8028b | P2-T1: Node D Dual-Model | 5 |
-| t_3f006eaa | P2-T2: Model Routing Rules | 5 |
+| t_64f8028b | P2-T1: Node D GPU Installation | 5 |
+| t_3f006eaa | P2-T2: Node D Multi-Model Stack | 5 |
 | t_a30b85ed | P2-T3: Context Spillover | 5 |
 
 ### Phase 3: Sovereign Plugins
@@ -71,7 +71,7 @@
 
 | Crate | Status | Action |
 |:------|:-------|:-------|
-| directors-forge | KEPT | Needs tests |
+| directors-forge | EUTHANIZED | Removed May 17. Kanban MCP replaces. |
 | mirage-vfs | KEPT | Ready |
 | pretext-core | KEPT | Ready |
 | vibevoice-asr | KEPT | Needs merge into Hermes |

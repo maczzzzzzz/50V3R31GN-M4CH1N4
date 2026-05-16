@@ -28,7 +28,7 @@ All nodes run NixOS (25.11, except Node A on 24.11). Interconnected via Tailscal
 ## Inference Stack
 
 - **Backend:** [ik_llama.cpp](https://github.com/ikawrakow/ik_llama.cpp) native builds per-node (Vulkan / CUDA / AVX2)
-- **Routing:** LiteLLM mesh router (Docker, Node B port 4000) with 3 routes: `mesh-fast`, `mesh-function-calling`, `mesh-heavy`
+- **Routing:** LiteLLM mesh router (Docker Desktop, Node B port 4000) with 4 routes: `mesh-fast`, `mesh-vision`, `mesh-function-calling`, `mesh-heavy`
 - **KV Cache:** TurboQuant q4_0 mandated across all endpoints
 - **Models:** Q4_K_M quantized, sized to fit each node's VRAM/RAM budget exactly
 
