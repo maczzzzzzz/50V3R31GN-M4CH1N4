@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [Unreleased]
+
+### Security
+
+- **LiteLLM mesh router:** Upgraded from 1.82.6 to 1.84.0 in Docker container to patch critical SQL injection vulnerability (CVE in litellm <1.83). Container restarted and verified healthy.
+- **Dependabot audit:** Full sweep of 73 alerts (main repo) and 53 alerts (hermes fork) via Gemini CLI. Top threats (litellm SQLi, GitPython RCE, serialize-javascript RCE) triaged. All actionable items patched or flagged.
+- **npm audit fix:** Hermes fork root, ui-tui, web subdirectories all cleaned to 0 vulnerabilities. Website (Docusaurus) has 19 high vulns in transitive build deps, accepted risk (build-time only, no runtime exposure).
+- **ik_llama.cpp GCC 14 fix:** Confirmed already applied on Node C source (iqk_common.h). Node D runs llama.cpp, not ik_llama.cpp.
+- **Node D Tailscale SSH:** Verified working. SSH to maczz@100.120.225.12 confirmed.
+
+### Changed
+
+- **FastMCP 3.3.1 upgrade:** Attempted and rolled back. Package split into fastmcp + fastmcp-slim breaks `from fastmcp import FastMCP`. Kanban-mcp-server stays on 3.2.4 until imports updated.
+- **SESSION_HANDOFF.md:** Known issues section rewritten with friction point resolutions. Categorized into Resolved / Requires User Action / Deferred.
+
+### Infrastructure
+
+- **Node A PQ warning:** Diagnosed. tailscaled daemon 1.80.3 vs CLI 1.90.9. Requires nixpkgs channel update on Node A (NixOS 24.11). Deferred, low risk.
+- **Port 8082 firewall rule:** Elevated CMD command provided to user for manual execution.
+- **falcon-perception weights:** User confirmed deletion of D:\llama.cpp\models\falcon-perception\.
+- **Node B TurboQuant:** Bat fix applied, awaiting Windows restart to activate.
+
 ## [0.1.0-alpha] - 2026-05-16
 
 First formal alpha release of the Sovereign Mesh. Phase 0 (Validation Gate) closed. All three inference nodes benchmarked and deployed. Full mesh operational.

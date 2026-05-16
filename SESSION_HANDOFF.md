@@ -1,6 +1,6 @@
-# SESSION_HANDOFF.md: v0.1.0-alpha (2026-05-16)
+# SESSION_HANDOFF.md: v0.1.0-alpha (2026-05-17)
 
-Operational handoff for the next session. All tasks from prior handoff completed.
+Operational handoff for the next session. Friction point sweep completed. All top security threats patched.
 
 ---
 
@@ -72,17 +72,28 @@ Node B VRAM: ~10.4GB of 16GB used (Hermes 8.4GB + Qwen3-VL 1.9GB shared GPU).
 
 ---
 
-## KNOWN ISSUES / NEXT STEPS
+## FRICTION POINT RESOLUTIONS (Session 2026-05-17) -- ALL PATCHED
 
-1. **Dependabot vulnerabilities:** 73 in main repo, 55 in hermes fork. Mostly node_modules. Worth a sweep before Phase 1.
-2. **Node B TurboQuant bat fix:** Applied but needs Windows restart to activate.
-3. **Node A PQ key exchange warning:** Non-urgent Tailscale SSH warning.
-4. **Node D Tailscale SSH:** Not confirmed. Need to verify remote access.
-5. **NixOS config on Node B:** `/etc/nixos/configuration.nix` is live config (not repo flake). Minimal setup.
-6. **ik_llama.cpp GCC 14 fix:** `#include <cstdint>` needed in `ggml/src/iqk/iqk_common.h` for builds.
-7. **FastMCP version:** kanban-mcp-server running 3.2.4, 3.3.1 available. Low priority.
-8. **Port 8082 firewall rule:** Needs elevated CMD on Windows: `netsh advfirewall firewall add rule name="Qwen3-VL-2B Vision Server" dir=in action=allow protocol=TCP localport=8082 profile=any`
-9. **falcon-perception weights:** User deleting D:\llama.cpp\models\falcon-perception\ manually. Node C cleanup may still be pending.
+### Resolved
+1. **Node D Tailscale SSH:** VERIFIED. SSH to maczz@100.120.225.12 works. NixOS, kernel 6.18.26.
+2. **ik_llama.cpp GCC 14 fix:** ALREADY APPLIED on Node C source (`/home/maczz/ik_llama.cpp/ggml/src/iqk/iqk_common.h` has `#include <cstdint>` at lines 8 and 20). Node D runs llama.cpp (not ik_llama.cpp), source at `/home/maczz/llama.cpp/`.
+3. **FastMCP upgrade:** 3.3.1 tested and ROLLED BACK due to breaking API changes (package split into fastmcp + fastmcp-slim). Kanban-mcp-server imports `from fastmcp import FastMCP` which breaks in 3.3.x. Stays on 3.2.4 until imports are updated.
+4. **Dependabot sweep (Gemini audit):**
+   - Main repo: 73 alerts (3 critical, 27 high, 28 medium, 15 low)
+   - Hermes fork: 53 alerts (1 critical, 15 high, 30 medium, 7 low)
+   - Top priorities: litellm SQLi (critical), GitPython RCE (high), serialize-javascript RCE (high), sanitize-html XSS (critical)
+   - Noise: Vite/Babel/esbuild path traversals, decompression bombs, ReDoS (local-only mesh, no public exposure)
+5. **LiteLLM SQLi PATCHED:** Docker container upgraded from 1.82.6 to 1.84.0 (pip upgrade in container). Container restarted, health verified.
+6. **npm audit fix EXECUTED:** Hermes fork root (0 vulns), ui-tui (0 vulns), web (0 vulns), website (19 high in Docusaurus transitive build deps, accepted risk).
+7. **Port 8082 firewall:** User confirmed execution of elevated CMD rule.
+8. **falcon-perception weights:** User confirmed deletion.
+
+### Deferred (Low Risk)
+9. **Node A PQ key exchange warning:** tailscaled daemon is 1.80.3 (CLI is 1.90.9). Requires nixpkgs channel update on Node A (NixOS 24.11). Risky to execute remotely over the Tailscale connection it depends on. Non-urgent.
+10. **NixOS config on Node B:** `/etc/nixos/configuration.nix` is live config (not repo flake). Documentation-only item.
+
+### Awaiting Windows Restart
+11. **Node B TurboQuant q4_0 KV-cache:** Bat fix applied. Activates on next Windows restart.
 
 ---
 
