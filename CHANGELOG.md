@@ -4,6 +4,54 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.1.0-alpha] - 2026-05-16
+
+First formal alpha release of the Sovereign Mesh. Phase 0 (Validation Gate) closed. All three inference nodes benchmarked and deployed. Full mesh operational.
+
+### Infrastructure
+
+- **Node B (Director):** Hermes-4-14B Q4_K_M via ik_llama.cpp Vulkan. 93.2/33.7 t/s. TurboQuant q4_0 applied.
+- **Node C (Oracle):** Carnice-9B-FC Q4_K_M via ik_llama.cpp CUDA sm_75. 205.2/49.9 t/s. External SSD mounted at /mnt/sovereign-soul.
+- **Node D (Quaternary):** Carnice MoE 35B-A3B Q4_K_M via ik_llama.cpp AVX2 CPU. 8.8/6.1 t/s.
+- **Node A (Synapse):** State persistence, cache spillover. No inference. Tailscale 100.96.253.114.
+- **LiteLLM mesh router:** Docker on Node B port 4000. 3 routes: mesh-fast, mesh-function-calling, mesh-heavy.
+- **Tailscale:** All 4 nodes authenticated. Zero-trust artery operational.
+
+### Agent Orchestration
+
+- **Kanban MCP Server:** FastMCP stdio server wrapping Hermes kanban SQLite. 8 tools for cross-agent coordination.
+- **Gemini CLI integration:** Shared kanban MCP, Pro/Flash model routing for research and audit tasks.
+- **directors-forge:** EUTHANIZED. Removed from active service. Kanban MCP replaces coordination function.
+
+### Documentation
+
+- All root markdown files audited and aligned to current mesh state.
+- Version scheme reset to semantic versioning starting at 0.1.0-alpha.
+- GitHub username updated from maczzzzzzz to maczzgit. All references updated.
+- README.md rewritten to reflect actual deployed infrastructure.
+- Stale HTML (implementation-plan.html) removed.
+
+### Changed
+
+- GitHub remote updated to `git@github.com:maczzgit/50V3R31GN-M4CH1N4.git`.
+- Hermes agent fork submodule updated to `git@github.com:maczzgit/50V3R31GN-M4CH1N4-hermes-agent-fork.git`.
+- Git commit template configured with `Co-authored-by: maczzgit` trailer.
+
+---
+
+## [3.8.1-ALPHA] - 2026-05-17
+
+### Changed
+
+- **IMPLEMENTATION_PLAN.md updated to v3.8.0-ALPHA:** Phase 0 gate marked CLOSED. All 7 validation tasks verified with real benchmarks. Task statuses synchronized with CHANGELOG, AGENTS.md, and SOVEREIGN_VITAL_SIGNS.md. Added Infrastructure Status table.
+- **Stale HTML removed:** Deleted `docs/planning/implementation-plan.html` -- was a stale v3.7.0 render with outdated benchmarks (26 tok/s vs actual 93.2 t/s for Node B). Root `IMPLEMENTATION_PLAN.md` is the single source of truth.
+
+### Fixed
+
+- **Kanban Dispatcher Crash Loop:** Identified `test-standalone` board at `~/.hermes/kanban/boards/test-standalone/` with corrupt empty DB (no tables, only shm/wal artifacts). Caused dispatcher tick failures every 60s. Board requires manual deletion (agent rm blocked by policy).
+
+---
+
 ## [3.8.0-ALPHA] - 2026-05-14 (Evening)
 
 ### Added
@@ -31,9 +79,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Verified
 
 - **LiteLLM Mesh Routing (V0-T3):**
-  - mesh-function-calling (Node C): Live, 108.7 t/s prompt, 56.6 t/s gen
-  - mesh-heavy (Node D): Live, 8.2 t/s prompt, 7.2 t/s gen (MoE 35B expected)
-  - mesh-fast (Node B): Server down, needs restart (Windows llama-server on 10.0.0.11:8081)
+  - mesh-function-calling (Node C): Live, 205.2 t/s prompt, 49.9 t/s gen
+  - mesh-heavy (Node D): Live, 8.8 t/s prompt, 6.1 t/s gen (MoE 35B expected)
+  - mesh-fast (Node B): Deployed, 93.2 t/s prompt, 33.7 t/s gen
 
 ### Fixed
 
@@ -71,7 +119,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **LiteLLM Mesh Router Fixes:**
   - Verified 3 model groups configured and functional:
     - `mesh-fast`: Node B (Hermes-4-14B Q4_K_M, 8.4GB, Vulkan)
-    - `mesh-function-calling`: Node C (Carnice-9B-FC Q4_K_M, Qwen3.5 hybrid SSM+attn)
+    - `mesh-function-calling`: Node C (Carnice-9B-FC i1-Q4_K_M, CUDA sm_75)
     - `mesh-heavy`: Node D (Carnice-Qwen3.6-MoE-35B Q4_K_M, 20GB, CPU-only)
   - Refined routing strategy: simple-shuffle with pre-call checks
   - Stateless operation: Removed `database_url` (runs without Prisma DB dependency)

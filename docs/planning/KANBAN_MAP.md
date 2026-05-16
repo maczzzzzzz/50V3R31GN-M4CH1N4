@@ -1,4 +1,4 @@
-# Kanban Board Map: IMPLEMENTATION_PLAN.md v3.7.0-ALPHA
+# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.1.0-alpha
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha
 **Bootstrap:** `python3 scripts/repro/kanban-bootstrap.py`

@@ -6,14 +6,14 @@ Hermes-LCM provides lossless context management for the Sovereign Machina mesh. 
 
 ## Architecture
 
-- **Primary Node:** Node A (100.90.196.70) - Synapse Cache
+- **Primary Node:** Node A (100.96.253.114) - Synapse Cache
 - **Sync Nodes:** Node B (100.66.173.31), Node D (100.120.225.12)
 - **Protocol:** SQLite with encrypted rsync over Tailscale Artery
 - **Latency Target:** <100ms cross-mesh read/write
 
 ## Integration
 
-Hermes-LCM is registered as a native Tenacity plugin:
+Hermes-LCM is registered as a native Hermes plugin:
 
 ```python
 # In Tenacity plugin system

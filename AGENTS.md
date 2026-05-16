@@ -1,4 +1,4 @@
-# AGENTS.md: The Alpha Mesh Roles (v3.8.0-ALPHA)
+# AGENTS.md: The Alpha Mesh Roles (v0.1.0-alpha)
 
 Active agents and hardware topology for the Stable Mesh Alpha build.
 
@@ -40,12 +40,13 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **Benchmark:** prompt 205.2 t/s, gen 49.9 t/s
 - **OS:** NixOS 25.11 (Xantusia), NVIDIA 580.142, CUDA 13.0
 - **Tailscale:** 100.102.109.81
-- **External SSD:** SOVEREIGN_SOUL (476.9GB ext4, mount pending nixos-rebuild)
+- **External SSD:** SOVEREIGN_SOUL mounted at /mnt/sovereign-soul (469GB ext4)
 
 ### Node A -- Synapse (State)
 - **Hardware:** GTX 1050 Ti 4GB, 16GB RAM
 - **Role:** KV-cache spillover, hermes-lcm state persistence
 - **Note:** No model inference. Memory and cache only.
+- **Tailscale:** 100.96.253.114
 
 ---
 

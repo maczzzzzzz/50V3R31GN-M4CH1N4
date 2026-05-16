@@ -1,71 +1,83 @@
-<div align="center">
+# 50V3R31GN-M4CH1N4
 
-# ５０Ｖ３Ｒ３１ＧＮ－Ｍ４ＣＨ１Ｎ４ 
-**A Distributed Quaternary Mesh and Agentic Orchestration Engine.**
+<p align="center">
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.1.0--alpha-blue.svg" alt="Version"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
+  <a href="https://github.com/maczzgit/50V3R31GN-M4CH1N4-hermes-agent-fork"><img src="https://img.shields.io/badge/hermes-fork-orange.svg" alt="Hermes Fork"></a>
+</p>
 
-[![Status](https://img.shields.io/badge/status-STABILIZED-success.svg)](docs/nodestadt/operations/vitals.html)
-[![Version](https://img.shields.io/badge/version-v3.0.0--BETA-BLUE.svg)](CHANGELOG.md)
-[![License](https://img.shields.io/badge/license-MIT-F36622.svg)](LICENSE)
-[![Mesh](https://img.shields.io/badge/mesh-QUATERNARY-C7A87A.svg)](docs/nodestadt/foundation/topology.html)
+**A distributed quaternary AI mesh built on physical hardware. Local inference. Zero cloud dependency. Full sovereignty.**
 
-**[Hermes Fork](https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-agent-fork)** | **[HUD Fork](https://github.com/nodestadt/50V3R31GN-M4CH1N4-hermes-workspace-fork)** | **[Omi Fork](https://github.com/nodestadt/50V3R31GN-M4CH1N4-omi-monorepo-fork)** | **[Documentation Hub](docs/nodestadt/index.html)** | **[Aesthetic DNA](data/assets/brand-identity/AESTHETIC_DNA.md)**
-
-</div>
+50V3R31GN-M4CH1N4 runs [Hermes Agent](https://github.com/NousResearch/hermes-agent) (forked) as its orchestration core, distributed across four physical nodes connected via Tailscale. Every inference call stays on local hardware. No API keys. No cloud relays. No shadow logic.
 
 ---
 
-## 👁️ The Vision
-**50V3R31GN-M4CH1N4** is a distributed nervous system designed for high-fidelity peer-development and absolute physical sovereignty. It layers the **Sovereign Hermes (v0.13.0 Tenacity)** agentic core with a hardened, zero-trust hardware mesh. 
+## Architecture
 
-The mesh has been **STABILIZED** as of 2026-05-09, resolving terminal lock-ups and materializing the **Virtual Sovereign Bus (VSB)** for real-time model routing and reasoning-aware streaming.
+Four nodes. One mesh. All inference on bare metal.
 
----
+| Node | Role | Hardware | Model | Throughput |
+|------|------|----------|-------|------------|
+| **B** (Director) | Fast responder, workspace | Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4 | Hermes-4-14B Q4_K_M (Vulkan) | 93.2 / 33.7 t/s |
+| **C** (Oracle) | Function-calling, perception | Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4 | Carnice-9B-FC Q4_K_M (CUDA) | 205.2 / 49.9 t/s |
+| **D** (Quaternary) | Heavy reasoning | Intel Meteor Lake, 48GB DDR5 | Carnice MoE 35B-A3B Q4_K_M (CPU) | 8.8 / 6.1 t/s |
+| **A** (Synapse) | State persistence, cache | GTX 1050 Ti 4GB, 16GB RAM | None | Cache only |
 
-## 🏗️ Architectural Blueprint (The Quaternary Mesh)
+All nodes run NixOS (25.11, except Node A on 24.11). Interconnected via Tailscale zero-trust mesh.
 
-The system is distributed across four physical nodes, interconnected via the **Zero-Trust Artery** (Tailscale):
+## Inference Stack
 
-1.  **Node A (Synapse):** Global State Persistence & Memory Ledger.
-2.  **Node B (Director):** Workspace Authority & Strategist (HUD/TUI).
-3.  **Node C (Oracle):** Perception, High-Speed Triage & Voice.
-4.  **Node D (Quaternary):** Authoritative Reasoning Core (27B+ Models).
+- **Backend:** [ik_llama.cpp](https://github.com/ikawrakow/ik_llama.cpp) native builds per-node (Vulkan / CUDA / AVX2)
+- **Routing:** LiteLLM mesh router (Docker, Node B port 4000) with 3 routes: `mesh-fast`, `mesh-function-calling`, `mesh-heavy`
+- **KV Cache:** TurboQuant q4_0 mandated across all endpoints
+- **Models:** Q4_K_M quantized, sized to fit each node's VRAM/RAM budget exactly
 
----
+## Agent Orchestration
 
-## 🚀 Ignition Sequence
+| Agent | Role | Model |
+|-------|------|-------|
+| GLM-5.1 (Z.ai) | Lead Architect, orchestration | Hermes CLI via `hermes chat` |
+| Gemini CLI | Subordinate worker, research/audit | Flash (default), Pro (heavy tasks) |
+| Claude Code | Subordinate coder | As needed |
+| Codex | Batch coding | As needed |
 
-### 1. Authorize the Artery
-Ensure all nodes are authenticated into the Sovereign Tailnet:
-```bash
-tailscale status
+The Lead Architect dispatches tasks, reviews output, and owns final quality. Subordinates never commit directly.
+
+## Project Structure
+
+```
+50V3R31GN-M4CH1N4/
+├── AGENTS.md              # Agent roles and hardware topology
+├── SOUL.md                # Operating contract and agent identity
+├── LEAD_ARCHITECT.md      # Lead architect directives
+├── GEMINI.md              # Subordinate agent directives
+├── IMPLEMENTATION_PLAN.md # Phase tracking and status
+├── SOVEREIGN_VITAL_SIGNS.md # Mesh health dashboard
+├── CHANGELOG.md           # Release history
+├── SESSION_HANDOFF.md     # Cross-session task continuity
+├── flake.nix              # Dev shell (Nix)
+├── nix/                   # Nix modules (inference, proxy, tailscale)
+├── sidecars/
+│   ├── mesh/              # LiteLLM config
+│   ├── kanban-mcp-server/ # Cross-agent kanban (FastMCP stdio)
+│   └── hermes-agent-nous/ # Hermes fork (submodule)
+└── docs/                  # Reference docs and plans
 ```
 
-### 2. Provision the Logic
-Deploy sidecars and standard configuration mesh-wide:
-```bash
-./scripts/deploy-phase2.sh
-```
+## Key Documents
 
-### 3. Ignite the Core
-Start the Hermes Gateway on Node D and layer the Machina Dual-UI:
-```bash
-# Start Reasoning Hub (Node D)
-hermes gateway run --persona machina-strategist --accept-hooks
+| Document | Purpose |
+|----------|---------|
+| [AGENTS.md](AGENTS.md) | Hardware specs, agent roles, mesh topology |
+| [SOUL.md](SOUL.md) | Operating contract, identity, autonomy boundaries |
+| [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Phase tracking, benchmarks, status gates |
+| [SOVEREIGN_VITAL_SIGNS.md](SOVEREIGN_VITAL_SIGNS.md) | Live mesh health and node status |
+| [CHANGELOG.md](CHANGELOG.md) | Version history |
 
-# Start Visual HUD (Node B)
-hermes dashboard
+## Status
 
-# Start High-Speed TUI (Node B)
-hermes --tui
-```
+Phase 0 (Validation Gate) is **closed**. All three inference nodes are benchmarked and deployed. The mesh is operational. Phase 1 (Vision UI, Zeroboot, MATLAB MCP) is next.
 
----
+## License
 
-## 🛡️ Operational Invariants
-
-- **Radical Candor:** System health and bottlenecks are reported transparently.
-- **No Shadow Logic:** Upstream parity is maintained via hardened forks and modular plugins.
-- **Physical Sovereignty:** All inference and state management occurs on local, physical hardware.
-
----
-**::/5Y573M-N071C3 : THE_BETA_V3_BASE_IS_LAW. THE_MESH_IS_TRUTH. // 50V3R31GN-M4CH1N4**
+MIT

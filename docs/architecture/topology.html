@@ -52,7 +52,7 @@
                     <tr>
                         <td>Node A</td><td>Synapse</td><td>(NixOS host)</td>
                         <td>NVIDIA GTX 1050 Ti 4GB</td><td>16GB</td>
-                        <td>NixOS 24.11</td><td><code>100.90.196.70</code></td>
+                        <td>NixOS 24.11</td><td><code>100.96.253.114</code></td>
                     </tr>
                     <tr>
                         <td>Node B</td><td>Director</td><td>AMD Ryzen 9 5900XT (32 threads)</td>
@@ -77,17 +77,17 @@
             <p>No model inference. Dedicated to KV-cache spillover via TurboQuant and persistent state storage via hermes-lcm. The GTX 1050 Ti is too constrained for meaningful LLM work but can buffer quantized KV tensors.</p>
 
             <h3>Node B — Director (Primary Workspace)</h3>
-            <p>Fast responder and workspace authority. Runs Qwen 3 14B on the AMD GPU via Vulkan backend (ik_llama.cpp). Also hosts Qwen3-VL-2B for vision triage. Node B is the primary development interface, running under WSL2 on Windows.</p>
+            <p>Fast responder and workspace authority. Runs Hermes-4-14B Q4_K_M on the AMD RX 9060 XT (16GB) via Vulkan backend (ik_llama.cpp). Benchmarked at 93.2/33.7 t/s. Node B is the primary development interface, running under WSL2 on Windows.</p>
 
             <h3>Node C — Oracle (Perception)</h3>
-            <p>Perception and function-calling node. The RTX 2060 has 6GB VRAM — suited for 9B-class models at Q4 quantization. Planned to run Carnice-9B-Function-Calling for tool use and Qwen3-VL-2B for vision backup.</p>
+            <p>Function-calling specialist. RTX 2060 6GB VRAM running Carnice-9B-Function-Calling i1-Q4_K_M via CUDA (sm_75). Benchmarked at 205.2/49.9 t/s. External SSD (SOVEREIGN_SOUL, 469GB) mounted at /mnt/sovereign-soul.</p>
 
             <h3>Node D — Quaternary (Heavy Reasoning)</h3>
             <p>CPU-only inference on Meteor Lake with 48GB DDR5. Runs Carnice-Qwen3.6-MoE-35B-A3B (Q4_K_M, 20GB) at ~6.1 tok/s generation. The MoE architecture means only ~3B active parameters per forward pass, making CPU inference viable despite the 35B total. Planned dual-model stack with a 7B interactive model on a separate port.</p>
         </main>
 
         <footer>
-            <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
         </footer>
     </div>
 </body>

@@ -4,21 +4,20 @@ Docker Compose configurations for the Sovereign Mesh heterogeneous GPU cluster.
 
 | File | Target Node(s) | Runtime | GPU Vendor |
 |------|----------------|---------|------------|
-| `nvidia.yml` | Node A, Node C | llama.cpp (CUDA) | NVIDIA |
-| `amd.yml` | Node B (WSL2) | llama.cpp (ROCm/HIP) | AMD |
-| `intel.yml` | Node D | llama.cpp (Intel SYCL) | Intel NPU |
+| `nvidia.yml` | Node C | ik_llama.cpp (CUDA sm_75) | NVIDIA |
+| `amd.yml` | Node B (WSL2) | ik_llama.cpp (Vulkan) | AMD |
+| `intel.yml` | Node D | ik_llama.cpp (AVX2 CPU) | Intel |
 
-## Deployment
+**Note:** Node A (Synapse) runs no inference. It handles KV-cache spillover and state persistence only.
 
-Each node pulls its compose file and starts containers via systemd-managed docker compose:
+**Note:** ik_llama.cpp is built manually per-node, NOT via Docker. These compose files are retained for future containerized services only. Current inference runs as native processes.
 
-```bash
-# On target node:
-docker compose -f /etc/mesh/compose.yml up -d
-```
+## Current Deployment
 
-Container management is handled by the `mesh-runtime` NixOS module (`nix/modules/mesh-runtime.nix`).
+Inference endpoints are native ik_llama.cpp processes managed outside Docker:
 
-## Model Format
+- **Node B:** `llama-server.exe` on Windows, port 8081 (Vulkan)
+- **Node C:** `ik_llama.cpp` CUDA build, port 8081
+- **Node D:** `ik_llama.cpp` AVX2 build, CPU-only
 
-All runtimes use **GGUF** model files, mounted read-only from `/var/lib/hermes/models/`. The compose files reference node-specific model files matching the hardware constraints.
+LiteLLM mesh router runs in Docker on Node B (port 4000) routing to these endpoints via Tailscale.

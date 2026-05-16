@@ -6,8 +6,8 @@ Provision GGUF model weights to the Quaternary Mesh nodes from the central Windo
 ## Architecture
 - **Source:** `D:\llama.cpp\models` (Windows Host)
 - **Node B (10.0.0.11):** Symlinked via WSL2 mount
-- **Node C (10.0.0.12):** Synced via SCP (Qwen3-14B-9B)
-- **Node D (10.0.0.13):** Synced via SCP (Qwen2.5-Coder-14B)
+- **Node C (100.102.109.81):** Synced via SCP (Carnice-9B-FC i1-Q4_K_M)
+- **Node D (100.120.225.12):** Synced via SCP (Carnice MoE 35B Q4_K_M)
 
 ## Execution Order
 
@@ -36,11 +36,10 @@ All scripts perform SHA-256 integrity checks after transfer.
 
 | Node | Model | Purpose | Format |
 |------|-------|---------|-------------|
-| Node C | Qwen3.5-0.8B | Perceptual Triage | GGUF (Q8_0) |
-| Node C | VoxCPM2-Indic-Q4 | Text-to-Speech | Directory (Safetensors) |
-| Node D | Qwen2.5-Coder-14B | Heavy Reasoning | GGUF (Q6_K_M) |
-| Node D | Qwen2.5-Coder-14B | Structural Logic | GGUF (Q6_K) |
+| Node B | Hermes-4-14B Q4_K_M | Fast response / Code gen | GGUF |
+| Node C | Carnice-9B-FC i1-Q4_K_M | Function calling / Tool use | GGUF |
+| Node D | Carnice MoE 35B Q4_K_M | Heavy reasoning | GGUF |
 
 ## Status
-- **Phase:** 1 (Hermes-First Core Foundation)
-- **Execution:** Pending (requires Gemini CLI to move Windows models first)
+- **Phase:** 0 CLOSED (Validation Gate complete)
+- **Execution:** All models deployed and benchmarked

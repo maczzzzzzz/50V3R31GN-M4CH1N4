@@ -166,6 +166,7 @@
             shellHook = ''
               export NPM_CONFIG_PREFIX=$PWD/.npm-global
               export PATH=$NPM_CONFIG_PREFIX/bin:$PATH
+              export PATH=$HOME/.local/bin:$PATH
 
               if ! command -v droid &> /dev/null; then
                   echo ":: Downloading and installing Droid CLI to Nix environment..."     

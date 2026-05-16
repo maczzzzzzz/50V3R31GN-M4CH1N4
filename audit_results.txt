@@ -1,0 +1,927 @@
+FILE: CHANGELOG.md
+- Line 11 [MODERATE]: Stale version v3.8.0-ALPHA (should be v0.1.0-alpha)
+  Text: - **IMPLEMENTATION_PLAN.md updated to v3.8.0-ALPHA:** Phase 0 gate marked CLOSED. All 7 validation tasks verified wit...
+- Line 47 [CRITICAL]: Benchmark 108.7 t/s does not match current actuals
+  Text: - mesh-function-calling (Node C): Live, 108.7 t/s prompt, 56.6 t/s gen
+- Line 47 [CRITICAL]: Benchmark 56.6 t/s does not match current actuals
+  Text: - mesh-function-calling (Node C): Live, 108.7 t/s prompt, 56.6 t/s gen
+- Line 48 [CRITICAL]: Benchmark 8.2 t/s does not match current actuals
+  Text: - mesh-heavy (Node D): Live, 8.2 t/s prompt, 7.2 t/s gen (MoE 35B expected)
+- Line 48 [CRITICAL]: Benchmark 7.2 t/s does not match current actuals
+  Text: - mesh-heavy (Node D): Live, 8.2 t/s prompt, 7.2 t/s gen (MoE 35B expected)
+- Line 87 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: - `mesh-function-calling`: Node C (Carnice-9B-FC Q4_K_M, Qwen3.5 hybrid SSM+attn)
+- Line 139 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Remove `sovereign_vsb` provider directory from `sidecars/hermes-agent-nous/plugins/model_providers/`
+- Line 168 [MODERATE]: Stale version v2.0.0 (should be v0.1.0-alpha)
+  Text: and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+- Line 175 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: - **Node B (Director):** Configured with `Qwen3-14B-9B (Q8_0)` for instant TUI response and local tool execution.
+- Line 249 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - **P1 — Directors-forge Tool Name Path Traversal**: Added `validate_tool_name()` rejecting `/`, `\`, `..`, null byte...
+- Line 254 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - **P1 — Predictable Temp Files**: Replaced hardcoded `/tmp/sniffer_output.json` and `/tmp/openapi_spec.json` in `dir...
+
+FILE: GEMINI.md
+- Line 42 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: - **Architecture Validation:** Verify that proposed changes respect hardware constraints (Node A: 4GB, Node B: 16GB V...
+- Line 73 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: 7. **Respect the hardware.** Node A (4GB), Node B (16GB VRAM), Node C (6GB VRAM), Node D (48GB RAM). Any proposal tha...
+
+FILE: IMPLEMENTATION_PLAN.md
+- Line 1 [MODERATE]: Stale version v3.8.0-ALPHA (should be v0.1.0-alpha)
+  Text: # IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v3.8.0-ALPHA)
+- Line 27 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: - [ ] **P1-T1: Vision-Enabled UI Automation.** Deploy Qwen3-VL-2B on Node B via LiteLLM `mesh-vision` route. Calibrat...
+- Line 38 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: - [ ] **P2-T2: Hermes Model Routing Rules.** Configure LiteLLM to route: simple queries -> `mesh-fc` (Node C, 9B FC),...
+- Line 38 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: - [ ] **P2-T2: Hermes Model Routing Rules.** Configure LiteLLM to route: simple queries -> `mesh-fc` (Node C, 9B FC),...
+- Line 39 [CRITICAL]: Node A should not have inference mentioned (Cache/state only)
+  Text: - [ ] **P2-T3: Context Spillover (Node A).** Configure Node A as KV-cache offload target via TurboQuant. If ik_llama....
+- Line 71 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: | mesh-vision | Qwen3-VL-2B | Node B/C | sub-second target | Screen triage, visual QA |
+
+FILE: SESSION_HANDOFF.md
+- Line 1 [MODERATE]: Stale version v3.8.0-ALPHA (should be v0.1.0-alpha)
+  Text: # SESSION HANDOFF (v3.8.0-ALPHA)
+- Line 5 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: **Commits Pushed:** 3 (12029c881, 36d1f64ce, pending directors-forge commit)
+- Line 21 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: - **beellama.cpp VERDICT: SKIP** -- CUDA-only (kills Node B Vulkan), 6GB Node C can't hold ring buffer, invasive fork...
+- Line 21 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: - **beellama.cpp VERDICT: SKIP** -- CUDA-only (kills Node B Vulkan), 6GB Node C can't hold ring buffer, invasive fork...
+- Line 30 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - Module file `nix/modules/directors-forge.nix` kept for reference
+- Line 76 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: - Node A (100.90.196.70) and Node B Tailscale SSH may need re-auth for cross-node access
+- Line 114 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: Task: directors-forge
+- Line 149 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: Node A (100.90.196.70) has the same daemon 1.80.3 problem. Requires sudo with password -- I
+
+FILE: SOUL.md
+- Line 23 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: 4. **Hardware Sovereignty.** Node A has 4GB. Node B has 16GB VRAM. Node C has 6GB VRAM. Node D has 48GB RAM. These ar...
+
+FILE: SOVEREIGN_VITAL_SIGNS.md
+- Line 1 [MODERATE]: Stale version v3.8.0-ALPHA (should be v0.1.0-alpha)
+  Text: # SOVEREIGN VITAL SIGNS (v3.8.0-ALPHA)
+- Line 13 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: | **Node A** | Synapse | `100.90.196.70` | GTX 1050 Ti / 4GB VRAM / 16GB RAM | KV-cache spillover / State persistence...
+
+FILE: docs/architecture/model-strategy.html
+- Line 116 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/architecture/network.html
+- Line 32 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <tr><td>Node A</td><td><code>100.90.196.70</code></td><td><code>10.0.0.10</code></td><td>SSH, hermes-lcm sync</td></tr>
+- Line 72 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/architecture/security.html
+- Line 85 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/architecture/topology.html
+- Line 55 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <td>NixOS 24.11</td><td><code>100.90.196.70</code></td>
+- Line 80 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: <p>Fast responder and workspace authority. Runs Qwen 3 14B on the AMD GPU via Vulkan backend (ik_llama.cpp). Also hos...
+- Line 90 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/benchmarks/V0-FULL-MESH-benchmark.md
+- Line 4 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: **Branch:** stable/mesh-alpha v3.7.0-ALPHA
+- Line 16 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: | A | Synapse | i7 (8th gen) 4C/8T | 16GB DDR4 | GTX 1050 Ti 4GB | 100.90.196.70 | YES |
+- Line 44 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: ### Node D (Quaternary) -- CPU-only Simulation (14 threads, 5900XT)
+- Line 50 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: Note: Simulated on Node B's 5900XT CPU. Node D's Ultra 5 125U is slower (mobile chip, lower sustained clocks). Expect...
+- Line 61 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: On the RX 9060 XT, q4_0 KV cache drops generation from 26 tok/s to 16 tok/s (-39%) and prompt processing from 693 to ...
+- Line 61 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: On the RX 9060 XT, q4_0 KV cache drops generation from 26 tok/s to 16 tok/s (-39%) and prompt processing from 693 to ...
+- Line 70 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: Carnice-V2-27B is a Qwen3.6-27B fine-tune for Hermes agentic traces. IFEval improved from 85% to 90% over base. At Q4...
+- Line 73 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: RTX 2060 with no NVIDIA driver = wasted silicon. This is the highest-priority infrastructure fix. An RTX 2060 with 6G...
+- Line 73 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: RTX 2060 with no NVIDIA driver = wasted silicon. This is the highest-priority infrastructure fix. An RTX 2060 with 6G...
+- Line 97 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: 4. **NEXT:** Download Carnice-9B Q6_K to Node B (upgrade from Q8_0 for more KV headroom)
+
+FILE: docs/benchmarks/V0-NODE-B-benchmark.md
+- Line 78 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: **VERDICT: Model spills to system RAM (20.6 GiB > 16 GiB VRAM). 16 tok/s is usable but degraded. This model belongs o...
+- Line 84 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: 1. **TurboQuant (q4_0 KV) is COUNTERPRODUCTIVE on Vulkan.** The dequant kernels are not optimized for RDNA 3.5. Use f...
+- Line 84 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: 1. **TurboQuant (q4_0 KV) is COUNTERPRODUCTIVE on Vulkan.** The dequant kernels are not optimized for RDNA 3.5. Use f...
+
+FILE: docs/crates/directors-forge.html
+- Line 6 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <title>directors-forge — Sovereign Machina Crates</title>
+- Line 11 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h1>directors-forge</h1>
+- Line 27 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <pre>crates/modules/directors-forge/
+- Line 91 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <tr><th>Source</th><td><code>crates/modules/directors-forge/</code></td></tr>
+- Line 96 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <p>Sovereign Machina v3.7.0-ALPHA — directors-forge</p>
+- Line 96 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA — directors-forge</p>
+
+FILE: docs/crates/index.html
+- Line 31 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <td><strong>directors-forge</strong></td>
+- Line 66 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: nix build .#directors-forge
+- Line 85 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/crates/mirage-vfs.html
+- Line 102 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <tr><td>MIRAGE_REDIS_HOST</td><td>100.90.196.70</td><td>Redis backend (Node A)</td></tr>
+- Line 104 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <tr><td>MIRAGE_S3_ENDPOINT</td><td>http://100.90.196.70:9000</td><td>S3 endpoint</td></tr>
+- Line 134 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA — mirage-vfs</p>
+
+FILE: docs/crates/pretext-core.html
+- Line 114 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA — pretext-core</p>
+
+FILE: docs/crates/vibevoice-asr.html
+- Line 144 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA — vibevoice-asr</p>
+
+FILE: docs/crates/zeroboot-isolation.html
+- Line 113 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA — zeroboot-isolation</p>
+
+FILE: docs/index.html
+- Line 13 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>v3.7.0-ALPHA &middot; Phase 0: Validation Gate &middot; <span class="badge badge-active">Active</span></p>
+- Line 34 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <tr><td><a href="crates/index.html">Crates</a></td><td>Validated Rust/Python modules: directors-forge, mirage-vfs, pr...
+- Line 46 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <tr><td>Node A</td><td>Synapse</td><td><code>100.90.196.70</code></td><td>GTX 1050 Ti 4GB</td><td>State persistence, ...
+- Line 55 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/nodes/node-a.html
+- Line 35 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <tr><td>Tailscale IP</td><td><code>100.90.196.70</code></td></tr>
+- Line 65 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/nodes/node-b.html
+- Line 69 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/nodes/node-c.html
+- Line 77 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/nodes/node-d.html
+- Line 85 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/operations/MCP-TOOL-REFERENCE.md
+- Line 19 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: agentic_impact "If I change directors-forge API, what's the impact?"
+- Line 60 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: read_file path="crates/modules/directors-forge/src/main.rs"
+
+FILE: docs/operations/ignition.html
+- Line 63 [CRITICAL]: Flake-based NixOS deployment mentioned as live
+  Text: sudo nixos-rebuild switch --flake .#node-c</code></pre>
+- Line 80 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/operations/vitals.html
+- Line 70 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: <tr><td>Node B</td><td>Qwen3-14B</td><td>Q6_K</td><td>Vulkan, FA on</td><td>—</td><td>26 tok/s</td><td>f16 KV</td></tr>
+- Line 71 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: <tr><td>Node B</td><td>Qwen3.5-0.8B</td><td>Q8_K</td><td>Vulkan</td><td>—</td><td>175 tok/s</td><td>f16 KV</td></tr>
+- Line 72 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: <tr><td>Node B</td><td>Carnice-9B</td><td>Q8_0</td><td>Vulkan</td><td>—</td><td>33.5 tok/s</td><td>f16 KV</td></tr>
+- Line 91 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/operations/workflows.html
+- Line 48 [CRITICAL]: Flake-based NixOS deployment mentioned as live
+  Text: sudo nixos-rebuild switch --flake .#node-d</code></pre>
+- Line 71 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <pre><code>for node in 100.90.196.70 100.66.173.31 100.102.109.81 100.120.225.12; do
+- Line 78 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/planning/KANBAN_MAP.md
+- Line 1 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: # Kanban Board Map: IMPLEMENTATION_PLAN.md v3.7.0-ALPHA
+- Line 74 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: | directors-forge | KEPT | Needs tests |
+
+FILE: docs/planning/archive/audits/2026-05-10-full-codebase-audit.md
+- Line 28 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: 2. **Command Injection in 3 Rust Crates** — `goose-execution`, `matlab-mcp-bridge`, `directors-forge` pass unsanitize...
+- Line 72 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - **Files:** `deploy-phase2.sh`, `deploy-mirage.sh`, `deploy-n8n.sh`, `deploy-phase3-hermes-lcm.sh`, `directors-forge...
+- Line 84 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - **Files:** `mirage-vfs/src/lib.rs`, `vibevoice-asr/src/main.rs`, `directors-forge/src/main.rs`
+- Line 160 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - **File:** `sidecars/.../sovereign_vsb/vsb_router.py:~65`
+- Line 177 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: #### CQ-C5: Shell Injection in `directors-forge`
+- Line 178 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - **File:** `crates/modules/directors-forge/src/main.rs:~65`
+- Line 307 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - **File:** `sidecars/.../sovereign_vsb/vsb_router.py:~75`
+- Line 409 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - **File:** `sidecars/.../sovereign_vsb/__init__.py:~15`
+- Line 435 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - **File:** `sidecars/.../sovereign_vsb/vsb_router.py:~250-267`
+- Line 530 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: #### EF-M14: `directors-forge` Spawns Process Per Tool to Test
+- Line 531 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - **File:** `crates/modules/directors-forge/src/main.rs:~90-100`
+- Line 568 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - **File:** `sidecars/.../sovereign_vsb/__init__.py:~38-56`
+
+FILE: docs/planning/archive/audits/2026-05-11-mesh-audit.md
+- Line 7 [CRITICAL]: Benchmark 3.5 t/s does not match current actuals
+  Text: *   **Node B (Director):** Re-stabilized. Running inference on CPU fallback (~3.5 t/s). WSL2/AMD GPU bridge remains n...
+- Line 18 [CRITICAL]: Benchmark 0.4 t/s does not match current actuals
+  Text: *   **Why:** We are running 0.4 t/s reasoning on CPU, which is functionally useless for the Quaternary Core.
+
+FILE: docs/planning/archive/audits/nodestadt-full-audit-260510.html
+- Line 45 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: <td><code>sovereign_vsb/vsb_router.py</code></td>
+- Line 69 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <td><code>crates/modules/directors-forge/</code></td>
+- Line 104 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <li><strong>Appendage Specs:</strong> Materialize <code>directors-forge.html</code>, <code>goose-execution.html</code...
+
+FILE: docs/planning/archive/audits/phase-1-completion-summary.html
+- Line 176 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: <code>build(beta/v3): create node-specific IK Llama.cpp builds (Node B AVX2, Node D CUDA)</code></p>
+- Line 176 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: <code>build(beta/v3): create node-specific IK Llama.cpp builds (Node B AVX2, Node D CUDA)</code></p>
+- Line 202 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: Path | |——|———|——| | Node B | Qwen3-14B-9B-Q8, Qwen3-VL-2B |
+
+FILE: docs/planning/archive/audits/phase-3-blueprint.html
+- Line 31 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <li><strong>Mesh Artery:</strong> All data persistence for LCM must terminate on Node A (100.90.196.70).</li>
+
+FILE: docs/planning/archive/audits/phase1-2-tailscale-audit.html
+- Line 67 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: (AVX2) and Node D (CUDA) were locked to the stable <code>t0002</code>
+
+FILE: docs/planning/archive/audits/phase1-phase2-complete-summary.html
+- Line 132 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h4 id="task-7-directors-forge-tool-factory">Task 7: Director’s Forge
+- Line 136 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <code>crates/modules/directors-forge/</code></p>
+
+FILE: docs/planning/archive/audits/phase2-batch2-isolation-vsb.html
+- Line 156 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: Node B | 10.0.0.11 | 9119 | brain-9b, qwen3-vl | | Node C | 10.0.0.12
+- Line 156 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: Node B | 10.0.0.11 | 9119 | brain-9b, qwen3-vl | | Node C | 10.0.0.12
+
+FILE: docs/planning/archive/audits/phase2-batch4-hooks-forge-consensus.html
+- Line 109 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h3 id="task-7-directors-forge">Task 7: Director’s Forge</h3>
+- Line 149 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <td><code>crates/modules/directors-forge/src/main.rs</code></td>
+- Line 172 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h3 id="directors-forge">Director’s Forge</h3>
+- Line 207 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h3 id="directors-forge-1">Director’s Forge</h3>
+- Line 209 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <li>Add to Nix flake: <code>crates/modules/directors-forge/</code></li>
+- Line 210 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <li>Build binary: <code>nix build .#directors-forge</code></li>
+
+FILE: docs/planning/archive/audits/phase2-deployment-guide.html
+- Line 110 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <code>crates/modules/directors-forge/Cargo.toml</code> -
+- Line 116 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <code>nix/modules/directors-forge.nix</code> - Director’s Forge tool
+
+FILE: docs/planning/archive/audits/phase2-final-summary.html
+- Line 269 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h4 id="task-7-directors-forge">Task 7: Director’s Forge</h4>
+- Line 271 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <code>crates/modules/directors-forge/src/main.rs</code> (220 lines,
+- Line 350 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <li><code>nix/modules/directors-forge.nix</code> (placeholder
+
+FILE: docs/planning/archive/audits/phase2-manual-deployment.html
+- Line 197 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nix</span> build .#directors-...
+- Line 203 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> result/bin/director...
+- Line 353 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h3 id="verify-directors-forge-node-b">Verify Director’s Forge (Node
+
+FILE: docs/planning/archive/audits/phase3-implementation-audit-2026-05-10.html
+- Line 352 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <div class="finding-title">Missing JSON validation in directors-forge.sh</div>
+- Line 354 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <div class="file-reference">File: scripts/directors-forge.sh | Lines: 84-91</div>
+
+FILE: docs/planning/archive/audits/stabilization-v3.html
+- Line 30 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: <li><strong>VSB Routing:</strong> Materialized the <code>sovereign_vsb</code> model provider. Implemented <code>reaso...
+
+FILE: docs/planning/archive/audits/system-fault-audit-260510.html
+- Line 62 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: $ nix build .#pretext-core .#directors-forge
+
+FILE: docs/planning/archive/plans/2026-05-10-full-codebase-remediation.md
+- Line 36 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py # Secret removal, pulse fix
+- Line 39 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: crates/modules/directors-forge/src/main.rs                                      # Command injection guard
+- Line 160 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py:~69`
+- Line 169 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: from plugins.model_providers.sovereign_vsb.vsb_router import VSBRouter, Node
+- Line 197 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: In `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`, change the `__init__` method:
+- Line 222 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+- Line 231 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py:~235-267`
+- Line 241 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: from plugins.model_providers.sovereign_vsb.vsb_router import VSBRouter, Node
+- Line 275 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: In `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`, replace `start_pulse_sync` and `...
+- Line 316 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+- Line 534 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - Modify: `crates/modules/directors-forge/src/main.rs:~62-68`
+- Line 540 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: In `crates/modules/directors-forge/src/main.rs`, update `ingest_tool`:
+- Line 634 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: Run: `cd crates/modules/directors-forge && cargo build`
+- Line 640 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: git add crates/modules/directors-forge/src/main.rs
+- Line 641 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: git commit -m "fix(directors-forge): shell-escape wrapper scripts, avoid process spawn in compile"
+- Line 1456 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: directors-forge = buildSovereignCrate "directors-forge";
+
+FILE: docs/planning/archive/plans/2026-05-10-vsb-router-blocker-remediation.md
+- Line 117 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py`
+- Line 122 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: In `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py`, change the `sovereign_vsb` profile...
+- Line 125 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: sovereign_vsb = SovereignVSBProfile(
+- Line 169 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py sidecars/hermes-agent-nous/cli-c...
+- Line 178 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`
+- Line 179 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py`
+- Line 183 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: In `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`, modify `VSBRouter.__init__`:
+- Line 203 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: In `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py`, wrap router init:
+- Line 259 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py sidecars/hermes-agent-nous/plu...
+- Line 350 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: "node-a:100.90.196.70:8000"
+- Line 437 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py`
+- Line 486 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py
+- Line 539 [CRITICAL]: Flake-based NixOS deployment mentioned as live
+  Text: 3. **Rebuild Node D:** `sudo nixos-rebuild switch --flake .#node-d`
+
+FILE: docs/planning/archive/plans/2026-05-10-vsb-router-remediation.md
+- Line 20 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`
+- Line 29 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: from plugins.model_providers.sovereign_vsb.vsb_router import VSBPulse, Node
+- Line 55 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: # In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+- Line 86 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+- Line 95 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`
+- Line 96 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py`
+- Line 101 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: # In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+- Line 125 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: # In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py
+- Line 140 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/
+- Line 149 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: - Modify: `sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py`
+- Line 154 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: # In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+- Line 170 [CRITICAL]: Deprecated service 'sovereign_vsb' mentioned
+  Text: git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+
+FILE: docs/planning/archive/plans/2026-05-11-hardware-acceleration-pivot.md
+- Line 5 [CRITICAL]: Node B hardware mismatch (Should be Ryzen 9 5900XT, RX 9060 XT 16GB VRAM, 48GB DDR4)
+  Text: **Goal:** Materialize OpenVINO acceleration on Node D (Intel Meteor Lake) and bridge Windows-hosted inference on Node...
+
+FILE: docs/planning/archive/plans/2026-05-11-hierarchy-of-responsiveness-implementation.md
+- Line 5 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: **Goal:** Materialize a high-performance, two-tier model mesh by routing all default traffic to Node B (Qwen3-14B-9B)...
+- Line 8 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: 1. **Model Distribution:** Deploy Qwen3-14B-9B on Node B and Qwen2.5-Coder-14B on Node D.
+
+FILE: docs/planning/archive/plans/2026-05-11-hybrid-mesh-implementation.md
+- Line 77 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: litellm_params: { model_list: http://100.90.196.70:8000 } # Node A
+
+FILE: docs/planning/archive/plans/IMPLEMENTATION_PLAN.md
+- Line 31 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: *   [x] Implement `ik_llama.cpp` as a Nix derivation for Node B/C/D (node-specific AVX2/CUDA builds).
+
+FILE: docs/planning/archive/plans/beta-v3-phase1-hermes-core.html
+- Line 204 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: <li>Sync Qwen3-14B-9B weights to Node C via SCP.</li>
+
+FILE: docs/planning/archive/plans/beta-v3-phase2-sovereign-layer.html
+- Line 199 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h3 id="task-7-the-directors-forge-printing-press">Task 7: The
+
+FILE: docs/planning/archive/plans/beta-v3-phase3-memory-visualization.html
+- Line 51 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: (100.90.196.70)</strong>.</p>
+- Line 149 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: (100.90.196.70) with encrypted rsync-sync to Node B/D.</li>
+- Line 236 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <li>Verification: Monitor 100.90.196.70 round-trip time during peak
+
+FILE: docs/planning/archive/research/goose_260507_175318.html
+- Line 44 [MODERATE]: Stale version v1.33.1 (should be v0.1.0-alpha)
+  Text: releases (latest v1.33.1 on Apr 29, 2026), 473 contributors. Recent
+
+FILE: docs/planning/archive/research/hermes-core-v0.13.0-uplift.html
+- Line 6 [MODERATE]: Stale version v0.13.0 (should be v0.1.0-alpha)
+  Text: <title>Hermes Core Uplift: v0.13.0 Tenacity Release</title>
+
+FILE: docs/planning/archive/research/hermeslcm_260507_175628.html
+- Line 100 [MODERATE]: Stale version v0.9.1 (should be v0.1.0-alpha)
+  Text: <strong>Status</strong>: Actively maintained (latest release v0.9.1 as
+
+FILE: docs/planning/archive/research/mesh-identity-rescue-operation-260509.html
+- Line 55 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <td><code>100.90.196.70</code></td>
+
+FILE: docs/planning/archive/research/mirage_260507_175358.html
+- Line 108 [MODERATE]: Stale version v0.0.1-alpha (should be v0.1.0-alpha)
+  Text: hours ago (v0.0.1-alpha.1), 4 commits total, 1 contributor
+
+FILE: docs/planning/archive/research/open-design-integration-260509.html
+- Line 62 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: <td>Node A (100.90.196.70)</td>
+
+FILE: docs/planning/archive/research/sovereign-hive-mind-bridge.html
+- Line 76 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <code>directors-forge</code> or the model-routing of the
+
+FILE: docs/planning/archive/research/stagehand-audit-260507.html
+- Line 50 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <h3 id="the-sovereign-sniffer-directors-forge">◈ The “Sovereign Sniffer”
+
+FILE: docs/planning/archive/research/turboquant-research-2026-05-11.html
+- Line 29 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: <li><strong>Node D:</strong> 48 GB DDR5 DRAM + Intel NPU (no discrete VRAM specified)</li>
+- Line 32 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: <p><strong>Direct Answer for TurboQuant on This Mesh:</strong> YES — dramatically better performance than previously ...
+- Line 34 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: <strong>RADICAL CANDOR:</strong> Previous audit understated Node B’s capability. With 16 GB VRAM this is no longer a ...
+- Line 90 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: <li><strong>Today:</strong> Update root flake with TurboQuant-enabled llama.cpp (NPU path for Node D) and vLLM (CUDA ...
+- Line 90 [CRITICAL]: Node D model/inference mismatch (Should be Carnice-Qwen3.6 CPU AVX2)
+  Text: <li><strong>Today:</strong> Update root flake with TurboQuant-enabled llama.cpp (NPU path for Node D) and vLLM (CUDA ...
+
+FILE: docs/planning/archive/specs/2026-05-11-hierarchy-of-responsiveness-design.md
+- Line 41 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: 1.  **Direct Interaction:** User sends query → Node B (Proxy) → Qwen3-14B-9B.
+- Line 42 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: 2.  **Strategic Shift:** User triggers reasoning mode (e.g., `/reason` or strategist persona) → Node B (Proxy) → Node...
+- Line 50 [CRITICAL]: Node D hardware mismatch (Should be Meteor Lake, 48GB DDR5, NPU excluded)
+  Text: *   **Node D (24GB+ VRAM):** The 14B (Q6) model provides the best "Intelligence-per-Watt" ratio. The massive 13GB cac...
+
+FILE: docs/planning/archive/specs/2026-05-11-hybrid-mesh-design.md
+- Line 21 [CRITICAL]: Node B model/inference mismatch (Should be Hermes-4-14B via Vulkan)
+  Text: | **Node B** | AMD Radeon | `vllm-rocm` | **Director & Reflexive Brain (Qwen3-14B-9B)** |
+
+FILE: docs/planning/archive/specs/node-sterilization-protocol.html
+- Line 163 [CRITICAL]: Flake-based NixOS deployment mentioned as live
+  Text: We will use <code>nixos-rebuild switch --flake .#node-[x]</code> to push
+
+FILE: docs/planning/plans/PHASE3-MEMORY-ARCHITECTURE.md
+- Line 101 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: - `crates/modules/directors-forge`
+
+FILE: docs/reference/repository-map.html
+- Line 38 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: │       ├── directors-forge/   # Tool discovery and API wrapper generation
+- Line 75 [CRITICAL]: 'directors-forge' mentioned but not marked EUTHANIZED
+  Text: <tr><td>directors-forge</td><td>Rust</td><td>Tool discovery and API wrapper generation</td><td><span class="badge bad...
+- Line 96 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: docs/reference/toolbelt.html
+- Line 75 [MODERATE]: Stale version v3.7.0-ALPHA (should be v0.1.0-alpha)
+  Text: <p>Sovereign Machina v3.7.0-ALPHA // 50V3R31GN-M4CH1N4</p>
+
+FILE: result/sw/share/doc/git/git-archive.html
+- Line 1076 [MODERATE]: Stale version v1.4.0 (should be v0.1.0-alpha)
+  Text: Create a compressed tarball for v1.4.0 release.
+- Line 1100 [MODERATE]: Stale version v1.4.0 (should be v0.1.0-alpha)
+  Text: Create a compressed tarball for v1.4.0 release, but without a
+
+FILE: result/sw/share/doc/git/git-bisect.html
+- Line 794 [MODERATE]: Stale version v2.6.13-rc2 (should be v0.1.0-alpha)
+  Text: feature that was known to work in version <code>v2.6.13-rc2</code> of your
+
+FILE: result/sw/share/doc/git/git-config.html
+- Line 1912 [MODERATE]: Stale version v2.13.0 (should be v0.1.0-alpha)
+  Text: v2.13.0, which only matched the realpath version. Configuration that
+- Line 4570 [MODERATE]: Stale version v2.45.0 (should be v0.1.0-alpha)
+  Text: <code>commentChar</code>. Versions of Git prior to v2.45.0 will ignore
+- Line 12151 [MODERATE]: Stale version v2.2.1 (should be v0.1.0-alpha)
+  Text: or a malicious <code>.gitmodules</code> file (see the release notes for v2.2.1
+
+FILE: result/sw/share/doc/git/git-log.html
+- Line 5245 [MODERATE]: Stale version v2.6.12 (should be v0.1.0-alpha)
+  Text: Show all commits since version <em>v2.6.12</em> that changed any file
+
+FILE: result/sw/share/doc/git/git-whatchanged.html
+- Line 778 [MODERATE]: Stale version v2.6.12 (should be v0.1.0-alpha)
+  Text: Show as patches the commits since version <em>v2.6.12</em> that changed
+
+FILE: result/sw/share/doc/git/gitk.html
+- Line 1007 [MODERATE]: Stale version v2.6.12 (should be v0.1.0-alpha)
+  Text: Show the changes since version <em>v2.6.12</em> that changed any
+
+FILE: result/sw/share/doc/git/howto/maintain-git.html
+- Line 933 [MODERATE]: Stale version v1.9.0 (should be v0.1.0-alpha)
+  Text: <div class="paragraph"><p>Note that before v1.9.0 release, the version numbers used to be
+
+FILE: result/sw/share/doc/git/howto/using-signed-tag-in-pull-request.html
+- Line 769 [MODERATE]: Stale version v1.7.9 (should be v0.1.0-alpha)
+  Text: <div class="paragraph"><p>Starting from Git release v1.7.9, a contributor can add a signed tag to
+
+FILE: result/sw/share/doc/git/user-manual.html
+- Line 1399 [MODERATE]: Stale version v1.4.6 (should be v0.1.0-alpha)
+  Text: Version: GnuPG v1.4.6 (GNU/Linux)
+- Line 2834 [MODERATE]: Stale version v2.6.15 (should be v0.1.0-alpha)
+  Text: $ git diff v2.6.15..v2.6.16 # diff between two tagged versions
+- Line 2834 [MODERATE]: Stale version v2.6.16 (should be v0.1.0-alpha)
+  Text: $ git diff v2.6.15..v2.6.16 # diff between two tagged versions
+- Line 2838 [MODERATE]: Stale version v2.6.15 (should be v0.1.0-alpha)
+  Text: $ git show v2.6.15:a.txt    # look at old version of a.txt</pre><p>Search for regressions:</p><pre class="screen">$ g...
+
+FILE: result/sw/share/doc/nixos/index.html
+- Line 2371 [MODERATE]: Stale version v0.8.0 (should be v0.1.0-alpha)
+  Text: major-releases should be added in a new attribute (e.g. Garage <code class="literal">v0.8.0</code>
+- Line 2746 [MODERATE]: Stale version v19.0.0 (should be v0.1.0-alpha)
+  Text: major-releases should be added in a new attribute (e.g. Nextcloud <code class="literal">v19.0.0</code>
+- Line 4805 [MODERATE]: Stale version v3.0.0 (should be v0.1.0-alpha)
+  Text: open source todo list application.</p><p><a class="link" href="https://github.com/GothenburgBitFactory/taskwarrior/re...
+- Line 4810 [MODERATE]: Stale version v2.6.2 (should be v0.1.0-alpha)
+  Text: was added to Nixpkgs. Many people still want to use the old <a class="link" href="https://github.com/GothenburgBitFac...
+
+FILE: result/sw/share/doc/nixos/options.html
+- Line 480109 [MODERATE]: Stale version v2.0.0 (should be v0.1.0-alpha)
+  Text: <p>Name of the voice model to use.</p><p>Check the <a class="link" href="https://github.com/rhasspy/wyoming-faster-wh...
+- Line 503368 [CRITICAL]: Flake-based NixOS deployment mentioned as live
+  Text: <p>Any additional flags passed to <span class="command"><strong>nixos-rebuild</strong></span>.</p><p>If you are using...
+
+FILE: result/sw/share/doc/nixos/release-notes.html
+- Line 44 [MODERATE]: Stale version v0.31.1 (should be v0.1.0-alpha)
+  Text: This release also deprecates some configuration keys which are likely to be removed in version 5.0.0.</p></li><li cla...
+- Line 82 [MODERATE]: Stale version v0.23.0 (should be v0.1.0-alpha)
+  Text: the default <code class="literal">gcc</code> version.</p></li><li class="listitem"><p><code class="literal">percona-s...
+- Line 110 [MODERATE]: Stale version v4.0.0 (should be v0.1.0-alpha)
+  Text: of the <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v4.0.0"  target="_top">4.0 relea...
+- Line 111 [MODERATE]: Stale version v4.1.0 (should be v0.1.0-alpha)
+  Text: and the <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v4.1.0"  target="_top">4.1 rele...
+- Line 142 [MODERATE]: Stale version v0.14.0 (should be v0.1.0-alpha)
+  Text: If you need to disable certain libraries, you’re encouraged to add your own overlay to your configuration that target...
+- Line 196 [MODERATE]: Stale version v3.0.0 (should be v0.1.0-alpha)
+  Text: JavaFX for Java 8, which we do not support.</p></li><li class="listitem"><p>The <code class="literal">kvdo</code> ker...
+- Line 203 [MODERATE]: Stale version v0.53.2 (should be v0.1.0-alpha)
+  Text: See the <a class="link" href="https://github.com/google/zx/releases/tag/8.0.0"  target="_top">v8 changelog</a> for mo...
+- Line 203 [MODERATE]: Stale version v0.10.0 (should be v0.1.0-alpha)
+  Text: See the <a class="link" href="https://github.com/google/zx/releases/tag/8.0.0"  target="_top">v8 changelog</a> for mo...
+- Line 203 [MODERATE]: Stale version v0.10.0 (should be v0.1.0-alpha)
+  Text: See the <a class="link" href="https://github.com/google/zx/releases/tag/8.0.0"  target="_top">v8 changelog</a> for mo...
+- Line 206 [MODERATE]: Stale version v2.0.0 (should be v0.1.0-alpha)
+  Text: Then, follow the instructions on the <a class="link" href="https://github.com/majewsky/portunus/releases/tag/v2.0.0" ...
+- Line 212 [MODERATE]: Stale version v0.4.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://www.keycloak.org/docs/25.0.1/upgrading/#migrating-to-25-0-0"  target="_top">Upgradi...
+- Line 250 [MODERATE]: Stale version v0.9.0 (should be v0.1.0-alpha)
+  Text: non-free and not packaged.</p></li><li class="listitem"><p>Compatible string matching for <code class="literal">hardw...
+- Line 366 [MODERATE]: Stale version v1.109.2 (should be v0.1.0-alpha)
+  Text: This override was added almost 10 years ago.</p></li><li class="listitem"><p><code class="literal">craftos-pc</code> ...
+- Line 367 [MODERATE]: Stale version v2.7.0 (should be v0.1.0-alpha)
+  Text: Take the time to review <a class="link" href="https://gitlab.com/cryptsetup/cryptsetup/-/raw/v2.7.0/docs/v2.7.0-Relea...
+- Line 367 [MODERATE]: Stale version v2.7.0-ReleaseNotes (should be v0.1.0-alpha)
+  Text: Take the time to review <a class="link" href="https://gitlab.com/cryptsetup/cryptsetup/-/raw/v2.7.0/docs/v2.7.0-Relea...
+- Line 375 [MODERATE]: Stale version v0.51.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="http://www.bay12games.com/dwarves/"  target="_top">Bay 12 Games</a> for more details on wha...
+- Line 378 [MODERATE]: Stale version v0.16.4 (should be v0.1.0-alpha)
+  Text: specify plugins in Nix using <code class="literal">gauge.withPlugins (p: with p; [ js html-report xml-report ])</code...
+- Line 378 [MODERATE]: Stale version v0.16.0 (should be v0.1.0-alpha)
+  Text: specify plugins in Nix using <code class="literal">gauge.withPlugins (p: with p; [ js html-report xml-report ])</code...
+- Line 378 [MODERATE]: Stale version v0.16.0 (should be v0.1.0-alpha)
+  Text: specify plugins in Nix using <code class="literal">gauge.withPlugins (p: with p; [ js html-report xml-report ])</code...
+- Line 378 [MODERATE]: Stale version v1.14.3 (should be v0.1.0-alpha)
+  Text: specify plugins in Nix using <code class="literal">gauge.withPlugins (p: with p; [ js html-report xml-report ])</code...
+- Line 378 [MODERATE]: Stale version v1.14.0 (should be v0.1.0-alpha)
+  Text: specify plugins in Nix using <code class="literal">gauge.withPlugins (p: with p; [ js html-report xml-report ])</code...
+- Line 384 [MODERATE]: Stale version v1.14.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v3.0.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v1.13.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v1.0.0-beta (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v1.0.0-beta (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v0.7.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v0.7.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 384 [MODERATE]: Stale version v1.30.0 (should be v0.1.0-alpha)
+  Text: See <a class="link" href="https://github.com/ethereum/go-ethereum/releases/tag/v1.14.0"  target="_top">the 1.14.0 rel...
+- Line 385 [MODERATE]: Stale version v0.29.0 (should be v0.1.0-alpha)
+  Text: check out the changelog of <a class="link" href="https://github.com/derailed/k9s/releases/tag/v0.29.0"  target="_top"...
+- Line 386 [MODERATE]: Stale version v0.30.0 (should be v0.1.0-alpha)
+  Text: <a class="link" href="https://github.com/derailed/k9s/releases/tag/v0.30.0"  target="_top">v0.30</a> and
+- Line 387 [MODERATE]: Stale version v0.31.0 (should be v0.1.0-alpha)
+  Text: <a class="link" href="https://github.com/derailed/k9s/releases/tag/v0.31.0"  target="_top">v0.31</a> for details. It ...
+- Line 388 [MODERATE]: Stale version v1.6.1 (should be v0.1.0-alpha)
+  Text: to back up your current configuration and let k9s recreate the new base configuration.</p></li><li class="listitem"><...
+- Line 388 [MODERATE]: Stale version v1.5.0 (should be v0.1.0-alpha)
+  Text: to back up your current configuration and let k9s recreate the new base configuration.</p></li><li class="listitem"><...
+- Line 388 [MODERATE]: Stale version v1.5.0 (should be v0.1.0-alpha)
+  Text: to back up your current configuration and let k9s recreate the new base configuration.</p></li><li class="listitem"><...
+- Line 388 [MODERATE]: Stale version v1.6.0 (should be v0.1.0-alpha)
+  Text: to back up your current configuration and let k9s recreate the new base configuration.</p></li><li class="listitem"><...
+- Line 388 [MODERATE]: Stale version v1.6.0 (should be v0.1.0-alpha)
+  Text: to back up your current configuration and let k9s recreate the new base configuration.</p></li><li class="listitem"><...
+- Line 397 [MODERATE]: Stale version v3.7.0 (should be v0.1.0-alpha)
+  Text: changes <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v3.7.0"  target="_top">for
+- Line 436 [MODERATE]: Stale version v0.5.3 (should be v0.1.0-alpha)
+  Text: instead or a tool that is more suited for managing the data inside a postgresql database.</p></li><li class="listitem...
+- Line 436 [MODERATE]: Stale version v0.5.3 (should be v0.1.0-alpha)
+  Text: instead or a tool that is more suited for managing the data inside a postgresql database.</p></li><li class="listitem...
+- Line 455 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: This enables mandoc to find manual pages in Nix profiles. To set the manual search paths via the <code class="literal...
+- Line 455 [MODERATE]: Stale version v0.8.0 (should be v0.1.0-alpha)
+  Text: This enables mandoc to find manual pages in Nix profiles. To set the manual search paths via the <code class="literal...
+- Line 458 [MODERATE]: Stale version v2.0.0 (should be v0.1.0-alpha)
+  Text: After upgrading, follow the instructions on the <a class="link" href="https://github.com/majewsky/portunus/releases/t...
+- Line 599 [MODERATE]: Stale version v3.6.0 (should be v0.1.0-alpha)
+  Text: changes <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v3.6.0"  target="_top">for
+- Line 608 [MODERATE]: Stale version v1.16.0 (should be v0.1.0-alpha)
+  Text: docs</a>.</p></li><li class="listitem"><p><code class="literal">consul</code> has been updated to v1.16.0. Refer to t...
+- Line 608 [MODERATE]: Stale version v1.16.0 (should be v0.1.0-alpha)
+  Text: docs</a>.</p></li><li class="listitem"><p><code class="literal">consul</code> has been updated to v1.16.0. Refer to t...
+- Line 619 [MODERATE]: Stale version v0.8.0 (should be v0.1.0-alpha)
+  Text: (in favor of Rustls) and add OAuth 2.0 support. Refer to the <a class="link" href="https://github.com/soywod/himalaya...
+- Line 643 [MODERATE]: Stale version v22.3.1 (should be v0.1.0-alpha)
+  Text: first glance the version may seem a downgrade (v22.3.1 -&gt; v21.0.0), the major
+- Line 643 [MODERATE]: Stale version v21.0.0 (should be v0.1.0-alpha)
+  Text: first glance the version may seem a downgrade (v22.3.1 -&gt; v21.0.0), the major
+- Line 726 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: instead of <code class="literal">$out/etc.orig</code>, when input argument <code class="literal">externalEtc</code> i...
+- Line 761 [MODERATE]: Stale version v1.28.0 (should be v0.1.0-alpha)
+  Text: <code class="literal">libresprite</code> package.</p></li><li class="listitem"><p>The default <code class="literal">k...
+- Line 775 [MODERATE]: Stale version v5.0.8 (should be v0.1.0-alpha)
+  Text: version 5, which includes <a class="link" href="https://github.com/gjtorikian/html-proofer/blob/v5.0.8/UPGRADING.md" ...
+- Line 777 [MODERATE]: Stale version v0.11.0 (should be v0.1.0-alpha)
+  Text: read the <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.11.0"  target="_top">v0.10.1 to
+- Line 777 [MODERATE]: Stale version v0.10.1 (should be v0.1.0-alpha)
+  Text: read the <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.11.0"  target="_top">v0.10.1 to
+- Line 778 [MODERATE]: Stale version v0.11.0 (should be v0.1.0-alpha)
+  Text: v0.11.0</a>, <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.11.1"  target="_top">v0.11.0 to
+- Line 778 [MODERATE]: Stale version v0.11.1 (should be v0.1.0-alpha)
+  Text: v0.11.0</a>, <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.11.1"  target="_top">v0.11.0 to
+- Line 778 [MODERATE]: Stale version v0.11.0 (should be v0.1.0-alpha)
+  Text: v0.11.0</a>, <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.11.1"  target="_top">v0.11.0 to
+- Line 779 [MODERATE]: Stale version v0.11.1 (should be v0.1.0-alpha)
+  Text: v0.11.1</a>, <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.13.0"  target="_top">v0.11.1 to
+- Line 779 [MODERATE]: Stale version v0.13.0 (should be v0.1.0-alpha)
+  Text: v0.11.1</a>, <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.13.0"  target="_top">v0.11.1 to
+- Line 779 [MODERATE]: Stale version v0.11.1 (should be v0.1.0-alpha)
+  Text: v0.11.1</a>, <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.13.0"  target="_top">v0.11.1 to
+- Line 780 [MODERATE]: Stale version v0.13.0 (should be v0.1.0-alpha)
+  Text: v0.13.0</a> and <a class="link" href="https://github.com/ory/kratos/releases/tag/v1.0.0"  target="_top">v0.13.0 to
+- Line 780 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: v0.13.0</a> and <a class="link" href="https://github.com/ory/kratos/releases/tag/v1.0.0"  target="_top">v0.13.0 to
+- Line 780 [MODERATE]: Stale version v0.13.0 (should be v0.1.0-alpha)
+  Text: v0.13.0</a> and <a class="link" href="https://github.com/ory/kratos/releases/tag/v1.0.0"  target="_top">v0.13.0 to
+- Line 838 [MODERATE]: Stale version v0.61.12 (should be v0.1.0-alpha)
+  Text: <a class="link" href="https://github.com/zadam/trilium/releases/tag/v0.61.12"  target="_top">v0.61</a>. For existing
+- Line 860 [MODERATE]: Stale version v4.0.1 (should be v0.1.0-alpha)
+  Text: <code class="literal">users.users.${USERNAME}.ignoreShellProgramCheck = true</code> will do the job.</p></li><li clas...
+- Line 984 [MODERATE]: Stale version v2.2.0 (should be v0.1.0-alpha)
+  Text: be removed to upgrade to the default version (14).</p></li><li class="listitem"><p><code class="literal">zfs</code> w...
+- Line 1177 [MODERATE]: Stale version v1.9.1 (should be v0.1.0-alpha)
+  Text: {name = &quot;fanout&quot;; repo = &quot;github.com/networkservicemesh/fanout&quot;; version = &quot;v1.9.1&quot;;}
+- Line 1299 [MODERATE]: Stale version v4.4.33 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-release-23.05" class="title" style=...
+- Line 1333 [MODERATE]: Stale version v0.30.0 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p>The <code class="literal">udev</code> hwdb.bin file is now built with syste...
+- Line 1333 [MODERATE]: Stale version v0.18.0 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p>The <code class="literal">udev</code> hwdb.bin file is now built with syste...
+- Line 1334 [MODERATE]: Stale version v1.11.5 (should be v0.1.0-alpha)
+  Text: <code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools....
+- Line 1334 [MODERATE]: Stale version v1.11.0 (should be v0.1.0-alpha)
+  Text: <code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools....
+- Line 1334 [MODERATE]: Stale version v8.0.0 (should be v0.1.0-alpha)
+  Text: <code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools....
+- Line 1334 [MODERATE]: Stale version v3.0.0 (should be v0.1.0-alpha)
+  Text: <code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools....
+- Line 1335 [MODERATE]: Stale version v3.4.0 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-23.05-notable-changes" clas...
+- Line 1335 [MODERATE]: Stale version v3.5.0 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-23.05-notable-changes" clas...
+- Line 1359 [MODERATE]: Stale version v5.0.0 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p>New option <code class="literal">security.pam.zfs</code> to enable unlockin...
+- Line 1359 [MODERATE]: Stale version v5.0.0 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p>New option <code class="literal">security.pam.zfs</code> to enable unlockin...
+- Line 1406 [MODERATE]: Stale version v4.4.28 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-release-22.11" class="title" style=...
+- Line 1416 [MODERATE]: Stale version v2.8.1 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-22.11-version-updates" clas...
+- Line 1416 [MODERATE]: Stale version v2.11.0 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-22.11-version-updates" clas...
+- Line 1467 [MODERATE]: Stale version v0.19.0 (should be v0.1.0-alpha)
+  Text: common practice for a long time in other distributions.</p></li></ul></div></li><li class="listitem"><p><code class="...
+- Line 1515 [MODERATE]: Stale version v4.6.2 (should be v0.1.0-alpha)
+  Text: and <a class="link" href="options.html#opt-systemd.oomd.enableUserServices"  target="_top">systemd.oomd.enableUserSer...
+- Line 1515 [MODERATE]: Stale version v4.7.2 (should be v0.1.0-alpha)
+  Text: and <a class="link" href="options.html#opt-systemd.oomd.enableUserServices"  target="_top">systemd.oomd.enableUserSer...
+- Line 1515 [MODERATE]: Stale version v4.0.0 (should be v0.1.0-alpha)
+  Text: and <a class="link" href="options.html#opt-systemd.oomd.enableUserServices"  target="_top">systemd.oomd.enableUserSer...
+- Line 1515 [MODERATE]: Stale version v4.0.0 (should be v0.1.0-alpha)
+  Text: and <a class="link" href="options.html#opt-systemd.oomd.enableUserServices"  target="_top">systemd.oomd.enableUserSer...
+- Line 1515 [MODERATE]: Stale version v4.0.0 (should be v0.1.0-alpha)
+  Text: and <a class="link" href="options.html#opt-systemd.oomd.enableUserServices"  target="_top">systemd.oomd.enableUserSer...
+- Line 1767 [MODERATE]: Stale version v6.2.0 (should be v0.1.0-alpha)
+  Text: reached <a class="link" href="https://kb.cyren.com/av-support/index.php?/Knowledgebase/Article/View/434/0/end-of-sale...
+- Line 1779 [MODERATE]: Stale version v0.6.5 (should be v0.1.0-alpha)
+  Text: <a class="link" href="https://github.com/matrix-org/dendrite/releases/tag/v0.6.5"  target="_top">0.6.5</a>. Instances
+- Line 1782 [MODERATE]: Stale version v0.6.0 (should be v0.1.0-alpha)
+  Text: databases. See upstream <a class="link" href="https://github.com/matrix-org/dendrite/releases/tag/v0.6.0"  target="_t...
+- Line 1880 [MODERATE]: Stale version v0.8.1-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.8.1-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.8.2-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.8.2-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.9.0-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.9.0-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.9.0-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1880 [MODERATE]: Stale version v0.9.0-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code> or using the <code class="literal"...
+- Line 1933 [MODERATE]: Stale version v0.8.0-alpha (should be v0.1.0-alpha)
+  Text: <code class="literal">helmfile</code> also defaults to 0.141.0, which is the minimum compatible version.</p></li><li ...
+- Line 1975 [MODERATE]: Stale version v2021.08.03 (should be v0.1.0-alpha)
+  Text: </code></pre></li></ul></div></li><li class="listitem"><p>The <code class="literal">staticjinja</code> package has be...
+- Line 1987 [MODERATE]: Stale version v1.10.0 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p><code class="literal">services.geoip-updater</code> was broken and has been...
+- Line 1988 [MODERATE]: Stale version v6.0.0 (should be v0.1.0-alpha)
+  Text: old 2.7.7 version.</p></li><li class="listitem"><p>The <code class="literal">pulseeffects</code> package updated to <...
+- Line 1995 [MODERATE]: Stale version v0.4.0 (should be v0.1.0-alpha)
+  Text: <code class="literal">users.groups.vaultwarden</code>, respectively.</p></li><li class="listitem"><p>The data directo...
+- Line 1995 [MODERATE]: Stale version v2.9.0 (should be v0.1.0-alpha)
+  Text: <code class="literal">users.groups.vaultwarden</code>, respectively.</p></li><li class="listitem"><p>The data directo...
+- Line 2025 [MODERATE]: Stale version v0.9.0 (should be v0.1.0-alpha)
+  Text: directories, thus increasing the purity of the build.</p></li><li class="listitem"><p>Three new options, <a class="li...
+- Line 2285 [MODERATE]: Stale version v18.0.2 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p><code class="literal">qesteidutil</code> has been deprecated in favor of <c...
+- Line 2285 [MODERATE]: Stale version v16.0.8 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p><code class="literal">qesteidutil</code> has been deprecated in favor of <c...
+- Line 2294 [MODERATE]: Stale version v1.11.1 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p>OpenSSH has been upgraded from 7.9 to 8.1, improving security and adding fe...
+- Line 2294 [MODERATE]: Stale version v1.11.1 (should be v0.1.0-alpha)
+  Text: </code></pre></li><li class="listitem"><p>OpenSSH has been upgraded from 7.9 to 8.1, improving security and adding fe...
+- Line 2307 [MODERATE]: Stale version v14.2.1 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-19.09-notable-changes" clas...
+- Line 2366 [MODERATE]: Stale version v2.6.2 (should be v0.1.0-alpha)
+  Text: </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-18.09-incompatibilities" cl...
+
+FILE: scripts/model-artery/README.md
+- Line 9 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: - **Node C (10.0.0.12):** Synced via SCP (Qwen3-14B-9B)
+- Line 39 [CRITICAL]: Node C model mismatch (Should be Carnice-9B-Function-Calling i1-Q4_K_M via CUDA)
+  Text: | Node C | Qwen3.5-0.8B | Perceptual Triage | GGUF (Q8_0) |
+
+FILE: sidecars/hermes-agent-nous/RELEASE_v0.10.0.md
+- Line 17 [MODERATE]: Stale version v0.11.0 (should be v0.1.0-alpha)
+  Text: This release includes 180+ commits with numerous bug fixes, platform improvements, and reliability enhancements acros...
+
+FILE: sidecars/hermes-agent-nous/RELEASE_v0.11.0.md
+- Line 8 [MODERATE]: Stale version v0.10.0 (should be v0.1.0-alpha)
+  Text: This release also folds in all the highlights deferred from v0.10.0 (which shipped only the Nous Tool Gateway) — so i...
+
+FILE: sidecars/hermes-agent-nous/RELEASE_v0.2.0.md
+- Line 5 [MODERATE]: Stale version v0.1.0 (should be v0.1.0-alpha)
+  Text: > First tagged release since v0.1.0 (the initial pre-public foundation). In just over two weeks, Hermes Agent went fr...
+
+FILE: sidecars/hermes-agent-nous/optional-skills/mlops/chroma/SKILL.md
+- Line 32 [MODERATE]: Stale version v1.3.3 (should be v0.1.0-alpha)
+  Text: - **v1.3.3** (stable, weekly releases)
+
+FILE: sidecars/hermes-agent-nous/optional-skills/mlops/training/unsloth/references/llms-full.md
+- Line 4562 [MODERATE]: Stale version v0.11.1 (should be v0.1.0-alpha)
+  Text: # Until v0.11.1 release, you need to install vLLM from nightly build
+- Line 7386 [MODERATE]: Stale version v0.3.2 (should be v0.1.0-alpha)
+  Text: pip3 install https://github.com/sgl-project/whl/releases/download/v0.3.2/sgl_kernel-0.3.2+cu128-cp39-abi3-manylinux20...
+- Line 7390 [MODERATE]: Stale version v0.3.2 (should be v0.1.0-alpha)
+  Text: pip3 install https://github.com/sgl-project/whl/releases/download/v0.3.2/sgl_kernel-0.3.2-cp39-abi3-manylinux2014_x86...
+- Line 14210 [MODERATE]: Stale version v0.7.3 (should be v0.1.0-alpha)
+  Text: Since vLLM 0.7.3 (2025 February 20th) <https://github.com/vllm-project/vllm/releases/tag/v0.7.3>, vLLM now supports l...
+
+FILE: sidecars/hermes-agent-nous/optional-skills/mlops/training/unsloth/references/llms-txt.md
+- Line 1589 [MODERATE]: Stale version v0.11.1 (should be v0.1.0-alpha)
+  Text: ## Until v0.11.1 release, you need to install vLLM from nightly build
+- Line 1591 [MODERATE]: Stale version v0.11.1-release (should be v0.1.0-alpha)
+  Text: **URL:** llms-txt#until-v0.11.1-release,-you-need-to-install-vllm-from-nightly-build
+- Line 5536 [MODERATE]: Stale version v0.7.3 (should be v0.1.0-alpha)
+  Text: Since vLLM 0.7.3 (2025 February 20th) <https://github.com/vllm-project/vllm/releases/tag/v0.7.3>, vLLM now supports l...
+
+FILE: sidecars/hermes-agent-nous/plugins/observability/langfuse/README.md
+- Line 43 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: HERMES_LANGFUSE_RELEASE=v1.0.0       # release tag
+
+FILE: sidecars/hermes-agent-nous/skills/github/github-repo-management/SKILL.md
+- Line 365 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 --title "v1.0.0" --generate-notes
+- Line 365 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 --title "v1.0.0" --generate-notes
+- Line 366 [MODERATE]: Stale version v2.0.0-rc1 (should be v0.1.0-alpha)
+  Text: gh release create v2.0.0-rc1 --draft --prerelease --generate-notes
+- Line 367 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 ./dist/binary --title "v1.0.0" --notes "Release notes"
+- Line 367 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 ./dist/binary --title "v1.0.0" --notes "Release notes"
+- Line 369 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release download v1.0.0 --dir ./downloads
+
+FILE: sidecars/hermes-agent-nous/website/docs/user-guide/messaging/bluebubbles.md
+- Line 9 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: - BlueBubbles Server v1.0.0+ (webhooks require this version)
+
+FILE: sidecars/hermes-agent-nous/website/docs/user-guide/profile-distributions.md
+- Line 460 [MODERATE]: Stale version v1.2.0 (should be v0.1.0-alpha)
+  Text: Git ref pinning (`#v1.2.0`) is planned but not in the initial release — install currently tracks the default branch. ...
+
+FILE: sidecars/hermes-agent-nous/website/docs/user-guide/skills/bundled/github/github-github-repo-management.md
+- Line 383 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 --title "v1.0.0" --generate-notes
+- Line 383 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 --title "v1.0.0" --generate-notes
+- Line 384 [MODERATE]: Stale version v2.0.0-rc1 (should be v0.1.0-alpha)
+  Text: gh release create v2.0.0-rc1 --draft --prerelease --generate-notes
+- Line 385 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 ./dist/binary --title "v1.0.0" --notes "Release notes"
+- Line 385 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release create v1.0.0 ./dist/binary --title "v1.0.0" --notes "Release notes"
+- Line 387 [MODERATE]: Stale version v1.0.0 (should be v0.1.0-alpha)
+  Text: gh release download v1.0.0 --dir ./downloads
+
+FILE: sidecars/hermes-agent-nous/website/docs/user-guide/skills/optional/mlops/mlops-chroma.md
+- Line 49 [MODERATE]: Stale version v1.3.3 (should be v0.1.0-alpha)
+  Text: - **v1.3.3** (stable, weekly releases)
+
+FILE: sidecars/hermes-lcm/README.md
+- Line 9 [CRITICAL]: Old Node A IP '100.90.196.70' needs updating to '100.96.253.114'
+  Text: - **Primary Node:** Node A (100.90.196.70) - Synapse Cache
+
+FILE: sidecars/mesh/README.md
+- Line 7 [CRITICAL]: Node A should not have inference mentioned (Cache/state only)
+  Text: | `nvidia.yml` | Node A, Node C | llama.cpp (CUDA) | NVIDIA |
+
+Clean files: 2336

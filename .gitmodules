@@ -1,4 +1,4 @@
 [submodule "sidecars/hermes-agent-nous"]
 	path = sidecars/hermes-agent-nous
-	url = https://github.com/maczzzzzzz/50V3R31GN-M4CH1N4-hermes-agent-fork
+	url = git@github.com:maczzgit/50V3R31GN-M4CH1N4-hermes-agent-fork.git
 	branch = stable/mesh-alpha

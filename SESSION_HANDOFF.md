@@ -1,4 +1,4 @@
-# SESSION HANDOFF (v3.8.0-ALPHA)
+# SESSION HANDOFF (v0.1.0-alpha)
 
 **Session Date:** Saturday, May 17, 2026, ~05:00-05:30 UTC
 **Branch:** stable/mesh-alpha
@@ -73,7 +73,7 @@ df -h /mnt/sovereign-soul
 
 ### Tailscale Re-auth: Node A and Node B
 - Nodes C and D are re-authed and accessible
-- Node A (100.90.196.70) and Node B Tailscale SSH may need re-auth for cross-node access
+- Node A (100.96.253.114) and Node B Tailscale SSH may need re-auth for cross-node access
 
 ---
 
@@ -100,5 +100,86 @@ df -h /mnt/sovereign-soul
 5. **Dependabot** -- 46 vulnerabilities on default branch (1 critical, 19 high)
 
 ---
+
+SESSION WRAP-UP -- WHERE WE STAND                                                                 
+                                                                                                       
+     DONE:                                                                                             
+                                                                                                       
+     Task: TurboQuant Node B                                                                           
+     Result: --cache-type-k q4_0 added to bat file. Needs Windows restart to activate.                 
+     ────────────────────────────────────────                                                          
+     Task: TurboQuant Nodes C & D                                                                      
+     Result: CONFIRMED LIVE with q4_0 + q4_0 KV cache                                                  
+     ────────────────────────────────────────                                                          
+     Task: directors-forge                                                                             
+     Result: EUTHANIZED. Removed from node-b default.nix. Committed + pushed.                          
+     ────────────────────────────────────────                                                          
+     Task: SESSION_HANDOFF + Vital Signs                                                               
+     Result: Updated and pushed. Phase 0 gate CLOSED.                                                  
+     ────────────────────────────────────────                                                          
+     Task: Kanban MCP back-compat                                                                      
+     Result: Fixed + tested (13/13). Gemini CLI reads real 55-task DB.                                 
+     ────────────────────────────────────────                                                          
+     Task: Node B Tailscale                                                                            
+     Result: Upgraded daemon from 1.80.3 to 1.90.9 via nixos-rebuild with updated 25.11 channel        
+     ────────────────────────────────────────                                                          
+     Task: Node B Docker                                                                               
+     Result: Restored via rebuild (was lost during minimal config mishap)                              
+     ────────────────────────────────────────                                                          
+     Task: Gemini beellama.cpp audit                                                                   
+     Result: COMPLETE. Verdict: SKIP. CUDA-only, incompatible with our mesh.                           
+     ────────────────────────────────────────                                                          
+     Task: 4 commits pushed                                                                            
+     Result: stable/mesh-alpha up to date with origin                                                  
+                                                                                                       
+     IN PROGRESS / NEEDS ATTENTION:                                                                    
+                                                                                                       
+     1. LiteLLM mesh router -- needs restart                                                           
+     Docker is running but the LiteLLM container isn't up. No compose file exists. It was              
+     previously a manual docker run or managed via the old NixOS sovereign-proxy module (which our     
+     minimal /etc/nixos/configuration.nix no longer includes). To bring it back:                       
+                                                                                                       
+     docker run -d --name mesh-litellm -p 4000:4000 \                                                  
+       -v                                                                                              
+     /home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/mesh/litellm-mesh.yaml:/app/config.y     
+     aml \                                                                                             
+       ghcr.io/berriai/litellm:main-latest --config /app/config.yaml                                   
+                                                                                                       
+     2. Node A Tailscale -- needs manual work                                                          
+     Node A (100.96.253.114) has the same daemon 1.80.3 problem. Requires sudo with password -- I       
+     can't do it remotely. Run on Node A:                                                              
+     bash                                                                                              
+     sudo nix-channel --update nixos                                                                   
+     Then add services.tailscale.enable = true to /etc/nixos/configuration.nix                         
+     sudo nixos-rebuild switch                                                                         
+                                                                                                       
+     3. Node B Windows llama-server -- needs restart                                                   
+     The --cache-type-k q4_0 flag is in the bat file but the running Windows instance doesn't have     
+     it. Close the cmd window and re-run start_hermes_gpu.bat.                                         
+                                                                                                       
+     4. Node C SSD mount commands (from earlier, still applies):                                       
+     bash                                                                                              
+     sudo mkdir -p /mnt/sovereign-soul                                                                 
+     sudo mount /dev/disk/by-uuid/511d1a67-a3c0-49f8-899d-e509eab53c1a /mnt/sovereign-soul             
+                                                                                                       
+     KEY LESSON LEARNED:                                                                               
+     The NixOS WSL /etc/nixos/configuration.nix is the actual system config, NOT the flake-based       
+     nix/hosts/node-b/default.nix in our repo. The repo config was never deployed. Rebuilds must       
+     use:                                                                                              
+                                                                                                       
+     sudo nixos-rebuild switch -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos           
+                                                                                                       
+     I've saved this to memory so we don't repeat the mistake.                                         
+                                                                                                       
+     MESH TAILSCALE STATUS:                                                                            
+                                                                                                       
+     | Node   | Daemon Before | Daemon After | Action Needed            |                              
+     |--------|---------------|--------------|--------------------------|                              
+     | Node A | 1.80.3        | 1.80.3       | Manual rebuild with sudo |                              
+     | Node B | 1.80.3        | 1.90.9       | DONE                     |                              
+     | Node C | 1.90.9        | 1.90.9       | Already current          |                              
+     | Node D | 1.96.5        | 1.96.5       | Already current          |                              
+                                                                                                       
+     Node A is the last one stuck on the old daemon. Everything else is patched.
 
 ::/5Y573M-N071C3 : SESSION_HANDOFF_V38. PHASE0_CLOSED. // 50V3R31GN-M4CH1N4

@@ -1,7 +1,7 @@
 # V0 Full Mesh Benchmark Report
 
 **Date:** 2026-05-12
-**Branch:** stable/mesh-alpha v3.7.0-ALPHA
+**Branch:** stable/mesh-alpha v0.1.0-alpha
 **Status:** Phase 0 -- Baseline Hardware Characterization
 
 ---
@@ -13,7 +13,7 @@
 | B | Director | Ryzen 9 5900XT 16C/32T | 48GB DDR4 | RX 9060 XT 16GB (Vulkan) | localhost (WSL2) | local |
 | C | Oracle | Ryzen 7 3700X 8C/16T | 32GB DDR4 | RTX 2060 6GB (NO DRIVER) | 100.102.109.81 | YES |
 | D | Quaternary | Ultra 5 125U 12C/14T | 48GB DDR5 | Intel iGPU (not used) | 100.120.225.12 | YES |
-| A | Synapse | i7 (8th gen) 4C/8T | 16GB DDR4 | GTX 1050 Ti 4GB | 100.90.196.70 | YES |
+| A | Synapse | i7 (8th gen) 4C/8T | 16GB DDR4 | GTX 1050 Ti 4GB | 100.96.253.114 | YES |
 
 ---
 
