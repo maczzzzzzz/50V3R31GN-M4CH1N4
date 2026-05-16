@@ -76,7 +76,7 @@ in
         Type = "simple";
         User = cfg.user;
         Group = "users";
-        ExecStart = "${cfg.package}/bin/llama-server -m ${cfg.modelPath} --host 0.0.0.0 --port ${toString cfg.port} --ctx-size ${toString cfg.ctxSize} --cache-type-k ${cfg.cacheTypeK} ${optionalString (cfg.gpuLayers > 0) "--ngl ${toString cfg.gpuLayers}"}";
+        ExecStart = "${cfg.package}/bin/llama-server -m ${cfg.modelPath} --host 0.0.0.0 --port ${toString cfg.port} --ctx-size ${toString cfg.ctxSize} --cache-type-k ${cfg.cacheTypeK} ${optionalString (cfg.gpuLayers > 0) "-ngl ${toString cfg.gpuLayers}"}";
         
         # Hard Resource Constraints to Prevent Hardware Runaway
         MemoryMax = cfg.memoryMax;

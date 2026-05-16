@@ -1,4 +1,4 @@
-# AGENTS.md: The Alpha Mesh Roles (v3.7.0-ALPHA)
+# AGENTS.md: The Alpha Mesh Roles (v3.8.0-ALPHA)
 
 Active agents and hardware topology for the Stable Mesh Alpha build.
 
@@ -19,9 +19,10 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 ### Node B -- Director (Primary Workspace)
 - **Hardware:** Ryzen 9 5900XT, 16GB AMD VRAM, 48GB DDR4
 - **Role:** Fast responder, code generation, workspace authority
-- **Models:** Hermes-4-14B Q4_K_M (GPU, staging), Carnice-9b Q8_0 (current benchmark)
+- **Models:** Hermes-4-14B Q4_K_M (GPU, mesh-fast)
 - **Backend:** ik_llama.cpp Vulkan (NOT ROCm -- consumer AMD unreliable)
-- **Services:** LiteLLM mesh router (planned), Hermes TUI/Dashboard
+- **Benchmark:** prompt 93.2 t/s, gen 33.7 t/s
+- **Services:** LiteLLM mesh router (Docker, port 4000), Hermes TUI/Dashboard
 
 ### Node D -- Quaternary (Heavy Reasoning)
 - **Hardware:** Intel Core Ultra Meteor Lake, 48GB DDR5, NPU (excluded from inference)
@@ -34,10 +35,12 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 ### Node C -- Oracle (Perception)
 - **Hardware:** Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4
 - **Role:** Function-calling specialist, CUDA inference
-- **Models:** Carnice-9B-Function-Calling i1-Q4_K_M (GPU, staging)
-- **Backend:** ik_llama.cpp CUDA (building)
+- **Models:** Carnice-9B-Function-Calling i1-Q4_K_M (GPU, mesh-function-calling)
+- **Backend:** ik_llama.cpp CUDA (deployed, RPATH patched)
+- **Benchmark:** prompt 205.2 t/s, gen 49.9 t/s
 - **OS:** NixOS 25.11 (Xantusia), NVIDIA 580.142, CUDA 13.0
 - **Tailscale:** 100.102.109.81
+- **External SSD:** SOVEREIGN_SOUL (476.9GB ext4, mount pending nixos-rebuild)
 
 ### Node A -- Synapse (State)
 - **Hardware:** GTX 1050 Ti 4GB, 16GB RAM
@@ -60,4 +63,4 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 **Details:** See GEMINI.md
 
 ---
-::/5Y573M-N071C3 : AGENTS_V3_7_ALPHA. HONEST_SPECS_ONLY. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : AGENTS_V3_8_ALPHA. HONEST_SPECS_ONLY. // 50V3R31GN-M4CH1N4

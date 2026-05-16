@@ -30,7 +30,6 @@
             zeroboot-isolation = prev.callPackage ./crates/modules/zeroboot-isolation {};
             vibevoice-asr = prev.callPackage ./crates/modules/vibevoice-asr {};
             directors-forge = prev.callPackage ./crates/modules/directors-forge {};
-            pretext-core = prev.callPackage ./crates/modules/pretext-core {};
             mirage-vfs = prev.callPackage ./crates/modules/mirage-vfs {};
 
             # Node B (AVX2) - Director, WSL2
@@ -73,7 +72,7 @@
       # Existing packages retain explicit definitions for cargo hash management.
       packages = forAllSystems (system: let pkgs = mkPkgs system; in {
         inherit (pkgs) zeroboot-isolation vibevoice-asr directors-forge 
-          pretext-core mirage-vfs;
+          mirage-vfs;
         ik-llama-b = pkgs.ik_llama_cpp_b;
         ik-llama-d = pkgs.ik_llama_cpp_d;
         llama-cpp-openvino = pkgs.llama_cpp_openvino;

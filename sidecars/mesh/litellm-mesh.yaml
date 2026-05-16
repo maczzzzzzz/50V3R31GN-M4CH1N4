@@ -1,32 +1,58 @@
+# NODESTADT Mesh Router -- LiteLLM Proxy Config
+# 3 active inference nodes, 1 state node (Node A, no inference)
+
 model_list:
-  - model_name: mesh-brain
+  # Node B -- Director (Fast Responder)
+  # Hardware: Ryzen 9 5900XT, AMD 16GB VRAM, Vulkan
+  # Model: Hermes-4-14B Q4_K_M (8.4GB)
+  # Benchmark: prompt 93.2 t/s, gen 33.7 t/s
+  - model_name: mesh-fast
     litellm_params:
-      model: openai/qwen3.6-14b
-      api_base: http://100.66.173.31:8080/v1
+      model: openai/hermes-4-14b
+      api_base: http://10.0.0.11:8081/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 100000
       rpm: 100
-  - model_name: qwen3-vl-2b-instruct
+
+  # Node C -- Oracle (Function-Calling Specialist)
+  # Hardware: Ryzen 7 3700X, RTX 2060 6GB, CUDA
+  # Model: Carnice-9B-FC Q4_K_M (Qwen3.5 hybrid SSM+attn)
+  # Benchmark: prompt 205.2 t/s, gen 49.9 t/s
+  - model_name: mesh-function-calling
     litellm_params:
-      model: openai/qwen3-vl-2b-instruct
-      api_base: http://100.66.173.31:8080/v1
+      model: openai/carnice-9b-fc
+      api_base: http://100.102.109.81:8081/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
+      tpm: 100000
+      rpm: 100
+
+  # Node D -- Quaternary (Heavy Reasoning)
+  # Hardware: Intel Core Ultra Meteor Lake, 48GB DDR5, CPU-only
+  # Model: Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (20GB)
+  # Benchmark: prompt 8.9 t/s, gen 5.7 t/s
   - model_name: mesh-heavy
     litellm_params:
-      model: openai/qwen3.6-35b-a3b
+      model: openai/carnice-qwen3.6-moe-35b-a3b
       api_base: http://100.120.225.12:8080/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
+      tpm: 50000
+      rpm: 50
 
 router_settings:
-  routing_strategy: usage-based-routing-v2
+  routing_strategy: simple-shuffle
   enable_pre_call_checks: true
   model_group_alias:
-    "qwen3.6-14b": "mesh-brain"
-    "qwen3.6-35b-a3b": "mesh-heavy"
-    "vision": "qwen3-vl-2b-instruct"
+    "hermes-4-14b": "mesh-fast"
+    "carnice-9b-fc": "mesh-function-calling"
+    "carnice-qwen3.6-moe-35b-a3b": "mesh-heavy"
+    "fast": "mesh-fast"
+    "fc": "mesh-function-calling"
+    "heavy": "mesh-heavy"
 
 general_settings:
-  master_key: "sk-sovereign-mesh-proxy"
+  master_key: "sk-sov...roxy"
   host: 0.0.0.0
   port: 4000
   telemetry: false
+  # No database_url -- runs stateless (no Prisma needed for simple routing)
+  # If we need persistence later, mount a volume and set sqlite:///path

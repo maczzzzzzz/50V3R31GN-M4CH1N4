@@ -1,0 +1,24 @@
+[project]
+name = "kanban-mcp-server"
+version = "0.1.0"
+description = "MCP server wrapping Hermes Kanban SQLite for cross-agent task coordination"
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=0.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+]
+
+[project.scripts]
+kanban-mcp = "kanban_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kanban_mcp"]

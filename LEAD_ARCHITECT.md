@@ -60,13 +60,12 @@ Gemini project config at `.gemini/settings.json` routes to flash by default. You
 
 ## Z.AI MODEL ROUTING (Self)
 
-| Task | Model | Cost/1M tokens |
-|------|-------|----------------|
-| Default Lead Architect work | GLM-5 | $4.20 |
-| Critical architecture decisions | GLM-5.1 | $5.80 |
-| Subagent code tasks | GLM-4.7-FlashX | $0.47 |
-| Compression, trivial queries | GLM-4.7-Flash | FREE |
-| Long document processing | GLM-4-32B | $0.20 |
+| Task | Model | Role |
+|------|-------|------|
+| Default Lead Architect work | GLM-5 | Daily driver, balanced quality/cost |
+| Critical architecture decisions | GLM-5.1 | Deep reasoning, complex tasks |
+| Compression, session_search | GLM-4.7 | Administrative, trivial queries |
+| Subagent delegation | GLM-5 | Same as default |
 
 ## EXPERTISE
 

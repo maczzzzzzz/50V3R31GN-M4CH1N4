@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kanban MCP Server Architecture</title>
+<style>
+body { font-family: monospace; max-width: 80ch; margin: 2rem auto; background: #1a1a2e; color: #e0e0e0; padding: 0 1rem; }
+h1 { color: #376374; border-bottom: 2px solid #376374; padding-bottom: 0.5rem; }
+h2 { color: #836A46; }
+code { background: #2a2a3e; padding: 0.2rem 0.4rem; border-radius: 3px; }
+pre { background: #2a2a3e; padding: 1rem; border-radius: 5px; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #376374; padding: 0.5rem; text-align: left; }
+th { background: #376374; color: #fff; }
+.tag { display: inline-block; background: #376374; color: #fff; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<h1>Kanban MCP Server <span class="tag">v0.1.0</span></h1>
+
+<p>MCP server wrapping the Hermes Kanban SQLite database for cross-agent task coordination.
+Enables Hermes and Gemini CLI to share a single task board via the Model Context Protocol.</p>
+
+<h2>Architecture</h2>
+
+<pre>
++-------------+     stdio      +------------------+
+| Hermes CLI   |&lt;-------------&gt;|                  |
++-------------+                |  Kanban MCP      |
+                               |  Server (FastMCP) |
++-------------+     stdio      |                  |
+| Gemini CLI   |&lt;-------------&gt;|                  |
++-------------+                +--------+---------+
+                                        |
+                                 SQLite  |
+                               +--------v---------+
+                               |  kanban.db (WAL)  |
+                               |  Hermes native    |
+                               +------------------+
+</pre>
+
+<h2>Design Decisions</h2>
+
+<table>
+<tr><th>Decision</th><th>Rationale</th></tr>
+<tr><td>Wrap existing schema</td><td>No migration. Read/write the native Hermes kanban.db directly.</td></tr>
+<tr><td>stdio transport</td><td>Local-only. No network surface. No auth needed. Tailscale provides the mesh boundary.</td></tr>
+<tr><td>FastMCP (Python)</td><td>Pure Python, no binary deps. Compatible with NixOS venv. Matches Hermes stack.</td></tr>
+<tr><td>WAL mode</td><td>Enables concurrent reads from multiple agents without blocking writes.</td></tr>
+<tr><td>Claim locks with TTL</td><td>Prevents duplicate work. Locks expire automatically (default 1 hour) if an agent crashes.</td></tr>
+</table>
+
+<h2>MCP Tools</h2>
+
+<table>
+<tr><th>Tool</th><th>Description</th><th>Write</th></tr>
+<tr><td><code>kanban_list_boards</code></td><td>List available boards</td><td>No</td></tr>
+<tr><td><code>kanban_list_tasks</code></td><td>Query tasks with filters</td><td>No</td></tr>
+<tr><td><code>kanban_get_task</code></td><td>Full task details + comments</td><td>No</td></tr>
+<tr><td><code>kanban_create_task</code></td><td>Create a new task</td><td>Yes</td></tr>
+<tr><td><code>kanban_update_task</code></td><td>Update task fields</td><td>Yes</td></tr>
+<tr><td><code>kanban_claim_task</code></td><td>Lock a task for exclusive work</td><td>Yes</td></tr>
+<tr><td><code>kanban_complete_task</code></td><td>Mark done with result</td><td>Yes</td></tr>
+<tr><td><code>kanban_add_comment</code></td><td>Cross-agent discussion</td><td>Yes</td></tr>
+</table>
+
+<h2>Schema</h2>
+
+<p>Reads/writes the native Hermes kanban schema. Key tables:</p>
+
+<ul>
+<li><code>tasks</code> -- id, title, body, status, priority, assignee, claim_lock, claim_expires, result, workspace_*</li>
+<li><code>task_comments</code> -- task_id, author, body, created_at</li>
+<li><code>task_events</code> -- task_id, event_type, actor, payload</li>
+</ul>
+
+<p>No migrations. The MCP server creates the schema only when bootstrapping a new board.</p>
+
+<h2>File Layout</h2>
+
+<pre>
+sidecars/kanban-mcp-server/
++-- pyproject.toml
++-- README.md
++-- src/kanban_mcp/
+|   +-- __init__.py
+|   +-- server.py     # FastMCP tool definitions
+|   +-- db.py         # SQLite connection + queries
++-- tests/
+    +-- test_tools.py  # 13 tests, all passing
+</pre>
+
+<h2>Configuration</h2>
+
+<h3>Hermes (~/.hermes/config.yaml)</h3>
+<pre>
+mcp_servers:
+  kanban:
+    command: .../kanban-mcp-server/.venv/bin/python
+    args: ["-m", "kanban_mcp.server"]
+    env:
+      HERMES_KANBAN_ROOT: ~/.hermes/kanban/boards
+    timeout: 30
+    connect_timeout: 15
+</pre>
+
+<h3>Environment Variables</h3>
+<table>
+<tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+<tr><td><code>HERMES_KANBAN_ROOT</code></td><td><code>~/.hermes/kanban/boards</code></td><td>Root directory containing board databases</td></tr>
+</table>
+
+<h2>Concurrency Model</h2>
+
+<ul>
+<li>SQLite WAL mode allows concurrent reads from both agents.</li>
+<li>Write transactions are kept short (single statements).</li>
+<li><code>claim_task</code> uses atomic conditional UPDATE: only claims if lock is NULL or expired.</li>
+<li>Claim TTL defaults to 3600 seconds (1 hour). Configurable per call.</li>
+</ul>
+
+<h2>Test Coverage</h2>
+
+<p>13 tests covering: board management, CRUD operations, filtering, claim locks, completion, comments, error cases.</p>
+
+<pre>
+tests/test_tools.py::TestListBoards::test_empty             PASSED
+tests/test_tools.py::TestListBoards::test_with_board        PASSED
+tests/test_tools.py::TestCreateAndGetTask::test_create      PASSED
+tests/test_tools.py::TestCreateAndGetTask::test_get_missing  PASSED
+tests/test_tools.py::TestListTasks::test_empty              PASSED
+tests/test_tools.py::TestListTasks::test_with_filters       PASSED
+tests/test_tools.py::TestUpdateTask::test_update_title      PASSED
+tests/test_tools.py::TestUpdateTask::test_missing           PASSED
+tests/test_tools.py::TestClaimTask::test_claim              PASSED
+tests/test_tools.py::TestClaimTask::test_double_claim       PASSED
+tests/test_tools.py::TestCompleteTask::test_complete        PASSED
+tests/test_tools.py::TestComments::test_add_and_read        PASSED
+tests/test_tools.py::TestComments::test_missing_task        PASSED
+</pre>
+
+<hr>
+<p>::/5Y573M-N071C3 : KANBAN_MCP_ARCH. COORDINATION_IS_TRUTH. // 50V3R31GN-M4CH1N4</p>
+
+</body>
+</html>

@@ -6,7 +6,17 @@
 
 ---
 
-## BOARD STATE (22 Cards)
+## BOARD STATE (27 Cards)
+
+### Cross-cutting: Agent Coordination
+
+| ID | Title | Priority | Plan |
+|:---|:------|:--------|:-----|
+| t_mcp_001 | XC-1: Kanban MCP Server Scaffold | 2 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) |
+| t_mcp_002 | XC-2: Hermes MCP Integration | 2 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) |
+| t_mcp_003 | XC-3: Gemini CLI MCP Integration | 2 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) |
+| t_mcp_004 | XC-4: MCP Documentation | 3 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) |
+| t_mcp_005 | XC-5: Cross-Agent Verification Test | 3 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) |
 
 ### Phase 0: Validation Gate (CRITICAL -- blocks everything)
 

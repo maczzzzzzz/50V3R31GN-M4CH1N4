@@ -23,9 +23,17 @@
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.directors-forge}/bin/directors-forge";
-        Restart = "always";
+        Restart = "on-failure";
         RestartSec = "10s";
+        # Create dirs with correct ownership so the binary can write.
+        StateDirectory = "directors-forge";
+        WorkingDirectory = "/var/lib/directors-forge";
       };
     };
+    # Ensure tool output dirs exist with correct perms.
+    systemd.tmpfiles.rules = [
+      "d '${config.services.directors-forge.library-path}' 0755 root root -"
+      "d '${config.services.directors-forge.output-path}' 0755 root root -"
+    ];
   };
 }
