@@ -1,7 +1,7 @@
-# SOVEREIGN VITAL SIGNS (v3.7.0-ALPHA)
+# SOVEREIGN VITAL SIGNS (v3.8.0-ALPHA)
 
-**Status:** PHASE 0 -- VALIDATION GATE
-**Timestamp:** Tuesday, May 13, 2026
+**Status:** PHASE 0 -- VALIDATION GATE (closing)
+**Timestamp:** Saturday, May 17, 2026
 **Purge:** 6 dead crates removed. 5 validated crates remain.
 
 ---
@@ -19,9 +19,9 @@
 
 | Route | Model | Target | Backend | Status |
 |:------|:------|:-------|:--------|:-------|
-| mesh-fast | Hermes-4-14B Q4_K_M | TBD tok/s | Node B Vulkan | STAGING |
-| mesh-reason | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | 6.1 tok/s gen | Node D CPU | BENCHMARKED |
-| mesh-fc | Carnice-9B-FC i1-Q4_K_M | TBD tok/s | Node C CUDA | STAGING |
+| mesh-fast | Hermes-4-14B Q4_K_M | prompt 93.2, gen 33.7 t/s | Node B Vulkan | BENCHMARKED |
+| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | prompt 8.8, gen 6.1 t/s | Node D CPU | BENCHMARKED |
+| mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | BENCHMARKED |
 | mesh-vision | (undeployed) | -- | -- | NOT DEPLOYED |
 | mesh-interactive | (undeployed -- was Qwen 2.5 7B Q6_K) | -- | -- | NOT DEPLOYED |
 | kv-spillover | TurboQuant q4_0 | context extension | Node A | UNBENCHMARKED |
@@ -36,16 +36,18 @@
 | Backend | ik_llama.cpp AVX2, CPU-only, 8 threads |
 | Hardware | Intel Core Ultra Meteor Lake, 48GB DDR5 |
 
-## NODE C STATUS (UPDATED MAY 13)
+## NODE C STATUS (UPDATED MAY 17)
 
 | Component | Status |
 |:----------|:-------|
 | OS | NixOS 25.11 (Xantusia) |
 | NVIDIA Driver | 580.142, CUDA 13.0 |
 | Tailscale | 100.102.109.81, all 4 nodes visible |
-| ik_llama.cpp | CUDA build in progress (sm_75) |
-| Model | Carnice-9B-FC i1-Q4_K_M on disk, awaiting build |
+| ik_llama.cpp | CUDA sm_75 build DEPLOYED (RPATH patched) |
+| Model | Carnice-9B-FC i1-Q4_K_M, port 8081 |
+| Benchmark | prompt 205.2 t/s, gen 49.9 t/s |
 | Docker | 27.5.1, NVIDIA container toolkit enabled |
+| External SSD | SOVEREIGN_SOUL 476.9GB (unmounted, fstab pending) |
 
 ## VALIDATED CRATES (5)
 
