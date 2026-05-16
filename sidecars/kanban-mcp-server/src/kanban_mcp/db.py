@@ -17,14 +17,29 @@ from typing import Any
 DEFAULT_BOARD = "default"
 KANBAN_ROOT = Path(os.environ.get("HERMES_KANBAN_ROOT", Path.home() / ".hermes" / "kanban" / "boards"))
 
+# Direct override: if set, always use this path regardless of board arg.
+# Matches Hermes native kanban_db.py behaviour (HERMES_KANBAN_DB env var).
+_KANBAN_DB_OVERRIDE = os.environ.get("HERMES_KANBAN_DB", "").strip()
+
 
 def _db_path(board: str = DEFAULT_BOARD) -> Path:
+    if _KANBAN_DB_OVERRIDE:
+        return Path(_KANBAN_DB_OVERRIDE).expanduser()
+    # Back-compat: Hermes stores the default board at <root>/kanban.db
+    # (not <root>/kanban/boards/default/kanban.db).
+    if board == DEFAULT_BOARD:
+        back_compat = Path.home() / ".hermes" / "kanban.db"
+        if back_compat.exists():
+            return back_compat
     return KANBAN_ROOT / board / "kanban.db"
 
 
 def _ensure_board(board: str) -> Path:
     """Ensure the board directory and database exist. Returns db path."""
     db = _db_path(board)
+    # If using override or back-compat path, the DB already exists.
+    if _KANBAN_DB_OVERRIDE or (board == DEFAULT_BOARD and db.exists()):
+        return db
     if not db.parent.exists():
         db.parent.mkdir(parents=True, exist_ok=True)
     if not db.exists():
@@ -255,6 +270,15 @@ def add_comment(
 
 def list_boards() -> list[str]:
     """List all available kanban boards."""
-    if not KANBAN_ROOT.exists():
-        return []
-    return [d.name for d in KANBAN_ROOT.iterdir() if d.is_dir() and (d / "kanban.db").exists()]
+    boards: list[str] = []
+    # Back-compat: default board at ~/.hermes/kanban.db.
+    # Only applies when KANBAN_ROOT is the default path (not test-patched).
+    back_compat = Path.home() / ".hermes" / "kanban.db"
+    _default_root = Path.home() / ".hermes" / "kanban" / "boards"
+    if KANBAN_ROOT == _default_root and back_compat.exists():
+        boards.append(DEFAULT_BOARD)
+    if KANBAN_ROOT.exists():
+        for d in KANBAN_ROOT.iterdir():
+            if d.is_dir() and (d / "kanban.db").exists() and d.name not in boards:
+                boards.append(d.name)
+    return boards

@@ -3,9 +3,23 @@
     "name": "gemini-3-flash-preview"
   },
   "systemInstruction": "You are a subordinate worker agent for the 50V3R31GN-M4CH1N4 mesh. You report to the Lead Architect (GLM-5). You do not set strategy. You execute tasks, report findings, and return results. Be terse. Tables over prose. Numbers over adjectives. Never commit to the repository. Read GEMINI.md for full role definition.",
-  "coreTools": ["google_web_search", "shell_execute", "file_read_write"],
+  "coreTools": [
+    "google_web_search",
+    "shell_execute",
+    "file_read_write"
+  ],
   "agentMode": {
     "planFirst": true,
     "checkpointing": true
+  },
+  "mcpServers": {
+    "kanban": {
+      "command": "/home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/kanban-mcp-server/.venv/bin/python",
+      "args": [
+        "-m",
+        "kanban_mcp.server"
+      ],
+      "trust": true
+    }
   }
 }
