@@ -48,10 +48,10 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 
 | ID | Title | Priority | Status |
 |:---|:------|:--------|:-------|
-| t_3dbabbbb | PHASE 2 Epic | 5 | IN PROGRESS |
+| t_3dbabbbb | PHASE 2 Epic | 5 | BLOCKED (T1 hardware pending, T2/T3 closed negative/not-feasible) |
 | t_64f8028b | P2-T1: Node D GPU Installation | 5 | BLOCKED (RTX 5060 Ti hardware pending) |
-| t_3f006eaa | P2-T2: Node D Multi-Model Stack | 5 | PARTIAL (model swapped, MTP validated CPU-negative, ngram untested) |
-| t_a30b85ed | P2-T3: Context Spillover | 5 | PENDING (RPC research, Node A target) |
+| t_3f006eaa | P2-T2: Speculative Decoding | 5 | CLOSED NEGATIVE (MTP 49% acc/-40%, ngram 3% acc/-16%, all net negative on CPU) |
+| t_a30b85ed | P2-T3: Context Spillover | 5 | CLOSED NOT FEASIBLE (llama.cpp RPC requires layer offload, not KV-only; Tailscale latency kills pipeline parallelism) |
 
 ### Phase 3: Sovereign Plugins
 

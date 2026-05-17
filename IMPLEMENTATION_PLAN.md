@@ -38,8 +38,19 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 **Implementation plan:** docs/planning/plans/2026-05-18_phase2-cognitive-hierarchy.md
 
 - [ ] **P2-T1: Node D GPU Installation.** DEFERRED -- RTX 5060 Ti 16GB hardware not yet available. CUDA build pipeline documented in plan (Workstream C) for immediate execution on arrival.
-- [~] **P2-T2: Speculative Decoding for 35B MoE.** MTP validated on CPU: net negative (49% acceptance, 2.8x overhead). Deferred to post-GPU-upgrade when CUDA should make MTP positive. Ngram speculative decoding not yet tested (free option).
-- [ ] **P2-T3: Context Spillover (Node A).** Research ik_llama.cpp RPC support. If available, configure Node A as KV-cache offload target over Tailscale. If not, defer to Phase 3 with documented rationale. EXECUTES NOW.
+- [x] **P2-T2: Speculative Decoding for 35B MoE.** CLOSED NEGATIVE ON CPU. All methods tested:
+  - MTP: 49% acceptance, 2.8x overhead = net negative (~40% slower)
+  - ngram-mod: 3.1% acceptance, 16% slower than baseline
+  - ngram-simple: 3.1% acceptance, 16% slower than baseline
+  - Root cause: Qwen3.5 always thinks first; thinking tokens are unpredictable; CPU lacks parallel headroom.
+  - Benchmark: docs/benchmarks/node-d-ngram-speculative.md
+  - Re-open after RTX 5060 Ti install (CUDA may change calculus).
+- [x] **P2-T3: Context Spillover (Node A).** CLOSED NOT FEASIBLE.
+  - llama.cpp RPC requires offloading model layers (not KV-only). Node A must hold weights + compute layers.
+  - Tailscale ~1-5ms latency per token per RPC hop = catastrophic pipeline bubbles.
+  - Node D's 48GB DDR5 is sufficient for both weights (22.6GB) and 32K KV cache (~8GB).
+  - Alternative: --prompt-cache for async state persistence to disk.
+  - Research: docs/planning/research/p2-t3-context-spillover-rpc.md
 
 ---
 
