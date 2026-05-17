@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.3.3-alpha] - 2026-05-18
+
+### Infrastructure
+
+- **GitHub Wiki sync:** 11 wiki pages pushed to maczzgit/50V3R31GN-M4CH1N4.wiki.git. All updated to v0.3.2-alpha. New page: Benchmark-Registry.md. Wiki now mirrors docs/ operational knowledge.
+- **Docs HTML consolidation complete:** 21 remaining .md files converted to styled HTML (dark theme). 130 total HTML pages in docs/. Zero .md files without HTML counterparts.
+- **Full mesh tech debt purge (~104 GB reclaimed):**
+  - Node B (Windows): Deleted mtp-staging/ (30.6 GB), Carnice-Qwen3.6-MoE (20 GB), Carnice-9B-FC duplicate (5.3 GB), obsolete v8710 binary backup, 3 deprecated .bat files (start_server.bat, start_hermes_gpu.bat, start_vision_gpu.bat using q4_0 KV), stale logs.
+  - Node B (WSL2): Deleted /tmp/sovereign-* video renders and build dirs (~67 MB), 10 completed scripts (benchmark-node-b-mtp, deploy-node-d-mtp, deploy-phase2, deploy-phase3-hermes-lcm, droid-cleanup, droid-watchdog, directors-forge, deploy-mirage, deploy-n8n, sync-models), sidecars/mesh/legacy/.
+  - Node A: Deleted ~/llama.cpp/ build dir (335 MB), /tmp/hermes-relay.tar.gz (53 MB), service install artifacts.
+  - Node C: Deleted old Carnice-9b-Q6_K (6.9 GB), dead Qwen3.5-0.8B-UD-Q8_K (1.2 GB), stale logs, empty models directory.
+  - Node D: Deleted Qwen2.5-Coder-32B (19 GB), Qwen3.6-35B-UD (21 GB), broken Qwen3.6-35B stub, MTP test logs. Active model (Qwen3.5-35B-MTP-UD) verified intact.
+- **SSH config update:** Node D Tailscale IP corrected from stale 100.105.166.45 to current 100.120.225.12.
+
+### Removed
+
+- 10 completed/deployed scripts from scripts/ (deploy-*, benchmark-*, droid-*, directors-forge, sync-models).
+- sidecars/mesh/legacy/ (old mesh_proxy.py, replaced by current sidecars/mesh/ logic).
+- 3 deprecated .bat files from D:\llama.cpp\ (start_server.bat, start_hermes_gpu.bat, start_vision_gpu.bat).
+
 ## [0.3.2-alpha] - 2026-05-18
 
 ### Infrastructure

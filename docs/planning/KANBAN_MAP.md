@@ -1,6 +1,6 @@
 # Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.2-alpha
 
-**Status:** ACTIVE | **Baseline:** stable/mesh-alpha
+**Status:** ACTIVE | **Baseline:** stable/mesh-alpha | **Version:** 0.3.3-alpha
 **Bootstrap:** `python3 scripts/repro/kanban-bootstrap.py`
 **CLI:** `hermes kanban list` / `hermes kanban show <id>`
 
@@ -115,6 +115,7 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 | 0.3.0-alpha | 2026-05-18 | hermes-relay, MTP staging, drift remediation |
 | 0.3.1-alpha | 2026-05-18 | Node B b9190 upgrade, Node D model swap, MTP validated |
 | 0.3.2-alpha | 2026-05-18 | Node A inference deployed, socat bridge fix, XC-5 verified, GitHub Pages live |
+| 0.3.3-alpha | 2026-05-18 | Wiki sync, HTML consolidation, full mesh tech debt purge (~104 GB reclaimed) |
 
 ---
-::/5Y573M-N071C3 : KANBAN_V0.3.2_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : KANBAN_V0.3.3_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
