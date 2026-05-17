@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.3.4-alpha] - 2026-05-18
+
+### Phase 1 Closure
+
+- **Phase 1 officially CLOSED.** All residual items resolved.
+- **P1-T2 Terminal Control: CLOSED.** SSH key auth deduplicated across Nodes A/C/D (duplicate authorized_keys entries removed).
+- **P1-T3 Screen Triage: CLOSED.** Documented as on-demand tool in sidecars/sniffer/README.md. No systemd service needed.
+- **P1-T1 Vision UI: CLOSED.** Vision model verified functional. Latency benchmark DEFERRED (needs Windows inference running).
+
+### Security
+
+- **TD-001: LiteLLM CVE patched.** Docker image pinned to ghcr.io/berriai/litellm:1.84.0. Removed fragile post_start pip-upgrade hack. Container recreated with explicit port mapping. All 16 routes verified operational.
+- **TD-004: Secrets extraction.** Hardcoded keys removed from litellm-mesh.yaml, proxy.yml, triage.py. All configs now use env var references (os.environ/MESH_API_KEY, LITELLM_MASTER_KEY) loaded from sidecars/mesh/.env (gitignored).
+
+### Changed
+
+- **KANBAN_MAP:** Phase 1 upgraded from CONDITIONAL CLOSE to CLOSED. Version bumped to v0.3.4-alpha. Directors-forge card updated to CANCELLED.
+- **IMPLEMENTATION_PLAN.md:** P1-T2 and P1-T3 marked [x] COMPLETE. Sniffer status changed to ON-DEMAND.
+- **SESSION_HANDOFF.md:** Full rewrite for v0.3.4-alpha state.
+
 ## [0.3.3-alpha] - 2026-05-18
 
 ### Infrastructure

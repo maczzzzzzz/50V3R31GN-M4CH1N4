@@ -1,6 +1,6 @@
-# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.2-alpha
+# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.4-alpha
 
-**Status:** ACTIVE | **Baseline:** stable/mesh-alpha | **Version:** 0.3.3-alpha
+**Status:** ACTIVE | **Baseline:** stable/mesh-alpha | **Version:** 0.3.4-alpha
 **Bootstrap:** `python3 scripts/repro/kanban-bootstrap.py`
 **CLI:** `hermes kanban list` / `hermes kanban show <id>`
 
@@ -32,16 +32,16 @@ All validation tasks verified with documented benchmarks. Phase 1 authorized.
 | t_9d744b6d | V0-T4: TurboQuant Verification | 2 | DONE (q4_0 C/D, f16 B) |
 | t_88418fc9 | V0-T5: Tailscale Artery Health | 2 | DONE (all 4 nodes authenticated) |
 
-### Phase 1: Kinetic Agency -- CONDITIONAL CLOSE
+### Phase 1: Kinetic Agency -- CLOSED
 
-Core capabilities delivered. Remaining items tracked as tech debt. Audit: docs/planning/audits/phase1-completion-audit.md
+All capabilities delivered. Residuals closed: SSH key auth deduplicated, sniffer documented on-demand, secrets extracted, LiteLLM CVE patched. Audit: docs/planning/audits/phase1-completion-audit.md
 
 | ID | Title | Priority | Status |
 |:---|:------|:--------|:-------|
-| t_029a8e68 | PHASE 1 Epic | 2 | CONDITIONAL CLOSE |
-| t_8b222f89 | P1-T1: Vision UI | 2 | CONDITIONAL (Qwen3-VL live, image verified, latency untested) |
-| t_a78cf589 | P1-T2: Terminal Control | 2 | CONDITIONAL (SSH C/D working, key auth not universal) |
-| t_195a4dc7 | P1-T3: Screen Triage | 5 | CONDITIONAL (910ms capture, 25s e2e, no systemd service) |
+| t_029a8e68 | PHASE 1 Epic | 2 | CLOSED |
+| t_8b222f89 | P1-T1: Vision UI | 2 | CLOSED (latency benchmark DEFERRED) |
+| t_a78cf589 | P1-T2: Terminal Control | 2 | CLOSED (SSH keys deduplicated A/C/D) |
+| t_195a4dc7 | P1-T3: Screen Triage | 5 | CLOSED (on-demand, README.md) |
 
 ### Phase 2: Cognitive Hierarchy -- IN PROGRESS
 
@@ -116,6 +116,7 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 | 0.3.1-alpha | 2026-05-18 | Node B b9190 upgrade, Node D model swap, MTP validated |
 | 0.3.2-alpha | 2026-05-18 | Node A inference deployed, socat bridge fix, XC-5 verified, GitHub Pages live |
 | 0.3.3-alpha | 2026-05-18 | Wiki sync, HTML consolidation, full mesh tech debt purge (~104 GB reclaimed) |
+| 0.3.4-alpha | 2026-05-18 | Phase 1 CLOSED, LiteLLM CVE patched (1.84.0), secrets extracted, SSH keys hardened |
 
 ---
-::/5Y573M-N071C3 : KANBAN_V0.3.3_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : KANBAN_V0.3.4_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
