@@ -4,6 +4,47 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.3.1-alpha] - 2026-05-18
+
+### Infrastructure
+
+- **Node B binary upgrade:** llama.cpp v8710 -> b9190 (480 releases). Hermes-4-14B prompt processing 93.2 -> 322 t/s (+245%). Qwen3-VL-2B gen 50.7 -> 159 t/s (+214%). Old binary backed up at llama-server-v8710.exe.bak. Startup scripts consolidated (start-hermes.bat, start-vision.bat, start-all.bat).
+- **Node D model swap:** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M -> Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB). Baseline CPU benchmark: prompt 12.7 t/s, gen 7.0 t/s (8 threads, AVX2). Now running on llama.cpp b64b38b5 (stock build).
+
+### Changed
+
+- **MTP speculative decoding validated on CPU:** Tested draft-mtp on Node D. 49% acceptance rate, 2.8x overhead per draft token. Net negative on CPU-only inference. MTP deferred until GPU upgrade provides CUDA acceleration.
+- **Hermes-4-14B model selection confirmed:** Full analysis of 5 candidate models for Node B. Hermes-4-14B is Qwen3-14B with 60B tokens additional post-training. No alternative at 16GB VRAM beats it. Carnice-9B is param-limited. Devstral-Small-24B exceeds VRAM.
+
+### Removed
+
+- **Node D Nix llama.cpp v8983:** No longer the production binary. Replaced by stock build at /home/maczz/llama.cpp-latest/build/bin/llama-server.
+
+## [0.3.0-alpha] - 2026-05-18
+
+### Infrastructure
+
+- **hermes-relay v0.6.1 deployed:** Docker container on Node B port 8767. WSS bridge for mobile/desktop Hermes clients. Bridge+port-map networking (Docker Desktop WSL2 --network host broken). Custom build from merged relay_server + plugin sources. Runs as UID 1000 with HOME override. Plugin installed at ~/.hermes/plugins/hermes-relay/ (18 android_* + desktop_* tools).
+- **MTP model staging:** Downloaded Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22GB), Qwen3.5-9B-MTP Q4_K_M (5.5GB), Qwen3.5-4B-MTP Q4_K_M (2.7GB) to /mnt/d/llama.cpp/models/mtp-staging/. Ready for Node D deployment.
+- **Node D 5060 Ti upgrade plan:** Authored 9-phase procedure at docs/planning/node-d-5060ti-upgrade.md. RTX 5060 Ti 16GB OC via OCuLink (sm_120, Blackwell, CUDA 13.0+).
+- **Deployment scripts:** scripts/deploy-node-d-mtp.sh (Node D model swap), scripts/benchmark-node-b-mtp.sh (Node B benchmark harness).
+
+### Documentation
+
+- **Infra drift remediation:** Full sweep of 13 active HTML docs. Eliminated all stale references (Qwen3-14B, 26 tok/s, mesh-reason, wrong IPs, planned services, old NixOS versions). Audit report at docs/planning/audits/2026-05-17-infra-drift-audit.md.
+- **hermes-relay documented:** New doc at docs/operations/hermes-relay.md. Added to node-b.html, toolbelt.html service tables.
+- **AGENTS.md v3.9:** Updated Node D with pending 5060 Ti upgrade, corrected GPU info.
+- **Gemini CLI audit:** Delegated full infra doc drift audit. Produced structured drift report and relay documentation.
+
+### Changed
+
+- **Node D Tailscale IP:** Corrected from 100.120.225.12 to 100.105.166.45 across all docs (node-d, topology, network, workflows, index).
+- **Node C status:** Updated from "blocked" to fully operational across node-c.html, vitals.html, topology.html.
+- **LiteLLM status:** Updated from "planned" to deployed across node-b.html, toolbelt.html.
+- **Docker Compose -> Docker Desktop:** Corrected in toolbelt.html.
+- **Known Issues purged:** Resolved Node C items removed from vitals.html.
+- **Staging cleanup:** Removed duplicate 35B (22GB) and orphan 27B Q4_K_S (16GB) from mtp-staging/.
+
 ## [0.2.0-alpha] - 2026-05-17
 
 ### Infrastructure
@@ -11,15 +52,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Docker Desktop migration:** Node B native NixOS Docker daemon disabled. Docker Desktop integration active (`wsl.docker-desktop.enable = true`). LiteLLM container running on Docker Desktop daemon. Use `sg docker -c "docker ..."` for docker commands.
 - **mesh-vision route:** Qwen3-VL-2B-Instruct Q6_K on Node B port 8082 (Vulkan). mmproj downloaded and loaded. Image input verified working. Text benchmark: prompt 550 t/s, gen 50.7 t/s.
 - **Hermes auxiliary vision:** Wired `mesh-vision` route into Hermes config (`auxiliary.vision.model = mesh-vision`).
-- **sovereign-sniffer sidecar:** Screen capture pipeline (`sidecars/sniffer/capture.py` + `triage.py`). PowerShell -> WSL2 capture (910ms). End-to-end vision triage verified (25s total). NOT yet a persistent service.
+- **sovereign-sniffer sidecar:** Screen capture pipeline (`sidecars/sniffer/capture.py` + `triage.py`). PowerShell -> WSL2 capture (910ms). End-to-end vision triage verified (25s total). On-demand only, NOT a persistent service.
+- **mesh_proxy.py archived:** Legacy custom router moved to `sidecars/mesh/legacy/`. LiteLLM Docker container is the sole router.
 
 ### Security
 
-- **LiteLLM mesh router:** Upgraded from 1.82.6 to 1.84.0 in Docker container to patch critical SQL injection vulnerability (CVE in litellm <1.83). Container restarted and verified healthy.
+- **LiteLLM mesh router:** Container was running 1.82.6 (main-latest image from 2026-03-22). Upgraded in-container via pip to 1.84.0 to patch critical SQL injection CVE (litellm <1.83). Added post_start hook in proxy.yml to auto-upgrade on restart. Base image pin is tracked as tech debt until BerriAI publishes a 1.84.0+ tag.
 - **Dependabot audit:** Full sweep of 73 alerts (main repo) and 53 alerts (hermes fork) via Gemini CLI. Top threats (litellm SQLi, GitPython RCE, serialize-javascript RCE) triaged. All actionable items patched or flagged.
 - **npm audit fix:** Hermes fork root, ui-tui, web subdirectories all cleaned to 0 vulnerabilities. Website (Docusaurus) has 19 high vulns in transitive build deps, accepted risk (build-time only, no runtime exposure).
 - **ik_llama.cpp GCC 14 fix:** Confirmed already applied on Node C source (iqk_common.h). Node D runs llama.cpp, not ik_llama.cpp.
-- **Node D Tailscale SSH:** Verified working. SSH to maczz@100.120.225.12 confirmed.
+- **Node D Tailscale SSH:** Verified working. SSH to maczz@100.105.166.45 confirmed.
 
 ### Changed
 
@@ -41,7 +83,7 @@ First formal alpha release of the Sovereign Mesh. Phase 0 (Validation Gate) clos
 
 - **Node B (Director):** Hermes-4-14B Q4_K_M via ik_llama.cpp Vulkan. 93.2/33.7 t/s. TurboQuant q4_0 applied.
 - **Node C (Oracle):** Carnice-9B-FC Q4_K_M via ik_llama.cpp CUDA sm_75. 205.2/49.9 t/s. External SSD mounted at /mnt/sovereign-soul.
-- **Node D (Quaternary):** Carnice MoE 35B-A3B Q4_K_M via ik_llama.cpp AVX2 CPU. 8.8/6.1 t/s.
+- **Node D (Quaternary):** Carnice MoE 35B-A3B Q4_K_M via Stock llama.cpp AVX2 CPU. 8.8/6.1 t/s.
 - **Node A (Synapse):** State persistence, cache spillover. No inference. Tailscale 100.96.253.114.
 - **LiteLLM mesh router:** Docker Desktop on Node B port 4000. 4 routes: mesh-fast, mesh-vision, mesh-function-calling, mesh-heavy.
 - **Tailscale:** All 4 nodes authenticated. Zero-trust artery operational.

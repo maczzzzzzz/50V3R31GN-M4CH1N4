@@ -57,17 +57,17 @@
                     <tr>
                         <td>Node B</td><td>Director</td><td>AMD Ryzen 9 5900XT (32 threads)</td>
                         <td>AMD RX 9060 XT 16GB (RDNA 3.5, Vulkan)</td><td>48GB DDR4</td>
-                        <td>NixOS via WSL2 on Windows</td><td><code>100.66.173.31</code></td>
+                        <td>NixOS 25.11 via WSL2</td><td><code>100.66.173.31</code></td>
                     </tr>
                     <tr>
                         <td>Node C</td><td>Oracle</td><td>AMD Ryzen 7 3700X</td>
                         <td>NVIDIA RTX 2060 6GB</td><td>32GB DDR4</td>
-                        <td>NixOS 24.11</td><td><code>100.102.109.81</code></td>
+                        <td>NixOS 25.11 (Xantusia)</td><td><code>100.102.109.81</code></td>
                     </tr>
                     <tr>
                         <td>Node D</td><td>Quaternary</td><td>Intel Core Ultra (Meteor Lake)</td>
-                        <td>None (Intel NPU excluded — 11 TOPS, insufficient)</td><td>48GB DDR5</td>
-                        <td>NixOS 24.11</td><td><code>100.120.225.12</code></td>
+                        <td>None (5060 Ti 16GB OC pending via OCuLink)</td><td>48GB DDR5</td>
+                        <td>NixOS 24.11</td><td><code>100.105.166.45</code></td>
                     </tr>
                 </tbody>
             </table>
@@ -83,7 +83,7 @@
             <p>Function-calling specialist. RTX 2060 6GB VRAM running Carnice-9B-Function-Calling i1-Q4_K_M via CUDA (sm_75). Benchmarked at 205.2/49.9 t/s. External SSD (SOVEREIGN_SOUL, 469GB) mounted at /mnt/sovereign-soul.</p>
 
             <h3>Node D — Quaternary (Heavy Reasoning)</h3>
-            <p>CPU-only inference on Meteor Lake with 48GB DDR5. Runs Carnice-Qwen3.6-MoE-35B-A3B (Q4_K_M, 20GB) at ~6.1 tok/s generation. The MoE architecture means only ~3B active parameters per forward pass, making CPU inference viable despite the 35B total. Planned dual-model stack with a 7B interactive model on a separate port.</p>
+            <p>CPU-only inference on Meteor Lake with 48GB DDR5. Runs Carnice-Qwen3.6-MoE-35B-A3B (Q4_K_M, 20GB) at ~6.1 tok/s generation via stock llama.cpp v8983. The MoE architecture means only ~3B active parameters per forward pass, making CPU inference viable despite the 35B total. RTX 5060 Ti 16GB OC upgrade planned via OCuLink (sm_120, Blackwell). Target model: Qwen3.5-35B-A3B-MTP with native MTP heads for speculative decoding.</p>
         </main>
 
         <footer>

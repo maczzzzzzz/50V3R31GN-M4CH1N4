@@ -35,7 +35,7 @@
 ├── flake.nix               # Nix flake (all nodes, packages, dev shell)
 ├── crates/
 │   └── modules/
-│       ├── directors-forge/   # Tool discovery and API wrapper generation
+│       ├── directors-forge/   # EUTHANIZED (Coordination via Kanban MCP)
 │       ├── mirage-vfs/        # Virtual filesystem abstraction
 │       ├── pretext-core/      # Browser demo framework (WASM)
 │       ├── vibevoice-asr/     # Whisper-based ASR with emotion scoring
@@ -58,7 +58,7 @@
 │   │   └── omi-backend.nix     # Stub module
 │   └── packages/
 │       ├── ik-llama-node-b/    # ik_llama.cpp Vulkan build
-│       ├── ik-llama-node-d/    # ik_llama.cpp AVX2 build
+│       ├── ik-llama-node-d/    # ik_llama.cpp AVX2 build (DEPRECATED: Use stock llama.cpp)
 │       └── llama-cpp-openvino.nix
 ├── sidecars/
 │   ├── mesh/
@@ -72,7 +72,7 @@
             <table>
                 <thead><tr><th>Crate</th><th>Language</th><th>Purpose</th><th>Status</th></tr></thead>
                 <tbody>
-                    <tr><td>directors-forge</td><td>Rust</td><td>Tool discovery and API wrapper generation</td><td><span class="badge badge-pending">Phase 3</span></td></tr>
+                    <tr><td>directors-forge</td><td>Rust</td><td>Tool discovery and API wrapper generation</td><td><span class="badge badge-euthanized">EUTHANIZED</span></td></tr>
                     <tr><td>mirage-vfs</td><td>Rust</td><td>Virtual filesystem abstraction with 4 VFS tools</td><td><span class="badge badge-pending">Phase 3</span></td></tr>
                     <tr><td>pretext-core</td><td>Rust</td><td>WASM browser demo framework</td><td><span class="badge badge-pending">Phase 4</span></td></tr>
                     <tr><td>vibevoice-asr</td><td>Rust</td><td>Whisper ASR with emotion scoring</td><td><span class="badge badge-pending">Phase 4</span></td></tr>

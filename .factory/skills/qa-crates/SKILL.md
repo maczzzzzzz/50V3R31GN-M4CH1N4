@@ -7,7 +7,7 @@ description: >
 
 # QA Tests: Rust Crates & Nix Build
 
-**Testing Target:** All Rust crates in `crates/modules/` and the Nix flake build system. Includes: zeroboot-isolation, matlab-mcp-bridge, goose-execution, graphify-ast, vibevoice-asr, voxcpm-tts, directors-forge, consensus-alignment, pretext-core, mirage-vfs.
+**Testing Target:** All Rust crates in `crates/modules/` and the Nix flake build system. Includes: zeroboot-isolation, matlab-mcp-bridge, goose-execution, graphify-ast, vibevoice-asr, voxcpm-tts, consensus-alignment, pretext-core, mirage-vfs.
 
 ## Test Flow Menu
 

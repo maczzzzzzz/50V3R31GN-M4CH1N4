@@ -6,6 +6,12 @@ services:
     volumes:
       - ./litellm-mesh.yaml:/app/config.yaml
     environment:
-      - SOVEREIGN_MESH_PROXY_KEY=sk-sovereign-mesh-proxy
+      - SOVEREIGN_MESH_PROXY_KEY=sk-sov...roxy
     command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
     restart: unless-stopped
+    # NOTE: main-latest image (as of 2026-05-18) ships litellm 1.82.6 which has
+    # a critical SQL injection CVE. The post_start hook upgrades to 1.84.0+ on
+    # each container start. Remove this once the base image includes 1.84.0+.
+    post_start:
+      - command: ["python", "-m", "pip", "install", "--upgrade", "litellm"]
+        user: root

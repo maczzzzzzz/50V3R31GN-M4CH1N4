@@ -1,7 +1,7 @@
-# SOVEREIGN VITAL SIGNS (v0.1.0-alpha)
+# SOVEREIGN VITAL SIGNS (v0.3.1-alpha)
 
-**Status:** PHASE 0 CLOSED. Phase 1 IN PROGRESS.
-**Updated:** May 17, 2026
+**Status:** PHASE 0 CLOSED. Phase 2 IN PROGRESS.
+**Updated:** May 18, 2026
 
 ---
 
@@ -12,18 +12,18 @@
 | **Node A** | Synapse | `100.96.253.114` | GTX 1050 Ti / 4GB VRAM / 16GB RAM | KV-cache spillover / State persistence | ONLINE |
 | **Node B** | Director | `100.66.173.31` | Ryzen 9 5900XT / RX 9060 XT 16GB / 48GB DDR4 | Fast responder / Workspace | ONLINE |
 | **Node C** | Oracle | `100.102.109.81` | Ryzen 7 3700X / RTX 2060 6GB / 32GB DDR4 | Function-calling / CUDA inference | ONLINE |
-| **Node D** | Quaternary | `100.120.225.12` | Meteor Lake / 48GB DDR5 / NPU (11 TOPS) | Heavy reasoning | ONLINE |
+| **Node D** | Quaternary | `100.105.166.45` | Meteor Lake / 48GB DDR5 / NPU (11 TOPS) | Heavy reasoning | ONLINE |
 
 ## COGNITIVE LAYER
 
 | Route | Model | Target | Backend | Status |
 |:------|:------|:-------|:--------|:-------|
-|| mesh-fast | Hermes-4-14B Q4_K_M | prompt 93.2, gen 33.7 t/s | Node B Vulkan | DEPLOYED |
-| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | text: prompt 550, gen 50.7 t/s. Image verified. | Node B Vulkan (port 8082) | DEPLOYED |
-|| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | prompt 8.8, gen 6.1 t/s | Node D CPU | DEPLOYED |
-|| mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
+| mesh-fast | Hermes-4-14B Q4_K_M | prompt 322, gen 34.1 t/s | Node B Vulkan (b9190) | DEPLOYED |
+| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | prompt 630, gen 159 t/s (text) | Node B Vulkan (b9190, port 8082) | DEPLOYED |
+| mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | prompt 12.7, gen 7.0 t/s | Node D Stock llama.cpp (b64b38b5) | DEPLOYED |
+| mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
 
-All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker Desktop, port 4000). 4 routes.
+LiteLLM mesh router on Node B (Docker Desktop, port 4000). 4 routes. Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
 
 ## NODE B (DIRECTOR)
 
@@ -31,11 +31,11 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker D
 |:----------|:-------|
 | OS | NixOS 25.11 WSL2 |
 | GPU | RX 9060 XT 16GB (Vulkan) |
-|| ik_llama.cpp | Vulkan build, port 8081 (Hermes) + port 8082 (Qwen3-VL) |
-|| Model | Hermes-4-14B Q4_K_M + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
-|| Benchmark | Hermes: 93.2/33.7 t/s | Qwen3-VL text: 550/50.7 t/s, image verified |
-|| TurboQuant | q4_0 KV-cache LIVE |
-|| LiteLLM | Docker Desktop container, port 4000, 4 routes |
+| llama.cpp | b9190 Vulkan build (upgraded from v8710) |
+| Models | Hermes-4-14B Q4_K_M + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
+| Benchmark | Hermes: 322/34.1 t/s | Qwen3-VL text: 630/159 t/s |
+| KV Cache | f16 (Vulkan -- q4_0 causes regression) |
+| LiteLLM | Docker Desktop container, port 4000, 4 routes |
 | Docker | Native NixOS daemon DISABLED. Using Docker Desktop |
 | Tailscale | 100.66.173.31 |
 
@@ -57,9 +57,9 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker D
 |:----------|:-------|
 | OS | NixOS bare metal |
 | GPU | RESEARCH COMPLETE: RTX 5060 Ti 16GB via OCuLink (plan saved, NOT YET PURCHASED) |
-| ik_llama.cpp | AVX2 CPU build, 8 threads |
-| Model | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (19.7 GB) |
-| Benchmark | prompt 8.8 t/s, gen 6.1 t/s |
+| llama.cpp | Stock b64b38b5 AVX2 CPU build, 8 threads |
+| Model | Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB) |
+| Benchmark | prompt 12.7 t/s, gen 7.0 t/s (MTP OFF -- net negative on CPU) |
 | NPU | ~11 TOPS, excluded from inference |
 
 ## NODE A (SYNAPSE)
@@ -77,6 +77,7 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker D
 |:--------|:---------|:-------|
 | Tailscale mesh | All nodes | OPERATIONAL |
 | LiteLLM router | Node B Docker Desktop (port 4000) | OPERATIONAL |
+| hermes-relay | Node B Docker Desktop (port 8767) | OPERATIONAL |
 | Kanban MCP | sidecars/kanban-mcp-server/ (FastMCP stdio) | LIVE |
 | Hermes fork | sidecars/hermes-agent-nous/ (submodule) | OPERATIONAL |
 | directors-forge | EUTHANIZED (May 17) | REMOVED |
@@ -84,4 +85,4 @@ All routes use TurboQuant q4_0 KV-cache. LiteLLM mesh router on Node B (Docker D
 | sovereign-sniffer | sidecars/sniffer/ (capture + triage) | DEPLOYED |
 
 ---
-::/5Y573M-N071C3 : HONEST_BASELINE. NO_PHANTOM_SPECS. // 50V3R31GN-M4CH1N4
+::/5Y3R31GN-M4CH1N4 : HONEST_BASELINE. NO_PHANTOM_SPECS. // 50V3R31GN-M4CH1N4

@@ -70,7 +70,7 @@ sudo nixos-rebuild switch --flake .#node-c</code></pre>
             </ul>
 
             <h3>Step 6: Inference Runtime</h3>
-            <p>Build ik_llama.cpp for the appropriate backend and deploy the assigned model. See each node's detail page for specifics.</p>
+            <p>Build llama.cpp or ik_llama.cpp for the appropriate backend and deploy the assigned model. See each node's detail page for specifics. Node B uses ik_llama.cpp Vulkan, Node C uses ik_llama.cpp CUDA, Node D uses stock llama.cpp AVX2.</p>
 
             <h3>Step 7: Register with LiteLLM</h3>
             <p>Add the node's inference endpoint to the LiteLLM config on Node B (port 4000). See the <a href="../architecture/model-strategy.html">model strategy</a> page for the routing matrix.</p>

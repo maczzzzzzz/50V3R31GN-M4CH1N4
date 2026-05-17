@@ -69,7 +69,7 @@ Gemini project config at `.gemini/settings.json` routes to flash by default. You
 
 ## EXPERTISE
 
-1. **Inference Runtimes:** ik_llama.cpp native builds per-node (Vulkan, CUDA, AVX2). Docker available for future services.
+1. **Inference Runtimes:** llama.cpp native builds per-node (Vulkan, CUDA, AVX2). Docker available for future services.
 2. **TurboQuant:** 4-bit KV-cache and RPC offloading.
 3. **Hermes Integration:** Stock `hermes-agent` toolsets and plugins. Zero Shadow Logic.
 4. **NixOS:** Nix configs in `nix/` for supported nodes. Node D on flake, Node C on vanilla configuration.nix.

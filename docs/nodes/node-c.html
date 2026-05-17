@@ -22,7 +22,7 @@
         </nav>
 
         <main>
-            <h2>Node C — Oracle <span class="badge badge-blocked">NVIDIA Driver In Progress</span></h2>
+            <h2>Node C — Oracle <span class="badge badge-active">Operational</span></h2>
 
             <table>
                 <thead><tr><th>Property</th><th>Value</th></tr></thead>
@@ -32,45 +32,29 @@
                     <tr><td>GPU</td><td>NVIDIA RTX 2060 6GB (Turing)</td></tr>
                     <tr><td>RAM</td><td>32GB DDR4</td></tr>
                     <tr><td>Storage</td><td>222GB Btrfs (190GB free)</td></tr>
-                    <tr><td>OS</td><td>NixOS 24.11 (Vicuna)</td></tr>
+                    <tr><td>OS</td><td>NixOS 25.11 (Xantusia)</td></tr>
                     <tr><td>Tailscale IP</td><td><code>100.102.109.81</code></td></tr>
-                    <tr><td>Local IP</td><td><code>10.0.0.12</code> (DHCP, unstable on reboot)</td></tr>
-                    <tr><td>Inference Backend</td><td>ik_llama.cpp CUDA (planned)</td></tr>
+                    <tr><td>Inference Backend</td><td>ik_llama.cpp CUDA (sm_75, NVIDIA 580.142, CUDA 13.0)</td></tr>
                 </tbody>
             </table>
 
             <h2>Current Status</h2>
-            <p>Node C is reachable on the local network but the NVIDIA proprietary driver is not yet active. The system booted into a stale 25.11 NixOS generation instead of the target 24.11 config. Outstanding issues:</p>
+            <p>Node C is fully operational. NVIDIA proprietary driver (580.142) active, CUDA 13.0 verified, Tailscale stable.</p>
             <ul>
-                <li>NVIDIA driver installed in config but booted generation doesn't include it — needs rebuild with correct boot default</li>
-                <li>Tailscale not in NixOS config — installed manually, service down after reboot</li>
-                <li>Loses local IP on reboot — needs static IP config or DHCP MAC reservation</li>
-                <li>No llama.cpp built, no models deployed</li>
+                <li>External SSD (SOVEREIGN_SOUL, 469GB ext4) mounted at <code>/mnt/sovereign-soul</code></li>
+                <li>ik_llama.cpp CUDA build deployed at <code>/home/maczz/ik_llama.cpp/</code> (GCC 14 patched)</li>
             </ul>
 
-            <h2>Planned Models</h2>
+            <h2>Models</h2>
             <table>
-                <thead><tr><th>Model</th><th>Quant</th><th>Size</th><th>Fit</th></tr></thead>
+                <thead><tr><th>Model</th><th>Quant</th><th>Port</th><th>Benchmark</th><th>Use</th></tr></thead>
                 <tbody>
-                    <tr><td>Carnice-9B-Function-Calling-xLAM</td><td>Q4_K_M</td><td>~5.5 GB</td><td>Fits 6GB VRAM. Dedicated tool-use / function-calling.</td></tr>
-                    <tr><td>Qwen3-VL-2B</td><td>Q6_K</td><td>~2 GB</td><td>Vision backup for mesh-vision route.</td></tr>
+                    <tr><td>Carnice-9B-Function-Calling i1</td><td>Q4_K_M</td><td>8081</td><td>prompt 205.2 t/s, gen 49.9 t/s</td><td>Function-calling, tool use (mesh-function-calling)</td></tr>
                 </tbody>
             </table>
 
-            <h2>Setup Runbook</h2>
-            <ol>
-                <li>Rebuild to 24.11 generation: <code>sudo nixos-rebuild switch -I nixos-config=/etc/nixos/configuration.nix -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos</code></li>
-                <li>Set boot default to new generation</li>
-                <li>Reboot — verify <code>nvidia-smi</code> works</li>
-                <li>Add Tailscale to NixOS config and rebuild</li>
-                <li>Add static IP or DHCP reservation (MAC: verify via <code>ip link</code>)</li>
-                <li>Build ik_llama.cpp with CUDA backend</li>
-                <li>SCP model from staging (<code>/mnt/d/llama.cpp/models/</code> on Node B)</li>
-                <li>Start inference, benchmark, register with LiteLLM</li>
-            </ol>
-
             <h2>NixOS Config</h2>
-            <p>Flake config at <code>nix/hosts/node-c/default.nix</code>. On-disk config at <code>/etc/nixos/configuration.nix</code>. The on-disk config includes NVIDIA driver setup, Docker with NVIDIA container toolkit, and both <code>maczz</code> and <code>nixos</code> users.</p>
+            <p>On-disk config at <code>/etc/nixos/configuration.nix</code>. Users: <code>maczz</code> and <code>nixos</code>. NVIDIA driver, Docker with NVIDIA container toolkit configured.</p>
         </main>
 
         <footer>

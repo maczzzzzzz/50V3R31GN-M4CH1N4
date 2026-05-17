@@ -29,10 +29,10 @@
             <table>
                 <thead><tr><th>Node</th><th>Tailscale IP</th><th>Local IP</th><th>Key Services</th></tr></thead>
                 <tbody>
-                    <tr><td>Node A</td><td><code>100.96.253.114</code></td><td><code>10.0.0.10</code></td><td>SSH, hermes-lcm sync</td></tr>
-                    <tr><td>Node B</td><td><code>100.66.173.31</code></td><td>WSL2 (dynamic)</td><td>SSH, inference :8000, LiteLLM :4000</td></tr>
-                    <tr><td>Node C</td><td><code>100.102.109.81</code></td><td><code>10.0.0.12</code></td><td>SSH, inference :8000 (planned)</td></tr>
-                    <tr><td>Node D</td><td><code>100.120.225.12</code></td><td><code>10.0.0.13</code></td><td>SSH, inference :8000</td></tr>
+                    <tr><td>Node A</td><td><code>100.96.253.114</code></td><td>N/A</td><td>SSH, hermes-lcm sync</td></tr>
+                    <tr><td>Node B</td><td><code>100.66.173.31</code></td><td>WSL2 (dynamic)</td><td>SSH, inference :8081/:8082, LiteLLM :4000, hermes-relay :8767</td></tr>
+                    <tr><td>Node C</td><td><code>100.102.109.81</code></td><td>N/A</td><td>SSH, inference :8081 (CUDA)</td></tr>
+                    <tr><td>Node D</td><td><code>100.105.166.45</code></td><td>N/A</td><td>SSH, inference :8080 (CPU)</td></tr>
                 </tbody>
             </table>
 

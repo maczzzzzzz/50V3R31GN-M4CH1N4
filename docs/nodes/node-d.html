@@ -29,12 +29,12 @@
                 <tbody>
                     <tr><td>Role</td><td>Heavy reasoning, strategic core</td></tr>
                     <tr><td>CPU</td><td>Intel Core Ultra (Meteor Lake)</td></tr>
-                    <tr><td>GPU</td><td>None (Intel NPU excluded — 11 TOPS, insufficient for inference)</td></tr>
+                    <tr><td>GPU</td><td>None. RTX 5060 Ti 16GB OC upgrade pending via OCuLink (sm_120, Blackwell)</td></tr>
                     <tr><td>RAM</td><td>48GB DDR5</td></tr>
                     <tr><td>Storage</td><td>721 GB free on /home</td></tr>
                     <tr><td>OS</td><td>NixOS 24.11</td></tr>
-                    <tr><td>Tailscale IP</td><td><code>100.120.225.12</code></td></tr>
-                    <tr><td>Inference Backend</td><td>ik_llama.cpp AVX2 (CPU-only)</td></tr>
+                    <tr><td>Tailscale IP</td><td><code>100.105.166.45</code></td></tr>
+                    <tr><td>Inference Backend</td><td>Stock llama.cpp AVX2 (CPU-only)</td></tr>
                 </tbody>
             </table>
 
@@ -52,15 +52,16 @@
                 </tbody>
             </table>
 
-            <h2>Planned Dual-Model Stack</h2>
-            <p>Phase 2 targets a two-model deployment on Node D:</p>
+            <h2>Upgrade Plan</h2>
+            <p>Phase 2 targets GPU-accelerated inference via OCuLink eGPU:</p>
             <table>
-                <thead><tr><th>Model</th><th>Port</th><th>Target</th><th>LiteLLM Route</th></tr></thead>
+                <thead><tr><th>Model</th><th>Quant</th><th>Port</th><th>Backend</th><th>LiteLLM Route</th></tr></thead>
                 <tbody>
-                    <tr><td>Carnice MoE 35B (existing)</td><td>:8000</td><td>6.1 tok/s</td><td><code>mesh-reason</code></td></tr>
-                    <tr><td>Qwen 2.5 7B Q6_K (~6GB)</td><td>:8001</td><td>30+ tok/s</td><td><code>mesh-interactive</code></td></tr>
+                    <tr><td>Carnice-Qwen3.6-MoE-35B-A3B (current, CPU)</td><td>Q4_K_M</td><td>:8080</td><td>AVX2, 8 threads</td><td><code>mesh-heavy</code></td></tr>
+                    <tr><td>Qwen3.5-35B-A3B-MTP (target, post-upgrade)</td><td>UD-Q4_K_M</td><td>:8080</td><td>CUDA (sm_120)</td><td><code>mesh-heavy</code></td></tr>
                 </tbody>
             </table>
+            <p>MTP heads enable speculative decoding (draft-mtp). See <a href="../planning/node-d-5060ti-upgrade.md">upgrade plan</a> for the 9-phase procedure.</p>
 
             <h2>Performance Notes</h2>
             <ul>
@@ -74,7 +75,7 @@
             <table>
                 <thead><tr><th>Path</th><th>Content</th></tr></thead>
                 <tbody>
-                    <tr><td><code>/home/nixos/llama.cpp/</code></td><td>ik_llama.cpp build directory</td></tr>
+                    <tr><td><code>/home/nixos/llama.cpp/</code></td><td>llama.cpp build directory</td></tr>
                     <tr><td><code>/home/nixos/llama.cpp/build/bin/llama-cli</code></td><td>Inference binary</td></tr>
                     <tr><td><code>/home/nixos/llama.cpp/models/</code></td><td>Model storage (currently: Carnice MoE 35B only)</td></tr>
                 </tbody>

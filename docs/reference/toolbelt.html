@@ -26,13 +26,16 @@
             <table>
                 <thead><tr><th>Tool</th><th>Purpose</th><th>Nodes</th></tr></thead>
                 <tbody>
-                    <tr><td>NixOS 24.11 + Flakes</td><td>Reproducible system configuration</td><td>A, C, D</td></tr>
+                    <tr><td>NixOS 25.11</td><td>Reproducible system configuration</td><td>B (WSL2), C</td></tr>
+                    <tr><td>NixOS 24.11</td><td>Reproducible system configuration</td><td>A, D</td></tr>
                     <tr><td>WSL2 + NixOS</td><td>Windows bridge with Nix package management</td><td>B</td></tr>
-                    <tr><td>ik_llama.cpp</td><td>LLM inference (Vulkan / CUDA / AVX2 backends)</td><td>B, C, D</td></tr>
+                    <tr><td>ik_llama.cpp</td><td>LLM inference (Vulkan / CUDA backends)</td><td>B, C</td></tr>
+                    <tr><td>llama.cpp (Stock)</td><td>LLM inference (AVX2 backend)</td><td>D</td></tr>
                     <tr><td>Tailscale</td><td>Zero-trust mesh networking (WireGuard)</td><td>All</td></tr>
-                    <tr><td>Docker Compose</td><td>Inference runtime containers</td><td>B, C, D</td></tr>
+                    <tr><td>Docker Desktop</td><td>Container runtime (LiteLLM, hermes-relay)</td><td>B</td></tr>
                     <tr><td>Hermes Agent</td><td>Agentic framework (CLI, TUI, gateway)</td><td>B (primary)</td></tr>
-                    <tr><td>LiteLLM</td><td>Mesh model routing and failover (planned)</td><td>B</td></tr>
+                    <tr><td>LiteLLM</td><td>Mesh model routing and failover (deployed, port 4000)</td><td>B</td></tr>
+                    <tr><td>hermes-relay</td><td>WSS bridge for mobile/desktop Hermes clients (port 8767)</td><td>B</td></tr>
                 </tbody>
             </table>
 

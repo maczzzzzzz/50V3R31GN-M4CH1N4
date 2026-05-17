@@ -31,7 +31,7 @@
                     <tr><td>CPU</td><td>AMD Ryzen 9 5900XT (32 threads visible in WSL)</td></tr>
                     <tr><td>GPU</td><td>AMD Radeon RX 9060 XT 16GB (RDNA 3.5, Vulkan KHR_coopmat, bf16)</td></tr>
                     <tr><td>RAM</td><td>48GB DDR4 (23GB usable in WSL)</td></tr>
-                    <tr><td>OS</td><td>NixOS 24.11 via WSL2 on Windows 11</td></tr>
+                    <tr><td>OS</td><td>NixOS 25.11 via WSL2 on Windows 11 (Docker Desktop)</td></tr>
                     <tr><td>Tailscale IP</td><td><code>100.66.173.31</code></td></tr>
                     <tr><td>Inference Backend</td><td>ik_llama.cpp Vulkan (NOT ROCm — consumer AMD unreliable)</td></tr>
                 </tbody>
@@ -41,9 +41,8 @@
             <table>
                 <thead><tr><th>Model</th><th>Quant</th><th>Size</th><th>Benchmark</th><th>Use</th></tr></thead>
                 <tbody>
-                    <tr><td>Qwen 3 14B</td><td>Q6_K / Q8_0</td><td>~10–14 GB</td><td>26 tok/s gen (Q6_K, FA on)</td><td>Code generation, fast chat</td></tr>
-                    <tr><td>Qwen3-VL-2B</td><td>Q6_K</td><td>~2 GB</td><td>175 tok/s</td><td>Vision triage, screen analysis</td></tr>
-                    <tr><td>Carnice-9B</td><td>Q8_0</td><td>~9.7 GB</td><td>33.5 tok/s</td><td>General purpose (benchmarked)</td></tr>
+                    <tr><td>Hermes-4-14B</td><td>Q4_K_M</td><td>~8.4 GB</td><td>prompt 93.2 t/s, gen 33.7 t/s</td><td>Code generation, fast chat</td></tr>
+                    <tr><td>Qwen3-VL-2B-Instruct</td><td>Q6_K</td><td>~1.9 GB</td><td>prompt 550 t/s, gen 50.7 t/s (text+image)</td><td>Vision triage, screen analysis</td></tr>
                 </tbody>
             </table>
 
@@ -52,13 +51,15 @@
                 <li><strong>Vulkan only.</strong> ROCm support on consumer AMD cards (RDNA 3.5) is unreliable. Vulkan via ik_llama.cpp is the stable path.</li>
                 <li><strong>TurboQuant q4_0 KV hurts on Vulkan.</strong> f16 KV cache only for Node B. This is a known ik_llama.cpp Vulkan limitation.</li>
                 <li><strong>Flash Attention</strong> is functional and enabled.</li>
-                <li>llama.cpp build 8710 located at <code>D:\llama.cpp\</code> on the Windows host.</li>
+                <li>llama.cpp build located at <code>D:\\llama.cpp\\</code> on the Windows host (llama-server.exe ports 8081, 8082).</li>
+                <li><strong>VRAM:</strong> ~10.4GB used of 16GB (Hermes 8.4GB + Qwen3-VL 1.9GB shared GPU).</li>
             </ul>
 
             <h2>Services</h2>
             <ul>
-                <li>LiteLLM mesh router (port 4000) — planned</li>
-                <li>Hermes TUI / Dashboard — planned</li>
+                <li>LiteLLM mesh router (Docker Desktop, port 4000) — deployed, 4 routes: mesh-fast, mesh-vision, mesh-heavy, mesh-function-calling</li>
+                <li>hermes-relay v0.6.1 (Docker Desktop, port 8767) — WSS bridge for mobile/desktop clients</li>
+                <li>Hermes TUI / Dashboard — active</li>
             </ul>
 
             <h2>Model Staging</h2>

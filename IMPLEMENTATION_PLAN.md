@@ -1,7 +1,7 @@
-# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.1.0-alpha)
+# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.3.1-alpha)
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha
-**Timestamp:** 2026-05-17
+**Timestamp:** 2026-05-18
 **Phase 0 Gate:** CLOSED. All validation tasks complete.
 
 ---
@@ -10,33 +10,36 @@
 
 All tasks verified with documented benchmarks. Phase 1 authorized.
 
-- [x] **V0-T1: Node B Inference Benchmark.** Hermes-4-14B Q4_K_M, Vulkan, AMD 16GB. **Result: prompt 93.2 t/s, gen 33.7 t/s.**
-- [x] **V0-T2a: Node D Heavy Reasoning Benchmark.** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M, AVX2, 8 threads CPU. **Result: prompt 8.8 t/s, gen 6.1 t/s.**
+- [x] **V0-T1: Node B Inference Benchmark.** Hermes-4-14B Q4_K_M, Vulkan, AMD 16GB. **Result: prompt 93.2 t/s, gen 33.7 t/s.** (Updated to 322/34.1 t/s after b9190 binary upgrade.)
+- [x] **V0-T2a: Node D Heavy Reasoning Benchmark.** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M, AVX2, 8 threads CPU. **Result: prompt 8.8 t/s, gen 6.1 t/s.** (Model replaced with Qwen3.5-35B-A3B-MTP: 12.7/7.0 t/s.)
 - [x] **V0-T2b: Node D Interactive Model.** DEFERRED -- 35B MoE sufficient for current workload. 7B model not deployed.
 - [x] **V0-T2c: Node C CUDA Benchmark.** Carnice-9B-FC i1-Q4_K_M, CUDA sm_75, RTX 2060 6GB. **Result: prompt 205.2 t/s, gen 49.9 t/s.**
 - [x] **V0-T3: LiteLLM Mesh Routing.** 4 routes verified: mesh-fast (B), mesh-vision (B:8082), mesh-function-calling (C), mesh-heavy (D). Docker Desktop container on port 4000.
-- [x] **V0-T4: TurboQuant Verification.** All nodes confirmed live with `--cache-type-k q4_0`. Active on all inference endpoints.
+- [x] **V0-T4: TurboQuant Verification.** q4_0 KV cache confirmed on CPU nodes C/D. Node B uses f16 KV (Vulkan regression).
 - [x] **V0-T5: Tailscale Artery Health.** All 4 nodes authenticated and online. Node B/A on 1.90.9.
 
 ---
 
-## PHASE 1: KINETIC AGENCY (CURRENT)
+## PHASE 1: KINETIC AGENCY -- CONDITIONAL CLOSE
 
-Give the mesh eyes and hands. Vision triage, terminal control, screen awareness.
+Core capabilities delivered. Remaining items tracked as tech debt (see audit:
+docs/planning/audits/phase1-completion-audit.md).
 
-- [~] **P1-T1: Vision-Enabled UI Automation.** DEPLOYED. Qwen3-VL-2B Q6_K on mesh-vision route (Node B port 8082). Text benchmark: 550 t/s prompt, 50.7 t/s gen. IMAGE INPUT: VERIFIED with mmproj. Hermes auxiliary vision wired to mesh-vision route. Remaining: persistent service, image latency optimization.
-- [~] **P1-T2: Terminal Control.** PARTIAL. All 4 nodes visible in Tailscale mesh. SSH requires browser re-auth (Tailscale SSH checkin). Key-based SSH not yet deployed. Docker Desktop verified on Node B.
-- [~] **P1-T3: Screen Triage Sidecar.** DEPLOYED. sovereign-sniffer capture.py and triage.py (sidecars/sniffer/). Screen capture: PowerShell -> WSL2, 910ms. End-to-end triage verified: 25s total (910ms capture + 24.3s inference). Remaining: persistent systemd service, triage trigger hooks.
+- [~] **P1-T1: Vision-Enabled UI Automation.** CONDITIONAL PASS. Qwen3-VL-2B Q6_K on mesh-vision route (Node B port 8082). Text: 630/159 t/s (b9190). Image verified. Hermes wired. Remaining: persistent service, image latency benchmarks.
+- [~] **P1-T2: Terminal Control.** CONDITIONAL PASS. All 4 nodes in Tailscale mesh. SSH working on C/D. Browser re-auth blocker on some nodes (user-action item). Key-based SSH not deployed.
+- [~] **P1-T3: Screen Triage Sidecar.** CONDITIONAL PASS. capture.py + triage.py in sidecars/sniffer/. 910ms capture, 25s end-to-end. Remaining: systemd service, trigger hooks.
 
 ---
 
-## PHASE 2: COGNITIVE HIERARCHY
+## PHASE 2: COGNITIVE HIERARCHY (CURRENT)
 
-Establish GPU inference on Node D (RTX 5060 Ti 16GB via OCuLink) and validate the full inference pipeline.
+Expand Node D inference capacity and validate cross-node KV-cache spillover.
 
-- [ ] **P2-T1: Node D GPU Installation.** Install RTX 5060 Ti 16GB via OCuLink dock. Deploy ik_llama.cpp CUDA build. Migrate Carnice MoE 35B from CPU to GPU. Re-benchmark.
-- [ ] **P2-T2: Node D Multi-Model Stack.** With GPU handling 35B MoE, run a second interactive model (7B class) on CPU. Register both with LiteLLM.
-- [ ] **P2-T3: Context Spillover (Node A).** Configure Node A as KV-cache offload target via TurboQuant. If ik_llama.cpp supports RPC offload, wire Node D's 35B MoE to spill KV to Node A over Tailscale. Measure context extension.
+**Implementation plan:** docs/planning/plans/2026-05-18_phase2-cognitive-hierarchy.md
+
+- [ ] **P2-T1: Node D GPU Installation.** DEFERRED -- RTX 5060 Ti 16GB hardware not yet available. CUDA build pipeline documented in plan (Workstream C) for immediate execution on arrival.
+- [~] **P2-T2: Speculative Decoding for 35B MoE.** MTP validated on CPU: net negative (49% acceptance, 2.8x overhead). Deferred to post-GPU-upgrade when CUDA should make MTP positive. Ngram speculative decoding not yet tested (free option).
+- [ ] **P2-T3: Context Spillover (Node A).** Research ik_llama.cpp RPC support. If available, configure Node A as KV-cache offload target over Tailscale. If not, defer to Phase 3 with documented rationale. EXECUTES NOW.
 
 ---
 
@@ -64,10 +67,12 @@ Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
 
 | Route | Model | Node | Benchmark | Use Case |
 |:------|:------|:-----|:----------|:---------|
-| mesh-fast | Hermes-4-14B Q4_K_M | Node B (AMD 16GB Vulkan) | 93.2/33.7 t/s | Code gen, fast chat |
-| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | Node B (AMD 16GB Vulkan) | 550/50.7 t/s (text), image verified | Screen triage, visual QA |
+| mesh-fast | Hermes-4-14B Q4_K_M | Node B (AMD 16GB Vulkan b9190) | 322/34.1 t/s | Code gen, fast chat |
+| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | Node B (AMD 16GB Vulkan b9190) | 630/159 t/s (text), image verified | Screen triage, visual QA |
 | mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | Node C (RTX 2060 CUDA) | 205.2/49.9 t/s | Function calling, tool use |
-| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M | Node D (DDR5 CPU) | 8.8/6.1 t/s | Complex reasoning |
+| mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | Node D (DDR5 CPU) | 12.7/7.0 t/s (MTP OFF) | Complex reasoning |
+
+**Note on MTP:** Draft-MTP speculative decoding tested on Node D CPU. 49% acceptance rate with 2.8x per-token overhead makes it net negative. Expected to become net positive after RTX 5060 Ti GPU install enables CUDA acceleration.
 
 **Note on NPU:** Intel AI Boost NPU on Meteor Lake (~11 TOPS) cannot meaningfully accelerate models above 3B. Excluded from inference strategy. Node D compute is CPU cores + DDR5 bandwidth.
 
@@ -82,7 +87,8 @@ Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
 | Gemini CLI Integration | LIVE | Shared kanban MCP, Pro/Flash routing |
 | sovereign-sniffer | DEPLOYED | capture.py + triage.py, end-to-end verified |
 | directors-forge | EUTHANIZED | Removed from node-b config, 0 tests |
-| TurboQuant | LIVE (all nodes) | q4_0 KV cache active on all inference endpoints |
+| hermes-relay | LIVE | Docker Desktop port 8767, WSS bridge |
+| KV Cache | q4_0 (C/D), f16 (B) | Vulkan lacks optimized q4_0 KV dequant |
 
 ---
-::/5Y573M-N071C3 : PLAN_V0.1.0_ALPHA. PHASE1_IN_PROGRESS. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : PLAN_V0.3.1_ALPHA. PHASE2_IN_PROGRESS. // 50V3R31GN-M4CH1N4

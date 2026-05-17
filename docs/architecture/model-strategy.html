@@ -30,15 +30,15 @@
                 <tbody>
                     <tr>
                         <td><code>mesh-fast</code></td>
-                        <td>Qwen 3 14B</td>
+                        <td>Hermes-4-14B</td>
                         <td>Node B (16GB AMD Vulkan)</td>
-                        <td>Q6_K / Q8_0</td>
-                        <td>~10–14 GB</td>
-                        <td>26 tok/s (Q6_K)</td>
+                        <td>Q4_K_M</td>
+                        <td>~8.4 GB</td>
+                        <td>33.7 tok/s (gen)</td>
                         <td>Code generation, fast chat, tool calling</td>
                     </tr>
                     <tr>
-                        <td><code>mesh-reason</code></td>
+                        <td><code>mesh-heavy</code></td>
                         <td>Carnice-Qwen3.6-MoE-35B-A3B</td>
                         <td>Node D (CPU-only)</td>
                         <td>Q4_K_M</td>
@@ -58,19 +58,19 @@
                     <tr>
                         <td><code>mesh-vision</code></td>
                         <td>Qwen3-VL-2B</td>
-                        <td>Node B / Node C</td>
+                        <td>Node B</td>
                         <td>Q6_K</td>
                         <td>~2 GB</td>
-                        <td>175 tok/s (Node B)</td>
+                        <td>50.7 tok/s (gen)</td>
                         <td>Screen triage, visual QA, OCR</td>
                     </tr>
                     <tr>
-                        <td><code>mesh-tools</code></td>
+                        <td><code>mesh-function-calling</code></td>
                         <td>Carnice-9B-Function-Calling</td>
-                        <td>Node C (planned, RTX 2060 6GB)</td>
-                        <td>Q4_K_M</td>
+                        <td>Node C (RTX 2060 6GB)</td>
+                        <td>i1-Q4_K_M</td>
                         <td>~5.5 GB</td>
-                        <td>Not yet benchmarked</td>
+                        <td>49.9 tok/s (gen)</td>
                         <td>Function calling, structured output, tool use</td>
                     </tr>
                 </tbody>

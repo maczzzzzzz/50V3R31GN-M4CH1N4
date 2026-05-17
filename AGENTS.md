@@ -1,4 +1,4 @@
-# AGENTS.md: The Alpha Mesh Roles (v0.1.0-alpha)
+# AGENTS.md: The Alpha Mesh Roles (v0.3.1-alpha)
 
 Active agents and hardware topology for the Stable Mesh Alpha build.
 
@@ -8,9 +8,8 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 
 - **Branch:** stable/mesh-alpha
 - **Hermes-First:** High-level reasoning via stock `hermes chat`
-- **TurboQuant:** Mandatory 4-bit KV-cache (q4_0) across all inference endpoints
 - **Prove First, Build Second:** No new features until existing infrastructure is benchmarked
-- **Single Deployment Strategy:** ik_llama.cpp native builds per-node. Docker available for future services. Nix for host config.
+- **Single Deployment Strategy:** llama.cpp native builds per-node (ik_llama.cpp where GCC < 15). Docker available for future services. Nix for host config.
 
 ---
 
@@ -20,19 +19,22 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **Hardware:** Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4
 - **Role:** Fast responder, code generation, vision perception, workspace authority
 - **Models:** Hermes-4-14B Q4_K_M (GPU port 8081, mesh-fast), Qwen3-VL-2B-Instruct Q6_K (GPU port 8082, mesh-vision)
-- **Backend:** ik_llama.cpp Vulkan (NOT ROCm -- consumer AMD unreliable)
-- **Benchmark:** Hermes prompt 93.2 t/s gen 33.7 t/s | Qwen3-VL prompt 550 t/s gen 50.7 t/s (image verified)
-- **Services:** LiteLLM mesh router (Docker Desktop, port 4000), Hermes TUI/Dashboard
+- **Backend:** llama.cpp b9190 Vulkan (upgraded from v8710)
+- **Benchmark:** Hermes prompt 322 t/s gen 34.1 t/s | Qwen3-VL prompt 630 t/s gen 159 t/s (text, image verified)
+- **Services:** LiteLLM mesh router (Docker Desktop, port 4000), hermes-relay (Docker Desktop, port 8767), Hermes TUI/Dashboard
 - **Docker:** Docker Desktop migration COMPLETE. Native NixOS daemon DISABLED. Config `wsl.docker-desktop.enable = true` in `/etc/nixos/configuration.nix`. Use `sg docker -c "docker ..."` for docker commands (shell session lacks group).
 - **VRAM:** ~10.4GB used of 16GB (Hermes 8.4GB + Qwen3-VL 1.9GB shared GPU)
+- **KV Cache:** f16 (Vulkan -- q4_0 causes 39-88% regression)
+- **Startup:** D:\llama.cpp\start-all.bat (both models), start-hermes.bat, start-vision.bat (individual)
 
 ### Node D -- Quaternary (Heavy Reasoning)
 - **Hardware:** Intel Core Ultra Meteor Lake, 48GB DDR5, NPU (excluded from inference)
 - **Role:** Heavy reasoning (35B MoE)
-- **Models:** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (reasoning, 6.1 t/s gen)
-- **Backend:** ik_llama.cpp AVX2
-- **Note:** NPU is ~11 TOPS. Cannot run models above 3B. CPU-only inference.
-- **Benchmarked:** prompt 8.8 t/s, gen 6.1 t/s (8 threads CPU-only)
+- **GPU Upgrade (pending):** RTX 5060 Ti 16GB OC via OCuLink (sm_120, CUDA 13.0+)
+- **Model:** Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB)
+- **Backend:** llama.cpp b64b38b5 AVX2 CPU (stock build), 8 threads
+- **Benchmark:** prompt 12.7 t/s, gen 7.0 t/s (MTP OFF -- net negative on CPU: 49% acceptance, 2.8x slower)
+- **Upgrade Plan:** docs/planning/node-d-5060ti-upgrade.md
 
 ### Node C -- Oracle (Perception)
 - **Hardware:** Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4
@@ -66,4 +68,4 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 **Details:** See GEMINI.md
 
 ---
-::/5Y573M-N071C3 : AGENTS_V3_8_ALPHA. HONEST_SPECS_ONLY. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : AGENTS_V3.9_ALPHA. B9190_BINARY. MTP_VALIDATED_CPU_NEGATIVE. // 50V3R31GN-M4CH1N4
