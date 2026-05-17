@@ -18,7 +18,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 ### Node B -- Director (Primary Workspace)
 - **Hardware:** Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4
 - **Role:** Fast responder, code generation, vision perception, workspace authority
-- **Models:** Hermes-4-14B Q4_K_M (GPU port 8081, mesh-fast), Qwen3-VL-2B-Instruct Q6_K (GPU port 8082, mesh-vision)
+- **Models:** Qwopus3.5-9B Q8_0 (GPU port 8081, mesh-fast), Qwen3-VL-2B-Instruct Q6_K (GPU port 8082, mesh-vision)
 - **Backend:** llama.cpp b9190 Vulkan (upgraded from v8710)
 - **Benchmark:** Hermes prompt 322 t/s gen 34.1 t/s | Qwen3-VL prompt 630 t/s gen 159 t/s (text, image verified)
 - **Services:** LiteLLM mesh router (Docker Desktop, port 4000), hermes-relay (Docker Desktop, port 8767), Hermes TUI/Dashboard
@@ -49,7 +49,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 ### Node A -- Synapse (State)
 - **Hardware:** GTX 1050 Ti 4GB, 16GB RAM
 - **Role:** KV-cache spillover, hermes-lcm state persistence
-- **Note:** No model inference. Memory and cache only.
+- **Note:** Inference active: mesh-micro (Qwen3-0.6B Q8_0)
 - **Tailscale:** 100.96.253.114
 
 ---

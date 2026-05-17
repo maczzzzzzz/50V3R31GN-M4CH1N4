@@ -1,7 +1,7 @@
 # Node D: 5060 Ti 16GB OC OCuLink Upgrade Plan
 
 **Date:** 2026-05-17
-**Node:** D (Quaternary) -- Tailscale 100.105.166.45
+**Node:** D (Quaternary) -- Tailscale 100.120.225.12
 **Hardware:** Intel Core Ultra Meteor Lake, 48GB DDR5, NPU (excluded)
 **Upgrade:** RTX 5060 Ti 16GB OC via OCuLink
 
@@ -13,7 +13,7 @@
 |------|-------|
 | OS | NixOS 26.05 (pre-release) |
 | Inference | CPU-only, Nix llama.cpp v8983, 8 threads |
-| Model | Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (20GB on disk) |
+| Model | Qwen3.5-35B-A3B-MTP Q4_K_M (20GB on disk) |
 | Throughput | prompt 8.8 t/s, gen 6.1 t/s |
 | RAM usage | ~21GB (43.6% of 48GB) |
 | Port | 8080 |
@@ -164,7 +164,7 @@ After deployment, update LiteLLM config on Node B:
 - model_name: mesh-heavy
   litellm_params:
     model: huggingface/Qwen3.5-35B-A3B-MTP
-    api_base: http://100.105.166.45:8080/v1
+    api_base: http://100.120.225.12:8080/v1
     rpm: 10
 ```
 

@@ -5,15 +5,15 @@
 model_list:
   # Node B -- Director (Fast Responder)
   # Hardware: Ryzen 9 5900XT, AMD 16GB VRAM, Vulkan
-  # Model: Hermes-4-14B Q4_K_M (8.4GB)
-  # Benchmark: prompt 93.2 t/s, gen 33.7 t/s
+  # Model: Qwopus3.5-9B Q8_0 (7.2GB)
+  # Benchmark: prompt 428-441 t/s, gen 53.8-55.1 t/s (Vulkan f16 KV)
   - model_name: mesh-fast
     litellm_params:
-      model: openai/hermes-4-14b
+      model: openai/qwopus3.5-9b-q8
       api_base: http://10.0.0.11:8081/v1
       api_key: "os.environ/MESH_API_KEY"
-      tpm: 100000
-      rpm: 100
+      tpm: 80000
+      rpm: 30
     model_info:
       id: mesh-fast
       object: model
@@ -31,8 +31,8 @@ model_list:
       model: openai/carnice-9b-fc
       api_base: http://host.docker.internal:18081/v1
       api_key: "os.environ/MESH_API_KEY"
-      tpm: 100000
-      rpm: 100
+      tpm: 80000
+      rpm: 30
     model_info:
       id: mesh-function-calling
       object: model
@@ -44,7 +44,7 @@ model_list:
   # Node B -- Director (Vision Perception)
   # Hardware: Ryzen 9 5900XT, AMD 16GB VRAM, Vulkan
   # Model: Qwen3-VL-2B-Instruct Q6_K (1.4GB, image-text-to-text)
-  # Benchmark: prompt 18.3 t/s, gen 53.9 t/s
+  # Benchmark: prompt 630 t/s, gen 159 t/s (text baseline)
   - model_name: mesh-vision
     litellm_params:
       model: openai/qwen3-vl-2b-instruct
@@ -62,11 +62,11 @@ model_list:
 
   # Node D -- Quaternary (Heavy Reasoning)
   # Hardware: Intel Core Ultra Meteor Lake, 48GB DDR5, CPU-only
-  # Model: Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M (20GB)
-  # Benchmark: prompt 8.9 t/s, gen 5.7 t/s
+  # Model: Qwen3.5-35B-A3B-MTP UD-Q4_K_M (MTP disabled on CPU)
+  # Benchmark: prompt 12.7 t/s, gen 7.0 t/s
   - model_name: mesh-heavy
     litellm_params:
-      model: openai/carnice-qwen3.6-moe-35b-a3b
+      model: openai/qwen3.5-35b-a3b-mtp
       api_base: http://host.docker.internal:18080/v1
       api_key: "os.environ/MESH_API_KEY"
       tpm: 50000
@@ -88,7 +88,7 @@ model_list:
       model: openai/qwen3-0.6b
       api_base: http://host.docker.internal:17080/v1
       api_key: "os.environ/MESH_API_KEY"
-      tpm: 100000
+      tpm: 80000
       rpm: 200
     model_info:
       id: mesh-micro
@@ -102,9 +102,9 @@ router_settings:
   routing_strategy: simple-shuffle
   enable_pre_call_checks: true
   model_group_alias:
-    "hermes-4-14b": "mesh-fast"
+    "qwopus-9b": "mesh-fast"
     "carnice-9b-fc": "mesh-function-calling"
-    "carnice-qwen3.6-moe-35b-a3b": "mesh-heavy"
+    "qwen3.5-35b-mtp": "mesh-heavy"
     "fast": "mesh-fast"
     "fc": "mesh-function-calling"
     "heavy": "mesh-heavy"

@@ -114,3 +114,24 @@ Carnice-V2-27B is a Qwen3.6-27B fine-tune specifically for Hermes agentic traces
 **Mistral Small 24B:** ~14 GiB Q4_K_M. TIGHT fit. Denser model = slower generation than 14B.
 
 **CONCLUSION:** Stay with Qwen3 family. Carnice variants are Qwen3 fine-tunes, so they keep the same architecture/tokenizer. Do not mix model families across the mesh.
+
+---
+
+## Latest Update: 2026-05-19 -- Qwopus3.5-9B Q8_0 Deployment
+
+**Model:** Qwopus3.5-9B Q8_0 (replaces Qwopus3.5-9B as mesh-fast)
+**Backend:** llama.cpp b9190 Vulkan, f16 KV cache only
+**Port:** 8081 (Node B WSL2 10.0.0.11)
+**VRAM:** ~10.1 GiB under load
+
+### Benchmark Results (real completions)
+
+| Test | Prompt Tokens | Gen Tokens | Prompt (t/s) | Gen (t/s) |
+|------|---------------|------------|--------------|-----------|
+| Reasoning prompt | 48 | 200 | 428 | 53.8 |
+| Coding task | 32 | 180 | 441 | 55.1 |
+| Vision test (mmproj loaded) | 64 + image | 120 | 412 | 51.4 |
+
+**Verdict:** +58% gen speed over previous Qwopus3.5-9B (34.1 t/s). Stable, vision functional. mesh-fast route updated in LiteLLM.
+
+**Note:** f16 KV mandatory on Vulkan. q4_0 KV causes 39-88% regression.

@@ -14,7 +14,7 @@
 
 - Phase 0: CLOSED. All benchmarks verified.
 - mesh-vision route: LIVE on LiteLLM (Qwen3-VL-2B Q6_K on Node B port 8082)
-- mesh-fast route: LIVE (Hermes-4-14B Q4_K_M on Node B port 8081)
+- mesh-fast route: LIVE (Qwopus3.5-9B Q4_K_M on Node B port 8081)
 - mesh-function-calling: LIVE (Carnice-9B-FC on Node C port 8081)
 - mesh-heavy: LIVE (Carnice MoE 35B on Node D port 8080)
 - Docker Desktop: OPERATIONAL on Node B (WSL2 integration complete)

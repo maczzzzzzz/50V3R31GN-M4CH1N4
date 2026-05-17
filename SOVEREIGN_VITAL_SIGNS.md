@@ -12,16 +12,17 @@
 | **Node A** | Synapse | `100.96.253.114` | GTX 1050 Ti / 4GB VRAM / 16GB RAM | KV-cache spillover / State persistence | ONLINE |
 | **Node B** | Director | `100.66.173.31` | Ryzen 9 5900XT / RX 9060 XT 16GB / 48GB DDR4 | Fast responder / Workspace | ONLINE |
 | **Node C** | Oracle | `100.102.109.81` | Ryzen 7 3700X / RTX 2060 6GB / 32GB DDR4 | Function-calling / CUDA inference | ONLINE |
-| **Node D** | Quaternary | `100.105.166.45` | Meteor Lake / 48GB DDR5 / NPU (11 TOPS) | Heavy reasoning | ONLINE |
+| **Node D** | Quaternary | `100.120.225.12` | Meteor Lake / 48GB DDR5 / NPU (11 TOPS) | Heavy reasoning | ONLINE |
 
 ## COGNITIVE LAYER
 
 | Route | Model | Target | Backend | Status |
 |:------|:------|:-------|:--------|:-------|
-| mesh-fast | Hermes-4-14B Q4_K_M | prompt 322, gen 34.1 t/s | Node B Vulkan (b9190) | DEPLOYED |
+| mesh-fast | Qwopus3.5-9B Q8_0 | prompt 322, gen 34.1 t/s | Node B Vulkan (b9190) | DEPLOYED |
 | mesh-vision | Qwen3-VL-2B-Instruct Q6_K | prompt 630, gen 159 t/s (text) | Node B Vulkan (b9190, port 8082) | DEPLOYED |
 | mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | prompt 12.7, gen 7.0 t/s | Node D Stock llama.cpp (b64b38b5) | DEPLOYED |
 | mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
+|| mesh-micro | Qwen3-0.6B Q8_0 | prompt 49 t/s, gen 29 t/s | Node A CPU | DEPLOYED |
 
 LiteLLM mesh router on Node B (Docker Desktop, port 4000). 4 routes. Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
 
@@ -32,8 +33,8 @@ LiteLLM mesh router on Node B (Docker Desktop, port 4000). 4 routes. Vulkan node
 | OS | NixOS 25.11 WSL2 |
 | GPU | RX 9060 XT 16GB (Vulkan) |
 | llama.cpp | b9190 Vulkan build (upgraded from v8710) |
-| Models | Hermes-4-14B Q4_K_M + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
-| Benchmark | Hermes: 322/34.1 t/s | Qwen3-VL text: 630/159 t/s |
+| Models | Qwopus3.5-9B Q8_0 + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
+| Benchmark | Hermes: 428-441 t/s prompt, 53.8-55.1 t/s gen | Qwen3-VL text: 630/159 t/s |
 | KV Cache | f16 (Vulkan -- q4_0 causes regression) |
 | LiteLLM | Docker Desktop container, port 4000, 4 routes |
 | Docker | Native NixOS daemon DISABLED. Using Docker Desktop |

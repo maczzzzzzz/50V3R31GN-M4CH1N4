@@ -67,7 +67,7 @@
                     <tr>
                         <td>Node D</td><td>Quaternary</td><td>Intel Core Ultra (Meteor Lake)</td>
                         <td>None (5060 Ti 16GB OC pending via OCuLink)</td><td>48GB DDR5</td>
-                        <td>NixOS 24.11</td><td><code>100.105.166.45</code></td>
+                        <td>NixOS 24.11</td><td><code>100.120.225.12</code></td>
                     </tr>
                 </tbody>
             </table>
@@ -77,13 +77,13 @@
             <p>No model inference. Dedicated to KV-cache spillover via TurboQuant and persistent state storage via hermes-lcm. The GTX 1050 Ti is too constrained for meaningful LLM work but can buffer quantized KV tensors.</p>
 
             <h3>Node B — Director (Primary Workspace)</h3>
-            <p>Fast responder and workspace authority. Runs Hermes-4-14B Q4_K_M on the AMD RX 9060 XT (16GB) via Vulkan backend (ik_llama.cpp). Benchmarked at 93.2/33.7 t/s. Node B is the primary development interface, running under WSL2 on Windows.</p>
+            <p>Fast responder and workspace authority. Runs Qwopus3.5-9B Q4_K_M on the AMD RX 9060 XT (16GB) via Vulkan backend (ik_llama.cpp). Benchmarked at 93.2/33.7 t/s. Node B is the primary development interface, running under WSL2 on Windows.</p>
 
             <h3>Node C — Oracle (Perception)</h3>
             <p>Function-calling specialist. RTX 2060 6GB VRAM running Carnice-9B-Function-Calling i1-Q4_K_M via CUDA (sm_75). Benchmarked at 205.2/49.9 t/s. External SSD (SOVEREIGN_SOUL, 469GB) mounted at /mnt/sovereign-soul.</p>
 
             <h3>Node D — Quaternary (Heavy Reasoning)</h3>
-            <p>CPU-only inference on Meteor Lake with 48GB DDR5. Runs Carnice-Qwen3.6-MoE-35B-A3B (Q4_K_M, 20GB) at ~6.1 tok/s generation via stock llama.cpp v8983. The MoE architecture means only ~3B active parameters per forward pass, making CPU inference viable despite the 35B total. RTX 5060 Ti 16GB OC upgrade planned via OCuLink (sm_120, Blackwell). Target model: Qwen3.5-35B-A3B-MTP with native MTP heads for speculative decoding.</p>
+            <p>CPU-only inference on Meteor Lake with 48GB DDR5. Runs Qwen3.5-35B-A3B-MTP (Q4_K_M, 20GB) at ~6.1 tok/s generation via stock llama.cpp v8983. The MoE architecture means only ~3B active parameters per forward pass, making CPU inference viable despite the 35B total. RTX 5060 Ti 16GB OC upgrade planned via OCuLink (sm_120, Blackwell). Target model: Qwen3.5-35B-A3B-MTP with native MTP heads for speculative decoding.</p>
         </main>
 
         <footer>

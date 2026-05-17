@@ -67,7 +67,7 @@ Hybrid GPU+CPU split inference requires shuffling tensor data across OCuLink for
 | Model | Quant | Size | Projected Gen t/s | Notes |
 |:------|:------|:-----|:-------------------|:------|
 | Qwen3.6-27B (Dense) | UD-Q3_K (3-bit) | ~15 GB | ~35-45 t/s | Max size that fits. MTP speculative decoding adds 1.4-2x speedup |
-| Hermes-4-14B | Q6_K / Q8_0 | ~12-14 GB | ~50-65 t/s | Same model family as Node B, higher quant |
+| Qwopus3.5-9B | Q6_K / Q8_0 | ~12-14 GB | ~50-65 t/s | Same model family as Node B, higher quant |
 | Qwen3.6-14B | Q4_K_M / Q6_K | ~10-12 GB | ~55-70 t/s | Strong reasoning, MTP support |
 | Qwen3.6-14B | Q6_K | ~12 GB | ~50-65 t/s | Best quality/size balance |
 | Mistral-Small-24B | Q4_K_M | ~15 GB | ~40-50 t/s | Dense model, fills VRAM |
@@ -106,7 +106,7 @@ ik_llama.cpp supports `-ngl` (num GPU layers) for partial offloading. However, o
 | 35B MoE at UD-Q2_K (2-bit) | **MARGINAL** | Fits but quality loss on reasoning. Defeats purpose of heavy reasoning node. |
 | Qwen3.6-27B UD-Q3_K + MTP | **GO** | Best fit for VRAM. MTP adds speculative speedup. Heavy reasoning capability preserved. |
 | Qwen3.6-14B Q6_K | **STRONG GO** | Fits comfortably. ~50-65 t/s gen. 10x speedup over CPU. Room for KV cache. |
-| Hermes-4-14B Q6_K | **GO** | Model parity with Node B at higher quality. Simple deployment. |
+| Qwopus3.5-9B Q6_K | **GO** | Model parity with Node B at higher quality. Simple deployment. |
 
 ## OPEN QUESTIONS FOR ARCHITECT REVIEW
 

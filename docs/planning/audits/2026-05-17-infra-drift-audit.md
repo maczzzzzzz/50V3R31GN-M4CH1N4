@@ -39,7 +39,7 @@ Audit of the Sovereign Machina Alpha Mesh documentation reveals significant drif
 ## 3. Node B (Director) & Node C (Oracle) Drift
 
 ### Node B Benchmarks & Model
-- **Physical Reality:** Hermes-4-14B (33.7 t/s gen).
+- **Physical Reality:** Qwopus3.5-9B (33.7 t/s gen).
 - **Drift Locations:**
     - `docs/architecture/model-strategy.html`: Lists "Qwen 3 14B" at 26 t/s. This is outdated.
 
@@ -71,7 +71,7 @@ Audit of the Sovereign Machina Alpha Mesh documentation reveals significant drif
 - [x] **Standardize Route Names** between LiteLLM config and documentation. (node-d.html: mesh-reason -> mesh-heavy)
 - [x] **Document `hermes-relay`** as a core service. (node-b.html, toolbelt.html, docs/operations/hermes-relay.md)
 - [x] **Fix Node C status** from "blocked" to operational. (node-c.html, vitals.html rewritten)
-- [x] **Fix Node D Tailscale IP** from 100.120.225.12 to 100.105.166.45. (node-d.html, topology.html)
+- [x] **Fix Node D Tailscale IP** from 100.120.225.12 to 100.120.225.12. (node-d.html, topology.html)
 - [x] **Fix NixOS versions** split 24.11 (A,D) vs 25.11 (B,C). (toolbelt.html, node-b.html, node-c.html)
 - [x] **Update services** LiteLLM "planned" -> deployed, Docker Compose -> Docker Desktop. (toolbelt.html, node-b.html)
 - [x] **Purge stale Known Issues** for Node C (all resolved). (vitals.html)

@@ -434,7 +434,7 @@ C1 (hardware) -> C2 (CUDA build) -> C3 (migrate) -> C4 (docs)
 
 | Route | Model | Node | Backend | Benchmark | Use Case |
 |:------|:------|:-----|:--------|:----------|:---------|
-| mesh-fast | Hermes-4-14B Q4_K_M | B (Vulkan) | GPU | 93.2/33.7 t/s | Code gen, fast chat |
+| mesh-fast | Qwopus3.5-9B Q4_K_M | B (Vulkan) | GPU | 93.2/33.7 t/s | Code gen, fast chat |
 | mesh-vision | Qwen3-VL-2B Q6_K | B (Vulkan) | GPU | 550/50.7 t/s + image | Visual QA, triage |
 | mesh-function-calling | Carnice-9B-FC Q4_K_M | C (CUDA) | GPU | 205.2/49.9 t/s | Tool use, FC |
 | mesh-heavy | Carnice MoE 35B Q4_K_M | D (CPU) | AVX2 | 8.8/6.1 t/s | Complex reasoning |

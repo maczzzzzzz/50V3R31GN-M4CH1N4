@@ -33,7 +33,7 @@
                     <tr><td>RAM</td><td>48GB DDR5</td></tr>
                     <tr><td>Storage</td><td>721 GB free on /home</td></tr>
                     <tr><td>OS</td><td>NixOS 24.11</td></tr>
-                    <tr><td>Tailscale IP</td><td><code>100.105.166.45</code></td></tr>
+                    <tr><td>Tailscale IP</td><td><code>100.120.225.12</code></td></tr>
                     <tr><td>Inference Backend</td><td>Stock llama.cpp AVX2 (CPU-only)</td></tr>
                 </tbody>
             </table>
@@ -43,7 +43,7 @@
                 <thead><tr><th>Model</th><th>Quant</th><th>Size</th><th>Benchmark</th><th>Use</th></tr></thead>
                 <tbody>
                     <tr>
-                        <td>Carnice-Qwen3.6-MoE-35B-A3B</td>
+                        <td>Qwen3.5-35B-A3B-MTP</td>
                         <td>Q4_K_M</td>
                         <td>20 GB</td>
                         <td>prompt 8.8 t/s, gen 6.1 t/s (8 threads)</td>
@@ -57,7 +57,7 @@
             <table>
                 <thead><tr><th>Model</th><th>Quant</th><th>Port</th><th>Backend</th><th>LiteLLM Route</th></tr></thead>
                 <tbody>
-                    <tr><td>Carnice-Qwen3.6-MoE-35B-A3B (current, CPU)</td><td>Q4_K_M</td><td>:8080</td><td>AVX2, 8 threads</td><td><code>mesh-heavy</code></td></tr>
+                    <tr><td>Qwen3.5-35B-A3B-MTP (current, CPU)</td><td>Q4_K_M</td><td>:8080</td><td>AVX2, 8 threads</td><td><code>mesh-heavy</code></td></tr>
                     <tr><td>Qwen3.5-35B-A3B-MTP (target, post-upgrade)</td><td>UD-Q4_K_M</td><td>:8080</td><td>CUDA (sm_120)</td><td><code>mesh-heavy</code></td></tr>
                 </tbody>
             </table>

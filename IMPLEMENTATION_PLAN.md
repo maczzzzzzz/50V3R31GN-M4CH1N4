@@ -10,8 +10,8 @@
 
 All tasks verified with documented benchmarks. Phase 1 authorized.
 
-- [x] **V0-T1: Node B Inference Benchmark.** Hermes-4-14B Q4_K_M, Vulkan, AMD 16GB. **Result: prompt 93.2 t/s, gen 33.7 t/s.** (Updated to 322/34.1 t/s after b9190 binary upgrade.)
-- [x] **V0-T2a: Node D Heavy Reasoning Benchmark.** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M, AVX2, 8 threads CPU. **Result: prompt 8.8 t/s, gen 6.1 t/s.** (Model replaced with Qwen3.5-35B-A3B-MTP: 12.7/7.0 t/s.)
+- [x] **V0-T1: Node B Inference Benchmark.** Qwopus3.5-9B Q8_0, Vulkan, AMD 16GB. **Result: prompt 428-441 t/s prompt, 53.8-55.1 t/s gen.** (Updated to 428-441 t/s prompt, 53.8-55.1 t/s gen after b9190 binary upgrade.)
+- [x] **V0-T2a: Node D Heavy Reasoning Benchmark.** Qwen3.5-35B-A3B-MTP UD-Q4_K_M, AVX2, 8 threads CPU. **Result: prompt 12.7 t/s, gen 7.0 t/s.** (Model replaced with Qwen3.5-35B-A3B-MTP: 12.7/7.0 t/s.)
 - [x] **V0-T2b: Node D Interactive Model.** DEFERRED -- 35B MoE sufficient for current workload. 7B model not deployed.
 - [x] **V0-T2c: Node C CUDA Benchmark.** Carnice-9B-FC i1-Q4_K_M, CUDA sm_75, RTX 2060 6GB. **Result: prompt 205.2 t/s, gen 49.9 t/s.**
 - [x] **V0-T3: LiteLLM Mesh Routing.** 4 routes verified: mesh-fast (B), mesh-vision (B:8082), mesh-function-calling (C), mesh-heavy (D). Docker Desktop container on port 4000.
@@ -79,7 +79,7 @@ Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
 
 | Route | Model | Node | Benchmark | Use Case |
 |:------|:------|:-----|:----------|:---------|
-| mesh-fast | Hermes-4-14B Q4_K_M | Node B (AMD 16GB Vulkan b9190) | 322/34.1 t/s | Code gen, fast chat |
+| mesh-fast | Qwopus3.5-9B Q8_0 | Node B (AMD 16GB Vulkan b9190) | 428-441 t/s prompt, 53.8-55.1 t/s gen | Code gen, fast chat |
 | mesh-vision | Qwen3-VL-2B-Instruct Q6_K | Node B (AMD 16GB Vulkan b9190) | 630/159 t/s (text), image verified | Screen triage, visual QA |
 | mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | Node C (RTX 2060 CUDA) | 205.2/49.9 t/s | Function calling, tool use |
 | mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | Node D (DDR5 CPU) | 12.7/7.0 t/s (MTP OFF) | Complex reasoning |

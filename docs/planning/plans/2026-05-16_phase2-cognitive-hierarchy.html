@@ -348,7 +348,7 @@ C1 (hardware) -&gt; C2 (CUDA build) -&gt; C3 (migrate) -&gt; C4 (docs)
 <hr>
 <h3>Model Strategy (Updated)</h3>
 <table><thead><tr><th>Route</th><th>Model</th><th>Node</th><th>Backend</th><th>Benchmark</th><th>Use Case</th></tr></thead><tbody>
-<tr><td>mesh-fast</td><td>Hermes-4-14B Q4_K_M</td><td>B (Vulkan)</td><td>GPU</td><td>93.2/33.7 t/s</td><td>Code gen, fast chat</td></tr>
+<tr><td>mesh-fast</td><td>Qwopus3.5-9B Q4_K_M</td><td>B (Vulkan)</td><td>GPU</td><td>93.2/33.7 t/s</td><td>Code gen, fast chat</td></tr>
 <tr><td>mesh-vision</td><td>Qwen3-VL-2B Q6_K</td><td>B (Vulkan)</td><td>GPU</td><td>550/50.7 t/s + image</td><td>Visual QA, triage</td></tr>
 <tr><td>mesh-function-calling</td><td>Carnice-9B-FC Q4_K_M</td><td>C (CUDA)</td><td>GPU</td><td>205.2/49.9 t/s</td><td>Tool use, FC</td></tr>
 <tr><td>mesh-heavy</td><td>Carnice MoE 35B Q4_K_M</td><td>D (CPU)</td><td>AVX2</td><td>8.8/6.1 t/s</td><td>Complex reasoning</td></tr>

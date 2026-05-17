@@ -8,7 +8,7 @@
 
 ## KEY FINDING: The MoE Illusion
 
-The current 35B MoE model (Carnice-Qwen3.6-MoE-35B-A3B) only activates 3B parameters per token. For a "heavy reasoning" node, this is a misallocation. The 35B total is knowledge breadth (expert variety), not reasoning depth.
+The current 35B MoE model (Qwen3.5-35B-A3B-MTP) only activates 3B parameters per token. For a "heavy reasoning" node, this is a misallocation. The 35B total is knowledge breadth (expert variety), not reasoning depth.
 
 A 27B dense model has 27B active params per token -- **9x more compute per token** than 3B-active MoE. The MoE was chosen because CPU-only can't handle dense 27B at usable speed. With a GPU, that constraint evaporates.
 

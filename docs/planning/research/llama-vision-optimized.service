@@ -1,0 +1,24 @@
+[Unit]
+Description=Node B Vision Server (Optimized Continuous Batching)
+After=network.target
+
+[Service]
+Type=simple
+User=nixos
+ExecStart=/home/nixos/llama.cpp/build/bin/llama-server \
+  -m /home/nixos/models/Qwen3-VL-2B-Instruct-Q6_K.gguf \
+  --host 0.0.0.0 --port 8082 \
+  --ctx-size 4096 \
+  --flash-attn on \
+  --cache-type-k q8_0 --cache-type-v q8_0 \
+  -ngl 99 \
+  --cont-batching \
+  --batch-size 512 \
+  --ubatch-size 256 \
+  --parallel 2 \
+  --metrics
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

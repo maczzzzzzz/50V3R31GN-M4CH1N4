@@ -42,7 +42,7 @@
                         <td><span class="badge badge-active">Up</span></td>
                         <td><span class="badge badge-active">Vulkan</span></td>
                         <td><span class="badge badge-active">Running</span></td>
-                        <td>Hermes-4-14B, Qwen3-VL-2B</td>
+                        <td>Qwopus3.5-9B, Qwen3-VL-2B</td>
                     </tr>
                     <tr>
                         <td>Node C</td>
@@ -67,7 +67,7 @@
             <table>
                 <thead><tr><th>Node</th><th>Model</th><th>Quant</th><th>Backend</th><th>Prompt Eval</th><th>Generation</th><th>Notes</th></tr></thead>
                 <tbody>
-                    <tr><td>Node B</td><td>Hermes-4-14B</td><td>Q4_K_M</td><td>Vulkan, FA on</td><td>93.2 tok/s</td><td>33.7 tok/s</td><td>f16 KV, TurboQuant q4_0</td></tr>
+                    <tr><td>Node B</td><td>Qwopus3.5-9B</td><td>Q4_K_M</td><td>Vulkan, FA on</td><td>93.2 tok/s</td><td>33.7 tok/s</td><td>f16 KV, TurboQuant q4_0</td></tr>
                     <tr><td>Node B</td><td>Qwen3-VL-2B</td><td>Q6_K</td><td>Vulkan</td><td>550 tok/s</td><td>50.7 tok/s</td><td>text+image verified</td></tr>
                     <tr><td>Node C</td><td>Carnice-9B-FC i1</td><td>Q4_K_M</td><td>CUDA (sm_75)</td><td>205.2 tok/s</td><td>49.9 tok/s</td><td>ik_llama.cpp, RPATH patched</td></tr>
                     <tr><td>Node D</td><td>Carnice MoE 35B</td><td>Q4_K_M</td><td>AVX2, 8 threads</td><td>8.8 tok/s</td><td>6.1 tok/s</td><td>CPU-only, stock llama.cpp v8983</td></tr>

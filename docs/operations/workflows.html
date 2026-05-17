@@ -68,7 +68,7 @@ gh pr create --base stable/mesh-alpha --title "fix(node-c): NVIDIA driver" --bod
 
             <h2>Health Check</h2>
             <p>Quick mesh-wide connectivity test:</p>
-<pre><code>for node in 100.96.253.114 100.66.173.31 100.102.109.81 100.105.166.45; do
+<pre><code>for node in 100.96.253.114 100.66.173.31 100.102.109.81 100.120.225.12; do
   echo -n "$node: "
   ssh -o ConnectTimeout=3 nixos@$node "hostname; nixos-version" 2>&amp;1 || echo "UNREACHABLE"
 done</code></pre>
