@@ -20,7 +20,7 @@ All tasks verified with documented benchmarks. Phase 1 authorized.
 
 ---
 
-## PHASE 1: KINETIC AGENCY -- CONDITIONAL CLOSE
+## PHASE 1: KINETIC AGENCY -- CLOSED
 
 Core capabilities delivered. Remaining items tracked as tech debt (see audit:
 docs/planning/audits/phase1-completion-audit.md).
@@ -32,6 +32,7 @@ docs/planning/audits/phase1-completion-audit.md).
 ---
 
 ## PHASE 2: COGNITIVE HIERARCHY (CURRENT)
+**Note (0.3.5-alpha):** Provider additions (xAI Grok via OAuth) and CloakBrowser evaluation completed. These are orthogonal to Phase 2 hardware work.
 
 Expand Node D inference capacity and validate cross-node KV-cache spillover.
 
@@ -69,6 +70,7 @@ Port validated capabilities as native Hermes plugins. Only build what has been p
 Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
 
 - [ ] **P4-T1: Voice Pipeline.** Merge vibevoice-asr into Hermes runtime. Integrate with Omi BLE hardware on Node C. Deploy as Hermes voice tool.
+  - [ ] **P4-T2a: Open-Design Integration.** See docs/planning/plans/2026-05-19-open-design-mesh-integration.md. Two options evaluated (Native Plugin vs Sidecar). Recommended: Start with Option 2 on Node B, migrate to Option 1 later.
 - [ ] **P4-T2: Pretext HUD.** Deploy pretext-core WASM in dashboard/hermes-workspace. Wire mesh telemetry to HUD components. Validate KineticThoughtStream rendering.
 - [ ] **P4-T3: Mesh-wide Verification.** Full integration test. All nodes, all models, all routes. Run QA suite. Update SOVEREIGN_VITAL_SIGNS.md with real numbers.
 

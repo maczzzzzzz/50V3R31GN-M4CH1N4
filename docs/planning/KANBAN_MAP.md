@@ -1,6 +1,6 @@
-# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.4-alpha
+# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.5-alpha
 
-**Status:** ACTIVE | **Baseline:** stable/mesh-alpha | **Version:** 0.3.4-alpha
+**Status:** ACTIVE | **Baseline:** stable/mesh-alpha | **Version:** 0.3.5-alpha
 **Bootstrap:** `python3 scripts/repro/kanban-bootstrap.py`
 **CLI:** `hermes kanban list` / `hermes kanban show <id>`
 
@@ -67,10 +67,12 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 
 | ID | Title | Priority | Status |
 |:---|:------|:--------|:-------|
-| t_eaf700b1 | PHASE 4 Epic | 8 | PLANNED (blocked on Phase 3) |
-| t_b2f62de1 | P4-T1: Voice Pipeline | 8 | PLANNED |
-| t_d0b6adb8 | P4-T2: Pretext HUD | 8 | PLANNED |
-| t_0c281759 | P4-T3: Mesh-wide Verification | 8 | PLANNED |
+|| t_eaf700b1 | PHASE 4 Epic | 8 | PLANNED (blocked on Phase 3) |
+|| t_b2f62de1 | P4-T1: Voice Pipeline | 8 | PLANNED |
+|| t_d0b6adb8 | P4-T2: Pretext HUD | 8 | PLANNED |
+|| t_0c281759 | P4-T3: Mesh-wide Verification | 8 | PLANNED |
+
+**Note:** Open-design integration research exists in `docs/planning/plans/2026-05-19-open-design-mesh-integration.md` but is explicitly **deferred**. No Phase 4 cards will be activated until Phase 3 is complete.
 
 ---
 
@@ -116,7 +118,7 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 | 0.3.1-alpha | 2026-05-18 | Node B b9190 upgrade, Node D model swap, MTP validated |
 | 0.3.2-alpha | 2026-05-18 | Node A inference deployed, socat bridge fix, XC-5 verified, GitHub Pages live |
 | 0.3.3-alpha | 2026-05-18 | Wiki sync, HTML consolidation, full mesh tech debt purge (~104 GB reclaimed) |
-| 0.3.4-alpha | 2026-05-18 | Phase 1 CLOSED, LiteLLM CVE patched (1.84.0), secrets extracted, SSH keys hardened |
+| 0.3.5-alpha | 2026-05-18 | Phase 1 CLOSED, LiteLLM CVE patched (1.84.0), secrets extracted, SSH keys hardened |
 
 ---
 ::/5Y573M-N071C3 : KANBAN_V0.3.4_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
