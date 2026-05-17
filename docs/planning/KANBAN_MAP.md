@@ -60,7 +60,7 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 |:---|:------|:--------|:-------|
 | t_b73f1d8c | PHASE 3 Epic | 8 | PLANNED (blocked on Phase 2) |
 | t_27b29eb4 | P3-T1: Hermes-LCM | 8 | PLANNED |
-| t_059e22aa | P3-T2: Directors Forge | 8 | DEPRIORITIZED (euthanized, Kanban MCP replaces) |
+| t_059e22aa | P3-T2: Directors Forge | 8 | CANCELLED (euthanized May 17, Kanban MCP replaces) |
 | t_ddce11f7 | P3-T3: Mirage VFS | 8 | PLANNED |
 
 ### Phase 4: Perception Layer

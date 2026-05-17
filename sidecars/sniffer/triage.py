@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from capture import capture_screen
 
 LITELLM_URL = "http://localhost:4000/v1/chat/completions"
-API_KEY = "sk-sov...roxy"
+API_KEY = os.environ.get("LITELLM_MASTER_KEY", "")
 MODEL = "mesh-vision"
 
 TRIAGE_PROMPT = """Analyze this screen capture. Respond in this format:

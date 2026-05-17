@@ -11,7 +11,7 @@ model_list:
     litellm_params:
       model: openai/hermes-4-14b
       api_base: http://10.0.0.11:8081/v1
-      api_key: "machina-sovereign-mesh-v3-secret-key"
+      api_key: "os.environ/MESH_API_KEY"
       tpm: 100000
       rpm: 100
     model_info:
@@ -30,7 +30,7 @@ model_list:
     litellm_params:
       model: openai/carnice-9b-fc
       api_base: http://host.docker.internal:18081/v1
-      api_key: "machina-sovereign-mesh-v3-secret-key"
+      api_key: "os.environ/MESH_API_KEY"
       tpm: 100000
       rpm: 100
     model_info:
@@ -49,7 +49,7 @@ model_list:
     litellm_params:
       model: openai/qwen3-vl-2b-instruct
       api_base: http://10.0.0.11:8082/v1
-      api_key: "machina-sovereign-mesh-v3-secret-key"
+      api_key: "os.environ/MESH_API_KEY"
       tpm: 50000
       rpm: 50
     model_info:
@@ -68,7 +68,7 @@ model_list:
     litellm_params:
       model: openai/carnice-qwen3.6-moe-35b-a3b
       api_base: http://host.docker.internal:18080/v1
-      api_key: "machina-sovereign-mesh-v3-secret-key"
+      api_key: "os.environ/MESH_API_KEY"
       tpm: 50000
       rpm: 50
     model_info:
@@ -87,7 +87,7 @@ model_list:
     litellm_params:
       model: openai/qwen3-0.6b
       api_base: http://host.docker.internal:17080/v1
-      api_key: "machina-sovereign-mesh-v3-secret-key"
+      api_key: "os.environ/MESH_API_KEY"
       tpm: 100000
       rpm: 200
     model_info:
@@ -115,7 +115,7 @@ router_settings:
     "route": "mesh-micro"
 
 general_settings:
-  master_key: "sk-sov...roxy"
+  master_key: "os.environ/LITELLM_MASTER_KEY"
   host: 0.0.0.0
   port: 4000
   telemetry: false

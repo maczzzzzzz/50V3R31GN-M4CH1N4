@@ -26,8 +26,8 @@ Core capabilities delivered. Remaining items tracked as tech debt (see audit:
 docs/planning/audits/phase1-completion-audit.md).
 
 - [~] **P1-T1: Vision-Enabled UI Automation.** CONDITIONAL PASS. Qwen3-VL-2B Q6_K on mesh-vision route (Node B port 8082). Text: 630/159 t/s (b9190). Image verified. Hermes wired. Remaining: persistent service, image latency benchmarks.
-- [~] **P1-T2: Terminal Control.** CONDITIONAL PASS. All 4 nodes in Tailscale mesh. SSH working on C/D. Browser re-auth blocker on some nodes (user-action item). Key-based SSH not deployed.
-- [~] **P1-T3: Screen Triage Sidecar.** CONDITIONAL PASS. capture.py + triage.py in sidecars/sniffer/. 910ms capture, 25s end-to-end. Remaining: systemd service, trigger hooks.
+- [x] **P1-T2: Terminal Control.** COMPLETE. All 4 nodes in Tailscale mesh. SSH key auth deployed and deduplicated across all nodes. Browser re-auth is user-action item (Tailscale checkin).
+- [x] **P1-T3: Screen Triage Sidecar.** COMPLETE. capture.py + triage.py in sidecars/sniffer/. 910ms capture, 25s end-to-end. Documented as on-demand (no systemd service needed).
 
 ---
 
@@ -96,7 +96,7 @@ Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
 | Kanban MCP Server | LIVE | FastMCP stdio, 8 tools, 13/13 tests passing |
 | LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 4 routes active |
 | Gemini CLI Integration | LIVE | Shared kanban MCP, Pro/Flash routing |
-| sovereign-sniffer | DEPLOYED | capture.py + triage.py, end-to-end verified |
+| sovereign-sniffer | ON-DEMAND | capture.py + triage.py, invoked via Hermes terminal |
 | directors-forge | EUTHANIZED | Removed from node-b config, 0 tests |
 | hermes-relay | LIVE | Docker Desktop port 8767, WSS bridge |
 | KV Cache | q4_0 (C/D), f16 (B) | Vulkan lacks optimized q4_0 KV dequant |

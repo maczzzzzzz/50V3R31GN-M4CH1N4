@@ -22,7 +22,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - 10 completed/deployed scripts from scripts/ (deploy-*, benchmark-*, droid-*, directors-forge, sync-models).
 - sidecars/mesh/legacy/ (old mesh_proxy.py, replaced by current sidecars/mesh/ logic).
-- 3 deprecated .bat files from D:\llama.cpp\ (start_server.bat, start_hermes_gpu.bat, start_vision_gpu.bat).
+- 3 deprecated .bat files from D:\\llama.cpp\\ (start_server.bat, start_hermes_gpu.bat, start_vision_gpu.bat).
+
+### Security
+
+- **TD-001 FIXED:** LiteLLM Docker image pinned to 1.84.0 (was floating main-latest tag). Removed post_start pip-upgrade hack. Container recreated with explicit port mapping.
+- **TD-004 FIXED:** Hardcoded secrets extracted from litellm-mesh.yaml, proxy.yml, triage.py. Keys now reference env vars loaded from sidecars/mesh/.env.
+
+### Phase 1 Closure
+
+- **P1-T2 Terminal Control: CLOSED.** SSH key auth deduplicated across all 3 remote nodes.
+- **P1-T3 Screen Triage: CLOSED.** Documented as on-demand tool (sidecars/sniffer/README.md).
+- **P1-T1 Vision Latency: DEFERRED.** Requires Qwen3-VL on port 8082 running.
+- **TD-007 FIXED:** Directors-forge card updated to CANCELLED in KANBAN_MAP.
+- **IMPLEMENTATION_PLAN.md:** P1-T2 and P1-T3 marked [x] COMPLETE.
 
 ## [0.3.2-alpha] - 2026-05-18
 
