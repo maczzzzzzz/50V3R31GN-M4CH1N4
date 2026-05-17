@@ -3,69 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign Machina — Documentation</title>
+    <title>50V3R31GN-M4CH1N4 • Documentation</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <h1><a href="index.html">Sovereign Machina</a> Documentation</h1>
-            <p>v0.3.1-alpha &middot; Phase 2: Cognitive Hierarchy &middot; <span class="badge badge-active">Active</span></p>
-        </div>
-    </header>
-
     <div class="container">
-        <main>
-            <h2>Overview</h2>
-            <p>Sovereign Machina is a 4-node distributed AI mesh running on physical hardware. Each node is a dedicated machine connected via a Tailscale zero-trust network. The system runs local LLM inference across heterogeneous GPUs and CPUs, orchestrated through NixOS configurations and Docker Compose runtimes.</p>
-            <div class="callout">
-                <strong>Design principle:</strong> No cloud dependencies for inference. All models run locally. The mesh is sovereign by default.
-            </div>
+        <h1>50V3R31GN-M4CH1N4</h1>
+        <p class="subtitle">Sovereign AI Mesh • Documentation Portal</p>
 
-            <h2>Documentation</h2>
-            <table>
-                <thead>
-                    <tr><th>Section</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><a href="architecture/topology.html">Architecture</a></td><td>Mesh topology, hardware profiles, model strategy, network design, security model</td></tr>
-                    <tr><td><a href="nodes/node-a.html">Nodes</a></td><td>Per-node detail pages: hardware specs, loaded models, inference backend, known issues</td></tr>
-                    <tr><td><a href="operations/ignition.html">Operations</a></td><td>Boot procedures, daily workflows, health checks, <a href="operations/hermes-relay.html">Hermes Relay</a>, <a href="operations/MCP-TOOL-REFERENCE.html">MCP Reference</a></td></tr>
-                    <tr><td><a href="crates/index.html">Crates</a></td><td>Validated Rust/Python modules: mirage-vfs, pretext-core, vibevoice-asr, zeroboot-isolation</td></tr>
-                    <tr><td><a href="reference/repository-map.html">Reference</a></td><td>Repository structure, tool inventory</td></tr>
-                    <tr><td><a href="planning/KANBAN_MAP.html">Planning</a></td><td>Current <a href="planning/KANBAN_MAP.html">Kanban Status</a>, <a href="planning/plans/phase1-kinetic-agency.html">Phase 1</a>, <a href="planning/plans/2026-05-16_phase2-cognitive-hierarchy.html">Phase 2</a>, <a href="planning/plans/PHASE3-MEMORY-ARCHITECTURE-UPDATED.html">Phase 3</a></td></tr>
-                    <tr><td><a href="benchmarks/V0-FULL-MESH-benchmark.html">Benchmarks</a></td><td><a href="benchmarks/V0-FULL-MESH-benchmark.html">Full Mesh Baseline</a>, <a href="benchmarks/V0-NODE-B-benchmark.html">Node B Characterization</a></td></tr>
-                </tbody>
-            </table>
+        <div class="nav">
+            <a href="architecture/">Architecture</a>
+            <a href="nodes/">Nodes</a>
+            <a href="operations/">Operations</a>
+            <a href="planning/">Planning</a>
+            <a href="reference/">Reference</a>
+            <a href="benchmarks/">Benchmarks</a>
+        </div>
 
-            <h2>Latest Reports</h2>
-            <table>
-                <thead>
-                    <tr><th>Report</th><th>Date</th><th>Status</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><a href="planning/audits/phase1-completion-audit.html">Phase 1 Completion Audit</a></td><td>2026-05-18</td><td><span class="badge badge-pending">Conditional Pass</span></td></tr>
-                    <tr><td><a href="planning/audits/2026-05-17-infra-drift-audit.html">Infrastructure Drift Audit</a></td><td>2026-05-17</td><td><span class="badge badge-active">Remediated</span></td></tr>
-                    <tr><td><a href="planning/research/node-d-rtx5060ti-oculink-upgrade.html">Node D GPU Upgrade Analysis</a></td><td>2026-05-17</td><td><span class="badge badge-pending">Decision Pending</span></td></tr>
-                </tbody>
-            </table>
-
-            <h2>Quick Reference</h2>
-            <table>
-                <thead>
-                    <tr><th>Node</th><th>Alias</th><th>Tailscale IP</th><th>GPU</th><th>Role</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Node A</td><td>Synapse</td><td><code>100.96.253.114</code></td><td>GTX 1050 Ti 4GB</td><td>State persistence, KV spillover</td></tr>
-                    <tr><td>Node B</td><td>Director</td><td><code>100.66.173.31</code></td><td>RX 9060 XT 16GB</td><td>Fast inference, workspace authority</td></tr>
-                    <tr><td>Node C</td><td>Oracle</td><td><code>100.102.109.81</code></td><td>RTX 2060 6GB</td><td>Perception, function-calling</td></tr>
-                    <tr><td>Node D</td><td>Quaternary</td><td><code>100.120.225.12</code></td><td>CPU-only (5060 Ti pending)</td><td>Heavy reasoning (35B MoE)</td></tr>
-                </tbody>
-            </table>
-        </main>
+        <div class="section">
+            <h2>Quick Links</h2>
+            <ul>
+                <li><a href="operations/hermes-relay-node-a.html">Hermes-Relay Migration to Node A</a></li>
+                <li><a href="planning/audits/2026-05-20-100-percent-coverage-audit.html">100% Documentation Coverage Audit</a></li>
+                <li><a href="planning/plans/DOCUMENTATION_MIGRATION_PLAN.html">Documentation Migration Plan</a></li>
+            </ul>
+        </div>
 
         <footer>
-            <p>Sovereign Machina v0.3.1-alpha // 50V3R31GN-M4CH1N4</p>
+            <p>Single source of truth • GitHub Pages • Last updated: 2026-05-20</p>
         </footer>
     </div>
 </body>
