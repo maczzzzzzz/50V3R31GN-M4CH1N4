@@ -73,6 +73,8 @@ The Lead Architect dispatches tasks, reviews output, and owns final quality. Sub
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Phase tracking, benchmarks, status gates |
 | [SOVEREIGN_VITAL_SIGNS.md](SOVEREIGN_VITAL_SIGNS.md) | Live mesh health and node status |
 | [CHANGELOG.md](CHANGELOG.md) | Version history |
+| [GitHub Wiki](https://github.com/maczzgit/50V3R31GN-M4CH1N4/wiki) | Operational knowledge base (topology, models, runbook) |
+| [HTML Docs](docs/index.html) | Full documentation suite (browse locally) |
 
 ## Status
 
