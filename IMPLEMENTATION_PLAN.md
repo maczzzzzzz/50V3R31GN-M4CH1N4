@@ -1,7 +1,7 @@
-# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.3.1-alpha)
+# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.3.5-alpha)
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha
-**Timestamp:** 2026-05-18
+**Timestamp:** 2026-05-19
 **Phase 0 Gate:** CLOSED. All validation tasks complete.
 
 ---
@@ -10,97 +10,86 @@
 
 All tasks verified with documented benchmarks. Phase 1 authorized.
 
-- [x] **V0-T1: Node B Inference Benchmark.** Qwopus3.5-9B Q8_0, Vulkan, AMD 16GB. **Result: prompt 428-441 t/s prompt, 53.8-55.1 t/s gen.** (Updated to 428-441 t/s prompt, 53.8-55.1 t/s gen after b9190 binary upgrade.)
-- [x] **V0-T2a: Node D Heavy Reasoning Benchmark.** Qwen3.5-35B-A3B-MTP UD-Q4_K_M, AVX2, 8 threads CPU. **Result: prompt 12.7 t/s, gen 7.0 t/s.** (Model replaced with Qwen3.5-35B-A3B-MTP: 12.7/7.0 t/s.)
-- [x] **V0-T2b: Node D Interactive Model.** DEFERRED -- 35B MoE sufficient for current workload. 7B model not deployed.
+- [x] **V0-T1: Node B Inference Benchmark.** Qwopus3.5-9B Q8_0, Vulkan, AMD 16GB. **Result: prompt 428-441 t/s, gen 53.8-55.1 t/s.**
+- [x] **V0-T2a: Node D Heavy Reasoning Benchmark.** Qwen3.5-35B-A3B-MTP UD-Q4_K_M, AVX2, 8 threads CPU. **Result: prompt 12.7 t/s, gen 7.0 t/s.**
+- [x] **V0-T2b: Node D Interactive Model.** DEFERRED -- 35B MoE sufficient for current workload.
 - [x] **V0-T2c: Node C CUDA Benchmark.** Carnice-9B-FC i1-Q4_K_M, CUDA sm_75, RTX 2060 6GB. **Result: prompt 205.2 t/s, gen 49.9 t/s.**
-- [x] **V0-T3: LiteLLM Mesh Routing.** 4 routes verified: mesh-fast (B), mesh-vision (B:8082), mesh-function-calling (C), mesh-heavy (D). Docker Desktop container on port 4000.
-- [x] **V0-T4: TurboQuant Verification.** q4_0 KV cache confirmed on CPU nodes C/D. Node B uses f16 KV (Vulkan regression).
-- [x] **V0-T5: Tailscale Artery Health.** All 4 nodes authenticated and online. Node B/A on 1.90.9.
+- [x] **V0-T3: LiteLLM Mesh Routing.** 5 routes verified: mesh-fast (B), mesh-vision (B:8082), mesh-function-calling (C), mesh-heavy (D), mesh-micro (A).
+- [x] **V0-T4: KV Cache Strategy.** f16 on Node B (Vulkan regression with q4_0). q4_0 on CPU nodes.
+- [x] **V0-T5: Tailscale Artery Health.** All 4 nodes authenticated and online.
 
 ---
 
 ## PHASE 1: KINETIC AGENCY -- CLOSED
 
-Core capabilities delivered. Remaining items tracked as tech debt (see audit:
-docs/planning/audits/phase1-completion-audit.md).
-
-- [~] **P1-T1: Vision-Enabled UI Automation.** CONDITIONAL PASS. Qwen3-VL-2B Q6_K on mesh-vision route (Node B port 8082). Text: 630/159 t/s (b9190). Image verified. Hermes wired. Remaining: persistent service, image latency benchmarks.
-- [x] **P1-T2: Terminal Control.** COMPLETE. All 4 nodes in Tailscale mesh. SSH key auth deployed and deduplicated across all nodes. Browser re-auth is user-action item (Tailscale checkin).
-- [x] **P1-T3: Screen Triage Sidecar.** COMPLETE. capture.py + triage.py in sidecars/sniffer/. 910ms capture, 25s end-to-end. Documented as on-demand (no systemd service needed).
+- [~] **P1-T1: Vision-Enabled UI Automation.** CONDITIONAL PASS. Qwen3-VL-2B on mesh-vision route. Image input verified.
+- [x] **P1-T2: Terminal Control.** COMPLETE. SSH key auth deduplicated across all nodes.
+- [x] **P1-T3: Screen Triage Sidecar.** COMPLETE. On-demand via sovereign-sniffer.
 
 ---
 
 ## PHASE 2: COGNITIVE HIERARCHY (CURRENT)
-**Note (0.3.5-alpha):** Provider additions (xAI Grok via OAuth) and CloakBrowser evaluation completed. These are orthogonal to Phase 2 hardware work.
 
-Expand Node D inference capacity and validate cross-node KV-cache spillover.
+**Note (0.3.5-alpha):** Documentation parity sweep completed. All core docs now match physical mesh state.
 
-**Implementation plan:** docs/planning/plans/2026-05-18_phase2-cognitive-hierarchy.md
+Expand Node D inference capacity. Speculative decoding and cross-node KV spillover evaluated and closed negative on current hardware.
 
-- [ ] **P2-T1: Node D GPU Installation.** DEFERRED -- RTX 5060 Ti 16GB hardware not yet available. CUDA build pipeline documented in plan (Workstream C) for immediate execution on arrival.
-- [x] **P2-T2: Speculative Decoding for 35B MoE.** CLOSED NEGATIVE ON CPU. All methods tested:
-  - MTP: 49% acceptance, 2.8x overhead = net negative (~40% slower)
-  - ngram-mod: 3.1% acceptance, 16% slower than baseline
-  - ngram-simple: 3.1% acceptance, 16% slower than baseline
-  - Root cause: Qwen3.5 always thinks first; thinking tokens are unpredictable; CPU lacks parallel headroom.
-  - Benchmark: docs/benchmarks/node-d-ngram-speculative.md
-  - Re-open after RTX 5060 Ti install (CUDA may change calculus).
+- [ ] **P2-T1: Node D GPU Installation.** DEFERRED -- RTX 5060 Ti 16GB via OCuLink pending. Full CUDA build plan documented.
+- [x] **P2-T2: Speculative Decoding for 35B MoE.** CLOSED NEGATIVE ON CPU.
+  - MTP: 49% acceptance, 2.8x overhead → net negative.
+  - ngram variants also slower.
+  - Revisit after GPU upgrade.
 - [x] **P2-T3: Context Spillover (Node A).** CLOSED NOT FEASIBLE.
-  - llama.cpp RPC requires offloading model layers (not KV-only). Node A must hold weights + compute layers.
-  - Tailscale ~1-5ms latency per token per RPC hop = catastrophic pipeline bubbles.
-  - Node D's 48GB DDR5 is sufficient for both weights (22.6GB) and 32K KV cache (~8GB).
-  - Alternative: --prompt-cache for async state persistence to disk.
-  - Research: docs/planning/research/p2-t3-context-spillover-rpc.md
+  - RPC latency on Tailscale makes it impractical.
+  - Node D 48GB DDR5 sufficient for current workloads.
 
 ---
 
 ## PHASE 3: SOVEREIGN PLUGINS
 
-Port validated capabilities as native Hermes plugins. Only build what has been proven in Phase 0-2.
+Port validated capabilities as native Hermes plugins.
 
-- [ ] **P3-T1: Hermes-LCM State Sync.** Verify hermes-lcm MemoryProvider on Node A (primary). Configure B/C/D as sync targets. Validate cross-node state consistency. Consider relocating hermes-relay container to Node A as companion task once LCM is stable.
-- [ ] **P3-T2: Directors Forge Tool Discovery.** CANCELLED (euthanized May 17, Kanban MCP replaces)
-- [ ] **P3-T3: Mirage VFS Integration.** Deploy mirage-vfs on Node D. Wire as Hermes plugin with 4 VFS tools.
+- [ ] **P3-T1: Hermes-LCM State Sync.** Primary task. Verify hermes-lcm on Node A. Configure sync targets on B/C/D. Consider hermes-relay relocation as companion task.
+- [ ] **P3-T2: Directors Forge Tool Discovery.** CANCELLED (replaced by Kanban MCP).
+- [ ] **P3-T3: Mirage VFS Integration.** Deploy mirage-vfs on Node D as Hermes plugin.
 
 ---
 
 ## PHASE 4: PERCEPTION LAYER (FUTURE)
 
-Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
-
-- [ ] **P4-T1: Voice Pipeline.** Merge vibevoice-asr into Hermes runtime. Integrate with Omi BLE hardware on Node C. Deploy as Hermes voice tool.
-- [ ] **P4-T2: Pretext HUD.** Deploy pretext-core WASM in dashboard/hermes-workspace. Wire mesh telemetry to HUD components. Validate KineticThoughtStream rendering.
-- [ ] **P4-T3: Mesh-wide Verification.** Full integration test. All nodes, all models, all routes. Run QA suite. Update SOVEREIGN_VITAL_SIGNS.md with real numbers.
+- [ ] **P4-T1: Voice Pipeline**
+- [ ] **P4-T2: Pretext HUD**
+- [ ] **P4-T3: Mesh-wide Verification**
 
 ---
 
 ## MODEL STRATEGY
 
-| Route | Model | Node | Benchmark | Use Case |
-|:------|:------|:-----|:----------|:---------|
-| mesh-fast | Qwopus3.5-9B Q8_0 | Node B (AMD 16GB Vulkan b9190) | 428-441 t/s prompt, 53.8-55.1 t/s gen | Code gen, fast chat |
-| mesh-vision | Qwen3-VL-2B-Instruct Q6_K | Node B (AMD 16GB Vulkan b9190) | 630/159 t/s (text), image verified | Screen triage, visual QA |
-| mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | Node C (RTX 2060 CUDA) | 205.2/49.9 t/s | Function calling, tool use |
-| mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | Node D (DDR5 CPU) | 12.7/7.0 t/s (MTP OFF) | Complex reasoning |
+| Route                  | Model                              | Node | Benchmark                  | Use Case                  |
+|------------------------|------------------------------------|------|----------------------------|---------------------------|
+| mesh-fast              | Qwopus3.5-9B Q8_0                  | B    | 428-441 / 53.8-55.1 t/s    | Code gen, fast chat       |
+| mesh-vision            | Qwen3-VL-2B-Instruct Q6_K          | B    | 630 / 159 t/s (text)       | Screen triage, visual QA  |
+| mesh-function-calling  | Carnice-9B-FC i1-Q4_K_M            | C    | 205.2 / 49.9 t/s           | Function calling, tools   |
+| mesh-heavy             | Qwen3.5-35B-A3B-MTP UD-Q4_K_M      | D    | 12.7 / 7.0 t/s (MTP off)   | Complex reasoning         |
+| mesh-micro             | Qwen3-0.6B Q8_0                    | A    | 49 / 29 t/s                | Lightweight / spillover   |
 
-**Note on MTP:** Draft-MTP speculative decoding tested on Node D CPU. 49% acceptance rate with 2.8x per-token overhead makes it net negative. Expected to become net positive after RTX 5060 Ti GPU install enables CUDA acceleration.
+**Note on MTP:** Net negative on current CPU. Expected improvement after RTX 5060 Ti + CUDA.
 
-**Note on NPU:** Intel AI Boost NPU on Meteor Lake (~11 TOPS) cannot meaningfully accelerate models above 3B. Excluded from inference strategy. Node D compute is CPU cores + DDR5 bandwidth.
+**Note on NPU:** Intel NPU (~11 TOPS) excluded from inference strategy.
 
 ---
 
 ## INFRASTRUCTURE STATUS
 
-| Component | Status | Notes |
-|:----------|:-------|:------|
-| Kanban MCP Server | LIVE | FastMCP stdio, 8 tools, 13/13 tests passing |
-| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 4 routes active |
-| Gemini CLI Integration | LIVE | Shared kanban MCP, Pro/Flash routing |
-| sovereign-sniffer | ON-DEMAND | capture.py + triage.py, invoked via Hermes terminal |
-| directors-forge | EUTHANIZED | Removed from node-b config, 0 tests |
-| hermes-relay | LIVE | Docker Desktop port 8767, WSS bridge |
-| KV Cache | q4_0 (C/D), f16 (B) | Vulkan lacks optimized q4_0 KV dequant |
+| Component            | Status     | Notes                                      |
+|----------------------|------------|--------------------------------------------|
+| Kanban MCP Server    | LIVE       | FastMCP stdio, 8 tools                     |
+| LiteLLM Mesh Router  | LIVE       | Docker Desktop port 4000, 5 routes         |
+| Gemini CLI           | LIVE       | Shared kanban MCP                          |
+| sovereign-sniffer    | ON-DEMAND  | Screen triage                              |
+| hermes-relay         | LIVE       | Docker Desktop port 8767                   |
+| KV Cache             | f16 (B)    | q4_0 on C/D                                |
 
 ---
-::/5Y573M-N071C3 : PLAN_V0.3.1_ALPHA. PHASE2_IN_PROGRESS. // 50V3R31GN-M4CH1N4
+
+::/5Y573M-N071C3 : PLAN_V0.3.5_ALPHA. PHASE3_READY. // 50V3R31GN-M4CH1N4

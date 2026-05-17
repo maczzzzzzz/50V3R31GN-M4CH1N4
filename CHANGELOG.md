@@ -17,6 +17,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **browser-use Python integration explored.** Evaluated browser-use library for autonomous browsing workflows. Determined Hermes native browser tool is adequate.
 - **Workflow analysis: Autonomous AI agents skill loaded.** Reviewed full skill hierarchy for hermes-agent, claude-code, codex, gemini-cli orchestration patterns.
 
+### Documentation Parity Sweep (v0.3.5-alpha)
+
+- **Full mesh state synchronization.** Corrected Node D Tailscale IP (100.105.166.45 → 100.120.225.12) across 9+ files.
+- **Model and benchmark finalization.** Updated all references to current production models: Qwopus3.5-9B Q8_0 (mesh-fast), Qwen3-VL-2B Q6_K (mesh-vision), Qwen3.5-35B-A3B-MTP UD-Q4_K_M (mesh-heavy), Carnice-9B-FC (mesh-function-calling), Qwen3-0.6B (mesh-micro on Node A).
+- **GitHub Pages + Wiki sync.** 32 files updated in docs/. New wiki branch `sync-mesh-state` created. Root README.md drift eliminated.
+- **Core docs refreshed.** AGENTS.md, SOVEREIGN_VITAL_SIGNS.md, IMPLEMENTATION_PLAN.md, litellm-mesh.yaml, and SESSION_HANDOFF.md brought into exact parity with physical mesh.
+- **Result:** Zero documentation drift. Public site and wiki now match v0.3.5-alpha reality.
+
 ## [0.3.4-alpha] - 2026-05-18
 
 ### Phase 1 Closure
