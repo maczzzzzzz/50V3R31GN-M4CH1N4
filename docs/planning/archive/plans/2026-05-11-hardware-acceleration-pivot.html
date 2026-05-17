@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Acceleration Pivot & Windows Bridge Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Hardware Acceleration Pivot & Windows Bridge Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 11 Hardware Acceleration Pivot
+        </nav>
+
+        <main>
+            <h2>Hardware Acceleration Pivot & Windows Bridge Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Materialize OpenVINO acceleration on Node D (Intel Meteor Lake) and bridge Windows-hosted inference on Node B to restore Tier 1 and Tier 2 performance.
+
+<strong>Architecture:</strong> 
+1. <strong>Node D:</strong> Deploy <code>llama-cpp</code> with <code>-DGGML_OPENVINO=ON</code> via Nix to utilize the Meteor Lake iGPU/NPU.
+2. <strong>Node B:</strong> Reconfigure LiteLLM to route local requests to the Windows Host (outside WSL2) to bypass the broken <code>dxg</code> bridge.
+
+<strong>Tech Stack:</strong> Nix, OpenVINO, LiteLLM, llama-cpp.
+
+<hr>
+
+<h4>Task 1: Node D - OpenVINO Inference Materialization</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>nix/packages/llama-cpp-openvino.nix</code></li><li>Modify: <code>flake.nix</code></li><li>Modify: <code>nix/hosts/node-d/default.nix</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Create the OpenVINO-enabled llama-cpp derivation</strong></li></ul>
+Create <code>nix/packages/llama-cpp-openvino.nix</code> using upstream <code>llama-cpp</code> with OpenVINO build flags.
+
+<ul><li>[ ] <strong>Step 2: Register package in <code>flake.nix</code></strong></li></ul>
+Add <code>llama-cpp-openvino</code> to the overlay and packages output in <code>flake.nix</code>.
+
+<ul><li>[ ] <strong>Step 3: Update Node D host configuration</strong></li></ul>
+Update <code>nix/hosts/node-d/default.nix</code> to use <code>pkgs.llama-cpp-openvino</code> and ensure the service points to the correct binary name (<code>llama-server</code>).
+
+<ul><li>[ ] <strong>Step 4: Verify Node D evaluation</strong></li></ul>
+Run: <code>nix eval .#nixosConfigurations.node-d.config.services.ik-llama.package.pname</code>
+Expected: <code>llama-cpp-openvino</code> (or similar)
+
+<hr>
+
+<h4>Task 2: Node B - Windows Inference Bridge</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/mesh/litellm-mesh.yaml</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Identify Windows Host IP</strong></li></ul>
+Run: <code>grep nameserver /etc/resolv.conf | awk '{print $2}'</code>
+Note the IP (e.g., <code>172.29.144.1</code>).
+
+<ul><li>[ ] <strong>Step 2: Update LiteLLM Configuration</strong></li></ul>
+Update <code>sidecars/mesh/litellm-mesh.yaml</code> to point <code>mesh-brain</code> to the Windows Host IP on port 8080.
+
+<ul><li>[ ] <strong>Step 3: Restart LiteLLM</strong></li></ul>
+Run: <code>docker compose -f sidecars/mesh/proxy.yml restart litellm</code>
+
+<ul><li>[ ] <strong>Step 4: Verify Local Bridge</strong></li></ul>
+(Assuming the user has started the server on Windows)
+Run: <code>curl -s http://127.0.0.1:4000/v1/chat/completions ...</code>
+
+<hr>
+
+<h4>Task 3: Documentation & Vitals Calibration</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>SOVEREIGN_VITAL_SIGNS.md</code></li><li>Modify: <code>CHANGELOG.md</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update Vital Signs</strong></li></ul>
+Reflect the transition to Windows-bridged inference and OpenVINO acceleration.
+
+<ul><li>[ ] <strong>Step 2: Update Changelog</strong></li></ul>
+Record the hardware pivot.
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

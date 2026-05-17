@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node B Windows Bridge Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Node B Windows Bridge Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 11 Node B Windows Bridge
+        </nav>
+
+        <main>
+            <h2>Node B Windows Bridge Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Move inference from Node B WSL2 (CPU) to the Windows Host (GPU) to utilize 16GB VRAM for vision and screen awareness.
+
+<strong>Architecture:</strong> 
+1. Disable the internal <code>ik-llama</code> service in WSL2.
+2. Update LiteLLM configuration to route <code>mesh-brain</code> requests to the Windows Host IP (<code>172.28.128.1</code>).
+3. Provide instructions for running <code>llama-server.exe</code> on Windows, binding to <code>0.0.0.0:8080</code>.
+
+<strong>Tech Stack:</strong> NixOS, LiteLLM, llama-cpp (Windows/ROCm)
+
+<hr>
+
+<h4>Task 1: Deactivate Internal Inference</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>ik-llama.service</code> (systemd)</li></ul>
+
+<ul><li>[ ] <strong>Step 1: Stop and disable the internal ik-llama service</strong></li></ul>
+
+<pre><code>sudo systemctl stop ik-llama
+sudo systemctl disable ik-llama
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Verify port 8080 is free in WSL2</strong></li></ul>
+
+Run: <code>sudo netstat -tulpn | grep 8080</code>
+Expected: No output (or no process bound to 8080).
+
+<h4>Task 2: Update LiteLLM Configuration</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/mesh/litellm-mesh.yaml</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Ensure api_base points to the Windows Host IP</strong></li></ul>
+
+Check <code>sidecars/mesh/litellm-mesh.yaml</code> and verify the <code>mesh-brain</code> entry:
+
+<pre><code>  - model_name: mesh-brain
+    litellm_params:
+      model: openai/brain-9b
+      api_base: http://172.28.128.1:8080/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Restart LiteLLM container</strong></li></ul>
+
+<pre><code>sudo docker restart mesh-litellm-1
+</code></pre>
+
+<h4>Task 3: Windows Host Execution (Actionable for User)</h4>
+
+<ul><li>[ ] <strong>Step 1: Locate model on Windows</strong></li></ul>
+
+The model is located in WSL2 at <code>/var/lib/hermes/models/Qwen3-14B-9b-Q8_0.gguf</code>.
+Windows Path: <code>\\wsl.localhost\NixOS\var\lib\hermes\models\Qwen3-14B-9b-Q8_0.gguf</code>
+
+<ul><li>[ ] <strong>Step 2: Run llama-server.exe on Windows</strong></li></ul>
+
+Provide the user with the following PowerShell command:
+
+<pre><code><h2>In Windows Terminal (PowerShell)</h2>
+.\llama-server.exe -m "\\wsl.localhost\NixOS\var\lib\hermes\models\Qwen3-14B-9b-Q8_0.gguf" --host 0.0.0.0 --port 8080 --n-gpu-layers 35 --ctx-size 32000
+</code></pre>
+
+<h4>Task 4: Verification</h4>
+
+<ul><li>[ ] <strong>Step 1: Test connectivity from WSL2 to Windows Host</strong></li></ul>
+
+Run: <code>curl -I http://172.28.128.1:8080/v1/models</code>
+Expected: <code>HTTP/1.1 200 OK</code>
+
+<ul><li>[ ] <strong>Step 2: Test LiteLLM routing</strong></li></ul>
+
+Run: `curl -X POST http://localhost:4000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk-sovereign-mesh-proxy" \
+  -d '{
+    "model": "mesh-brain",
+    "messages": [{"role": "user", "content": "ping"}]
+  }'`
+Expected: Successful response from the GPU-backed Windows server.
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

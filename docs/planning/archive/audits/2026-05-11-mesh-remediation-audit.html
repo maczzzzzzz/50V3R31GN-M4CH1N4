@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Remediation Audit: Mesh Integration (2026-05-11) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Emergency Remediation Audit: Mesh Integration (2026-05-11)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Audits<span class="sep">/</span>2026 05 11 Mesh Remediation Audit
+        </nav>
+
+        <main>
+            <h2>Emergency Remediation Audit: Mesh Integration (2026-05-11)</h2>
+            <h3>1. Executive Summary</h3>
+The mesh is currently in a "Stabilization Phase." We have successfully transitioned the host OS to <strong>NixOS 24.11 (Stable)</strong>, resolving the toolchain fragility that caused systemic build failures. Docker runtime infrastructure is now operational, providing a clear path for heterogeneous AI workload deployment.
+
+<h3>2. Status Matrix</h3>
+<table>
+<thead>
+<tr><th>Node</th><th>OS Base</th><th>Docker Runtime</th><th>Hardware Visibility</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Node A</strong></td><td>NixOS 24.11</td><td>Ready</td><td>NVIDIA</td><td>PENDING</td></tr>
+<tr><td><strong>Node B</strong></td><td>NixOS 24.11</td><td><strong>Ready</strong></td><td>AMD DRI</td><td><strong>STABILIZED</strong></td></tr>
+<tr><td><strong>Node C</strong></td><td>NixOS 24.11</td><td>Ready</td><td>NVIDIA</td><td>PENDING</td></tr>
+<tr><td><strong>Node D</strong></td><td>NixOS 24.11</td><td>Ready</td><td>Intel NPU</td><td>PENDING</td></tr>
+</tbody>
+</table>
+<h3>3. Completed Remediation Steps</h3>
+<ul><li>[x] <strong>Channel Pinning:</strong> Shifted entire cluster to <code>nixos-24.11</code> stable channel.</li><li>[x] <strong>Flake Hardening:</strong> Resolved <code>nixos-wsl</code> dependency drift with stable commits.</li><li>[x] <strong>System Integration:</strong> Implemented systemd-managed orchestration foundation.</li><li>[x] <strong>Build Fixes:</strong> Cleaned up broken <code>ik_llama</code> derivations to unblock the host rebuild.</li></ul>
+
+<h3>4. Critical Blockers & Open Issues</h3>
+<ul><li><strong>Node D Model Status:</strong> Qwen2.5-Coder-32B (Q4_K_M) downloaded (19G). Requires proper shoring to <code>/var/lib/hermes/models</code> and deletion of legacy/incomplete downloads.</li><li><strong>OCI/Docker Integration:</strong> Orchestration infrastructure is defined but not yet live on all nodes.</li><li><strong>Node B AMD GPU Passthrough:</strong> The physical AMD GPU is currently not mapping to <code>/dev/dri</code> inside Node B (WSL2). This is the final blocker for Node B's inference performance.</li><li><strong>Service Deployment:</strong> The AI backend runtimes (vLLM/TGI/OpenVINO) are not yet running in Docker. We have the infrastructure, but they need to be triggered.</li><li><strong>Mesh Synchronization:</strong> LiteLLM routing has not yet been enabled; all cross-node inference traffic remains unoptimized.</li></ul>
+
+<h3>5. Remediation Roadmap (Follow-up)</h3>
+1. <strong>AMD Bridge:</strong> Manual verification of Windows-to-WSL GPU pass-through via host-driver configuration.
+2. <strong>Container Launch:</strong> Activation of <code>docker-compose -f sidecars/mesh/amd.yml</code> on Node B.
+3. <strong>LiteLLM Hub:</strong> Activation of the proxy service on Node B.
+4. <strong>TurboQuant:</strong> Injection of KV-compression (Phase 2).
+
+<hr>
+<strong>::/5Y573M-N071C3 : AUDIT_COMPLETE. MESH_FOUNDATION_STABILIZED. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Sovereign Mesh Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Hybrid Sovereign Mesh Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 11 Hybrid Mesh Implementation
+        </nav>
+
+        <main>
+            <h2>Hybrid Sovereign Mesh Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.</blockquote>
+
+<strong>Goal:</strong> Materialize the Hybrid Sovereign Mesh (NixOS stability + Docker Compose runtime agility) across four heterogeneous nodes.
+
+<strong>Architecture:</strong> 
+<ul><li><strong>Host Layer:</strong> Stable NixOS 24.11 hosts managed via Flakes.</li><li><strong>Runtime Layer:</strong> Docker Compose projects managed as <code>systemd</code> services.</li><li><strong>Coordination Layer:</strong> LiteLLM Hub on Node B orchestrating traffic to heterogeneous model runtimes.</li></ul>
+
+<strong>Tech Stack:</strong> NixOS 24.11, Docker, Compose, LiteLLM, Tailscale.
+
+<hr>
+
+<h3>Phase 1: Host Standardization (NixOS 24.11)</h3>
+
+<ul><li>[ ] <strong>Task 1: Pin Nixpkgs</strong></li></ul>
+    - Modify <code>flake.nix</code> to pin all node configurations to <code>nixos-24.11</code>.
+    - Apply <code>nixpkgs.config.allowUnfree = true</code> globally for CUDA/Proprietary drivers.
+
+<ul><li>[ ] <strong>Task 2: Enable OCI Infrastructure</strong></li></ul>
+    - Update <code>nix/modules/base.nix</code> (or equivalent) to enable <code>virtualisation.docker.enable = true</code>.
+    - Configure <code>docker</code> daemon to use <code>overlay2</code> storage driver for performance.
+
+<ul><li>[ ] <strong>Task 3: Firewall Hardening</strong></li></ul>
+    - Update <code>nix/modules/firewall.nix</code> to allow all traffic over the Tailscale interface (<code>tailscale0</code>).
+    - Explicitly open TCP ports: 8000 (API), 8642 (Gateway), 9119 (Dashboard).
+
+<hr>
+
+<h3>Phase 2: Runtime Materialization (Compose)</h3>
+
+<ul><li>[ ] <strong>Task 4: Node A/C (NVIDIA) Runtime</strong></li></ul>
+    - Create <code>sidecars/mesh/nvidia.yml</code>:
+      <pre><code>      services:
+        vllm:
+          image: vllm/vllm-openai:latest
+          runtime: nvidia
+          ports: ["8000:8000"]
+          deploy:
+            resources:
+              reservations:
+                devices: [{driver: nvidia, count: 1, capabilities: [gpu]}]
+      </code></pre>
+
+<ul><li>[ ] <strong>Task 5: Node B (AMD) Runtime</strong></li></ul>
+    - Create <code>sidecars/mesh/amd.yml</code>:
+      <pre><code>      services:
+        rocm:
+          image: ghcr.io/huggingface/text-generation-inference:latest
+          devices: ["/dev/kfd", "/dev/dri"]
+          ports: ["8000:8000"]
+      </code></pre>
+
+<ul><li>[ ] <strong>Task 6: Node D (Intel NPU) Runtime</strong></li></ul>
+    - Create <code>sidecars/mesh/intel.yml</code>:
+      <pre><code>      services:
+        openvino:
+          image: openvino/model_server:latest
+          volumes: ["./models:/models"]
+          ports: ["8000:8000"]
+      </code></pre>
+
+<hr>
+
+<h3>Phase 3: Mesh Orchestration (LiteLLM)</h3>
+
+<ul><li>[ ] <strong>Task 7: Central Routing Hub (Node B)</strong></li></ul>
+    - Configure <code>sidecars/mesh/litellm.conf.yaml</code> to define model routing across Tailscale IPs:
+      <pre><code>      model_list:
+        - model_name: cuda-model
+          litellm_params: { model_list: http://100.90.196.70:8000 } # Node A
+        - model_name: amd-model
+          litellm_params: { model_list: http://100.66.173.31:8000 } # Node B
+        - model_name: intel-model
+          litellm_params: { model_list: http://100.120.225.12:8000 } # Node D
+      </code></pre>
+
+<ul><li>[ ] <strong>Task 8: Systemd Auto-start</strong></li></ul>
+    - Implement <code>nix/modules/mesh-runtime.nix</code>:
+      <pre><code>      systemd.services.mesh-runtime = {
+        script = "docker-compose -f /etc/mesh/compose.yml up -d";
+        wantedBy = [ "multi-user.target" ];
+      };
+      </code></pre>
+
+<hr>
+
+<strong>Plan complete and saved to <code>docs/planning/plans/2026-05-11-hybrid-mesh-implementation.md</code>. Two execution options:</strong>
+
+<strong>1. Subagent-Driven (recommended)</strong> - I dispatch a fresh subagent per task, review between tasks, fast iteration.
+
+<strong>2. Inline Execution</strong> - Execute tasks in this session using <code>executing-plans</code>, batch execution with checkpoints.
+
+<strong>Which approach?</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

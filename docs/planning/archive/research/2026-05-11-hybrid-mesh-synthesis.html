@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Synthesis: Sovereign Hybrid Mesh Architecture (v3.5) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Research Synthesis: Sovereign Hybrid Mesh Architecture (v3.5)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Research<span class="sep">/</span>2026 05 11 Hybrid Mesh Synthesis
+        </nav>
+
+        <main>
+            <h2>Research Synthesis: Sovereign Hybrid Mesh Architecture (v3.5)</h2>
+            <h3>1. Executive Summary</h3>
+This document synthesizes the architectural redesign of the Sovereign Machina mesh, transitioning from a brittle "build-from-source" NixOS model to a robust <strong>"Hybrid Sovereign"</strong> architecture. This shift addresses systemic stability failures and GPU utilization bottlenecks across the heterogeneous 4-node cluster (NVIDIA, AMD, Intel).
+
+<h3>2. Problem Statement: The "Shadow Complexity"</h3>
+Initial remediation attempts revealed that our reliance on bleeding-edge NixOS <code>unstable</code> and custom GCC/CUDA toolchains introduced unmanageable technical debt. 
+<ul><li><strong>Build Failures:</strong> GCC 15/CUDA 12.9 toolchains failed to compile legacy SIMD code paths in <code>ik_llama.cpp</code>.</li><li><strong>Hardware Blindness:</strong> Lack of NVIDIA driver visibility (<code>nvidia-smi</code> failure) was traced to unstable NixOS modules, not physical hardware failure.</li><li><strong>Resource Contention:</strong> WSL2 <code>vmmem</code> CPU pinning on Node B stemmed from missing driver bridges, not inherent inefficiency.</li></ul>
+
+<h3>3. The Sovereign Hybrid Strategy</h3>
+The new architecture enforces a strict separation of concerns to ensure mesh integrity:
+
+<h4>A. Stability Layer (Host-Level)</h4>
+<ul><li><strong>Base OS:</strong> Pinning all nodes to <strong>NixOS 24.11 (Stable)</strong>.</li><li><strong>Hardware Integration:</strong> </li></ul>
+  - <strong>Node B (WSL2):</strong> <code>wsl.useWindowsDriver = true</code> to bridge the host GPU/NPU stack.
+  - <strong>Node A/C (NVIDIA):</strong> Standardized driver installation via stable NixOS modules.
+  - <strong>Node D (Intel NPU):</strong> Integration with <code>OneAPI</code> and <code>intel-vpu</code> modules.
+
+<h4>B. Runtime Layer (Service-Level)</h4>
+<ul><li><strong>Decoupling:</strong> Shifted away from compiling CUDA binaries on-host.</li><li><strong>Docker-Compose Implementation:</strong> AI runtimes (vLLM, TGI, OpenVINO) are now containerized. This allows for vendor-specific, pre-optimized runtimes that are cryptographically verified and version-pinned, eliminating build-time dependencies on the host OS.</li><li><strong>Orchestration:</strong> Docker Compose files managed as Git-tracked configuration in <code>sidecars/mesh/</code>.</li></ul>
+
+<h4>C. Mesh Orchestration</h4>
+<ul><li><strong>Hub-Spoke Topology:</strong> Node B (Director) operates as the primary routing hub via <strong>LiteLLM</strong>.</li><li><strong>Connectivity:</strong> Secure, multi-node communication is strictly enforced over the <strong>Tailscale Artery</strong>.</li><li><strong>Telemetry:</strong> Health and load status are consolidated via a standardized <code>/api/connection-status</code> endpoint across all nodes.</li></ul>
+
+<h3>4. Hardware Realities & Constraints</h3>
+The architecture is explicitly designed for our asymmetric physical footprint:
+<ul><li><strong>Node D (Primary Reasoner):</strong> Dedicated NVMe storage; configured for heavy model caching and high-concurrency reasoners.</li><li><strong>Node B (Director):</strong> Primary LiteLLM/Proxy node; optimized for low latency and high connectivity.</li><li><strong>Nodes A/C (Compute):</strong> Specialized CUDA workers for high-throughput inference.</li></ul>
+
+<h3>5. Implementation Roadmap</h3>
+The implementation plan (<code>docs/planning/plans/2026-05-11-hybrid-mesh-implementation.md</code>) breaks the transition into three verifiable phases:
+1. <strong>Phase 1:</strong> Standardize the host OS to 24.11 and harden firewalls.
+2. <strong>Phase 2:</strong> Materialize the OCI-container runtimes via <code>docker-compose</code>.
+3. <strong>Phase 3:</strong> Synchronize the Mesh Orchestration via LiteLLM routing.
+
+<h3>6. Verification & Validation (The "Shard Mandate")</h3>
+Integrity is maintained by the following mandatory checks:
+<ul><li><strong>Mesh Health:</strong> <code>curl http://localhost:3000/api/connection-status</code> must return 200/OK.</li><li><strong>Service Availability:</strong> All Docker containers must be managed by <code>systemd</code>, ensuring auto-recovery and stable uptime.</li><li><strong>Zero-Trust:</strong> All cross-node communication must resolve via Tailscale IPs with strict TLS/API token auth (defined in <code>~/.hermes/.env</code>).</li></ul>
+
+<hr>
+<strong>::/5Y573M-N071C3 : ARCHITECTURAL_SYNTHESIS_COMPLETE. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

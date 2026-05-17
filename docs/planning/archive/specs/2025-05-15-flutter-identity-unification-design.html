@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-05-15-Flutter-Identity-Unification-Design — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; 2025-05-15-Flutter-Identity-Unification-Design</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Specs<span class="sep">/</span>2025 05 15 Flutter Identity Unification Design
+        </nav>
+
+        <main>
+            <h2>2025-05-15-Flutter-Identity-Unification-Design</h2>
+            <p><strong>Goal:</strong> Unify the mobile app with the Sovereign Machina 'CRT Artery' identity by updating the color palette and adding a CRT scanline overlay.</p>
+
+<p><strong>Architecture:</strong></p>
+<ul><li>Surgical update of <code>AppStyles</code> in <code>ui_guidelines.dart</code>.</li><li>Implementation of <code>CRTScanlineOverlay</code> and <code>CRTScanlinePainter</code> in <code>widgets/crt_overlay.dart</code>.</li></ul>
+
+<strong>Tech Stack:</strong>
+<ul><li>Flutter (Dart)</li><li>CustomPaint / CustomPainter API</li></ul>
+
+<strong>Components:</strong>
+1. <strong>Palette Update:</strong>
+    - <code>backgroundPrimary</code>: <code>0xFF1A282F</code>
+    - <code>backgroundSecondary</code>: <code>0xFF27353B</code>
+    - <code>accent</code>: <code>0xFF376374</code>
+2. <strong>CRT Overlay:</strong>
+    - <code>CRTScanlineOverlay</code> (StatelessWidget)
+    - <code>CRTScanlinePainter</code> (CustomPainter) drawing lines every 4px with 0.1 opacity.
+
+<strong>Verification:</strong>
+<ul><li>Visual inspection of code changes.</li><li>Ensure idiomatic Flutter/Dart usage.</li></ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

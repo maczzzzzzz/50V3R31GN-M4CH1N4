@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Identity Unification Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Flutter Identity Unification Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2025 05 15 Flutter Identity Unification
+        </nav>
+
+        <main>
+            <h2>Flutter Identity Unification Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Update Flutter app colors and implement CRT scanline overlay.
+
+<strong>Architecture:</strong> Use <code>CustomPainter</code> for the CRT effect and update static color constants in <code>AppStyles</code>.
+
+<strong>Tech Stack:</strong> Flutter/Dart
+
+<hr>
+
+<h4>Task 1: Update AppStyles Palette</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/omi-monorepo-fork/app/lib/utils/ui_guidelines.dart</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update backgroundPrimary</strong></li><li>[ ] <strong>Step 2: Update backgroundSecondary</strong></li><li>[ ] <strong>Step 3: Update accent</strong></li></ul>
+
+<pre><code>// OLD
+static final Color backgroundPrimary = Colors.black;
+static final Color backgroundSecondary = const Color(0xFF1F1F25);
+static const Color accent = Colors.blue;
+
+// NEW
+static final Color backgroundPrimary = const Color(0xFF1A282F);
+static final Color backgroundSecondary = const Color(0xFF27353B);
+static const Color accent = const Color(0xFF376374);
+</code></pre>
+
+<h4>Task 2: Implement CRT Overlay Widget</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>sidecars/omi-monorepo-fork/app/lib/widgets/crt_overlay.dart</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Create CRTScanlineOverlay and CRTScanlinePainter</strong></li></ul>
+
+<pre><code>import 'package:flutter/material.dart';
+
+class CRTScanlineOverlay extends StatelessWidget {
+  const CRTScanlineOverlay({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: CustomPaint(
+        painter: CRTScanlinePainter(),
+        child: Container(),
+      ),
+    );
+  }
+}
+
+class CRTScanlinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.black.withOpacity(0.1)
+      ..strokeWidth = 1.0;
+
+    for (double y = 0; y < size.height; y += 4) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+</code></pre>
+
+<h4>Task 3: Commit Changes</h4>
+
+<ul><li>[ ] <strong>Step 1: Add and commit</strong></li></ul>
+Run: <code>git add sidecars/omi-monorepo-fork/app/lib/utils/ui_guidelines.dart sidecars/omi-monorepo-fork/app/lib/widgets/crt_overlay.dart</code>
+Run: <code>git commit -m "feat(mobile): unify Flutter app with CRT Artery identity"</code>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

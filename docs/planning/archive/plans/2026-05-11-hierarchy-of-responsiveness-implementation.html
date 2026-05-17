@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hierarchy of Responsiveness Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Hierarchy of Responsiveness Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 11 Hierarchy Of Responsiveness Implementation
+        </nav>
+
+        <main>
+            <h2>Hierarchy of Responsiveness Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Materialize a high-performance, two-tier model mesh by routing all default traffic to Node B (Qwen3-14B-9B) and strategic traffic to Node D (Qwen2.5-Coder-14B) via the Sovereign LiteLLM Proxy.
+
+<strong>Architecture:</strong>
+1. <strong>Model Distribution:</strong> Deploy Qwen3-14B-9B on Node B and Qwen2.5-Coder-14B on Node D.
+2. <strong>Proxy Routing:</strong> Update <code>nix/hosts/node-b/litellm-mesh.yaml</code> to include both models with defined routing strategies.
+3. <strong>Hermes Configuration:</strong> Update <code>~/.hermes/config.yaml</code> to point to the proxy and set context length overrides.
+
+<strong>Tech Stack:</strong> LiteLLM (Proxy), Llama.cpp (Inference), YAML (Config), NixOS (System modules).
+
+<hr>
+
+<h4>Task 1: Update Node D Inference Service</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>nix/hosts/node-d/default.nix</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update the inference engine parameters for Qwen2.5-Coder-14B (Q6)</strong></li></ul>
+
+<pre><code><h2>In nix/hosts/node-d/default.nix</h2>
+
+services.ik-llama = {
+  enable = true;
+  modelPath = "/home/nixos/50V3R31GN-M4CH1N4/models/Qwen2.5-Coder-14B-Instruct-Q6_K.gguf";
+  port = 8080;
+  memoryMax = "20G"; # Tighten for 24GB VRAM limit + KV cache
+};
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit</strong></li></ul>
+
+<pre><code>git add nix/hosts/node-d/default.nix
+git commit -m "feat(mesh): update Node D to Qwen2.5-Coder-14B (Q6) for high-fidelity reasoning"
+</code></pre>
+
+<hr>
+
+<h4>Task 2: Configure Sovereign Proxy (LiteLLM)</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>nix/hosts/node-b/litellm-mesh.yaml</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update routing to handle high-fidelity model routing</strong></li></ul>
+
+<pre><code><h2>nix/hosts/node-b/litellm-mesh.yaml</h2>
+
+model_list:
+  - model_name: "brain-v2-27b" # Proxy internal alias for Node B local
+    litellm_params:
+      model: "openai/brain-v2-27b"
+      api_base: "http://10.0.0.13:8080/v1" 
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+  - model_name: "qwen-14b"
+    litellm_params:
+      model: "openai/qwen2.5-coder-14b"
+      api_base: "http://10.0.0.13:8080/v1"
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+
+router_settings:
+  routing_strategy: usage-based-routing-v2
+  enable_pre_call_checks: true
+  # ... (rest of config)
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit</strong></li></ul>
+
+<pre><code>git add nix/hosts/node-b/litellm-mesh.yaml
+git commit -m "chore(mesh): synchronize proxy routing table with Qwen 14B materialization"
+</code></pre>
+
+<hr>
+
+<h4>Task 3: Hermes Mesh Re-Configuration</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>~/.hermes/config.yaml</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Set Node B as Default Dispatcher</strong></li></ul>
+
+<pre><code><h2>In ~/.hermes/config.yaml</h2>
+model:
+  default: brain-v2-27b
+  provider: sovereign-proxy
+  context_length: 256000
+
+<h2>Add alias for strategic reasoning</h2>
+provider_aliases:
+  reasoning: "qwen-14b"
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit</strong></li></ul>
+
+<pre><code><h2>Since config is managed locally in ~/.hermes, no git commit needed for this step</h2>
+echo "Config: UPDATED"
+</code></pre>
+
+<hr>
+
+<h4>Task 4: Verification & Final Deployment</h4>
+
+<ul><li>[ ] <strong>Step 1: Restart Services</strong></li></ul>
+Run: <code>./scripts/ignite.sh</code>
+
+<ul><li>[ ] <strong>Step 2: Test Route 1 (Local)</strong></li></ul>
+Run: <code>hermes chat -q "Hello"</code>
+Expected: TTFT < 100ms via Node B.
+
+<ul><li>[ ] <strong>Step 3: Test Route 2 (Strategic)</strong></li></ul>
+Run: <code>hermes chat -m qwen-14b -q "Architect Phase 6"</code>
+Expected: TTFT < 500ms via Node D.
+
+<hr>
+<strong>::/5Y573M-N071C3 : PLAN_SAVED. STANDING_BY_FOR_EXECUTION. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

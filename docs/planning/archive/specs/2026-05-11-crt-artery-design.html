@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Machina Design Spec: CRT Artery Brand Identity (v260511) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Sovereign Machina Design Spec: CRT Artery Brand Identity (v260511)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Specs<span class="sep">/</span>2026 05 11 Crt Artery Design
+        </nav>
+
+        <main>
+            <h2>Sovereign Machina Design Spec: CRT Artery Brand Identity (v260511)</h2>
+            <p><strong>Goal:</strong> Materialize a cohesive, high-fidelity visual identity for Sovereign Machina, moving beyond "stock" UI into an operational lo-fi aesthetic characterized by CRT-style artifacts, kinetic interactions, and a desaturated 4-bit palette.</p>
+
+<p><strong>Status:</strong> DRAFT (Awaiting User Review)</p>
+
+<hr>
+
+<h3>1. Aesthetic DNA: CRT Artery</h3>
+
+The "CRT Artery" direction prioritizes the feeling of a physical hardware interface.
+<ul><li><strong>Visuals:</strong> Subtle outer-glows on text, scanline overlays (2px spacing), and desaturated "Washed Protocol" colors.</li><li><strong>Interaction:</strong> Standard "stock" buttons are replaced with Kinetic Typography triggers.</li><li><strong>Motion:</strong> 60fps canvas-based transitions (Pretext) instead of standard CSS animations.</li></ul>
+
+<h4>1.1 Washed Protocol Palette</h4>
+<ul><li><strong>Tactical Base:</strong> <code>#1A282F</code> (Deep Slate/Blue)</li><li><strong>Technical Gray:</strong> <code>#AFAB9C</code> (Muted Warm Gray)</li><li><strong>Authority Primary:</strong> <code>#376374</code> (Ocean Teal)</li><li><strong>Gold Highlight:</strong> <code>#836A46</code> (Bronzed Gold - for Telemetry)</li></ul>
+
+<hr>
+
+<h3>2. Workspace Materialization (React)</h3>
+
+<h4>2.1 CSS Surface Injection</h4>
+<ul><li>Update <code>scifi-theme.css</code> to include a persistent scanline overlay on the <code>.root</code> div.</li><li>Implement a <code>text-shadow</code> variable for the "CRT Glow" effect (<code>0 0 5px var(--glow-color)</code>).</li><li>Forced zero-radius (<code>border-radius: 0px</code>) on all panels to enforce brutalist structure.</li></ul>
+
+<h4>2.2 Pretext Component Promotion</h4>
+<ul><li><strong>Interaction Layer:</strong> Convert the primary "New Chat" and "Settings" triggers from standard buttons to <code>KineticThoughtStream</code> instances that "bloom" on hover.</li><li><strong>Thinking Blocks:</strong> Replace the collapsible <code>ThinkingIndicator</code> with a persistent, non-collapsible Pretext canvas that flows around the terminal window.</li></ul>
+
+<h4>2.3 Backend Stabilization (Pre-requisite)</h4>
+<ul><li><strong>Dependency Fix:</strong> Fix the <code>terminal-sessions.ts</code> crash by correctly importing <code>fs</code> from <code>node:fs</code>.</li><li><strong>Auth Chain:</strong> Force all server-side routes to utilize the <code>sk-sovereign-mesh-proxy</code> token for internal plugin calls (Kanban/Memoir).</li></ul>
+
+<hr>
+
+<h3>3. Flutter App Materialization (Omi Fork)</h3>
+
+<h4>3.1 Custom Theme (AppTheme)</h4>
+<ul><li>Update <code>ui_guidelines.dart</code> to reflect the Washed Protocol palette.</li><li>Replace <code>Colors.blue</code> accent with <code>Authority Primary (#376374)</code>.</li><li>Implement a <code>CRTScanlinePainter</code> for the global <code>Scaffold</code> background.</li></ul>
+
+<h4>3.2 Pretext Dart Integration</h4>
+<ul><li>Materialize the <code>KineticHUDPanel</code> CustomPainter.</li><li>Map the Omi heartbeat telemetry (BLE signal strength) to the vorticity of the background fluid smoke.</li></ul>
+
+<hr>
+
+<h3>4. Success Criteria</h3>
+1. <strong>No Stock Elements:</strong> No visible "standard" blue buttons or rounded cards.
+2. <strong>Cohesive Artery:</strong> Background fluid smoke syncs between mobile (Flutter) and desktop (React).
+3. <strong>Backend Status:</strong> Gateway shows <code>mode=zero-fork</code> or <code>mode=enhanced-fork</code> with zero <code>missing</code> APIs.
+
+<hr>
+
+<strong>::/5Y573M-N071C3 : BRAND_SPEC_DRAFTED. ARTERY_IDENTITY_LOCKED. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRT Artery CSS Surface Injection Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; CRT Artery CSS Surface Injection Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 11 Crt Artery Injection
+        </nav>
+
+        <main>
+            <h2>CRT Artery CSS Surface Injection Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Inject CRT scanlines and glow into the workspace dashboard.
+
+<strong>Architecture:</strong> Use CSS variables and pseudo-elements for scanlines, and a text-shadow class for the CRT glow effect. Enforce brutalism by removing border-radius globally.
+
+<strong>Tech Stack:</strong> CSS, Tailwind CSS
+
+<hr>
+
+<h4>Task 1: Implement Scanline Overlay and Glow Variables</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/scifi-theme.css</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update scifi-theme.css with CRT variables and overlay</strong></li></ul>
+
+<pre><code>/<em> scifi-theme.css </em>/
+:root {
+  /<em> ... existing vars ... </em>/
+  --glow-color: rgba(55, 99, 116, 0.4);
+  --scanline-opacity: 0.05;
+}
+
+.root::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: var(--scanline-opacity);
+}
+
+.crt-glow {
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+/<em> Forced Brutalism </em>/
+<ul><li>{</li></ul>
+  border-radius: 0px !important;
+}
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit scifi-theme.css</strong></li></ul>
+
+<pre><code>git add dashboard/hermes-workspace/src/scifi-theme.css
+git commit -m "feat(visual): inject CRT scanlines and glow protocol"
+</code></pre>
+
+<hr>
+
+<h4>Task 2: Apply glow to all technical text</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/styles.css</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Add .crt-glow to .theme-text and headers in styles.css</strong></li></ul>
+
+<pre><code>/<em> styles.css </em>/
+.theme-text {
+  color: var(--theme-text) !important;
+  @apply crt-glow; /<em> If using tailwind, or just add the property </em>/
+}
+
+/<em> Or more precisely, find where .theme-text is defined and add the shadow </em>/
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit styles.css</strong></li></ul>
+
+<pre><code>git add dashboard/hermes-workspace/src/styles.css
+git commit -m "feat(visual): apply CRT glow to technical text"
+</code></pre>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

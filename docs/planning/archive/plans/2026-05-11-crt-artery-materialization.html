@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRT Artery Brand Identity Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; CRT Artery Brand Identity Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 11 Crt Artery Materialization
+        </nav>
+
+        <main>
+            <h2>CRT Artery Brand Identity Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Materialize the high-fidelity visual identity for Sovereign Machina, replacing stock UI with CRT-style artifacts, kinetic interactions, and a desaturated 4-bit palette across the Workspace and Flutter app, while stabilizing the backend.
+
+<strong>Architecture:</strong> 
+<ul><li><strong>React Workspace:</strong> Persistent scanline overlays and text glows via CSS; promotion of standard triggers to canvas-based Kinetic typography; backend dependency and auth remediation.</li><li><strong>Flutter App:</strong> Custom painters for CRT artifacts and Washed Protocol palette injection via ThemeData extensions.</li></ul>
+
+<strong>Tech Stack:</strong> React, Tailwind CSS, Vite, Node.js, Rust (Pretext Core), WASM, Flutter/Dart.
+
+<hr>
+
+<h4>Task 1: Backend Stabilization & Dependency Remediation</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/server/terminal-sessions.ts</code></li><li>Modify: <code>dashboard/hermes-workspace/src/server/gateway-capabilities.ts</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Fix missing fs import in terminal-sessions.ts</strong></li></ul>
+<pre><code>import { spawn } from 'node:child_process'
+import type { ChildProcess } from 'node:child_process'
+import { existsSync } from 'node:fs' // Added
+import path from 'node:path'
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Revert hardcoded API URL but ensure it falls back correctly to 127.0.0.1</strong></li></ul>
+Modify <code>dashboard/hermes-workspace/src/server/gateway-capabilities.ts</code>:
+<pre><code>export let CLAUDE_API = normalizeUrl(
+  _initialOverrides.claudeApiUrl ||
+    process.env.HERMES_API_URL ||
+    process.env.CLAUDE_API_URL ||
+    'http://127.0.0.1:8642',
+)
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Verify Gateway connection</strong></li></ul>
+Run: <code>curl -s http://localhost:8642/health</code>
+Expected: <code>{"status": "ok", "platform": "hermes-agent"}</code>
+
+<ul><li>[ ] <strong>Step 4: Commit</strong></li></ul>
+<pre><code>git add dashboard/hermes-workspace/src/server/
+git commit -m "fix(backend): remediate fs dependency and stabilize gateway routing"
+</code></pre>
+
+<h4>Task 2: CRT Artery CSS Surface Injection</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/scifi-theme.css</code></li><li>Modify: <code>dashboard/hermes-workspace/src/styles.css</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Implement Scanline Overlay and Glow Variables</strong></li></ul>
+Update <code>dashboard/hermes-workspace/src/scifi-theme.css</code>:
+<pre><code>:root {
+  --glow-color: rgba(55, 99, 116, 0.4);
+  --scanline-opacity: 0.05;
+}
+
+.root::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 100;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: var(--scanline-opacity);
+}
+
+.crt-glow {
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+/<em> Forced Brutalism </em>/
+<ul><li>{</li></ul>
+  border-radius: 0px !important;
+}
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Apply glow to all technical text</strong></li></ul>
+Update <code>dashboard/hermes-workspace/src/styles.css</code> to add <code>.crt-glow</code> to primary labels.
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+<pre><code>git add dashboard/hermes-workspace/src/scifi-theme.css
+git commit -m "feat(visual): inject CRT scanlines and glow protocol"
+</code></pre>
+
+<h4>Task 3: Kinetic Interaction Promotion</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/components/workspace-shell.tsx</code></li><li>Modify: <code>dashboard/hermes-workspace/src/screens/chat/components/chat-sidebar.tsx</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Replace "New Chat" button with Kinetic Interaction</strong></li></ul>
+In <code>chat-sidebar.tsx</code>, replace the standard <code>Button</code> with a wrapper around <code>KineticThoughtStream</code> that triggers <code>onCreateSession</code> on click.
+
+<ul><li>[ ] <strong>Step 2: Materialize persistent Pretext Flow in Shell</strong></li></ul>
+Update <code>WorkspaceShell.tsx</code> to include a <code>KineticThoughtStream</code> that renders random architectural "whispers" in the background at 10% opacity.
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+<pre><code>git commit -m "feat(visual): promote standard triggers to kinetic interactions"
+</code></pre>
+
+<h4>Task 4: Flutter App Identity Unification</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/omi-monorepo-fork/app/lib/utils/ui_guidelines.dart</code></li><li>Modify: <code>sidecars/omi-monorepo-fork/app/lib/widgets/crt_overlay.dart</code> (Create)</li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update AppStyles to Washed Protocol Palette</strong></li></ul>
+<pre><code>static final Color backgroundPrimary = const Color(0xFF1A282F);
+static final Color backgroundSecondary = const Color(0xFF27353B);
+static const Color accent = const Color(0xFF376374);
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Implement CRTScanlinePainter</strong></li></ul>
+Create <code>sidecars/omi-monorepo-fork/app/lib/widgets/crt_overlay.dart</code> with a <code>CustomPainter</code> that draws horizontal lines every 4 pixels with 0.1 opacity.
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+<pre><code>git add sidecars/omi-monorepo-fork/app/lib/
+git commit -m "feat(mobile): unify Flutter app with CRT Artery identity"
+</code></pre>
+
+<h4>Task 5: Final Verification & Tearing Down Mock Logic</h4>
+
+<ul><li>[ ] <strong>Step 1: Revert LiteLLM local routing to Node D</strong></li></ul>
+Update <code>nix/hosts/node-b/litellm-mesh.yaml</code> to use <code>100.120.225.12:8080</code>.
+
+<ul><li>[ ] <strong>Step 2: Kill Mock LLM and Restart Mesh</strong></li></ul>
+<pre><code>pkill -f mock_llm
+bash scripts/ignite.sh
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Run full UI smoke test</strong></li></ul>
+Expected: Dashboard connected, Pretext HUD visible, CRT artifacts visible, and real Node D responses flowing.
+
+<ul><li>[ ] <strong>Step 4: Commit</strong></li></ul>
+<pre><code>git commit -m "chore: final mesh calibration and cleanup"
+</code></pre>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

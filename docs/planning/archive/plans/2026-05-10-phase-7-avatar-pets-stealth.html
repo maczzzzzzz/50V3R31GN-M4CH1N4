@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 7: Avatar Pets & Stealth Intelligence Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Phase 7: Avatar Pets & Stealth Intelligence Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 10 Phase 7 Avatar Pets Stealth
+        </nav>
+
+        <main>
+            <h2>Phase 7: Avatar Pets & Stealth Intelligence Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Materialize the high-fidelity visual and observational layer for managed mesh processes using CloakBrowser, pup, Nano Banana 2, Hello-Agents, and Memoir.
+
+<strong>Architecture:</strong> 
+This phase overhauls several disparate systems into a unified observability and memory layer:
+1. <strong>Stealth Reconnaissance:</strong> <code>CloakBrowser</code> replaces standard Playwright contexts in the <code>Stagehand</code> plugin, allowing agents to perform API discovery without triggering anti-bot flags.
+2. <strong>Node Telemetry:</strong> <code>pup</code> is deployed to nodes A, C, and D, streaming structured JSON metrics back to the Hermes Core (Node D) instead of relying on legacy polling.
+3. <strong>Hierarchical Memory:</strong> <code>memoir</code> replaces flat-file contexts (<code>MEMORY.md</code>) with a Git-backed, versioned semantic hierarchy, allowing agents to branch memory during stealth reconnaissance and merge upon verification.
+4. <strong>Avatar Pets:</strong> The Hermes Workspace HUD consumes <code>pup</code> telemetry to animate procedural <code>Nano Banana 2</code> sprites, giving visual "moods" to physical hardware nodes.
+5. <strong>A2A Context:</strong> <code>Hello-Agents</code> situational understanding headers are injected into the VSB protocol for high-density agent handoffs.
+
+<strong>Tech Stack:</strong> Python (Hermes Core), Rust (Pup), TypeScript/React (Workspace HUD), CloakBrowser (C++ Chromium), Memoir (Python SDK).
+
+<hr>
+
+<h4>Task 1: Stealth Browser-Harness Integration (Cloak)</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>sidecars/hermes-agent-nous/plugins/model_providers/cloak_browser/provider.py</code></li><li>Modify: <code>sidecars/hermes-agent-nous/cli-config.yaml:150-165</code></li><li>Test: <code>sidecars/hermes-agent-nous/tests/integration/test_cloak_stealth.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Write the failing test</strong></li></ul>
+
+<pre><code><h2>sidecars/hermes-agent-nous/tests/integration/test_cloak_stealth.py</h2>
+import pytest
+from plugins.model_providers.cloak_browser.provider import CloakBrowserProvider
+
+@pytest.mark.asyncio
+async def test_cloak_browser_initialization():
+    provider = CloakBrowserProvider()
+    context = await provider.create_stealth_context()
+    
+    # Ensure humanize flag is active for bypass
+    assert context.humanize_enabled is True
+    assert context.fingerprint_seed is not None
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Run test to verify it fails</strong></li></ul>
+
+Run: <code>cd sidecars/hermes-agent-nous && pytest tests/integration/test_cloak_stealth.py -v</code>
+Expected: FAIL with "ModuleNotFoundError: No module named 'plugins.model_providers.cloak_browser'"
+
+<ul><li>[ ] <strong>Step 3: Write minimal implementation</strong></li></ul>
+
+<pre><code><h2>sidecars/hermes-agent-nous/plugins/model_providers/cloak_browser/provider.py</h2>
+import os
+import uuid
+
+class CloakBrowserContext:
+    def __init__(self, humanize: bool):
+        self.humanize_enabled = humanize
+        self.fingerprint_seed = str(uuid.uuid4())
+
+class CloakBrowserProvider:
+    def __init__(self):
+        self.binary_path = os.getenv("CLOAK_BROWSER_PATH", "/usr/bin/cloak")
+
+    async def create_stealth_context(self) -> CloakBrowserContext:
+        # Initialize stealth CDP context
+        return CloakBrowserContext(humanize=True)
+</code></pre>
+
+<ul><li>[ ] <strong>Step 4: Run test to verify it passes</strong></li></ul>
+
+Run: <code>cd sidecars/hermes-agent-nous && pytest tests/integration/test_cloak_stealth.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 5: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/cloak_browser/provider.py sidecars/hermes-agent-nous/tests/integration/test_cloak_stealth.py
+git commit -m "feat(phase7): initialize CloakBrowser stealth provider"
+</code></pre>
+
+<hr>
+
+<h4>Task 2: Version-Controlled Semantic Memory (Memoir)</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>sidecars/hermes-agent-nous/plugins/memory/memoir_store.py</code></li><li>Modify: <code>sidecars/hermes-agent-nous/hermes_state.py:45-60</code></li><li>Test: <code>sidecars/hermes-agent-nous/tests/unit/test_memoir_store.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Write the failing test</strong></li></ul>
+
+<pre><code><h2>sidecars/hermes-agent-nous/tests/unit/test_memoir_store.py</h2>
+import pytest
+from plugins.memory.memoir_store import MemoirStore
+
+@pytest.mark.asyncio
+async def test_memoir_branching_and_recall():
+    store = MemoirStore(repo_path="/tmp/test_memoir")
+    await store.init_repo()
+    
+    # Create stealth branch
+    branch_id = await store.branch("stealth_recon_01")
+    await store.commit(branch_id, "target.api.endpoints", {"status": "discovered"})
+    
+    # Recall
+    data = await store.recall(branch_id, "target.api")
+    assert data["endpoints"]["status"] == "discovered"
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Run test to verify it fails</strong></li></ul>
+
+Run: <code>cd sidecars/hermes-agent-nous && pytest tests/unit/test_memoir_store.py -v</code>
+Expected: FAIL with "ModuleNotFoundError"
+
+<ul><li>[ ] <strong>Step 3: Write minimal implementation</strong></li></ul>
+
+<pre><code><h2>sidecars/hermes-agent-nous/plugins/memory/memoir_store.py</h2>
+import json
+import os
+
+class MemoirStore:
+    def __init__(self, repo_path: str):
+        self.repo_path = repo_path
+        self.branches = {}
+
+    async def init_repo(self):
+        os.makedirs(self.repo_path, exist_ok=True)
+
+    async def branch(self, branch_name: str) -> str:
+        self.branches[branch_name] = {}
+        return branch_name
+
+    async def commit(self, branch_id: str, path: str, data: dict):
+        keys = path.split('.')
+        current = self.branches[branch_id]
+        for key in keys[:-1]:
+            current = current.setdefault(key, {})
+        current[keys[-1]] = data
+
+    async def recall(self, branch_id: str, path: str) -> dict:
+        keys = path.split('.')
+        current = self.branches[branch_id]
+        for key in keys:
+            if key in current:
+                current = current[key]
+            else:
+                return {}
+        return current
+</code></pre>
+
+<ul><li>[ ] <strong>Step 4: Run test to verify it passes</strong></li></ul>
+
+Run: <code>cd sidecars/hermes-agent-nous && pytest tests/unit/test_memoir_store.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 5: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/memory/memoir_store.py sidecars/hermes-agent-nous/tests/unit/test_memoir_store.py
+git commit -m "feat(phase7): implement hierarchical Memoir storage engine"
+</code></pre>
+
+<hr>
+
+<h4>Task 3: Agent-Native Node Observability (Pup)</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>sidecars/hermes-agent-nous/plugins/observability/pup_monitor/plugin.py</code></li><li>Test: <code>sidecars/hermes-agent-nous/tests/unit/test_pup_monitor.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Write the failing test</strong></li></ul>
+
+<pre><code><h2>sidecars/hermes-agent-nous/tests/unit/test_pup_monitor.py</h2>
+import pytest
+from plugins.observability.pup_monitor.plugin import PupMonitor
+
+@pytest.mark.asyncio
+async def test_pup_telemetry_parsing():
+    monitor = PupMonitor()
+    raw_pup_json = '{"node": "node-c", "cpu": 85.5, "status": "degraded"}'
+    
+    metrics = monitor.parse_stream(raw_pup_json)
+    assert metrics.node_id == "node-c"
+    assert metrics.requires_runbook is True
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Run test to verify it fails</strong></li></ul>
+
+Run: <code>cd sidecars/hermes-agent-nous && pytest tests/unit/test_pup_monitor.py -v</code>
+Expected: FAIL 
+
+<ul><li>[ ] <strong>Step 3: Write minimal implementation</strong></li></ul>
+
+<pre><code><h2>sidecars/hermes-agent-nous/plugins/observability/pup_monitor/plugin.py</h2>
+import json
+from dataclasses import dataclass
+
+@dataclass
+class NodeMetrics:
+    node_id: str
+    cpu: float
+    requires_runbook: bool
+
+class PupMonitor:
+    def parse_stream(self, raw_json: str) -> NodeMetrics:
+        data = json.loads(raw_json)
+        # Trigger runbook execution if status is degraded or CPU > 80
+        requires_runbook = data.get("status") == "degraded" or data.get("cpu", 0) > 80.0
+        return NodeMetrics(
+            node_id=data.get("node"),
+            cpu=data.get("cpu"),
+            requires_runbook=requires_runbook
+        )
+</code></pre>
+
+<ul><li>[ ] <strong>Step 4: Run test to verify it passes</strong></li></ul>
+
+Run: <code>cd sidecars/hermes-agent-nous && pytest tests/unit/test_pup_monitor.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 5: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/observability/pup_monitor/plugin.py sidecars/hermes-agent-nous/tests/unit/test_pup_monitor.py
+git commit -m "feat(phase7): integrate pup agent JSON stream parser"
+</code></pre>
+
+<hr>
+
+<h4>Task 4: Avatar Pets Visual Feedback (Nano Banana 2)</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>dashboard/hermes-workspace/src/components/AvatarPet.tsx</code></li><li>Create: <code>dashboard/hermes-workspace/src/components/AvatarPet.test.tsx</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Write the failing test</strong></li></ul>
+
+<pre><code>// dashboard/hermes-workspace/src/components/AvatarPet.test.tsx
+import { render, screen } from '@testing-library/react';
+import { AvatarPet } from './AvatarPet';
+
+test('renders sad pet when node is degraded', () => {
+    render(<AvatarPet nodeId="node-c" status="degraded" cpu={85.5} />);
+    
+    // Expecting the Nano Banana 2 sprite to reflect 'sad' or 'hungry' state
+    const sprite = screen.getByRole('img', { name: /node-c avatar/i });
+    expect(sprite.getAttribute('src')).toContain('sprite_sad.png');
+});
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Run test to verify it fails</strong></li></ul>
+
+Run: <code>cd dashboard/hermes-workspace && npm test AvatarPet.test.tsx</code>
+Expected: FAIL 
+
+<ul><li>[ ] <strong>Step 3: Write minimal implementation</strong></li></ul>
+
+<pre><code>// dashboard/hermes-workspace/src/components/AvatarPet.tsx
+import React from 'react';
+
+interface AvatarPetProps {
+    nodeId: string;
+    status: 'healthy' | 'degraded' | 'offline';
+    cpu: number;
+}
+
+export const AvatarPet: React.FC<AvatarPetProps> = ({ nodeId, status, cpu }) => {
+    // Nano Banana 2 procedural sprite resolution based on Pup telemetry
+    const spriteState = status === 'degraded' || cpu > 80 ? 'sad' : 'happy';
+    const spriteUrl = <code>/assets/sprites/${nodeId}_sprite_${spriteState}.png</code>;
+
+    return (
+        <div className="avatar-pet-container">
+            <img 
+                src={spriteUrl} 
+                alt={<code>${nodeId} avatar</code>} 
+                className={<code>pet-anim-${spriteState}</code>}
+            />
+            <div className="pet-stats">CPU: {cpu}%</div>
+        </div>
+<p>    );</p>
+<p>};</p>
+</code></pre>
+
+<ul><li>[ ] <strong>Step 4: Run test to verify it passes</strong></li></ul>
+
+Run: <code>cd dashboard/hermes-workspace && npm test AvatarPet.test.tsx</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 5: Commit</strong></li></ul>
+
+<pre><code>git add dashboard/hermes-workspace/src/components/AvatarPet.tsx dashboard/hermes-workspace/src/components/AvatarPet.test.tsx
+git commit -m "feat(phase7): implement Nano Banana 2 Avatar Pet component"
+</code></pre>
+
+<hr>
+<strong>Plan complete and saved to <code>docs/planning/plans/2026-05-10-phase-7-avatar-pets-stealth.md</code>. Two execution options:</strong>
+
+<strong>1. Subagent-Driven (recommended)</strong> - I dispatch a fresh subagent per task, review between tasks, fast iteration
+<strong>2. Inline Execution</strong> - Execute tasks in this session using executing-plans, batch execution with checkpoints
+
+<strong>Which approach?</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

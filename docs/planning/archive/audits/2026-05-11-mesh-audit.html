@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Mesh Audit Report (2026-05-11) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Sovereign Mesh Audit Report (2026-05-11)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Audits<span class="sep">/</span>2026 05 11 Mesh Audit
+        </nav>
+
+        <main>
+            <h2>Sovereign Mesh Audit Report (2026-05-11)</h2>
+            <h3>1. Executive Summary</h3>
+The mesh is currently in a <strong>Crippled Operational State</strong>. While baseline connectivity (Tailscale Artery) and messaging (Hermes Gateway) are functional, the core reasoning and inference capabilities are severely degraded due to hardware-software integration failures.
+
+<h3>2. Current System State</h3>
+<ul><li>  <strong>Node B (Director):</strong> Re-stabilized. Running inference on CPU fallback (~3.5 t/s). WSL2/AMD GPU bridge remains non-functional (<code>dxg Ioctl -22</code>).</li><li>  <strong>Node D (Quaternary):</strong> Reasoning core is currently <strong>offline/unstable</strong>. The hardware acceleration pivot (OpenVINO) is failing during the Nix build process.</li><li>  <strong>Mesh Routing:</strong> Remediated. LiteLLM proxy is using local host networking to bypass bridge isolation, allowing basic inference routing.</li></ul>
+
+<h3>3. Critical Blockers (The "How we are held back")</h3>
+1.  <strong>Hardware Handshake Failure (Node B):</strong> The WSL2 kernel cannot bind to the host's AMD GPU driver. All previous BIOS and kernel-tweak attempts have failed. 
+2.  <strong>Inference Build Hang (Node D):</strong> The Nix build for <code>llama-cpp-openvino</code> is hanging indefinitely during source-tree processing or dependency resolution, preventing the activation of NPU/iGPU acceleration.
+3.  <strong>Deployment Debt:</strong> The mesh requires manual intervention to sync and rebuild node-specific configurations, which is currently failing due to the build hang.
+
+<h3>4. Strategic Critical To-Dos</h3>
+1.  <strong>Resolve Build Hang (Node D):</strong>
+    *   <strong>Why:</strong> We are running 0.4 t/s reasoning on CPU, which is functionally useless for the Quaternary Core.
+    *   <strong>How:</strong> Audit build process, attempt <code>nix build</code> with higher verbosity, and investigate specific dependency failures in <code>llama-cpp</code>.
+2.  <strong>Windows-Inference Bridge (Node B):</strong>
+    *   <strong>Why:</strong> WSL2 GPU pass-through is a lost cause in the current configuration.
+    *   <strong>How:</strong> Deploy <code>llama-server.exe</code> directly on the Windows host and update LiteLLM to point to the Windows-side inference endpoint.
+3.  <strong>Standardize Runtime:</strong>
+    *   <strong>Why:</strong> Inconsistent runtime configurations between nodes are causing configuration drift.
+    *   <strong>How:</strong> Fully pin the mesh to NixOS Stable (<code>24.11</code>) and use containerized OCI images for inference engines to isolate dependencies from the host environment.
+
+<h3>5. Risk Assessment</h3>
+<ul><li>  <strong>High Risk:</strong> Continued reliance on Node B for heavy reasoning will lead to OOM and service degradation.</li><li>  <strong>Medium Risk:</strong> The build hang on Node D indicates potential deep-seated configuration issues within the Nix derivation that may require a full rewrite of the <code>ik-llama</code> build modules.</li></ul>
+
+<hr>
+<strong>::/5Y573M-N071C3 : AUDIT_REPORT_MATERIALIZED. THE_BUS_IS_TRUTH. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

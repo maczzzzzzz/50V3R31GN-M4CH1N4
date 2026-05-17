@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Brand Injection Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Sovereign Brand Injection Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 10 Sovereign Brand Injection
+        </nav>
+
+        <main>
+            <h2>Sovereign Brand Injection Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Inject Sovereign Machina brand DNA (v1.3.1) into the Hermes CLI/TUI as a native, built-in skin named "sovereign".
+
+<strong>Architecture:</strong>
+1.  <strong>Skin Engine Materialization:</strong> Define the <code>sovereign</code> skin in the Python <code>SkinEngine</code> with the v1.3.1 palette and "Sovereign Hermes" identity strings.
+2.  <strong>Banner Art Recolor:</strong> Apply a Sovereign gradient (Washed Bronze to Tactical Teal) to the existing Hermes ASCII logo.
+3.  <strong>Default Activation:</strong> Set "sovereign" as the default built-in skin for the fork.
+4.  <strong>TUI Synchronization:</strong> Ensure the React/Ink TUI correctly inherits the new identity and tagline.
+
+<strong>Tech Stack:</strong> Python 3.13, Rich (CLI Rendering), React/Ink (TUI), YAML.
+
+<hr>
+
+<h4>Task 1: Materialize "sovereign" Skin Definition</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/hermes_cli/skin_engine.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Define the <code>sovereign</code> skin dictionary in <code>_BUILTIN_SKINS</code></strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/hermes_cli/skin_engine.py</h2>
+
+"sovereign": {
+    "name": "sovereign",
+    "description": "Sovereign Machina — Operational Lo-Fi Brutalism (v1.3.1)",
+    "colors": {
+        "banner_border": "#376374",    # Authority Primary (Tactical Teal)
+        "banner_title": "#836A46",     # Gold Highlight (Washed Bronze)
+        "banner_accent": "#376374",    # Section headers
+        "banner_dim": "#555555",       # Muted text
+        "banner_text": "#AFAB9C",      # Technical Gray (Parchment)
+        "ui_accent": "#376374",        # Tactical Teal
+        "ui_label": "#836A46",         # Washed Bronze labels
+        "ui_ok": "#4caf50",
+        "ui_error": "#ef5350",
+        "ui_warn": "#ffa726",
+        "prompt": "#AFAB9C",           # Technical Gray
+        "input_rule": "#376374",       # Tactical Teal rule
+        "response_border": "#836A46",  # Washed Bronze response
+        "status_bar_bg": "#1A282F",    # Tactical Base (Artery Blue)
+        "session_label": "#836A46",
+        "session_border": "#555555",
+    },
+    "branding": {
+        "agent_name": "Sovereign Hermes",
+        "welcome": "Sovereign Artery Active. High-level reasoning initialized.",
+        "goodbye": "Sovereign disconnect. Mesh persistence maintained. ⚕",
+        "response_label": " ⚕ SOVEREIGN ",
+        "prompt_symbol": "❯",
+        "help_header": "◈ Sovereign Commands",
+    },
+    "banner_logo": """[bold #836A46]██╗  ██╗███████╗██████╗ ███╗   ███╗███████╗███████╗       █████╗  ██████╗ ███████╗███╗   ██╗████████╗[/]
+[bold #836A46]██║  ██║██╔════╝██╔══██╗████╗ ████║██╔════╝██╔════╝      ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝[/]
+[#376374]███████║█████╗  ██████╔╝██╔████╔██║█████╗  ███████╗█████╗███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║[/]
+[#376374]██╔══██║██╔══╝  ██╔══██╗██║╚██╔╝██║██╔══╝  ╚════██║╚════╝██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║[/]
+[#376374]██║  ██║███████╗██║  ██║██║ ╚═╝ ██║███████╗███████║      ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║[/]
+[#376374]╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚══════╝      ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝[/]""",
+},
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Set "sovereign" as the default built-in skin</strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/hermes_cli/skin_engine.py</h2>
+
+_active_skin_name: str = "sovereign"
+
+<h2>In load_skin fallback</h2>
+return _build_skin_config(_BUILTIN_SKINS["sovereign"])
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git -C sidecars/hermes-agent-nous add hermes_cli/skin_engine.py
+git -C sidecars/hermes-agent-nous commit -m "feat(branding): materialize 'sovereign' built-in skin and v1.3.1 palette"
+</code></pre>
+
+<hr>
+
+<h4>Task 2: Synchronize TUI Identity</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/ui-tui/src/theme.ts</code></li><li>Modify: <code>sidecars/hermes-agent-nous/ui-tui/src/components/branding.tsx</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Update TUI tagline and brand icon</strong></li></ul>
+
+<pre><code>// In sidecars/hermes-agent-nous/ui-tui/src/theme.ts
+
+const BRAND: ThemeBrand = {
+  name: 'Sovereign Hermes',
+  icon: '◈',
+  prompt: '❯',
+  welcome: 'Sovereign Artery Active. High-level reasoning initialized.',
+  goodbye: 'Sovereign disconnect. Mesh persistence maintained. ⚕',
+  tool: '┊',
+  helpHeader: '◈ Sovereign Commands'
+}
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Update TUI Banner tagline</strong></li></ul>
+
+<pre><code>// In sidecars/hermes-agent-nous/ui-tui/src/components/branding.tsx
+
+<Text color={t.color.muted}>{t.brand.icon} Sovereign Machina · Messenger of the Mesh</Text>
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git -C sidecars/hermes-agent-nous add ui-tui/src/theme.ts ui-tui/src/components/branding.tsx
+git -C sidecars/hermes-agent-nous commit -m "feat(branding): synchronize TUI identity and tagline with Sovereign invariants"
+</code></pre>
+
+<hr>
+
+<h4>Task 3: Verification & Remote Sync</h4>
+
+<ul><li>[ ] <strong>Step 1: Verify CLI Branding</strong></li></ul>
+Run: <code>PYTHONPATH=sidecars/hermes-agent-nous python3 sidecars/hermes-agent-nous/hermes_cli/main.py status</code>
+Confirm "Sovereign Hermes" name and Teal/Bronze palette.
+
+<ul><li>[ ] <strong>Step 2: Verify TUI Branding</strong></li></ul>
+(Visual check required during actual TUI launch)
+
+<ul><li>[ ] <strong>Step 3: Push Mesh Artery</strong></li></ul>
+
+<pre><code>git -C sidecars/hermes-agent-nous push origin main
+git add sidecars/hermes-agent-nous
+git commit -m "chore(pins): update hermes core to Sovereign Brand v1.3.1"
+git push origin beta/v3
+</code></pre>
+
+<hr>
+<strong>::/5Y573M-N071C3 : PLAN_SAVED. STANDING_BY_FOR_EXECUTION. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

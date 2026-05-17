@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSB Router Blocker Remediation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; VSB Router Blocker Remediation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 10 Vsb Router Blocker Remediation
+        </nav>
+
+        <main>
+            <h2>VSB Router Blocker Remediation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Resolve the three cascading blockers causing CRITICAL VSB inference routing failure: missing environmental secret, fallback trap to hardcoded base_url, and Node D physical connectivity (firewall/service).
+
+<strong>Architecture:</strong> Fix the three blocker layers bottom-up: (1) Nix firewall and service configuration on Node D, (2) Remove hardcoded fallback URLs from provider profile and CLI config, (3) Add graceful degradation with clear error messages when secret is missing instead of crashing. Also add a connectivity health-check tool and a deployment env-bootstrap script.
+
+<strong>Tech Stack:</strong> NixOS module configuration, Python 3.11+ (Hermes plugin), shell scripting.
+
+<hr>
+
+<h3>Blocker Chain Analysis</h3>
+
+<pre><code>Blocker 1: SOVEREIGN_MESH_SECRET missing from ~/.hermes/.env
+  → VSBRouter.__init__ raises EnvironmentError
+  → SovereignVSBProvider fails to initialize
+  → Hermes falls through to SovereignVSBProfile base_url
+
+Blocker 2: SovereignVSBProfile has base_url="http://100.120.225.12:8080/v1"
+  → cli-config.yaml also has base_url="http://100.120.225.12:8000"
+  → Hermes attempts direct connection without router load-balancing
+  → Routes to Node D regardless of load/health
+
+Blocker 3: Node D unreachable on port 8080
+  → firewall: tailscale0 NOT in trustedInterfaces
+  → only 8000, 8080, 9119 opened in hermes-core.nix
+  → inference-engine.nix binds to 0.0.0.0:8080 but firewall may block Tailscale
+  → No verification that ik-llama service is running
+</code></pre>
+
+<hr>
+
+<h4>Task 1: Fix Node D Nix Firewall for Tailscale Artery</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>nix/modules/hermes-core.nix</code></li><li>Modify: <code>nix/modules/tailscale.nix</code></li><li>Modify: <code>nix/hosts/node-d/default.nix</code></li><li>Modify: <code>nix/modules/inference-engine.nix</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Add <code>tailscale0</code> to <code>trustedInterfaces</code> in tailscale.nix</strong></li></ul>
+
+<pre><code><h2>In nix/modules/tailscale.nix, add to the config block:</h2>
+networking.firewall.trustedInterfaces = [ "tailscale0" ];
+</code></pre>
+
+<p>This allows ALL traffic on the Tailscale overlay without per-port rules. The Tailscale Artery is the Zero-Trust mesh boundary. Traffic on <code>tailscale0</code> is already authenticated and encrypted by Tailscale. Adding it to <code>trustedInterfaces</code> means all ports (8080, 8000, 9119, 7878 UDP, etc.) are reachable from other mesh nodes without explicitly listing each one.</p>
+
+<ul><li>[ ] <strong>Step 2: Add UDP pulse port (7878) to hermes-core.nix</strong></li></ul>
+
+<pre><code><h2>In nix/modules/hermes-core.nix, add to allowedTCPPorts and add allowedUDPPorts:</h2>
+networking.firewall.allowedTCPPorts = [
+  8000  # Hermes API
+  8080  # IK Llama.cpp
+  9119  # Hermes Web UI
+];
+networking.firewall.allowedUDPPorts = [
+  7878  # VSB Pulse sync
+];
+</code></pre>
+
+<p>Note: With <code>tailscale0</code> in <code>trustedInterfaces</code>, this is belt-and-suspenders. But explicit port declarations serve as documentation and protect LAN access.</p>
+
+<ul><li>[ ] <strong>Step 3: Add port 8081 to inference-engine.nix for secondary inference endpoint</strong></li></ul>
+
+<pre><code><h2>In nix/modules/inference-engine.nix, add firewall config:</h2>
+config = mkIf cfg.enable {
+  networking.firewall.allowedTCPPorts = [ cfg.port ];
+
+  systemd.services.ik-llama = {
+    # ... existing config ...
+  };
+};
+</code></pre>
+
+<p>This opens whatever port <code>cfg.port</code> is set to (default 8080). The module user can override with <code>services.ik-llama.port = 8081</code> in host config.</p>
+
+<ul><li>[ ] <strong>Step 4: Add model path and explicit port to Node D host config</strong></li></ul>
+
+<pre><code><h2>In nix/hosts/node-d/default.nix, add:</h2>
+services.ik-llama = {
+  enable = true;
+  memoryMax = "36G";
+  port = 8080;
+  modelPath = "/var/lib/hermes/models/brain-v2-27b-q6_k.gguf";
+};
+</code></pre>
+
+<p>The <code>modelPath</code> must point to an actual GGUF file on Node D. The default <code>/var/lib/hermes/models/default.gguf</code> does not exist. Document that the model must be provisioned to this path.</p>
+
+<ul><li>[ ] <strong>Step 5: Run <code>nix eval</code> to verify configuration</strong></li></ul>
+
+Run: <code>nix eval .#nixosConfigurations.node-d.config.networking.firewall.allowedTCPPorts</code>
+Expected: <code>[ 8000 8080 9119 ]</code>
+
+Run: <code>nix eval .#nixosConfigurations.node-d.config.networking.firewall.trustedInterfaces</code>
+Expected: <code>[ "tailscale0" ]</code>
+
+<ul><li>[ ] <strong>Step 6: Commit</strong></li></ul>
+
+<pre><code>git add nix/modules/hermes-core.nix nix/modules/tailscale.nix nix/hosts/node-d/default.nix nix/modules/inference-engine.nix
+git commit -m "fix(nix): add tailscale0 to trustedInterfaces, open VSB pulse port, fix Node D inference config"
+</code></pre>
+
+<hr>
+
+<h4>Task 2: Remove Fallback Trap from SovereignVSBProfile</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py</code></li><li>Modify: <code>sidecars/hermes-agent-nous/cli-config.yaml</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Remove hardcoded <code>base_url</code> from SovereignVSBProfile</strong></li></ul>
+
+In <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py</code>, change the <code>sovereign_vsb</code> profile instantiation to remove <code>base_url</code>:
+
+<pre><code>sovereign_vsb = SovereignVSBProfile(
+    name="sovereign-vsb",
+    aliases=("vsb", "sovereign"),
+    display_name="Sovereign VSB",
+    description="Sovereign Model Router - VSB (Virtual Sovereign Bus) for high-performance inference.",
+    signup_url="https://github.com/Sovereign-Machina",
+    base_url="",  # No direct URL — VSB routes dynamically via mesh nodes
+    env_vars=("SOVEREIGN_MESH_SECRET",),
+    auth_type="api_key",
+    fallback_models=(
+        "falcon", "embedding",
+        "brain-9b", "qwen3-vl",
+        "voxcpm2-indic-q4", "qwen3.5-0.8b",
+        "brain-v2-27b", "qwen2.5-coder-14b"
+    ),
+    default_max_tokens=32768,
+)
+</code></pre>
+
+<p>Key changes:</p>
+<ul><li><code>base_url=""</code> instead of hardcoded Node D IP. When the VSB router fails, Hermes will not fall through to a direct Node D connection.</li><li><code>env_vars</code> now references <code>SOVEREIGN_MESH_SECRET</code> (the actual required env var) instead of <code>HERMES_API_TOKEN</code>.</li></ul>
+
+<ul><li>[ ] <strong>Step 2: Remove hardcoded <code>base_url</code> from cli-config.yaml</strong></li></ul>
+
+In <code>sidecars/hermes-agent-nous/cli-config.yaml</code>, remove the <code>base_url</code> line from the model section:
+
+<pre><code>model:
+  default: "brain-v2-27b"
+  provider: "sovereign-vsb"
+  # base_url removed — VSB router resolves endpoints dynamically
+</code></pre>
+
+<p>The VSB provider resolves the correct node endpoint at runtime. A hardcoded <code>base_url</code> bypasses the router and creates the fallback trap.</p>
+
+<ul><li>[ ] <strong>Step 3: Run existing VSB tests</strong></li></ul>
+
+Run: <code>PYTHONPATH=sidecars/hermes-agent-nous pytest sidecars/hermes-agent-nous/tests/plugins/test_vsb_router_pulse.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 4: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py sidecars/hermes-agent-nous/cli-config.yaml
+git commit -m "fix(vsb): remove hardcoded base_url to eliminate fallback trap when router is down"
+</code></pre>
+
+<hr>
+
+<h4>Task 3: Graceful Degradation When SOVEREIGN_MESH_SECRET Missing</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</code></li><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Add graceful degradation to VSBRouter</strong></li></ul>
+
+In <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</code>, modify <code>VSBRouter.__init__</code>:
+
+<pre><code>class VSBRouter:
+    def __init__(self, nodes: List[Node]):
+        self.nodes = {n.id: n for n in nodes}
+        self.secret_key = os.getenv("SOVEREIGN_MESH_SECRET", "")
+        if not self.secret_key:
+            logger.error(
+                "SOVEREIGN_MESH_SECRET not set. VSB pulse authentication disabled. "
+                "Set SOVEREIGN_MESH_SECRET in ~/.hermes/.env for production use."
+            )
+        self.pulse = VSBPulse(nodes, secret=self.secret_key)
+        self.running = False
+</code></pre>
+
+<p>This replaces the <code>raise EnvironmentError</code> with a logged warning. The router will still function for direct inference calls (which use <code>httpx</code>), but pulse sync will run without HMAC authentication. This prevents the provider from crashing during initialization.</p>
+
+<ul><li>[ ] <strong>Step 2: Add initialization error handling to SovereignVSBProvider</strong></li></ul>
+
+In <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py</code>, wrap router init:
+
+<pre><code>def __init__(self, config: dict):
+    self.config = config
+
+    mesh_nodes_config = config.get("mesh_nodes", [])
+    nodes = []
+    from .vsb_router import Node
+
+    for n in mesh_nodes_config:
+        nodes.append(Node(
+            id=n["id"],
+            ip=n["ip"],
+            port=n["port"],
+            models=n["models"]
+        ))
+
+    if not nodes:
+        from .vsb_router import MESH_NODES
+        nodes = MESH_NODES
+        logger.warning("No mesh_nodes found in config, using hardcoded fallback")
+
+    try:
+        self.router = VSBRouter(nodes)
+    except Exception as e:
+        logger.error(f"VSB Router initialization failed: {e}")
+        self.router = None
+        self._init_error = str(e)
+        return
+
+    self.pulse_enabled = config.get("pulse_enabled", True)
+
+    if self.pulse_enabled:
+        self.router.start_pulse_sync()
+
+    logger.info(f"VSB provider initialized with {len(nodes)} nodes")
+</code></pre>
+
+<p>And update <code>generate()</code> and <code>stream()</code> to check for init failure:</p>
+
+<pre><code>def generate(self, model_id, messages, temperature=0.7, max_tokens=4096, <em></em>kwargs):
+    if not self.router:
+        return {"error": f"VSB provider not initialized: {getattr(self, '_init_error', 'unknown')}. Check SOVEREIGN_MESH_SECRET and mesh connectivity."}
+    # ... existing logic ...
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Run tests</strong></li></ul>
+
+Run: <code>PYTHONPATH=sidecars/hermes-agent-nous pytest sidecars/hermes-agent-nous/tests/plugins/test_vsb_router_pulse.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 4: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py
+git commit -m "fix(vsb): graceful degradation when SOVEREIGN_MESH_SECRET is missing instead of crashing"
+</code></pre>
+
+<hr>
+
+<h4>Task 4: Environment Bootstrap Script</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>scripts/bootstrap-env.sh</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Create the bootstrap script</strong></li></ul>
+
+<pre><code>#!/usr/bin/env bash
+<h2>bootstrap-env.sh — Provision ~/.hermes/.env with required Sovereign secrets.</h2>
+set -euo pipefail
+
+ENV_FILE="$HOME/.hermes/.env"
+mkdir -p "$(dirname "$ENV_FILE")"
+
+<h2>Check existing</h2>
+if [ -f "$ENV_FILE" ]; then
+    echo ":: Found existing $ENV_FILE"
+else
+    touch "$ENV_FILE"
+    echo ":: Created $ENV_FILE"
+fi
+
+<h2>SOVEREIGN_MESH_SECRET — required for VSB pulse authentication</h2>
+if grep -q "^SOVEREIGN_MESH_SECRET=" "$ENV_FILE" 2>/dev/null; then
+    echo ":: SOVEREIGN_MESH_SECRET already set"
+else
+    if [ -n "${SOVEREIGN_MESH_SECRET:-}" ]; then
+        echo "SOVEREIGN_MESH_SECRET=$SOVEREIGN_MESH_SECRET" >> "$ENV_FILE"
+        echo ":: SOVEREIGN_MESH_SECRET written from environment"
+    else
+        SECRET=$(openssl rand -hex 32)
+        echo "SOVEREIGN_MESH_SECRET=$SECRET" >> "$ENV_FILE"
+        echo ":: SOVEREIGN_MESH_SECRET generated (32-byte random hex)"
+        echo ":: IMPORTANT: Copy this secret to all mesh nodes' ~/.hermes/.env"
+    fi
+fi
+
+<h2>HERMES_API_TOKEN — required by provider profile</h2>
+if grep -q "^HERMES_API_TOKEN=" "$ENV_FILE" 2>/dev/null; then
+    echo ":: HERMES_API_TOKEN already set"
+else
+    if [ -n "${HERMES_API_TOKEN:-}" ]; then
+        echo "HERMES_API_TOKEN=$HERMES_API_TOKEN" >> "$ENV_FILE"
+        echo ":: HERMES_API_TOKEN written from environment"
+    else
+        TOKEN=$(openssl rand -hex 16)
+        echo "HERMES_API_TOKEN=$TOKEN" >> "$ENV_FILE"
+        echo ":: HERMES_API_TOKEN generated (16-byte random hex)"
+    fi
+fi
+
+echo ""
+echo ":: Environment bootstrap complete. Review $ENV_FILE:"
+cat "$ENV_FILE"
+echo ""
+echo ":: Deploy the same SOVEREIGN_MESH_SECRET to all mesh nodes for pulse auth."
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Make executable</strong></li></ul>
+
+Run: <code>chmod +x scripts/bootstrap-env.sh</code>
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git add scripts/bootstrap-env.sh
+git commit -m "feat(scripts): add bootstrap-env.sh to provision Sovereign secrets"
+</code></pre>
+
+<hr>
+
+<h4>Task 5: VSB Connectivity Health-Check Tool</h4>
+
+<strong>Files:</strong>
+<ul><li>Create: <code>scripts/vsb-healthcheck.sh</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Create the health-check script</strong></li></ul>
+
+<pre><code>#!/usr/bin/env bash
+<h2>vsb-healthcheck.sh — Verify VSB mesh connectivity from Node B.</h2>
+set -euo pipefail
+
+NODES=(
+    "node-a:100.90.196.70:8000"
+    "node-b:100.66.173.31:9119"
+    "node-c:100.102.109.81:8080"
+    "node-d:100.120.225.12:8080"
+)
+
+FAIL=0
+
+echo ":: VSB Mesh Connectivity Health-Check"
+echo ""
+
+<h2>1. Check Tailscale Artery</h2>
+if command -v tailscale >/dev/null 2>&1; then
+    if tailscale status >/dev/null 2>&1; then
+        echo "[OK] Tailscale Artery: ACTIVE"
+    else
+        echo "[FAIL] Tailscale Artery: NOT ACTIVE"
+        FAIL=1
+    fi
+else
+    echo "[WARN] tailscale CLI not found"
+fi
+
+<h2>2. Check SOVEREIGN_MESH_SECRET</h2>
+if [ -f "$HOME/.hermes/.env" ] && grep -q "^SOVEREIGN_MESH_SECRET=" "$HOME/.hermes/.env"; then
+    echo "[OK] SOVEREIGN_MESH_SECRET: SET"
+else
+    echo "[FAIL] SOVEREIGN_MESH_SECRET: NOT SET in ~/.hermes/.env"
+    FAIL=1
+fi
+
+<h2>3. Check each mesh node</h2>
+for entry in "${NODES[@]}"; do
+    IFS=':' read -r name ip port <<< "$entry"
+    
+    # ICMP ping (1s timeout)
+    if ping -c 1 -W 1 "$ip" >/dev/null 2>&1; then
+        echo "[OK] $name ($ip): REACHABLE (ICMP)"
+    else
+        echo "[FAIL] $name ($ip): UNREACHABLE (ICMP)"
+        FAIL=1
+        continue
+    fi
+    
+    # HTTP inference endpoint (5s timeout)
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 5 "http://$ip:$port/v1/models" 2>/dev/null || echo "000")
+    if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "401" ]; then
+        echo "[OK] $name ($ip:$port): inference endpoint UP (HTTP $HTTP_CODE)"
+    else
+        echo "[FAIL] $name ($ip:$port): inference endpoint DOWN (HTTP $HTTP_CODE)"
+        FAIL=1
+    fi
+    
+    # UDP pulse port
+    if nc -z -u -w 1 "$ip" 7878 2>/dev/null; then
+        echo "[OK] $name ($ip:7878/UDP): pulse port OPEN"
+    else
+        echo "[WARN] $name ($ip:7878/UDP): pulse port check inconclusive (UDP)"
+    fi
+done
+
+echo ""
+if [ "$FAIL" -eq 0 ]; then
+    echo ":: HEALTH-CHECK PASSED — VSB mesh is operational"
+else
+    echo ":: HEALTH-CHECK FAILED — see above for details"
+fi
+
+exit $FAIL
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Make executable</strong></li></ul>
+
+Run: <code>chmod +x scripts/vsb-healthcheck.sh</code>
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git add scripts/vsb-healthcheck.sh
+git commit -m "feat(scripts): add VSB mesh connectivity health-check tool"
+</code></pre>
+
+<hr>
+
+<h4>Task 6: Provider Profile <code>fetch_models</code> Hardening</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Make <code>fetch_models</code> use environment config as fallback</strong></li></ul>
+
+In the <code>SovereignVSBProfile.fetch_models</code> method, add fallback to <code>MESH_NODES</code> constant when <code>config.yaml</code> is not found:
+
+<pre><code>def fetch_models(self, *, api_key=None, timeout=8.0):
+    try:
+        import yaml
+        from pathlib import Path
+        config_path = Path("~/.hermes/config.yaml").expanduser()
+        if config_path.exists():
+            with open(config_path) as f:
+                config = yaml.safe_load(f)
+
+            vsb_config = config.get("model_providers", {}).get("sovereign-vsb", {}).get("config", {})
+            nodes = vsb_config.get("mesh_nodes", [])
+
+            if nodes:
+                models = []
+                for node in nodes:
+                    for model in node.get("models", []):
+                        models.append(model)
+                unique = list(set(models))
+                logger.info(f"VSB: Discovered {len(unique)} models from config.yaml")
+                return unique
+    except Exception as e:
+        logger.warning(f"VSB: Could not read config.yaml: {e}")
+
+    # Fallback to hardcoded mesh topology
+    from .vsb_router import MESH_NODES
+    models = []
+    for node in MESH_NODES:
+        for model in node.models:
+            models.append(model)
+    unique = list(set(models))
+    logger.info(f"VSB: Using {len(unique)} models from hardcoded mesh topology")
+    return unique
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Run tests</strong></li></ul>
+
+Run: <code>PYTHONPATH=sidecars/hermes-agent-nous pytest sidecars/hermes-agent-nous/tests/plugins/test_vsb_router_pulse.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/__init__.py
+git commit -m "fix(vsb): harden fetch_models with hardcoded topology fallback when config.yaml missing"
+</code></pre>
+
+<hr>
+
+<h4>Task 7: Update CHANGELOG and Documentation</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>CHANGELOG.md</code></li><li>Modify: <code>docs/planning/audits/vsb-router-blocker-260510.html</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Add CHANGELOG entry</strong></li></ul>
+
+Add at the top of <code>CHANGELOG.md</code>:
+
+<pre><code><h3>[3.3.4-BETA] - 2026-05-10</h3>
+<h4>Fixed</h4>
+<ul><li><strong>VSB Router Blocker Remediation (CRITICAL)</strong>:</li></ul>
+  - <strong>Nix Firewall</strong>: Added <code>tailscale0</code> to <code>trustedInterfaces</code> in <code>tailscale.nix</code>, allowing all mesh traffic on the Tailscale overlay without per-port rules. Added VSB pulse port (7878/UDP) to <code>hermes-core.nix</code>. Added dynamic firewall port opening in <code>inference-engine.nix</code>.
+  - <strong>Node D Inference Config</strong>: Fixed <code>node-d/default.nix</code> to specify model path (<code>brain-v2-27b-q6_k.gguf</code>) and explicit port (8080) instead of relying on non-existent defaults.
+  - <strong>Fallback Trap Eliminated</strong>: Removed hardcoded <code>base_url</code> from <code>SovereignVSBProfile</code> (<code>__init__.py</code>) and <code>cli-config.yaml</code>. VSB router now resolves endpoints dynamically via mesh topology. When the router is down, Hermes gets a clear error instead of attempting a direct Node D connection.
+  - <strong>Graceful Degradation</strong>: <code>VSBRouter.__init__</code> no longer raises <code>EnvironmentError</code> when <code>SOVEREIGN_MESH_SECRET</code> is unset. Instead it logs an error and continues with pulse auth disabled. <code>SovereignVSBProvider.generate()</code> returns a clear error message if the router failed to initialize.
+
+<h4>Added</h4>
+<ul><li><code>scripts/bootstrap-env.sh</code>: Provisions <code>~/.hermes/.env</code> with <code>SOVEREIGN_MESH_SECRET</code> (auto-generated 32-byte hex) and <code>HERMES_API_TOKEN</code>. Prints instructions to copy the mesh secret to all nodes.</li><li><code>scripts/vsb-healthcheck.sh</code>: Verifies Tailscale Artery status, env secret presence, ICMP reachability, HTTP inference endpoint status, and UDP pulse port for all 4 mesh nodes.</li></ul>
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Update blocker audit status</strong></li></ul>
+
+In <code>docs/planning/audits/vsb-router-blocker-260510.html</code>, update the status line from <code>BLOCKED</code> to <code>RESOLVED</code>:
+
+<pre><code><p><strong>Status:</strong> <span class="resolved">RESOLVED</span> | <strong>Node:</strong> Node B (Strategist)</p>
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git add CHANGELOG.md docs/planning/audits/vsb-router-blocker-260510.html
+git commit -m "docs: update CHANGELOG for v3.3.4-BETA VSB blocker remediation, mark audit as RESOLVED"
+</code></pre>
+
+<hr>
+
+<h3>Post-Deployment Verification (Manual)</h3>
+
+After deploying to the mesh:
+
+1. <strong>Run health-check:</strong> <code>scripts/vsb-healthcheck.sh</code>
+2. <strong>Bootstrap env on each node:</strong> <code>scripts/bootstrap-env.sh</code> (copy same <code>SOVEREIGN_MESH_SECRET</code> to all nodes)
+3. <strong>Rebuild Node D:</strong> <code>sudo nixos-rebuild switch --flake .#node-d</code>
+4. <strong>Verify ik-llama service:</strong> <code>systemctl status ik-llama</code> on Node D
+5. <strong>Verify Tailscale connectivity:</strong> <code>curl --connect-timeout 5 http://100.120.225.12:8080/v1/models</code>
+6. <strong>Test VSB routing:</strong> Run <code>ignite.sh</code> and issue a prompt that hits <code>brain-v2-27b</code>
+
+<hr>
+<strong>::/5Y573M-N071C3 : PLAN_SAVED. STANDING_BY_FOR_EXECUTION. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

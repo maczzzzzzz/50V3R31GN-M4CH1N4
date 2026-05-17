@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Report: P2-T3 Context Spillover (KV-Cache Offload via RPC) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Research Report: P2-T3 Context Spillover (KV-Cache Offload via RPC)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Research<span class="sep">/</span>P2 T3 Context Spillover Rpc
+        </nav>
+
+        <main>
+            <h2>Research Report: P2-T3 Context Spillover (KV-Cache Offload via RPC)</h2>
+            <h3>Executive Summary</h3>
+<strong>Status: Not Feasible for "KV-Cache Only" offloading. Partially feasible for Pipeline Parallelism but highly discouraged due to Tailscale latency and hardware mismatch.</strong>
+
+Using <code>llama.cpp</code>'s RPC backend to offload <em>only</em> the KV cache from Node D (Quaternary, 48GB RAM) to Node A (Synapse, 16GB RAM, GTX 1050 Ti) over Tailscale is architecturally unsupported. In <code>llama.cpp</code>, the KV cache is inextricably tied to the model layers; a node must compute the layer to store its KV cache. While we <em>could</em> offload a subset of the 35B model's layers to Node A to utilize its RAM, the severe compute mismatch and Tailscale network latency (~1-5ms per hop per layer) would introduce catastrophic pipeline bubbles, rendering inference unusably slow compared to keeping it local on Node D.
+
+We strongly recommend keeping the KV cache entirely local on Node D and utilizing its 48GB DDR5 RAM, or using disk-based prompt caching if long-term state persistence is required across the mesh.
+
+<hr>
+
+<h3>Technical Findings</h3>
+
+<h4>1. Does llama.cpp or ik_llama.cpp support RPC-based KV-cache offloading to a remote node? What is the <code>--rpc</code> flag?</h4>
+<code>llama.cpp</code> (and by extension <code>ik_llama.cpp</code>) supports an RPC backend, enabled at compile time (<code>-DGGML_RPC=ON</code>). The <code>--rpc <ip:port></code> flag allows a master node to delegate the execution of specific model layers to remote worker nodes running <code>rpc-server</code>. 
+
+However, it <strong>does not support KV-cache-only offloading</strong>. When you offload over RPC, <code>llama.cpp</code> automatically distributes the model's layers and the KV cache proportionally based on available memory. The remote node must hold the weights for its assigned layers, compute the attention/feed-forward passes for those layers, and store the resulting KV cache. You cannot compute a layer on Node D and simply "park" the KV data on Node A.
+
+<h4>2. Current State of llama.cpp RPC (As of May 2026)</h4>
+The RPC backend is stable for its intended use case: pipeline parallelism across homogeneous local networks (e.g., aggregating VRAM across multiple machines on a 10Gbps+ or RDMA network). It currently supports layer-aware memory distribution (preventing OOMs on smaller GPUs like Node A's 4GB GTX 1050 Ti). However, it remains highly sensitive to network bandwidth because intermediate tensor activations must be transmitted back and forth across the network for every single token generated.
+
+<h4>3. Node A as a Remote KV-Cache Target & Latency Implications</h4>
+Node A has 16GB of system RAM and a 4GB GTX 1050 Ti. While it has enough RAM to hold a portion of the cache, using it as an RPC worker over Tailscale is a severe anti-pattern for our topology:
+<ul><li>  <strong>Compute Mismatch:</strong> Node D (Meteor Lake, DDR5) is vastly faster than Node A (older CPU / GTX 1050 Ti). Forcing Node D to wait for Node A to compute its assigned layers would create a massive bottleneck.</li><li>  <strong>Tailscale Latency:</strong> Tailscale (WireGuard) introduces ~1-5ms of latency. In pipeline parallelism, activations are sent over the network. If Node A computes even one block of layers, every token generation requires a round-trip over Tailscale. Generating 100 tokens would incur 100-500ms of pure network wait time, destroying tokens-per-second (TPS) throughput.</li></ul>
+
+<h4>4. Alternative Approaches</h4>
+<ul><li>  <strong>Local RAM Spillover (Recommended):</strong> Node D has 48GB of DDR5. The Qwen3.5-35B quantized model requires ~22.6GB. A 32K context KV cache requires ~8GB. Node D can comfortably run this model and host the KV cache locally in its own RAM without network overhead.</li><li>  <strong>Prompt Caching (<code>--prompt-cache</code>):</strong> If the goal is "state persistence" across sessions, use <code>llama.cpp</code>'s native prompt caching. Node D can save the conversation state to a <code>.bin</code> file. This file could be synced or backed up to Node A asynchronously, allowing Node D to resume a session without recalculating the prompt, without adding per-token network latency.</li><li>  <strong>Context Shift:</strong> Utilize <code>llama.cpp</code>'s native context shifting (rolling KV cache) to keep memory usage bounded indefinitely during long conversations.</li></ul>
+
+<h4>5. Build Flags and Configuration (If forced to proceed)</h4>
+If we were to attempt this despite the warnings, the setup requires:
+<ul><li>  <strong>Build:</strong> Compile both nodes with <code>-DGGML_RPC=ON</code>. (Node A might use <code>-DGGML_CUDA=ON</code>, Node D might use standard AVX/OpenVINO).</li><li>  <strong>Node A (Worker):</strong> <code>./rpc-server --host 0.0.0.0 --port 50052</code></li><li>  <strong>Node D (Master):</strong> <code>./llama-cli -m model.gguf --rpc 100.96.253.114:50052 ...</code></li></ul>
+
+<h4>6. Memory Requirements for Qwen3.5-35B KV Cache</h4>
+<ul><li>  <strong>Formula:</strong> ~0.25 MB per token (assuming typical 35B architecture: 64 layers, 8 KV heads, 128 head dim, FP16).</li><li>  <strong>8K Context:</strong> ~2.0 GB</li><li>  <strong>32K Context:</strong> ~8.0 GB</li></ul>
+Node A's 16GB RAM is perfectly capable of holding this size. However, to host 10% of the KV cache over RPC, Node A must also host 10% of the model weights (~2.26GB). This fits within Node A's 4GB VRAM or 16GB RAM, but again, the network and compute latency make it impractical.
+
+<hr>
+
+<h3>Local Codebase Context (<code>sidecars/hermes-agent-nous/</code>)</h3>
+An audit of <code>sidecars/hermes-agent-nous/</code> confirms that while "RPC" is heavily used in the project, it refers entirely to JSON-RPC over stdio/HTTP for the UI (Ink TUI gateway), Signal CLI integrations, and the Python <code>execute_code</code> tool sandboxing. There are <strong>no existing distributed inference bindings</strong> or <code>llama.cpp</code> RPC integrations present in the <code>hermes-agent-nous</code> sidecar logic.
+
+<hr>
+
+<h3>Recommendation & Next Steps</h3>
+<strong>Do not proceed with P2-T3 as currently defined.</strong>
+1. <strong>Abandon</strong> the <code>llama.cpp</code> RPC KV-cache spillover approach over Tailscale. 
+2. <strong>Pivot</strong> Node A's "state persistence" role to handle asynchronous synchronization of <code>llama.cpp</code> prompt cache files (<code>--prompt-cache</code>) instead of live memory offloading.
+3. <strong>Configure</strong> Node D to rely exclusively on its local 48GB DDR5 for both weights and KV cache.
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

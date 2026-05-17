@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid Sovereign Mesh Design — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Hybrid Sovereign Mesh Design</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Specs<span class="sep">/</span>2026 05 11 Hybrid Mesh Design
+        </nav>
+
+        <main>
+            <h2>Hybrid Sovereign Mesh Design</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.</blockquote>
+
+<strong>Goal:</strong> Create a stable, heterogeneous AI research cluster that combines NixOS host-level stability with the agility of Docker Compose for varied AI runtimes.
+
+<strong>Architecture:</strong> 
+<ul><li><strong>Host Layer (NixOS):</strong> Immutable base configuration covering drivers, networking (Tailscale), and core telemetry.</li><li><strong>Runtime Layer (Docker Compose):</strong> Containerized AI backends (NVIDIA CUDA, AMD ROCm, Intel OpenVINO) managed by declarative service definitions.</li><li><strong>Coordination Layer:</strong> LiteLLM remains as the primary entry point on Node B, proxying requests to local or remote Docker-managed AI runtimes via Tailscale.</li></ul>
+
+<strong>Tech Stack:</strong> NixOS 24.11 (Stable), Docker Engine, Docker Compose, LiteLLM (Router), Tailscale.
+
+<hr>
+
+<h3>Component Mapping</h3>
+
+<table>
+<thead>
+<tr><th>Node</th><th>Primary Hardware</th><th>Runtime Container</th><th>Primary Mesh Role</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Node A</strong></td><td>NVIDIA GPU</td><td><code>redis</code> / <code>kv-store</code></td><td><strong>KV-Cache & Memory Buffer</strong></td></tr>
+<tr><td><strong>Node B</strong></td><td>AMD Radeon</td><td><code>vllm-rocm</code></td><td><strong>Director & Reflexive Brain (Qwen3-14B-9B)</strong></td></tr>
+<tr><td><strong>Node C</strong></td><td>NVIDIA GPU</td><td><code>vllm-openai</code></td><td><strong>Voice & Perception Layer</strong></td></tr>
+<tr><td><strong>Node D</strong></td><td>Intel NPU</td><td><code>openvino-model-server</code></td><td><strong>Deep Reasoner (Qwen32B-MoE)</strong></td></tr>
+</tbody>
+</table>
+<hr>
+
+<h3>Design Specifications</h3>
+
+<h4>1. Host Stability (NixOS)</h4>
+<ul><li>All nodes pinned to <code>nixos-24.11</code>.</li><li><code>virtualisation.docker.enable = true</code>.</li><li>Firewall explicitly allows Tailscale and container traffic.</li></ul>
+
+<h4>2. Runtime Agility (Docker Compose)</h4>
+<ul><li>Compose files stored in <code>sidecars/mesh/<node-id>.yml</code>.</li><li><code>docker-compose</code> projects managed via <code>systemd</code> services for auto-restart/boot-start.</li></ul>
+
+<h4>3. Mesh Integrity (LiteLLM)</h4>
+<ul><li>Node B acts as the Central Routing Hub.</li><li><code>liteLLM</code> config maps model requests to specific mesh endpoints (e.g., <code>model-x</code> -> <code>http://100.120.225.12:8000</code>).</li></ul>
+
+<hr>
+
+<strong>Spec Reviewed and Committed to <code>docs/planning/specs/2026-05-11-hybrid-mesh-design.md</code>.</strong>
+
+Please review this design and let me know if you want to make any changes before we start writing out the implementation plan.
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

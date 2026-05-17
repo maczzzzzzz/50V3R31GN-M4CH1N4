@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinetic Interaction Promotion Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Kinetic Interaction Promotion Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2025 05 15 Kinetic Interaction Promotion
+        </nav>
+
+        <main>
+            <h2>Kinetic Interaction Promotion Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Promote standard UI interactions to high-fidelity Kinetic interactions using the Pretext engine in the Hermes Workspace.
+
+<strong>Architecture:</strong> Replace the standard "New Session" link in the sidebar with a <code>KineticThoughtStream</code> component that responds to hover. Add a background <code>KineticThoughtStream</code> in the <code>WorkspaceShell</code> to render architectural "whispers" at low opacity.
+
+<strong>Tech Stack:</strong> React, Pretext (Canvas-based rendering), Tailwind CSS.
+
+<hr>
+
+<h4>Task 1: Replace "New Chat" button with Kinetic Interaction</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/screens/chat/components/chat-sidebar.tsx</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Import KineticThoughtStream</strong></li></ul>
+Add the following import to <code>dashboard/hermes-workspace/src/screens/chat/components/chat-sidebar.tsx</code>:
+<pre><code>import { KineticThoughtStream } from '@/components/prompt-kit/KineticThoughtStream'
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Replace "New Session" Link content with KineticThoughtStream</strong></li></ul>
+Find the "New Session" button/link and wrap it with hover logic to trigger the "bloom" effect. Since <code>KineticThoughtStream</code> renders to canvas, we'll use a state to control the text or presence.
+
+<pre><code>// Inside ChatSidebarComponent
+const [isNewChatHovered, setIsNewChatHovered] = useState(false);
+
+// ... around line 1050
+      {/<em> ── New Session button ──────────────────────────────────────── </em>/}
+      {!isVisuallyCollapsed && (
+        <div 
+          className="px-2 pb-1"
+          onMouseEnter={() => setIsNewChatHovered(true)}
+          onMouseLeave={() => setIsNewChatHovered(false)}
+        >
+          <Link
+            to="/chat/$sessionKey"
+            params={{ sessionKey: 'new' }}
+            onClick={() => {
+              onSelectSession?.()
+              onCreateSession() // Ensure onCreateSession is called if it's not just navigation
+            }}
+            className={cn(
+              buttonVariants({ variant: 'ghost', size: 'sm' }),
+              'w-full justify-start gap-2.5 px-3 py-2 text-primary-900 hover:bg-primary-200 dark:hover:bg-primary-800 relative overflow-hidden',
+              isNewSessionActive &&
+                'bg-accent-500/10 text-accent-500 hover:bg-accent-50 dark:hover:bg-accent-900/300/15',
+            )}
+            data-tour="new-session"
+          >
+            <div className="relative z-10 flex items-center gap-2.5">
+              <HugeiconsIcon
+                icon={PencilEdit02Icon}
+                size={20}
+                strokeWidth={1.5}
+                className="size-5 shrink-0"
+              />
+<p>              <span className={cn(isNewChatHovered && "opacity-0")}>New Session</span></p>
+            </div>
+<p>            {isNewChatHovered && (</p>
+              <div className="absolute inset-0 z-0 flex items-center pl-11">
+                <KineticThoughtStream 
+                  text="INITIATE_NEW_THOUGHT_STREAM"
+                  fontSize={12}
+                  className="opacity-80"
+                />
+              </div>
+<p>            )}</p>
+          </Link>
+        </div>
+<p>      )}</p>
+</code></pre>
+
+<h4>Task 2: Materialize persistent Pretext Flow in Shell</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>dashboard/hermes-workspace/src/components/workspace-shell.tsx</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Import KineticThoughtStream</strong></li></ul>
+Add the following import to <code>dashboard/hermes-workspace/src/components/workspace-shell.tsx</code>:
+<pre><code>import { KineticThoughtStream } from '@/components/prompt-kit/KineticThoughtStream'
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Add background whispers</strong></li></ul>
+Insert the <code>KineticThoughtStream</code> in the background of <code>WorkspaceShell</code>.
+
+<pre><code>// Around line 360 in WorkspaceShell.tsx
+  return (
+    <>
+      <div
+        className="relative overflow-hidden theme-bg theme-text"
+        style={shellStyle}
+      >
+        <FluidRenderer vorticity={0.4} densityScale={0.8} />
+        <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.07] overflow-hidden">
+           <KineticThoughtStream 
+             text="M4CH1N4_ARTERY_ACTIVE // ZERO_TRUST_LEAD_ARCHITECT // HERMES_CORE_v3 // SYNAPSE_LINK_ESTABLISHED"
+             fontSize={14}
+             maxWidth={1200}
+           />
+        </div>
+<p>        <PretextHUD </p>
+<p>          nodeStatus={{ </p>
+<p>// ...</p>
+</code></pre>
+
+<h4>Task 3: Verification and Commit</h4>
+
+<ul><li>[ ] <strong>Step 1: Verify build</strong></li></ul>
+Run: <code>cd dashboard/hermes-workspace && npm run build</code> (or equivalent if build is complex)
+Actually, just check if it compiles: <code>cd dashboard/hermes-workspace && npx tsc --noEmit</code>
+
+<ul><li>[ ] <strong>Step 2: Commit changes</strong></li></ul>
+<pre><code>git commit -m "feat(visual): promote standard triggers to kinetic interactions"
+</code></pre>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

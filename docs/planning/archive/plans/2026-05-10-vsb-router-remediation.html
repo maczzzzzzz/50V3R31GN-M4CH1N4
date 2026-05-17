@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSB Router Emergency Remediation Implementation Plan — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; VSB Router Emergency Remediation Implementation Plan</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../../index.html">Docs</a><span class="sep">/</span>Planning<span class="sep">/</span>Archive<span class="sep">/</span>Plans<span class="sep">/</span>2026 05 10 Vsb Router Remediation
+        </nav>
+
+        <main>
+            <h2>VSB Router Emergency Remediation Implementation Plan</h2>
+            <blockquote><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</blockquote>
+
+<strong>Goal:</strong> Address critical logic faults and architectural "mutilations" in the Virtual Sovereign Bus router to achieve real-time mesh load balancing and native Hermes <code><think></code> transparency.
+
+<strong>Architecture:</strong>
+1.  <strong>Dynamic Pulse Unpacking:</strong> Implement <code>struct.unpack</code> in the <code>VSBPulse</code> listener to update mesh node health metrics.
+2.  <strong>Stream/Reasoning Separation:</strong> Refactor <code>VSBRouter</code> and <code>SovereignVSBProvider</code> to support typed streaming chunks (content vs. reasoning).
+3.  <strong>Secret Decoupling:</strong> Move hardcoded mesh secrets to environmental variables.
+4.  <strong>Logic De-Mutilation:</strong> Refactor the auxiliary client to use the <code>ProviderProfile</code> registry for a clean, pluggable architecture.
+
+<strong>Tech Stack:</strong> Python 3.11+, Hermes v0.13.0 API, <code>struct</code> (binary unpacking), <code>logging</code>.
+
+<hr>
+
+<h4>Task 1: Dynamic Pulse Unpacking</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</code></li><li>Test: <code>sidecars/hermes-agent-nous/tests/plugins/test_vsb_router_pulse.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Write the failing test for pulse unpacking</strong></li></ul>
+
+<pre><code>import struct
+import socket
+import time
+from plugins.model_providers.sovereign_vsb.vsb_router import VSBPulse, Node
+
+def test_pulse_unpacking():
+    node = Node("node-d", "100.120.225.12")
+    pulse = VSBPulse([node])
+    
+    # Pack a 302-byte pulse packet (v3.2 schema)
+    # Header: 'VSB' (3), Version: 3 (1), NodeID: 4 (1), Load: 0.75 (4), RAM: 0.5 (4), VRAM: 0.8 (4)
+    # Rest is padding (285 bytes)
+    packet = struct.pack("!3sBBfff", b"VSB", 3, 4, 0.75, 0.5, 0.8) + b"\x00" * 285
+    
+    pulse.recv_pulse(packet, ("100.120.225.12", 7878))
+    
+    assert node.load == 0.75
+    assert node.ram_usage == 0.5
+    assert node.vram_usage == 0.8
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Run test to verify it fails</strong></li></ul>
+
+Run: <code>PYTHONPATH=sidecars/hermes-agent-nous pytest sidecars/hermes-agent-nous/tests/plugins/test_vsb_router_pulse.py -v</code>
+Expected: FAIL with <code>AssertionError: 0.0 == 0.75</code>
+
+<ul><li>[ ] <strong>Step 3: Implement <code>recv_pulse</code> unpacking</strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</h2>
+
+def recv_pulse(self, data, addr):
+    if len(data) < 302:
+        return
+
+    try:
+        header, version, node_id, load, ram, vram = struct.unpack("!3sBBfff", data[:15])
+        if header != b"VSB" or version != 3:
+            return
+
+        ip = addr[0]
+        for node in self.nodes:
+            if node.ip == ip:
+                node.load = load
+                node.ram_usage = ram
+                node.vram_usage = vram
+                node.last_seen = time.time()
+                break
+    except Exception as e:
+        logger.error(f"Failed to unpack pulse: {e}")
+</code></pre>
+
+<ul><li>[ ] <strong>Step 4: Run test to verify it passes</strong></li></ul>
+
+Run: <code>PYTHONPATH=sidecars/hermes-agent-nous pytest sidecars/hermes-agent-nous/tests/plugins/test_vsb_router_pulse.py -v</code>
+Expected: PASS
+
+<ul><li>[ ] <strong>Step 5: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+git commit -m "feat(vsb): implement dynamic pulse unpacking for real-time load balancing"
+</code></pre>
+
+<hr>
+
+<h4>Task 2: Stream/Reasoning Separation</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</code></li><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Refactor <code>VSBRouter.route_inference</code> to yield typed chunks</strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</h2>
+
+def route_inference(self, model_id, prompt, stream=False):
+    # ... existing node selection ...
+    
+    if stream:
+        # Detect <think> tags in the stream
+        in_thinking = False
+        for chunk in response:
+            text = chunk.choices[0].delta.content or ""
+            if "<think>" in text:
+                in_thinking = True
+            
+            yield ("reasoning" if in_thinking else "content", text)
+            
+            if "</think>" in text:
+                in_thinking = False
+    else:
+        # ... sync return ...
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Update <code>SovereignVSBProvider.stream</code> to handle typed chunks</strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/provider.py</h2>
+
+def stream(self, model_id, messages, <em></em>kwargs):
+    prompt = self._format_prompt(messages)
+    for chunk_type, chunk_text in self.router.route_inference(model_id, prompt, stream=True):
+        yield {
+            "content": chunk_text if chunk_type == "content" else "",
+            "reasoning": chunk_text if chunk_type == "reasoning" else "",
+            "model": model_id
+        }
+</code></pre>
+
+<ul><li>[ ] <strong>Step 3: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/
+git commit -m "feat(vsb): separate reasoning from content in inference stream"
+</code></pre>
+
+<hr>
+
+<h4>Task 3: Secret Decoupling</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Replace hardcoded secret with <code>os.getenv</code></strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py</h2>
+import os
+
+<h2>Initialize in __init__</h2>
+self.secret_key = os.getenv("SOVEREIGN_MESH_SECRET", "machina-sovereign-mesh-v3-secret-key")
+
+<h2>... update route_inference to use self.secret_key in headers ...</h2>
+headers = {
+    "Authorization": f"Bearer {self.secret_key}",
+    "Content-Type": "application/json"
+}
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/plugins/model_providers/sovereign_vsb/vsb_router.py
+git commit -m "chore(vsb): decouple mesh secret from source code"
+</code></pre>
+
+<hr>
+
+<h4>Task 4: Logic De-Mutilation (Auxiliary Client Refactor)</h4>
+
+<strong>Files:</strong>
+<ul><li>Modify: <code>sidecars/hermes-agent-nous/agent/auxiliary_client.py</code></li></ul>
+
+<ul><li>[ ] <strong>Step 1: Refactor <code>resolve_provider_client</code> to remove hardcoded VSB name check</strong></li></ul>
+
+<pre><code><h2>In sidecars/hermes-agent-nous/agent/auxiliary_client.py</h2>
+
+<h2>... find the sovereign-vsb block and replace with generic pluggable logic ...</h2>
+<h2>This requires using get_provider_profile(provider) and checking if it's a Pluggable type.</h2>
+</code></pre>
+
+<ul><li>[ ] <strong>Step 2: Commit</strong></li></ul>
+
+<pre><code>git add sidecars/hermes-agent-nous/agent/auxiliary_client.py
+git commit -m "refactor(aux): remove hardcoded VSB checks and use pluggable profile registry"
+</code></pre>
+
+<hr>
+<strong>::/5Y573M-N071C3 : PLAN_SAVED. STANDING_BY_FOR_EXECUTION. // 50V3R31GN-M4CH1N4</strong>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>
