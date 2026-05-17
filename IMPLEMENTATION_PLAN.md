@@ -59,8 +59,8 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 
 Port validated capabilities as native Hermes plugins. Only build what has been proven in Phase 0-2.
 
-- [ ] **P3-T1: Hermes-LCM State Sync.** Verify hermes-lcm MemoryProvider on Node A (primary). Configure B/C/D as sync targets. Validate cross-node state consistency.
-- [ ] **P3-T2: Directors Forge Tool Discovery.** DEPRIORITIZED -- directors-forge euthanized (0 tests, caused 11hr outage). Kanban MCP replaces coordination function.
+- [ ] **P3-T1: Hermes-LCM State Sync.** Verify hermes-lcm MemoryProvider on Node A (primary). Configure B/C/D as sync targets. Validate cross-node state consistency. Consider relocating hermes-relay container to Node A as companion task once LCM is stable.
+- [ ] **P3-T2: Directors Forge Tool Discovery.** CANCELLED (euthanized May 17, Kanban MCP replaces)
 - [ ] **P3-T3: Mirage VFS Integration.** Deploy mirage-vfs on Node D. Wire as Hermes plugin with 4 VFS tools.
 
 ---
@@ -70,7 +70,6 @@ Port validated capabilities as native Hermes plugins. Only build what has been p
 Voice, HUD, and visual interfaces. Not started until Phases 0-3 are verified.
 
 - [ ] **P4-T1: Voice Pipeline.** Merge vibevoice-asr into Hermes runtime. Integrate with Omi BLE hardware on Node C. Deploy as Hermes voice tool.
-  - [ ] **P4-T2a: Open-Design Integration.** See docs/planning/plans/2026-05-19-open-design-mesh-integration.md. Two options evaluated (Native Plugin vs Sidecar). Recommended: Start with Option 2 on Node B, migrate to Option 1 later.
 - [ ] **P4-T2: Pretext HUD.** Deploy pretext-core WASM in dashboard/hermes-workspace. Wire mesh telemetry to HUD components. Validate KineticThoughtStream rendering.
 - [ ] **P4-T3: Mesh-wide Verification.** Full integration test. All nodes, all models, all routes. Run QA suite. Update SOVEREIGN_VITAL_SIGNS.md with real numbers.
 
