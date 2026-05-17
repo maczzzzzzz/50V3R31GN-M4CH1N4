@@ -18,10 +18,10 @@ Four nodes. One mesh. All inference on bare metal.
 
 | Node | Role | Hardware | Model | Throughput |
 |------|------|----------|-------|------------|
-| **B** (Director) | Fast responder, workspace | Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4 | Hermes-4-14B Q4_K_M (Vulkan) | 322 / 34.1 t/s |
+| **B** (Director) | Fast responder, workspace | Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4 | Qwopus3.5-9B Q8_0 (Vulkan) | 428-441 / 53.8-55.1 t/s |
 | **C** (Oracle) | Function-calling, perception | Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4 | Carnice-9B-FC Q4_K_M (CUDA) | 205.2 / 49.9 t/s |
-| **D** (Quaternary) | Heavy reasoning | Intel Meteor Lake, 48GB DDR5 | Qwen3.5-35B-MTP Q4_K_M (CPU) | 12.7 / 7.0 t/s |
-| **A** (Synapse) | State persistence, cache | GTX 1050 Ti 4GB, 16GB RAM | None | Cache only |
+| **D** (Quaternary) | Heavy reasoning | Intel Meteor Lake, 48GB DDR5 | Qwen3.5-35B-A3B-MTP UD-Q4_K_M (CPU) | 12.7 / 7.0 t/s |
+| **A** (Synapse) | State persistence, cache | GTX 1050 Ti 4GB, 16GB RAM | Inference active: mesh-micro (Qwen3-0.6B Q8_0) | Cache spillover |
 
 All nodes run NixOS (25.11, except Node A on 24.11). Interconnected via Tailscale zero-trust mesh.
 
