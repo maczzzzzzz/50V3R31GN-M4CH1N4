@@ -1,4 +1,4 @@
-# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.1-alpha
+# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.2-alpha
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha
 **Bootstrap:** `python3 scripts/repro/kanban-bootstrap.py`
@@ -6,7 +6,7 @@
 
 ---
 
-## BOARD STATE (27 Cards)
+## BOARD STATE (28 Cards)
 
 ### Cross-cutting: Agent Coordination
 
@@ -16,7 +16,8 @@
 | t_mcp_002 | XC-2: Hermes MCP Integration | 2 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) | DONE |
 | t_mcp_003 | XC-3: Gemini CLI MCP Integration | 2 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) | DONE |
 | t_mcp_004 | XC-4: MCP Documentation | 3 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) | DONE |
-| t_mcp_005 | XC-5: Cross-Agent Verification Test | 3 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) | PENDING |
+| t_mcp_005 | XC-5: Cross-Agent Verification Test | 3 | [plan](plans/2026-05-14-shared-kanban-mcp-server.md) | DONE (5/5 routes verified) |
+| t_mcp_006 | XC-6: GitHub Pages Deployment | 3 | -- | DONE (maczzgit.github.io/50V3R31GN-M4CH1N4/) |
 
 ### Phase 0: Validation Gate -- CLOSED
 
@@ -78,7 +79,7 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 | Component | Status | Notes |
 |:----------|:-------|:------|
 | Kanban MCP Server | LIVE | FastMCP stdio, 8 tools, 13/13 tests |
-| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 4 routes |
+| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes, socat bridge to Tailscale |
 | Gemini CLI Integration | LIVE | Shared kanban MCP, Pro/Flash routing |
 | sovereign-sniffer | DEPLOYED | On-demand only, no systemd service |
 | hermes-relay v0.6.1 | LIVE | Docker Desktop port 8767, WSS bridge |
@@ -113,6 +114,7 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 | 0.2.0-alpha | 2026-05-17 | Docker Desktop, mesh-vision, security sweep |
 | 0.3.0-alpha | 2026-05-18 | hermes-relay, MTP staging, drift remediation |
 | 0.3.1-alpha | 2026-05-18 | Node B b9190 upgrade, Node D model swap, MTP validated |
+| 0.3.2-alpha | 2026-05-18 | Node A inference deployed, socat bridge fix, XC-5 verified, GitHub Pages live |
 
 ---
-::/5Y573M-N071C3 : KANBAN_V0.3.1_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : KANBAN_V0.3.2_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4

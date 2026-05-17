@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.3.2-alpha] - 2026-05-18
+
+### Infrastructure
+
+- **Node A promoted to inference:** Built llama.cpp (CPU+OpenBLAS) on NixOS 24.11. Deployed Qwen3-0.6B Q8_0 (610MB). Benchmark: 49.2/29.1 t/s over Tailscale. New mesh route `mesh-micro` added to LiteLLM. Node A reclassified from "state-only" to inference node.
+- **Docker/Tailscale networking bug fixed:** Discovered Docker Desktop containers cannot reach Tailscale 100.x.x.x IPs. This silently broke mesh-function-calling and mesh-heavy routes through LiteLLM (returning 500 errors). Fixed with socat TCP bridge on WSL host forwarding ports 17080/18081/18080 to Node A/C/D.
+- **socat bridge script:** sidecars/mesh/start-mesh-bridge.sh persists the fix across restarts.
+- **LiteLLM routes updated:** All remote node routes changed from direct Tailscale IPs to `host.docker.internal:<local_port>` to use the socat bridge.
+- **XC-5 cross-agent verification passed:** All 5 mesh routes verified through LiteLLM. Results: mesh-fast (B) 16.6/3.0 t/s, mesh-function-calling (C) 180.8/51.3 t/s, mesh-heavy (D) 13.7/7.3 t/s, mesh-micro (A) 45.8/35.5 t/s.
+- **GitHub Pages deployed:** https://maczzgit.github.io/50V3R31GN-M4CH1N4/ live. Source: stable/mesh-alpha /docs. Required `.nojekyll` to fix Jekyll processing errors on static HTML.
+
+### Changed
+
+- **hermes-relay migration deferred:** Relay stays on Node B. Hermes gateway bound to 127.0.0.1, would require config change + additional socat for minimal RAM benefit (~50MB).
+- **Node A systemd service:** llama-micro.service written to /tmp, requires `sudo bash /tmp/install-service.sh` on Node A to install.
+
 ## [0.3.1-alpha] - 2026-05-18
 
 ### Infrastructure

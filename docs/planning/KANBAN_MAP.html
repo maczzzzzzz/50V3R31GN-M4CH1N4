@@ -22,14 +22,14 @@
         </nav>
 
         <main>
-            <h2>Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.1-alpha</h2>
+            <h2>Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.2-alpha</h2>
             <p>
                 <strong>Status:</strong> ACTIVE | <strong>Baseline:</strong> stable/mesh-alpha<br>
                 <strong>Bootstrap:</strong> <code>python3 scripts/repro/kanban-bootstrap.py</code><br>
                 <strong>CLI:</strong> <code>hermes kanban list</code> / <code>hermes kanban show &lt;id&gt;</code>
             </p>
 
-            <h3>BOARD STATE (27 Cards)</h3>
+            <h3>BOARD STATE (28 Cards)</h3>
 
             <h4>Cross-cutting: Agent Coordination</h4>
             <table>
@@ -41,7 +41,8 @@
                     <tr><td>t_mcp_002</td><td>XC-2: Hermes MCP Integration</td><td>2</td><td><a href="plans/2026-05-14-shared-kanban-mcp-server.html">plan</a></td><td><span class="badge badge-active">DONE</span></td></tr>
                     <tr><td>t_mcp_003</td><td>XC-3: Gemini CLI MCP Integration</td><td>2</td><td><a href="plans/2026-05-14-shared-kanban-mcp-server.html">plan</a></td><td><span class="badge badge-active">DONE</span></td></tr>
                     <tr><td>t_mcp_004</td><td>XC-4: MCP Documentation</td><td>3</td><td><a href="plans/2026-05-14-shared-kanban-mcp-server.html">plan</a></td><td><span class="badge badge-active">DONE</span></td></tr>
-                    <tr><td>t_mcp_005</td><td>XC-5: Cross-Agent Verification Test</td><td>3</td><td><a href="plans/2026-05-14-shared-kanban-mcp-server.html">plan</a></td><td><span class="badge badge-pending">PENDING</span></td></tr>
+                    <tr><td>t_mcp_005</td><td>XC-5: Cross-Agent Verification Test</td><td>3</td><td><a href="plans/2026-05-14-shared-kanban-mcp-server.html">plan</a></td><td><span class="badge badge-active">DONE</span> (5/5 routes verified)</td></tr>
+                    <tr><td>t_mcp_006</td><td>XC-6: GitHub Pages Deployment</td><td>3</td><td>--</td><td><span class="badge badge-active">DONE</span> (<a href="https://maczzgit.github.io/50V3R31GN-M4CH1N4/">live</a>)</td></tr>
                 </tbody>
             </table>
 
@@ -84,8 +85,8 @@
                 <tbody>
                     <tr><td>t_3dbabbbb</td><td>PHASE 2 Epic</td><td>5</td><td><span class="badge badge-active">IN PROGRESS</span></td></tr>
                     <tr><td>t_64f8028b</td><td>P2-T1: Node D GPU Installation</td><td>5</td><td><span class="badge badge-blocked">BLOCKED</span> (RTX 5060 Ti hardware pending)</td></tr>
-                    <tr><td>t_3f006eaa</td><td>P2-T2: Node D Multi-Model Stack</td><td>5</td><td><span class="badge badge-pending">PARTIAL</span> (model swapped, MTP validated CPU-negative, ngram untested)</td></tr>
-                    <tr><td>t_a30b85ed</td><td>P2-T3: Context Spillover</td><td>5</td><td><span class="badge badge-pending">PENDING</span> (RPC research, Node A target)</td></tr>
+                    <tr><td>t_3f006eaa</td><td>P2-T2: Speculative Decoding</td><td>5</td><td><span class="badge badge-blocked">CLOSED NEGATIVE</span> (MTP 49% acc/-40%, ngram 3% acc/-16%, all net negative on CPU)</td></tr>
+                    <tr><td>t_a30b85ed</td><td>P2-T3: Context Spillover</td><td>5</td><td><span class="badge badge-blocked">CLOSED NOT FEASIBLE</span> (llama.cpp RPC requires layer offload, not KV-only)</td></tr>
                 </tbody>
             </table>
 
@@ -122,10 +123,11 @@
                 </thead>
                 <tbody>
                     <tr><td>Kanban MCP Server</td><td><span class="badge badge-active">LIVE</span></td><td>FastMCP stdio, 8 tools, 13/13 tests</td></tr>
-                    <tr><td>LiteLLM Mesh Router</td><td><span class="badge badge-active">LIVE</span></td><td>Docker Desktop port 4000, 4 routes</td></tr>
+                    <tr><td>LiteLLM Mesh Router</td><td><span class="badge badge-active">LIVE</span></td><td>Docker Desktop port 4000, 5 routes, socat bridge</td></tr>
                     <tr><td>Gemini CLI Integration</td><td><span class="badge badge-active">LIVE</span></td><td>Shared kanban MCP, Pro/Flash routing</td></tr>
                     <tr><td>sovereign-sniffer</td><td><span class="badge badge-active">DEPLOYED</span></td><td>On-demand only, no systemd service</td></tr>
                     <tr><td>hermes-relay v0.6.1</td><td><span class="badge badge-active">LIVE</span></td><td>Docker Desktop port 8767, WSS bridge</td></tr>
+                    <tr><td>socat mesh bridge</td><td><span class="badge badge-active">LIVE</span></td><td>WSL host forwarding 17080/18081/18080 to Tailscale</td></tr>
                     <tr><td>directors-forge</td><td><span class="badge badge-blocked">EUTHANIZED</span></td><td>Removed May 17, Kanban MCP replaces</td></tr>
                     <tr><td>KV Cache</td><td><span class="badge badge-active">ACTIVE</span></td><td>q4_0 (C/D CPU), f16 (B Vulkan)</td></tr>
                 </tbody>
@@ -161,12 +163,13 @@
                     <tr><td>0.2.0-alpha</td><td>2026-05-17</td><td>Docker Desktop, mesh-vision, security sweep</td></tr>
                     <tr><td>0.3.0-alpha</td><td>2026-05-18</td><td>hermes-relay, MTP staging, drift remediation</td></tr>
                     <tr><td>0.3.1-alpha</td><td>2026-05-18</td><td>Node B b9190 upgrade, Node D model swap, MTP validated</td></tr>
+                    <tr><td>0.3.2-alpha</td><td>2026-05-18</td><td>Node A inference, socat bridge, XC-5 verified, GitHub Pages</td></tr>
                 </tbody>
             </table>
         </main>
 
         <footer>
-            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
         </footer>
     </div>
 </body>

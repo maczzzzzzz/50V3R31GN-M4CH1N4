@@ -29,7 +29,7 @@ model_list:
   - model_name: mesh-function-calling
     litellm_params:
       model: openai/carnice-9b-fc
-      api_base: http://100.102.109.81:8081/v1
+      api_base: http://host.docker.internal:18081/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 100000
       rpm: 100
@@ -67,7 +67,7 @@ model_list:
   - model_name: mesh-heavy
     litellm_params:
       model: openai/carnice-qwen3.6-moe-35b-a3b
-      api_base: http://100.120.225.12:8080/v1
+      api_base: http://host.docker.internal:18080/v1
       api_key: "machina-sovereign-mesh-v3-secret-key"
       tpm: 50000
       rpm: 50
@@ -77,6 +77,25 @@ model_list:
       owned_by: nodestadt-mesh
       permission: []
       root: mesh-heavy
+      parent: null
+
+  # Node A -- Synapse (Micro Classification/Routing)
+  # Hardware: i7-7700HQ (Kaby Lake, 4c/8t), 16GB DDR4, CPU-only
+  # Model: Qwen3-0.6B Q8_0 (610MB)
+  # Benchmark: prompt 49.2 t/s, gen 29.1 t/s (over Tailscale from Node B)
+  - model_name: mesh-micro
+    litellm_params:
+      model: openai/qwen3-0.6b
+      api_base: http://host.docker.internal:17080/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+      tpm: 100000
+      rpm: 200
+    model_info:
+      id: mesh-micro
+      object: model
+      owned_by: nodestadt-mesh
+      permission: []
+      root: mesh-micro
       parent: null
 
 router_settings:
@@ -91,6 +110,9 @@ router_settings:
     "heavy": "mesh-heavy"
     "vision": "mesh-vision"
     "vl": "mesh-vision"
+    "micro": "mesh-micro"
+    "classify": "mesh-micro"
+    "route": "mesh-micro"
 
 general_settings:
   master_key: "sk-sov...roxy"
@@ -102,4 +124,4 @@ general_settings:
 
 environment_variables:
   LITELLM_LOG: "DEBUG"
-  LITELLM_MODEL_LIST: "mesh-fast,mesh-function-calling,mesh-vision,mesh-heavy"
+  LITELLM_MODEL_LIST: "mesh-fast,mesh-function-calling,mesh-vision,mesh-heavy,mesh-micro"
