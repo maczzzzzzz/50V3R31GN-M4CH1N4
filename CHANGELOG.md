@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.3.5-alpha] - 2026-05-19
+
+### Provider Integration
+
+- **xAI Grok OAuth added to provider pool.** SuperGrok subscription wired via browser-based OAuth 2.0 PKCE flow (`hermes auth add xai-oauth`). Provider ID: `xai-oauth`, default model `grok-4.3`, transport via xAI Responses API. Token stored in `~/.hermes/auth.json` with auto-refresh. Covers TTS, image gen, video gen, transcription, and X search through a single login. NOT set as default -- added to pool for per-session switching (`hermes model` or `--provider xai-oauth`).
+
+### Agent Workflow
+
+- **NixOS Playwright Chromium deps fixed.** Added missing libraries to `/etc/nixos/configuration.nix` for Hermes built-in browser tool (Chromium launched by agent-browser).
+- **CloakBrowser Docker CDP sidecar evaluated.** Investigated autonomous stealth browsing via CloakBrowser Docker container with CDP. Documented as available but not deployed -- Hermes built-in browser sufficient for current needs.
+- **browser-use Python integration explored.** Evaluated browser-use library for autonomous browsing workflows. Determined Hermes native browser tool is adequate.
+- **Workflow analysis: Autonomous AI agents skill loaded.** Reviewed full skill hierarchy for hermes-agent, claude-code, codex, gemini-cli orchestration patterns.
+
 ## [0.3.4-alpha] - 2026-05-18
 
 ### Phase 1 Closure

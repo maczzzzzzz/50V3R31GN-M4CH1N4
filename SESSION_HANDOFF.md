@@ -1,8 +1,8 @@
-# SESSION HANDOFF (v0.3.4-alpha)
+# SESSION HANDOFF (v0.3.5-alpha)
 
-**Last Active Session:** 2026-05-18
+**Last Active Session:** 2026-05-19
 **Branch:** stable/mesh-alpha
-**Version:** 0.3.4-alpha
+**Version:** 0.3.5-alpha
 
 ---
 
@@ -26,13 +26,13 @@ All 5 routes operational. LiteLLM pinned to 1.84.0. Phase 1 CLOSED.
 
 ---
 
-## COMPLETED THIS SESSION (0.3.3 + 0.3.4-alpha)
+## COMPLETED THIS SESSION (0.3.3 through 0.3.5-alpha)
 
-### v0.3.3-alpha
-- GitHub Wiki sync: 11 pages pushed, 1 new (Benchmark-Registry).
-- HTML consolidation: 21 .md -> .html. 130 total HTML pages in docs/.
-- Full mesh tech debt purge: ~104 GB reclaimed across 5 nodes.
-- SSH config: Node D IP corrected to 100.120.225.12.
+### v0.3.5-alpha (Provider + Agent Workflow)
+- xAI Grok OAuth wired to provider pool (xai-oauth, grok-4.3, auto-refresh token).
+- NixOS Playwright Chromium deps patched in configuration.nix.
+- CloakBrowser/browser-use evaluated, not deployed (native browser adequate).
+- Autonomous AI agents skill hierarchy reviewed for orchestration patterns.
 
 ### v0.3.4-alpha (Phase 1 Closure)
 - P1-T2 Terminal Control: CLOSED. SSH keys deduplicated on A/C/D.
@@ -125,4 +125,4 @@ Design work that does not require hardware:
 
 ---
 
-::/5Y573M-N071C3 : HANDOFF_V0.3.4_ALPHA. PHASE_1_CLOSED. LITELLM_1.84.0_HARDENED. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : HANDOFF_V0.3.5_ALPHA. XAI_GROK_OAUTH_POOLED. PHASE_1_CLOSED. // 50V3R31GN-M4CH1N4
