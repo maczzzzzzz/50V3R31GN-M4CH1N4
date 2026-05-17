@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Machina Design Spec: Hierarchy of Responsiveness — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Archive &middot; Specs &middot; Hierarchy of Responsiveness</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../../index.html">Docs</a><span class="sep">/</span>
+            <a href="../../KANBAN_MAP.html">Planning</a><span class="sep">/</span>
+            Archive<span class="sep">/</span>
+            Hierarchy of Responsiveness
+        </nav>
+
+        <main>
+            <h2>Sovereign Machina Design Spec: Hierarchy of Responsiveness (v260511)</h2>
+            <p>
+                <strong>Goal:</strong> Materialize a high-performance, two-tier model mesh that balances instantaneous local responsiveness with high-fidelity centralized reasoning.<br>
+                <strong>Status:</strong> <span class="badge badge-pending">DRAFT</span> (Pending User Review)
+            </p>
+
+            <h3>1. Architectural Blueprint</h3>
+            <p>The mesh is partitioned into a two-tiered hierarchy to maximize physical hardware efficiency.</p>
+
+            <h4>Tier 1: The Director (Node B)</h4>
+            <ul>
+                <li><strong>Purpose:</strong> Instant dispatch, TUI responsiveness, local tool execution, and mesh gateway management.</li>
+                <li><strong>Model:</strong> <code>Qwen3-14B-9B (Q8_0)</code></li>
+                <li><strong>VRAM Allocation:</strong> ~6GB (Model) / ~10GB (KV Cache & Proxy Overhead).</li>
+                <li><strong>Latency Target:</strong> TTFT &lt; 100ms.</li>
+                <li><strong>Role:</strong> Acts as the primary interface. All <code>hermes chat</code> sessions route here by default.</li>
+            </ul>
+
+            <h4>Tier 2: The Quaternary Core (Node D)</h4>
+            <ul>
+                <li><strong>Purpose:</strong> Deep reasoning, complex architectural planning, and multi-file code synthesis.</li>
+                <li><strong>Model:</strong> <code>Qwen2.5-Coder-14B (Q6_K_M)</code></li>
+                <li><strong>VRAM Allocation:</strong> ~11GB (Model) / ~13GB (Extended KV Cache).</li>
+                <li><strong>Latency Target:</strong> TTFT &lt; 500ms.</li>
+                <li><strong>Role:</strong> High-level strategist. Triggered for explicit reasoning tasks.</li>
+            </ul>
+
+            <h3>2. Mesh Routing Logic (LiteLLM Proxy)</h3>
+            <p>The Sovereign Proxy (<code>nix/hosts/node-b/litellm-mesh.yaml</code>) will implement the following routing table:</p>
+            <ul>
+                <li><strong>Default Route:</strong> <code>brain-9b</code> (Node B Local).</li>
+                <li><strong>Strategic Route:</strong> <code>mesh-qwen</code> (Node D Remote).</li>
+                <li><strong>Failover:</strong> If Node D fails health check, Node C acts as the secondary reasoning node.</li>
+            </ul>
+
+            <h3>3. Data Flow Specification</h3>
+            <ol>
+                <li><strong>Direct Interaction:</strong> User sends query &rarr; Node B (Proxy) &rarr; Qwen3-14B-9B.</li>
+                <li><strong>Strategic Shift:</strong> User triggers reasoning mode &rarr; Node B (Proxy) &rarr; Node D (Qwen-14B).</li>
+                <li><strong>Self-Healing:</strong> If health checks fail on Node D, LiteLLM transparently reroutes to Node C or Node B fallback.</li>
+            </ol>
+
+            <h3>4. Hardware Constraints & Operational Efficiency</h3>
+            <ul>
+                <li><strong>Node B (16GB VRAM):</strong> The 9B model is optimal, preventing memory starvation.</li>
+                <li><strong>Node D (24GB+ VRAM):</strong> The 14B (Q6) model provides the best "Intelligence-per-Watt" ratio and ensures we can handle complex codebases.</li>
+            </ul>
+
+            <h3>5. Security & Sovereignty</h3>
+            <ul>
+                <li><strong>Secret Management:</strong> Mesh secret remains decoupled (Environmental Variable).</li>
+                <li><strong>Zero-Trust:</strong> All cross-node traffic is strictly over the Tailscale Artery.</li>
+                <li><strong>Transparency:</strong> All reasonings (via <code>&lt;think&gt;</code> tags) are routed to the Hermes HUD.</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

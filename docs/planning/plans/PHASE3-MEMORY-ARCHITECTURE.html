@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 3: Memory Architecture — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Docs &middot; Planning &middot; Plans &middot; Phase 3 Memory Architecture</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span><a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span><a href="None">Plans</a><span class="sep">/</span>Phase 3 Memory Architecture
+        </nav>
+
+        <main>
+<h2>Phase 3: Memory Architecture - Hybrid SQLite Approach</h2>
+<p><strong>Status:</strong> APPROVED (Option 1 - Hybrid)</p>
+<p><strong>Date:</strong> May 14, 2026</p>
+<hr>
+<h3>ARCHITECTURE OVERVIEW</h3>
+<h4>Components</h4>
+<ol>
+<li><strong>Hermes-LCM</strong> (Primary memory system)</li>
+</ol>
+<ul>
+<li>SQLite backend</li>
+<li>DAG-based context compression</li>
+<li>Split storage: Node A (primary) + Node C external SSD (redundancy)</li>
+<li>Session-aware memory management</li>
+<li>Lossless context management</li>
+</ul>
+<ol>
+<li><strong>CodeGraph-Rust</strong> (Code-aware memory augmentation)</li>
+</ol>
+<ul>
+<li>SurrealDB backend (multi-model: graph + document + KV)</li>
+<li>Knowledge graph for code relationships</li>
+<li>MCP tools: context, impact, architecture, quality</li>
+<li>Rust-native (fits project architecture)</li>
+</ul>
+<ol>
+<li><strong>MemPalace</strong> (SKIPPED - Phase 4 reconsideration)</li>
+</ol>
+<ul>
+<li>Postpone until memory system complexity evaluation</li>
+<li>Can be added later if cross-session semantic search needed</li>
+</ul>
+<hr>
+<h3>STORAGE LAYOUT</h3>
+<h4>Node A (Synapse) - Primary LCM Store</h4>
+<ul>
+<li>Location: <code>/mnt/data/hermes-lcm/</code> (or appropriate path)</li>
+<li>Purpose: Primary Hermes-LCM database</li>
+<li>Redundancy: Syncs to Node C external SSD</li>
+</ul>
+<h4>Node C (Oracle) - LCM Redundancy Store</h4>
+<ul>
+<li>Location: <code>/mnt/sovereign_soul/hermes-lcm/</code> (external SSD)</li>
+<li>Purpose: Redundant copy of Hermes-LCM database</li>
+<li>Size: 476.9GB ext4 partition (SOVEREIGN_SOUL)</li>
+<li>UUID: 511d1a67-a3c0-49f8-899d-e509eab53c1a</li>
+<li>Mount point: <code>/mnt/sovereign_soul</code></li>
+</ul>
+<h4>CodeGraph Storage</h4>
+<ul>
+<li>Location: TBD (local to each node or shared via NFS?)</li>
+<li>Backend: SurrealDB (multi-model)</li>
+<li>Purpose: Code knowledge graph for 50V3R31GN-M4CH1N4 + hermes-agent-nous</li>
+</ul>
+<hr>
+<h3>MCP TOOL INTEGRATION</h3>
+<h4>CodeGraph-Rust MCP Tools (ADOPTED)</h4>
+<p><strong>High-Value Tools (Essential):</strong></p>
+<ol>
+<li><strong>agentic_context</strong></li>
+</ol>
+<ul>
+<li>Purpose: Gather comprehensive code context, answer semantic questions</li>
+<li>Use Case: "Why is X implemented this way?", "Show me all authentication flows"</li>
+<li>Native Gap: search_files can find patterns but doesn't understand relationships</li>
+<li>Priority: HIGH</li>
+</ul>
+<ol>
+<li><strong>agentic_impact</strong></li>
+</ol>
+<ul>
+<li>Purpose: Map change impact, dependency chains, call flows</li>
+<li>Use Case: "What breaks if I change this function?", "What depends on this module?"</li>
+<li>Native Gap: No dependency tracking or impact analysis</li>
+<li>Priority: HIGH</li>
+</ul>
+<ol>
+<li><strong>agentic_architecture</strong></li>
+</ol>
+<ul>
+<li>Purpose: System structure, API surfaces, architectural patterns</li>
+<li>Use Case: "Show me the mesh routing architecture", "What are the boundaries?"</li>
+<li>Native Gap: No architectural pattern recognition</li>
+<li>Priority: MEDIUM</li>
+</ul>
+<ol>
+<li><strong>agentic_quality</strong></li>
+</ol>
+<ul>
+<li>Purpose: Complexity hotspots, coupling metrics, refactoring priorities</li>
+<li>Use Case: "What are the most complex functions?", "Where should I refactor first?"</li>
+<li>Native Gap: No complexity analysis or metrics</li>
+<li>Priority: MEDIUM</li>
+</ul>
+<h4>MemPalace MCP Tools (SKIPPED)</h4>
+<ul>
+<li>Decision: Postpone until Phase 4</li>
+<li>Reason: Hermes-LCM + session_search provides sufficient memory for now</li>
+<li>Revisit if cross-session semantic search becomes critical</li>
+</ul>
+<hr>
+<h3>INDEXING STRATEGY</h3>
+<h4>Phase 1: Main Repository</h4>
+<ul>
+<li>Target: <code>/home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha</code></li>
+<li>Index Tier: <code>balanced</code> (LSP + enrichment + module linking)</li>
+<li>Purpose: Base understanding of project architecture</li>
+</ul>
+<h4>Phase 2: Hermes Agent Fork</h4>
+<ul>
+<li>Target: <code>~/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/hermes-agent-nous</code></li>
+<li>Index Tier: <code>balanced</code> or <code>full</code> (if needed for deep analysis)</li>
+<li>Purpose: Understand Hermes Agent internals for customization</li>
+</ul>
+<h4>Phase 3: Individual Crates (Optional)</h4>
+<ul>
+<li>Targets:</li>
+<li><code>crates/modules/directors-forge</code></li>
+<li><code>crates/modules/mirage-vfs</code></li>
+<li><code>crates/modules/vibevoice-asr</code></li>
+<li>Index Tier: <code>full</code> (maximum accuracy/richness)</li>
+<li>Purpose: Deep analysis for Phase 4 work</li>
+</ul>
+<hr>
+<h3>IMPLEMENTATION TASKS</h3>
+<h4>Task 1: Mount Node C External SSD (Requires sudo on Node C)</h4>
+<p><strong>Priority:</strong> BLOCKING</p>
+<pre><code>
+# On Node C (100.102.109.81)
+# Add to /etc/fstab:
+UUID=511d1a67-a3c0-49f8-899d-e509eab53c1a  /mnt/sovereign_soul  ext4  defaults,noatime  0  2
+
+# Reboot or mount manually:
+sudo mount -a
+
+# Verify mount:
+df -h /mnt/sovereign_soul
+ls -lh /mnt/sovereign_soul/
+</code></pre>
+<h4>Task 2: Install Hermes-LCM</h4>
+<p><strong>Priority:</strong> HIGH</p>
+<pre><code>
+# Clone as general user plugin
+git clone https://github.com/stephenschoettler/hermes-lcm \
+  ~/.hermes/plugins/hermes-lcm
+
+# Configure in ~/.hermes/config.yaml:
+plugins:
+  enabled:
+    - hermes-lcm
+
+context:
+  engine: lcm
+
+lcm:
+  sync_targets:
+    - node_c: /mnt/sovereign_soul/hermes-lcm
+
+# Restart Hermes
+hermes plugins
+</code></pre>
+<h4>Task 3: Install CodeGraph-Rust</h4>
+<p><strong>Priority:</strong> MEDIUM</p>
+<pre><code>
+# On all nodes (start with Node B - Director)
+cargo install --git https://github.com/Jakedismo/codegraph-rust codegraph
+
+# Initialize for main repo
+codegraph init /home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha
+
+# Index with tier=balanced
+CODEGRAPH_INDEX_TIER=balanced codegraph index
+
+# Start MCP server (stdio mode for Hermes)
+codegraph start mcp --port 3000
+</code></pre>
+<h4>Task 4: Configure CodeGraph MCP in Hermes</h4>
+<p><strong>Priority:</strong> MEDIUM</p>
+<pre><code>
+# Add to ~/.hermes/config.yaml:
+mcp_servers:
+  codegraph:
+    url: "http://localhost:3000"
+    enabled: true
+</code></pre>
+<h4>Task 5: Verify Integration</h4>
+<p><strong>Priority:</strong> HIGH</p>
+<pre><code>
+# Verify Hermes-LCM
+hermes plugins  # Should show hermes-lcm
+lcm_status
+
+# Verify CodeGraph
+hermes mcp list  # Should show codegraph
+
+# Test CodeGraph tools
+agentic_context "Show me the mesh routing architecture"
+agentic_impact "What depends on the LiteLLM proxy?"
+agentic_architecture "What are the module boundaries?"
+agentic_quality "What are the most complex functions?"
+</code></pre>
+<h4>Task 6: Index Hermes Agent Fork</h4>
+<p><strong>Priority:</strong> LOW (after Task 5)</p>
+<pre><code>
+codegraph init ~/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/hermes-agent-nous
+CODEGRAPH_INDEX_TIER=balanced codegraph index
+</code></pre>
+<hr>
+<h3>MCP TOOL VS NATIVE CAPABILITY ANALYSIS</h3>
+<h4>CodeGraph Tools vs Native</h4>
+<table><thead><tr><th>Tool</th><th>Purpose</th><th>Native Capability</th><th>Gap</th><th>Priority</th></tr></thead><tbody>
+<tr><td>agentic_context</td><td>Semantic code context + relationships</td><td>search_files finds patterns but no relationships</td><td>HIGH</td><td>HIGH</td></tr>
+<tr><td>agentic_impact</td><td>Dependency chains + impact analysis</td><td>None</td><td>HIGH</td><td>HIGH</td></tr>
+<tr><td>agentic_architecture</td><td>System structure + API surfaces</td><td>Can grep for patterns but no architectural understanding</td><td>MEDIUM</td><td>MEDIUM</td></tr>
+<tr><td>agentic_quality</td><td>Complexity metrics + hotspots</td><td>Can count lines but no complexity analysis</td><td>MEDIUM</td><td>MEDIUM</td></tr>
+</tbody></table>
+<h4>Native Tools (Keep Using)</h4>
+<ul>
+<li><strong>search_files</strong>: Fast pattern finding (ripgrep-backed)</li>
+<li><strong>read_file</strong>: Direct file access</li>
+<li><strong>terminal</strong>: Build, test, deployment</li>
+<li><strong>execute_code</strong>: Scripted operations</li>
+<li><strong>session_search</strong>: Cross-session memory (Hermes core)</li>
+<li><strong>delegate_task</strong>: Parallel work</li>
+<li><strong>skill_manage</strong>: Procedural knowledge</li>
+</ul>
+<h4>Tools CodeGraph Replaces/Augments</h4>
+<ul>
+<li><strong>Semantic code search</strong>: agentic_context replaces manual grep + piecing together relationships</li>
+<li><strong>Impact analysis</strong>: agentic_impact replaces manual dependency tracking</li>
+<li><strong>Architecture understanding</strong>: agentic_architecture replaces manual documentation reading</li>
+<li><strong>Code quality</strong>: agentic_quality provides metrics not available natively</li>
+</ul>
+<hr>
+<h3>REDUNDANCY STRATEGY</h3>
+<h4>Hermes-LCM Sync Targets</h4>
+<ul>
+<li><strong>Primary:</strong> Node A (local database)</li>
+<li><strong>Redundancy:</strong> Node C external SSD (sync target)</li>
+<li><strong>Optional:</strong> Node B/D (if needed for additional redundancy)</li>
+</ul>
+<h4>Failure Scenarios</h4>
+<ol>
+<li><strong>Node A failure:</strong> Restore from Node C external SSD</li>
+<li><strong>Node C external SSD failure:</strong> Node A continues as primary</li>
+<li><strong>Both fail:</strong> Restore from last known good backup (need backup strategy)</li>
+</ol>
+<h4>Backup Strategy (Future Consideration)</h4>
+<ul>
+<li>Periodic snapshots of Hermes-LCM databases</li>
+<li>Git commit of CodeGraph indexes (if deterministic)</li>
+<li>Consider offsite backup of Node C external SSD</li>
+</ul>
+<hr>
+<h3>PERFORMANCE CONSIDERATIONS</h3>
+<h4>SQLite (Hermes-LCM)</h4>
+<ul>
+<li><strong>Pros:</strong> Fast, low load, mature, zero-config</li>
+<li><strong>Cons:</strong> Single-writer (but LCM handles this with proper locking)</li>
+<li><strong>Node Impact:</strong> Minimal on all nodes (A: 16GB, B: 48GB, C: 32GB, D: 48GB)</li>
+</ul>
+<h4>SurrealDB (CodeGraph)</h4>
+<ul>
+<li><strong>Pros:</strong> Multi-model, high performance, Rust-native</li>
+<li><strong>Cons:</strong> Higher memory footprint, more complex</li>
+<li><strong>Node Impact:</strong> Medium (B: 48GB fine, C: 32GB ok, D: 48GB fine)</li>
+</ul>
+<h4>Network Overhead (Sync)</h4>
+<ul>
+<li><strong>Tailscale Artery:</strong> Latency ~5-10ms between nodes</li>
+<li><strong>Sync frequency:</strong> Configurable (real-time vs batch)</li>
+<li><strong>Bandwidth:</strong> Low (only delta changes after initial sync)</li>
+</ul>
+<hr>
+<h3>PHASE 4 RECONSIDERATION</h3>
+<h4>If We Add MemPalace Later</h4>
+<p><strong>Triggers:</strong></p>
+<ul>
+<li>Cross-session semantic search becomes critical</li>
+<li>Session-search retrieval quality insufficient</li>
+<li>Need for structured indexing (wings/rooms/drawers)</li>
+<li>Temporal entity-relationship graph needed</li>
+</ul>
+<p><strong>Integration Approach:</strong></p>
+<ul>
+<li>Keep Hermes-LCM for in-session context</li>
+<li>Use MemPalace for cross-session semantic search</li>
+<li>SQLite backend for MemPalace (replace ChromaDB default)</li>
+<li>Coordinate between both systems (avoid duplication)</li>
+</ul>
+<hr>
+<h3>QUESTIONS FOR USER</h3>
+<ol>
+<li><strong>LCM Sync Frequency:</strong> Real-time (every message) or batch (every N messages)?</li>
+</ol>
+<ul>
+<li>Tradeoff: Data freshness vs bandwidth</li>
+</ul>
+<ol>
+<li><strong>CodeGraph Deployment:</strong></li>
+</ol>
+<ul>
+<li>Deploy on all nodes now, or start with Node B (Director) and expand later?</li>
+<li>Shared CodeGraph index or separate per-node indexes?</li>
+</ul>
+<ol>
+<li><strong>Backup Strategy:</strong></li>
+</ol>
+<ul>
+<li>How often should we backup Hermes-LCM databases?</li>
+<li>Should we backup to Node C external SSD + offsite?</li>
+</ul>
+<ol>
+<li><strong>CodeGraph Index Update Trigger:</strong></li>
+</ol>
+<ul>
+<li>Manual re-index after significant changes?</li>
+<li>Watch mode for continuous re-indexing?</li>
+</ul>
+<hr>
+<h3>REFERENCES</h3>
+<ul>
+<li>Hermes-LCM: https://github.com/stephenschoettler/hermes-lcm</li>
+<li>CodeGraph-Rust: https://github.com/Jakedismo/codegraph-rust</li>
+<li>MemPalace (Phase 4): https://github.com/MemPalace/mempalace</li>
+<li>LCM Paper: https://papers.voltropy.com/LCM</li>
+</ul>
+<hr>
+<p><strong>Next Step:</strong> Implement Task 1 (Mount Node C external SSD) - requires sudo access on Node C.</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.1-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

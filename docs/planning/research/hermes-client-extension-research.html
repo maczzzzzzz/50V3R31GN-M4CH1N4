@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Client Extension Research — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Research &middot; Hermes Client Extension</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>
+            Planning<span class="sep">/</span>
+            <a href="node-d-rtx5060ti-oculink-upgrade.html">Research</a><span class="sep">/</span>
+            Hermes Client Extension
+        </nav>
+
+        <main>
+            <h2>Hermes Client Extension Research</h2>
+            <p>
+                <strong>Date:</strong> 2026-05-16<br>
+                <strong>Assessor:</strong> Gemini 3.1 Pro (delegated by GLM-5)<br>
+                <strong>Status:</strong> Research complete, awaiting deployment decision
+            </p>
+
+            <p>Assess two GitHub repositories for extending mesh access to:</p>
+            <ol>
+                <li>Android tablet and phone</li>
+                <li>Windows 11 laptop (clean install, no special software)</li>
+            </ol>
+            <p>Evaluated against NODESTADT Quaternary Mesh specs, Tailscale-only networking, and post-RTX 5060 Ti upgrade capabilities.</p>
+
+            <hr>
+
+            <h3>1. hermes-relay (Codename-11)</h3>
+            <ul>
+                <li><strong>Repo:</strong> <a href="https://github.com/Codename-11/hermes-relay">Codename-11/hermes-relay</a></li>
+                <li><strong>Stats:</strong> 23 Stars &middot; 17 Issues &middot; Last Update: May 15, 2026</li>
+            </ul>
+
+            <h4>A. Architecture</h4>
+            <p>Hub-and-spoke multi-surface platform. Central Python/aiohttp relay server connects Hermes Agent to client "surfaces" (native Android app, Desktop CLI/TUI). HTTP/SSE for real-time chat streaming. Secure WebSockets (WSS) for remote control and tool routing.</p>
+
+            <h4>B. Hermes API Compatibility</h4>
+            <p>Bit-compatible with the hermes-agent tool registry. Follows Open WebUI SSE pattern. Authentication uses 6-character pairing code or QR code for initial device setup, backed by Android Keystore (StrongBox) for session storage. Supports time-bound session grants (TTL).</p>
+
+            <h4>C. Deployment on the Mesh</h4>
+            <p>Moderate complexity. Requires Python 3.11+. Relay server is lightweight and avoids competing for VRAM (traffic routing only, no inference). Strong Docker candidate.</p>
+
+            <h4>D. Security Posture</h4>
+            <p>Strong. Supports WSS/HTTPS. TOFU (Trust On First Use) certificate pinning prevents MITM. Per-app blocklist (blocks banking/2FA apps by default). Requires on-device confirmation for destructive actions. Devices connect outbound to server -- no open incoming ports required. Compatible with Tailscale-only mesh.</p>
+
+            <h4>E. Client Experience</h4>
+            <p>High quality. Android app uses native Material 3 (Kotlin/Compose). Windows/laptop client is Ink-based TUI. Includes aggressive reconnect-on-drop logic, racing multiple endpoints (Tailscale vs LAN) for lowest latency. No true offline LLM support -- requires mesh connection.</p>
+
+            <h4>F. Post-5060 Ti Impact</h4>
+            <p>High. Relay can route TTS/STT and vision tasks. Moving to RTX 5060 Ti on Node D with Qwen3.5-35B-A3B-MTP means relay can offload heavy vision tasks (screen context analysis) to Node D much faster than relying on Node B's current 2B vision model.</p>
+
+            <h4>G. Showstoppers</h4>
+            <p>Desktop CLI binaries are <strong>unsigned</strong>. On clean-install Windows 11 laptop, Windows SmartScreen will throw aggressive warnings/blocks. Requires manual bypass.</p>
+
+            <h4>H. Deployment Plan</h4>
+            <ol>
+                <li>Build Docker image from repo on Node B</li>
+                <li>Deploy relay server container on Node B (Docker Desktop, alongside LiteLLM port 4000)</li>
+                <li>Install Android app on phone + tablet from APK or Play Store</li>
+                <li>Install Desktop CLI/TUI on Windows 11 laptop</li>
+                <li>All traffic routed exclusively over Tailscale IPs</li>
+                <li>Pair devices via QR code or 6-digit code</li>
+            </ol>
+
+            <hr>
+
+            <h3>2. hermes-android (raulvidis)</h3>
+            <ul>
+                <li><strong>Repo:</strong> <a href="https://github.com/raulvidis/hermes-android">raulvidis/hermes-android</a></li>
+                <li><strong>Stats:</strong> 178 Stars &middot; 4 Issues &middot; Last Update: May 16, 2026</li>
+            </ul>
+
+            <h4>A. Architecture</h4>
+            <p>Direct bridge application. NOT a chat UI. WebSocket client connecting Android device directly to Hermes server. Exposes 36+ low-level android_* tools (tap, swipe, read screen) via Android Accessibility Services.</p>
+
+            <h4>B. Hermes API Compatibility</h4>
+            <p>Direct WebSocket connection exposing tools to the agent. Server orchestrates auth and tool calling. No separate relay needed.</p>
+
+            <h4>C. Deployment on the Mesh</h4>
+            <p>Low server-side (connects to existing agent). High client-side (requires granting deep system accessibility permissions on Android devices).</p>
+
+            <h4>D. Security Posture</h4>
+            <p>Weak by default. Uses unencrypted ws://. Recommends TLS proxy. Tailscale WireGuard tunnel mitigates network-layer interception risk. Bigger risk is god-level accessibility permissions if device is compromised.</p>
+
+            <h4>E. Client Experience</h4>
+            <p>Purely utilitarian. Silent bridge for agent to control the phone. Not a conversational UI. Latency tied to network. Zero offline support.</p>
+
+            <h4>F. Post-5060 Ti Impact</h4>
+            <p>Massive. Heavily relies on AI comprehending Android screen when accessibility view trees fail or are obfuscated. Node D's new 5060 Ti running 35B multimodal model turns this from a clunky automation tool into a highly capable autonomous device operator.</p>
+
+            <h4>G. Showstoppers</h4>
+            <p>Android battery management. Accessibility Services are killed by aggressive battery optimizers. Must manually exclude from all battery restrictions.</p>
+
+            <h4>H. Deployment Plan</h4>
+            <ol>
+                <li>Install app directly on Android phone and tablet</li>
+                <li>Point WebSocket connection to Node B Tailscale IP (where Hermes agent + LiteLLM live)</li>
+                <li>Grant Accessibility Services permissions</li>
+                <li>Whitelist app from battery optimization</li>
+                <li>Only deploy if autonomous device control is a use case (not for chatting)</li>
+            </ol>
+
+            <hr>
+
+            <h3>Final Verdict</h3>
+            <p>These repos are complementary, not competing.</p>
+            <table>
+                <thead>
+                    <tr><th>Use Case</th><th>Tool</th><th>Priority</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Chat with mesh from phone/tablet/laptop</td><td>hermes-relay</td><td><span class="badge badge-active">Deploy Now</span></td></tr>
+                    <tr><td>Chat with mesh from Win11 laptop TUI</td><td>hermes-relay</td><td><span class="badge badge-active">Deploy Now</span></td></tr>
+                    <tr><td>Agent-controlled phone automation</td><td>hermes-android</td><td>Post-5060Ti upgrade</td></tr>
+                    <tr><td>Vision-guided device interaction</td><td>hermes-android</td><td>Post-5060Ti upgrade</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Recommended Deployment Sequence</h3>
+            <ol>
+                <li><strong>Now:</strong> Deploy hermes-relay server on Node B (Docker). Install clients on all devices.</li>
+                <li><strong>Monday (post-upgrade):</strong> Reassess hermes-android once Node D has 35B multimodal on GPU.</li>
+            </ol>
+
+            <hr>
+
+            <h3>Supplementary Research: tmux + Zeroboot Integration Potential</h3>
+            <p>Date: 2026-05-16 (follow-up analysis by GLM-5 from repo source inspection)</p>
+
+            <h4>tmux Integration: Native, First-Class</h4>
+            <p>hermes-relay has tmux baked into the protocol at the wire level.</p>
+            <ul>
+                <li><strong>Desktop CLI Shell Mode:</strong> Bare <code>hermes-relay</code> pipes the host's actual Hermes Ink TUI through a PTY in tmux. detachment (session persists), image pasting into conversations, and session resumption are all supported.</li>
+                <li><strong>Android Terminal:</strong> A planned channel for secure remote shell access via tmux.</li>
+                <li><strong>Desktop Tool Routing:</strong> The relay exposes <code>desktop_*</code> tools (terminal, file ops, search, screenshot, clipboard, editor) allowing the agent on Node B to execute on client machines.</li>
+            </ul>
+            <div class="callout">
+                <strong>Safety:</strong> Consent gate per-URL, 30s timeout, interactive patch approval, non-TTY fails closed.
+            </div>
+
+            <h4>Zeroboot: No Native Support, But Architecture-Compatible</h4>
+            <p>Zeroboot is our own Phase 2 concept. hermes-relay's architecture could serve as its transport layer using <code>desktop_*</code> tools, daemon mode for permanent connectivity, and its robust channel multiplexing and security models.</p>
+
+            <h3>Key API Reference (Source)</h3>
+            <pre><code>Architecture:
+  Phone (HTTP/SSE)  -> Hermes API Server (:8642)   [chat -- direct, no relay]
+  Phone (WSS)       -> Relay Server (:8767)         [terminal, bridge, media]
+  Desktop CLI (WSS) -> Relay Server (:8767)         [tui, terminal, desktop tools]
+
+Relay Server Config:
+  RELAY_HOST=0.0.0.0  RELAY_PORT=8767
+  RELAY_WEBAPI_URL=http://localhost:8642
+  RELAY_HERMES_CONFIG=~/.hermes/config.yaml
+
+Docker:
+  docker run -d --name hermes-relay --network host \
+    -v ~/.hermes:/home/relay/.hermes:ro \
+    ghcr.io/codename-11/hermes-relay:latest</code></pre>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

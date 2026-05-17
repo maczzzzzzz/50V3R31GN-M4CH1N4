@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node D RTX 5060 Ti: Architect's Decision Analysis — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Research &middot; Node D Decision Analysis</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>
+            Planning<span class="sep">/</span>
+            <a href="node-d-rtx5060ti-oculink-upgrade.html">Research</a><span class="sep">/</span>
+            Node D Decision Analysis
+        </nav>
+
+        <main>
+            <h2>Node D RTX 5060 Ti: Architect's Decision Analysis</h2>
+            <p>
+                <strong>Date:</strong> 2026-05-17<br>
+                <strong>Architect:</strong> GLM-5 (Lead Architect)<br>
+                <strong>Status:</strong> <span class="badge badge-pending">FINDINGS NOTED</span> -- pending user decision on purchase
+            </p>
+
+            <div class="callout">
+                <strong>KEY FINDING: The MoE Illusion.</strong> The current 35B MoE model only activates 3B parameters per token. For a "heavy reasoning" node, this is a misallocation. The 35B total is knowledge breadth, not reasoning depth.
+            </div>
+
+            <h3>The Move</h3>
+            <p>A 27B dense model has 27B active params per token -- <strong>9x more compute per token</strong> than 3B-active MoE. The MoE was chosen because CPU-only can't handle dense 27B at usable speed. With a GPU, that constraint evaporates.</p>
+
+            <table>
+                <thead>
+                    <tr><th>Metric</th><th>Current (CPU-only)</th><th>Proposed (RTX 5060 Ti 16GB + OCuLink)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Model</td><td>35B MoE, 3B active/token</td><td>Qwen3.6-27B dense, 27B active/token</td></tr>
+                    <tr><td>Quant</td><td>Q4_K_M (19.7 GB)</td><td>UD-Q3_K (~15 GB, fits VRAM)</td></tr>
+                    <tr><td>Gen speed</td><td>6.1 t/s</td><td>35-45 t/s base, 70-90 t/s with MTP</td></tr>
+                    <tr><td>Active reasoning</td><td>3B params</td><td>27B params (9x more)</td></tr>
+                    <tr><td>VRAM usage</td><td>N/A (CPU RAM)</td><td>~15 GB of 16 GB</td></tr>
+                </tbody>
+            </table>
+            <p>Net result: <strong>10-15x throughput</strong> AND <strong>9x more active reasoning compute</strong>.</p>
+
+            <h3>Hardware Specs</h3>
+            <ul>
+                <li><strong>RTX 5060 Ti 16GB:</strong> Blackwell GB206, 448 GB/s GDDR7, sm_100/sm_120, 180W TGP</li>
+                <li><strong>OCuLink:</strong> PCIe 4.0 x4, ~8 GB/s. Transparent to OS. Only matters for hybrid split inference.</li>
+            </ul>
+            <div class="callout">
+                <strong>Rule:</strong> Model must fit ENTIRELY in 16GB VRAM. Any CPU offload over OCuLink is fatal.
+            </div>
+
+            <h3>Model Fit Constraints</h3>
+            <ul>
+                <li><strong>35B MoE Q4_K_M (19.7 GB):</strong> DOES NOT FIT. Hybrid over OCuLink drops below 6.1 t/s.</li>
+                <li><strong>35B MoE UD-Q2_K (~14 GB):</strong> Fits but 2-bit degrades reasoning. Defeats purpose.</li>
+                <li><strong>Qwen3.6-27B UD-Q3_K (~15 GB):</strong> Best fit. MTP speculative decoding for speed boost.</li>
+                <li><strong>Qwen3.6-14B Q6_K (~12 GB):</strong> Comfortable fit. ~50-65 t/s. Room for KV cache.</li>
+            </ul>
+
+            <h3>Prerequisites (Confirmed)</h3>
+            <ul>
+                <li>Node D Meteor Lake platform: has native OCuLink port.</li>
+                <li>Requires separate PSU + OCuLink dock/enclosure.</li>
+            </ul>
+
+            <h3>Cost Estimate</h3>
+            <table>
+                <thead>
+                    <tr><th>Item</th><th>Estimated Cost (CAD)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>RTX 5060 Ti 16GB (ASUS Prime)</td><td>~$550</td></tr>
+                    <tr><td>OCuLink dock/enclosure</td><td>~$100-150</td></tr>
+                    <tr><td>PSU (400-500W)</td><td>~$80-120</td></tr>
+                    <tr><td><strong>Total</strong></td><td><strong>~$730-820 CAD</strong></td></tr>
+                </tbody>
+            </table>
+
+            <h3>Open Items</h3>
+            <ol>
+                <li>Exact Qwen3.6-27B UD-Q3_K file size and KV cache headroom</li>
+                <li>ik_llama.cpp MTP support status for Qwen3.6</li>
+                <li>NixOS NVIDIA driver for Blackwell (570.xx+)</li>
+                <li>CUDA 12.8+ availability in nixpkgs for ik_llama.cpp build</li>
+            </ol>
+
+            <h3>Resolution</h3>
+            <p>User is evaluating purchase. If approved, this becomes Phase 1 hardware deployment task.</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V0 Full Mesh Benchmark Report — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Benchmarks &middot; V0 Full Mesh Benchmark Report</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            Benchmarks<span class="sep">/</span>
+            Full Mesh
+        </nav>
+
+        <main>
+            <h2>V0 Full Mesh Benchmark Report</h2>
+            <p>
+                <strong>Date:</strong> 2026-05-12<br>
+                <strong>Branch:</strong> stable/mesh-alpha v0.1.0-alpha<br>
+                <strong>Status:</strong> Phase 0 -- Baseline Hardware Characterization
+            </p>
+
+            <h3>Mesh Topology</h3>
+            <table>
+                <thead>
+                    <tr><th>Node</th><th>Role</th><th>CPU</th><th>RAM</th><th>GPU</th><th>Tailscale IP</th><th>SSH</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>B</td><td>Director</td><td>Ryzen 9 5900XT 16C/32T</td><td>48GB DDR4</td><td>RX 9060 XT 16GB (Vulkan)</td><td>localhost (WSL2)</td><td>local</td></tr>
+                    <tr><td>C</td><td>Oracle</td><td>Ryzen 7 3700X 8C/16T</td><td>32GB DDR4</td><td>RTX 2060 6GB (NO DRIVER)</td><td><code>100.102.109.81</code></td><td>YES</td></tr>
+                    <tr><td>D</td><td>Quaternary</td><td>Ultra 5 125U 12C/14T</td><td>48GB DDR5</td><td>Intel iGPU (not used)</td><td><code>100.120.225.12</code></td><td>YES</td></tr>
+                    <tr><td>A</td><td>Synapse</td><td>i7 (8th gen) 4C/8T</td><td>16GB DDR4</td><td>GTX 1050 Ti 4GB</td><td><code>100.96.253.114</code></td><td>YES</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Inference Infrastructure Status</h3>
+            <table>
+                <thead>
+                    <tr><th>Node</th><th>Backend</th><th>Build</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>B</td><td>llama.cpp 8710 Vulkan</td><td>Windows D:\llama.cpp\</td><td><span class="badge badge-active">OPERATIONAL</span></td></tr>
+                    <tr><td>C</td><td>NONE</td><td>No NVIDIA driver configured</td><td><span class="badge badge-blocked">BLOCKED</span> -- needs NixOS rebuild</td></tr>
+                    <tr><td>D</td><td>llama.cpp git (1ec7ba0) CPU+OpenBLAS</td><td>NixOS /home/nixos/llama.cpp/</td><td><span class="badge badge-active">OPERATIONAL</span> (models downloading)</td></tr>
+                    <tr><td>A</td><td>NONE</td><td>No inference planned</td><td>Cache spillover only</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Benchmark Results</h3>
+
+            <h4>Node B (Director) -- AMD RX 9060 XT 16GB, Vulkan</h4>
+            <table>
+                <thead>
+                    <tr><th>Model</th><th>Size</th><th>PP 512 (t/s)</th><th>PP 2048 (t/s)</th><th>TG 128 (t/s)</th><th>TG 512 (t/s)</th><th>KV Cache</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Qwen3-14B Q6_K</td><td>11.28 GiB</td><td>693</td><td>671</td><td>26.1</td><td>26.2</td><td>f16</td></tr>
+                    <tr><td>Qwen3-14B Q6_K</td><td>11.28 GiB</td><td>226</td><td>80</td><td>15.9</td><td>15.7</td><td>q4_0 (BAD)</td></tr>
+                    <tr><td>Carnice-9B Q8_0</td><td>8.86 GiB</td><td>1,175</td><td>1,467</td><td>33.5</td><td>--</td><td>f16</td></tr>
+                    <tr><td>Qwen3.5-0.8B Q8_K_XL</td><td>1.09 GiB</td><td>12,035</td><td>12,320</td><td>170</td><td>179</td><td>f16</td></tr>
+                    <tr><td>Qwen3-VL-2B Q6_K</td><td>1.31 GiB</td><td>6,375</td><td>6,071</td><td>176</td><td>174</td><td>f16</td></tr>
+                    <tr><td>Qwen3.6-35B MoE Q4_K_M</td><td>20.60 GiB</td><td>100</td><td>--</td><td>16.0</td><td>--</td><td>f16 (GPU+CPU hybrid)</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Node D (Quaternary) -- CPU-only Simulation (14 threads, 5900XT)</h4>
+            <table>
+                <thead>
+                    <tr><th>Model</th><th>Size</th><th>PP 512 (t/s)</th><th>PP 1024 (t/s)</th><th>TG 128 (t/s)</th><th>TG 256 (t/s)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Qwen3.6-35B MoE Q4_K_M</td><td>20.60 GiB</td><td>158</td><td>169</td><td>9.1</td><td>9.1</td></tr>
+                </tbody>
+            </table>
+            <div class="callout">
+                <strong>Note:</strong> Simulated on Node B's 5900XT CPU. Node D's Ultra 5 125U is slower (mobile chip, lower sustained clocks). Expect 6-8 tok/s on actual Node D hardware.
+            </div>
+
+            <h4>Node C (Oracle) -- NOT BENCHMARKED</h4>
+            <p>RTX 2060 physically present but NixOS has no NVIDIA driver. Requires configuration.nix update and rebuild. Potential performance: RTX 2060 6GB should achieve ~20-30 tok/s with small models (4B-6B range).</p>
+
+            <h3>Critical Findings</h3>
+            <ol>
+                <li><strong>TurboQuant (q4_0 KV) is DEAD on Vulkan:</strong> On the RX 9060 XT, q4_0 KV cache drops generation from 26 tok/s to 16 tok/s (-39%) and prompt processing from 693 to 226 tok/s (-67%). The Vulkan backend lacks optimized dequant kernels for q4_0 KV. Use f16 KV cache on all GPU nodes. Save TurboQuant for CPU-only inference (Node D) where AVX2 handles it natively.</li>
+                <li><strong>MoE Architecture is the Multiplier:</strong> Qwen3.6-35B-A3B is 34.66B total params but only 3.6B active per token. At Q4_K_M it runs at 9 tok/s on CPU. A dense 35B model would get 2-3 tok/s. MoE is the only way to run large models on CPU at usable speeds.</li>
+                <li><strong>Carnice-9B Outperforms Qwen3-14B for Agentic Tasks:</strong> Carnice-9B Q8_0 at 33.5 tok/s is 29% faster than Qwen3-14B at 26 tok/s. It is specifically fine-tuned on Hermes agent traces (SFT on Qwen3.5-9B with Carnice+DJLougen+Lambda datasets). For agent tool-calling workflows, Carnice may produce better results despite being a smaller model.</li>
+                <li><strong>Carnice-V2-27B: The Dark Horse:</strong> Carnice-V2-27B is a Qwen3.6-27B fine-tune for Hermes agentic traces. IFEval improved from 85% to 90% over base. At Q4_K_M it is 15.41 GiB -- too large for Node B GPU but perfect for Node D CPU (48GB RAM). Expected ~4-6 tok/s on CPU (dense model, no MoE). Worth testing as a high-quality reasoning endpoint.</li>
+                <li><strong>Node C is a Paperweight Without a Driver:</strong> RTX 2060 with no NVIDIA driver = wasted silicon. This is the highest-priority infrastructure fix. An RTX 2060 with 6GB VRAM can run Qwen3-4B or Gemma 4 E4B at 20+ tok/s with CUDA, which is significantly better than anything Node D can do on CPU.</li>
+            </ol>
+
+            <h3>Model Assignment Plan (Proposed)</h3>
+            <table>
+                <thead>
+                    <tr><th>Node</th><th>Primary Model</th><th>Role</th><th>Expected Speed</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>B</td><td>Carnice-9B Q6_K (or Q8_0)</td><td>Fast agentic responder</td><td>33-35 tok/s</td></tr>
+                    <tr><td>B</td><td>Qwen3-14B Q6_K</td><td>General reasoning</td><td>26 tok/s</td></tr>
+                    <tr><td>B</td><td>Qwen3-VL-2B Q6_K</td><td>Vision triage</td><td>175 tok/s</td></tr>
+                    <tr><td>B</td><td>Qwen3.5-0.8B Q8_K</td><td>Ultra-fast responder</td><td>175 tok/s</td></tr>
+                    <tr><td>C</td><td>Qwen3-4B Q4_K_M or Gemma 4 E4B</td><td>Secondary inference (NEEDS DRIVER)</td><td>~25 tok/s est.</td></tr>
+                    <tr><td>D</td><td>Qwen3.6-35B-A3B MoE Q4_K_M</td><td>Heavy reasoning</td><td>6-8 tok/s est.</td></tr>
+                    <tr><td>D</td><td>Carnice-V2-27B Q4_K_M</td><td>Hermes-specific reasoning</td><td>4-6 tok/s est.</td></tr>
+                    <tr><td>A</td><td>(none)</td><td>KV-cache spillover only</td><td>N/A</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Action Items</h3>
+            <ul>
+                <li><strong>CRITICAL:</strong> Install NVIDIA driver on Node C (NixOS rebuild)</li>
+                <li><strong>IN PROGRESS:</strong> Download Qwen3.6-35B-A3B and Carnice-V2-27B to Node D (~20 min remaining)</li>
+                <li><strong>NEXT:</strong> Benchmark both models on Node D actual hardware</li>
+                <li><strong>NEXT:</strong> Download Carnice-9B Q6_K to Node B (upgrade from Q8_0 for more KV headroom)</li>
+                <li><strong>DEFERRED:</strong> Set up LiteLLM mesh router once all nodes have endpoints</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

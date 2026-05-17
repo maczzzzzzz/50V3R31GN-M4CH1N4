@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastructure Drift Audit Report — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Audits &middot; Infrastructure Drift Audit</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>
+            <a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span>
+            <a href="phase1-completion-audit.html">Audits</a><span class="sep">/</span>
+            Drift Audit (2026-05-17)
+        </nav>
+
+        <main>
+            <h2>Infrastructure Drift Audit Report (May 17, 2026)</h2>
+
+            <div class="callout">
+                <strong>Executive Summary:</strong> Audit of the Sovereign Machina Alpha Mesh documentation reveals significant drift across architecture, node, and service definitions. The most critical issues are the continued reference to the euthanized <code>directors-forge</code> service and conflicting reports on Node D's inference backend due to GCC 15 incompatibilities.
+            </div>
+
+            <h3>1. Euthanized Services Drift</h3>
+            <h4>Component: <code>directors-forge</code></h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> EUTHANIZED on May 17. Removed from active service. Coordination replaced by Kanban MCP.</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>LEAD_ARCHITECT.md</code>: Still listed as a subordinate/security target.</li>
+                        <li><code>docs/reference/toolbelt.html</code>: Still listed as an active tool.</li>
+                        <li><code>docs/reference/repository-map.html</code>: Listed as "Phase 3 Pending" in the crates table.</li>
+                        <li><code>.factory/skills/qa-crates/SKILL.md</code>: Listed as a testing target.</li>
+                        <li><code>docs/crates/directors-forge.html</code>: Stale documentation exists without "EUTHANIZED" warning.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>2. Node D (Quaternary) Drift</h3>
+            <h4>Backend: <code>ik_llama.cpp</code> vs <code>llama.cpp</code></h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> <code>ik_llama.cpp</code> fails to compile on Node D (GCC 15). Stock <code>llama.cpp</code> v8983 is used for AVX2 CPU inference.</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>README.md</code>: Claims <code>ik_llama.cpp</code> is used across B, C, D.</li>
+                        <li><code>docs/nodes/node-d.html</code>: Lists <code>ik_llama.cpp</code> as the inference backend.</li>
+                        <li><code>docs/reference/toolbelt.html</code>: Lists Node D as using <code>ik_llama.cpp</code>.</li>
+                        <li><code>SOVEREIGN_VITAL_SIGNS.md</code>: Lists <code>ik_llama.cpp</code> for Node D.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Model: Carnice MoE 35B</h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> MTP (Multi-Token Prediction) heads were stripped during GGUF conversion. Speculative decoding research is ongoing but not active.</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>docs/planning/plans/2026-05-16_phase2-cognitive-hierarchy.md</code>: Discusses speculative decoding in a way that implies it might be active or pending immediate use.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>3. Node B (Director) & Node C (Oracle) Drift</h3>
+            <h4>Node B Benchmarks & Model</h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> Hermes-4-14B (33.7 t/s gen).</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>docs/architecture/model-strategy.html</code>: Lists "Qwen 3 14B" at 26 t/s. This is outdated.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Node C Deployment Status</h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> Deployed and benchmarked (205.2/49.9 t/s).</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>docs/architecture/model-strategy.html</code>: Lists <code>mesh-tools</code> (Node C) as "planned" and "not yet benchmarked".</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>4. Network & Architecture Drift</h3>
+            <h4>LiteLLM Route Names</h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> Routes are <code>mesh-fast</code>, <code>mesh-vision</code>, <code>mesh-heavy</code>, <code>mesh-function-calling</code>.</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>docs/architecture/model-strategy.html</code>: Lists <code>mesh-reason</code> (instead of <code>mesh-heavy</code>) and <code>mesh-tools</code> (instead of <code>mesh-function-calling</code>).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>NixOS Versions</h4>
+            <ul>
+                <li><strong>Physical Reality:</strong> Node C is on NixOS 25.11 (Xantusia). Node B is on 25.11 (WSL2).</li>
+                <li><strong>Drift Locations:</strong>
+                    <ul>
+                        <li><code>docs/architecture/topology.html</code>: Lists 24.11 for Node C and Node D.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>5. Summary of Actions Required</h3>
+            <table>
+                <thead>
+                    <tr><th>Action</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Decommission <code>directors-forge</code> from active documentation.</td><td><span class="badge badge-active">DONE</span></td></tr>
+                    <tr><td>Synchronize Node D Backend to "Stock llama.cpp" in all files.</td><td><span class="badge badge-active">DONE</span></td></tr>
+                    <tr><td>Update Benchmarks to match <code>AGENTS.md</code> reality.</td><td><span class="badge badge-active">DONE</span></td></tr>
+                    <tr><td>Standardize Route Names (mesh-heavy, mesh-function-calling).</td><td><span class="badge badge-active">DONE</span></td></tr>
+                    <tr><td>Document <code>hermes-relay</code> as a core service.</td><td><span class="badge badge-active">DONE</span></td></tr>
+                    <tr><td>Fix Node C status from "blocked" to operational.</td><td><span class="badge badge-active">DONE</span></td></tr>
+                    <tr><td>Fix Node D Tailscale IP and NixOS versions.</td><td><span class="badge badge-active">DONE</span></td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout">
+                <strong>Audit Status:</strong> <span class="badge badge-active">CLOSED</span>. All active (non-archive) HTML docs remediated on 2026-05-17.
+            </div>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

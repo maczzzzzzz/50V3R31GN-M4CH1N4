@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 2: Cognitive Hierarchy — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Docs &middot; Planning &middot; Plans &middot; Phase 2 Cognitive Hierarchy</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span><a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span><a href="phase1-kinetic-agency.html">Plans</a><span class="sep">/</span>Phase 2 Cognitive Hierarchy
+        </nav>
+
+        <main>
+<h2>Phase 2: Cognitive Hierarchy -- Implementation Plan</h2>
+<blockquote><p><strong>For Hermes:</strong> Use subagent-driven-development skill to implement this plan task-by-task.</p></blockquote>
+<p><strong>Goal:</strong> Expand Node D's inference capacity with a second CPU model, validate cross-node KV-cache spillover to Node A, and prepare the CUDA build pipeline for a future GPU drop-in (RTX 5060 Ti 16GB via OCuLink -- date TBD).</p>
+<p><strong>Architecture:</strong> Node D currently runs Carnice MoE 35B on CPU (48GB DDR5, 8.8/6.1 t/s). We add a 7B-class interactive model on the same CPU, registering a mesh-interactive route. Node A (16GB RAM, Tailscale) becomes a KV-cache offload target. GPU installation is deferred but the ik_llama.cpp CUDA binary is pre-built and ready.</p>
+<p><strong>Tech Stack:</strong> ik_llama.cpp (AVX2 + CUDA pre-build), Tailscale mesh networking, LiteLLM Docker router, TurboQuant q4_0</p>
+<hr>
+<h3>Workstream A: Speculative Decoding for 35B MoE (P2-T2) -- EXECUTES NOW</h3>
+<p><strong>The 7B model's primary role is draft model for the 35B MoE</strong>, not a standalone</p>
+<p>route. The 35B generates at 6.1 t/s on CPU. If a 7B draft model can achieve</p>
+<p>high acceptance rates (~60-80%), speculative decoding could push effective</p>
+<p>generation speed to 10-15 t/s without any hardware changes.</p>
+<p>ik_llama.cpp supports three speculative modes (confirmed in source):</p>
+<ol>
+<li><strong>Draft model</strong> (<code>-md draft.gguf</code>): External small model predicts tokens,</li>
+</ol>
+<p>target model verifies in batch. Classic speculative decoding.</p>
+<ol>
+<li><strong>Self-speculative ngram</strong>: Uses target model's own ngram statistics.</li>
+</ol>
+<p>Zero extra RAM, zero bandwidth cost. Lower acceptance rate but free.</p>
+<ol>
+<li><strong>Self-speculative suffix</strong>: Context-aware suffix matching. Also zero cost.</li>
+</ol>
+<p><strong>Strategy:</strong> Try self-speculative first (free, no download). If acceptance rate</p>
+<p>is poor, add 7B draft model. If acceptance rate is good enough, we're done</p>
+<p>without needing a second model at all.</p>
+<h4>A1: Benchmark 35B MoE baseline (no speculation)</h4>
+<p><strong>Objective:</strong> Establish clean baseline before speculative experiments.</p>
+<p><strong>Files:</strong> None (benchmark only)</p>
+<p><strong>Step 1: Check if 35B MoE llama-server is running on Node D</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "ps aux | grep llama-server | grep -v grep"
+</code></pre>
+<p>If not running, start it:</p>
+<pre><code>
+ssh maczz@100.120.225.12 "nohup ~/ik_llama.cpp/build/bin/llama-server \
+  -m /path/to/carnice-moe-35b.gguf \
+  --host 0.0.0.0 --port 8081 \
+  -ngl 0 --cache-type-k q4_0 -t 8 \
+  &gt; ~/llama-server-35b.log 2&gt;&amp;1 &amp;"
+</code></pre>
+<p><strong>Step 2: Run baseline benchmark</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 'curl -s http://localhost:8081/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"unused\",\"messages\":[{\"role\":\"user\",\"content\":\"Write a detailed analysis of speculative decoding in LLMs.\"}],\"max_tokens\":200}" \
+  | python3 -c "import json,sys; r=json.load(sys.stdin); u=r[\"usage\"]; print(f\"prompt_eval_count={u[\"prompt_eval_count\"]} eval_count={u[\"completion_tokens_details\"][\"accepted_prediction_tokens\"] if \"accepted_prediction_tokens\" in u.get(\"completion_tokens_details\",{}) else u.get(\"completion_tokens\",0)}\")"'
+</code></pre>
+<p>Record: prompt tokens, gen tokens, wall clock time, tokens/second.</p>
+<p><strong>Verification:</strong> Baseline generation speed recorded (expect ~6.1 t/s).</p>
+<hr>
+<h4>A2: Test self-speculative decoding (ngram mode)</h4>
+<p><strong>Objective:</strong> Try zero-cost speculative decoding first. If acceptance rate is</p>
+<p>decent, we skip the 7B draft model entirely.</p>
+<p><strong>Files:</strong> None (restart llama-server with different flags)</p>
+<p><strong>Step 1: Stop current 35B server and restart with ngram speculation</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "kill &lt;pid&gt; &amp;&amp; sleep 2"
+ssh maczz@100.120.225.12 "nohup ~/ik_llama.cpp/build/bin/llama-server \
+  -m /path/to/carnice-moe-35b.gguf \
+  --host 0.0.0.0 --port 8081 \
+  -ngl 0 --cache-type-k q4_0 -t 8 \
+  --spec-stage ngram --draft 5 \
+  &gt; ~/llama-server-35b-ngram.log 2&gt;&amp;1 &amp;"
+</code></pre>
+<p>Note: <code>--spec-stage ngram</code> enables ngram self-speculation. <code>--draft 5</code> means</p>
+<p>draft up to 5 tokens per step. Adjust if CLI flags differ (check <code>--help</code>).</p>
+<p><strong>Step 2: Benchmark with same prompt as A1</strong></p>
+<p>Run the exact same benchmark command as A1 Step 2.</p>
+<p><strong>Step 3: Check speculative stats in server log</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "tail -30 ~/llama-server-35b-ngram.log | grep -i 'spec\|draft\|accept'"
+</code></pre>
+<p>Look for acceptance rate. Target: >50% accepted means meaningful speedup.</p>
+<p><strong>Decision gate:</strong></p>
+<ul>
+<li>Acceptance rate >60%: SELF-SPEC IS SUFFICIENT. Skip A3-A4. Jump to A5.</li>
+<li>Acceptance rate 30-60%: TRY 7B DRAFT MODEL. Proceed to A3.</li>
+<li>Acceptance rate <30%: Speculative decoding not viable on this workload.</li>
+</ul>
+<p>Report findings and skip to A5 (mark P2-T2 as "attempted, minimal gain").</p>
+<p><strong>Verification:</strong> Acceptance rate and effective t/s recorded.</p>
+<hr>
+<h4>A3: Download 7B-class draft model (conditional on A2)</h4>
+<p><strong>Objective:</strong> Get a small model for external draft speculation. Only executes</p>
+<p>if self-speculative acceptance rate was below 60%.</p>
+<p><strong>Files:</strong> None on this repo (model download on Node D)</p>
+<p><strong>Step 1: Select draft model</strong></p>
+<p>Draft model requirements:</p>
+<ul>
+<li>Same tokenizer as target (Carnice MoE 35B uses Qwen tokenizer)</li>
+<li>Small enough to not tank memory bandwidth (~4-5GB at Q4_K_M)</li>
+<li>Fast enough to generate draft tokens quickly</li>
+</ul>
+<p>Best candidates:</p>
+<ul>
+<li><strong>Qwen3-4B Q4_K_M</strong>: Same tokenizer family, very fast, small footprint</li>
+<li><strong>Qwen3-8B Q4_K_M</strong>: Better prediction quality, but larger</li>
+<li><strong>Qwen3.6-MoE-35B companion</strong>: If a mini variant exists</li>
+</ul>
+<p><strong>Recommendation:</strong> Qwen3-4B or Qwen3-8B (smallest that shares Qwen tokenizer).</p>
+<p><strong>Step 2: Download on Node D</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "mkdir -p ~/models &amp;&amp; cd ~/models &amp;&amp; wget &lt;model_url&gt;"
+</code></pre>
+<p><strong>Step 3: Verify file</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "ls -lh ~/models/&lt;draft-model&gt;.gguf"
+</code></pre>
+<p><strong>Verification:</strong> Draft model file exists on Node D.</p>
+<hr>
+<h4>A4: Deploy draft-model speculative decoding (conditional on A3)</h4>
+<p><strong>Objective:</strong> Run 35B MoE with 7B draft model for speculative decoding.</p>
+<p><strong>Files:</strong> None (restart llama-server on Node D)</p>
+<p><strong>Step 1: Restart 35B server with draft model</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "kill &lt;pid&gt; &amp;&amp; sleep 2"
+ssh maczz@100.120.225.12 "nohup ~/ik_llama.cpp/build/bin/llama-server \
+  -m /path/to/carnice-moe-35b.gguf \
+  -md /home/maczz/models/&lt;draft-model&gt;.gguf \
+  --host 0.0.0.0 --port 8081 \
+  -ngl 0 --cache-type-k q4_0 -t 6 \
+  --draft 5 \
+  &gt; ~/llama-server-35b-draft.log 2&gt;&amp;1 &amp;"
+</code></pre>
+<p>Key flags:</p>
+<ul>
+<li><code>-md</code>: Draft model path (ik_llama.cpp confirmed supports this)</li>
+<li><code>--draft 5</code>: Draft up to 5 tokens per step</li>
+<li><code>-t 6</code>: Slightly fewer threads for target, draft model gets its own threads</li>
+</ul>
+<p>automatically</p>
+<p><strong>Step 2: Check memory usage</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "free -h"
+</code></pre>
+<p>Verify no OOM. Expected usage:</p>
+<ul>
+<li>35B MoE: ~20GB</li>
+<li>Draft model: ~4-5GB</li>
+<li>KV cache + OS: ~8-10GB</li>
+<li>Total: ~32-35GB (well within 48GB)</li>
+</ul>
+<p><strong>Step 3: Benchmark with same prompt</strong></p>
+<p>Run the exact same benchmark as A1 Step 2.</p>
+<p><strong>Step 4: Compare results</strong></p>
+<table><thead><tr><th>Metric</th><th>Baseline (A1)</th><th>Self-spec (A2)</th><th>Draft-spec (A4)</th></tr></thead><tbody>
+<tr><td>Gen t/s</td><td>6.1</td><td>XX</td><td>XX</td></tr>
+<tr><td>Acceptance rate</td><td>N/A</td><td>XX%</td><td>XX%</td></tr>
+<tr><td>Effective t/s</td><td>6.1</td><td>XX</td><td>XX</td></tr>
+</tbody></table>
+<p>The winner is whichever gives the best effective t/s.</p>
+<p><strong>Verification:</strong> Draft-spec benchmark recorded. Clear comparison table.</p>
+<hr>
+<h4>A5: Update documentation for speculative decoding results</h4>
+<p><strong>Objective:</strong> Record what worked, what didn't, and the final configuration.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>IMPLEMENTATION_PLAN.md</code></li>
+<li>Modify: <code>AGENTS.md</code> (Node D -- note speculative mode if active)</li>
+<li>Modify: <code>CHANGELOG.md</code></li>
+</ul>
+<p><strong>Step 1: Update IMPLEMENTATION_PLAN.md</strong></p>
+<p>Mark P2-T2 with actual result. Examples:</p>
+<p>If self-spec worked:</p>
+<pre><code>
+- [x] **P2-T2: Speculative Decoding.** Self-speculative ngram mode enabled on Node D 35B MoE. Acceptance rate XX%. Effective speed: XX t/s (up from 6.1 t/s baseline). No draft model needed.
+</code></pre>
+<p>If draft model worked:</p>
+<pre><code>
+- [x] **P2-T2: Speculative Decoding.** Qwen3-XB draft model deployed. Acceptance rate XX%. Effective speed: XX t/s (up from 6.1 t/s baseline). Both models on CPU.
+</code></pre>
+<p>If nothing worked:</p>
+<pre><code>
+- [~] **P2-T2: Speculative Decoding.** Tested ngram self-spec (acceptance XX%) and Qwen3-XB draft (acceptance XX%). Neither achieved &gt;30% acceptance. DDR5 bandwidth saturation is the bottleneck. 35B MoE stays at 6.1 t/s. GPU upgrade is the real fix.
+</code></pre>
+<p><strong>Step 2: Update AGENTS.md</strong></p>
+<p>If speculative decoding is active, add the mode to Node D's config.</p>
+<p><strong>Step 3: Add CHANGELOG entry</strong></p>
+<p><strong>Verification:</strong> Docs match whatever the actual outcome was. No fake numbers.</p>
+<hr>
+<h3>Workstream B: Context Spillover (P2-T3) -- EXECUTES NOW</h3>
+<h4>B1: Research ik_llama.cpp RPC offload support</h4>
+<p><strong>Objective:</strong> Determine if ik_llama.cpp or upstream llama.cpp supports network KV-cache offload (RPC mode).</p>
+<p><strong>Files:</strong> None (research only)</p>
+<p><strong>Step 1: Check ik_llama.cpp for RPC support</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "ls ~/ik_llama.cpp/build/bin/ | grep -i rpc"
+ssh maczz@100.120.225.12 "~/ik_llama.cpp/build/bin/llama-server --help 2&gt;&amp;1 | grep -i rpc"
+</code></pre>
+<p><strong>Step 2: Check upstream llama.cpp for RPC support</strong></p>
+<pre><code>
+ssh maczz@100.120.225.12 "ls ~/llama.cpp/build/bin/ 2&gt;/dev/null | grep -i rpc"
+ssh maczz@100.120.225.12 "grep -r 'rpc' ~/llama.cpp/common/ 2&gt;/dev/null | head -10"
+</code></pre>
+<p><strong>Step 3: Evaluate alternatives if RPC is not available</strong></p>
+<p>Alternatives to network KV offload:</p>
+<ol>
+<li><strong>Quantized KV to reduce memory pressure</strong> (already doing q4_0 -- could go to q2 or q8_0)</li>
+<li><strong>Sliding window attention</strong> (trades context length for memory)</li>
+<li><strong>llama.cpp <code>--rpc</code> flag</strong> (upstream may have it even if ik fork doesn't)</li>
+<li><strong>Custom TCP KV relay</strong> (build our own -- deferred to Phase 3+)</li>
+</ol>
+<p><strong>Decision gate:</strong></p>
+<ul>
+<li>If RPC supported: proceed to B2</li>
+<li>If not supported: document finding, mark P2-T3 as DEFERRED with clear rationale</li>
+</ul>
+<p><strong>Verification:</strong> Clear go/no-go decision documented.</p>
+<hr>
+<h4>B2: Configure Node A as KV-cache offload target</h4>
+<p><strong>Objective:</strong> If RPC is supported, set up Node A (Synapse, 16GB RAM) as a KV offload endpoint.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Create: startup script on Node A</li>
+<li>Modify: Node D llama-server launch flags (add --rpc)</li>
+</ul>
+<p><strong>Pre-requisites:</strong></p>
+<ul>
+<li>Node A accessible via Tailscale (100.96.253.114) -- VERIFIED</li>
+<li>RPC binary deployed on Node A</li>
+<li>SSH to Node A working -- VERIFIED</li>
+</ul>
+<p><strong>Step 1: Deploy RPC server on Node A</strong></p>
+<p>Exact command depends on B1 research results. Template:</p>
+<pre><code>
+ssh maczz@100.96.253.114 "nohup /path/to/rpc-server-binary \
+  --host 0.0.0.0 --port 50052 \
+  --mem 12GB \
+  &gt; ~/rpc-server.log 2&gt;&amp;1 &amp;"
+</code></pre>
+<p>Note: Leave 4GB for OS on Node A. Only allocate 12GB to KV cache.</p>
+<p><strong>Step 2: Add RPC flag to Node D 35B model launch</strong></p>
+<p>Modify the llama-server startup for the 35B MoE to include:</p>
+<pre><code>
+--rpc 100.96.253.114:50052
+</code></pre>
+<p>This requires restarting the 35B llama-server on Node D.</p>
+<p><strong>Step 3: Benchmark context extension</strong></p>
+<p>Test with progressively longer contexts:</p>
+<ul>
+<li>1K tokens (baseline)</li>
+<li>4K tokens</li>
+<li>8K tokens</li>
+<li>16K tokens (if supported)</li>
+</ul>
+<p>Record throughput at each level. Compare with/without RPC.</p>
+<p><strong>Verification:</strong> Node D handles context lengths beyond its local RAM limit by spilling KV to Node A.</p>
+<hr>
+<h4>B3: Document spillover results or deferral</h4>
+<p><strong>Objective:</strong> Record spillover status accurately.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>IMPLEMENTATION_PLAN.md</code></li>
+<li>Modify: <code>AGENTS.md</code> (update Node A role if spillover works)</li>
+<li>Modify: <code>CHANGELOG.md</code></li>
+</ul>
+<p>If spillover works:</p>
+<pre><code>
+- [x] **P2-T3: Context Spillover.** Node A configured as KV-cache offload via RPC over Tailscale. Node D 35B context extended from X to Y tokens. Throughput at max context: XX t/s.
+</code></pre>
+<p>If deferred:</p>
+<pre><code>
+- [~] **P2-T3: Context Spillover.** DEFERRED. ik_llama.cpp does not support RPC offload. Requires upstream llama.cpp migration or custom relay. Moved to Phase 3 backlog. Node A role unchanged (state persistence only).
+</code></pre>
+<p><strong>Verification:</strong> Docs match reality.</p>
+<hr>
+<h3>Workstream C: GPU Pre-Build (P2-T1 preparation) -- DEFERRED, EXECUTES ON HARDWARE ARRIVAL</h3>
+<p>This workstream is blocked on hardware. All steps are documented here so execution</p>
+<p>is immediate when the RTX 5060 Ti arrives.</p>
+<h4>C1: Verify GPU hardware and driver on Node D [BLOCKED ON HARDWARE]</h4>
+<p><strong>Prerequisites:</strong> RTX 5060 Ti 16GB physically installed via OCuLink dock. NVIDIA driver loaded.</p>
+<pre><code>
+ssh maczz@100.120.225.12 "nvidia-smi"
+</code></pre>
+<p>Expected: RTX 5060 Ti, 16GB VRAM, driver version, CUDA compute capability.</p>
+<h4>C2: Build ik_llama.cpp with CUDA on Node D [BLOCKED ON C1]</h4>
+<pre><code>
+ssh maczz@100.120.225.12 "cd ~/ik_llama.cpp &amp;&amp; mkdir -p build-cuda &amp;&amp; cd build-cuda &amp;&amp; cmake .. -DGGML_CUDA=ON -DCMAKE_BUILD_TYPE=Release &amp;&amp; cmake --build . --config Release -j$(nproc)"
+</code></pre>
+<p>Note: RTX 5060 Ti (Blackwell arch) compute capability is likely sm_120. If auto-detect</p>
+<p>fails, add <code>-DGGML_CUDA_ARCH=120</code>.</p>
+<h4>C3: Migrate 35B MoE from CPU to GPU [BLOCKED ON C2]</h4>
+<pre><code>
+ssh maczz@100.120.225.12 "kill &lt;pid-of-35b-cpu-server&gt;"
+ssh maczz@100.120.225.12 "nohup ~/ik_llama.cpp/build-cuda/bin/llama-server \
+  -m /path/to/carnice-moe-35b.gguf \
+  --host 0.0.0.0 --port 8081 \
+  -ngl 99 --cache-type-k q4_0 -t 4 \
+  &gt; ~/llama-server-gpu.log 2&gt;&amp;1 &amp;"
+</code></pre>
+<p>Target: 3x+ uplift over CPU baseline (8.8/6.1 t/s).</p>
+<h4>C4: Update all documentation [BLOCKED ON C3]</h4>
+<p>Standard doc update pattern: IMPLEMENTATION_PLAN.md, AGENTS.md, CHANGELOG.md.</p>
+<hr>
+<h3>Cross-Stream Dependencies</h3>
+<pre><code>
+A1 (RAM check) -&gt; A2 (download 7B) -&gt; A3 (deploy) -&gt; A4 (docs)
+                                          |
+B1 (research RPC) -&gt; B2 (configure) -&gt; B3 (docs)
+       |
+       v
+  B1 is independent of A (can run in parallel)
+
+C1 (hardware) -&gt; C2 (CUDA build) -&gt; C3 (migrate) -&gt; C4 (docs)
+  ^
+  BLOCKED until user installs RTX 5060 Ti
+</code></pre>
+<ul>
+<li>A and B are independent of each other</li>
+<li>C is fully blocked on hardware arrival</li>
+<li>When C unblocks, it replaces the CPU 35B deployment but does NOT affect the 7B model</li>
+</ul>
+<hr>
+<h3>Hardware Constraints (Do Not Violate)</h3>
+<table><thead><tr><th>Node</th><th>RAM</th><th>VRAM</th><th>Constraint</th></tr></thead><tbody>
+<tr><td>Node D</td><td>48GB DDR5</td><td>NONE (yet)</td><td>35B MoE Q4_K_M (~20GB) + 7B Q4_K_M (~5GB) + OS (~4GB) = ~29GB used. ~19GB headroom for KV cache.</td></tr>
+<tr><td>Node A</td><td>16GB RAM</td><td>4GB (GTX 1050 Ti, unused)</td><td>KV-cache offload ONLY. NO model inference. ~12GB allocatable for KV cache at q4_0.</td></tr>
+<tr><td>Node B</td><td>48GB DDR4</td><td>16GB RX 9060 XT</td><td>Already ~10.4GB VRAM used. Do NOT add models.</td></tr>
+<tr><td>Node C</td><td>32GB DDR4</td><td>6GB RTX 2060</td><td>Already running Carnice 9B FC. Do NOT add models.</td></tr>
+</tbody></table>
+<p><strong>Post-GPU-upgrade constraints (for when C workstream unblocks):</strong></p>
+<table><thead><tr><th>Node</th><th>RAM</th><th>VRAM</th><th>Constraint</th></tr></thead><tbody>
+<tr><td>Node D</td><td>48GB DDR5</td><td>16GB (RTX 5060 Ti)</td><td>35B MoE Q4_K_M (~9GB on GPU). 7B stays on CPU. ~7GB VRAM headroom for KV cache.</td></tr>
+</tbody></table>
+<hr>
+<h3>Model Strategy (Updated)</h3>
+<table><thead><tr><th>Route</th><th>Model</th><th>Node</th><th>Backend</th><th>Benchmark</th><th>Use Case</th></tr></thead><tbody>
+<tr><td>mesh-fast</td><td>Hermes-4-14B Q4_K_M</td><td>B (Vulkan)</td><td>GPU</td><td>93.2/33.7 t/s</td><td>Code gen, fast chat</td></tr>
+<tr><td>mesh-vision</td><td>Qwen3-VL-2B Q6_K</td><td>B (Vulkan)</td><td>GPU</td><td>550/50.7 t/s + image</td><td>Visual QA, triage</td></tr>
+<tr><td>mesh-function-calling</td><td>Carnice-9B-FC Q4_K_M</td><td>C (CUDA)</td><td>GPU</td><td>205.2/49.9 t/s</td><td>Tool use, FC</td></tr>
+<tr><td>mesh-heavy</td><td>Carnice MoE 35B Q4_K_M</td><td>D (CPU)</td><td>AVX2</td><td>8.8/6.1 t/s</td><td>Complex reasoning</td></tr>
+<tr><td>mesh-interactive</td><td><7B model> Q4_K_M</td><td>D (CPU)</td><td>AVX2</td><td>TBD t/s</td><td>Interactive chat, quick QA</td></tr>
+</tbody></table>
+<p><strong>After GPU upgrade (future):</strong> mesh-heavy moves to D (CUDA). Speed triples+.</p>
+<hr>
+<h3>Phase 2 Completion Criteria</h3>
+<p>Phase 2 is COMPLETE when:</p>
+<ol>
+<li>[x] Node D runs a 7B-class model on CPU alongside the 35B MoE</li>
+<li>[x] mesh-interactive route registered in LiteLLM and verified</li>
+<li>[x] Context spillover either working OR documented as deferred with clear rationale</li>
+<li>[x] All documentation updated to match physical reality</li>
+<li>[x] No OOM events during testing</li>
+<li>[x] TurboQuant q4_0 active on all new inference endpoints</li>
+</ol>
+<p><strong>GPU upgrade (P2-T1) is explicitly OUT OF SCOPE for this execution cycle.</strong> It will be a separate task triggered by hardware arrival. The C workstream contains complete instructions for immediate execution at that time.</p>
+<hr>
+<h3>Risks and Mitigations</h3>
+<table><thead><tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody>
+<tr><td>Node D OOM with dual CPU models</td><td>Low</td><td>Service crash</td><td>Monitor with <code>free -h</code> during A3. If <5GB free, reduce 7B thread count or use q2_K quant</td></tr>
+<tr><td>7B model too slow on CPU to be useful</td><td>Medium</td><td>Wasted compute</td><td>Benchmark at A3 step 3. If <10 t/s gen, reconsider model size or quant</td></tr>
+<tr><td>ik_llama.cpp lacks RPC offload</td><td>Medium</td><td>P2-T3 deferred</td><td>Document and move to Phase 3. Node A role stays unchanged</td></tr>
+<tr><td>Node A Tailscale drops during spillover</td><td>Medium</td><td>Context loss</td><td>Test with <code>ping -f</code> first. Tailscale is WireGuard -- should be stable</td></tr>
+<tr><td>OCuLink not recognized by Node D BIOS</td><td>Medium</td><td>GPU upgrade blocked</td><td>Verify BIOS support before hardware purchase. This is pre-install homework</td></tr>
+</tbody></table>
+<hr>
+<p>::/5Y573M-N071C3 : PHASE2_PLAN. COGNITIVE_HIERARCHY. CPU_FIRST_GPU_LATER. // 50V3R31GN-M4CH1N4</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.1-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

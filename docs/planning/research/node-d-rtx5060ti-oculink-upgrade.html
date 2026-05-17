@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node D Hardware Upgrade Research: RTX 5060 Ti 16GB — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Research &middot; Node D Hardware Upgrade</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>
+            Planning<span class="sep">/</span>
+            <a href="hermes-client-extension-research.html">Research</a><span class="sep">/</span>
+            Node D GPU Upgrade
+        </nav>
+
+        <main>
+            <h2>Node D Hardware Upgrade Research: RTX 5060 Ti 16GB via OCuLink</h2>
+            <p>
+                <strong>Date:</strong> 2025-05-17 (Session research)<br>
+                <strong>Researcher:</strong> Gemini 3.1 Pro (dispatched by Lead Architect GLM-5)<br>
+                <strong>Status:</strong> Research complete, awaiting Architect review
+            </p>
+
+            <div class="callout">
+                <strong>OVERALL RECOMMENDATION:</strong> NO-GO for 35B MoE / CONDITIONAL GO for 14B-27B Models. Pivot to smaller models or aggressive quants for massive performance gains over CPU-only.
+            </div>
+
+            <h3>1. RTX 5060 Ti 16GB Hardware Specs</h3>
+            <table>
+                <thead>
+                    <tr><th>Spec</th><th>RTX 5060 Ti 16GB</th><th>RTX 2060 6GB (Node C)</th><th>RX 9060 XT 16GB (Node B)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Architecture</td><td>Blackwell (GB206)</td><td>Turing (TU106)</td><td>RDNA 3.5</td></tr>
+                    <tr><td>VRAM</td><td>16GB GDDR7 @ 28 Gbps</td><td>6GB GDDR6</td><td>16GB GDDR6</td></tr>
+                    <tr><td>Memory Bus</td><td>128-bit</td><td>192-bit</td><td>128-bit</td></tr>
+                    <tr><td>Bandwidth</td><td><strong>448 GB/s</strong></td><td>336 GB/s</td><td>~288 GB/s</td></tr>
+                    <tr><td>Tensor Cores</td><td>5th-gen (Blackwell)</td><td>3rd-gen (Turing)</td><td>N/A</td></tr>
+                    <tr><td>TGP</td><td>180W</td><td>160W</td><td>~150W</td></tr>
+                </tbody>
+            </table>
+
+            <h3>2. OCuLink Bandwidth Analysis</h3>
+            <table>
+                <thead>
+                    <tr><th>Connection</th><th>Bandwidth</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>OCuLink (PCIe 4.0 x4)</td><td>~8 GB/s</td><td>Standard for eGPU docks</td></tr>
+                    <tr><td>Native PCIe 4.0 x16</td><td>~32 GB/s</td><td>Desktop motherboard</td></tr>
+                </tbody>
+            </table>
+            <div class="callout">
+                <strong>Critical:</strong> If the model fits ENTIRELY in 16GB VRAM, OCuLink is transparent. If not, hybrid GPU+CPU split inference creates a catastrophic bottleneck.
+            </div>
+
+            <h3>3. ik_llama.cpp CUDA Compatibility</h3>
+            <ul>
+                <li>Blackwell GPUs use sm_100/sm_120 compute capability</li>
+                <li>Requires CUDA Toolkit 12.8+ for native Blackwell support</li>
+                <li>llama.cpp can fall back to PTX JIT compilation</li>
+                <li>NixOS: need bleeding-edge nixpkgs for CUDA 12.8+ and matching NVIDIA driver</li>
+            </ul>
+
+            <h3>4. Model Fit Analysis (16GB VRAM Constraint)</h3>
+            <h4>Current Model: 35B MoE (19.7 GB at Q4_K_M) -- DOES NOT FIT</h4>
+            <table>
+                <thead>
+                    <tr><th>Quant</th><th>Size</th><th>Fits 16GB?</th><th>Quality vs Q4_K_M</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Q4_K_M</td><td>19.7 GB</td><td>NO</td><td>baseline</td></tr>
+                    <tr><td>UD-Q3_K_XS</td><td>~17 GB</td><td>NO</td><td>moderate degradation</td></tr>
+                    <tr><td>UD-Q2_K_XL</td><td>~14 GB</td><td>YES</td><td>noticeable degradation</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Recommended Models That Fit Entirely in 16GB</h4>
+            <table>
+                <thead>
+                    <tr><th>Model</th><th>Quant</th><th>Size</th><th>Projected Gen t/s</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Qwen3.6-27B (Dense)</td><td>UD-Q3_K</td><td>~15 GB</td><td>~35-45 t/s</td><td>Max size, MTP support</td></tr>
+                    <tr><td>Hermes-4-14B</td><td>Q6_K / Q8_0</td><td>~12-14 GB</td><td>~50-65 t/s</td><td>Parity with Node B</td></tr>
+                    <tr><td>Qwen3.6-14B</td><td>Q6_K</td><td>~12 GB</td><td>~50-65 t/s</td><td>Best balance</td></tr>
+                </tbody>
+            </table>
+
+            <h3>5. NixOS Compatibility</h3>
+            <p>OCuLink is transparent to OS. Blackwell requires driver 570.xx series or newer. CUDA 12.8+ is required for native compilation. Both may require <code>nixos-unstable</code>.</p>
+
+            <h3>6. Power and Thermal</h3>
+            <p>180W TGP. OCuLink enclosure needs separate PSU (400W sufficient). Meteor Lake host platform power is unaffected.</p>
+
+            <hr>
+
+            <h3>GO / NO-GO DECISION MATRIX</h3>
+            <table>
+                <thead>
+                    <tr><th>Scenario</th><th>Verdict</th><th>Reason</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Keep 35B MoE Q4_K_M on GPU</td><td><span class="badge badge-blocked">NO-GO</span></td><td>Doesn't fit 16GB VRAM.</td></tr>
+                    <tr><td>35B MoE at UD-Q2_K (2-bit)</td><td><span class="badge badge-pending">MARGINAL</span></td><td>Quality loss on reasoning.</td></tr>
+                    <tr><td>Qwen3.6-27B UD-Q3_K + MTP</td><td><span class="badge badge-active">GO</span></td><td>Best fit for VRAM, preserves reasoning.</td></tr>
+                    <tr><td>Qwen3.6-14B Q6_K</td><td><span class="badge badge-active">STRONG GO</span></td><td>10x speedup, room for KV cache.</td></tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

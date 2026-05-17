@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 1: Kinetic Agency — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Docs &middot; Planning &middot; Plans &middot; Phase 1 Kinetic Agency</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span><a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span><a href="None">Plans</a><span class="sep">/</span>Phase 1 Kinetic Agency
+        </nav>
+
+        <main>
+<h2>Phase 1 Implementation Plan: Kinetic Agency + Node D GPU Upgrade</h2>
+<blockquote><p><strong>For Hermes:</strong> Use subagent-driven-development skill to implement this plan task-by-task.</p></blockquote>
+<p><strong>Goal:</strong> Complete Phase 1 (vision, terminal control, screen triage) and lay groundwork for Node D GPU upgrade (RTX 5060 Ti via OCuLink).</p>
+<p><strong>Architecture:</strong> Three parallel workstreams. Workstream A completes the remaining P1 vision/terminal tasks. Workstream B handles the Node D GPU hardware deployment and model migration. Workstream C is the screen triage sidecar (blocked on A). Workstreams A and B can run in parallel.</p>
+<p><strong>Tech Stack:</strong> ik_llama.cpp (CUDA/AVX2/Vulkan), LiteLLM, NixOS, Docker Desktop, Qwen3-VL-2B, Hermes toolsets, Tailscale SSH</p>
+<hr>
+<h3>Prerequisites / Entry State</h3>
+<ul>
+<li>Phase 0: CLOSED. All benchmarks verified.</li>
+<li>mesh-vision route: LIVE on LiteLLM (Qwen3-VL-2B Q6_K on Node B port 8082)</li>
+<li>mesh-fast route: LIVE (Hermes-4-14B Q4_K_M on Node B port 8081)</li>
+<li>mesh-function-calling: LIVE (Carnice-9B-FC on Node C port 8081)</li>
+<li>mesh-heavy: LIVE (Carnice MoE 35B on Node D port 8080)</li>
+<li>Docker Desktop: OPERATIONAL on Node B (WSL2 integration complete)</li>
+<li>Tailscale: all 4 nodes online</li>
+<li>Research: RTX 5060 Ti upgrade analysis saved in <code>docs/planning/research/</code></li>
+</ul>
+<hr>
+<h3>WORKSTREAM A: Vision & Terminal (P1 Core)</h3>
+<h4>Task A1: Verify mesh-vision end-to-end latency</h4>
+<p><strong>Objective:</strong> Confirm Qwen3-VL-2B responds within usable latency via the mesh-vision route.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Read: <code>sidecars/mesh/litellm-mesh.yaml</code> (mesh-vision route config)</li>
+</ul>
+<p><strong>Step 1: Test vision model with a text prompt</strong></p>
+<p>Run:</p>
+<pre><code>
+curl -s http://localhost:4000/v1/chat/completions \
+  -H "Authorization: Bearer sk-sov...roxy" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"mesh-vision","messages":[{"role":"user","content":"Describe what you see in: a black terminal screen with green text"}],"max_tokens":100}' \
+  -w "\nTime: %{time_total}s\n"
+</code></pre>
+<p>Expected: Response within 3-5 seconds. Model responds with description.</p>
+<p><strong>Step 2: Test vision model with actual image URL</strong></p>
+<p>Run:</p>
+<pre><code>
+curl -s http://localhost:4000/v1/chat/completions \
+  -H "Authorization: Bearer sk-sov...roxy" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"mesh-vision","messages":[{"role":"user","content":[{"type":"text","text":"What is in this image?"},{"type":"image_url","image_url":{"url":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"}}]}],"max_tokens":100}' \
+  -w "\nTime: %{time_total}s\n"
+</code></pre>
+<p>Expected: Response describing dice/cubes image. Time < 10s end-to-end.</p>
+<p><strong>Step 3: Record benchmark</strong></p>
+<p>Document prompt latency and generation speed in SOVEREIGN_VITAL_SIGNS.md under mesh-vision entry.</p>
+<p><strong>Verification:</strong> Both text and image requests return valid responses. Latency recorded.</p>
+<hr>
+<h4>Task A2: Wire mesh-vision into Hermes auxiliary vision config</h4>
+<p><strong>Objective:</strong> Configure Hermes to use mesh-vision route as its vision backend.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Read: <code>~/.hermes/config.yaml</code></li>
+<li>Modify: <code>~/.hermes/config.yaml</code> (add vision provider config)</li>
+</ul>
+<p><strong>Step 1: Check current Hermes vision config</strong></p>
+<p>Run:</p>
+<pre><code>
+grep -A10 "vision\|auxiliary" ~/.hermes/config.yaml 2&gt;/dev/null || echo "No vision config found"
+</code></pre>
+<p><strong>Step 2: Add mesh-vision as vision provider</strong></p>
+<p>Add to <code>~/.hermes/config.yaml</code>:</p>
+<pre><code>
+vision:
+  provider: openai
+  model: mesh-vision
+  api_base: http://localhost:4000/v1
+  api_key: "sk-sov...roxy"
+</code></pre>
+<p><strong>Step 3: Test from Hermes</strong></p>
+<p>Run:</p>
+<pre><code>
+hermes chat -m mesh-vision -p "Describe a terminal window with green text on black background"
+</code></pre>
+<p>Expected: Response from mesh-vision route.</p>
+<p><strong>Verification:</strong> Hermes successfully routes vision queries to mesh-vision endpoint.</p>
+<hr>
+<h4>Task A3: Verify terminal control across Tailscale mesh</h4>
+<p><strong>Objective:</strong> Confirm Hermes terminal toolset can execute commands on all mesh nodes via SSH.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Read: <code>~/.hermes/config.yaml</code> (terminal/SSH config)</li>
+<li>Read: <code>~/.ssh/config</code> (if exists)</li>
+</ul>
+<p><strong>Step 1: Test SSH connectivity from Node B to Node C</strong></p>
+<p>Run:</p>
+<pre><code>
+ssh -o ConnectTimeout=5 maczz@100.102.109.81 "hostname &amp;&amp; uname -a"
+</code></pre>
+<p>Expected: Node C hostname and kernel info. (Previously verified working.)</p>
+<p><strong>Step 2: Test SSH connectivity from Node B to Node D</strong></p>
+<p>Run:</p>
+<pre><code>
+ssh -o ConnectTimeout=5 maczz@100.120.225.12 "hostname &amp;&amp; uname -a"
+</code></pre>
+<p>Expected: Node D hostname and kernel info. (Previously verified working.)</p>
+<p><strong>Step 3: Test SSH connectivity from Node B to Node A</strong></p>
+<p>Run:</p>
+<pre><code>
+ssh -o ConnectTimeout=5 maczz@100.96.253.114 "hostname &amp;&amp; uname -a"
+</code></pre>
+<p>Expected: Node A hostname and kernel info. (Previously verified working.)</p>
+<p><strong>Step 4: Test Docker environments on remote nodes</strong></p>
+<p>Run:</p>
+<pre><code>
+ssh maczz@100.102.109.81 "docker ps" 2&gt;&amp;1
+</code></pre>
+<p>Expected: Docker output or "docker not installed" (Node C runs inference, may not have Docker).</p>
+<p><strong>Step 5: Document SSH access matrix</strong></p>
+<p>Record connectivity results. Note any nodes that require key setup or have stale credentials.</p>
+<p><strong>Verification:</strong> SSH works to all 3 remote nodes from Node B.</p>
+<hr>
+<h4>Task A4: Update IMPLEMENTATION_PLAN.md Phase 1 task status</h4>
+<p><strong>Objective:</strong> Mark completed P1 tasks in the implementation plan.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>IMPLEMENTATION_PLAN.md</code> (Phase 1 section)</li>
+</ul>
+<p><strong>Step 1: Update P1-T1 status</strong></p>
+<p>Change P1-T1 checkbox to checked if mesh-vision is confirmed operational:</p>
+<pre><code>
+- [x] **P1-T1: Vision-Enabled UI Automation.** DEPLOYED. Qwen3-VL-2B Q6_K on mesh-vision route. Benchmark: [recorded latency].
+</code></pre>
+<p><strong>Step 2: Update P1-T2 status</strong></p>
+<p>Change P1-T2 checkbox if terminal control verified:</p>
+<pre><code>
+- [x] **P1-T2: Terminal Control.** VERIFIED. SSH B-&gt;C/D/A confirmed. Docker environments documented.
+</code></pre>
+<p><strong>Step 3: Commit</strong></p>
+<pre><code>
+git add IMPLEMENTATION_PLAN.md
+git commit -m "docs: update Phase 1 task status (P1-T1 vision, P1-T2 terminal)"
+</code></pre>
+<p><strong>Verification:</strong> IMPLEMENTATION_PLAN.md reflects actual state.</p>
+<hr>
+<h3>WORKSTREAM B: Node D GPU Upgrade (Hardware + Model Migration)</h3>
+<p><strong>Status:</strong> BLOCKED on hardware purchase. Tasks below assume user has acquired:</p>
+<ul>
+<li>RTX 5060 Ti 16GB (ASUS Prime or equivalent)</li>
+<li>OCuLink dock/enclosure</li>
+<li>PSU (400W+)</li>
+</ul>
+<h4>Task B1: Physical installation and NixOS driver setup</h4>
+<p><strong>Objective:</strong> Install GPU in OCuLink dock, connect to Node D, configure NVIDIA drivers.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Read: Node D <code>/etc/nixos/configuration.nix</code> (or flake.nix)</li>
+<li>Modify: Node D NixOS config (add NVIDIA + CUDA)</li>
+</ul>
+<p><strong>Step 1: Physical install</strong></p>
+<ol>
+<li>Install RTX 5060 Ti in OCuLink enclosure</li>
+<li>Connect PSU to enclosure</li>
+<li>Connect OCuLink cable from enclosure to Node D's OCuLink port</li>
+<li>Power on enclosure, then boot Node D</li>
+</ol>
+<p><strong>Step 2: Verify PCIe detection</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+lspci | grep -i nvidia
+</code></pre>
+<p>Expected: NVIDIA device listed. OCuLink is transparent to OS.</p>
+<p><strong>Step 3: Configure NixOS NVIDIA driver</strong></p>
+<p>Add to Node D's NixOS config:</p>
+<pre><code>
+# NVIDIA Blackwell (RTX 5060 Ti)
+hardware.graphics = {
+  enable = true;
+  extraPackages = with pkgs; [ nvidia-vaapi-driver ];
+};
+services.xserver.videoDrivers = [ "nvidia" ];
+hardware.nvidia = {
+  modesetting.enable = true;
+  open = false;  # Blackwell needs proprietary
+  package = config.boot.kernelPackages.nvidiaPackages.latest;
+};
+</code></pre>
+<p>Note: May need <code>nixos-unstable</code> channel or explicit <code>hardware.nvidia.package</code> override for Blackwell (570.xx+ driver).</p>
+<p><strong>Step 4: Rebuild NixOS</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+sudo nixos-rebuild switch -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos
+</code></pre>
+<p>Expected: Clean rebuild, nvidia driver loaded.</p>
+<p><strong>Step 5: Verify driver</strong></p>
+<p>Run:</p>
+<pre><code>
+nvidia-smi
+</code></pre>
+<p>Expected: RTX 5060 Ti listed with 16GB VRAM, driver version 570+.</p>
+<p><strong>Verification:</strong> GPU detected, driver loaded, nvidia-smi shows correct card.</p>
+<hr>
+<h4>Task B2: Build ik_llama.cpp with CUDA for Blackwell</h4>
+<p><strong>Objective:</strong> Compile ik_llama.cpp on Node D with CUDA support targeting Blackwell.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Read: Node D ik_llama.cpp source location (currently <code>/home/maczz/llama.cpp/</code>)</li>
+<li>Build: ik_llama.cpp with CUDA backend</li>
+</ul>
+<p><strong>Step 1: Verify CUDA toolkit</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+nvcc --version 2&gt;/dev/null || echo "CUDA not found"
+nix-store -q --references /run/current-system/sw | grep cuda
+</code></pre>
+<p>Expected: CUDA 12.8+ available. If not, add to NixOS config:</p>
+<pre><code>
+environment.systemPackages = with pkgs; [ cudaPackages_12_8.cudatoolkit ];
+</code></pre>
+<p><strong>Step 2: Clone or update ik_llama.cpp on Node D</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+cd /home/maczz
+git clone https://github.com/ikawrakow/ik_llama.cpp.git ik_llama.cpp-cuda 2&gt;/dev/null || \
+  (cd ik_llama.cpp-cuda &amp;&amp; git pull)
+</code></pre>
+<p><strong>Step 3: Build with CUDA</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+cd /home/maczz/ik_llama.cpp-cuda
+mkdir -p build &amp;&amp; cd build
+cmake .. -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="100;120" -DCMAKE_BUILD_TYPE=Release
+cmake --build . --config Release -j$(nproc)
+</code></pre>
+<p>Expected: Clean build. Binaries in <code>build/bin/</code>.</p>
+<p><strong>Step 4: Verify CUDA build</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+./build/bin/llama-server --version
+./build/bin/llama-server -h | grep -i cuda
+</code></pre>
+<p>Expected: Version output shows CUDA support.</p>
+<p><strong>Verification:</strong> ik_llama.cpp binary runs with CUDA backend on RTX 5060 Ti.</p>
+<hr>
+<h4>Task B3: Download and deploy Qwen3.6-27B model</h4>
+<p><strong>Objective:</strong> Download the target model for Node D's new GPU.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Download: Qwen3.6-27B GGUF (Unsloth Dynamic Q3_K or Q4_K_M depending on VRAM fit)</li>
+</ul>
+<p><strong>Step 1: Research exact model and quant availability</strong></p>
+<p>Check Unsloth HuggingFace for Qwen3.6-27B GGUF quants:</p>
+<ul>
+<li>Target: UD-Q3_K or Q4_K_M</li>
+<li>Must fit in 16GB VRAM with KV cache headroom</li>
+<li>If Q4_K_M exceeds 16GB, fall back to UD-Q3_K_XS</li>
+</ul>
+<p><strong>Step 2: Download model to Node D</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+mkdir -p /home/maczz/models
+# Download via huggingface-cli or wget
+# Exact URL determined in Step 1
+huggingface-cli download &lt;org&gt;/&lt;repo&gt; &lt;filename&gt; --local-dir /home/maczz/models/
+</code></pre>
+<p><strong>Step 3: Verify download</strong></p>
+<p>Run:</p>
+<pre><code>
+ls -lh /home/maczz/models/&lt;model-file&gt;.gguf
+</code></pre>
+<p>Expected: File size consistent with quant level (~12-15 GB).</p>
+<p><strong>Verification:</strong> Model file present and correct size.</p>
+<hr>
+<h4>Task B4: Benchmark Qwen3.6-27B on RTX 5060 Ti</h4>
+<p><strong>Objective:</strong> Benchmark the new model and compare against current CPU-only 35B MoE.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Run: ik_llama.cpp llama-server on Node D</li>
+</ul>
+<p><strong>Step 1: Launch inference server</strong></p>
+<p>Run on Node D:</p>
+<pre><code>
+/home/maczz/ik_llama.cpp-cuda/build/bin/llama-server \
+  -m /home/maczz/models/&lt;model-file&gt;.gguf \
+  -ngl 99 \
+  -c 4096 \
+  --port 8081 \
+  -ctk q4_0 -ctv q4_0 \
+  --host 0.0.0.0
+</code></pre>
+<p><strong>Step 2: Run benchmark prompt</strong></p>
+<p>Run from Node B:</p>
+<pre><code>
+curl -s http://100.120.225.12:8081/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"default","messages":[{"role":"user","content":"Write a detailed analysis of distributed systems consensus algorithms, comparing Raft, Paxos, and Byzantine Fault Tolerance."}],"max_tokens":500}' \
+  -w "\nPrompt: %{time_starttransfer}s | Total: %{time_total}s\n"
+</code></pre>
+<p><strong>Step 3: Record throughput</strong></p>
+<p>Measure prompt processing speed and generation speed. Compare to baseline:</p>
+<ul>
+<li>Current (35B MoE CPU): 8.8/6.1 t/s</li>
+<li>Target (27B GPU OCuLink): 35-65+ t/s</li>
+</ul>
+<p><strong>Step 4: Test MTP if available</strong></p>
+<p>If ik_llama.cpp supports MTP speculative decoding for Qwen3.6:</p>
+<pre><code>
+/home/maczz/ik_llama.cpp-cuda/build/bin/llama-server \
+  -m /home/maczz/models/&lt;model-file&gt;.gguf \
+  -ngl 99 -c 4096 --port 8081 \
+  --spec-draft-n-max 2 \
+  -ctk q4_0 -ctv q4_0 \
+  --host 0.0.0.0
+</code></pre>
+<p><strong>Verification:</strong> Benchmarked throughput recorded. Meets or exceeds 35 t/s generation target.</p>
+<hr>
+<h4>Task B5: Migrate mesh-heavy route to new model</h4>
+<p><strong>Objective:</strong> Update LiteLLM config to point mesh-heavy at new Node D model.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>sidecars/mesh/litellm-mesh.yaml</code> (mesh-heavy route)</li>
+</ul>
+<p><strong>Step 1: Update mesh-heavy route</strong></p>
+<p>Change <code>sidecars/mesh/litellm-mesh.yaml</code> mesh-heavy entry:</p>
+<pre><code>
+  - model_name: mesh-heavy
+    litellm_params:
+      model: openai/qwen3.6-27b
+      api_base: http://100.120.225.12:8081/v1
+      api_key: "machina-sovereign-mesh-v3-secret-key"
+      tpm: 100000
+      rpm: 100
+    model_info:
+      id: mesh-heavy
+      object: model
+      owned_by: nodestadt-mesh
+      permission: []
+      root: mesh-heavy
+      parent: null
+</code></pre>
+<p><strong>Step 2: Restart LiteLLM container</strong></p>
+<p>Run:</p>
+<pre><code>
+sg docker -c "docker restart mesh-litellm"
+</code></pre>
+<p><strong>Step 3: Verify route</strong></p>
+<p>Run:</p>
+<pre><code>
+curl -s http://localhost:4000/v1/chat/completions \
+  -H "Authorization: Bearer sk-sov...roxy" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"mesh-heavy","messages":[{"role":"user","content":"Hello, respond briefly."}],"max_tokens":50}'
+</code></pre>
+<p>Expected: Response from new Qwen3.6-27B model.</p>
+<p><strong>Step 4: Commit</strong></p>
+<pre><code>
+git add sidecars/mesh/litellm-mesh.yaml
+git commit -m "feat: migrate mesh-heavy to Qwen3.6-27B on RTX 5060 Ti (Node D GPU)"
+</code></pre>
+<p><strong>Verification:</strong> mesh-heavy route serves new model. Old 35B MoE CPU server stopped.</p>
+<hr>
+<h4>Task B6: Stop old 35B MoE CPU inference server</h4>
+<p><strong>Objective:</strong> Decommission the CPU-only ik_llama.cpp instance on Node D.</p>
+<p><strong>Step 1: Verify new GPU server is serving mesh-heavy</strong></p>
+<p>Run:</p>
+<pre><code>
+curl -s http://100.120.225.12:8081/v1/models
+</code></pre>
+<p>Expected: Qwen3.6-27B model listed.</p>
+<p><strong>Step 2: Stop old CPU server on Node D</strong></p>
+<p>SSH to Node D:</p>
+<pre><code>
+ssh maczz@100.120.225.12
+# Find and stop the old llama.cpp/ik_llama.cpp process serving port 8080
+lsof -i :8080 | grep LISTEN
+kill &lt;pid&gt;
+</code></pre>
+<p><strong>Step 3: Update port mapping if needed</strong></p>
+<p>If old server was on port 8080 and new is on 8081, update any hardcoded references in docs and configs.</p>
+<p><strong>Verification:</strong> Port 8080 no longer listening on Node D. Only 8081 (GPU server) active.</p>
+<hr>
+<h3>WORKSTREAM C: Screen Triage Sidecar (P1-T3)</h3>
+<p><strong>Depends on:</strong> Task A1 (mesh-vision verified), Task A2 (Hermes vision config)</p>
+<h4>Task C1: Design screen capture pipeline</h4>
+<p><strong>Objective:</strong> Define how screen capture feeds into vision model for triage.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Create: <code>sidecars/sniffer/</code> (new directory)</li>
+<li>Create: <code>sidecars/sniffer/capture.py</code> (screen capture utility)</li>
+</ul>
+<p><strong>Step 1: Evaluate capture method</strong></p>
+<p>Options for Node B (WSL2):</p>
+<ol>
+<li>Windows native screenshot -> WSL2 filesystem -> vision model</li>
+<li>Browser CDP screenshot -> vision model (if browser-harness available)</li>
+<li>scrot/pyautogui inside WSL2 (limited -- no display server)</li>
+</ol>
+<p>Most viable: Windows-side PowerShell screenshot script triggered from WSL2.</p>
+<p><strong>Step 2: Write capture script</strong></p>
+<p>Create <code>sidecars/sniffer/capture.py</code>:</p>
+<pre><code>
+#!/usr/bin/env python3
+"""Screen capture utility for mesh-vision triage."""
+import subprocess
+import base64
+import sys
+import os
+from datetime import datetime
+
+CAPTURE_DIR = "/tmp/sovereign-sniffer"
+os.makedirs(CAPTURE_DIR, exist_ok=True)
+
+def capture_screen() -&gt; str:
+    """Capture screen via PowerShell (WSL2) and return base64."""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filepath = f"{CAPTURE_DIR}/capture_{timestamp}.png"
+    
+    # PowerShell screenshot via WSL2
+    ps_cmd = f'Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.Screen]::PrimaryScreen | ForEach-Object {{ $bmp = New-Object System.Drawing.Bitmap($_.Bounds.Width, $_.Bounds.Height); $g = [System.Drawing.Graphics]::FromImage($bmp); $g.CopyFromScreen($_.Bounds.Location, [System.Drawing.Point]::Empty, $_.Bounds.Size); $bmp.Save("\\\\wsl$\\nixos{filepath.Replace("/", "\\\\")}"); $g.Dispose(); $bmp.Dispose() }}'
+    
+    result = subprocess.run(
+        ["powershell.exe", "-Command", ps_cmd],
+        capture_output=True, text=True, timeout=10
+    )
+    
+    if result.returncode != 0:
+        raise RuntimeError(f"Capture failed: {result.stderr}")
+    
+    with open(filepath, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    
+    return b64
+
+if __name__ == "__main__":
+    print(capture_screen())
+</code></pre>
+<p><strong>Step 3: Test capture</strong></p>
+<p>Run:</p>
+<pre><code>
+python3 sidecars/sniffer/capture.py | head -c 100
+</code></pre>
+<p>Expected: Base64 string output (PNG data).</p>
+<p><strong>Verification:</strong> Screenshot captured and converted to base64.</p>
+<hr>
+<h4>Task C2: Wire capture to mesh-vision for triage</h4>
+<p><strong>Objective:</strong> End-to-end pipeline: capture -> vision model -> structured response.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Create: <code>sidecars/sniffer/triage.py</code> (vision query with captured image)</li>
+</ul>
+<p><strong>Step 1: Write triage script</strong></p>
+<p>Create <code>sidecars/sniffer/triage.py</code>:</p>
+<pre><code>
+#!/usr/bin/env python3
+"""Screen triage: capture -&gt; vision model -&gt; structured analysis."""
+import json
+import requests
+from capture import capture_screen
+
+LITELLM_URL = "http://localhost:4000/v1/chat/completions"
+API_KEY = "sk-sov...roxy"
+MODEL = "mesh-vision"
+
+def triage_screen(prompt: str = "Analyze this screen. What applications are visible? Are there any alerts, errors, or notifications that need attention?") -&gt; str:
+    b64_image = capture_screen()
+    
+    payload = {
+        "model": MODEL,
+        "messages": [{
+            "role": "user",
+            "content": [
+                {"type": "text", "text": prompt},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64_image}"}}
+            ]
+        }],
+        "max_tokens": 300
+    }
+    
+    resp = requests.post(
+        LITELLM_URL,
+        headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
+        json=payload,
+        timeout=30
+    )
+    resp.raise_for_status()
+    return resp.json()["choices"][0]["message"]["content"]
+
+if __name__ == "__main__":
+    result = triage_screen()
+    print(result)
+</code></pre>
+<p><strong>Step 2: Test end-to-end</strong></p>
+<p>Run:</p>
+<pre><code>
+cd sidecars/sniffer
+python3 triage.py
+</code></pre>
+<p>Expected: Vision model response describing current screen contents.</p>
+<p><strong>Step 3: Measure latency</strong></p>
+<p>Run:</p>
+<pre><code>
+time python3 sidecars/sniffer/triage.py
+</code></pre>
+<p>Expected: Total time < 15 seconds (capture + encode + inference + response).</p>
+<p><strong>Verification:</strong> Full pipeline works. Latency measured and recorded.</p>
+<hr>
+<h4>Task C3: Deploy as persistent systemd service (optional)</h4>
+<p><strong>Objective:</strong> Run screen triage on a schedule or trigger.</p>
+<p><strong>Note:</strong> This is stretch scope. Only implement if Tasks C1-C2 succeed and user wants persistent monitoring.</p>
+<p><strong>Step 1: Create systemd timer</strong></p>
+<p>Create <code>sidecars/sniffer/sniffer.service</code> and <code>sniffer.timer</code> for periodic triage.</p>
+<p><strong>Step 2: Install and activate</strong></p>
+<pre><code>
+sudo systemctl enable --now sniffer.timer
+</code></pre>
+<p><strong>Verification:</strong> <code>systemctl status sniffer.timer</code> shows active.</p>
+<hr>
+<h3>Documentation Updates (All Workstreams)</h3>
+<h4>Task D1: Update SOVEREIGN_VITAL_SIGNS.md</h4>
+<p><strong>Objective:</strong> Reflect all Phase 1 changes in the vital signs document.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>SOVEREIGN_VITAL_SIGNS.md</code></li>
+</ul>
+<p><strong>Updates needed:</strong></p>
+<ul>
+<li>Node D: add GPU specs (if hardware deployed)</li>
+<li>mesh-vision: add benchmark latency numbers</li>
+<li>mesh-heavy: update to new model + throughput (if migration complete)</li>
+<li>Services: add screen triage status</li>
+<li>Docker: note migration from native NixOS to Docker Desktop</li>
+</ul>
+<p><strong>Verification:</strong> Document matches physical reality.</p>
+<hr>
+<h4>Task D2: Update IMPLEMENTATION_PLAN.md</h4>
+<p><strong>Objective:</strong> Mark Phase 1 tasks complete. Update Phase 2 to reflect GPU upgrade.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>IMPLEMENTATION_PLAN.md</code></li>
+</ul>
+<p><strong>Updates needed:</strong></p>
+<ul>
+<li>Phase 1: mark P1-T1, P1-T2, P1-T3 as complete</li>
+<li>Phase 2: P2-T1 (Node D Dual-Model) -- superseded by GPU upgrade (single 27B model > dual CPU models). Update description.</li>
+<li>Phase 2: P2-T3 (Context Spillover) -- GPU model fits in VRAM, KV spillover to Node A may no longer be needed. Re-evaluate.</li>
+<li>Model Strategy table: update mesh-heavy entry</li>
+</ul>
+<p><strong>Verification:</strong> Plan reflects actual scope.</p>
+<hr>
+<h4>Task D3: Update SESSION_HANDOFF.md</h4>
+<p><strong>Objective:</strong> Record session outcomes for next session.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>SESSION_HANDOFF.md</code></li>
+</ul>
+<p><strong>Verification:</strong> Handoff document is current.</p>
+<hr>
+<h4>Task D4: Update AGENTS.md and KANBAN_MAP.md</h4>
+<p><strong>Objective:</strong> Sync all governance docs with Phase 1 changes.</p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Modify: <code>AGENTS.md</code> (Node D hardware section)</li>
+<li>Modify: <code>docs/planning/KANBAN_MAP.md</code> (Phase 1 card statuses)</li>
+</ul>
+<p><strong>Verification:</strong> All docs consistent.</p>
+<hr>
+<h3>Dependency Graph</h3>
+<pre><code>
+A1 (vision benchmark) ──&gt; A2 (Hermes vision config) ──&gt; C1 (capture) ──&gt; C2 (triage) ──&gt; C3 (service)
+A3 (terminal control) ──&gt; A4 (plan update)
+B1 (hardware install) ──&gt; B2 (ik_llama build) ──&gt; B3 (model download) ──&gt; B4 (benchmark) ──&gt; B5 (route migration) ──&gt; B6 (decommission)
+D* (docs) ──&gt; all workstreams
+</code></pre>
+<p>Workstream A and B are independent. C depends on A. D runs last.</p>
+<hr>
+<h3>Execution Order</h3>
+<ol>
+<li><strong>Now (no hardware needed):</strong> A1 -> A2 -> A3 -> A4 -> C1 -> C2</li>
+<li><strong>When hardware arrives:</strong> B1 -> B2 -> B3 -> B4 -> B5 -> B6</li>
+<li><strong>After all workstreams:</strong> D1 -> D2 -> D3 -> D4</li>
+</ol>
+<hr>
+<h3>Risks</h3>
+<table><thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead><tbody>
+<tr><td>NixOS NVIDIA driver too old for Blackwell</td><td>Blocks B1</td><td>May need nixos-unstable channel. Test before hardware purchase.</td></tr>
+<tr><td>ik_llama.cpp CUDA doesn't compile for sm_100</td><td>Blocks B2</td><td>Fall back to mainline llama.cpp. PTX JIT may work.</td></tr>
+<tr><td>Qwen3.6-27B Q4_K_M exceeds 16GB VRAM</td><td>Blocks B4</td><td>Use UD-Q3_K_XS quant. Fallback to Qwen3.6-14B Q6_K.</td></tr>
+<tr><td>OCuLink enclosure incompatible</td><td>Blocks B1</td><td>Verify enclosure supports PCIe 4.0 x4 before purchase.</td></tr>
+<tr><td>WSL2 screen capture unreliable</td><td>Blocks C1</td><td>Fall back to browser CDP screenshot via browser-harness.</td></tr>
+<tr><td>Meteor Lake OCuLink port shares lanes with NVMe</td><td>Performance</td><td>Check BIOS for PCIe lane allocation. May reduce NVMe bandwidth.</td></tr>
+</tbody></table>
+<hr>
+<p><em>Plan by Lead Architect GLM-5. Phase 1 scope from IMPLEMENTATION_PLAN.md v0.1.0-alpha.</em></p>
+<p><em>Node D GPU research: docs/planning/research/node-d-rtx5060ti-oculink-upgrade.md</em></p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.1-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

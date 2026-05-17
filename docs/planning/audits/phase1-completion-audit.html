@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 1 Completion Audit: Kinetic Agency — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Audits &middot; Phase 1 Completion Audit</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>
+            <a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span>
+            <a href="2026-05-17-infra-drift-audit.html">Audits</a><span class="sep">/</span>
+            Phase 1 Audit
+        </nav>
+
+        <main>
+            <h2>Phase 1 Completion Audit: Kinetic Agency</h2>
+            <p>
+                <strong>Date:</strong> 2026-05-18<br>
+                <strong>Auditor:</strong> GLM-5 (Lead Architect), independent review of Phase 1 deliverables<br>
+                <strong>Branch:</strong> stable/mesh-alpha<br>
+                <strong>Commit:</strong> <code>d3fac7c04</code>
+            </p>
+
+            <hr>
+
+            <h3>1. Executive Summary</h3>
+            <table>
+                <thead>
+                    <tr><th>Task</th><th>Claimed Status</th><th>Audit Verdict</th><th>Details</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>P1-T1: Vision UI</td><td>[~] Deployed</td><td><span class="badge badge-pending">CONDITIONAL PASS</span></td><td>Core capability delivered. Missing persistent service and latency optimization.</td></tr>
+                    <tr><td>P1-T2: Terminal Control</td><td>[~] Partial</td><td><span class="badge badge-pending">CONDITIONAL PASS</span></td><td>Mesh connectivity verified. Key-based SSH not deployed. Browser re-auth blocker unresolved.</td></tr>
+                    <tr><td>P1-T3: Screen Triage</td><td>[~] Deployed</td><td><span class="badge badge-pending">CONDITIONAL PASS</span></td><td>End-to-end pipeline works. Missing systemd service and trigger hooks.</td></tr>
+                </tbody>
+            </table>
+            <div class="callout">
+                <strong>Overall Phase 1 Verdict:</strong> CONDITIONAL PASS -- core capabilities exist but all three tasks have open "remaining" items that were correctly identified but not closed. Phase 1 is ~75% complete.
+            </div>
+            <div class="callout" style="border-left-color: var(--badge-blocked-color);">
+                <strong>Critical Finding:</strong> LiteLLM Docker container is running v1.82.6, not the claimed v1.84.0. The SQL injection CVE patch was never actually applied despite documentation saying it was.
+            </div>
+
+            <h3>2. Task Completion Verification</h3>
+
+            <h4>P1-T1: Vision-Enabled UI Automation</h4>
+            <p><strong>Claimed:</strong> Deployed. Qwen3-VL-2B Q6_K on mesh-vision route (Node B port 8082). Text: 550/50.7 t/s. Image verified.</p>
+            <p><strong>Verdict:</strong> <span class="badge badge-pending">CONDITIONAL PASS</span>. Core vision capability exists and is wired. Missing durability items.</p>
+
+            <h4>P1-T2: Terminal Control</h4>
+            <p><strong>Claimed:</strong> Partial. All 4 nodes visible. SSH requires browser re-auth. Key-based SSH not deployed.</p>
+            <p><strong>Verdict:</strong> <span class="badge badge-pending">CONDITIONAL PASS</span>. Mesh connectivity is real. Key-based SSH is a legitimate gap but may be acceptable if Tailscale SSH is the intended path.</p>
+
+            <h4>P1-T3: Screen Triage Sidecar</h4>
+            <p><strong>Claimed:</strong> Deployed. <code>capture.py</code> + <code>triage.py</code> in <code>sidecars/sniffer/</code>. 910ms capture, 25s total.</p>
+            <p><strong>Verdict:</strong> <span class="badge badge-pending">CONDITIONAL PASS</span>. Pipeline works as a one-shot. Not production-ready as a service.</p>
+
+            <h3>3. Security Findings</h3>
+
+            <h4>CRITICAL: LiteLLM Version Mismatch (CVE UNPATCHED)</h4>
+            <p><strong>CHANGELOG v0.2.0-alpha states:</strong> "LiteLLM mesh router: Upgraded from 1.82.6 to 1.84.0 in Docker container to patch critical SQL injection vulnerability."</p>
+            <p><strong>Actual container version:</strong> <code>v1.82.6</code>. The upgrade was either never applied or reverted on restart due to floating image tag <code>main-latest</code>.</p>
+            <p><strong>Impact:</strong> The SQL injection CVE in litellm &lt;1.83 remains UNPATCHED.</p>
+
+            <h4>MEDIUM: Hardcoded API Keys in Source Control</h4>
+            <p>Multiple files (<code>sniffer/triage.py</code>, <code>mesh/mesh_proxy.py</code>, <code>mesh/proxy.yml</code>, <code>mesh/litellm-mesh.yaml</code>) contain hardcoded <code>API_KEY</code> or <code>MASTER_KEY</code> values.</p>
+
+            <h3>4. Documentation Drift Report</h3>
+            <table>
+                <thead>
+                    <tr><th>Claim</th><th>Reality</th><th>Drift Level</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>LiteLLM upgraded to 1.84.0</td><td>Container runs 1.82.6</td><td><span class="badge badge-blocked">CRITICAL</span></td></tr>
+                    <tr><td>Docker Desktop migration complete</td><td>Container UP and healthy</td><td>None</td></tr>
+                    <tr><td>sovereign-sniffer deployed</td><td>Files exist, not a service</td><td>Minor</td></tr>
+                </tbody>
+            </table>
+
+            <h3>5. Technical Debt Register</h3>
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Description</th><th>Severity</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>TD-001</td><td>LiteLLM floating tag allows version regression</td><td><span class="badge badge-blocked">HIGH</span></td></tr>
+                    <tr><td>TD-004</td><td>Hardcoded secrets in source files</td><td><span class="badge badge-pending">MEDIUM</span></td></tr>
+                    <tr><td>TD-005</td><td>No persistent service for sniffer or llama-server endpoints</td><td><span class="badge badge-pending">MEDIUM</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3>6. Phase 1 Readiness Verdict</h3>
+            <p><strong>Can we close Phase 1 and plan Phase 2?</strong></p>
+            <p><strong>Answer: YES, with conditions.</strong> Phase 1 delivered its core promise. <strong>Must-fix:</strong> Pin LiteLLM Docker image to v1.84.0+ and verify. <strong>Should-fix:</strong> Persistent services. <strong>Can defer:</strong> Key-based SSH, secret hygiene.</p>
+
+            <h3>7. Recommended Actions (Prioritized)</h3>
+            <ol>
+                <li><strong>[P0] Pin LiteLLM Docker image</strong> to a specific version tag. Verify matches.</li>
+                <li><strong>[P1] Move secrets to environment variables</strong> in sniffer and mesh config.</li>
+                <li><strong>[P1] Archive mesh_proxy.py</strong> to a <code>legacy/</code> directory.</li>
+                <li><strong>[P3] Update KANBAN_MAP.md</strong> to mark <code>directors-forge</code> as CANCELLED.</li>
+            </ol>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation Plan: Shared Kanban MCP Server — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Plans &middot; Shared Kanban MCP Server</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>
+            <a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span>
+            <a href="phase1-kinetic-agency.html">Plans</a><span class="sep">/</span>
+            Kanban MCP Server
+        </nav>
+
+        <main>
+            <h2>Implementation Plan: Shared Kanban MCP Server</h2>
+            <p>
+                <strong>Date:</strong> 2026-05-14<br>
+                <strong>Status:</strong> <span class="badge badge-active">DONE</span><br>
+                <strong>Phase:</strong> Cross-cutting (Phase 1 dependency)<br>
+                <strong>Assignee:</strong> Lead Architect (Hermes)<br>
+                <strong>Reviewer:</strong> Sovereign Strategist (Gemini CLI)
+            </p>
+
+            <h3>Problem</h3>
+            <p>Hermes and Gemini CLI operate as isolated agents with no shared task state. Hermes uses a SQLite-backed kanban (<code>~/.hermes/kanban/boards/</code>). Gemini CLI has no task persistence. Coordination currently requires the human to manually relay context between agents.</p>
+
+            <h3>Solution</h3>
+            <p>Build a lightweight MCP (Model Context Protocol) server that wraps the existing Hermes Kanban SQLite database, exposing task CRUD operations as MCP tools. Both Hermes and Gemini CLI connect to this server as MCP clients, enabling bidirectional task coordination.</p>
+
+            <h3>Architecture</h3>
+            <pre><code>┌─────────────┐     MCP/stdio      ┌──────────────────┐
+│  Hermes CLI  │◄──────────────────►│                  │
+└─────────────┘                     │  Kanban MCP      │
+                                    │  Server           │
+┌─────────────┐     MCP/stdio      │  (FastMCP)        │
+│  Gemini CLI  │◄──────────────────►│                  │
+└─────────────┘                     └────────┬─────────┘
+                                             │
+                                    SQLite   │
+                                    ┌────────▼─────────┐
+                                    │  kanban.db        │
+                                    │  (Hermes native)  │
+                                    └──────────────────┘</code></pre>
+
+            <h3>Existing Schema (Hermes Kanban)</h3>
+            <p>The <code>tasks</code> table already contains:</p>
+            <ul>
+                <li><code>id</code>, <code>title</code>, <code>body</code>, <code>status</code>, <code>priority</code></li>
+                <li><code>assignee</code>, <code>claim_lock</code>, <code>claim_expires</code></li>
+                <li><code>created_by</code>, <code>created_at</code></li>
+                <li><code>result</code>, <code>workspace_kind</code>, <code>workspace_path</code></li>
+            </ul>
+            <p>No schema migration required. The MCP server is a thin read/write layer over the existing structure.</p>
+
+            <h3>Tasks</h3>
+
+            <h4>T-001: Scaffold MCP Server</h4>
+            <ul>
+                <li>Create <code>sidecars/kanban-mcp-server/</code> in project root</li>
+                <li>Use FastMCP (Python) with stdio transport</li>
+                <li>Define tool signatures for: <code>list_tasks</code>, <code>get_task</code>, <code>create_task</code>, <code>update_task</code>, <code>claim_task</code>, <code>complete_task</code>, <code>add_comment</code></li>
+                <li>Wire to <code>~/.hermes/kanban/boards/&lt;board&gt;/kanban.db</code></li>
+                <li>Add <code>pyproject.toml</code> with dependencies: <code>fastmcp</code>, <code>sqlite3</code> (stdlib)</li>
+            </ul>
+
+            <h4>T-002: Hermes Integration</h4>
+            <ul>
+                <li>Add MCP server config to <code>~/.hermes/config.yaml</code> under <code>mcp_servers</code></li>
+                <li>Verify Hermes discovers kanban tools at startup</li>
+                <li>Test bidirectional: Hermes creates task, reads it back via MCP</li>
+            </ul>
+
+            <h4>T-003: Gemini CLI Integration</h4>
+            <ul>
+                <li>Add MCP server config to <code>.gemini/settings.json</code></li>
+                <li>Verify Gemini CLI discovers kanban tools</li>
+                <li>Test: Gemini reads Hermes-created tasks, adds comments</li>
+            </ul>
+
+            <h4>T-004: Documentation</h4>
+            <ul>
+                <li>Document MCP server in <code>docs/architecture/</code></li>
+                <li>Update <code>KANBAN_MAP.md</code> with cross-agent coordination notes</li>
+                <li>Update <code>repository-map.html</code> if applicable</li>
+            </ul>
+
+            <h3>File Layout</h3>
+            <pre><code>sidecars/kanban-mcp-server/
+├── pyproject.toml
+├── README.md
+├── src/
+│   └── kanban_mcp/
+│       ├── __init__.py
+│       ├── server.py          # FastMCP app + tool definitions
+│       └── db.py              # SQLite connection + queries
+└── tests/
+    └── test_tools.py</code></pre>
+
+            <h3>Constraints</h3>
+            <ul>
+                <li><strong>Local-only.</strong> No network transport. stdio only.</li>
+                <li><strong>No schema migration.</strong> Read/write existing Hermes kanban schema.</li>
+                <li><strong>Board-aware.</strong> Server accepts board name as config, defaults to <code>default</code>.</li>
+                <li><strong>Lock-safe.</strong> Respect <code>claim_lock</code> / <code>claim_expires</code> for concurrent agent access.</li>
+                <li><strong>NixOS compatible.</strong> No binary dependencies beyond Python stdlib + FastMCP.</li>
+            </ul>
+
+            <h3>Risks</h3>
+            <table>
+                <thead>
+                    <tr><th>Risk</th><th>Mitigation</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>SQLite write contention between Hermes core and MCP server</td><td>SQLite WAL mode (default in Hermes). Short transactions.</td></tr>
+                    <tr><td>FastMCP binary deps on NixOS</td><td>FastMCP is pure Python. Test in venv first.</td></tr>
+                    <tr><td>Hermes kanban schema changes upstream</td><td>Pin to current schema, add version check on startup.</td></tr>
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

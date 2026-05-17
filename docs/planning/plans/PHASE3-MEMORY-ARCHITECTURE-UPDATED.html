@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 3: Memory Architecture (Updated) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Docs &middot; Planning &middot; Plans &middot; Phase 3 Updated</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span><a href="../KANBAN_MAP.html">Planning</a><span class="sep">/</span><a href="None">Plans</a><span class="sep">/</span>Phase 3 Updated
+        </nav>
+
+        <main>
+<h2>Phase 3: Memory Architecture - FINAL PLAN</h2>
+<p><strong>Status:</strong> APPROVED (Option 1 - Hybrid SQLite)</p>
+<p><strong>Date:</strong> May 14, 2026</p>
+<p><strong>Updated:</strong> User decisions integrated</p>
+<hr>
+<h3>USER DECISIONS LOGGED</h3>
+<h4>Q1: LCM Sync Frequency</h4>
+<p><strong>Answer:</strong> Batch mode</p>
+<p><strong>Configuration:</strong></p>
+<pre><code>
+lcm:
+  sync:
+    mode: "batch"
+    batch_size: 10           # Sync every 10 messages
+    interval_minutes: 5         # Or every 5 minutes, whichever comes first
+    priority: "bandwidth"       # Prioritize network efficiency
+</code></pre>
+<p><strong>Rationale:</strong> Balances freshness with bandwidth usage. Every 10 messages or 5 minutes is safe for Tailscale artery.</p>
+<h4>Q2: CodeGraph Deployment Strategy</h4>
+<p><strong>Answer:</strong> Start with Node B, rsync to other nodes</p>
+<p><strong>Configuration:</strong></p>
+<pre><code>
+codegraph:
+  primary_node: "node-b"        # Build index on Node B
+  sync_targets:
+    - node_c: /home/maczz/codegraph-index
+    - node_d: /home/nixos/codegraph-index
+  sync_method: "rsync"         # Over Tailscale artery
+  rsync_flags: "-avz --delete"
+</code></pre>
+<p><strong>Rationale:</strong> Node B is Director (48GB, primary workspace). Build index once, deploy everywhere.</p>
+<h4>Q3: Backup Strategy</h4>
+<p><strong>Answer:</strong> Every 48 hours OR change-based trigger</p>
+<p><strong>Configuration:</strong></p>
+<pre><code>
+backup:
+  schedule:
+    interval_hours: 48           # Every 48 hours
+  triggers:
+    session_change_threshold: 1000  # If session logs exceed 1000 messages
+    code_change_threshold: 5000    # Or if 5000+ lines changed in 24h
+  targets:
+    - node_a_primary: /mnt/data/hermes-lcm
+    - node_c_ssd: /mnt/sovereign_soul/hermes-lcm-backups
+</code></pre>
+<p><strong>Rationale:</strong> Time-based backups with intelligent triggers for heavy usage periods.</p>
+<h4>Q4: CodeGraph Re-indexing</h4>
+<p><strong>Answer:</strong> Manual + cron automation</p>
+<p><strong>Configuration:</strong></p>
+<pre><code>
+codegraph:
+  reindex:
+    mode: "manual"              # Manual trigger
+    automation: "cron"           # But automate via cron jobs
+    cron_schedule:
+      daily_backup: "0 2 * * *"        # Daily at 2am
+      weekly_full_reindex: "0 3 * * 0"  # Weekly full reindex at 3am Sunday
+      change_trigger: "inotify-watch"   # Optional: watch for heavy changes
+</code></pre>
+<p><strong>Rationale:</strong> Manual control for precision, cron for automation. Watch mode for heavy changes.</p>
+<hr>
+<h3>UPDATED IMPLEMENTATION TASKS</h3>
+<h4>Task 1: Mount Node C External SSD (BLOCKING - requires sudo)</h4>
+<pre><code>
+# On Node C (100.102.109.81)
+# Add to /etc/fstab:
+UUID=511d1a67-a3c0-49f8-899d-e509eab53c1a  /mnt/sovereign_soul  ext4  defaults,noatime  0  2
+
+# Mount and verify
+sudo mount -a
+df -h /mnt/sovereign_soul
+</code></pre>
+<h4>Task 2: Install Hermes-LCM (Node A)</h4>
+<pre><code>
+git clone https://github.com/stephenschoettler/hermes-lcm \
+  ~/.hermes/plugins/hermes-lcm
+
+# Add to ~/.hermes/config.yaml:
+plugins:
+  enabled:
+    - hermes-lcm
+
+context:
+  engine: lcm
+
+lcm:
+  sync:
+    mode: "batch"
+    batch_size: 10
+    interval_minutes: 5
+  sync_targets:
+    - node_c: /mnt/sovereign_soul/hermes-lcm
+
+# Restart Hermes
+hermes plugins
+lcm_status
+</code></pre>
+<h4>Task 3: Install CodeGraph-Rust (Node B)</h4>
+<pre><code>
+# On Node B (Director - primary workspace)
+cargo install --git https://github.com/Jakedismo/codegraph-rust codegraph
+
+# Initialize for main repo
+codegraph init /home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha
+
+# Index with tier=balanced
+CODEGRAPH_INDEX_TIER=balanced codegraph index
+
+# Start MCP server
+codegraph start mcp --port 3000
+</code></pre>
+<h4>Task 4: Configure CodeGraph MCP in Hermes (Node B)</h4>
+<pre><code>
+# Add to ~/.hermes/config.yaml:
+mcp_servers:
+  codegraph:
+    url: "http://localhost:3000"
+    enabled: true
+</code></pre>
+<h4>Task 5: Setup CodeGraph Sync to Nodes C & D</h4>
+<pre><code>
+# On Node B
+# Create sync script
+cat &gt; ~/sync-codegraph.sh &lt;&lt; 'SYNC_EOF'
+#!/bin/bash
+# Sync CodeGraph index from Node B to Node C &amp; D
+
+echo "Syncing CodeGraph index to Node C..."
+rsync -avz --delete \
+  ~/.codegraph/ \
+  maczz@100.102.109.81:~/codegraph-index/
+
+echo "Syncing CodeGraph index to Node D..."
+rsync -avz --delete \
+  ~/.codegraph/ \
+  nixos@100.120.225.12:~/codegraph-index/
+
+echo "CodeGraph sync complete."
+SYNC_EOF
+
+chmod +x ~/sync-codegraph.sh
+
+# Test sync
+~/sync-codegraph.sh
+</code></pre>
+<h4>Task 6: Create Cron Jobs for Automation</h4>
+<pre><code>
+# On Node A (Hermes-LCM primary)
+# Create backup cron job
+cat &gt; ~/hermes-lcm-backup.sh &lt;&lt; 'BACKUP_EOF'
+#!/bin/bash
+# Hermes-LCM backup script
+
+SOURCE="/mnt/data/hermes-lcm"
+TARGET="/mnt/sovereign_soul/hermes-lcm-backups/$(date +%Y%m%d_%H%M)"
+LOG="/var/log/hermes-lcm-backup.log"
+
+mkdir -p "$TARGET"
+
+echo "[$(date)] Starting Hermes-LCM backup..." &gt;&gt; "$LOG"
+rsync -avz --delete "$SOURCE/" "$TARGET/" &gt;&gt; "$LOG" 2&gt;&amp;1
+echo "[$(date)] Backup complete. Size: $(du -sh "$TARGET" | cut -f1)" &gt;&gt; "$LOG"
+BACKUP_EOF
+
+chmod +x ~/hermes-lcm-backup.sh
+
+# Add to crontab (every 48 hours)
+(crontab -l 2&gt;/dev/null; echo "0 */48 * * * $HOME/hermes-lcm-backup.sh") | crontab -
+
+# On Node B (CodeGraph backup)
+cat &gt; ~/codegraph-backup.sh &lt;&lt; 'CG_EOF'
+#!/bin/bash
+# CodeGraph backup script
+
+SOURCE="$HOME/.codegraph"
+TARGET="$HOME/codegraph-backups/$(date +%Y%m%d_%H%M)"
+LOG="/var/log/codegraph-backup.log"
+
+mkdir -p "$TARGET"
+
+echo "[$(date)] Starting CodeGraph backup..." &gt;&gt; "$LOG"
+rsync -avz --delete "$SOURCE/" "$TARGET/" &gt;&gt; "$LOG" 2&gt;&amp;1
+echo "[$(date)] Backup complete." &gt;&gt; "$LOG"
+CG_EOF
+
+chmod +x ~/codegraph-backup.sh
+
+# Add to crontab (daily at 2am)
+(crontab -l 2&gt;/dev/null; echo "0 2 * * * $HOME/codegraph-backup.sh") | crontab -
+
+# Weekly full reindex (Sunday 3am)
+cat &gt; ~/codegraph-reindex.sh &lt;&lt; 'REINDEX_EOF'
+#!/bin/bash
+# CodeGraph full reindex script
+
+PROJECT="/home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha"
+LOG="/var/log/codegraph-reindex.log"
+
+echo "[$(date)] Starting CodeGraph full reindex..." &gt;&gt; "$LOG"
+cd "$PROJECT"
+CODEGRAPH_INDEX_TIER=full codegraph index &gt;&gt; "$LOG" 2&gt;&amp;1
+echo "[$(date)] Reindex complete." &gt;&gt; "$LOG"
+
+# Sync to nodes C &amp; D
+~/sync-codegraph.sh
+REINDEX_EOF
+
+chmod +x ~/codegraph-reindex.sh
+
+# Add to crontab (Sundays at 3am)
+(crontab -l 2&gt;/dev/null; echo "0 3 * * 0 $HOME/codegraph-reindex.sh") | crontab -
+</code></pre>
+<h4>Task 7: Verify Integration</h4>
+<pre><code>
+# Verify Hermes-LCM
+hermes plugins  # Should show hermes-lcm
+lcm_status
+
+# Verify CodeGraph
+hermes mcp list  # Should show codegraph
+
+# Test CodeGraph tools
+agentic_context "Show me mesh routing architecture"
+agentic_impact "What depends on LiteLLM proxy?"
+
+# Test sync
+~/sync-codegraph.sh
+</code></pre>
+<h4>Task 8: Index Hermes Agent Fork</h4>
+<pre><code>
+# On Node B
+codegraph init ~/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/hermes-agent-nous
+CODEGRAPH_INDEX_TIER=balanced codegraph index
+</code></pre>
+<hr>
+<h3>CRON JOB SUMMARY</h3>
+<h4>Node A (Synapse)</h4>
+<table><thead><tr><th>Job</th><th>Schedule</th><th>Command</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>Hermes-LCM backup</td><td>Every 48 hours</td><td><code>~/hermes-lcm-backup.sh</code></td><td>Sync to Node C SSD with timestamp</td></tr>
+</tbody></table>
+<h4>Node B (Director)</h4>
+<table><thead><tr><th>Job</th><th>Schedule</th><th>Command</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>CodeGraph backup</td><td>Daily at 2am</td><td><code>~/codegraph-backup.sh</code></td><td>Local backup with timestamp</td></tr>
+<tr><td>CodeGraph sync</td><td>Manual</td><td><code>~/sync-codegraph.sh</code></td><td>Sync to Nodes C & D</td></tr>
+<tr><td>CodeGraph reindex</td><td>Sundays at 3am</td><td><code>~/codegraph-reindex.sh</code></td><td>Full reindex + sync to all nodes</td></tr>
+</tbody></table>
+<hr>
+<h3>CONFIGURATION FILES TO CREATE</h3>
+<h4>~/.hermes/config.yaml (Node A)</h4>
+<pre><code>
+plugins:
+  enabled:
+    - hermes-lcm
+
+context:
+  engine: lcm
+
+lcm:
+  sync:
+    mode: "batch"
+    batch_size: 10
+    interval_minutes: 5
+  sync_targets:
+    - node_c: /mnt/sovereign_soul/hermes-lcm
+</code></pre>
+<h4>~/.hermes/config.yaml (Node B)</h4>
+<pre><code>
+mcp_servers:
+  codegraph:
+    url: "http://localhost:3000"
+    enabled: true
+</code></pre>
+<hr>
+<h3>BACKUP RETENTION POLICY</h3>
+<h4>Hermes-LCM Backups (Node C SSD)</h4>
+<ul>
+<li>Location: <code>/mnt/sovereign_soul/hermes-lcm-backups/</code></li>
+<li>Naming: <code>YYYYMMDD_HHMM/</code></li>
+<li>Retention: Keep last 7 backups (14 days coverage)</li>
+<li>Size estimate: ~500MB per backup × 7 = 3.5GB</li>
+</ul>
+<h4>CodeGraph Backups (Node B)</h4>
+<ul>
+<li>Location: <code>~/codegraph-backups/</code></li>
+<li>Naming: <code>YYYYMMDD_HHMM/</code></li>
+<li>Retention: Keep last 7 daily + 4 weekly = 11 backups</li>
+<li>Size estimate: ~2GB per backup × 11 = 22GB</li>
+</ul>
+<hr>
+<h3>SYNC VERIFICATION CHECKLIST</h3>
+<p>After each sync operation, verify:</p>
+<ul>
+<li>[ ] File counts match on source and target</li>
+<li>[ ] Total sizes match (allow 5% variance for timestamps)</li>
+<li>[ ] Most recent files are present</li>
+<li>[ ] No rsync errors in logs</li>
+</ul>
+<pre><code>
+# Quick verification command
+diff -q -r /mnt/data/hermes-lcm/ /mnt/sovereign_soul/hermes-lcm/ | head -10
+</code></pre>
+<hr>
+<h3>MONITORING & ALERTING</h3>
+<h4>Log Locations</h4>
+<ul>
+<li>Hermes-LCM backup: <code>/var/log/hermes-lcm-backup.log</code></li>
+<li>CodeGraph backup: <code>/var/log/codegraph-backup.log</code></li>
+<li>CodeGraph reindex: <code>/var/log/codegraph-reindex.log</code></li>
+<li>Sync script: Output to stdout (or redirect to <code>/var/log/codegraph-sync.log</code>)</li>
+</ul>
+<h4>Alert Conditions</h4>
+<ul>
+<li>Backup failed (check exit code)</li>
+<li>Sync errors (rsync exit code != 0)</li>
+<li>Disk space < 10GB on backup targets</li>
+<li>Reindex took > 2 hours</li>
+</ul>
+<hr>
+<h3>ROLLBACK PROCEDURES</h3>
+<h4>If Hermes-LCM Sync Fails</h4>
+<ol>
+<li>Stop using Hermes (prevent writes to corrupted DB)</li>
+<li>Restore from Node C backup: <code>cp -r /mnt/sovereign_soul/hermes-lcm-backups/LATEST /mnt/data/hermes-lcm/</code></li>
+<li>Verify with <code>lcm_doctor</code></li>
+<li>Restart Hermes</li>
+</ol>
+<h4>If CodeGraph Index Corrupts</h4>
+<ol>
+<li>Stop CodeGraph MCP server</li>
+<li>Restore from local backup: <code>cp -r ~/codegraph-backups/LATEST ~/.codegraph/</code></li>
+<li>Reindex if needed: <code>codegraph index</code></li>
+<li>Restart server: <code>codegraph start mcp --port 3000</code></li>
+</ol>
+<hr>
+<h3>PERFORMANCE BENCHMARKING</h3>
+<p>After deployment, measure:</p>
+<ul>
+<li>Hermes-LCM sync time per batch (target: < 1 second)</li>
+<li>CodeGraph sync time to Node C (target: < 30 seconds)</li>
+<li>CodeGraph sync time to Node D (target: < 60 seconds)</li>
+<li>Backup time (target: < 5 minutes)</li>
+<li>Reindex time (target: < 30 minutes for balanced tier)</li>
+</ul>
+<hr>
+<h3>NEXT ACTIONS</h3>
+<ol>
+<li>Mount Node C external SSD (BLOCKING - requires sudo access on Node C)</li>
+<li>Install Hermes-LCM on Node A</li>
+<li>Install CodeGraph-Rust on Node B</li>
+<li>Create and test sync scripts</li>
+<li>Setup cron jobs</li>
+<li>Run first backup and sync</li>
+<li>Verify all systems operational</li>
+</ol>
+<hr>
+<p><strong>Updated:</strong> May 14, 2026 with user decisions for Q1-Q4</p>
+<p><strong>Plan Location:</strong> docs/plans/PHASE3-MEMORY-ARCHITECTURE-UPDATED.md</p>
+<p><strong>MCP Reference:</strong> docs/plans/MCP-TOOL-REFERENCE.md</p>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.1-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Tool Reference Card — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Operations &middot; MCP Tool Reference</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            Operations<span class="sep">/</span>
+            MCP Reference
+        </nav>
+
+        <main>
+            <h2>MCP Tool Reference Card</h2>
+
+            <h3>CodeGraph-Rust MCP Tools</h3>
+
+            <h4>agentic_context (HIGH PRIORITY)</h4>
+            <pre><code># Use when: You need semantic understanding of code relationships
+agentic_context "Show me how authentication flows through the mesh"
+agentic_context "Why is the LiteLLM proxy configured this way?"
+agentic_context "What are the entry points for the mirage-vfs module?"</code></pre>
+            <p><strong>Replaces:</strong> Manual grep + piecing together relationships</p>
+            <p><strong>Gap:</strong> Native search_files finds patterns but doesn't understand call chains, dependencies, or architectural intent</p>
+
+            <h4>agentic_impact (HIGH PRIORITY)</h4>
+            <pre><code># Use when: You're making a change and want to know what breaks
+agentic_impact "What depends on the LiteLLM proxy configuration?"
+agentic_impact "If I change directors-forge API, what's the impact?"
+agentic_impact "What modules use the Tailscale artery functions?"</code></pre>
+            <p><strong>Replaces:</strong> Manual dependency tracking</p>
+            <p><strong>Gap:</strong> No native dependency analysis or impact mapping</p>
+
+            <h4>agentic_architecture (MEDIUM PRIORITY)</h4>
+            <pre><code># Use when: You need to understand system structure or boundaries
+agentic_architecture "What are the module boundaries in 50V3R31GN-M4CH1N4?"
+agentic_architecture "Show me the mesh routing architecture"
+agentic_architecture "How do the Rust crates interact with Hermes Agent?"</code></pre>
+            <p><strong>Replaces:</strong> Manual documentation reading + mental model building</p>
+            <p><strong>Gap:</strong> No native architectural pattern recognition</p>
+
+            <h4>agentic_quality (MEDIUM PRIORITY)</h4>
+            <pre><code># Use when: You need to refactor or understand code complexity
+agentic_quality "What are the most complex functions in this crate?"
+agentic_quality "Where should I focus refactoring efforts?"
+agentic_quality "Show me coupling hotspots between modules"</code></pre>
+            <p><strong>Replaces:</strong> Manual line counting + code reading</p>
+            <p><strong>Gap:</strong> No native complexity analysis or metrics</p>
+
+            <hr>
+
+            <h3>Native Tools to Keep Using</h3>
+
+            <h4>search_files</h4>
+            <pre><code># Use when: Fast pattern finding, simple grep
+search_files "LiteLLM" target="content"
+search_files "*.py" target="files"</code></pre>
+            <p><strong>Advantage:</strong> Fast, ripgrep-backed, good for simple patterns</p>
+
+            <h4>read_file</h4>
+            <pre><code># Use when: Direct file access
+read_file path="crates/modules/directors-forge/src/main.rs"</code></pre>
+            <p><strong>Advantage:</strong> Direct, low-overhead, no abstraction</p>
+
+            <h4>terminal</h4>
+            <pre><code># Use when: Build, test, deployment, system operations
+terminal command="cargo build --release"</code></pre>
+            <p><strong>Advantage:</strong> Full shell access, complete control</p>
+
+            <h4>execute_code</h4>
+            <pre><code># Use when: Scripted operations, complex data processing
+execute_code code="import json; print(json.dumps(data))"</code></pre>
+            <p><strong>Advantage:</strong> Python scripting with hermes_tools integration</p>
+
+            <h4>session_search</h4>
+            <pre><code># Use when: Cross-session memory retrieval
+session_search query="LiteLLM proxy setup"</code></pre>
+            <p><strong>Advantage:</strong> Hermes native, covers all past conversations</p>
+
+            <h4>delegate_task</h4>
+            <pre><code># Use when: Parallel independent work
+delegate_task tasks=[{goal:"Task A"}, {goal:"Task B"}]</code></pre>
+            <p><strong>Advantage:</strong> Parallel execution, isolated contexts</p>
+
+            <h3>Tool Selection Heuristic</h3>
+            <p><strong>Use Native Tools When:</strong></p>
+            <ul>
+                <li>Simple file operations (read, write, search)</li>
+                <li>Build/test/deployment (terminal)</li>
+                <li>Scripted workflows (execute_code)</li>
+                <li>Cross-session memory (session_search)</li>
+                <li>Parallel work (delegate_task)</li>
+            </ul>
+            <p><strong>Use CodeGraph Tools When:</strong></p>
+            <ul>
+                <li>Semantic code understanding (agentic_context)</li>
+                <li>Dependency/impact analysis (agentic_impact)</li>
+                <li>Architectural questions (agentic_architecture)</li>
+                <li>Code quality/refactoring (agentic_quality)</li>
+            </ul>
+
+            <h3>Tool Combinations</h3>
+            <p><strong>Common Pattern: Context + Impact</strong></p>
+            <pre><code># Understand current state
+agentic_context "How does the mesh routing work?"
+
+# Plan a change
+agentic_impact "What if I change the routing rules?"
+
+# Implement
+terminal command="edit config file"
+
+# Verify
+agentic_quality "Did this introduce complexity?"</code></pre>
+
+            <p><strong>Common Pattern: Architecture + Quality</strong></p>
+            <pre><code># Understand boundaries
+agentic_architecture "What are the module boundaries?"
+
+# Find hotspots
+agentic_quality "What are the most complex functions?"
+
+# Refactor
+# (use native tools)</code></pre>
+
+            <h3>Performance Notes</h3>
+            <p><strong>CodeGraph Tools:</strong></p>
+            <ul>
+                <li>Use tier-aware prompting (adjusts based on model context window)</li>
+                <li>Maximum 8 steps (prevents runaway costs)</li>
+                <li>Context overflow protection (truncates large results)</li>
+                <li>Agentic reasoning (plans, searches, analyzes, synthesizes)</li>
+            </ul>
+            <p><strong>Native Tools:</strong></p>
+            <ul>
+                <li>No token overhead</li>
+                <li>Instant response</li>
+                <li>Direct control</li>
+                <li>Lower-level abstraction</li>
+            </ul>
+            <div class="callout">
+                <strong>Decision Rule:</strong> Quick, simple tasks → Native tools; Complex, semantic tasks → CodeGraph tools; Hybrid workflows → Combine both.
+            </div>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>
