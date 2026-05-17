@@ -10,6 +10,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - **Node B binary upgrade:** llama.cpp v8710 -> b9190 (480 releases). Hermes-4-14B prompt processing 93.2 -> 322 t/s (+245%). Qwen3-VL-2B gen 50.7 -> 159 t/s (+214%). Old binary backed up at llama-server-v8710.exe.bak. Startup scripts consolidated (start-hermes.bat, start-vision.bat, start-all.bat).
 - **Node D model swap:** Carnice-Qwen3.6-MoE-35B-A3B Q4_K_M -> Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB). Baseline CPU benchmark: prompt 12.7 t/s, gen 7.0 t/s (8 threads, AVX2). Now running on llama.cpp b64b38b5 (stock build).
+- **Hermes fork synced to upstream:** Merged NousResearch/hermes-agent@3b3909690 (24 commits). Tagged mesh-v0.3.1-alpha. Notable upstream: `hermes send` command, /exit --delete, session recap, MCP URL validation, plugin discovery fix, gateway memory monitor.
+- **GitHub Wiki deployed:** 10-page operational knowledge base at github.com/maczzgit/50V3R31GN-M4CH1N4/wiki. Covers topology, models, phases, runbook, security, network architecture.
+- **Docs HTML consolidation:** 18 markdown files converted to styled HTML matching existing dark theme. docs/index.html updated to v0.3.1-alpha with full navigation.
+
+### Documentation
+
+- **KANBAN_MAP.md updated:** Phase 0 CLOSED, Phase 1 CONDITIONAL PASS, Phase 2 IN PROGRESS. 27 kanban cards tracked.
+- **README.md updated:** GitHub Wiki and HTML docs linked from Key Documents section.
+- **Contributor attribution:** Hermes fork commits now list maczzgit as author with Sovereign Machina co-authorship.
 
 ### Changed
 
