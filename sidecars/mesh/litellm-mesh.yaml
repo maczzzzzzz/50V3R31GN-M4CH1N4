@@ -119,7 +119,7 @@ general_settings:
   host: 0.0.0.0
   port: 4000
   telemetry: false
-  # No database_url -- runs stateless (no Prisma needed for simple routing)
+  database_url: "sqlite:///app/litellm.db"
   # If we need persistence later, mount a volume and set sqlite:///path
 
 environment_variables:

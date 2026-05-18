@@ -6,6 +6,7 @@ services:
     ports:
       - "4000:4000"
     volumes:
+      - ./data:/app
       - ./litellm-mesh.yaml:/app/config.yaml
     environment:
       - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
