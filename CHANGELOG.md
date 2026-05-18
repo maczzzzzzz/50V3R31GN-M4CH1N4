@@ -1,5 +1,20 @@
 ## [0.3.12-alpha] - 2026-05-20
 
+### Security
+- **CVE patches applied.** aiohttp 3.13.3 → 3.13.5 (CVE-2026-34513-34525: SSRF, credential theft, DoS). anthropic 0.86.0 → 0.102.0 (CVE-2026-34452, CVE-2026-34450: sandbox escape).
+- **Hardcoded secrets removed.** API key extracted from scripts/ignite.sh to ~/.hermes/.env.
+- **command_approval enabled.** Set to `smart` for dangerous command confirmation.
+
+### Hermes Native Features
+- **Delegation architecture unified.** Enabled native `delegate_task` with max_spawn_depth=2, orchestrator support.
+- **MCP servers added.** GitHub MCP for repository operations, filesystem MCP for file access.
+- **Credential pools configured.** Rate limit resilience for zai (fill_first) and openrouter (round_robin).
+- **Langfuse plugin enabled.** LLM tracing ready (API keys placeholder in .env).
+
+### Hermes Fork Sync
+- **Merged upstream/main (2026-05-18).** 2 commits: AUTHOR_MAP entry, ollama-cloud base_url fix.
+- **Submodule pin updated.** sidecars/hermes-agent-nous points to latest fork commit.
+
 ### Technical Debt & Cleanup
 - **Technical debt purge completed.** ~67 GB garbage removed across all mesh nodes:
   - Node D: 60 GB abandoned repo + 768 MB test files

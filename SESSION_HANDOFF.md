@@ -1,6 +1,6 @@
 # SESSION_HANDOFF.md: v0.3.12-alpha
 
-**Timestamp:** 2026-05-18 22:15 UTC
+**Timestamp:** 2026-05-18 22:30 UTC
 **Branch:** stable/mesh-alpha
 **Status:** ALL NODES OPERATIONAL
 
@@ -8,76 +8,58 @@
 
 ## SESSION SUMMARY
 
-Comprehensive Hermes documentation audit complete. HIGH priority security 
-vulnerabilities patched. Fork synced to upstream.
+Hermes documentation audit complete. Security patches applied. Phase 5 added to kanban.
 
 ### Completed Actions
 
-1. **Security Patches (aiohttp, anthropic)**
-   - aiohttp 3.13.3 → 3.13.5 (10 CVEs: SSRF, credential theft, DoS)
-   - anthropic 0.86.0 → 0.102.0 (CVE-2026-34452, CVE-2026-34450: sandbox escape)
-   - Committed in hermes-agent-nous submodule
+1. **Security Patches**
+   - aiohttp 3.13.3 → 3.13.5 (10 CVEs)
+   - anthropic 0.86.0 → 0.102.0 (2 CVEs: sandbox escape)
+   - Hardcoded API key removed from ignite.sh
+   - command_approval: smart enabled
 
-2. **Hermes Fork Sync**
-   - Merged upstream/main (2026-05-18): 2 commits
-   - Updated submodule pin in main repo
-   - Pushed to origin
-
-3. **Hermes Native Features Enabled**
-   - command_approval: smart
+2. **Hermes Native Features**
    - delegation.max_spawn_depth: 2
-   - GitHub MCP server + filesystem MCP server
+   - GitHub MCP + filesystem MCP servers
    - credential_pool_strategies configured
    - Langfuse plugin enabled (keys needed in .env)
 
-4. **sovereign-sniffer npm deps updated**
-   - @browserbasehq/stagehand updated
-   - langsmith transitive deps updated
-   - Remaining: SSRF in transitive deps (requires breaking change)
+3. **Hermes Fork Sync**
+   - Merged upstream/main (2026-05-18)
+   - 2 commits integrated
+   - Submodule pin updated
 
-### Remaining Alerts (94 total)
-
-Most are in transitive deps (litellm, GitPython, pillow, urllib3, etc.)
-or false positives from deleted files.
+4. **Phase 5 Added to Kanban**
+   - P5-T1: Zeroboot Isolation Layer (t_833e6833) - Firecracker microVM sandboxes
+   - P5-T2: VibeVoice ASR Pipeline (t_a9c63663) - Omi wearable + Whisper ASR
+   - Both prototypes exist in crates/modules/ with tests
 
 ---
 
-## ZEROBOOT & VIBEVOICE FINDINGS
+## ZEROBOOT & VIBEVOICE
 
-### What They Are
+**zeroboot-isolation** (`crates/modules/zeroboot-isolation/`)
+- KVM/Firecracker microVM wrapper for secure agent sandboxes
+- SCION networking for mesh-wide multi-agent isolation
+- <2s spawn, 512MB base image
+- Nix module: `nix/modules/zeroboot.nix`
 
-**zeroboot-isolation** (crates/modules/zeroboot-isolation/)
-- KVM/Firecracker microVM wrapper for agent isolation
-- SCION networking integration for multi-agent isolation
-- Fast spawn/teardown (< 2s), 512MB base image
-- Nix module: nix/modules/zeroboot.nix
-
-**vibevoice-asr** (crates/modules/vibevoice-asr/)
+**vibevoice-asr** (`crates/modules/vibevoice-asr/`)
 - Multi-source ASR pipeline (Whisper-based)
-- Omi BLE hardware support (wearable voice input)
-- Mobile mic input via Tailscale
-- VibeVoice post-processing (emotion/style scoring)
-- Phase 5: Omi Voice Layering
+- Omi BLE wearable integration (priority audio source)
+- Mobile mic via Tailscale
+- VibeVoice emotion/style scoring
 
-### Status
+Both created May 10, never added to roadmap until now. Ready for activation when hardware available.
 
-- **NOT in KANBAN_MAP.md** - No kanban cards reference these crates
-- **NOT in IMPLEMENTATION_PLAN.md** - No planning docs mention them
-- **Created:** 2026-05-10 by "maczzzzzzz"
-- **Last modified:** 2026-05-10 (security fixes applied)
-- **Cargo.lock alerts:** 0 (were false positives from deleted files)
+---
 
-### Recommendation
+## DEPENDABOT STATUS
 
-These are prototype crates from an earlier exploration phase. They were 
-never added to the official roadmap. Options:
-
-1. **Archive** - Move to `crates/archive/` if keeping for reference
-2. **Add to Phase 5** - vibevoice-asr aligns with "Phase 5: Omi Voice Layering"
-3. **Delete** - If truly abandoned, purge to reduce noise
-
-User indicated: "zeroboot and vibe voice were ideas from an earlier prototype 
-we opted to keep" - suggest adding to kanban as FUTURE/BACKLOG items.
+- **67 alerts remaining** (down from 94)
+- Most are transitive deps (litellm, GitPython, pillow, urllib3)
+- Cargo.lock alerts: 0 (false positives resolved)
+- sovereign-sniffer: langsmith SSRF in transitive deps (requires breaking change to fix)
 
 ---
 
@@ -97,10 +79,25 @@ we opted to keep" - suggest adding to kanban as FUTURE/BACKLOG items.
 
 ## NEXT SESSION
 
-- Add zeroboot/vibevoice to kanban as BACKLOG items (user decision)
-- Test Langfuse tracing with API keys
-- Monitor transitive dep CVEs (litellm, GitPython, pillow)
-- P3-T1: Hermes-LCM validation on mesh nodes
+1. **P3-T1: Hermes-LCM validation** - Test LCM sync across mesh nodes
+2. **Langfuse API keys** - Add to ~/.hermes/.env for LLM tracing
+3. **Monitor transitive CVEs** - litellm, GitPython, pillow worth watching
+4. **Phase 5 activation** - When hardware ready (Firecracker, Omi BLE)
+
+---
+
+## KANBAN STATE
+
+**23 cards total: 12 done, 6 todo, 5 ready**
+
+| Phase | Status | Cards |
+|-------|--------|-------|
+| Phase 0 | CLOSED | 6 done |
+| Phase 1 | CLOSED | 4 done |
+| Phase 2 | IN PROGRESS | 1 ready, 1 todo, 2 done |
+| Phase 3 | READY | 1 ready, 2 todo |
+| Phase 4 | PLANNED | 1 ready, 3 todo |
+| Phase 5 | PLANNED | 2 ready |
 
 ---
 
