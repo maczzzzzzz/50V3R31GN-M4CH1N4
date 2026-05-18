@@ -64,11 +64,13 @@ Core plugin infrastructure validated. Hermes-LCM functional. Mirage VFS cancelle
 
 ### Phase 4: Perception Layer — PLANNED
 
-|| ID | Title | Priority | Status |
+Voice pipeline and Open Design integration. Pretext HUD cancelled.
+
+||| ID | Title | Priority | Status |
 |----|-------|----------|--------|
 | t_eaf700b1 | PHASE 4 Epic | 8 | READY |
 | t_b2f62de1 | P4-T1: Voice Pipeline | 8 | TODO |
-| t_d0b6adb8 | P4-T2: Pretext HUD | 8 | TODO |
+| t_4f8a2c91 | P4-T2: Open Design Integration | 8 | TODO |
 | t_0c281759 | P4-T3: Mesh-wide Verification | 8 | TODO |
 
 ---
