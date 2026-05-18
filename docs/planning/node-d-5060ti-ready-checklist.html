@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node D RTX 5060 Ti Ready Checklist — Sovereign Machina</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../index.html">Sovereign Machina</a></h1>
+            <p>Planning &middot; Node D RTX 5060 Ti Ready Checklist</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Docs</a><span class="sep">/</span>
+            <a href="KANBAN_MAP.html">Planning</a><span class="sep">/</span>
+            Node D RTX 5060 Ti Ready Checklist
+        </nav>
+
+        <main>
+            <h2>Node D RTX 5060 Ti OCuLink Ready Checklist (v0.5.0)</h2>
+            <p>
+                <strong>Target:</strong> When the card arrives, execute in &lt;90 minutes with zero guesswork.<br>
+                <strong>Node:</strong> D (Quaternary) — Meteor Lake + OCuLink<br>
+                <strong>Model:</strong> Qwen3.5-35B-A3B-MTP UD-Q4_K_M<br>
+                <strong>Binary:</strong> ik_llama.cpp (latest main with Qwen3.5 MTP fix)
+            </p>
+
+            <h3>Pre-Arrival (do now)</h3>
+            <ol>
+                <li>Switch Node D flake input to nixos-unstable for CUDA 12.9</li>
+                <li>Add <code>cudaPackages_12_9</code> overlay in flake.nix</li>
+                <li>Prepare ik_llama.cpp derivation with:
+                    <ul>
+                        <li><code>-DCMAKE_CUDA_ARCHITECTURES=120a;121a</code></li>
+                        <li>GCC 14 + CUDA 12.9 (or GCC 13 + CUDA 12.8)</li>
+                        <li><code>-DGGML_NATIVE=OFF</code> (OCuLink safe)</li>
+                    </ul>
+                </li>
+                <li>Confirm OCuLink port works (lspci test with dummy card if available)</li>
+            </ol>
+
+            <h3>Day 0: Hardware + Software (single session)</h3>
+
+            <h4>1. Physical Install (10 min)</h4>
+<pre># Power off, install 5060 Ti in OCuLink enclosure
+# Connect OCuLink cable BEFORE powering on
+sudo reboot
+lspci | grep -i nvidia   # should show GA206 / GB206
+nvidia-smi               # 16GB VRAM visible</pre>
+
+            <h4>2. NixOS NVIDIA + CUDA 12.9 (15 min)</h4>
+            <p>Update <code>nix/hosts/node-d/default.nix</code>:</p>
+<pre>hardware.nvidia = {
+  modesetting.enable = true;
+  package = config.boot.kernelPackages.nvidiaPackages.latest; # 595+
+};
+services.xserver.videoDrivers = ["nvidia"];</pre>
+<pre>sudo nixos-rebuild switch --impure
+nvidia-smi -q | grep "CUDA Version"   # must be 12.8+</pre>
+
+            <h4>3. Build ik_llama.cpp (20 min)</h4>
+<pre>cd ~/llama.cpp
+git checkout main && git pull
+git checkout 0ab9bdf7   # Qwen3.5 MTP fix commit
+
+cmake -B build-cuda \
+  -DGGML_CUDA=ON \
+  -DGGML_NATIVE=OFF \
+  -DCMAKE_CUDA_ARCHITECTURES="120a;121a" \
+  -DGGML_AVX2=ON -DGGML_FMA=ON \
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build build-cuda -j$(nproc)</pre>
+            <p>Verify:</p>
+<pre>./build-cuda/bin/llama-server --help | grep -E "mtp|spec"</pre>
+
+            <h4>4. Deploy Model + Service (10 min)</h4>
+<pre># Model already at ~/models/Qwen3.5-35B-A3B-MTP-UD-Q4_K_M.gguf
+sudo tee /etc/systemd/system/llama-heavy.service &gt; /dev/null &lt;&lt;EOF
+[Unit]
+Description=Node D Heavy Reasoner (RTX 5060 Ti)
+After=network.target
+
+[Service]
+Type=simple
+User=maczz
+ExecStart=/home/maczz/llama.cpp/build-cuda/bin/llama-server \
+  -m /home/maczz/models/Qwen3.5-35B-A3B-MTP-UD-Q4_K_M.gguf \
+  --host 0.0.0.0 --port 8080 \
+  --ctx-size 16384 --flash-attn on \
+  --cache-type-k q8_0 --cache-type-v q8_0 \
+  -ngl 99 -t 8 -b 2048 \
+  -mtp --draft-max 5 --spec-autotune \
+  --metrics
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now llama-heavy</pre>
+
+            <h4>5. Verify Mesh Route (5 min)</h4>
+<pre>curl -s -H "Authorization: Bearer ***" \
+  http://localhost:4000/v1/models | grep mesh-heavy</pre>
+            <p>Expected: <code>mesh-heavy</code> now points to GPU-accelerated Qwen3.5-35B.</p>
+
+            <h3>Expected Post-Upgrade Numbers (to be measured)</h3>
+            <table>
+                <thead><tr><th>Metric</th><th>CPU (current)</th><th>GPU (target)</th><th>Notes</th></tr></thead>
+                <tbody>
+                    <tr><td>Prompt t/s</td><td>12.7</td><td>140-220</td><td>-ngl 99</td></tr>
+                    <tr><td>Gen t/s</td><td>7.0</td><td>38-55</td><td>Base</td></tr>
+                    <tr><td>Gen t/s + MTP</td><td>N/A (broken)</td><td>48-70</td><td>5 draft, high acceptance</td></tr>
+                    <tr><td>VRAM usage</td><td>N/A</td><td>~13.8 GB</td><td>35B MoE + 16k ctx</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Rollback</h3>
+            <ul>
+                <li>Keep CPU binary on port 8080</li>
+                <li>Run GPU binary on port 8081</li>
+                <li>Update LiteLLM route to prefer 8081 only for heavy tasks</li>
+            </ul>
+
+            <div class="callout">
+                <strong>Status:</strong> Ready to execute the moment the card is in hand. All research validated against current ik_llama.cpp main and nixos-unstable CUDA 12.9.
+            </div>
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.1-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

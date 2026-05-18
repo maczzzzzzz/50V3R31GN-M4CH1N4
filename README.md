@@ -1,7 +1,7 @@
 # 50V3R31GN-M4CH1N4
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.3.1--alpha-blue.svg" alt="Version"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.3.6--alpha-blue.svg" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
   <a href="https://github.com/maczzgit/50V3R31GN-M4CH1N4-hermes-agent-fork"><img src="https://img.shields.io/badge/hermes-fork-orange.svg" alt="Hermes Fork"></a>
 </p>
@@ -9,6 +9,8 @@
 **A distributed quaternary AI mesh built on physical hardware. Local inference. Zero cloud dependency. Full sovereignty.**
 
 50V3R31GN-M4CH1N4 runs [Hermes Agent](https://github.com/NousResearch/hermes-agent) (forked) as its orchestration core, distributed across four physical nodes connected via Tailscale. Every inference call stays on local hardware. No API keys. No cloud relays. No shadow logic.
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the active sovereign team. GitHub's automatic contributor graph includes upstream Hermes history.
 
 ---
 

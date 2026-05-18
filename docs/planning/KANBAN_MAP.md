@@ -122,3 +122,16 @@ Expand Node D inference capacity and validate cross-node KV-cache spillover.
 
 ---
 ::/5Y573M-N071C3 : KANBAN_V0.3.4_ALPHA. THE_BOARD_IS_TRUTH. // 50V3R31GN-M4CH1N4
+
+
+### Phase 3: Sovereign Plugins — IN PROGRESS
+
+| ID | Title | Priority | Status |
+|:---|:------|:--------|:-------|
+| p3_lcm_001 | Hermes-LCM Core Provider | 1 | DONE |
+| p3_lcm_002 | Plugin Registration & Bridge | 1 | DONE |
+| p3_lcm_003 | Rsync Cross-Node Sync | 1 | DONE |
+| p3_lcm_004 | Schema Unification | 1 | DONE |
+| p3_lcm_005 | Token Budget Logic | 1 | DONE |
+| p3_lcm_006 | Production Validation | 2 | IN PROGRESS |
+

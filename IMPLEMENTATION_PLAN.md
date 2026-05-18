@@ -93,3 +93,14 @@ Port validated capabilities as native Hermes plugins.
 ---
 
 ::/5Y573M-N071C3 : PLAN_V0.3.5_ALPHA. PHASE3_READY. // 50V3R31GN-M4CH1N4
+
+## PHASE 3: SOVEREIGN PLUGINS — IN PROGRESS
+
+Hermes-LCM (Lossless Context Management) integration.
+
+- [x] Core provider implemented (`sidecars/hermes-lcm/`)
+- [x] Plugin registration under `plugins/memory/hermes-lcm/`
+- [x] Rsync cross-node sync added to daemon
+- [x] Schema unification bridge (core + plugin) completed
+- [x] Token-aware context management fixed
+- [ ] Full production validation on live mesh nodes (pending Node A stability)

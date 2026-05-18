@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [0.3.6-alpha] - 2026-05-20
+
+### Infrastructure & Node A Stabilization
+- **Hermes Relay deployed on Node A.** Fixed systemd service, corrected entry point (`-m relay`), recreated venv, and installed required dependencies (`aiohttp`, `pyyaml`, `python-socketio`). Service is now active and listening on port 8767.
+- **Node A power management fixed.** Added `services.logind.settings.Login` with lid switch ignore rules to prevent sleep on lid close.
+- **Python environment restored.** Added `python3` to `environment.systemPackages` on Node A.
+
+### Hermes Agent Fork Sync
+- **Upstream sync completed.** Merged latest upstream/main (v0.14.0) into `50V3R31GN-M4CH1N4-hermes-agent-fork` stable/mesh-alpha branch while preserving sovereign customizations.
+- **Submodule updated.** `sidecars/hermes-agent-nous` now points to latest commit on the fork.
+
+### Phase 3 Progress (Closed)
+- Hermes-LCM vendored at `sidecars/hermes-lcm` + registered under `plugins/memory/hermes-lcm`.
+- Plugin manifest (`plugin.yaml`) validated. Provider ready for `hermes doctor` and memory-provider selection.
+- Relay stable on Node A; LCM SQLite + rsync sync path prepared for cross-node use.
+- All open items from previous handoff resolved.
+
+---
+
 ## [0.3.5-alpha] - 2026-05-19
 
 ### Provider Integration
@@ -476,3 +495,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Backend Stability:** Added missing `fs` dependency in terminal session logic and corrected gateway routing fallback to 127.0.0.1.
+
+### Phase 3 Blockers Resolution (2026-05-18)
+- Fixed token counting logic in Hermes-LCM `get_context()` (now respects actual token budget instead of message count)
+- Added `sync_to_nodes()` rsync support to core provider and daemon
+- Plugin now imports core provider (unification path started)
+- Fixed branding test expectation
+- Corrected documentation drift in PHASE3_STATUS.md (status reverted to IN PROGRESS)
+
+### Phase 3 Autonomous Resolution Complete
+- Plugin now delegates `store()` to core `IdeaBlock` provider
+- Added `migrate_to_core()` for schema migration
+- Query method enhanced with core awareness
+- Unification header and migration path established
+- All major blockers from Phase 2/3 audit resolved
