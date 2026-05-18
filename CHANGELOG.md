@@ -22,6 +22,11 @@
 - **Updated version stamps across all non-archive HTML docs.** v0.1.0-alpha/v0.3.1-alpha -> v0.3.12-alpha.
 - **Rewrote IMPLEMENTATION_PLAN.md.** v0.3.6-alpha -> v0.3.13-alpha, added Phase 5, removed duplicate sections.
 
+### Security
+- **CVE-2026-35030 CRITICAL fixed.** LiteLLM Docker image pinned to 1.85.0 (was main-latest). Auth bypass via OIDC userinfo cache key collision patched.
+- **LiteLLM HIGH CVEs resolved.** CVE-2026-40217, CVE-2026-42271, CVE-2026-42203, CVE-2026-35029 all patched by 1.85.0 upgrade.
+- **24 HIGH Dependabot alerts triaged.** All manifest=None (transitive deps, Docker image scanning). No action required on repo code.
+
 ### Kanban & Status
 - **Board count: 25 cards (14 done, 6 todo, 5 ready).** Phase 3 marked CLOSED.
 - **SOVEREIGN_VITAL_SIGNS.md: Phase 3 CLOSED, Phase 4 PLANNED, Phase 5 PLANNED.**

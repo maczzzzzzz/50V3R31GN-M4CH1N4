@@ -1,25 +1,30 @@
-# SESSION HANDOFF
+# SESSION_HANDOFF
 
 **Updated:** 2026-05-21
-**Session:** Phase 3 Closure Complete
+**Session:** Phase 3 Closure + Security Patch
 
 ---
 
 ## Status: COMPLETE
 
-All Phase 3 tasks finalized. Phase 5 trimmed to single TODO (Zeroboot). VibeVoice cancelled as unnecessary overhead.
+All Phase 3 tasks finalized. Security patch applied. Ready for fresh session.
 
 ---
 
-## Key Decisions This Session
+## Completed This Session
 
-1. **P5-T2 VibeVoice CANCELLED** — Hermes has native Whisper/TTS. 7B model overhead (14-16GB VRAM) unjustified for diarization we don't need.
-2. **Phase 3 CLOSED** — Hermes-LCM functional (SQLite DAG, mesh sync stub), Mirage VFS cancelled (prototype with no backend).
-3. **Zeroboot validated** — Upstream zerobootdev/zeroboot uses CoW forking (0.79ms spawn, 265KB/sandbox) vs our naive Firecracker wrapper (2-15s). Self-host on Node D.
+1. **Phase 3 CLOSED.** Hermes-LCM DONE, Mirage VFS CANCELLED.
+2. **P5-T2 VibeVoice CANCELLED.** Hermes has native Whisper/TTS. 7B model overhead unjustified.
+3. **CVE-2026-35030 CRITICAL fixed.** LiteLLM pinned to 1.85.0 (auth bypass patched).
+4. **24 HIGH Dependabot alerts triaged.** All manifest=None false positives (transitives, Docker scanning).
+5. **Manifest scribe pass complete.** All docs synced to v0.3.13-alpha.
 
 ---
 
 ## Remaining Work
+
+### Phase 2 (blocked)
+- P2-T1: Node D RTX 5060 Ti upgrade (hardware pending)
 
 ### Phase 4 TODO
 - P4-T1: Voice Pipeline
@@ -28,18 +33,14 @@ All Phase 3 tasks finalized. Phase 5 trimmed to single TODO (Zeroboot). VibeVoic
 
 ### Phase 5 TODO
 - P5-T1: Zeroboot Isolation Layer (self-host upstream on Node D)
-- P5-T2: ~~VibeVoice ASR~~ CANCELLED
-
-### Phase 2 Pending
-- P2-T1: Node D RTX 5060 Ti upgrade (hardware pending)
 
 ---
 
 ## Next Session Priorities
 
-1. Execute P4-T2 Open Design sidecar deployment
-2. Begin Zeroboot self-hosting on Node D
-3. Address Dependabot alerts (73 vulnerabilities reported)
+1. P4-T2 Open Design sidecar deployment on Node B
+2. P4-T3 mesh-wide verification (all routes health check)
+3. P5-T1 Zeroboot self-hosting on Node D (requires VT-x check)
 
 ---
 
@@ -52,6 +53,4 @@ All Phase 3 tasks finalized. Phase 5 trimmed to single TODO (Zeroboot). VibeVoic
 | C (Oracle) | 100.102.109.81 | mesh-function-calling | ONLINE |
 | D (Quaternary) | 100.120.225.12 | mesh-heavy (35B) | ONLINE |
 
----
-
-**::/5Y573M-N071C3 : HANDOFF_UPDATED. PHASE_3_CLOSED. PHASE_5_TRIMMED. // 50V3R31GN-M4CH1N4**
+**LiteLLM:** v1.85.0, 5 routes, Docker Desktop port 4000

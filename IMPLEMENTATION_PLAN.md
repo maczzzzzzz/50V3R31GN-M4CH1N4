@@ -83,7 +83,7 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 | Component | Status | Notes |
 |:----------|:-------|:------|
 | Kanban MCP Server | LIVE | FastMCP stdio, 8 tools |
-| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes |
+| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes, v1.85.0 |
 | hermes-relay | LIVE | Docker Desktop port 8767 |
 | socat mesh bridge | LIVE | Ports 17080/18081/18080 |
 | Tailscale | PERMANENT | Personal tailnet auto-renews |

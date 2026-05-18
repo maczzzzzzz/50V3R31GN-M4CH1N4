@@ -36,7 +36,7 @@ LiteLLM mesh router on Node B (Docker Desktop, port 4000). 5 routes. Vulkan node
 | Models | Qwopus3.5-9B Q8_0 + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
 | Benchmark | Hermes: 428-441 t/s prompt, 53.8-55.1 t/s gen | Qwen3-VL text: 630/159 t/s |
 | KV Cache | f16 (Vulkan -- q4_0 causes regression) |
-| LiteLLM | Docker Desktop container, port 4000, 4 routes |
+| LiteLLM | Docker Desktop container, port 4000, 5 routes, v1.85.0 |
 | Docker | Native NixOS daemon DISABLED. Using Docker Desktop |
 | Tailscale | 100.66.173.31 |
 
