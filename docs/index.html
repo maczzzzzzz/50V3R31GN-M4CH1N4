@@ -9,10 +9,10 @@
 <body>
     <header>
         <h1>50V3R31GN-M4CH1N4</h1>
-        <p class="subtitle">Sovereign AI Mesh • Local Inference Only</p>
+        <p class="subtitle">Sovereign AI Mesh — Local Inference Only</p>
     </header>
 
-    <div class="nav">
+    <nav class="nav">
         <a href="architecture/">Architecture</a>
         <a href="nodes/">Nodes</a>
         <a href="operations/">Operations</a>
@@ -20,31 +20,37 @@
         <a href="benchmarks/">Benchmarks</a>
         <a href="reference/">Reference</a>
         <a href="crates/">Crates</a>
-    </div>
+    </nav>
 
-    <div class="card">
-        <h2>The Sovereign Mesh</h2>
-        <p>A distributed, hardware-sovereign AI system running entirely on local infrastructure across four physical nodes.</p>
-        <p><strong>Zero cloud. Zero API keys. Full control.</strong></p>
-    </div>
+    <main>
+        <section class="hero">
+            <h2>A distributed, hardware-sovereign AI system.</h2>
+            <p>Four physical nodes. Zero cloud. Full control.</p>
+        </section>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px;">
-        <div class="card">
-            <h3>Architecture</h3>
-            <p>Mesh topology, networking, and model routing strategy.</p>
-            <a href="architecture/">Explore Architecture →</a>
+        <div class="grid">
+            <div class="card">
+                <h3>Architecture</h3>
+                <p>Mesh topology, networking, model routing, and security design.</p>
+                <a href="architecture/">View Architecture →</a>
+            </div>
+            <div class="card">
+                <h3>Nodes</h3>
+                <p>Hardware profiles and roles for Node A, B, C, and D.</p>
+                <a href="nodes/">View Nodes →</a>
+            </div>
+            <div class="card">
+                <h3>Operations</h3>
+                <p>Runbooks, relay services, MCP tools, and workflows.</p>
+                <a href="operations/">View Operations →</a>
+            </div>
+            <div class="card">
+                <h3>Benchmarks</h3>
+                <p>Full mesh and per-node performance measurements.</p>
+                <a href="benchmarks/">View Benchmarks →</a>
+            </div>
         </div>
-        <div class="card">
-            <h3>Nodes</h3>
-            <p>Hardware specifications and roles for Node A–D.</p>
-            <a href="nodes/">View Nodes →</a>
-        </div>
-        <div class="card">
-            <h3>Operations</h3>
-            <p>Runbooks, relay services, and MCP tooling.</p>
-            <a href="operations/">View Operations →</a>
-        </div>
-    </div>
+    </main>
 
     <footer>
         <p>Single source of truth • GitHub Pages • Wiki permanently removed</p>
