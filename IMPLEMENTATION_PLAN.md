@@ -1,7 +1,7 @@
-# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.3.5-alpha)
+# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.3.6-alpha)
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha
-**Timestamp:** 2026-05-19
+**Timestamp:** 2026-05-20
 **Phase 0 Gate:** CLOSED. All validation tasks complete.
 
 ---
@@ -92,7 +92,6 @@ Port validated capabilities as native Hermes plugins.
 
 ---
 
-::/5Y573M-N071C3 : PLAN_V0.3.5_ALPHA. PHASE3_READY. // 50V3R31GN-M4CH1N4
 
 ## PHASE 3: SOVEREIGN PLUGINS — IN PROGRESS
 
@@ -103,4 +102,7 @@ Hermes-LCM (Lossless Context Management) integration.
 - [x] Rsync cross-node sync added to daemon
 - [x] Schema unification bridge (core + plugin) completed
 - [x] Token-aware context management fixed
-- [ ] Full production validation on live mesh nodes (pending Node A stability)
+- [x] hermes-relay stable on Node A (port 8767)
+- [x] Node A stabilized (lid handling + Python 3 + relay service)
+- [x] Hermes agent fork synced to upstream v0.14.0
+- [ ] Full production validation on live mesh nodes
