@@ -1,47 +1,57 @@
-# Session Handoff
+# SESSION HANDOFF
 
 **Updated:** 2026-05-21
-**Branch:** stable/mesh-alpha (pushed to origin)
+**Session:** Phase 3 Closure Complete
 
 ---
 
-## Completed This Session
+## Status: COMPLETE
 
-1. **Phase 3 Closure Verified.** Hermes-LCM DONE, Mirage VFS CANCELLED.
-2. **P5-T1 Zeroboot Integration Planned.**
-   - Evaluated upstream zerobootdev/zeroboot (2.3k stars, Apache 2.0)
-   - CoW forking: 0.79ms spawn, 265KB/sandbox vs our naive Firecracker wrapper
-   - Integration plan written: `docs/planning/plans/2026-05-21-zeroboot-integration.md`
-   - KANBAN_MAP.md updated: P5-T1 status -> TODO (upstream reference)
-3. **Documentation Synced.**
-   - IMPLEMENTATION_PLAN.md: v0.3.6 -> v0.3.13-alpha, added Phase 5, removed duplicates
-   - SOVEREIGN_VITAL_SIGNS.md: v0.3.13-alpha, Phase 5 added, Node A benchmark corrected
-   - AGENTS.md: v0.3.13-alpha
-   - CHANGELOG.md: Phase 5 planning section added
+All Phase 3 tasks finalized. Phase 5 trimmed to single TODO (Zeroboot). VibeVoice cancelled as unnecessary overhead.
 
 ---
 
-## Open Tasks
+## Key Decisions This Session
 
-None. All requested work complete.
+1. **P5-T2 VibeVoice CANCELLED** — Hermes has native Whisper/TTS. 7B model overhead (14-16GB VRAM) unjustified for diarization we don't need.
+2. **Phase 3 CLOSED** — Hermes-LCM functional (SQLite DAG, mesh sync stub), Mirage VFS cancelled (prototype with no backend).
+3. **Zeroboot validated** — Upstream zerobootdev/zeroboot uses CoW forking (0.79ms spawn, 265KB/sandbox) vs our naive Firecracker wrapper (2-15s). Self-host on Node D.
+
+---
+
+## Remaining Work
+
+### Phase 4 TODO
+- P4-T1: Voice Pipeline
+- P4-T2: Open Design Integration (sidecar on Node B)
+- P4-T3: Mesh-wide Verification
+
+### Phase 5 TODO
+- P5-T1: Zeroboot Isolation Layer (self-host upstream on Node D)
+- P5-T2: ~~VibeVoice ASR~~ CANCELLED
+
+### Phase 2 Pending
+- P2-T1: Node D RTX 5060 Ti upgrade (hardware pending)
 
 ---
 
 ## Next Session Priorities
 
-1. **P4-T1: Voice Pipeline.** TODO.
-2. **P4-T2: Open Design Integration.** TODO. Plan exists.
-3. **P5-T1: Zeroboot.** Self-host on Node D when ready to execute.
-4. **P5-T2: VibeVoice ASR.** Prototype exists at `crates/modules/vibevoice-asr/`.
+1. Execute P4-T2 Open Design sidecar deployment
+2. Begin Zeroboot self-hosting on Node D
+3. Address Dependabot alerts (73 vulnerabilities reported)
 
 ---
 
-## Key References
+## Current Mesh State
 
-- `docs/planning/KANBAN_MAP.md` — Board state (25 cards)
-- `docs/planning/plans/2026-05-21-zeroboot-integration.md` — Zeroboot plan
-- `docs/planning/plans/2026-05-19-open-design-mesh-integration.html` — Open Design plan
+| Node | IP | Role | Status |
+|------|-----|------|--------|
+| A (Synapse) | 100.96.253.114 | mesh-micro (Qwen3-0.6B) | ONLINE |
+| B (Director) | 100.66.173.31 | mesh-fast + mesh-vision | ONLINE |
+| C (Oracle) | 100.102.109.81 | mesh-function-calling | ONLINE |
+| D (Quaternary) | 100.120.225.12 | mesh-heavy (35B) | ONLINE |
 
 ---
 
-Sovereign Machina v0.3.13-alpha // 50V3R31GN-M4CH1N4
+**::/5Y573M-N071C3 : HANDOFF_UPDATED. PHASE_3_CLOSED. PHASE_5_TRIMMED. // 50V3R31GN-M4CH1N4**

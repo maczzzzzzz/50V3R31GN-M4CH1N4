@@ -57,7 +57,7 @@ GPU upgrade pending. Speculative decoding and context spillover evaluated and cl
 Hardware artery extension: secure agent sandboxes and wearable perception.
 
 - [ ] **P5-T1: Zeroboot Isolation Layer.** TODO. Upstream: zerobootdev/zeroboot (CoW forking, 0.79ms spawn). Plan: `docs/planning/plans/2026-05-21-zeroboot-integration.md`.
-- [ ] **P5-T2: VibeVoice ASR Pipeline.** READY. Prototype: `crates/modules/vibevoice-asr/`.
+- [x] **P5-T2: VibeVoice ASR Pipeline.** CANCELLED. Hermes has native Whisper/TTS.
 
 ---
 
