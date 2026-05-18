@@ -5,7 +5,7 @@
 
 ---
 
-## BOARD STATE (21 Cards: 12 Done, 6 Todo, 3 Ready)
+## BOARD STATE (23 Cards: 12 Done, 6 Todo, 5 Ready)
 
 ---
 
@@ -62,12 +62,23 @@ GPU upgrade pending. Speculative decoding and context spillover evaluated and cl
 
 ### Phase 4: Perception Layer — PLANNED
 
-| ID | Title | Priority | Status |
+|| ID | Title | Priority | Status |
 |----|-------|----------|--------|
 | t_eaf700b1 | PHASE 4 Epic | 8 | READY |
 | t_b2f62de1 | P4-T1: Voice Pipeline | 8 | TODO |
 | t_d0b6adb8 | P4-T2: Pretext HUD | 8 | TODO |
 | t_0c281759 | P4-T3: Mesh-wide Verification | 8 | TODO |
+
+---
+
+### Phase 5: Sovereign Isolation — PLANNED
+
+Hardware artery extension: secure agent sandboxes and wearable perception.
+
+|| ID | Title | Priority | Status |
+|----|-------|----------|--------|
+| t_833e6833 | P5-T1: Zeroboot Isolation Layer | 10 | READY (prototype: crates/modules/zeroboot-isolation/) |
+| t_a9c63663 | P5-T2: VibeVoice ASR Pipeline | 10 | READY (prototype: crates/modules/vibevoice-asr/) |
 
 ---
 
