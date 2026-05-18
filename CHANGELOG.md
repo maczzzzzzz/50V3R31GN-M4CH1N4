@@ -518,3 +518,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Query method enhanced with core awareness
 - Unification header and migration path established
 - All major blockers from Phase 2/3 audit resolved
+## [0.3.8-alpha] - 2026-05-18
+
+### Native Sovereign Infrastructure (Major)
+
+- **Native Mesh Router deployed** (`sidecars/mesh-router/`).
+  - Replaced LiteLLM Docker container with minimal FastAPI + httpx router.
+  - OpenAI-compatible `/v1/models` and `/v1/chat/completions` endpoints.
+  - Model aliases (`fast`, `heavy`, `fc`, `vision`) supported.
+  - Runs as user systemd service on Node B (port 4000).
+  - Direct Tailscale routing to all nodes. Zero Prisma, zero Docker networking issues.
+
+- **Hermes Relay converted to native** on Node A.
+  - Moved from Docker Desktop container to native systemd user service.
+  - Service file deployed to Node A (`~/.config/systemd/user/hermes-relay.service`).
+  - Reduced overhead and eliminated Docker Desktop dependency on the state node.
+
+- **Windows deployment tooling**:
+  - Created `windows-clean-install.ps1` — one-click installer for fresh Windows machines (downloads repo + NSSM + sets up service).
+  - Added NSSM service configuration for Hermes Relay on Windows laptops.
+  - Documented Android companion app usage from `Codename-11/hermes-relay`.
+
+### Documentation & Handoff
+
+- Updated `CHANGELOG.md`, `SESSION_HANDOFF.md`, and `IMPLEMENTATION_PLAN.md`.
+- Created `docs/architecture/mesh-router.html` and `docs/architecture/hermes-relay.html`.
+- Consolidated relay documentation in `sidecars/hermes-relay/`.
+
+### Deprecated
+
+- Old LiteLLM Docker compose stack archived (`sidecars/mesh/docker-compose.yml.bak`).
+- Docker-based hermes-relay on Node B removed from active use.
+

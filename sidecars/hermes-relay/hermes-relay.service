@@ -1,0 +1,21 @@
+[Unit]
+Description=Hermes Relay - Messaging Gateway (Native)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=maczz
+WorkingDirectory=/home/maczz
+ExecStart=/home/maczz/.local/bin/hermes gateway run
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+Environment=HERMES_HOME=/home/maczz/.hermes
+
+# Resource limits (Node A has 16GB)
+MemoryMax=2G
+CPUQuota=50%
+
+[Install]
+WantedBy=default.target

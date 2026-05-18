@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesh Router — NODESTADT Architecture</title>
+    <style>
+        body { font-family: system-ui, sans-serif; line-height: 1.6; max-width: 960px; margin: 40px auto; padding: 0 20px; }
+        h1, h2, h3 { color: #111; }
+        pre, code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f8f8f8; }
+    </style>
+</head>
+<body>
+    <h1>Sovereign Mesh Router</h1>
+    <p><strong>Status:</strong> Active (May 2026) &nbsp;|&nbsp; <strong>Location:</strong> <code>sidecars/mesh-router/</code></p>
+
+    <h2>Overview</h2>
+    <p>
+        The Sovereign Mesh Router is a minimal, native, OpenAI-compatible proxy that routes requests
+        to the correct inference node based on model name. It replaces the previous LiteLLM Docker
+        deployment.
+    </p>
+    <p>
+        <strong>Design goals:</strong> Zero database, zero Prisma, no Docker networking complexity,
+        fully native NixOS + systemd integration.
+    </p>
+
+    <h2>Architecture</h2>
+    <ul>
+        <li><strong>Implementation:</strong> Single-file FastAPI application (~120 LOC)</li>
+        <li><strong>Runtime:</strong> Python 3.12+ with FastAPI + Uvicorn + HTTPX</li>
+        <li><strong>Deployment:</strong> User systemd service on Node B</li>
+        <li><strong>Port:</strong> 4000 (localhost only)</li>
+    </ul>
+
+    <h2>Model Routing Table</h2>
+    <table>
+        <tr><th>Model Name</th><th>Alias</th><th>Backend Node</th><th>Endpoint</th></tr>
+        <tr><td>mesh-fast</td><td>fast</td><td>Node B (Director)</td><td>10.0.0.11:8081</td></tr>
+        <tr><td>mesh-vision</td><td>vision, vl</td><td>Node B (Director)</td><td>10.0.0.11:8082</td></tr>
+        <tr><td>mesh-function-calling</td><td>fc, function-calling</td><td>Node C (Oracle)</td><td>100.102.109.81:8081</td></tr>
+        <tr><td>mesh-heavy</td><td>heavy</td><td>Node D (Quaternary)</td><td>100.120.225.12:8080</td></tr>
+        <tr><td>mesh-micro</td><td>micro, classify</td><td>Node A (Synapse)</td><td>100.96.253.114:8080</td></tr>
+    </table>
+
+    <h2>Endpoints</h2>
+    <ul>
+        <li><code>GET /v1/models</code> — Returns all available mesh models</li>
+        <li><code>POST /v1/chat/completions</code> — Main inference endpoint (supports streaming)</li>
+        <li><code>GET /health</code> — Simple health check</li>
+    </ul>
+
+    <h2>Service Management</h2>
+    <pre><code># Check status
+systemctl --user status mesh-router
+
+# Restart
+systemctl --user restart mesh-router
+
+# View logs
+journalctl --user -u mesh-router -f</code></pre>
+
+    <h2>Why Not LiteLLM?</h2>
+    <p>
+        The previous LiteLLM deployment (Docker + <code>ghcr.io/berriai/litellm:main-latest</code>)
+        suffered from repeated Prisma migration failures and fragile Docker Desktop networking
+        on WSL2. The native router eliminates both classes of problems while providing only the
+        features the mesh actually needs.
+    </p>
+
+    <h2>Future Improvements</h2>
+    <ul>
+        <li>Add request logging and basic metrics</li>
+        <li>Implement simple fallback logic between nodes</li>
+        <li>Package as a proper NixOS module instead of venv + wrapper</li>
+    </ul>
+
+    <footer style="margin-top: 60px; font-size: 0.9em; color: #666;">
+        Part of the NODESTADT Sovereign Mesh Alpha (stable/mesh-alpha)
+    </footer>
+</body>
+</html>

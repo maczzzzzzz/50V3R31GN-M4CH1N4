@@ -106,3 +106,11 @@ Hermes-LCM (Lossless Context Management) integration.
 - [x] Node A stabilized (lid handling + Python 3 + relay service)
 - [x] Hermes agent fork synced to upstream v0.14.0
 - [ ] Full production validation on live mesh nodes
+
+## PHASE 4: NATIVE SOVEREIGN INFRASTRUCTURE (2026-05-18)
+
+- [x] Native Mesh Router built and deployed (replaced LiteLLM)
+- [x] Hermes Relay migrated to native systemd on Node A
+- [x] Windows one-click installer created (`windows-clean-install.ps1`)
+- [x] Android companion app documented
+- [ ] Full end-to-end validation of native router + relay

@@ -1,0 +1,20 @@
+[Unit]
+Description=Sovereign Mesh Router - Native LiteLLM replacement
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=nixos
+WorkingDirectory=/home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/mesh-router
+ExecStart=/usr/bin/env python3 /home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/mesh-router/mesh_router.py
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
