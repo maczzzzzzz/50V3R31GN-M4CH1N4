@@ -21,7 +21,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **Models:** Qwopus3.5-9B Q8_0 (GPU port 8081, mesh-fast), Qwen3-VL-2B-Instruct Q6_K (GPU port 8082, mesh-vision)
 - **Backend:** llama.cpp b9190 Vulkan (upgraded from v8710)
 - **Benchmark:** Hermes prompt 322 t/s gen 34.1 t/s | Qwen3-VL prompt 630 t/s gen 159 t/s (text, image verified)
-- **Services:** LiteLLM mesh router (Docker Desktop, port 4000), hermes-relay (Docker Desktop, port 8767), Hermes TUI/Dashboard
+- **Services:** LiteLLM mesh router (Docker Desktop, port 4000), Hermes TUI/Dashboard
 - **Docker:** Docker Desktop migration COMPLETE. Native NixOS daemon DISABLED. Config `wsl.docker-desktop.enable = true` in `/etc/nixos/configuration.nix`. Use `sg docker -c "docker ..."` for docker commands (shell session lacks group).
 - **VRAM:** ~10.4GB used of 16GB (Hermes 8.4GB + Qwen3-VL 1.9GB shared GPU)
 - **KV Cache:** f16 (Vulkan -- q4_0 causes 39-88% regression)
@@ -47,10 +47,15 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **External SSD:** SOVEREIGN_SOUL mounted at /mnt/sovereign-soul (469GB ext4)
 
 ### Node A -- Synapse (State)
-- **Hardware:** GTX 1050 Ti 4GB, 16GB RAM
-- **Role:** KV-cache spillover, hermes-lcm state persistence
-- **Note:** Inference active: mesh-micro (Qwen3-0.6B Q8_0)
+- **Hardware:** GTX 1050 Ti 4GB, 16GB RAM, i7-7700HQ 4c/8t
+- **Role:** mesh-micro inference, KV-cache spillover
+- **Model:** Qwen3-0.6B Q8_0 (610MB)
+- **Backend:** llama.cpp b9219 CPU
+- **Benchmark:** prompt 169 t/s, gen 46.8 t/s
+- **OS:** NixOS 24.11, kernel 6.6.94 (rolled back from crashing 6.12.87)
 - **Tailscale:** 100.96.253.114
+- **SSH alias:** mesh-a, user: maczz
+- **Service:** llama-micro.service (user systemd, linger enabled)
 
 ---
 

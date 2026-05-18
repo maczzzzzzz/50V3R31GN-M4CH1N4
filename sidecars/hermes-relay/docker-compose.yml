@@ -1,0 +1,21 @@
+services:
+  hermes-relay:
+    build:
+      context: /home/nixos/.hermes/plugins/hermes-relay
+      dockerfile: /home/nixos/50V3R31GN-M4CH1N4-stable-mesh-alpha/sidecars/hermes-relay/Dockerfile
+    image: mesh-hermes-relay
+    container_name: hermes-relay
+    restart: unless-stopped
+    ports:
+      - "8767:8767"
+    environment:
+      - HERMES_RELAY_PORT=8767
+      - HERMES_RELAY_HOST=0.0.0.0
+    volumes:
+      - /home/nixos/.hermes:/root/.hermes:ro
+    networks:
+      - mesh-network
+
+networks:
+  mesh-network:
+    external: true

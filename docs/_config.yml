@@ -1,5 +1,0 @@
-# Disable Jekyll processing for GitHub Pages
-# We serve raw HTML + .nojekyll
-theme: null
-markdown: null
-plugins: []

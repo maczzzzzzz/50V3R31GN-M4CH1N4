@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-05-18T15:20:06.878924",
+  "config": {
+    "router": "http://localhost:4000/v1",
+    "models": [
+      "mesh-fast",
+      "mesh-vision",
+      "mesh-heavy",
+      "mesh-function-calling"
+    ],
+    "prompt_types": [
+      "short",
+      "medium"
+    ],
+    "passes": 3,
+    "max_tokens": 100
+  },
+  "results": [
+    {
+      "model": "mesh-fast",
+      "tests": [
+        {
+          "model": "mesh-fast",
+          "prompt_type": "short",
+          "error": "All passes failed"
+        },
+        {
+          "model": "mesh-fast",
+          "prompt_type": "medium",
+          "error": "All passes failed"
+        }
+      ],
+      "summary": {
+        "error": "All tests failed"
+      }
+    },
+    {
+      "model": "mesh-vision",
+      "tests": [
+        {
+          "model": "mesh-vision",
+          "prompt_type": "short",
+          "error": "All passes failed"
+        },
+        {
+          "model": "mesh-vision",
+          "prompt_type": "medium",
+          "error": "All passes failed"
+        }
+      ],
+      "summary": {
+        "error": "All tests failed"
+      }
+    },
+    {
+      "model": "mesh-heavy",
+      "tests": [
+        {
+          "model": "mesh-heavy",
+          "prompt_type": "short",
+          "error": "All passes failed"
+        },
+        {
+          "model": "mesh-heavy",
+          "prompt_type": "medium",
+          "error": "All passes failed"
+        }
+      ],
+      "summary": {
+        "error": "All tests failed"
+      }
+    },
+    {
+      "model": "mesh-function-calling",
+      "tests": [
+        {
+          "model": "mesh-function-calling",
+          "prompt_type": "short",
+          "error": "All passes failed"
+        },
+        {
+          "model": "mesh-function-calling",
+          "prompt_type": "medium",
+          "error": "All passes failed"
+        }
+      ],
+      "summary": {
+        "error": "All tests failed"
+      }
+    }
+  ]
+}

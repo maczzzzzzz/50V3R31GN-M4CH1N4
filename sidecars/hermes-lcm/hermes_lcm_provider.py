@@ -282,3 +282,26 @@ if __name__ == "__main__":
     retrieved = provider.retrieve_block(test_block.block_id)
     if retrieved:
         print(f"Retrieved block: {retrieved.to_xml()}")
+
+
+    # === Phase 3: Cross-node rsync support ===
+
+    def sync_to_nodes(self, target_nodes: List[str]) -> Dict[str, bool]:
+        """Basic rsync-based sync to other mesh nodes (Node B, D, etc.)."""
+        import subprocess
+        results = {}
+        db_path = Path(self.db_path)
+
+        for node in target_nodes:
+            try:
+                # Example: rsync over Tailscale
+                dest = f"{node}:/var/lib/hermes-lcm/"
+                cmd = ["rsync", "-avz", "--delete", str(db_path), dest]
+                subprocess.run(cmd, check=True, capture_output=True)
+                results[node] = True
+                logger.info(f"Successfully synced to {node}")
+            except subprocess.CalledProcessError as e:
+                results[node] = False
+                logger.error(f"Failed to sync to {node}: {e}")
+
+        return results

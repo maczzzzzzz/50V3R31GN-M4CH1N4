@@ -1,7 +1,5 @@
 services:
   litellm:
-    # Pinned to 1.84.0 -- patches critical SQL injection CVE (litellm <1.83).
-    # Do NOT use main-latest (floating tag causes version regression).
     image: ghcr.io/berriai/litellm:1.84.0
     ports:
       - "4000:4000"
@@ -10,7 +8,10 @@ services:
       - ./litellm-mesh.yaml:/app/config.yaml
     environment:
       - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
-      - MESH_API_KEY=${MESH_API_KEY}
+      - MESH_API_KEY=machina-internal-mesh-key-2026
+      - DATABASE_URL=sqlite:///app/data/litellm.db
+      - ENFORCE_PRISMA_MIGRATION_CHECK=false
+      - LITELLM_LOG_LEVEL=INFO
     env_file:
       - .env
     command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]

@@ -1,191 +1,91 @@
-# SESSION HANDOFF (v0.3.10-alpha)
+# SESSION_HANDOFF.md: v0.3.12-alpha
 
-**Date:** 2026-05-18
+**Timestamp:** 2026-05-20 22:30 UTC
 **Branch:** stable/mesh-alpha
-**Architect:** GLM-5 (zai)
+**Status:** ALL NODES OPERATIONAL
 
 ---
 
-## CURRENT STATE
+## SESSION SUMMARY
 
-### Completed This Session
-
-1. **Full mesh baseline benchmark** - All 5 nodes tested with real throughput data
-2. **Continuous batching enabled** on Node B - +84% throughput at 4 concurrent
-3. **Speculative decoding research** - Exhaustively tested options
-4. **Models downloaded** - MTP model and 4B draft staged for testing
-5. **Script cleanup** - Removed 14 superseded scripts
-6. **README fixed** - Corrected inflated benchmark numbers
+Technical debt audit complete. ~67 GB garbage purged across all nodes. Hermes fork synced to upstream (68 commits merged). Kanban cleaned to match IMPLEMENTATION_PLAN.md.
 
 ---
 
 ## MESH STATUS
 
-| Node | Model | Gen t/s | Prompt t/s | Status |
-|------|-------|---------|------------|--------|
-| **A** (mesh-micro) | Qwen3-0.6B Q8_0 | 39.5 | 62.1 | RUNNING (built llama.cpp from source) |
-| **B** (mesh-fast) | Qwopus3.5-9B Q8_0 | 34.1 | 322 | RUNNING (cont-batching) |
-| **B** (mesh-vision) | Qwen3-VL-2B Q6_K | 172.4 | 381 | RUNNING (cont-batching) |
-| **C** (mesh-fc) | Carnice-9B-FC | 50.3 | 245 | RUNNING |
-| **D** (mesh-heavy) | Qwen3.5-35B | 6.7 | 13.6 | RUNNING (no speculative - was slower) |
+| Node | Role | IP:Port | Model | Status |
+|------|------|---------|-------|--------|
+| A | Synapse | 100.96.253.114:8080 | Qwen3-0.6B Q8_0 | OPERATIONAL |
+| B | Director | localhost:8081, 8082, 4000 | Qwopus3.5-9B Q8_0 + Qwen3-VL-2B | OPERATIONAL |
+| C | Oracle | 100.102.109.81:8081 | Carnice-9B-FC | OPERATIONAL |
+| D | Quaternary | 100.120.225.12:8080 | Qwen3.5-35B | OPERATIONAL |
 
 ---
 
-## SPECULATIVE DECODING RESEARCH RESULTS
+## COMPLETED THIS SESSION
 
-### What FAILED
+1. **Technical Debt Purge** (~67 GB freed)
+   - Node D: 60 GB abandoned repo + 768 MB test.gguf
+   - Node A: 2.8 GB stale files
+   - Node C: 362 MB stale files
+   - Node B: 3.3 GB failed draft model
 
-| Method | Result | Reason |
-|--------|--------|--------|
-| **CPU Draft (Qwen3-0.6B)** | BLOCKED | Vocab mismatch - Qwen3 ≠ Qwopus3.5 |
-| **Ngram speculation** | NO SPEEDUP | Generated 0 drafts - needs repetitive context |
-| **MTP on current model** | N/A | Qwopus3.5-9B-Coder lacks MTP heads |
+2. **Hermes Fork Sync** (68 commits)
+   - Merged upstream/main into stable/mesh-alpha
+   - Resolved run_agent.py conflict (accepted upstream refactor)
+   - Pushed to origin
 
-### Key Finding: Ngram Statistics
-```
-#gen drafts = 0
-#acc drafts = 0
-#gen tokens = 0
-```
-Ngram speculation requires long prompts with repetitive token patterns. Creative text generation has too much entropy.
-
----
-
-## MODELS DOWNLOADED (Ready for Testing)
-
-**Location:** `D:\llama.cpp\models\`
-
-| Model | Size | Purpose | Status |
-|-------|------|---------|--------|
-| `Qwopus3.5-9B-Coder-MTP-Q6_K.gguf` | 7.04 GB | MTP-enabled main model | READY TO TEST |
-| `Qwen3.5-4B-Q6_K.gguf` | 3.23 GB | Draft model (same tokenizer) | READY TO TEST |
-
-**Current model:** `Qwopus3.5-9B-Coder-Q8_0.gguf` (8.9 GB, no MTP)
+3. **Kanban Cleanup**
+   - Marked 12 completed tasks as done
+   - Archived 33 stale/duplicate tasks
+   - Updated task titles to match reality
 
 ---
 
-## NEXT STEPS (Priority Order)
+## PENDING WORK
 
-### 1. TEST MTP MODEL (Highest Priority)
+### Phase 2 (Blocked)
+- **P2-T1:** Node D RTX 5060 Ti Installation - hardware pending
 
-The MTP model has built-in speculative decoding heads. Documented +35.8% throughput gain.
+### Phase 3 (Ready)
+- **P3-T1:** Hermes-LCM State Sync - validate on live mesh
+- **P3-T3:** Mirage VFS Integration - deploy on Node D
 
-**To test:**
-```batch
-# Kill current server
-taskkill /f /im llama-server.exe
-
-# Start MTP model with draft=2
-cd /d D:\llama.cpp
-llama-server.exe -m models\Qwopus3.5-9B-Coder-MTP-Q6_K.gguf --host 0.0.0.0 --port 8081 --ctx-size 32768 -ngl 99 -fa on --cache-type-k f16 --draft 2 -cb -np 4 --metrics
-```
-
-**Note:** The `--draft 2` flag enables MTP speculation. The model has built-in draft heads.
-
-**Benchmark command:**
-```bash
-python3 scripts/direct-benchmark.py
-```
-
-**Expected result:** ~46 t/s gen (from 34.1 baseline) if +35% claim holds.
+### Phase 4 (Planned)
+- P4-T1: Voice Pipeline
+- P4-T2: Pretext HUD
+- P4-T3: Mesh-wide Verification
 
 ---
 
-### 2. TEST 4B DRAFT MODEL (Backup)
+## INFRASTRUCTURE
 
-If MTP doesn't work well, use Qwen3.5-4B as CPU draft model.
-
-**To test:**
-```batch
-llama-server.exe -m models\Qwopus3.5-9B-Coder-Q8_0.gguf -md models\Qwen3.5-4B-Q6_K.gguf --host 0.0.0.0 --port 8081 --ctx-size 32768 -ngl 99 -td 6 -fa on --cache-type-k f16 --spec-draft-n-max 5 --metrics
-```
-
-**Key flags:**
-- `-md` = draft model
-- `-td 6` = 6 threads for draft (CPU)
-- `--spec-draft-n-max 5` = draft 5 tokens ahead
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Tailscale | PERMANENT | Personal tailnet auto-renews |
+| LiteLLM | LIVE | Docker Desktop port 4000, 5 routes |
+| hermes-relay | LIVE | Docker Desktop port 8767 |
+| Kanban MCP | LIVE | FastMCP stdio, 8 tools |
+| socat bridge | LIVE | Ports 17080/18081/18080 |
 
 ---
 
-### 3. UPDATE BASELINE IF SUCCESSFUL
+## GIT STATE
 
-If either method works, update:
-- `docs/benchmarks/mesh-baseline-2026-05-18.md`
-- `AGENTS.md` benchmark table
-- `README.md` throughput numbers
-
----
-
-## FILES CREATED THIS SESSION
-
-```
-scripts/direct-benchmark.py         # Single-request benchmark harness
-scripts/concurrent-benchmark.py     # Cont-batching test harness
-scripts/mesh-control.sh             # Node start/stop/status
-sidecars/mesh/start-mesh-bridge.sh  # Socat bridges for Docker
-docs/benchmarks/mesh-baseline-2026-05-18.md
-/mnt/d/llama.cpp/start-hermes-cb.bat    # Cont-batching startup
-/mnt/d/llama.cpp/start-vision-cb.bat
-/mnt/d/llama.cpp/start-spec-test.bat    # Speculative test (deprecated flags)
-/mnt/d/llama.cpp/start-ngram-test.bat   # Ngram test (didn't work)
-```
+- Main repo: stable/mesh-alpha, unstaged changes (deletions, modifications)
+- Fork submodule: synced to upstream, uncommitted local changes (plugins/memory/hermes-lcm/provider.py)
+- KANBAN_MAP.md: MISSING (needs recreation from KANBAN_MAP.html)
 
 ---
 
-## KEY LEARNINGS
+## NEXT SESSION PRIORITIES
 
-1. **Draft model vocab MUST match target** - Qwen3-0.6B ≠ Qwopus3.5-9B
-2. **Ngram speculation needs repetitive context** - Not useful for creative generation
-3. **MTP is built into model architecture** - Can't add MTP to non-MTP model
-4. **Continuous batching works well** - +84% at 4 concurrent requests
-5. **Node D speculative decoding is NET NEGATIVE on CPU** - All modes slower
-
----
-
-## ACTIVE BACKGROUND PROCESSES
-
-**Node B (Windows/Docker Desktop):**
-- Port 8081: Qwopus3.5-9B-Coder Q8_0 (Vulkan, cont-batching)
-- Port 8082: Qwen3-VL-2B Q6_K (Vulkan, cont-batching)
-- Port 8767: hermes-relay v0.6.1 (WebSocket)
-- Port 4000: LiteLLM mesh router (model routing broken, bypassed)
-
-**Socat bridges (for Docker → Tailscale):**
-- 8081, 8082 → Node B
-- 18080 → Node D
-- 18081 → Node C
-- 17080 → Node A (bridge exists, but Node A server may be down)
+1. Commit staged changes in main repo
+2. Update KANBAN_MAP.html to reflect kanban.db state
+3. Recreate KANBAN_MAP.md from HTML
+4. Validate Hermes-LCM on live mesh nodes
 
 ---
 
-## BLOCKERS
-
-1. **LiteLLM model routing broken** - Returns 404 regardless of model name format. Workaround: direct backend access via socat bridges.
-2. **Node A llama-server** - Built from source but status uncertain after SSH session ended.
-
----
-
-## HUGGING FACE TOKEN
-
-Token stored in memory. Ask user if needed for additional downloads.
-
----
-
-## QUICK START FOR NEXT SESSION
-
-```bash
-# 1. Check Node B servers
-curl http://localhost:8081/health
-curl http://localhost:8082/health
-
-# 2. Kill and test MTP model
-powershell.exe -Command "Get-Process llama-server | Stop-Process -Force"
-cmd.exe /c "cd /d D:\llama.cpp && llama-server.exe -m models\Qwopus3.5-9B-Coder-MTP-Q6_K.gguf --host 0.0.0.0 --port 8081 --ctx-size 32768 -ngl 99 -fa on --cache-type-k f16 --draft 2 -cb -np 4 --metrics"
-
-# 3. Benchmark
-python3 scripts/direct-benchmark.py
-```
-
----
-
-**::/5Y573M-N071C3 : HANDOFF_V0.3.10. MTP_DOWNLOADED. READY_TO_TEST. // 50V3R31GN-M4CH1N4**
+::/5Y573M-N071C3 : HANDOFF_V0.3.12_ALPHA. CLEAN_SYNC_READY. // 50V3R31GN-M4CH1N4

@@ -16,7 +16,7 @@ Docker Compose configurations for the Sovereign Mesh heterogeneous GPU cluster.
 
 Inference endpoints are native ik_llama.cpp processes managed outside Docker:
 
-- **Node B (Director):** `llama-server.exe` on Windows, port 8081 (Hermes-4-14B, Vulkan) + port 8082 (Qwen3-VL-2B, Vulkan)
+- **Node B (Director):** `llama-server.exe` on Windows, port 8081 (Qwopus3.5-9B Q8_0, Vulkan) + port 8082 (Qwen3-VL-2B, Vulkan)
 - **Node C (Oracle):** `ik_llama.cpp` CUDA build, port 8081 (Carnice-9B-FC)
 - **Node D (Quaternary):** `ik_llama.cpp` AVX2 build, CPU-only (Carnice MoE 35B)
 

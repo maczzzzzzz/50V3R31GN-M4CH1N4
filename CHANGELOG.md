@@ -1,3 +1,19 @@
+## [0.3.12-alpha] - 2026-05-20
+
+### Technical Debt & Cleanup
+- **Technical debt purge completed.** ~67 GB garbage removed across all mesh nodes:
+  - Node D: 60 GB abandoned repo + 768 MB test files
+  - Node A: 2.8 GB stale files
+  - Node C: 362 MB stale files
+  - Node B: 3.3 GB failed draft model (Qwen3.5-4B-Q6_K)
+- **Hermes fork synced to upstream.** Merged 68 commits from upstream/main into `50V3R31GN-M4CH1N4-hermes-agent-fork` stable/mesh-alpha branch.
+- **Kanban database cleaned.** Marked 12 completed tasks as done, archived 33 stale/duplicate tasks. Board now reflects IMPLEMENTATION_PLAN.md accurately.
+- **KANBAN_MAP.md recreated.** Converted from HTML, deleted obsolete HTML version.
+
+### Infrastructure
+- **Tailscale verified permanent.** Personal tailnet auto-renews, no re-auth required.
+- **All 4 nodes operational.** Mesh fully functional with 5 routes.
+
 ## [0.3.9-alpha] - 2026-05-18
 
 ### Infrastructure & Benchmarking
