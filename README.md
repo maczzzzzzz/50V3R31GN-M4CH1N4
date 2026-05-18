@@ -1,7 +1,7 @@
 # 50V3R31GN-M4CH1N4
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.3.6--alpha-blue.svg" alt="Version"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.3.9--alpha-blue.svg" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
   <a href="https://github.com/maczzgit/50V3R31GN-M4CH1N4-hermes-agent-fork"><img src="https://img.shields.io/badge/hermes-fork-orange.svg" alt="Hermes Fork"></a>
 </p>
@@ -20,19 +20,19 @@ Four nodes. One mesh. All inference on bare metal.
 
 | Node | Role | Hardware | Model | Throughput |
 |------|------|----------|-------|------------|
-| **B** (Director) | Fast responder, workspace | Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4 | Qwopus3.5-9B Q8_0 (Vulkan) | 428-441 / 53.8-55.1 t/s |
+| **B** (Director) | Fast responder, workspace | Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4 | Qwopus3.5-9B Q8_0 (Vulkan) | 322 / 34.1 t/s |
 | **C** (Oracle) | Function-calling, perception | Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4 | Carnice-9B-FC Q4_K_M (CUDA) | 205.2 / 49.9 t/s |
 | **D** (Quaternary) | Heavy reasoning | Intel Meteor Lake, 48GB DDR5 | Qwen3.5-35B-A3B-MTP UD-Q4_K_M (CPU) | 12.7 / 7.0 t/s |
-| **A** (Synapse) | State persistence, cache | GTX 1050 Ti 4GB, 16GB RAM | Inference active: mesh-micro (Qwen3-0.6B Q8_0) | Cache spillover |
+| **A** (Synapse) | State persistence, cache | GTX 1050 Ti 4GB, 16GB RAM | Qwen3-0.6B Q8_0 | 49 / 29 t/s |
 
 All nodes run NixOS (25.11, except Node A on 24.11). Interconnected via Tailscale zero-trust mesh.
 
 ## Inference Stack
 
 - **Backend:** [llama.cpp](https://github.com/ggml-org/llama.cpp) (Nodes B, D) and [ik_llama.cpp](https://github.com/ikawrakow/ik_llama.cpp) (Node C)
-- **Routing:** LiteLLM mesh router (Docker Desktop, Node B port 4000) with 4 routes: `mesh-fast`, `mesh-vision`, `mesh-function-calling`, `mesh-heavy`
+- **Routing:** LiteLLM mesh router (Docker Desktop, Node B port 4000) with 5 routes: `mesh-fast`, `mesh-vision`, `mesh-function-calling`, `mesh-heavy`, `mesh-micro`
 - **KV Cache:** f16 on Vulkan (Node B), q4_0 on CUDA/CPU (Nodes C, D)
-- **Models:** Q4_K_M quantized, sized to fit each node's VRAM/RAM budget exactly
+- **Models:** Q4_K_M/Q8_0 quantized, sized to fit each node's VRAM/RAM budget exactly
 
 ## Agent Orchestration
 
@@ -80,7 +80,7 @@ The Lead Architect dispatches tasks, reviews output, and owns final quality. Sub
 
 ## Status
 
-Phase 0 (Validation Gate) is **closed**. Phase 2 (Cognitive Hierarchy) is **in progress**. All four inference routes deployed and benchmarked. The mesh is operational. Node D GPU upgrade (RTX 5060 Ti) is the next hardware milestone.
+Phase 0 (Validation Gate) is **closed**. Phase 2 (Cognitive Hierarchy) is **in progress**. All five inference routes deployed and benchmarked. The mesh is operational. Node D GPU upgrade (RTX 5060 Ti) is the next hardware milestone.
 
 ## License
 
