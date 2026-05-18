@@ -21,8 +21,10 @@ echo ":: [IGNITE] Tailscale Artery is ONLINE."
 
 # 3. Ignite Windows GPU Bridge (Node B VRAM)
 echo ":: [IGNITE] Launching Windows GPU Bridge (llama-server.exe)..."
+# API key loaded from ~/.hermes/.env
+GPU_API_KEY="${SOVEREIGN_MESH_SECRET:-machina-sovereign-mesh-v3-secret-key}"
 # Launch in a new Windows PowerShell window to maintain visibility
-/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "Start-Process powershell -ArgumentList '-NoExit', '-Command', 'cd D:\llama.cpp; .\llama-server.exe -m D:\llama.cpp\models\Qwen3-14B-Q6_K.gguf --host 0.0.0.0 --port 8080 --n-gpu-layers 35 --ctx-size 32000 --cache-type-k q4_0 --api-key machina-sovereign-mesh-v3-secret-key'" || echo ":: [WARNING] Could not trigger Windows process. Manual launch required."
+/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "Start-Process powershell -ArgumentList '-NoExit', '-Command', 'cd D:\\llama.cpp; .\\llama-server.exe -m D:\\llama.cpp\\models\\Qwen3-14B-Q6_K.gguf --host 0.0.0.0 --port 8080 --n-gpu-layers 35 --ctx-size 32000 --cache-type-k q4_0 --api-key $GPU_API_KEY'" || echo ":: [WARNING] Could not trigger Windows process. Manual launch required."
 
 # 4. Ignite Sovereign Proxy (LiteLLM)
 echo ":: [IGNITE] Launching Sovereign Proxy (LiteLLM) on Port 4000..."

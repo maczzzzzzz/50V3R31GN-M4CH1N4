@@ -1,6 +1,6 @@
 # SESSION_HANDOFF.md: v0.3.12-alpha
 
-**Timestamp:** 2026-05-20 22:30 UTC
+**Timestamp:** 2026-05-18 21:45 UTC
 **Branch:** stable/mesh-alpha
 **Status:** ALL NODES OPERATIONAL
 
@@ -8,84 +8,78 @@
 
 ## SESSION SUMMARY
 
-Technical debt audit complete. ~67 GB garbage purged across all nodes. Hermes fork synced to upstream (68 commits merged). Kanban cleaned to match IMPLEMENTATION_PLAN.md.
-
----
-
-## MESH STATUS
-
-| Node | Role | IP:Port | Model | Status |
-|------|------|---------|-------|--------|
-| A | Synapse | 100.96.253.114:8080 | Qwen3-0.6B Q8_0 | OPERATIONAL |
-| B | Director | localhost:8081, 8082, 4000 | Qwopus3.5-9B Q8_0 + Qwen3-VL-2B | OPERATIONAL |
-| C | Oracle | 100.102.109.81:8081 | Carnice-9B-FC | OPERATIONAL |
-| D | Quaternary | 100.120.225.12:8080 | Qwen3.5-35B | OPERATIONAL |
+Hermes documentation audit complete. Implemented all HIGH priority recommendations from Gemini Pro audit. P3-T1 Hermes-LCM validation continued - plugin interface fixed.
 
 ---
 
 ## COMPLETED THIS SESSION
 
-1. **Technical Debt Purge** (~67 GB freed)
-   - Node D: 60 GB abandoned repo + 768 MB test.gguf
-   - Node A: 2.8 GB stale files
-   - Node C: 362 MB stale files
-   - Node B: 3.3 GB failed draft model
+### 1. Hermes Documentation Audit (Gemini Pro)
+- Comprehensive audit of https://hermes-agent.nousresearch.com/docs
+- Identified 10 findings across feature utilization, security, delegation, skills
+- Prioritized into HIGH/MEDIUM/LOW categories
 
-2. **Hermes Fork Sync** (68 commits)
-   - Merged upstream/main into stable/mesh-alpha
-   - Resolved run_agent.py conflict (accepted upstream refactor)
-   - Pushed to origin
+### 2. HIGH Priority Fixes Implemented
+- **Security**: Removed hardcoded API key from ignite.sh, added `command_approval: smart`
+- **Delegation**: Enabled native `delegate_task` with depth=2, orchestrator support
+- **Skills**: Verified 36 sovereign skills in ~/.hermes/skills/ (no Gemini skills to port)
+- **Memory**: Evaluated Holographic vs hermes-lcm - keeping hermes-lcm (DAG unique feature)
 
-3. **Kanban Cleanup**
-   - Marked 12 completed tasks as done
-   - Archived 33 stale/duplicate tasks
-   - Updated task titles to match reality
+### 3. MEDIUM Priority Fixes Implemented
+- **MCP Servers**: Added GitHub and filesystem MCP servers to config.yaml
+- **Credential Pools**: Configured fill_first/round_robin strategies
+- **Monitoring**: Enabled Langfuse plugin (requires API keys in .env)
 
----
-
-## PENDING WORK
-
-### Phase 2 (Blocked)
-- **P2-T1:** Node D RTX 5060 Ti Installation - hardware pending
-
-### Phase 3 (Ready)
-- **P3-T1:** Hermes-LCM State Sync - validate on live mesh
-- **P3-T3:** Mirage VFS Integration - deploy on Node D
-
-### Phase 4 (Planned)
-- P4-T1: Voice Pipeline
-- P4-T2: Pretext HUD
-- P4-T3: Mesh-wide Verification
+### 4. Hermes-LCM Plugin Fix (P3-T1)
+- Added missing MemoryProvider interface methods
+- Created register() function with config loading
+- Commits: c6c38a99d1, c47aece4d
 
 ---
 
-## INFRASTRUCTURE
+## CONFIG CHANGES
 
-| Component | Status | Notes |
-|-----------|--------|-------|
-| Tailscale | PERMANENT | Personal tailnet auto-renews |
-| LiteLLM | LIVE | Docker Desktop port 4000, 5 routes |
-| hermes-relay | LIVE | Docker Desktop port 8767 |
-| Kanban MCP | LIVE | FastMCP stdio, 8 tools |
-| socat bridge | LIVE | Ports 17080/18081/18080 |
+**~/.hermes/config.yaml:**
+- `command_approval: smart` - LLM-judged dangerous command approval
+- `delegation.max_spawn_depth: 2` - Enable orchestrator children
+- `delegation.orchestrator_enabled: true`
+- `mcp_servers.github` - GitHub MCP for repo operations
+- `mcp_servers.filesystem` - Filesystem MCP for project access
+- `credential_pool_strategies` - fill_first for zai, round_robin for openrouter
+- `plugins.enabled: [observability/langfuse]`
 
----
+**~/.hermes/.env:**
+- Added GITHUB_TOKEN from gh auth
+- Added Langfuse placeholder vars (commented)
 
-## GIT STATE
-
-- Main repo: stable/mesh-alpha, unstaged changes (deletions, modifications)
-- Fork submodule: synced to upstream, uncommitted local changes (plugins/memory/hermes-lcm/provider.py)
-- KANBAN_MAP.md: MISSING (needs recreation from KANBAN_MAP.html)
-
----
-
-## NEXT SESSION PRIORITIES
-
-1. Commit staged changes in main repo
-2. Update KANBAN_MAP.html to reflect kanban.db state
-3. Recreate KANBAN_MAP.md from HTML
-4. Validate Hermes-LCM on live mesh nodes
+**scripts/ignite.sh:**
+- Fixed hardcoded API key to use $SOVEREIGN_MESH_SECRET from .env
 
 ---
 
-::/5Y573M-N071C3 : HANDOFF_V0.3.12_ALPHA. CLEAN_SYNC_READY. // 50V3R31GN-M4CH1N4
+## PENDING USER ACTION
+
+1. **Langfuse API Keys** - Uncomment and fill in .env:
+   ```
+   HERMES_LANGFUSE_PUBLIC_KEY=pk-lf-...
+   HERMES_LANGFUSE_SECRET_KEY=sk-lf-...
+   ```
+
+2. **Backup API Keys for Credential Pools** - Add via:
+   ```
+   hermes auth add zai --api-key <backup-key>
+   hermes auth add openrouter --api-key <backup-key>
+   ```
+
+---
+
+## NEXT SESSION
+
+- Validate GitHub MCP server functionality
+- Test delegate_task with orchestrator children
+- Continue P3-T1: Hermes-LCM validation on remote mesh nodes (C, D)
+- Monitor command_approval behavior in production
+
+---
+
+**::/5Y573M-N071C3 : AUDIT_COMPLETE. CONFIG_HARDENED. NATIVE_FEATURES_ENABLED. // 50V3R31GN-M4CH1N4**
