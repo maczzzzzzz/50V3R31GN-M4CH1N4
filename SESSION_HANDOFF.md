@@ -1,6 +1,6 @@
 # SESSION_HANDOFF.md: v0.3.12-alpha
 
-**Timestamp:** 2026-05-18 21:45 UTC
+**Timestamp:** 2026-05-18 22:15 UTC
 **Branch:** stable/mesh-alpha
 **Status:** ALL NODES OPERATIONAL
 
@@ -8,78 +8,100 @@
 
 ## SESSION SUMMARY
 
-Hermes documentation audit complete. Implemented all HIGH priority recommendations from Gemini Pro audit. P3-T1 Hermes-LCM validation continued - plugin interface fixed.
+Comprehensive Hermes documentation audit complete. HIGH priority security 
+vulnerabilities patched. Fork synced to upstream.
+
+### Completed Actions
+
+1. **Security Patches (aiohttp, anthropic)**
+   - aiohttp 3.13.3 → 3.13.5 (10 CVEs: SSRF, credential theft, DoS)
+   - anthropic 0.86.0 → 0.102.0 (CVE-2026-34452, CVE-2026-34450: sandbox escape)
+   - Committed in hermes-agent-nous submodule
+
+2. **Hermes Fork Sync**
+   - Merged upstream/main (2026-05-18): 2 commits
+   - Updated submodule pin in main repo
+   - Pushed to origin
+
+3. **Hermes Native Features Enabled**
+   - command_approval: smart
+   - delegation.max_spawn_depth: 2
+   - GitHub MCP server + filesystem MCP server
+   - credential_pool_strategies configured
+   - Langfuse plugin enabled (keys needed in .env)
+
+4. **sovereign-sniffer npm deps updated**
+   - @browserbasehq/stagehand updated
+   - langsmith transitive deps updated
+   - Remaining: SSRF in transitive deps (requires breaking change)
+
+### Remaining Alerts (94 total)
+
+Most are in transitive deps (litellm, GitPython, pillow, urllib3, etc.)
+or false positives from deleted files.
 
 ---
 
-## COMPLETED THIS SESSION
+## ZEROBOOT & VIBEVOICE FINDINGS
 
-### 1. Hermes Documentation Audit (Gemini Pro)
-- Comprehensive audit of https://hermes-agent.nousresearch.com/docs
-- Identified 10 findings across feature utilization, security, delegation, skills
-- Prioritized into HIGH/MEDIUM/LOW categories
+### What They Are
 
-### 2. HIGH Priority Fixes Implemented
-- **Security**: Removed hardcoded API key from ignite.sh, added `command_approval: smart`
-- **Delegation**: Enabled native `delegate_task` with depth=2, orchestrator support
-- **Skills**: Verified 36 sovereign skills in ~/.hermes/skills/ (no Gemini skills to port)
-- **Memory**: Evaluated Holographic vs hermes-lcm - keeping hermes-lcm (DAG unique feature)
+**zeroboot-isolation** (crates/modules/zeroboot-isolation/)
+- KVM/Firecracker microVM wrapper for agent isolation
+- SCION networking integration for multi-agent isolation
+- Fast spawn/teardown (< 2s), 512MB base image
+- Nix module: nix/modules/zeroboot.nix
 
-### 3. MEDIUM Priority Fixes Implemented
-- **MCP Servers**: Added GitHub and filesystem MCP servers to config.yaml
-- **Credential Pools**: Configured fill_first/round_robin strategies
-- **Monitoring**: Enabled Langfuse plugin (requires API keys in .env)
+**vibevoice-asr** (crates/modules/vibevoice-asr/)
+- Multi-source ASR pipeline (Whisper-based)
+- Omi BLE hardware support (wearable voice input)
+- Mobile mic input via Tailscale
+- VibeVoice post-processing (emotion/style scoring)
+- Phase 5: Omi Voice Layering
 
-### 4. Hermes-LCM Plugin Fix (P3-T1)
-- Added missing MemoryProvider interface methods
-- Created register() function with config loading
-- Commits: c6c38a99d1, c47aece4d
+### Status
 
----
+- **NOT in KANBAN_MAP.md** - No kanban cards reference these crates
+- **NOT in IMPLEMENTATION_PLAN.md** - No planning docs mention them
+- **Created:** 2026-05-10 by "maczzzzzzz"
+- **Last modified:** 2026-05-10 (security fixes applied)
+- **Cargo.lock alerts:** 0 (were false positives from deleted files)
 
-## CONFIG CHANGES
+### Recommendation
 
-**~/.hermes/config.yaml:**
-- `command_approval: smart` - LLM-judged dangerous command approval
-- `delegation.max_spawn_depth: 2` - Enable orchestrator children
-- `delegation.orchestrator_enabled: true`
-- `mcp_servers.github` - GitHub MCP for repo operations
-- `mcp_servers.filesystem` - Filesystem MCP for project access
-- `credential_pool_strategies` - fill_first for zai, round_robin for openrouter
-- `plugins.enabled: [observability/langfuse]`
+These are prototype crates from an earlier exploration phase. They were 
+never added to the official roadmap. Options:
 
-**~/.hermes/.env:**
-- Added GITHUB_TOKEN from gh auth
-- Added Langfuse placeholder vars (commented)
+1. **Archive** - Move to `crates/archive/` if keeping for reference
+2. **Add to Phase 5** - vibevoice-asr aligns with "Phase 5: Omi Voice Layering"
+3. **Delete** - If truly abandoned, purge to reduce noise
 
-**scripts/ignite.sh:**
-- Fixed hardcoded API key to use $SOVEREIGN_MESH_SECRET from .env
+User indicated: "zeroboot and vibe voice were ideas from an earlier prototype 
+we opted to keep" - suggest adding to kanban as FUTURE/BACKLOG items.
 
 ---
 
-## PENDING USER ACTION
+## INFRASTRUCTURE STATUS
 
-1. **Langfuse API Keys** - Uncomment and fill in .env:
-   ```
-   HERMES_LANGFUSE_PUBLIC_KEY=pk-lf-...
-   HERMES_LANGFUSE_SECRET_KEY=sk-lf-...
-   ```
-
-2. **Backup API Keys for Credential Pools** - Add via:
-   ```
-   hermes auth add zai --api-key <backup-key>
-   hermes auth add openrouter --api-key <backup-key>
-   ```
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Node B (Director) | OPERATIONAL | Qwopus3.5-9B, Qwen3-VL, Vulkan b9190 |
+| Node C (Oracle) | OPERATIONAL | Carnice-9B-FC, CUDA |
+| Node D (Quaternary) | OPERATIONAL | Qwen3.5-35B-MTP, CPU |
+| Node A (Synapse) | OPERATIONAL | Qwen3-0.6B, CPU b9219 |
+| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000 |
+| hermes-relay | LIVE | Docker Desktop port 8767 |
+| Kanban MCP Server | LIVE | FastMCP stdio |
 
 ---
 
 ## NEXT SESSION
 
-- Validate GitHub MCP server functionality
-- Test delegate_task with orchestrator children
-- Continue P3-T1: Hermes-LCM validation on remote mesh nodes (C, D)
-- Monitor command_approval behavior in production
+- Add zeroboot/vibevoice to kanban as BACKLOG items (user decision)
+- Test Langfuse tracing with API keys
+- Monitor transitive dep CVEs (litellm, GitPython, pillow)
+- P3-T1: Hermes-LCM validation on mesh nodes
 
 ---
 
-**::/5Y573M-N071C3 : AUDIT_COMPLETE. CONFIG_HARDENED. NATIVE_FEATURES_ENABLED. // 50V3R31GN-M4CH1N4**
+Sovereign Machina v0.3.12-alpha // 50V3R31GN-M4CH1N4
