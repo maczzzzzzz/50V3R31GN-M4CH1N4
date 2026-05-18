@@ -1,65 +1,32 @@
-# SESSION_HANDOFF.md: v0.3.12-alpha
+# SESSION_HANDOFF.md: v0.3.13-alpha
 
-**Timestamp:** 2026-05-18 22:30 UTC
+**Timestamp:** 2026-05-21 UTC
 **Branch:** stable/mesh-alpha
-**Status:** ALL NODES OPERATIONAL
+**Status:** ALL NODES OPERATIONAL. PHASE 3 CLOSED.
 
 ---
 
 ## SESSION SUMMARY
 
-Hermes documentation audit complete. Security patches applied. Phase 5 added to kanban.
+Phase 3 closed. All documentation updated to reflect current mesh state.
 
 ### Completed Actions
 
-1. **Security Patches**
-   - aiohttp 3.13.3 → 3.13.5 (10 CVEs)
-   - anthropic 0.86.0 → 0.102.0 (2 CVEs: sandbox escape)
-   - Hardcoded API key removed from ignite.sh
-   - command_approval: smart enabled
+1. **Phase 3 Closure**
+   - P3-T1 Hermes-LCM: DONE (plugin functional, SQLite DAG, mesh sync stub)
+   - P3-T3 Mirage VFS: CANCELLED (prototype only, never deployed)
 
-2. **Hermes Native Features**
-   - delegation.max_spawn_depth: 2
-   - GitHub MCP + filesystem MCP servers
-   - credential_pool_strategies configured
-   - Langfuse plugin enabled (keys needed in .env)
+2. **Documentation Remediation**
+   - Fixed stale Node A IP (100.90.196.70 -> 100.96.253.114) across all files
+   - Fixed stale Node B IP (10.0.0.11 -> 100.66.173.31) in mesh-router.html
+   - Updated node-a.html: Inference now shows Qwen3-0.6B (was "None")
+   - Fixed Qwopus3.5-9B quantization (Q4_K_M -> Q8_0) in HTML docs
+   - Updated version stamps (v0.1.0-alpha/v0.3.1-alpha -> v0.3.12-alpha) across all non-archive HTML
 
-3. **Hermes Fork Sync**
-   - Merged upstream/main (2026-05-18)
-   - 2 commits integrated
-   - Submodule pin updated
-
-4. **Phase 5 Added to Kanban**
-   - P5-T1: Zeroboot Isolation Layer (t_833e6833) - Firecracker microVM sandboxes
-   - P5-T2: VibeVoice ASR Pipeline (t_a9c63663) - Omi wearable + Whisper ASR
-   - Both prototypes exist in crates/modules/ with tests
-
----
-
-## ZEROBOOT & VIBEVOICE
-
-**zeroboot-isolation** (`crates/modules/zeroboot-isolation/`)
-- KVM/Firecracker microVM wrapper for secure agent sandboxes
-- SCION networking for mesh-wide multi-agent isolation
-- <2s spawn, 512MB base image
-- Nix module: `nix/modules/zeroboot.nix`
-
-**vibevoice-asr** (`crates/modules/vibevoice-asr/`)
-- Multi-source ASR pipeline (Whisper-based)
-- Omi BLE wearable integration (priority audio source)
-- Mobile mic via Tailscale
-- VibeVoice emotion/style scoring
-
-Both created May 10, never added to roadmap until now. Ready for activation when hardware available.
-
----
-
-## DEPENDABOT STATUS
-
-- **67 alerts remaining** (down from 94)
-- Most are transitive deps (litellm, GitPython, pillow, urllib3)
-- Cargo.lock alerts: 0 (false positives resolved)
-- sovereign-sniffer: langsmith SSRF in transitive deps (requires breaking change to fix)
+3. **Kanban Update**
+   - Phase 3 marked CLOSED
+   - Card count: 25 total (14 done, 6 todo, 5 ready)
+   - Added v0.3.13-alpha milestone
 
 ---
 
@@ -67,10 +34,10 @@ Both created May 10, never added to roadmap until now. Ready for activation when
 
 | Component | Status | Notes |
 |-----------|--------|-------|
-| Node B (Director) | OPERATIONAL | Qwopus3.5-9B, Qwen3-VL, Vulkan b9190 |
+| Node A (Synapse) | OPERATIONAL | Qwen3-0.6B Q8_0, CPU b9219, mesh-micro |
+| Node B (Director) | OPERATIONAL | Qwopus3.5-9B Q8_0, Qwen3-VL, Vulkan b9190 |
 | Node C (Oracle) | OPERATIONAL | Carnice-9B-FC, CUDA |
 | Node D (Quaternary) | OPERATIONAL | Qwen3.5-35B-MTP, CPU |
-| Node A (Synapse) | OPERATIONAL | Qwen3-0.6B, CPU b9219 |
 | LiteLLM Mesh Router | LIVE | Docker Desktop port 4000 |
 | hermes-relay | LIVE | Docker Desktop port 8767 |
 | Kanban MCP Server | LIVE | FastMCP stdio |
@@ -79,26 +46,25 @@ Both created May 10, never added to roadmap until now. Ready for activation when
 
 ## NEXT SESSION
 
-1. **P3-T1: Hermes-LCM validation** - Test LCM sync across mesh nodes
-2. **Langfuse API keys** - Add to ~/.hermes/.env for LLM tracing
-3. **Monitor transitive CVEs** - litellm, GitPython, pillow worth watching
-4. **Phase 5 activation** - When hardware ready (Firecracker, Omi BLE)
+1. **P2-T1: Node D RTX 5060 Ti Installation** - Hardware pending
+2. **Phase 4: Perception Layer** - Voice Pipeline, Pretext HUD, Mesh Verification
+3. **Phase 5 activation** - When hardware ready (Firecracker, Omi BLE)
 
 ---
 
 ## KANBAN STATE
 
-**23 cards total: 12 done, 6 todo, 5 ready**
+**25 cards total: 14 done, 6 todo, 5 ready**
 
 | Phase | Status | Cards |
 |-------|--------|-------|
 | Phase 0 | CLOSED | 6 done |
 | Phase 1 | CLOSED | 4 done |
 | Phase 2 | IN PROGRESS | 1 ready, 1 todo, 2 done |
-| Phase 3 | READY | 1 ready, 2 todo |
+| Phase 3 | CLOSED | 2 done, 1 cancelled |
 | Phase 4 | PLANNED | 1 ready, 3 todo |
 | Phase 5 | PLANNED | 2 ready |
 
 ---
 
-Sovereign Machina v0.3.12-alpha // 50V3R31GN-M4CH1N4
+Sovereign Machina v0.3.13-alpha // 50V3R31GN-M4CH1N4

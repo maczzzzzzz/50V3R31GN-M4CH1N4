@@ -5,7 +5,7 @@
 
 ---
 
-## BOARD STATE (23 Cards: 12 Done, 6 Todo, 5 Ready)
+## BOARD STATE (25 Cards: 14 Done, 6 Todo, 5 Ready)
 
 ---
 
@@ -50,13 +50,15 @@ GPU upgrade pending. Speculative decoding and context spillover evaluated and cl
 
 ---
 
-### Phase 3: Sovereign Plugins — READY
+### Phase 3: Sovereign Plugins — CLOSED
 
-| ID | Title | Priority | Status |
+Core plugin infrastructure validated. Hermes-LCM functional. Mirage VFS cancelled (prototype never deployed).
+
+|| ID | Title | Priority | Status ||
 |----|-------|----------|--------|
-| t_b73f1d8c | PHASE 3 Epic | 8 | READY |
-| t_27b29eb4 | P3-T1: Hermes-LCM State Sync | 8 | TODO |
-| t_ddce11f7 | P3-T3: Mirage VFS Integration | 8 | TODO |
+| t_b73f1d8c | PHASE 3 Epic | 8 | DONE |
+| t_27b29eb4 | P3-T1: Hermes-LCM State Sync | 8 | DONE (plugin functional, SQLite DAG, mesh sync stub) |
+| t_ddce11f7 | P3-T3: Mirage VFS Integration | 8 | CANCELLED (prototype only, never deployed) |
 
 ---
 
@@ -96,13 +98,14 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 
 ## KEY MILESTONES
 
-| Version | Date | Milestone |
+|| Version | Date | Milestone |
 |---------|------|-----------|
 | 0.1.0-alpha | 2026-05-16 | Phase 0 CLOSED, 4-node mesh operational |
 | 0.2.0-alpha | 2026-05-17 | Docker Desktop, mesh-vision, security sweep |
 | 0.3.0-alpha | 2026-05-18 | hermes-relay, MTP staging, drift remediation |
 | 0.3.1-alpha | 2026-05-18 | Node B b9190 upgrade, Node D model swap, MTP validated |
 | 0.3.12-alpha | 2026-05-20 | Technical debt purge (~67GB), Hermes fork synced, kanban cleaned |
+| 0.3.13-alpha | 2026-05-21 | Phase 3 CLOSED, Hermes-LCM functional, Mirage VFS cancelled |
 
 ---
 

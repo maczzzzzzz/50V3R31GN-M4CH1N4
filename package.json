@@ -9,8 +9,12 @@
     "release": "semantic-release"
   },
   "devDependencies": {
-    "semantic-release": "^23.0.0",
+    "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/changelog": "^6.0.3"
+    "semantic-release": "^23.0.0"
+  },
+  "dependencies": {
+    "@browserbasehq/stagehand": "^3.4.0",
+    "langsmith": "^0.7.1"
   }
 }

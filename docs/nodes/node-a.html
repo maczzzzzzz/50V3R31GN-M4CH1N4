@@ -27,42 +27,43 @@
             <table>
                 <thead><tr><th>Property</th><th>Value</th></tr></thead>
                 <tbody>
-                    <tr><td>Role</td><td>State persistence, KV-cache spillover</td></tr>
-                    <tr><td>CPU</td><td>(NixOS host)</td></tr>
+                    <tr><td>Role</td><td>mesh-micro inference, State persistence</td></tr>
+                    <tr><td>CPU</td><td>Intel i7-7700HQ 4c/8t</td></tr>
                     <tr><td>GPU</td><td>NVIDIA GTX 1050 Ti 4GB</td></tr>
                     <tr><td>RAM</td><td>16GB</td></tr>
-                    <tr><td>OS</td><td>NixOS 24.11</td></tr>
+                    <tr><td>OS</td><td>NixOS 24.11, kernel 6.6.94</td></tr>
                     <tr><td>Tailscale IP</td><td><code>100.96.253.114</code></td></tr>
-                    <tr><td>Inference</td><td>None</td></tr>
+                    <tr><td>Inference</td><td>Qwen3-0.6B Q8_0 (CPU, port 8080)</td></tr>
+                    <tr><td>Route</td><td>mesh-micro</td></tr>
+                    <tr><td>Benchmark</td><td>prompt 169 t/s, gen 46.8 t/s</td></tr>
                 </tbody>
             </table>
 
             <h2>Purpose</h2>
-            <p>Node A does not run model inference. The 4GB GTX 1050 Ti cannot load any useful LLM. Instead, Node A serves as:</p>
+            <p>Node A runs lightweight inference with Qwen3-0.6B for fast, low-latency responses. The 4GB GTX 1050 Ti cannot load larger models, so GPU inference is not used. Node A also serves as:</p>
             <ul>
-                <li><strong>hermes-lcm primary:</strong> Persistent state ledger and semantic memory store</li>
-                <li><strong>KV-cache spillover target:</strong> Receives quantized KV tensors from Node D via RPC over Tailscale (TurboQuant q4_0)</li>
-                <li><strong>Mesh coordination:</strong> Syncs state to Nodes B, C, D</li>
+                <li><strong>mesh-micro:</strong> Fastest inference route for simple queries</li>
+                <li><strong>hermes-lcm sync target:</strong> Receives state sync from primary (Node B)</li>
+                <li><strong>State persistence:</strong> Secondary storage node</li>
             </ul>
 
             <h2>NixOS Config</h2>
-            <p>Flake-based config at <code>nix/hosts/node-a/default.nix</code>. Imports hermes-lcm module with sync targets:</p>
-<pre><code>services.hermes-lcm.syncNodes = [
-  "100.66.173.31"   # Node B
-  "100.102.109.81"  # Node C
-  "100.120.225.12"  # Node D
-];</code></pre>
+            <p>Flake-based config at <code>nix/hosts/node-a/default.nix</code>. Runs llama.cpp b9219 CPU-only:</p>
+<pre><code># llama-micro.service (user systemd)
+# Model: Qwen3-0.6B Q8_0
+# Port: 8080
+# Benchmark: prompt 169 t/s, gen 46.8 t/s</code></pre>
 
             <h2>Current Status</h2>
             <ul>
-                <li>SSH: Reachable via Tailscale</li>
-                <li>hermes-lcm: Not yet deployed (awaiting Phase 3)</li>
-                <li>KV spillover: Not yet configured (awaiting llama.cpp RPC support validation)</li>
+                <li>SSH: Reachable via Tailscale (mesh-a alias)</li>
+                <li>llama-micro.service: OPERATIONAL (Qwen3-0.6B Q8_0)</li>
+                <li>hermes-lcm: Sync target (primary on Node B)</li>
             </ul>
         </main>
 
         <footer>
-            <p>Sovereign Machina v0.1.0-alpha // 50V3R31GN-M4CH1N4</p>
+            <p>Sovereign Machina v0.3.12-alpha // 50V3R31GN-M4CH1N4</p>
         </footer>
     </div>
 </body>
