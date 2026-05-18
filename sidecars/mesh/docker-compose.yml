@@ -1,6 +1,6 @@
 services:
   litellm:
-    image: ghcr.io/berriai/litellm:main-latest
+    image: ghcr.io/berriai/litellm:1.85.0
     container_name: litellm-mesh
     restart: unless-stopped
     ports:
