@@ -12,6 +12,7 @@
   - Integration plan: self-host on Node D, SCION as optional mesh isolation layer.
   - Reference: `docs/planning/plans/2026-05-21-zeroboot-integration.md`.
 - **SCION integration scoped.** GoogleCloudPlatform/scion for path-aware inter-node mesh communication (not per-sandbox).
+- **P5-T2 VibeVoice ASR: CANCELLED.** Hermes has native Whisper/TTS. 7B model overhead unjustified.
 
 ### Documentation Remediation
 - **Fixed stale Node A IP across all files.** 100.90.196.70 -> 100.96.253.114 (Mirage VFS plugin, tests, cli-config.yaml, nix configs).
