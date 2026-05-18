@@ -1,37 +1,32 @@
-# Changelog
+# CHANGELOG
 
-All notable changes to the Sovereign Mesh are documented here.
-
-## [0.3.6-alpha] - 2026-05-20
+## [0.3.6-alpha] - 2026-05-17
 
 ### Fixed
-- LiteLLM mesh router authentication and model discovery
-  - Added `database_url: sqlite:///app/litellm.db` to resolve "No connected db" errors
-  - Created persistent data volume for SQLite database
-  - Updated container startup to mount database directory
-  - LiteLLM now serves `/v1/models` correctly for Hermes model picker
+- LiteLLM mesh router was not appearing in Hermes `/model` picker
+- Added SQLite database (`database_url`) to resolve "No connected db" errors in LiteLLM 1.84.0
+- Created persistent data volume for `litellm.db`
 
 ### Changed
-- LiteLLM configuration updated for production stability (v1.84.0)
-- Session handoff prepared for Hermes restart
+- Updated `sidecars/mesh/proxy.yml` with database mount
+- Prepared SESSION_HANDOFF for Hermes restart
 
-## [0.3.5-alpha] - 2026-05-19
+## [0.3.5-alpha] - 2026-05-17
 
 ### Added
-- Hermes-LCM state sync and cross-node rsync
-- hermes-relay stabilization on Node A
+- Hermes-LCM state synchronization across mesh
+- hermes-relay service stabilized on Node A (port 8767)
 
 ### Fixed
-- Node A configuration corruption and lid handling
+- Node A configuration corruption
+- hermes-relay systemd service entrypoint
 
-## [0.3.2-alpha] - 2026-05-18
+## [0.3.2-alpha] - 2026-05-17
 
-### Added
-- Kanban MCP server
-- GitHub Pages documentation site (later deprecated)
+### Infrastructure
+- Node B upgraded to llama.cpp b9190 (Vulkan)
+- Node D model swapped to Qwen3.5-35B-A3B-MTP (MTP disabled on CPU)
+- Kanban MCP server deployed
 
-### Changed
-- Node B binary upgraded to b9190 (Vulkan)
-- Node D model swapped to Qwen3.5-35B-A3B-MTP
-
-[Full history available in git log]
+### Documentation
+- GitHub Pages site work started (later deprecated)

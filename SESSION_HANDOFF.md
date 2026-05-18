@@ -1,6 +1,6 @@
 # SESSION HANDOFF (v0.3.6-alpha)
 
-**Date:** 2026-05-20
+**Date:** 2026-05-17
 **Branch:** stable/mesh-alpha
 **Architect:** grok-4.3 (xai-oauth)
 **Context:** Node A stabilization + hermes-relay deployment + hermes-agent-fork upstream sync
@@ -36,7 +36,7 @@ None. All carryover tasks closed.
 **Node A is stable.** Phase 3 baseline complete. Ready for fresh session.
 ---
 
-## LATEST SESSION WORK (2026-05-20)
+## LATEST SESSION WORK (2026-05-17)
 
 ### LiteLLM Mesh Router Fix
 - Stopped `mesh-litellm-1`
