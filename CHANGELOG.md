@@ -5,16 +5,25 @@
 - **P3-T1 Hermes-LCM State Sync: DONE.** Plugin operates standalone with DAG schema. Core provider integration stubbed for future unification.
 - **P3-T3 Mirage VFS Integration: CANCELLED.** Prototype only, never deployed. Based on strukto-ai/mirage reference implementation.
 
+### Phase 5 Planning
+- **P5-T1 Zeroboot Isolation Layer: TODO.** Evaluated upstream zerobootdev/zeroboot (2.3k stars, Apache 2.0).
+  - CoW forking from Firecracker snapshots: 0.79ms spawn, 265KB/sandbox.
+  - Local prototype archived: naive Firecracker wrapper vs upstream CoW architecture.
+  - Integration plan: self-host on Node D, SCION as optional mesh isolation layer.
+  - Reference: `docs/planning/plans/2026-05-21-zeroboot-integration.md`.
+- **SCION integration scoped.** GoogleCloudPlatform/scion for path-aware inter-node mesh communication (not per-sandbox).
+
 ### Documentation Remediation
 - **Fixed stale Node A IP across all files.** 100.90.196.70 -> 100.96.253.114 (Mirage VFS plugin, tests, cli-config.yaml, nix configs).
 - **Fixed stale Node B IP in mesh-router.html.** 10.0.0.11 -> 100.66.173.31 for mesh-fast and mesh-vision endpoints.
 - **Updated node-a.html to reflect current state.** Added Qwen3-0.6B inference (was "None"), updated role, benchmark, and service status.
 - **Fixed Qwopus3.5-9B quantization in HTML docs.** Q4_K_M -> Q8_0 (correct per current deployment).
 - **Updated version stamps across all non-archive HTML docs.** v0.1.0-alpha/v0.3.1-alpha -> v0.3.12-alpha.
+- **Rewrote IMPLEMENTATION_PLAN.md.** v0.3.6-alpha -> v0.3.13-alpha, added Phase 5, removed duplicate sections.
 
 ### Kanban & Status
 - **Board count: 25 cards (14 done, 6 todo, 5 ready).** Phase 3 marked CLOSED.
-- **SOVEREIGN_VITAL_SIGNS.md: Phase 3 CLOSED, Phase 4 PLANNED.**
+- **SOVEREIGN_VITAL_SIGNS.md: Phase 3 CLOSED, Phase 4 PLANNED, Phase 5 PLANNED.**
 - **AGENTS.md: v0.3.13-alpha.**
 
 ## [0.3.12-alpha] - 2026-05-20

@@ -1,6 +1,6 @@
-# SOVEREIGN VITAL SIGNS (v0.3.12-alpha)
+# SOVEREIGN VITAL SIGNS (v0.3.13-alpha)
 
-**Status:** PHASE 3 CLOSED. Phase 4 PLANNED.
+**Status:** PHASE 3 CLOSED. Phase 4 PLANNED. Phase 5 PLANNED.
 **Updated:** May 21, 2026
 
 ---
@@ -22,9 +22,9 @@
 | mesh-vision | Qwen3-VL-2B-Instruct Q6_K | prompt 630, gen 159 t/s (text) | Node B Vulkan (b9190, port 8082) | DEPLOYED |
 | mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | prompt 12.7, gen 7.0 t/s | Node D Stock llama.cpp (b64b38b5) | DEPLOYED |
 | mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
-|| mesh-micro | Qwen3-0.6B Q8_0 | prompt 49 t/s, gen 29 t/s | Node A CPU | DEPLOYED |
+|| mesh-micro | Qwen3-0.6B Q8_0 | prompt 169, gen 46.8 t/s | Node A CPU (b9219) | DEPLOYED |
 
-LiteLLM mesh router on Node B (Docker Desktop, port 4000). 4 routes. Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
+LiteLLM mesh router on Node B (Docker Desktop, port 4000). 5 routes. Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
 
 ## NODE B (DIRECTOR)
 
@@ -69,8 +69,8 @@ LiteLLM mesh router on Node B (Docker Desktop, port 4000). 4 routes. Vulkan node
 |:----------|:-------|
 | OS | NixOS 24.11 |
 | Tailscale | 100.96.253.114 |
-| Role | State persistence, cache spillover only |
-| Inference | None |
+|| Role | State persistence, cache spillover, mesh-micro inference ||
+|| Inference | Qwen3-0.6B Q8_0 CPU (b9219, port 8080) ||
 
 ## SERVICES
 

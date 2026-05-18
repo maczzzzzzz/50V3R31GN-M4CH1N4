@@ -1,4 +1,4 @@
-# AGENTS.md: The Alpha Mesh Roles (v0.3.1-alpha)
+# AGENTS.md: The Alpha Mesh Roles (v0.3.13-alpha)
 
 Active agents and hardware topology for the Stable Mesh Alpha build.
 
