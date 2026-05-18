@@ -1,58 +1,80 @@
-# SESSION HANDOFF (v0.3.8-alpha)
+# SESSION HANDOFF (v0.3.9-alpha)
 
-**Date:** 2026-05-18  
-**Branch:** stable/mesh-alpha  
-**Architect:** grok-4.3 (xai-oauth)  
-**Context:** Native Mesh Router + Hermes Relay migration + Windows deployment tooling
-
----
-
-## WORK COMPLETED THIS SESSION
-
-### 1. Native Mesh Router (Major Achievement)
-- Built minimal FastAPI router (`sidecars/mesh-router/mesh_router.py`)
-- Replaced problematic LiteLLM Docker deployment
-- Created Nix package + systemd service
-- Deployed as user service on Node B (port 4000)
-- Hermes config updated to use `localhost:4000` as primary mesh provider
-
-### 2. Hermes Relay Migration to Node A
-- Converted from Docker container to native systemd user service
-- Service file created and deployed to Node A
-- Documentation updated for multi-device support
-
-### 3. Windows & Android Deployment
-- Created `windows-clean-install.ps1` (one-click installer for fresh Windows)
-- Added NSSM service configuration
-- Documented Android app usage from `Codename-11/hermes-relay`
-
-### 4. Documentation
-- Updated CHANGELOG, SESSION_HANDOFF, IMPLEMENTATION_PLAN
-- Created architecture docs for both router and relay
-- Consolidated relay documentation
+**Date:** 2026-05-18
+**Branch:** stable/mesh-alpha
+**Architect:** GLM-5 (zai)
 
 ---
 
 ## CURRENT STATE
 
-**Strengths:**
-- Mesh routing is now fully native and stable
-- Hermes Relay running natively on Node A
-- Strong Windows deployment path available
+### Completed Work
 
-**Holding Us Back / Outstanding Tasks:**
-- Node A relay service needs interactive `systemctl --user` enable (DBus limitation over SSH)
-- Android app still needs building + testing on device
-- cloak-cdp remains in Docker on Node A (low priority)
-- No automated CI for Windows installer script yet
+**Full Mesh Baseline Benchmark - ALL 5 NODES OPERATIONAL:**
+
+| Node | Backend | Model | Gen t/s | Prompt t/s | Hardware |
+|------|---------|-------|---------|------------|----------|
+| A | mesh-micro | Qwen3-0.6B Q8_0 | 39.5 | 62.1 | GTX 1050 Ti |
+| B | mesh-fast | Qwopus3.5-9B Q8_0 | 23.2 | 132.5 | Vulkan RX 9060 XT |
+| B | mesh-vision | Qwen3-VL-2B Q6_K | 172.4 | 381.2 | Vulkan RX 9060 XT |
+| C | mesh-fc | Carnice-9B-FC | 50.3 | 245.0 | CUDA RTX 2060 |
+| D | mesh-heavy | Qwen3.5-35B Q4_K_M | 6.7 | 13.6 | CPU Meteor Lake |
+
+**Continuous Batching Results:**
+- mesh-fast: 39.1 t/s at 4 concurrent (+84% vs single)
+- mesh-vision: 369.3 t/s at 4 concurrent (+143% vs single)
+
+**Key Findings:**
+- Node D speculative decoding: ALL MODES REJECTED (MTP 2.8x slower, ngram-mod 16% slower on CPU)
+- LiteLLM model routing has bug - bypassed with direct backend access
+- Node A required llama.cpp build from source (Nix pkg too old for Qwen3)
+
+### Scripts Created
+- `scripts/direct-benchmark.py` - Single-request mesh benchmark
+- `scripts/concurrent-benchmark.py` - Multi-request cont-batching test
+- `scripts/mesh-control.sh` - Node start/stop/status/kill-ghost
+- `sidecars/mesh/start-mesh-bridge.sh` - Socat bridges for Docker
+- `D:\llama.cpp\start-hermes-cb.bat` - Cont-batching startup
+- `D:\llama.cpp\start-vision-cb.bat` - Cont-batching startup
+
+### Cleanup Completed
+- Removed 14 superseded scripts (mesh-benchmark.py, old .sh files, archive scripts)
 
 ---
 
-## NEXT SESSION PRIORITIES
+## INFRASTRUCTURE STATUS
 
-1. Verify Node A relay is healthy after interactive enable
-2. Test Windows NSSM service on clean machine
-3. Build and test Android companion app
-4. Consider moving cloak-cdp to native if needed
+### All Services Running
+- **Node A:** llama-server on port 8080 (built from source)
+- **Node B:** llama-server on 8081/8082 with cont-batching enabled
+- **Node C:** llama-server CUDA on port 8081
+- **Node D:** llama-server CPU on port 8080 (no speculative decoding)
+- **LiteLLM:** Docker on port 4000 (5 routes, model routing buggy)
+- **hermes-relay:** Docker on port 8767
+- **Socat bridges:** 8081, 8082, 17080, 18080, 18081
 
-**Ready for fresh session.** All critical infrastructure is now native.
+### Known Issues
+- **LiteLLM model name stripping:** `openai/` prefix removed, breaks backend routing. Workaround: use direct backend access via socat bridges.
+- **Node A startup:** Manual start required until systemd service created.
+
+---
+
+## NEXT STEPS
+
+1. **Fix LiteLLM model routing** or accept direct backend approach
+2. **Create Node A systemd service** for auto-start on boot
+3. **Node D GPU upgrade** - RTX 5060 Ti 16GB via OCuLink (docs/planning/node-d-5060ti-upgrade.md)
+4. **Node B CPU draft speculative** - Feasibility analysis complete (docs/benchmarks/archive/node-b-cpu-draft-speculative.md)
+
+---
+
+## FILES
+
+```
+docs/benchmarks/mesh-baseline-2026-05-18.md     # Full report
+docs/benchmarks/direct-backend-2026-05-18.json  # Raw data
+scripts/direct-benchmark.py                      # Working benchmark
+scripts/concurrent-benchmark.py                  # Cont-batching test
+scripts/mesh-control.sh                          # Node management
+sidecars/mesh/start-mesh-bridge.sh              # Socat bridges
+```

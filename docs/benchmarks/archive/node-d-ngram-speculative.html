@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmark Report: Ngram Speculative Decoding on Node D (P2-T2) — Sovereign Machina</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="../../index.html">Sovereign Machina</a></h1>
+            <p>Documentation &middot; Benchmark Report: Ngram Speculative Decoding on Node D (P2-T2)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="../../index.html">Docs</a><span class="sep">/</span>Benchmarks<span class="sep">/</span>Node D Ngram Speculative
+        </nav>
+
+        <main>
+            <h2>Benchmark Report: Ngram Speculative Decoding on Node D (P2-T2)</h2>
+            <p><strong>Date:</strong> 2026-05-18</p>
+<p><strong>Node:</strong> D (Quaternary) -- Intel Meteor Lake, 48GB DDR5, AVX2, 8 threads</p>
+<p><strong>Model:</strong> Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6GB)</p>
+<p><strong>Backend:</strong> llama.cpp b64b38b5 (stock build)</p>
+<p><strong>Conclusion:</strong> NET NEGATIVE -- ngram speculation is not viable on CPU for thinking models.</p>
+
+<hr>
+
+<h3>Test Configuration</h3>
+
+<table>
+<thead>
+<tr><th>Parameter</th><th>Baseline</th><th>ngram-mod</th><th>ngram-simple</th></tr>
+</thead>
+<tbody>
+<tr><td>--spec-type</td><td>(none)</td><td>ngram-mod</td><td>ngram-simple</td></tr>
+<tr><td>--spec-ngram-*-size-n</td><td>-</td><td>(default)</td><td>4</td></tr>
+<tr><td>--spec-ngram-*-size-m</td><td>-</td><td>(default)</td><td>3</td></tr>
+<tr><td>--spec-ngram-*-min-hits</td><td>-</td><td>(default)</td><td>1</td></tr>
+<tr><td>ctx-size</td><td>8192</td><td>8192</td><td>8192</td></tr>
+<tr><td>flash-attn</td><td>on</td><td>on</td><td>on</td></tr>
+<tr><td>cache-type</td><td>q4_0/q4_0</td><td>q4_0/q4_0</td><td>q4_0/q4_0</td></tr>
+<tr><td>threads</td><td>8</td><td>8</td><td>8</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h3>Results</h3>
+
+<h4>Test 1: Short Prompt (18 tokens in, 128 tokens out)</h4>
+<strong>Prompt:</strong> "Write a short paragraph about distributed systems."
+
+<table>
+<thead>
+<tr><th>Metric</th><th>Baseline</th><th>ngram-mod</th><th>Delta</th></tr>
+</thead>
+<tbody>
+<tr><td>Prompt t/s</td><td>13.48</td><td>13.64</td><td>+1.2%</td></tr>
+<tr><td>Gen t/s</td><td>6.74</td><td>6.74</td><td>0%</td></tr>
+<tr><td>Draft tokens</td><td>-</td><td>(not reported)</td><td>-</td></tr>
+<tr><td>Accepted</td><td>-</td><td>(not reported)</td><td>-</td></tr>
+</tbody>
+</table>
+<h4>Test 2: Medium Prompt (87 tokens in, 256 tokens out)</h4>
+<strong>Prompt:</strong> Detailed NixOS/Tailscale configuration guide (structured task)
+
+<table>
+<thead>
+<tr><th>Metric</th><th>Baseline</th><th>ngram-mod</th><th>Delta</th></tr>
+</thead>
+<tbody>
+<tr><td>Prompt t/s</td><td>-</td><td>14.56</td><td>-</td></tr>
+<tr><td>Gen t/s</td><td>6.66</td><td>-</td><td>vs 6.74 baseline</td></tr>
+<tr><td>Draft tokens</td><td>-</td><td>(not reported)</td><td>-</td></tr>
+<tr><td>Accepted</td><td>-</td><td>(not reported)</td><td>-</td></tr>
+</tbody>
+</table>
+<h4>Test 3: Structured Output (45 tokens in, 256 tokens out)</h4>
+<strong>Prompt:</strong> "List first 50 prime numbers" with /no_think
+
+<table>
+<thead>
+<tr><th>Metric</th><th>ngram-mod</th><th>ngram-simple</th><th>Baseline</th></tr>
+</thead>
+<tbody>
+<tr><td>Prompt t/s</td><td>14.37</td><td>14.25</td><td>13.48</td></tr>
+<tr><td>Gen t/s</td><td><strong>5.68</strong></td><td><strong>5.68</strong></td><td><strong>6.74</strong></td></tr>
+<tr><td>Draft tokens</td><td>64</td><td>64</td><td>-</td></tr>
+<tr><td>Accepted</td><td>2</td><td>2</td><td>-</td></tr>
+<tr><td>Acceptance rate</td><td>3.1%</td><td>3.1%</td><td>-</td></tr>
+<tr><td>Delta vs baseline</td><td><strong>-15.7%</strong></td><td><strong>-15.7%</strong></td><td>-</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h3>Root Cause Analysis</h3>
+
+<strong>Why ngram speculation fails on this model:</strong>
+
+1. <strong>Qwen3.5 always thinks first.</strong> Despite /no_think instructions in system and user messages, the model continues to emit reasoning_content tokens via its thinking chain. These tokens are novel and unpredictable by nature.
+
+2. <strong>Thinking tokens have no ngram patterns.</strong> The ngram table builds from observed prompt tokens (18-87 tokens -- barely enough data) and then tries to predict future tokens. Reasoning tokens are uniquely generated and don't match any historical ngram.
+
+3. <strong>3.1% acceptance rate means 97% waste.</strong> For every 64 tokens drafted speculatively, only 2 are accepted. The other 62 are computed, verified against the model's actual output, and discarded. On CPU, this verification is NOT free -- each rejected token costs compute time.
+
+4. <strong>CPU lacks parallel headroom.</strong> On GPU, draft verification can overlap with other work and is nearly free. On CPU with 8 threads fully saturated by the main model, the speculative verification steals cycles from actual generation.
+
+<hr>
+
+<h3>Comparison: All Speculative Methods on Node D CPU</h3>
+
+<table>
+<thead>
+<tr><th>Method</th><th>Acceptance Rate</th><th>Gen t/s</th><th>Delta vs Baseline</th><th>Verdict</th></tr>
+</thead>
+<tbody>
+<tr><td>Baseline (no speculation)</td><td>N/A</td><td>6.74 t/s</td><td>-</td><td>Reference</td></tr>
+<tr><td>MTP (draft-model)</td><td>49%</td><td>~4.0 t/s (est)</td><td>-40%</td><td>NET NEGATIVE (2.8x overhead)</td></tr>
+<tr><td>ngram-mod</td><td>3.1%</td><td>5.68 t/s</td><td>-15.7%</td><td>NET NEGATIVE</td></tr>
+<tr><td>ngram-simple</td><td>3.1%</td><td>5.68 t/s</td><td>-15.7%</td><td>NET NEGATIVE</td></tr>
+</tbody>
+</table>
+<hr>
+
+<h3>Post-GPU Upgrade Outlook</h3>
+
+After RTX 5060 Ti 16GB installation on Node D:
+<ul><li>CUDA makes draft verification nearly free (parallel compute)</li><li>MTP acceptance should improve with faster draft computation</li><li>ngram speculation may become viable IF thinking can be disabled for non-reasoning tasks</li><li>Recommend re-benchmarking all speculative methods after hardware upgrade</li></ul>
+
+<hr>
+
+<h3>Recommendation</h3>
+
+<strong>Close P2-T2 as VALIDATED NEGATIVE on CPU.</strong> All three speculative methods (MTP, ngram-mod, ngram-simple) are net negative on Node D's CPU. Re-open after RTX 5060 Ti installation with CUDA benchmarks.
+
+<hr>
+::/5Y573M-N071C3 : BENCH_NGRAM_V1. SPECULATION_DEAD_ON_CPU. // 50V3R31GN-M4CH1N4
+        </main>
+
+        <footer>
+            <p>Sovereign Machina v0.3.2-alpha // 50V3R31GN-M4CH1N4</p>
+        </footer>
+    </div>
+</body>
+</html>

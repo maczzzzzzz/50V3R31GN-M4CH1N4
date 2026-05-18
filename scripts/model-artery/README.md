@@ -36,7 +36,7 @@ All scripts perform SHA-256 integrity checks after transfer.
 
 | Node | Model | Purpose | Format |
 |------|-------|---------|-------------|
-| Node B | Hermes-4-14B Q4_K_M | Fast response / Code gen | GGUF |
+| Node B | Qwopus3.5-9B Q8_0 Q4_K_M | Fast response / Code gen | GGUF |
 | Node C | Carnice-9B-FC i1-Q4_K_M | Function calling / Tool use | GGUF |
 | Node D | Carnice MoE 35B Q4_K_M | Heavy reasoning | GGUF |
 

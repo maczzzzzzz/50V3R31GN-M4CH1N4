@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-05-18T15:38:37.801830",
+  "results": [
+    {
+      "concurrency": 1,
+      "backend": "mesh-fast",
+      "concurrent": 1,
+      "total_time": 2.35,
+      "success": 1,
+      "total_tokens": 50,
+      "effective_tps": 21.23,
+      "errors": 0
+    },
+    {
+      "concurrency": 1,
+      "backend": "mesh-vision",
+      "concurrent": 1,
+      "total_time": 0.24,
+      "success": 1,
+      "total_tokens": 37,
+      "effective_tps": 152.05,
+      "errors": 0
+    },
+    {
+      "concurrency": 2,
+      "backend": "mesh-fast",
+      "concurrent": 2,
+      "total_time": 3.32,
+      "success": 2,
+      "total_tokens": 100,
+      "effective_tps": 30.13,
+      "errors": 0
+    },
+    {
+      "concurrency": 2,
+      "backend": "mesh-vision",
+      "concurrent": 2,
+      "total_time": 0.29,
+      "success": 2,
+      "total_tokens": 75,
+      "effective_tps": 261.91,
+      "errors": 0
+    },
+    {
+      "concurrency": 4,
+      "backend": "mesh-fast",
+      "concurrent": 4,
+      "total_time": 5.11,
+      "success": 4,
+      "total_tokens": 200,
+      "effective_tps": 39.11,
+      "errors": 0
+    },
+    {
+      "concurrency": 4,
+      "backend": "mesh-vision",
+      "concurrent": 4,
+      "total_time": 0.42,
+      "success": 4,
+      "total_tokens": 156,
+      "effective_tps": 369.34,
+      "errors": 0
+    },
+    {
+      "concurrency": 8,
+      "backend": "mesh-fast",
+      "concurrent": 8,
+      "total_time": 10.34,
+      "success": 8,
+      "total_tokens": 400,
+      "effective_tps": 38.68,
+      "errors": 0
+    },
+    {
+      "concurrency": 8,
+      "backend": "mesh-vision",
+      "concurrent": 8,
+      "total_time": 0.98,
+      "success": 8,
+      "total_tokens": 320,
+      "effective_tps": 327.22,
+      "errors": 0
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "timestamp": "2026-05-18T15:48:19.936832",
+  "backends": [
+    {
+      "name": "mesh-fast",
+      "tests": [
+        {
+          "backend": "mesh-fast",
+          "prompt_type": "short",
+          "passes": 3,
+          "avg_gen_tps": 23.22,
+          "avg_prompt_tps": 122.34,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 18,
+              "completion_tokens": 100,
+              "total_time_s": 4.515,
+              "prompt_tps": 120.06,
+              "gen_tps": 23.29
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 18,
+              "completion_tokens": 100,
+              "total_time_s": 4.487,
+              "prompt_tps": 123.43,
+              "gen_tps": 23.21
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 18,
+              "completion_tokens": 100,
+              "total_time_s": 4.497,
+              "prompt_tps": 123.54,
+              "gen_tps": 23.17
+            }
+          ]
+        },
+        {
+          "backend": "mesh-fast",
+          "prompt_type": "medium",
+          "passes": 3,
+          "avg_gen_tps": 23.17,
+          "avg_prompt_tps": 142.61,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 22,
+              "completion_tokens": 100,
+              "total_time_s": 4.508,
+              "prompt_tps": 143.49,
+              "gen_tps": 23.17
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 22,
+              "completion_tokens": 100,
+              "total_time_s": 4.529,
+              "prompt_tps": 140.69,
+              "gen_tps": 23.18
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 22,
+              "completion_tokens": 100,
+              "total_time_s": 4.515,
+              "prompt_tps": 143.64,
+              "gen_tps": 23.17
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "avg_gen_tps": 23.2,
+        "avg_prompt_tps": 132.48
+      }
+    },
+    {
+      "name": "mesh-vision",
+      "tests": [
+        {
+          "backend": "mesh-vision",
+          "prompt_type": "short",
+          "passes": 3,
+          "avg_gen_tps": 176.27,
+          "avg_prompt_tps": 317.42,
+          "avg_completion_tokens": 16.7,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 16,
+              "completion_tokens": 15,
+              "total_time_s": 0.12,
+              "prompt_tps": 667.8,
+              "gen_tps": 176.61
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 16,
+              "completion_tokens": 16,
+              "total_time_s": 0.107,
+              "prompt_tps": 140.98,
+              "gen_tps": 177.07
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 16,
+              "completion_tokens": 19,
+              "total_time_s": 0.125,
+              "prompt_tps": 143.49,
+              "gen_tps": 175.13
+            }
+          ]
+        },
+        {
+          "backend": "mesh-vision",
+          "prompt_type": "medium",
+          "passes": 3,
+          "avg_gen_tps": 168.59,
+          "avg_prompt_tps": 444.95,
+          "avg_completion_tokens": 90.3,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 20,
+              "completion_tokens": 98,
+              "total_time_s": 0.615,
+              "prompt_tps": 1033.62,
+              "gen_tps": 168.63
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 20,
+              "completion_tokens": 89,
+              "total_time_s": 0.557,
+              "prompt_tps": 152.23,
+              "gen_tps": 168.21
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 20,
+              "completion_tokens": 84,
+              "total_time_s": 0.523,
+              "prompt_tps": 148.99,
+              "gen_tps": 168.94
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "avg_gen_tps": 172.43,
+        "avg_prompt_tps": 381.19
+      }
+    },
+    {
+      "name": "mesh-heavy",
+      "tests": [
+        {
+          "backend": "mesh-heavy",
+          "prompt_type": "short",
+          "passes": 3,
+          "avg_gen_tps": 6.73,
+          "avg_prompt_tps": 13.48,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 18,
+              "completion_tokens": 100,
+              "total_time_s": 16.144,
+              "prompt_tps": 13.58,
+              "gen_tps": 6.78
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 18,
+              "completion_tokens": 100,
+              "total_time_s": 16.288,
+              "prompt_tps": 13.39,
+              "gen_tps": 6.72
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 18,
+              "completion_tokens": 100,
+              "total_time_s": 16.307,
+              "prompt_tps": 13.47,
+              "gen_tps": 6.7
+            }
+          ]
+        },
+        {
+          "backend": "mesh-heavy",
+          "prompt_type": "medium",
+          "passes": 3,
+          "avg_gen_tps": 6.69,
+          "avg_prompt_tps": 13.63,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 22,
+              "completion_tokens": 100,
+              "total_time_s": 16.555,
+              "prompt_tps": 13.79,
+              "gen_tps": 6.71
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 22,
+              "completion_tokens": 100,
+              "total_time_s": 16.654,
+              "prompt_tps": 13.6,
+              "gen_tps": 6.68
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 22,
+              "completion_tokens": 100,
+              "total_time_s": 16.645,
+              "prompt_tps": 13.51,
+              "gen_tps": 6.68
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "avg_gen_tps": 6.71,
+        "avg_prompt_tps": 13.55
+      }
+    },
+    {
+      "name": "mesh-function-calling",
+      "tests": [
+        {
+          "backend": "mesh-function-calling",
+          "prompt_type": "short",
+          "passes": 3,
+          "avg_gen_tps": 50.24,
+          "avg_prompt_tps": 208.91,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 16,
+              "completion_tokens": 100,
+              "total_time_s": 2.188,
+              "prompt_tps": 172.43,
+              "gen_tps": 49.91
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 16,
+              "completion_tokens": 100,
+              "total_time_s": 2.112,
+              "prompt_tps": 227.73,
+              "gen_tps": 50.42
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 16,
+              "completion_tokens": 100,
+              "total_time_s": 2.114,
+              "prompt_tps": 226.58,
+              "gen_tps": 50.38
+            }
+          ]
+        },
+        {
+          "backend": "mesh-function-calling",
+          "prompt_type": "medium",
+          "passes": 3,
+          "avg_gen_tps": 50.42,
+          "avg_prompt_tps": 281.01,
+          "avg_completion_tokens": 92,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 20,
+              "completion_tokens": 100,
+              "total_time_s": 2.129,
+              "prompt_tps": 281.0,
+              "gen_tps": 50.38
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 20,
+              "completion_tokens": 76,
+              "total_time_s": 1.633,
+              "prompt_tps": 281.05,
+              "gen_tps": 50.53
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 20,
+              "completion_tokens": 100,
+              "total_time_s": 2.123,
+              "prompt_tps": 280.99,
+              "gen_tps": 50.35
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "avg_gen_tps": 50.33,
+        "avg_prompt_tps": 244.96
+      }
+    },
+    {
+      "name": "mesh-micro",
+      "tests": [
+        {
+          "backend": "mesh-micro",
+          "prompt_type": "short",
+          "passes": 3,
+          "avg_gen_tps": 39.56,
+          "avg_prompt_tps": 79.69,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 16,
+              "completion_tokens": 100,
+              "total_time_s": 2.608,
+              "prompt_tps": 198.57,
+              "gen_tps": 39.94
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 16,
+              "completion_tokens": 100,
+              "total_time_s": 2.635,
+              "prompt_tps": 19.88,
+              "gen_tps": 39.31
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 16,
+              "completion_tokens": 100,
+              "total_time_s": 2.624,
+              "prompt_tps": 20.63,
+              "gen_tps": 39.43
+            }
+          ]
+        },
+        {
+          "backend": "mesh-micro",
+          "prompt_type": "medium",
+          "passes": 3,
+          "avg_gen_tps": 39.44,
+          "avg_prompt_tps": 44.46,
+          "avg_completion_tokens": 100,
+          "raw_results": [
+            {
+              "pass": 1,
+              "prompt_tokens": 20,
+              "completion_tokens": 100,
+              "total_time_s": 2.727,
+              "prompt_tps": 95.2,
+              "gen_tps": 39.89
+            },
+            {
+              "pass": 2,
+              "prompt_tokens": 20,
+              "completion_tokens": 100,
+              "total_time_s": 2.647,
+              "prompt_tps": 19.07,
+              "gen_tps": 39.19
+            },
+            {
+              "pass": 3,
+              "prompt_tokens": 20,
+              "completion_tokens": 100,
+              "total_time_s": 2.648,
+              "prompt_tps": 19.1,
+              "gen_tps": 39.25
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "avg_gen_tps": 39.5,
+        "avg_prompt_tps": 62.08
+      }
+    }
+  ]
+}

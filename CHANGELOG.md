@@ -1,3 +1,54 @@
+## [0.3.9-alpha] - 2026-05-18
+
+### Infrastructure & Benchmarking
+- **Full mesh baseline benchmark completed.** All 5 nodes tested with real throughput data:
+  - Node A (mesh-micro): Qwen3-0.6B Q8_0, 39.5/62.1 t/s (GTX 1050 Ti, built llama.cpp from source)
+  - Node B (mesh-fast): Qwopus3.5-9B Q8_0, 23.2/132.5 t/s (Vulkan RX 9060 XT)
+  - Node B (mesh-vision): Qwen3-VL-2B Q6_K, 172.4/381.2 t/s (Vulkan)
+  - Node C (mesh-fc): Carnice-9B-FC, 50.3/245.0 t/s (CUDA RTX 2060)
+  - Node D (mesh-heavy): Qwen3.5-35B Q4_K_M, 6.7/13.6 t/s (CPU, NO speculative)
+- **Continuous batching enabled on Node B.** Created `start-hermes-cb.bat` and `start-vision-cb.bat` with `-cb -np 4` flags.
+- **Cont-batching benchmark completed.** Peak throughput at 4 concurrent requests:
+  - mesh-fast: 39.1 t/s (+84% vs single)
+  - mesh-vision: 369.3 t/s (+143% vs single)
+- **Node D speculative decoding: ALL MODES REJECTED.** MTP 2.8x slower, ngram-mod 16% slower on CPU. Running plain.
+- **Node A llama.cpp built from source.** Nix package too old for Qwen3 support.
+- **LiteLLM model routing bug diagnosed.** Model name prefix stripping breaks OpenAI-compatible backends. Bypassed with direct backend access via socat bridges.
+
+### Scripts & Tools
+- **New benchmark scripts:**
+  - `scripts/direct-benchmark.py` - Single-request mesh benchmark
+  - `scripts/concurrent-benchmark.py` - Multi-request cont-batching test
+  - `scripts/mesh-control.sh` - Node start/stop/status/kill-ghost
+- **Removed 14 superseded scripts:**
+  - `scripts/mesh-benchmark.py` (LiteLLM broken)
+  - `scripts/mesh-benchmark.sh` (old version)
+  - `scripts/start-vision-optimized.bat` (superseded)
+  - `scripts/bench/mesh-throughput.sh` (old)
+  - `audit_script.py` (one-off migration)
+  - 10 archive phase scripts in `docs/benchmarks/archive/`
+- **Cont-batching startup files created:** `D:\llama.cpp\start-hermes-cb.bat`, `start-vision-cb.bat`
+
+### Documentation
+- Benchmark report: `docs/benchmarks/mesh-baseline-2026-05-18.md`
+- Raw data: `docs/benchmarks/direct-backend-2026-05-18.json`
+
+## [0.3.8-alpha] - 2026-05-20
+
+### Infrastructure & Benchmarking
+- Full 3-pass baseline executed across mesh before Node D GPU upgrade. Node B (Vulkan), Node C (CUDA), and Node D (CPU) all completed fresh runs.
+- Consolidated old benchmark artifacts into `docs/benchmarks/archive/`.
+- Created `docs/benchmarks/baseline-2026-05-18/` and consolidated summary.
+
+### Audit & Technical Debt
+- Delegated and completed full repository technical debt audit via Gemini CLI.
+- Identified 7.1 GB untracked bloat, 12+ documentation drift items, dead scripts, and version inconsistencies.
+- Began remediation of critical version drift and dead code.
+
+### Documentation
+- Fixed version drift across SOVEREIGN_VITAL_SIGNS.md, README.md, SESSION_HANDOFF.md, and IMPLEMENTATION_PLAN.md to v0.3.8-alpha.
+- Moved old phase folders and V0 reports into archive.
+
 ## [0.3.7-alpha] - 2026-05-17
 
 ### Fixed
