@@ -82,7 +82,7 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 || ID | Title | Priority | Status |
 |----|-------|----------|--------|
 || t_833e6833 | P5-T1: Zeroboot Isolation Layer | 10 | TODO (upstream: zerobootdev/zeroboot, CoW forking, self-host Node D) |
-|| t_a9c63663 | P5-T2: VibeVoice ASR Pipeline | 10 | TODO (wrap microsoft/VibeVoice-ASR-7B, not Whisper) ||
+|| t_a9c63663 | P5-T2: VibeVoice ASR Pipeline | 10 | CANCELLED (Hermes has native Whisper/TTS) ||
 
 ---
 
