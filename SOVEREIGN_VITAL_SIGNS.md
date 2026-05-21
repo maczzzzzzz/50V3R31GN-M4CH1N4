@@ -1,7 +1,7 @@
-# SOVEREIGN VITAL SIGNS (v0.3.13-alpha)
+# SOVEREIGN VITAL SIGNS (v0.4.0-alpha)
 
-**Status:** PHASE 3 CLOSED. Phase 4 PLANNED. Phase 5 PLANNED.
-**Updated:** May 21, 2026
+**Status:** PHASE 2-3 CLOSED. Phase 4 IN PROGRESS. Phase 5 PLANNED.
+**Updated:** May 22, 2026
 
 ---
 
@@ -12,7 +12,7 @@
 | **Node A** | Synapse | `100.96.253.114` | GTX 1050 Ti / 4GB VRAM / 16GB RAM | KV-cache spillover / State persistence | ONLINE |
 | **Node B** | Director | `100.66.173.31` | Ryzen 9 5900XT / RX 9060 XT 16GB / 48GB DDR4 | Fast responder / Workspace | ONLINE |
 | **Node C** | Oracle | `100.102.109.81` | Ryzen 7 3700X / RTX 2060 6GB / 32GB DDR4 | Function-calling / CUDA inference | ONLINE |
-| **Node D** | Quaternary | `100.120.225.12` | Meteor Lake / 48GB DDR5 / NPU (11 TOPS) | Heavy reasoning | ONLINE |
+|| **Node D** | Quaternary | `100.120.225.12` | Ultra 5 125U / RTX 5060 Ti 16GB OCuLink / 48GB DDR5 | Heavy reasoning (35B MoE) | ONLINE |
 
 ## COGNITIVE LAYER
 
@@ -20,11 +20,11 @@
 |:------|:------|:-------|:--------|:-------|
 | mesh-fast | Qwopus3.5-9B Q8_0 | prompt 322, gen 34.1 t/s | Node B Vulkan (b9190) | DEPLOYED |
 | mesh-vision | Qwen3-VL-2B-Instruct Q6_K | prompt 630, gen 159 t/s (text) | Node B Vulkan (b9190, port 8082) | DEPLOYED |
-| mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | prompt 12.7, gen 7.0 t/s | Node D Stock llama.cpp (b64b38b5) | DEPLOYED |
+|| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B-APEX-MTP-I-Mini | prompt ~580, gen 118 t/s | Node D CUDA RTX 5060 Ti (b9245, -ngl 99 full GPU) | DEPLOYED |
 | mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | prompt 205.2, gen 49.9 t/s | Node C CUDA | DEPLOYED |
 || mesh-micro | Qwen3-0.6B Q8_0 | prompt 169, gen 46.8 t/s | Node A CPU (b9219) | DEPLOYED |
 
-LiteLLM mesh router on Node B (Docker Desktop, port 4000). 5 routes. Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
+LiteLLM mesh router on Node B (Docker Desktop, port 4000, v1.84.0 stateless). 5 routes. Socat TCP bridge for Docker Desktop -> remote nodes. Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
 
 ## NODE B (DIRECTOR)
 
@@ -36,7 +36,7 @@ LiteLLM mesh router on Node B (Docker Desktop, port 4000). 5 routes. Vulkan node
 | Models | Qwopus3.5-9B Q8_0 + Qwen3-VL-2B Q6_K (shared GPU ~10.4GB of 16GB) |
 | Benchmark | Hermes: 428-441 t/s prompt, 53.8-55.1 t/s gen | Qwen3-VL text: 630/159 t/s |
 | KV Cache | f16 (Vulkan -- q4_0 causes regression) |
-| LiteLLM | Docker Desktop container, port 4000, 5 routes, v1.85.0 |
+|| LiteLLM | Docker Desktop container, port 4000, 5 routes, v1.84.0 (stateless, no DB) |
 | Docker | Native NixOS daemon DISABLED. Using Docker Desktop |
 | Tailscale | 100.66.173.31 |
 
@@ -54,14 +54,19 @@ LiteLLM mesh router on Node B (Docker Desktop, port 4000). 5 routes. Vulkan node
 
 ## NODE D (QUATERNARY)
 
-| Component | Status |
+|| Component | Status |
 |:----------|:-------|
-| OS | NixOS bare metal |
-| GPU | RESEARCH COMPLETE: RTX 5060 Ti 16GB via OCuLink (plan saved, NOT YET PURCHASED) |
-| llama.cpp | Stock b64b38b5 AVX2 CPU build, 8 threads |
-| Model | Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB) |
-| Benchmark | prompt 12.7 t/s, gen 7.0 t/s (MTP OFF -- net negative on CPU) |
-| NPU | ~11 TOPS, excluded from inference |
+|| OS | NixOS 26.05 unstable (Yarara), kernel 6.18.31 |
+|| GPU | RTX 5060 Ti 16GB OCuLink (sm_120, Blackwell, CUDA 13.2) |
+|| NVIDIA Driver | 595.71.05 open kernel modules |
+|| llama.cpp | b9245 CUDA build, 12 threads |
+|||| Model | Carnice-Qwen3.6-MoE-35B-A3B-APEX-MTP-I-Mini (12.8 GB), -ngl 99 full GPU ||||
+|||| Benchmark (GPU) | prompt ~580 t/s, gen 118 t/s (full GPU, no CPU split) ||||
+|||| MTP | OFF (44% acceptance, net regression even on full GPU) ||||
+|||| VRAM | 13.75 GB / 16.3 GB (2.5 GB headroom) ||
+|| Tailscale | 100.120.225.12 |
+|| LAN | 10.0.0.13 |
+|| Startup | ~/start-llama.sh (LD_LIBRARY_PATH=/run/opengl-driver/lib) |
 
 ## NODE A (SYNAPSE)
 
@@ -80,9 +85,8 @@ LiteLLM mesh router on Node B (Docker Desktop, port 4000). 5 routes. Vulkan node
 | LiteLLM router | Node B Docker Desktop (port 4000) | OPERATIONAL |
 | hermes-relay | Node B Docker Desktop (port 8767) | OPERATIONAL |
 | Kanban MCP | sidecars/kanban-mcp-server/ (FastMCP stdio) | LIVE |
-| Hermes fork | sidecars/hermes-agent-nous/ (submodule) | OPERATIONAL |
-| directors-forge | EUTHANIZED (May 17) | REMOVED |
-| Gemini CLI | Connected to kanban MCP | LIVE |
+|| Hermes fork | sidecars/hermes-agent-nous/ (submodule) | OPERATIONAL |
+|| Gemini CLI | Connected to kanban MCP | LIVE |
 | sovereign-sniffer | sidecars/sniffer/ (capture + triage) | DEPLOYED |
 
 ---

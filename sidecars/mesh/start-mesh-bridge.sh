@@ -27,15 +27,15 @@ echo "Node B (mesh-fast)    :8081 -> 10.0.0.11:8081  PID=$!"
 socat TCP-LISTEN:8082,fork,reuseaddr TCP:10.0.0.11:8082 &
 echo "Node B (mesh-vision)   :8082 -> 10.0.0.11:8082  PID=$!"
 
-# Remote nodes via Tailscale
-socat TCP-LISTEN:17080,fork,reuseaddr TCP:100.96.253.114:8080 &
-echo "Node A (mesh-micro)    :17080 -> 100.96.253.114:8080  PID=$!"
+# Remote nodes via LAN (preferred over Tailscale -- no re-auth needed)
+socat TCP-LISTEN:17080,fork,reuseaddr TCP:10.0.0.10:8080 &
+echo "Node A (mesh-micro)    :17080 -> 10.0.0.10:8080  PID=$!"
 
 socat TCP-LISTEN:18081,fork,reuseaddr TCP:100.102.109.81:8081 &
 echo "Node C (mesh-fc)       :18081 -> 100.102.109.81:8081  PID=$!"
 
-socat TCP-LISTEN:18080,fork,reuseaddr TCP:100.120.225.12:8080 &
-echo "Node D (mesh-heavy)    :18080 -> 100.120.225.12:8080  PID=$!"
+socat TCP-LISTEN:18080,fork,reuseaddr TCP:10.0.0.13:8080 &
+echo "Node D (mesh-heavy)    :18080 -> 10.0.0.13:8080  PID=$!"
 
 sleep 1
 echo ""

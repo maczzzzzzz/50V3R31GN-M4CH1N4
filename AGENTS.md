@@ -1,4 +1,4 @@
-# AGENTS.md: The Alpha Mesh Roles (v0.3.13-alpha)
+# AGENTS.md: The Alpha Mesh Roles (v0.4.0-alpha)
 
 Active agents and hardware topology for the Stable Mesh Alpha build.
 
@@ -28,13 +28,16 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **Startup:** D:\llama.cpp\start-all.bat (both models), start-hermes.bat, start-vision.bat (individual)
 
 ### Node D -- Quaternary (Heavy Reasoning)
-- **Hardware:** Intel Core Ultra Meteor Lake, 48GB DDR5, NPU (excluded from inference)
+- **Hardware:** Intel Core Ultra 5 125U (Meteor Lake, 14c), 48GB DDR5, RTX 5060 Ti 16GB OC via OCuLink (sm_120, CUDA 13.2)
 - **Role:** Heavy reasoning (35B MoE)
-- **GPU Upgrade (pending):** RTX 5060 Ti 16GB OC via OCuLink (sm_120, CUDA 13.0+)
-- **Model:** Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB)
-- **Backend:** llama.cpp b64b38b5 AVX2 CPU (stock build), 8 threads
-- **Benchmark:** prompt 12.7 t/s, gen 7.0 t/s (MTP OFF -- net negative on CPU: 49% acceptance, 2.8x slower)
-- **Upgrade Plan:** docs/planning/node-d-5060ti-upgrade.md
+- **Model:** Carnice-Qwen3.6-MoE-35B-A3B-APEX-MTP-I-Mini (12.8 GB)
+- **Backend:** llama.cpp b39a7bf (9245) CUDA, 12 threads, -ngl 99 (full GPU offload)
+- **Benchmark (GPU, APEX I-Mini):** prompt ~580 t/s, gen 118 t/s (full GPU, no CPU split)
+- **Benchmark (GPU legacy, UD-Q4_K_M):** prompt ~300 t/s, gen 26.2 t/s (-ncmoe 30)
+- **GPU Config:** All layers on GPU (13.75 GB VRAM of 16.3 GB). MTP OFF (44% acceptance, net regression). No -ncmoe needed.
+- **OS:** NixOS 26.05 (Yarara), kernel 6.18.31, NVIDIA 595.71.05 open
+- **Tailscale:** 100.120.225.12 | LAN: 10.0.0.13 | SSH: mesh-d/maczz
+- **Startup:** ~/start-llama.sh (LD_LIBRARY_PATH=/run/opengl-driver/lib required)
 
 ### Node C -- Oracle (Perception)
 - **Hardware:** Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4

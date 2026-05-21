@@ -1,7 +1,7 @@
-# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.3.13-alpha)
+# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.4.0-alpha)
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha  
-**Timestamp:** 2026-05-21  
+**Timestamp:** 2026-05-22  
 **Phase 0-3:** CLOSED. Phase 4-5: PLANNED.
 
 ---
@@ -26,12 +26,12 @@ All tasks verified with documented benchmarks.
 
 ---
 
-## PHASE 2: COGNITIVE HIERARCHY -- IN PROGRESS
+## PHASE 2: COGNITIVE HIERARCHY -- CLOSED
 
-GPU upgrade pending. Speculative decoding and context spillover evaluated and closed negative.
+GPU upgrade complete. Speculative decoding and context spillover evaluated and closed negative.
 
-- [ ] **P2-T1: Node D RTX 5060 Ti Installation.** DEFERRED -- hardware pending. Plan documented in `docs/planning/node-d-5060ti-upgrade.md`.
-- [x] **P2-T2: Speculative Decoding.** CLOSED NEGATIVE ON CPU. MTP 49% acceptance, 2.8x overhead.
+- [x] **P2-T1: Node D RTX 5060 Ti Installation.** DONE. RTX 5060 Ti 16GB operational. Carnice APEX I-Mini deployed at 118 t/s gen. Full GPU offload (-ngl 99), no CPU split needed.
+- [x] **P2-T2: Speculative Decoding.** CLOSED NEGATIVE. MTP 44% acceptance on GPU, 17% regression. MTP on CPU was 2.8x regression.
 - [x] **P2-T3: Context Spillover.** CLOSED NOT FEASIBLE. RPC latency on Tailscale impractical.
 
 ---
@@ -68,11 +68,11 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 | mesh-fast | Qwopus3.5-9B Q8_0 | B | 322 / 34.1 t/s | Code gen, fast chat |
 | mesh-vision | Qwen3-VL-2B-Instruct Q6_K | B | 630 / 159 t/s (text) | Screen triage, visual QA |
 | mesh-function-calling | Carnice-9B-FC i1-Q4_K_M | C | 205.2 / 49.9 t/s | Function calling, tools |
-| mesh-heavy | Qwen3.5-35B-A3B-MTP UD-Q4_K_M | D | 12.7 / 7.0 t/s (MTP off) | Complex reasoning |
+| mesh-heavy | Carnice-Qwen3.6-MoE-35B-A3B-APEX-MTP-I-Mini | D | ~580 / 118 t/s (GPU) | Complex reasoning |
 | mesh-micro | Qwen3-0.6B Q8_0 | A | 169 / 46.8 t/s | Lightweight / spillover |
 
 **Notes:**
-- MTP is net negative on CPU. Revisit after RTX 5060 Ti + CUDA.
+- MTP is net negative on all backends (CPU 2.8x regression, GPU 17% regression, Vulkan 5x regression).
 - Intel NPU (~11 TOPS) excluded from inference strategy.
 - Vulkan nodes use f16 KV cache (q4_0 causes 39-88% regression on AMD).
 
@@ -83,7 +83,7 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 | Component | Status | Notes |
 |:----------|:-------|:------|
 | Kanban MCP Server | LIVE | FastMCP stdio, 8 tools |
-| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes, v1.85.0 |
+|| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes, v1.84.0 (stateless) |
 | hermes-relay | LIVE | Docker Desktop port 8767 |
 | socat mesh bridge | LIVE | Ports 17080/18081/18080 |
 | Tailscale | PERMANENT | Personal tailnet auto-renews |
@@ -92,4 +92,4 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 
 ---
 
-Sovereign Machina v0.3.13-alpha // 50V3R31GN-M4CH1N4
+Sovereign Machina v0.4.0-alpha // 50V3R31GN-M4CH1N4

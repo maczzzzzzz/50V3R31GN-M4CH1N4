@@ -28,9 +28,6 @@
 
             # Sovereign Crates (validated)
             zeroboot-isolation = prev.callPackage ./crates/modules/zeroboot-isolation {};
-            vibevoice-asr = prev.callPackage ./crates/modules/vibevoice-asr {};
-            directors-forge = prev.callPackage ./crates/modules/directors-forge {};
-            mirage-vfs = prev.callPackage ./crates/modules/mirage-vfs {};
 
             # Node B (AVX2) - Director, WSL2
             ik_llama_cpp_b = prev.callPackage ./nix/packages/ik-llama-node-b/default.nix { 
@@ -42,10 +39,7 @@
               stdenv = prev.gcc14Stdenv;
             };
 
-            # Node D (OpenVINO) - Intel Core Ultra
-            llama_cpp_openvino = prev.callPackage ./nix/packages/llama-cpp-openvino.nix { 
-              stdenv = prev.gcc14Stdenv;
-            };
+
           })
         ];
       };
@@ -71,11 +65,9 @@
       # Note: buildSovereignCrate helper available for new crates.
       # Existing packages retain explicit definitions for cargo hash management.
       packages = forAllSystems (system: let pkgs = mkPkgs system; in {
-        inherit (pkgs) zeroboot-isolation vibevoice-asr directors-forge 
-          mirage-vfs;
+        inherit (pkgs) zeroboot-isolation;
         ik-llama-b = pkgs.ik_llama_cpp_b;
         ik-llama-d = pkgs.ik_llama_cpp_d;
-        llama-cpp-openvino = pkgs.llama_cpp_openvino;
       });
 
       nixosConfigurations = {

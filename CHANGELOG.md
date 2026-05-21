@@ -1,3 +1,95 @@
+## [0.4.0-alpha] - 2026-05-22
+
+### Mesh-Wide Cleanup & Dead Code Purge
+- **22 GB freed on Node D.** Deleted `Qwen3.5-35B-A3B-MTP-UD-Q4_K_M.gguf` (replaced by APEX I-Mini in v0.3.14).
+- **37 MB freed on Node C.** Deleted 15 `ggml-vocab-*.gguf` benchmarking artifacts.
+- **349 MB freed from `crates/modules/vibevoice-asr/`** (including 110 MB Rust target/). Entire crate removed from repo and flake.
+- **110 MB freed from `crates/modules/zeroboot-isolation/target/`** build artifacts.
+- **~820 MB freed from sidecar caches.** Purged `node_modules/` (sovereign-sniffer 197 MB, root 200+ MB, dashboard), `sidecars/mesh/.venv/` (436 MB), `sidecars/mesh/prisma-bin/` (35 MB), `sidecars/mesh-router/.venv/` (31 MB), `sidecars/kanban-mcp-server/.venv/` (119 MB), `__pycache__/` dirs across all sidecars.
+- **Deleted from tracking:** `sidecars/mesh/amd.yml`, `intel.yml`, `nvidia.yml`, `synapse.yml` (dead Docker Compose variants referencing old models). `sidecars/mesh/docker-compose.yml.bak`, `litellm-mesh.yaml.bak`, `prisma-bin/query-engine`, `prisma-bin/schema-engine`.
+- **Deleted from tracking:** `nix/modules/directors-forge.nix` (service was euthanized May 17). `nix/packages/llama-cpp-openvino.nix` (OpenVINO never deployed, NPU excluded).
+- **Deleted from tracking:** `sidecars/mesh-router/sidecars/mesh-router/mesh-router` (recursive sidecar copy).
+- **Flake cleaned.** Removed `vibevoice-asr`, `directors-forge`, `mirage-vfs`, `llama_cpp_openvino` from overlay and packages. Only `zeroboot-isolation` remains.
+- **Root-level temp scripts purged.** `constants.py`, `extract.py`, `fetch.py`, `gguf-dump.py`, `gguf_reader.py`, `venv/` directory.
+
+### Phase 2 Closed
+- **P2-T1: Node D RTX 5060 Ti Installation -- DONE.** GPU operational since v0.3.14. APEX I-Mini deployed, 118 t/s gen. Phase 2 complete.
+
+### IMPLEMENTATION_PLAN Updated
+- Model strategy table updated: mesh-heavy now shows Carnice APEX I-Mini at 580/118 t/s (was stale at 12.7/7.0 t/s).
+- LiteLLM version corrected to v1.84.0 (was listed as v1.85.0).
+- Phase 2 status set to CLOSED.
+- Version bumped to v0.4.0-alpha.
+
+### SOVEREIGN_VITAL_SIGNS Updated
+- Version bumped to v0.4.0-alpha.
+- Node D legacy benchmark row removed (model deleted from disk).
+- `directors-forge` service row removed from services table.
+
+## [0.3.14-alpha] - 2026-05-21
+
+### Node D Model Upgrade -- Carnice APEX I-Mini Deployed
+- **Carnice-Qwen3.6-MoE-35B-A3B-APEX-MTP-I-Mini (12.8 GB) replaces Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB).**
+- **4.5x generation speedup: 118 t/s vs 26.2 t/s.** The entire model fits in 16 GB VRAM (13.75 GB used), eliminating the CPU MoE expert bottleneck (-ncmoe 30).
+- Prompt speed also improved: ~580 t/s vs ~300 t/s.
+- MTP benchmarked on full GPU: 44% acceptance rate, 17% regression (98.8 t/s vs 118 t/s). MTP remains disabled.
+- `~/start-llama.sh` updated: removed `-ncmoe 30`, new model path.
+- Quality spot-checked: reasoning trap questions answered correctly. APEX I-variant uses imatrix calibration across diverse data.
+
+### Node C Benchmark Confirmed
+- Carnice-9B-FC i1-Q4_K_M on RTX 2060 6GB (ik_llama.cpp CUDA): prompt 509 t/s, gen 49.9 t/s. Consistent with historical benchmarks.
+- LAN IP discovered: 10.0.0.12. Tailscale 100.102.109.81 also working after re-auth.
+- Runtime requires `LD_LIBRARY_PATH` with CUDA cudart + cublas from nix-store (build-time paths GC'd).
+
+### LiteLLM Mesh Router Fixed (v1.84.0 Stateless)
+- **Root cause of Prisma migration loop:** setting ANY `DATABASE_URL` env var triggers Prisma validation which hardcodes `provider = "postgresql"`.
+- **Fix:** remove `DATABASE_URL` entirely. LiteLLM runs stateless without a database. Starts in ~8 seconds.
+- All 5 mesh routes verified through LiteLLM: mesh-fast, mesh-vision, mesh-function-calling, mesh-heavy, mesh-micro.
+
+### Socat Bridge Network Updated
+- Node A and Node D bridges switched from Tailscale IPs to LAN IPs (10.0.0.10, 10.0.0.13). More reliable, no re-auth.
+- Node C bridge remains on Tailscale 100.102.109.81 (no LAN route in SSH config).
+- Node A firewall: port 8080 opened via iptables (temporary, needs NixOS config update).
+
+### Node D RTX 5060 Ti -- Full GPU Benchmark & Optimization
+- **RTX 5060 Ti 16GB operational on Node D.** Driver 595.71.05 open kernel modules, CUDA 13.2, sm_120.
+- **NixOS channel updated from 25.11 to 26.05 unstable** (Yarara, kernel 6.18.31) for Blackwell GPU support.
+- **Three root causes found and fixed:**
+  1. `services.xserver.videoDrivers` must include `"nvidia"` -- without it, the entire nvidia driver is silently excluded (upstream: `nvidiaEnabled = lib.elem "nvidia" config.services.xserver.videoDrivers`).
+  2. `systemd.defaultUnit = lib.mkForce "multi-user.target"` required -- without it, headless system hangs at Graphical Interface target.
+  3. NixOS 26.05 renamed `nvidiaPackages.latest` to `nvidiaPackages.production`.
+- **llama.cpp CUDA b9245 compiled.** sm_120 (Blackwell), cmake with explicit CUDA paths via nix-shell. Full shared lib set deployed.
+- **Full GPU benchmark sweep completed** on Qwen3.5-35B-A3B-MTP UD-Q4_K_M (22.6 GB):
+  - ngl ceiling without ncmoe: ngl=29 max (22.26 t/s gen), ngl=30 OOMs
+  - Thread sweep (4/8/12/14): 12 threads optimal for Ultra 5 125U (2P+8E+2LPE)
+  - **ncmoe sweep: ncmoe=30 optimal at 26.17 t/s gen** (sweep: 30 > 32 > 35 > 40)
+  - Flash attention: neutral (26.06 vs 26.17 t/s)
+  - q8_0 KV cache: crashes with ncmoe enabled
+  - MTP draft-mtp: 41% acceptance (134/324), gen 16.62 t/s = **37% regression**. Do not use.
+- **Final benchmark: prompt ~300 t/s, gen 26.2 t/s** (3.7x over CPU baseline of 7.0 t/s).
+- **Production launcher deployed:** `~/start-llama.sh` with `-ngl 99 -ncmoe 30 -t 12 -c 4096 --metrics --parallel 2`.
+- **Node B MTP/ncmoe investigation: closed.** Qwopus3.5-9B is dense (no MoE layers), ncmoe inapplicable. MTP already proven 5x regression on Vulkan at 13-25% acceptance.
+
+### Configuration
+- **Node D config finalized at `/etc/nixos/configuration.nix`.** Open kernel modules, Blackwell compute-only, headless boot, CUDA 13 dev packages.
+- **Transient service cleanup pattern documented.** `systemctl stop` before `reset-failed` -- the unit is loaded (not failed), so `reset-failed` alone does nothing.
+
+### Pending
+- Node D systemd service for auto-start (currently manual launcher).
+- Node A firewall: port 8080 opened via iptables (temporary, needs `networking.firewall.allowedTCPPorts = [ 8080 ]` in configuration.nix).
+- Node C: LD_LIBRARY_PATH for CUDA hardcoded to nix-store paths (fragile, may break on GC). Consider NixOS service wrapper.
+- Socat bridges need persistent startup mechanism (systemd user service or cron).
+- **Node D llama-server started** via `~/start-llama.sh` on LAN IP 10.0.0.13.
+- **LiteLLM mesh router fixed.** v1.84.0 runs statelessly (no DATABASE_URL). Previous Prisma migration loop was caused by setting a DATABASE_URL env var; removing it allows clean startup without any database.
+- **Socat bridges restarted** with LAN IPs for Node A (10.0.0.10) and Node D (10.0.0.13) to avoid Tailscale SSH re-auth dependency.
+- **Node A firewall opened** port 8080 (iptables rule, temporary until NixOS rebuild).
+- **End-to-end mesh routing verified.** All 5 routes operational through LiteLLM:
+  - mesh-fast: UP, gen 37 t/s
+  - mesh-vision: UP, gen 209 t/s
+  - mesh-function-calling: UP
+  - mesh-heavy: UP, gen 27 t/s (RTX 5060 Ti confirmed via fingerprint b9245-b39a7bf1b)
+  - mesh-micro: UP (after firewall fix)
+
 ## [0.3.13-alpha] - 2026-05-21
 
 ### Phase 3 Closure

@@ -4,13 +4,10 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./data:/app
       - ./litellm-mesh.yaml:/app/config.yaml
     environment:
       - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
-      - MESH_API_KEY=machina-internal-mesh-key-2026
-      - DATABASE_URL=sqlite:///app/data/litellm.db
-      - ENFORCE_PRISMA_MIGRATION_CHECK=false
+      - MESH_API_KEY=machin...2026
       - LITELLM_LOG_LEVEL=INFO
     env_file:
       - .env

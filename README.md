@@ -1,7 +1,7 @@
 # 50V3R31GN-M4CH1N4
 
 <p align="center">
-  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.3.9--alpha-blue.svg" alt="Version"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-0.4.0--alpha-blue.svg" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
   <a href="https://github.com/maczzgit/50V3R31GN-M4CH1N4-hermes-agent-fork"><img src="https://img.shields.io/badge/hermes-fork-orange.svg" alt="Hermes Fork"></a>
 </p>
@@ -22,8 +22,8 @@ Four nodes. One mesh. All inference on bare metal.
 |------|------|----------|-------|------------|
 | **B** (Director) | Fast responder, workspace | Ryzen 9 5900XT, RX 9060 XT 16GB, 48GB DDR4 | Qwopus3.5-9B Q8_0 (Vulkan) | 322 / 34.1 t/s |
 | **C** (Oracle) | Function-calling, perception | Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4 | Carnice-9B-FC Q4_K_M (CUDA) | 205.2 / 49.9 t/s |
-| **D** (Quaternary) | Heavy reasoning | Intel Meteor Lake, 48GB DDR5 | Qwen3.5-35B-A3B-MTP UD-Q4_K_M (CPU) | 12.7 / 7.0 t/s |
-| **A** (Synapse) | State persistence, cache | GTX 1050 Ti 4GB, 16GB RAM | Qwen3-0.6B Q8_0 | 49 / 29 t/s |
+| **D** (Quaternary) | Heavy reasoning | Intel Meteor Lake, RTX 5060 Ti 16GB OCuLink, 48GB DDR5 | Carnice APEX I-Mini 35B MoE (CUDA) | ~580 / 118 t/s |
+| **A** (Synapse) | State persistence, cache | i7-7700HQ, GTX 1050 Ti 4GB, 16GB RAM | Qwen3-0.6B Q8_0 (CPU) | 169 / 46.8 t/s |
 
 All nodes run NixOS (25.11, except Node A on 24.11). Interconnected via Tailscale zero-trust mesh.
 

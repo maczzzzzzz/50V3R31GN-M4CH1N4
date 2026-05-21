@@ -1,4 +1,4 @@
-# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.3.13-alpha
+# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.4.0-alpha
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha  
 **CLI:** `hermes kanban list` / `hermes kanban show <id>`
