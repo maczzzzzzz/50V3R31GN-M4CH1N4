@@ -1,11 +1,12 @@
 # SESSION HANDOFF (v0.4.0-alpha)
 
-**Last session:** May 21, 2026
+**Last session:** May 22, 2026
 **Branch:** stable/mesh-alpha
+**Last commit:** ba511da5e
 
 ## Completed This Session
 
-1. **Mesh-wide model purge.** Removed orphan models from all nodes (verified actively served first).
+1. **Mesh-wide model purge.** Removed orphan models from all nodes.
    - Node D: Deleted Qwen3.5-35B-A3B-MTP UD-Q4_K_M.gguf (22 GB freed).
    - Node C: Deleted 15x ggml-vocab-*.gguf benchmark artifacts (37 MB).
 2. **Dead code and crate purge.** Removed from repo:
@@ -15,8 +16,9 @@
    - Root garbage: `constants.py`, `extract.py`, `fetch.py`, `gguf-dump.py`, `gguf_reader.py`, `venv/`, `.npm-global`, `node_modules/`, `.releaserc.json`, `audit_results.txt`.
 3. **Sidecar cache purge.** Removed .venv caches from mesh, mesh-router, kanban-mcp-server (586 MB). Removed sovereign-sniffer/node_modules/ (197 MB). Removed prisma-bin engines, stale Docker Compose variants.
 4. **flake.nix cleaned.** Removed vibevoice-asr, directors-forge, mirage-vfs, llama_cpp_openvino from overlay and packages. Only zeroboot-isolation remains in sovereign crates.
-5. **v0.4.0-alpha manifest scribe pass.** All version-bearing files updated: CHANGELOG, IMPLEMENTATION_PLAN, SOVEREIGN_VITAL_SIGNS, KANBAN_MAP, README, AGENTS.
-6. **Tagged v0.4.0-alpha.** Committed and pushed to origin.
+5. **v0.4.0-alpha release.** All manifests updated, tagged v0.4.0-alpha, pushed to origin.
+6. **Hermes fork sync.** Merged 353 upstream commits from NousResearch/hermes-agent. 2 conflicts resolved (pyproject.toml aiohttp CVE fix preserved, uv.lock accepted upstream). Submodule pin updated in main repo.
+7. **Upstream drift monitor.** Cron job `hermes-fork-upstream-alert` created. Runs daily at 12:00 UTC, posts to Discord #sovereign-hermes when fork falls behind upstream.
 
 ## Current Running State
 

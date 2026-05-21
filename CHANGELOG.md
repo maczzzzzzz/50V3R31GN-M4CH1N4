@@ -23,6 +23,13 @@
 
 ### SOVEREIGN_VITAL_SIGNS Updated
 - Version bumped to v0.4.0-alpha.
+
+### Hermes Fork Sync
+- **Merged 353 upstream commits** from NousResearch/hermes-agent into `50V3R31GN-M4CH1N4-hermes-agent-fork` on `stable/mesh-alpha`.
+- **Conflict resolution:** `pyproject.toml` (kept our aiohttp==3.13.5 CVE fix, took upstream pytest-timeout + pinned dotenv). `uv.lock` accepted upstream.
+- **Key upstream changes:** state.db message persistence, JSONL transcript refactor (gateway stops writing JSONL), skills-hub deduplication fixes, clipboard support for Linux/Wayland, Telegram menu reordering, multiple dep security bumps.
+- **Submodule pin updated** in main repo (`ba511da5e`).
+- **Upstream drift monitor:** Cron job `hermes-fork-upstream-alert` runs daily at 12:00 UTC, posts to Discord #sovereign-hermes when fork falls behind upstream.
 - Node D legacy benchmark row removed (model deleted from disk).
 - `directors-forge` service row removed from services table.
 
