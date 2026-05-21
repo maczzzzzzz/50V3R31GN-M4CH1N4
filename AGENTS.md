@@ -21,7 +21,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **Models:** Qwopus3.5-9B Q8_0 (GPU port 8081, mesh-fast), Qwen3-VL-2B-Instruct Q6_K (GPU port 8082, mesh-vision)
 - **Backend:** llama.cpp b9190 Vulkan (upgraded from v8710)
 - **Benchmark:** Hermes prompt 322 t/s gen 34.1 t/s | Qwen3-VL prompt 630 t/s gen 159 t/s (text, image verified)
-- **Services:** LiteLLM mesh router (Docker Desktop, port 4000), Hermes TUI/Dashboard
+- **Services:** LiteLLM mesh router (Docker Desktop, port 4000), Hermes TUI/Dashboard, mesh-bridge.service (socat bridges, systemd user)
 - **Docker:** Docker Desktop migration COMPLETE. Native NixOS daemon DISABLED. Config `wsl.docker-desktop.enable = true` in `/etc/nixos/configuration.nix`. Use `sg docker -c "docker ..."` for docker commands (shell session lacks group).
 - **VRAM:** ~10.4GB used of 16GB (Hermes 8.4GB + Qwen3-VL 1.9GB shared GPU)
 - **KV Cache:** f16 (Vulkan -- q4_0 causes 39-88% regression)
@@ -37,7 +37,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **GPU Config:** All layers on GPU (13.75 GB VRAM of 16.3 GB). MTP OFF (44% acceptance, net regression). No -ncmoe needed.
 - **OS:** NixOS 26.05 (Yarara), kernel 6.18.31, NVIDIA 595.71.05 open
 - **Tailscale:** 100.120.225.12 | LAN: 10.0.0.13 | SSH: mesh-d/maczz
-- **Startup:** ~/start-llama.sh (LD_LIBRARY_PATH=/run/opengl-driver/lib required)
+- **Startup:** llama-heavy.service (systemd user, linger enabled). Falls back to ~/start-llama.sh.
 
 ### Node C -- Oracle (Perception)
 - **Hardware:** Ryzen 7 3700X, RTX 2060 6GB, 32GB DDR4
@@ -48,6 +48,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **OS:** NixOS 25.11 (Xantusia), NVIDIA 580.142, CUDA 13.0
 - **Tailscale:** 100.102.109.81
 - **External SSD:** SOVEREIGN_SOUL mounted at /mnt/sovereign-soul (469GB ext4)
+- **Service:** llama-fc.service (systemd user, requires linger). LD_LIBRARY_PATH includes nix-store CUDA paths.
 
 ### Node A -- Synapse (State)
 - **Hardware:** GTX 1050 Ti 4GB, 16GB RAM, i7-7700HQ 4c/8t
@@ -57,6 +58,7 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 - **Benchmark:** prompt 169 t/s, gen 46.8 t/s
 - **OS:** NixOS 24.11, kernel 6.6.94 (rolled back from crashing 6.12.87)
 - **Tailscale:** 100.96.253.114
+- **Firewall:** ports 22, 8080, 8767 open (NixOS config)
 - **SSH alias:** mesh-a, user: maczz
 - **Service:** llama-micro.service (user systemd, linger enabled)
 
@@ -76,4 +78,4 @@ Active agents and hardware topology for the Stable Mesh Alpha build.
 **Details:** See GEMINI.md
 
 ---
-::/5Y573M-N071C3 : AGENTS_V3.13_ALPHA. PHASE_3_CLOSED. HERMES_LCM_FUNCTIONAL. // 50V3R31GN-M4CH1N4
+::/5Y573M-N071C3 : AGENTS_V3.14_ALPHA. PHASE_4_IN_PROGRESS. SERVICES_HARDENED. // 50V3R31GN-M4CH1N4

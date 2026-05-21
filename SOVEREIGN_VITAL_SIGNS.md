@@ -1,6 +1,6 @@
-# SOVEREIGN VITAL SIGNS (v0.4.0-alpha)
+# SOVEREIGN VITAL SIGNS (v0.4.1-alpha)
 
-**Status:** PHASE 2-3 CLOSED. Phase 4 IN PROGRESS. Phase 5 PLANNED.
+**Status:** PHASE 2-3 CLOSED. Phase 4 IN PROGRESS (P4-T1 cancelled). Phase 5 PLANNED.
 **Updated:** May 22, 2026
 
 ---

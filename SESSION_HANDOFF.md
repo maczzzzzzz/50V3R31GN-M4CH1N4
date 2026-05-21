@@ -2,36 +2,28 @@
 
 **Last session:** May 22, 2026
 **Branch:** stable/mesh-alpha
-**Last commit:** ba511da5e
+**Last commit:** cbfab33cb
 
 ## Completed This Session
 
-1. **Mesh-wide model purge.** Removed orphan models from all nodes.
-   - Node D: Deleted Qwen3.5-35B-A3B-MTP UD-Q4_K_M.gguf (22 GB freed).
-   - Node C: Deleted 15x ggml-vocab-*.gguf benchmark artifacts (37 MB).
-2. **Dead code and crate purge.** Removed from repo:
-   - `crates/modules/vibevoice-asr/` entire crate (cancelled, Hermes has native Whisper/TTS).
-   - `nix/modules/directors-forge.nix` (service euthanized May 17).
-   - `nix/packages/llama-cpp-openvino.nix` (OpenVINO never deployed, NPU excluded).
-   - Root garbage: `constants.py`, `extract.py`, `fetch.py`, `gguf-dump.py`, `gguf_reader.py`, `venv/`, `.npm-global`, `node_modules/`, `.releaserc.json`, `audit_results.txt`.
-3. **Sidecar cache purge.** Removed .venv caches from mesh, mesh-router, kanban-mcp-server (586 MB). Removed sovereign-sniffer/node_modules/ (197 MB). Removed prisma-bin engines, stale Docker Compose variants.
-4. **flake.nix cleaned.** Removed vibevoice-asr, directors-forge, mirage-vfs, llama_cpp_openvino from overlay and packages. Only zeroboot-isolation remains in sovereign crates.
-5. **v0.4.0-alpha release.** All manifests updated, tagged v0.4.0-alpha, pushed to origin.
-6. **Hermes fork sync.** Merged 353 upstream commits from NousResearch/hermes-agent. 2 conflicts resolved (pyproject.toml aiohttp CVE fix preserved, uv.lock accepted upstream). Submodule pin updated in main repo.
-7. **Upstream drift monitor.** Cron job `hermes-fork-upstream-alert` created. Runs daily at 12:00 UTC, posts to Discord #sovereign-hermes when fork falls behind upstream.
+1. **Node D systemd service deployed.** `llama-heavy.service` (systemd user, linger enabled). Auto-starts Carnice APEX I-Mini on boot.
+2. **Node A firewall persistence fixed.** `configuration.nix` updated with `networking.firewall.allowedTCPPorts = [ 22 8080 8767 ]`. Rebuild completed and verified.
+3. **Node C systemd service deployed.** `llama-fc.service` (systemd user) with LD_LIBRARY_PATH baked in. Service file in place, needs `sudo loginctl enable-linger maczz` + `systemctl --user enable --now llama-fc.service` on Node C (password sudo required).
+4. **Socat bridges persistent startup.** `mesh-bridge.service` (systemd user on Node B WSL2, enabled, active). All 5 bridge ports verified healthy.
+5. **P4-T1 Voice Pipeline CANCELLED.** Hermes has native Whisper/TTS. No redundant sidecar needed.
 
 ## Current Running State
 
-- Node D: Carnice APEX I-Mini 35B MoE on port 8080 (CUDA, -ngl 99, 12 threads)
-- Node C: Carnice-9B-FC on port 8081 (CUDA sm_75, needs LD_LIBRARY_PATH)
-- Node A: Qwen3-0.6B on port 8080 (CPU, systemd service llama-micro.service)
-- Node B: Qwopus3.5-9B port 8081, Qwen3-VL port 8082 (Windows Vulkan batch files)
+- Node D: Carnice APEX I-Mini 35B MoE on port 8080 (CUDA, -ngl 99, 12 threads). Service: llama-heavy.service (user systemd, linger enabled).
+- Node C: Carnice-9B-FC on port 8081 (CUDA sm_75, LD_LIBRARY_PATH in service). Service: llama-fc.service (pending linger enablement).
+- Node A: Qwen3-0.6B on port 8080 (CPU, systemd service llama-micro.service). Firewall ports 22/8080/8767 open via NixOS config.
+- Node B: Qwopus3.5-9B port 8081, Qwen3-VL port 8082 (Windows Vulkan batch files). Socat bridges: mesh-bridge.service (systemd user, enabled).
 - LiteLLM: Docker Desktop mesh-litellm-1, port 4000, stateless v1.84.0
-- Socat bridges: Node B WSL2 (launched manually, not persistent)
+- hermes-relay: Docker, port 8767
 
 ## Open Items
 
-- Node D systemd service for auto-start
-- Node A firewall persistence (iptables -> NixOS config)
-- Node C: LD_LIBRARY_PATH fragile (nix-store paths may GC). Needs service wrapper.
-- Socat bridges need persistent startup (systemd user service or cron).
+- Node C: Run `sudo loginctl enable-linger maczz` + `systemctl --user enable --now llama-fc.service` (requires password sudo on Node C).
+- P4-T2: Open Design Integration (TODO)
+- P4-T3: Mesh-wide Verification (TODO)
+- P5-T1: Zeroboot Isolation Layer (TODO)

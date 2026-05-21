@@ -1,8 +1,8 @@
-# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.4.0-alpha)
+# IMPLEMENTATION_PLAN.md: The Sovereign Mesh (v0.4.1-alpha)
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha  
-**Timestamp:** 2026-05-22  
-**Phase 0-3:** CLOSED. Phase 4-5: PLANNED.
+**Timestamp:** 2026-05-22
+**Phase 0-3:** CLOSED. Phase 4: IN PROGRESS (P4-T1 cancelled). Phase 5: PLANNED.
 
 ---
 
@@ -46,7 +46,7 @@ GPU upgrade complete. Speculative decoding and context spillover evaluated and c
 
 ## PHASE 4: PERCEPTION LAYER -- PLANNED
 
-- [ ] **P4-T1: Voice Pipeline.** TODO.
+- [x] **P4-T1: Voice Pipeline.** CANCELLED. Hermes has native Whisper/TTS. No redundant sidecar needed.
 - [ ] **P4-T2: Open Design Integration.** TODO. Plan: `docs/planning/plans/2026-05-19-open-design-mesh-integration.html`.
 - [ ] **P4-T3: Mesh-wide Verification.** TODO.
 

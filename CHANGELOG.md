@@ -1,3 +1,14 @@
+## [0.4.1-alpha] - 2026-05-22
+
+### Infrastructure Hardening
+- **Node D systemd service deployed.** `llama-heavy.service` (user systemd, linger already enabled). Auto-starts Carnice APEX I-Mini 35B MoE on boot with LD_LIBRARY_PATH=/run/opengl-driver/lib.
+- **Node A firewall persistence fixed.** Added `networking.firewall.allowedTCPPorts = [ 22 8080 8767 ]` to `/etc/nixos/configuration.nix`. Rebuild completed and verified. No more transient iptables rules.
+- **Node C systemd service deployed.** `llama-fc.service` (user systemd) with LD_LIBRARY_PATH including nix-store CUDA cudart + cublas paths. Service file in place, pending `sudo loginctl enable-linger maczz` on Node C.
+- **Socat bridges persistent startup.** `mesh-bridge.service` (systemd user on Node B WSL2, enabled, active). All 5 bridge ports verified healthy (8081, 8082, 17080, 18081, 18080).
+
+### Phase 4
+- **P4-T1 Voice Pipeline: CANCELLED.** Hermes has native Whisper/TTS. No redundant sidecar needed. Sidecar absorption by upstream Hermes is expected trajectory.
+
 ## [0.4.0-alpha] - 2026-05-22
 
 ### Mesh-Wide Cleanup & Dead Code Purge
