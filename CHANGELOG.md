@@ -3,7 +3,7 @@
 ### Infrastructure Hardening
 - **Node D systemd service deployed.** `llama-heavy.service` (user systemd, linger already enabled). Auto-starts Carnice APEX I-Mini 35B MoE on boot with LD_LIBRARY_PATH=/run/opengl-driver/lib.
 - **Node A firewall persistence fixed.** Added `networking.firewall.allowedTCPPorts = [ 22 8080 8767 ]` to `/etc/nixos/configuration.nix`. Rebuild completed and verified. No more transient iptables rules.
-- **Node C systemd service deployed.** `llama-fc.service` (user systemd) with LD_LIBRARY_PATH including nix-store CUDA cudart + cublas paths. Service file in place, pending `sudo loginctl enable-linger maczz` on Node C.
+- **Node C systemd service deployed.** `llama-fc.service` (user systemd, linger enabled). LD_LIBRARY_PATH includes nix-store CUDA cudart + cublas paths. Service active.
 - **Socat bridges persistent startup.** `mesh-bridge.service` (systemd user on Node B WSL2, enabled, active). All 5 bridge ports verified healthy (8081, 8082, 17080, 18081, 18080).
 
 ### Phase 4

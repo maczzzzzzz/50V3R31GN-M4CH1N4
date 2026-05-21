@@ -1,11 +1,11 @@
-# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.4.0-alpha
+# Kanban Board Map: IMPLEMENTATION_PLAN.md v0.4.1-alpha
 
 **Status:** ACTIVE | **Baseline:** stable/mesh-alpha  
 **CLI:** `hermes kanban list` / `hermes kanban show <id>`
 
 ---
 
-## BOARD STATE (25 Cards: 14 Done, 6 Todo, 5 Ready)
+## BOARD STATE (25 Cards: 15 Done, 5 Todo, 5 Ready)
 
 ---
 
@@ -37,39 +37,39 @@ Core capabilities delivered.
 
 ---
 
-### Phase 2: Cognitive Hierarchy — IN PROGRESS
+### Phase 2: Cognitive Hierarchy — CLOSED
 
-GPU upgrade pending. Speculative decoding and context spillover evaluated and closed.
+GPU upgrade complete. Speculative decoding and context spillover evaluated and closed.
 
 | ID | Title | Priority | Status |
 |----|-------|----------|--------|
-| t_3dbabbbb | PHASE 2 Epic | 5 | READY |
-| t_64f8028b | P2-T1: Node D RTX 5060 Ti Installation | 5 | TODO (hardware pending) |
-| t_3f006eaa | P2-T2: Speculative Decoding | 5 | DONE (CLOSED NEGATIVE on CPU) |
+| t_3dbabbbb | PHASE 2 Epic | 5 | DONE |
+| t_64f8028b | P2-T1: Node D RTX 5060 Ti Installation | 5 | DONE (118 t/s gen, full GPU offload) |
+| t_3f006eaa | P2-T2: Speculative Decoding | 5 | DONE (CLOSED NEGATIVE) |
 | t_a30b85ed | P2-T3: Context Spillover | 5 | DONE (CLOSED NOT FEASIBLE) |
 
 ---
 
 ### Phase 3: Sovereign Plugins — CLOSED
 
-Core plugin infrastructure validated. Hermes-LCM functional. Mirage VFS cancelled (prototype never deployed).
+Core plugin infrastructure validated. Hermes-LCM functional. Mirage VFS cancelled.
 
-|| ID | Title | Priority | Status ||
+| ID | Title | Priority | Status |
 |----|-------|----------|--------|
 | t_b73f1d8c | PHASE 3 Epic | 8 | DONE |
-| t_27b29eb4 | P3-T1: Hermes-LCM State Sync | 8 | DONE (plugin functional, SQLite DAG, mesh sync stub) |
+| t_27b29eb4 | P3-T1: Hermes-LCM State Sync | 8 | DONE (plugin functional, SQLite DAG) |
 | t_ddce11f7 | P3-T3: Mirage VFS Integration | 8 | CANCELLED (prototype only, never deployed) |
 
 ---
 
-### Phase 4: Perception Layer — PLANNED
+### Phase 4: Perception Layer — IN PROGRESS
 
-Voice pipeline and Open Design integration. Pretext HUD cancelled.
+Voice pipeline cancelled (Hermes native). Open Design and mesh verification remain.
 
-||| ID | Title | Priority | Status |
+| ID | Title | Priority | Status |
 |----|-------|----------|--------|
 | t_eaf700b1 | PHASE 4 Epic | 8 | READY |
-| t_b2f62de1 | P4-T1: Voice Pipeline | 8 | TODO |
+| t_b2f62de1 | P4-T1: Voice Pipeline | 8 | CANCELLED (Hermes native Whisper/TTS) |
 | t_4f8a2c91 | P4-T2: Open Design Integration | 8 | TODO |
 | t_0c281759 | P4-T3: Mesh-wide Verification | 8 | TODO |
 
@@ -77,12 +77,12 @@ Voice pipeline and Open Design integration. Pretext HUD cancelled.
 
 ### Phase 5: Sovereign Isolation — PLANNED
 
-Hardware artery extension: secure agent sandboxes and wearable perception.
+Hardware artery extension: secure agent sandboxes.
 
-|| ID | Title | Priority | Status |
+| ID | Title | Priority | Status |
 |----|-------|----------|--------|
-|| t_833e6833 | P5-T1: Zeroboot Isolation Layer | 10 | TODO (upstream: zerobootdev/zeroboot, CoW forking, self-host Node D) |
-|| t_a9c63663 | P5-T2: VibeVoice ASR Pipeline | 10 | CANCELLED (Hermes has native Whisper/TTS) ||
+| t_833e6833 | P5-T1: Zeroboot Isolation Layer | 10 | TODO (upstream: zerobootdev/zeroboot, CoW forking, self-host Node D) |
+| t_a9c63663 | P5-T2: VibeVoice ASR Pipeline | 10 | CANCELLED (Hermes native Whisper/TTS) |
 
 ---
 
@@ -91,16 +91,19 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 | Component | Status | Notes |
 |-----------|--------|-------|
 | Kanban MCP Server | LIVE | FastMCP stdio, 8 tools |
-| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes, v1.85.0 |
+| LiteLLM Mesh Router | LIVE | Docker Desktop port 4000, 5 routes, v1.84.0 stateless |
 | hermes-relay | LIVE | Docker Desktop port 8767 |
-| socat mesh bridge | LIVE | Ports 17080/18081/18080 |
+| socat mesh bridge | LIVE | mesh-bridge.service (systemd user), ports 8081/8082/17080/18081/18080 |
 | Tailscale | PERMANENT | Personal tailnet auto-renews |
+| llama-heavy.service (Node D) | LIVE | systemd user, linger enabled |
+| llama-fc.service (Node C) | LIVE | systemd user, linger enabled |
+| llama-micro.service (Node A) | LIVE | systemd user, linger enabled |
 
 ---
 
 ## KEY MILESTONES
 
-|| Version | Date | Milestone |
+| Version | Date | Milestone |
 |---------|------|-----------|
 | 0.1.0-alpha | 2026-05-16 | Phase 0 CLOSED, 4-node mesh operational |
 | 0.2.0-alpha | 2026-05-17 | Docker Desktop, mesh-vision, security sweep |
@@ -108,7 +111,9 @@ Hardware artery extension: secure agent sandboxes and wearable perception.
 | 0.3.1-alpha | 2026-05-18 | Node B b9190 upgrade, Node D model swap, MTP validated |
 | 0.3.12-alpha | 2026-05-20 | Technical debt purge (~67GB), Hermes fork synced, kanban cleaned |
 | 0.3.13-alpha | 2026-05-21 | Phase 3 CLOSED, Hermes-LCM functional, Mirage VFS cancelled |
+| 0.4.0-alpha | 2026-05-22 | Mesh-wide purge, dead code elimination, Hermes fork 353 commits |
+| 0.4.1-alpha | 2026-05-22 | Infrastructure hardening, all nodes have systemd services, P4-T1 cancelled |
 
 ---
 
-Sovereign Machina v0.3.13-alpha // 50V3R31GN-M4CH1N4
+Sovereign Machina v0.4.1-alpha // 50V3R31GN-M4CH1N4
